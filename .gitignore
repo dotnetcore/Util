@@ -1,0 +1,4 @@
+/bin
+/src/Util/obj
+/test/Util.Tests/obj
+/.vs

@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DE1DF0B9-0403-4888-8B24-8208348E9AFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{3746073A-1C5C-40A7-9D50-CB2A94CA888A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Tests", "test\Util.Tests\01-Util.Tests.csproj", "{4C93DBB6-7840-4277-BAF1-56148B62FB3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{6FA93B2E-A5E5-44CA-9851-52FAA2BF5C57}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util", "src\Util\01-Util.csproj", "{5981ADBE-58A4-4F84-9529-E7D7F7E1610C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C93DBB6-7840-4277-BAF1-56148B62FB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C93DBB6-7840-4277-BAF1-56148B62FB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C93DBB6-7840-4277-BAF1-56148B62FB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C93DBB6-7840-4277-BAF1-56148B62FB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5981ADBE-58A4-4F84-9529-E7D7F7E1610C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5981ADBE-58A4-4F84-9529-E7D7F7E1610C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5981ADBE-58A4-4F84-9529-E7D7F7E1610C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5981ADBE-58A4-4F84-9529-E7D7F7E1610C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3746073A-1C5C-40A7-9D50-CB2A94CA888A} = {ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}
+		{4C93DBB6-7840-4277-BAF1-56148B62FB3D} = {6FA93B2E-A5E5-44CA-9851-52FAA2BF5C57}
+		{6FA93B2E-A5E5-44CA-9851-52FAA2BF5C57} = {DE1DF0B9-0403-4888-8B24-8208348E9AFA}
+		{5981ADBE-58A4-4F84-9529-E7D7F7E1610C} = {3746073A-1C5C-40A7-9D50-CB2A94CA888A}
+	EndGlobalSection
+EndGlobal
