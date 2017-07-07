@@ -6,12 +6,18 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 ## 引子
 
 几年前我在博客园写了一个[应用程序框架实战](https://www.cnblogs.com/xiadao521)的系列文章，受到不少.net同学的青睐，不过由于种种原因（想写的范围过大，技术更新过快，工作忙，人越来越懒，好吧，我承认主要是最后一点）而烂尾。
+
 我在博客中放出过一些示例代码，由于未正式开源，修复过的bug也未能更新，所以将博客中提供的示例项目都删除了。
+
 一些同学将这些代码应用在项目上，当碰到问题时，由于没有技术支持，也没有相关教程，苦不堪言。而另外一些同学没有下载到示例项目。
+
 虽然博客断更2年，但时常有同学通过加QQ或发EMAIL的方式联系我，希望能够得到最新代码，并对用法和设计思路进行讲解。
 
 .net core发展迅猛，它为.net提供了更广阔的竞争力，同时也意味着新一轮的学习与代码移植工作开始，我也在这个大潮中跌跌撞撞的摸索着。
-几位好友（[AlexLEWIS](https://github.com/alexinea "刘怡") [Kiler](https://github.com/kiler398 "谢炀") [Lemon](https://github.com/liuhaoyang "刘浩杨") ）发起了.net core学习小组，并打算为国内.net core开源大业作出贡献，我果断加入了队伍进行学习，并决定对Util应用框架进行开源。经讨论，大家决定将各自的开源项目统一发布到[.NET China Foundation](https://github.com/dotnetcore)之下，以方便国内.net core开源项目的推广，欢迎国内.net core开源项目作者的加入。
+
+几位好友（[AlexLEWIS](https://github.com/alexinea "刘怡") [Kiler](https://github.com/kiler398 "谢炀") [Lemon](https://github.com/liuhaoyang "刘浩杨") ）发起了.net core学习小组，并打算为国内.net core开源大业作出贡献，我果断加入了队伍进行学习，并决定对Util应用框架进行开源。
+
+经讨论，大家决定将各自的开源项目统一发布到[.NET China Foundation](https://github.com/dotnetcore)之下，以方便国内.net core开源项目的推广，欢迎国内.net core开源项目作者的加入。
 
 ## 技术框架与应用框架
 
