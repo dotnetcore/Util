@@ -105,6 +105,27 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 ## 开发环境
 
+以下是我们在项目开发和部署时使用的工具，这个列表会经常更新。如果没有标注版本号，则采用最新版本。
+
+1. 开发工具： 
+  - VS 2017
+  - Resharper
+
+1. 数据库
+  - sql server
+  - pgsql
+
+1. 设计工具
+  - PowerDesigner
+  - XMind
+
+1. 版本控制
+  - gitlab
+
+1. 部署环境
+  - Ubuntu Server
+  - Docker
+
 ## 框架开发流程
 
   *搜集* - *整理* - *集成* - *封装*
@@ -143,7 +164,10 @@ https://github.com/dotnetcore/util/
 
 **MIT**
 
-## 参考
+## 书单
+
+
+## 引用的第三方框架
 
 ## 更新计划
 
