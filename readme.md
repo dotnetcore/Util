@@ -137,6 +137,10 @@ Util暂时未发布到nuget，待成熟后发布。
   - Microsoft.EntityFrameworkCore.SqlServer 1.1.2
   - Npgsql.EntityFrameworkCore.PostgreSQL 1.1.0
 
+7. 单元测试及模拟框架
+  - XUnit
+  - NSubstitute
+
 ## 框架开发流程
 
   > *搜集* - *整理* - *集成* - *封装*
