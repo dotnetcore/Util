@@ -242,27 +242,27 @@ https://github.com/dotnetcore/util/
 > 本清单会持续更新
 
 - 面向对象
- - 《UML和模式应用》 作者：Craig Larman
- - 《面向对象分析与设计》 作者：Grady Booch
+  - 《UML和模式应用》 作者：Craig Larman
+  - 《面向对象分析与设计》 作者：Grady Booch
 
 - 架构模式
- - 《企业应用架构模式》 作者：Martin Fowler
- - 《领域驱动设计》 作者：Eric Evans
- - 《敏捷软件开发-原则、模式与实战》 作者：Robert C.Martin
- - 《实现领域驱动设计》 作者：Vaughn Vernon
+  - 《企业应用架构模式》 作者：Martin Fowler
+  - 《领域驱动设计》 作者：Eric Evans
+  - 《敏捷软件开发-原则、模式与实战》 作者：Robert C.Martin
+  - 《实现领域驱动设计》 作者：Vaughn Vernon
 
 - 设计模式
- - 《设计模式》 作者：Erich Gamma
- - 《Head First设计模式》 作者：Eric Freeman
+  - 《设计模式》 作者：Erich Gamma
+  - 《Head First设计模式》 作者：Eric Freeman
 
 - TDD
   - 《测试驱动开发》 作者：Kent Beck
- - 《测试驱动开发的艺术》 作者：Lasse Koskela
- - 《单元测试的艺术》 作者：Roy Osherove
- - 《重构-改善既有代码的设计》 作者：Martin Fowler
- - 《实现模式》 作者：Kent Beck
- - 《代码整洁之道-Clean Code》 作者：Robert C.Martin
- - 《重构与模式》 作者：Joshua Kerievsky
+  - 《测试驱动开发的艺术》 作者：Lasse Koskela
+  - 《单元测试的艺术》 作者：Roy Osherove
+  - 《重构-改善既有代码的设计》 作者：Martin Fowler
+  - 《实现模式》 作者：Kent Beck
+  - 《代码整洁之道-Clean Code》 作者：Robert C.Martin
+  - 《重构与模式》 作者：Joshua Kerievsky
 
 ## 引用的第三方框架
 
@@ -273,7 +273,7 @@ https://github.com/dotnetcore/util/
 > 对于已发布的代码，将标记为[已发布]。对于已迁移到.net core的代码，将标记为[已完成]，并即将发布。对于正在开发或迁移的代码，标记为[开发中]。对于尚未启动的部分，标记为[待启动]。这个列表会经常更新。
 
 - 公共操作类(工具类)
- - 类型转换操作 [已发布]
+  - 类型转换操作 [已发布]
 
 ## 更新列表
 
