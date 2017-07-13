@@ -50,11 +50,28 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
+        /// 测试转成Json，将双引号转成单引号
+        /// </summary>
+        [Fact]
+        public void TestToJson_ToSingleQuotes() {
+            var result = new StringBuilder();
+            result.Append( "{" );
+            result.Append( "'Name':'a'," );
+            result.Append( "'nickname':'b'," );
+            result.Append( "'Value':null," );
+            result.Append( "'Date':'2012/1/1 0:00:00'," );
+            result.Append( "'Age':1," );
+            result.Append( "'isShow':true" );
+            result.Append( "}" );
+            Assert.Equal( result.ToString(), Json.ToJson( JsonTestSample.Create(),true ) );
+        }
+
+        /// <summary>
         /// 测试转成对象
         /// </summary>
         [Fact]
         public void TestToObject() {
-            var customer = Json.ToObject<JsonTestSample>( $"{{\"Name\":\"a\"}}" );
+            var customer = Json.ToObject<JsonTestSample>( "{\"Name\":\"a\"}" );
             Assert.Equal( "a", customer.Name );
         }
     }
