@@ -5,11 +5,13 @@
     <AssemblyName>Util</AssemblyName>
     <RootNamespace>Util</RootNamespace>
     <Authors>何镇汐</Authors>
-    <Description>Utill应用框架</Description>
+    <Description>Utill应用框架核心库</Description>
     <Version>1.0.0</Version>
     <Product>Utill应用框架核心库</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
+    <Copyright>何镇汐</Copyright>
+    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
