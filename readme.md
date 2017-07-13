@@ -256,7 +256,7 @@ https://github.com/dotnetcore/util/
  - 《Head First设计模式》 作者：Eric Freeman
 
 - TDD
- - 《测试驱动开发》 作者：Kent Beck
+  - 《测试驱动开发》 作者：Kent Beck
  - 《测试驱动开发的艺术》 作者：Lasse Koskela
  - 《单元测试的艺术》 作者：Roy Osherove
  - 《重构-改善既有代码的设计》 作者：Martin Fowler
@@ -273,7 +273,7 @@ https://github.com/dotnetcore/util/
 > 对于已发布的代码，将标记为[已发布]。对于已迁移到.net core的代码，将标记为[已完成]，并即将发布。对于正在开发或迁移的代码，标记为[开发中]。对于尚未启动的部分，标记为[待启动]。这个列表会经常更新。
 
 - 公共操作类(工具类)
-  - 类型转换操作 [已发布]
+ - 类型转换操作 [已发布]
 
 ## 更新列表
 
