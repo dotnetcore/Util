@@ -274,7 +274,8 @@ https://github.com/dotnetcore/util/
 
 > 未指明版本号，将使用最新版本。
 
-- Newtonsoft.Json
+- Newtonsoft.Json，高性能的json操作库。
+- AutoMapper,高性能的对象映射库。
 
 ## 更新计划
 
@@ -285,10 +286,10 @@ https://github.com/dotnetcore/util/
 - 公共操作类(工具类)
   - 类型转换操作 [已发布]
   - Json操作 - 基于Newtonsoft.Json [已发布]
-  - 对象映射操作 - 基于AutoMapper [已完成]
+  - 对象映射操作 - 基于AutoMapper [已发布]
   - Ioc操作 - 基于Autofac [已完成]
 
 ## 更新列表
 
 - 2017年7月6日，更新了类型转换操作类，类型转换扩展方法，类型转换单元测试。
-- 2017年7月14日，更新了Json操作类，Json操作单元测试。
+- 2017年7月14日，更新了Json操作类，Json操作单元测试。更新了对象映射操作类，对象映射操作单元测试。
