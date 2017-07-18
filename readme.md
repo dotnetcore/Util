@@ -287,9 +287,10 @@ https://github.com/dotnetcore/util/
   - 类型转换操作 [已发布]
   - Json操作 - 基于Newtonsoft.Json [已发布]
   - 对象映射操作 - 基于AutoMapper [已发布]
-  - Ioc操作 - 基于Autofac [已完成]
+  - Ioc操作 - 基于Autofac [已发布]
 
 ## 更新列表
 
 - 2017年7月6日，更新了类型转换操作类，类型转换扩展方法，类型转换单元测试。
 - 2017年7月14日，更新了Json操作类，Json操作单元测试。更新了对象映射操作类，对象映射操作单元测试。
+- 2017年7月18日，更新了Ioc操作类，Ioc扩展方法，Ioc操作单元测试。
