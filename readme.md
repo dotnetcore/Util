@@ -115,11 +115,12 @@ Util暂时未发布到nuget，待成熟后发布。
 > 如果没有标注版本号，则采用最新版本。
 
 1. 开发工具： 
-  - VS 2017
-  - Resharper
+  - Visual Studio 2017 Preview version 15.3
+  - Resharper 尚未支持，暂停使用
 
 2. 数据库
   - Sql Server
+  - Mysql
   - PostgreSQL
 
 3. 设计工具
@@ -133,12 +134,16 @@ Util暂时未发布到nuget，待成熟后发布。
   - Ubuntu Server
   - Docker
 
-6. ORM
-  - EF Core 1.1.2
-  - Microsoft.EntityFrameworkCore.SqlServer 1.1.2
-  - Npgsql.EntityFrameworkCore.PostgreSQL 1.1.0
+6. 开发平台
+  - .Net Core Preview 2
 
-7. 单元测试及模拟框架
+7. ORM
+  - EF Core 2.0.0-preview2-final
+  - Microsoft.EntityFrameworkCore.SqlServer 2.0.0-preview2-final
+  - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0-preview2-final
+  - Pomelo.EntityFrameworkCore.MySql 2.0.0-preview2-10046
+
+8. 单元测试及模拟框架
   - XUnit
   - NSubstitute
 
@@ -278,6 +283,12 @@ https://github.com/dotnetcore/util/
 - Newtonsoft.Json，高性能的json操作库。
 - AutoMapper,高性能的对象映射库。
 
+## 重大升级
+
+> 包括.net core版本的跳跃式升级等，比如从.net core1.x升级到2.0。
+
+- 2017年7月21日，将.net core升级到2.0 Preview 2。
+
 ## 更新计划
 
 > 不打算提供精确的更新计划，以免无法兑现。
@@ -289,9 +300,20 @@ https://github.com/dotnetcore/util/
   - Json操作 - 基于Newtonsoft.Json [已发布]
   - 对象映射操作 - 基于AutoMapper [已发布]
   - Ioc操作 - 基于Autofac [已发布]
+  - Lambda表达式操作 [已完成]
+- 分层架构基类
+  - 实体基类 [已完成]
+  - 聚合根基类 [已完成]
+  - 值对象基类 [已完成]
+  - 树型实体基类 [已完成]
+  - 实体映射配置基类 [已完成]
+  - 工作单元基类 [已完成]
+  - 仓储基类 [已完成]
+  
 
 ## 更新列表
 
 - 2017年7月6日，更新了类型转换操作类，类型转换扩展方法，类型转换单元测试。
 - 2017年7月14日，更新了Json操作类，Json操作单元测试。更新了对象映射操作类，对象映射操作单元测试。
 - 2017年7月18日，更新了Ioc操作类，Ioc扩展方法，Ioc操作单元测试。
+- 2017年7月21日，将Util升级到.net core 2.0 prew。

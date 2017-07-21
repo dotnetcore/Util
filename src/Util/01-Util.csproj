@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util</AssemblyName>
     <RootNamespace>Util</RootNamespace>
     <Authors>何镇汐</Authors>
@@ -16,22 +16,22 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\bin\release\</OutputPath>
-    <DocumentationFile>..\..\bin\release\netstandard1.6\Util.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\release\netstandard2.0\Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\bin\release\</OutputPath>
-    <DocumentationFile>..\..\bin\release\netstandard1.6\Util.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\release\netstandard2.0\Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
-    <PackageReference Include="AutoMapper" Version="6.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0-preview2-final" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="Nito.AsyncEx.Context" Version="1.1.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+    <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0-pre-02" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.0-preview2-25405-01" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
   </ItemGroup>

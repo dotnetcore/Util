@@ -28,7 +28,7 @@ namespace Util.Helpers {
         /// 注册依赖
         /// </summary>
         /// <param name="configs">依赖配置</param>
-        public static void Register( params ConfigBase[] configs ) {
+        public static void Register( params IConfig[] configs ) {
             Container.Register( null, null, configs );
         }
 
@@ -37,7 +37,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="services">服务集合</param>
         /// <param name="configs">依赖配置</param>
-        public static IServiceProvider Register( IServiceCollection services, params ConfigBase[] configs ) {
+        public static IServiceProvider Register( IServiceCollection services, params IConfig[] configs ) {
             return Container.Register( services, null, configs );
         }
     }

@@ -13,7 +13,7 @@ namespace Util {
         /// </summary>
         /// <param name="services">服务集合</param>
         /// <param name="configs">依赖配置</param>
-        public static IServiceProvider AddIoc( this IServiceCollection services, params ConfigBase[] configs ) {
+        public static IServiceProvider AddIoc( this IServiceCollection services, params IConfig[] configs ) {
             return Ioc.Register( services, configs );
         }
     }

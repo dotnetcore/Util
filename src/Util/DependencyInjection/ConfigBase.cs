@@ -2,8 +2,8 @@
 
 namespace Util.DependencyInjection {
     /// <summary>
-    /// 依赖配置
+    /// 配置
     /// </summary>
-    public abstract class ConfigBase : Module {
+    public abstract class ConfigBase : Module, IConfig {
     }
 }
