@@ -15,7 +15,7 @@ namespace Util.Tests.Maps {
             Sample sample = new Sample();
             Sample2 sample2 = new Sample2 { StringValue = "a" };
             sample2.MapTo( sample );
-            Assert.Equal( sample.StringValue, "a" );
+            Assert.Equal( "a", sample.StringValue );
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Util.Tests.Maps {
         public void TestMapTo_2() {
             Sample sample = new Sample { StringValue = "a" };
             Sample2 sample2 = sample.MapTo<Sample2>();
-            Assert.Equal( sample2.StringValue, "a" );
+            Assert.Equal( "a", sample2.StringValue );
         }
     }
 }

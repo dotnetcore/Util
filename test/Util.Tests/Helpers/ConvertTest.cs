@@ -368,7 +368,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestTo() {
-            Assert.Equal( null, Util.Helpers.Convert.To<string>( "" ) );
+            Assert.Null( Util.Helpers.Convert.To<string>( "" ) );
             Assert.Equal( "1A", Util.Helpers.Convert.To<string>( "1A" ) );
             Assert.Equal( 0, Util.Helpers.Convert.To<int>( null ) );
             Assert.Equal( 0, Util.Helpers.Convert.To<int>( "" ) );
