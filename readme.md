@@ -300,6 +300,8 @@ https://github.com/dotnetcore/util/
   - Json操作 - 基于Newtonsoft.Json [已发布]
   - 对象映射操作 - 基于AutoMapper [已发布]
   - Ioc操作 - 基于Autofac [已发布]
+  - 应用程序异常操作 [已发布]
+  - 验证操作 [已完成]
   - Lambda表达式操作 [已完成]
 - 分层架构基类
   - 实体基类 [已完成]
@@ -317,3 +319,4 @@ https://github.com/dotnetcore/util/
 - 2017年7月14日，更新了Json操作类，Json操作单元测试。更新了对象映射操作类，对象映射操作单元测试。
 - 2017年7月18日，更新了Ioc操作类，Ioc扩展方法，Ioc操作单元测试。
 - 2017年7月21日，将Util升级到.net core 2.0 prew。
+- 2017年7月26日，更新了应用程序异常操作类Warning及单元测试。

@@ -117,4 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="SystemError" xml:space="preserve">
+    <value>系统忙，请稍后再试</value>
+    <comment>抛出系统异常时显示该消息</comment>
+  </data>
 </root>
