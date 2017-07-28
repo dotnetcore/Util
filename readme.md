@@ -86,7 +86,7 @@ Util并不是一个完善的应用框架，我总是根据自己项目上的需�
 
 Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
-如果你是.net初学者，基本的Crud（增删改查）尚且完成不了，请缓一年再来。
+如果你是.Net初学者，基本的Crud（增删改查）尚且完成不了，请缓一年再来。
 
 你可能已经有了一些项目经验，甚至已经开发多年，但你的项目依然进度缓慢，很难按时交付，代码质量糟糕，难以继续维护，你迫切希望找到一种方法来改善这个过程，Util就是为你准备的。
 
@@ -106,7 +106,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 对于简单的操作，你可以运行和阅读相应单元测试代码，即可了解它们如何使用。对于复杂操作，一方面看单元测试，另外我们会编写相关文档以描述调用方式和工作机制。
 
-Util暂时未发布到nuget，待成熟后发布。
+Util暂时未发布到Nuget，待成熟后发布。
 
 ## 开发环境
 
@@ -143,7 +143,11 @@ Util暂时未发布到nuget，待成熟后发布。
   - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0-preview2-final
   - Pomelo.EntityFrameworkCore.MySql 2.0.0-preview2-10046
 
-8. 单元测试及模拟框架
+8. 第三方基础技术框架
+  - Newtonsoft.Json，高性能Json操作库。
+  - AutoMapper，高性能对象映射库。
+
+9. 单元测试及模拟框架
   - XUnit
   - NSubstitute
 
@@ -276,13 +280,6 @@ https://github.com/dotnetcore/util/
   - 《代码整洁之道-Clean Code》 作者：Robert C.Martin
   - 《重构与模式》 作者：Joshua Kerievsky
 
-## 引用的第三方框架
-
-> 未指明版本号，将使用最新版本。
-
-- Newtonsoft.Json，高性能的json操作库。
-- AutoMapper,高性能的对象映射库。
-
 ## 重大升级
 
 > 包括.net core版本的跳跃式升级等，比如从.net core1.x升级到2.0。
@@ -310,8 +307,7 @@ https://github.com/dotnetcore/util/
   - 树型实体基类 [已完成]
   - 实体映射配置基类 [已完成]
   - 工作单元基类 [已完成]
-  - 仓储基类 [已完成]
-  
+  - 仓储基类 [已完成]  
 
 ## 更新列表
 
