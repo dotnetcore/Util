@@ -45,17 +45,31 @@ namespace Util.Tests.Domains {
         }
 
         /// <summary>
-        /// 测试重点关注
+        /// 测试获取变更属性集
         /// </summary>
         [Fact]
-        public void TestIsAttention() {
-            _sample.Name = "a";
-            _sample2.Name = "b";
-            _sample2.MobilePhone = "2";
+        public void TestGetChanges_Lambda_Display() {
+            _sample2.MobilePhone = "a";
             var changes = _sample.GetChanges( _sample2 );
-            Assert.True( changes.IsAttention );
-            Assert.Equal( 1, changes.GetAttentionValues().Count );
-            Assert.Equal( "2", changes.GetAttentionValues()[0].NewValue );
+            Assert.Equal( 1, changes.Count );
+            Assert.Equal( "MobilePhone", changes[0].PropertyName );
+            Assert.Equal( "手机号", changes[0].Description );
+            Assert.Equal( "", changes[0].OldValue );
+            Assert.Equal( "a", changes[0].NewValue );
+        }
+
+        /// <summary>
+        /// 测试获取变更属性集
+        /// </summary>
+        [Fact]
+        public void TestGetChanges_Lambda_Description() {
+            _sample2.Tel = 1;
+            var changes = _sample.GetChanges( _sample2 );
+            Assert.Equal( 1, changes.Count );
+            Assert.Equal( "Tel", changes[0].PropertyName );
+            Assert.Equal( "电话", changes[0].Description );
+            Assert.Equal( "0", changes[0].OldValue );
+            Assert.Equal( "1", changes[0].NewValue );
         }
 
         /// <summary>

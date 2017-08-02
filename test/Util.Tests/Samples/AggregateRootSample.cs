@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Util.Domains;
 
@@ -44,6 +45,7 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 手机号
         /// </summary>
+        [Display(Description = "手机号" )]
         public string MobilePhone { get; set; }
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 电话
         /// </summary>
+        [Description( "电话" )]
         public int Tel { get; set; }
 
         /// <summary>
@@ -152,7 +155,8 @@ namespace Util.Tests.Samples {
         /// </summary>
         protected override void AddChanges( AggregateRootSample other ) {
             AddChange( "Name", "姓名", Name, other.Name );
-            AddChange( "MobilePhone", "手机号", MobilePhone, other.MobilePhone, true );
+            AddChange( t => t.MobilePhone, other.MobilePhone );
+            AddChange( t => t.Tel, other.Tel );
             AddChange( StringSample, other.StringSample );
             AddChange( IntSamples, other.IntSamples );
         }

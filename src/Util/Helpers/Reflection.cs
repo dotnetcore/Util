@@ -4,6 +4,7 @@ using System.Linq;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
+using System.ComponentModel.DataAnnotations;
 
 namespace Util.Helpers {
     /// <summary>
@@ -15,11 +16,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         public static string GetDescription<T>() {
-            var type = Common.GetType<T>();
-            var result = GetDescription( type );
-            if( string.IsNullOrWhiteSpace( result ) )
-                return type.Name;
-            return result;
+            return GetDescription( Common.GetType<T>() );
         }
 
         /// <summary>
@@ -28,7 +25,7 @@ namespace Util.Helpers {
         private static string GetDescription( Type type ) {
             var attribute = type.GetTypeInfo().GetCustomAttribute( typeof( DescriptionAttribute ) ) as DescriptionAttribute;
             if( attribute == null )
-                return string.Empty;
+                return type.Name;
             return attribute.Description;
         }
 
@@ -73,8 +70,23 @@ namespace Util.Helpers {
             var type = Common.GetType<T>();
             var attribute = type.GetTypeInfo().GetCustomAttribute( typeof( DisplayNameAttribute ) ) as DisplayNameAttribute;
             if( attribute == null )
-                return type.Name;
+                return string.Empty;
             return attribute.DisplayName;
+        }
+
+        /// <summary>
+        /// 获取类型成员显示名称，使用DisplayNameAttribute或DisplayAttribute设置显示名称
+        /// </summary>
+        private static string GetDisplayName( MemberInfo member ) {
+            if( member == null )
+                return string.Empty;
+            var displayNameAttribute = member.GetCustomAttribute( typeof( DisplayNameAttribute ) ) as DisplayNameAttribute;
+            if( displayNameAttribute != null )
+                return displayNameAttribute.DisplayName;
+            var displayAttribute = member.GetCustomAttribute( typeof( DisplayAttribute ) ) as DisplayAttribute;
+            if( displayAttribute == null )
+                return string.Empty;
+            return displayAttribute.Description;
         }
 
         /// <summary>
@@ -83,10 +95,21 @@ namespace Util.Helpers {
         /// <typeparam name="T">类型</typeparam>
         public static string GetDescriptionOrDisplayName<T>() {
             var type = Common.GetType<T>();
-            var description = GetDescription( type );
-            if( string.IsNullOrWhiteSpace( description ) )
-                return GetDisplayName<T>(); ;
-            return description;
+            var result = GetDisplayName( type );
+            if( string.IsNullOrWhiteSpace( result ) )
+                result = GetDescription( type );
+            return result;
+        }
+
+        /// <summary>
+        /// 获取成员描述或显示名称,使用DescriptionAttribute设置描述，使用DisplayNameAttribute或DisplayAttribute设置显示名称
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        public static string GetDescriptionOrDisplayName( MemberInfo member ) {
+            var result = GetDisplayName( member );
+            if( !string.IsNullOrWhiteSpace( result ) )
+                return result;
+            return GetDescription( member );
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetDisplayName() {
-            Assert.Equal( "Sample", Util.Helpers.Reflection.GetDisplayName<Sample>() );
+            Assert.Equal( "", Util.Helpers.Reflection.GetDisplayName<Sample>() );
             Assert.Equal( "测试样例2", Util.Helpers.Reflection.GetDisplayName<Sample2>() );
         }
 

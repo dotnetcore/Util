@@ -14,25 +14,10 @@ namespace Util.Domains {
         /// <param name="description">描述</param>
         /// <param name="oldValue">旧值</param>
         /// <param name="newValue">新值</param>
-        /// <param name="isAttention">是否关注</param>
-        public void Add( string propertyName, string description, string oldValue, string newValue, bool isAttention = false ) {
+        public void Add( string propertyName, string description, string oldValue, string newValue ) {
             if( string.IsNullOrWhiteSpace( propertyName ) )
                 return;
-            Add( new ChangeValue( propertyName, description, oldValue, newValue, isAttention ) );
-        }
-
-        /// <summary>
-        /// 是否关注
-        /// </summary>
-        public bool IsAttention {
-            get { return this.Any( t => t.IsAttention ); } 
-        }
-
-        /// <summary>
-        /// 获取关注的变更集
-        /// </summary>
-        public List<ChangeValue> GetAttentionValues() {
-            return this.Where( t => t.IsAttention ).ToList();
+            Add( new ChangeValue( propertyName, description, oldValue, newValue ) );
         }
 
         /// <summary>

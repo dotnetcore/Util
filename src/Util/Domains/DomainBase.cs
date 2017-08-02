@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Util.Validations;
 
@@ -49,7 +51,7 @@ namespace Util.Domains {
         /// </summary>
         /// <param name="handler">验证处理器</param>
         public void SetValidationHandler( IValidationHandler handler ) {
-            if ( handler == null )
+            if( handler == null )
                 return;
             _handler = handler;
         }
@@ -63,9 +65,9 @@ namespace Util.Domains {
         /// </summary>
         /// <param name="rules">验证规则列表</param>
         public void AddValidationRules( IEnumerable<IValidationRule> rules ) {
-            if ( rules == null )
+            if( rules == null )
                 return;
-            foreach ( var rule in rules )
+            foreach( var rule in rules )
                 AddValidationRule( rule );
         }
 
@@ -78,7 +80,7 @@ namespace Util.Domains {
         /// </summary>
         /// <param name="rule">验证规则</param>
         public void AddValidationRule( IValidationRule rule ) {
-            if ( rule == null )
+            if( rule == null )
                 return;
             _rules.Add( rule );
         }
@@ -101,7 +103,7 @@ namespace Util.Domains {
         private ValidationResultCollection GetValidationResult() {
             var result = ValidationFactory.Create().Validate( this );
             Validate( result );
-            foreach ( var rule in _rules )
+            foreach( var rule in _rules )
                 result.Add( rule.Validate() );
             return result;
         }
@@ -117,7 +119,7 @@ namespace Util.Domains {
         /// 处理验证结果
         /// </summary>
         private void HandleValidationResult( ValidationResultCollection results ) {
-            if ( results.IsValid )
+            if( results.IsValid )
                 return;
             _handler.Handle( results );
         }
@@ -144,7 +146,7 @@ namespace Util.Domains {
         public ChangeValueCollection GetChanges( T newEntity ) {
             _changeValues = new ChangeValueCollection();
             if( Equals( newEntity, null ) )
-                return _changeValues;            
+                return _changeValues;
             AddChanges( newEntity );
             return _changeValues;
         }
@@ -159,19 +161,30 @@ namespace Util.Domains {
         /// <summary>
         /// 添加变更
         /// </summary>
+        /// <param name="expression">属性表达式,范例：t => t.Name</param>
+        /// <param name="newValue">新值,范例：newEntity.Name</param>
+        protected void AddChange<TProperty, TValue>( Expression<Func<T, TProperty>> expression, TValue newValue ) {
+            var name = Util.Helpers.Lambda.GetName( expression );
+            var description = Util.Helpers.Reflection.GetDescriptionOrDisplayName( Util.Helpers.Lambda.GetMember( expression ) );
+            var value = Util.Helpers.Lambda.GetValue( expression );
+            AddChange( name, description, Util.Helpers.Convert.To<TValue>( value ), newValue );
+        }
+
+        /// <summary>
+        /// 添加变更
+        /// </summary>
         /// <param name="propertyName">属性名</param>
         /// <param name="description">描述</param>
         /// <param name="oldValue">旧值,范例：this.Name</param>
         /// <param name="newValue">新值,范例：newEntity.Name</param>
-        /// <param name="isAttention">是否关注</param>
-        protected void AddChange<TValue>( string propertyName, string description, TValue oldValue, TValue newValue,bool isAttention = false ) {
-            if ( Equals( oldValue, newValue ) )
+        protected void AddChange<TValue>( string propertyName, string description, TValue oldValue, TValue newValue ) {
+            if( Equals( oldValue, newValue ) )
                 return;
             string oldValueString = oldValue.SafeString().ToLower().Trim();
             string newValueString = newValue.SafeString().ToLower().Trim();
-            if ( oldValueString == newValueString )
+            if( oldValueString == newValueString )
                 return;
-            _changeValues.Add( propertyName, description, oldValueString, newValueString, isAttention );
+            _changeValues.Add( propertyName, description, oldValueString, newValueString );
         }
 
         /// <summary>
@@ -180,9 +193,9 @@ namespace Util.Domains {
         /// <param name="oldObject">旧对象</param>
         /// <param name="newObject">新对象</param>
         protected void AddChange<TDomainObject>( ICompareChange<TDomainObject> oldObject, TDomainObject newObject ) where TDomainObject : IDomainObject {
-            if ( Equals( oldObject, null ) )
+            if( Equals( oldObject, null ) )
                 return;
-            if ( Equals( newObject, null ) )
+            if( Equals( newObject, null ) )
                 return;
             _changeValues.AddRange( oldObject.GetChanges( newObject ) );
         }
@@ -193,13 +206,13 @@ namespace Util.Domains {
         /// <param name="oldObjects">旧对象列表</param>
         /// <param name="newObjects">新对象列表</param>
         protected void AddChange<TDomainObject>( IEnumerable<ICompareChange<TDomainObject>> oldObjects, IEnumerable<TDomainObject> newObjects ) where TDomainObject : IDomainObject {
-            if ( Equals( oldObjects, null ) )
+            if( Equals( oldObjects, null ) )
                 return;
-            if ( Equals( newObjects, null ) )
+            if( Equals( newObjects, null ) )
                 return;
             var oldList = oldObjects.ToList();
             var newList = newObjects.ToList();
-            for ( int i = 0; i < oldList.Count; i++ ) {
+            for( int i = 0; i < oldList.Count; i++ ) {
                 if( newList.Count <= i )
                     return;
                 AddChange( oldList[i], newList[i] );
@@ -229,7 +242,7 @@ namespace Util.Domains {
         /// 添加描述
         /// </summary>
         protected void AddDescription<TValue>( string name, TValue value ) {
-            if ( value == null )
+            if( value == null )
                 return;
             if( string.IsNullOrWhiteSpace( value.ToString() ) )
                 return;

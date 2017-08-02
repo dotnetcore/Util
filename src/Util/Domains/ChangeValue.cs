@@ -12,13 +12,11 @@ namespace Util.Domains {
         /// <param name="description">描述</param>
         /// <param name="oldValue">旧值</param>
         /// <param name="newValue">新值</param>
-        /// <param name="isAttention">是否关注</param>
-        public ChangeValue( string propertyName, string description, string oldValue, string newValue, bool isAttention ) {
+        public ChangeValue( string propertyName, string description, string oldValue, string newValue ) {
             PropertyName = propertyName;
             Description = description;
             OldValue = oldValue;
             NewValue = newValue;
-            IsAttention = isAttention;
         }
 
         /// <summary>
@@ -37,10 +35,6 @@ namespace Util.Domains {
         /// 新值
         /// </summary>
         public string NewValue { get; private set; }
-        /// <summary>
-        /// 是否关注
-        /// </summary>
-        public bool IsAttention { get; private set; }
 
         /// <summary>
         /// 输出变更信息
