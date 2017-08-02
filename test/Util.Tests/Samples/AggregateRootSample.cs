@@ -1,15 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Util.Domains;
 
 namespace Util.Tests.Samples {
     /// <summary>
     /// 聚合根测试样例
     /// </summary>
-    public class AggregateRootSample {
+    public class AggregateRootSample : AggregateRoot<AggregateRootSample> {
         /// <summary>
         /// 初始化聚合根测试样例
         /// </summary>
-        public AggregateRootSample() {
+        public AggregateRootSample()
+            : this( Guid.NewGuid() ) {
+        }
+
+        /// <summary>
+        /// 初始化聚合根测试样例
+        /// </summary>
+        /// <param name="id">标识</param>
+        public AggregateRootSample( Guid id )
+            : base( id ) {
+            IntSamples = new List<IntAggregateRootSample>();
         }
 
         /// <summary>
@@ -43,7 +55,7 @@ namespace Util.Tests.Samples {
         /// 电话
         /// </summary>
         public int Tel { get; set; }
- 
+
         /// <summary>
         /// decimal值
         /// </summary>
@@ -118,14 +130,99 @@ namespace Util.Tests.Samples {
         public long? NullableLongValue { get; set; }
 
         /// <summary>
+        /// 导航属性
+        /// </summary>
+        public StringAggregateRootSample StringSample { get; set; }
+
+        /// <summary>
+        /// 导航属性集合
+        /// </summary>
+        public ICollection<IntAggregateRootSample> IntSamples { get; set; }
+
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+            AddDescription( "Id:" + Id + "," );
+            AddDescription( "姓名", Name );
+        }
+
+        /// <summary>
+        /// 添加变更列表
+        /// </summary>
+        protected override void AddChanges( AggregateRootSample other ) {
+            AddChange( "Name", "姓名", Name, other.Name );
+            AddChange( "MobilePhone", "手机号", MobilePhone, other.MobilePhone, true );
+            AddChange( StringSample, other.StringSample );
+            AddChange( IntSamples, other.IntSamples );
+        }
+
+        /// <summary>
+        /// 空聚合根测试样例
+        /// </summary>
+        public static AggregateRootSample Null {
+            get { return new NullAggregateRootSample(); }
+        }
+
+        /// <summary>
         /// 创建测试样例
         /// </summary>
         public static AggregateRootSample CreateSample() {
-            return new AggregateRootSample() {
+            return CreateSample( Guid.NewGuid() );
+        }
+
+        /// <summary>
+        /// 创建测试样例
+        /// </summary>
+        public static AggregateRootSample CreateSample( Guid id ) {
+            return new AggregateRootSample( id ) {
                 Name = "TestName",
                 EnglishName = "TestEnglishName",
                 MobilePhone = "13012345678"
             };
+        }
+
+        /// <summary>
+        /// 创建测试样例2
+        /// </summary>
+        public static AggregateRootSample CreateSample2() {
+            return CreateSample2( Guid.NewGuid() );
+        }
+
+        /// <summary>
+        /// 创建测试样例2
+        /// </summary>
+        public static AggregateRootSample CreateSample2( Guid id ) {
+            return new AggregateRootSample( id ) {
+                Name = "TestName2",
+                EnglishName = "TestEnglishName2",
+                MobilePhone = "12012345678"
+            };
+        }
+    }
+
+    /// <summary>
+    /// 空聚合根测试样例
+    /// </summary>
+    public class NullAggregateRootSample : AggregateRootSample {
+        /// <summary>
+        /// 空对象
+        /// </summary>
+        public override bool IsNull() {
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// 聚合根测试样例2
+    /// </summary>
+    public class AggregateRootSample2 : AggregateRoot<AggregateRootSample> {
+        /// <summary>
+        /// 初始化聚合根测试样例
+        /// </summary>
+        /// <param name="id">标识</param>
+        public AggregateRootSample2( Guid id )
+            : base( id ) {
         }
     }
 }
