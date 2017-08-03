@@ -137,19 +137,27 @@ Util暂时未发布到Nuget，待成熟后发布。
 6. 开发平台
   - .Net Core Preview 2
 
-7. ORM
+7. 单元测试及模拟框架
+  - XUnit
+  - NSubstitute
+
+8. ORM
   - EF Core 2.0.0-preview2-final
   - Microsoft.EntityFrameworkCore.SqlServer 2.0.0-preview2-final
   - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0-preview2-final
   - Pomelo.EntityFrameworkCore.MySql 2.0.0-preview2-10046
 
-8. 第三方基础技术框架
-  - Newtonsoft.Json，高性能Json操作库。
-  - AutoMapper，高性能对象映射库。
+9. Ioc框架
+  - Autofac
 
-9. 单元测试及模拟框架
-  - XUnit
-  - NSubstitute
+10. Aop框架
+  - AspectCore
+
+11. Json框架
+  - Newtonsoft.Json( 即Json.Net )
+
+12. 实体映射框架
+  - AutoMapper
 
 ## 框架开发流程
 
@@ -301,14 +309,16 @@ https://github.com/dotnetcore/util/
   - 验证操作 [已发布]
   - 枚举操作 [已发布]
   - Lambda表达式操作 [已完成]
-- 分层架构基类
+- 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
   - 值对象基类 [已发布]
   - 树型实体基类 [已完成]
   - 实体映射配置基类 [已完成]
   - 工作单元基类 [已完成]
-  - 仓储基类 [已完成]  
+  - 仓储基类 [已完成]
+  - 查询对象 [已完成]
+  - 规约对象 [已完成]
 
 ## 更新列表
 
