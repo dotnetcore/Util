@@ -27,10 +27,10 @@ namespace Util.Tests.Domains {
         private AggregateRootSample _sample2;
 
         /// <summary>
-        /// 测试实体相等性
+        /// 测试实体相等性 - 判空
         /// </summary>
         [Fact]
-        public void TestEquals() {
+        public void TestEquals_Null() {
             Assert.False( _sample.Equals( _sample2 ) );
             Assert.False( _sample.Equals( null ) );
 
@@ -41,13 +41,7 @@ namespace Util.Tests.Domains {
             Assert.True( _sample != _sample2 );
             Assert.True( _sample != null );
             Assert.True( null != _sample2 );
-        }
 
-        /// <summary>
-        /// 测试实体相等性 - 判空
-        /// </summary>
-        [Fact]
-        public void TestEquals_Null() {
             _sample2 = null;
             Assert.False( _sample.Equals( _sample2 ) );
 

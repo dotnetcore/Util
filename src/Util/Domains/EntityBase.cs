@@ -41,8 +41,6 @@ namespace Util.Domains {
         /// <summary>
         /// 相等比较
         /// </summary>
-        /// <param name="left">领域实体1</param>
-        /// <param name="right">领域实体2</param>
         public static bool operator ==( EntityBase<TEntity, TKey> left, EntityBase<TEntity, TKey> right ) {
             if( (object)left == null && (object)right == null )
                 return true;       
@@ -56,10 +54,8 @@ namespace Util.Domains {
         /// <summary>
         /// 不相等比较
         /// </summary>
-        /// <param name="entity1">领域实体1</param>
-        /// <param name="entity2">领域实体2</param>
-        public static bool operator !=( EntityBase<TEntity, TKey> entity1, EntityBase<TEntity, TKey> entity2 ) {
-            return !( entity1 == entity2 );
+        public static bool operator !=( EntityBase<TEntity, TKey> left, EntityBase<TEntity, TKey> right ) {
+            return !( left == right );
         }
 
         /// <summary>
