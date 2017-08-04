@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Util.Datas.Queries;
+using Util.Expressions;
 
 namespace Util.Helpers {
     /// <summary>
@@ -282,6 +284,182 @@ namespace Util.Helpers {
             if( memberExpression == null )
                 return Expression.Constant( value );
             return Expression.Constant( value, memberExpression.Type );
+        }
+
+        #endregion
+
+        #region Equal(等于表达式)
+
+        /// <summary>
+        /// 创建等于运算lambda表达式
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> Equal<T>( string propertyName, object value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .Equal( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        /// <summary>
+        /// 创建参数
+        /// </summary>
+        private static ParameterExpression CreateParameter<T>() {
+            return Expression.Parameter( typeof( T ), "t" );
+        }
+
+        #endregion
+
+        #region NotEqual(不等于表达式)
+
+        /// <summary>
+        /// 创建不等于运算lambda表达式
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> NotEqual<T>( string propertyName, object value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .NotEqual( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region Greater(大于表达式)
+
+        /// <summary>
+        /// 创建大于运算lambda表达式
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> Greater<T>( string propertyName, object value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .Greater( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region GreaterEqual(大于等于表达式)
+
+        /// <summary>
+        /// 创建大于等于运算lambda表达式
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> GreaterEqual<T>( string propertyName, object value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .GreaterEqual( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region Less(小于表达式)
+
+        /// <summary>
+        /// 创建小于运算lambda表达式
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> Less<T>( string propertyName, object value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .Less( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region LessEqual(小于等于表达式)
+
+        /// <summary>
+        /// 创建小于等于运算lambda表达式
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> LessEqual<T>( string propertyName, object value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .LessEqual( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region Starts(调用StartsWith方法)
+
+        /// <summary>
+        /// 调用StartsWith方法
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> Starts<T>( string propertyName, string value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .StartsWith( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region Ends(调用EndsWith方法)
+
+        /// <summary>
+        /// 调用EndsWith方法
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> Ends<T>( string propertyName, string value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .EndsWith( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region Contains(调用Contains方法)
+
+        /// <summary>
+        /// 调用Contains方法
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        public static Expression<Func<T, bool>> Contains<T>( string propertyName, object value ) {
+            var parameter = CreateParameter<T>();
+            return parameter.Property( propertyName )
+                    .Contains( value )
+                    .ToLambda<Func<T, bool>>( parameter );
+        }
+
+        #endregion
+
+        #region ParsePredicate(解析为谓词表达式)
+
+        /// <summary>
+        /// 解析为谓词表达式
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="value">值</param>
+        /// <param name="operator">运算符</param>
+        public static Expression<Func<T, bool>> ParsePredicate<T>( string propertyName, object value, Operator @operator ) {
+            var parameter = Expression.Parameter( typeof( T ), "t" );
+            return parameter.Property( propertyName ).Operation( @operator, value ).ToLambda<Func<T, bool>>( parameter );
         }
 
         #endregion
