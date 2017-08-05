@@ -156,7 +156,7 @@ Util暂时未发布到Nuget，待成熟后发布。
 11. Json框架
   - Newtonsoft.Json( 即Json.Net )
 
-12. 实体映射框架
+12. 映射框架
   - AutoMapper
 
 ## 框架开发流程
@@ -303,7 +303,7 @@ https://github.com/dotnetcore/util/
 - 公共操作类(工具类)
   - 类型转换操作 [已发布]
   - Json操作 - 基于Newtonsoft.Json [已发布]
-  - 对象映射操作 - 基于AutoMapper [已发布]
+  - 映射操作 - 基于AutoMapper [已发布]
   - Ioc操作 - 基于Autofac [已发布]
   - 应用程序异常操作 [已发布]
   - 验证操作 [已发布]
@@ -333,3 +333,4 @@ https://github.com/dotnetcore/util/
 - 2017年8月2日，更新了实体、聚合根基类及单元测试。
 - 2017年8月3日，更新了值对象基类及单元测试。
 - 2017年8月4日，更新了字符串操作及扩展，Lambda表达式操作及扩展，以及相关单元测试。
+- 2017年8月5日，增加了映射操作的集合映射。

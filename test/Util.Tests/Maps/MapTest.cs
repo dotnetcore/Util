@@ -1,4 +1,5 @@
-﻿using Util.Maps;
+﻿using System.Collections.Generic;
+using Util.Maps;
 using Util.Tests.Samples;
 using Xunit;
 
@@ -26,6 +27,61 @@ namespace Util.Tests.Maps {
             Sample sample = new Sample { StringValue = "a" };
             Sample2 sample2 = sample.MapTo<Sample2>();
             Assert.Equal( "a", sample2.StringValue );
+        }
+
+        /// <summary>
+        /// 测试映射集合
+        /// </summary>
+        [Fact]
+        public void TestMapTo_List() {
+            List<Sample> sampleList = new List<Sample> { new Sample { StringValue = "a" }, new Sample { StringValue = "b" } };
+            List<Sample2> sample2List = new List<Sample2>();
+            sampleList.MapTo( sample2List );
+            Assert.Equal( 2, sample2List.Count );
+            Assert.Equal( "a", sample2List[0].StringValue );
+        }
+
+        /// <summary>
+        /// 测试映射集合
+        /// </summary>
+        [Fact]
+        public void TestMapTo_List_2() {
+            List<Sample> sampleList = new List<Sample> { new Sample { StringValue = "a" }, new Sample { StringValue = "b" } };
+            List<Sample2> sample2List = sampleList.MapTo<List<Sample2>>();
+            Assert.Equal( 2, sample2List.Count );
+            Assert.Equal( "a", sample2List[0].StringValue );
+        }
+
+        /// <summary>
+        /// 测试映射集合
+        /// </summary>
+        [Fact]
+        public void TestMapToList() {
+            List<Sample> sampleList = new List<Sample> { new Sample { StringValue = "a" }, new Sample { StringValue = "b" } };
+            List<Sample2> sample2List = sampleList.MapToList<Sample2>( );
+            Assert.Equal( 2, sample2List.Count );
+            Assert.Equal( "a", sample2List[0].StringValue );
+        }
+
+        /// <summary>
+        /// 映射集合 - 测试空集合
+        /// </summary>
+        [Fact]
+        public void TestMapToList_Empty() {
+            List<Sample> sampleList = new List<Sample>();
+            List<Sample2> sample2List = sampleList.MapToList<Sample2>();
+            Assert.Equal( 0, sample2List.Count );
+        }
+
+        /// <summary>
+        /// 映射集合 - 测试数组
+        /// </summary>
+        [Fact]
+        public void TestMapToList_Array() {
+            Sample[] sampleList = new Sample[] { new Sample { StringValue = "a" }, new Sample { StringValue = "b" } };
+            List<Sample2> sample2List = sampleList.MapToList<Sample2>();
+            Assert.Equal( 2, sample2List.Count );
+            Assert.Equal( "a", sample2List[0].StringValue );
         }
     }
 }

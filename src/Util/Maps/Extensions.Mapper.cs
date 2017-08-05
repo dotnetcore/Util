@@ -1,5 +1,7 @@
 ﻿using System;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Util.Maps {
     /// <summary>
@@ -34,8 +36,8 @@ namespace Util.Maps {
                 throw new ArgumentNullException( nameof( source ) );
             if( destination == null )
                 throw new ArgumentNullException( nameof( destination ) );
-            var sourceType = source.GetType();
-            var destinationType = typeof( TDestination );
+            var sourceType = GetType( source );
+            var destinationType = GetType( destination );
             try {
                 var map = Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
                 if( map != null )
@@ -53,6 +55,30 @@ namespace Util.Maps {
                 } );
             }
             return Mapper.Map( source, destination );
+        }
+
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        private static Type GetType( object obj ) {
+            var type = obj.GetType();
+            if( type.IsArray )
+                return type.GetElementType();
+            if( ( obj is System.Collections.IEnumerable ) == false )
+                return type;
+            var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
+            if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
+                throw new ArgumentException( "" );
+            return genericArgumentsTypes[0];
+        }
+
+        /// <summary>
+        /// 将源集合映射到目标集合
+        /// </summary>
+        /// <typeparam name="TDestination">目标元素类型,范例：Sample,不要加List</typeparam>
+        /// <param name="source">源集合</param>
+        public static List<TDestination> MapToList<TDestination>( this System.Collections.IEnumerable source ) {
+            return MapTo<List<TDestination>>( source );
         }
     }
 }

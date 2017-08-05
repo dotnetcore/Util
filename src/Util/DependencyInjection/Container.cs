@@ -45,11 +45,11 @@ namespace Util.DependencyInjection {
         /// 创建容器生成器
         /// </summary>
         /// <param name="services">服务集合</param>
-        /// <param name="action">注册前执行的操作</param>
+        /// <param name="actionBefore">注册前执行的操作</param>
         /// <param name="configs">依赖配置</param>
-        public static ContainerBuilder CreateBuilder( IServiceCollection services, Action<ContainerBuilder> action, params IConfig[] configs ) {
+        public static ContainerBuilder CreateBuilder( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = new ContainerBuilder();
-            action?.Invoke( builder );
+            actionBefore?.Invoke( builder );
             foreach( var config in configs )
                 builder.RegisterModule( config );
             if( services != null )
