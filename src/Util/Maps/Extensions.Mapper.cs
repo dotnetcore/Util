@@ -68,7 +68,7 @@ namespace Util.Maps {
                 return type;
             var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
             if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
-                throw new ArgumentException( "" );
+                throw new ArgumentException( "泛型类型参数不能为空" );
             return genericArgumentsTypes[0];
         }
 
