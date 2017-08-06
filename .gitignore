@@ -2,3 +2,6 @@
 /src/Util/obj
 /test/Util.Tests/obj
 /.vs
+obj/
+bin/
+BenchmarkDotNet.Artifacts/
