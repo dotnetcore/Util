@@ -61,11 +61,11 @@ namespace Util.Maps {
         /// 获取类型
         /// </summary>
         private static Type GetType( object obj ) {
-            var type = obj.GetType();
-            if( type.IsArray )
-                return type.GetElementType();
+            var type = obj.GetType();            
             if( ( obj is System.Collections.IEnumerable ) == false )
                 return type;
+            if( type.IsArray )
+                return type.GetElementType();
             var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
             if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
                 throw new ArgumentException( "泛型类型参数不能为空" );
