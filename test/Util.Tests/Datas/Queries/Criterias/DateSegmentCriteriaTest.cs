@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Util.Datas.Queries;
 using Util.Datas.Queries.Criterias;
 using Util.Tests.Samples;
 using Xunit;
@@ -41,6 +42,36 @@ namespace Util.Tests.Datas.Queries.Criterias {
             result.AppendFormat( "t => ((t.NullableDateValue >= {0})", DateTime.Parse( "2000/1/1 0:00:00" ) );
             result.AppendFormat( " AndAlso (t.NullableDateValue < {0}))", DateTime.Parse( "2000/1/3 0:00:00" ) );
             var criteria2 = new DateSegmentCriteria<AggregateRootSample, DateTime?>( t => t.NullableDateValue, _min, _max );
+            Assert.Equal( result.ToString(), criteria2.GetPredicate().ToString() );
+        }
+
+        /// <summary>
+        /// 测试获取查询条件 - 设置边界
+        /// </summary>
+        [Fact]
+        public void TestGetPredicate_Boundary() {
+            var result = new StringBuilder();
+            result.AppendFormat( "t => ((t.DateValue > {0})", DateTime.Parse( "2000/1/1 0:00:00" ) );
+            result.AppendFormat( " AndAlso (t.DateValue < {0}))", DateTime.Parse( "2000/1/3 0:00:00" ) );
+            var criteria = new DateSegmentCriteria<AggregateRootSample, DateTime>( t => t.DateValue, _min, _max, Boundary.Neither );
+            Assert.Equal( result.ToString(), criteria.GetPredicate().ToString() );
+
+            result = new StringBuilder();
+            result.AppendFormat( "t => ((t.DateValue >= {0})", DateTime.Parse( "2000/1/1 0:00:00" ) );
+            result.AppendFormat( " AndAlso (t.DateValue < {0}))", DateTime.Parse( "2000/1/3 0:00:00" ) );
+            criteria = new DateSegmentCriteria<AggregateRootSample, DateTime>( t => t.DateValue, _min, _max, Boundary.Left );
+            Assert.Equal( result.ToString(), criteria.GetPredicate().ToString() );
+
+            result = new StringBuilder();
+            result.AppendFormat( "t => ((t.NullableDateValue > {0})", DateTime.Parse( "2000/1/1 0:00:00" ) );
+            result.AppendFormat( " AndAlso (t.NullableDateValue <= {0}))", DateTime.Parse( "2000/1/3 0:00:00" ) );
+            var criteria2 = new DateSegmentCriteria<AggregateRootSample, DateTime?>( t => t.NullableDateValue, _min, _max,Boundary.Right );
+            Assert.Equal( result.ToString(), criteria2.GetPredicate().ToString() );
+
+            result = new StringBuilder();
+            result.AppendFormat( "t => ((t.NullableDateValue >= {0})", DateTime.Parse( "2000/1/1 0:00:00" ) );
+            result.AppendFormat( " AndAlso (t.NullableDateValue <= {0}))", DateTime.Parse( "2000/1/3 0:00:00" ) );
+            criteria2 = new DateSegmentCriteria<AggregateRootSample, DateTime?>( t => t.NullableDateValue, _min, _max, Boundary.Both );
             Assert.Equal( result.ToString(), criteria2.GetPredicate().ToString() );
         }
     }

@@ -15,8 +15,9 @@ namespace Util.Datas.Queries.Criterias {
         /// <param name="propertyExpression">属性表达式</param>
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
-        public DecimalSegmentCriteria( Expression<Func<TEntity, TProperty>> propertyExpression, decimal? min, decimal? max )
-            : base( propertyExpression, min, max ) {
+        /// <param name="boundary">包含边界</param>
+        public DecimalSegmentCriteria( Expression<Func<TEntity, TProperty>> propertyExpression, decimal? min, decimal? max, Boundary boundary = Boundary.Both )
+            : base( propertyExpression, min, max, boundary ) {
         }
 
         /// <summary>

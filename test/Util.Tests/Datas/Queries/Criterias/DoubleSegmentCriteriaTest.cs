@@ -1,4 +1,5 @@
 ﻿using System;
+using Util.Datas.Queries;
 using Util.Datas.Queries.Criterias;
 using Util.Tests.Samples;
 using Xunit;
@@ -17,6 +18,24 @@ namespace Util.Tests.Datas.Queries.Criterias {
             Assert.Equal( "t => ((t.DoubleValue >= 1.1) AndAlso (t.DoubleValue <= 10.1))", criteria.GetPredicate().ToString() );
 
             DoubleSegmentCriteria<AggregateRootSample, double?> criteria2 = new DoubleSegmentCriteria<AggregateRootSample, double?>( t => t.NullableDoubleValue, 1.1, 10.1 );
+            Assert.Equal( "t => ((t.NullableDoubleValue >= 1.1) AndAlso (t.NullableDoubleValue <= 10.1))", criteria2.GetPredicate().ToString() );
+        }
+
+        /// <summary>
+        /// 测试获取查询条件 - 设置边界
+        /// </summary>
+        [Fact]
+        public void TestGetPredicate_Boundary() {
+            DoubleSegmentCriteria<AggregateRootSample, double> criteria = new DoubleSegmentCriteria<AggregateRootSample, double>( t => t.DoubleValue, 1.1, 10.1, Boundary.Neither );
+            Assert.Equal( "t => ((t.DoubleValue > 1.1) AndAlso (t.DoubleValue < 10.1))", criteria.GetPredicate().ToString() );
+
+            criteria = new DoubleSegmentCriteria<AggregateRootSample, double>( t => t.DoubleValue, 1.1, 10.1, Boundary.Left );
+            Assert.Equal( "t => ((t.DoubleValue >= 1.1) AndAlso (t.DoubleValue < 10.1))", criteria.GetPredicate().ToString() );
+
+            DoubleSegmentCriteria<AggregateRootSample, double?> criteria2 = new DoubleSegmentCriteria<AggregateRootSample, double?>( t => t.NullableDoubleValue, 1.1, 10.1,Boundary.Right );
+            Assert.Equal( "t => ((t.NullableDoubleValue > 1.1) AndAlso (t.NullableDoubleValue <= 10.1))", criteria2.GetPredicate().ToString() );
+
+            criteria2 = new DoubleSegmentCriteria<AggregateRootSample, double?>( t => t.NullableDoubleValue, 1.1, 10.1, Boundary.Both );
             Assert.Equal( "t => ((t.NullableDoubleValue >= 1.1) AndAlso (t.NullableDoubleValue <= 10.1))", criteria2.GetPredicate().ToString() );
         }
 

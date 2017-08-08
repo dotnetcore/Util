@@ -1,4 +1,5 @@
-﻿using Util.Datas.Queries.Criterias;
+﻿using Util.Datas.Queries;
+using Util.Datas.Queries.Criterias;
 using Util.Tests.Samples;
 using Xunit;
 
@@ -16,6 +17,24 @@ namespace Util.Tests.Datas.Queries.Criterias {
             Assert.Equal( "t => ((t.Tel >= 1) AndAlso (t.Tel <= 10))", criteria.GetPredicate().ToString() );
 
             IntSegmentCriteria<AggregateRootSample, int?> criteria2 = new IntSegmentCriteria<AggregateRootSample, int?>( t => t.Age, 1, 10 );
+            Assert.Equal( "t => ((t.Age >= 1) AndAlso (t.Age <= 10))", criteria2.GetPredicate().ToString() );
+        }
+
+        /// <summary>
+        /// 测试获取查询条件 - 设置边界
+        /// </summary>
+        [Fact]
+        public void TestGetPredicate_Boundary() {
+            IntSegmentCriteria<AggregateRootSample, int> criteria = new IntSegmentCriteria<AggregateRootSample, int>( t => t.Tel, 1, 10, Boundary.Neither );
+            Assert.Equal( "t => ((t.Tel > 1) AndAlso (t.Tel < 10))", criteria.GetPredicate().ToString() );
+
+            criteria = new IntSegmentCriteria<AggregateRootSample, int>( t => t.Tel, 1, 10,Boundary.Left );
+            Assert.Equal( "t => ((t.Tel >= 1) AndAlso (t.Tel < 10))", criteria.GetPredicate().ToString() );
+
+            IntSegmentCriteria<AggregateRootSample, int?> criteria2 = new IntSegmentCriteria<AggregateRootSample, int?>( t => t.Age, 1, 10, Boundary.Right );
+            Assert.Equal( "t => ((t.Age > 1) AndAlso (t.Age <= 10))", criteria2.GetPredicate().ToString() );
+
+            criteria2 = new IntSegmentCriteria<AggregateRootSample, int?>( t => t.Age, 1, 10, Boundary.Both );
             Assert.Equal( "t => ((t.Age >= 1) AndAlso (t.Age <= 10))", criteria2.GetPredicate().ToString() );
         }
 

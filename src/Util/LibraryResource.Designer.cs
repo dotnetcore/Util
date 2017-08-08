@@ -10,7 +10,6 @@
 
 namespace Util {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -20,7 +19,7 @@ namespace Util {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class LibraryResource {
@@ -40,7 +39,7 @@ namespace Util {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.LibraryResource", typeof(LibraryResource).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.LibraryResource", typeof(LibraryResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,6 +57,15 @@ namespace Util {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅允许添加一个条件,条件：{0} 的本地化字符串。
+        /// </summary>
+        public static string OnlyOnePredicate {
+            get {
+                return ResourceManager.GetString("OnlyOnePredicate", resourceCulture);
             }
         }
     }

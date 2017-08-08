@@ -253,38 +253,38 @@ namespace Util.Tests.Helpers {
 
         #endregion
 
-        #region GetCriteriaCount(获取谓词条件的个数)
+        #region GetCriteriaCount(获取查询条件个数)
 
         /// <summary>
-        /// 测试获取谓词条件的个数
+        /// 测试获取查询条件个数
         /// </summary>
         [Fact]
-        public void TestGetCriteriaCount() {
-            Assert.Equal( 0, Lambda.GetCriteriaCount( null ) );
+        public void TestGetConditionCount() {
+            Assert.Equal( 0, Lambda.GetConditionCount( null ) );
 
             Expression<Func<Sample, bool>> expression = test => test.StringValue == "A";
-            Assert.Equal( 1, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 1, Lambda.GetConditionCount( expression ) );
 
             expression = test => test.StringValue == "A" && test.StringValue == "B";
-            Assert.Equal( 2, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 2, Lambda.GetConditionCount( expression ) );
 
             expression = test => test.StringValue == "A" || test.StringValue == "B";
-            Assert.Equal( 2, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 2, Lambda.GetConditionCount( expression ) );
 
             expression = test => test.StringValue == "A" && test.StringValue == "B" || test.StringValue == "C";
-            Assert.Equal( 3, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 3, Lambda.GetConditionCount( expression ) );
 
             expression = test => test.Test2.StringValue == "A" && test.StringValue == "B" || test.StringValue == "C";
-            Assert.Equal( 3, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 3, Lambda.GetConditionCount( expression ) );
 
             expression = t => t.StringValue.Contains( "A" );
-            Assert.Equal( 1, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 1, Lambda.GetConditionCount( expression ) );
 
             expression = t => t.StringValue.Contains( "A" ) && t.StringValue == "A";
-            Assert.Equal( 2, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 2, Lambda.GetConditionCount( expression ) );
 
             expression = t => t.StringValue.Contains( "A" ) || t.Test2.StringValue == "A";
-            Assert.Equal( 2, Lambda.GetCriteriaCount( expression ) );
+            Assert.Equal( 2, Lambda.GetConditionCount( expression ) );
         }
 
         #endregion

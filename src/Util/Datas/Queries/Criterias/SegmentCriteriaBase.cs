@@ -15,26 +15,44 @@ namespace Util.Datas.Queries.Criterias {
         where TEntity : class, IAggregateRoot
         where TValue : struct {
         /// <summary>
+        /// 属性表达式
+        /// </summary>
+        private Expression<Func<TEntity, TProperty>> _propertyExpression;
+        /// <summary>
+        /// 表达式生成器
+        /// </summary>
+        private PredicateExpressionBuilder<TEntity> _builder;
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        private TValue? _min;
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        private TValue? _max;
+        /// <summary>
+        /// 包含边界
+        /// </summary>
+        private Boundary _boundary;
+
+        /// <summary>
         /// 初始化范围过滤条件
         /// </summary>
         /// <param name="propertyExpression">属性表达式</param>
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
-        protected SegmentCriteriaBase( Expression<Func<TEntity, TProperty>> propertyExpression, TValue? min, TValue? max ) {
-            Builder = new PredicateExpressionBuilder<TEntity>();
-            PropertyExpression = propertyExpression;
-            Min = min;
-            Max = max;
-            if ( IsMinGreaterMax( min, max ) ) {
-                Min = max;
-                Max = min;
+        /// <param name="boundary">包含边界</param>
+        protected SegmentCriteriaBase( Expression<Func<TEntity, TProperty>> propertyExpression, TValue? min, TValue? max, Boundary boundary ) {
+            _builder = new PredicateExpressionBuilder<TEntity>();
+            _propertyExpression = propertyExpression;
+            _min = min;
+            _max = max;
+            _boundary = boundary;
+            if( IsMinGreaterMax( min, max ) ) {
+                _min = max;
+                _max = min;
             }
         }
-
-        /// <summary>
-        /// 查询条件
-        /// </summary>
-        protected Expression<Func<TEntity, bool>> Predicate { get; set; }
 
         /// <summary>
         /// 最小值是否大于最大值
@@ -44,71 +62,72 @@ namespace Util.Datas.Queries.Criterias {
         protected abstract bool IsMinGreaterMax( TValue? min, TValue? max );
 
         /// <summary>
-        /// 属性表达式
-        /// </summary>
-        public Expression<Func<TEntity, TProperty>> PropertyExpression { get; set; }
-
-        /// <summary>
-        /// 表达式生成器
-        /// </summary>
-        private PredicateExpressionBuilder<TEntity> Builder { get; set; }
-
-        /// <summary>
-        /// 最小值
-        /// </summary>
-        public TValue? Min { get; set; }
-
-        /// <summary>
-        /// 最大值
-        /// </summary>
-        public TValue? Max { get; set; }
-
-        /// <summary>
         /// 获取查询条件
         /// </summary>
         public Expression<Func<TEntity, bool>> GetPredicate() {
             CreateLeftExpression();
             CreateRightExpression();
-            return Builder.ToLambda();
+            return _builder.ToLambda();
         }
 
         /// <summary>
         /// 创建左操作数，即 t => t.Property >= Min
         /// </summary>
         private void CreateLeftExpression() {
-            if( Min == null )
+            if( _min == null )
                 return;
-            Builder.Append( PropertyExpression, Operator.GreaterEqual, GetMinValue() );
+            _builder.Append( _propertyExpression, CreateLeftOperator( _boundary ), GetMinValue() );
+        }
+
+        /// <summary>
+        /// 创建左操作符
+        /// </summary>
+        protected virtual Operator CreateLeftOperator( Boundary? boundary ) {
+            switch( boundary ) {
+                case Boundary.Left:
+                    return Operator.GreaterEqual;
+                case Boundary.Both:
+                    return Operator.GreaterEqual;
+                default:
+                    return Operator.Greater;
+            }
         }
 
         /// <summary>
         /// 获取最小值
         /// </summary>
         protected virtual TValue? GetMinValue() {
-            return Min;
+            return _min;
         }
 
         /// <summary>
         /// 创建右操作数，即 t => t.Property &lt;= Max
         /// </summary>
         private void CreateRightExpression() {
-            if ( Max == null )
+            if( _max == null )
                 return;
-            Builder.Append( PropertyExpression, GetMaxOperator(), GetMaxValue() );
+            _builder.Append( _propertyExpression, CreateRightOperator( _boundary ), GetMaxValue() );
         }
 
         /// <summary>
-        /// 获取最大值相关的运算符
+        /// 创建右操作符
         /// </summary>
-        protected virtual Operator GetMaxOperator() {
-            return Operator.LessEqual;
+        protected virtual Operator CreateRightOperator( Boundary? boundary ) {
+            switch( boundary ) {
+                case Boundary.Right:
+                    return Operator.LessEqual;
+                case Boundary.Both:
+                    return Operator.LessEqual;
+                default:
+                    return Operator.Less;
+            }
         }
 
         /// <summary>
         /// 获取最大值
         /// </summary>
         protected virtual TValue? GetMaxValue() {
-            return Max;
+            return _max;
         }
     }
 }
