@@ -61,6 +61,15 @@ namespace Util {
         }
         
         /// <summary>
+        ///   查找类似 当前操作的数据已被其他人修改，请刷新后重试 的本地化字符串。
+        /// </summary>
+        public static string ConcurrencyExceptionMessage {
+            get {
+                return ResourceManager.GetString("ConcurrencyExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 仅允许添加一个条件,条件：{0} 的本地化字符串。
         /// </summary>
         public static string OnlyOnePredicate {
