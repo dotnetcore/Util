@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Util.Datas</AssemblyName>
+    <RootNamespace>Util.Datas</RootNamespace>
+    <OutputPath>..\..\bin\release\netstandard2.0\</OutputPath>
+    <DocumentationFile>..\..\bin\release\netstandard2.0\netstandard2.0\Util.Datas.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\bin\release\netstandard2.0\</OutputPath>
+    <DocumentationFile>..\..\bin\release\netstandard2.0\netstandard2.0\Util.Datas.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util\01-Util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0-preview2-final" />
+  </ItemGroup>
+
+</Project>
