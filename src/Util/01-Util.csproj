@@ -1,19 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Util</AssemblyName>
-    <RootNamespace>Util</RootNamespace>
-    <Authors>何镇汐</Authors>
-    <Description>Utill应用框架核心库</Description>
-    <Version>1.0.0</Version>
-    <Product>Utill应用框架核心库</Product>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Copyright>何镇汐</Copyright>
-    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
-  </PropertyGroup>
+  <Import Project="..\..\build\common.props" />
 
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
+    <AssemblyName>Util</AssemblyName>
+    <PackageTags>$(PackageTags);</PackageTags>
+  </PropertyGroup>
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\bin\release\</OutputPath>
     <DocumentationFile>..\..\bin\release\netstandard2.0\Util.xml</DocumentationFile>
