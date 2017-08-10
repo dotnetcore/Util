@@ -46,7 +46,7 @@ namespace Util.Domains.Repositories {
                     _pageIndex = 1;
                 return _pageIndex;
             }
-            set { _pageIndex = value; }
+            set => _pageIndex = value;
         }
 
         /// <summary>

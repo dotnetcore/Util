@@ -9,7 +9,7 @@ namespace Util.Datas.Queries {
         /// <summary>
         /// 排序项列表
         /// </summary>
-        private List<OrderByItem> _items;
+        private readonly List<OrderByItem> _items;
 
         /// <summary>
         /// 初始化排序生成器

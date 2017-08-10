@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Util.Datas.Abstractions {
+namespace Util.Datas {
     /// <summary>
     /// 工作单元
     /// </summary>

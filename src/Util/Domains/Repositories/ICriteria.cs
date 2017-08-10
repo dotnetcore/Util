@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Util.Domains.Repositories {
     /// <summary>
-    /// 查询条件 - 规约对象
+    /// 查询条件
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     public interface ICriteria<TEntity> where TEntity : IAggregateRoot {

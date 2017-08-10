@@ -15,13 +15,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\bin\release\</OutputPath>
-    <DocumentationFile>..\..\bin\release\netstandard2.0\Util.xml</DocumentationFile>
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\bin\release\</OutputPath>
-    <DocumentationFile>..\..\bin\release\netstandard2.0\Util.xml</DocumentationFile>
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
