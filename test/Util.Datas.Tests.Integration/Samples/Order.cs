@@ -19,8 +19,8 @@ namespace Util.Datas.Tests.Samples {
         }
 
         /// <summary>
-        /// 订单名称
+        /// 订单编码
         /// </summary>
-        public string Name { get; set; }
+        public string Code { get; set; }
     }
 }
