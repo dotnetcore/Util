@@ -91,7 +91,7 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 内容
         /// </summary>
-        public List<T> Data { get; set; }
+        public List<T> Data { get;private set; }
 
         /// <summary>
         /// 索引器

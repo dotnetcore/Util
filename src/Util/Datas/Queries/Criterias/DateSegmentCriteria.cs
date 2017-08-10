@@ -15,8 +15,9 @@ namespace Util.Datas.Queries.Criterias {
         /// <param name="propertyExpression">属性表达式</param>
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
-        public DateSegmentCriteria( Expression<Func<TEntity, TProperty>> propertyExpression, DateTime? min, DateTime? max )
-            : base( propertyExpression, min, max ) {
+        /// <param name="boundary">包含边界</param>
+        public DateSegmentCriteria( Expression<Func<TEntity, TProperty>> propertyExpression, DateTime? min, DateTime? max, Boundary boundary = Boundary.Left )
+            : base( propertyExpression, min, max, boundary ) {
         }
 
         /// <summary>
@@ -38,13 +39,6 @@ namespace Util.Datas.Queries.Criterias {
         /// </summary>
         protected override DateTime? GetMaxValue() {
             return base.GetMaxValue().SafeValue().Date.AddDays( 1 );
-        }
-
-        /// <summary>
-        /// 获取最大值相关的运算符
-        /// </summary>
-        protected override Operator GetMaxOperator() {
-            return Operator.Less;
         }
     }
 }
