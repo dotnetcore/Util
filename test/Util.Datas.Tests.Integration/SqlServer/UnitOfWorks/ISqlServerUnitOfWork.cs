@@ -2,6 +2,6 @@
     /// <summary>
     /// SqlServer工作单元
     /// </summary>
-    public interface ISqlServerUnitOfWork : Util.Datas.IUnitOfWork {
+    public interface ISqlServerUnitOfWork : IUnitOfWork {
     }
 }

@@ -1,0 +1,69 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+
+<%@ Assembly Src="..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\Common\Extensions.cs" %>
+
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="SchemaMapper" %>
+
+<%@ Property Name="EntityContext" Type="SchemaMapper.EntityContext"  %>
+<%@ Property Name="Namespace" Type="System.String" %>
+<%@ Property Name="DbName" Type="System.String" %>
+using Autofac;
+using Util.DependencyInjection;
+using <%= Namespace %>.Domains.Repositories;
+using <%= Namespace %>.Datas.Ef;
+using <%= Namespace %>.Datas.Ef.Repositories;
+using <%= Namespace %>.Services.Contracts;
+using <%= Namespace %>.Services.Impl;
+
+namespace <%= Namespace %>.Services.Configs.IocConfigs {
+    /// <summary>
+    /// 依赖注入配置
+    /// </summary>
+    public class IocConfig : ConfigBase {
+        /// <summary>
+        /// 加载配置
+        /// </summary>
+        protected override void Load( ContainerBuilder builder ) {
+            LoadInfrastructure( builder );            
+            LoadDomainServices( builder );
+            LoadRepositories( builder );
+            LoadApplicationServices( builder );
+        }
+
+        /// <summary>
+        /// 加载基础设施
+        /// </summary>
+        private void LoadInfrastructure( ContainerBuilder builder ) {
+            builder.RegisterType<<%= DbName %>UnitOfWork>().As<I<%= DbName %>UnitOfWork>().InstancePerLifetimeScope();
+        }        
+
+        /// <summary>
+        /// 加载领域服务
+        /// </summary>
+        private void LoadDomainServices( ContainerBuilder builder ) {
+        }
+
+        /// <summary>
+        /// 加载仓储
+        /// </summary>
+        private void LoadRepositories( ContainerBuilder builder ) {
+        <% foreach(Entity entity in EntityContext.Entities) {%>
+            builder.RegisterType<<%= entity.ClassName.ToSafeName() %>Repository>().As<I<%= entity.ClassName.ToSafeName() %>Repository>().InstancePerLifetimeScope();
+        <%} %>
+        }
+        
+        /// <summary>
+        /// 加载应用服务
+        /// </summary>
+        private void LoadApplicationServices( ContainerBuilder builder ) {
+        <% foreach(Entity entity in EntityContext.Entities) {%>
+            builder.RegisterType<<%= entity.ClassName.ToSafeName() %>Service>().As<I<%= entity.ClassName.ToSafeName() %>Service>().InstancePerLifetimeScope().PropertiesAutowired();
+        <%} %>
+        }
+    }
+}
