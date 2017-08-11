@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Util.Datas.Abstractions;
 using Util.Exceptions;
 
 namespace Util.Datas.Ef.Core {

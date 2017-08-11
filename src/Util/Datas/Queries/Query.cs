@@ -42,7 +42,7 @@ namespace Util.Datas.Queries {
         /// <summary>
         /// 排序生成器
         /// </summary>
-        private OrderByBuilder _orderByBuilder;
+        private readonly OrderByBuilder _orderByBuilder;
 
         /// <summary>
         /// 初始化查询对象

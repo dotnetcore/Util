@@ -4,13 +4,18 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util.Datas</AssemblyName>
     <RootNamespace>Util.Datas</RootNamespace>
-    <OutputPath>..\..\bin\release\netstandard2.0\</OutputPath>
-    <DocumentationFile>..\..\bin\release\netstandard2.0\netstandard2.0\Util.Datas.xml</DocumentationFile>
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Datas.xml</DocumentationFile>
+    <Authors>何镇汐</Authors>
+    <Company>何镇汐</Company>
+    <Copyright>何镇汐</Copyright>
+    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
+    <Description>Util数据访问组件</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\bin\release\netstandard2.0\</OutputPath>
-    <DocumentationFile>..\..\bin\release\netstandard2.0\netstandard2.0\Util.Datas.xml</DocumentationFile>
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Datas.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

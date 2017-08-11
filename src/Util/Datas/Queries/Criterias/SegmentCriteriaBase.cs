@@ -17,11 +17,11 @@ namespace Util.Datas.Queries.Criterias {
         /// <summary>
         /// 属性表达式
         /// </summary>
-        private Expression<Func<TEntity, TProperty>> _propertyExpression;
+        private readonly Expression<Func<TEntity, TProperty>> _propertyExpression;
         /// <summary>
         /// 表达式生成器
         /// </summary>
-        private PredicateExpressionBuilder<TEntity> _builder;
+        private readonly PredicateExpressionBuilder<TEntity> _builder;
         /// <summary>
         /// 最小值
         /// </summary>
@@ -33,7 +33,7 @@ namespace Util.Datas.Queries.Criterias {
         /// <summary>
         /// 包含边界
         /// </summary>
-        private Boundary _boundary;
+        private readonly Boundary _boundary;
 
         /// <summary>
         /// 初始化范围过滤条件
@@ -48,10 +48,26 @@ namespace Util.Datas.Queries.Criterias {
             _min = min;
             _max = max;
             _boundary = boundary;
-            if( IsMinGreaterMax( min, max ) ) {
-                _min = max;
-                _max = min;
-            }
+        }
+
+        /// <summary>
+        /// 获取查询条件
+        /// </summary>
+        public Expression<Func<TEntity, bool>> GetPredicate() {
+            Adjust( _min, _max );
+            CreateLeftExpression();
+            CreateRightExpression();
+            return _builder.ToLambda();
+        }
+
+        /// <summary>
+        /// 当最小值大于最大值时进行校正
+        /// </summary>
+        private void Adjust( TValue? min, TValue? max ) {
+            if( IsMinGreaterMax( min, max ) == false )
+                return;
+            _min = max;
+            _max = min;
         }
 
         /// <summary>
@@ -60,15 +76,6 @@ namespace Util.Datas.Queries.Criterias {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         protected abstract bool IsMinGreaterMax( TValue? min, TValue? max );
-
-        /// <summary>
-        /// 获取查询条件
-        /// </summary>
-        public Expression<Func<TEntity, bool>> GetPredicate() {
-            CreateLeftExpression();
-            CreateRightExpression();
-            return _builder.ToLambda();
-        }
 
         /// <summary>
         /// 创建左操作数，即 t => t.Property >= Min

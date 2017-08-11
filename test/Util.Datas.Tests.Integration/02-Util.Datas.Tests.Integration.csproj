@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <AssemblyName>Util.Datas.Tests.Integration</AssemblyName>
+
+    <RootNamespace>Util.Datas.Tests</RootNamespace>
+
+    <Authors>何镇汐</Authors>
+
+    <Company>何镇汐</Company>
+
+    <Description>数据访问组件集成测试</Description>
+
+    <Copyright>何镇汐</Copyright>
+
+    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\output\test</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\output\test</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170517-02" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Util.Datas\02-Util.Datas.csproj" />
+    <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SqlServer\Repositories\" />
+    <Folder Include="SqlServer\Scripts\Pd\" />
+  </ItemGroup>
+
+</Project>

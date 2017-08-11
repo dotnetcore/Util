@@ -22,19 +22,19 @@ namespace Util.Domains {
         /// <summary>
         /// 属性名
         /// </summary>
-        public string PropertyName { get;private set; }
+        public string PropertyName { get; }
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; }
         /// <summary>
         /// 旧值
         /// </summary>
-        public string OldValue { get; private set; }
+        public string OldValue { get; }
         /// <summary>
         /// 新值
         /// </summary>
-        public string NewValue { get; private set; }
+        public string NewValue { get; }
 
         /// <summary>
         /// 输出变更信息
