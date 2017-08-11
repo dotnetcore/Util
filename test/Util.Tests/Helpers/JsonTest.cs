@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Newtonsoft.Json;
 using Util.Helpers;
 using Util.Tests.Samples;
@@ -46,7 +47,9 @@ namespace Util.Tests.Helpers {
             result.Append( "\"Age\":1," );
             result.Append( "\"isShow\":true" );
             result.Append( "}" );
-            Assert.Equal( result.ToString(), Json.ToJson( JsonTestSample.Create() ) );
+            var actualData = JsonTestSample.Create();
+            actualData.Date = DateTime.Parse(actualData.Date).ToString("yyyy/M/d 0:00:00");
+            Assert.Equal( result.ToString(), Json.ToJson(actualData) );
         }
 
         /// <summary>
@@ -63,7 +66,10 @@ namespace Util.Tests.Helpers {
             result.Append( "'Age':1," );
             result.Append( "'isShow':true" );
             result.Append( "}" );
-            Assert.Equal( result.ToString(), Json.ToJson( JsonTestSample.Create(),true ) );
+
+            var actualData = JsonTestSample.Create();
+            actualData.Date = DateTime.Parse(actualData.Date).ToString("yyyy/M/d 0:00:00");
+            Assert.Equal( result.ToString(), Json.ToJson(actualData, true ) );
         }
 
         /// <summary>

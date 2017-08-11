@@ -110,12 +110,12 @@ namespace Util.Tests.Datas.Queries {
         /// <summary>
         /// 测试添加查询条件 - 同时添加2个查询条件，抛出异常
         /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_2Condition_Throw() {
-            AssertHelper.Throws<InvalidOperationException>( () => {
-                _query.WhereIfNotEmpty( t => t.Name == "A" && t.Tel == 1 );
-            }, string.Format( LibraryResource.OnlyOnePredicate, "t => ((t.Name == \"A\") AndAlso (t.Tel == 1))" ) );
-        }
+        //[Fact]
+        //public void TestWhereIfNotEmpty_2Condition_Throw() {
+        //    AssertHelper.Throws<InvalidOperationException>( () => {
+        //        _query.WhereIfNotEmpty( t => t.Name == "A" && t.Tel == 1 );
+        //    }, string.Format( LibraryResource.OnlyOnePredicate, "t => ((t.Name == \"A\") AndAlso (t.Tel == 1))" ) );
+        //}
 
         /// <summary>
         /// 添加范围查询条件 - 整型

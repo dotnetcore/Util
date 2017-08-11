@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\build\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
     <AssemblyName>Util.Datas</AssemblyName>
-    <RootNamespace>Util.Datas</RootNamespace>
-    <OutputPath>..\..\output\release\</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Datas.xml</DocumentationFile>
-    <Authors>何镇汐</Authors>
-    <Company>何镇汐</Company>
-    <Copyright>何镇汐</Copyright>
-    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
-    <Description>Util数据访问组件</Description>
+    <PackageTags>$(PackageTags);</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\release\</OutputPath>
     <DocumentationFile>..\..\output\release\netstandard2.0\Util.Datas.xml</DocumentationFile>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Datas.xml</DocumentationFile>
+  </PropertyGroup>
+   
 
   <ItemGroup>
     <ProjectReference Include="..\Util\01-Util.csproj" />
