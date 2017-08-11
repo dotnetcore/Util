@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release\netstandard2.0\</OutputPath>
     <DocumentationFile>..\..\bin\release\netstandard2.0\Util.xml</DocumentationFile>
   </PropertyGroup>
 
@@ -25,18 +25,18 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0-preview2-final" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0-pre-02" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.0-preview2-25405-01" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="LibraryResource.Designer.cs">
+    <Compile Update="Properties\LibraryResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>LibraryResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="R.Designer.cs">
+    <Compile Update="Properties\R.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>R.resx</DependentUpon>
@@ -44,14 +44,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="LibraryResource.resx">
+    <EmbeddedResource Update="Properties\LibraryResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibraryResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="R.resx">
+    <EmbeddedResource Update="Properties\R.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>R.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    </EmbeddedResource>  
   </ItemGroup>
 
 </Project>

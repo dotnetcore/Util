@@ -104,7 +104,6 @@ namespace Util.Helpers {
         /// <summary>
         /// 获取成员描述或显示名称,使用DescriptionAttribute设置描述，使用DisplayNameAttribute或DisplayAttribute设置显示名称
         /// </summary>
-        /// <typeparam name="T">类型</typeparam>
         public static string GetDescriptionOrDisplayName( MemberInfo member ) {
             var result = GetDisplayName( member );
             if( !string.IsNullOrWhiteSpace( result ) )
