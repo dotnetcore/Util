@@ -1,11 +1,10 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-src", "05-src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DE1DF0B9-0403-4888-8B24-8208348E9AFA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-test", "06-test", "{DE1DF0B9-0403-4888-8B24-8208348E9AFA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{3746073A-1C5C-40A7-9D50-CB2A94CA888A}"
 EndProject
@@ -15,13 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{6FA9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util", "src\Util\01-Util.csproj", "{5981ADBE-58A4-4F84-9529-E7D7F7E1610C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "performance", "performance", "{B9DABCEC-64F9-45BA-AB7C-860CA832D62B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-performance", "03-performance", "{B9DABCEC-64F9-45BA-AB7C-860CA832D62B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{626D7994-7EF6-4E83-BCC5-342F307A0230}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Performance", "performance\Util.Performance\01-Util.Performance.csproj", "{A0CD99F6-C7A8-46E0-A6F1-800A59142877}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{DAD95FFB-D921-4BC0-BFDE-5BD8F57D1273}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-build", "02-build", "{DAD95FFB-D921-4BC0-BFDE-5BD8F57D1273}"
 	ProjectSection(SolutionItems) = preProject
 		build.cake = build.cake
 		build.ps1 = build.ps1
@@ -33,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{DAD95FFB
 		build\version.props = build\version.props
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{67BD9762-CBD4-4BD1-8510-864E9B5B281C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-misc", "01-misc", "{67BD9762-CBD4-4BD1-8510-864E9B5B281C}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		.travis.yml = .travis.yml
@@ -43,9 +42,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		Util.vssettings = Util.vssettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Util.Datas", "src\Util.Datas\02-Util.Datas.csproj", "{CD83426E-2BA1-4DB0-94D9-1185C076276F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Datas", "src\Util.Datas\02-Util.Datas.csproj", "{CD83426E-2BA1-4DB0-94D9-1185C076276F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Util.Datas.Tests.Integration", "test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj", "{411B666F-EDA0-47E0-BB34-3EAF047549A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Datas.Tests.Integration", "test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj", "{411B666F-EDA0-47E0-BB34-3EAF047549A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-document", "04-document", "{0ABE7222-126E-4EDF-B3B9-75842390AFE1}"
+	ProjectSection(SolutionItems) = preProject
+		document\应用程序基础模块数据建模.pdm = document\应用程序基础模块数据建模.pdm
+		document\应用程序基础模块设计.xmind = document\应用程序基础模块设计.xmind
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
