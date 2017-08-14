@@ -36,16 +36,6 @@ namespace Util.Datas.Ef.Core {
         private readonly DbContextWrapper<TEntity, TKey> _wrapper;
 
         /// <summary>
-        /// 初始化仓储
-        /// </summary>
-        /// <param name="unitOfWork">工作单元</param>
-        protected RepositoryBase( IUnitOfWork unitOfWork ) {
-            _wrapper = new DbContextWrapper<TEntity, TKey>( unitOfWork );
-            UnitOfWork = _wrapper.UnitOfWork;
-            Set = _wrapper.Set;
-        }
-
-        /// <summary>
         /// 工作单元
         /// </summary>
         protected UnitOfWorkBase UnitOfWork { get; }
@@ -54,6 +44,16 @@ namespace Util.Datas.Ef.Core {
         /// 实体集
         /// </summary>
         protected DbSet<TEntity> Set { get; }
+
+        /// <summary>
+        /// 初始化仓储
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        protected RepositoryBase( IUnitOfWork unitOfWork ) {
+            _wrapper = new DbContextWrapper<TEntity, TKey>( unitOfWork );
+            UnitOfWork = _wrapper.UnitOfWork;
+            Set = _wrapper.Set;
+        }
 
         /// <summary>
         /// 查找实体
