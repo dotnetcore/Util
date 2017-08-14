@@ -9,11 +9,26 @@ namespace Util.Helpers {
     /// </summary>
     public static class Ioc {
         /// <summary>
+        /// 默认容器
+        /// </summary>
+        private static readonly Container DefaultContainer = new Container();
+
+        /// <summary>
+        /// 创建容器
+        /// </summary>
+        /// <param name="configs">依赖配置</param>
+        public static IContainer CreateContainer( params IConfig[] configs ) {
+            var container = new Container();
+            container.Register( configs );
+            return container;
+        }
+
+        /// <summary>
         /// 创建实例
         /// </summary>
         /// <typeparam name="T">实例类型</typeparam>
         public static T Create<T>() {
-            return Container.Create<T>();
+            return DefaultContainer.Create<T>();
         }
 
         /// <summary>
@@ -21,7 +36,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="type">对象类型</param>
         public static object Create( Type type ) {
-            return Container.Create( type );
+            return DefaultContainer.Create( type );
         }
 
         /// <summary>
@@ -29,7 +44,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="configs">依赖配置</param>
         public static void Register( params IConfig[] configs ) {
-            Container.Register( null, null, configs );
+            DefaultContainer.Register( null, null, configs );
         }
 
         /// <summary>
@@ -38,14 +53,14 @@ namespace Util.Helpers {
         /// <param name="services">服务集合</param>
         /// <param name="configs">依赖配置</param>
         public static IServiceProvider Register( IServiceCollection services, params IConfig[] configs ) {
-            return Container.Register( services, null, configs );
+            return DefaultContainer.Register( services, null, configs );
         }
 
         /// <summary>
         /// 释放容器
         /// </summary>
         public static void Dispose() {
-            Container.Dispose();
+            DefaultContainer.Dispose();
         }
     }
 }

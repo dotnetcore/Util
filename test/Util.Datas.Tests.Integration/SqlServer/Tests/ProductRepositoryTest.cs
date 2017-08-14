@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Util.Datas.Tests.Samples.Datas.SqlServer.Repositories;
+using Util.Datas.Tests.Samples.Datas.SqlServer.Stores;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
@@ -13,6 +15,10 @@ namespace Util.Datas.Tests.SqlServer.Tests {
     /// 商品仓储测试
     /// </summary>
     public class ProductRepositoryTest : IDisposable {
+        /// <summary>
+        /// 容器
+        /// </summary>
+        private readonly Util.DependencyInjection.IContainer _container;
         /// <summary>
         /// 工作单元
         /// </summary>
@@ -30,9 +36,9 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 测试初始化
         /// </summary>
         public ProductRepositoryTest() {
-            Ioc.Register( new IocConfig() );
-            _unitOfWork = Ioc.Create<ISqlServerUnitOfWork>();
-            _productRepository = Ioc.Create<IProductRepository>();
+            _container = Ioc.CreateContainer( new IocConfig() );
+            _unitOfWork = _container.Create<ISqlServerUnitOfWork>();
+            _productRepository = _container.Create<IProductRepository>();
             _random = new Util.Helpers.Random();
         }
 
@@ -40,7 +46,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 测试清理
         /// </summary>
         public void Dispose() {
-            Ioc.Dispose();
+            _container.Dispose();
         }
 
         /// <summary>

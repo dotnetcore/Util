@@ -7,17 +7,17 @@ namespace Util.DependencyInjection {
     /// <summary>
     /// Autofac对象容器
     /// </summary>
-    internal static class Container {
+    internal class Container : IContainer {
         /// <summary>
         /// 容器
         /// </summary>
-        private static IContainer _container;
+        private Autofac.IContainer _container;
 
         /// <summary>
         /// 创建对象
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        public static T Create<T>() {
+        public T Create<T>() {
             return _container.Resolve<T>();
         }
 
@@ -25,8 +25,25 @@ namespace Util.DependencyInjection {
         /// 创建对象
         /// </summary>
         /// <param name="type">对象类型</param>
-        public static object Create( Type type ) {
+        public object Create( Type type ) {
             return _container.Resolve( type );
+        }
+
+        /// <summary>
+        /// 注册依赖
+        /// </summary>
+        /// <param name="configs">依赖配置</param>
+        public void Register( params IConfig[] configs ) {
+            Register( null, null, configs );
+        }
+
+        /// <summary>
+        /// 注册依赖
+        /// </summary>
+        /// <param name="services">服务集合</param>
+        /// <param name="configs">依赖配置</param>
+        public IServiceProvider Register( IServiceCollection services, params IConfig[] configs ) {
+            return Register( services, null, configs );
         }
 
         /// <summary>
@@ -35,7 +52,7 @@ namespace Util.DependencyInjection {
         /// <param name="services">服务集合</param>
         /// <param name="actionBefore">注册前操作</param>
         /// <param name="configs">依赖配置</param>
-        public static IServiceProvider Register( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
+        public IServiceProvider Register( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = CreateBuilder( services, actionBefore, configs );
             _container = builder.Build();
             return new AutofacServiceProvider( _container );
@@ -47,7 +64,7 @@ namespace Util.DependencyInjection {
         /// <param name="services">服务集合</param>
         /// <param name="actionBefore">注册前执行的操作</param>
         /// <param name="configs">依赖配置</param>
-        public static ContainerBuilder CreateBuilder( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
+        public ContainerBuilder CreateBuilder( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = new ContainerBuilder();
             actionBefore?.Invoke( builder );
             foreach( var config in configs )
@@ -60,7 +77,7 @@ namespace Util.DependencyInjection {
         /// <summary>
         /// 释放容器
         /// </summary>
-        public static void Dispose() {
+        public void Dispose() {
             _container.Dispose();
         }
     }

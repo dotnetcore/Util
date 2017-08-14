@@ -17,6 +17,10 @@ namespace Util.Datas.Tests.SqlServer.Tests {
     /// </summary>
     public class OrderRepositoryTest : IDisposable{
         /// <summary>
+        /// 容器
+        /// </summary>
+        private readonly Util.DependencyInjection.IContainer _container;
+        /// <summary>
         /// 工作单元
         /// </summary>
         private readonly ISqlServerUnitOfWork _unitOfWork;
@@ -29,16 +33,16 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 测试初始化
         /// </summary>
         public OrderRepositoryTest() {
-            Ioc.Register( new IocConfig() );
-            _unitOfWork = Ioc.Create<ISqlServerUnitOfWork>();
-            _orderRepository = Ioc.Create<IOrderRepository>();
+            _container = Ioc.CreateContainer( new IocConfig() );
+            _unitOfWork = _container.Create<ISqlServerUnitOfWork>();
+            _orderRepository = _container.Create<IOrderRepository>();
         }
 
         /// <summary>
         /// 测试清理
         /// </summary>
         public void Dispose() {
-            Ioc.Dispose();
+            _container.Dispose();
         }
 
         /// <summary>
