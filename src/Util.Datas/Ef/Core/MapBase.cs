@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Util.Domains;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>
-    /// 实体映射配置
+    /// 映射配置
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public abstract class EntityMapBase<TEntity> : IMap where TEntity : class, IEntity {
+    public abstract class MapBase<TEntity> : IMap where TEntity : class {
         /// <summary>
         /// 映射配置
         /// </summary>

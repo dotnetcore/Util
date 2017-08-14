@@ -37,6 +37,17 @@ namespace Util.Datas.Queries.Trees {
         /// </summary>
         [Display( Name = "启用" )]
         public bool? Enabled { get; set; }
+
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+            base.AddDescriptions();
+            AddDescription( "ParentId", ParentId );
+            AddDescription( "Level", Level );
+            AddDescription( "Path", Path );
+            AddDescription( "Enabled", Enabled );
+        }
     }
 
     /// <summary>

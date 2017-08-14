@@ -40,5 +40,12 @@ namespace Util.Helpers {
         public static IServiceProvider Register( IServiceCollection services, params IConfig[] configs ) {
             return Container.Register( services, null, configs );
         }
+
+        /// <summary>
+        /// 释放容器
+        /// </summary>
+        public static void Dispose() {
+            Container.Dispose();
+        }
     }
 }

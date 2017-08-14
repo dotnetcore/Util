@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using Util.Properties;
 
 namespace Util.Exceptions {
     /// <summary>

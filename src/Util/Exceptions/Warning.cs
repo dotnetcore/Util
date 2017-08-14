@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using Util.Properties;
 
 namespace Util.Exceptions {
     /// <summary>

@@ -56,5 +56,12 @@ namespace Util.DependencyInjection {
                 builder.Populate( services );
             return builder;
         }
+
+        /// <summary>
+        /// 释放容器
+        /// </summary>
+        public static void Dispose() {
+            _container.Dispose();
+        }
     }
 }

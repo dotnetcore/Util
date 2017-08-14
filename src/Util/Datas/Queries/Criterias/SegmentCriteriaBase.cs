@@ -12,7 +12,7 @@ namespace Util.Datas.Queries.Criterias {
     /// <typeparam name="TProperty">属性类型</typeparam>
     /// <typeparam name="TValue">值类型</typeparam>
     public abstract class SegmentCriteriaBase<TEntity, TProperty, TValue> : ICriteria<TEntity>
-        where TEntity : class, IAggregateRoot
+        where TEntity : class
         where TValue : struct {
         /// <summary>
         /// 属性表达式

@@ -48,6 +48,8 @@ namespace Util.Domains {
                 return false;
             if( Equals( left.Id, null ) )
                 return false;
+            if( left.Id.Equals( default( TKey ) ) )
+                return false;
             return left.Id.Equals( right.Id );
         }
 

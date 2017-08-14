@@ -6,7 +6,7 @@ namespace Util.Domains.Repositories {
     /// 查询条件
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface ICriteria<TEntity> where TEntity : IAggregateRoot {
+    public interface ICriteria<TEntity> {
         /// <summary>
         /// 获取查询条件
         /// </summary>

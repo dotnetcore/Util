@@ -8,7 +8,7 @@ namespace Util.Datas.Queries.Criterias {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TProperty">属性类型</typeparam>
-    public class DecimalSegmentCriteria<TEntity, TProperty> : SegmentCriteriaBase<TEntity, TProperty, decimal> where TEntity : class,IAggregateRoot {
+    public class DecimalSegmentCriteria<TEntity, TProperty> : SegmentCriteriaBase<TEntity, TProperty, decimal> where TEntity : class {
         /// <summary>
         /// 初始化decimal范围过滤条件
         /// </summary>

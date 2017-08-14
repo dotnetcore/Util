@@ -4,6 +4,7 @@ using Util.Datas.Queries.Criterias;
 using Util.Domains;
 using Util.Domains.Repositories;
 using Util.Helpers;
+using Util.Properties;
 
 namespace Util.Datas.Queries {
     /// <summary>

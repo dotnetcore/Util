@@ -1,8 +1,11 @@
 ﻿using Autofac;
-using Util.Datas.Tests.SqlServer.UnitOfWorks;
+using Util.Datas.Tests.Samples.Datas.SqlServer.Repositories;
+using Util.Datas.Tests.Samples.Datas.SqlServer.Stores;
+using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
+using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.DependencyInjection;
 
-namespace Util.Datas.Tests.DependencyInjection {
+namespace Util.Datas.Tests.SqlServer.Confis {
     /// <summary>
     /// 依赖注入配置
     /// </summary>
@@ -12,7 +15,6 @@ namespace Util.Datas.Tests.DependencyInjection {
         /// </summary>
         protected override void Load( ContainerBuilder builder ) {
             LoadInfrastructure( builder );
-            LoadDomainServices( builder );
             LoadRepositories( builder );
         }
 
@@ -21,18 +23,15 @@ namespace Util.Datas.Tests.DependencyInjection {
         /// </summary>
         private void LoadInfrastructure( ContainerBuilder builder ) {
             builder.RegisterType<SqlServerUnitOfWork>().As<ISqlServerUnitOfWork>().InstancePerLifetimeScope();
-        }
-
-        /// <summary>
-        /// 加载领域服务
-        /// </summary>
-        private void LoadDomainServices( ContainerBuilder builder ) {
+            builder.RegisterType<ProductPoStore>().As<IProductPoStore>().InstancePerLifetimeScope();
         }
 
         /// <summary>
         /// 加载仓储
         /// </summary>
         private void LoadRepositories( ContainerBuilder builder ) {
+            builder.RegisterType<OrderRepository>().As<IOrderRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ProductRepository>().As<IProductRepository>().InstancePerLifetimeScope();
         }
     }
 }

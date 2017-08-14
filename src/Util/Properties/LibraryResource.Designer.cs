@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Util {
+namespace Util.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Util {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.LibraryResource", typeof(LibraryResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Properties.LibraryResource", typeof(LibraryResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

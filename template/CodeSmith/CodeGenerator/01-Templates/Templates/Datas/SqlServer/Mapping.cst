@@ -24,18 +24,18 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
     /// <summary>
     /// <%= Description %>映射配置
     /// </summary>
-    public class <%= SafeClassName %>Map : Util.Datas.Ef.SqlServer.AggregateRootMapBase<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>> {
+    public class <%= SafeClassName %>Map : Util.Datas.Ef.SqlServer.Map<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>> {
         /// <summary>
         /// 映射表
         /// </summary>
-        protected override void MapTable( EntityTypeBuilder<Order> builder ) {
+        protected override void MapTable( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
             builder.ToTable( "<%= Entity.TableName %>", "<%= Entity.TableSchema %>" );
         }
         
         /// <summary>
         /// 映射属性
         /// </summary>
-        protected override void MapProperties( EntityTypeBuilder<Order> builder ) {
+        protected override void MapProperties( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
             base.MapProperties( builder );
             <%
             foreach(var p in Entity.Properties)
@@ -48,7 +48,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
         /// <summary>
         /// 映射导航属性
         /// </summary>
-        protected override void MapAssociations( EntityTypeBuilder<Order> builder ) {
+        protected override void MapAssociations( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
             <%
             foreach(var r in Entity.Relationships.Where(e => e.IsMapped))
             {

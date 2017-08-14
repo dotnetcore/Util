@@ -19,7 +19,7 @@
 <% string Description = Entity.Description; %>
 using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
 using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
-using Util.Datas.Ef;
+using Util.Datas.Ef.Core;
 
 namespace <%= Entity.GetNamespace(Namespace,"Datas.Repositories") %> {
     /// <summary>

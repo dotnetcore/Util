@@ -10,14 +10,6 @@ namespace Util.Tests.Domains {
     /// </summary>
     public class GuidEntityTest {
         /// <summary>
-        /// 测试初始化
-        /// </summary>
-        public GuidEntityTest() {
-            _sample = new AggregateRootSample();
-            _sample2 = new AggregateRootSample();
-        }
-
-        /// <summary>
         /// 聚合根测试样例
         /// </summary>
         private AggregateRootSample _sample;
@@ -25,6 +17,14 @@ namespace Util.Tests.Domains {
         /// 聚合根测试样例2
         /// </summary>
         private AggregateRootSample _sample2;
+
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
+        public GuidEntityTest() {
+            _sample = new AggregateRootSample();
+            _sample2 = new AggregateRootSample();
+        }
 
         /// <summary>
         /// 测试实体相等性 - 判空

@@ -13,7 +13,7 @@ namespace Util.Tests.Samples {
         /// 初始化聚合根测试样例
         /// </summary>
         public AggregateRootSample()
-            : this( Guid.NewGuid() ) {
+            : this( Guid.Empty ) {
         }
 
         /// <summary>

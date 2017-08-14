@@ -5,6 +5,10 @@
     <AssemblyName>Util.Datas.Tests.Integration</AssemblyName>
     <RootNamespace>Util.Datas.Tests</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SqlServer\Scripts\Pd\Samples.pdb" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
@@ -18,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SqlServer\Repositories\" />
     <Folder Include="SqlServer\Scripts\Pd\" />
   </ItemGroup>
 

@@ -8,7 +8,7 @@ namespace Util.Datas.Queries.Criterias {
     /// 或查询条件
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public class OrCriteria<TEntity> : ICriteria<TEntity> where TEntity : class, IAggregateRoot {
+    public class OrCriteria<TEntity> : ICriteria<TEntity> where TEntity : class {
         /// <summary>
         /// 初始化查询条件
         /// </summary>

@@ -86,6 +86,27 @@
 <%@ Register Name="RepositoryClass"
              Template="Templates\Datas\Repository.cst"
              MergeProperties="False" %>
+<%@ Register Name="PoClass"
+             Template="Templates\PersistObjects\Datas\Po.cst"
+             MergeProperties="False" %>
+<%@ Register Name="PoExtensionClass"
+             Template="Templates\PersistObjects\Datas\PoExtension.cst"
+             MergeProperties="False" %>
+<%@ Register Name="SqlServerPoMappingClass"
+             Template="Templates\PersistObjects\Datas\SqlServer\PoMapping.cst"
+             MergeProperties="False" %>
+<%@ Register Name="PoIRepositoryClass"
+             Template="Templates\PersistObjects\Domains\IRepository.cst"
+             MergeProperties="False" %>
+<%@ Register Name="PoRepositoryClass"
+             Template="Templates\PersistObjects\Datas\Repository.cst"
+             MergeProperties="False" %>
+<%@ Register Name="IStoreClass"
+             Template="Templates\PersistObjects\Datas\IStore.cst"
+             MergeProperties="False" %>
+<%@ Register Name="StoreClass"
+             Template="Templates\PersistObjects\Datas\Store.cst"
+             MergeProperties="False" %>
 <%@ Register Name="IUnitOfWorkClass"
              Template="Templates\Datas\IUnitOfWork.cst"
              MergeProperties="False" %>
@@ -131,6 +152,20 @@
         CreateIRepository(context);
         //创建仓储
         CreateRepository( context );
+        //创建持久对象
+        CreatePo( context );
+        //创建持久对象扩展
+        CreatePoExtension( context );
+        //创建持久对象Sql Server映射
+        CreateSqlServerPoMapping(context);
+        //创建持久化对象仓储接口
+        CreatePoIRepository(context);
+        //创建持久化对象仓储
+        CreatePoRepository( context );
+        //创建持久化对象存储接口
+        CreateIStore( context );
+        //创建持久化对象存储
+        CreateStore( context );
         //创建工作单元接口
         CreateIUnitOfWork(context);
         //创建Sql Server工作单元
@@ -228,7 +263,7 @@
         return Namespace;
     }
     
-        //创建Ioc配置
+    //创建Ioc配置
     public void CreateIocConfig(EntityContext entityContext)
     {
         IocConfigClass result = this.Create<IocConfigClass>();
@@ -240,7 +275,7 @@
         result.RenderToFile(GetPath(className,"Services\\Configs"), true);
     }
 
-        //创建实体
+    //创建实体
     public void CreateEntity(EntityContext entityContext)
     {
         EntityBaseClass generatedClass = this.Create<EntityBaseClass>();
@@ -289,6 +324,109 @@
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
             result.RenderToFile(GetPath(className,"Datas\\Repositories\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建持久对象
+    public void CreatePo(EntityContext entityContext)
+    {
+        PoClass result = this.Create<PoClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Po", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);  
+            result.RenderToFile(GetPath(className,"PersistObjects\\Datas\\Pos\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建持久对象扩展
+    public void CreatePoExtension(EntityContext entityContext)
+    {
+        PoExtensionClass result = this.Create<PoExtensionClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "Extension.{0}Po", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);  
+            result.RenderToFile(GetPath(className,"PersistObjects\\Datas\\Pos\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建持久对象Sql Server映射
+    public void CreateSqlServerPoMapping(EntityContext entityContext)
+    {
+        SqlServerPoMappingClass result = this.Create<SqlServerPoMappingClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}PoMap", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"PersistObjects\\Datas\\SqlServer\\Mappings\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建创建持久化对象仓储接口
+    public void CreatePoIRepository(EntityContext entityContext){
+        PoIRepositoryClass result = this.Create<PoIRepositoryClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "I{0}Repository", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);            
+            result.RenderToFile(GetPath(className,"PersistObjects\\Domains\\Repositories"), true);
+        }        
+    }
+    
+    //创建持久化对象仓储
+    public void CreatePoRepository(EntityContext entityContext)
+    {
+        PoRepositoryClass result = this.Create<PoRepositoryClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Repository", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.UnitOfWork = GetUnitOfWork(entityContext);
+            result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
+            result.RenderToFile(GetPath(className,"PersistObjects\\Datas\\Repositories\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建持久化对象存储接口
+    public void CreateIStore(EntityContext entityContext)
+    {
+        IStoreClass result = this.Create<IStoreClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "I{0}PoStore", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.UnitOfWork = GetUnitOfWork(entityContext);
+            result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
+            result.RenderToFile(GetPath(className,"PersistObjects\\Datas\\Stores\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建持久化对象存储
+    public void CreateStore(EntityContext entityContext)
+    {
+        StoreClass result = this.Create<StoreClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}PoStore", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.UnitOfWork = GetUnitOfWork(entityContext);
+            result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
+            result.RenderToFile(GetPath(className,"PersistObjects\\Datas\\Stores\\" + GetSchema(entity) ), true);
         }
     }
     

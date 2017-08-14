@@ -1,4 +1,6 @@
-﻿namespace Util.Datas.Tests.SqlServer.UnitOfWorks {
+﻿using Util.Datas.Tests.SqlServer.Confis;
+
+namespace Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks {
     /// <summary>
     /// SqlServer工作单元
     /// </summary>
@@ -6,7 +8,7 @@
         /// <summary>
         /// 初始化SqlServer工作单元
         /// </summary>
-        public SqlServerUnitOfWork() : base( "Server=.\\sql2014;Database=UtilTest;uid=sa;pwd=sa;" ) {
+        public SqlServerUnitOfWork() : base( AppConfig.Connection ) {
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Util.Datas.Queries.Criterias {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TProperty">属性类型</typeparam>
-    public class DateTimeSegmentCriteria<TEntity, TProperty> : SegmentCriteriaBase<TEntity, TProperty, DateTime> where TEntity : class,IAggregateRoot {
+    public class DateTimeSegmentCriteria<TEntity, TProperty> : SegmentCriteriaBase<TEntity, TProperty, DateTime> where TEntity : class {
         /// <summary>
         /// 初始化日期范围过滤条件 - 包含时间
         /// </summary>

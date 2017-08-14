@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Util.Datas.Tests.Samples;
+using Util.Datas.Tests.Samples.Domains.Models;
 
-namespace Util.Datas.Tests.SqlServer.Mappings {
+namespace Util.Datas.Tests.Samples.Datas.SqlServer.Mappings {
     /// <summary>
-    /// 订单映射 - SqlServer
+    /// 订单映射配置
     /// </summary>
-    public class OrderMap : Util.Datas.Ef.SqlServer.AggregateRootMapBase<Order> {
+    public class OrderMap : Util.Datas.Ef.SqlServer.Map<Order> {
         /// <summary>
         /// 映射表
         /// </summary>
@@ -19,7 +19,9 @@ namespace Util.Datas.Tests.SqlServer.Mappings {
         /// </summary>
         protected override void MapProperties( EntityTypeBuilder<Order> builder ) {
             base.MapProperties( builder );
-            builder.Property( t => t.Id ).HasColumnName( "OrderId" );
+            //订单编号
+            builder.Property( t => t.Id )
+                .HasColumnName( "OrderId" );
         }
     }
 }

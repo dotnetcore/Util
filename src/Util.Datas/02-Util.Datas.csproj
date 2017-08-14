@@ -5,6 +5,7 @@
     <TargetFrameworks>netstandard2.0;</TargetFrameworks>
     <AssemblyName>Util.Datas</AssemblyName>
     <PackageTags>$(PackageTags);</PackageTags>
+    <RootNamespace>Util.Datas</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
