@@ -85,6 +85,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             var order = new Order( id ) { Name = "Name", Code = "Code" };
             _orderRepository.Add( order );
             _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
 
             var result = _orderRepository.Find( id );
             result.Code = "B";

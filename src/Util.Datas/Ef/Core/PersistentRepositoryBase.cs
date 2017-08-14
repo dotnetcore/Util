@@ -11,7 +11,7 @@ namespace Util.Datas.Ef.Core {
     /// <typeparam name="TPo">持久化对象类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract class PersistentRepositoryBase<TEntity, TPo, TKey> : ICompactRepository<TEntity, TKey>
-        where TEntity : class, IAggregateRoot
+        where TEntity : class, IAggregateRoot<TKey>
         where TPo : class,IPersistentObject<TKey> {
         /// <summary>
         /// 持久化存储
@@ -84,7 +84,16 @@ namespace Util.Datas.Ef.Core {
         /// <param name="newEntity">新实体</param>
         /// <param name="oldEntity">旧实体</param>
         public void Update( TEntity newEntity, TEntity oldEntity ) {
-            _store.Update( ToPo( newEntity ), ToPo( oldEntity ) );
+            _store.Update( ToPo( newEntity ), _store.Find( oldEntity.Id ) );
+        }
+
+        /// <summary>
+        /// 异步修改实体
+        /// </summary>
+        /// <param name="newEntity">新实体</param>
+        /// <param name="oldEntity">旧实体</param>
+        public async Task UpdateAsync( TEntity newEntity, TEntity oldEntity ) {
+            _store.Update( ToPo( newEntity ), await _store.FindAsync( oldEntity.Id ) );
         }
     }
 }
