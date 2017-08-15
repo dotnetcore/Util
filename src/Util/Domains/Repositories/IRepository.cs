@@ -38,7 +38,22 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 移除实体
         /// </summary>
+        /// <param name="id">实体标识</param>
+        void Remove( TKey id );
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        Task RemoveAsync( TKey id );
+        /// <summary>
+        /// 移除实体
+        /// </summary>
         /// <param name="entity">实体</param>
         void Remove( TEntity entity );
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        Task RemoveAsync( TEntity entity );
     }
 }

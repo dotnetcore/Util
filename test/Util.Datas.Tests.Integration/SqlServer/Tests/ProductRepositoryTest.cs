@@ -171,6 +171,44 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
+        /// 测试删除 - 传入实体标识
+        /// </summary>
+        [Fact]
+        public void TestRemove_Key() {
+            int id = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            _productRepository.Add( product );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            _productRepository.Remove( id );
+            _unitOfWork.Commit();
+
+            var result = _productRepository.GetById( id );
+            Assert.NotNull( result );
+            Assert.True( result.IsDeleted );
+        }
+
+        /// <summary>
+        /// 测试异步删除 - 传入实体标识
+        /// </summary>
+        [Fact]
+        public async Task TestRemoveAsync_Key() {
+            int id = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            await _productRepository.AddAsync( product );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            await _productRepository.RemoveAsync( id );
+            await _unitOfWork.CommitAsync();
+
+            var result = _productRepository.GetById( id );
+            Assert.NotNull( result );
+            Assert.True( result.IsDeleted );
+        }
+
+        /// <summary>
         /// 测试删除 - 传入实体
         /// </summary>
         [Fact]
@@ -184,6 +222,26 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             product = _productRepository.Find( id );
             _productRepository.Remove( product );
             _unitOfWork.Commit();
+
+            var result = _productRepository.GetById( id );
+            Assert.NotNull( result );
+            Assert.True( result.IsDeleted );
+        }
+
+        /// <summary>
+        /// 测试异步删除 - 传入实体
+        /// </summary>
+        [Fact]
+        public async Task TestRemoveAsync_Entity() {
+            int id = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            await _productRepository.AddAsync( product );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            product = await _productRepository.FindAsync( id );
+            await _productRepository.RemoveAsync( product );
+            await _unitOfWork.CommitAsync();
 
             var result = _productRepository.GetById( id );
             Assert.NotNull( result );

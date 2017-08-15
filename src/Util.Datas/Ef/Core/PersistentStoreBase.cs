@@ -131,9 +131,33 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除持久化对象
         /// </summary>
+        /// <param name="id">持久化对象标识</param>
+        public void Remove( TKey id ) {
+            _wrapper.Remove( id );
+        }
+
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
+        /// <param name="id">持久化对象标识</param>
+        public async Task RemoveAsync( TKey id ) {
+            await _wrapper.RemoveAsync( id );
+        }
+
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
         /// <param name="po">持久化对象</param>
         public void Remove( TPo po ) {
             _wrapper.Remove( po );
+        }
+
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
+        /// <param name="po">持久化对象</param>
+        public async Task RemoveAsync( TPo po ) {
+            await _wrapper.RemoveAsync( po );
         }
     }
 }

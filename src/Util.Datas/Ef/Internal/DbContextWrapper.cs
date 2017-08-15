@@ -130,16 +130,52 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 移除实体
         /// </summary>
+        /// <param name="id">实体标识</param>
+        public void Remove( TKey id ) {
+            var entity = Find( id );
+            Remove( entity );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        public async Task RemoveAsync( TKey id ) {
+            var entity = await FindAsync( id );
+            await RemoveAsync( entity );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
         public void Remove( TEntity entity ) {
             if( entity == null )
                 return;
             entity = Find( entity.Id );
+            Delete( entity );
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        private void Delete( TEntity entity ) {
             IDelete model = entity as IDelete;
             if( model == null ) {
                 Set.Remove( entity );
                 return;
             }
             model.IsDeleted = true;
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        public async Task RemoveAsync( TEntity entity ) {
+            if( entity == null )
+                return;
+            entity = await FindAsync( entity.Id );
+            Delete( entity );
         }
     }
 }

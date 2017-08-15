@@ -135,9 +135,33 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除实体
         /// </summary>
+        /// <param name="id">实体标识</param>
+        public void Remove( TKey id ) {
+            _wrapper.Remove( id );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        public async Task RemoveAsync( TKey id ) {
+            await _wrapper.RemoveAsync( id );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
         /// <param name="entity">实体</param>
         public void Remove( TEntity entity ) {
             _wrapper.Remove( entity );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        public async Task RemoveAsync( TEntity entity ) {
+            await _wrapper.RemoveAsync( entity );
         }
     }
 }

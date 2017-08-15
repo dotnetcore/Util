@@ -151,7 +151,43 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试删除 - 通过实体删除 - Find查出来，扔进Remove
+        /// 测试删除 - 通过实体标识删除
+        /// </summary>
+        [Fact]
+        public void TestRemove_Key() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( order );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            _orderRepository.Remove( id );
+            _unitOfWork.Commit();
+
+            var result = _orderRepository.Single( t => t.Id == id );
+            Assert.Null( result );
+        }
+
+        /// <summary>
+        /// 测试异步删除 - 通过实体标识删除
+        /// </summary>
+        [Fact]
+        public async Task TestRemoveAsync_Key() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            await _orderRepository.AddAsync( order );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            await _orderRepository.RemoveAsync( id );
+            await _unitOfWork.CommitAsync();
+
+            var result = await _orderRepository.SingleAsync( t => t.Id == id );
+            Assert.Null( result );
+        }
+
+        /// <summary>
+        /// 测试删除 - 通过实体删除 - Find查出来，Remove
         /// </summary>
         [Fact]
         public void TestRemove_Entity() {
@@ -171,7 +207,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试删除 - 通过实体删除 - 创建待删除实体
+        /// 测试删除 - 通过实体删除 - 创建待删除实体,Remove
         /// </summary>
         [Fact]
         public void TestRemove_Entity_2() {
@@ -187,6 +223,26 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _unitOfWork.Commit();
 
             var result = _orderRepository.Single( t => t.Id == id );
+            Assert.Null( result );
+        }
+
+        /// <summary>
+        /// 测试异步删除 - 通过实体删除
+        /// </summary>
+        [Fact]
+        public async Task TestRemoveAsync_Entity() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            await _orderRepository.AddAsync( order );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            order = await _orderRepository.FindAsync( id );
+            Assert.NotNull( order );
+            await _orderRepository.RemoveAsync( order );
+            await _unitOfWork.CommitAsync();
+
+            var result = await _orderRepository.SingleAsync( t => t.Id == id );
             Assert.Null( result );
         }
     }

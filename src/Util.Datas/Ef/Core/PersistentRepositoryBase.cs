@@ -13,7 +13,7 @@ namespace Util.Datas.Ef.Core {
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract class PersistentRepositoryBase<TEntity, TPo, TKey> : ICompactRepository<TEntity, TKey>
         where TEntity : class, IAggregateRoot<TKey>
-        where TPo : class,IPersistentObject<TKey> {
+        where TPo : class, IPersistentObject<TKey> {
         /// <summary>
         /// 持久化存储
         /// </summary>
@@ -90,9 +90,33 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除实体
         /// </summary>
+        /// <param name="id">实体标识</param>
+        public void Remove( TKey id ) {
+            _store.Remove( id );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        public async Task RemoveAsync( TKey id ) {
+            await _store.RemoveAsync( id );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
         /// <param name="entity">实体</param>
         public void Remove( TEntity entity ) {
             _store.Remove( ToPo( entity ) );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        public async Task RemoveAsync( TEntity entity ) {
+            await _store.RemoveAsync( ToPo( entity ) );
         }
     }
 }

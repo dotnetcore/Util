@@ -64,7 +64,22 @@ namespace Util.Datas.Persistence {
         /// <summary>
         /// 移除持久化对象
         /// </summary>
+        /// <param name="id">持久化对象标识</param>
+        void Remove( TKey id );
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
+        /// <param name="id">持久化对象标识</param>
+        Task RemoveAsync( TKey id );
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
         /// <param name="po">持久化对象</param>
         void Remove( TPo po );
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
+        /// <param name="po">持久化对象</param>
+        Task RemoveAsync( TPo po );
     }
 }
