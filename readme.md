@@ -118,8 +118,8 @@ Util暂时未发布到Nuget，待成熟后发布。
 > 如果没有标注版本号，则采用最新版本。
 
 1. 开发工具： 
-  - Visual Studio 2017 Preview version 15.3
-  - Resharper 尚未支持，暂停使用
+  - Visual Studio 2017 15.3
+  - Resharper 2017.2 EAP 11
 
 2. 数据库
   - Sql Server
@@ -145,10 +145,10 @@ Util暂时未发布到Nuget，待成熟后发布。
   - NSubstitute
 
 8. ORM
-  - EF Core 2.0.0-preview2-final
-  - Microsoft.EntityFrameworkCore.SqlServer 2.0.0-preview2-final
+  - Microsoft.EntityFrameworkCore 2.0
+  - Microsoft.EntityFrameworkCore.SqlServer 2.0.0
   - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0-preview2-final
-  - Pomelo.EntityFrameworkCore.MySql 2.0.0-preview2-10046
+  - Pomelo.EntityFrameworkCore.MySql 2.0.0-preview3-10055
 
 9. Ioc框架
   - Autofac
