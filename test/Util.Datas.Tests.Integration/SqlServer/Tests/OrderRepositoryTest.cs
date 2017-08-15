@@ -5,16 +5,16 @@ using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.Datas.Tests.SqlServer.Confis;
+using Util.Datas.Tests.XUnitHelpers;
 using Util.Exceptions;
 using Util.Helpers;
-using Util.Tests.XUnitHelpers;
 using Xunit;
 
 namespace Util.Datas.Tests.SqlServer.Tests {
     /// <summary>
     /// 订单仓储测试
     /// </summary>
-    public class OrderRepositoryTest : IDisposable{
+    public class OrderRepositoryTest : IDisposable {
         /// <summary>
         /// 容器
         /// </summary>
@@ -83,11 +83,11 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
 
-            var result = _orderRepository.Find( id );
-            result.Code = "B";
+            order = _orderRepository.Find( id );
+            order.Code = "B";
             _unitOfWork.Commit();
 
-            result = _orderRepository.Single( t => t.Id == id );
+            var result = _orderRepository.Single( t => t.Id == id );
             Assert.Equal( "B", result.Code );
         }
 
@@ -95,7 +95,6 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 测试更新 - 修改方式2：创建出修改对象，调用仓储的Update，提交工作单元
         /// 应用场景：通过Http Put方法传入DTO,该DTO包含待修改实体的全部属性，将该DTO转成待更新实体
         /// 注意：创建的更新实体必须包含全部数据，否则导致数据丢失
-        /// 缺点：整体更新，生成的更新SQL会更新所有字段
         /// </summary>
         [Fact]
         public void TestUpdate_2() {
@@ -105,8 +104,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
 
-            var oldEntity = _orderRepository.Find( id );
-            order = new Order( id ) { Name = "Name", Code = "B",Version = oldEntity.Version };
+            order = new Order( id ) { Name = "Name", Code = "B", Version = order.Version };
             _orderRepository.Update( order );
             _unitOfWork.Commit();
 
@@ -126,7 +124,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _unitOfWork.ClearCache();
 
             AssertHelper.Throws<ConcurrencyException>( () => {
-                var order2 = new Order( id ) { Name = "Name", Code = "B",Version = Guid.NewGuid().ToByteArray() };
+                var order2 = new Order( id ) { Name = "Name", Code = "B", Version = Guid.NewGuid().ToByteArray() };
                 _orderRepository.Update( order2 );
                 _unitOfWork.Commit();
             } );
@@ -150,6 +148,46 @@ namespace Util.Datas.Tests.SqlServer.Tests {
 
             var result = await _orderRepository.SingleAsync( t => t.Id == id );
             Assert.Equal( "B", result.Code );
+        }
+
+        /// <summary>
+        /// 测试删除 - 通过实体删除 - Find查出来，扔进Remove
+        /// </summary>
+        [Fact]
+        public void TestRemove_Entity() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( order );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            order = _orderRepository.Find( id );
+            Assert.NotNull( order );
+            _orderRepository.Remove( order );
+            _unitOfWork.Commit();
+
+            var result = _orderRepository.Single( t => t.Id == id );
+            Assert.Null( result );
+        }
+
+        /// <summary>
+        /// 测试删除 - 通过实体删除 - 创建待删除实体
+        /// </summary>
+        [Fact]
+        public void TestRemove_Entity_2() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( order );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            _orderRepository.Find( id );
+            order = new Order( id ) { Name = "Name", Code = "Code", Version = order.Version };
+            _orderRepository.Remove( order );
+            _unitOfWork.Commit();
+
+            var result = _orderRepository.Single( t => t.Id == id );
+            Assert.Null( result );
         }
     }
 }

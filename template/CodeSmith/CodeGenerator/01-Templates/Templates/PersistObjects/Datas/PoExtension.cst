@@ -30,7 +30,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Pos") %> {
         /// <param name="po"><%= Description %>持久化对象</param>
         public static <%= SafeClassName %> ToEntity( this <%= SafeClassName %>Po po ) {
             if ( po == null )
-                return new <%= SafeClassName %>();
+                return null;
             return po.MapTo( new <%= SafeClassName %>( po.Id ) );
         }
         
@@ -40,7 +40,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Pos") %> {
         /// <param name="po"><%= Description %>持久化对象</param>
         private static <%= SafeClassName %> ToEntity2( this <%= SafeClassName %>Po po ) {
             if( po == null )
-                return new <%= SafeClassName %>();
+                return null;
             return new <%= SafeClassName %>( po.Id ) {
                 <% foreach(Property p in Entity.Properties) { %>
                 <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
@@ -55,7 +55,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Pos") %> {
         /// <param name="entity"><%= Description %>实体</param>
         public static <%= SafeClassName %>Po ToPo(this <%= SafeClassName %> entity) {
             if( entity == null )
-                return new <%= SafeClassName %>Po();
+                return null;
             return entity.MapTo<<%= SafeClassName %>Po>();
         }
 
@@ -65,7 +65,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Pos") %> {
         /// <param name="entity"><%= Description %>实体</param>
         private static <%= SafeClassName %>Po ToPo2( this <%= SafeClassName %> entity ) {
             if( entity == null )
-                return new <%= SafeClassName %>Po();
+                return null;
             return new <%= SafeClassName %>Po {
                 <% foreach(Property p in Entity.Properties) { %>
                 <% if( p.IsPrimaryKey.SafeValue() ) {%>

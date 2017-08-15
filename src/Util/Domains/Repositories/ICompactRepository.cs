@@ -21,35 +21,35 @@ namespace Util.Domains.Repositories {
         /// </summary>
         /// <param name="id">实体标识</param>
         TEntity Find( object id );
-
         /// <summary>
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
         Task<TEntity> FindAsync( object id );
-
         /// <summary>
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
         void Add( TEntity entity );
-
         /// <summary>
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
         Task AddAsync( TEntity entity );
-
         /// <summary>
         /// 修改实体
         /// </summary>
         /// <param name="entity">实体</param>
         void Update( TEntity entity );
-
         /// <summary>
         /// 修改实体
         /// </summary>
         /// <param name="entity">实体</param>
         Task UpdateAsync( TEntity entity );
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        void Remove( TEntity entity );
     }
 }

@@ -67,6 +67,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="02-Result\Datas\IUtilTestUnitOfWork.cs" />
+    <Compile Include="02-Result\Datas\Repositories\Productions\ProductRepository.cs" />
+    <Compile Include="02-Result\Datas\Repositories\Sales\OrderRepository.cs" />
+    <Compile Include="02-Result\Datas\SqlServer\Mappings\Productions\ProductMap.cs" />
+    <Compile Include="02-Result\Datas\SqlServer\Mappings\Sales\OrderMap.cs" />
+    <Compile Include="02-Result\Datas\SqlServer\UtilTestUnitOfWork.cs" />
+    <Compile Include="02-Result\Domains\Models\Order.Base.cs">
+      <DependentUpon>Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="02-Result\Domains\Models\Order.cs" />
+    <Compile Include="02-Result\Domains\Models\Product.Base.cs">
+      <DependentUpon>Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="02-Result\Domains\Models\Product.cs" />
+    <Compile Include="02-Result\Domains\Repositories\IOrderRepository.cs" />
+    <Compile Include="02-Result\Domains\Repositories\IProductRepository.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Pos\Productions\Extension.ProductPo.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Pos\Productions\ProductPo.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Pos\Sales\Extension.OrderPo.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Pos\Sales\OrderPo.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Repositories\Productions\ProductRepository.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Repositories\Sales\OrderRepository.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\SqlServer\Mappings\Productions\ProductPoMap.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\SqlServer\Mappings\Sales\OrderPoMap.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Stores\Productions\IProductPoStore.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Stores\Productions\ProductPoStore.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Stores\Sales\IOrderPoStore.cs" />
+    <Compile Include="02-Result\PersistObjects\Datas\Stores\Sales\OrderPoStore.cs" />
+    <Compile Include="02-Result\PersistObjects\Domains\Repositories\IOrderRepository.cs" />
+    <Compile Include="02-Result\PersistObjects\Domains\Repositories\IProductRepository.cs" />
+    <Compile Include="02-Result\Services\Configs\IocConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="01-Templates\Common\Extensions.cs" />
     <Compile Include="01-Templates\Common\Generator.cs" />

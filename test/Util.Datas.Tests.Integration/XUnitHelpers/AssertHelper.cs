@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Util.Tests.XUnitHelpers {
+namespace Util.Datas.Tests.XUnitHelpers {
     /// <summary>
     /// 断言操作
     /// </summary>

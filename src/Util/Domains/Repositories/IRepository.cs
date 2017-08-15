@@ -6,7 +6,7 @@ namespace Util.Domains.Repositories {
     /// 仓储
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface IRepository<TEntity> : IRepository<TEntity, Guid> where TEntity : class, IAggregateRoot {
+    public interface IRepository<TEntity> : IRepository<TEntity, Guid>, IReadableRepository<TEntity> where TEntity : class, IAggregateRoot {
     }
 
     /// <summary>
@@ -35,5 +35,10 @@ namespace Util.Domains.Repositories {
         /// </summary>
         /// <param name="entity">实体</param>
         Task UpdateAsync( TEntity entity );
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        void Remove( TEntity entity );
     }
 }

@@ -61,5 +61,10 @@ namespace Util.Datas.Persistence {
         /// </summary>
         /// <param name="po">持久化对象</param>
         Task UpdateAsync( TPo po );
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
+        /// <param name="po">持久化对象</param>
+        void Remove( TPo po );
     }
 }

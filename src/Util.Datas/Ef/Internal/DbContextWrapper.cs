@@ -11,7 +11,7 @@ namespace Util.Datas.Ef.Internal {
     /// <summary>
     /// 数据上下文包装器
     /// </summary>
-    internal class DbContextWrapper<TEntity, TKey> where TEntity : class, IVersion {
+    internal class DbContextWrapper<TEntity, TKey> where TEntity : class, IKey<TKey>, IVersion {
         /// <summary>
         /// 初始化数据上下文包装器
         /// </summary>
@@ -125,6 +125,21 @@ namespace Util.Datas.Ef.Internal {
                 if( newEntity.Version[i] != oldEntity.Version[i] )
                     throw new ConcurrencyException( $"新实体:{newEntity.SafeString()},旧实体:{oldEntity.SafeString()}" );
             }
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        public void Remove( TEntity entity ) {
+            if( entity == null )
+                return;
+            entity = Find( entity.Id );
+            IDelete model = entity as IDelete;
+            if( model == null ) {
+                Set.Remove( entity );
+                return;
+            }
+            model.IsDeleted = true;
         }
     }
 }

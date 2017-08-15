@@ -169,5 +169,25 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             Assert.Equal( "C", result.Code );
             _unitOfWork.ClearCache();
         }
+
+        /// <summary>
+        /// 测试删除 - 传入实体
+        /// </summary>
+        [Fact]
+        public void TestRemove_Entity() {
+            int id = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            _productRepository.Add( product );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            product = _productRepository.Find( id );
+            _productRepository.Remove( product );
+            _unitOfWork.Commit();
+
+            var result = _productRepository.GetById( id );
+            Assert.NotNull( result );
+            Assert.True( result.IsDeleted );
+        }
     }
 }

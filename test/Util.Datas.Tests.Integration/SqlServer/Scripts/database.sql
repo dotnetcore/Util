@@ -150,6 +150,7 @@ create table Productions.Products (
    Code                 nvarchar(30)         not null,
    Name                 nvarchar(200)        not null,
    Extends              nvarchar(max)        null,
+   IsDeleted            bit                  not null,
    Version              timestamp            null,
    constraint PK_PRODUCTS primary key (ProductId)
 )
@@ -231,6 +232,22 @@ end
 execute sp_addextendedproperty 'MS_Description', 
    '扩展属性',
    'schema', 'Productions', 'table', 'Products', 'column', 'Extends'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Productions.Products')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'IsDeleted')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Productions', 'table', 'Products', 'column', 'IsDeleted'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '是否删除',
+   'schema', 'Productions', 'table', 'Products', 'column', 'IsDeleted'
 go
 
 if exists(select 1 from sys.extended_properties p where

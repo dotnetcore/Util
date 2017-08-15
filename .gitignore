@@ -6,3 +6,4 @@ obj/
 bin/
 BenchmarkDotNet.Artifacts/
 /output
+/template/CodeSmith/CodeGenerator/02-Result

@@ -1,10 +1,11 @@
 ﻿using Util.Datas.Persistence;
+using Util.Domains;
 
 namespace Util.Datas.Tests.Samples.Datas.Pos {
     /// <summary>
     /// 商品持久化对象
     /// </summary>
-    public class ProductPo : PersistentObjectBase<int> {
+    public class ProductPo : PersistentObjectBase<int>, IDelete {
         /// <summary>
         /// 商品编码
         /// </summary>  
@@ -17,5 +18,9 @@ namespace Util.Datas.Tests.Samples.Datas.Pos {
         /// 扩展属性
         /// </summary>  
         public string Extends { get; set; }
+        /// <summary>
+        /// 是否删除
+        /// </summary>  
+        public bool IsDeleted { get; set; }
     }
 }

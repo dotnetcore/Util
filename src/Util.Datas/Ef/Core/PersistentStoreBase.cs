@@ -127,5 +127,13 @@ namespace Util.Datas.Ef.Core {
             var old = await FindAsync( po.Id );
             _wrapper.Update( po, old );
         }
+
+        /// <summary>
+        /// 移除持久化对象
+        /// </summary>
+        /// <param name="po">持久化对象</param>
+        public void Remove( TPo po ) {
+            _wrapper.Remove( po );
+        }
     }
 }

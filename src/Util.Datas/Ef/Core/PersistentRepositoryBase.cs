@@ -86,5 +86,13 @@ namespace Util.Datas.Ef.Core {
         public async Task UpdateAsync( TEntity entity ) {
             await _store.UpdateAsync( ToPo( entity ) );
         }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        public void Remove( TEntity entity ) {
+            _store.Remove( ToPo( entity ) );
+        }
     }
 }

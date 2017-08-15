@@ -12,7 +12,7 @@ namespace Util.Datas.Ef.Core {
     /// 仓储
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, Guid>, IRepository<TEntity>, IReadableRepository<TEntity>
+    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, Guid>, IRepository<TEntity>
         where TEntity : class, IAggregateRoot<TEntity, Guid> {
         /// <summary>
         /// 初始化仓储
@@ -130,6 +130,14 @@ namespace Util.Datas.Ef.Core {
                 throw new ArgumentNullException( nameof( entity ) );
             var oldEntity = await _wrapper.FindAsync( entity.Id );
             _wrapper.Update( entity, oldEntity );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        public void Remove( TEntity entity ) {
+            _wrapper.Remove( entity );
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
     /// 商品 - int标识
     /// </summary>
     [Description( "商品" )]
-    public class Product : AggregateRoot<Product, int> {
+    public class Product : AggregateRoot<Product, int>, IDelete {
         /// <summary>
         /// 初始化商品
         /// </summary>
@@ -37,6 +37,11 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         /// 商品类型
         /// </summary>
         public ProductType ProductType { get; set; }
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        [Required( ErrorMessage = "是否删除不能为空" )]
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// 添加描述

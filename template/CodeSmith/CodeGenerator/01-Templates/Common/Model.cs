@@ -254,9 +254,7 @@ namespace SchemaMapper
         {
             StringBuilder result = new StringBuilder();
             result.Append(GetTreeEntity());
-            result.Append(GetITenant());
-            result.Append(GetISoftDelete());
-            result.Append(GetIAudited());
+            result.Append(GetInterfaces());
             return result.ToString();
         }
 
@@ -279,6 +277,15 @@ namespace SchemaMapper
         {
             StringBuilder result = new StringBuilder();
             result.Append(GetAggregateRoot());
+            result.Append(GetInterfaces());
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// 获取需要实现的接口
+        /// </summary>
+        public string GetInterfaces() {
+            StringBuilder result = new StringBuilder();
             result.Append(GetITenant());
             result.Append(GetISoftDelete());
             result.Append(GetIAudited());
