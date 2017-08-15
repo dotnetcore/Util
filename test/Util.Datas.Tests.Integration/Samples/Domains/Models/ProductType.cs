@@ -28,6 +28,6 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         /// <summary>
         /// 商品属性集合
         /// </summary>
-        public IReadOnlyCollection<ProductProperty> Properties => _properties.AsReadOnly();
+        public IReadOnlyCollection<ProductProperty> Properties => _properties?.AsReadOnly();
     }
 }

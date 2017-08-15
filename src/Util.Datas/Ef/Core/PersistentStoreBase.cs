@@ -111,16 +111,21 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="po">持久化对象</param>
         public void Update( TPo po ) {
-            _wrapper.Update( po );
+            if( po == null )
+                throw new ArgumentNullException( nameof( po ) );
+            var old = Find( po.Id );
+            _wrapper.Update( po, old );
         }
 
         /// <summary>
         /// 修改持久化对象
         /// </summary>
-        /// <param name="newPo">新持久化对象</param>
-        /// <param name="oldPo">旧持久化对象</param>
-        public void Update( TPo newPo, TPo oldPo ) {
-            _wrapper.Update( newPo, oldPo );
+        /// <param name="po">持久化对象</param>
+        public async Task UpdateAsync( TPo po ) {
+            if( po == null )
+                throw new ArgumentNullException( nameof( po ) );
+            var old = await FindAsync( po.Id );
+            _wrapper.Update( po, old );
         }
     }
 }

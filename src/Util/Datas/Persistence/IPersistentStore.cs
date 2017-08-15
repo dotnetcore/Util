@@ -59,8 +59,7 @@ namespace Util.Datas.Persistence {
         /// <summary>
         /// 修改持久化对象
         /// </summary>
-        /// <param name="newPo">新持久化对象</param>
-        /// <param name="oldPo">旧持久化对象</param>
-        void Update( TPo newPo, TPo oldPo );
+        /// <param name="po">持久化对象</param>
+        Task UpdateAsync( TPo po );
     }
 }

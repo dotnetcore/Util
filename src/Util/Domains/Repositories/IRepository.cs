@@ -33,8 +33,7 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 修改实体
         /// </summary>
-        /// <param name="newEntity">新实体</param>
-        /// <param name="oldEntity">旧实体</param>
-        void Update( TEntity newEntity, TEntity oldEntity );
+        /// <param name="entity">实体</param>
+        Task UpdateAsync( TEntity entity );
     }
 }

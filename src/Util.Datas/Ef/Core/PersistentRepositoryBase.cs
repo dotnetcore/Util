@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Util.Datas.Persistence;
 using Util.Domains;
 using Util.Domains.Repositories;
@@ -81,19 +82,9 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 修改实体
         /// </summary>
-        /// <param name="newEntity">新实体</param>
-        /// <param name="oldEntity">旧实体</param>
-        public void Update( TEntity newEntity, TEntity oldEntity ) {
-            _store.Update( ToPo( newEntity ), _store.Find( oldEntity.Id ) );
-        }
-
-        /// <summary>
-        /// 异步修改实体
-        /// </summary>
-        /// <param name="newEntity">新实体</param>
-        /// <param name="oldEntity">旧实体</param>
-        public async Task UpdateAsync( TEntity newEntity, TEntity oldEntity ) {
-            _store.Update( ToPo( newEntity ), await _store.FindAsync( oldEntity.Id ) );
+        /// <param name="entity">实体</param>
+        public async Task UpdateAsync( TEntity entity ) {
+            await _store.UpdateAsync( ToPo( entity ) );
         }
     }
 }

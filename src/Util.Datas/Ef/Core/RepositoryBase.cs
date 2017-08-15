@@ -115,16 +115,21 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="entity">实体</param>
         public void Update( TEntity entity ) {
-            _wrapper.Update( entity );
+            if( entity == null )
+                throw new ArgumentNullException( nameof( entity ) );
+            var oldEntity = Find( entity.Id );
+            _wrapper.Update( entity, oldEntity );
         }
 
         /// <summary>
-        /// 修改实体
+        /// 异步修改实体
         /// </summary>
-        /// <param name="newEntity">新实体</param>
-        /// <param name="oldEntity">数据库中旧的实体</param>
-        public void Update( TEntity newEntity, TEntity oldEntity ) {
-            _wrapper.Update( newEntity, oldEntity );
+        /// <param name="entity">实体</param>
+        public async Task UpdateAsync( TEntity entity ) {
+            if( entity == null )
+                throw new ArgumentNullException( nameof( entity ) );
+            var oldEntity = await _wrapper.FindAsync( entity.Id );
+            _wrapper.Update( entity, oldEntity );
         }
     }
 }

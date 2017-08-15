@@ -39,7 +39,7 @@ namespace Util.Datas.Tests.Samples.Datas.SqlServer.Repositories {
         }
 
         /// <summary>
-        /// 通过编号获取商品 - 内部采用Single方法获取
+        /// 通过编号获取商品
         /// </summary>
         /// <param name="id">商品编号</param>
         public Product GetById( int id ) {
