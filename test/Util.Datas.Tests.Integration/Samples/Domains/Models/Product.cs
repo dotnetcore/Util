@@ -38,6 +38,11 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         /// </summary>
         public ProductType ProductType { get; set; }
         /// <summary>
+        /// 价格
+        /// </summary>
+        [DisplayName( "价格" )]
+        public decimal? Price { get; set; }
+        /// <summary>
         /// 是否删除
         /// </summary>
         [Required( ErrorMessage = "是否删除不能为空" )]

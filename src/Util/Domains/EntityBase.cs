@@ -7,6 +7,19 @@ namespace Util.Domains {
     /// 领域实体
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
+    public abstract class EntityBase<TEntity> : EntityBase<TEntity, Guid> where TEntity : IEntity {
+        /// <summary>
+        /// 初始化领域实体
+        /// </summary>
+        /// <param name="id">标识</param>
+        protected EntityBase( Guid id ) : base( id ){
+        }
+    }
+
+    /// <summary>
+    /// 领域实体
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">标识类型</typeparam>
     public abstract class EntityBase<TEntity, TKey> : DomainBase<TEntity>, IEntity<TEntity, TKey> where TEntity : IEntity {
         /// <summary>
@@ -27,7 +40,7 @@ namespace Util.Domains {
         /// <summary>
         /// 相等运算
         /// </summary>
-        public override bool Equals( object other ) {            
+        public override bool Equals( object other ) {
             return this == (EntityBase<TEntity, TKey>)other;
         }
 
@@ -43,7 +56,7 @@ namespace Util.Domains {
         /// </summary>
         public static bool operator ==( EntityBase<TEntity, TKey> left, EntityBase<TEntity, TKey> right ) {
             if( (object)left == null && (object)right == null )
-                return true;       
+                return true;
             if( !( left is TEntity ) || !( right is TEntity ) )
                 return false;
             if( Equals( left.Id, null ) )

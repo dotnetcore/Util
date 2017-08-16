@@ -4,24 +4,24 @@ using Util.Datas.Tests.Samples.Domains.Models;
 
 namespace Util.Datas.Tests.Samples.Datas.SqlServer.Mappings {
     /// <summary>
-    /// 订单映射配置
+    /// 订单明细映射配置
     /// </summary>
-    public class OrderMap : Util.Datas.Ef.SqlServer.AggregateRootMap<Order> {
+    public class OrderItemMap : Util.Datas.Ef.SqlServer.EntityMap<OrderItem> {
         /// <summary>
         /// 映射表
         /// </summary>
-        protected override void MapTable( EntityTypeBuilder<Order> builder ) {
-            builder.ToTable( "Orders", "Sales" );
+        protected override void MapTable( EntityTypeBuilder<OrderItem> builder ) {
+            builder.ToTable( "OrderItems", "Sales" );
         }
 
         /// <summary>
         /// 映射属性
         /// </summary>
-        protected override void MapProperties( EntityTypeBuilder<Order> builder ) {
+        protected override void MapProperties( EntityTypeBuilder<OrderItem> builder ) {
             base.MapProperties( builder );
-            //订单编号
+            //订单明细编号
             builder.Property( t => t.Id )
-                .HasColumnName( "OrderId" );
+                .HasColumnName( "OrderItemId" );
         }
     }
 }

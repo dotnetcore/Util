@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Util.Domains;
@@ -10,6 +11,11 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
     [Description( "订单" )]
     public class Order : AggregateRoot<Order> {
         /// <summary>
+        /// 订单明细列表
+        /// </summary>
+        private List<OrderItem> _items;
+
+        /// <summary>
         /// 初始化订单
         /// </summary>
         public Order() : this( Guid.Empty ) {
@@ -20,6 +26,7 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         /// </summary>
         /// <param name="id">订单标识</param>
         public Order( Guid id ) : base( id ) {
+            _items = new List<OrderItem>();
         }
 
         /// <summary>
@@ -36,21 +43,38 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         public string Name { get; set; }
 
         /// <summary>
-        /// 添加描述
+        /// 订单明细列表
         /// </summary>
-        protected override void AddDescriptions() {
-            AddDescription( "订单编号", Id );
-            AddDescription( "订单编码", Code );
-            AddDescription( "订单名称", Name );
+        public IReadOnlyCollection<OrderItem> Items {
+            get => _items;
+            set => _items = (List<OrderItem>)value;
         }
 
         /// <summary>
-        /// 添加变更列表
+        /// 添加订单明细
         /// </summary>
-        protected override void AddChanges( Order other ) {
-            AddChange( t => t.Id, other.Id );
-            AddChange( t => t.Code, other.Code );
-            AddChange( t => t.Name, other.Name );
+        /// <param name="product">商品</param>
+        /// <param name="quantity">数量</param>
+        public void AddItem( Product product, int quantity ) {
+            var item = new OrderItem( Guid.NewGuid(), this );
+            item.Booking( product, quantity );
+            _items.Add( item );
+        }
+
+        /// <summary>
+        /// 移除订单明细
+        /// </summary>
+        /// <param name="itemId">订单明细编号</param>
+        public void RemoveItem( Guid itemId ) {
+            _items.Remove( FindItem( itemId ) );
+        }
+
+        /// <summary>
+        /// 查找订单明细
+        /// </summary>
+        /// <param name="itemId">订单明细编号</param>
+        public OrderItem FindItem( Guid itemId ) {
+            return _items.Find( t => t.Id == itemId );
         }
     }
 }

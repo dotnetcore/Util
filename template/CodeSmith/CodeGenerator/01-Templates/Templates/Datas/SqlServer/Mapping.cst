@@ -24,7 +24,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
     /// <summary>
     /// <%= Description %>映射配置
     /// </summary>
-    public class <%= SafeClassName %>Map : Util.Datas.Ef.SqlServer.Map<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>> {
+    public class <%= SafeClassName %>Map : Util.Datas.Ef.SqlServer.AggregateRootMap<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>> {
         /// <summary>
         /// 映射表
         /// </summary>
@@ -171,13 +171,13 @@ public string RelationshipExpression(Relationship relationship)
 
     if (relationship.ThisCardinality == Cardinality.One)
     {
-        sb.Append("HasRequired(t => t.");
+        sb.Append("builder.HasOne(t => t.");
         sb.Append(relationship.ThisPropertyName);
         sb.Append(")");
     }
     else if (relationship.ThisCardinality == Cardinality.ZeroOrOne)
     {
-        sb.Append("HasOptional(t => t.");
+        sb.Append("builder.HasOptional(t => t.");
         sb.Append(relationship.ThisPropertyName);
         sb.Append(")");
     }

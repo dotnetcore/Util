@@ -19,6 +19,10 @@ namespace Util.Datas.Tests.Samples.Datas.Pos {
         /// </summary>  
         public string Extends { get; set; }
         /// <summary>
+        /// 价格
+        /// </summary>  
+        public decimal? Price { get; set; }
+        /// <summary>
         /// 是否删除
         /// </summary>  
         public bool IsDeleted { get; set; }

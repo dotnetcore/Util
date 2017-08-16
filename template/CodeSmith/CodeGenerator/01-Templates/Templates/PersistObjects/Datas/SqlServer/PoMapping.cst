@@ -24,7 +24,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
     /// <summary>
     /// <%= Description %>持久化对象映射配置
     /// </summary>
-    public class <%= SafeClassName %>PoMap : Util.Datas.Ef.SqlServer.Map<<%= SafeClassName %>Po> {
+    public class <%= SafeClassName %>PoMap : Util.Datas.Ef.SqlServer.AggregateRootMap<<%= SafeClassName %>Po> {
         /// <summary>
         /// 映射表
         /// </summary>

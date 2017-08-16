@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef;
+using Util.Datas.Tests.Samples.Datas.SqlServer.Repositories;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
@@ -27,6 +30,14 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 订单仓储
         /// </summary>
         private readonly IOrderRepository _orderRepository;
+        /// <summary>
+        /// 商品仓储
+        /// </summary>
+        private readonly IProductRepository _productRepository;
+        /// <summary>
+        /// 随机数操作
+        /// </summary>
+        private readonly Util.Helpers.Random _random;
 
         /// <summary>
         /// 测试初始化
@@ -35,6 +46,8 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _container = Ioc.CreateContainer( new IocConfig() );
             _unitOfWork = _container.Create<ISqlServerUnitOfWork>();
             _orderRepository = _container.Create<IOrderRepository>();
+            _productRepository = _container.Create<IProductRepository>();
+            _random = new Util.Helpers.Random();
         }
 
         /// <summary>
@@ -55,7 +68,45 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _unitOfWork.Commit();
 
             var result = _orderRepository.Single( t => t.Id == id );
-            Assert.Equal( id, result.Id );
+            Assert.Equal( "Name", result.Name );
+        }
+
+        /// <summary>
+        /// 测试添加 - 添加子实体
+        /// </summary>
+        [Fact]
+        public void TestAdd_Items() {
+            //创建两个商品
+            var product1 = new Product( _random.Next( 999999999 ) ) { Name = "dotnet", Code = "1", Price = 10 };
+            _productRepository.Add( product1 );
+            var product2 = new Product( _random.Next( 999999999 ) ) { Name = "dotnetcore", Code = "2", Price = 20 };
+            _productRepository.Add( product2 );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            //创建订单，添加两个订单明细
+            Guid orderId = Guid.NewGuid();
+            var order = new Order( orderId ) { Name = "Order", Code = "123" };
+            order.AddItem( product1, 2 );
+            order.AddItem( product2, 3 );
+            _orderRepository.Add( order );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            //验证
+            var result = _orderRepository.Find().Include( t => t.Items ).FirstOrDefault( t => t.Id == orderId );
+            Assert.Equal( "123", result.Code );
+            Assert.Equal( 2, result.Items.Count );
+
+            //从外部无法通过导航属性添加订单明细，必须调用AddItem方法
+            var item = new OrderItem( Guid.NewGuid(), result );
+            item.Booking( product1, 2 );
+            var items = result.Items.ToList();
+            items.Add( item );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+            result = _orderRepository.Find().Include( t => t.Items ).FirstOrDefault( t => t.Id == orderId );
+            Assert.Equal( 2, result.Items.Count );
         }
 
         /// <summary>
@@ -113,21 +164,48 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试更新并发 - 使用修改方式2,Version属性设置为无效
+        /// 测试更新 - 更新子实体
         /// </summary>
         [Fact]
-        public void TestUpdate_Concurrency() {
-            Guid id = Guid.NewGuid();
-            var order = new Order( id ) { Name = "Name", Code = "Code" };
+        public void TestUpdate_Items() {
+            //创建两个商品
+            var product1 = new Product( _random.Next( 999999999 ) ) { Name = "dotnet", Code = "1", Price = 10 };
+            _productRepository.Add( product1 );
+            var product2 = new Product( _random.Next( 999999999 ) ) { Name = "dotnetcore", Code = "2", Price = 20 };
+            _productRepository.Add( product2 );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            //创建订单，添加两个订单明细
+            Guid orderId = Guid.NewGuid();
+            var order = new Order( orderId ) { Name = "Order", Code = "123" };
+            order.AddItem( product1, 2 );
+            order.AddItem( product2, 3 );
             _orderRepository.Add( order );
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
 
-            AssertHelper.Throws<ConcurrencyException>( () => {
-                var order2 = new Order( id ) { Name = "Name", Code = "B", Version = Guid.NewGuid().ToByteArray() };
-                _orderRepository.Update( order2 );
-                _unitOfWork.Commit();
-            } );
+            //验证
+            order = _orderRepository.Find().Include( t => t.Items ).FirstOrDefault( t => t.Id == orderId );
+            Assert.Equal( 2, order.Items.Count );
+
+            //获取订单明细标识
+            var itemId = order.Items.ToList()[0].Id;
+            var itemId2 = order.Items.ToList()[1].Id;
+
+            //移除一个订单明细
+            order.RemoveItem( itemId );
+            //修改一个订单明细
+            var item = order.FindItem( itemId2 );
+            item.Booking( product1, 4 );
+            //提交
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            //验证
+            order = _orderRepository.Find().Include( t => t.Items ).FirstOrDefault( t => t.Id == orderId );
+            Assert.Equal( 1, order.Items.Count );
+            Assert.Equal( 4, order.Items.ToList()[0].Quantity );
         }
 
         /// <summary>
@@ -148,6 +226,24 @@ namespace Util.Datas.Tests.SqlServer.Tests {
 
             var result = await _orderRepository.SingleAsync( t => t.Id == id );
             Assert.Equal( "B", result.Code );
+        }
+
+        /// <summary>
+        /// 测试更新并发 - 使用修改方式2,Version属性设置为无效
+        /// </summary>
+        [Fact]
+        public void TestUpdate_Concurrency() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( order );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            AssertHelper.Throws<ConcurrencyException>( () => {
+                var order2 = new Order( id ) { Name = "Name", Code = "B", Version = Guid.NewGuid().ToByteArray() };
+                _orderRepository.Update( order2 );
+                _unitOfWork.Commit();
+            } );
         }
 
         /// <summary>

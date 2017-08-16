@@ -62,6 +62,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
         /// <summary>
         /// <%= p.Description %>
         /// </summary>
+        [DisplayName( "<%= p.Description %>" )]
         <% if( p.HasValidate() ) {%>
         <%= p.Validate() %>
         <%}%>
@@ -73,7 +74,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
         /// <summary>
         /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>列表
         /// </summary>
-        public virtual ICollection<<%= r.OtherEntity.ToSafeName() %>> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
+        public ICollection<<%= r.OtherEntity.ToSafeName() %>> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
         <% } else { %>
         /// <summary>
         /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>
