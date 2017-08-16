@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Util.Domains.Repositories {
@@ -22,6 +23,16 @@ namespace Util.Domains.Repositories {
         /// <param name="id">实体标识</param>
         TEntity Find( object id );
         /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        List<TEntity> FindByIds( params TKey[] ids );
+        /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        List<TEntity> FindByIds( IEnumerable<TKey> ids );
+        /// <summary>
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
@@ -31,6 +42,11 @@ namespace Util.Domains.Repositories {
         /// </summary>
         /// <param name="entity">实体</param>
         void Add( TEntity entity );
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        void Add( IEnumerable<TEntity> entities );
         /// <summary>
         /// 添加实体
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -27,6 +28,16 @@ namespace Util.Datas.Persistence {
         /// <param name="id">持久化对象标识</param>
         TPo Find( object id );
         /// <summary>
+        /// 查找持久化对象列表
+        /// </summary>
+        /// <param name="ids">持久化对象标识列表</param>
+        List<TPo> FindByIds( params TKey[] ids );
+        /// <summary>
+        /// 查找持久化对象列表
+        /// </summary>
+        /// <param name="ids">持久化对象标识列表</param>
+        List<TPo> FindByIds( IEnumerable<TKey> ids );
+        /// <summary>
         /// 查找持久化对象
         /// </summary>
         /// <param name="id">持久化对象标识</param>
@@ -46,6 +57,11 @@ namespace Util.Datas.Persistence {
         /// </summary>
         /// <param name="po">持久化对象</param>
         void Add( TPo po );
+        /// <summary>
+        /// 添加持久化对象集合
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        void Add( IEnumerable<TPo> pos );
         /// <summary>
         /// 添加持久化对象
         /// </summary>

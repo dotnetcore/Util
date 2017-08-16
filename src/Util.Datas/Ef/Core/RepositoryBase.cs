@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -71,6 +72,22 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        public List<TEntity> FindByIds( params TKey[] ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        public List<TEntity> FindByIds( IEnumerable<TKey> ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
@@ -100,6 +117,14 @@ namespace Util.Datas.Ef.Core {
         /// <param name="entity">实体</param>
         public void Add( TEntity entity ) {
             _wrapper.Add( entity );
+        }
+
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public void Add( IEnumerable<TEntity> entities ) {
+            _wrapper.Add( entities );
         }
 
         /// <summary>

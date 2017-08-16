@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -31,6 +32,16 @@ namespace Util.Domains.Repositories {
         /// </summary>
         /// <param name="id">实体标识</param>
         Task<TEntity> FindAsync( object id );
+        /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        List<TEntity> FindByIds( params TKey[] ids );
+        /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        List<TEntity> FindByIds( IEnumerable<TKey> ids );
         /// <summary>
         /// 获取单个实体
         /// </summary>

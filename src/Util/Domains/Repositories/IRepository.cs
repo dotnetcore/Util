@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Util.Domains.Repositories {
@@ -20,6 +21,11 @@ namespace Util.Domains.Repositories {
         /// </summary>
         /// <param name="entity">实体</param>
         void Add( TEntity entity );
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        void Add( IEnumerable<TEntity> entities );
         /// <summary>
         /// 添加实体
         /// </summary>

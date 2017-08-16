@@ -67,6 +67,23 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
+        /// 测试添加 - 添加集合
+        /// </summary>
+        [Fact]
+        public void TestAdd_List() {
+            int id = _random.Next( 999999999 );
+            int id2 = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            var product2 = new Product( id2 ) { Name = "Name", Code = "Code" };
+            _productRepository.Add( new[]{ product, product2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            var result = _productRepository.FindByIds( id,id2 );
+            Assert.Equal( 2, result.Count );
+        }
+
+        /// <summary>
         /// 测试异步添加
         /// </summary>
         [Fact]
@@ -249,3 +266,4 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
     }
 }
+

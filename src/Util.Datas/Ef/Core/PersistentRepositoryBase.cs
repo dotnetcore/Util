@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Util.Datas.Persistence;
 using Util.Domains;
@@ -48,6 +50,22 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        public List<TEntity> FindByIds( params TKey[] ids ) {
+            return _store.FindByIds( ids ).Select( ToEntity ).ToList();
+        }
+
+        /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">实体标识列表</param>
+        public List<TEntity> FindByIds( IEnumerable<TKey> ids ) {
+            return _store.FindByIds( ids ).Select( ToEntity ).ToList();
+        }
+
+        /// <summary>
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
@@ -61,6 +79,14 @@ namespace Util.Datas.Ef.Core {
         /// <param name="entity">实体</param>
         public void Add( TEntity entity ) {
             _store.Add( ToPo( entity ) );
+        }
+
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public void Add( IEnumerable<TEntity> entities ) {
+            _store.Add( entities.Select( ToPo ) );
         }
 
         /// <summary>

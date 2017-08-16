@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -67,6 +68,22 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 查找持久化对象列表
+        /// </summary>
+        /// <param name="ids">持久化对象标识列表</param>
+        public List<TPo> FindByIds( params TKey[] ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
+        /// 查找持久化对象列表
+        /// </summary>
+        /// <param name="ids">持久化对象标识列表</param>
+        public List<TPo> FindByIds( IEnumerable<TKey> ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
         /// 查找持久化对象
         /// </summary>
         /// <param name="id">持久化对象标识</param>
@@ -96,6 +113,14 @@ namespace Util.Datas.Ef.Core {
         /// <param name="po">持久化对象</param>
         public void Add( TPo po ) {
             _wrapper.Add( po );
+        }
+
+        /// <summary>
+        /// 添加持久化对象集合
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        public void Add( IEnumerable<TPo> pos ) {
+            _wrapper.Add( pos );
         }
 
         /// <summary>

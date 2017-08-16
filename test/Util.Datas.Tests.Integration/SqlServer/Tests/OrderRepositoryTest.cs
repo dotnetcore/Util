@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef;
-using Util.Datas.Tests.Samples.Datas.SqlServer.Repositories;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
@@ -107,6 +107,23 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _unitOfWork.ClearCache();
             result = _orderRepository.Find().Include( t => t.Items ).FirstOrDefault( t => t.Id == orderId );
             Assert.Equal( 2, result.Items.Count );
+        }
+
+        /// <summary>
+        /// 测试添加 - 添加集合
+        /// </summary>
+        [Fact]
+        public void TestAdd_List() {
+            Guid id = Guid.NewGuid();
+            Guid id2 = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            var order2 = new Order( id2 ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( new[] { order, order2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            var result = _orderRepository.FindByIds( id, id2 );
+            Assert.Equal( 2, result.Count );
         }
 
         /// <summary>
