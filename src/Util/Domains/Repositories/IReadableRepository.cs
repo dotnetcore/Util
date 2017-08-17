@@ -19,6 +19,10 @@ namespace Util.Domains.Repositories {
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public interface IReadableRepository<TEntity, in TKey> where TEntity : class, IAggregateRoot {
         /// <summary>
+        /// 获取未跟踪的实体集
+        /// </summary>
+        IQueryable<TEntity> FindAsNoTracking();
+        /// <summary>
         /// 查找实体集合
         /// </summary>
         IQueryable<TEntity> Find();

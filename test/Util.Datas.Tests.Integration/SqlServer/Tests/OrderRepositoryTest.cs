@@ -423,5 +423,53 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             result = _orderRepository.FindByIds( id, id2 );
             Assert.Empty( result );
         }
+
+        /// <summary>
+        /// 测试异步删除 - 通过实体标识集合删除
+        /// </summary>
+        [Fact]
+        public async Task TestRemoveAsync_Key_List() {
+            Guid id = Guid.NewGuid();
+            Guid id2 = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            var order2 = new Order( id2 ) { Name = "Name", Code = "Code" };
+            await _orderRepository.AddAsync( new[] { order, order2 } );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            var result = await _orderRepository.FindByIdsAsync( id, id2 );
+            Assert.Equal( 2, result.Count );
+
+            await _orderRepository.RemoveAsync( new[] { id, id2 } );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            result = await _orderRepository.FindByIdsAsync( id, id2 );
+            Assert.Empty( result );
+        }
+
+        /// <summary>
+        /// 测试异步删除 - 通过实体集合删除
+        /// </summary>
+        [Fact]
+        public async Task TestRemoveAsync_Entity_List() {
+            Guid id = Guid.NewGuid();
+            Guid id2 = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            var order2 = new Order( id2 ) { Name = "Name", Code = "Code" };
+            await _orderRepository.AddAsync( new[] { order, order2 } );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            var result = await _orderRepository.FindByIdsAsync( id, id2 );
+            Assert.Equal( 2, result.Count );
+
+            await _orderRepository.RemoveAsync( result );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            result = await _orderRepository.FindByIdsAsync( id, id2 );
+            Assert.Empty( result );
+        }
     }
 }

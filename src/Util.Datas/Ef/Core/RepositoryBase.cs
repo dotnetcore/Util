@@ -57,6 +57,13 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 获取未跟踪的实体集
+        /// </summary>
+        public IQueryable<TEntity> FindAsNoTracking() {
+            return Set.AsNoTracking();
+        }
+
+        /// <summary>
         /// 查找实体
         /// </summary>
         public IQueryable<TEntity> Find() {
@@ -224,9 +231,25 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除实体集合
         /// </summary>
+        /// <param name="ids">实体编号集合</param>
+        public async Task RemoveAsync( IEnumerable<TKey> ids ) {
+            await _wrapper.RemoveAsync( ids );
+        }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
         /// <param name="entities">实体集合</param>
         public void Remove( IEnumerable<TEntity> entities ) {
             _wrapper.Remove( entities );
+        }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task RemoveAsync( IEnumerable<TEntity> entities ) {
+            await _wrapper.RemoveAsync( entities );
         }
     }
 }

@@ -243,6 +243,15 @@ namespace Util.Datas.Ef.Internal {
             if( ids == null )
                 return;
             var list = FindByIds( ids );
+            Delete( list );
+        }
+
+        /// <summary>
+        /// 删除实体集合
+        /// </summary>
+        private void Delete( List<TEntity> list ) {
+            if ( list == null )
+                return;
             if( !list.Any() )
                 return;
             if( list[0] is IDelete ) {
@@ -256,11 +265,32 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 移除实体集合
         /// </summary>
+        /// <param name="ids">实体编号集合</param>
+        public async Task RemoveAsync( IEnumerable<TKey> ids ) {
+            if( ids == null )
+                return;
+            var list = await FindByIdsAsync( ids );
+            Delete( list );
+        }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
         /// <param name="entities">实体集合</param>
         public void Remove( IEnumerable<TEntity> entities ) {
             if( entities == null )
                 return;
             Remove( entities.Select( t => t.Id ) );
+        }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task RemoveAsync( IEnumerable<TEntity> entities ) {
+            if( entities == null )
+                return;
+            await RemoveAsync( entities.Select( t => t.Id ) );
         }
     }
 }

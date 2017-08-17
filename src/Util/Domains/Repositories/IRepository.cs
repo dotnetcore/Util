@@ -74,7 +74,17 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 移除实体集合
         /// </summary>
+        /// <param name="ids">实体编号集合</param>
+        Task RemoveAsync( IEnumerable<TKey> ids );
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
         /// <param name="entities">实体集合</param>
         void Remove( IEnumerable<TEntity> entities );
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        Task RemoveAsync( IEnumerable<TEntity> entities );
     }
 }

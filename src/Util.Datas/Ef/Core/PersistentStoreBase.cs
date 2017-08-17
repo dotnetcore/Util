@@ -220,9 +220,25 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除持久化对象集合
         /// </summary>
+        /// <param name="ids">持久化对象编号集合</param>
+        public async Task RemoveAsync( IEnumerable<TKey> ids ) {
+            await _wrapper.RemoveAsync( ids );
+        }
+
+        /// <summary>
+        /// 移除持久化对象集合
+        /// </summary>
         /// <param name="pos">持久化对象集合</param>
         public void Remove( IEnumerable<TPo> pos ) {
             _wrapper.Remove( pos );
+        }
+
+        /// <summary>
+        /// 移除持久化对象集合
+        /// </summary>
+        /// <param name="pos">实体集合</param>
+        public async Task RemoveAsync( IEnumerable<TPo> pos ) {
+            await _wrapper.RemoveAsync( pos );
         }
     }
 }

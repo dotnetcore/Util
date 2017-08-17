@@ -120,7 +120,17 @@ namespace Util.Datas.Persistence {
         /// <summary>
         /// 移除持久化对象集合
         /// </summary>
+        /// <param name="ids">持久化对象编号集合</param>
+        Task RemoveAsync( IEnumerable<TKey> ids );
+        /// <summary>
+        /// 移除持久化对象集合
+        /// </summary>
         /// <param name="pos">持久化对象集合</param>
         void Remove( IEnumerable<TPo> pos );
+        /// <summary>
+        /// 移除持久化对象集合
+        /// </summary>
+        /// <param name="pos">实体集合</param>
+        Task RemoveAsync( IEnumerable<TPo> pos );
     }
 }
