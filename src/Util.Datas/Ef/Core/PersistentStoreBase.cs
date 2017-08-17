@@ -68,27 +68,43 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 查找持久化对象列表
-        /// </summary>
-        /// <param name="ids">持久化对象标识列表</param>
-        public List<TPo> FindByIds( params TKey[] ids ) {
-            return _wrapper.FindByIds( ids );
-        }
-
-        /// <summary>
-        /// 查找持久化对象列表
-        /// </summary>
-        /// <param name="ids">持久化对象标识列表</param>
-        public List<TPo> FindByIds( IEnumerable<TKey> ids ) {
-            return _wrapper.FindByIds( ids );
-        }
-
-        /// <summary>
         /// 查找持久化对象
         /// </summary>
         /// <param name="id">持久化对象标识</param>
         public async Task<TPo> FindAsync( object id ) {
             return await _wrapper.FindAsync( id );
+        }
+
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        public List<TPo> FindByIds( params TKey[] ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        public List<TPo> FindByIds( IEnumerable<TKey> ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        public async Task<List<TPo>> FindByIdsAsync( params TKey[] ids ) {
+            return await _wrapper.FindByIdsAsync( ids );
+        }
+
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        public async Task<List<TPo>> FindByIdsAsync( IEnumerable<TKey> ids ) {
+            return await _wrapper.FindByIdsAsync( ids );
         }
 
         /// <summary>
@@ -129,6 +145,14 @@ namespace Util.Datas.Ef.Core {
         /// <param name="po">持久化对象</param>
         public async Task AddAsync( TPo po ) {
             await _wrapper.AddAsync( po );
+        }
+
+        /// <summary>
+        /// 添加持久化对象集合
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        public async Task AddAsync( IEnumerable<TPo> pos ) {
+            await _wrapper.AddAsync( pos );
         }
 
         /// <summary>

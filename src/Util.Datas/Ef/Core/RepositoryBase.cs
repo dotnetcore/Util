@@ -72,27 +72,43 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 查找实体列表
-        /// </summary>
-        /// <param name="ids">实体标识列表</param>
-        public List<TEntity> FindByIds( params TKey[] ids ) {
-            return _wrapper.FindByIds( ids );
-        }
-
-        /// <summary>
-        /// 查找实体列表
-        /// </summary>
-        /// <param name="ids">实体标识列表</param>
-        public List<TEntity> FindByIds( IEnumerable<TKey> ids ) {
-            return _wrapper.FindByIds( ids );
-        }
-
-        /// <summary>
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
         public async Task<TEntity> FindAsync( object id ) {
             return await _wrapper.FindAsync( id );
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        public List<TEntity> FindByIds( params TKey[] ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        public List<TEntity> FindByIds( IEnumerable<TKey> ids ) {
+            return _wrapper.FindByIds( ids );
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        public async Task<List<TEntity>> FindByIdsAsync( params TKey[] ids ) {
+            return await _wrapper.FindByIdsAsync( ids );
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        public async Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids ) {
+            return await _wrapper.FindByIdsAsync( ids );
         }
 
         /// <summary>
@@ -133,6 +149,14 @@ namespace Util.Datas.Ef.Core {
         /// <param name="entity">实体</param>
         public async Task AddAsync( TEntity entity ) {
             await _wrapper.AddAsync( entity );
+        }
+
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task AddAsync( IEnumerable<TEntity> entities ) {
+            await _wrapper.AddAsync( entities );
         }
 
         /// <summary>

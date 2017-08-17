@@ -28,20 +28,30 @@ namespace Util.Datas.Persistence {
         /// <param name="id">持久化对象标识</param>
         TPo Find( object id );
         /// <summary>
-        /// 查找持久化对象列表
-        /// </summary>
-        /// <param name="ids">持久化对象标识列表</param>
-        List<TPo> FindByIds( params TKey[] ids );
-        /// <summary>
-        /// 查找持久化对象列表
-        /// </summary>
-        /// <param name="ids">持久化对象标识列表</param>
-        List<TPo> FindByIds( IEnumerable<TKey> ids );
-        /// <summary>
         /// 查找持久化对象
         /// </summary>
         /// <param name="id">持久化对象标识</param>
         Task<TPo> FindAsync( object id );
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        List<TPo> FindByIds( params TKey[] ids );
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        List<TPo> FindByIds( IEnumerable<TKey> ids );
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        Task<List<TPo>> FindByIdsAsync( params TKey[] ids );
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合</param>
+        Task<List<TPo>> FindByIdsAsync( IEnumerable<TKey> ids );
         /// <summary>
         /// 获取单个持久化对象
         /// </summary>
@@ -67,6 +77,11 @@ namespace Util.Datas.Persistence {
         /// </summary>
         /// <param name="po">持久化对象</param>
         Task AddAsync( TPo po );
+        /// <summary>
+        /// 添加持久化对象集合
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        Task AddAsync( IEnumerable<TPo> pos );
         /// <summary>
         /// 修改持久化对象
         /// </summary>

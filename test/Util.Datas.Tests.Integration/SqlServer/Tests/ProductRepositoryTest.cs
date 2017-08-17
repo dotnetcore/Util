@@ -101,6 +101,23 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
+        /// 测试异步添加 - 添加集合
+        /// </summary>
+        [Fact]
+        public async Task TestAddAsync_List() {
+            int id = _random.Next( 999999999 );
+            int id2 = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            var product2 = new Product( id2 ) { Name = "Name", Code = "Code" };
+            await _productRepository.AddAsync( new[] { product, product2 } );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            var result = await _productRepository.FindByIdsAsync( id, id2 );
+            Assert.Equal( 2, result.Count );
+        }
+
+        /// <summary>
         /// 测试更新 - 先从仓储中查找出来，修改对象属性，直接提交工作单元,该更新方法无效
         /// 原因: 如果使用了Po，从仓储中Find出来的实体只是普通对象，没有被EF跟踪，所以修改属性提交工作单元没有保存更新,必须调用Update方法
         /// </summary>

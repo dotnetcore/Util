@@ -50,6 +50,14 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 查找实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        public async Task<TEntity> FindAsync( object id ) {
+            return ToEntity( await _store.FindAsync( id ) );
+        }
+
+        /// <summary>
         /// 查找实体列表
         /// </summary>
         /// <param name="ids">实体标识列表</param>
@@ -66,11 +74,21 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 查找实体
+        /// 查找实体集合
         /// </summary>
-        /// <param name="id">实体标识</param>
-        public async Task<TEntity> FindAsync( object id ) {
-            return ToEntity( await _store.FindAsync( id ) );
+        /// <param name="ids">实体标识集合</param>
+        public async Task<List<TEntity>> FindByIdsAsync( params TKey[] ids ) {
+            var pos = await _store.FindByIdsAsync( ids );
+            return pos.Select( ToEntity ).ToList();
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        public async Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids ) {
+            var pos = await _store.FindByIdsAsync( ids );
+            return pos.Select( ToEntity ).ToList();
         }
 
         /// <summary>
@@ -95,6 +113,14 @@ namespace Util.Datas.Ef.Core {
         /// <param name="entity">实体</param>
         public async Task AddAsync( TEntity entity ) {
             await _store.AddAsync( ToPo( entity ) );
+        }
+
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task AddAsync( IEnumerable<TEntity> entities ) {
+            await _store.AddAsync( entities.Select( ToPo ) );
         }
 
         /// <summary>

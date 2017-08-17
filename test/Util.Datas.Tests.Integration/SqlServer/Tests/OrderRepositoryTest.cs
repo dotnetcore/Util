@@ -141,6 +141,23 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
+        /// 测试异步添加 - 添加集合
+        /// </summary>
+        [Fact]
+        public async Task TestAddAsync_List() {
+            Guid id = Guid.NewGuid();
+            Guid id2 = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            var order2 = new Order( id2 ) { Name = "Name", Code = "Code" };
+            await _orderRepository.AddAsync( new[] { order, order2 } );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            var result = await _orderRepository.FindByIdsAsync( id, id2 );
+            Assert.Equal( 2, result.Count );
+        }
+
+        /// <summary>
         /// 测试更新 - 修改方式1：先从仓储中查找出来，直接修改对象属性，提交工作单元
         /// </summary>
         [Fact]

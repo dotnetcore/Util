@@ -33,15 +33,25 @@ namespace Util.Domains.Repositories {
         /// <param name="id">实体标识</param>
         Task<TEntity> FindAsync( object id );
         /// <summary>
-        /// 查找实体列表
+        /// 查找实体集合
         /// </summary>
-        /// <param name="ids">实体标识列表</param>
+        /// <param name="ids">实体标识集合</param>
         List<TEntity> FindByIds( params TKey[] ids );
         /// <summary>
-        /// 查找实体列表
+        /// 查找实体集合
         /// </summary>
-        /// <param name="ids">实体标识列表</param>
+        /// <param name="ids">实体标识集合</param>
         List<TEntity> FindByIds( IEnumerable<TKey> ids );
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        Task<List<TEntity>> FindByIdsAsync( params TKey[] ids );
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids );
         /// <summary>
         /// 获取单个实体
         /// </summary>
