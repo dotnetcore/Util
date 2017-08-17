@@ -27,6 +27,11 @@ namespace Util.Domains.Repositories {
         /// </summary>
         IQueryable<TEntity> Find();
         /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="criteria">条件</param>
+        IQueryable<TEntity> Find( ICriteria<TEntity> criteria );
+        /// <summary>
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>

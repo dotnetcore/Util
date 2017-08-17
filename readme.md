@@ -131,14 +131,14 @@ Util暂时未发布到Nuget，待成熟后发布。
   - XMind
 
 4. 版本控制
-  - Gitlab
+  - Git
 
 5. 部署环境
   - Ubuntu Server
   - Docker
 
 6. 开发平台
-  - .Net Core Preview 2
+  - .Net Core 2.0
 
 7. 单元测试及模拟框架
   - XUnit
