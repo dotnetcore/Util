@@ -170,5 +170,21 @@ namespace Util.Datas.Ef.Core {
         public async Task RemoveAsync( TEntity entity ) {
             await _store.RemoveAsync( ToPo( entity ) );
         }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="ids">实体编号集合</param>
+        public void Remove( IEnumerable<TKey> ids ) {
+            _store.Remove( ids );
+        }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public void Remove( IEnumerable<TEntity> entities ) {
+            _store.Remove( entities.Select( ToPo ) );
+        }
     }
 }

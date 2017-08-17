@@ -281,6 +281,58 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             Assert.NotNull( result );
             Assert.True( result.IsDeleted );
         }
+
+        /// <summary>
+        /// 测试删除 - 通过实体标识集合删除
+        /// </summary>
+        [Fact]
+        public void TestRemove_Key_List() {
+            int id = _random.Next( 999999999 );
+            int id2 = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            var product2 = new Product( id2 ) { Name = "Name", Code = "Code" };
+            _productRepository.Add( new[] { product, product2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            var result = _productRepository.FindByIds( id, id2 );
+            Assert.Equal( 2, result.Count );
+
+            _productRepository.Remove( new[]{ id, id2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            result = _productRepository.FindByIds( id, id2 );
+            Assert.Equal( 2, result.Count );
+            Assert.True( result[0].IsDeleted );
+            Assert.True( result[1].IsDeleted );
+        }
+
+        /// <summary>
+        /// 测试删除 - 通过实体集合删除
+        /// </summary>
+        [Fact]
+        public void TestRemove_Entity_List() {
+            int id = _random.Next( 999999999 );
+            int id2 = _random.Next( 999999999 );
+            var product = new Product( id ) { Name = "Name", Code = "Code" };
+            var product2 = new Product( id2 ) { Name = "Name", Code = "Code" };
+            _productRepository.Add( new[] { product, product2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            var result = _productRepository.FindByIds( id, id2 );
+            Assert.Equal( 2, result.Count );
+
+            _productRepository.Remove( result );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            result = _productRepository.FindByIds( id, id2 );
+            Assert.Equal( 2, result.Count );
+            Assert.True( result[0].IsDeleted );
+            Assert.True( result[1].IsDeleted );
+        }
     }
 }
 

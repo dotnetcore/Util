@@ -263,7 +263,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试更新并发 - 使用修改方式2,Version属性设置为无效
+        /// 测试更新并发 - Version属性设置为无效
         /// </summary>
         [Fact]
         public void TestUpdate_Concurrency() {
@@ -374,6 +374,54 @@ namespace Util.Datas.Tests.SqlServer.Tests {
 
             var result = await _orderRepository.SingleAsync( t => t.Id == id );
             Assert.Null( result );
+        }
+
+        /// <summary>
+        /// 测试删除 - 通过实体标识集合删除
+        /// </summary>
+        [Fact]
+        public void TestRemove_Key_List() {
+            Guid id = Guid.NewGuid();
+            Guid id2 = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            var order2 = new Order( id2 ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( new[] { order, order2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            var result = _orderRepository.FindByIds( id, id2 );
+            Assert.Equal( 2, result.Count );
+
+            _orderRepository.Remove( new []{ id, id2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            result = _orderRepository.FindByIds( id, id2 );
+            Assert.Empty( result);
+        }
+
+        /// <summary>
+        /// 测试删除 - 通过实体集合删除
+        /// </summary>
+        [Fact]
+        public void TestRemove_Entity_List() {
+            Guid id = Guid.NewGuid();
+            Guid id2 = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            var order2 = new Order( id2 ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( new[] { order, order2 } );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            var result = _orderRepository.FindByIds( id, id2 );
+            Assert.Equal( 2, result.Count );
+
+            _orderRepository.Remove( result );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            result = _orderRepository.FindByIds( id, id2 );
+            Assert.Empty( result );
         }
     }
 }

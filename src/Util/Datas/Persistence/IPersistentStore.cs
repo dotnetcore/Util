@@ -112,5 +112,15 @@ namespace Util.Datas.Persistence {
         /// </summary>
         /// <param name="po">持久化对象</param>
         Task RemoveAsync( TPo po );
+        /// <summary>
+        /// 移除持久化对象集合
+        /// </summary>
+        /// <param name="ids">持久化对象编号集合</param>
+        void Remove( IEnumerable<TKey> ids );
+        /// <summary>
+        /// 移除持久化对象集合
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        void Remove( IEnumerable<TPo> pos );
     }
 }

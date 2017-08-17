@@ -190,25 +190,6 @@ namespace Util.Datas.Ef.Internal {
         /// <param name="id">实体标识</param>
         public void Remove( TKey id ) {
             var entity = Find( id );
-            Remove( entity );
-        }
-
-        /// <summary>
-        /// 移除实体
-        /// </summary>
-        /// <param name="id">实体标识</param>
-        public async Task RemoveAsync( TKey id ) {
-            var entity = await FindAsync( id );
-            await RemoveAsync( entity );
-        }
-
-        /// <summary>
-        /// 移除实体
-        /// </summary>
-        public void Remove( TEntity entity ) {
-            if( entity == null )
-                return;
-            entity = Find( entity.Id );
             Delete( entity );
         }
 
@@ -216,6 +197,8 @@ namespace Util.Datas.Ef.Internal {
         /// 删除
         /// </summary>
         private void Delete( TEntity entity ) {
+            if ( entity == null )
+                return;
             IDelete model = entity as IDelete;
             if( model == null ) {
                 Set.Remove( entity );
@@ -227,12 +210,57 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 移除实体
         /// </summary>
+        /// <param name="id">实体标识</param>
+        public async Task RemoveAsync( TKey id ) {
+            var entity = await FindAsync( id );
+            Delete( entity );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        public void Remove( TEntity entity ) {
+            if( entity == null )
+                return;
+            Remove( entity.Id );
+        }
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
         /// <param name="entity">实体</param>
         public async Task RemoveAsync( TEntity entity ) {
             if( entity == null )
                 return;
-            entity = await FindAsync( entity.Id );
-            Delete( entity );
+            await RemoveAsync( entity.Id );
+        }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="ids">实体编号集合</param>
+        public void Remove( IEnumerable<TKey> ids ) {
+            if( ids == null )
+                return;
+            var list = FindByIds( ids );
+            if( !list.Any() )
+                return;
+            if( list[0] is IDelete ) {
+                foreach( var entity in list.Select( t => (IDelete)t ) )
+                    entity.IsDeleted = true;
+                return;
+            }
+            Set.RemoveRange( list );
+        }
+
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public void Remove( IEnumerable<TEntity> entities ) {
+            if( entities == null )
+                return;
+            Remove( entities.Select( t => t.Id ) );
         }
     }
 }
