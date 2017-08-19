@@ -33,12 +33,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Util;
 using Util.Domains;
+using Util.Domains.Auditing;
 
 namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
     /// <summary>
     /// <%= Description %>
     /// </summary>
-    [Description( "<%= Description %>" )]
+    [DisplayName( "<%= Description %>" )]
     public partial class <%= SafeClassName %> : <%= Entity.GetAggregateRootAndInterfaces() %> {
         /// <summary>
         /// 初始化<%= Description %>

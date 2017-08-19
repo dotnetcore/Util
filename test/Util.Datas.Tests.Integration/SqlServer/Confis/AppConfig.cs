@@ -7,5 +7,9 @@
         /// 连接字符串
         /// </summary>
         public const string Connection = "Server=.\\sql2014;Database=UtilTest;uid=sa;pwd=sa;";
+        /// <summary>
+        /// 用户编号
+        /// </summary>
+        public const string UserId = "71B18059-7572-4EC3-8B11-2BAA0D0F6169";
     }
 }

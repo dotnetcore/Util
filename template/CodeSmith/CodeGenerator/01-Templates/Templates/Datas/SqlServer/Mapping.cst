@@ -24,7 +24,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
     /// <summary>
     /// <%= Description %>映射配置
     /// </summary>
-    public class <%= SafeClassName %>Map : Util.Datas.Ef.SqlServer.AggregateRootMap<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>> {
+    public class <%= SafeClassName %>Map : Util.Datas.Ef.SqlServer.AggregateRootMap<<%= SafeClassName %>> {
         /// <summary>
         /// 映射表
         /// </summary>

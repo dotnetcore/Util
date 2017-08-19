@@ -33,7 +33,269 @@ GO
 CREATE SCHEMA [Productions] AUTHORIZATION [dbo]
 GO
 
+/* 3. Customers */
+IF  EXISTS (SELECT * FROM sys.schemas WHERE name = N'Customers')
+DROP SCHEMA [Customers]
+GO
+CREATE SCHEMA [Customers] AUTHORIZATION [dbo]
+GO
+
+
 /*========================================================== 3. 创建表 ===========================================================*/
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Customers.Customers')
+            and   type = 'U')
+   drop table Customers.Customers
+go
+
+/*==============================================================*/
+/* Table: Customers                                             */
+/*==============================================================*/
+create table Customers.Customers (
+   CustomerId           nvarchar(50)         not null,
+   Name                 nvarchar(20)         not null,
+   Nickname             nvarchar(30)         null,
+   Balance              decimal(18,2)        not null,
+   Gender               int                  null,
+   Tel                  nvarchar(20)         null,
+   Mobile               nvarchar(20)         null,
+   Email                nvarchar(100)        null,
+   CreationTime         datetime             null,
+   CreatorId            uniqueidentifier     null,
+   LastModificationTime datetime             null,
+   LastModifierId       uniqueidentifier     null,
+   Version              timestamp            null,
+   constraint PK_CUSTOMERS primary key (CustomerId)
+)
+go
+
+if exists (select 1 from  sys.extended_properties
+           where major_id = object_id('Customers.Customers') and minor_id = 0)
+begin 
+   execute sp_dropextendedproperty 'MS_Description',  
+   'schema', 'Customers', 'table', 'Customers' 
+ 
+end 
+
+
+execute sp_addextendedproperty 'MS_Description',  
+   '客户', 
+   'schema', 'Customers', 'table', 'Customers'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'CustomerId')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'CustomerId'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '客户编号',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'CustomerId'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Name')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Name'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '客户名称',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Name'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Nickname')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Nickname'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '昵称',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Nickname'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Balance')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Balance'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '余额',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Balance'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Gender')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Gender'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '性别',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Gender'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Tel')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Tel'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '联系电话',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Tel'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Mobile')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Mobile'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '手机号',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Mobile'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Email')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Email'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '电子邮件',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Email'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'CreationTime')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'CreationTime'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '创建时间',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'CreationTime'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'CreatorId')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'CreatorId'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '创建人',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'CreatorId'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'LastModificationTime')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'LastModificationTime'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '最后修改时间',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'LastModificationTime'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'LastModifierId')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'LastModifierId'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '最后修改人',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'LastModifierId'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('Customers.Customers')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'Version')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Version'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   '版本号',
+   'schema', 'Customers', 'table', 'Customers', 'column', 'Version'
+go
+
+
+
+
 
 
 if exists (select 1

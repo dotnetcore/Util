@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Util.Domains.Auditing;
+using Util.Domains.Sessions;
 using Util.Exceptions;
 
 namespace Util.Datas.Ef.Core {
@@ -23,6 +25,7 @@ namespace Util.Datas.Ef.Core {
         protected UnitOfWorkBase( DbContextOptions options )
             : base( options ) {
             TraceId = Guid.NewGuid().ToString();
+            Session = Util.Domains.Sessions.Session.Null;
         }
 
         #endregion
@@ -33,6 +36,10 @@ namespace Util.Datas.Ef.Core {
         /// 跟踪号
         /// </summary>
         public string TraceId { get; set; }
+        /// <summary>
+        /// 用户上下文
+        /// </summary>
+        public ISession Session { get; set; }
 
         #endregion
 
@@ -136,12 +143,36 @@ namespace Util.Datas.Ef.Core {
         /// 拦截添加操作
         /// </summary>
         protected virtual void InterceptAddedOperation( EntityEntry entry ) {
+            InitCreationAudited( entry );
+            InitModificationAudited( entry );
+        }
+
+        /// <summary>
+        /// 初始化创建审计信息
+        /// </summary>
+        private void InitCreationAudited( EntityEntry entry ) {
+            CreationAuditedInitializer.Init( entry.Entity, GetSession() );
+        }
+
+        /// <summary>
+        /// 获取用户上下文
+        /// </summary>
+        protected virtual ISession GetSession() {
+            return Session;
+        }
+
+        /// <summary>
+        /// 初始化修改审计信息
+        /// </summary>
+        private void InitModificationAudited( EntityEntry entry ) {
+            ModificationAuditedInitializer.Init( entry.Entity, GetSession() );
         }
 
         /// <summary>
         /// 拦截修改操作
         /// </summary>
         protected virtual void InterceptModifiedOperation( EntityEntry entry ) {
+            InitModificationAudited( entry );
         }
 
         /// <summary>
