@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Util.Domains;
@@ -120,6 +121,19 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
             AddChange( "CreatorId", "创建人", CreatorId, other.CreatorId );
             AddChange( "LastModificationTime", "最后修改时间", LastModificationTime, other.LastModificationTime );
             AddChange( "LastModifierId", "最后修改人", LastModifierId, other.LastModifierId );
+        }
+
+        /// <summary>
+        /// 添加客户集合
+        /// </summary>
+        public static List<Customer> CreateCustomers() {
+            return new List<Customer> {
+                new Customer( Util.Helpers.Id.Create() ) {Name = "A",Nickname = "A1",Mobile = "1"},
+                new Customer( Util.Helpers.Id.Create() ) {Name = "A",Nickname = "A2",Mobile = "2"},
+                new Customer( Util.Helpers.Id.Create() ) {Name = "B",Nickname = "B1",Mobile = "3"},
+                new Customer( Util.Helpers.Id.Create() ) {Name = "B",Nickname = "B2",Mobile = "4"},
+                new Customer( Util.Helpers.Id.Create() ) {Name = "C",Mobile = "5"}
+            };
         }
     }
 }

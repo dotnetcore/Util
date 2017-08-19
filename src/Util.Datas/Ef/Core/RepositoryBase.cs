@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Internal;
+using Util.Datas.Queries;
 using Util.Domains;
 using Util.Domains.Repositories;
 
@@ -75,7 +76,15 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="criteria">条件</param>
         public IQueryable<TEntity> Find( ICriteria<TEntity> criteria ) {
-            throw new NotImplementedException();
+            return Find().Where( criteria );
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        public IQueryable<TEntity> Find( Expression<Func<TEntity, bool>> predicate ) {
+            return Find().Where( predicate );
         }
 
         /// <summary>
@@ -140,6 +149,24 @@ namespace Util.Datas.Ef.Core {
         /// <param name="predicate">查询条件</param>
         public async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate ) {
             return await _wrapper.SingleAsync( predicate );
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        public List<TEntity> FindAll( Expression<Func<TEntity, bool>> predicate = null ) {
+            if( predicate == null )
+                return Find().ToList();
+            return Find( predicate ).ToList();
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        public async Task<List<TEntity>> FindAllAsync( Expression<Func<TEntity, bool>> predicate = null ) {
+            if( predicate == null )
+                return await Find().ToListAsync();
+            return await Find( predicate ).ToListAsync();
         }
 
         /// <summary>

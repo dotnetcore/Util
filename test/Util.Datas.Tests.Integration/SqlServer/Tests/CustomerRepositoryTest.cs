@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Util.Datas.Ef;
+using Util.Datas.Tests.Samples.Datas.Criterias;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
@@ -42,7 +45,18 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试添加
+        /// 添加客户集合
+        /// </summary>
+        private List<Customer> AddCustomers() {
+            var customers = Customer.CreateCustomers();
+            _customerRepository.Add( customers );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+            return customers;
+        }
+
+        /// <summary>
+        /// 测试添加 - 测试创建操作审计
         /// </summary>
         [Fact]
         public void TestAdd() {
@@ -60,7 +74,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试修改
+        /// 测试修改 - 测试修改操作审计
         /// </summary>
         [Fact]
         public void TestUpdate() {
@@ -73,7 +87,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             var result = _customerRepository.Single( t => t.Id == id );
             var creationTime = result.CreationTime;
             var lastModificationTime = result.LastModificationTime;
-            Assert.Equal( "util",result.Name );
+            Assert.Equal( "util", result.Name );
             result.Name = "utilcore";
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
@@ -84,6 +98,16 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             Assert.NotEqual( lastModificationTime, result.LastModificationTime );
             Assert.Equal( AppConfig.UserId.ToGuidOrNull(), result.CreatorId );
             Assert.Equal( AppConfig.UserId.ToGuidOrNull(), result.LastModifierId );
+        }
+
+        /// <summary>
+        /// 测试查询 - 通过查询条件对象过滤
+        /// </summary>
+        [Fact]
+        public void TestFind_Criteria() {
+            AddCustomers();
+            var result =_customerRepository.Find( new CustomerCriteria("B","B1") ).FirstOrDefault();
+            Assert.Equal( "3",result.Mobile );
         }
     }
 }

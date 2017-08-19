@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Internal;
 using Util.Datas.Persistence;
+using Util.Datas.Queries;
+using Util.Domains.Repositories;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>
@@ -53,10 +55,25 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 获取未跟踪的持久化对象集合
+        /// </summary>
+        public IQueryable<TPo> FindAsNoTracking() {
+            return Set.AsNoTracking();
+        }
+
+        /// <summary>
         /// 查找持久化对象集合
         /// </summary>
         public IQueryable<TPo> Find() {
             return _wrapper.Find();
+        }
+
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="criteria">条件</param>
+        public IQueryable<TPo> Find( ICriteria<TPo> criteria ) {
+            return Find().Where( criteria );
         }
 
         /// <summary>

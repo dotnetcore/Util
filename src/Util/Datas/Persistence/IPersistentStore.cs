@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Util.Domains.Repositories;
 
 namespace Util.Datas.Persistence {
     /// <summary>
@@ -19,9 +20,18 @@ namespace Util.Datas.Persistence {
     /// <typeparam name="TKey">持久化对象标识类型</typeparam>
     public interface IPersistentStore<TPo, in TKey> where TPo : class, IPersistentObject<TKey> {
         /// <summary>
+        /// 获取未跟踪的持久化对象集合
+        /// </summary>
+        IQueryable<TPo> FindAsNoTracking();
+        /// <summary>
         /// 查找持久化对象集合
         /// </summary>
         IQueryable<TPo> Find();
+        /// <summary>
+        /// 查找持久化对象集合
+        /// </summary>
+        /// <param name="criteria">条件</param>
+        IQueryable<TPo> Find( ICriteria<TPo> criteria );
         /// <summary>
         /// 查找持久化对象
         /// </summary>
