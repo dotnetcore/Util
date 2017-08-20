@@ -294,8 +294,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _orderRepository.Remove( id );
             _unitOfWork.Commit();
 
-            var result = _orderRepository.Single( t => t.Id == id );
-            Assert.Null( result );
+            Assert.False( _orderRepository.Exists( t => t.Id == id ) );
         }
 
         /// <summary>
@@ -312,8 +311,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             await _orderRepository.RemoveAsync( id );
             await _unitOfWork.CommitAsync();
 
-            var result = await _orderRepository.SingleAsync( t => t.Id == id );
-            Assert.Null( result );
+            Assert.False( await _orderRepository.ExistsAsync( t => t.Id == id ) );
         }
 
         /// <summary>
@@ -332,8 +330,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _orderRepository.Remove( order );
             _unitOfWork.Commit();
 
-            var result = _orderRepository.Single( t => t.Id == id );
-            Assert.Null( result );
+            Assert.False( _orderRepository.Exists( id ) );
         }
 
         /// <summary>
@@ -352,8 +349,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _orderRepository.Remove( order );
             _unitOfWork.Commit();
 
-            var result = _orderRepository.Single( t => t.Id == id );
-            Assert.Null( result );
+            Assert.False( _orderRepository.Exists( id ) );
         }
 
         /// <summary>
@@ -372,8 +368,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             await _orderRepository.RemoveAsync( order );
             await _unitOfWork.CommitAsync();
 
-            var result = await _orderRepository.SingleAsync( t => t.Id == id );
-            Assert.Null( result );
+            Assert.False( await _orderRepository.ExistsAsync( id ) );
         }
 
         /// <summary>
@@ -392,12 +387,11 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             var result = _orderRepository.FindByIds( id, id2 );
             Assert.Equal( 2, result.Count );
 
-            _orderRepository.Remove( new []{ id, id2 } );
+            _orderRepository.Remove( new[] { id, id2 } );
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
 
-            result = _orderRepository.FindByIds( id, id2 );
-            Assert.Empty( result);
+            Assert.False( _orderRepository.Exists( id, id2 ) );
         }
 
         /// <summary>
@@ -413,15 +407,14 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
 
-            var result = _orderRepository.FindByIds( id, id2 );
+            var result = _orderRepository.FindByIds( $"{id},{id2}" );
             Assert.Equal( 2, result.Count );
 
             _orderRepository.Remove( result );
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
 
-            result = _orderRepository.FindByIds( id, id2 );
-            Assert.Empty( result );
+            Assert.False( _orderRepository.Exists( id, id2 ) );
         }
 
         /// <summary>
@@ -444,8 +437,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             await _unitOfWork.CommitAsync();
             _unitOfWork.ClearCache();
 
-            result = await _orderRepository.FindByIdsAsync( id, id2 );
-            Assert.Empty( result );
+            Assert.False( await _orderRepository.ExistsAsync( id, id2 ) );
         }
 
         /// <summary>
@@ -461,15 +453,14 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             await _unitOfWork.CommitAsync();
             _unitOfWork.ClearCache();
 
-            var result = await _orderRepository.FindByIdsAsync( id, id2 );
+            var result = await _orderRepository.FindByIdsAsync( $"{id},{id2}" );
             Assert.Equal( 2, result.Count );
 
             await _orderRepository.RemoveAsync( result );
             await _unitOfWork.CommitAsync();
             _unitOfWork.ClearCache();
 
-            result = await _orderRepository.FindByIdsAsync( id, id2 );
-            Assert.Empty( result );
+            Assert.False( await _orderRepository.ExistsAsync( id, id2 ) );
         }
     }
 }

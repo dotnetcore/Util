@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Util.Datas.Queries.Criterias;
-using Util.Domains;
+using Util.Datas.Queries.Internal;
 using Util.Domains.Repositories;
 using Util.Helpers;
 using Util.Properties;
@@ -11,7 +11,7 @@ namespace Util.Datas.Queries {
     /// 查询对象
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public class Query<TEntity> : Query<TEntity, Guid>, IQuery<TEntity> where TEntity : class, IAggregateRoot<TEntity, Guid> {
+    public class Query<TEntity> : Query<TEntity, Guid>, IQuery<TEntity> where TEntity : class {
         /// <summary>
         /// 初始化查询对象
         /// </summary>
@@ -31,7 +31,7 @@ namespace Util.Datas.Queries {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public class Query<TEntity, TKey> : IQuery<TEntity, TKey> where TEntity : class, IAggregateRoot<TEntity, TKey> {
+    public class Query<TEntity, TKey> : IQuery<TEntity, TKey> where TEntity : class {
         /// <summary>
         /// 查询参数
         /// </summary>
@@ -69,20 +69,17 @@ namespace Util.Datas.Queries {
         }
 
         /// <summary>
-        /// 获取排序
+        /// 获取排序条件
         /// </summary>
-        public string GetOrderBy() {
-            var order = _orderByBuilder.Generate();
-            if( string.IsNullOrWhiteSpace( order ) )
-                return "CreationTime desc";
-            return order;
+        public string GetOrder() {
+            return _orderByBuilder.Generate();
         }
 
         /// <summary>
         /// 获取分页
         /// </summary>
         public IPager GetPager() {
-            return new Pager( _parameter.Page, _parameter.PageSize, _parameter.TotalCount, GetOrderBy() );
+            return new Pager( _parameter.Page, _parameter.PageSize, _parameter.TotalCount, GetOrder() );
         }
 
         /// <summary>
@@ -118,12 +115,8 @@ namespace Util.Datas.Queries {
         /// <param name="predicate">查询条件,如果参数值为空，则忽略该查询条件，范例：t => t.Name == ""，该查询条件被忽略。
         /// 注意：一次仅能添加一个条件，范例：t => t.Name == "a" &amp;&amp; t.Mobile == "123"，不支持，将抛出异常</param>
         public IQuery<TEntity, TKey> WhereIfNotEmpty( Expression<Func<TEntity, bool>> predicate ) {
+            predicate = Helper.GetWhereIfNotEmptyExpression( predicate );
             if( predicate == null )
-                throw new ArgumentNullException( nameof( predicate ) );
-            if( Lambda.GetConditionCount( predicate ) > 1 )
-                throw new InvalidOperationException( string.Format( LibraryResource.OnlyOnePredicate, predicate ) );
-            var value = predicate.Value();
-            if( string.IsNullOrWhiteSpace( value.SafeString() ) )
                 return this;
             return And( predicate );
         }
@@ -214,7 +207,7 @@ namespace Util.Datas.Queries {
         /// <param name="query">查询对象</param>
         public IQuery<TEntity, TKey> And( IQuery<TEntity, TKey> query ) {
             And( query.GetPredicate() );
-            OrderBy( query.GetOrderBy() );
+            OrderBy( query.GetOrder() );
             return this;
         }
 
@@ -233,7 +226,7 @@ namespace Util.Datas.Queries {
         /// <param name="query">查询对象</param>
         public IQuery<TEntity, TKey> Or( IQuery<TEntity, TKey> query ) {
             Or( query.GetPredicate() );
-            OrderBy( query.GetOrderBy() );
+            OrderBy( query.GetOrder() );
             return this;
         }
     }

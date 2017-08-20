@@ -13,7 +13,7 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         /// <summary>
         /// 订单明细列表
         /// </summary>
-        private List<OrderItem> _items;
+        private readonly List<OrderItem> _items;
 
         /// <summary>
         /// 初始化订单
@@ -45,10 +45,7 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         /// <summary>
         /// 订单明细列表
         /// </summary>
-        public IReadOnlyCollection<OrderItem> Items {
-            get => _items;
-            set => _items = (List<OrderItem>)value;
-        }
+        public IReadOnlyCollection<OrderItem> Items => _items;
 
         /// <summary>
         /// 添加订单明细

@@ -84,11 +84,6 @@ namespace Util.Domains.Repositories {
         public string Order { get; set; }
 
         /// <summary>
-        /// 数量
-        /// </summary>
-        public int Count => Data.Count;
-
-        /// <summary>
         /// 内容
         /// </summary>
         public List<T> Data { get; }

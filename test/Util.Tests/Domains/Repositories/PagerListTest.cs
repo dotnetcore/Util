@@ -27,7 +27,7 @@ namespace Util.Tests.Domains.Repositories {
         /// </summary>
         [Fact]
         public void TestList() {
-            Assert.Equal( 2, _list.Count );
+            Assert.Equal( 2, _list.Data.Count );
             Assert.Equal( "TestName2", _list[1].Name );
         }
 
@@ -37,7 +37,7 @@ namespace Util.Tests.Domains.Repositories {
         [Fact]
         public void TestConvert() {
             var result = _list.Convert( t => new AggregateRootSample() );
-            Assert.Equal( 2, result.Count );
+            Assert.Equal( 2, result.Data.Count );
             Assert.Equal( 1, result.Page );
             Assert.Equal( 2, result.PageSize );
             Assert.Equal( 3, result.TotalCount );

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Core;
+using Util.Datas.Queries;
 using Util.Domains;
+using Util.Domains.Repositories;
 using Util.Exceptions;
 
 namespace Util.Datas.Ef.Internal {
@@ -30,6 +33,13 @@ namespace Util.Datas.Ef.Internal {
         /// 实体集
         /// </summary>
         public DbSet<TEntity> Set => UnitOfWork.Set<TEntity>();
+
+        /// <summary>
+        /// 获取未跟踪的实体集
+        /// </summary>
+        public IQueryable<TEntity> FindAsNoTracking() {
+            return Set.AsNoTracking();
+        }
 
         /// <summary>
         /// 查找实体
@@ -108,6 +118,95 @@ namespace Util.Datas.Ef.Internal {
         /// <param name="predicate">查询条件</param>
         public async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate ) {
             return await Find().FirstOrDefaultAsync( predicate );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public List<TEntity> Query( IQueryBase<TEntity> query ) {
+            return GetQueryResult( Find(), query ).ToList();
+        }
+
+        /// <summary>
+        /// 获取查询结果
+        /// </summary>
+        private IQueryable<TEntity> GetQueryResult( IQueryable<TEntity> queryable, IQueryBase<TEntity> query ) {
+            queryable = queryable.Where( query );
+            var order = query.GetOrder();
+            if( string.IsNullOrWhiteSpace( order ) )
+                return queryable;
+            return queryable.OrderBy( order );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<List<TEntity>> QueryAsync( IQueryBase<TEntity> query ) {
+            return await GetQueryResult( Find(), query ).ToListAsync();
+        }
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public List<TEntity> QueryAsNoTracking( IQueryBase<TEntity> query ) {
+            return GetQueryResult( FindAsNoTracking(), query ).ToList();
+        }
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<List<TEntity>> QueryAsNoTrackingAsync( IQueryBase<TEntity> query ) {
+            return await GetQueryResult( FindAsNoTracking(), query ).ToListAsync();
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public PagerList<TEntity> PagerQuery( IQueryBase<TEntity> query ) {
+            var pager = query.GetPager();
+            return GetPagerQueryResult( Find(), query, pager ).ToPagerList( pager );
+        }
+
+        /// <summary>
+        /// 获取分页查询结果
+        /// </summary>
+        private IQueryable<TEntity> GetPagerQueryResult( IQueryable<TEntity> queryable, IQueryBase<TEntity> query, IPager pager ) {
+            var order = pager.Order;
+            if( string.IsNullOrWhiteSpace( order ) )
+                order = "Id";
+            return queryable.Where( query ).OrderBy( order ).Pager( pager );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<PagerList<TEntity>> PagerQueryAsync( IQueryBase<TEntity> query ) {
+            var pager = query.GetPager();
+            return await GetPagerQueryResult( Find(), query, pager ).ToPagerListAsync( pager );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public PagerList<TEntity> PagerQueryAsNoTracking( IQueryBase<TEntity> query ) {
+            var pager = query.GetPager();
+            return GetPagerQueryResult( FindAsNoTracking(), query, pager ).ToPagerList( pager );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<PagerList<TEntity>> PagerQueryAsNoTrackingAsync( IQueryBase<TEntity> query ) {
+            var pager = query.GetPager();
+            return await GetPagerQueryResult( FindAsNoTracking(), query, pager ).ToPagerListAsync( pager );
         }
 
         /// <summary>

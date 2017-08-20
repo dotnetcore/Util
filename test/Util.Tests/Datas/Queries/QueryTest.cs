@@ -179,17 +179,15 @@ namespace Util.Tests.Datas.Queries {
         /// </summary>
         [Fact]
         public void TestOrderBy() {
-            Assert.Equal( "CreationTime desc", _query.GetOrderBy() );
-
             QueryParameterSample sample = new QueryParameterSample { Order = "Name" };
             _query = new Query<AggregateRootSample>( sample );
-            Assert.Equal( "Name", _query.GetOrderBy() );
+            Assert.Equal( "Name", _query.GetOrder() );
 
             _query.OrderBy( "Age", true );
-            Assert.Equal( "Name,Age desc", _query.GetOrderBy() );
+            Assert.Equal( "Name,Age desc", _query.GetOrder() );
 
             _query.OrderBy( t => t.Tel, true );
-            Assert.Equal( "Name,Age desc,Tel desc", _query.GetOrderBy() );
+            Assert.Equal( "Name,Age desc,Tel desc", _query.GetOrder() );
         }
 
         /// <summary>
@@ -216,14 +214,14 @@ namespace Util.Tests.Datas.Queries {
             query.OrderBy( t => t.Name );
             _query.And( query );
             Assert.Equal( "t => (t.Name == \"A\")", _query.GetPredicate().ToString() );
-            Assert.Equal( "Name", _query.GetOrderBy() );
+            Assert.Equal( "Name", _query.GetOrder() );
 
             query = new Query<AggregateRootSample>();
             query.Where( t => t.Tel == 1 );
             query.OrderBy( t => t.Tel, true );
             _query.And( query );
             Assert.Equal( "t => ((t.Name == \"A\") AndAlso (t.Tel == 1))", _query.GetPredicate().ToString() );
-            Assert.Equal( "Name,Tel desc", _query.GetOrderBy() );
+            Assert.Equal( "Name,Tel desc", _query.GetOrder() );
         }
 
         /// <summary>
@@ -265,7 +263,7 @@ namespace Util.Tests.Datas.Queries {
             Expression<Func<AggregateRootSample, bool>> expected = t => ( ( t.Name == "A" && t.EnglishName == "A" )
                 || ( t.Name == "B" && t.Age == 1 ) ) && ( t.Name == "C" && t.Age > 10 );
             Assert.Equal( expected.ToString(), _query.GetPredicate().ToString() );
-            Assert.Equal( "Name,Age desc,Tel", _query.GetOrderBy() );
+            Assert.Equal( "Name,Age desc,Tel", _query.GetOrder() );
         }
     }
 }

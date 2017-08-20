@@ -237,9 +237,8 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             await _productRepository.RemoveAsync( id );
             await _unitOfWork.CommitAsync();
 
-            var result = _productRepository.GetById( id );
-            Assert.NotNull( result );
-            Assert.True( result.IsDeleted );
+            Assert.True( _productRepository.Exists( id ) );
+            Assert.True( _productRepository.GetById( id ).IsDeleted );
         }
 
         /// <summary>
@@ -277,9 +276,8 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             await _productRepository.RemoveAsync( product );
             await _unitOfWork.CommitAsync();
 
-            var result = _productRepository.GetById( id );
-            Assert.NotNull( result );
-            Assert.True( result.IsDeleted );
+            Assert.True( await _productRepository.ExistsAsync( id ) );
+            Assert.True( _productRepository.GetById( id ).IsDeleted );
         }
 
         /// <summary>

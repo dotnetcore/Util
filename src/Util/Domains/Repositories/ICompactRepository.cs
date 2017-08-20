@@ -48,6 +48,16 @@ namespace Util.Domains.Repositories {
         /// <param name="ids">实体标识集合</param>
         Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids );
         /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        bool Exists( params TKey[] ids );
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        Task<bool> ExistsAsync( params TKey[] ids );
+        /// <summary>
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>

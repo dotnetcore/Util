@@ -141,6 +141,90 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 判断持久化对象是否存在
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        public bool Exists( params TKey[] ids ) {
+            if( ids == null )
+                return false;
+            return Find().Any( t => ids.Contains( t.Id ) );
+        }
+
+        /// <summary>
+        /// 判断持久化对象是否存在
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        public async Task<bool> ExistsAsync( params TKey[] ids ) {
+            if( ids == null )
+                return false;
+            return await Find().AnyAsync( t => ids.Contains( t.Id ) );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public List<TPo> Query( IQueryBase<TPo> query ) {
+            return _wrapper.Query( query );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<List<TPo>> QueryAsync( IQueryBase<TPo> query ) {
+            return await _wrapper.QueryAsync( query );
+        }
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的持久化对象
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public List<TPo> QueryAsNoTracking( IQueryBase<TPo> query ) {
+            return _wrapper.QueryAsNoTracking( query );
+        }
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的持久化对象
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<List<TPo>> QueryAsNoTrackingAsync( IQueryBase<TPo> query ) {
+            return await _wrapper.QueryAsNoTrackingAsync( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public PagerList<TPo> PagerQuery( IQueryBase<TPo> query ) {
+            return _wrapper.PagerQuery( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<PagerList<TPo>> PagerQueryAsync( IQueryBase<TPo> query ) {
+            return await _wrapper.PagerQueryAsync( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public PagerList<TPo> PagerQueryAsNoTracking( IQueryBase<TPo> query ) {
+            return _wrapper.PagerQueryAsNoTracking( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<PagerList<TPo>> PagerQueryAsNoTrackingAsync( IQueryBase<TPo> query ) {
+            return await _wrapper.PagerQueryAsNoTrackingAsync( query );
+        }
+
+        /// <summary>
         /// 添加持久化对象
         /// </summary>
         /// <param name="po">持久化对象</param>
@@ -253,7 +337,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除持久化对象集合
         /// </summary>
-        /// <param name="pos">实体集合</param>
+        /// <param name="pos">持久化对象集合</param>
         public async Task RemoveAsync( IEnumerable<TPo> pos ) {
             await _wrapper.RemoveAsync( pos );
         }

@@ -74,7 +74,6 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体集合
         /// </summary>
-        /// <param name="criteria">条件</param>
         public IQueryable<TEntity> Find( ICriteria<TEntity> criteria ) {
             return Find().Where( criteria );
         }
@@ -82,7 +81,6 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体集合
         /// </summary>
-        /// <param name="predicate">条件</param>
         public IQueryable<TEntity> Find( Expression<Func<TEntity, bool>> predicate ) {
             return Find().Where( predicate );
         }
@@ -90,7 +88,6 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体
         /// </summary>
-        /// <param name="id">实体标识</param>
         public TEntity Find( object id ) {
             return _wrapper.Find( id );
         }
@@ -98,7 +95,6 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体
         /// </summary>
-        /// <param name="id">实体标识</param>
         public async Task<TEntity> FindAsync( object id ) {
             return await _wrapper.FindAsync( id );
         }
@@ -106,7 +102,6 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体集合
         /// </summary>
-        /// <param name="ids">实体标识集合</param>
         public List<TEntity> FindByIds( params TKey[] ids ) {
             return _wrapper.FindByIds( ids );
         }
@@ -114,7 +109,6 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体集合
         /// </summary>
-        /// <param name="ids">实体标识集合</param>
         public List<TEntity> FindByIds( IEnumerable<TKey> ids ) {
             return _wrapper.FindByIds( ids );
         }
@@ -122,7 +116,15 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体集合
         /// </summary>
-        /// <param name="ids">实体标识集合</param>
+        /// <param name="ids">逗号分隔的Id列表，范例："1,2"</param>
+        public List<TEntity> FindByIds( string ids ) {
+            var idList = Util.Helpers.Convert.ToList<TKey>( ids );
+            return FindByIds( idList );
+        }
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
         public async Task<List<TEntity>> FindByIdsAsync( params TKey[] ids ) {
             return await _wrapper.FindByIdsAsync( ids );
         }
@@ -130,15 +132,22 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体集合
         /// </summary>
-        /// <param name="ids">实体标识集合</param>
         public async Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids ) {
             return await _wrapper.FindByIdsAsync( ids );
         }
 
         /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="ids">逗号分隔的Id列表，范例："1,2"</param>
+        public async Task<List<TEntity>> FindByIdsAsync( string ids ) {
+            var idList = Util.Helpers.Convert.ToList<TKey>( ids );
+            return await FindByIdsAsync( idList );
+        }
+
+        /// <summary>
         /// 获取单个实体
         /// </summary>
-        /// <param name="predicate">条件</param>
         public TEntity Single( Expression<Func<TEntity, bool>> predicate ) {
             return _wrapper.Single( predicate );
         }
@@ -146,7 +155,6 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 获取单个实体
         /// </summary>
-        /// <param name="predicate">查询条件</param>
         public async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate ) {
             return await _wrapper.SingleAsync( predicate );
         }
@@ -167,6 +175,129 @@ namespace Util.Datas.Ef.Core {
             if( predicate == null )
                 return await Find().ToListAsync();
             return await Find( predicate ).ToListAsync();
+        }
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        public bool Exists( Expression<Func<TEntity, bool>> predicate ) {
+            if( predicate == null )
+                return false;
+            return Find().Any( predicate );
+        }
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        public bool Exists( params TKey[] ids ) {
+            if( ids == null )
+                return false;
+            return Exists( t => ids.Contains( t.Id ) );
+        }
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        public async Task<bool> ExistsAsync( Expression<Func<TEntity, bool>> predicate ) {
+            if( predicate == null )
+                return false;
+            return await Find().AnyAsync( predicate );
+        }
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        public async Task<bool> ExistsAsync( params TKey[] ids ) {
+            if( ids == null )
+                return false;
+            return await ExistsAsync( t => ids.Contains( t.Id ) );
+        }
+
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        public int Count( Expression<Func<TEntity, bool>> predicate = null ) {
+            if( predicate == null )
+                return Set.Count();
+            return Set.Count( predicate );
+        }
+
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        public async Task<int> CountAsync( Expression<Func<TEntity, bool>> predicate = null ) {
+            if( predicate == null )
+                return await Set.CountAsync();
+            return await Set.CountAsync( predicate );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public List<TEntity> Query( IQueryBase<TEntity> query ) {
+            return _wrapper.Query( query );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<List<TEntity>> QueryAsync( IQueryBase<TEntity> query ) {
+            return await _wrapper.QueryAsync( query );
+        }
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public List<TEntity> QueryAsNoTracking( IQueryBase<TEntity> query ) {
+            return _wrapper.QueryAsNoTracking( query );
+        }
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<List<TEntity>> QueryAsNoTrackingAsync( IQueryBase<TEntity> query ) {
+            return await _wrapper.QueryAsNoTrackingAsync( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public PagerList<TEntity> PagerQuery( IQueryBase<TEntity> query ) {
+            return _wrapper.PagerQuery( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<PagerList<TEntity>> PagerQueryAsync( IQueryBase<TEntity> query ) {
+            return await _wrapper.PagerQueryAsync( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public PagerList<TEntity> PagerQueryAsNoTracking( IQueryBase<TEntity> query ) {
+            return _wrapper.PagerQueryAsNoTracking( query );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        public async Task<PagerList<TEntity>> PagerQueryAsNoTrackingAsync( IQueryBase<TEntity> query ) {
+            return await _wrapper.PagerQueryAsNoTrackingAsync( query );
         }
 
         /// <summary>

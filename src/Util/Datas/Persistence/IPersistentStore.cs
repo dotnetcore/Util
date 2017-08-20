@@ -73,6 +73,56 @@ namespace Util.Datas.Persistence {
         /// <param name="predicate">查询条件</param>
         Task<TPo> SingleAsync( Expression<Func<TPo, bool>> predicate );
         /// <summary>
+        /// 判断持久化对象是否存在
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        bool Exists( params TKey[] ids );
+        /// <summary>
+        /// 判断持久化对象是否存在
+        /// </summary>
+        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        Task<bool> ExistsAsync( params TKey[] ids );
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        List<TPo> Query( IQueryBase<TPo> query );
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        Task<List<TPo>> QueryAsync( IQueryBase<TPo> query );
+        /// <summary>
+        /// 查询 - 返回未跟踪的持久化对象
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        List<TPo> QueryAsNoTracking( IQueryBase<TPo> query );
+        /// <summary>
+        /// 查询 - 返回未跟踪的持久化对象
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        Task<List<TPo>> QueryAsNoTrackingAsync( IQueryBase<TPo> query );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        PagerList<TPo> PagerQuery( IQueryBase<TPo> query );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        Task<PagerList<TPo>> PagerQueryAsync( IQueryBase<TPo> query );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        PagerList<TPo> PagerQueryAsNoTracking( IQueryBase<TPo> query );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        Task<PagerList<TPo>> PagerQueryAsNoTrackingAsync( IQueryBase<TPo> query );
+        /// <summary>
         /// 添加持久化对象
         /// </summary>
         /// <param name="po">持久化对象</param>
@@ -140,7 +190,7 @@ namespace Util.Datas.Persistence {
         /// <summary>
         /// 移除持久化对象集合
         /// </summary>
-        /// <param name="pos">实体集合</param>
+        /// <param name="pos">持久化对象集合</param>
         Task RemoveAsync( IEnumerable<TPo> pos );
     }
 }

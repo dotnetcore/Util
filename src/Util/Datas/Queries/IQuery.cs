@@ -8,7 +8,7 @@ namespace Util.Datas.Queries {
     /// 查询对象
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface IQuery<TEntity> : IQuery<TEntity, Guid> where TEntity : class, IAggregateRoot<TEntity, Guid> {
+    public interface IQuery<TEntity> : IQuery<TEntity, Guid> where TEntity : class {
     }
 
     /// <summary>
@@ -16,7 +16,7 @@ namespace Util.Datas.Queries {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public interface IQuery<TEntity, TKey> : IQueryBase<TEntity> where TEntity : class, IAggregateRoot<TEntity, TKey> {
+    public interface IQuery<TEntity, TKey> : IQueryBase<TEntity> where TEntity : class {
         /// <summary>
         /// 添加查询条件
         /// </summary>

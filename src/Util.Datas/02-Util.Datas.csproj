@@ -29,6 +29,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0-preview2-final" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.0-preview3-10055" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.7.6" />
   </ItemGroup>
 
 </Project>
