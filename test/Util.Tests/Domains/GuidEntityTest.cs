@@ -100,10 +100,10 @@ namespace Util.Tests.Domains {
         /// 测试空对象
         /// </summary>
         [Fact]
-        public void TestIsNull() {
-            Assert.False( _sample.IsNull() );
+        public void TestIsNullObject() {
+            Assert.False( _sample.IsNullObject() );
             _sample = AggregateRootSample.Null;
-            Assert.True( _sample.IsNull() );
+            Assert.True( _sample.IsNullObject() );
         }
 
         /// <summary>

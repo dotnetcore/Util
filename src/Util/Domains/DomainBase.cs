@@ -126,12 +126,12 @@ namespace Util.Domains {
 
         #endregion
 
-        #region IsNull(是否空对象)
+        #region IsNullObject(是否空对象)
 
         /// <summary>
         /// 是否空对象
         /// </summary>
-        public virtual bool IsNull() {
+        public virtual bool IsNullObject() {
             return false;
         }
 

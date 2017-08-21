@@ -7,3 +7,4 @@ bin/
 BenchmarkDotNet.Artifacts/
 /output
 /template/CodeSmith/CodeGenerator/02-Result
+/sample/Util.Samples.Webs/wwwroot/lib

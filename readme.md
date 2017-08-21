@@ -162,10 +162,13 @@ Util暂时未发布到Nuget，待成熟后发布。
 12. 映射框架
   - AutoMapper
 
-13. Id生成器
+13. 日志框架
+  - NLog
+
+14. Id生成器
   - ECommon.Utilities.ObjectId
 
-14. Queryable动态扩展
+15. Queryable动态扩展
   - System.Linq.Dynamic.Core
 
 ## 框架开发流程

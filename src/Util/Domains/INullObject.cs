@@ -6,6 +6,6 @@
         /// <summary>
         /// 是否空对象
         /// </summary>
-        bool IsNull();
+        bool IsNullObject();
     }
 }

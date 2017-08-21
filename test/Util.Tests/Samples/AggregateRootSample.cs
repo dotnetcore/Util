@@ -212,7 +212,7 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 空对象
         /// </summary>
-        public override bool IsNull() {
+        public override bool IsNullObject() {
             return true;
         }
     }
