@@ -27,4 +27,10 @@
     <Folder Include="SqlServer\Scripts\Pd\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SqlServer\Scripts\database.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
