@@ -2,7 +2,7 @@ using System;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace DotNetCore.CAP.SqlServer.Test
+namespace Util.Datas.Tests.SqlServer.Confis
 {
     public static class ConnectionUtil
     {
