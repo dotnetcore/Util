@@ -147,8 +147,8 @@ Util暂时未发布到Nuget，待成熟后发布。
 8. ORM
   - Microsoft.EntityFrameworkCore 2.0
   - Microsoft.EntityFrameworkCore.SqlServer 2.0.0
-  - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0-preview2-final
-  - Pomelo.EntityFrameworkCore.MySql 2.0.0-preview3-10055
+  - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0
+  - Pomelo.EntityFrameworkCore.MySql 2.0.0-rtm-10057
 
 9. Ioc框架
   - Autofac

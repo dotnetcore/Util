@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Util.Domains;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Queries {
@@ -21,7 +20,7 @@ namespace Util.Datas.Queries {
         /// 添加查询条件
         /// </summary>
         /// <param name="predicate">查询条件</param>
-        IQuery<TEntity, TKey> Where( Expression<Func<TEntity, bool>> predicate ); 
+        IQuery<TEntity, TKey> Where( Expression<Func<TEntity, bool>> predicate );
         /// <summary>
         /// 添加查询条件
         /// </summary>
@@ -75,7 +74,7 @@ namespace Util.Datas.Queries {
         /// <param name="max">最大值</param>
         /// <param name="includeTime">是否包含时间</param>
         /// <param name="boundary">包含边界</param>
-        IQuery<TEntity, TKey> Between<TProperty>( Expression<Func<TEntity, TProperty>> propertyExpression, DateTime? min, DateTime? max,bool includeTime = true, Boundary? boundary = null );      
+        IQuery<TEntity, TKey> Between<TProperty>( Expression<Func<TEntity, TProperty>> propertyExpression, DateTime? min, DateTime? max,bool includeTime = true, Boundary? boundary = null );
         /// <summary>
         /// 添加排序
         /// </summary>
@@ -108,6 +107,6 @@ namespace Util.Datas.Queries {
         /// 或连接
         /// </summary>
         /// <param name="query">查询对象</param>
-        IQuery<TEntity, TKey> Or( IQuery<TEntity, TKey> query );        
+        IQuery<TEntity, TKey> Or( IQuery<TEntity, TKey> query );
     }
 }
