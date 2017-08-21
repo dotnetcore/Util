@@ -1,4 +1,4 @@
-﻿using Util.Datas.Tests.SqlServer.Confis;
+﻿using Util.Datas.Tests.SqlServer.Configs;
 
 namespace Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks {
     /// <summary>

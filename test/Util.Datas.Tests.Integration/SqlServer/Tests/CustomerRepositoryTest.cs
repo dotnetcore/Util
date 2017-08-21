@@ -8,7 +8,7 @@ using Util.Datas.Tests.Samples.Datas.Criterias;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
-using Util.Datas.Tests.SqlServer.Confis;
+using Util.Datas.Tests.SqlServer.Configs;
 using Util.Helpers;
 using Xunit;
 

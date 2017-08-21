@@ -1,4 +1,4 @@
-﻿namespace Util.Datas.Tests.SqlServer.Confis {
+﻿namespace Util.Datas.Tests.SqlServer.Configs {
     /// <summary>
     /// 测试应用程序配置
     /// </summary>

@@ -6,7 +6,7 @@ using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.DependencyInjection;
 using Util.Domains.Sessions;
 
-namespace Util.Datas.Tests.SqlServer.Confis {
+namespace Util.Datas.Tests.SqlServer.Configs {
     /// <summary>
     /// 依赖注入配置
     /// </summary>

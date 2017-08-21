@@ -7,7 +7,7 @@ using Util.Datas.Ef;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
-using Util.Datas.Tests.SqlServer.Confis;
+using Util.Datas.Tests.SqlServer.Configs;
 using Util.Datas.Tests.XUnitHelpers;
 using Util.Exceptions;
 using Util.Helpers;
