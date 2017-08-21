@@ -6,13 +6,13 @@ matrix:
   include:
   - os: linux
     dist: trusty # Ubuntu 14.04
-    dotnet: 2.0.0-preview2-006497
+    dotnet: 2.0.0
     mono: none
     env: DOTNETCORE=1
     sudo: required
   - os: osx
     osx_image: xcode8.3 # macOS 10.12
-    dotnet: 2.0.0-preview2-006497
+    dotnet: 2.0.0
     mono: none
     env: DOTNETCORE=1
 
