@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "name": "util.samples.webs",
+  "private": true,
+  "scripts": {
+    "start": "webpack"
+  },
+  "dependencies": {
+    "@angular/animations": "4.3.5",
+    "@angular/common": "4.3.5",
+    "@angular/compiler": "4.3.5",
+    "@angular/core": "4.3.5",
+    "@angular/forms": "4.3.5",
+    "@angular/http": "4.3.5",
+    "@angular/platform-browser": "4.3.5",
+    "@angular/platform-browser-dynamic": "4.3.5",
+    "rxjs": "5.4.3",
+    "zone.js": "0.8.16"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "4.3.5",
+    "webpack": "3.5.5"
+  }
+}

@@ -145,7 +145,7 @@ Util暂时未发布到Nuget，待成熟后发布。
   - NSubstitute
 
 8. ORM
-  - Microsoft.EntityFrameworkCore 2.0
+  - EntityFrameworkCore 2.0
   - Microsoft.EntityFrameworkCore.SqlServer 2.0.0
   - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0
   - Pomelo.EntityFrameworkCore.MySql 2.0.0-rtm-10057
@@ -170,6 +170,13 @@ Util暂时未发布到Nuget，待成熟后发布。
 
 15. Queryable动态扩展
   - System.Linq.Dynamic.Core
+
+16. Web框架
+  - Asp.Net Core 2
+
+17. 前端语言及框架
+  - TypeScript语言
+  - Angular 4
 
 ## 框架开发流程
 
@@ -342,6 +349,7 @@ https://github.com/dotnetcore/util/
   - 树型Crud服务 [开发中]
   - 持久化对象Po基类 [已发布]
   - 持久化对象存储基类 [已发布]
+- UI组件[待启动]
 
 ## 更新列表
 

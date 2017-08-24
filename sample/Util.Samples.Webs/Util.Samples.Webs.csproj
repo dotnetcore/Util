@@ -23,4 +23,14 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Util.Datas\02-Util.Datas.csproj" />
+    <ProjectReference Include="..\..\src\Util.Logs\03-Util.Logs.csproj" />
+    <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
 </Project>
