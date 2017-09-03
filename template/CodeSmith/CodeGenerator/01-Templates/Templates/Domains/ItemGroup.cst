@@ -13,7 +13,7 @@
 <ItemGroup>
 <% foreach( Entity entity in Entities ) {%> 
     <Compile Update="Models/<%= entity.ClassName %>.*.cs">
-      <DependentUpon>Models/<%= entity.ClassName %>.cs</DependentUpon>
+      <DependentUpon><%= entity.ClassName %>.cs</DependentUpon>
     </Compile>
 <% }%>
 </ItemGroup>
