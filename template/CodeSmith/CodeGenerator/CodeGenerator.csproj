@@ -74,6 +74,7 @@
     <Compile Include="01-Templates\Common\Parser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="01-Templates\Templates\Domains\ItemGroup.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\PoExtension.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\Po.cst" />
     <None Include="01-Templates\Templates\Datas\IUnitOfWork.cst" />
@@ -93,7 +94,6 @@
     <None Include="Project.csp" />
     <None Include="01-Templates\Templates.cst" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

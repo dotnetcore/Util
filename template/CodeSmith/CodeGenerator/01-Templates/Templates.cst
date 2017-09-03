@@ -116,6 +116,9 @@
 <%@ Register Name="SqlServerMappingClass"
              Template="Templates\Datas\SqlServer\Mapping.cst"
              MergeProperties="False" %>
+<%@ Register Name="ItemGroupClass"
+             Template="Templates\Domains\ItemGroup.cst"
+             MergeProperties="False" %>
 <% Generate(); %>
 
 <script runat="template">
@@ -172,6 +175,8 @@
         CreateSqlServerUnitOfWork(context);
         //创建Sql Server映射
         CreateSqlServerMapping(context);
+        //创建项目嵌套设置
+        CreateItemGroup(context);
 //        //创建MySql工作单元
 //        CreateMySqlUnitOfWork(context);
 //        //创建仓储基类
@@ -467,6 +472,17 @@
             result.Namespace = GetNamespace(entity);
             result.RenderToFile(GetPath(className,string.Format("Datas\\{0}\\Mappings\\SqlServer",GetSchema(entity)) ), true);
         }
+    }
+    
+    //创建项目嵌套设置
+    public void CreateItemGroup(EntityContext entityContext){
+        ItemGroupClass result = this.Create<ItemGroupClass>();
+        this.CopyPropertiesTo(result);              
+        foreach(Entity entity in entityContext.Entities) {
+            var list = entityContext.Entities.Where( t => t.TableSchema == entity.TableSchema ).ToList();
+            result.Entities = list;
+            result.RenderToFile(GetPath("ItemGroup","Domains\\" + GetSchema(entity),".txt"), true);
+        }        
     }
     
 //    //创建工作单元
