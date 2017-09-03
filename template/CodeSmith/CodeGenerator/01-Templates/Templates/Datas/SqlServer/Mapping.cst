@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
+namespace <%= string.Format("{0}.Datas.{1}.Mappings.SqlServer",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>映射配置
     /// </summary>
@@ -177,7 +177,7 @@ public string RelationshipExpression(Relationship relationship)
     }
     else if (relationship.ThisCardinality == Cardinality.ZeroOrOne)
     {
-        sb.Append("builder.HasOptional(t => t.");
+        sb.Append("builder.HasOne(t => t.");
         sb.Append(relationship.ThisPropertyName);
         sb.Append(")");
     }

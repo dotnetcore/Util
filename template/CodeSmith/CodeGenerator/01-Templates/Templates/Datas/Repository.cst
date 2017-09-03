@@ -21,7 +21,7 @@ using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
 using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
 using Util.Datas.Ef.Core;
 
-namespace <%= Entity.GetNamespace(Namespace,"Datas.Repositories") %> {
+namespace <%= string.Format("{0}.Datas.{1}.Repositories",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>仓储
     /// </summary>

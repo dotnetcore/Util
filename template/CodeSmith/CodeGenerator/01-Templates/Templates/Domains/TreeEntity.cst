@@ -23,7 +23,6 @@ using Util;
 using Util.Domains;
 using Util.Domains.Auditing;
 using Util.Domains.Trees;
-using Util.Domains.Tenants;
 
 namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
     /// <summary>
@@ -69,7 +68,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
         /// <summary>
         /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>列表
         /// </summary>
-        public virtual ICollection<<%= r.OtherEntity.ToSafeName() %>> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
+        public ICollection<<%= r.OtherEntity.ToSafeName() %>> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
         <% } else { %>
         /// <summary>
         /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>

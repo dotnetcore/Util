@@ -8,13 +8,25 @@
     <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
     <Description>Util应用框架Web示例项目</Description>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Typings\app\**" />
+    <Content Remove="Typings\app\**" />
+    <EmbeddedResource Remove="Typings\app\**" />
+    <None Remove="Typings\app\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Typings\boot.browser.ts" />
+    <None Remove="Typings\main.ts" />
+  </ItemGroup>
 
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,5 +44,33 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Typings\main.ts" />
+  </ItemGroup>
+
+  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug'">
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="必须安装Node.js" />
+    <Message Importance="high" Text="Webpack开始打包" />  
+    <Exec Command="node node_modules/webpack/bin/webpack.js" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <Exec Command="npm install" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**;" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+  <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

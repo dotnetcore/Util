@@ -97,16 +97,6 @@ namespace Util.Tests.Domains {
         }
 
         /// <summary>
-        /// 测试空对象
-        /// </summary>
-        [Fact]
-        public void TestIsNullObject() {
-            Assert.False( _sample.IsNullObject() );
-            _sample = AggregateRootSample.Null;
-            Assert.True( _sample.IsNullObject() );
-        }
-
-        /// <summary>
         /// 验证必填项，通过字符串设置错误消息
         /// </summary>
         [Fact]

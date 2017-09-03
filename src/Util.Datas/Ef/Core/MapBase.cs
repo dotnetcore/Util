@@ -8,10 +8,16 @@ namespace Util.Datas.Ef.Core {
     /// <typeparam name="TEntity">实体类型</typeparam>
     public abstract class MapBase<TEntity> : IMap where TEntity : class {
         /// <summary>
+        /// 模型生成器
+        /// </summary>
+        protected ModelBuilder ModelBuilder { get; private set; }
+
+        /// <summary>
         /// 映射配置
         /// </summary>
         /// <param name="modelBuilder">模型生成器</param>
         public void Map( ModelBuilder modelBuilder ) {
+            ModelBuilder = modelBuilder;
             var builder = modelBuilder.Entity<TEntity>();
             MapTable( builder );
             MapVersion( builder );

@@ -9,7 +9,7 @@ namespace Util.Domains {
     /// <summary>
     /// 领域层顶级基类
     /// </summary>
-    public abstract class DomainBase<T> : INullObject, IDomainObject, ICompareChange<T> where T : IDomainObject {
+    public abstract class DomainBase<T> : IDomainObject, ICompareChange<T> where T : IDomainObject {
 
         #region 字段
 
@@ -122,17 +122,6 @@ namespace Util.Domains {
             if( results.IsValid )
                 return;
             _handler.Handle( results );
-        }
-
-        #endregion
-
-        #region IsNullObject(是否空对象)
-
-        /// <summary>
-        /// 是否空对象
-        /// </summary>
-        public virtual bool IsNullObject() {
-            return false;
         }
 
         #endregion

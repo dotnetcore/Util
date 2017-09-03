@@ -119,7 +119,7 @@ Util暂时未发布到Nuget，待成熟后发布。
 
 1. 开发工具： 
   - Visual Studio 2017 15.3
-  - Resharper 2017.2 EAP 11
+  - Resharper 2017.2
 
 2. 数据库
   - Sql Server
@@ -174,9 +174,12 @@ Util暂时未发布到Nuget，待成熟后发布。
 16. Web框架
   - Asp.Net Core 2
 
-17. 前端语言及框架
+17. 前端语言、框架及组件
   - TypeScript语言
   - Angular 4
+
+18. 代码生成器
+  - CodeSmith 6.5
 
 ## 框架开发流程
 
@@ -350,6 +353,8 @@ https://github.com/dotnetcore/util/
   - 持久化对象Po基类 [已发布]
   - 持久化对象存储基类 [已发布]
 - UI组件[待启动]
+- 公共业务基类
+  - 地址 [已发布]
 
 ## 更新列表
 
@@ -373,3 +378,4 @@ https://github.com/dotnetcore/util/
 - 2017年8月14日，更新了持久化对象Po基类，仓储部分实现及相关单元测试。
 - 2017年8月19日，更新了操作审计(Util/Domains/Auditing)。
 - 2017年8月21日，更新了仓储基类，持久化对象存储基类，IQueryable查询扩展。
+- 2017年9月3日，更新了公共业务类型-地址(Address)，修改了代码生成模板。

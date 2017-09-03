@@ -80,7 +80,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
         /// <summary>
         /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>
         /// </summary>
-        public virtual <%= r.OtherEntity.ToSafeName() %> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
+        public <%= r.OtherEntity.ToSafeName() %> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
         <% } %>
         <% }%>
         

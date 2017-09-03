@@ -2,10 +2,11 @@
 <codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
   <variables>
     <add key="UtilTest" value="Data Source=.\sql2014;Initial Catalog=UtilTest;Integrated Security=True" />
+    <add key="ConnectionString1" value="Data Source=.\sql2014;Initial Catalog=Donau;Integrated Security=True" />
   </variables>
   <propertySets>
     <propertySet name="Templates" template="01-Templates\Templates.cst">
-      <property name="TableNaming">Plural</property>
+      <property name="TableNaming">Singular</property>
       <property name="EntityNaming">Singular</property>
       <property name="RelationshipNaming">Plural</property>
       <property name="ContextNaming">Plural</property>
@@ -21,10 +22,10 @@
     </stringList>
       </property>
       <property name="Database">
-        <connectionString>$(UtilTest)</connectionString>
+        <connectionString>$(ConnectionString1)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
-      <property name="Namespace">Applications</property>
+      <property name="Namespace">Donau</property>
       <property name="DbName">.</property>
     </propertySet>
   </propertySets>

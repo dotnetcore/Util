@@ -3,7 +3,7 @@
   "name": "util.samples.webs",
   "private": true,
   "scripts": {
-    "start": "webpack"
+    "start": "webpack --env dev"
   },
   "dependencies": {
     "@angular/animations": "4.3.5",
@@ -14,11 +14,16 @@
     "@angular/http": "4.3.5",
     "@angular/platform-browser": "4.3.5",
     "@angular/platform-browser-dynamic": "4.3.5",
+    "@angular/router": "4.3.5",
     "rxjs": "5.4.3",
     "zone.js": "0.8.16"
   },
   "devDependencies": {
+    "typescript": "2.5.1",
     "@angular/compiler-cli": "4.3.5",
-    "webpack": "3.5.5"
+    "webpack": "3.5.5",
+    "@ngtools/webpack": "1.6.2",
+    "@types/webpack-env": "1.13.0",
+    "awesome-typescript-loader": "3.2.3"
   }
 }

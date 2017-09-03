@@ -162,13 +162,6 @@ namespace Util.Tests.Samples {
         }
 
         /// <summary>
-        /// 空聚合根测试样例
-        /// </summary>
-        public static AggregateRootSample Null {
-            get { return new NullAggregateRootSample(); }
-        }
-
-        /// <summary>
         /// 创建测试样例
         /// </summary>
         public static AggregateRootSample CreateSample() {
@@ -202,18 +195,6 @@ namespace Util.Tests.Samples {
                 EnglishName = "TestEnglishName2",
                 MobilePhone = "12012345678"
             };
-        }
-    }
-
-    /// <summary>
-    /// 空聚合根测试样例
-    /// </summary>
-    public class NullAggregateRootSample : AggregateRootSample {
-        /// <summary>
-        /// 空对象
-        /// </summary>
-        public override bool IsNullObject() {
-            return true;
         }
     }
 
