@@ -261,5 +261,23 @@ namespace Util.Helpers {
                 return default( T );
             }
         }
+
+        /// <summary>
+        /// 转换为时间戳
+        /// </summary>
+        /// <param name="time">日期时间</param>
+        /// <returns>时间戳</returns>
+        public static int ToTimeStamp(DateTime time){
+            return (int)(time.ToUniversalTime().Ticks / 10000000 - 62135596800);
+        }
+
+        /// <summary>
+        /// 转换为日期时间
+        /// </summary>
+        /// <param name="timeStamp">时间戳</param>
+        /// <returns>日期时间</returns>
+        public static DateTime ToDateTime(int timeStamp){
+            return new DateTime((timeStamp + 62135596800) * 10000000, DateTimeKind.Utc).ToLocalTime();
+        }
     }
 }
