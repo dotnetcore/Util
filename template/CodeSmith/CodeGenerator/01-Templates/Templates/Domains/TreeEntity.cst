@@ -21,8 +21,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Util;
 using Util.Domains;
-using Util.Domains.Auditing;
 using Util.Domains.Trees;
+using Util.Domains.Auditing;
+using Util.Domains.Tenants;
 
 namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
     /// <summary>

@@ -18,9 +18,9 @@
 <% string Description = Entity.Description; %>
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Datas","Pos") %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
+namespace <%= Entity.GetNamespace(Namespace,"Datas","Mappings.SqlServer") %> {
     /// <summary>
     /// <%= Description %>持久化对象映射配置
     /// </summary>
@@ -64,7 +64,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Mappings") %> {
 <script runat="template">
 
 public string PropertyExpression(Property property)
-{
+{    
     bool isString = property.SystemType == typeof(string);
     bool isByteArray = property.SystemType == typeof(byte[]);
     bool isDecimal = property.SystemType == typeof(Decimal);
@@ -171,13 +171,13 @@ public string RelationshipExpression(Relationship relationship)
 
     if (relationship.ThisCardinality == Cardinality.One)
     {
-        sb.Append("HasRequired(t => t.");
+        sb.Append("builder.HasOne(t => t.");
         sb.Append(relationship.ThisPropertyName);
         sb.Append(")");
     }
     else if (relationship.ThisCardinality == Cardinality.ZeroOrOne)
     {
-        sb.Append("HasOptional(t => t.");
+        sb.Append("builder.HasOne(t => t.");
         sb.Append(relationship.ThisPropertyName);
         sb.Append(")");
     }

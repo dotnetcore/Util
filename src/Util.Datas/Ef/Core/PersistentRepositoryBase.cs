@@ -12,6 +12,22 @@ namespace Util.Datas.Ef.Core {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TPo">持久化对象类型</typeparam>
+    public abstract class PersistentRepositoryBase<TEntity, TPo> : PersistentRepositoryBase<TEntity, TPo, Guid>
+        where TEntity : class, IAggregateRoot<Guid>
+        where TPo : class, IPersistentObject<Guid> {
+        /// <summary>
+        /// 初始化仓储
+        /// </summary>
+        /// <param name="store">持久化存储</param>
+        protected PersistentRepositoryBase( IPersistentStore<TPo> store ) : base( store ) {
+        }
+    }
+
+    /// <summary>
+    /// 仓储 - 配合持久化对象
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <typeparam name="TPo">持久化对象类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract class PersistentRepositoryBase<TEntity, TPo, TKey> : ICompactRepository<TEntity, TKey>
         where TEntity : class, IAggregateRoot<TKey>

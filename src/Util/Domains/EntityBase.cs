@@ -41,7 +41,7 @@ namespace Util.Domains {
         /// 相等运算
         /// </summary>
         public override bool Equals( object other ) {
-            return this == (EntityBase<TEntity, TKey>)other;
+            return this == ( other as EntityBase<TEntity, TKey> );
         }
 
         /// <summary>

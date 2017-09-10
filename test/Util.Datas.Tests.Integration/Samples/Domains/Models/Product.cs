@@ -63,7 +63,7 @@ namespace Util.Datas.Tests.Samples.Domains.Models {
         protected override void AddChanges( Product other ) {
             AddChange( "Id", "商品编号", Id, other.Id );
             AddChange( "Code", "商品编码", Code, other.Code );
-            AddChange( "Name", "商品名称", Name, other.Name );
+            AddChange( t=> t.Name, other.Name );
         }
     }
 }

@@ -19,7 +19,7 @@ using Util;
 using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
 using Util.Maps;
 
-namespace <%= Entity.GetNamespace(Namespace,"Datas.Pos") %> {
+namespace <%= string.Format("{0}.Datas.{1}.Pos",Namespace,Entity.TableSchema) %>  {
     /// <summary>
     /// <%= Description %>持久化对象扩展
     /// </summary>
@@ -69,7 +69,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas.Pos") %> {
             return new <%= SafeClassName %>Po {
                 <% foreach(Property p in Entity.Properties) { %>
                 <% if( p.IsPrimaryKey.SafeValue() ) {%>
-                Id = entity.Id<%=Entity.GetToDtoConvert() %>,
+                Id = entity.Id,
                 <%continue;}%>
                 <%= p.PropertyName.ToSafeName() %> = entity.<%= p.PropertyName.ToSafeName() %>,
                 <%}%>

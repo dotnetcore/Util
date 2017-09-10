@@ -370,7 +370,7 @@
             string className = string.Format( "{0}PoMap", entity.ClassName );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\SqlServer\\Mappings\\",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\Mappings\\SqlServer\\",GetSchema(entity)) ), true);
         }
     }
     

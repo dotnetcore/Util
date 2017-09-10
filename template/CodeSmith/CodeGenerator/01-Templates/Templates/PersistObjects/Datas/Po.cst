@@ -16,11 +16,9 @@
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
 using System;
-using System.ComponentModel.DataAnnotations;
-using Util.Domains;
 using Util.Datas.Persistence;
 
-namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
+namespace <%= string.Format("{0}.Datas.{1}.Pos",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>持久化对象
     /// </summary>

@@ -17,8 +17,7 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
-using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
+using <%= Entity.GetNamespace(Namespace,"Datas","Pos") %>;
 using Util.Datas.Persistence;
 
 namespace <%= Entity.GetNamespace(Namespace,"Datas","Stores") %> {
