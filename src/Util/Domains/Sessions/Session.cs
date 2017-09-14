@@ -14,7 +14,7 @@
         /// <summary>
         /// 空用户上下文
         /// </summary>
-        public static ISession Null => NullSession.Instance;
+        public static readonly ISession Null = new NullSession();
 
         /// <summary>
         /// 用户编号

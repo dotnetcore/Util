@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-src", "05-src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
 EndProject
@@ -62,7 +62,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Ui", "02-Ui", "{78CC88DA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Biz", "03-Biz", "{62644B42-76EF-4FC2-8736-3E9B96C1D832}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Biz", "src\Util.Biz\Util.Biz.csproj", "{BAB54FFD-DF77-40B6-86A5-A1A3E0985468}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Biz", "src\Util.Biz\Util.Biz.csproj", "{BAB54FFD-DF77-40B6-86A5-A1A3E0985468}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

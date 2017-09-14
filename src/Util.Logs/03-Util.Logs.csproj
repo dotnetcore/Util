@@ -28,11 +28,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="NLog\" />
+    <Folder Include="Exceptionless\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="5.0.0-beta09" />
+    <None Include="Extensions\Extensions.Log.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="5.0.0-beta10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util\01-Util.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,5 +13,10 @@ namespace Util.Helpers {
             var type = typeof( T );
             return Nullable.GetUnderlyingType( type ) ?? type;
         }
+
+        /// <summary>
+        /// 换行符
+        /// </summary>
+        public static string Line => Environment.NewLine;
     }
 }

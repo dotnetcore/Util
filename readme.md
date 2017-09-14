@@ -163,10 +163,11 @@ Util暂时未发布到Nuget，待成熟后发布。
   - AutoMapper
 
 13. 日志框架
-  - NLog
+  - [NLog](http://nlog-project.org/)
+  - [Exceptionless](https://github.com/exceptionless)
 
 14. Id生成器
-  - ECommon.Utilities.ObjectId
+  - [ECommon.Utilities.ObjectId](https://github.com/tangxuehua/ecommon/blob/master/src/ECommon/Utilities/ObjectId.cs)
 
 15. Queryable动态扩展
   - System.Linq.Dynamic.Core

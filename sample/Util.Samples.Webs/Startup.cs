@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Samples.Webs.Configs;
 
 namespace Util.Samples.Webs {
     /// <summary>
@@ -30,7 +31,7 @@ namespace Util.Samples.Webs {
             services.AddMvc();
 
             //添加Ioc服务
-            return services.AddIoc();
+            return services.AddIoc( new IocConfig() );
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Util.DependencyInjection {
@@ -18,6 +19,9 @@ namespace Util.DependencyInjection {
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
         public T Create<T>() {
+            IHttpContextAccessor accessor = _container.Resolve<IHttpContextAccessor>();
+            if( accessor?.HttpContext?.RequestServices != null )
+                return accessor.HttpContext.RequestServices.GetService<T>();
             return _container.Resolve<T>();
         }
 
@@ -26,6 +30,9 @@ namespace Util.DependencyInjection {
         /// </summary>
         /// <param name="type">对象类型</param>
         public object Create( Type type ) {
+            IHttpContextAccessor accessor = _container.Resolve<IHttpContextAccessor>();
+            if( accessor?.HttpContext?.RequestServices != null )
+                return accessor.HttpContext.RequestServices.GetService( type );
             return _container.Resolve( type );
         }
 

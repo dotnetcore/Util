@@ -1,7 +1,7 @@
 ﻿namespace Util.Logs {
     /// <summary>
-    /// 日志内容格式化
+    /// 日志内容
     /// </summary>
-    public interface IFormat {
+    public interface ILogContent {
     }
 }
