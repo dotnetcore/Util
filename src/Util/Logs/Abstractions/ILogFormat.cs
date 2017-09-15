@@ -1,4 +1,4 @@
-﻿namespace Util.Logs {
+﻿namespace Util.Logs.Abstractions {
     /// <summary>
     /// 日志格式化器
     /// </summary>

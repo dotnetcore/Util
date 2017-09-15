@@ -19,7 +19,13 @@ namespace Util.DependencyInjection {
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
         public T Create<T>() {
-            IHttpContextAccessor accessor = _container.Resolve<IHttpContextAccessor>();
+            IHttpContextAccessor accessor;
+            try {
+                accessor = _container.Resolve<IHttpContextAccessor>();
+            }
+            catch {
+                return _container.Resolve<T>();
+            }
             if( accessor?.HttpContext?.RequestServices != null )
                 return accessor.HttpContext.RequestServices.GetService<T>();
             return _container.Resolve<T>();
@@ -30,7 +36,13 @@ namespace Util.DependencyInjection {
         /// </summary>
         /// <param name="type">对象类型</param>
         public object Create( Type type ) {
-            IHttpContextAccessor accessor = _container.Resolve<IHttpContextAccessor>();
+            IHttpContextAccessor accessor;
+            try {
+                accessor = _container.Resolve<IHttpContextAccessor>();
+            }
+            catch {
+                return _container.Resolve( type );
+            }
             if( accessor?.HttpContext?.RequestServices != null )
                 return accessor.HttpContext.RequestServices.GetService( type );
             return _container.Resolve( type );

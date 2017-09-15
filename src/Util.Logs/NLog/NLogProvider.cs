@@ -1,5 +1,6 @@
 ﻿using System;
 using NLog;
+using Util.Logs.Abstractions;
 using Util.Logs.Formats;
 
 namespace Util.Logs.NLog {
@@ -21,7 +22,7 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="logger">NLog日志操作</param>
         /// <param name="format">日志格式化器</param>
-        public NLogProvider( Logger logger ,ILogFormat format ) {
+        public NLogProvider( Logger logger ,ILogFormat format = null ) {
             _logger = logger;
             _format = format;
         }
@@ -41,26 +42,21 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="message">日志消息</param>
         public void Trace( object message ) {
-            _logger.Trace( new FormatProvider( _format ), message );
+            var provider = GetFormatProvider();
+            if ( provider == null ) {
+                _logger.Trace( message );
+                return;
+            }
+            _logger.Trace( provider, message );
         }
 
         /// <summary>
-        /// 跟踪
+        /// 获取格式化提供程序
         /// </summary>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Trace( string message, params object[] args ) {
-            _logger.Trace( message, args );
-        }
-
-        /// <summary>
-        /// 跟踪
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Trace( Exception exception, string message = "", params object[] args ) {
-            _logger.Trace( exception, message, args );
+        private IFormatProvider GetFormatProvider() {
+            if ( _format == null )
+                return null;
+            return new FormatProvider( _format );
         }
 
         /// <summary>
@@ -68,26 +64,12 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="message">日志消息</param>
         public void Debug( object message ) {
-            _logger.Debug( message );
-        }
-
-        /// <summary>
-        /// 调试
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Debug( string message, params object[] args ) {
-            _logger.Debug( message, args );
-        }
-
-        /// <summary>
-        /// 调试
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Debug( Exception exception, string message = "", params object[] args ) {
-            _logger.Debug( exception, message, args );
+            var provider = GetFormatProvider();
+            if( provider == null ) {
+                _logger.Debug( message );
+                return;
+            }
+            _logger.Debug( provider, message );
         }
 
         /// <summary>
@@ -95,26 +77,12 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="message">日志消息</param>
         public void Info( object message ) {
-            _logger.Info( message );
-        }
-
-        /// <summary>
-        /// 信息
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Info( string message, params object[] args ) {
-            _logger.Info( message, args );
-        }
-
-        /// <summary>
-        /// 信息
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Info( Exception exception, string message = "", params object[] args ) {
-            _logger.Info( exception, message, args );
+            var provider = GetFormatProvider();
+            if( provider == null ) {
+                _logger.Info( message );
+                return;
+            }
+            _logger.Info( provider, message );
         }
 
         /// <summary>
@@ -122,26 +90,12 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="message">日志消息</param>
         public void Warn( object message ) {
-            _logger.Warn( message );
-        }
-
-        /// <summary>
-        /// 警告
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Warn( string message, params object[] args ) {
-            _logger.Warn( message, args );
-        }
-
-        /// <summary>
-        /// 警告
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Warn( Exception exception, string message = "", params object[] args ) {
-            _logger.Warn( exception, message, args );
+            var provider = GetFormatProvider();
+            if( provider == null ) {
+                _logger.Warn( message );
+                return;
+            }
+            _logger.Warn( provider, message );
         }
 
         /// <summary>
@@ -149,26 +103,12 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="message">日志消息</param>
         public void Error( object message ) {
-            _logger.Error( message );
-        }
-
-        /// <summary>
-        /// 错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Error( string message, params object[] args ) {
-            _logger.Error( message, args );
-        }
-
-        /// <summary>
-        /// 错误
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Error( Exception exception, string message = "", params object[] args ) {
-            _logger.Error( exception, message, args );
+            var provider = GetFormatProvider();
+            if( provider == null ) {
+                _logger.Error( message );
+                return;
+            }
+            _logger.Error( provider, message );
         }
 
         /// <summary>
@@ -176,26 +116,12 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="message">日志消息</param>
         public void Fatal( object message ) {
-            _logger.Fatal( message );
-        }
-
-        /// <summary>
-        /// 致命错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Fatal( string message, params object[] args ) {
-            _logger.Fatal( message, args );
-        }
-
-        /// <summary>
-        /// 致命错误
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Fatal( Exception exception, string message = "", params object[] args ) {
-            _logger.Fatal( exception, message, args );
+            var provider = GetFormatProvider();
+            if( provider == null ) {
+                _logger.Fatal( message );
+                return;
+            }
+            _logger.Fatal( provider, message );
         }
     }
 }

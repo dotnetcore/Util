@@ -1,48 +1,72 @@
 ﻿using System;
+using Util.Logs.Abstractions;
 
 namespace Util.Logs.Core {
     /// <summary>
     /// 日志操作
     /// </summary>
-    public abstract class LogBase : ILog {
+    /// <typeparam name="TContent">日志内容类型</typeparam>
+    public abstract class LogBase<TContent> : ILog where TContent : class, ILogContent {
         /// <summary>
         /// 初始化日志操作
         /// </summary>
         /// <param name="provider">日志提供程序</param>
-        protected LogBase( ILogProvider provider ) {
+        /// <param name="context">日志上下文</param>
+        protected LogBase( ILogProvider provider, ILogContext context ) {
             Provider = provider;
+            Context = context;
         }
 
         /// <summary>
         /// 日志提供程序
         /// </summary>
-        protected ILogProvider Provider { get; }
+        public ILogProvider Provider { get; }
+
+        /// <summary>
+        /// 日志上下文
+        /// </summary>
+        public ILogContext Context { get; }
 
         /// <summary>
         /// 日志内容
         /// </summary>
-        private ILogContent LogContent => _content ?? ( _content = GetContent() );
+        private TContent LogContent {
+            get {
+                if( _content == null )
+                    _content = GetContent();
+                return _content;
+            }
+        }
 
         /// <summary>
         /// 日志内容
         /// </summary>
-        private ILogContent _content;
+        private TContent _content;
 
         /// <summary>
         /// 获取日志内容
         /// </summary>
-        protected abstract ILogContent GetContent();
+        protected abstract TContent GetContent();
 
         /// <summary>
         /// 设置内容
         /// </summary>
-        /// <typeparam name="TContent">内容类型</typeparam>
         /// <param name="action">设置内容操作</param>
-        public ILog Content<TContent>( Action<TContent> action ) where TContent : ILogContent {
+        public ILog Content<T>( Action<T> action ) where T : ILogContent {
             if( action == null )
                 throw new ArgumentNullException( nameof( action ) );
-            action( (TContent)LogContent );
+            ILogContent logContent = LogContent;
+            action( (T)logContent );
             return this;
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="content">日志内容</param>
+        protected virtual void Init( TContent content ) {
+            content.TraceId = Context.TraceId;
+            content.OperationTime = DateTime.Now.ToMillisecondString();
         }
 
         /// <summary>
@@ -59,7 +83,20 @@ namespace Util.Logs.Core {
         /// 跟踪
         /// </summary>
         public virtual void Trace() {
-            Provider.Trace( GetContent() );
+            Execute( content => Provider.Trace( content ), LogContent );
+        }
+
+        /// <summary>
+        /// 执行
+        /// </summary>
+        private void Execute( Action<TContent> action, TContent content ) {
+            Init( content );
+            try {
+                action( content );
+            }
+            finally {
+                content = null;
+            }
         }
 
         /// <summary>
@@ -68,7 +105,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Trace( string message, params object[] args ) {
-            Provider.Trace( message, args );
         }
 
         /// <summary>
@@ -78,7 +114,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Trace( Exception exception, string message = "", params object[] args ) {
-            Provider.Trace( exception, message, args );
         }
 
         /// <summary>
@@ -87,7 +122,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Debug( string message, params object[] args ) {
-            Provider.Debug( message, args );
         }
 
         /// <summary>
@@ -97,7 +131,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Debug( Exception exception, string message = "", params object[] args ) {
-            Provider.Debug( exception, message, args );
         }
 
         /// <summary>
@@ -106,7 +139,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Info( string message, params object[] args ) {
-            Provider.Info( message, args );
         }
 
         /// <summary>
@@ -116,7 +148,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Info( Exception exception, string message = "", params object[] args ) {
-            Provider.Info( exception, message, args );
         }
 
         /// <summary>
@@ -125,7 +156,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Warn( string message, params object[] args ) {
-            Provider.Warn( message, args );
         }
 
         /// <summary>
@@ -135,7 +165,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Warn( Exception exception, string message = "", params object[] args ) {
-            Provider.Warn( exception, message, args );
         }
 
         /// <summary>
@@ -144,7 +173,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Error( string message, params object[] args ) {
-            Provider.Error( message, args );
         }
 
         /// <summary>
@@ -154,7 +182,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Error( Exception exception, string message = "", params object[] args ) {
-            Provider.Error( exception, message, args );
         }
 
         /// <summary>
@@ -163,7 +190,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Fatal( string message, params object[] args ) {
-            Provider.Fatal( message, args );
         }
 
         /// <summary>
@@ -173,7 +199,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Fatal( Exception exception, string message = "", params object[] args ) {
-            Provider.Fatal( exception, message, args );
         }
     }
 }

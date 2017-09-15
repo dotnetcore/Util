@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Util.Logs;
+using Util.Logs.Abstractions;
+using Util.Logs.Extensions;
 using Util.Samples.Webs.Models;
 
 namespace Util.Samples.Webs.Controllers {
@@ -13,7 +15,7 @@ namespace Util.Samples.Webs.Controllers {
         public ILog Log { get; set; }
 
         public void Index() {
-            Log.Trace();
+            Log.BusinessId( "1" ).Trace();
         }
 
         public IActionResult Error()

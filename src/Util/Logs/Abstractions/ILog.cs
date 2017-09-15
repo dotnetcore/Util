@@ -1,10 +1,16 @@
 ﻿using System;
 
-namespace Util.Logs {
+namespace Util.Logs.Abstractions {
     /// <summary>
-    /// 日志提供程序
+    /// 日志操作
     /// </summary>
-    public interface ILogProvider {
+    public interface ILog {
+        /// <summary>
+        /// 设置内容
+        /// </summary>
+        /// <typeparam name="TContent">日志内容类型</typeparam>
+        /// <param name="action">设置内容操作</param>
+        ILog Content<TContent>( Action<TContent> action ) where TContent : ILogContent;
         /// <summary>
         /// 调试级别是否启用
         /// </summary>
@@ -16,8 +22,7 @@ namespace Util.Logs {
         /// <summary>
         /// 跟踪
         /// </summary>
-        /// <param name="message">日志消息</param>
-        void Trace( object message );
+        void Trace();
         /// <summary>
         /// 跟踪
         /// </summary>
@@ -35,11 +40,6 @@ namespace Util.Logs {
         /// 调试
         /// </summary>
         /// <param name="message">日志消息</param>
-        void Debug( object message );
-        /// <summary>
-        /// 调试
-        /// </summary>
-        /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         void Debug( string message, params object[] args );
         /// <summary>
@@ -49,11 +49,6 @@ namespace Util.Logs {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         void Debug( Exception exception, string message = "", params object[] args );
-        /// <summary>
-        /// 信息
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        void Info( object message );
         /// <summary>
         /// 信息
         /// </summary>
@@ -71,11 +66,6 @@ namespace Util.Logs {
         /// 警告
         /// </summary>
         /// <param name="message">日志消息</param>
-        void Warn( object message );
-        /// <summary>
-        /// 警告
-        /// </summary>
-        /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         void Warn( string message, params object[] args );
         /// <summary>
@@ -89,11 +79,6 @@ namespace Util.Logs {
         /// 错误
         /// </summary>
         /// <param name="message">日志消息</param>
-        void Error( object message );
-        /// <summary>
-        /// 错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         void Error( string message, params object[] args );
         /// <summary>
@@ -103,11 +88,6 @@ namespace Util.Logs {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         void Error( Exception exception, string message = "", params object[] args );
-        /// <summary>
-        /// 致命错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        void Fatal( object message );
         /// <summary>
         /// 致命错误
         /// </summary>

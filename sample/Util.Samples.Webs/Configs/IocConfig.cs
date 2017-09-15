@@ -2,6 +2,7 @@
 using Util.Contexts;
 using Util.DependencyInjection;
 using Util.Logs;
+using Util.Logs.Abstractions;
 using Util.Logs.Core;
 using Util.Logs.NLog;
 

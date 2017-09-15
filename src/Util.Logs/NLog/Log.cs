@@ -1,4 +1,5 @@
 ﻿using Util.Helpers;
+using Util.Logs.Abstractions;
 using NLogs = NLog;
 using Util.Logs.Core;
 using Util.Logs.Formats;
@@ -21,7 +22,7 @@ namespace Util.Logs.NLog {
         /// </summary>
         public static ILog GetLog() {
             var context = Ioc.Create<ILogContext>();
-            return new Log( new NLogProvider( NLogs.LogManager.GetCurrentClassLogger(),new ContentFormat() ), context );
+            return new Log( new NLogProvider( NLogs.LogManager.GetCurrentClassLogger(), new ContentFormat() ), context );
         }
     }
 }

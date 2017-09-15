@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using Util.Helpers;
+using Util.Logs.Abstractions;
 using Util.Logs.Core;
 using Util.Logs.Formats.Lines;
 

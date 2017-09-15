@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Util.Contexts;
+using Util.Logs.Abstractions;
 using Util.Logs.Internal;
 
 namespace Util.Logs.Core {

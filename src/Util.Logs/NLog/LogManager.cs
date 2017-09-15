@@ -1,4 +1,5 @@
-﻿using Util.Logs.Formats;
+﻿using Util.Logs.Abstractions;
+using Util.Logs.Formats;
 using NLogs = NLog;
 
 namespace Util.Logs.NLog {

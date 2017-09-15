@@ -1,4 +1,5 @@
 ﻿using System;
+using Util.Logs.Abstractions;
 
 namespace Util.Logs.Formats {
     /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace Util.Logs {
+﻿using Util.Logs.Abstractions;
+
+namespace Util.Logs {
     /// <summary>
     /// 日志服务
     /// </summary>

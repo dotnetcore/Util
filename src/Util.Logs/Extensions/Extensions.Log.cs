@@ -1,4 +1,5 @@
-﻿using Util.Logs.Core;
+﻿using Util.Logs.Abstractions;
+using Util.Logs.Core;
 
 namespace Util.Logs.Extensions {
     /// <summary>

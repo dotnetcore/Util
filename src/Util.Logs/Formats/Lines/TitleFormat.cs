@@ -34,7 +34,7 @@ namespace Util.Logs.Formats.Lines {
         /// 添加操作时间
         /// </summary>
         private void AddTime( StringBuilder result, Content content ) {
-            //result.AppendFormat( "操作时间: {0}   ", content.OperationTime );
+            result.AppendFormat( "操作时间: {0}   ", content.OperationTime );
         }
 
         /// <summary>

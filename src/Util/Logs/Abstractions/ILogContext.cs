@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Util.Logs {
+namespace Util.Logs.Abstractions {
     /// <summary>
     /// 日志上下文
     /// </summary>
