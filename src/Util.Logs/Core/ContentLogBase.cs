@@ -35,8 +35,8 @@ namespace Util.Logs.Core {
         /// </summary>
         protected override void Init( Content content ) {
             base.Init( content );
-            content.Application = Session.GetApplication();
             content.Tenant = Session.GetTenant();
+            content.Application = Session.GetApplication();
         }
     }
 }

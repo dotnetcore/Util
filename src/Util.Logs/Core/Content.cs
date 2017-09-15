@@ -1,10 +1,18 @@
-﻿using Util.Logs.Abstractions;
+﻿using System.Text;
+using Util.Logs.Abstractions;
 
 namespace Util.Logs.Core {
     /// <summary>
     /// 日志内容
     /// </summary>
     public class Content : ILogContent {
+        /// <summary>
+        /// 初始化日志内容
+        /// </summary>
+        public Content() {
+            Params = new StringBuilder();
+        }
+
         /// <summary>
         /// 日志名称
         /// </summary>
@@ -22,7 +30,7 @@ namespace Util.Logs.Core {
         /// </summary>
         public string OperationTime { get; set; }
         /// <summary>
-        /// 持续时间
+        /// 执行时间
         /// </summary>
         public string Duration { get; set; }
         /// <summary>
@@ -34,13 +42,13 @@ namespace Util.Logs.Core {
         /// </summary>
         public string BusinessId { get; set; }
         /// <summary>
-        /// 应用程序
-        /// </summary>
-        public string Application { get; set; }
-        /// <summary>
         /// 租户
         /// </summary>
         public string Tenant { get; set; }
+        /// <summary>
+        /// 应用程序
+        /// </summary>
+        public string Application { get; set; }
         /// <summary>
         /// 模块
         /// </summary>
@@ -50,12 +58,12 @@ namespace Util.Logs.Core {
         /// </summary>
         public string Class { get; set; }
         /// <summary>
-        /// 方法名
+        /// 方法
         /// </summary>
         public string Method { get; set; }
         /// <summary>
         /// 参数
         /// </summary>
-        public string Params { get; set; }
+        public StringBuilder Params { get; set; }
     }
 }

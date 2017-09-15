@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-src", "05-src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
 EndProject
@@ -48,8 +48,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Datas.Tests.Integra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-document", "04-document", "{0ABE7222-126E-4EDF-B3B9-75842390AFE1}"
 	ProjectSection(SolutionItems) = preProject
-		document\应用程序基础模块数据建模.pdm = document\应用程序基础模块数据建模.pdm
-		document\应用程序基础模块设计.xmind = document\应用程序基础模块设计.xmind
+		document\应用程序基础模块.xmind = document\应用程序基础模块.xmind
+		document\应用程序基础模块数据模型.pdm = document\应用程序基础模块数据模型.pdm
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Logs", "src\Util.Logs\04-Util.Logs.csproj", "{0330EB27-814D-4CF6-B377-3BFA884D5FD2}"
@@ -64,7 +64,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Biz", "03-Biz", "{62644B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Biz", "src\Util.Biz\Util.Biz.csproj", "{BAB54FFD-DF77-40B6-86A5-A1A3E0985468}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Util.Security", "src\Util.Security\02-Util.Security.csproj", "{83E78951-5FBE-43D5-A6BE-7735721E4C1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Security", "src\Util.Security\02-Util.Security.csproj", "{83E78951-5FBE-43D5-A6BE-7735721E4C1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

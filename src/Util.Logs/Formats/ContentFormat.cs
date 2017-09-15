@@ -47,6 +47,8 @@ namespace Util.Logs.Formats {
             AppendLine( result, content, OneLine );
             AppendLine( result, content, TwoLine );
             AppendLine( result, content, ThreeLine );
+            AppendLine( result, content, FourLine );
+            AppendLine( result, content, FiveLine );
             Finish( result );
             return result.ToString();
         }
@@ -95,8 +97,27 @@ namespace Util.Logs.Formats {
         /// </summary>
         public void ThreeLine( StringBuilder result, Content content ) {
             Append( result, "业务编号", content.BusinessId );
-            Append( result, "应用程序", content.Application );
             Append( result, "租户", content.Tenant );
+            Append( result, "应用程序", content.Application );
+            Append( result, "模块", content.Module );
+        }
+
+        /// <summary>
+        /// 第4行
+        /// </summary>
+        public void FourLine( StringBuilder result, Content content ) {
+            Append( result, "类名", content.Class );
+            Append( result, "方法", content.Method );
+        }
+
+        /// <summary>
+        /// 第5行
+        /// </summary>
+        public void FiveLine( StringBuilder result, Content content ) {
+            if( content.Params.Length == 0 )
+                return;
+            result.AppendLine( "请求参数:" );
+            result.Append( content.Params );
         }
 
         /// <summary>

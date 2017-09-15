@@ -52,7 +52,7 @@ namespace Util.Logs.Core {
         /// 设置内容
         /// </summary>
         /// <param name="action">设置内容操作</param>
-        public ILog Content<T>( Action<T> action ) where T : ILogContent {
+        public ILog Set<T>( Action<T> action ) where T : ILogContent {
             if( action == null )
                 throw new ArgumentNullException( nameof( action ) );
             ILogContent logContent = LogContent;

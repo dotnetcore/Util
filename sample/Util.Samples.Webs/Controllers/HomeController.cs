@@ -16,7 +16,8 @@ namespace Util.Samples.Webs.Controllers {
         public ILog Log { get; set; }
 
         public void Index() {
-            Log.BusinessId( Guid.NewGuid().ToString() ).Trace();
+            Log.BusinessId( Guid.NewGuid().ToString() ).Module( "订单" ).Method( "Index" )
+                .Params( "{0}哈哈{1}",1,2 ).Params( "{0}嘿嘿",3,4 ).ParamsLine( "哈哈哈哈只" ).Params( "abc" ).Trace();
         }
 
         public IActionResult Error()

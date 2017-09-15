@@ -3,6 +3,7 @@ using Util.Helpers;
 using Util.Logs.Abstractions;
 using NLogs = NLog;
 using Util.Logs.Core;
+using Util.Logs.Extensions;
 using Util.Logs.Formats;
 
 namespace Util.Logs.NLog {
@@ -35,7 +36,7 @@ namespace Util.Logs.NLog {
             if( instance == null )
                 return GetLog();
             var className = instance.GetType().ToString();
-            return GetLog( className );
+            return GetLog( className ).Class( className );
         }
 
         /// <summary>

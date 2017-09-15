@@ -141,9 +141,8 @@ namespace Util {
                 result.AppendFormat( "{0}秒", span.Seconds );
             if( span.Milliseconds > 0 )
                 result.AppendFormat( "{0}毫秒", span.Milliseconds );
-            string description = result.ToString();
-            if ( !string.IsNullOrWhiteSpace( description ) )
-                return description;
+            if ( result.Length > 0 )
+                return result.ToString();
             return $"{span.TotalSeconds * 1000}毫秒";
         }
     }

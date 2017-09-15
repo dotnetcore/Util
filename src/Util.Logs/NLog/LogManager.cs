@@ -1,5 +1,6 @@
 ﻿using Util.Domains.Sessions;
 using Util.Logs.Abstractions;
+using Util.Logs.Extensions;
 using Util.Logs.Formats;
 using NLogs = NLog;
 
@@ -49,7 +50,7 @@ namespace Util.Logs.NLog {
             if( instance == null )
                 return GetLog();
             var className = instance.GetType().ToString();
-            return GetLog( className );
+            return GetLog( className ).Class( className );
         }
 
         /// <summary>
