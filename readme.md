@@ -336,6 +336,7 @@ https://github.com/dotnetcore/util/
   - 日志操作 [开发中]
   - IQueryable查询扩展 [已发布]
   - 时间操作 [已发布]
+  - 上下文操作 [已发布]
 - 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
@@ -382,3 +383,4 @@ https://github.com/dotnetcore/util/
 - 2017年8月21日，更新了仓储基类，持久化对象存储基类，IQueryable查询扩展。
 - 2017年9月3日，更新了公共业务类型-地址(Address)，修改了代码生成模板。
 - 2017年9月10日，更新了时间操作类，修改了代码生成模板。
+- 2017年9月15日，更新了上下文操作(Util/Contexts)，更新了日期格式化扩展(Util/Extensions.DateTime)。

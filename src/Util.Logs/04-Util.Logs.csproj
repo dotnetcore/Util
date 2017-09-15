@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Util.Security\02-Util.Security.csproj" />
     <ProjectReference Include="..\Util\01-Util.csproj" />
   </ItemGroup>
 

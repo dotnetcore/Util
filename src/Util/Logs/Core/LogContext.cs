@@ -12,7 +12,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 上下文
         /// </summary>
-        private readonly IContext _context;
+        private readonly IWebContext _context;
         /// <summary>
         /// 日志上下文信息
         /// </summary>
@@ -22,7 +22,7 @@ namespace Util.Logs.Core {
         /// 初始化日志上下文
         /// </summary>
         /// <param name="context">上下文</param>
-        public LogContext( IContext context ) {
+        public LogContext( IWebContext context ) {
             _context = context;
         }
 
@@ -61,5 +61,10 @@ namespace Util.Logs.Core {
         /// 计时器
         /// </summary>
         public Stopwatch Stopwatch => GetInfo().Stopwatch;
+
+        /// <summary>
+        /// 请求地址
+        /// </summary>
+        public string Url => _context.Url;
     }
 }

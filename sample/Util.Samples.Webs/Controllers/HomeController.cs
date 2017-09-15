@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Util.Logs;
 using Util.Logs.Abstractions;
@@ -9,13 +10,13 @@ namespace Util.Samples.Webs.Controllers {
     public class HomeController : Controller
     {
         public HomeController( ILogManager manager ) {
-            Log = manager.GetLog();
+            Log = manager.GetLog(this);
         }
 
         public ILog Log { get; set; }
 
         public void Index() {
-            Log.BusinessId( "1" ).Trace();
+            Log.BusinessId( Guid.NewGuid().ToString() ).Trace();
         }
 
         public IActionResult Error()

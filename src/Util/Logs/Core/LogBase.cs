@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 using Util.Logs.Abstractions;
 
 namespace Util.Logs.Core {
@@ -8,13 +9,28 @@ namespace Util.Logs.Core {
     /// <typeparam name="TContent">日志内容类型</typeparam>
     public abstract class LogBase<TContent> : ILog where TContent : class, ILogContent {
         /// <summary>
+        /// 日志内容
+        /// </summary>
+        private TContent _content;
+        /// <summary>
+        /// 日志内容
+        /// </summary>
+        private TContent LogContent => _content ?? ( _content = GetContent() );
+        /// <summary>
+        /// 日志名称
+        /// </summary>
+        private readonly string _logName;
+
+        /// <summary>
         /// 初始化日志操作
         /// </summary>
         /// <param name="provider">日志提供程序</param>
         /// <param name="context">日志上下文</param>
-        protected LogBase( ILogProvider provider, ILogContext context ) {
+        /// <param name="logName">日志名称</param>
+        protected LogBase( ILogProvider provider, ILogContext context, string logName ) {
             Provider = provider;
             Context = context;
+            _logName = logName;
         }
 
         /// <summary>
@@ -26,22 +42,6 @@ namespace Util.Logs.Core {
         /// 日志上下文
         /// </summary>
         public ILogContext Context { get; }
-
-        /// <summary>
-        /// 日志内容
-        /// </summary>
-        private TContent LogContent {
-            get {
-                if( _content == null )
-                    _content = GetContent();
-                return _content;
-            }
-        }
-
-        /// <summary>
-        /// 日志内容
-        /// </summary>
-        private TContent _content;
 
         /// <summary>
         /// 获取日志内容
@@ -65,8 +65,11 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="content">日志内容</param>
         protected virtual void Init( TContent content ) {
+            content.LogName = _logName;
             content.TraceId = Context.TraceId;
             content.OperationTime = DateTime.Now.ToMillisecondString();
+            content.Duration = Context.Stopwatch.Elapsed.Description();
+            content.Url = Context.Url;
         }
 
         /// <summary>
@@ -82,20 +85,32 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 跟踪
         /// </summary>
-        public virtual void Trace() {
-            Execute( content => Provider.Trace( content ), LogContent );
+        public void Trace() {
+            Execute( LogContent, LogLevel.Trace );
         }
 
         /// <summary>
         /// 执行
         /// </summary>
-        private void Execute( Action<TContent> action, TContent content ) {
-            Init( content );
+        protected virtual void Execute( TContent content, LogLevel level ) {
             try {
-                action( content );
+                Init( content );
+                WriteLog( content, level );
             }
             finally {
                 content = null;
+            }
+        }
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        private void WriteLog( TContent content, LogLevel level ) {
+            switch( level ) {
+                case LogLevel.Trace:
+                    content.Level = "Trace";
+                    Provider.Trace( content );
+                    break;
             }
         }
 

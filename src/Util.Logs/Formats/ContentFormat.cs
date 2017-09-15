@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Text;
 using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
-using Util.Logs.Formats.Lines;
 
 namespace Util.Logs.Formats {
     /// <summary>
@@ -45,22 +44,59 @@ namespace Util.Logs.Formats {
         /// </summary>
         private string Format( Content content ) {
             StringBuilder result = new StringBuilder();
-            GetFormats().ForEach( t => {
-                result.AppendFormat( "{0}. ", _line++ );
-                t.Format( result, content );
-                result.Append( Common.Line );
-            } );
+            AppendLine( result, content, OneLine );
+            AppendLine( result, content, TwoLine );
+            AppendLine( result, content, ThreeLine );
             Finish( result );
             return result.ToString();
         }
 
         /// <summary>
-        /// 获取格式化器集合
+        /// 添加行
         /// </summary>
-        private List<FormatBase> GetFormats() {
-            return new List<FormatBase> {
-                new TitleFormat()
-            };
+        protected void AppendLine( StringBuilder result, Content content, Action<StringBuilder, Content> action ) {
+            result.AppendFormat( "{0}. ", _line++ );
+            action( result, content );
+            result.Append( Common.Line );
+        }
+
+        /// <summary>
+        /// 添加日志内容
+        /// </summary>
+        protected void Append( StringBuilder result, string caption, string value ) {
+            if( string.IsNullOrWhiteSpace( value ) )
+                return;
+            result.AppendFormat( "{0}: {1}   ", caption, value );
+        }
+
+        /// <summary>
+        /// 第1行
+        /// </summary>
+        private void OneLine( StringBuilder result, Content content ) {
+            result.AppendFormat( "{0}:{1} >> ", content.Level, content.LogName );
+            result.AppendFormat( "跟踪号: {0}   ", content.TraceId );
+            result.AppendFormat( "操作时间: {0}   ", content.OperationTime );
+            if( string.IsNullOrWhiteSpace( content.Duration ) )
+                return;
+            result.AppendFormat( "已执行: {0} ", content.Duration );
+        }
+
+        /// <summary>
+        /// 第2行
+        /// </summary>
+        public void TwoLine( StringBuilder result, Content content ) {
+            if( string.IsNullOrWhiteSpace( content.Url ) )
+                return;
+            result.AppendFormat( "Url: {0}", content.Url );
+        }
+
+        /// <summary>
+        /// 第3行
+        /// </summary>
+        public void ThreeLine( StringBuilder result, Content content ) {
+            Append( result, "业务编号", content.BusinessId );
+            Append( result, "应用程序", content.Application );
+            Append( result, "租户", content.Tenant );
         }
 
         /// <summary>

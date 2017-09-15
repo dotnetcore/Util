@@ -1,18 +1,12 @@
-﻿using System.Diagnostics;
-
-namespace Util.Logs.Abstractions {
+﻿namespace Util.Contexts {
     /// <summary>
-    /// 日志上下文
+    /// Web上下文
     /// </summary>
-    public interface ILogContext {
+    public interface IWebContext : IContext {
         /// <summary>
         /// 跟踪号
         /// </summary>
         string TraceId { get; }
-        /// <summary>
-        /// 计时器
-        /// </summary>
-        Stopwatch Stopwatch { get; }
         /// <summary>
         /// 请求地址
         /// </summary>

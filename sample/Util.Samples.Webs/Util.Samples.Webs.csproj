@@ -36,8 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Datas\02-Util.Datas.csproj" />
-    <ProjectReference Include="..\..\src\Util.Logs\03-Util.Logs.csproj" />
+    <ProjectReference Include="..\..\src\Util.Datas\03-Util.Datas.csproj" />
+    <ProjectReference Include="..\..\src\Util.Logs\04-Util.Logs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
   </ItemGroup>
 

@@ -6,8 +6,18 @@ namespace Util.Logs {
     /// </summary>
     public interface ILogManager {
         /// <summary>
-        /// 获取日志操作
+        /// 获取日志操作实例
         /// </summary>
         ILog GetLog();
+        /// <summary>
+        /// 获取日志操作实例
+        /// </summary>
+        /// <param name="instance">实例</param>
+        ILog GetLog( object instance );
+        /// <summary>
+        /// 获取日志操作实例
+        /// </summary>
+        /// <param name="logName">日志名称</param>
+        ILog GetLog( string logName );
     }
 }

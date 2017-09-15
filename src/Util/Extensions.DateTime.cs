@@ -139,7 +139,12 @@ namespace Util {
                 result.AppendFormat( "{0}分", span.Minutes );
             if( span.Seconds > 0 )
                 result.AppendFormat( "{0}秒", span.Seconds );
-            return result.ToString();
+            if( span.Milliseconds > 0 )
+                result.AppendFormat( "{0}毫秒", span.Milliseconds );
+            string description = result.ToString();
+            if ( !string.IsNullOrWhiteSpace( description ) )
+                return description;
+            return $"{span.TotalSeconds * 1000}毫秒";
         }
     }
 }
