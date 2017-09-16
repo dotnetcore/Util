@@ -1,4 +1,6 @@
-﻿namespace Util.Logs.Abstractions {
+﻿using System.Text;
+
+namespace Util.Logs.Abstractions {
     /// <summary>
     /// 日志内容
     /// </summary>
@@ -24,8 +26,28 @@
         /// </summary>
         string Duration { get; set; }
         /// <summary>
+        /// IP
+        /// </summary>
+        string Ip { get; set; }
+        /// <summary>
+        /// 主机
+        /// </summary>
+        string Host { get; set; }
+        /// <summary>
+        /// 线程号
+        /// </summary>
+        string ThreadId { get; set; }
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        string Browser { get; set; }
+        /// <summary>
         /// 请求地址
         /// </summary>
         string Url { get; set; }
+        /// <summary>
+        /// 内容
+        /// </summary>
+        StringBuilder Content { get; set; }
     }
 }

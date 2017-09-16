@@ -1,6 +1,5 @@
 ﻿using Util.Domains.Sessions;
 using Util.Logs.Abstractions;
-using Util.Logs.Extensions;
 using Util.Logs.Formats;
 using NLogs = NLog;
 
@@ -50,7 +49,7 @@ namespace Util.Logs.NLog {
             if( instance == null )
                 return GetLog();
             var className = instance.GetType().ToString();
-            return GetLog( className ).Class( className );
+            return GetLog( className, className );
         }
 
         /// <summary>
@@ -58,7 +57,14 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="logName">日志名称</param>
         public ILog GetLog( string logName ) {
-            return Log.GetLog( NLogs.LogManager.GetLogger( logName ), Context, Session, Format );
+            return GetLog( logName, string.Empty );
+        }
+
+        /// <summary>
+        /// 获取日志操作实例
+        /// </summary>
+        private ILog GetLog( string logName, string @class ) {
+            return Log.GetLog( NLogs.LogManager.GetLogger( logName ), Format, Context, Session, @class );
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Util.Contexts {
     /// <summary>
     /// Web上下文
     /// </summary>
-    public class WebContext : IWebContext {
+    public class WebContext : IContext {
         /// <summary>
         /// 初始化Web上下文
         /// </summary>
@@ -23,11 +22,6 @@ namespace Util.Contexts {
         /// 跟踪号
         /// </summary>
         public string TraceId => HttpContextAccessor?.HttpContext?.TraceIdentifier;
-
-        /// <summary>
-        /// 请求地址
-        /// </summary>
-        public string Url => HttpContextAccessor?.HttpContext?.Request?.GetEncodedUrl();
 
         /// <summary>
         /// 添加对象

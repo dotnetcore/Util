@@ -6,16 +6,6 @@ namespace Util.Logs.Internal {
     /// </summary>
     internal class LogContextInfo {
         /// <summary>
-        /// 初始化日志上下文信息
-        /// </summary>
-        /// <param name="traceId">跟踪号</param>
-        /// <param name="stopwatch">计时器</param>
-        public LogContextInfo( string traceId, Stopwatch stopwatch ) {
-            TraceId = traceId;
-            Stopwatch = stopwatch;
-        }
-
-        /// <summary>
         /// 跟踪号
         /// </summary>
         public string TraceId { get; set; }
@@ -24,5 +14,25 @@ namespace Util.Logs.Internal {
         /// 计时器
         /// </summary>
         public Stopwatch Stopwatch { get; set; }
+
+        /// <summary>
+        /// IP
+        /// </summary>
+        public string Ip { get; set; }
+
+        /// <summary>
+        /// 主机
+        /// </summary>
+        public string Host { get; set; }
+
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        public string Browser { get; set; }
+
+        /// <summary>
+        /// 请求地址
+        /// </summary>
+        public string Url { get; set; }
     }
 }

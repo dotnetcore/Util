@@ -5,12 +5,13 @@ namespace Util.Logs.Core {
     /// <summary>
     /// 日志内容
     /// </summary>
-    public class Content : ILogContent {
+    public class LogContent : ILogContent {
         /// <summary>
         /// 初始化日志内容
         /// </summary>
-        public Content() {
+        public LogContent() {
             Params = new StringBuilder();
+            Content = new StringBuilder();
         }
 
         /// <summary>
@@ -33,6 +34,22 @@ namespace Util.Logs.Core {
         /// 执行时间
         /// </summary>
         public string Duration { get; set; }
+        /// <summary>
+        /// IP
+        /// </summary>
+        public string Ip { get; set; }
+        /// <summary>
+        /// 主机
+        /// </summary>
+        public string Host { get; set; }
+        /// <summary>
+        /// 线程号
+        /// </summary>
+        public string ThreadId { get; set; }
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        public string Browser { get; set; }
         /// <summary>
         /// 请求地址
         /// </summary>
@@ -65,5 +82,9 @@ namespace Util.Logs.Core {
         /// 参数
         /// </summary>
         public StringBuilder Params { get; set; }
+        /// <summary>
+        /// 内容
+        /// </summary>
+        public StringBuilder Content { get; set; }
     }
 }

@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-misc", "01-misc", "{67BD
 		Util.vssettings = Util.vssettings
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Datas", "src\Util.Datas\03-Util.Datas.csproj", "{CD83426E-2BA1-4DB0-94D9-1185C076276F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Datas", "src\Util.Datas\04-Util.Datas.csproj", "{CD83426E-2BA1-4DB0-94D9-1185C076276F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Datas.Tests.Integration", "test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj", "{411B666F-EDA0-47E0-BB34-3EAF047549A0}"
 EndProject
@@ -52,7 +52,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-document", "04-document"
 		document\应用程序基础模块数据模型.pdm = document\应用程序基础模块数据模型.pdm
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Logs", "src\Util.Logs\04-Util.Logs.csproj", "{0330EB27-814D-4CF6-B377-3BFA884D5FD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Logs", "src\Util.Logs\03-Util.Logs.csproj", "{0330EB27-814D-4CF6-B377-3BFA884D5FD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07-sample", "07-sample", "{F1B4AAEF-9162-4DFA-8B62-4069FC914839}"
 EndProject

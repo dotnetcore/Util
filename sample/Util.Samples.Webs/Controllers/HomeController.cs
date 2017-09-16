@@ -16,12 +16,17 @@ namespace Util.Samples.Webs.Controllers {
         public ILog Log { get; set; }
 
         public void Index() {
-            Log.BusinessId( Guid.NewGuid().ToString() ).Module( "订单" ).Method( "Index" )
-                .Params( "{0}哈哈{1}",1,2 ).Params( "{0}嘿嘿",3,4 ).ParamsLine( "哈哈哈哈只" ).Params( "abc" ).Trace();
+
+            for( int i = 0; i < 10; i++ ) {
+                Log.BusinessId( Guid.NewGuid().ToString() ).Module( "订单" ).Method( "Index" )
+                    .Params( "{0}哈哈{1}", 1, 2 ).Params( "{0}嘿嘿", 3, 4 ).ParamsLine( "哈哈哈哈只" ).Params( "abc" ).Trace();
+            }
+            for( int i = 0; i < 10; i++ ) {
+                Log.Trace( "{0}abc{1}", 1, 2 );
+            }
         }
 
-        public IActionResult Error()
-        {
+        public IActionResult Error() {
             
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

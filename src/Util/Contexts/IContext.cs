@@ -4,6 +4,10 @@
     /// </summary>
     public interface IContext {
         /// <summary>
+        /// 跟踪号
+        /// </summary>
+        string TraceId { get; }
+        /// <summary>
         /// 添加对象
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>

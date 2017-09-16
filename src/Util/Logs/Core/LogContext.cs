@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Util.Contexts;
+using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Internal;
 
@@ -10,10 +11,6 @@ namespace Util.Logs.Core {
     /// </summary>
     public class LogContext : ILogContext {
         /// <summary>
-        /// 上下文
-        /// </summary>
-        private readonly IWebContext _context;
-        /// <summary>
         /// 日志上下文信息
         /// </summary>
         private LogContextInfo _info;
@@ -22,9 +19,14 @@ namespace Util.Logs.Core {
         /// 初始化日志上下文
         /// </summary>
         /// <param name="context">上下文</param>
-        public LogContext( IWebContext context ) {
-            _context = context;
+        public LogContext( IContext context ) {
+            Context = context;
         }
+
+        /// <summary>
+        /// 上下文
+        /// </summary>
+        public IContext Context { get; set; }
 
         /// <summary>
         /// 获取日志上下文信息
@@ -33,11 +35,11 @@ namespace Util.Logs.Core {
             if ( _info != null )
                 return _info;
             var key = "Util.Logs.LogContext";
-            _info = _context.Get<LogContextInfo>( key );
+            _info = Context.Get<LogContextInfo>( key );
             if( _info != null )
                 return _info;
             _info = CreateInfo();
-            _context.Add( key, _info );
+            Context.Add( key, _info );
             return _info;
         }
 
@@ -45,12 +47,19 @@ namespace Util.Logs.Core {
         /// 创建日志上下文信息
         /// </summary>
         private LogContextInfo CreateInfo() {
-            var traceId = _context.TraceId;
+            var traceId = Context.TraceId;
             if( string.IsNullOrWhiteSpace( traceId ) )
                 traceId = Guid.NewGuid().ToString();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            return new LogContextInfo( traceId, stopwatch );
+            return new LogContextInfo {
+                TraceId = traceId,
+                Stopwatch = stopwatch,
+                Ip = Web.Ip,
+                Host = Web.Host,
+                Browser = Web.Browser,
+                Url = Web.Url
+            };
         }
         /// <summary>
         /// 跟踪号
@@ -63,8 +72,20 @@ namespace Util.Logs.Core {
         public Stopwatch Stopwatch => GetInfo().Stopwatch;
 
         /// <summary>
+        /// IP
+        /// </summary>
+        public string Ip => GetInfo().Ip;
+        /// <summary>
+        /// 主机
+        /// </summary>
+        public string Host => GetInfo().Host;
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        public string Browser => GetInfo().Browser;
+        /// <summary>
         /// 请求地址
         /// </summary>
-        public string Url => _context.Url;
+        public string Url => GetInfo().Url;
     }
 }

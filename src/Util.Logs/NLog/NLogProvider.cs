@@ -28,6 +28,11 @@ namespace Util.Logs.NLog {
         }
 
         /// <summary>
+        /// 日志名称
+        /// </summary>
+        public string LogName => _logger.Name;
+
+        /// <summary>
         /// 调试级别是否启用
         /// </summary>
         public bool IsDebugEnabled => _logger.IsDebugEnabled;

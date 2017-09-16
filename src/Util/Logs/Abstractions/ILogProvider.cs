@@ -4,6 +4,10 @@
     /// </summary>
     public interface ILogProvider {
         /// <summary>
+        /// 日志名称
+        /// </summary>
+        string LogName { get; }
+        /// <summary>
         /// 调试级别是否启用
         /// </summary>
         bool IsDebugEnabled { get; }
