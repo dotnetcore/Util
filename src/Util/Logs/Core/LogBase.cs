@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using Util.Domains.Sessions;
 using Util.Logs.Abstractions;
 using Util.Logs.Extensions;
 
@@ -23,9 +24,11 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="provider">日志提供程序</param>
         /// <param name="context">日志上下文</param>
-        protected LogBase( ILogProvider provider, ILogContext context ) {
+        /// <param name="session">用户上下文</param>
+        protected LogBase( ILogProvider provider, ILogContext context, ISession session ) {
             Provider = provider;
             Context = context;
+            Session = session;
         }
 
         /// <summary>
@@ -37,6 +40,11 @@ namespace Util.Logs.Core {
         /// 日志上下文
         /// </summary>
         public ILogContext Context { get; }
+
+        /// <summary>
+        /// 用户上下文
+        /// </summary>
+        public ISession Session { get; set; }
 
         /// <summary>
         /// 获取日志内容
@@ -69,6 +77,7 @@ namespace Util.Logs.Core {
             content.ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId.ToString();
             content.Browser = Context.Browser;
             content.Url = Context.Url;
+            content.UserId = Session.UserId;
         }
 
         /// <summary>
@@ -111,6 +120,26 @@ namespace Util.Logs.Core {
                     content.Level = "Trace";
                     Provider.Trace( content );
                     break;
+                case LogLevel.Debug:
+                    content.Level = "Debug";
+                    Provider.Debug( content );
+                    break;
+                case LogLevel.Information:
+                    content.Level = "Info";
+                    Provider.Info( content );
+                    break;
+                case LogLevel.Warning:
+                    content.Level = "Warn";
+                    Provider.Warn( content );
+                    break;
+                case LogLevel.Error:
+                    content.Level = "Error";
+                    Provider.Error( content );
+                    break;
+                case LogLevel.Critical:
+                    content.Level = "Fatal";
+                    Provider.Fatal( content );
+                    break;
             }
         }
 
@@ -120,18 +149,16 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Trace( string message, params object[] args ) {
-            var content = GetContent();
-            content.Content( message, args );
-            Execute( ref content, LogLevel.Trace );
+            LogContent.Content( message, args );
+            Trace();
         }
 
         /// <summary>
-        /// 跟踪
+        /// 调试
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Trace( Exception exception, string message = "", params object[] args ) {
+        public void Debug() {
+            _content = LogContent;
+            Execute( ref _content, LogLevel.Debug );
         }
 
         /// <summary>
@@ -140,15 +167,16 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Debug( string message, params object[] args ) {
+            LogContent.Content( message, args );
+            Debug();
         }
 
         /// <summary>
-        /// 调试
+        /// 信息
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Debug( Exception exception, string message = "", params object[] args ) {
+        public void Info() {
+            _content = LogContent;
+            Execute( ref _content, LogLevel.Information );
         }
 
         /// <summary>
@@ -157,15 +185,16 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Info( string message, params object[] args ) {
+            LogContent.Content( message, args );
+            Info();
         }
 
         /// <summary>
-        /// 信息
+        /// 警告
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Info( Exception exception, string message = "", params object[] args ) {
+        public void Warn() {
+            _content = LogContent;
+            Execute( ref _content, LogLevel.Warning );
         }
 
         /// <summary>
@@ -174,15 +203,16 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Warn( string message, params object[] args ) {
+            LogContent.Content( message, args );
+            Warn();
         }
 
         /// <summary>
-        /// 警告
+        /// 错误
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Warn( Exception exception, string message = "", params object[] args ) {
+        public void Error() {
+            _content = LogContent;
+            Execute( ref _content, LogLevel.Error );
         }
 
         /// <summary>
@@ -191,15 +221,16 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Error( string message, params object[] args ) {
+            LogContent.Content( message, args );
+            Error();
         }
 
         /// <summary>
-        /// 错误
+        /// 致命错误
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Error( Exception exception, string message = "", params object[] args ) {
+        public void Fatal() {
+            _content = LogContent;
+            Execute( ref _content, LogLevel.Critical );
         }
 
         /// <summary>
@@ -208,15 +239,8 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Fatal( string message, params object[] args ) {
-        }
-
-        /// <summary>
-        /// 致命错误
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Fatal( Exception exception, string message = "", params object[] args ) {
+            LogContent.Content( message, args );
+            Fatal();
         }
     }
 }

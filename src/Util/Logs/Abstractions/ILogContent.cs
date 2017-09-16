@@ -46,6 +46,10 @@ namespace Util.Logs.Abstractions {
         /// </summary>
         string Url { get; set; }
         /// <summary>
+        /// 操作人编号
+        /// </summary>
+        string UserId { get; set; }
+        /// <summary>
         /// 内容
         /// </summary>
         StringBuilder Content { get; set; }

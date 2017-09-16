@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
 
@@ -53,6 +52,11 @@ namespace Util.Logs.Formats {
             Line7( result, content );
             Line8( result, content );
             Line9( result, content );
+            Line10( result, content );
+            Line11( result, content );
+            Line12( result, content );
+            Line13( result, content );
+            Line14( result, content );
             Finish( result );
             return result.ToString();
         }
@@ -80,7 +84,7 @@ namespace Util.Logs.Formats {
         /// </summary>
         private void Line1( StringBuilder result, LogContent content ) {
             AppendLine( result, content, ( r, c ) => {
-                r.AppendFormat( "{0}:{1} >> ", c.Level, c.LogName );
+                r.AppendFormat( "{0}: {1} >> ", c.Level, c.LogName );
                 r.AppendFormat( "跟踪号: {0}   ", c.TraceId );
                 r.AppendFormat( "操作时间: {0}   ", c.OperationTime );
                 if( string.IsNullOrWhiteSpace( c.Duration ) )
@@ -104,9 +108,9 @@ namespace Util.Logs.Formats {
         /// 第3行
         /// </summary>
         public void Line3( StringBuilder result, LogContent content ) {
-            if ( string.IsNullOrWhiteSpace( content.Browser ) )
+            if( string.IsNullOrWhiteSpace( content.Browser ) )
                 return;
-            AppendLine( result, content,(r,c)=> Append( r, "浏览器", c.Browser ) );
+            AppendLine( result, content, ( r, c ) => Append( r, "浏览器", c.Browser ) );
         }
 
         /// <summary>
@@ -115,14 +119,28 @@ namespace Util.Logs.Formats {
         public void Line4( StringBuilder result, LogContent content ) {
             if( string.IsNullOrWhiteSpace( content.Url ) )
                 return;
-            AppendLine( result, content, ( r, c ) => r.Append( "Url: " +  c.Url ) );
+            AppendLine( result, content, ( r, c ) => r.Append( "Url: " + c.Url ) );
         }
 
         /// <summary>
         /// 第5行
         /// </summary>
         public void Line5( StringBuilder result, LogContent content ) {
-            if ( string.IsNullOrWhiteSpace( content.BusinessId ) && string.IsNullOrWhiteSpace( content.Tenant )
+            if( string.IsNullOrWhiteSpace( content.UserId ) && string.IsNullOrWhiteSpace( content.Operator )
+                && string.IsNullOrWhiteSpace( content.Role ) )
+                return;
+            AppendLine( result, content, ( r, c ) => {
+                Append( r, "操作人编号", c.UserId );
+                Append( r, "姓名", c.Operator );
+                Append( r, "角色", c.Role );
+            } );
+        }
+
+        /// <summary>
+        /// 第6行
+        /// </summary>
+        public void Line6( StringBuilder result, LogContent content ) {
+            if( string.IsNullOrWhiteSpace( content.BusinessId ) && string.IsNullOrWhiteSpace( content.Tenant )
                  && string.IsNullOrWhiteSpace( content.Application ) && string.IsNullOrWhiteSpace( content.Module ) )
                 return;
             AppendLine( result, content, ( r, c ) => {
@@ -134,9 +152,9 @@ namespace Util.Logs.Formats {
         }
 
         /// <summary>
-        /// 第6行
+        /// 第7行
         /// </summary>
-        public void Line6( StringBuilder result, LogContent content ) {
+        public void Line7( StringBuilder result, LogContent content ) {
             if( string.IsNullOrWhiteSpace( content.Class ) && string.IsNullOrWhiteSpace( content.Method ) )
                 return;
             AppendLine( result, content, ( r, c ) => {
@@ -146,21 +164,32 @@ namespace Util.Logs.Formats {
         }
 
         /// <summary>
-        /// 第7行
+        /// 第8行
         /// </summary>
-        public void Line7( StringBuilder result, LogContent content ) {
+        public void Line8( StringBuilder result, LogContent content ) {
             if( content.Params.Length == 0 )
                 return;
             AppendLine( result, content, ( r, c ) => {
-                r.AppendLine( "请求参数:" );
+                r.AppendLine( "参数:" );
                 r.Append( c.Params );
             } );
         }
 
         /// <summary>
-        /// 第8行
+        /// 第9行
         /// </summary>
-        public void Line8( StringBuilder result, LogContent content ) {
+        public void Line9( StringBuilder result, LogContent content ) {
+            if( string.IsNullOrWhiteSpace( content.Caption ) )
+                return;
+            AppendLine( result, content, ( r, c ) => {
+                r.AppendFormat( "标题: {0}", c.Caption );
+            } );
+        }
+
+        /// <summary>
+        /// 第10行
+        /// </summary>
+        public void Line10( StringBuilder result, LogContent content ) {
             if( content.Content.Length == 0 )
                 return;
             AppendLine( result, content, ( r, c ) => {
@@ -170,9 +199,60 @@ namespace Util.Logs.Formats {
         }
 
         /// <summary>
-        /// 第9行
+        /// 第11行
         /// </summary>
-        public void Line9( StringBuilder result, LogContent content ) {
+        public void Line11( StringBuilder result, LogContent content ) {
+            if( content.Sql.Length == 0 )
+                return;
+            AppendLine( result, content, ( r, c ) => {
+                r.AppendLine( "Sql语句:" );
+                r.Append( c.Sql );
+            } );
+        }
+
+        /// <summary>
+        /// 第12行
+        /// </summary>
+        public void Line12( StringBuilder result, LogContent content ) {
+            if( content.SqlParams.Length == 0 )
+                return;
+            AppendLine( result, content, ( r, c ) => {
+                r.AppendLine( "Sql参数:" );
+                r.Append( c.SqlParams );
+            } );
+        }
+
+        /// <summary>
+        /// 第13行
+        /// </summary>
+        public void Line13( StringBuilder result, LogContent content ) {
+            if( string.IsNullOrWhiteSpace( content.Exception ) )
+                return;
+            AppendLine( result, content, ( r, c ) => {
+                r.AppendLine( $"异常: { GetErrorCode( content.ErrorCode ) }" );
+                r.Append( $"   { c.Exception }" );
+            } );
+        }
+
+        /// <summary>
+        /// 获取错误码
+        /// </summary>
+        private string GetErrorCode( string errorCode ) {
+            if( string.IsNullOrWhiteSpace( errorCode ) )
+                return string.Empty;
+            return $"-- 错误码: {errorCode}";
+        }
+
+        /// <summary>
+        /// 第14行
+        /// </summary>
+        public void Line14( StringBuilder result, LogContent content ) {
+            if( string.IsNullOrWhiteSpace( content.StackTrace ) )
+                return;
+            AppendLine( result, content, ( r, c ) => {
+                r.AppendLine( "堆栈跟踪:" );
+                r.Append( c.StackTrace );
+            } );
         }
 
         /// <summary>

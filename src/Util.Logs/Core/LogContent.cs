@@ -12,6 +12,8 @@ namespace Util.Logs.Core {
         public LogContent() {
             Params = new StringBuilder();
             Content = new StringBuilder();
+            Sql = new StringBuilder();
+            SqlParams = new StringBuilder();
         }
 
         /// <summary>
@@ -83,8 +85,44 @@ namespace Util.Logs.Core {
         /// </summary>
         public StringBuilder Params { get; set; }
         /// <summary>
+        /// 操作人编号
+        /// </summary>
+        public string UserId { get; set; }
+        /// <summary>
+        /// 操作人
+        /// </summary>
+        public string Operator { get; set; }
+        /// <summary>
+        /// 操作人角色
+        /// </summary>
+        public string Role { get; set; }
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Caption { get; set; }
+        /// <summary>
         /// 内容
         /// </summary>
         public StringBuilder Content { get; set; }
+        /// <summary>
+        /// Sql语句
+        /// </summary>
+        public StringBuilder Sql { get; set; }
+        /// <summary>
+        /// Sql参数
+        /// </summary>
+        public StringBuilder SqlParams { get; set; }
+        /// <summary>
+        /// 错误码
+        /// </summary>
+        public string ErrorCode { get; set; }
+        /// <summary>
+        /// 异常消息
+        /// </summary>
+        public string Exception { get; set; }
+        /// <summary>
+        /// 堆栈跟踪
+        /// </summary>
+        public string StackTrace { get; set; }
     }
 }

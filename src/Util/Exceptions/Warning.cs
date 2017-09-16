@@ -25,28 +25,18 @@ namespace Util.Exceptions {
         /// <summary>
         /// 初始化应用程序异常
         /// </summary>
+        /// <param name="exception">异常</param>
+        public Warning( Exception exception )
+            : this( "", "", exception ) {
+        }
+
+        /// <summary>
+        /// 初始化应用程序异常
+        /// </summary>
         /// <param name="message">错误消息</param>
         /// <param name="code">错误码</param>
         public Warning( string message, string code )
-            : this( message, code, LogLevel.Warning ) {
-        }
-
-        /// <summary>
-        /// 初始化应用程序异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        /// <param name="code">错误码</param>
-        /// <param name="level">日志级别</param>
-        public Warning( string message, string code, LogLevel level )
-            : this( message, code, level, null ) {
-        }
-
-        /// <summary>
-        /// 初始化应用程序异常
-        /// </summary>
-        /// <param name="exception">异常</param>
-        public Warning( Exception exception )
-            : this( "", "", LogLevel.Warning, exception ) {
+            : this( message, code, null ) {
         }
 
         /// <summary>
@@ -56,20 +46,8 @@ namespace Util.Exceptions {
         /// <param name="code">错误码</param>
         /// <param name="exception">异常</param>
         public Warning( string message, string code, Exception exception )
-            : this( message, code, LogLevel.Warning, exception ) {
-        }
-
-        /// <summary>
-        /// 初始化应用程序异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        /// <param name="code">错误码</param>
-        /// <param name="level">日志级别</param>
-        /// <param name="exception">异常</param>
-        public Warning( string message, string code, LogLevel level, Exception exception )
             : base( message ?? "", exception ) {
             Code = code;
-            Level = level;
             _message = GetMessage();
         }
 
@@ -135,11 +113,6 @@ namespace Util.Exceptions {
         public string Code { get; set; }
 
         /// <summary>
-        /// 日志级别
-        /// </summary>
-        public LogLevel Level { get; set; }
-
-        /// <summary>
         /// 堆栈跟踪
         /// </summary>
         public override string StackTrace {
@@ -155,8 +128,9 @@ namespace Util.Exceptions {
         /// <summary>
         /// 获取友情提示
         /// </summary>
-        public string GetPrompt() {
-            if( Level == LogLevel.Error )
+        /// <param name="level">日志级别</param>
+        public string GetPrompt( LogLevel level ) {
+            if( level == LogLevel.Error )
                 return R.SystemError;
             return Message;
         }

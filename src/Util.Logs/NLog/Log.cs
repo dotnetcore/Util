@@ -23,15 +23,9 @@ namespace Util.Logs.NLog {
         /// <param name="context">日志上下文</param>
         /// <param name="session">用户上下文</param>
         /// <param name="class">类名</param>
-        internal Log( ILogProvider provider, ILogContext context, ISession session, string @class ) : base( provider, context ) {
-            Session = session;
+        internal Log( ILogProvider provider, ILogContext context, ISession session, string @class ) : base( provider, context, session ) {
             _class = @class;
         }
-
-        /// <summary>
-        /// 用户上下文
-        /// </summary>
-        public ISession Session { get; set; }
 
         /// <summary>
         /// 获取日志内容
@@ -47,6 +41,8 @@ namespace Util.Logs.NLog {
             base.Init( content );
             content.Tenant = Session.GetTenant();
             content.Application = Session.GetApplication();
+            content.Operator = Session.GetFullName();
+            content.Role = Session.GetRoleName();
         }
 
         /// <summary>

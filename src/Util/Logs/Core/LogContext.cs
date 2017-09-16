@@ -61,6 +61,7 @@ namespace Util.Logs.Core {
                 Url = Web.Url
             };
         }
+
         /// <summary>
         /// 跟踪号
         /// </summary>

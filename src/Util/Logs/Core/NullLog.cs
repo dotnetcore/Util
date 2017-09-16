@@ -45,12 +45,9 @@ namespace Util.Logs.Core {
         }
 
         /// <summary>
-        /// 跟踪
+        /// 调试
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Trace( Exception exception, string message = "", params object[] args ) {
+        public void Debug() {
         }
 
         /// <summary>
@@ -62,12 +59,9 @@ namespace Util.Logs.Core {
         }
 
         /// <summary>
-        /// 调试
+        /// 信息
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Debug( Exception exception, string message = "", params object[] args ) {
+        public void Info() {
         }
 
         /// <summary>
@@ -79,12 +73,9 @@ namespace Util.Logs.Core {
         }
 
         /// <summary>
-        /// 信息
+        /// 警告
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Info( Exception exception, string message = "", params object[] args ) {
+        public void Warn() {
         }
 
         /// <summary>
@@ -96,12 +87,9 @@ namespace Util.Logs.Core {
         }
 
         /// <summary>
-        /// 警告
+        /// 错误
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Warn( Exception exception, string message = "", params object[] args ) {
+        public void Error() {
         }
 
         /// <summary>
@@ -113,12 +101,9 @@ namespace Util.Logs.Core {
         }
 
         /// <summary>
-        /// 错误
+        /// 致命错误
         /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Error( Exception exception, string message = "", params object[] args ) {
+        public void Fatal() {
         }
 
         /// <summary>
@@ -127,15 +112,6 @@ namespace Util.Logs.Core {
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
         public void Fatal( string message, params object[] args ) {
-        }
-
-        /// <summary>
-        /// 致命错误
-        /// </summary>
-        /// <param name="exception">异常</param>
-        /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Fatal( Exception exception, string message = "", params object[] args ) {
         }
     }
 }

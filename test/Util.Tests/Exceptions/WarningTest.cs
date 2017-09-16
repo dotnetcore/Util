@@ -36,15 +36,6 @@ namespace Util.Tests.Exceptions {
         }
 
         /// <summary>
-        /// 测试设置日志级别
-        /// </summary>
-        [Fact]
-        public void TestLogLevel() {
-            Warning warning = new Warning( "", "", LogLevel.Critical );
-            Assert.Equal( LogLevel.Critical, warning.Level );
-        }
-
-        /// <summary>
         /// 测试设置异常
         /// </summary>
         [Fact]
@@ -58,7 +49,7 @@ namespace Util.Tests.Exceptions {
         /// </summary>
         [Fact]
         public void TestMessageAndException() {
-            Warning warning = new Warning( "A", "", LogLevel.Critical, new Exception( "C" ) );
+            Warning warning = new Warning( "A", "", new Exception( "C" ) );
             Assert.Equal( $"A{Environment.NewLine}C", warning.Message );
         }
 
@@ -67,7 +58,7 @@ namespace Util.Tests.Exceptions {
         /// </summary>
         [Fact]
         public void TestException_2Layer() {
-            Warning warning = new Warning( "A", "", LogLevel.Critical, new Exception( "C", new Exception( "D" ) ) );
+            Warning warning = new Warning( "A", "",new Exception( "C", new Exception( "D" ) ) );
             Assert.Equal( $"A{Environment.NewLine}C{Environment.NewLine}D", warning.Message );
         }
 

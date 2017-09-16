@@ -28,6 +28,11 @@ namespace Util.Helpers {
         /// </summary>
         public static IHttpContextAccessor HttpContextAccessor { get; set; }
 
+        /// <summary>
+        /// 当前Http上下文
+        /// </summary>
+        public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
+
         #endregion
 
         #region Url(请求地址)
@@ -35,7 +40,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 请求地址
         /// </summary>
-        public static string Url => HttpContextAccessor?.HttpContext?.Request?.GetDisplayUrl();
+        public static string Url => HttpContext?.Request?.GetDisplayUrl();
 
         #endregion
 
@@ -47,7 +52,7 @@ namespace Util.Helpers {
         public static string Ip {
             get {
                 var list = new[] { "127.0.0.1", "::1" };
-                var result = HttpContextAccessor?.HttpContext?.Connection?.RemoteIpAddress.SafeString();
+                var result = HttpContext?.Connection?.RemoteIpAddress.SafeString();
                 if( string.IsNullOrWhiteSpace( result ) || list.Contains( result ) )
                     result = GetLanIp();
                 return result;
@@ -72,7 +77,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 主机
         /// </summary>
-        public static string Host => HttpContextAccessor?.HttpContext == null ? Dns.GetHostName() : GetClientHostName();
+        public static string Host => HttpContext == null ? Dns.GetHostName() : GetClientHostName();
 
         /// <summary>
         /// 获取Web客户端主机名
@@ -91,7 +96,7 @@ namespace Util.Helpers {
         /// 获取远程地址
         /// </summary>
         private static string GetRemoteAddress() {
-            return HttpContextAccessor?.HttpContext?.Request?.Headers["HTTP_X_FORWARDED_FOR"] ?? HttpContextAccessor?.HttpContext?.Request?.Headers["REMOTE_ADDR"];
+            return HttpContext?.Request?.Headers["HTTP_X_FORWARDED_FOR"] ?? HttpContext?.Request?.Headers["REMOTE_ADDR"];
         }
 
         #endregion
@@ -101,7 +106,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 浏览器
         /// </summary>
-        public static string Browser => HttpContextAccessor?.HttpContext?.Request?.Headers["User-Agent"];
+        public static string Browser => HttpContext?.Request?.Headers["User-Agent"];
 
         #endregion
     }

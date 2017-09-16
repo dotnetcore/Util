@@ -10,6 +10,9 @@ namespace Util.Logs.Extensions {
         /// 追加内容
         /// </summary>
         public static void Append( this ILogContent content, StringBuilder result, string value, params object[] args ) {
+            if( string.IsNullOrWhiteSpace( value ) )
+                return;
+            result.Append( "   " );
             if( args == null || args.Length == 0 ) {
                 result.Append( value );
                 return;
