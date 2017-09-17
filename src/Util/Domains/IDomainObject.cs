@@ -1,4 +1,6 @@
-﻿namespace Util.Domains {
+﻿using Util.Validations;
+
+namespace Util.Domains {
     /// <summary>
     /// 领域对象
     /// </summary>
@@ -6,6 +8,6 @@
         /// <summary>
         /// 验证
         /// </summary>
-        void Validate();
+        ValidationResultCollection Validate();
     }
 }

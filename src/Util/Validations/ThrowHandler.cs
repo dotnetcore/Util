@@ -3,9 +3,9 @@ using Util.Exceptions;
 
 namespace Util.Validations {
     /// <summary>
-    /// 默认验证处理器，直接抛出异常
+    /// 验证失败，抛出异常 - 默认验证处理器
     /// </summary>
-    public class ValidationHandler : IValidationHandler{
+    public class ThrowHandler : IValidationHandler{
         /// <summary>
         /// 处理验证错误
         /// </summary>

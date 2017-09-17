@@ -39,7 +39,7 @@ namespace Util.Domains {
         /// </summary>
         protected DomainBase() {
             _rules = new List<IValidationRule>();
-            _handler = new ValidationHandler();
+            _handler = new ThrowHandler();
         }
 
         #endregion        
@@ -92,15 +92,16 @@ namespace Util.Domains {
         /// <summary>
         /// 验证
         /// </summary>
-        public virtual void Validate() {
-            var result = GetValidationResult();
-            HandleValidationResult( result );
+        public virtual ValidationResultCollection Validate() {
+            var result = GetValidationResults();
+            HandleValidationResults( result );
+            return result;
         }
 
         /// <summary>
         /// 获取验证结果
         /// </summary>
-        private ValidationResultCollection GetValidationResult() {
+        private ValidationResultCollection GetValidationResults() {
             var result = ValidationFactory.Create().Validate( this );
             Validate( result );
             foreach( var rule in _rules )
@@ -118,7 +119,7 @@ namespace Util.Domains {
         /// <summary>
         /// 处理验证结果
         /// </summary>
-        private void HandleValidationResult( ValidationResultCollection results ) {
+        private void HandleValidationResults( ValidationResultCollection results ) {
             if( results.IsValid )
                 return;
             _handler.Handle( results );
