@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Logs.Extensions;
 using Util.Samples.Webs.Configs;
 
 namespace Util.Samples.Webs {
@@ -29,6 +30,9 @@ namespace Util.Samples.Webs {
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
             //添加Mvc服务
             services.AddMvc();
+
+            //添加NLog日志操作
+            services.AddNLog();
 
             //添加Ioc服务
             return services.AddIoc( new IocConfig() );

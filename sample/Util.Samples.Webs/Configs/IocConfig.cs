@@ -2,10 +2,6 @@
 using Util.Contexts;
 using Util.DependencyInjection;
 using Util.Domains.Sessions;
-using Util.Logs;
-using Util.Logs.Abstractions;
-using Util.Logs.Core;
-using Util.Logs.NLog;
 
 namespace Util.Samples.Webs.Configs {
     /// <summary>
@@ -17,7 +13,6 @@ namespace Util.Samples.Webs.Configs {
         /// </summary>
         protected override void Load( ContainerBuilder builder ) {
             LoadInfrastructure( builder );
-            LoadLog( builder );
         }
         
         /// <summary>
@@ -26,14 +21,6 @@ namespace Util.Samples.Webs.Configs {
         private void LoadInfrastructure( ContainerBuilder builder ) {
             builder.RegisterType<WebContext>().As<IContext>().SingleInstance();
             builder.RegisterType<NullSession>().As<ISession>().InstancePerLifetimeScope();
-        }
-
-        /// <summary>
-        /// 加载日志
-        /// </summary>
-        private void LoadLog( ContainerBuilder builder ) {
-            builder.RegisterType<LogContext>().As<ILogContext>().InstancePerLifetimeScope();
-            builder.RegisterType<LogManager>().As<ILogManager>().InstancePerLifetimeScope();
         }
     }
 }

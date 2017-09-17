@@ -8,7 +8,7 @@ namespace Util.Logs.Extensions {
     /// <summary>
     /// 日志扩展
     /// </summary>
-    public static class Extensions {
+    public static partial class Extensions {
         /// <summary>
         /// 设置业务编号
         /// </summary>
