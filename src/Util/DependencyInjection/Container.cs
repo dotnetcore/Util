@@ -13,22 +13,34 @@ namespace Util.DependencyInjection {
         /// 容器
         /// </summary>
         private Autofac.IContainer _container;
+        /// <summary>
+        /// HttpContext访问器
+        /// </summary>
+        private IHttpContextAccessor _accessor;
 
         /// <summary>
         /// 创建对象
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
         public T Create<T>() {
-            IHttpContextAccessor accessor;
             try {
-                accessor = _container.Resolve<IHttpContextAccessor>();
+                LoadHttpContextAccessor();
             }
             catch {
                 return _container.Resolve<T>();
             }
-            if( accessor?.HttpContext?.RequestServices != null )
-                return accessor.HttpContext.RequestServices.GetService<T>();
+            if( _accessor?.HttpContext?.RequestServices != null )
+                return _accessor.HttpContext.RequestServices.GetService<T>();
             return _container.Resolve<T>();
+        }
+
+        /// <summary>
+        /// 加载HttpContext访问器
+        /// </summary>
+        private void LoadHttpContextAccessor() {
+            if ( _accessor != null )
+                return;
+            _accessor = _container.Resolve<IHttpContextAccessor>();
         }
 
         /// <summary>
@@ -36,15 +48,14 @@ namespace Util.DependencyInjection {
         /// </summary>
         /// <param name="type">对象类型</param>
         public object Create( Type type ) {
-            IHttpContextAccessor accessor;
             try {
-                accessor = _container.Resolve<IHttpContextAccessor>();
+                LoadHttpContextAccessor();
             }
             catch {
                 return _container.Resolve( type );
             }
-            if( accessor?.HttpContext?.RequestServices != null )
-                return accessor.HttpContext.RequestServices.GetService( type );
+            if( _accessor?.HttpContext?.RequestServices != null )
+                return _accessor.HttpContext.RequestServices.GetService( type );
             return _container.Resolve( type );
         }
 
