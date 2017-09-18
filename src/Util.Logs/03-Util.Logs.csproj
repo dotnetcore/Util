@@ -28,14 +28,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptionless\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Extensions\Extensions.Log.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Exceptionless" Version="4.0.1955" />
     <PackageReference Include="NLog" Version="5.0.0-beta10" />
   </ItemGroup>
 

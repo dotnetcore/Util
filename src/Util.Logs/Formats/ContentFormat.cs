@@ -30,12 +30,12 @@ namespace Util.Logs.Formats {
         /// <summary>
         /// 格式化
         /// </summary>
-        /// <param name="logContent">日志内容</param>
-        public string Format( ILogContent logContent ) {
-            var content = logContent as LogContent;
-            if( content == null )
+        /// <param name="content">日志内容</param>
+        public string Format( object content ) {
+            var logContent = content as LogContent;
+            if( logContent == null )
                 return string.Empty;
-            return Format( content );
+            return Format( logContent );
         }
 
         /// <summary>

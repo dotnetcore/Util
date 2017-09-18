@@ -52,6 +52,15 @@ namespace Util.Logs.Core {
                 traceId = Guid.NewGuid().ToString();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+            return CreateInfo( traceId, stopwatch );
+        }
+
+        /// <summary>
+        /// 创建日志上下文信息
+        /// </summary>
+        /// <param name="traceId">跟踪号</param>
+        /// <param name="stopwatch">计时器</param>
+        protected virtual LogContextInfo CreateInfo( string traceId, Stopwatch stopwatch ) {
             return new LogContextInfo {
                 TraceId = traceId,
                 Stopwatch = stopwatch,

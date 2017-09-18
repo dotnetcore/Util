@@ -127,7 +127,7 @@ Util暂时未发布到Nuget，待成熟后发布。
   - PostgreSQL
 
 3. 设计工具
-  - PowerDesigner
+  - PowerDesigner 16.5
   - XMind
 
 4. 版本控制

@@ -7,6 +7,6 @@
         /// 格式化
         /// </summary>
         /// <param name="content">日志内容</param>
-        string Format( ILogContent content );
+        string Format( object content );
     }
 }

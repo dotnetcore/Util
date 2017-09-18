@@ -4,7 +4,7 @@ namespace Util.Logs.Internal {
     /// <summary>
     /// 日志上下文信息
     /// </summary>
-    internal class LogContextInfo {
+    public class LogContextInfo {
         /// <summary>
         /// 跟踪号
         /// </summary>

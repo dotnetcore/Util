@@ -93,7 +93,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 跟踪
         /// </summary>
-        public void Trace() {
+        public virtual void Trace() {
             _content = LogContent;
             Execute( ref _content, LogLevel.Trace );
         }
@@ -101,7 +101,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 执行
         /// </summary>
-        protected virtual void Execute( ref TContent content, LogLevel level ) {
+        private void Execute( ref TContent content, LogLevel level ) {
             try {
                 Init( content );
                 WriteLog( content, level );
@@ -148,7 +148,7 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
-        public void Trace( string message, params object[] args ) {
+        public virtual void Trace( string message, params object[] args ) {
             LogContent.Content( message, args );
             Trace();
         }
@@ -156,7 +156,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 调试
         /// </summary>
-        public void Debug() {
+        public virtual void Debug() {
             _content = LogContent;
             Execute( ref _content, LogLevel.Debug );
         }
@@ -166,7 +166,7 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
-        public void Debug( string message, params object[] args ) {
+        public virtual void Debug( string message, params object[] args ) {
             LogContent.Content( message, args );
             Debug();
         }
@@ -174,7 +174,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 信息
         /// </summary>
-        public void Info() {
+        public virtual void Info() {
             _content = LogContent;
             Execute( ref _content, LogLevel.Information );
         }
@@ -184,7 +184,7 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
-        public void Info( string message, params object[] args ) {
+        public virtual void Info( string message, params object[] args ) {
             LogContent.Content( message, args );
             Info();
         }
@@ -192,7 +192,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 警告
         /// </summary>
-        public void Warn() {
+        public virtual void Warn() {
             _content = LogContent;
             Execute( ref _content, LogLevel.Warning );
         }
@@ -202,7 +202,7 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
-        public void Warn( string message, params object[] args ) {
+        public virtual void Warn( string message, params object[] args ) {
             LogContent.Content( message, args );
             Warn();
         }
@@ -210,7 +210,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 错误
         /// </summary>
-        public void Error() {
+        public virtual void Error() {
             _content = LogContent;
             Execute( ref _content, LogLevel.Error );
         }
@@ -220,7 +220,7 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
-        public void Error( string message, params object[] args ) {
+        public virtual void Error( string message, params object[] args ) {
             LogContent.Content( message, args );
             Error();
         }
@@ -228,7 +228,7 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 致命错误
         /// </summary>
-        public void Fatal() {
+        public virtual void Fatal() {
             _content = LogContent;
             Execute( ref _content, LogLevel.Critical );
         }
@@ -238,7 +238,7 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="message">日志消息</param>
         /// <param name="args">参数值</param>
-        public void Fatal( string message, params object[] args ) {
+        public virtual void Fatal( string message, params object[] args ) {
             LogContent.Content( message, args );
             Fatal();
         }

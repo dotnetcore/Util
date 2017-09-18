@@ -1,10 +1,8 @@
 ﻿using Util.Domains.Sessions;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
-using Util.Logs.Formats;
-using NLogs = NLog;
 
-namespace Util.Logs.NLog {
+namespace Util.Logs.Exceptionless {
     /// <summary>
     /// 日志服务
     /// </summary>
@@ -17,7 +15,6 @@ namespace Util.Logs.NLog {
         public LogManager( ILogContext context, ISession session ) {
             Context = context;
             Session = session;
-            Format = new ContentFormat();
         }
 
         /// <summary>
@@ -31,17 +28,10 @@ namespace Util.Logs.NLog {
         public ISession Session { get; set; }
 
         /// <summary>
-        /// 日志格式化器
-        /// </summary>
-        public ILogFormat Format { get; set; }
-
-        /// <summary>
         /// 获取日志操作实例
         /// </summary>
-        /// <param name="logName">日志名称</param>
-        /// <param name="class">类名</param>
         protected override ILog GetLog( string logName, string @class ) {
-            return Log.GetLog( NLogs.LogManager.GetLogger( logName ), Format, Context, Session, @class );
+            return Log.GetLog( Context, Session, logName, @class );
         }
     }
 }
