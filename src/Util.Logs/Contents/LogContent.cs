@@ -118,7 +118,7 @@ namespace Util.Logs.Contents {
         /// </summary>
         public string ErrorCode { get; set; }
         /// <summary>
-        /// 异常消息
+        /// 异常
         /// </summary>
         public Warning Exception { get; set; }
     }

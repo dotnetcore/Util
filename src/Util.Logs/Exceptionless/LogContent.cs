@@ -8,29 +8,29 @@ namespace Util.Logs.Exceptionless {
         /// <summary>
         /// 转换
         /// </summary>
-        public IDictionary<string, string> To() {
-            return new Dictionary<string, string> {
-                { LogResource.LogName, LogName },
-                { LogResource.TraceId, TraceId },
-                { LogResource.OperationTime, OperationTime },
-                { LogResource.Duration, Duration },
-                { LogResource.ThreadId, ThreadId },
-                { "Url", Url },
-                { LogResource.UserId, UserId },
-                { LogResource.Operator, Operator },
-                { LogResource.Role,Role  },
-                { LogResource.BusinessId,BusinessId  },
-                { LogResource.Tenant,Tenant  },
-                { LogResource.Application,Application  },
-                { LogResource.Module,Module  },
-                { LogResource.Class,Class  },
-                { LogResource.Method,Method  },
-                { LogResource.Params,Params.ToString()  },
-                { LogResource.Caption,Caption  },
-                { LogResource.Content,Content.ToString()  },
-                { LogResource.Sql,Sql.ToString()  },
-                { LogResource.SqlParams,SqlParams.ToString()  },
-                { LogResource.ErrorCode,Exception.Code }
+        public List<Item> To() {
+            return new List<Item> {
+                { new Item( LogResource.LogName, LogName,1) },
+                { new Item(LogResource.TraceId, TraceId,2) },
+                { new Item(LogResource.OperationTime, OperationTime,3) },
+                { new Item(LogResource.Duration, Duration,4) },
+                { new Item(LogResource.ThreadId, ThreadId,5) },
+                { new Item("Url", Url,6) },
+                { new Item(LogResource.UserId, UserId,7) },
+                { new Item(LogResource.Operator, Operator,8 ) },
+                { new Item(LogResource.Role,Role,9)  },
+                { new Item(LogResource.BusinessId,BusinessId,10) },
+                { new Item(LogResource.Tenant,Tenant,11)  },
+                { new Item(LogResource.Application,Application,12) },
+                { new Item(LogResource.Module,Module ,13) },
+                { new Item(LogResource.Class,Class ,14) },
+                { new Item(LogResource.Method,Method ,15) },
+                { new Item(LogResource.Params,Params.ToString(),16) },
+                { new Item(LogResource.Caption,Caption ,17) },
+                { new Item(LogResource.Content,Content.ToString(),18) },
+                { new Item(LogResource.Sql,Sql.ToString(),19)  },
+                { new Item(LogResource.SqlParams,SqlParams.ToString(),20) },
+                { new Item(LogResource.ErrorCode,Exception?.Code,21) }
             };
         }
     }

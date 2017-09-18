@@ -17,19 +17,49 @@ namespace Util.Samples.Webs.Controllers {
         public ILog Log { get; set; }
 
         public void Index() {
+
             try {
                 Throw();
             }
             catch ( Exception e ) {
-                for ( int i = 0; i < 1000; i++ ) {
-                    Log.Exception( e ).BusinessId( "111" ).Error();
-                }
+                Log.BusinessId( Guid.NewGuid().ToString() )
+                    .Module( "订单" )
+                    .ParamsLine( "{0},{1}", 1, 2 )
+                    .Params( "{0},{1}", 3, 4 )
+                    .Caption( "有人上班" )
+                    .ContentLine( "购买商品数量: {0}", 100 )
+                    .Content( "购买商品总额：{0}", 200 )
+                    .SqlLine( "select * from system.users" )
+                    .Sql( "select * from system.roles" )
+                    .SqlParamsLine( "@a={0},@b={1}", 1, 2 )
+                    .SqlParams( "@userId={0}", Guid.NewGuid().ToString() )
+                    .Exception(e)
+                    .Error();
             }
             
         }
 
         private void Throw() {
-            throw new Exception( "嘿嘿" );
+            try {
+                Throw2();
+            }
+            catch( Exception e ) {
+                throw new NotImplementedException( "Throw",e );
+            }
+        }
+
+        private void Throw2() {
+            try {
+                Throw3();
+            }
+            catch ( Exception e ) {
+                throw new NotImplementedException( "Throw2",e );
+            }
+            
+        }
+
+        private void Throw3() {
+            throw new NotImplementedException( "Throw3" );
         }
     }
 }

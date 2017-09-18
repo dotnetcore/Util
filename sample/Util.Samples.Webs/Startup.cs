@@ -1,5 +1,4 @@
 ﻿using System;
-using Exceptionless;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,8 +37,8 @@ namespace Util.Samples.Webs {
             //添加Exceptionless日志操作
             services.AddExceptionless( config => {
                 config.ServerUrl = "http://localhost:8011";
-                //config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
-                config.ApiKey = "IeOvbGtaG2Xk5twBRPac0HmPyJjfITXV4WVHO31o";
+                config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
+                //config.ApiKey = "IeOvbGtaG2Xk5twBRPac0HmPyJjfITXV4WVHO31o";
             } );
 
             //添加Ioc服务
@@ -60,7 +59,6 @@ namespace Util.Samples.Webs {
         /// 配置异常处理
         /// </summary>
         private void ConfigExceptionHandler( IApplicationBuilder app, IHostingEnvironment env ) {
-            app.UseExceptionless();
             if( env.IsDevelopment() ) {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();

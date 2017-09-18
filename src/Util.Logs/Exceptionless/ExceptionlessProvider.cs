@@ -1,4 +1,5 @@
-﻿using Exceptionless;
+﻿using System.Linq;
+using Exceptionless;
 using Microsoft.Extensions.Logging;
 using el = Exceptionless;
 using Util.Logs.Abstractions;
@@ -31,12 +32,12 @@ namespace Util.Logs.Exceptionless {
         /// <summary>
         /// 调试级别是否启用
         /// </summary>
-        public bool IsDebugEnabled { get; }
+        public bool IsDebugEnabled => true;
 
         /// <summary>
         /// 跟踪级别是否启用
         /// </summary>
-        public bool IsTraceEnabled { get; }
+        public bool IsTraceEnabled => true;
 
         /// <summary>
         /// 写日志
@@ -63,7 +64,8 @@ namespace Util.Logs.Exceptionless {
         /// </summary>
         /// <param name="content">日志内容</param>
         private string GetMessage( ILogContent content ) {
-            if( content is ICaption caption )
+            var caption = content as ICaption;
+            if ( caption != null && string.IsNullOrWhiteSpace( caption.Caption ) == false )
                 return caption.Caption;
             if( content.Content.Length > 0 )
                 return content.Content.ToString();
@@ -98,8 +100,11 @@ namespace Util.Logs.Exceptionless {
         private void AddProperties( EventBuilder builder, ILogConvert content ) {
             if ( content == null )
                 return;
-            foreach ( var parameter in content.To() )
-                builder.SetProperty( parameter.Key, parameter.Value );
+            foreach ( var parameter in content.To().OrderBy( t => t.SortId ) ) {
+                if ( string.IsNullOrWhiteSpace( parameter.Value ) )
+                    continue;
+                builder.SetProperty( $"{Util.Helpers.Const.Letters[parameter.SortId-1]}. {parameter.Text}", parameter.Value );
+            }
         }
     }
 }

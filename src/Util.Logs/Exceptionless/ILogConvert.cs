@@ -8,6 +8,6 @@ namespace Util.Logs.Exceptionless {
         /// <summary>
         /// 转换
         /// </summary>
-        IDictionary<string, string> To();
+        List<Item> To();
     }
 }
