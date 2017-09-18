@@ -95,51 +95,22 @@ namespace Util.Logs.Core {
         /// </summary>
         public virtual void Trace() {
             _content = LogContent;
-            Execute( ref _content, LogLevel.Trace );
+            Execute( LogLevel.Trace, ref _content );
         }
 
         /// <summary>
         /// 执行
         /// </summary>
-        private void Execute( ref TContent content, LogLevel level ) {
+        private void Execute( LogLevel level, ref TContent content ) {
+            if ( content == null )
+                return;
             try {
+                content.Level = Util.Helpers.Enum.GetName<LogLevel>( level );
                 Init( content );
-                WriteLog( content, level );
+                Provider.WriteLog( level, content );
             }
             finally {
                 content = null;
-            }
-        }
-
-        /// <summary>
-        /// 写日志
-        /// </summary>
-        private void WriteLog( TContent content, LogLevel level ) {
-            switch( level ) {
-                case LogLevel.Trace:
-                    content.Level = "Trace";
-                    Provider.Trace( content );
-                    break;
-                case LogLevel.Debug:
-                    content.Level = "Debug";
-                    Provider.Debug( content );
-                    break;
-                case LogLevel.Information:
-                    content.Level = "Info";
-                    Provider.Info( content );
-                    break;
-                case LogLevel.Warning:
-                    content.Level = "Warn";
-                    Provider.Warn( content );
-                    break;
-                case LogLevel.Error:
-                    content.Level = "Error";
-                    Provider.Error( content );
-                    break;
-                case LogLevel.Critical:
-                    content.Level = "Fatal";
-                    Provider.Fatal( content );
-                    break;
             }
         }
 
@@ -158,7 +129,7 @@ namespace Util.Logs.Core {
         /// </summary>
         public virtual void Debug() {
             _content = LogContent;
-            Execute( ref _content, LogLevel.Debug );
+            Execute( LogLevel.Debug, ref _content );
         }
 
         /// <summary>
@@ -176,7 +147,7 @@ namespace Util.Logs.Core {
         /// </summary>
         public virtual void Info() {
             _content = LogContent;
-            Execute( ref _content, LogLevel.Information );
+            Execute( LogLevel.Information, ref _content );
         }
 
         /// <summary>
@@ -194,7 +165,7 @@ namespace Util.Logs.Core {
         /// </summary>
         public virtual void Warn() {
             _content = LogContent;
-            Execute( ref _content, LogLevel.Warning );
+            Execute( LogLevel.Warning, ref _content );
         }
 
         /// <summary>
@@ -212,7 +183,7 @@ namespace Util.Logs.Core {
         /// </summary>
         public virtual void Error() {
             _content = LogContent;
-            Execute( ref _content, LogLevel.Error );
+            Execute( LogLevel.Error, ref _content );
         }
 
         /// <summary>
@@ -230,7 +201,7 @@ namespace Util.Logs.Core {
         /// </summary>
         public virtual void Fatal() {
             _content = LogContent;
-            Execute( ref _content, LogLevel.Critical );
+            Execute( LogLevel.Critical, ref _content );
         }
 
         /// <summary>

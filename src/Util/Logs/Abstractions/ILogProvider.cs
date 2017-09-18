@@ -1,4 +1,6 @@
-﻿namespace Util.Logs.Abstractions {
+﻿using Microsoft.Extensions.Logging;
+
+namespace Util.Logs.Abstractions {
     /// <summary>
     /// 日志提供程序
     /// </summary>
@@ -16,34 +18,10 @@
         /// </summary>
         bool IsTraceEnabled { get; }
         /// <summary>
-        /// 跟踪
+        /// 写日志
         /// </summary>
-        /// <param name="message">日志消息</param>
-        void Trace( object message );
-        /// <summary>
-        /// 调试
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        void Debug( object message );
-        /// <summary>
-        /// 信息
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        void Info( object message );
-        /// <summary>
-        /// 警告
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        void Warn( object message );
-        /// <summary>
-        /// 错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        void Error( object message );
-        /// <summary>
-        /// 致命错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        void Fatal( object message );
+        /// <param name="level">日志等级</param>
+        /// <param name="content">日志内容</param>
+        void WriteLog( LogLevel level, ILogContent content );
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Util.Domains.Sessions;
 using Util.Helpers;
 using Util.Logs.Abstractions;
+using Util.Logs.Contents;
 using NLogs = NLog;
 using Util.Logs.Core;
 using Util.Logs.Formats;

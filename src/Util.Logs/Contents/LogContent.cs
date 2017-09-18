@@ -1,11 +1,12 @@
 ﻿using System.Text;
+using Util.Exceptions;
 using Util.Logs.Abstractions;
 
-namespace Util.Logs.Core {
+namespace Util.Logs.Contents {
     /// <summary>
     /// 日志内容
     /// </summary>
-    public class LogContent : ILogContent {
+    public class LogContent : ILogContent, ICaption {
         /// <summary>
         /// 初始化日志内容
         /// </summary>
@@ -119,10 +120,6 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 异常消息
         /// </summary>
-        public string Exception { get; set; }
-        /// <summary>
-        /// 堆栈跟踪
-        /// </summary>
-        public string StackTrace { get; set; }
+        public Warning Exception { get; set; }
     }
 }

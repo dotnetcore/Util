@@ -2,6 +2,7 @@
 using System.Text;
 using Util.Exceptions;
 using Util.Logs.Abstractions;
+using Util.Logs.Contents;
 using Util.Logs.Core;
 
 namespace Util.Logs.Extensions {
@@ -136,8 +137,7 @@ namespace Util.Logs.Extensions {
                 return log;
             return log.Set<LogContent>( content => {
                 content.ErrorCode = exception.Code;
-                content.Exception = exception.Message;
-                content.StackTrace = exception.StackTrace;
+                content.Exception = exception;
             } );
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Exceptions;
 
 namespace Util.Logs.Abstractions {
     /// <summary>
@@ -53,5 +54,9 @@ namespace Util.Logs.Abstractions {
         /// 内容
         /// </summary>
         StringBuilder Content { get; set; }
+        /// <summary>
+        /// 异常消息
+        /// </summary>
+        Warning Exception { get; set; }
     }
 }

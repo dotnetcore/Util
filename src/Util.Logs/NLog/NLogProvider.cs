@@ -1,5 +1,6 @@
 ﻿using System;
-using NLog;
+using Microsoft.Extensions.Logging;
+using NLogs = NLog;
 using Util.Logs.Abstractions;
 using Util.Logs.Formats;
 
@@ -11,7 +12,7 @@ namespace Util.Logs.NLog {
         /// <summary>
         /// NLog日志操作
         /// </summary>
-        private readonly Logger _logger;
+        private readonly NLogs.Logger _logger;
         /// <summary>
         /// 日志格式化器
         /// </summary>
@@ -22,7 +23,7 @@ namespace Util.Logs.NLog {
         /// </summary>
         /// <param name="logger">NLog日志操作</param>
         /// <param name="format">日志格式化器</param>
-        public NLogProvider( Logger logger ,ILogFormat format = null ) {
+        public NLogProvider( NLogs.Logger logger, ILogFormat format = null ) {
             _logger = logger;
             _format = format;
         }
@@ -43,90 +44,48 @@ namespace Util.Logs.NLog {
         public bool IsTraceEnabled => _logger.IsTraceEnabled;
 
         /// <summary>
-        /// 跟踪
+        /// 写日志
         /// </summary>
-        /// <param name="message">日志消息</param>
-        public void Trace( object message ) {
+        /// <param name="level">日志等级</param>
+        /// <param name="content">日志内容</param>
+        public void WriteLog( LogLevel level, ILogContent content ) {
             var provider = GetFormatProvider();
-            if ( provider == null ) {
-                _logger.Trace( message );
+            if( provider == null ) {
+                _logger.Log( ConvertTo( level ), content );
                 return;
             }
-            _logger.Trace( provider, message );
+            _logger.Log( ConvertTo( level ), provider, content );
+        }
+
+        /// <summary>
+        /// 转换日志等级
+        /// </summary>
+        private NLogs.LogLevel ConvertTo( LogLevel level ) {
+            switch( level ) {
+                case LogLevel.Trace:
+                    return NLogs.LogLevel.Trace;
+                case LogLevel.Debug:
+                    return NLogs.LogLevel.Debug;
+                case LogLevel.Information:
+                    return NLogs.LogLevel.Info;
+                case LogLevel.Warning:
+                    return NLogs.LogLevel.Warn;
+                case LogLevel.Error:
+                    return NLogs.LogLevel.Error;
+                case LogLevel.Critical:
+                    return NLogs.LogLevel.Fatal;
+                default:
+                    return NLogs.LogLevel.Off;
+            }
         }
 
         /// <summary>
         /// 获取格式化提供程序
         /// </summary>
         private IFormatProvider GetFormatProvider() {
-            if ( _format == null )
+            if( _format == null )
                 return null;
             return new FormatProvider( _format );
-        }
-
-        /// <summary>
-        /// 调试
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        public void Debug( object message ) {
-            var provider = GetFormatProvider();
-            if( provider == null ) {
-                _logger.Debug( message );
-                return;
-            }
-            _logger.Debug( provider, message );
-        }
-
-        /// <summary>
-        /// 信息
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        public void Info( object message ) {
-            var provider = GetFormatProvider();
-            if( provider == null ) {
-                _logger.Info( message );
-                return;
-            }
-            _logger.Info( provider, message );
-        }
-
-        /// <summary>
-        /// 警告
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        public void Warn( object message ) {
-            var provider = GetFormatProvider();
-            if( provider == null ) {
-                _logger.Warn( message );
-                return;
-            }
-            _logger.Warn( provider, message );
-        }
-
-        /// <summary>
-        /// 错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        public void Error( object message ) {
-            var provider = GetFormatProvider();
-            if( provider == null ) {
-                _logger.Error( message );
-                return;
-            }
-            _logger.Error( provider, message );
-        }
-
-        /// <summary>
-        /// 致命错误
-        /// </summary>
-        /// <param name="message">日志消息</param>
-        public void Fatal( object message ) {
-            var provider = GetFormatProvider();
-            if( provider == null ) {
-                _logger.Fatal( message );
-                return;
-            }
-            _logger.Fatal( provider, message );
         }
     }
 }

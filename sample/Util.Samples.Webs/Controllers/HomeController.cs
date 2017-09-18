@@ -11,7 +11,7 @@ namespace Util.Samples.Webs.Controllers {
     public class HomeController : Controller
     {
         public HomeController( ILogManager logManager ) {
-            Log = logManager.GetLog();
+            Log = logManager.GetLog(this);
         }
 
         public ILog Log { get; set; }
@@ -21,8 +21,8 @@ namespace Util.Samples.Webs.Controllers {
                 Throw();
             }
             catch ( Exception e ) {
-                for ( int i = 0; i < 100; i++ ) {
-                    Log.Exception( e ).Error();
+                for ( int i = 0; i < 1000; i++ ) {
+                    Log.Exception( e ).BusinessId( "111" ).Error();
                 }
             }
             
