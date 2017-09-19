@@ -333,7 +333,7 @@ https://github.com/dotnetcore/util/
   - 枚举操作 [已发布]
   - 字符串操作 [已发布]
   - Lambda表达式操作 [已发布]
-  - 日志操作 [开发中]
+  - 日志操作 - 基于NLog和Exceptionless [已发布]
   - IQueryable查询扩展 [已发布]
   - 时间操作 [已发布]
   - 上下文操作 [已发布]
@@ -384,3 +384,4 @@ https://github.com/dotnetcore/util/
 - 2017年9月3日，更新了公共业务类型-地址(Address)，修改了代码生成模板。
 - 2017年9月10日，更新了时间操作类，修改了代码生成模板。
 - 2017年9月15日，更新了上下文操作(Util/Contexts)，更新了日期格式化扩展(Util/Extensions.DateTime)。
+- 2017年9月19日，更新了日志操作，日志提供程序支持NLog与Exceptionless。
