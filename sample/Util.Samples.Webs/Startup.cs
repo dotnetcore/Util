@@ -32,13 +32,13 @@ namespace Util.Samples.Webs {
             services.AddMvc();
 
             //添加NLog日志操作
-            //services.AddNLog();
+            services.AddNLog();
 
             //添加Exceptionless日志操作
-            services.AddExceptionless( config => {
-                config.ServerUrl = "http://localhost:8011";
-                config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
-            } );
+            //services.AddExceptionless( config => {
+            //    config.ServerUrl = "http://localhost:8011";
+            //    config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
+            //} );
 
             //添加Ioc服务
             return services.AddIoc( new IocConfig() );

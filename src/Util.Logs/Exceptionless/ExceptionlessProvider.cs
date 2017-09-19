@@ -53,7 +53,7 @@ namespace Util.Logs.Exceptionless {
         public void WriteLog( LogLevel level, ILogContent content ) {
             var builder = CreateBuilder( level, content );
             SetUser( content );
-            SetSource( builder, content as IUrl );
+            SetSource( builder, content );
             SetReferenceId( builder, content );
             AddProperties( builder, content as ILogConvert );
             builder.Submit();
@@ -113,9 +113,7 @@ namespace Util.Logs.Exceptionless {
         /// <summary>
         /// 设置来源
         /// </summary>
-        private void SetSource( EventBuilder builder, IUrl content ) {
-            if ( content == null )
-                return;
+        private void SetSource( EventBuilder builder, ILogContent content ) {
             builder.SetSource( content.Url );
         }
 

@@ -46,29 +46,32 @@ namespace Util.Logs.Core {
         /// <summary>
         /// 创建日志上下文信息
         /// </summary>
-        private LogContextInfo CreateInfo() {
-            var traceId = Context.TraceId;
-            if( string.IsNullOrWhiteSpace( traceId ) )
-                traceId = Guid.NewGuid().ToString();
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            return CreateInfo( traceId, stopwatch );
-        }
-
-        /// <summary>
-        /// 创建日志上下文信息
-        /// </summary>
-        /// <param name="traceId">跟踪号</param>
-        /// <param name="stopwatch">计时器</param>
-        protected virtual LogContextInfo CreateInfo( string traceId, Stopwatch stopwatch ) {
+        protected virtual LogContextInfo CreateInfo() {
             return new LogContextInfo {
-                TraceId = traceId,
-                Stopwatch = stopwatch,
+                TraceId = GetTraceId(),
+                Stopwatch = GetStopwatch(),
                 Ip = Web.Ip,
                 Host = Web.Host,
                 Browser = Web.Browser,
                 Url = Web.Url
             };
+        }
+
+        /// <summary>
+        /// 获取跟踪号
+        /// </summary>
+        protected string GetTraceId() {
+            var traceId = Context.TraceId;
+            return string.IsNullOrWhiteSpace( traceId ) ? Guid.NewGuid().ToString() : traceId;
+        }
+
+        /// <summary>
+        /// 获取计时器
+        /// </summary>
+        protected Stopwatch GetStopwatch() {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            return stopwatch;
         }
 
         /// <summary>

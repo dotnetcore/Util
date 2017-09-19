@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Util.Contexts;
 using Util.Helpers;
 using Util.Logs.Internal;
@@ -19,12 +18,10 @@ namespace Util.Logs.Exceptionless {
         /// <summary>
         /// 创建日志上下文信息
         /// </summary>
-        /// <param name="traceId">跟踪号</param>
-        /// <param name="stopwatch">计时器</param>
-        protected override LogContextInfo CreateInfo( string traceId, Stopwatch stopwatch ) {
+        protected override LogContextInfo CreateInfo() {
             return new LogContextInfo {
                 TraceId = Guid.NewGuid().ToString(),
-                Stopwatch = stopwatch,
+                Stopwatch = GetStopwatch(),
                 Url = Web.Url
             };
         }
