@@ -20,6 +20,10 @@ namespace Util.Logs.Exceptionless {
         /// 客户端
         /// </summary>
         private readonly el.ExceptionlessClient _client;
+        /// <summary>
+        /// 行号
+        /// </summary>
+        private int _line;
 
         /// <summary>
         /// 初始化Exceptionless日志提供程序
@@ -51,12 +55,20 @@ namespace Util.Logs.Exceptionless {
         /// <param name="level">日志等级</param>
         /// <param name="content">日志内容</param>
         public void WriteLog( LogLevel level, ILogContent content ) {
+            InitLine();
             var builder = CreateBuilder( level, content );
             SetUser( content );
             SetSource( builder, content );
             SetReferenceId( builder, content );
             AddProperties( builder, content as ILogConvert );
             builder.Submit();
+        }
+
+        /// <summary>
+        /// 初始化行号
+        /// </summary>
+        private void InitLine() {
+            _line = 1;
         }
 
         /// <summary>
@@ -107,6 +119,8 @@ namespace Util.Logs.Exceptionless {
         /// 设置用户信息
         /// </summary>
         private void SetUser( ILogContent content ) {
+            if ( string.IsNullOrWhiteSpace( content.UserId ) )
+                return;
             _client.Configuration.SetUserIdentity( content.UserId );
         }
 
@@ -114,6 +128,8 @@ namespace Util.Logs.Exceptionless {
         /// 设置来源
         /// </summary>
         private void SetSource( EventBuilder builder, ILogContent content ) {
+            if ( string.IsNullOrWhiteSpace( content.Url ) )
+                return;
             builder.SetSource( content.Url );
         }
 
@@ -133,8 +149,15 @@ namespace Util.Logs.Exceptionless {
             foreach ( var parameter in content.To().OrderBy( t => t.SortId ) ) {
                 if ( string.IsNullOrWhiteSpace( parameter.Value ) )
                     continue;
-                builder.SetProperty( $"{Util.Helpers.Const.Letters[parameter.SortId-1]}. {parameter.Text}", parameter.Value );
+                builder.SetProperty( $"{GetLine()}. {parameter.Text}", parameter.Value );
             }
+        }
+
+        /// <summary>
+        /// 获取行号
+        /// </summary>
+        private string GetLine() {
+            return _line++.ToString().PadLeft( 2, '0' );
         }
     }
 }

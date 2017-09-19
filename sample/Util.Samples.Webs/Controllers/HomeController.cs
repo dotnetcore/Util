@@ -21,7 +21,7 @@ namespace Util.Samples.Webs.Controllers {
                 .Module( "订单" )
                 .ParamsLine( "{0},{1}", 1, 2 )
                 .Params( "{0},{1}", 3, 4 )
-                .Caption( "有新的订单来了" )
+                .Caption( "Caption1" )
                 .ContentLine( "购买商品数量: {0}", 100 )
                 .Content( "购买商品总额：{0}", 200 )
                 .SqlLine( "select * from system.users" )
@@ -30,15 +30,28 @@ namespace Util.Samples.Webs.Controllers {
                 .SqlParams( "@userId={0}", Guid.NewGuid().ToString() )
                 .Info();
 
-            try {
-                Throw();
-            }
-            catch ( Exception e ) {
-                Log.BusinessId( Guid.NewGuid().ToString() )
-                    .Module( "订单" )
-                    .Exception( e )
-                    .Error();
-            }
+            Log.BusinessId( Guid.NewGuid().ToString() )
+                .Module( "订单" )
+                .ParamsLine( "{0},{1}", 1, 2 )
+                .Params( "{0},{1}", 3, 4 )
+                .Caption( "Caption2" )
+                .ContentLine( "购买商品数量: {0}", 100 )
+                .Content( "购买商品总额：{0}", 200 )
+                .SqlLine( "select * from system.users" )
+                .Sql( "select * from system.roles" )
+                .SqlParamsLine( "@a={0},@b={1}", 1, 2 )
+                .SqlParams( "@userId={0}", Guid.NewGuid().ToString() )
+                .Info();
+
+            //try {
+            //    Throw();
+            //}
+            //catch ( Exception e ) {
+            //    Log.BusinessId( Guid.NewGuid().ToString() )
+            //        .Module( "订单" )
+            //        .Exception( e )
+            //        .Error();
+            //}
                 
             
         }
