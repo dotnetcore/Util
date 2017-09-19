@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Util.Contexts;
 using Util.Helpers;
 using Util.Logs.Internal;
@@ -22,7 +23,7 @@ namespace Util.Logs.Exceptionless {
         /// <param name="stopwatch">计时器</param>
         protected override LogContextInfo CreateInfo( string traceId, Stopwatch stopwatch ) {
             return new LogContextInfo {
-                TraceId = traceId,
+                TraceId = Guid.NewGuid().ToString(),
                 Stopwatch = stopwatch,
                 Url = Web.Url
             };
