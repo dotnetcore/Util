@@ -39,6 +39,8 @@ namespace Util.Samples.Webs {
                 config.ServerUrl = "http://localhost:8011";
                 config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
                 //config.ApiKey = "IeOvbGtaG2Xk5twBRPac0HmPyJjfITXV4WVHO31o";
+                config.QueueMaxAttempts = 1;
+                config.SubmissionBatchSize = 1;
             } );
 
             //添加Ioc服务

@@ -2,7 +2,6 @@
 using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Contents;
-using NLogs = NLog;
 using Util.Logs.Core;
 using Util.Logs.Formats;
 using Util.Security;
@@ -78,19 +77,19 @@ namespace Util.Logs.NLog {
         private static ILog GetLog( string logName, string @class ) {
             var context = Ioc.Create<ILogContext>();
             var session = Ioc.Create<ISession>();
-            return GetLog( NLogs.LogManager.GetLogger( logName ), new ContentFormat(), context, session, @class );
+            return GetLog( logName, new ContentFormat(), context, session, @class );
         }
 
         /// <summary>
         /// 获取日志操作实例
         /// </summary>
-        /// <param name="logger">日志操作</param>
+        /// <param name="logName">日志名称</param>
         /// <param name="format">日志格式化器</param>
         /// <param name="context">日志上下文</param>
         /// <param name="session">用户上下文</param>
         /// <param name="class">类名</param>
-        internal static ILog GetLog( NLogs.Logger logger, ILogFormat format, ILogContext context, ISession session, string @class ) {
-            return new Log( new NLogProvider( logger, format ), context, session, @class );
+        internal static ILog GetLog( string logName, ILogFormat format, ILogContext context, ISession session, string @class ) {
+            return new Log( new NLogProvider( logName, format ), context, session, @class );
         }
     }
 }

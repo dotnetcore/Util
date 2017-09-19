@@ -1,4 +1,5 @@
-﻿using Util.Domains.Sessions;
+﻿using System;
+using Util.Domains.Sessions;
 using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
@@ -37,6 +38,7 @@ namespace Util.Logs.Exceptionless {
         /// </summary>
         protected override void Init( LogContent content ) {
             base.Init( content );
+            content.TraceId = Guid.NewGuid().ToString();
             content.Tenant = Session.GetTenant();
             content.Application = Session.GetApplication();
             content.Operator = Session.GetFullName();

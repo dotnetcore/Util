@@ -6,7 +6,7 @@ namespace Util.Logs.Contents {
     /// <summary>
     /// 日志内容
     /// </summary>
-    public class LogContent : ILogContent, ICaption {
+    public class LogContent : ILogContent, ICaption, IUrl {
         /// <summary>
         /// 初始化日志内容
         /// </summary>

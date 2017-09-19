@@ -138,7 +138,6 @@ namespace Util.Logs.Extensions {
             return log.Set<LogContent>( content => {
                 content.ErrorCode = exception.Code;
                 content.Exception = exception;
-                content.ExceptionMessage = exception.Message;
             } );
         }
     }

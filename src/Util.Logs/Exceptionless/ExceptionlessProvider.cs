@@ -2,14 +2,20 @@
 using Exceptionless;
 using Microsoft.Extensions.Logging;
 using el = Exceptionless;
+using NLogs = NLog;
 using Util.Logs.Abstractions;
 using Util.Logs.Contents;
+using Util.Logs.NLog;
 
 namespace Util.Logs.Exceptionless {
     /// <summary>
     /// Exceptionless日志提供程序
     /// </summary>
     public class ExceptionlessProvider : ILogProvider {
+        /// <summary>
+        /// NLog日志操作，用于控制日志级别是否启用
+        /// </summary>
+        private readonly NLogs.ILogger _logger;
         /// <summary>
         /// 客户端
         /// </summary>
@@ -20,24 +26,24 @@ namespace Util.Logs.Exceptionless {
         /// </summary>
         /// <param name="logName">日志名称</param>
         public ExceptionlessProvider( string logName ) {
+            _logger = NLogProvider.GetLogger( logName );
             _client = el.ExceptionlessClient.Default;
-            LogName = logName;
         }
 
         /// <summary>
         /// 日志名称
         /// </summary>
-        public string LogName { get; }
+        public string LogName => _logger.Name;
 
         /// <summary>
         /// 调试级别是否启用
         /// </summary>
-        public bool IsDebugEnabled => true;
+        public bool IsDebugEnabled => _logger.IsDebugEnabled;
 
         /// <summary>
         /// 跟踪级别是否启用
         /// </summary>
-        public bool IsTraceEnabled => true;
+        public bool IsTraceEnabled => _logger.IsTraceEnabled;
 
         /// <summary>
         /// 写日志
@@ -46,6 +52,9 @@ namespace Util.Logs.Exceptionless {
         /// <param name="content">日志内容</param>
         public void WriteLog( LogLevel level, ILogContent content ) {
             var builder = CreateBuilder( level, content );
+            SetUser( content );
+            SetSource( builder, content as IUrl );
+            SetReferenceId( builder, content );
             AddProperties( builder, content as ILogConvert );
             builder.Submit();
         }
@@ -92,6 +101,29 @@ namespace Util.Logs.Exceptionless {
                 default:
                     return el.Logging.LogLevel.Off;
             }
+        }
+
+        /// <summary>
+        /// 设置用户信息
+        /// </summary>
+        private void SetUser( ILogContent content ) {
+            _client.Configuration.SetUserIdentity( content.UserId );
+        }
+
+        /// <summary>
+        /// 设置来源
+        /// </summary>
+        private void SetSource( EventBuilder builder, IUrl content ) {
+            if ( content == null )
+                return;
+            builder.SetSource( content.Url );
+        }
+
+        /// <summary>
+        /// 设置跟踪号
+        /// </summary>
+        private void SetReferenceId( EventBuilder builder, ILogContent content ) {
+            builder.SetReferenceId( content.TraceId );
         }
 
         /// <summary>

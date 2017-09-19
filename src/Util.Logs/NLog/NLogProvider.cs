@@ -12,7 +12,7 @@ namespace Util.Logs.NLog {
         /// <summary>
         /// NLog日志操作
         /// </summary>
-        private readonly NLogs.Logger _logger;
+        private readonly NLogs.ILogger _logger;
         /// <summary>
         /// 日志格式化器
         /// </summary>
@@ -21,11 +21,19 @@ namespace Util.Logs.NLog {
         /// <summary>
         /// 初始化日志
         /// </summary>
-        /// <param name="logger">NLog日志操作</param>
+        /// <param name="logName">日志名称</param>
         /// <param name="format">日志格式化器</param>
-        public NLogProvider( NLogs.Logger logger, ILogFormat format = null ) {
-            _logger = logger;
+        public NLogProvider( string logName, ILogFormat format = null ) {
+            _logger = GetLogger( logName );
             _format = format;
+        }
+
+        /// <summary>
+        /// 获取NLog日志操作
+        /// </summary>
+        /// <param name="logName">日志名称</param>
+        public static NLogs.ILogger GetLogger( string logName ) {
+            return NLogs.LogManager.GetLogger( logName );
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
 using Util.Logs.Formats;
-using NLogs = NLog;
 
 namespace Util.Logs.NLog {
     /// <summary>
@@ -41,7 +40,7 @@ namespace Util.Logs.NLog {
         /// <param name="logName">日志名称</param>
         /// <param name="class">类名</param>
         protected override ILog GetLog( string logName, string @class ) {
-            return Log.GetLog( NLogs.LogManager.GetLogger( logName ), Format, Context, Session, @class );
+            return Log.GetLog( logName, Format, Context, Session, @class );
         }
     }
 }
