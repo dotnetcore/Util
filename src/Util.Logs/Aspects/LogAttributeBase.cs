@@ -8,7 +8,7 @@ namespace Util.Logs.Aspects {
     /// <summary>
     /// 日志操作
     /// </summary>
-    public abstract class LogAttributeBase : InterceptorAttribute {
+    public abstract class LogAttributeBase : AbstractInterceptorAttribute {
         /// <summary>
         /// 执行
         /// </summary>

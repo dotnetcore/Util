@@ -38,7 +38,7 @@ namespace Util.Samples.Webs {
 
             //添加Exceptionless日志操作
             //services.AddExceptionless( config => {
-            //    config.ServerUrl = "http://localhost:8011";
+            //    config.ServerUrl = "http://127.0.0.1:8011";
             //    config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
             //} );
 

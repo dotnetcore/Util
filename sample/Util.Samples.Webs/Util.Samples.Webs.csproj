@@ -26,7 +26,6 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.0-preview5" />
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.0.1955" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
   </ItemGroup>
