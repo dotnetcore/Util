@@ -29,7 +29,7 @@ namespace Util.Samples.Webs.Controllers {
         }
     }
 
-    [ErrorLog(Order = -10)]
+    [ErrorLog(Order = -100)]
     [DebugLog]
     [TraceLog]
     public interface ICustomService {

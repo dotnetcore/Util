@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Util.Logs.Abstractions;
+﻿using Util.Logs.Abstractions;
 
 namespace Util.Logs.Aspects {
     /// <summary>
@@ -18,7 +17,6 @@ namespace Util.Logs.Aspects {
         /// </summary>
         protected override void WriteLog( ILog log ) {
             log.Debug();
-            LogLevel
         }
     }
 }
