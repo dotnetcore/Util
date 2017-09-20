@@ -64,9 +64,16 @@ namespace Util.Logs.Formats {
         /// 添加行
         /// </summary>
         protected void AppendLine( StringBuilder result, LogContent content, Action<StringBuilder, LogContent> action ) {
+            Append( result, content, action );
+            result.AppendLine();
+        }
+
+        /// <summary>
+        /// 添加行
+        /// </summary>
+        protected void Append( StringBuilder result, LogContent content, Action<StringBuilder, LogContent> action ) {
             result.AppendFormat( "{0}. ", _line++ );
             action( result, content );
-            result.AppendLine();
         }
 
         /// <summary>
@@ -99,7 +106,7 @@ namespace Util.Logs.Formats {
             AppendLine( result, content, ( r, c ) => {
                 Append( r, "Ip", c.Ip );
                 Append( r, LogResource.Host, c.Host );
-                Append( r, LogResource.TraceId, c.ThreadId );
+                Append( r, LogResource.ThreadId, c.ThreadId );
             } );
         }
 
@@ -168,7 +175,7 @@ namespace Util.Logs.Formats {
         protected void Line8( StringBuilder result, LogContent content ) {
             if( content.Params.Length == 0 )
                 return;
-            AppendLine( result, content, ( r, c ) => {
+            Append( result, content, ( r, c ) => {
                 r.AppendLine( $"{LogResource.Params}:" );
                 r.Append( c.Params );
             } );
@@ -191,7 +198,7 @@ namespace Util.Logs.Formats {
         protected void Line10( StringBuilder result, LogContent content ) {
             if( content.Content.Length == 0 )
                 return;
-            AppendLine( result, content, ( r, c ) => {
+            Append( result, content, ( r, c ) => {
                 r.AppendLine( $"{LogResource.Content}:" );
                 r.Append( c.Content );
             } );
@@ -203,7 +210,7 @@ namespace Util.Logs.Formats {
         protected void Line11( StringBuilder result, LogContent content ) {
             if( content.Sql.Length == 0 )
                 return;
-            AppendLine( result, content, ( r, c ) => {
+            Append( result, content, ( r, c ) => {
                 r.AppendLine( $"{LogResource.Sql}:" );
                 r.Append( c.Sql );
             } );
@@ -215,7 +222,7 @@ namespace Util.Logs.Formats {
         protected void Line12( StringBuilder result, LogContent content ) {
             if( content.SqlParams.Length == 0 )
                 return;
-            AppendLine( result, content, ( r, c ) => {
+            Append( result, content, ( r, c ) => {
                 r.AppendLine( $"{LogResource.SqlParams}:" );
                 r.Append( c.SqlParams );
             } );

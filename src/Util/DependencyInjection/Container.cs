@@ -1,4 +1,7 @@
 ﻿using System;
+using AspectCore.Configuration;
+using AspectCore.DynamicProxy.Parameters;
+using AspectCore.Extensions.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
@@ -84,6 +87,7 @@ namespace Util.DependencyInjection {
         /// <param name="configs">依赖配置</param>
         public IServiceProvider Register( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = CreateBuilder( services, actionBefore, configs );
+            RegisterAop( builder );
             _container = builder.Build();
             return new AutofacServiceProvider( _container );
         }
@@ -102,6 +106,13 @@ namespace Util.DependencyInjection {
             if( services != null )
                 builder.Populate( services );
             return builder;
+        }
+
+        /// <summary>
+        /// 注册AOP
+        /// </summary>
+        private void RegisterAop( ContainerBuilder builder ) {
+            builder.RegisterDynamicProxy( config => config.Interceptors.AddTyped<EnableParameterAspectInterceptor>() );
         }
 
         /// <summary>

@@ -162,6 +162,15 @@
   <data name="Operator" xml:space="preserve">
     <value>操作人</value>
   </data>
+  <data name="ParameterName" xml:space="preserve">
+    <value>参数名</value>
+  </data>
+  <data name="ParameterType" xml:space="preserve">
+    <value>参数类型</value>
+  </data>
+  <data name="ParameterValue" xml:space="preserve">
+    <value>参数值</value>
+  </data>
   <data name="Params" xml:space="preserve">
     <value>参数</value>
   </data>

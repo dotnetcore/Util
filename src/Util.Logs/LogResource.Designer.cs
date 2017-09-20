@@ -196,6 +196,33 @@ namespace Util.Logs {
         }
         
         /// <summary>
+        ///   查找类似 参数名 的本地化字符串。
+        /// </summary>
+        public static string ParameterName {
+            get {
+                return ResourceManager.GetString("ParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 参数类型 的本地化字符串。
+        /// </summary>
+        public static string ParameterType {
+            get {
+                return ResourceManager.GetString("ParameterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 参数值 的本地化字符串。
+        /// </summary>
+        public static string ParameterValue {
+            get {
+                return ResourceManager.GetString("ParameterValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 参数 的本地化字符串。
         /// </summary>
         public static string Params {

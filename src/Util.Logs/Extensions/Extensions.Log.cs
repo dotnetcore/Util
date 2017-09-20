@@ -50,20 +50,12 @@ namespace Util.Logs.Extensions {
         /// 设置参数
         /// </summary>
         /// <param name="log">日志操作</param>
-        /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
-        public static ILog Params( this ILog log, string value, params object[] args ) {
-            return log.Set<LogContent>( content => content.Append( content.Params,value,args ) );
-        }
-
-        /// <summary>
-        /// 设置参数并换行
-        /// </summary>
-        /// <param name="log">日志操作</param>
-        /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
-        public static ILog ParamsLine( this ILog log, string value, params object[] args ) {
-            return log.Set<LogContent>( content => content.AppendLine( content.Params, value, args ) );
+        /// <param name="type">参数类型</param>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数值</param>
+        public static ILog Params( this ILog log, string type, string name,string value ) {
+            return log.Set<LogContent>( content => 
+            content.AppendLine( content.Params,$"{LogResource.ParameterType}: {type}, {LogResource.ParameterName}: {name}, {LogResource.ParameterValue}: {value}。" ) );
         }
 
         /// <summary>
@@ -82,16 +74,6 @@ namespace Util.Logs.Extensions {
         /// <param name="value">值</param>
         /// <param name="args">变量值</param>
         public static ILog Sql( this ILog log, string value, params object[] args ) {
-            return log.Set<LogContent>( content => content.Append( content.Sql, value, args ) );
-        }
-
-        /// <summary>
-        /// 设置Sql语句并换行
-        /// </summary>
-        /// <param name="log">日志操作</param>
-        /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
-        public static ILog SqlLine( this ILog log, string value, params object[] args ) {
             return log.Set<LogContent>( content => content.AppendLine( content.Sql, value, args ) );
         }
 
@@ -102,16 +84,6 @@ namespace Util.Logs.Extensions {
         /// <param name="value">值</param>
         /// <param name="args">变量值</param>
         public static ILog SqlParams( this ILog log, string value, params object[] args ) {
-            return log.Set<LogContent>( content => content.Append( content.SqlParams, value, args ) );
-        }
-
-        /// <summary>
-        /// 设置Sql参数并换行
-        /// </summary>
-        /// <param name="log">日志操作</param>
-        /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
-        public static ILog SqlParamsLine( this ILog log, string value, params object[] args ) {
             return log.Set<LogContent>( content => content.AppendLine( content.SqlParams, value, args ) );
         }
 
