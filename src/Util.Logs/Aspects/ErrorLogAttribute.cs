@@ -14,13 +14,12 @@ namespace Util.Logs.Aspects {
         /// </summary>
         public override async Task Invoke( AspectContext context, AspectDelegate next ) {
             var methodName = GetMethodName( context );
-            var manager = (ILogManager)context.ServiceProvider.GetService( typeof( ILogManager ) );
-            var log = manager.GetLog( methodName );
+            var log = Log.GetLog( methodName );
             try {
                 await next( context );
             }
             catch ( Exception ex ) {
-                log.Method( methodName ).Exception( ex );
+                log.Class( context.ServiceMethod.DeclaringType.FullName ).Method( methodName ).Exception( ex );
                 foreach ( var parameter in context.GetParameters() )
                     parameter.AppendTo( log );
                 log.Error();

@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Logs.Extensions;
 using Util.Samples.Webs.Configs;
-using AspectCore.Extensions.Autofac;
-using Util.Samples.Webs.Controllers;
 
 namespace Util.Samples.Webs {
     /// <summary>
@@ -41,8 +39,6 @@ namespace Util.Samples.Webs {
             //    config.ServerUrl = "http://127.0.0.1:8011";
             //    config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
             //} );
-
-            services.AddTransient<ICustomService, CustomService>();
 
             //添加Ioc服务
             return services.AddIoc( new IocConfig() );

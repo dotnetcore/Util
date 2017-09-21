@@ -7,7 +7,7 @@ namespace Util.Logs.Core {
     /// </summary>
     public class NullLog : ILog {
         /// <summary>
-        /// 日志操作实例
+        /// 空日志操作实例
         /// </summary>
         public static readonly ILog Instance = new NullLog();
 

@@ -19,8 +19,8 @@ namespace Util.Samples.Webs.Configs {
         /// 加载基础设施
         /// </summary>
         private void LoadInfrastructure( ContainerBuilder builder ) {
-            builder.RegisterType<WebContext>().As<IContext>().SingleInstance();
-            builder.RegisterType<NullSession>().As<ISession>().InstancePerLifetimeScope();
+            builder.AddSingleton<IContext, WebContext>();
+            builder.AddScoped<ISession, NullSession>();
         }
     }
 }

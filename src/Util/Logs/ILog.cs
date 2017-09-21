@@ -1,6 +1,7 @@
 ﻿using System;
+using Util.Logs.Abstractions;
 
-namespace Util.Logs.Abstractions {
+namespace Util.Logs {
     /// <summary>
     /// 日志操作
     /// </summary>

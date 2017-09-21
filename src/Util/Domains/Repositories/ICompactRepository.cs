@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Util.Validations.Aspects;
 
 namespace Util.Domains.Repositories {
     /// <summary>
@@ -61,32 +62,32 @@ namespace Util.Domains.Repositories {
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
-        void Add( TEntity entity );
+        void Add( [Valid] TEntity entity );
         /// <summary>
         /// 添加实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        void Add( IEnumerable<TEntity> entities );
+        void Add( [Valid] IEnumerable<TEntity> entities );
         /// <summary>
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
-        Task AddAsync( TEntity entity );
+        Task AddAsync( [Valid] TEntity entity );
         /// <summary>
         /// 添加实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        Task AddAsync( IEnumerable<TEntity> entities );
+        Task AddAsync( [Valid] IEnumerable<TEntity> entities );
         /// <summary>
         /// 修改实体
         /// </summary>
         /// <param name="entity">实体</param>
-        void Update( TEntity entity );
+        void Update( [Valid] TEntity entity );
         /// <summary>
         /// 修改实体
         /// </summary>
         /// <param name="entity">实体</param>
-        Task UpdateAsync( TEntity entity );
+        Task UpdateAsync( [Valid] TEntity entity );
         /// <summary>
         /// 移除实体
         /// </summary>

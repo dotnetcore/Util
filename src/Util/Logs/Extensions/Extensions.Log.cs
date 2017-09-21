@@ -12,7 +12,7 @@ namespace Util.Logs.Extensions {
         /// <param name="value">值</param>
         /// <param name="args">变量值</param>
         public static ILog Content( this ILog log, string value, params object[] args ) {
-            return log.Set<ILogContent>( content => content.ContentLine( value, args ) );
+            return log.Set<ILogContent>( content => content.Content( value, args ) );
         }
     }
 }

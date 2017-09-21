@@ -2,6 +2,8 @@
 using Exceptionless;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Logs.Abstractions;
+using Util.Logs.Core;
+using Util.Logs.Formats;
 
 namespace Util.Logs.Extensions {
     /// <summary>
@@ -13,8 +15,10 @@ namespace Util.Logs.Extensions {
         /// </summary>
         /// <param name="services">服务集合</param>
         public static void AddNLog( this IServiceCollection services ) {
-            services.AddScoped<ILogContext, Util.Logs.Core.LogContext>();
-            services.AddScoped<ILogManager, Util.Logs.NLog.LogManager>();
+            services.AddScoped<ILogProviderFactory, Util.Logs.NLog.LogProviderFactory>();
+            services.AddScoped<ILogFormat, ContentFormat>();
+            services.AddScoped<ILogContext, LogContext>();
+            services.AddScoped<ILog, Log>();
         }
 
         /// <summary>
@@ -22,9 +26,11 @@ namespace Util.Logs.Extensions {
         /// </summary>
         /// <param name="services">服务集合</param>
         /// <param name="configAction">配置操作</param>
-        public static void AddExceptionless( this IServiceCollection services,Action<ExceptionlessConfiguration> configAction ) {
+        public static void AddExceptionless( this IServiceCollection services, Action<ExceptionlessConfiguration> configAction ) {
+            services.AddScoped<ILogProviderFactory, Util.Logs.Exceptionless.LogProviderFactory>();
+            services.AddSingleton( typeof( ILogFormat ), t => NullLogFormat.Instance );
             services.AddScoped<ILogContext, Util.Logs.Exceptionless.LogContext>();
-            services.AddScoped<ILogManager, Util.Logs.Exceptionless.LogManager>();
+            services.AddScoped<ILog, Log>();
             configAction?.Invoke( ExceptionlessClient.Default.Configuration );
         }
     }

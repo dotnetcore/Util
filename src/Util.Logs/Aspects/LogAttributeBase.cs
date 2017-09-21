@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AspectCore.DynamicProxy;
 using AspectCore.DynamicProxy.Parameters;
-using Util.Logs.Abstractions;
 using Util.Logs.Extensions;
 
 namespace Util.Logs.Aspects {
@@ -14,8 +13,7 @@ namespace Util.Logs.Aspects {
         /// </summary>
         public override async Task Invoke( AspectContext context, AspectDelegate next ) {
             var methodName = GetMethodName( context );
-            var manager = (ILogManager)context.ServiceProvider.GetService( typeof( ILogManager ) );
-            var log = manager.GetLog( methodName );
+            var log = Log.GetLog( methodName );
             if( !Enabled( log ) )
                 return;
             ExecuteBefore( log, context, methodName );
@@ -42,6 +40,7 @@ namespace Util.Logs.Aspects {
         /// </summary>
         private void ExecuteBefore( ILog log, AspectContext context, string methodName ) {
             log.Caption( $"{context.ServiceMethod.Name}方法执行前" )
+                .Class( context.ServiceMethod.DeclaringType.FullName )
                 .Method( methodName );
             foreach( var parameter in context.GetParameters() )
                 parameter.AppendTo( log );

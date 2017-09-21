@@ -29,22 +29,12 @@ namespace Util.Logs.Extensions {
         }
 
         /// <summary>
-        /// 设置内容
-        /// </summary>
-        /// <param name="content">日志内容</param>
-        /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
-        public static void Content( this ILogContent content, string value, params object[] args ) {
-            content.Append( content.Content, value, args );
-        }
-
-        /// <summary>
         /// 设置内容并换行
         /// </summary>
         /// <param name="content">日志内容</param>
         /// <param name="value">值</param>
         /// <param name="args">变量值</param>
-        public static void ContentLine( this ILogContent content, string value, params object[] args ) {
+        public static void Content( this ILogContent content, string value, params object[] args ) {
             content.AppendLine( content.Content, value, args );
         }
     }

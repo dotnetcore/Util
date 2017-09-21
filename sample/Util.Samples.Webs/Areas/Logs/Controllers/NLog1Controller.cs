@@ -2,23 +2,25 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Logs;
-using Util.Logs.Abstractions;
 using Util.Logs.Extensions;
 
 namespace Util.Samples.Webs.Areas.Logs.Controllers {
     /// <summary>
     /// NLog日志控制器
-    /// 演示功能点：
-    /// 1. 创建ILog实例方式一：注入ILogManager接口，调用GetLog方法
     /// </summary>
     public class NLog1Controller : LogControllerBase {
         /// <summary>
         /// 初始化NLog日志控制器
         /// </summary>
-        /// <param name="logManager">日志服务</param>
-        public NLog1Controller( ILogManager logManager ) {
-            Log = logManager.GetLog(this);
+        /// <param name="log">日志操作</param>
+        public NLog1Controller( ILog log ) {
+            Log = log;
         }
+
+        /// <summary>
+        /// 日志操作
+        /// </summary>
+        public ILog Log { get; set; }
 
         /// <summary>
         /// 首页
@@ -26,11 +28,6 @@ namespace Util.Samples.Webs.Areas.Logs.Controllers {
         public IActionResult Index() {
             return View();
         }
-
-        /// <summary>
-        /// 日志操作
-        /// </summary>
-        public ILog Log { get; set; }
 
         /// <summary>
         /// 写异步日志

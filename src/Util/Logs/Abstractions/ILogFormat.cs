@@ -1,6 +1,6 @@
 ﻿namespace Util.Logs.Abstractions {
     /// <summary>
-    /// 日志格式化器
+    /// 日志格式器
     /// </summary>
     public interface ILogFormat {
         /// <summary>

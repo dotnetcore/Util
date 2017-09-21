@@ -1,11 +1,11 @@
-﻿using System;
-using Util.Domains.Sessions;
+﻿using Util.Domains.Sessions;
 using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
+using Util.Logs.Exceptionless;
 using Util.Security;
 
-namespace Util.Logs.Exceptionless {
+namespace Util.Logs {
     /// <summary>
     /// 日志操作
     /// </summary>
@@ -18,11 +18,21 @@ namespace Util.Logs.Exceptionless {
         /// <summary>
         /// 初始化日志操作
         /// </summary>
+        /// <param name="providerFactory">日志提供程序工厂</param>
+        /// <param name="context">日志上下文</param>
+        /// <param name="format">日志格式器</param>
+        /// <param name="session">用户上下文</param>
+        public Log( ILogProviderFactory providerFactory, ILogContext context, ILogFormat format, ISession session ) : base( providerFactory.Create( "", format ), context, session ) {
+        }
+
+        /// <summary>
+        /// 初始化日志操作
+        /// </summary>
         /// <param name="provider">日志提供程序</param>
         /// <param name="context">日志上下文</param>
         /// <param name="session">用户上下文</param>
         /// <param name="class">类名</param>
-        internal Log( ILogProvider provider, ILogContext context, ISession session, string @class ) : base( provider, context, session ) {
+        private Log( ILogProvider provider, ILogContext context, ISession session, string @class ) : base( provider, context, session ) {
             _class = @class;
         }
 
@@ -74,20 +84,11 @@ namespace Util.Logs.Exceptionless {
         /// 获取日志操作实例
         /// </summary>
         private static ILog GetLog( string logName, string @class ) {
+            var providerFactory = Ioc.Create<ILogProviderFactory>();
+            var format = Ioc.Create<ILogFormat>();
             var context = Ioc.Create<ILogContext>();
             var session = Ioc.Create<ISession>();
-            return GetLog( context, session, logName, @class );
-        }
-
-        /// <summary>
-        /// 获取日志操作实例
-        /// </summary>
-        /// <param name="context">日志上下文</param>
-        /// <param name="session">用户上下文</param>
-        /// <param name="logName">日志名称</param>
-        /// <param name="class">类名</param>
-        internal static ILog GetLog( ILogContext context, ISession session, string logName, string @class ) {
-            return new Log( new ExceptionlessProvider( logName ), context, session, @class );
+            return new Log( providerFactory.Create( logName, format ), context, session, @class );
         }
     }
 }
