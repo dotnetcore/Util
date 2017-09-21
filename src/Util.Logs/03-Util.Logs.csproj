@@ -28,6 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Extensions\Extensions.Aspect.cs" />
     <None Include="Extensions\Extensions.Log.cs" />
   </ItemGroup>
 

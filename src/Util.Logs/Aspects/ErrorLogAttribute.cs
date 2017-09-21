@@ -21,8 +21,8 @@ namespace Util.Logs.Aspects {
             }
             catch ( Exception ex ) {
                 log.Method( methodName ).Exception( ex );
-                foreach( var parameter in context.GetParameters() )
-                    log.Params( parameter.ParameterInfo.ParameterType.FullName, parameter.Name, parameter.Value.SafeString() );
+                foreach ( var parameter in context.GetParameters() )
+                    parameter.AppendTo( log );
                 log.Error();
                 throw;
             }

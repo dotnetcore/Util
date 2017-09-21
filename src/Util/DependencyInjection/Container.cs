@@ -1,5 +1,4 @@
 ﻿using System;
-using AspectCore.Configuration;
 using AspectCore.DynamicProxy.Parameters;
 using AspectCore.Extensions.Autofac;
 using Autofac;
@@ -112,7 +111,7 @@ namespace Util.DependencyInjection {
         /// 注册AOP
         /// </summary>
         private void RegisterAop( ContainerBuilder builder ) {
-            builder.RegisterDynamicProxy( config => config.Interceptors.AddTyped<EnableParameterAspectInterceptor>() );
+            builder.RegisterDynamicProxy( config => config.EnableParameterAspect() );
         }
 
         /// <summary>

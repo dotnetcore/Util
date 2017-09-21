@@ -7,23 +7,17 @@ namespace Util.Tests.Validations {
     /// <summary>
     /// 测试验证操作
     /// </summary>
-    public class ValidationTest {
+    public class DataAnnotationValidationTest {
         /// <summary>
         /// 聚合根测试样例
         /// </summary>
         private readonly AggregateRootSample _sample;
 
         /// <summary>
-        /// 验证操作
-        /// </summary>
-        private readonly IValidation _validation;
-
-        /// <summary>
         /// 测试初始化
         /// </summary>
-        public ValidationTest() {
+        public DataAnnotationValidationTest() {
             _sample = AggregateRootSample.CreateSample();
-            _validation = ValidationFactory.Create();
         }
 
         /// <summary>
@@ -33,7 +27,7 @@ namespace Util.Tests.Validations {
         public void TestValidate() {
             _sample.Name = null;
             _sample.EnglishName = "  ";
-            var result = _validation.Validate( _sample );
+            var result = DataAnnotationValidation.Validate( _sample );
             Assert.Equal( 2, result.Count );
         }
 
@@ -43,7 +37,7 @@ namespace Util.Tests.Validations {
         [Fact]
         public void TestValidate_Name_Required() {
             _sample.Name = null;
-            var result = _validation.Validate( _sample );
+            var result = DataAnnotationValidation.Validate( _sample );
             Assert.Equal( "姓名不能为空", result.First().ErrorMessage );
         }
 
@@ -53,7 +47,7 @@ namespace Util.Tests.Validations {
         [Fact]
         public void TestValidate_Resource() {
             _sample.EnglishName = null;
-            var result = _validation.Validate( _sample );
+            var result = DataAnnotationValidation.Validate( _sample );
             Assert.Equal( "英文名不能为空", result.First().ErrorMessage );
         }
     }

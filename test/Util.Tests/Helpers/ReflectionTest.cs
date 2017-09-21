@@ -126,5 +126,13 @@ namespace Util.Tests.Helpers {
             Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "FloatValue" )[0] ), "FloatValue" );
             Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "NullableFloatValue" )[0] ), "NullableFloatValue" );
         }
+
+        /// <summary>
+        /// 测试是否泛型集合
+        /// </summary>
+        [Fact]
+        public void TestIsGenericCollection() {
+            Assert.True( Util.Helpers.Reflection.IsGenericCollection( _sample.StringList.GetType() ) );
+        }
     }
 }

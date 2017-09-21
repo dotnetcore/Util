@@ -102,7 +102,7 @@ namespace Util.Domains {
         /// 获取验证结果
         /// </summary>
         private ValidationResultCollection GetValidationResults() {
-            var result = ValidationFactory.Create().Validate( this );
+            var result = DataAnnotationValidation.Validate( this );
             Validate( result );
             foreach( var rule in _rules )
                 result.Add( rule.Validate() );

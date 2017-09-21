@@ -330,11 +330,12 @@ https://github.com/dotnetcore/util/
   - Ioc操作 - 基于Autofac [已发布]
   - 应用程序异常操作 [已发布]
   - 验证操作 [已发布]
+  - 验证操作拦截器 [已发布]
   - 枚举操作 [已发布]
   - 字符串操作 [已发布]
   - Lambda表达式操作 [已发布]
   - 日志操作 - 基于NLog和Exceptionless [已发布]
-  - 日志操作拦截器 - 基于AspectCore [已发布]
+  - 日志操作拦截器 [已发布]
   - IQueryable查询扩展 [已发布]
   - 时间操作 [已发布]
   - 上下文操作 [已发布]
@@ -387,3 +388,4 @@ https://github.com/dotnetcore/util/
 - 2017年9月15日，更新了上下文操作(Util/Contexts)，更新了日期格式化扩展(Util/Extensions.DateTime)。
 - 2017年9月19日，更新了日志操作，日志提供程序支持NLog与Exceptionless。
 - 2017年9月20日，更新了日志操作拦截器(Util.Logs/Aspects)。
+- 2017年9月21日，更新了验证操作拦截器(Util.Logs/Validations/Aspects)。

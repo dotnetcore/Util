@@ -44,7 +44,7 @@ namespace Util.Logs.Aspects {
             log.Caption( $"{context.ServiceMethod.Name}方法执行前" )
                 .Method( methodName );
             foreach( var parameter in context.GetParameters() )
-                log.Params( parameter.ParameterInfo.ParameterType.FullName, parameter.Name, parameter.Value.SafeString() );
+                parameter.AppendTo( log );
             WriteLog( log );
         }
 

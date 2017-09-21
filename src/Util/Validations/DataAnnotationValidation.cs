@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Util.Validations {
     /// <summary>
-    /// 验证操作
+    /// DataAnnotations验证操作
     /// </summary>
-    public class Validation : IValidation {
+    public static class DataAnnotationValidation {
         /// <summary>
         /// 验证
         /// </summary>
         /// <param name="target">验证目标</param>
-        public ValidationResultCollection Validate( object target ) {
+        public static ValidationResultCollection Validate( object target ) {
             if( target == null )
                 throw new ArgumentNullException( nameof( target ) );
             var result = new ValidationResultCollection();
