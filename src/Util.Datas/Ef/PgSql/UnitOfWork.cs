@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Util.Datas.Ef.Core;
 using System.Data.Common;
 using Util.Datas.Ef.Internal;
+using Util.Datas.UnitOfWorks;
 
 namespace Util.Datas.Ef.PgSql {
     /// <summary>
@@ -15,24 +16,27 @@ namespace Util.Datas.Ef.PgSql {
         /// 初始化PgSql工作单元
         /// </summary>
         /// <param name="connection">连接字符串</param>
-        protected UnitOfWork( string connection )
-            : base( new DbContextOptionsBuilder().UseNpgsql( connection ).Options ) {
+        /// <param name="manager">工作单元服务</param>
+        protected UnitOfWork( string connection, IUnitOfWorkManager manager = null )
+            : base( new DbContextOptionsBuilder().UseNpgsql( connection ).Options, manager ) {
         }
 
         /// <summary>
         /// 初始化PgSql工作单元
         /// </summary>
         /// <param name="connection">连接</param>
-        protected UnitOfWork( DbConnection connection )
-            : base( new DbContextOptionsBuilder().UseNpgsql( connection ).Options ) {
+        /// <param name="manager">工作单元服务</param>
+        protected UnitOfWork( DbConnection connection, IUnitOfWorkManager manager = null )
+            : base( new DbContextOptionsBuilder().UseNpgsql( connection ).Options, manager ) {
         }
 
         /// <summary>
         /// 初始化PgSql工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        protected UnitOfWork( DbContextOptions options )
-            : base( options ) {
+        /// <param name="manager">工作单元服务</param>
+        protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager = null )
+            : base( options, manager ) {
         }
 
         /// <summary>

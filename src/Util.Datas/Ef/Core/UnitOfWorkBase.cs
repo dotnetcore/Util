@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Util.Datas.UnitOfWorks;
 using Util.Domains.Auditing;
 using Util.Domains.Sessions;
 using Util.Exceptions;
@@ -22,8 +22,10 @@ namespace Util.Datas.Ef.Core {
         /// 初始化Entity Framework工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        protected UnitOfWorkBase( DbContextOptions options )
+        /// <param name="manager">工作单元服务</param>
+        protected UnitOfWorkBase( DbContextOptions options,IUnitOfWorkManager manager )
             : base( options ) {
+            manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
             Session = Util.Domains.Sessions.Session.Null;
         }

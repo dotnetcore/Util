@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Util.Datas {
+namespace Util.Datas.UnitOfWorks {
     /// <summary>
     /// 工作单元
     /// </summary>
@@ -11,7 +11,7 @@ namespace Util.Datas {
         /// </summary>
         int Commit();
         /// <summary>
-        /// 异步提交,返回影响的行数
+        /// 提交,返回影响的行数
         /// </summary>
         Task<int> CommitAsync();
     }

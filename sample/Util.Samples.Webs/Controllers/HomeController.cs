@@ -7,6 +7,7 @@ using AspectCore.DynamicProxy;
 using AspectCore.DynamicProxy.Parameters;
 using Microsoft.AspNetCore.Mvc;
 using Util.Aspects;
+using Util.Datas.Ef.PgSql;
 using Util.Domains;
 using Util.Exceptions;
 using Util.Logs;

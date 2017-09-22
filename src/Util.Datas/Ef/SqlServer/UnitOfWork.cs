@@ -3,6 +3,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Core;
 using System.Data.Common;
+using Util.Datas.UnitOfWorks;
 
 namespace Util.Datas.Ef.SqlServer {
     /// <summary>
@@ -13,24 +14,27 @@ namespace Util.Datas.Ef.SqlServer {
         /// 初始化SqlServer工作单元
         /// </summary>
         /// <param name="connection">连接字符串</param>
-        protected UnitOfWork( string connection )
-            : base( new DbContextOptionsBuilder().UseSqlServer( connection ).Options ) {
+        /// <param name="manager">工作单元服务</param>
+        protected UnitOfWork( string connection, IUnitOfWorkManager manager = null )
+            : base( new DbContextOptionsBuilder().UseSqlServer( connection ).Options, manager ) {
         }
 
         /// <summary>
         /// 初始化SqlServer工作单元
         /// </summary>
         /// <param name="connection">连接</param>
-        protected UnitOfWork( DbConnection connection )
-            : base( new DbContextOptionsBuilder().UseSqlServer( connection ).Options ) {
+        /// <param name="manager">工作单元服务</param>
+        protected UnitOfWork( DbConnection connection, IUnitOfWorkManager manager = null )
+            : base( new DbContextOptionsBuilder().UseSqlServer( connection ).Options, manager ) {
         }
 
         /// <summary>
         /// 初始化SqlServer工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        protected UnitOfWork( DbContextOptions options )
-            : base( options ) {
+        /// <param name="manager">工作单元服务</param>
+        protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager = null )
+            : base( options, manager ) {
         }
 
         /// <summary>

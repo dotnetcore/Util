@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Internal;
 using Util.Datas.Persistence;
 using Util.Datas.Queries;
+using Util.Datas.UnitOfWorks;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Ef.Core {

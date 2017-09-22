@@ -148,7 +148,7 @@ namespace Util.Tests.Samples {
         public Task<PagerList<EntitySample>> PagerQueryAsNoTrackingAsync( IQueryBase<EntitySample> query ) {
             throw new NotImplementedException();
         }
-
+        
         public void Add( EntitySample entity ) {
         }
 

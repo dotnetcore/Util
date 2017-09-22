@@ -1,6 +1,4 @@
-﻿using Util.Logs.Abstractions;
-
-namespace Util.Logs.Aspects {
+﻿namespace Util.Logs.Aspects {
     /// <summary>
     /// 调试日志
     /// </summary>
