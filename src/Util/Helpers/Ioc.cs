@@ -40,6 +40,13 @@ namespace Util.Helpers {
         }
 
         /// <summary>
+        /// 作用域开始
+        /// </summary>
+        public static IScope BeginScope() {
+            return DefaultContainer.BeginScope();
+        }
+
+        /// <summary>
         /// 注册依赖
         /// </summary>
         /// <param name="configs">依赖配置</param>

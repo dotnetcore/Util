@@ -45,5 +45,16 @@ namespace Util.Tests.Helpers {
             var sample = Ioc.Create(typeof(ISample));
             Assert.NotNull( sample );
         }
+
+        /// <summary>
+        /// 测试作用域
+        /// </summary>
+        [Fact]
+        public void TestScope() {
+            using ( var scope = Ioc.BeginScope() ) {
+                var sample = scope.Create<ISample>();
+                Assert.NotNull( sample );
+            }
+        }
     }
 }

@@ -62,6 +62,13 @@ namespace Util.DependencyInjection {
         }
 
         /// <summary>
+        /// 作用域开始
+        /// </summary>
+        public IScope BeginScope() {
+            return new Scope( _container.BeginLifetimeScope() );
+        }
+
+        /// <summary>
         /// 注册依赖
         /// </summary>
         /// <param name="configs">依赖配置</param>
@@ -86,7 +93,7 @@ namespace Util.DependencyInjection {
         /// <param name="configs">依赖配置</param>
         public IServiceProvider Register( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = CreateBuilder( services, actionBefore, configs );
-            RegisterAop( builder );
+            //RegisterAop( builder );
             _container = builder.Build();
             return new AutofacServiceProvider( _container );
         }

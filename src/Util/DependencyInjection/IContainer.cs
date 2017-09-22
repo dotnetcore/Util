@@ -5,7 +5,7 @@ namespace Util.DependencyInjection {
     /// <summary>
     /// 容器
     /// </summary>
-    public interface IContainer {
+    public interface IContainer : IDisposable{
         /// <summary>
         /// 创建实例
         /// </summary>
@@ -19,6 +19,11 @@ namespace Util.DependencyInjection {
         object Create( Type type );
 
         /// <summary>
+        /// 作用域开始
+        /// </summary>
+        IScope BeginScope();
+
+        /// <summary>
         /// 注册依赖
         /// </summary>
         /// <param name="configs">依赖配置</param>
@@ -30,10 +35,5 @@ namespace Util.DependencyInjection {
         /// <param name="services">服务集合</param>
         /// <param name="configs">依赖配置</param>
         IServiceProvider Register( IServiceCollection services, params IConfig[] configs );
-
-        /// <summary>
-        /// 释放容器
-        /// </summary>
-        void Dispose();
     }
 }

@@ -23,8 +23,8 @@ namespace Util.Datas.Tests.SqlServer.Configs {
         /// 加载基础设施
         /// </summary>
         private void LoadInfrastructure( ContainerBuilder builder ) {
-            builder.RegisterType<SqlServerUnitOfWork>().As<ISqlServerUnitOfWork>().InstancePerLifetimeScope().PropertiesAutowired(); 
-            builder.RegisterType<ProductPoStore>().As<IProductPoStore>().InstancePerLifetimeScope();
+            builder.AddScoped<ISqlServerUnitOfWork, SqlServerUnitOfWork>().PropertiesAutowired();
+            builder.AddScoped<IProductPoStore, ProductPoStore>();
             builder.RegisterInstance( new Session( AppConfig.UserId ) ).As<ISession>();
         }
 
@@ -32,9 +32,9 @@ namespace Util.Datas.Tests.SqlServer.Configs {
         /// 加载仓储
         /// </summary>
         private void LoadRepositories( ContainerBuilder builder ) {
-            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<OrderRepository>().As<IOrderRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<ProductRepository>().As<IProductRepository>().InstancePerLifetimeScope();
+            builder.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.AddScoped<IOrderRepository, OrderRepository>();
+            builder.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }

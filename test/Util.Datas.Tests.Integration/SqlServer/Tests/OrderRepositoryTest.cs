@@ -9,6 +9,7 @@ using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.Datas.Tests.SqlServer.Configs;
 using Util.Datas.Tests.XUnitHelpers;
+using Util.DependencyInjection;
 using Util.Exceptions;
 using Util.Helpers;
 using Xunit;
@@ -17,11 +18,12 @@ namespace Util.Datas.Tests.SqlServer.Tests {
     /// <summary>
     /// 订单仓储测试
     /// </summary>
+    [Collection( "GlobalConfig" )]
     public class OrderRepositoryTest : IDisposable {
         /// <summary>
-        /// 容器
+        /// 容器作用域
         /// </summary>
-        private readonly Util.DependencyInjection.IContainer _container;
+        private readonly IScope _scope;
         /// <summary>
         /// 工作单元
         /// </summary>
@@ -43,10 +45,10 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 测试初始化
         /// </summary>
         public OrderRepositoryTest() {
-            _container = Ioc.CreateContainer( new IocConfig() );
-            _unitOfWork = _container.Create<ISqlServerUnitOfWork>();
-            _orderRepository = _container.Create<IOrderRepository>();
-            _productRepository = _container.Create<IProductRepository>();
+            _scope = Ioc.BeginScope();
+            _unitOfWork = _scope.Create<ISqlServerUnitOfWork>();
+            _orderRepository = _scope.Create<IOrderRepository>();
+            _productRepository = _scope.Create<IProductRepository>();
             _random = new Util.Helpers.Random();
         }
 
@@ -54,7 +56,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 测试清理
         /// </summary>
         public void Dispose() {
-            _container.Dispose();
+            _scope.Dispose();
         }
 
         /// <summary>
