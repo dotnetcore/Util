@@ -20,8 +20,8 @@ using Util.Validations.Aspects;
 namespace Util.Samples.Webs.Controllers {
     public class HomeController : Controller
     {
-        public HomeController( ILog log ) {
-            Log = log;
+        public HomeController() {
+            Log = Util.Logs.Log.GetLog( this );
         }
 
         public ILog Log { get; set; }
