@@ -13,7 +13,7 @@ namespace Util.Tests.Helpers {
         /// 加载配置
         /// </summary>
         protected override void Load( ContainerBuilder builder ) {
-            builder.RegisterType<Sample>().As<ISample>();
+            builder.AddScoped<ISample, Sample>();
         }
     }
 

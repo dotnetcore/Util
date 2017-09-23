@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
+using Util.Applications.Dtos;
+using Util.Datas.Queries;
 
 namespace Util.Applications {
     /// <summary>
     /// 增删改查服务
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
-    /// <typeparam name="TQuery">查询实体类型</typeparam>
-    public interface ICrudService<TDto, in TQuery> : IQueryService<TDto, TQuery> where TDto : new() {
-        /// <summary>
-        /// 创建实体
-        /// </summary>
-        TDto Create();
+    /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
+    public interface ICrudService<TDto, in TQueryParameter> : IQueryService<TDto, TQueryParameter> 
+        where TDto : IDto,new()
+        where TQueryParameter : IQueryParameter {
         /// <summary>
         /// 保存
         /// </summary>
@@ -26,7 +26,7 @@ namespace Util.Applications {
         /// <summary>
         /// 删除
         /// </summary>
-        /// <param name="ids">用逗号分隔的Id列表，范例："83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A"</param>
+        /// <param name="ids">用逗号分隔的Id列表，范例："1,2"</param>
         void Delete( string ids );
     }
 }

@@ -12,7 +12,10 @@ namespace Util.Tests.Samples {
     /// 实体样例
     /// </summary>
     public class EntitySample : AggregateRoot<EntitySample> {
-        public EntitySample( ) : base( Guid.NewGuid() ) {
+        public EntitySample( ) : this( Guid.NewGuid() ) {
+        }
+
+        public EntitySample( Guid id ) : base( id ) {
         }
 
         /// <summary>
@@ -148,7 +151,11 @@ namespace Util.Tests.Samples {
         public Task<PagerList<EntitySample>> PagerQueryAsNoTrackingAsync( IQueryBase<EntitySample> query ) {
             throw new NotImplementedException();
         }
-        
+
+        public IQueryable<EntitySample> OrderBy( IQueryable<EntitySample> queryable, string orderBy ) {
+            throw new NotImplementedException();
+        }
+
         public void Add( EntitySample entity ) {
         }
 

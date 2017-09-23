@@ -19,6 +19,11 @@ namespace Util.Validations {
         private readonly List<ValidationResult> _results;
 
         /// <summary>
+        /// 成功验证结果集合
+        /// </summary>
+        public static readonly ValidationResultCollection Success = new ValidationResultCollection();
+
+        /// <summary>
         /// 是否有效
         /// </summary>
         public bool IsValid => _results.Count == 0;

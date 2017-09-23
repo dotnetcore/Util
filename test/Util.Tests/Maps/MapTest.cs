@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Util.Helpers;
 using Util.Maps;
 using Util.Tests.Samples;
 using Xunit;
@@ -58,7 +61,7 @@ namespace Util.Tests.Maps {
         [Fact]
         public void TestMapToList() {
             List<Sample> sampleList = new List<Sample> { new Sample { StringValue = "a" }, new Sample { StringValue = "b" } };
-            List<Sample2> sample2List = sampleList.MapToList<Sample2>( );
+            List<Sample2> sample2List = sampleList.MapToList<Sample2>();
             Assert.Equal( 2, sample2List.Count );
             Assert.Equal( "a", sample2List[0].StringValue );
         }
@@ -70,7 +73,7 @@ namespace Util.Tests.Maps {
         public void TestMapToList_Empty() {
             List<Sample> sampleList = new List<Sample>();
             List<Sample2> sample2List = sampleList.MapToList<Sample2>();
-            Assert.Equal( 0, sample2List.Count );
+            Assert.Empty( sample2List );
         }
 
         /// <summary>
@@ -82,6 +85,30 @@ namespace Util.Tests.Maps {
             List<Sample2> sample2List = sampleList.MapToList<Sample2>();
             Assert.Equal( 2, sample2List.Count );
             Assert.Equal( "a", sample2List[0].StringValue );
+        }
+
+        /// <summary>
+        /// 并发测试
+        /// </summary>
+        [Fact]
+        public void TestMapTo_MultipleThread() {
+            Thread.WaitAll( () => {
+                var sample = new Sample { StringValue = "a" };
+                var sample2 = sample.MapTo<Sample2>();
+                Assert.Equal( "a", sample2.StringValue );
+            },() => {
+                var sample = new DtoSample { Name = "a" };
+                var sample2 = sample.MapTo<EntitySample>();
+                Assert.Equal( "a", sample2.Name );
+            }, () => {
+                var sample = new Sample2 { StringValue = "a" };
+                var sample2 = sample.MapTo<Sample>();
+                Assert.Equal( "a", sample2.StringValue );
+            }, () => {
+                var sample = new EntitySample{ Name = "a" };
+                var sample2 = sample.MapTo<DtoSample>();
+                Assert.Equal( "a", sample2.Name );
+            } );
         }
     }
 }

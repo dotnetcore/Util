@@ -9,6 +9,11 @@ namespace Util.Maps {
     /// </summary>
     public static class Extensions {
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object Sync = new object();
+
+        /// <summary>
         /// 将源对象映射到目标对象
         /// </summary>
         /// <typeparam name="TSource">源类型</typeparam>
@@ -38,8 +43,11 @@ namespace Util.Maps {
                 throw new ArgumentNullException( nameof( destination ) );
             var sourceType = GetType( source );
             var destinationType = GetType( destination );
-            try {
-                var map = Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
+            var map = GetMap( sourceType, destinationType );
+            if( map != null )
+                return Mapper.Map( source, destination );
+            lock( Sync ) {
+                map = GetMap( sourceType, destinationType );
                 if( map != null )
                     return Mapper.Map( source, destination );
                 var maps = Mapper.Configuration.GetAllTypeMaps();
@@ -49,12 +57,29 @@ namespace Util.Maps {
                     config.CreateMap( sourceType, destinationType );
                 } );
             }
-            catch( InvalidOperationException ) {
-                Mapper.Initialize( config => {
-                    config.CreateMap( sourceType, destinationType );
-                } );
-            }
             return Mapper.Map( source, destination );
+        }
+
+        /// <summary>
+        /// 获取映射配置
+        /// </summary>
+        private static TypeMap GetMap( Type sourceType,Type destinationType ) {
+            try {
+                return Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
+            }
+            catch ( InvalidOperationException ) {
+                lock ( Sync ) {
+                    try {
+                        return Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
+                    }
+                    catch ( InvalidOperationException ) {
+                        Mapper.Initialize( config => {
+                            config.CreateMap( sourceType, destinationType );
+                        } );
+                    }
+                    return Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
+                }
+            }
         }
 
         /// <summary>
