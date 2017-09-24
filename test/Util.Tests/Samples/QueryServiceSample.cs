@@ -1,4 +1,5 @@
-﻿using Util.Applications;
+﻿using System.ComponentModel.DataAnnotations;
+using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Domains.Repositories;
@@ -12,6 +13,7 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 名称
         /// </summary>
+        [Required(ErrorMessage = "名称不能为空" )]
         public string Name { get; set; }
     }
 
@@ -20,22 +22,6 @@ namespace Util.Tests.Samples {
     /// </summary>
     public class QueryServiceSample : QueryServiceBase<EntitySample, DtoSample, QueryParameterSample> {
         public QueryServiceSample( IRepositorySample repository ) : base( repository ) {
-        }
-
-        /// <summary>
-        /// 转换为数据传输对象
-        /// </summary>
-        /// <param name="entity">实体</param>
-        protected override DtoSample ToDto( EntitySample entity ) {
-            return entity.MapTo<DtoSample>();
-        }
-
-        /// <summary>
-        /// 转换为实体
-        /// </summary>
-        /// <param name="dto">数据传输对象</param>
-        protected override EntitySample ToEntity( DtoSample dto ) {
-            return dto.MapTo( new EntitySample( dto.Id.ToGuid() ) );
         }
 
         /// <summary>

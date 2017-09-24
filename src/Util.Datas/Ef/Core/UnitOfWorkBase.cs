@@ -39,7 +39,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         public string TraceId { get; set; }
         /// <summary>
-        /// 用户上下文
+        /// 用户会话
         /// </summary>
         public ISession Session { get; set; }
 
@@ -157,7 +157,7 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 获取用户上下文
+        /// 获取用户会话
         /// </summary>
         protected virtual ISession GetSession() {
             return Session;

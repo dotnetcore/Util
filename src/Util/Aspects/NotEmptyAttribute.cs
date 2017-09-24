@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy.Parameters;
+using Util.Aspects.Base;
 
 namespace Util.Aspects {
     /// <summary>
     /// 验证不能为空
     /// </summary>
-    [AttributeUsage( AttributeTargets.Parameter )]
-    public class NotEmptyAttribute : ParameterInterceptorAttribute {
+    public class NotEmptyAttribute : ParameterInterceptorBase {
         /// <summary>
         /// 执行
         /// </summary>

@@ -1,6 +1,6 @@
 ﻿namespace Util.Domains.Sessions {
     /// <summary>
-    /// 空用户上下文
+    /// 空用户会话
     /// </summary>
     public class NullSession : ISession{
         /// <summary>

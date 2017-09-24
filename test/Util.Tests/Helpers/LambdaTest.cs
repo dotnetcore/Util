@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using Util.Datas.Queries;
-using Util.Expressions;
 using Util.Helpers;
 using Util.Tests.Samples;
-using Util.Tests.XUnitHelpers;
 using Xunit;
 
 namespace Util.Tests.Helpers {
@@ -15,6 +14,24 @@ namespace Util.Tests.Helpers {
     /// 测试Lambda表达式操作
     /// </summary>
     public class LambdaTest {
+
+        #region GetMember(获取成员)
+
+        /// <summary>
+        /// 测试获取成员
+        /// </summary>
+        [Fact]
+        public void TestGetMember() {
+            Assert.Null( Lambda.GetMember( null ) );
+
+            Expression<Func<Sample, string>> expression = t => t.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetMember( expression ).Name );
+
+            Expression<Func<Sample, string>> expression2 = t => t.Test2.StringValue;
+            Assert.Equal( "StringValue", ( (PropertyInfo)Lambda.GetMember( expression2 ) ).Name );
+        }
+
+        #endregion
 
         #region GetName(获取成员名称)
 

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy.Parameters;
+using Util.Aspects.Base;
 using Util.Helpers;
 
 namespace Util.Validations.Aspects {
     /// <summary>
     /// 验证
     /// </summary>
-    public class ValidAttribute : ParameterInterceptorAttribute {
+    public class ValidAttribute : ParameterInterceptorBase {
         /// <summary>
         /// 执行
         /// </summary>

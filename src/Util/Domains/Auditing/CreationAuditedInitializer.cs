@@ -21,7 +21,7 @@ namespace Util.Domains.Auditing {
         /// </summary>
         private readonly object _entity;
         /// <summary>
-        /// 用户上下文
+        /// 用户会话
         /// </summary>
         private readonly ISession _session;
 

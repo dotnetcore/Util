@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using AspectCore.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Aspects.Base;
 using Util.Datas.UnitOfWorks;
 
 namespace Util.Datas.Ef.Aspects {
     /// <summary>
     /// 工作单元
     /// </summary>
-    public class UnitOfWorkAttribute : AbstractInterceptorAttribute {
+    public class UnitOfWorkAttribute : InterceptorBase {
         /// <summary>
         /// 执行
         /// </summary>

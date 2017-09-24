@@ -24,6 +24,9 @@ namespace Util.Tests.Domains {
             _container = Ioc.CreateContainer( new IocConfig() );
         }
 
+        /// <summary>
+        /// 测试清理
+        /// </summary>
         public void Dispose() {
             _container.Dispose();
         }
@@ -54,7 +57,7 @@ namespace Util.Tests.Domains {
     /// </summary>
     public class IocConfig : ConfigBase {
         protected override void Load( ContainerBuilder builder ) {
-            builder.RegisterType<RepositorySample>().As<IRepositorySample>();
+            builder.AddScoped<IRepositorySample, RepositorySample>();
         }
     }
 }

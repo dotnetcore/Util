@@ -29,6 +29,11 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="CrudServiceBase.BatchSave.cs" />
+    <None Include="CrudServiceBase.Save.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Util.Datas\04-Util.Datas.csproj" />
     <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
     <ProjectReference Include="..\Util.Security\02-Util.Security.csproj" />

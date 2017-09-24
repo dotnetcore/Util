@@ -24,7 +24,7 @@ namespace Util.Logs.Core {
         /// </summary>
         /// <param name="provider">日志提供程序</param>
         /// <param name="context">日志上下文</param>
-        /// <param name="session">用户上下文</param>
+        /// <param name="session">用户会话</param>
         protected LogBase( ILogProvider provider, ILogContext context, ISession session ) {
             Provider = provider;
             Context = context;
@@ -42,7 +42,7 @@ namespace Util.Logs.Core {
         public ILogContext Context { get; }
 
         /// <summary>
-        /// 用户上下文
+        /// 用户会话
         /// </summary>
         public ISession Session { get; set; }
 

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Domains;
 using Util.Domains.Repositories;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
+using Util.Applications.Dtos;
 using Util.Datas.Ef;
+using Util.Domains.Sessions;
+using Util.Logs;
+using Util.Maps;
 
 namespace Util.Applications {
     /// <summary>
@@ -52,19 +55,27 @@ namespace Util.Applications {
         /// <param name="repository">仓储</param>
         protected QueryServiceBase( IRepository<TEntity, TKey> repository ) {
             _repository = repository ?? throw new ArgumentNullException( nameof( repository ) );
+            Log = Util.Logs.Log.Null;
+            Session = Util.Domains.Sessions.Session.Null;
         }
+
+        /// <summary>
+        /// 日志组件
+        /// </summary>
+        public ILog Log { get; set; }
+
+        /// <summary>
+        /// 用户会话
+        /// </summary>
+        public ISession Session { get; set; }
 
         /// <summary>
         /// 转换为数据传输对象
         /// </summary>
         /// <param name="entity">实体</param>
-        protected abstract TDto ToDto( TEntity entity );
-
-        /// <summary>
-        /// 转换为实体
-        /// </summary>
-        /// <param name="dto">数据传输对象</param>
-        protected abstract TEntity ToEntity( TDto dto );
+        protected virtual TDto ToDto( TEntity entity ) {
+            return entity.MapTo<TDto>();
+        }
 
         /// <summary>
         /// 获取全部
@@ -133,9 +144,7 @@ namespace Util.Applications {
             var queryable = Filter( query );
             queryable = Filter( queryable );
             var order = query.GetOrder();
-            if( string.IsNullOrWhiteSpace( order ) == false )
-                return queryable.OrderBy( order );
-            return queryable;
+            return string.IsNullOrWhiteSpace( order ) ? queryable : queryable.OrderBy( order );
         }
 
         /// <summary>
@@ -157,7 +166,7 @@ namespace Util.Applications {
         protected virtual bool IsTracking => false;
 
         /// <summary>
-        /// 过滤后操作
+        /// 过滤
         /// </summary>
         protected virtual IQueryable<TEntity> Filter( IQueryable<TEntity> queryable ) {
             return queryable;

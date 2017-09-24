@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,6 +12,7 @@ namespace Util.Tests.Samples {
     /// <summary>
     /// 实体样例
     /// </summary>
+    [DisplayName( "实体样例" )]
     public class EntitySample : AggregateRoot<EntitySample> {
         public EntitySample( ) : this( Guid.NewGuid() ) {
         }
@@ -25,6 +27,9 @@ namespace Util.Tests.Samples {
         public string Name { get; set; }
     }
 
+    /// <summary>
+    /// 仓储样例
+    /// </summary>
     public interface IRepositorySample : IRepository<EntitySample> {
     }
 
@@ -32,11 +37,12 @@ namespace Util.Tests.Samples {
     /// 仓储样例
     /// </summary>
     public class RepositorySample : IRepositorySample {
-        public IQueryable<EntitySample> FindAsNoTracking() {
+
+        public IQueryable<EntitySample> Find() {
             throw new NotImplementedException();
         }
 
-        public IQueryable<EntitySample> Find() {
+        public IQueryable<EntitySample> FindAsNoTracking() {
             throw new NotImplementedException();
         }
 
@@ -172,7 +178,6 @@ namespace Util.Tests.Samples {
         }
 
         public void Update( EntitySample entity ) {
-            throw new NotImplementedException();
         }
 
         public Task UpdateAsync( EntitySample entity ) {

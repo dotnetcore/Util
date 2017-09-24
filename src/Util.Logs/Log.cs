@@ -21,7 +21,7 @@ namespace Util.Logs {
         /// <param name="providerFactory">日志提供程序工厂</param>
         /// <param name="context">日志上下文</param>
         /// <param name="format">日志格式器</param>
-        /// <param name="session">用户上下文</param>
+        /// <param name="session">用户会话</param>
         public Log( ILogProviderFactory providerFactory, ILogContext context, ILogFormat format, ISession session ) : base( providerFactory.Create( "", format ), context, session ) {
         }
 
@@ -30,7 +30,7 @@ namespace Util.Logs {
         /// </summary>
         /// <param name="provider">日志提供程序</param>
         /// <param name="context">日志上下文</param>
-        /// <param name="session">用户上下文</param>
+        /// <param name="session">用户会话</param>
         /// <param name="class">类名</param>
         private Log( ILogProvider provider, ILogContext context, ISession session, string @class ) : base( provider, context, session ) {
             _class = @class;
@@ -90,5 +90,10 @@ namespace Util.Logs {
             var session = Ioc.Create<ISession>();
             return new Log( providerFactory.Create( logName, format ), context, session, @class );
         }
+
+        /// <summary>
+        /// 空日志操作
+        /// </summary>
+        public static readonly ILog Null = NullLog.Instance;
     }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using AspectCore.DynamicProxy.Parameters;
 using Util.Helpers;
-using Util.Logs.Abstractions;
 
 namespace Util.Logs.Extensions {
     /// <summary>

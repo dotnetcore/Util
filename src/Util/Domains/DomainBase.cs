@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using Util.Validations;
 
@@ -155,7 +156,7 @@ namespace Util.Domains {
         /// <param name="newValue">新值,范例：newEntity.Name</param>
         protected void AddChange<TProperty, TValue>( Expression<Func<T, TProperty>> expression, TValue newValue ) {
             var name = Util.Helpers.Lambda.GetName( expression );
-            var description = Util.Helpers.Reflection.GetDescriptionOrDisplayName( Util.Helpers.Lambda.GetMember( expression ) );
+            var description = Util.Helpers.Reflection.GetDisplayNameOrDescription( (PropertyInfo)Util.Helpers.Lambda.GetMember( expression ) );
             var value = Util.Helpers.Lambda.GetValue( expression );
             AddChange( name, description, Util.Helpers.Convert.To<TValue>( value ), newValue );
         }

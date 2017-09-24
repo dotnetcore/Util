@@ -1,6 +1,5 @@
 ﻿using System;
 using Util.Exceptions;
-using Util.Logs.Abstractions;
 using Util.Logs.Contents;
 
 namespace Util.Logs.Extensions {
@@ -14,7 +13,11 @@ namespace Util.Logs.Extensions {
         /// <param name="log">日志操作</param>
         /// <param name="businessId">业务编号</param>
         public static ILog BusinessId( this ILog log, string businessId ) {
-            return log.Set<LogContent>( content => content.BusinessId = businessId );
+            return log.Set<LogContent>( content => {
+                if( string.IsNullOrWhiteSpace( content.BusinessId ) == false )
+                    content.BusinessId += ",";
+                content.BusinessId += businessId;
+            } );
         }
 
         /// <summary>

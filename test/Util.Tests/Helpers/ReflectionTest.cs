@@ -53,8 +53,9 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetDescriptionOrDisplayName() {
-            Assert.Equal( "测试样例", Util.Helpers.Reflection.GetDescriptionOrDisplayName<Sample>() );
-            Assert.Equal( "测试样例2", Util.Helpers.Reflection.GetDescriptionOrDisplayName<Sample2>() );
+            Assert.Equal( "测试样例", Util.Helpers.Reflection.GetDisplayNameOrDescription<Sample>() );
+            Assert.Equal( "测试样例2", Util.Helpers.Reflection.GetDisplayNameOrDescription<Sample2>() );
+            Assert.Equal( "测试样例", Util.Helpers.Reflection.GetDisplayNameOrDescription<Sample>() );
         }
 
         /// <summary>

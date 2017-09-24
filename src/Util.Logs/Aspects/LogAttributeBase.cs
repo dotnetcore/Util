@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using AspectCore.DynamicProxy;
 using AspectCore.DynamicProxy.Parameters;
+using Util.Aspects.Base;
 using Util.Logs.Extensions;
 
 namespace Util.Logs.Aspects {
     /// <summary>
     /// 日志操作
     /// </summary>
-    public abstract class LogAttributeBase : AbstractInterceptorAttribute {
+    public abstract class LogAttributeBase : InterceptorBase {
         /// <summary>
         /// 执行
         /// </summary>

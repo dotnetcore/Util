@@ -31,17 +31,17 @@ namespace Util.Tests.Domains {
         [Fact]
         public void TestGetChanges() {
             var changes = _sample.GetChanges( _sample2 );
-            Assert.Equal( 0, changes.Count );
+            Assert.Empty( changes );
 
             _sample2.Name = "a";
             changes = _sample.GetChanges( _sample2 );
-            Assert.Equal( 1, changes.Count );
+            Assert.Single( changes );
             Assert.Equal( "", changes[0].OldValue );
             Assert.Equal( "a", changes[0].NewValue );
 
             _sample.Name = "a";
             changes = _sample.GetChanges( _sample2 );
-            Assert.Equal( 0, changes.Count );
+            Assert.Empty( changes );
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Util.Tests.Domains {
         public void TestGetChanges_Lambda_Display() {
             _sample2.MobilePhone = "a";
             var changes = _sample.GetChanges( _sample2 );
-            Assert.Equal( 1, changes.Count );
+            Assert.Single( changes );
             Assert.Equal( "MobilePhone", changes[0].PropertyName );
             Assert.Equal( "手机号", changes[0].Description );
             Assert.Equal( "", changes[0].OldValue );
@@ -65,7 +65,7 @@ namespace Util.Tests.Domains {
         public void TestGetChanges_Lambda_Description() {
             _sample2.Tel = 1;
             var changes = _sample.GetChanges( _sample2 );
-            Assert.Equal( 1, changes.Count );
+            Assert.Single( changes );
             Assert.Equal( "Tel", changes[0].PropertyName );
             Assert.Equal( "电话", changes[0].Description );
             Assert.Equal( "0", changes[0].OldValue );

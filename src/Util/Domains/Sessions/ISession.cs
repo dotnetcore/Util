@@ -1,6 +1,6 @@
 ﻿namespace Util.Domains.Sessions {
     /// <summary>
-    /// 用户上下文
+    /// 用户会话
     /// </summary>
     public interface ISession {
         /// <summary>

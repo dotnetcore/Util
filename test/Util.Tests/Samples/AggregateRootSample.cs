@@ -45,7 +45,7 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 手机号
         /// </summary>
-        [Display(Description = "手机号" )]
+        [Display(Name = "手机号" )]
         public string MobilePhone { get; set; }
 
         /// <summary>
