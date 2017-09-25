@@ -39,7 +39,7 @@ namespace <%= Namespace %>.Services.Configs.IocConfigs {
         /// 加载基础设施
         /// </summary>
         private void LoadInfrastructure( ContainerBuilder builder ) {
-            builder.RegisterType<<%= DbName %>UnitOfWork>().As<I<%= DbName %>UnitOfWork>().InstancePerLifetimeScope();
+            builder.AddScoped<I<%= DbName %>UnitOfWork, <%= DbName %>UnitOfWork>();
         }        
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace <%= Namespace %>.Services.Configs.IocConfigs {
         /// </summary>
         private void LoadRepositories( ContainerBuilder builder ) {
         <% foreach(Entity entity in EntityContext.Entities) {%>
-            builder.RegisterType<<%= entity.ClassName.ToSafeName() %>Repository>().As<I<%= entity.ClassName.ToSafeName() %>Repository>().InstancePerLifetimeScope();
+            builder.AddScoped<I<%= entity.ClassName.ToSafeName() %>Repository,<%= entity.ClassName.ToSafeName() %>Repository>();
         <%} %>
         }
         
@@ -62,7 +62,7 @@ namespace <%= Namespace %>.Services.Configs.IocConfigs {
         /// </summary>
         private void LoadApplicationServices( ContainerBuilder builder ) {
         <% foreach(Entity entity in EntityContext.Entities) {%>
-            builder.RegisterType<<%= entity.ClassName.ToSafeName() %>Service>().As<I<%= entity.ClassName.ToSafeName() %>Service>().InstancePerLifetimeScope().PropertiesAutowired();
+            builder.AddScoped<I<%= entity.ClassName.ToSafeName() %>Service,<%= entity.ClassName.ToSafeName() %>Service>().PropertiesAutowired();
         <%} %>
         }
     }

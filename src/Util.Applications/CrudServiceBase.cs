@@ -25,8 +25,7 @@ namespace Util.Applications {
         /// 初始化增删改查服务
         /// </summary>
         /// <param name="repository">仓储</param>
-        /// <param name="unitOfWorkHook">工作单元钩子</param>
-        protected CrudServiceBase( IRepository<TEntity, Guid> repository, IUnitOfWorkHook unitOfWorkHook ) : base( repository, unitOfWorkHook ) {
+        protected CrudServiceBase( IRepository<TEntity, Guid> repository ) : base( repository ) {
         }
     }
 
@@ -46,8 +45,7 @@ namespace Util.Applications {
         /// 初始化增删改查服务
         /// </summary>
         /// <param name="repository">仓储</param>
-        /// <param name="unitOfWorkHook">工作单元钩子</param>
-        protected CrudServiceBase( IRepository<TEntity, Guid> repository, IUnitOfWorkHook unitOfWorkHook ) : base( repository, unitOfWorkHook ) {
+        protected CrudServiceBase( IRepository<TEntity, Guid> repository ) : base( repository ) {
         }
     }
 
@@ -69,19 +67,13 @@ namespace Util.Applications {
         /// 仓储
         /// </summary>
         private readonly IRepository<TEntity, TKey> _repository;
-        /// <summary>
-        /// 工作单元钩子
-        /// </summary>
-        private readonly IUnitOfWorkHook _unitOfWorkHook;
 
         /// <summary>
         /// 初始化增删改查服务
         /// </summary>
         /// <param name="repository">仓储</param>
-        /// <param name="unitOfWorkHook">工作单元钩子</param>
-        protected CrudServiceBase( IRepository<TEntity, TKey> repository, IUnitOfWorkHook unitOfWorkHook ) : base( repository ) {
+        protected CrudServiceBase( IRepository<TEntity, TKey> repository ) : base( repository ) {
             _repository = repository;
-            _unitOfWorkHook = unitOfWorkHook;
             EntityDescription = Reflection.GetDisplayNameOrDescription<TEntity>();
         }
 
@@ -95,6 +87,14 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="request">请求参数</param>
         protected abstract TEntity ToEntity( TRequest request );
+
+        /// <summary>
+        /// 提交操作
+        /// </summary>
+        protected virtual void Commit() {
+            var unitOfWorkHook = Ioc.Create<IUnitOfWorkHook>();
+            unitOfWorkHook.Commit();
+        }
 
         /// <summary>
         /// 写日志
@@ -155,7 +155,7 @@ namespace Util.Applications {
                 return;
             DeleteBefore( entities );
             _repository.Remove( entities );
-            _unitOfWorkHook.Commit();
+            Commit();
             DeleteAfter( entities );
         }
 
@@ -185,7 +185,7 @@ namespace Util.Applications {
                 return;
             DeleteBefore( entities );
             await _repository.RemoveAsync( entities );
-            _unitOfWorkHook.Commit();
+            Commit();
             DeleteAfter( entities );
         }
     }

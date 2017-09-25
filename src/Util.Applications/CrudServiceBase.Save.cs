@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Util.Applications.Aspects;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Domains;
+using Util.Helpers;
 
 namespace Util.Applications {
     /// <summary>
@@ -109,13 +111,6 @@ namespace Util.Applications {
         /// 提交前操作
         /// </summary>
         protected virtual void CommitBefore() {
-        }
-
-        /// <summary>
-        /// 提交操作
-        /// </summary>
-        protected virtual void Commit() {
-            _unitOfWorkHook.Commit();
         }
 
         /// <summary>

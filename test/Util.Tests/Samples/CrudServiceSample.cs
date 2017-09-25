@@ -15,7 +15,7 @@ namespace Util.Tests.Samples {
     /// 增删改查服务样例
     /// </summary>
     public class CrudServiceSample : CrudServiceBase<EntitySample, DtoSample, QueryParameterSample> ,ICrudServiceSample {
-        public CrudServiceSample( IRepositorySample repository ) : base( repository,new UnitOfWorkHook() ) {
+        public CrudServiceSample( IRepositorySample repository ) : base( repository ) {
         }
 
         /// <summary>
