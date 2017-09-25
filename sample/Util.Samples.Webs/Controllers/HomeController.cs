@@ -12,41 +12,7 @@ namespace Util.Samples.Webs.Controllers {
            
         }
 
-        [UnitOfWork(Scope = Scope.Aspect)]
         public virtual void Index() {
-            
-            var a =  Ioc.Create<IGet>( "a" ).Get();
-            var a1 = Ioc.Create<IGet>( "a" ).Get();
-            var b = Ioc.Create<IGet>( "b" ).Get();
-            var b1 = Ioc.Create<IGet>( "b" ).Get();
-        }
-    }
-
-    public interface IGet {
-        string Get();
-    }
-
-    public class A : IGet {
-
-        public A( ILogContext context ) {
-            _context = context;
-        }
-
-        private ILogContext _context;
-        public string Get() {
-            return _context.TraceId;
-        }
-    }
-
-    public class B : IGet {
-
-        public B( ILogContext context ) {
-            _context = context;
-        }
-
-        private ILogContext _context;
-        public string Get() {
-            return _context.TraceId;
         }
     }
 }

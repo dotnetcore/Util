@@ -2,7 +2,6 @@
 using Util.Contexts;
 using Util.DependencyInjection;
 using Util.Domains.Sessions;
-using Util.Samples.Webs.Controllers;
 
 namespace Util.Samples.Webs.Configs {
     /// <summary>
@@ -14,10 +13,6 @@ namespace Util.Samples.Webs.Configs {
         /// </summary>
         protected override void Load( ContainerBuilder builder ) {
             LoadInfrastructure( builder );
-
-            builder.RegisterType<A>().Named<IGet>( "a" ).InstancePerLifetimeScope();
-            builder.RegisterType<B>().Named<IGet>( "b" ).InstancePerLifetimeScope();
-
         }
         
         /// <summary>
