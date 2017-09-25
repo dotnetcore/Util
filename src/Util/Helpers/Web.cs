@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +17,11 @@ namespace Util.Helpers {
         /// 初始化Web操作
         /// </summary>
         static Web() {
-            HttpContextAccessor = Ioc.Create<IHttpContextAccessor>();
+            try {
+                HttpContextAccessor = Ioc.Create<IHttpContextAccessor>();
+            }
+            catch{
+            }
         }
 
         #endregion

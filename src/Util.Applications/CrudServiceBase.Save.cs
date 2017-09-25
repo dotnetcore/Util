@@ -101,7 +101,7 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 提交后操作
+        /// 提交后操作 - 该方法由工作单元拦截器调用
         /// </summary>
         public void CommitAfter() {
             SaveAfter();

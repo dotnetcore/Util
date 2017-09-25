@@ -3,8 +3,8 @@ using AspectCore.DynamicProxy.Parameters;
 using AspectCore.Extensions.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Helpers;
 
 namespace Util.DependencyInjection {
     /// <summary>
@@ -15,14 +15,6 @@ namespace Util.DependencyInjection {
         /// 容器
         /// </summary>
         private Autofac.IContainer _container;
-        /// <summary>
-        /// HttpContext访问器
-        /// </summary>
-        private IHttpContextAccessor _accessor;
-        /// <summary>
-        /// 是否AspNetCore环境
-        /// </summary>
-        private bool? _aspNet;
 
         /// <summary>
         /// 创建对象
@@ -39,32 +31,14 @@ namespace Util.DependencyInjection {
         /// <param name="type">对象类型</param>
         /// <param name="name">服务名称</param>
         public object Create( Type type, string name = null ) {
-            LoadHttpContextAccessor();
-            return _accessor?.HttpContext?.RequestServices != null ? GetServiceFromHttpContext( type, name ) : GetService( type, name );
-        }
-
-        /// <summary>
-        /// 加载HttpContext访问器
-        /// </summary>
-        private void LoadHttpContextAccessor() {
-            if( _accessor != null )
-                return;
-            if( _aspNet != null )
-                return;
-            try {
-                _accessor = _container.Resolve<IHttpContextAccessor>();
-                _aspNet = true;
-            }
-            catch {
-                _aspNet = false;
-            }
+            return Web.HttpContext?.RequestServices != null ? GetServiceFromHttpContext( type, name ) : GetService( type, name );
         }
 
         /// <summary>
         /// 从HttpContext获取服务
         /// </summary>
         private object GetServiceFromHttpContext( Type type, string name ) {
-            var serviceProvider = _accessor.HttpContext.RequestServices;
+            var serviceProvider = Web.HttpContext.RequestServices;
             if ( name == null )
                 return serviceProvider.GetService( type );
             var context = serviceProvider.GetService<IComponentContext>();
@@ -112,7 +86,7 @@ namespace Util.DependencyInjection {
         /// <param name="configs">依赖配置</param>
         public IServiceProvider Register( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = CreateBuilder( services, actionBefore, configs );
-            RegisterAop( builder );
+            //RegisterAop( builder );
             _container = builder.Build();
             return new AutofacServiceProvider( _container );
         }

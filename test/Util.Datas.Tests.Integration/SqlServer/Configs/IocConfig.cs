@@ -25,7 +25,7 @@ namespace Util.Datas.Tests.SqlServer.Configs {
         private void LoadInfrastructure( ContainerBuilder builder ) {
             builder.AddScoped<ISqlServerUnitOfWork, SqlServerUnitOfWork>().PropertiesAutowired();
             builder.AddScoped<IProductPoStore, ProductPoStore>();
-            builder.RegisterInstance( new Session( AppConfig.UserId ) ).As<ISession>();
+            builder.AddSingleton<ISession, Session>( new Session( AppConfig.UserId ) );
         }
 
         /// <summary>

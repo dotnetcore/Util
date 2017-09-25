@@ -37,7 +37,7 @@ namespace Util.Applications {
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
-        [UnitOfWork( Scope = Scope.Aspect )]
+        [UnitOfWork( Scope = Scope.Aspect)]
         Task SaveAsync( [Valid] TRequest request );
         /// <summary>
         /// 批量保存

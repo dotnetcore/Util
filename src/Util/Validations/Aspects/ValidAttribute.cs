@@ -6,7 +6,7 @@ using Util.Helpers;
 
 namespace Util.Validations.Aspects {
     /// <summary>
-    /// 验证
+    /// 验证拦截器
     /// </summary>
     public class ValidAttribute : ParameterInterceptorBase {
         /// <summary>
