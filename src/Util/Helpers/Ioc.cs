@@ -27,16 +27,18 @@ namespace Util.Helpers {
         /// 创建实例
         /// </summary>
         /// <typeparam name="T">实例类型</typeparam>
-        public static T Create<T>() {
-            return DefaultContainer.Create<T>();
+        /// <param name="name">服务名称</param>
+        public static T Create<T>( string name = null ) {
+            return DefaultContainer.Create<T>( name );
         }
 
         /// <summary>
         /// 创建对象
         /// </summary>
         /// <param name="type">对象类型</param>
-        public static object Create( Type type ) {
-            return DefaultContainer.Create( type );
+        /// <param name="name">服务名称</param>
+        public static object Create( Type type, string name = null ) {
+            return DefaultContainer.Create( type, name );
         }
 
         /// <summary>

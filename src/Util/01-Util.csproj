@@ -29,7 +29,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.0-preview7" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.0-preview7.0.1" />
     <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.0-preview7" />
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />

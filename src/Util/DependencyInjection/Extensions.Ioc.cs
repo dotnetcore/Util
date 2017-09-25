@@ -5,7 +5,7 @@ namespace Util.DependencyInjection {
 	/// <summary>
     /// Autofac扩展
     /// </summary>
-    public static class Extensions {
+    public static partial class Extensions {
 	    /// <summary>
 	    /// 注册服务，生命周期为 InstancePerLifetimeScope(每个请求一个实例)
 	    /// </summary>

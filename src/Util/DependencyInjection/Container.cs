@@ -1,6 +1,5 @@
 ﻿using System;
 using AspectCore.DynamicProxy.Parameters;
-using AspectCore.Extensions.AspectScope;
 using AspectCore.Extensions.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -20,46 +19,65 @@ namespace Util.DependencyInjection {
         /// HttpContext访问器
         /// </summary>
         private IHttpContextAccessor _accessor;
+        /// <summary>
+        /// 是否AspNetCore环境
+        /// </summary>
+        private bool? _aspNet;
 
         /// <summary>
         /// 创建对象
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
-        public T Create<T>() {
-            try {
-                LoadHttpContextAccessor();
-            }
-            catch {
-                return _container.Resolve<T>();
-            }
-            if( _accessor?.HttpContext?.RequestServices != null )
-                return _accessor.HttpContext.RequestServices.GetService<T>();
-            return _container.Resolve<T>();
-        }
-
-        /// <summary>
-        /// 加载HttpContext访问器
-        /// </summary>
-        private void LoadHttpContextAccessor() {
-            if ( _accessor != null )
-                return;
-            _accessor = _container.Resolve<IHttpContextAccessor>();
+        /// <param name="name">服务名称</param>
+        public T Create<T>( string name = null ) {
+            return (T) Create( typeof( T ), name );
         }
 
         /// <summary>
         /// 创建对象
         /// </summary>
         /// <param name="type">对象类型</param>
-        public object Create( Type type ) {
+        /// <param name="name">服务名称</param>
+        public object Create( Type type, string name = null ) {
+            LoadHttpContextAccessor();
+            return _accessor?.HttpContext?.RequestServices != null ? GetServiceFromHttpContext( type, name ) : GetService( type, name );
+        }
+
+        /// <summary>
+        /// 加载HttpContext访问器
+        /// </summary>
+        private void LoadHttpContextAccessor() {
+            if( _accessor != null )
+                return;
+            if( _aspNet != null )
+                return;
             try {
-                LoadHttpContextAccessor();
+                _accessor = _container.Resolve<IHttpContextAccessor>();
+                _aspNet = true;
             }
             catch {
-                return _container.Resolve( type );
+                _aspNet = false;
             }
-            if( _accessor?.HttpContext?.RequestServices != null )
-                return _accessor.HttpContext.RequestServices.GetService( type );
-            return _container.Resolve( type );
+        }
+
+        /// <summary>
+        /// 从HttpContext获取服务
+        /// </summary>
+        private object GetServiceFromHttpContext( Type type, string name ) {
+            var serviceProvider = _accessor.HttpContext.RequestServices;
+            if ( name == null )
+                return serviceProvider.GetService( type );
+            var context = serviceProvider.GetService<IComponentContext>();
+            return context.ResolveNamed( name, type );
+        }
+
+        /// <summary>
+        /// 获取服务
+        /// </summary>
+        private object GetService( Type type, string name ) {
+            if( name == null )
+                return _container.Resolve(type);
+            return _container.ResolveNamed( name, type );
         }
 
         /// <summary>
@@ -119,9 +137,8 @@ namespace Util.DependencyInjection {
         /// 注册AOP
         /// </summary>
         private void RegisterAop( ContainerBuilder builder ) {
-            builder.RegisterDynamicProxy( config => {
-                config.EnableParameterAspect();
-            } );
+            builder.RegisterDynamicProxy( config => config.EnableParameterAspect() );
+            builder.EnableAspectScoped();
         }
 
         /// <summary>

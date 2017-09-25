@@ -94,17 +94,17 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 提交后操作
-        /// </summary>
-        public void CommitAfter() {
-            SaveAfter();
-        }
-
-        /// <summary>
         /// 保存后操作
         /// </summary>
         protected virtual void SaveAfter() {
             WriteLog( $"保存{EntityDescription}成功" );
+        }
+
+        /// <summary>
+        /// 提交后操作
+        /// </summary>
+        public void CommitAfter() {
+            SaveAfter();
         }
 
         /// <summary>

@@ -10,13 +10,15 @@ namespace Util.DependencyInjection {
         /// 创建实例
         /// </summary>
         /// <typeparam name="T">实例类型</typeparam>
-        T Create<T>();
+        /// <param name="name">服务名称</param>
+        T Create<T>( string name = null );
 
         /// <summary>
         /// 创建对象
         /// </summary>
         /// <param name="type">对象类型</param>
-        object Create( Type type );
+        /// <param name="name">服务名称</param>
+        object Create( Type type, string name = null );
 
         /// <summary>
         /// 作用域开始
