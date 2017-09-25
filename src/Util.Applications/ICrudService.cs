@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AspectCore.Extensions.AspectScope;
+using Util.Applications.Aspects;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Validations.Aspects;
@@ -29,12 +31,14 @@ namespace Util.Applications {
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
-        TDto Save( [Valid] TRequest request );
+        [UnitOfWork(Scope = Scope.Aspect )]
+        void Save( [Valid] TRequest request );
         /// <summary>
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
-        Task<TDto> SaveAsync( [Valid] TRequest request );
+        [UnitOfWork( Scope = Scope.Aspect )]
+        Task SaveAsync( [Valid] TRequest request );
         /// <summary>
         /// 批量保存
         /// </summary>

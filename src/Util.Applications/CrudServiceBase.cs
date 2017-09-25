@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Util.Applications.Aspects;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
+using Util.Datas.UnitOfWorks;
 using Util.Domains;
 using Util.Domains.Repositories;
 using Util.Helpers;
@@ -24,8 +25,9 @@ namespace Util.Applications {
         /// <summary>
         /// 初始化增删改查服务
         /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
         /// <param name="repository">仓储</param>
-        protected CrudServiceBase( IRepository<TEntity, Guid> repository ) : base( repository ) {
+        protected CrudServiceBase( IUnitOfWork unitOfWork, IRepository<TEntity, Guid> repository ) : base( unitOfWork, repository ) {
         }
     }
 
@@ -44,8 +46,9 @@ namespace Util.Applications {
         /// <summary>
         /// 初始化增删改查服务
         /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
         /// <param name="repository">仓储</param>
-        protected CrudServiceBase( IRepository<TEntity, Guid> repository ) : base( repository ) {
+        protected CrudServiceBase( IUnitOfWork unitOfWork, IRepository<TEntity, Guid> repository ) : base( unitOfWork, repository ) {
         }
     }
 
@@ -58,11 +61,15 @@ namespace Util.Applications {
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TQueryParameter, TKey>
-        : QueryServiceBase<TEntity, TDto, TQueryParameter, TKey>, ICrudService<TDto, TRequest, TQueryParameter>
+        : QueryServiceBase<TEntity, TDto, TQueryParameter, TKey>, ICrudService<TDto, TRequest, TQueryParameter>, ICommitAfter
         where TEntity : class, IAggregateRoot<TEntity, TKey>
         where TDto : IDto, new()
         where TRequest : IRequest, IKey, new()
         where TQueryParameter : IQueryParameter {
+        /// <summary>
+        /// 工作单元
+        /// </summary>
+        private readonly IUnitOfWork _unitOfWork;
         /// <summary>
         /// 仓储
         /// </summary>
@@ -71,8 +78,10 @@ namespace Util.Applications {
         /// <summary>
         /// 初始化增删改查服务
         /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
         /// <param name="repository">仓储</param>
-        protected CrudServiceBase( IRepository<TEntity, TKey> repository ) : base( repository ) {
+        protected CrudServiceBase( IUnitOfWork unitOfWork, IRepository<TEntity, TKey> repository ) : base( repository ) {
+            _unitOfWork = unitOfWork;
             _repository = repository;
             EntityDescription = Reflection.GetDisplayNameOrDescription<TEntity>();
         }
@@ -87,14 +96,6 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="request">请求参数</param>
         protected abstract TEntity ToEntity( TRequest request );
-
-        /// <summary>
-        /// 提交操作
-        /// </summary>
-        protected virtual void Commit() {
-            var unitOfWorkHook = Ioc.Create<IUnitOfWorkHook>();
-            unitOfWorkHook.Commit();
-        }
 
         /// <summary>
         /// 写日志
@@ -151,11 +152,11 @@ namespace Util.Applications {
         /// <param name="ids">用逗号分隔的Id列表，范例："1,2"</param>
         public void Delete( string ids ) {
             var entities = _repository.FindByIds( ids );
-            if ( entities?.Count == 0 )
+            if( entities?.Count == 0 )
                 return;
             DeleteBefore( entities );
             _repository.Remove( entities );
-            Commit();
+            _unitOfWork.Commit();
             DeleteAfter( entities );
         }
 
@@ -185,7 +186,7 @@ namespace Util.Applications {
                 return;
             DeleteBefore( entities );
             await _repository.RemoveAsync( entities );
-            Commit();
+            await _unitOfWork.CommitAsync();
             DeleteAfter( entities );
         }
     }

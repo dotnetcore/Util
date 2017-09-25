@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using NSubstitute;
+using Util.Datas.UnitOfWorks;
 using Util.DependencyInjection;
 using Util.Exceptions;
 using Util.Helpers;
@@ -45,6 +46,10 @@ namespace Util.Tests.Applications {
         /// </summary>
         private CrudServiceSample _service;
         /// <summary>
+        /// 工作单元
+        /// </summary>
+        private IUnitOfWork _unitOfWork;
+        /// <summary>
         /// 仓储
         /// </summary>
         private IRepositorySample _repository;
@@ -59,8 +64,9 @@ namespace Util.Tests.Applications {
             _entity2 = new EntitySample( _id2 ) { Name = "B" };
             _dto = new DtoSample{Id = _id.ToString(),Name = "A"};
             _dto2 = new DtoSample { Id = _id2.ToString(), Name = "B" };
+            _unitOfWork = Substitute.For<IUnitOfWork>();
             _repository = Substitute.For<IRepositorySample>();
-            _service = new CrudServiceSample( _repository );
+            _service = new CrudServiceSample( _unitOfWork,_repository );
         }
 
         /// <summary>
@@ -165,6 +171,7 @@ namespace Util.Tests.Applications {
     /// </summary>
     public class IocConfig : ConfigBase {
         protected override void Load( ContainerBuilder builder ) {
+            builder.AddScoped<IUnitOfWork, UnitOfWorkSample>();
             builder.AddScoped<IRepositorySample, RepositorySample>();
             builder.AddScoped<ICrudServiceSample, CrudServiceSample>();
         }

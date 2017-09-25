@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Util.Applications.Aspects;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Domains;
-using Util.Helpers;
 
 namespace Util.Applications {
     /// <summary>
@@ -19,7 +17,7 @@ namespace Util.Applications {
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
-        public TDto Save( TRequest request ) {
+        public void Save( TRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
             SaveBefore( request );
@@ -30,9 +28,6 @@ namespace Util.Applications {
                 Add( entity );
             else
                 Update( entity );
-            SaveCommit();
-            SaveAfter( entity );
-            return ToDto( entity );
         }
 
         /// <summary>
@@ -99,31 +94,16 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 保存提交
-        /// </summary>
-        private void SaveCommit() {
-            CommitBefore();
-            Commit();
-            CommitAfter();
-        }
-
-        /// <summary>
-        /// 提交前操作
-        /// </summary>
-        protected virtual void CommitBefore() {
-        }
-
-        /// <summary>
         /// 提交后操作
         /// </summary>
-        protected virtual void CommitAfter() {
+        public void CommitAfter() {
+            SaveAfter();
         }
 
         /// <summary>
         /// 保存后操作
         /// </summary>
-        /// <param name="entity">领域实体</param>
-        protected virtual void SaveAfter( TEntity entity ) {
+        protected virtual void SaveAfter() {
             WriteLog( $"保存{EntityDescription}成功" );
         }
 
@@ -131,7 +111,7 @@ namespace Util.Applications {
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
-        public async Task<TDto> SaveAsync( TRequest request ) {
+        public async Task SaveAsync( TRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
             SaveBefore( request );
@@ -142,9 +122,6 @@ namespace Util.Applications {
                 await AddAsync( entity );
             else
                 await UpdateAsync( entity );
-            SaveCommit();
-            SaveAfter( entity );
-            return ToDto( entity );
         }
 
         /// <summary>

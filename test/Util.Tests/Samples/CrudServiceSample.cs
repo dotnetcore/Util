@@ -1,6 +1,7 @@
-﻿using Util.Applications;
-using Util.Applications.Aspects;
+﻿using System.Threading.Tasks;
+using Util.Applications;
 using Util.Datas.Queries;
+using Util.Datas.UnitOfWorks;
 using Util.Domains.Repositories;
 using Util.Maps;
 
@@ -12,10 +13,26 @@ namespace Util.Tests.Samples {
     }
 
     /// <summary>
+    /// 工作单元样例
+    /// </summary>
+    public class UnitOfWorkSample : IUnitOfWork {
+        public void Dispose() {
+        }
+
+        public int Commit() {
+            return 1;
+        }
+
+        public Task<int> CommitAsync() {
+            return Task.FromResult( 1 );
+        }
+    }
+
+    /// <summary>
     /// 增删改查服务样例
     /// </summary>
     public class CrudServiceSample : CrudServiceBase<EntitySample, DtoSample, QueryParameterSample> ,ICrudServiceSample {
-        public CrudServiceSample( IRepositorySample repository ) : base( repository ) {
+        public CrudServiceSample( IUnitOfWork unitOfWork, IRepositorySample repository ) : base( unitOfWork, repository ) {
         }
 
         /// <summary>
