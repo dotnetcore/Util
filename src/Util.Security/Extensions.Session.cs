@@ -10,7 +10,7 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetApplication( this ISession session ) {
-            return "权限系统";
+            return "";
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetFullName( this ISession session ) {
-            return "胡一刀";
+            return "";
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetRoleName( this ISession session ) {
-            return "老大，老二";
+            return "";
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Util.Logs.Extensions {
         /// <param name="services">服务集合</param>
         public static void AddNLog( this IServiceCollection services ) {
             services.AddScoped<ILogProviderFactory, Util.Logs.NLog.LogProviderFactory>();
-            services.AddScoped<ILogFormat, ContentFormat>();
+            services.AddSingleton<ILogFormat, ContentFormat>();
             services.AddScoped<ILogContext, LogContext>();
             services.AddScoped<ILog, Log>();
         }

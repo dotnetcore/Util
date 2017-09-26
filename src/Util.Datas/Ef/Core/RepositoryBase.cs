@@ -9,7 +9,6 @@ using Util.Datas.Queries;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
 using Util.Domains.Repositories;
-using System.Linq.Dynamic.Core;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>

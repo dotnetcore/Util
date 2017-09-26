@@ -86,7 +86,7 @@ namespace Util.DependencyInjection {
         /// <param name="configs">依赖配置</param>
         public IServiceProvider Register( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = CreateBuilder( services, actionBefore, configs );
-            //RegisterAop( builder );
+            RegisterAop( builder );
             _container = builder.Build();
             return new AutofacServiceProvider( _container );
         }

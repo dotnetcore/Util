@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Util.Datas.Ef;
 using Util.Datas.Queries;
 using Util.Datas.Tests.Samples.Datas.Criterias;
@@ -23,10 +24,12 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// 容器作用域
         /// </summary>
         private readonly IScope _scope;
+
         /// <summary>
         /// 工作单元
         /// </summary>
         private readonly ISqlServerUnitOfWork _unitOfWork;
+
         /// <summary>
         /// 客户仓储
         /// </summary>
@@ -65,7 +68,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         [Fact]
         public void TestAdd() {
             string id = Id.Create();
-            var customer = new Customer( id ) { Name = "util" };
+            var customer = new Customer( id ) {Name = "util"};
             _customerRepository.Add( customer );
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
@@ -83,7 +86,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         [Fact]
         public void TestUpdate() {
             string id = Id.Create();
-            var customer = new Customer( id ) { Name = "util" };
+            var customer = new Customer( id ) {Name = "util"};
             _customerRepository.Add( customer );
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
@@ -203,7 +206,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         [Fact]
         public void TestPagerQuery() {
             var ids = AddCustomers().Select( t => t.Id ).ToList();
-            QueryParameter parameter = new QueryParameter { PageSize = 2, Page = 2 };
+            QueryParameter parameter = new QueryParameter {PageSize = 2, Page = 2};
             var query = new Query<Customer, string>( parameter );
             query.Where( t => ids.Contains( t.Id ) );
             var result = _customerRepository.PagerQuery( query );
@@ -218,7 +221,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         [Fact]
         public async Task TestPagerQueryAsync() {
             var ids = AddCustomers().Select( t => t.Id ).ToList();
-            QueryParameter parameter = new QueryParameter { PageSize = 2, Page = 2 };
+            QueryParameter parameter = new QueryParameter {PageSize = 2, Page = 2};
             var query = new Query<Customer, string>( parameter );
             query.Where( t => ids.Contains( t.Id ) );
             var result = await _customerRepository.PagerQueryAsync( query );
@@ -233,8 +236,10 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         [Fact]
         public void TestWhereIf() {
             var ids = AddCustomers().Select( t => t.Id ).ToList();
-            Assert.Single( _customerRepository.Find().WhereIf( t => t.Id == ids[0], true ).ToList());
-            Assert.Equal( ids.Count, _customerRepository.Find().Where( t => ids.Contains( t.Id ) ).WhereIf( t => t.Name == "C", false ).ToList().Count );
+            Assert.Single( _customerRepository.Find().WhereIf( t => t.Id == ids[0], true ).ToList() );
+            Assert.Equal( ids.Count,
+                _customerRepository.Find().Where( t => ids.Contains( t.Id ) ).WhereIf( t => t.Name == "C", false )
+                    .ToList().Count );
         }
 
         /// <summary>
@@ -260,8 +265,10 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         [Fact]
         public void TestWhereIfNotEmpty() {
             var ids = AddCustomers().Select( t => t.Id ).ToList();
-            Assert.NotEmpty( _customerRepository.Find().Where( t => ids.Contains( t.Id ) ).WhereIfNotEmpty( t => t.Name == "" ).ToList() );
-            Assert.Single( _customerRepository.Find().Where( t => ids.Contains( t.Id ) ).WhereIfNotEmpty( t => t.Name == "C" ).ToList() );
+            Assert.NotEmpty( _customerRepository.Find().Where( t => ids.Contains( t.Id ) )
+                .WhereIfNotEmpty( t => t.Name == "" ).ToList() );
+            Assert.Single( _customerRepository.Find().Where( t => ids.Contains( t.Id ) )
+                .WhereIfNotEmpty( t => t.Name == "C" ).ToList() );
         }
 
         /// <summary>

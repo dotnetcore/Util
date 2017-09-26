@@ -5,13 +5,21 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util</AssemblyName>
-    <PackageTags>$(PackageTags);</PackageTags>
+    <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
     <RootNamespace>Util</RootNamespace>
-    <Copyright>何镇汐;dotnetcore</Copyright>
-    <Description>Util类库是Util应用框架的核心类库。
+    <Copyright>何镇汐</Copyright>
+    <Description>Util.Core是Util应用框架的核心类库。
 Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。
 </Description>
     <Product>Util</Product>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>何镇汐</Authors>
+    <Company>何镇汐</Company>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <Version>1.0.4-preview</Version>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
+    <PackageId>Util.Core</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -29,8 +37,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.0-preview7.0.1" />
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.0-preview7" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.0-preview8" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.0-preview8" />
     <PackageReference Include="Autofac" Version="4.6.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="AutoMapper" Version="6.1.1" />

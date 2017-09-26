@@ -21,6 +21,16 @@ namespace Util.DependencyInjection {
         }
 
         /// <summary>
+        /// 注册服务，生命周期为 InstancePerLifetimeScope(每个请求一个实例)
+        /// </summary>
+        /// <typeparam name="TImplementation">实现类型</typeparam>
+        /// <param name="builder">容器生成器</param>
+        public static IRegistrationBuilder<TImplementation, ConcreteReflectionActivatorData, SingleRegistrationStyle>
+            AddScoped<TImplementation>( this ContainerBuilder builder ) where TImplementation : class  {
+            return builder.RegisterType<TImplementation>().InstancePerLifetimeScope();
+        }
+
+        /// <summary>
         /// 注册服务，生命周期为 SingleInstance（单例）
         /// </summary>
         /// <typeparam name="TService">接口类型</typeparam>

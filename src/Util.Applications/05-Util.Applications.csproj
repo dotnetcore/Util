@@ -4,18 +4,22 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util.Applications</AssemblyName>
     <RootNamespace>Util.Applications</RootNamespace>
-    <Authors>何镇汐;dotnetcore</Authors>
-    <Company>何镇汐;dotnetcore</Company>
-    <Copyright>何镇汐;dotnetcore</Copyright>
-    <Description>Util.Applications是应用层基类库。
+    <Authors>何镇汐</Authors>
+    <Company>何镇汐</Company>
+    <Copyright>何镇汐</Copyright>
+    <Description>Util.Applications是Util应用框架的应用层基类库。
 Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。</Description>
     <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
-    <PackageIconUrl>https://avatars2.githubusercontent.com/u/19404084</PackageIconUrl>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <RepositoryUrl>https://github.com/dotnetcore/Util</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>Util;</PackageTags>
+    <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
     <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
+    <Version>0.0.1-preview</Version>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
