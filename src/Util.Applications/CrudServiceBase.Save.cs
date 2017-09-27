@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Util.Applications.Dtos;
-using Util.Datas.Queries;
-using Util.Domains;
 
 namespace Util.Applications {
     /// <summary>
     /// 增删改查服务 - Save
     /// </summary>
-    public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TQueryParameter, TKey>
-        where TEntity : class, IAggregateRoot<TEntity, TKey>
-        where TDto : IDto, new()
-        where TRequest : IRequest, IKey, new()
-        where TQueryParameter : IQueryParameter {
+    public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TQueryParameter, TKey> {
         /// <summary>
         /// 保存
         /// </summary>

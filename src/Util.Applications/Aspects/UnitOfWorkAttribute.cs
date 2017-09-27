@@ -13,7 +13,7 @@ namespace Util.Applications.Aspects {
         /// <summary>
         /// 作用域，当嵌套使用工作单元拦截器时，设置为Scope.Aspect，只有最外层工作单元拦截器生效
         /// </summary>
-        public Scope Scope { get; set; }
+        public Scope Scope { get; set; } = Scope.Aspect;
 
         /// <summary>
         /// 执行

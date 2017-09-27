@@ -353,8 +353,10 @@ https://github.com/dotnetcore/util/
   - 分页参数 [已发布]
   - 分页集合 [已发布]
   - 查询参数 [已发布]
-  - Crud服务 [开发中]
-  - 树型Crud服务 [开发中]
+  - 工作单元服务 [已发布]
+  - 工作单元拦截器 [已发布]
+  - Crud服务 [已发布]
+  - 树型Crud服务 [待启动]
   - 持久化对象Po基类 [已发布]
   - 持久化对象存储基类 [已发布]
 - UI组件[待启动]
@@ -388,4 +390,5 @@ https://github.com/dotnetcore/util/
 - 2017年9月15日，更新了上下文操作(Util/Contexts)，更新了日期格式化扩展(Util/Extensions.DateTime)。
 - 2017年9月19日，更新了日志操作，日志提供程序支持NLog与Exceptionless。
 - 2017年9月20日，更新了日志操作拦截器(Util.Logs/Aspects)。
-- 2017年9月21日，更新了验证操作拦截器(Util.Logs/Validations/Aspects)。
+- 2017年9月21日，更新了验证操作拦截器(Util/Validations/Aspects)。
+- 2017年9月27日，更新了工作单元服务(Util/Datas.UnitOfWorks),工作单元拦截器(Util.Applications/Aspects),Crud服务(Util.Applications)。

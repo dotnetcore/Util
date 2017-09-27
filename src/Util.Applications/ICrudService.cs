@@ -31,13 +31,13 @@ namespace Util.Applications {
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
-        [UnitOfWork(Scope = Scope.Aspect )]
+        [UnitOfWork]
         void Save( [Valid] TRequest request );
         /// <summary>
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
-        [UnitOfWork( Scope = Scope.Aspect)]
+        [UnitOfWork]
         Task SaveAsync( [Valid] TRequest request );
         /// <summary>
         /// 批量保存
@@ -46,6 +46,13 @@ namespace Util.Applications {
         /// <param name="updateList">修改列表</param>
         /// <param name="deleteList">删除列表</param>
         List<TDto> Save( List<TRequest> addList, List<TRequest> updateList, List<TRequest> deleteList );
+        /// <summary>
+        /// 批量保存
+        /// </summary>
+        /// <param name="addList">新增列表</param>
+        /// <param name="updateList">修改列表</param>
+        /// <param name="deleteList">删除列表</param>
+        Task<List<TDto>> SaveAsync( List<TRequest> addList, List<TRequest> updateList, List<TRequest> deleteList );
         /// <summary>
         /// 删除
         /// </summary>

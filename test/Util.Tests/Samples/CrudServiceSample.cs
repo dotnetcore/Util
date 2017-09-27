@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Util.Applications;
+using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Datas.UnitOfWorks;
 using Util.Domains.Repositories;

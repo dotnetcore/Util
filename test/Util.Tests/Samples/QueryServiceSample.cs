@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Domains.Repositories;
-using Util.Maps;
 
 namespace Util.Tests.Samples {
     /// <summary>
@@ -15,6 +15,13 @@ namespace Util.Tests.Samples {
         /// </summary>
         [Required(ErrorMessage = "名称不能为空" )]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 创建空集合
+        /// </summary>
+        public static List<DtoSample> EmptyList() {
+            return new List<DtoSample>();
+        }
     }
 
     /// <summary>

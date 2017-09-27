@@ -16,7 +16,7 @@ namespace Util.Tests.Applications {
     /// <summary>
     /// 增删改查服务测试
     /// </summary>
-    public class CrudServiceTest {
+    public partial class CrudServiceTest {
         /// <summary>
         /// Id
         /// </summary>
