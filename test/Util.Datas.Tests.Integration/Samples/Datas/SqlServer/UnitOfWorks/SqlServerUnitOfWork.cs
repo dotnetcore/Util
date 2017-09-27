@@ -1,4 +1,5 @@
 ﻿using Util.Datas.Tests.SqlServer.Configs;
+using Util.Datas.UnitOfWorks;
 
 namespace Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks {
     /// <summary>
@@ -8,7 +9,7 @@ namespace Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks {
         /// <summary>
         /// 初始化SqlServer工作单元
         /// </summary>
-        public SqlServerUnitOfWork() : base( AppConfig.Connection ) {
+        public SqlServerUnitOfWork(IUnitOfWorkManager unitOfWorkManager) : base( AppConfig.Connection, unitOfWorkManager ) {
         }
     }
 }

@@ -3,6 +3,7 @@ using Util.Datas.Tests.Samples.Datas.SqlServer.Repositories;
 using Util.Datas.Tests.Samples.Datas.SqlServer.Stores;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Repositories;
+using Util.Datas.UnitOfWorks;
 using Util.DependencyInjection;
 using Util.Domains.Sessions;
 
@@ -23,6 +24,7 @@ namespace Util.Datas.Tests.SqlServer.Configs {
         /// 加载基础设施
         /// </summary>
         private void LoadInfrastructure( ContainerBuilder builder ) {
+            builder.AddScoped<IUnitOfWorkManager, UnitOfWorkManager>();
             builder.AddScoped<ISqlServerUnitOfWork, SqlServerUnitOfWork>().PropertiesAutowired();
             builder.AddScoped<IProductPoStore, ProductPoStore>();
             builder.AddSingleton<ISession, Session>( new Session( AppConfig.UserId ) );

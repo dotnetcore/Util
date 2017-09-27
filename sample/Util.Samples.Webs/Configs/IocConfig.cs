@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Util.Contexts;
+using Util.Datas.UnitOfWorks;
 using Util.DependencyInjection;
 using Util.Domains.Sessions;
 

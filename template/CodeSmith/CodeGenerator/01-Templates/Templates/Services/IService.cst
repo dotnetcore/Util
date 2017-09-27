@@ -1,0 +1,28 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+
+<%@ Assembly Src="..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\Common\Extensions.cs" %>
+
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="SchemaMapper" %>
+
+<%@ Property Name="Entity" Type="SchemaMapper.Entity"  %>
+<%@ Property Name="Namespace" Type="System.String" %>
+<%-- Safe类名 --%>
+<% string SafeClassName = Entity.ClassName.ToSafeName(); %>
+<%-- 描述 --%>
+<% string Description = Entity.Description; %>
+using Util.Applications;
+using <%= Entity.GetNamespace(Namespace,"Services.Queries") %>;
+using <%= Entity.GetNamespace(Namespace,"Services.Dtos") %>;
+
+namespace <%= Entity.GetNamespace(Namespace,"Services.Abstractions") %> {
+    /// <summary>
+    /// <%= Description %>服务
+    /// </summary>
+    public interface I<%= SafeClassName %>Service : ICrudService<<%= SafeClassName %>Dto, <%= SafeClassName %>Query> {
+    }
+}

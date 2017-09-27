@@ -33,7 +33,7 @@ namespace Util.Domains {
         /// <summary>
         /// 标识
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Id不能为空")]
         [Key]
         public TKey Id { get; private set; }
 
@@ -77,7 +77,7 @@ namespace Util.Domains {
         /// 初始化
         /// </summary>
         public virtual void Init() {
-            if( Id.Equals( default( TKey ) ) )
+            if( Id == null || Id.Equals( default( TKey ) ) )
                 Id = CreateId();
         }
 

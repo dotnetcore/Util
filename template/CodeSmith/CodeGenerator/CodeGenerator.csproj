@@ -74,6 +74,7 @@
     <Compile Include="01-Templates\Common\Parser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="01-Templates\Templates\Domains\Factory.cst" />
     <None Include="01-Templates\Templates\Domains\ItemGroup.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\PoExtension.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\Po.cst" />
@@ -83,7 +84,9 @@
     <None Include="01-Templates\Templates\Datas\SqlServer\UnitOfWork.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\SqlServer\PoMapping.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\Repository.cst" />
-    <None Include="01-Templates\Templates\DependencyInjection\IocConfig.cst" />
+    <None Include="01-Templates\Templates\Services\Dto.cst" />
+    <None Include="01-Templates\Templates\Services\DtoExtension.cst" />
+    <None Include="01-Templates\Templates\Services\IocConfig.cst" />
     <None Include="01-Templates\Templates\Domains\Entity.Base.cst" />
     <None Include="01-Templates\Templates\Domains\Entity.cst" />
     <None Include="01-Templates\Templates\Domains\IRepository.cst" />
@@ -91,6 +94,9 @@
     <None Include="01-Templates\Templates\PersistObjects\Datas\Store.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\IStore.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Domains\IRepository.cst" />
+    <None Include="01-Templates\Templates\Services\IService.cst" />
+    <None Include="01-Templates\Templates\Services\Query.cst" />
+    <None Include="01-Templates\Templates\Services\Service.cst" />
     <None Include="Project.csp" />
     <None Include="01-Templates\Templates.cst" />
   </ItemGroup>

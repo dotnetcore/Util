@@ -2,6 +2,7 @@ using System;
 using System.Data.SqlClient;
 using System.IO;
 
+
 namespace Util.Datas.Tests.SqlServer.Configs {
     public static class CiConfig {
         private const string DatabaseVariable = "SqlServer_DatabaseName";

@@ -1,0 +1,76 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+
+<%@ Assembly Src="..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\Common\Extensions.cs" %>
+
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="SchemaMapper" %>
+
+<%@ Property Name="Namespace" Type="System.String" %>
+<%@ Property Name="UnitOfWork" Type="System.String"  %>
+<%@ Property Name="Entity" Type="SchemaMapper.Entity"  %>
+<%@ Property Name="IUnitOfWorkNamespace" Type="System.String"  %>
+<%-- Safe类名 --%>
+<% string SafeClassName = Entity.ClassName.ToSafeName(); %>
+<%-- 描述 --%>
+<% string Description = Entity.Description; %>
+using Util;
+using Util.Maps;
+using Util.Domains.Repositories;
+using Util.Datas.Queries;
+using Util.Applications;
+using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
+using <%= string.Format("{0}.Datas",Namespace)  %>;
+using <%= Entity.GetNamespace(Namespace,"Services.Dtos") %>;
+using <%= Entity.GetNamespace(Namespace,"Services.Queries") %>;
+using <%= Entity.GetNamespace(Namespace,"Services.Abstractions") %>;
+
+namespace <%= Entity.GetNamespace(Namespace,"Services.Core") %> {
+    /// <summary>
+    /// <%= Description %>服务
+    /// </summary>
+    public class <%= SafeClassName %>Service : CrudServiceBase<<%= SafeClassName %>, <%= SafeClassName %>Dto, <%= SafeClassName %>Query<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Service {
+        /// <summary>
+        /// 初始化<%= Description %>服务
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        /// <param name="<%= SafeClassName.ToCamelCase() %>Repository"><%= Description %>仓储</param>
+        public <%= SafeClassName %>Service( I<%= UnitOfWork %> unitOfWork, I<%= SafeClassName %>Repository <%= SafeClassName.ToCamelCase() %>Repository )
+            : base( unitOfWork, <%= SafeClassName.ToCamelCase() %>Repository ) {
+            <%= SafeClassName %>Repository = <%= SafeClassName.ToCamelCase() %>Repository;
+        }
+        
+        /// <summary>
+        /// <%= Description %>仓储
+        /// </summary>
+        public I<%= SafeClassName %>Repository <%= SafeClassName %>Repository { get; set; }
+        
+        /// <summary>
+        /// 转换为数据传输对象
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected override <%= SafeClassName %>Dto ToDto( <%= SafeClassName %> entity ) {
+            return entity.MapTo<<%= SafeClassName %>Dto>();
+        }
+
+        /// <summary>
+        /// 转换为实体
+        /// </summary>
+        /// <param name="dto">数据传输对象</param>
+        protected override <%= SafeClassName %> ToEntity( <%= SafeClassName %>Dto dto ) {
+            return dto.MapTo( new <%= SafeClassName %>( dto.Id<%=Entity.GetToEntityConvert() %> ) );
+        }
+        
+        /// <summary>
+        /// 创建查询对象
+        /// </summary>
+        /// <param name="param"><%= Description %>查询实体</param>
+        protected override IQueryBase<<%= SafeClassName %>> CreateQuery( <%= SafeClassName %>Query param ) {
+            return new Query<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>>( param );
+        }
+    }
+}

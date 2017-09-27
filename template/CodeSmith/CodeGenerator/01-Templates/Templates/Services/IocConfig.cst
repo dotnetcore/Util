@@ -20,7 +20,7 @@ using <%= Namespace %>.Datas.Ef.Repositories;
 using <%= Namespace %>.Services.Contracts;
 using <%= Namespace %>.Services.Impl;
 
-namespace <%= Namespace %>.Services.Configs.IocConfigs {
+namespace <%= Namespace %>.Services.Configs {
     /// <summary>
     /// 依赖注入配置
     /// </summary>

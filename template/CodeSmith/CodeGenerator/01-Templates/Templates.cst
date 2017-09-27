@@ -71,14 +71,14 @@
              Optional="True"
              Description="List of regular expressions to clean table, view and column names." %>
 
-<%@ Register Name="IocConfigClass"
-             Template="Templates\DependencyInjection\IocConfig.cst"
-             MergeProperties="False" %>
 <%@ Register Name="EntityBaseClass"
              Template="Templates\Domains\Entity.Base.cst"
              MergeProperties="False" %>
 <%@ Register Name="EntityClass"
              Template="Templates\Domains\Entity.cst"
+             MergeProperties="False" %>
+<%@ Register Name="FactoryClass"
+             Template="Templates\Domains\Factory.cst"
              MergeProperties="False" %>
 <%@ Register Name="IRepositoryClass"
              Template="Templates\Domains\IRepository.cst"
@@ -115,6 +115,24 @@
              MergeProperties="False" %>
 <%@ Register Name="SqlServerMappingClass"
              Template="Templates\Datas\SqlServer\Mapping.cst"
+             MergeProperties="False" %>
+<%@ Register Name="IocConfigClass"
+             Template="Templates\Services\IocConfig.cst"
+             MergeProperties="False" %>
+<%@ Register Name="DtoClass"
+             Template="Templates\Services\Dto.cst"
+             MergeProperties="False" %>
+<%@ Register Name="DtoExtensionClass"
+             Template="Templates\Services\DtoExtension.cst"
+             MergeProperties="False" %>
+<%@ Register Name="QueryClass"
+             Template="Templates\Services\Query.cst"
+             MergeProperties="False" %>
+<%@ Register Name="IServiceClass"
+             Template="Templates\Services\IService.cst"
+             MergeProperties="False" %>
+<%@ Register Name="ServiceClass"
+             Template="Templates\Services\Service.cst"
              MergeProperties="False" %>
 <%@ Register Name="ItemGroupClass"
              Template="Templates\Domains\ItemGroup.cst"
@@ -181,25 +199,23 @@
 //        CreateMySqlUnitOfWork(context);
 //        //创建仓储基类
 //        CreateRepositoryBase(context);
-        
-
-//        //创建工厂
-//        CreateFactory(context);
-//        //创建查询实体
-//        CreateQueryObject( context );
+          //创建工厂
+          CreateFactory(context);         
 //        //创建映射
 //        CreateMapping(context);
 //        //创建MySql映射
 //        CreateMySqlMapping(context);
-
-//        //创建应用服务接口
-//        CreateIService( context );
-//        //创建应用服务实现
-//        CreateService( context );
-//        //创建Dto
-//        CreateDto( context );
-//        //创建Dto扩展
-//        CreateDtoExtension( context );       
+          
+          //创建Dto
+          CreateDto( context );
+          //创建Dto扩展
+          CreateDtoExtension( context );
+          //创建查询参数
+          CreateQuery( context );
+          //创建应用服务接口
+          CreateIService( context );
+          //创建应用服务实现
+          CreateService( context );
             
 //        //创建实体测试
 //        CreateEntityTest( context );
@@ -267,18 +283,6 @@
     private string GetNamespace( Entity entity ){
         return Namespace;
     }
-    
-    //创建Ioc配置
-    public void CreateIocConfig(EntityContext entityContext)
-    {
-        IocConfigClass result = this.Create<IocConfigClass>();
-        this.CopyPropertiesTo(result);
-        string className = "IocConfig";
-        result.EntityContext = entityContext;
-        result.Namespace = GetNamespace(entityContext.Entities.First());
-        result.DbName = GetDbName(entityContext);
-        result.RenderToFile(GetPath(className,"Services\\Configs"), true);
-    }
 
     //创建实体
     public void CreateEntity(EntityContext entityContext)
@@ -300,6 +304,20 @@
             generatedClass.Entity = entity;
             generatedClass.Namespace = GetNamespace(entity);
             generatedClass.RenderToFile(GetPath(className+ ".Base", string.Format("Domains\\{0}\\Models",GetSchema(entity)) ), editablePath, true);
+        }
+    }
+    
+    //创建工厂
+    public void CreateFactory(EntityContext entityContext)
+    {
+        FactoryClass result = this.Create<FactoryClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Factory", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,string.Format("Domains\\{0}\\Factories",GetSchema(entity))), true);
         }
     }
     
@@ -523,40 +541,8 @@
 //        context.Namespace = GetNamespace( entityContext.Entities.FirstOrDefault() );
 //        context.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
 //        context.RenderToFile(GetPath(className,"Datas\\Repositories"), true);
-//    }
-//    
+    //} 
 
-//    
-
-//    
-//    //创建工厂
-//    public void CreateFactory(EntityContext entityContext)
-//    {
-//        FactoryClass result = this.Create<FactoryClass>();
-//        this.CopyPropertiesTo(result);
-//        foreach(Entity entity in entityContext.Entities)
-//        {
-//            string className = string.Format( "{0}Factory", entity.ClassName );
-//            result.Entity = entity;
-//            result.Namespace = GetNamespace(entity);
-//            result.RenderToFile(GetPath(className,"Domains\\Factories"), true);
-//        }
-//    }
-//    
-//    //创建查询实体
-//    public void CreateQueryObject(EntityContext entityContext)
-//    {
-//        QueryObjectClass result = this.Create<QueryObjectClass>();
-//        this.CopyPropertiesTo(result);
-//        foreach(Entity entity in entityContext.Entities)
-//        {
-//            string className = string.Format( "{0}Query", entity.ClassName );
-//            result.Entity = entity;
-//            result.Namespace = GetNamespace(entity);
-//            result.RenderToFile(GetPath(className,"Domains\\Queries"), true);
-//        }
-//    }
-//
 //    //创建映射
 //    public void CreateMapping(EntityContext entityContext)
 //    {
@@ -584,68 +570,91 @@
 //            result.RenderToFile(GetPath(className,"Datas\\MySql\\Mappings\\" + GetSchema(entity) ), true);
 //        }
 //    }
-//    
-
-//    
-//    //创建应用服务接口
-//    public void CreateIService(EntityContext entityContext)
-//    {
-//        IServiceClass result = this.Create<IServiceClass>();
-//        this.CopyPropertiesTo(result);
-//        foreach(Entity entity in entityContext.Entities)
-//        {
-//            string className = string.Format( "I{0}Service", entity.ClassName );
-//            result.Entity = entity;
-//            result.Namespace = GetNamespace(entity);
-//            result.RenderToFile(GetPath(className,"Services\\Contracts\\" + GetSchema(entity) ), true);
-//        }
-//    }
-//    
-//    //创建应用服务实现
-//    public void CreateService(EntityContext entityContext)
-//    {
-//        ServiceClass result = this.Create<ServiceClass>();
-//        this.CopyPropertiesTo(result);
-//        
-//        foreach(Entity entity in entityContext.Entities)
-//        {
-//            string className = string.Format( "{0}Service",entity.ClassName );
-//            result.Entity = entity;
-//            result.Namespace = GetNamespace(entity);
-//            result.UnitOfWork = GetUnitOfWork(entityContext);
-//            result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
-//            result.RenderToFile(GetPath(className,"Services\\Impl\\" + GetSchema(entity) ), true);
-//        }
-//    }
-//    
-//    //创建Dto
-//    public void CreateDto(EntityContext entityContext)
-//    {
-//        DtoClass result = this.Create<DtoClass>();
-//        this.CopyPropertiesTo(result);
-//        foreach(Entity entity in entityContext.Entities)
-//        {
-//            string className = string.Format( "{0}Dto", entity.ClassName );
-//            result.Entity = entity;
-//            result.Namespace = GetNamespace(entity);
-//            result.RenderToFile(GetPath(className,"Services\\Dtos\\" + GetSchema(entity) ), true);
-//        }
-//    }
-//    
-//    //创建Dto扩展
-//    public void CreateDtoExtension(EntityContext entityContext)
-//    {
-//        DtoExtensionClass result = this.Create<DtoExtensionClass>();
-//        this.CopyPropertiesTo(result);
-//        foreach(Entity entity in entityContext.Entities)
-//        {
-//            string className = string.Format( "{0}DtoExtension", entity.ClassName );
-//            result.Entity = entity;
-//            result.Namespace = GetNamespace(entity);
-//            result.RenderToFile(GetPath(className,"Services\\Dtos\\" + GetSchema(entity)), true);
-//        }
-//    }
     
+    //创建Ioc配置
+    public void CreateIocConfig(EntityContext entityContext)
+    {
+        IocConfigClass result = this.Create<IocConfigClass>();
+        this.CopyPropertiesTo(result);
+        string className = "IocConfig";
+        result.EntityContext = entityContext;
+        result.Namespace = GetNamespace(entityContext.Entities.First());
+        result.DbName = GetDbName(entityContext);
+        result.RenderToFile(GetPath(className,"Services\\Configs"), true);
+    }
+    
+    //创建Dto
+    public void CreateDto(EntityContext entityContext)
+    {
+        DtoClass result = this.Create<DtoClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Dto", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Services\\Dtos\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建Dto扩展
+    public void CreateDtoExtension(EntityContext entityContext)
+    {
+        DtoExtensionClass result = this.Create<DtoExtensionClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "Extensions.{0}Dto", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Services\\Extensions\\" + GetSchema(entity)), true);
+        }
+    }
+    
+    //创建查询参数
+    public void CreateQuery(EntityContext entityContext)
+    {
+        QueryClass result = this.Create<QueryClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Query", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Services\\Queries\\"+ GetSchema(entity)), true);
+        }
+    }
+    
+    //创建应用服务接口
+    public void CreateIService(EntityContext entityContext)
+    {
+        IServiceClass result = this.Create<IServiceClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "I{0}Service", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Services\\Abstractions\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建应用服务实现
+    public void CreateService(EntityContext entityContext)
+    {
+        ServiceClass result = this.Create<ServiceClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Service",entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.UnitOfWork = GetUnitOfWork(entityContext);
+            result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
+            result.RenderToFile(GetPath(className,"Services\\Core\\" + GetSchema(entity) ), true);
+        }
+    }
 
     
 //    //创建实体测试
