@@ -7,7 +7,8 @@ namespace Util.Samples.Webs.Controllers {
         }
 
 
-        public virtual void Index() {
+        public IActionResult Index() {
+            return View();
         }
     }
 }

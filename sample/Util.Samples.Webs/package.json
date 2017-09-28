@@ -1,29 +1,31 @@
 {
   "version": "1.0.0",
-  "name": "util.samples.webs",
+  "name": "util",
   "private": true,
   "scripts": {
     "start": "webpack --env dev"
   },
   "dependencies": {
-    "@angular/animations": "4.3.5",
-    "@angular/common": "4.3.5",
-    "@angular/compiler": "4.3.5",
-    "@angular/core": "4.3.5",
-    "@angular/forms": "4.3.5",
-    "@angular/http": "4.3.5",
-    "@angular/platform-browser": "4.3.5",
-    "@angular/platform-browser-dynamic": "4.3.5",
-    "@angular/router": "4.3.5",
+    "@angular/animations": "4.4.3",
+    "@angular/common": "4.4.3",
+    "@angular/compiler": "4.4.3",
+    "@angular/core": "4.4.3",
+    "@angular/forms": "4.0.0-rc.5",
+    "@angular/http": "4.4.3",
+    "@angular/platform-browser": "4.4.3",
+    "@angular/platform-browser-dynamic": "4.4.3",
+    "@angular/router": "4.4.3",
+    "core-js": "2.5.1",
     "rxjs": "5.4.3",
-    "zone.js": "0.8.16"
+    "zone.js": "0.8.18"
   },
   "devDependencies": {
-    "typescript": "2.5.1",
-    "@angular/compiler-cli": "4.3.5",
-    "webpack": "3.5.5",
-    "@ngtools/webpack": "1.6.2",
-    "@types/webpack-env": "1.13.0",
-    "awesome-typescript-loader": "3.2.3"
+    "typescript": "2.5.3",
+    "@angular/compiler-cli": "4.4.3",
+    "webpack": "3.6.0",
+    "@ngtools/webpack": "1.8.0-beta.1",
+    "@types/webpack-env": "1.13.1",
+    "@types/core-js": "0.9.16-alpha",
+    "ts-loader": "2.3.7"
   }
 }

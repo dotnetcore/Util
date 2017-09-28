@@ -38,7 +38,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1-preview-10066" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.7.9" />
   </ItemGroup>
 

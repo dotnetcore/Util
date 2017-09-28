@@ -14,12 +14,12 @@ module.exports = (env) => {
             filename: "main.js"
         },
         //待处理文件扩展名
-        resolve: { extensions: ['.js', '.ts'] },
+        resolve: { extensions: ['.ts', '.js'] },
         //生成source map文件
         devtool: "source-map",
         module: {
             //将ts编译为js
-            loaders: [{ test: /\.ts$/, loader: "awesome-typescript-loader" }]
+            loaders: [{ test: /\.ts$/, loader: "ts-loader" }]
         },
         plugins: [
             //优化生成结构

@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Typings\app.component.ts" />
+    <None Remove="Typings\app.module.ts" />
     <None Remove="Typings\boot.browser.ts" />
     <None Remove="Typings\main.ts" />
   </ItemGroup>
@@ -48,9 +50,12 @@
   <ItemGroup>
     <Folder Include="Areas\Logs\Models\" />
     <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\dist\" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="Typings\app.component.ts" />
+    <TypeScriptCompile Include="Typings\app.module.ts" />
     <TypeScriptCompile Include="Typings\main.ts" />
   </ItemGroup>
 
@@ -65,13 +70,14 @@
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="必须安装Node.js" />
-    <Message Importance="high" Text="Webpack开始打包" />  
-    <Exec Command="node node_modules/webpack/bin/webpack.js" />
+    <Message Importance="high" Text="Webpack开始打包" />
+    <Exec Command="npm start" />
+    <!--<Exec Command="node node_modules/webpack/bin/webpack.js" />-->
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <Exec Command="npm install" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js" />
 
     <ItemGroup>
       <DistFiles Include="wwwroot\dist\**;" />
@@ -82,6 +88,6 @@
     </ItemGroup>
   </Target>
 
-  <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
