@@ -104,6 +104,8 @@ namespace Util.Logs.Core {
         private void Execute( LogLevel level, ref TContent content ) {
             if ( content == null )
                 return;
+            if ( Enabled( level ) == false )
+                return;
             try {
                 content.Level = Util.Helpers.Enum.GetName<LogLevel>( level );
                 Init( content );
@@ -112,6 +114,15 @@ namespace Util.Logs.Core {
             finally {
                 content = null;
             }
+        }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        private bool Enabled( LogLevel level ) {
+            if ( level > LogLevel.Debug )
+                return true;
+            return IsDebugEnabled || IsTraceEnabled && level == LogLevel.Trace;
         }
 
         /// <summary>
