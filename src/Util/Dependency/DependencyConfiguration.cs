@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using AspectCore.DynamicProxy.Parameters;
+using AspectCore.Extensions.Autofac;
 using Autofac;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Contexts;
+using Util.Events.Handlers;
 using Util.Helpers;
 using Util.Reflections;
 
@@ -46,7 +51,7 @@ namespace Util.Dependency {
         /// 配置依赖
         /// </summary>
         public IServiceProvider Config() {
-            return Ioc.DefaultContainer.Register( _services, RegistServices,_configs );
+            return Ioc.DefaultContainer.Register( _services, RegistServices, _configs );
         }
 
         /// <summary>
@@ -54,26 +59,64 @@ namespace Util.Dependency {
         /// </summary>
         private void RegistServices( ContainerBuilder builder ) {
             _builder = builder;
-            RegistFinder();
+            _finder = new WebFinder();
             _assemblies = _finder.GetAssemblies();
+            RegistInfrastracture();
+            RegistEventHandlers();
             RegistDependency();
+        }
+
+        /// <summary>
+        /// 注册基础设施
+        /// </summary>
+        private void RegistInfrastracture() {
+            EnableAop();
+            RegistFinder();
+            RegistContext();
+        }
+
+        /// <summary>
+        /// 启用Aop
+        /// </summary>
+        private void EnableAop() {
+            _builder.EnableAop();
         }
 
         /// <summary>
         /// 注册类型查找器
         /// </summary>
         private void RegistFinder() {
-            _finder = new WebFinder();
             _builder.AddSingleton( _finder );
         }
 
         /// <summary>
-        /// 注册依赖
+        /// 注册上下文
+        /// </summary>
+        private void RegistContext() {
+            _builder.AddSingleton<IContext, WebContext>();
+        }
+
+        /// <summary>
+        /// 注册事件处理器
+        /// </summary>
+        private void RegistEventHandlers() {
+            var handlerTypes = GetTypes( typeof( IEventHandler<> ) );
+            foreach( var handler in handlerTypes ) {
+                _builder.RegisterType( handler ).As( handler.FindInterfaces(
+                    ( filter, criteria ) => filter.IsGenericType && ( (Type)criteria ).IsAssignableFrom( filter.GetGenericTypeDefinition() )
+                    , typeof( IEventHandler<> )
+                ) ).InstancePerLifetimeScope();
+            }
+        }
+
+        /// <summary>
+        /// 查找并注册依赖
         /// </summary>
         private void RegistDependency() {
             RegistSingletonDependency();
             RegistScopeDependency();
             RegistTransientDependency();
+            Regist();
         }
 
         /// <summary>
@@ -81,13 +124,6 @@ namespace Util.Dependency {
         /// </summary>
         private void RegistSingletonDependency() {
             _builder.RegisterTypes( GetTypes<ISingletonDependency>() ).AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
-        }
-
-        /// <summary>
-        /// 获取类型集合
-        /// </summary>
-        private Type[] GetTypes<T>() {
-            return _finder.Find<T>( _assemblies ).ToArray();
         }
 
         /// <summary>
@@ -102,6 +138,28 @@ namespace Util.Dependency {
         /// </summary>
         private void RegistTransientDependency() {
             _builder.RegisterTypes( GetTypes<ITransientDependency>() ).AsImplementedInterfaces().PropertiesAutowired().InstancePerDependency();
+        }
+
+        /// <summary>
+        /// 注册实现了IRegist的依赖注册器
+        /// </summary>
+        private void Regist() {
+            var types = GetTypes<IRegist>();
+            types.Select( type => Reflection.CreateInstance<IRegist>( type ) ).ToList().ForEach( t => t.Regist( _services ) );
+        }
+
+        /// <summary>
+        /// 获取类型集合
+        /// </summary>
+        private Type[] GetTypes<T>() {
+            return _finder.Find<T>( _assemblies ).ToArray();
+        }
+
+        /// <summary>
+        /// 获取类型集合
+        /// </summary>
+        private Type[] GetTypes( Type type ) {
+            return _finder.Find( type, _assemblies ).ToArray();
         }
     }
 }

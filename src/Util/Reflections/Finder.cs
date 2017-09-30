@@ -105,7 +105,7 @@ namespace Util.Reflections {
             if ( findType.IsGenericTypeDefinition == false )
                 return false;
             var definition = findType.GetGenericTypeDefinition();
-            foreach ( var implementedInterface in type.FindInterfaces( ( t, k ) => true, null ) ) {
+            foreach ( var implementedInterface in type.FindInterfaces( ( filter, criteria ) => true, null ) ) {
                 if( implementedInterface.IsGenericType == false )
                     continue;
                 return definition.IsAssignableFrom( implementedInterface.GetGenericTypeDefinition() );

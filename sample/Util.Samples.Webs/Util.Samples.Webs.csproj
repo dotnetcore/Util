@@ -49,7 +49,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Logs\Models\" />
-    <Folder Include="Configs\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
@@ -72,7 +71,8 @@
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="必须安装Node.js" />
     <Message Importance="high" Text="Webpack开始打包" />
-    <!--<Exec Command="npm start" />-->
+    <Exec Command="npm install" />
+    <Exec Command="npm start" />
     <!--<Exec Command="node node_modules/webpack/bin/webpack.js" />-->
   </Target>
 

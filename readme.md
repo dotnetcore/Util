@@ -339,6 +339,7 @@ https://github.com/dotnetcore/util/
   - IQueryable查询扩展 [已发布]
   - 时间操作 [已发布]
   - 上下文操作 [已发布]
+  - 类型查找器 [已发布]
 - 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
@@ -359,6 +360,7 @@ https://github.com/dotnetcore/util/
   - 树型Crud服务 [待启动]
   - 持久化对象Po基类 [已发布]
   - 持久化对象存储基类 [已发布]
+  - 事件总线 [已发布]
 - UI组件[待启动]
 - 公共业务基类
   - 地址 [已发布]
@@ -392,3 +394,4 @@ https://github.com/dotnetcore/util/
 - 2017年9月20日，更新了日志操作拦截器(Util.Logs/Aspects)。
 - 2017年9月21日，更新了验证操作拦截器(Util/Validations/Aspects)。
 - 2017年9月27日，更新了工作单元服务(Util/Datas.UnitOfWorks),工作单元拦截器(Util.Applications/Aspects),Crud服务(Util.Applications)。
+- 2017年9月30日，更新了事件总线(Util/Events)，类型查找器(Util/Reflections)，支持了IOC扫描注册功能。

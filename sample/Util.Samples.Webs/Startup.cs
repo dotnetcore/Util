@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Events.Extensions;
 using Util.Logs.Extensions;
 
 namespace Util.Samples.Webs {
@@ -38,6 +39,9 @@ namespace Util.Samples.Webs {
             //    config.ServerUrl = "http://127.0.0.1:8011";
             //    config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
             //} );
+
+            //添加默认事件总线服务
+            services.AddEventBus();
 
             //添加Util基础设施服务
             return services.AddUtil();

@@ -2,7 +2,7 @@
 
 namespace Util.Events {
     /// <summary>
-    /// 默认事件总线
+    /// 事件总线
     /// </summary>
     public class DefaultEventBus : IEventBus {
         /// <summary>
@@ -25,6 +25,8 @@ namespace Util.Events {
         /// <param name="event">事件</param>
         public void Publish<TEvent>( TEvent @event ) where TEvent : IEvent {
             var handlers = Manager.GetHandlers<TEvent>();
+            if ( handlers == null )
+                return;
             foreach ( var handler in handlers )
                 handler.Handle( @event );
         }
