@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Util.Exceptions;
 
 namespace Util.Reflections {
     /// <summary>
@@ -79,7 +80,13 @@ namespace Util.Reflections {
         /// </summary>
         private List<Type> GetTypes( Type findType, Assembly assembly ) {
             var result = new List<Type>();
-            var types = assembly.GetTypes();
+            Type[] types;
+            try {
+                types = assembly.GetTypes();
+            }
+            catch( ReflectionTypeLoadException ) {
+                return result;
+            }
             if( types == null )
                 return result;
             foreach( var type in types )

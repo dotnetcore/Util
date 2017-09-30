@@ -70,6 +70,28 @@ namespace Util.Tests.Reflections {
             Assert.Equal( typeof( E ), types[0] );
             Assert.Equal( typeof( F2<> ), types[1] );
         }
+
+        /// <summary>
+        /// 测试并发
+        /// </summary>
+        [Fact]
+        public void TestFind_6() {
+            Util.Helpers.Thread.WaitAll( () => {
+                var types = _finder.Find<IA>();
+                Assert.Single( types );
+                Assert.Equal( typeof( A ), types[0] );
+            }, () => {
+                var types = _finder.Find<IB>();
+                Assert.Equal( 2, types.Count );
+                Assert.Equal( typeof( A ), types[0] );
+                Assert.Equal( typeof( B ), types[1] );
+            }, () => {
+                var types = _finder.Find<IC>();
+                Assert.Equal( 2, types.Count );
+                Assert.Equal( typeof( B ), types[0] );
+                Assert.Equal( typeof( D<> ), types[1] );
+            } );
+        }
     }
 
     /// <summary>
