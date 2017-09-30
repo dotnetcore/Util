@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,7 @@ using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.Datas.Tests.SqlServer.Configs;
 using Util.Datas.Tests.XUnitHelpers;
-using Util.DependencyInjection;
+using Util.Dependency;
 using Util.Exceptions;
 using Util.Helpers;
 using Xunit;

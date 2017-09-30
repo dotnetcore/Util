@@ -1,12 +1,12 @@
 ﻿using System;
 using Autofac;
-using Util.DependencyInjection;
+using Util.Dependency;
 using Util.Exceptions;
 using Util.Helpers;
 using Util.Tests.Samples;
 using Util.Tests.XUnitHelpers;
 using Xunit;
-using IContainer = Util.DependencyInjection.IContainer;
+using IContainer = Util.Dependency.IContainer;
 
 namespace Util.Tests.Domains {
     /// <summary>

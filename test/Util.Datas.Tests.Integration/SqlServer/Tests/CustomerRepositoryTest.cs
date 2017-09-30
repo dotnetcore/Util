@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Autofac;
 using Util.Datas.Ef;
 using Util.Datas.Queries;
 using Util.Datas.Tests.Samples.Datas.Criterias;
@@ -10,7 +9,7 @@ using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.Datas.Tests.SqlServer.Configs;
-using Util.DependencyInjection;
+using Util.Dependency;
 using Util.Helpers;
 using Xunit;
 

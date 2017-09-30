@@ -2,7 +2,7 @@
 using AspectCore.Extensions.AspectScope;
 using Autofac;
 
-namespace Util.DependencyInjection {
+namespace Util.Dependency {
 	/// <summary>
     /// AspectCore扩展
     /// </summary>

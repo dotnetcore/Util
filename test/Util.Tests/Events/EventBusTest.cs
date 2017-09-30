@@ -14,17 +14,16 @@ namespace Util.Tests.Events {
         /// </summary>
         private readonly IEventHandler<EventSample> _handler;
         /// <summary>
-        /// 事件总线
+        /// 事件处理器2
         /// </summary>
-        private readonly DefaultEventBus _eventBus;
+        private readonly IEventHandler<EventSample> _handler2;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public EventBusTest() {
             _handler = Substitute.For<IEventHandler<EventSample>>();
-            var manager = new EventHandlerManagerSample( _handler );
-            _eventBus = new DefaultEventBus( manager );
+            _handler2 = Substitute.For<IEventHandler<EventSample>>();
         }
 
         /// <summary>
@@ -32,9 +31,24 @@ namespace Util.Tests.Events {
         /// </summary>
         [Fact]
         public void TestPublish() {
+            var manager = new EventHandlerManagerSample( _handler );
+            var eventBus = new DefaultEventBus( manager );
             var eventSample = new EventSample { Name = "a" };
-            _eventBus.Publish( eventSample );
+            eventBus.Publish( eventSample );
             _handler.Received( 1 ).Handle( eventSample );
+        }
+
+        /// <summary>
+        /// 测试发布事件
+        /// </summary>
+        [Fact]
+        public void TestPublish_2() {
+            var manager = new EventHandlerManagerSample( _handler , _handler2 );
+            var eventBus = new DefaultEventBus( manager );
+            var eventSample = new EventSample { Name = "a" };
+            eventBus.Publish( eventSample );
+            _handler.Received( 1 ).Handle( eventSample );
+            _handler2.Received( 1 ).Handle( eventSample );
         }
     }
 }

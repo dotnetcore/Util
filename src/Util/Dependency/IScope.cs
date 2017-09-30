@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Util.DependencyInjection {
+namespace Util.Dependency {
     /// <summary>
     /// 作用域
     /// </summary>

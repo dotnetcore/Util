@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
 
-namespace Util.DependencyInjection {
+namespace Util.Dependency {
     /// <summary>
     /// 作用域
     /// </summary>

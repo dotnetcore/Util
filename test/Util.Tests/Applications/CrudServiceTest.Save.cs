@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Autofac;
 using NSubstitute;
 using Util.Datas.UnitOfWorks;
-using Util.DependencyInjection;
+using Util.Dependency;
 using Util.Exceptions;
 using Util.Helpers;
 using Util.Tests.Samples;

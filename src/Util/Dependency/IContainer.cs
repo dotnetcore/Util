@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Util.DependencyInjection {
+namespace Util.Dependency {
     /// <summary>
     /// 容器
     /// </summary>

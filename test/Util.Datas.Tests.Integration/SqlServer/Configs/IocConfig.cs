@@ -4,7 +4,7 @@ using Util.Datas.Tests.Samples.Datas.SqlServer.Stores;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.Datas.UnitOfWorks;
-using Util.DependencyInjection;
+using Util.Dependency;
 using Util.Domains.Sessions;
 
 namespace Util.Datas.Tests.SqlServer.Configs {
@@ -27,7 +27,7 @@ namespace Util.Datas.Tests.SqlServer.Configs {
             builder.AddScoped<IUnitOfWorkManager, UnitOfWorkManager>();
             builder.AddScoped<ISqlServerUnitOfWork, SqlServerUnitOfWork>().PropertiesAutowired();
             builder.AddScoped<IProductPoStore, ProductPoStore>();
-            builder.AddSingleton<ISession, Session>( new Session( AppConfig.UserId ) );
+            builder.AddSingleton<ISession>( new Session( AppConfig.UserId ) );
         }
 
         /// <summary>

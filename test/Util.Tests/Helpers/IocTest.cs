@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Util.DependencyInjection;
+using Util.Dependency;
 using Util.Helpers;
 using Util.Tests.Samples;
 using Xunit;

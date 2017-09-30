@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using Util.DependencyInjection;
-using Container = Util.DependencyInjection.Container;
+using Util.Dependency;
 
 namespace Util.Helpers {
     /// <summary>
@@ -11,7 +10,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 默认容器
         /// </summary>
-        private static readonly Container DefaultContainer = new Container();
+        internal static readonly Container DefaultContainer = new Container();
 
         /// <summary>
         /// 创建容器

@@ -28,7 +28,7 @@ namespace Util.Logs.Core {
         protected LogBase( ILogProvider provider, ILogContext context, ISession session ) {
             Provider = provider;
             Context = context;
-            Session = session;
+            Session = session ?? Util.Domains.Sessions.Session.Null;
         }
 
         /// <summary>
