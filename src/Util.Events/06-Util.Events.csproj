@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Util.Events</AssemblyName>
+    <RootNamespace>Util.Events</RootNamespace>
+    <Version>0.0.1-preview</Version>
+    <Authors>何镇汐</Authors>
+    <Company>何镇汐</Company>
+    <Description>Util.Events是Util应用框架的事件总线操作类库。
+Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。</Description>
+    <Copyright>何镇汐</Copyright>
+    <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dotnetcore/Util</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
+    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\output\release</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Events.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\output\release</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Events.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.1.0-preview-23554418" />
+    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="2.1.0-preview-23554418" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util\01-Util.csproj" />
+  </ItemGroup>
+
+</Project>
