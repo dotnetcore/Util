@@ -15,20 +15,20 @@ namespace Util.Samples.Webs.Controllers {
         }
 
         public IActionResult Index() {
-            _eventBus.Publish( new TestEvent2{Name = "World"} );
+            _eventBus.Publish( Event.Create( new TestEventData { Name = "World" } ) );
             return View();
         }
     }
 
-    public class TestEvent : IEvent {
+    public class TestEventData {
         public string Name { get; set; }
     }
 
-    public class TestEvent2 : IEvent {
+    public class TestEventData2 {
         public string Name { get; set; }
     }
 
-    public class TestHandler : IEventHandler<TestEvent> {
+    public class TestHandler : IEventHandler<TestEventData> {
 
         private ILog _log;
 
@@ -36,12 +36,12 @@ namespace Util.Samples.Webs.Controllers {
             _log = log;
         }
 
-        public void Handle( TestEvent @event ) {
-            _log.Caption( $"Hello,{@event.Name}" ).Info();
+        public void Handle( Event<TestEventData> @event ) {
+            _log.Caption( $"Hello,{@event.Data.Name}" ).Fatal();
         }
     }
 
-    public class TestHandler2 : IEventHandler<TestEvent2> {
+    public class TestHandler2 : IEventHandler<TestEventData2> {
 
         private ILog _log;
 
@@ -49,8 +49,8 @@ namespace Util.Samples.Webs.Controllers {
             _log = log;
         }
 
-        public void Handle( TestEvent2 @event ) {
-            _log.Caption( $"Hello,{@event.Name}-2" ).Info();
+        public void Handle( Event<TestEventData2> @event ) {
+            _log.Caption( $"Hello,{@event.Data.Name}-2" ).Info();
         }
     }
 }

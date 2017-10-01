@@ -1,15 +1,16 @@
 ﻿using Util.Events.Handlers;
+using Util.Logs.Aspects;
 
-namespace Util.Events {
+namespace Util.Events.Memory {
     /// <summary>
     /// 事件总线
     /// </summary>
-    public class DefaultEventBus : IEventBus {
+    public class EventBus : IEventBus {
         /// <summary>
         /// 初始化事件总线
         /// </summary>
         /// <param name="manager">事件处理器服务</param>
-        public DefaultEventBus( IEventHandlerManager manager ) {
+        public EventBus( IEventHandlerManager manager ) {
             Manager = manager;
         }
 
@@ -21,13 +22,14 @@ namespace Util.Events {
         /// <summary>
         /// 发布事件
         /// </summary>
-        /// <typeparam name="TEvent">事件类型</typeparam>
+        /// <typeparam name="TData">事件数据类型</typeparam>
         /// <param name="event">事件</param>
-        public void Publish<TEvent>( TEvent @event ) where TEvent : IEvent {
-            var handlers = Manager.GetHandlers<TEvent>();
-            if ( handlers == null )
+        [TraceLog]
+        public void Publish<TData>( Event<TData> @event ) {
+            var handlers = Manager.GetHandlers<TData>();
+            if( handlers == null )
                 return;
-            foreach ( var handler in handlers )
+            foreach( var handler in handlers )
                 handler.Handle( @event );
         }
     }

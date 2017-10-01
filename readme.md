@@ -182,6 +182,10 @@ Util暂时未发布到Nuget，待成熟后发布。
 18. 代码生成器
   - CodeSmith 6.5
 
+19. 参考应用框架
+  - [ABP](https://github.com/aspnetboilerplate/aspnetboilerplate)
+  - [Nop](https://www.nopcommerce.com) ,Nop是一个开源商城，封装了大量实用的基础代码。
+
 ## 框架开发流程
 
   > *搜集* - *整理* - *集成* - *封装*

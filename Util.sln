@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-misc", "01-misc", "{67BD
 		Util.vssettings = Util.vssettings
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Datas", "src\Util.Datas\04-Util.Datas.csproj", "{CD83426E-2BA1-4DB0-94D9-1185C076276F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Datas", "src\Util.Datas\05-Util.Datas.csproj", "{CD83426E-2BA1-4DB0-94D9-1185C076276F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Datas.Tests.Integration", "test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj", "{411B666F-EDA0-47E0-BB34-3EAF047549A0}"
 EndProject
@@ -66,9 +66,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Biz", "src\Util.Biz\Ut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Security", "src\Util.Security\02-Util.Security.csproj", "{83E78951-5FBE-43D5-A6BE-7735721E4C1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Applications", "src\Util.Applications\05-Util.Applications.csproj", "{7A5E9C1B-CE91-463D-B0D1-8117C9E29D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06-Util.Applications", "src\Util.Applications\06-Util.Applications.csproj", "{7A5E9C1B-CE91-463D-B0D1-8117C9E29D30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06-Util.Events", "src\Util.Events\06-Util.Events.csproj", "{A93DFEEC-0DC7-4628-96F7-914A8053732B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Events", "src\Util.Events\04-Util.Events.csproj", "{A93DFEEC-0DC7-4628-96F7-914A8053732B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

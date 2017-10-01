@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Util.Events.Extensions;
+using Util.Events.Memory;
 using Util.Logs.Extensions;
 
 namespace Util.Samples.Webs {

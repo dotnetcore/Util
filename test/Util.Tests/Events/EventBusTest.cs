@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using Util.Events;
 using Util.Events.Handlers;
+using Util.Events.Memory;
 using Util.Tests.Samples;
 using Xunit;
 
@@ -12,18 +13,18 @@ namespace Util.Tests.Events {
         /// <summary>
         /// 事件处理器
         /// </summary>
-        private readonly IEventHandler<EventSample> _handler;
+        private readonly IEventHandler<EventDataSample> _handler;
         /// <summary>
         /// 事件处理器2
         /// </summary>
-        private readonly IEventHandler<EventSample> _handler2;
+        private readonly IEventHandler<EventDataSample> _handler2;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public EventBusTest() {
-            _handler = Substitute.For<IEventHandler<EventSample>>();
-            _handler2 = Substitute.For<IEventHandler<EventSample>>();
+            _handler = Substitute.For<IEventHandler<EventDataSample>>();
+            _handler2 = Substitute.For<IEventHandler<EventDataSample>>();
         }
 
         /// <summary>
@@ -32,10 +33,10 @@ namespace Util.Tests.Events {
         [Fact]
         public void TestPublish() {
             var manager = new EventHandlerManagerSample( _handler );
-            var eventBus = new DefaultEventBus( manager );
-            var eventSample = new EventSample { Name = "a" };
-            eventBus.Publish( eventSample );
-            _handler.Received( 1 ).Handle( eventSample );
+            var eventBus = new EventBus( manager );
+            var @event = Event.Create( new EventDataSample {Name = "a"} );
+            eventBus.Publish( @event );
+            _handler.Received( 1 ).Handle( @event );
         }
 
         /// <summary>
@@ -44,11 +45,11 @@ namespace Util.Tests.Events {
         [Fact]
         public void TestPublish_2() {
             var manager = new EventHandlerManagerSample( _handler , _handler2 );
-            var eventBus = new DefaultEventBus( manager );
-            var eventSample = new EventSample { Name = "a" };
-            eventBus.Publish( eventSample );
-            _handler.Received( 1 ).Handle( eventSample );
-            _handler2.Received( 1 ).Handle( eventSample );
+            var eventBus = new EventBus( manager );
+            var @event = Event.Create( new EventDataSample { Name = "a" } );
+            eventBus.Publish( @event );
+            _handler.Received( 1 ).Handle( @event );
+            _handler2.Received( 1 ).Handle( @event );
         }
     }
 }

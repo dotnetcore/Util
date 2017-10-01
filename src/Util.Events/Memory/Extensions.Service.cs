@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Util.Events.Handlers;
 
-namespace Util.Events.Extensions {
+namespace Util.Events.Memory {
     /// <summary>
     /// 事件总线扩展
     /// </summary>
@@ -11,8 +11,8 @@ namespace Util.Events.Extensions {
         /// </summary>
         /// <param name="services">服务集合</param>
         public static void AddEventBus( this IServiceCollection services ) {
-            services.AddSingleton<IEventHandlerManager, DefaultEventHandlerManager>();
-            services.AddSingleton<IEventBus, DefaultEventBus>();
+            services.AddSingleton<IEventHandlerManager, EventHandlerManager>();
+            services.AddSingleton<IEventBus, EventBus>();
         }
     }
 }
