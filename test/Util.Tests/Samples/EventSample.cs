@@ -5,9 +5,9 @@ using Util.Events.Handlers;
 
 namespace Util.Tests.Samples {
     /// <summary>
-    /// 事件数据样例
+    /// 事件样例
     /// </summary>
-    public class EventDataSample {
+    public class EventSample : Event{
         /// <summary>
         /// 名称
         /// </summary>
@@ -34,9 +34,9 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 获取事件处理器列表
         /// </summary>
-        /// <typeparam name="TData">事件数据类型</typeparam>
-        public List<IEventHandler<TData>> GetHandlers<TData>() {
-            return _handlers.Select( t => t as IEventHandler<TData> ).ToList();
+        /// <typeparam name="TEvent">事件类型</typeparam>
+        public List<IEventHandler<TEvent>> GetHandlers<TEvent>() where TEvent : IEvent {
+            return _handlers.Select( t => t as IEventHandler<TEvent> ).ToList();
         }
     }
 }

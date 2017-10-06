@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-Util.Samples.Webs-D0551EBC-0589-40AD-ADC2-A88CA4609632</UserSecretsId>
-    <Authors>何镇汐;dotnetcore</Authors>
-    <Company>何镇汐;dotnetcore</Company>
-    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
+    <Authors>何镇汐</Authors>
+    <Company>何镇汐</Company>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageProjectUrl></PackageProjectUrl>
     <Description>Util应用框架Web示例项目</Description>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
@@ -72,8 +72,7 @@
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="必须安装Node.js" />
     <Message Importance="high" Text="Webpack开始打包" />
-    <Exec Command="npm install" />
-    <Exec Command="npm start" />
+    <!--<Exec Command="npm start" />-->
     <!--<Exec Command="node node_modules/webpack/bin/webpack.js" />-->
   </Target>
 
