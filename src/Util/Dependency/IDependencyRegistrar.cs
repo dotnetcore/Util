@@ -4,7 +4,7 @@ namespace Util.Dependency {
     /// <summary>
     /// 依赖注册器
     /// </summary>
-    public interface IRegist {
+    public interface IDependencyRegistrar {
         /// <summary>
         /// 注册依赖
         /// </summary>

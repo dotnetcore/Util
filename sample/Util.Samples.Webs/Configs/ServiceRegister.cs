@@ -6,7 +6,7 @@ namespace Util.Samples.Webs.Configs {
     /// <summary>
     /// 服务注册
     /// </summary>
-    public class ServiceRegister : IRegist {
+    public class ServiceRegister : IDependencyRegistrar {
         /// <summary>
         /// 注册依赖
         /// </summary>

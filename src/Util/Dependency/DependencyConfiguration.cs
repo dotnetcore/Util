@@ -144,8 +144,8 @@ namespace Util.Dependency {
         /// 注册实现了IRegist的依赖注册器
         /// </summary>
         private void Regist() {
-            var types = GetTypes<IRegist>();
-            types.Select( type => Reflection.CreateInstance<IRegist>( type ) ).ToList().ForEach( t => t.Regist( _services ) );
+            var types = GetTypes<IDependencyRegistrar>();
+            types.Select( type => Reflection.CreateInstance<IDependencyRegistrar>( type ) ).ToList().ForEach( t => t.Regist( _services ) );
         }
 
         /// <summary>
