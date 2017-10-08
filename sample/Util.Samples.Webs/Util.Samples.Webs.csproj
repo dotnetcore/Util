@@ -24,6 +24,7 @@
     <None Remove="Typings\app.module.ts" />
     <None Remove="Typings\boot.browser.ts" />
     <None Remove="Typings\main.ts" />
+    <None Remove="Typings\polyfills.ts" />
   </ItemGroup>
 
 
@@ -50,14 +51,18 @@
 
   <ItemGroup>
     <Folder Include="Areas\Logs\Models\" />
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\app.component.html" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="Typings\app.component.ts" />
     <TypeScriptCompile Include="Typings\app.module.ts" />
     <TypeScriptCompile Include="Typings\main.ts" />
+    <TypeScriptCompile Include="Typings\polyfills.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,8 +77,8 @@
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="必须安装Node.js" />
     <Message Importance="high" Text="Webpack开始打包" />
-    <!--<Exec Command="npm start" />-->
-    <!--<Exec Command="node node_modules/webpack/bin/webpack.js" />-->
+    <Exec Command="npm run dev" />
+    <!--<Exec Command="npm run dev" />-->
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

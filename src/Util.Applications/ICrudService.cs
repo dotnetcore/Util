@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AspectCore.Extensions.AspectScope;
 using Util.Applications.Aspects;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;

@@ -2,9 +2,7 @@
 
 @Component({
     selector: 'hello-world',
-    template:`<h2>
-                Hello
-            </h2>`
+    templateUrl:"/Home/A"
 })
 export class AppComponent {
 }

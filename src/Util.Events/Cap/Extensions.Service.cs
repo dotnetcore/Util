@@ -19,7 +19,7 @@ namespace Util.Events.Cap {
             services.AddCap( action );
             services.AddSingleton<IMessageEventBus, MessageEventBus>();
             services.AddSingleton<IEventHandlerManager, EventHandlerManager>();
-            services.AddSingleton<IEventBus, Util.Events.Default.EventBus>();
+            services.AddSingleton<IEventBus, EventBus>();
         }
     }
 }

@@ -6,7 +6,7 @@
     <title></title>
 
     <environment include="Development">
-
+        
     </environment>
     <environment exclude="Development">
        
@@ -16,8 +16,9 @@
     
     @RenderBody()
 
-    <environment include="Development">
-    </environment>
+<environment include="Development">
+    <script src="dist/main.js" asp-append-version="true"></script>
+</environment>
     <environment exclude="Development">
     </environment>
 

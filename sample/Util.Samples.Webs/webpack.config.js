@@ -1,12 +1,13 @@
 ﻿//根目录,__dirname表示webpack.config.js所在目录
 const rootPath = __dirname;
 const webpack = require('webpack');
-const AotPlugin = require('@ngtools/webpack').AotPlugin;
 
-module.exports = (env) => {
+module.exports = () => {
     return {
         //入口文件
-        entry: rootPath + "/Typings/main.ts",
+        entry: {
+            "main": rootPath + "/Typings/main.ts"
+        },
         output: {
             //输出路径
             path: rootPath + "/wwwroot/dist",
@@ -14,18 +15,24 @@ module.exports = (env) => {
             filename: "main.js"
         },
         //待处理文件扩展名
-        resolve: { extensions: ['.ts', '.js'] },
+        resolve: {
+            extensions: ['.ts', '.js', '.css'],
+            modules: [
+                rootPath + '/Typings/',
+                'node_modules'
+            ]
+        },
         //生成source map文件
         devtool: "source-map",
         module: {
             //将ts编译为js
-            loaders: [{ test: /\.ts$/, loader: "ts-loader" }]
+            rules: [{ test: /\.ts$/, loader: "ts-loader" },{ test: /\.css$/, use: ['style-loader', 'css-loader'] }]
         },
         plugins: [
             //优化生成结构
-            new webpack.optimize.ModuleConcatenationPlugin(),
+            //new webpack.optimize.ModuleConcatenationPlugin(),
             //压缩js
-            new webpack.optimize.UglifyJsPlugin()
+            //new webpack.optimize.UglifyJsPlugin()
         ]
     }
 }
