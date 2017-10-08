@@ -116,7 +116,7 @@ namespace Util.Dependency {
             RegistSingletonDependency();
             RegistScopeDependency();
             RegistTransientDependency();
-            Regist();
+            ResolveDependencyRegistrar();
         }
 
         /// <summary>
@@ -141,9 +141,9 @@ namespace Util.Dependency {
         }
 
         /// <summary>
-        /// 注册实现了IRegist的依赖注册器
+        /// 解析依赖注册器
         /// </summary>
-        private void Regist() {
+        private void ResolveDependencyRegistrar() {
             var types = GetTypes<IDependencyRegistrar>();
             types.Select( type => Reflection.CreateInstance<IDependencyRegistrar>( type ) ).ToList().ForEach( t => t.Regist( _services ) );
         }
