@@ -1,4 +1,6 @@
 ﻿using System;
+using Util.Events;
+using Util.Helpers;
 
 namespace Util.Domains {
     /// <summary>
@@ -13,7 +15,13 @@ namespace Util.Domains {
         /// <param name="id">标识</param>
         protected AggregateRoot( TKey id )
             : base( id ) {
+            EventBus = Ioc.Create<IEventBus>();
         }
+
+        /// <summary>
+        /// 事件总线
+        /// </summary>
+        protected IEventBus EventBus { get; }
 
         /// <summary>
         /// 版本号(乐观锁)
