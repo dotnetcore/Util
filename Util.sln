@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-src", "05-src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
 EndProject
@@ -70,15 +70,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06-Util.Applications", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Events", "src\Util.Events\04-Util.Events.csproj", "{A93DFEEC-0DC7-4628-96F7-914A8053732B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Util.Ui.Abstractions", "src\Util.Ui.Abstractions\01-Util.Ui.Abstractions.csproj", "{F93F72BE-F3F4-4CB6-A3A2-54CDBF3F9B18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Ui.Abstractions", "src\Util.Ui.Abstractions\01-Util.Ui.Abstractions.csproj", "{F93F72BE-F3F4-4CB6-A3A2-54CDBF3F9B18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Util.Ui.Core", "src\Util.Ui.Core\02-Util.Ui.Core.csproj", "{EB80F45C-FCC8-436C-900A-754A5E91A8E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Ui.Core", "src\Util.Ui.Core\02-Util.Ui.Core.csproj", "{EB80F45C-FCC8-436C-900A-754A5E91A8E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Ui", "02-Ui", "{0629A068-957D-4920-9290-0B9288341E0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Ui.Tests", "test\Util.Ui.Tests\Util.Ui.Tests.csproj", "{91F99541-D37F-46D5-8026-AD57C3F75B52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Ui.Tests", "test\Util.Ui.Tests\Util.Ui.Tests.csproj", "{91F99541-D37F-46D5-8026-AD57C3F75B52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Tools", "04-Tools", "{1907A873-8368-4CFF-B5B3-98F04CD2E3A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-Util.Ui.Angular", "src\Util.Ui.Angular\03-Util.Ui.Angular.csproj", "{AD7CD285-D899-443D-A02C-D62C7C0A351F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -142,6 +144,10 @@ Global
 		{91F99541-D37F-46D5-8026-AD57C3F75B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91F99541-D37F-46D5-8026-AD57C3F75B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91F99541-D37F-46D5-8026-AD57C3F75B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7CD285-D899-443D-A02C-D62C7C0A351F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD7CD285-D899-443D-A02C-D62C7C0A351F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7CD285-D899-443D-A02C-D62C7C0A351F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD7CD285-D899-443D-A02C-D62C7C0A351F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +174,7 @@ Global
 		{0629A068-957D-4920-9290-0B9288341E0D} = {DE1DF0B9-0403-4888-8B24-8208348E9AFA}
 		{91F99541-D37F-46D5-8026-AD57C3F75B52} = {0629A068-957D-4920-9290-0B9288341E0D}
 		{1907A873-8368-4CFF-B5B3-98F04CD2E3A7} = {ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}
+		{AD7CD285-D899-443D-A02C-D62C7C0A351F} = {78CC88DA-0B25-45BC-86A8-FFE9628B34A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA6E8E23-8AB6-4AB6-9B31-494CB7CE5E63}

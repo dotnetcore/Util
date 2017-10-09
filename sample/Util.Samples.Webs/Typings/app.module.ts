@@ -11,7 +11,6 @@ import { MatButtonModule, MatCheckboxModule, MatProgressBarModule } from '@angul
     imports: [
         BrowserModule,  MatButtonModule, MatProgressBarModule
     ],
-    exports: [BrowserModule,  MatButtonModule, MatProgressBarModule],
     providers: [],
     bootstrap: [AppComponent]
 })
