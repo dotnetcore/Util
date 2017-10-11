@@ -15,8 +15,7 @@
     "strict": true,
     "lib": [ "es2017", "dom" ],
     "outDir": "wwwroot/dist/",
-    "declaration": false,
-    "typeRoots": [ "node_modules/@types" ]
+    "declaration": false
   },
-  "exclude": [ "node_modules" ]
+  "exclude": [ "bin", "node_modules" ]
 }

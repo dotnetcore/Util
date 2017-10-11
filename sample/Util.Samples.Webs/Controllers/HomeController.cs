@@ -5,5 +5,9 @@ namespace Util.Samples.Webs.Controllers {
         public IActionResult Index() {
             return View();
         }
+
+        public IActionResult A() {
+            return View();
+        }
     }
 }

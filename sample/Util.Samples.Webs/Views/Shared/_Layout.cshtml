@@ -3,25 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-
-    <environment include="Development">
-        
-    </environment>
-    <environment exclude="Development">
-       
-    </environment>
+    <link rel="stylesheet" type="text/css" href="/dist/vendor.css" asp-append-version="true">
 </head>
 <body>
-    
     @RenderBody()
-
-<environment include="Development">
-    <script src="dist/main.js" asp-append-version="true"></script>
-</environment>
-    <environment exclude="Development">
-    </environment>
-
+    <script src="/dist/vendor.js" asp-append-version="true"></script>
+    <script src="/dist/app.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

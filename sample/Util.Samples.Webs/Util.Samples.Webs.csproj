@@ -13,18 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Typings\app\**" />
-    <Content Remove="Typings\app\**" />
-    <EmbeddedResource Remove="Typings\app\**" />
-    <None Remove="Typings\app\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Typings\app.component.ts" />
-    <None Remove="Typings\app.module.ts" />
     <None Remove="Typings\boot.browser.ts" />
-    <None Remove="Typings\main.ts" />
-    <None Remove="Typings\polyfills.ts" />
   </ItemGroup>
 
 
@@ -51,18 +40,13 @@
 
   <ItemGroup>
     <Folder Include="Areas\Logs\Models\" />
-    <Folder Include="wwwroot\dist\" />
+    <Folder Include="Typings\util\" />
+    <Folder Include="Typings\test\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\app.component.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="Typings\app.component.ts" />
-    <TypeScriptCompile Include="Typings\app.module.ts" />
-    <TypeScriptCompile Include="Typings\main.ts" />
-    <TypeScriptCompile Include="Typings\polyfills.ts" />
+    <TypeScriptCompile Include="Typings\app\app.component.ts" />
+    <TypeScriptCompile Include="Typings\app\app.module.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,20 +55,38 @@
     </Content>
   </ItemGroup>
 
-  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug'">
-    <Exec Command="node --version" ContinueOnError="true">
+  <!-- Debug调试模式打包第三方框架 -->
+  <Target Name="Debug_RunWebpack_Vendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- 检测node js是否安装 -->
+    <Exec Command="node -v" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="必须安装Node.js" />
-    <Message Importance="high" Text="Webpack开始打包" />
-    <Exec Command="npm run dev" />
-    <!--<Exec Command="npm run dev" />-->
+    <!-- 打包 -->
+    <Message Importance="high" Text="Webpack开始执行webpack.config.vendor.js,打包第三方前端框架..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
+  </Target>
+  
+  <!-- Debug调试模式打包项目 -->
+  <Target Name="Debug_RunWebpack_App" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug'">
+    <Message Importance="high" Text="Webpack开始执行webpack.config.js,打包项目..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js" />
   </Target>
 
-  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <Exec Command="npm install" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js" />
+  <!-- Release模式打包 -->
+  <Target Name="Release_RunWebpack_Vendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release'">
+    <Message Importance="high" Text="Webpack开始打包..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.production" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.production" />
+  </Target>
 
+  <!-- 发布阶段打包 -->
+  <Target Name="Publish_RunWebpack" AfterTargets="ComputeFilesToPublish">
+    <Message Importance="high" Text="开始安装npm包..." />
+    <Exec Command="npm install" />
+    <Message Importance="high" Text="Webpack开始打包..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.production" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.production" />
     <ItemGroup>
       <DistFiles Include="wwwroot\dist\**;" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
@@ -93,7 +95,5 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
-
+  
 </Project>

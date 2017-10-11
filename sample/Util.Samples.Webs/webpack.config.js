@@ -1,38 +1,35 @@
-﻿//根目录,__dirname表示webpack.config.js所在目录
-const rootPath = __dirname;
+﻿const pathPlugin = require('path');
 const webpack = require('webpack');
+var Extract = require("extract-text-webpack-plugin");
 
-module.exports = () => {
+module.exports = (env) => {
+    //是否开发环境
+    const isDev = !(env && env.production);
+
+    //获取路径
+    function getPath(path) {
+        return pathPlugin.join(__dirname, path);
+    }
     return {
-        //入口文件
-        entry: {
-            "main": rootPath + "/Typings/main.ts"
-        },
+        //输入
+        entry: getPath("Typings/main.ts"),
+        //输出
         output: {
-            //输出路径
-            path: rootPath + "/wwwroot/dist",
-            //输出文件名
-            filename: "main.js"
+            path: getPath("wwwroot/dist"),
+            filename: "app.js"
         },
-        //待处理文件扩展名
         resolve: {
-            extensions: ['.ts', '.js', '.css'],
-            modules: [
-                rootPath + '/Typings/',
-                'node_modules'
-            ]
+            extensions: ['.js', '.ts']
         },
-        //生成source map文件
         devtool: "source-map",
         module: {
-            //将ts编译为js
-            rules: [{ test: /\.ts$/, loader: "ts-loader" },{ test: /\.css$/, use: ['style-loader', 'css-loader'] }]
+            rules: [{ test: /\.ts$/, use: "ts-loader" },{ test: /\.css$/, use: ['style-loader', 'css-loader'] }]
         },
         plugins: [
-            //优化生成结构
-            //new webpack.optimize.ModuleConcatenationPlugin(),
-            //压缩js
-            //new webpack.optimize.UglifyJsPlugin()
+            new webpack.DllReferencePlugin({
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            }),
+            new webpack.optimize.ModuleConcatenationPlugin()
         ]
     }
 }
