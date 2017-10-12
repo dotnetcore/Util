@@ -11,9 +11,21 @@ namespace Util.Ui.Extensions {
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
-        public static TComponent Password<TComponent>( this TComponent component ) where TComponent : IOption {
+        public static TComponent Password<TComponent>( this TComponent component ) where TComponent : ITextBox {
             component.Config<Config>( config => {
                 config.Type = "password";
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 只能输入数字
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        public static TComponent Number<TComponent>( this TComponent component ) where TComponent : ITextBox {
+            component.Config<Config>( config => {
+                config.Type = "number";
             } );
             return component;
         }

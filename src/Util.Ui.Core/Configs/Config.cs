@@ -48,6 +48,16 @@ namespace Util.Ui.Configs {
         public string Placeholder { get; set; }
 
         /// <summary>
+        /// 必填项
+        /// </summary>
+        public bool Required { get; set; }
+
+        /// <summary>
+        /// 错误消息
+        /// </summary>
+        public string ErrorMessage { get; set; }
+
+        /// <summary>
         /// 添加类
         /// </summary>
         public void AddClass( string @class ) {

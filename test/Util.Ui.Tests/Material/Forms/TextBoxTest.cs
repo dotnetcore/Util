@@ -77,5 +77,29 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "</mat-form-field>" );
             Assert.Equal( result.ToString(), GetResult( _textBox.Password() ) );
         }
+
+        /// <summary>
+        /// 测试只能输入数字
+        /// </summary>
+        [Fact]
+        public void TestNumber() {
+            var result = new String();
+            result.Append( "<mat-form-field>" );
+            result.Append( "<input matInput=\"matInput\" type=\"number\" />" );
+            result.Append( "</mat-form-field>" );
+            Assert.Equal( result.ToString(), GetResult( _textBox.Number() ) );
+        }
+
+        /// <summary>
+        /// 测试必填项
+        /// </summary>
+        [Fact]
+        public void TestRequired() {
+            var result = new String();
+            result.Append( "<mat-form-field>" );
+            result.Append( "<input matInput=\"matInput\" required=\"true\" />" );
+            result.Append( "</mat-form-field>" );
+            Assert.Equal( result.ToString(), GetResult( _textBox.Required() ) );
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Util.Ui.Components;
 using Util.Ui.Configs;
 using Util.Ui.Operations;
+using Util.Ui.Operations.Forms;
+using Util.Ui.Operations.Forms.Validations;
 
 namespace Util.Ui.Extensions {
     /// <summary>
@@ -55,6 +57,20 @@ namespace Util.Ui.Extensions {
         public static TComponent Value<TComponent>( this TComponent component, string value ) where TComponent : IComponent, IValue {
             component.Config<Config>( config => {
                 config.Value = value;
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 必填项
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="message">错误消息</param>
+        public static TComponent Required<TComponent>( this TComponent component, string message = "" ) where TComponent : IComponent, IRequired {
+            component.Config<Config>( config => {
+                config.Required = true;
+                config.ErrorMessage = message;
             } );
             return component;
         }

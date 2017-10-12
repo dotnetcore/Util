@@ -40,6 +40,8 @@ namespace Util.Ui.Material.Forms.Renders {
             builder.Attribute( "placeholder", config.Placeholder );
             builder.Attribute( "value", config.Value );
             builder.Attribute( "type", config.Type );
+            if( config.Required )
+                builder.Attribute( "required", "true" );
             return builder;
         }
     }
