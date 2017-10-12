@@ -7,7 +7,7 @@ namespace Util.Ui.Builders {
     /// <summary>
     /// 标签生成器
     /// </summary>
-    public class TagBuilder : ITagBuilder {
+    public class TagBuilder {
         /// <summary>
         /// 标签生成器
         /// </summary>
@@ -28,10 +28,17 @@ namespace Util.Ui.Builders {
         public IHtmlContentBuilder InnerHtml => _tagBuilder.InnerHtml;
 
         /// <summary>
+        /// 获取标签生成器
+        /// </summary>
+        public Microsoft.AspNetCore.Mvc.Rendering.TagBuilder GetTagBuilder() {
+            return _tagBuilder;
+        }
+
+        /// <summary>
         /// 添加标识
         /// </summary>
         /// <param name="id">标识</param>
-        public ITagBuilder Id( string id ) {
+        public TagBuilder Id( string id ) {
             _tagBuilder.GenerateId( id, string.Empty );
             return this;
         }
@@ -40,7 +47,7 @@ namespace Util.Ui.Builders {
         /// 添加class属性
         /// </summary>
         /// <param name="class">class属性值</param>
-        public ITagBuilder Class( string @class ) {
+        public TagBuilder Class( string @class ) {
             _tagBuilder.AddCssClass( @class );
             return this;
         }
@@ -51,8 +58,19 @@ namespace Util.Ui.Builders {
         /// <param name="name">属性名</param>
         /// <param name="value">属性值</param>
         /// <param name="replaceExisting">是否替换已存在的属性</param>
-        public ITagBuilder Attribute( string name, string value, bool replaceExisting = false ) {
+        public TagBuilder Attribute( string name, string value, bool replaceExisting = false ) {
+            if ( string.IsNullOrWhiteSpace( value ) )
+                return this;
             _tagBuilder.MergeAttribute( name, value, replaceExisting );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置子组件
+        /// </summary>
+        /// <param name="tagBuilder">标签生成器</param>
+        public TagBuilder SetChild( TagBuilder tagBuilder ) {
+            _tagBuilder.InnerHtml.SetHtmlContent( tagBuilder.GetTagBuilder() );
             return this;
         }
 

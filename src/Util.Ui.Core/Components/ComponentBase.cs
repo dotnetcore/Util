@@ -1,12 +1,27 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
+using Util.Ui.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Components {
     /// <summary>
     /// 组件
     /// </summary>
-    public abstract class ComponentBase : OptionBase, IComponent {
+    public abstract class ComponentBase<TConfig> : OptionBase<TConfig>, IComponent where TConfig : class, IConfig {
+        /// <summary>
+        /// 渲染器
+        /// </summary>
+        private IRender _render;
+        /// <summary>
+        /// 渲染器
+        /// </summary>
+        private IRender ComponentRender => _render ?? (_render = GetRender() );
+
+        /// <summary>
+        /// 获取渲染器
+        /// </summary>
+        protected abstract IRender GetRender();
+
         /// <summary>
         /// 写入文本流
         /// </summary>
@@ -32,13 +47,8 @@ namespace Util.Ui.Components {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         private void Render( TextWriter writer, HtmlEncoder encoder ) {
-            GetRender().Render( writer, encoder );
+            ComponentRender.Render( writer, encoder );
         }
-
-        /// <summary>
-        /// 获取渲染器
-        /// </summary>
-        protected abstract IRender GetRender();
 
         /// <summary>
         /// 渲染后操作
@@ -46,6 +56,13 @@ namespace Util.Ui.Components {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         protected virtual void RenderAfter( TextWriter writer, HtmlEncoder encoder ) {
+        }
+
+        /// <summary>
+        /// 输出组件Html
+        /// </summary>
+        public override string ToString() {
+            return ComponentRender.ToString();
         }
     }
 }

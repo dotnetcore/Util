@@ -2,8 +2,8 @@
 
 namespace Util.Ui.Components {
     /// <summary>
-    /// 标题
+    /// 文本框
     /// </summary>
-    public interface IHeading : IComponent, IText {
+    public interface ITextBox : IComponent,IPlaceholder,IValue {
     }
 }

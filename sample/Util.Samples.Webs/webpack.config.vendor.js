@@ -14,10 +14,12 @@ const vendorModules = [
     '@angular/forms',
     '@angular/http',
     '@angular/platform-browser',
+    '@angular/platform-browser/animations',
     '@angular/platform-browser-dynamic',
     '@angular/router',
     '@angular/material',
-    '@angular/material/prebuilt-themes/indigo-pink.css'
+    '@angular/material/prebuilt-themes/indigo-pink.css',
+    'material-design-icons/iconfont/material-icons.css'
 ];
 
 //env代表环境变量，如果传入env.production表示正式生产环境

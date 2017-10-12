@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Events.Default;
 using Util.Logs.Extensions;
+using Util.Ui.Extensions;
 
 namespace Util.Samples.Webs {
     /// <summary>
@@ -42,6 +43,9 @@ namespace Util.Samples.Webs {
 
             //添加事件总线服务
             services.AddEventBus();
+
+            //添加Ui组件服务
+            services.AddUi();
 
             //添加Util基础设施服务
             return services.AddUtil();

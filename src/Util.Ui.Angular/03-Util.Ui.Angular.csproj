@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util.Ui.Angular</AssemblyName>
-    <RootNamespace>Util.Ui.Angular</RootNamespace>
+    <RootNamespace>Util.Ui</RootNamespace>
     <Version>0.0.1-preview</Version>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
@@ -31,5 +31,13 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <OutputPath>..\..\output\release</OutputPath>
     <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Angular.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Ui.Core\02-Util.Ui.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Extensions\Extensions.UiService.cs" />
+  </ItemGroup>
 
 </Project>

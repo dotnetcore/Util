@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Ui.Core\02-Util.Ui.Core.csproj" />
+    <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
   </ItemGroup>
 
 </Project>

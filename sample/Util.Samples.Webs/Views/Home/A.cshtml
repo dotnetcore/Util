@@ -1,6 +1,14 @@
-﻿
+﻿@inject IUiService X
 @{
     Layout = null;
 }
-
-<mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+<style>
+    .example-form {
+        min-width: 150px;
+        max-width: 500px;
+        width: 100%;
+    }
+</style>
+<form class="example-form">
+    @X.TextBox().Placeholder( "姓名" ).Password()
+</form>

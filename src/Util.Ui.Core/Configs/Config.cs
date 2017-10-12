@@ -33,6 +33,21 @@ namespace Util.Ui.Configs {
         public string Text { get; set; }
 
         /// <summary>
+        /// 值
+        /// </summary>
+        public string Value { get; set; }
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public string Type { get; set; }
+
+        /// <summary>
+        /// 占位符
+        /// </summary>
+        public string Placeholder { get; set; }
+
+        /// <summary>
         /// 添加类
         /// </summary>
         public void AddClass( string @class ) {

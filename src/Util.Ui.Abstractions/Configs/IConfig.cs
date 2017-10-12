@@ -10,10 +10,6 @@ namespace Util.Ui.Configs {
         /// </summary>
         string Id { get; set; }
         /// <summary>
-        /// 文本
-        /// </summary>
-        string Text { get; set; }
-        /// <summary>
         /// 添加类
         /// </summary>
         void AddClass( string @class );
