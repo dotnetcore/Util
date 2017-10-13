@@ -29,7 +29,6 @@
     "@types/webpack-env": "1.13.1",
     "webpack": "3.7.1",
     "webpack-hot-middleware": "2.19.1",
-    "aspnet-prerendering": "^3.0.1",
     "aspnet-webpack": "2.0.1",
     "css-loader": "0.28.7",
     "url-loader": "0.6.2",

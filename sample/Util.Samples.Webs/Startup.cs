@@ -68,8 +68,8 @@ namespace Util.Samples.Webs {
         /// </summary>
         private void ConfigExceptionHandler( IApplicationBuilder app, IHostingEnvironment env ) {
             if( env.IsDevelopment() ) {
-                app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseStatusCodePages();
                 return;

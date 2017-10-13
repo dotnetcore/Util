@@ -7,6 +7,7 @@ const vendorModules = [
     'es6-shim',
     'reflect-metadata',
     'zone.js',
+    'hammerjs',
     '@angular/animations',
     '@angular/common',
     '@angular/compiler',
