@@ -58,6 +58,16 @@ namespace Util.Ui.Configs {
         public string ErrorMessage { get; set; }
 
         /// <summary>
+        /// 扁平风格
+        /// </summary>
+        public bool Plain { get; set; }
+
+        /// <summary>
+        /// 单击事件
+        /// </summary>
+        public string OnClick { get; set; }
+
+        /// <summary>
         /// 添加类
         /// </summary>
         public void AddClass( string @class ) {

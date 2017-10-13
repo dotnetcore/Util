@@ -2,7 +2,11 @@
 
 @Component({
     selector: 'hello-world',
-    templateUrl: "/Home/A"
+    templateUrl: "/home/a"
 })
 export class AppComponent {
+    name;
+    public fun() {
+        this.name = "4";
+    }
 }

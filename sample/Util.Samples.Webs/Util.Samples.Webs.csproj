@@ -8,6 +8,7 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageProjectUrl></PackageProjectUrl>
     <Description>Util应用框架Web示例项目</Description>
+    <!--阻止ts自动编译-->
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
@@ -47,6 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <TypeScriptCompile Include="Typings\app\app.component.ts" />
     <TypeScriptCompile Include="Typings\app\app.module.ts" />
     <TypeScriptCompile Include="Typings\app\material.module.ts" />
@@ -59,7 +64,7 @@
   </ItemGroup>
 
   <!-- Debug调试模式打包第三方框架 -->
-  <Target Name="Debug_RunWebpack_Vendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+  <Target Name="Debug_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- 检测node js是否安装 -->
     <Exec Command="node -v" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
@@ -68,16 +73,12 @@
     <!-- 打包 -->
     <Message Importance="high" Text="Webpack开始执行webpack.config.vendor.js,打包第三方前端框架..." />
     <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
-  </Target>
-  
-  <!-- Debug调试模式打包项目 -->
-  <Target Name="Debug_RunWebpack_App" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug'">
     <Message Importance="high" Text="Webpack开始执行webpack.config.js,打包项目..." />
     <Exec Command="node node_modules/webpack/bin/webpack.js" />
   </Target>
 
   <!-- Release模式打包 -->
-  <Target Name="Release_RunWebpack_Vendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release'">
+  <Target Name="Release_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release'">
     <Message Importance="high" Text="Webpack开始打包..." />
     <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.production" />
     <Exec Command="node node_modules/webpack/bin/webpack.js --env.production" />

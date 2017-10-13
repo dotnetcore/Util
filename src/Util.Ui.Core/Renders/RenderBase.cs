@@ -52,8 +52,7 @@ namespace Util.Ui.Renders {
         /// </summary>
         /// <param name="builder">标签生成器</param>
         /// <param name="config">组件配置</param>
-        protected virtual void Render( TTagBuilder builder, TConfig config ) {
-        }
+        protected abstract void Render( TTagBuilder builder, TConfig config );
 
         /// <summary>
         /// 输出组件Html

@@ -13,9 +13,8 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "strict": true,
-    "lib": [ "es2017", "dom" ],
-    "outDir": "wwwroot/dist/",
-    "declaration": false
+    "lib": [ "es6", "dom" ],
+    "types": [ "webpack-env" ]
   },
   "exclude": [ "bin", "node_modules" ]
 }

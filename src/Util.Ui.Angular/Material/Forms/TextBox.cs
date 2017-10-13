@@ -9,17 +9,17 @@ namespace Util.Ui.Material.Forms {
     /// </summary>
     public class TextBox : ComponentBase<TextBoxConfig>,ITextBox {
         /// <summary>
-        /// 获取渲染器
-        /// </summary>
-        protected override IRender GetRender() {
-            return new TextBoxRender( OptionConfig );
-        }
-
-        /// <summary>
         /// 获取配置
         /// </summary>
         protected override TextBoxConfig GetConfig() {
             return new TextBoxConfig();
+        }
+
+        /// <summary>
+        /// 获取渲染器
+        /// </summary>
+        protected override IRender GetRender() {
+            return new TextBoxRender( OptionConfig );
         }
     }
 }

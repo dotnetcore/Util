@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Events.Default;
@@ -59,6 +60,7 @@ namespace Util.Samples.Webs {
             app.UseStaticFiles();
             app.UseAuthentication();
             ConfigRoute( app );
+            ConfigHotModuleReplacement( app, env );
         }
 
         /// <summary>
@@ -82,6 +84,17 @@ namespace Util.Samples.Webs {
             app.UseMvc( routes => {
                 routes.MapRoute( "areaRoute", "{area:exists}/{controller}/{action=Index}/{id?}" );
                 routes.MapRoute( "default", "{controller=Home}/{action=Index}/{id?}" );
+            } );
+        }
+
+        /// <summary>
+        /// 配置Webpack热更新
+        /// </summary>
+        private void ConfigHotModuleReplacement( IApplicationBuilder app, IHostingEnvironment env ) {
+            if ( env.IsDevelopment() == false )
+                return;
+            app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
+                HotModuleReplacement = true
             } );
         }
     }

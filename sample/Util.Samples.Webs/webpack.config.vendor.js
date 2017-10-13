@@ -35,12 +35,12 @@ module.exports = (env) => {
         return pathPlugin.join(__dirname, path);
     }
 
-    //配置
-    var config = {
+    return  {
         //输入
         entry: { vendor: vendorModules },
         //输出
         output: {
+            publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
             filename: "[name].js",
             library: '[name]'
@@ -78,5 +78,4 @@ module.exports = (env) => {
             new webpack.IgnorePlugin(/^vertx$/)
         ].concat(isDev ? [] : [new webpack.optimize.UglifyJsPlugin()])
     }
-    return config;
 }

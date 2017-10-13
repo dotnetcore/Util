@@ -12,7 +12,7 @@ namespace Util.Ui.Extensions {
         /// <param name="services">服务集合</param>
         public static IServiceCollection AddUi( this IServiceCollection services ) {
             services.CheckNull( nameof(services) );
-            services.AddScoped<IUiService,UiService>();
+            services.AddSingleton<IUiService,UiService>();
             return services;
         }
     }

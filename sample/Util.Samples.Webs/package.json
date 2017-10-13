@@ -2,6 +2,9 @@
   "version": "1.0.0",
   "name": "util",
   "private": true,
+  "scripts": {
+    "dev": "webpack"
+  },
   "dependencies": {
     "@angular/animations": "4.4.3",
     "@angular/common": "4.4.3",
@@ -23,15 +26,15 @@
   "devDependencies": {
     "typescript": "2.5.3",
     "@angular/compiler-cli": "4.4.3",
-    "webpack": "3.6.0",
-    "@ngtools/webpack": "1.8.0-beta.1",
     "@types/webpack-env": "1.13.1",
-    "@types/core-js": "0.9.16-alpha",
-    "ts-loader": "2.3.7",
+    "webpack": "3.7.1",
+    "webpack-hot-middleware": "2.19.1",
+    "aspnet-prerendering": "^3.0.1",
+    "aspnet-webpack": "2.0.1",
     "css-loader": "0.28.7",
-    "style-loader": "0.19.0",
     "url-loader": "0.6.2",
     "file-loader": "1.1.5",
+    "awesome-typescript-loader": "3.2.3",
     "extract-text-webpack-plugin": "3.0.1"
   }
 }

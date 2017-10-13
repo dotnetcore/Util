@@ -28,7 +28,6 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <param name="builder">标签生成器</param>
         /// <param name="config">组件配置</param>
         protected override void Render( FormFieldBuilder builder, TextBoxConfig config ) {
-            base.Render( builder, config );
             builder.SetChild( GetInputBuilder( config ) );
         }
 
