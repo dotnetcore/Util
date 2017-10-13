@@ -2,6 +2,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Webs", "sample\Util.Samples.Webs\Util.Samples.Webs.csproj", "{323B64B7-5CE0-4222-B9ED-9F418730897C}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-src", "05-src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-test", "06-test", "{DE1DF0B9-0403-4888-8B24-8208348E9AFA}"
@@ -79,8 +81,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Tools", "04-Tools", "{1907A873-8368-4CFF-B5B3-98F04CD2E3A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Ui.Angular", "src\Util.Ui.Angular\03-Util.Ui.Angular.csproj", "{AD7CD285-D899-443D-A02C-D62C7C0A351F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Webs", "sample\Util.Samples.Webs\Util.Samples.Webs.csproj", "{323B64B7-5CE0-4222-B9ED-9F418730897C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
