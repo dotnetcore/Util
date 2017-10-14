@@ -1,7 +1,5 @@
 # Util应用框架介绍
 
-[![Travis branch](https://img.shields.io/travis/dotnetcore/Util/master.svg?label=travis-ci)](https://travis-ci.org/dotnetcore/Util)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/4dwmbi65i3ulr37b/branch/master?svg=true)](https://ci.appveyor.com/project/UtilCore/util/branch/master)
 [![Member project of .NET China Foundation](https://github.com/dotnetcore/Home/blob/master/icons/member-project-of-netchina.png)](https://github.com/dotnetcore)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://mit-license.org/)
 
