@@ -36,11 +36,14 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private TagBuilder GetInputBuilder( TextBoxConfig config ) {
             var builder = new InputBuilder().SetText();
-            builder.Attribute( "placeholder", config.Placeholder );
-            builder.Attribute( "value", config.Value );
-            builder.Attribute( "type", config.Type );
+            foreach ( var attribute in config.GetAttributes() ) {
+                builder.Attribute( attribute.Key, attribute.Value );
+            }
+            builder.AddAttribute( "placeholder", config.Placeholder );
+            builder.AddAttribute( "value", config.Value );
+            builder.AddAttribute( "type", config.Type );
             if( config.Required )
-                builder.Attribute( "required", "true" );
+                builder.AddAttribute( "required", "true" );
             return builder;
         }
     }

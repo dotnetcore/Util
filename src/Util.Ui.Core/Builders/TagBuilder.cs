@@ -59,9 +59,20 @@ namespace Util.Ui.Builders {
         /// <param name="value">属性值</param>
         /// <param name="replaceExisting">是否替换已存在的属性</param>
         public TagBuilder Attribute( string name, string value, bool replaceExisting = false ) {
-            if ( string.IsNullOrWhiteSpace( value ) )
-                return this;
             _tagBuilder.MergeAttribute( name, value, replaceExisting );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加属性,当属性名已存在则忽略
+        /// </summary>
+        /// <param name="name">属性名</param>
+        /// <param name="value">属性值</param>
+        /// <param name="ignoreIfValueIsEmpty">当值为空时忽略</param>
+        public TagBuilder AddAttribute( string name, string value, bool ignoreIfValueIsEmpty = true ) {
+            if( ignoreIfValueIsEmpty && string.IsNullOrWhiteSpace( value ) )
+                return this;
+            Attribute( name, value );
             return this;
         }
 

@@ -1,5 +1,4 @@
 ﻿import { NgModule } from '@angular/core'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatPaginatorModule,
     MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
@@ -11,7 +10,7 @@ import {
 
 @NgModule({
     exports: [
-        BrowserAnimationsModule, MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatPaginatorModule,
+        MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatPaginatorModule,
         MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
         MatDialogModule, MatGridListModule, MatIconModule, MatInputModule,
         MatListModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule,

@@ -9,6 +9,33 @@ namespace Util.Ui.Extensions {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
+        /// 添加属性
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="name">属性名</param>
+        /// <param name="value">属性值</param>
+        public static TComponent Attribute<TComponent>( this TComponent component, string name, string value ) where TComponent : IOption {
+            component.Config<Config>( config => {
+                config.AddAttribute( name,value );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 添加属性
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="value">属性值</param>
+        public static TComponent Attribute<TComponent>( this TComponent component, string value ) where TComponent : IOption {
+            component.Config<Config>( config => {
+                config.AddAttribute( value, "" );
+            } );
+            return component;
+        }
+
+        /// <summary>
         /// 设置标识
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>

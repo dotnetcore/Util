@@ -1,16 +1,8 @@
-﻿@inject IUiService X
-@{
+﻿@{
     Layout = null;
+    var x = @Html.Angular();
 }
-<style>
-    .example-form {
-        min-width: 150px;
-        max-width: 500px;
-        width: 100%;
-    }
-</style>
-<form class="example-form">
-    @X.TextBox().Placeholder( "金额" ).Number().Required()
-    @X.Button( "登陆" ).OnClick( "fun()" ).Plain()
-    {{name}}
-</form>
+@x.TextBox().Placeholder( "用户名" ).Attribute( "[(ngModel)]", "userName" ).Required()
+@x.TextBox().Placeholder( "密码" ).Password().Attribute( "[(ngModel)]", "password" )
+@x.Button( "登陆" ).OnClick( "login()" )
+{{state}}

@@ -56,25 +56,28 @@ namespace Util.Samples.Webs {
         /// 配置请求管道
         /// </summary>
         public void Configure( IApplicationBuilder app, IHostingEnvironment env ) {
-            ConfigExceptionHandler( app, env );
-            app.UseStaticFiles();
-            app.UseAuthentication();
-            ConfigRoute( app );
-            ConfigHotModuleReplacement( app, env );
+            if ( env.IsDevelopment() == false ) {
+                ProductionConfig( app );
+                return;
+            }
+            DevelopmentConfig( app );
         }
 
         /// <summary>
-        /// 配置异常处理
+        /// 生产环境配置
         /// </summary>
-        private void ConfigExceptionHandler( IApplicationBuilder app, IHostingEnvironment env ) {
-            if( env.IsDevelopment() ) {
-                app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-                app.UseStatusCodePages();
-                return;
-            }
+        private void ProductionConfig( IApplicationBuilder app ) {
             app.UseExceptionHandler( "/Home/Error" );
+            app.UseAuthentication();
+            CommonConfig( app );
+        }
+
+        /// <summary>
+        /// 公共配置
+        /// </summary>
+        private void CommonConfig( IApplicationBuilder app ) {
+            app.UseStaticFiles();
+            ConfigRoute( app );
         }
 
         /// <summary>
@@ -88,14 +91,17 @@ namespace Util.Samples.Webs {
         }
 
         /// <summary>
-        /// 配置Webpack热更新
+        /// 开发环境配置
         /// </summary>
-        private void ConfigHotModuleReplacement( IApplicationBuilder app, IHostingEnvironment env ) {
-            if ( env.IsDevelopment() == false )
-                return;
+        private void DevelopmentConfig( IApplicationBuilder app ) {
+            app.UseBrowserLink();
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
+            app.UseStatusCodePages();
             app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
                 HotModuleReplacement = true
             } );
+            CommonConfig( app );
         }
     }
 }

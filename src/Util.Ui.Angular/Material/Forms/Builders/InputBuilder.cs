@@ -16,7 +16,7 @@ namespace Util.Ui.Material.Forms.Builders {
         /// 设置为文本框
         /// </summary>
         public InputBuilder SetText() {
-            Attribute( "matInput", "matInput" );
+            AddAttribute( "matInput", "matInput" );
             return this;
         }
     }

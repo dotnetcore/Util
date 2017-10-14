@@ -45,17 +45,17 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void SetStyle( ButtonBuilder builder, ButtonConfig config ) {
             if ( config.Plain ) {
-                builder.Attribute( "mat-button", "mat-button" );
+                builder.AddAttribute( "mat-button", "mat-button" );
                 return;
             }
-            builder.Attribute( "mat-raised-button", "mat-raised-button" );
+            builder.AddAttribute( "mat-raised-button", "mat-raised-button" );
         }
 
         /// <summary>
         /// 设置事件
         /// </summary>
         private void SetEvents( ButtonBuilder builder, ButtonConfig config ) {
-            builder.Attribute( "(click)", config.OnClick );
+            builder.AddAttribute( "(click)", config.OnClick );
         }
     }
 }

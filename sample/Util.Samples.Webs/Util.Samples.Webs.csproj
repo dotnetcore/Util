@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Typings\app\app.service.ts" />
     <None Remove="Typings\app\material.module.ts" />
     <None Remove="Typings\boot.browser.ts" />
   </ItemGroup>
@@ -54,6 +55,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Typings\app\app.component.ts" />
     <TypeScriptCompile Include="Typings\app\app.module.ts" />
+    <TypeScriptCompile Include="Typings\app\app.service.ts" />
     <TypeScriptCompile Include="Typings\app\material.module.ts" />
   </ItemGroup>
 
