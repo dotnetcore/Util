@@ -28,9 +28,18 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// <param name="builder">标签生成器</param>
         /// <param name="config">组件配置</param>
         protected override void Render( ButtonBuilder builder, ButtonConfig config ) {
+            AddAttributes( builder, config );
             SetText( builder, config );
             SetStyle( builder, config );
             SetEvents( builder, config );
+        }
+
+        /// <summary>
+        /// 添加属性列表
+        /// </summary>
+        private void AddAttributes( ButtonBuilder builder, ButtonConfig config ) {
+            foreach ( var attribute in config.GetAttributes() )
+                builder.Attribute( attribute.Key, attribute.Value );
         }
 
         /// <summary>

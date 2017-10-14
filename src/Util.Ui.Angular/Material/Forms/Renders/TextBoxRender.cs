@@ -42,6 +42,7 @@ namespace Util.Ui.Material.Forms.Renders {
             builder.AddAttribute( "placeholder", config.Placeholder );
             builder.AddAttribute( "value", config.Value );
             builder.AddAttribute( "type", config.Type );
+            builder.AddAttribute( "[(ngModel)]", config.Model );
             if( config.Required )
                 builder.AddAttribute( "required", "true" );
             return builder;

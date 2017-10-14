@@ -63,6 +63,11 @@ namespace Util.Ui.Configs {
         public bool Plain { get; set; }
 
         /// <summary>
+        /// 模型
+        /// </summary>
+        public string Model { get; set; }
+
+        /// <summary>
         /// 单击事件
         /// </summary>
         public string OnClick { get; set; }

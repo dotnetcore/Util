@@ -43,6 +43,30 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试添加属性
+        /// </summary>
+        [Fact]
+        public void TestAttribute_1() {
+            var result = new String();
+            result.Append( "<mat-form-field>" );
+            result.Append( "<input a=\"\" matInput=\"matInput\" />" );
+            result.Append( "</mat-form-field>" );
+            Assert.Equal( result.ToString(), GetResult( _textBox.Attribute( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试添加属性
+        /// </summary>
+        [Fact]
+        public void TestAttribute_2() {
+            var result = new String();
+            result.Append( "<mat-form-field>" );
+            result.Append( "<input a=\"1\" matInput=\"matInput\" />" );
+            result.Append( "</mat-form-field>" );
+            Assert.Equal( result.ToString(), GetResult( _textBox.Attribute( "a", "1" ) ) );
+        }
+
+        /// <summary>
         /// 测试占位符
         /// </summary>
         [Fact]
@@ -100,6 +124,18 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "<input matInput=\"matInput\" required=\"true\" />" );
             result.Append( "</mat-form-field>" );
             Assert.Equal( result.ToString(), GetResult( _textBox.Required() ) );
+        }
+
+        /// <summary>
+        /// 测试模型绑定
+        /// </summary>
+        [Fact]
+        public void TestModel() {
+            var result = new String();
+            result.Append( "<mat-form-field>" );
+            result.Append( "<input matInput=\"matInput\" [(ngModel)]=\"a\" />" );
+            result.Append( "</mat-form-field>" );
+            Assert.Equal( result.ToString(), GetResult( _textBox.Model("a") ) );
         }
     }
 }

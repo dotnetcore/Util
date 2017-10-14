@@ -41,6 +41,26 @@ namespace Util.Ui.Tests.Material.Buttons {
         }
 
         /// <summary>
+        /// 测试添加属性
+        /// </summary>
+        [Fact]
+        public void TestAttribute_1() {
+            var result = new String();
+            result.Append( "<button a=\"\" mat-raised-button=\"mat-raised-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button.Attribute( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试添加属性
+        /// </summary>
+        [Fact]
+        public void TestAttribute_2() {
+            var result = new String();
+            result.Append( "<button a=\"1\" mat-raised-button=\"mat-raised-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button.Attribute( "a", "1" ) ) );
+        }
+
+        /// <summary>
         /// 测试文本
         /// </summary>
         [Fact]
