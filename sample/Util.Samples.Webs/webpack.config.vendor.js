@@ -4,10 +4,6 @@ var Extract = require("extract-text-webpack-plugin");
 
 //第三方库
 const vendorModules = [
-    'es6-shim',
-    'reflect-metadata',
-    'zone.js',
-    'hammerjs',
     '@angular/animations',
     '@angular/common',
     '@angular/compiler',
@@ -18,6 +14,11 @@ const vendorModules = [
     '@angular/platform-browser/animations',
     '@angular/platform-browser-dynamic',
     '@angular/router',
+    'es6-promise',
+    'es6-shim',
+    'reflect-metadata',
+    'zone.js',
+    'hammerjs',
     '@angular/material',
     '@angular/material/prebuilt-themes/indigo-pink.css',
     'material-design-icons/iconfont/material-icons.css'

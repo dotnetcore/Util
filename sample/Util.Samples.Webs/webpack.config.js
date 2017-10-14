@@ -16,7 +16,7 @@ module.exports = (env) => {
 
     return {
         //输入
-        entry: { app: getPath("Typings/main.ts")},
+        entry: { app: getPath("Typings/main.ts") },
         //输出
         output: {
             publicPath: 'dist/',

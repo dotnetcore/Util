@@ -2,7 +2,7 @@
     Layout = null;
     var x = @Html.Angular();
 }
-@x.TextBox().Placeholder( "用户名" ).Attribute( "[(ngModel)]", "userName" ).Required()
+@x.TextBox().Placeholder( "用户名" ).Attribute( "[(ngModel)]", "userName" ).Required(  )
 @x.TextBox().Placeholder( "密码" ).Password().Attribute( "[(ngModel)]", "password" )
 @x.Button( "登陆" ).OnClick( "login()" )
 {{state}}

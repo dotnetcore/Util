@@ -6,7 +6,8 @@ import {
     MatListModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule,
     MatRadioModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSortModule,
     MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
-    MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule  } from '@angular/material';
+    MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule  
+} from '@angular/material';
 
 @NgModule({
     exports: [
