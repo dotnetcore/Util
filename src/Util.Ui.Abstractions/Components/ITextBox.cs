@@ -6,6 +6,6 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 文本框
     /// </summary>
-    public interface ITextBox : IComponent,IPlaceholder,IValue,IModel, IRequired {
+    public interface ITextBox : IComponent, IName, IPlaceholder,IValue,IModel, IRequired, IMinLength {
     }
 }

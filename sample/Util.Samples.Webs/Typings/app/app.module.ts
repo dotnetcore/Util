@@ -11,7 +11,7 @@ import { AppService, AppService2} from './app.service'
         AppComponent
     ],
     imports: [
-        BrowserAnimationsModule,CommonModule,FormsModule,MaterialModule
+        BrowserAnimationsModule, CommonModule, FormsModule,MaterialModule
     ],
     providers: [
         { provide: AppService, useClass: AppService, deps: [AppService2] },

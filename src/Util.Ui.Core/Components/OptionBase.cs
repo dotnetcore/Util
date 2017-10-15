@@ -7,6 +7,11 @@ namespace Util.Ui.Components {
     /// </summary>
     public abstract class OptionBase<TConfig> : IOption where TConfig : class, IConfig {
         /// <summary>
+        /// 控件跟踪日志名
+        /// </summary>
+        protected const string TraceLogName = "UiControlTraceLog";
+
+        /// <summary>
         /// 配置
         /// </summary>
         private TConfig _config;

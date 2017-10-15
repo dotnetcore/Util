@@ -46,7 +46,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 设置文本
         /// </summary>
         private void SetText( ButtonBuilder builder, ButtonConfig config ) {
-            builder.InnerHtml.SetContent( config.Text );
+            builder.SetContent( config.Text );
         }
 
         /// <summary>

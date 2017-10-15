@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Helpers;
+using Util.Ui.Builders;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Renders;
@@ -25,27 +26,67 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <summary>
         /// 渲染
         /// </summary>
-        /// <param name="builder">标签生成器</param>
+        /// <param name="formFieldBuilder">标签生成器</param>
         /// <param name="config">组件配置</param>
-        protected override void Render( FormFieldBuilder builder, TextBoxConfig config ) {
-            builder.SetChild( GetInputBuilder( config ) );
+        protected override void Render( FormFieldBuilder formFieldBuilder, TextBoxConfig config ) {
+            var inputBuilder = new InputBuilder();
+            formFieldBuilder.AppendChild( inputBuilder );
+            InitInputBuilder( formFieldBuilder, inputBuilder, config );
         }
 
         /// <summary>
-        /// 获取输入控件生成器
+        /// 初始化输入控件生成器
         /// </summary>
-        private TagBuilder GetInputBuilder( TextBoxConfig config ) {
-            var builder = new InputBuilder().SetText();
-            foreach ( var attribute in config.GetAttributes() ) {
-                builder.Attribute( attribute.Key, attribute.Value );
+        private void InitInputBuilder( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
+            inputBuilder.SetText();
+            foreach( var attribute in config.GetAttributes() ) {
+                inputBuilder.Attribute( attribute.Key, attribute.Value );
             }
-            builder.AddAttribute( "placeholder", config.Placeholder );
-            builder.AddAttribute( "value", config.Value );
-            builder.AddAttribute( "type", config.Type );
-            builder.AddAttribute( "[(ngModel)]", config.Model );
-            if( config.Required )
-                builder.AddAttribute( "required", "true" );
-            return builder;
+            inputBuilder.AddAttribute( "name", config.Name );
+            inputBuilder.AddAttribute( "placeholder", config.Placeholder );
+            inputBuilder.AddAttribute( "value", config.Value );
+            inputBuilder.AddAttribute( "type", config.Type );
+            inputBuilder.AddAttribute( "[(ngModel)]", config.Model );
+            AddValidations( formFieldBuilder, inputBuilder, config );
+        }
+
+        /// <summary>
+        /// 添加验证操作
+        /// </summary>
+        private void AddValidations( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
+            AddRequired( formFieldBuilder, inputBuilder, config );
+            AddMinLength( formFieldBuilder, inputBuilder, config );
+        }
+
+        /// <summary>
+        /// 添加必填项验证
+        /// </summary>
+        private void AddRequired( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
+            if( config.Required == false )
+                return;
+            inputBuilder.AddAttribute( "required", "true" );
+            AddError( formFieldBuilder, inputBuilder, "required", config.RequiredMessage );
+        }
+
+        /// <summary>
+        /// 添加错误消息
+        /// </summary>
+        private void AddError( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, string type, string message ) {
+            if( string.IsNullOrWhiteSpace( message ) )
+                return;
+            var id = $"m_{Id.Guid()}";
+            inputBuilder.AddAttribute( $"#{id}", "ngModel" );
+            formFieldBuilder.AppendChild( new ErrorBuilder( id, type, message ) );
+        }
+
+        /// <summary>
+        /// 添加最小长度验证
+        /// </summary>
+        private void AddMinLength( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
+            if( config.MinLength <= 0 )
+                return;
+            inputBuilder.AddAttribute( "minlength", config.MinLength.ToString() );
+            AddError( formFieldBuilder, inputBuilder, "minlength", config.MinLengthMessage );
         }
     }
 }

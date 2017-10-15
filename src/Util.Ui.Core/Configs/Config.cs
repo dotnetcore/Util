@@ -28,6 +28,11 @@ namespace Util.Ui.Configs {
         public string Id { get; set; }
 
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// 文本
         /// </summary>
         public string Text { get; set; }
@@ -53,9 +58,19 @@ namespace Util.Ui.Configs {
         public bool Required { get; set; }
 
         /// <summary>
-        /// 错误消息
+        /// 必填项错误消息
         /// </summary>
-        public string ErrorMessage { get; set; }
+        public string RequiredMessage { get; set; }
+
+        /// <summary>
+        /// 最小长度
+        /// </summary>
+        public int MinLength { get; set; }
+
+        /// <summary>
+        /// 最小长度错误消息
+        /// </summary>
+        public string MinLengthMessage { get; set; }
 
         /// <summary>
         /// 扁平风格

@@ -16,7 +16,22 @@ namespace Util.Ui.Extensions {
         public static TComponent Required<TComponent>( this TComponent component, string message = "" ) where TComponent : IComponent, IRequired {
             component.Config<Config>( config => {
                 config.Required = true;
-                config.ErrorMessage = message;
+                config.RequiredMessage = message;
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 最小长度
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="minLength">最小长度</param>
+        /// <param name="message">错误消息</param>
+        public static TComponent MinLength<TComponent>( this TComponent component, int minLength, string message = "" ) where TComponent : IComponent, IMinLength {
+            component.Config<Config>( config => {
+                config.MinLength = minLength;
+                config.MinLengthMessage = message;
             } );
             return component;
         }

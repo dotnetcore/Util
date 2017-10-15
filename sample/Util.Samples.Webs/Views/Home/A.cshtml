@@ -2,7 +2,10 @@
     Layout = null;
     var x = @Html.Angular();
 }
-@x.TextBox().Placeholder( "用户名" ).Required().Model( "userName" )
-@x.TextBox().Placeholder( "密码" ).Password().Model( "password" )
-@x.Button( "登陆" ).OnClick( "login()" )
-{{state}}
+
+<form>
+    @x.TextBox().Placeholder( "用户名" ).Model( "userName" ).Name( "a" ).Required( "该项不能为空" ).MinLength( 3,"最起码你得输入3位吧" )
+    @x.TextBox().Placeholder( "密码" ).Password().Model( "password" ).Name( "b" )
+    @x.Button( "登陆" ).OnClick( "login()" )
+</form>
+{{userName}}

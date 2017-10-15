@@ -77,6 +77,24 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
+        /// 设置内容
+        /// </summary>
+        /// <param name="content">内容</param>
+        public TagBuilder SetContent( string content ) {
+            _tagBuilder.InnerHtml.SetContent( content );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加子组件
+        /// </summary>
+        /// <param name="tagBuilder">标签生成器</param>
+        public TagBuilder AppendChild( TagBuilder tagBuilder ) {
+            _tagBuilder.InnerHtml.AppendHtml( tagBuilder.GetTagBuilder() );
+            return this;
+        }
+
+        /// <summary>
         /// 设置子组件
         /// </summary>
         /// <param name="tagBuilder">标签生成器</param>

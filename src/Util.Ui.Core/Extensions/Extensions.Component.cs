@@ -49,6 +49,19 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 设置名称
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="name">组件名称</param>
+        public static TComponent Name<TComponent>( this TComponent component, string name ) where TComponent : IOption, IName {
+            component.Config<Config>( config => {
+                config.Name = name;
+            } );
+            return component;
+        }
+
+        /// <summary>
         /// 设置文本
         /// </summary>
         /// <typeparam name="TComponent">标题组件类型</typeparam>
