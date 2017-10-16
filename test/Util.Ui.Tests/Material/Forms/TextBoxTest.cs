@@ -82,6 +82,18 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试添加标识
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            var result = new String();
+            result.Append( "<mat-form-field>" );
+            result.Append( "<input id=\"a\" matInput=\"matInput\" />" );
+            result.Append( "</mat-form-field>" );
+            Assert.Equal( result.ToString(), GetResult( _textBox.Id( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试添加名称
         /// </summary>
         [Fact]
@@ -192,7 +204,7 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
-        /// 测试多种验证
+        /// 测试同时验证必填和最小长度
         /// </summary>
         [Fact]
         public void TestRequired_MinLength_Message() {

@@ -8,7 +8,7 @@ using Util.Helpers;
 
 namespace Util {
     /// <summary>
-    /// 系统扩展 - Lambda表达式扩展
+    /// 系统扩展 - Lambda表达式
     /// </summary>
     public static partial class Extensions {
 

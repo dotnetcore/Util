@@ -1,5 +1,4 @@
 ﻿using Util.Helpers;
-using Util.Ui.Builders;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Renders;
@@ -9,6 +8,11 @@ namespace Util.Ui.Material.Forms.Renders {
     /// 文本框渲染器
     /// </summary>
     public class TextBoxRender : RenderBase<FormFieldBuilder, TextBoxConfig> {
+        /// <summary>
+        /// 引用Id
+        /// </summary>
+        private string _refrenceId;
+
         /// <summary>
         /// 初始化文本框渲染器
         /// </summary>
@@ -42,6 +46,7 @@ namespace Util.Ui.Material.Forms.Renders {
             foreach( var attribute in config.GetAttributes() ) {
                 inputBuilder.Attribute( attribute.Key, attribute.Value );
             }
+            inputBuilder.AddAttribute( "id", config.Id );
             inputBuilder.AddAttribute( "name", config.Name );
             inputBuilder.AddAttribute( "placeholder", config.Placeholder );
             inputBuilder.AddAttribute( "value", config.Value );
@@ -74,9 +79,18 @@ namespace Util.Ui.Material.Forms.Renders {
         private void AddError( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, string type, string message ) {
             if( string.IsNullOrWhiteSpace( message ) )
                 return;
-            var id = $"m_{Id.Guid()}";
-            inputBuilder.AddAttribute( $"#{id}", "ngModel" );
-            formFieldBuilder.AppendChild( new ErrorBuilder( id, type, message ) );
+            AddRefrenceId( inputBuilder );
+            formFieldBuilder.AppendChild( new ErrorBuilder( _refrenceId, type, message ) );
+        }
+
+        /// <summary>
+        /// 添加引用Id
+        /// </summary>
+        private void AddRefrenceId( InputBuilder inputBuilder ) {
+            if ( _refrenceId != null )
+                return;
+            _refrenceId = $"m_{Id.Guid()}";
+            inputBuilder.AddAttribute( $"#{_refrenceId}", "ngModel" );
         }
 
         /// <summary>

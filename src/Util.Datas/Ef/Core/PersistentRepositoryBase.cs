@@ -110,7 +110,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 判断实体是否存在
         /// </summary>
-        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        /// <param name="ids">实体标识集合</param>
         public bool Exists( params TKey[] ids ) {
             return _store.Exists( ids );
         }
@@ -118,7 +118,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 判断实体是否存在
         /// </summary>
-        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        /// <param name="ids">实体标识集合</param>
         public async Task<bool> ExistsAsync( params TKey[] ids ) {
             return await _store.ExistsAsync( ids );
         }

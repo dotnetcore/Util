@@ -104,7 +104,7 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 判断实体是否存在
         /// </summary>
-        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        /// <param name="ids">实体标识集合</param>
         bool Exists( params TKey[] ids );
         /// <summary>
         /// 判断实体是否存在
@@ -114,7 +114,7 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 判断实体是否存在
         /// </summary>
-        /// <param name="ids">实体标识集合，均不存在返回true</param>
+        /// <param name="ids">实体标识集合</param>
         Task<bool> ExistsAsync( params TKey[] ids );
         /// <summary>
         /// 获取实体个数

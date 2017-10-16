@@ -61,6 +61,16 @@ namespace Util.Ui.Tests.Material.Buttons {
         }
 
         /// <summary>
+        /// 测试添加标识
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            var result = new String();
+            result.Append( "<button id=\"a\" mat-raised-button=\"mat-raised-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button.Id( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试文本
         /// </summary>
         [Fact]

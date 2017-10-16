@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Components;
+using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Operations.Styles;
 
@@ -14,7 +15,9 @@ namespace Util.Ui.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="isPlain">是否启用扁平风格</param>
         public static TComponent Plain<TComponent>( this TComponent component, bool isPlain = true ) where TComponent : IComponent,IPlain {
-            component.Config<Config>( config => {
+            if( !( component is IOptionConfig option ) )
+                return component;
+            option.Config<Config>( config => {
                 config.Plain = isPlain;
             } );
             return component;

@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Components;
+using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Operations.Events;
 
@@ -14,7 +15,9 @@ namespace Util.Ui.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="handler">单击事件处理函数，范例：fun()</param>
         public static TComponent OnClick<TComponent>( this TComponent component, string handler ) where TComponent : IComponent,IOnClick {
-            component.Config<Config>( config => {
+            if( !( component is IOptionConfig option ) )
+                return component;
+            option.Config<Config>( config => {
                 config.OnClick = handler;
             } );
             return component;

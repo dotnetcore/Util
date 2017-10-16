@@ -29,7 +29,8 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// <param name="config">组件配置</param>
         protected override void Render( ButtonBuilder builder, ButtonConfig config ) {
             AddAttributes( builder, config );
-            SetText( builder, config );
+            builder.AddAttribute( "id", config.Id );
+            builder.SetContent( config.Text );
             SetStyle( builder, config );
             SetEvents( builder, config );
         }
@@ -40,13 +41,6 @@ namespace Util.Ui.Material.Buttons.Renders {
         private void AddAttributes( ButtonBuilder builder, ButtonConfig config ) {
             foreach ( var attribute in config.GetAttributes() )
                 builder.Attribute( attribute.Key, attribute.Value );
-        }
-
-        /// <summary>
-        /// 设置文本
-        /// </summary>
-        private void SetText( ButtonBuilder builder, ButtonConfig config ) {
-            builder.SetContent( config.Text );
         }
 
         /// <summary>

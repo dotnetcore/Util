@@ -54,6 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Tools", "04-Tools", "{19
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Ui.Angular", "src\Util.Ui.Angular\03-Util.Ui.Angular.csproj", "{AD7CD285-D899-443D-A02C-D62C7C0A351F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07-Util.Webs", "src\Util.Webs\07-Util.Webs.csproj", "{0A32F32B-49DF-49AB-8F3C-AFDD28517A89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,10 @@ Global
 		{AD7CD285-D899-443D-A02C-D62C7C0A351F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD7CD285-D899-443D-A02C-D62C7C0A351F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD7CD285-D899-443D-A02C-D62C7C0A351F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A32F32B-49DF-49AB-8F3C-AFDD28517A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A32F32B-49DF-49AB-8F3C-AFDD28517A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A32F32B-49DF-49AB-8F3C-AFDD28517A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A32F32B-49DF-49AB-8F3C-AFDD28517A89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +147,7 @@ Global
 		{91F99541-D37F-46D5-8026-AD57C3F75B52} = {0629A068-957D-4920-9290-0B9288341E0D}
 		{1907A873-8368-4CFF-B5B3-98F04CD2E3A7} = {ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}
 		{AD7CD285-D899-443D-A02C-D62C7C0A351F} = {78CC88DA-0B25-45BC-86A8-FFE9628B34A6}
+		{0A32F32B-49DF-49AB-8F3C-AFDD28517A89} = {3746073A-1C5C-40A7-9D50-CB2A94CA888A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA6E8E23-8AB6-4AB6-9B31-494CB7CE5E63}

@@ -144,7 +144,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 判断持久化对象是否存在
         /// </summary>
-        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        /// <param name="ids">持久化对象标识集合</param>
         public bool Exists( params TKey[] ids ) {
             if( ids == null )
                 return false;
@@ -154,7 +154,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 判断持久化对象是否存在
         /// </summary>
-        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        /// <param name="ids">持久化对象标识集合</param>
         public async Task<bool> ExistsAsync( params TKey[] ids ) {
             if( ids == null )
                 return false;

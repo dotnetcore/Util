@@ -113,6 +113,24 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
+        /// 渲染起始标签
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        /// <param name="encoder">编码</param>
+        public void RenderStartTag( TextWriter writer, HtmlEncoder encoder ) {
+            _tagBuilder.RenderStartTag().WriteTo( writer, encoder );
+        }
+
+        /// <summary>
+        /// 渲染结束标签
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        /// <param name="encoder">编码</param>
+        public void RenderEndTag( TextWriter writer, HtmlEncoder encoder ) {
+            _tagBuilder.RenderEndTag().WriteTo( writer, encoder );
+        }
+
+        /// <summary>
         /// 获取Html结果
         /// </summary>
         public override string ToString() {

@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <None Remove="Typings\app\app.service.ts" />
-    <None Remove="Typings\app\material.module.ts" />
     <None Remove="Typings\boot.browser.ts" />
   </ItemGroup>
 
@@ -39,6 +38,7 @@
     <ProjectReference Include="..\..\src\Util.Logs\03-Util.Logs.csproj" />
     <ProjectReference Include="..\..\src\Util.Security\02-Util.Security.csproj" />
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
+    <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
   </ItemGroup>
 
@@ -56,7 +56,7 @@
     <TypeScriptCompile Include="Typings\app\app.component.ts" />
     <TypeScriptCompile Include="Typings\app\app.module.ts" />
     <TypeScriptCompile Include="Typings\app\app.service.ts" />
-    <TypeScriptCompile Include="Typings\app\material.module.ts" />
+    <TypeScriptCompile Include="Typings\app\framework.ts" />
   </ItemGroup>
 
   <ItemGroup>
