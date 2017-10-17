@@ -1,6 +1,7 @@
 ﻿using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc;
 using Util.Exceptions;
+using Util.Samples.Webs.Models;
 using Util.Webs.Filters;
 
 namespace Util.Samples.Webs.Controllers {
@@ -10,6 +11,8 @@ namespace Util.Samples.Webs.Controllers {
         }
 
         public IActionResult Index() {
+            TestTagHelper a = new TestTagHelper();
+            var b = a.ToString();
             return View();
         }
 
