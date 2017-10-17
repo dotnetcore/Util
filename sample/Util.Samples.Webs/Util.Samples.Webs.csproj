@@ -56,7 +56,7 @@
     <TypeScriptCompile Include="Typings\app\app.component.ts" />
     <TypeScriptCompile Include="Typings\app\app.module.ts" />
     <TypeScriptCompile Include="Typings\app\app.service.ts" />
-    <TypeScriptCompile Include="Typings\app\framework.ts" />
+    <TypeScriptCompile Include="Typings\app\framework.module.ts" />
   </ItemGroup>
 
   <ItemGroup>

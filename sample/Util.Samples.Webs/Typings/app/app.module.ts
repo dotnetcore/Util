@@ -1,5 +1,5 @@
 ﻿import { NgModule } from '@angular/core'
-import { FrameworkModule } from "./framework";
+import { FrameworkModule } from "./framework.module";
 import { AppComponent } from "./app.component"
 import { AppService, AppService2 } from './app.service'
 
