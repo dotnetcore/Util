@@ -19,7 +19,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Attribute<TComponent>( this TComponent component, string name, string value ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.AddAttribute( name, value );
+                config.OtherAttributes.Add( name, value );
             } );
             return component;
         }
@@ -33,7 +33,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Attribute<TComponent>( this TComponent component, string value ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.AddAttribute( value, "" );
+                config.OtherAttributes.Add( value, null );
             } );
             return component;
         }
@@ -47,7 +47,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Id<TComponent>( this TComponent component, string id ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Id = id;
+                config.Attributes.Add( Const.Id,id );
             } );
             return component;
         }
@@ -75,7 +75,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Text<TComponent>( this TComponent component, string text ) where TComponent : IComponent, IText {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Text = text;
+                config.SetAttribute( Const.Text, text );
             } );
             return component;
         }

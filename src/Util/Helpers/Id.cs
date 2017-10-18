@@ -31,10 +31,10 @@
         }
 
         /// <summary>
-        /// 用Guid创建Id,去掉Guid的分隔符
+        /// 用Guid创建Id,去掉分隔符
         /// </summary>
         public static string Guid() {
-            return string.IsNullOrWhiteSpace( _id ) ? System.Guid.NewGuid().ToString().Replace( "-", "" ) : _id;
+            return string.IsNullOrWhiteSpace( _id ) ? System.Guid.NewGuid().ToString( "N" ) : _id;
         }
     }
 }

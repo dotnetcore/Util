@@ -35,15 +35,6 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
-        /// 添加标识
-        /// </summary>
-        /// <param name="id">标识</param>
-        public TagBuilder Id( string id ) {
-            _tagBuilder.GenerateId( id, string.Empty );
-            return this;
-        }
-
-        /// <summary>
         /// 添加class属性
         /// </summary>
         /// <param name="class">class属性值</param>

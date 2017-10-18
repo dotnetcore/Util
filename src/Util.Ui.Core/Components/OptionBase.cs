@@ -12,7 +12,7 @@ namespace Util.Ui.Components {
         /// <summary>
         /// 控件跟踪日志名
         /// </summary>
-        protected const string TraceLogName = "UiControlTraceLog";
+        public const string TraceLogName = "UiControlTraceLog";
 
         /// <summary>
         /// 配置
@@ -27,7 +27,9 @@ namespace Util.Ui.Components {
         /// <summary>
         /// 获取配置
         /// </summary>
-        protected abstract IConfig GetConfig();
+        protected virtual IConfig GetConfig() {
+            return new Config();
+        }
 
         /// <summary>
         /// 配置

@@ -92,10 +92,20 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// 测试扁平风格
         /// </summary>
         [Fact]
-        public void TestPlain() {
+        public void TestPlain_True() {
             var result = new String();
             result.Append( "<button mat-button=\"mat-button\"></button>" );
             Assert.Equal( result.ToString(), GetResult( _button.Plain() ) );
+        }
+
+        /// <summary>
+        /// 测试扁平风格
+        /// </summary>
+        [Fact]
+        public void TestPlain_False() {
+            var result = new String();
+            result.Append( "<button mat-raised-button=\"mat-raised-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button.Plain().Plain( false ) ) );
         }
 
         /// <summary>

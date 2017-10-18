@@ -11,28 +11,35 @@ namespace Util.Ui.Configs {
         /// 类
         /// </summary>
         private readonly List<string> _classList;
-        /// <summary>
-        /// 属性字典
-        /// </summary>
-        private readonly Dictionary<string, string> _attributes;
 
         /// <summary>
         /// 初始化配置
         /// </summary>
-        public Config() {
-            _classList = new List<string>();
-            _attributes= new Dictionary<string, string>();
+        public Config() : this( new TagHelperAttributeList(), new TagHelperAttributeList(), null ) {
         }
 
         /// <summary>
-        /// 初始化按钮配置
+        /// 初始化配置
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        /// <param name="content">标签内容</param>
-        public Config( TagHelperContext context, TagHelperOutput output, IHtmlContent content ) : this() {
+        /// <param name="attributes">属性集合</param>
+        /// <param name="otherAttributes">其它属性集合</param>
+        /// <param name="content">内容</param>
+        public Config( TagHelperAttributeList attributes, TagHelperAttributeList otherAttributes, IHtmlContent content ) {
+            _classList = new List<string>();
+            Attributes = attributes;
+            OtherAttributes = otherAttributes;
             Content = content;
         }
+
+        /// <summary>
+        /// 属性集合
+        /// </summary>
+        public TagHelperAttributeList Attributes { get; }
+
+        /// <summary>
+        /// 其它属性集合
+        /// </summary>
+        public TagHelperAttributeList OtherAttributes { get; }
 
         /// <summary>
         /// 内容
@@ -40,19 +47,9 @@ namespace Util.Ui.Configs {
         public IHtmlContent Content { get; set; }
 
         /// <summary>
-        /// 标识
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// 文本
-        /// </summary>
-        public string Text { get; set; }
 
         /// <summary>
         /// 值
@@ -90,27 +87,51 @@ namespace Util.Ui.Configs {
         public string MinLengthMessage { get; set; }
 
         /// <summary>
-        /// 扁平风格
-        /// </summary>
-        public bool Plain { get; set; }
-
-        /// <summary>
         /// 模型
         /// </summary>
         public string Model { get; set; }
 
         /// <summary>
-        /// 单击事件
+        /// 属性集合是否包含指定属性
         /// </summary>
-        public string OnClick { get; set; }
+        /// <param name="name">属性名</param>
+        public bool Contains( string name ) {
+            return Attributes.ContainsName( name );
+        }
+
+        /// <summary>
+        /// 获取属性值
+        /// </summary>
+        /// <param name="name">属性名</param>
+        public string GetValue( string name ) {
+            return Contains( name ) ? Attributes[name].Value.SafeString() : null;
+        }
+
+        /// <summary>
+        /// 获取属性值
+        /// </summary>
+        /// <typeparam name="T">目标类型</typeparam>
+        /// <param name="name">属性名</param>
+        public T GetValue<T>( string name ) {
+            return Util.Helpers.Convert.To<T>( GetValue( name ) );
+        }
+
+        /// <summary>
+        /// 设置属性
+        /// </summary>
+        /// <param name="name">属性名</param>
+        /// <param name="value">值</param>
+        public void SetAttribute( string name,object value ) {
+            Attributes.SetAttribute( new TagHelperAttribute( name,value ) );
+        }
 
         /// <summary>
         /// 添加类
         /// </summary>
         public void AddClass( string @class ) {
-            if ( string.IsNullOrWhiteSpace( @class ) )
+            if( string.IsNullOrWhiteSpace( @class ) )
                 return;
-            if ( _classList.Contains( @class ) )
+            if( _classList.Contains( @class ) )
                 return;
             _classList.Add( @class );
         }
@@ -120,34 +141,6 @@ namespace Util.Ui.Configs {
         /// </summary>
         public List<string> GetClassList() {
             return _classList;
-        }
-
-        /// <summary>
-        /// 添加属性
-        /// </summary>
-        /// <param name="name">属性名</param>
-        /// <param name="value">属性值</param>
-        public void AddAttribute( string name, string value ) {
-            if ( string.IsNullOrWhiteSpace( name ) )
-                return;
-            if ( _attributes.ContainsKey( name ) )
-                _attributes.Remove( name );
-            _attributes.Add( name,value );
-        }
-
-        /// <summary>
-        /// 获取属性集合
-        /// </summary>
-        public Dictionary<string, string> GetAttributes() {
-            return _attributes;
-        }
-
-        /// <summary>
-        /// 获取属性
-        /// </summary>
-        /// <param name="name">属性名</param>
-        public string GetAttribute( string name ) {
-            return _attributes.ContainsKey( name ) ? _attributes[name] : string.Empty;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Util.Ui.Components;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Operations.Styles;
@@ -17,7 +18,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Plain<TComponent>( this TComponent component, bool isPlain = true ) where TComponent : IComponent,IPlain {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Plain = isPlain;
+                config.Attributes.SetAttribute( new TagHelperAttribute( Const.Plain, isPlain.SafeString() ) );
             } );
             return component;
         }

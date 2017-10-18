@@ -1,5 +1,6 @@
 ﻿using Util.Helpers;
 using Util.Ui.Builders;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Renders;
@@ -42,10 +43,8 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void InitInputBuilder( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
             inputBuilder.SetText();
-            foreach( var attribute in _config.GetAttributes() ) {
-                inputBuilder.Attribute( attribute.Key, attribute.Value );
-            }
-            inputBuilder.AddAttribute( "id", _config.Id );
+            inputBuilder.AddOtherAttributes( _config );
+            inputBuilder.Id( _config );
             inputBuilder.AddAttribute( "name", _config.Name );
             inputBuilder.AddAttribute( "placeholder", _config.Placeholder );
             inputBuilder.AddAttribute( "value", _config.Value );
