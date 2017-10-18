@@ -15,9 +15,8 @@ namespace Util.Ui.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="isPlain">是否启用扁平风格</param>
         public static TComponent Plain<TComponent>( this TComponent component, bool isPlain = true ) where TComponent : IComponent,IPlain {
-            if( !( component is IOptionConfig option ) )
-                return component;
-            option.Config<Config>( config => {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
                 config.Plain = isPlain;
             } );
             return component;

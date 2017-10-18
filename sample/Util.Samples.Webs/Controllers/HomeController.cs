@@ -1,8 +1,5 @@
-﻿using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Mvc;
-using Util.Exceptions;
+﻿using Microsoft.AspNetCore.Mvc;
 using Util.Samples.Webs.Models;
-using Util.Webs.Filters;
 
 namespace Util.Samples.Webs.Controllers {
     public class HomeController : Controller {

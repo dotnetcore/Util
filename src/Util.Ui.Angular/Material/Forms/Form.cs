@@ -10,27 +10,33 @@ namespace Util.Ui.Material.Forms {
     /// <summary>
     /// 表单
     /// </summary>
-    public class Form : ContainerBase<Config, IDisposable>, IForm {
+    public class Form : ContainerBase<IDisposable>, IForm {
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private readonly Config _config;
+
         /// <summary>
         /// 初始化表单
         /// </summary>
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">Html编码器</param>
         public Form( TextWriter writer, HtmlEncoder encoder ) : base( writer, encoder ) {
+            _config = new Config();
         }
 
         /// <summary>
         /// 获取配置
         /// </summary>
-        protected override Config GetConfig() {
-            return new Config();
+        protected override IConfig GetConfig() {
+            return _config;
         }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         protected override IContainerRender GetRender() {
-            return new FormRender( OptionConfig );
+            return new FormRender( _config );
         }
 
         /// <summary>

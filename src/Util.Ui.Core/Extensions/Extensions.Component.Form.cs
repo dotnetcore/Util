@@ -15,9 +15,8 @@ namespace Util.Ui.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="model">模型名称</param>
         public static TComponent Model<TComponent>( this TComponent component, string model ) where TComponent : IComponent, IModel {
-            if( !( component is IOptionConfig option ) )
-                return component;
-            option.Config<Config>( config => {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
                 config.Model = model;
             } );
             return component;

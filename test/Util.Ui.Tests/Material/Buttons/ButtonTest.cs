@@ -4,12 +4,17 @@ using Util.Helpers;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Buttons;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Util.Ui.Tests.Material.Buttons {
     /// <summary>
     /// 按钮测试
     /// </summary>
     public class ButtonTest {
+        /// <summary>
+        /// 输出工具
+        /// </summary>
+        private readonly ITestOutputHelper _output;
         /// <summary>
         /// 按钮
         /// </summary>
@@ -18,7 +23,8 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public ButtonTest() {
+        public ButtonTest( ITestOutputHelper output ) {
+            _output = output;
             _button = new Button();
         }
 
@@ -27,7 +33,9 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         private string GetResult( Button button ) {
             button.WriteTo( new StringWriter(), HtmlEncoder.Default );
-            return button.ToString();
+            var result = button.ToString();
+            _output.WriteLine( result );
+            return result;
         }
 
         /// <summary>

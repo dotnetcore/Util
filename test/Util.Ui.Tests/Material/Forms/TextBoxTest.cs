@@ -5,6 +5,7 @@ using Util.Helpers;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Forms;
 using Xunit;
+using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
 namespace Util.Ui.Tests.Material.Forms {
@@ -12,6 +13,10 @@ namespace Util.Ui.Tests.Material.Forms {
     /// 文本框测试
     /// </summary>
     public class TextBoxTest : IDisposable {
+        /// <summary>
+        /// 输出工具
+        /// </summary>
+        private readonly ITestOutputHelper _output;
         /// <summary>
         /// 单引号
         /// </summary>
@@ -25,7 +30,8 @@ namespace Util.Ui.Tests.Material.Forms {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public TextBoxTest() {
+        public TextBoxTest( ITestOutputHelper output ) {
+            _output = output;
             _textBox = new TextBox();
             Id.SetId( "id" );
         }
@@ -42,7 +48,9 @@ namespace Util.Ui.Tests.Material.Forms {
         /// </summary>
         private string GetResult( TextBox textBox ) {
             textBox.WriteTo( new StringWriter(), HtmlEncoder.Default );
-            return textBox.ToString();
+            var result = textBox.ToString();
+            _output.WriteLine( result );
+            return result;
         }
 
         /// <summary>

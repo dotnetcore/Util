@@ -15,9 +15,8 @@ namespace Util.Ui.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="message">错误消息</param>
         public static TComponent Required<TComponent>( this TComponent component, string message = "" ) where TComponent : IComponent, IRequired {
-            if( !( component is IOptionConfig option ) )
-                return component;
-            option.Config<Config>( config => {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
                 config.Required = true;
                 config.RequiredMessage = message;
             } );
@@ -32,9 +31,8 @@ namespace Util.Ui.Extensions {
         /// <param name="minLength">最小长度</param>
         /// <param name="message">错误消息</param>
         public static TComponent MinLength<TComponent>( this TComponent component, int minLength, string message = "" ) where TComponent : IComponent, IMinLength {
-            if( !( component is IOptionConfig option ) )
-                return component;
-            option.Config<Config>( config => {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
                 config.MinLength = minLength;
                 config.MinLengthMessage = message;
             } );

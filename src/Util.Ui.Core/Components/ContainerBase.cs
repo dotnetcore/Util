@@ -2,17 +2,14 @@
 using System.IO;
 using System.Text.Encodings.Web;
 using Util.Ui.Components.Internal;
-using Util.Ui.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Components {
     /// <summary>
     /// 容器
     /// </summary>
-    /// <typeparam name="TConfig">配置类型</typeparam>
     /// <typeparam name="TWrapper">容器包装器类型</typeparam>
-    public abstract class ContainerBase<TConfig, TWrapper> : OptionBase<TConfig>, IContainer<TWrapper>, IRenderEnd
-        where TConfig : class, IConfig
+    public abstract class ContainerBase<TWrapper> : OptionBase, IContainer<TWrapper>, IRenderEnd
         where TWrapper : IDisposable {
         /// <summary>
         /// 流写入器

@@ -8,8 +8,7 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 组件
     /// </summary>
-    /// <typeparam name="TConfig">配置类型</typeparam>
-    public abstract class ComponentBase<TConfig> : OptionBase<TConfig>, IComponent, IHtmlContent where TConfig : class, IConfig {
+    public abstract class ComponentBase : OptionBase, IComponent, IHtmlContent {
         /// <summary>
         /// 渲染器
         /// </summary>
@@ -50,7 +49,7 @@ namespace Util.Ui.Components {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         private void Render( TextWriter writer, HtmlEncoder encoder ) {
-            ComponentRender.Render( writer, encoder );
+            ComponentRender.WriteTo( writer, encoder );
         }
 
         /// <summary>

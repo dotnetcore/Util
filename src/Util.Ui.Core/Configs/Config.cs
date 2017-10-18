@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Util.Ui.Configs {
     /// <summary>
@@ -21,6 +23,21 @@ namespace Util.Ui.Configs {
             _classList = new List<string>();
             _attributes= new Dictionary<string, string>();
         }
+
+        /// <summary>
+        /// 初始化按钮配置
+        /// </summary>
+        /// <param name="context">TagHelper上下文</param>
+        /// <param name="output">TagHelper输出</param>
+        /// <param name="content">标签内容</param>
+        public Config( TagHelperContext context, TagHelperOutput output, IHtmlContent content ) : this() {
+            Content = content;
+        }
+
+        /// <summary>
+        /// 内容
+        /// </summary>
+        public IHtmlContent Content { get; set; }
 
         /// <summary>
         /// 标识

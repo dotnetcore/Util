@@ -3,6 +3,7 @@ using System.Text.Encodings.Web;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Forms;
 using Xunit;
+using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
 namespace Util.Ui.Tests.Material.Forms {
@@ -11,6 +12,10 @@ namespace Util.Ui.Tests.Material.Forms {
     /// </summary>
     public class FormTest {
         /// <summary>
+        /// 输出工具
+        /// </summary>
+        private readonly ITestOutputHelper _output;
+        /// <summary>
         /// 表单
         /// </summary>
         private readonly Form _form;
@@ -18,7 +23,8 @@ namespace Util.Ui.Tests.Material.Forms {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public FormTest() {
+        public FormTest( ITestOutputHelper output ) {
+            _output = output;
             _form = new Form( new StringWriter(), HtmlEncoder.Default );
         }
 
@@ -27,7 +33,9 @@ namespace Util.Ui.Tests.Material.Forms {
         /// </summary>
         private string GetResult( Form form ) {
             form.Begin();
-            return form.ToString();
+            var result = form.ToString();
+            _output.WriteLine( result );
+            return result;
         }
 
         /// <summary>
@@ -38,7 +46,7 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<form>" );
             result.Append( "</form>" );
-            Assert.Equal( result.ToString(), _form.ToString() );
+            Assert.Equal( result.ToString(), GetResult( _form ) );
         }
 
         /// <summary>
