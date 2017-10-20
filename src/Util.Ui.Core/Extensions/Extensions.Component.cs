@@ -47,7 +47,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Id<TComponent>( this TComponent component, string id ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Attributes.Add( Const.Id,id );
+                config.Attributes.Add( UiConst.Id,id );
             } );
             return component;
         }
@@ -75,7 +75,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Text<TComponent>( this TComponent component, string text ) where TComponent : IComponent, IText {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( Const.Text, text );
+                config.SetAttribute( UiConst.Text, text );
             } );
             return component;
         }
@@ -104,6 +104,23 @@ namespace Util.Ui.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.Value = value;
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 禁用
+        /// </summary>
+        /// <typeparam name="TComponent">标题组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="disabled">是否禁用</param>
+        public static TComponent Disable<TComponent>( this TComponent component, bool disabled = true ) where TComponent : IComponent, IDisable {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                if( disabled )
+                    config.Attributes.Add( UiConst.Disabled, "disabled" );
+                else
+                    config.Remove( UiConst.Disabled );
             } );
             return component;
         }

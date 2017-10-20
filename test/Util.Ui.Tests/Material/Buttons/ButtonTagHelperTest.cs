@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
 using Util.Ui.Material.Buttons.TagHelpers;
+using Util.Ui.Material.Enums;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
@@ -120,6 +121,17 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { "asp-plain", "true" } };
             var result = new String();
             result.Append( "<button mat-button=\"mat-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button, attributes ) );
+        }
+
+        /// <summary>
+        /// 测试颜色
+        /// </summary>
+        [Fact]
+        public void TestColor() {
+            var attributes = new TagHelperAttributeList { { "asp-color", Color.Primary } };
+            var result = new String();
+            result.Append( "<button color=\"primary\" mat-raised-button=\"mat-raised-button\"></button>" );
             Assert.Equal( result.ToString(), GetResult( _button, attributes ) );
         }
 

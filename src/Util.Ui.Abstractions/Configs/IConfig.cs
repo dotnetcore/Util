@@ -42,6 +42,11 @@ namespace Util.Ui.Configs {
         /// <param name="value">值</param>
         void SetAttribute( string name, object value );
         /// <summary>
+        /// 移除属性
+        /// </summary>
+        /// <param name="name">属性名</param>
+        void Remove( string name );
+        /// <summary>
         /// 添加类
         /// </summary>
         void AddClass( string @class );

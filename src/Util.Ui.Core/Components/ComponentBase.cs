@@ -1,13 +1,12 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Html;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Components {
     /// <summary>
     /// 组件
     /// </summary>
-    public abstract class ComponentBase : OptionBase, IComponent, IHtmlContent {
+    public abstract class ComponentBase : OptionBase, IComponent {
         /// <summary>
         /// 渲染器
         /// </summary>

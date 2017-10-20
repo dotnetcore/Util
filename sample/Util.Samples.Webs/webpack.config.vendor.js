@@ -2,8 +2,8 @@
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
 
-//第三方库
-const vendorModules = [
+//第三方Js库
+const jsModules = [
     '@angular/animations',
     '@angular/common',
     '@angular/compiler',
@@ -19,9 +19,14 @@ const vendorModules = [
     'reflect-metadata',
     'zone.js',
     'hammerjs',
-    '@angular/material',
+    '@angular/material'
+];
+
+//第三方Css库
+const cssModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
-    'material-design-icons/iconfont/material-icons.css'
+    'material-design-icons/iconfont/material-icons.css',
+    'font-awesome/css/font-awesome.css'
 ];
 
 //env代表环境变量，如果传入env.production表示正式生产环境
@@ -37,9 +42,9 @@ module.exports = (env) => {
         return pathPlugin.join(__dirname, path);
     }
 
-    return  {
+    let jsConfig =  {
         //输入
-        entry: { vendor: vendorModules },
+        entry: { vendor: jsModules },
         //输出
         output: {
             publicPath: 'dist/',
@@ -51,25 +56,7 @@ module.exports = (env) => {
             extensions: ['.js']
         },
         devtool: "source-map",
-        module: {
-            rules: [
-                //提取css文件
-                { test: /\.css$/, use: extractCss.extract({ use: isDev ? 'css-loader' : 'css-loader?minimize' }) },
-                //80K以内的图片直接序列化到css文件中，大于80K的复制到images目录
-                {
-                    test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 81920,
-                            name: "[name].[ext]",
-                            outputPath: "images/"
-                        }
-                    }
-                }
-            ]
-        },
         plugins: [
-            extractCss,
             new webpack.DllPlugin({
                 path: getPath("wwwroot/dist/[name]-manifest.json"),
                 name: "[name]"
@@ -80,4 +67,36 @@ module.exports = (env) => {
             new webpack.IgnorePlugin(/^vertx$/)
         ].concat(isDev ? [] : [new webpack.optimize.UglifyJsPlugin()])
     }
+
+    //打包css
+    let cssConfig = {
+        //输入
+        entry: { vendor: cssModules },
+        //输出
+        output: {
+            publicPath: './',
+            path: getPath("wwwroot/dist"),
+            filename: "[name].css"
+        },
+        devtool: "source-map",
+        module: {
+            rules: [
+                { test: /\.css$/, use: extractCss.extract({ use: isDev ? 'css-loader' : 'css-loader?minimize' }) },
+                {
+                    test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 80000,
+                            name: "[name].[ext]",
+                            outputPath: "images/"
+                        }
+                    }
+                }
+            ]
+        },
+        plugins: [
+            extractCss
+        ]
+    }
+    return [jsConfig, cssConfig];
 }

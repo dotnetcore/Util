@@ -1,7 +1,7 @@
 ﻿namespace Util.Ui.Operations {
     /// <summary>
-    /// 文本
+    /// 禁用
     /// </summary>
-    public interface IText {
+    public interface IDisable {
     }
 }

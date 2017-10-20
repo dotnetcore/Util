@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Util.Samples.Webs.Models;
 
 namespace Util.Samples.Webs.Controllers {
     public class HomeController : Controller {
@@ -8,8 +7,7 @@ namespace Util.Samples.Webs.Controllers {
         }
 
         public IActionResult Index() {
-            TestTagHelper a = new TestTagHelper();
-            var b = a.ToString();
+            
             return View();
         }
 

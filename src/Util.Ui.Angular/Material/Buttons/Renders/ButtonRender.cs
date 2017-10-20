@@ -3,6 +3,7 @@ using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.Builders;
 using Util.Ui.Renders;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Configs;
 
 namespace Util.Ui.Material.Buttons.Renders {
     /// <summary>
@@ -31,6 +32,8 @@ namespace Util.Ui.Material.Buttons.Renders {
             builder.Id( _config );
             builder.Text( _config );
             SetPlainStyle( builder );
+            builder.AddAttribute( "color", _config.GetValue( MaterialConst.Color ).ToLower() );
+            SetDisabled( builder );
             SetEvents( builder );
             return builder;
         }
@@ -39,7 +42,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 设置扁平风格样式
         /// </summary>
         private void SetPlainStyle( ButtonBuilder builder ) {
-            if ( _config.GetValue<bool>( Const.Plain ) ) {
+            if ( _config.GetValue<bool>( UiConst.Plain ) ) {
                 builder.AddAttribute( "mat-button", "mat-button" );
                 return;
             }
@@ -47,10 +50,18 @@ namespace Util.Ui.Material.Buttons.Renders {
         }
 
         /// <summary>
+        /// 设置禁用
+        /// </summary>
+        private void SetDisabled( ButtonBuilder builder ) {
+            if( _config.Contains( UiConst.Disabled ) )
+                builder.AddAttribute( "disabled", "disabled" );
+        }
+
+        /// <summary>
         /// 设置事件
         /// </summary>
         private void SetEvents( ButtonBuilder builder ) {
-            builder.AddAttribute( "(click)", _config.GetValue( Const.OnClick ) );
+            builder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClick ) );
         }
     }
 }

@@ -23,8 +23,8 @@ namespace Util.Ui.Extensions {
         /// <param name="builder">标签生成器</param>
         /// <param name="config">配置</param>
         public static TagBuilder Id( this TagBuilder builder, IConfig config ) {
-            if( config.Contains( Const.Id ) )
-                builder.Attribute( Const.Id, config.GetValue( Const.Id ),true );
+            if( config.Contains( UiConst.Id ) )
+                builder.Attribute( UiConst.Id, config.GetValue( UiConst.Id ),true );
             return builder;
         }
 
@@ -34,8 +34,8 @@ namespace Util.Ui.Extensions {
         /// <param name="builder">标签生成器</param>
         /// <param name="config">配置</param>
         public static TagBuilder Text( this TagBuilder builder, IConfig config ) {
-            if( config.Contains( Const.Text ) ) {
-                builder.SetContent( config.GetValue( Const.Text ) );
+            if( config.Contains( UiConst.Text ) ) {
+                builder.SetContent( config.GetValue( UiConst.Text ) );
                 return builder;
             }
             builder.SetContent( config.Content );

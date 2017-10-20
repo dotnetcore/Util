@@ -3,6 +3,8 @@ using System.Text.Encodings.Web;
 using Util.Helpers;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Buttons;
+using Util.Ui.Material.Enums;
+using Util.Ui.Material.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -109,6 +111,16 @@ namespace Util.Ui.Tests.Material.Buttons {
         }
 
         /// <summary>
+        /// 测试颜色
+        /// </summary>
+        [Fact]
+        public void TestColor() {
+            var result = new String();
+            result.Append( "<button color=\"primary\" mat-raised-button=\"mat-raised-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button.Color( Color.Primary ) ) );
+        }
+
+        /// <summary>
         /// 测试单击事件
         /// </summary>
         [Fact]
@@ -116,6 +128,26 @@ namespace Util.Ui.Tests.Material.Buttons {
             var result = new String();
             result.Append( "<button (click)=\"a\" mat-raised-button=\"mat-raised-button\"></button>" );
             Assert.Equal( result.ToString(), GetResult( _button.OnClick( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisable() {
+            var result = new String();
+            result.Append( "<button disabled=\"disabled\" mat-raised-button=\"mat-raised-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button.Disable() ) );
+        }
+
+        /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisable_False() {
+            var result = new String();
+            result.Append( "<button mat-raised-button=\"mat-raised-button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _button.Disable().Disable( false ) ) );
         }
     }
 }

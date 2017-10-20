@@ -17,7 +17,7 @@ namespace Util.Ui.Extensions {
         public static TComponent OnClick<TComponent>( this TComponent component, string handler ) where TComponent : IComponent,IOnClick {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( Const.OnClick,handler );
+                config.SetAttribute( UiConst.OnClick,handler );
             } );
             return component;
         }

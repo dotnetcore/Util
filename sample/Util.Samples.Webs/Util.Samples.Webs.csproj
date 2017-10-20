@@ -65,6 +65,10 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
   <!-- Debug调试模式打包第三方框架 -->
   <Target Name="Debug_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- 检测node js是否安装 -->

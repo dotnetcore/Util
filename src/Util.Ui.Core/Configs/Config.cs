@@ -104,7 +104,7 @@ namespace Util.Ui.Configs {
         /// </summary>
         /// <param name="name">属性名</param>
         public string GetValue( string name ) {
-            return Contains( name ) ? Attributes[name].Value.SafeString() : null;
+            return Contains( name ) ? Attributes[name].Value.SafeString() : string.Empty;
         }
 
         /// <summary>
@@ -123,6 +123,14 @@ namespace Util.Ui.Configs {
         /// <param name="value">值</param>
         public void SetAttribute( string name,object value ) {
             Attributes.SetAttribute( new TagHelperAttribute( name,value ) );
+        }
+
+        /// <summary>
+        /// 移除属性
+        /// </summary>
+        /// <param name="name">属性名</param>
+        public void Remove( string name ) {
+            Attributes.RemoveAll( name );
         }
 
         /// <summary>

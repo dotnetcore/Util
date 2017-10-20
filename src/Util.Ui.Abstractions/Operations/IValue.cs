@@ -1,6 +1,6 @@
 ﻿namespace Util.Ui.Operations {
     /// <summary>
-    /// 值操作
+    /// 值
     /// </summary>
     public interface IValue {
     }

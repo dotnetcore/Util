@@ -1,12 +1,63 @@
-﻿@{
+﻿@using Util
+@using Util.Ui.Enums
+@{
     Layout = null;
     var x = @Html.Angular();
 }
 
-
 @using( x.Form().Id( "a" ).Attribute( "b", "2" ).Begin() ) {
     @x.TextBox().Placeholder( "用户名" ).Model( "userName" ).Name( "a" ).Required( "该项不能为空" ).MinLength( 3, "最起码你得输入3位吧" )
     @x.TextBox().Placeholder( "密码" ).Password().Model( "password" ).Name( "b" )
-    <button asp-plain="false" asp-click="login()">登陆</button>
+    <button asp-click="login()" asp-color="Accent">登陆</button>
 }
-{{state}}
+
+<div style="margin: 50px">
+    <icon asp-icon-size="Large" asp-material-icon="Add_Box" ></icon>
+    <br>
+    <icon asp-icon-size="Large2X" asp-material-icon="Add_Box"></icon>
+    <br>
+    <icon asp-icon-size="Large3X" asp-material-icon="Add_Box"></icon>
+    <br>
+    <icon asp-icon-size="Large4X" asp-material-icon="Add_Box"></icon>
+    <br>
+    <icon asp-icon-size="Large5X" asp-material-icon="Cloud_Circle"></icon>
+</div>
+<div style="margin: 50px">
+    <icon asp-icon-size="Large" asp-font-awesome-icon="Plus"></icon>
+    <br>
+    <icon asp-icon-size="Large2X" asp-font-awesome-icon="Plus"></icon>
+    <br>
+    <icon asp-icon-size="Large3X" asp-font-awesome-icon="Plus"></icon>
+    <br>
+    <icon asp-icon-size="Large4X" asp-font-awesome-icon="Plus"></icon>
+    <br>
+    <icon asp-icon-size="Large5X" asp-font-awesome-icon="Bug"></icon>
+</div>
+
+<div style="margin: 50px">
+    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large )
+    <br>
+    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large2X )
+    <br>
+    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large3X )
+    <br>
+    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large4X )
+    <br>
+    @x.Icon().Material( MaterialIcon.Ac_Unit ).Size( IconSize.Large5X ).Spin()
+</div>
+<div style="margin: 50px">
+    @x.Icon().FontAwesome( FontAwesomeIcon.Spinner )
+    @x.Icon().FontAwesome( FontAwesomeIcon.Spinner ).Attribute( "class", "fa-spin" )
+    <br>
+    <br>
+    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large2X )
+    <br>
+    <br>
+    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large3X )
+    <br>
+    <br>
+    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large4X )
+    <br>
+    <br>
+    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large5X ).Spin()
+</div>
