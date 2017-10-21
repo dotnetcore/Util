@@ -173,7 +173,7 @@ Util暂时未发布到Nuget，待成熟后发布。
 16. Web框架
   - Asp.Net Core 2
 
-17. 前端
+17. UI
   - 语言
     - TypeScript
   - 框架
@@ -410,4 +410,4 @@ https://github.com/dotnetcore/util/
 - 2017年9月21日，更新了验证操作拦截器(Util/Validations/Aspects)。
 - 2017年9月27日，更新了工作单元服务(Util/Datas.UnitOfWorks),工作单元拦截器(Util.Applications/Aspects),Crud服务(Util.Applications)。
 - 2017年9月30日，更新了事件总线(Util/Events)，类型查找器(Util/Reflections)，支持了IOC扫描注册功能。
-- 2017年10月21日，更新了Ui组件基类及TagHelper基类(Util.Ui.Abstractions,Util.Ui.Core)，图标组件(Util.Ui.Angular/Material/Icons)及单元测试。
+- 2017年10月21日，更新了Ui组件基类及TagHelper基类，图标组件(Util.Ui.Angular/Material/Icons)及单元测试。
