@@ -46,7 +46,21 @@ namespace Util.Ui.Extensions {
         public static TComponent Size<TComponent>( this TComponent component, IconSize size ) where TComponent : IIcon {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.IconSize, size.ToString() );
+                config.SetAttribute( UiConst.Size, size.ToString() );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 持续旋转
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="isSpin">是否旋转</param>
+        public static TComponent Spin<TComponent>( this TComponent component, bool isSpin = true ) where TComponent : IComponent,ISpin {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Spin, isSpin );
             } );
             return component;
         }
@@ -56,11 +70,28 @@ namespace Util.Ui.Extensions {
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
-        /// <param name="isSpin">是否旋转</param>
-        public static TComponent Spin<TComponent>( this TComponent component, bool isSpin = true ) where TComponent : IComponent,ISpin {
+        /// <param name="type">旋转类型</param>
+        public static TComponent Rotate<TComponent>( this TComponent component, RotateType type ) where TComponent : IIcon {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.Spin, isSpin );
+                config.SetAttribute( UiConst.Rotate, type.ToString() );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 子图标
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="childIcon">子图标</param>
+        /// <param name="class">子图标class</param>
+        public static TComponent Child<TComponent>( this TComponent component, FontAwesomeIcon childIcon,string @class = null ) where TComponent : IIcon {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Child, childIcon.ToString() );
+                if( string.IsNullOrWhiteSpace( @class ) == false )
+                    config.SetAttribute( UiConst.ChildClass, @class );
             } );
             return component;
         }

@@ -1,8 +1,6 @@
-﻿@using Util
-@using Util.Ui.Enums
-@{
+﻿@{
     Layout = null;
-    var x = @Html.Angular();
+    var x = @Html.Ui();
 }
 
 @using( x.Form().Id( "a" ).Attribute( "b", "2" ).Begin() ) {
@@ -11,53 +9,5 @@
     <button asp-click="login()" asp-color="Accent">登陆</button>
 }
 
-<div style="margin: 50px">
-    <icon asp-icon-size="Large" asp-material-icon="Add_Box" ></icon>
-    <br>
-    <icon asp-icon-size="Large2X" asp-material-icon="Add_Box"></icon>
-    <br>
-    <icon asp-icon-size="Large3X" asp-material-icon="Add_Box"></icon>
-    <br>
-    <icon asp-icon-size="Large4X" asp-material-icon="Add_Box"></icon>
-    <br>
-    <icon asp-icon-size="Large5X" asp-material-icon="Cloud_Circle"></icon>
-</div>
-<div style="margin: 50px">
-    <icon asp-icon-size="Large" asp-font-awesome-icon="Plus"></icon>
-    <br>
-    <icon asp-icon-size="Large2X" asp-font-awesome-icon="Plus"></icon>
-    <br>
-    <icon asp-icon-size="Large3X" asp-font-awesome-icon="Plus"></icon>
-    <br>
-    <icon asp-icon-size="Large4X" asp-font-awesome-icon="Plus"></icon>
-    <br>
-    <icon asp-icon-size="Large5X" asp-font-awesome-icon="Bug"></icon>
-</div>
-
-<div style="margin: 50px">
-    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large )
-    <br>
-    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large2X )
-    <br>
-    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large3X )
-    <br>
-    @x.Icon().Material( MaterialIcon.Add_Box ).Size( IconSize.Large4X )
-    <br>
-    @x.Icon().Material( MaterialIcon.Ac_Unit ).Size( IconSize.Large5X ).Spin()
-</div>
-<div style="margin: 50px">
-    @x.Icon().FontAwesome( FontAwesomeIcon.Spinner )
-    @x.Icon().FontAwesome( FontAwesomeIcon.Spinner ).Attribute( "class", "fa-spin" )
-    <br>
-    <br>
-    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large2X )
-    <br>
-    <br>
-    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large3X )
-    <br>
-    <br>
-    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large4X )
-    <br>
-    <br>
-    @x.Icon().FontAwesome( FontAwesomeIcon.SnowflakeO ).Size( IconSize.Large5X ).Spin()
-</div>
+<icon asp-font-awesome="CircleO" asp-child="Apple" asp-size="Large5X" asp-spin="true"></icon>
+@x.Icon().Material( MaterialIcon.Panorama_Fish_Eye ).Child( FontAwesomeIcon.Apple ).Size( IconSize.Large5X ).Spin()

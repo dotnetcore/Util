@@ -12,7 +12,7 @@ namespace Util.Ui.Extensions {
         /// Angular组件服务
         /// </summary>
         /// <param name="helper">HtmlHelper</param>
-        public static IUiService Angular( this IHtmlHelper helper ) {
+        public static IUiService Ui( this IHtmlHelper helper ) {
             return new UiService( helper,Ioc.Create<HtmlEncoder>() );
         }
     }

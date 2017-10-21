@@ -27,41 +27,107 @@ namespace Util.Ui.Material.Icons.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override ITagBuilder GetTagBuilder() {
-            if ( _config.Contains( UiConst.FontAwesomeIcon ) )
-                return GetItalicBuilder();
-            return _config.Contains( UiConst.MaterialIcon ) ? GetIconBuilder() : new EmptyTagBuilder();
+            TagBuilder result = GetIconBuilder();
+            if ( result == TagBuilder.Null )
+                return result;
+            Config( result );
+            return result;
         }
 
         /// <summary>
-        /// 获取i标签生成器
+        /// 获取图标生成器
         /// </summary>
-        private ITagBuilder GetItalicBuilder() {
+        private TagBuilder GetIconBuilder() {
+            if( IsStackIcon() )
+                return GetStackIconBuilder();
+            return GetSingleIconBuilder();
+        }
+
+        /// <summary>
+        /// 是否堆叠图标
+        /// </summary>
+        private bool IsStackIcon() {
+            return _config.Contains( UiConst.Child );
+        }
+
+        /// <summary>
+        /// 获取堆叠图标标签生成器
+        /// </summary>
+        private TagBuilder GetStackIconBuilder() {
+            var result = new SpanBuilder();
+            var parentIcon = GetSingleIconBuilder().Class( "fa-stack-2x" );
+            var childIcon = GetFontAwesomeBuilder( UiConst.Child ).Class( "fa-stack-1x" );
+            if ( _config.Contains( UiConst.ChildClass ) )
+                childIcon.Class( _config.GetValue( UiConst.ChildClass ) );
+            result.AddChild( parentIcon );
+            result.AddChild( childIcon );
+            return result;
+        }
+
+        /// <summary>
+        /// 获取单个图标生成器
+        /// </summary>
+        private TagBuilder GetSingleIconBuilder() {
+            TagBuilder result = TagBuilder.Null;
+            if( _config.Contains( UiConst.FontAwesomeIcon ) )
+                result = GetFontAwesomeBuilder( UiConst.FontAwesomeIcon );
+            if( _config.Contains( UiConst.MaterialIcon ) )
+                result = GetMaterialIconBuilder();
+            result.AddOtherAttributes( _config );
+            result.Class( _config );
+            return result;
+        }
+
+        /// <summary>
+        /// 获取Font Awesome图标标签生成器
+        /// </summary>
+        private ItalicBuilder GetFontAwesomeBuilder( string name ) {
             var builder = new ItalicBuilder();
-            builder.Class( _config.GetValue<FontAwesomeIcon>( UiConst.FontAwesomeIcon ).GetIcon() );
-            Config( builder );
+            builder.Class( _config.GetValue<FontAwesomeIcon>( name ).GetIcon() );
             return builder;
         }
 
         /// <summary>
-        /// 配置
+        /// 获取Material图标标签生成器
         /// </summary>
-        private void Config( TagBuilder builder) {
-            builder.AddOtherAttributes( _config );
+        private IconBuilder GetMaterialIconBuilder() {
+            var builder = new IconBuilder();
+            builder.SetContent( _config.GetValue<MaterialIcon>( UiConst.MaterialIcon ).Description() );
+            return builder;
+        }
+
+        /// <summary>
+        /// 公共配置
+        /// </summary>
+        private void Config( TagBuilder builder ) {
             builder.Id( _config );
-            if( _config.Contains( UiConst.IconSize ) )
-                builder.Class( _config.GetValue<IconSize>( UiConst.IconSize ).Description() );
+            ConfigSize( builder );
+            ConfigSpin( builder );
+            ConfigRotate( builder );
+        }
+
+        /// <summary>
+        /// 配置图标大小
+        /// </summary>
+        private void ConfigSize( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Size ) )
+                builder.Class( _config.GetValue<IconSize>( UiConst.Size ).Description() );
+        }
+
+        /// <summary>
+        /// 配置图标旋转
+        /// </summary>
+        private void ConfigSpin( TagBuilder builder ) {
             if( _config.GetValue<bool>( UiConst.Spin ) )
                 builder.Class( "fa-spin" );
         }
 
         /// <summary>
-        /// 获取mat-icon标签生成器
+        /// 配置图标旋转
         /// </summary>
-        private ITagBuilder GetIconBuilder() {
-            var builder = new IconBuilder();
-            builder.SetContent( _config.GetValue<MaterialIcon>( UiConst.MaterialIcon ).Description() );
-            Config( builder );
-            return builder;
+        private void ConfigRotate( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Rotate ) )
+                builder.Class( _config.GetValue<RotateType>( UiConst.Rotate ).Description() );
         }
     }
 }

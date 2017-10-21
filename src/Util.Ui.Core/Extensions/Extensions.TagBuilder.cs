@@ -12,8 +12,23 @@ namespace Util.Ui.Extensions {
         /// <param name="builder">标签生成器</param>
         /// <param name="config">配置</param>
         public static TagBuilder AddOtherAttributes( this TagBuilder builder, IConfig config ) {
-            foreach( var attribute in config.OtherAttributes )
+            foreach( var attribute in config.OtherAttributes ) {
+                if( attribute.Name.ToLower() == UiConst.Class )
+                    continue;
                 builder.Attribute( attribute.Name, attribute.Value.SafeString() );
+            }
+            return builder;
+        }
+
+        /// <summary>
+        /// 添加属性列表
+        /// </summary>
+        /// <param name="builder">标签生成器</param>
+        /// <param name="config">配置</param>
+        public static TagBuilder Class( this TagBuilder builder, IConfig config ) {
+            if( config.OtherAttributes.ContainsName( UiConst.Class ) )
+                config.AddClass( config.OtherAttributes[UiConst.Class].Value.SafeString() );
+            config.GetClassList().ForEach( s => builder.Class( s ) );
             return builder;
         }
 
@@ -24,7 +39,7 @@ namespace Util.Ui.Extensions {
         /// <param name="config">配置</param>
         public static TagBuilder Id( this TagBuilder builder, IConfig config ) {
             if( config.Contains( UiConst.Id ) )
-                builder.Attribute( UiConst.Id, config.GetValue( UiConst.Id ),true );
+                builder.Attribute( UiConst.Id, config.GetValue( UiConst.Id ), true );
             return builder;
         }
 

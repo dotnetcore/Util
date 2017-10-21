@@ -58,6 +58,26 @@ namespace Util.Ui.Tests.Material.Icons {
         }
 
         /// <summary>
+        /// 测试设置class
+        /// </summary>
+        [Fact]
+        public void TestClass() {
+            var result = new String();
+            result.Append( "<mat-icon class=\"a\">android</mat-icon>" );
+            Assert.Equal( result.ToString(), GetResult( _icon.Material( MaterialIcon.Android ).Class("a") ) );
+        }
+
+        /// <summary>
+        /// 测试设置style
+        /// </summary>
+        [Fact]
+        public void TestStyle() {
+            var result = new String();
+            result.Append( "<mat-icon style=\"a\">android</mat-icon>" );
+            Assert.Equal( result.ToString(), GetResult( _icon.Material( MaterialIcon.Android ).Style( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试添加属性
         /// </summary>
         [Fact]
@@ -125,6 +145,52 @@ namespace Util.Ui.Tests.Material.Icons {
             var result = new String();
             result.Append( "<mat-icon class=\"fa-spin\">android</mat-icon>" );
             Assert.Equal( result.ToString(), GetResult( _icon.Material( MaterialIcon.Android ).Spin() ) );
+        }
+
+        /// <summary>
+        /// 测试设置FontAwesome图标旋转
+        /// </summary>
+        [Fact]
+        public void TestRotate_FontAwesome() {
+            var result = new String();
+            result.Append( "<i class=\"fa-rotate-180 fa fa-android\"></i>" );
+            Assert.Equal( result.ToString(), GetResult( _icon.FontAwesome( FontAwesomeIcon.Android ).Rotate( RotateType.Rotate180 ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置Material图标旋转
+        /// </summary>
+        [Fact]
+        public void TestRotate_Material() {
+            var result = new String();
+            result.Append( "<mat-icon class=\"fa-rotate-180\">android</mat-icon>" );
+            Assert.Equal( result.ToString(), GetResult( _icon.Material( MaterialIcon.Android ).Rotate( RotateType.Rotate180 ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置FontAwesome子图标
+        /// </summary>
+        [Fact]
+        public void TestChild() {
+            var result = new String();
+            result.Append( "<span class=\"fa-stack\">" );
+            result.Append( "<i class=\"fa-stack-2x fa fa-square-o\"></i>" );
+            result.Append( "<i class=\"fa-stack-1x fa fa-twitter\"></i>" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult( _icon.FontAwesome( FontAwesomeIcon.SquareO ).Child( FontAwesomeIcon.Twitter ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置FontAwesome子图标
+        /// </summary>
+        [Fact]
+        public void TestChild_Class() {
+            var result = new String();
+            result.Append( "<span class=\"fa-stack\">" );
+            result.Append( "<i class=\"fa-stack-2x fa fa-square-o\"></i>" );
+            result.Append( "<i class=\"a fa-stack-1x fa fa-twitter\"></i>" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult( _icon.FontAwesome( FontAwesomeIcon.SquareO ).Child( FontAwesomeIcon.Twitter,"a" ) ) );
         }
     }
 }

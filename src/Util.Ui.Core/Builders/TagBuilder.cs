@@ -23,6 +23,11 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
+        /// 空标签生成器
+        /// </summary>
+        public static readonly TagBuilder Null = new EmptyTagBuilder();
+
+        /// <summary>
         /// Html内容
         /// </summary>
         public IHtmlContentBuilder InnerHtml => _tagBuilder.InnerHtml;
@@ -68,6 +73,15 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
+        /// 设置子组件
+        /// </summary>
+        /// <param name="child">子组件</param>
+        public TagBuilder AddChild( IHtmlContent child ) {
+            _tagBuilder.InnerHtml.AppendHtml( child );
+            return this;
+        }
+
+        /// <summary>
         /// 设置内容
         /// </summary>
         /// <param name="content">内容</param>
@@ -108,7 +122,7 @@ namespace Util.Ui.Builders {
         /// </summary>
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
-        public void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
+        public virtual void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
             _tagBuilder.WriteTo( writer,encoder );
         }
 

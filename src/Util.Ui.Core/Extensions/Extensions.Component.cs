@@ -39,6 +39,34 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 设置class
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="class">css类名</param>
+        public static TComponent Class<TComponent>( this TComponent component, string @class ) where TComponent : IOption {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.AddClass( @class );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置样式
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="style">样式</param>
+        public static TComponent Style<TComponent>( this TComponent component, string style ) where TComponent : IOption {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.OtherAttributes.Add( UiConst.Style, style );
+            } );
+            return component;
+        }
+
+        /// <summary>
         /// 设置标识
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
@@ -47,7 +75,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Id<TComponent>( this TComponent component, string id ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Attributes.Add( UiConst.Id,id );
+                config.Attributes.Add( UiConst.Id, id );
             } );
             return component;
         }

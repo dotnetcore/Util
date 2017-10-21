@@ -12,19 +12,31 @@ namespace Util.Ui.Material.Icons.TagHelpers {
         /// <summary>
         /// Font Awesome图标
         /// </summary>
-        public FontAwesomeIcon AspFontAwesomeIcon { get; set; }
+        public FontAwesomeIcon AspFontAwesome { get; set; }
         /// <summary>
         /// Material图标
         /// </summary>
-        public MaterialIcon AspMaterialIcon { get; set; }
+        public MaterialIcon AspMaterial { get; set; }
         /// <summary>
         /// 图标大小
         /// </summary>
-        public IconSize AspIconSize { get; set; }
+        public IconSize AspSize { get; set; }
+        /// <summary>
+        /// 持续旋转
+        /// </summary>
+        public bool AspSpin { get; set; }
         /// <summary>
         /// 旋转
         /// </summary>
-        public bool AspSpin { get; set; }
+        public RotateType AspRotate { get; set; }
+        /// <summary>
+        /// 子图标
+        /// </summary>
+        public FontAwesomeIcon AspChild { get; set; }
+        /// <summary>
+        /// 子图标class
+        /// </summary>
+        public string AspChildClass { get; set; }
 
         /// <summary>
         /// 获取渲染器
