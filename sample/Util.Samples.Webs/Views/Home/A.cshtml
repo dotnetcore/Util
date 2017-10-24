@@ -6,8 +6,6 @@
 @using( x.Form().Id( "a" ).Attribute( "b", "2" ).Begin() ) {
     @x.TextBox().Placeholder( "用户名" ).Model( "userName" ).Name( "a" ).Required( "该项不能为空" ).MinLength( 3, "最起码你得输入3位吧" )
     @x.TextBox().Placeholder( "密码" ).Password().Model( "password" ).Name( "b" )
-    <button asp-click="login()" asp-color="Accent">登陆</button>
 }
 
-<icon asp-font-awesome="CircleO" asp-child="Apple" asp-size="Large5X" asp-spin="true"></icon>
 @x.Icon().Material( MaterialIcon.Panorama_Fish_Eye ).Child( FontAwesomeIcon.Apple ).Size( IconSize.Large5X ).Spin()

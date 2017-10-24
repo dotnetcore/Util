@@ -32,6 +32,10 @@
         /// </summary>
         public const string OnClick = "asp-click";
         /// <summary>
+        /// 图标
+        /// </summary>
+        public const string Icon = "asp-icon";
+        /// <summary>
         /// Font Awesome图标
         /// </summary>
         public const string FontAwesomeIcon = "asp-font-awesome";
