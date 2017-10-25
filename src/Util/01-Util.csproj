@@ -12,9 +12,9 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
-    <AssemblyVersion>1.0.5.2</AssemblyVersion>
-    <FileVersion>1.0.5.2</FileVersion>
-    <Version>1.0.5-preview2</Version>
+    <AssemblyVersion>1.0.5.3</AssemblyVersion>
+    <FileVersion>1.0.5.3</FileVersion>
+    <Version>1.0.5-preview3</Version>
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <PackageId>Util.Core</PackageId>
   </PropertyGroup>
@@ -71,10 +71,6 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>R.Designer.cs</LastGenOutput>
     </EmbeddedResource>  
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Webs\" />
   </ItemGroup>
 
 </Project>

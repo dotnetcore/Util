@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Util.Tools.QrCode;
 
 namespace Util.Samples.Webs.Controllers {
     public class HomeController : Controller {
@@ -7,7 +8,6 @@ namespace Util.Samples.Webs.Controllers {
         }
 
         public IActionResult Index() {
-            
             return View();
         }
 

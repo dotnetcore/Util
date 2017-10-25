@@ -25,6 +25,7 @@ const jsModules = [
 //第三方Css库
 const cssModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
+    'bootstrap/dist/css/bootstrap.css',
     'material-design-icons/iconfont/material-icons.css',
     'font-awesome/css/font-awesome.css'
 ];
