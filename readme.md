@@ -167,16 +167,19 @@ Util暂时未发布到Nuget，待成熟后发布。
 14. Id生成器
   - [ECommon.Utilities.ObjectId](https://github.com/tangxuehua/ecommon/blob/master/src/ECommon/Utilities/ObjectId.cs)
 
-15. 二维码组件
+15. 二维码操作
   - [QRCoder](https://github.com/codebude/QRCoder/)
 
-15. Queryable动态扩展
-  - System.Linq.Dynamic.Core
+16. 短信操作
+  - [Luosimao](https://luosimao.com/)
 
-16. Web框架
+17. Queryable动态扩展
+  - [System.Linq.Dynamic.Core](https://github.com/StefH/System.Linq.Dynamic.Core)
+
+18. Web框架
   - Asp.Net Core 2
 
-17. UI
+19. UI
   - 语言
     - TypeScript
   - js框架
@@ -191,10 +194,10 @@ Util暂时未发布到Nuget，待成熟后发布。
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)
 
-18. 代码生成器
+20. 代码生成器
   - CodeSmith 6.5
 
-19. 参考应用框架
+21. 参考应用框架
   - [ABP](https://github.com/aspnetboilerplate/aspnetboilerplate)
   - [Nop](https://www.nopcommerce.com) ,Nop是一个开源商城，封装了大量实用的基础代码。
 
