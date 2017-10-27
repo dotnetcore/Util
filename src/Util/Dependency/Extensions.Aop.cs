@@ -21,8 +21,8 @@ namespace Util.Dependency {
         /// 启用Aop作用域
         /// </summary>
 	    public static void EnableAspectScoped( this ContainerBuilder builder ) {
-            builder.AddSingleton<IAspectScheduler, ScopeAspectScheduler>();
-            builder.AddSingleton<IAspectBuilderFactory, ScopeAspectBuilderFactory>();
+            builder.AddScoped<IAspectScheduler, ScopeAspectScheduler>();
+            builder.AddScoped<IAspectBuilderFactory, ScopeAspectBuilderFactory>();
             builder.AddScoped<IAspectContextFactory, ScopeAspectContextFactory>();
         }
 	}

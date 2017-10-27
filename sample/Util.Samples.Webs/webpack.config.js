@@ -46,10 +46,10 @@ module.exports = (env) => {
     //打包css
     let cssConfig = {
         //输入
-        entry: { app: getPath("wwwroot/css/style.css") },
+        entry: { app: getPath("wwwroot/css/style.css")},
         //输出
         output: {
-            publicPath: 'dist/',
+            publicPath: './',
             path: getPath("wwwroot/dist"),
             filename: "[name].css"
         },

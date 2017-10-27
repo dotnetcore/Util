@@ -75,12 +75,12 @@ namespace Util.Datas.Persistence {
         /// <summary>
         /// 判断持久化对象是否存在
         /// </summary>
-        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        /// <param name="ids">持久化对象标识集合</param>
         bool Exists( params TKey[] ids );
         /// <summary>
         /// 判断持久化对象是否存在
         /// </summary>
-        /// <param name="ids">持久化对象标识集合，均不存在返回true</param>
+        /// <param name="ids">持久化对象标识集合</param>
         Task<bool> ExistsAsync( params TKey[] ids );
         /// <summary>
         /// 查询

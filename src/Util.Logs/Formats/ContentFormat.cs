@@ -19,6 +19,11 @@ namespace Util.Logs.Formats {
         }
 
         /// <summary>
+        /// 内容格式化器实例
+        /// </summary>
+        public static readonly ILogFormat Instance = new ContentFormat();
+
+        /// <summary>
         /// 格式化
         /// </summary>
         protected virtual string Format( LogContent content ) {

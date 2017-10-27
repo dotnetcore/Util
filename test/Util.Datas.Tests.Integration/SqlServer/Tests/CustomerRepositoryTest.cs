@@ -66,7 +66,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// </summary>
         [Fact]
         public void TestAdd() {
-            string id = Id.Create();
+            string id = Id.ObjectId();
             var customer = new Customer( id ) {Name = "util"};
             _customerRepository.Add( customer );
             _unitOfWork.Commit();
@@ -84,7 +84,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
         /// </summary>
         [Fact]
         public void TestUpdate() {
-            string id = Id.Create();
+            string id = Id.ObjectId();
             var customer = new Customer( id ) {Name = "util"};
             _customerRepository.Add( customer );
             _unitOfWork.Commit();

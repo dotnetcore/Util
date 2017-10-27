@@ -1,16 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.Encodings.Web;
-using Util.Logs;
-using Util.Logs.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Components {
     /// <summary>
     /// 组件
     /// </summary>
-    public abstract class ComponentBase<TConfig> : OptionBase<TConfig>, IComponent where TConfig : class, IConfig {
+    public abstract class ComponentBase : OptionBase, IComponent {
         /// <summary>
         /// 渲染器
         /// </summary>
@@ -34,7 +30,7 @@ namespace Util.Ui.Components {
             RenderBefore( writer, encoder );
             Render( writer , encoder );
             RenderAfter( writer, encoder );
-            WriteLog();
+            WriteLog( "渲染组件" );
         }
 
         /// <summary>
@@ -51,7 +47,7 @@ namespace Util.Ui.Components {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         private void Render( TextWriter writer, HtmlEncoder encoder ) {
-            ComponentRender.Render( writer, encoder );
+            ComponentRender.WriteTo( writer, encoder );
         }
 
         /// <summary>
@@ -60,31 +56,6 @@ namespace Util.Ui.Components {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         protected virtual void RenderAfter( TextWriter writer, HtmlEncoder encoder ) {
-        }
-
-        /// <summary>
-        /// 写日志
-        /// </summary>
-        private void WriteLog() {
-            var log = GetLog();
-            if ( log.IsTraceEnabled == false )
-                return;
-            log.Class( GetType().FullName )
-                .Caption( "组件渲染完成" )
-                .Content( ToString() )
-                .Trace();
-        }
-
-        /// <summary>
-        /// 获取日志操作
-        /// </summary>
-        private ILog GetLog() {
-            try {
-                return Log.GetLog( TraceLogName );
-            }
-            catch{
-                return Log.Null;
-            }
         }
 
         /// <summary>

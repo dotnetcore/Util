@@ -16,7 +16,7 @@ namespace Util.Helpers {
         public static TEnum Parse<TEnum>( object member ){
             string value = member.SafeString();
             if( string.IsNullOrWhiteSpace( value ) )
-                throw new ArgumentNullException( "member" );
+                throw new ArgumentNullException( nameof(member) );
             return (TEnum)System.Enum.Parse( Common.GetType<TEnum>(), value, true );
         }
 

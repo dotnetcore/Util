@@ -299,12 +299,11 @@ namespace Util.Datas.Ef.Internal {
         private void Delete( TEntity entity ) {
             if ( entity == null )
                 return;
-            IDelete model = entity as IDelete;
-            if( model == null ) {
-                Set.Remove( entity );
+            if( entity is IDelete model ) {
+                model.IsDeleted = true;
                 return;
             }
-            model.IsDeleted = true;
+            Set.Remove( entity );
         }
 
         /// <summary>

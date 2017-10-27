@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Util {
     /// <summary>
-    /// 系统扩展 - 日期扩展
+    /// 系统扩展 - 日期
     /// </summary>
     public static partial class Extensions {
         /// <summary>

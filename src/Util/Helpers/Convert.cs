@@ -255,6 +255,8 @@ namespace Util.Helpers {
                     return (T)(object)input.ToString();
                 if( type.Name.ToLower() == "guid" )
                     return (T)(object)new Guid( input.ToString() );
+                if ( type.IsEnum )
+                    return Enum.Parse<T>( input );
                 if( input is IConvertible )
                     return (T)System.Convert.ChangeType( input, type );
                 return (T)input;

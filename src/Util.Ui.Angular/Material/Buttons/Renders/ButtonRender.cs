@@ -1,59 +1,48 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using Util.Ui.Builders;
+using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.Builders;
-using Util.Ui.Material.Buttons.Configs;
 using Util.Ui.Renders;
+using Util.Ui.Extensions;
+using Util.Ui.Material.Configs;
 
 namespace Util.Ui.Material.Buttons.Renders {
     /// <summary>
     /// 按钮渲染器
     /// </summary>
-    public class ButtonRender : RenderBase<ButtonBuilder, ButtonConfig> {
+    public class ButtonRender : RenderBase {
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private readonly IConfig _config;
+
         /// <summary>
         /// 初始化按钮渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ButtonRender( ButtonConfig config ) : base( config ) {
+        public ButtonRender( IConfig config ) {
+            _config = config;
         }
 
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected override ButtonBuilder GetTagBuilder() {
-            return new ButtonBuilder();
+        protected override ITagBuilder GetTagBuilder() {
+            var builder = new ButtonBuilder();
+            builder.AddOtherAttributes( _config );
+            builder.Id( _config );
+            builder.Text( _config );
+            SetPlainStyle( builder );
+            builder.AddAttribute( "color", _config.GetValue( MaterialConst.Color ).ToLower() );
+            SetDisabled( builder );
+            SetEvents( builder );
+            return builder;
         }
 
         /// <summary>
-        /// 渲染
+        /// 设置扁平风格样式
         /// </summary>
-        /// <param name="builder">标签生成器</param>
-        /// <param name="config">组件配置</param>
-        protected override void Render( ButtonBuilder builder, ButtonConfig config ) {
-            AddAttributes( builder, config );
-            SetText( builder, config );
-            SetStyle( builder, config );
-            SetEvents( builder, config );
-        }
-
-        /// <summary>
-        /// 添加属性列表
-        /// </summary>
-        private void AddAttributes( ButtonBuilder builder, ButtonConfig config ) {
-            foreach ( var attribute in config.GetAttributes() )
-                builder.Attribute( attribute.Key, attribute.Value );
-        }
-
-        /// <summary>
-        /// 设置文本
-        /// </summary>
-        private void SetText( ButtonBuilder builder, ButtonConfig config ) {
-            builder.SetContent( config.Text );
-        }
-
-        /// <summary>
-        /// 设置样式
-        /// </summary>
-        private void SetStyle( ButtonBuilder builder, ButtonConfig config ) {
-            if ( config.Plain ) {
+        private void SetPlainStyle( ButtonBuilder builder ) {
+            if ( _config.GetValue<bool>( UiConst.Plain ) ) {
                 builder.AddAttribute( "mat-button", "mat-button" );
                 return;
             }
@@ -61,10 +50,18 @@ namespace Util.Ui.Material.Buttons.Renders {
         }
 
         /// <summary>
+        /// 设置禁用
+        /// </summary>
+        private void SetDisabled( ButtonBuilder builder ) {
+            if( _config.Contains( UiConst.Disabled ) )
+                builder.AddAttribute( "disabled", "disabled" );
+        }
+
+        /// <summary>
         /// 设置事件
         /// </summary>
-        private void SetEvents( ButtonBuilder builder, ButtonConfig config ) {
-            builder.AddAttribute( "(click)", config.OnClick );
+        private void SetEvents( ButtonBuilder builder ) {
+            builder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClick ) );
         }
     }
 }

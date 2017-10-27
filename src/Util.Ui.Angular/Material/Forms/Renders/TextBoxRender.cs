@@ -1,5 +1,6 @@
 ﻿using Util.Helpers;
 using Util.Ui.Builders;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Renders;
@@ -8,64 +9,66 @@ namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
     /// 文本框渲染器
     /// </summary>
-    public class TextBoxRender : RenderBase<FormFieldBuilder, TextBoxConfig> {
+    public class TextBoxRender : RenderBase {
+        /// <summary>
+        /// 引用Id
+        /// </summary>
+        private string _refrenceId;
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private readonly TextBoxConfig _config;
+
         /// <summary>
         /// 初始化文本框渲染器
         /// </summary>
         /// <param name="config">文本框配置</param>
-        public TextBoxRender( TextBoxConfig config ) : base( config ) {
+        public TextBoxRender( TextBoxConfig config ) {
+            _config = config;
         }
 
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected override FormFieldBuilder GetTagBuilder() {
-            return new FormFieldBuilder();
-        }
-
-        /// <summary>
-        /// 渲染
-        /// </summary>
-        /// <param name="formFieldBuilder">标签生成器</param>
-        /// <param name="config">组件配置</param>
-        protected override void Render( FormFieldBuilder formFieldBuilder, TextBoxConfig config ) {
+        protected override ITagBuilder GetTagBuilder() {
+            var formFieldBuilder = new FormFieldBuilder();
             var inputBuilder = new InputBuilder();
             formFieldBuilder.AppendChild( inputBuilder );
-            InitInputBuilder( formFieldBuilder, inputBuilder, config );
+            InitInputBuilder( formFieldBuilder, inputBuilder );
+            return formFieldBuilder;
         }
 
         /// <summary>
         /// 初始化输入控件生成器
         /// </summary>
-        private void InitInputBuilder( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
+        private void InitInputBuilder( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
             inputBuilder.SetText();
-            foreach( var attribute in config.GetAttributes() ) {
-                inputBuilder.Attribute( attribute.Key, attribute.Value );
-            }
-            inputBuilder.AddAttribute( "name", config.Name );
-            inputBuilder.AddAttribute( "placeholder", config.Placeholder );
-            inputBuilder.AddAttribute( "value", config.Value );
-            inputBuilder.AddAttribute( "type", config.Type );
-            inputBuilder.AddAttribute( "[(ngModel)]", config.Model );
-            AddValidations( formFieldBuilder, inputBuilder, config );
+            inputBuilder.AddOtherAttributes( _config );
+            inputBuilder.Id( _config );
+            inputBuilder.AddAttribute( "name", _config.Name );
+            inputBuilder.AddAttribute( "placeholder", _config.Placeholder );
+            inputBuilder.AddAttribute( "value", _config.Value );
+            inputBuilder.AddAttribute( "type", _config.Type );
+            inputBuilder.AddAttribute( "[(ngModel)]", _config.Model );
+            AddValidations( formFieldBuilder, inputBuilder );
         }
 
         /// <summary>
         /// 添加验证操作
         /// </summary>
-        private void AddValidations( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
-            AddRequired( formFieldBuilder, inputBuilder, config );
-            AddMinLength( formFieldBuilder, inputBuilder, config );
+        private void AddValidations( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
+            AddRequired( formFieldBuilder, inputBuilder );
+            AddMinLength( formFieldBuilder, inputBuilder );
         }
 
         /// <summary>
         /// 添加必填项验证
         /// </summary>
-        private void AddRequired( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
-            if( config.Required == false )
+        private void AddRequired( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
+            if( _config.Required == false )
                 return;
             inputBuilder.AddAttribute( "required", "true" );
-            AddError( formFieldBuilder, inputBuilder, "required", config.RequiredMessage );
+            AddError( formFieldBuilder, inputBuilder, "required", _config.RequiredMessage );
         }
 
         /// <summary>
@@ -74,19 +77,28 @@ namespace Util.Ui.Material.Forms.Renders {
         private void AddError( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, string type, string message ) {
             if( string.IsNullOrWhiteSpace( message ) )
                 return;
-            var id = $"m_{Id.Guid()}";
-            inputBuilder.AddAttribute( $"#{id}", "ngModel" );
-            formFieldBuilder.AppendChild( new ErrorBuilder( id, type, message ) );
+            AddRefrenceId( inputBuilder );
+            formFieldBuilder.AppendChild( new ErrorBuilder( _refrenceId, type, message ) );
+        }
+
+        /// <summary>
+        /// 添加引用Id
+        /// </summary>
+        private void AddRefrenceId( InputBuilder inputBuilder ) {
+            if ( _refrenceId != null )
+                return;
+            _refrenceId = $"m_{Id.Guid()}";
+            inputBuilder.AddAttribute( $"#{_refrenceId}", "ngModel" );
         }
 
         /// <summary>
         /// 添加最小长度验证
         /// </summary>
-        private void AddMinLength( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, TextBoxConfig config ) {
-            if( config.MinLength <= 0 )
+        private void AddMinLength( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
+            if( _config.MinLength <= 0 )
                 return;
-            inputBuilder.AddAttribute( "minlength", config.MinLength.ToString() );
-            AddError( formFieldBuilder, inputBuilder, "minlength", config.MinLengthMessage );
+            inputBuilder.AddAttribute( "minlength", _config.MinLength.ToString() );
+            AddError( formFieldBuilder, inputBuilder, "minlength", _config.MinLengthMessage );
         }
     }
 }

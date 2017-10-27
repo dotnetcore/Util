@@ -35,33 +35,5 @@ namespace Util.Ui.Tests.Configs {
             _config.AddClass( "b" );
             Assert.Equal( 2, _config.GetClassList().Count );
         }
-
-        /// <summary>
-        /// 添加属性
-        /// </summary>
-        [Fact]
-        public void TestAddAttribute() {
-            Assert.Equal( 0, _config.GetAttributes().Count );
-            _config.AddAttribute( "", "1" );
-            Assert.Equal( 0, _config.GetAttributes().Count );
-            _config.AddAttribute( "a","1" );
-            Assert.Equal( 1, _config.GetAttributes().Count );
-            Assert.Equal( "1", _config.GetAttributes()["a"] );
-            _config.AddAttribute( "a", "2" );
-            Assert.Equal( 1, _config.GetAttributes().Count );
-            Assert.Equal( "2", _config.GetAttributes()["a"] );
-            _config.AddAttribute( "b", "3" );
-            Assert.Equal( 2, _config.GetAttributes().Count );
-        }
-
-        /// <summary>
-        /// 获取属性
-        /// </summary>
-        [Fact]
-        public void TestGetAttribute() {
-            Assert.Equal( "", _config.GetAttribute("a") );
-            _config.AddAttribute( "a", "1" );
-            Assert.Equal( "1", _config.GetAttribute("a") );
-        }
     }
 }

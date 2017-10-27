@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +36,25 @@ namespace Util.Helpers {
         /// 当前Http上下文
         /// </summary>
         public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
+
+        #endregion
+
+        #region Client( Web客户端 )
+
+        /// <summary>
+        /// Web客户端，用于发送Http请求
+        /// </summary>
+        public static Util.Webs.Clients.WebClient Client() {
+            return new Util.Webs.Clients.WebClient();
+        }
+
+        /// <summary>
+        /// Web客户端，用于发送Http请求
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        public static Util.Webs.Clients.WebClient<TResult> Client<TResult>() where TResult : class {
+            return new Util.Webs.Clients.WebClient<TResult>();
+        }
 
         #endregion
 

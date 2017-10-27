@@ -27,17 +27,6 @@ namespace Util.Ui.Tests.Builders {
         }
 
         /// <summary>
-        /// 添加Id
-        /// </summary>
-        [Fact]
-        public void TestId() {
-            _builder.Id( "a" );
-            Assert.Equal( "<div id=\"a\"></div>", _builder.ToString() );
-            _builder.Id( "b" );
-            Assert.Equal( "<div id=\"a\"></div>", _builder.ToString() );
-        }
-
-        /// <summary>
         /// 添加属性
         /// </summary>
         [Fact]

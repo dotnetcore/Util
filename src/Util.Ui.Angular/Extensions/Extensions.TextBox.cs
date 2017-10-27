@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Components;
+using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 
 namespace Util.Ui.Extensions {
@@ -12,7 +13,8 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         public static TComponent Password<TComponent>( this TComponent component ) where TComponent : ITextBox {
-            component.Config<Config>( config => {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
                 config.Type = "password";
             } );
             return component;
@@ -24,7 +26,8 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         public static TComponent Number<TComponent>( this TComponent component ) where TComponent : ITextBox {
-            component.Config<Config>( config => {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
                 config.Type = "number";
             } );
             return component;

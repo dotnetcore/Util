@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore;
+﻿using System;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Util.Logs;
+using Util.Logs.Extensions;
 
 namespace Util.Samples.Webs {
     /// <summary>
@@ -11,10 +14,23 @@ namespace Util.Samples.Webs {
         /// </summary>
         /// <param name="args">入口点参数</param>
         public static void Main( string[] args ) {
-            WebHost.CreateDefaultBuilder( args )
-                .UseStartup<Startup>()
-                .Build()
-                .Run();
+            try {
+                WebHost.CreateDefaultBuilder( args )
+                    .UseStartup<Startup>()
+                    .Build()
+                    .Run();
+            }
+            catch ( Exception ex ) {
+                WriteLog( ex );
+            }
+        }
+
+        /// <summary>
+        /// 记录错误日志
+        /// </summary>
+        private static void WriteLog( Exception ex ) {
+            var log = Log.GetLog().Caption( "应用程序启动失败" );
+            ex.Log( log );
         }
     }
 }

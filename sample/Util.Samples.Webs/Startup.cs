@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Util.Events.Default;
 using Util.Logs.Extensions;
 using Util.Ui.Extensions;
+using Util.Webs.Extensions;
 
 namespace Util.Samples.Webs {
     /// <summary>
@@ -45,9 +46,6 @@ namespace Util.Samples.Webs {
             //添加事件总线服务
             services.AddEventBus();
 
-            //添加Ui组件服务
-            services.AddUi();
-
             //添加Util基础设施服务
             return services.AddUtil();
         }
@@ -76,6 +74,7 @@ namespace Util.Samples.Webs {
         /// 公共配置
         /// </summary>
         private void CommonConfig( IApplicationBuilder app ) {
+            app.UseErrorLog();
             app.UseStaticFiles();
             ConfigRoute( app );
         }
@@ -96,8 +95,6 @@ namespace Util.Samples.Webs {
         private void DevelopmentConfig( IApplicationBuilder app ) {
             app.UseBrowserLink();
             app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
-            app.UseStatusCodePages();
             app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
                 HotModuleReplacement = true
             } );

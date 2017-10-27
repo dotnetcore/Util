@@ -1,4 +1,5 @@
 ﻿using System;
+using Util.Tests.Samples;
 using Xunit;
 
 namespace Util.Tests.Helpers {
@@ -389,6 +390,7 @@ namespace Util.Tests.Helpers {
             Assert.Equal( new DateTime( 2000, 1, 1 ), Util.Helpers.Convert.To<DateTime?>( "2000-1-1" ) );
             var guid = Guid.NewGuid();
             Assert.Equal( guid.ToString(), Util.Helpers.Convert.To<string>( guid ) );
+            Assert.Equal( EnumSample.C, Util.Helpers.Convert.To<EnumSample>( "c" ) );
         }
     }
 }

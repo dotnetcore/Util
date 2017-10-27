@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Util.Helpers;
 using Util.Ui.Services;
 
 namespace Util.Ui.Extensions {
@@ -10,8 +12,8 @@ namespace Util.Ui.Extensions {
         /// Angular组件服务
         /// </summary>
         /// <param name="helper">HtmlHelper</param>
-        public static IUiService Angular( this IHtmlHelper helper ) {
-            return UiService.Instance;
+        public static IUiService Ui( this IHtmlHelper helper ) {
+            return new UiService( helper,Ioc.Create<HtmlEncoder>() );
         }
     }
 }

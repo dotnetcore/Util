@@ -1,4 +1,5 @@
-﻿using Util.Domains.Sessions;
+﻿using System;
+using Util.Domains.Sessions;
 using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
@@ -84,11 +85,59 @@ namespace Util.Logs {
         /// 获取日志操作实例
         /// </summary>
         private static ILog GetLog( string logName, string @class ) {
-            var providerFactory = Ioc.Create<ILogProviderFactory>();
-            var format = Ioc.Create<ILogFormat>();
-            var context = Ioc.Create<ILogContext>();
-            var session = Ioc.Create<ISession>();
+            var providerFactory = GetLogProviderFactory();
+            var format = GetLogFormat();
+            var context = GetLogContext();
+            var session = GetSession();
             return new Log( providerFactory.Create( logName, format ), context, session, @class );
+        }
+
+        /// <summary>
+        /// 获取日志提供程序工厂
+        /// </summary>
+        private static ILogProviderFactory GetLogProviderFactory() {
+            try {
+                return Ioc.Create<ILogProviderFactory>();
+            }
+            catch {
+                return new Util.Logs.NLog.LogProviderFactory();
+            }
+        }
+
+        /// <summary>
+        /// 获取日志格式器
+        /// </summary>
+        private static ILogFormat GetLogFormat() {
+            try {
+                return Ioc.Create<ILogFormat>();
+            }
+            catch {
+                return Util.Logs.Formats.ContentFormat.Instance;
+            }
+        }
+
+        /// <summary>
+        /// 获取日志上下文
+        /// </summary>
+        private static ILogContext GetLogContext() {
+            try {
+                return Ioc.Create<ILogContext>();
+            }
+            catch {
+                return NullLogContext.Instance;
+            }
+        }
+
+        /// <summary>
+        /// 获取用户会话
+        /// </summary>
+        private static ISession GetSession() {
+            try {
+                return Ioc.Create<ISession>();
+            }
+            catch {
+                return Util.Domains.Sessions.Session.Null;
+            }
         }
 
         /// <summary>

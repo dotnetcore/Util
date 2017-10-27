@@ -4,7 +4,7 @@ using Util.Dependency;
 
 namespace Util {
     /// <summary>
-    /// 系统扩展 - 基础设施扩展
+    /// 系统扩展 - 基础设施
     /// </summary>
     public static partial class Extensions {
         /// <summary>

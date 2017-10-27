@@ -2,7 +2,7 @@
 
 namespace Util {
     /// <summary>
-    /// 系统扩展 - 公共扩展
+    /// 系统扩展 - 公共
     /// </summary>
     public static partial class Extensions {
         /// <summary>

@@ -12,9 +12,9 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
-    <AssemblyVersion>1.0.5.0</AssemblyVersion>
-    <FileVersion>1.0.5.0</FileVersion>
-    <Version>1.0.5-preview</Version>
+    <AssemblyVersion>1.0.5.3</AssemblyVersion>
+    <FileVersion>1.0.5.3</FileVersion>
+    <Version>1.0.5-preview3</Version>
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <PackageId>Util.Core</PackageId>
   </PropertyGroup>
@@ -34,9 +34,9 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.0-preview9" />
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.0-preview9" />
-    <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.1" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.1" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
@@ -71,10 +71,6 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>R.Designer.cs</LastGenOutput>
     </EmbeddedResource>  
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Webs\" />
   </ItemGroup>
 
 </Project>

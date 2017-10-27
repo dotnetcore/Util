@@ -1,5 +1,8 @@
-﻿using Util.Ui.Material.Buttons;
+﻿using System;
+using Util.Ui.Components;
+using Util.Ui.Material.Buttons;
 using Util.Ui.Material.Forms;
+using Util.Ui.Material.Icons;
 using Util.Ui.Services;
 
 namespace Util.Ui.Extensions {
@@ -7,6 +10,23 @@ namespace Util.Ui.Extensions {
     /// 组件服务扩展
     /// </summary>
     public static partial class Extensions {
+        /// <summary>
+        /// 图标
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IIcon Icon( this IUiService service ) {
+            return new Icon();
+        }
+
+        /// <summary>
+        /// 按钮
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        /// <param name="text">文本</param>
+        public static Util.Ui.Material.Buttons.IButton Button( this IUiService service,string text ) {
+            return new Button().Text( text );
+        }
+
         /// <summary>
         /// 文本框
         /// </summary>
@@ -16,12 +36,13 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
-        /// 按钮
+        /// 表单
         /// </summary>
         /// <param name="service">组件服务</param>
-        /// <param name="text">文本</param>
-        public static IButton Button( this IUiService service,string text ) {
-            return new Button().Text( text );
+        public static IForm Form( this IUiService service ) {
+            if( !( service is IContext context ))
+                throw new NotImplementedException( "组件服务必须实现Util.Ui.Services.IContext" );
+            return new Form( context.Helper.ViewContext.Writer, context.Encoder );
         }
     }
 }
