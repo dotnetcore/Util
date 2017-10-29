@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Util.Exceptions;
 
 namespace Util.Reflections {
     /// <summary>
@@ -14,7 +13,7 @@ namespace Util.Reflections {
         /// <summary>
         /// 跳过的程序集
         /// </summary>
-        private const string SkipAssemblies = "^System|^Mscorlib|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted";
+        private const string SkipAssemblies = "^System|^Mscorlib|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Xunit|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted";
 
         /// <summary>
         /// 获取程序集列表
@@ -48,9 +47,17 @@ namespace Util.Reflections {
         /// <param name="path">目录绝对路径</param>
         protected void LoadAssemblies( string path ) {
             foreach( string file in Directory.GetFiles( path, "*.dll" ) ) {
-                var assembly = AssemblyName.GetAssemblyName( file );
-                AppDomain.CurrentDomain.Load( assembly );
+                var assemblyName = AssemblyName.GetAssemblyName( file );
+                if( Match( assemblyName ) )
+                    AppDomain.CurrentDomain.Load( assemblyName );
             }
+        }
+
+        /// <summary>
+        /// 程序集是否匹配
+        /// </summary>
+        private bool Match( AssemblyName assemblyName ) {
+            return !Regex.IsMatch( assemblyName.FullName, SkipAssemblies, RegexOptions.IgnoreCase | RegexOptions.Compiled );
         }
 
         /// <summary>

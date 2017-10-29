@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Util.Domains;
 
-namespace Util.Biz.ValueObjects {
+namespace Util.Biz.Addresses {
     /// <summary>
     /// 地址信息 - 可变
     /// </summary>

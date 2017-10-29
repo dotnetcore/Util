@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Util.Domains;
 
-namespace Util.Biz.ValueObjects {
+namespace Util.Biz.Addresses {
     /// <summary>
     /// 地址 - 不可变
     /// </summary>

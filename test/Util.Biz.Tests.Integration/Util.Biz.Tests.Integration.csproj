@@ -2,24 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyName>Util.Datas.Tests.Integration</AssemblyName>
-    <RootNamespace>Util.Datas.Tests</RootNamespace>
-    <Description />
-    <Authors>何镇汐;dotnetcore</Authors>
+
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\test</OutputPath>
+    <DocumentationFile>..\..\output\test\netcoreapp2.0\Util.Biz.Tests.Integration.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\output\test</OutputPath>
+    <DocumentationFile>..\..\output\test\netcoreapp2.0\Util.Biz.Tests.Integration.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="SqlServer\Scripts\Pd\Samples.pdb" />
-  </ItemGroup>
-  
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0-preview-20171012-09" />
     <PackageReference Include="xunit" Version="2.3.1-rc2-build3844" />
@@ -27,18 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Datas\05-Util.Datas.csproj" />
-    <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
+    <Folder Include="Payments\WeChatPay\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SqlServer\Scripts\Pd\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="SqlServer\Scripts\database.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\..\src\Util.Biz.Payments\02-Util.Biz.Payments.csproj" />
   </ItemGroup>
 
 </Project>

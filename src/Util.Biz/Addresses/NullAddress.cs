@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Util.Biz.ValueObjects {
+namespace Util.Biz.Addresses {
     /// <summary>
     /// 空地址
     /// </summary>

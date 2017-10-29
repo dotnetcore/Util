@@ -67,6 +67,7 @@ namespace Util.Webs.Clients {
             _cookieContainer = new CookieContainer();
             _timeout = new TimeSpan( 0, 0, 30 );
             _headers = new Dictionary<string, string>();
+            Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
         }
 
         /// <summary>

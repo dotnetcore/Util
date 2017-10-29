@@ -9,7 +9,7 @@ namespace Util.Tools.QrCode.QrCoder {
         /// <summary>
         /// 文件存储服务
         /// </summary>
-        private readonly IFileStore _fileStoreService;
+        private readonly IFileStore _fileStore;
         /// <summary>
         /// 二维码尺寸
         /// </summary>
@@ -22,9 +22,9 @@ namespace Util.Tools.QrCode.QrCoder {
         /// <summary>
         /// 初始化QRCoder组件二维码服务
         /// </summary>
-        /// <param name="fileStoreService">文件存储服务</param>
-        public QrCoderService( IFileStore fileStoreService ) {
-            _fileStoreService = fileStoreService;
+        /// <param name="fileStore">文件存储服务</param>
+        public QrCoderService( IFileStore fileStore ) {
+            _fileStore = fileStore;
             _size = 10;
             _level = QRCodeGenerator.ECCLevel.L;
         }
@@ -74,7 +74,7 @@ namespace Util.Tools.QrCode.QrCoder {
         /// <param name="content">内容</param>
         public string Save( string content ) {
             var qrCode = CreateQrCode( content );
-            return _fileStoreService.Save( qrCode, "jpg" );
+            return _fileStore.Save( qrCode, "jpg" );
         }
 
         /// <summary>

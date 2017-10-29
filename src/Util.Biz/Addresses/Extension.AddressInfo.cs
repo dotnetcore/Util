@@ -1,4 +1,4 @@
-﻿namespace Util.Biz.ValueObjects {
+﻿namespace Util.Biz.Addresses {
     /// <summary>
     /// 地址信息扩展
     /// </summary>

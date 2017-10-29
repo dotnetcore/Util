@@ -19,14 +19,12 @@ namespace Util.Ui.TagHelpers {
         }
         
         /// <summary>
-        /// 属性集合，在TagHelper中明确定义的属性放入该集合，
-        /// 范例：&lt;button id="a" abc="1"&gt; ,由于ButtonTagHelper中定义了Id属性，所以该集合包含id = "a"，但abc没有被定义，该集合将不包含abc="1"
+        /// 属性集合，包含全部属性
         /// </summary>
         public TagHelperAttributeList Attributes { get; }
 
         /// <summary>
-        /// 属性集合，在TagHelper中未明确定义的属性放入该集合，
-        /// 范例：&lt;button id="a" abc="1"&gt; ,由于ButtonTagHelper中未定义abc属性,所以该集合包含abc="1"，但不包含id="a"
+        /// 属性集合，在TagHelper中未明确定义的属性放入该集合
         /// </summary>
         public TagHelperAttributeList OtherAttributes { get; }
 

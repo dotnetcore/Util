@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Applications\06-Util.Applications.csproj" />
-    <ProjectReference Include="..\..\src\Util.Biz\Util.Biz.csproj" />
+    <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
     <ProjectReference Include="..\..\src\Util.Datas\05-Util.Datas.csproj" />
     <ProjectReference Include="..\..\src\Util.Events\04-Util.Events.csproj" />
     <ProjectReference Include="..\..\src\Util.Logs\03-Util.Logs.csproj" />
@@ -41,6 +41,7 @@
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
+    <ProjectReference Include="..\..\test\Util.Biz.Tests.Integration\Util.Biz.Tests.Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
