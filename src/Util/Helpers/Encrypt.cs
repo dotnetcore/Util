@@ -106,15 +106,6 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 获取加密结果
-        /// </summary>
-        private static string GetEncryptResult( string value, Encoding encoding,ICryptoTransform transform ) {
-            var bytes = encoding.GetBytes( value );
-            var result = transform.TransformFinalBlock( bytes, 0, bytes.Length );
-            return System.Convert.ToBase64String( result );
-        }
-
-        /// <summary>
         /// 验证Des加密参数
         /// </summary>
         private static bool ValidateDes( string text, string key ) {
@@ -128,6 +119,15 @@ namespace Util.Helpers {
         /// </summary>
         private static TripleDESCryptoServiceProvider CreateDesProvider( string key ) {
             return new TripleDESCryptoServiceProvider { Key = Encoding.ASCII.GetBytes( key ), Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 };
+        }
+
+        /// <summary>
+        /// 获取加密结果
+        /// </summary>
+        private static string GetEncryptResult( string value, Encoding encoding, ICryptoTransform transform ) {
+            var bytes = encoding.GetBytes( value );
+            var result = transform.TransformFinalBlock( bytes, 0, bytes.Length );
+            return System.Convert.ToBase64String( result );
         }
 
         /// <summary>
