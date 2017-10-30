@@ -9,7 +9,7 @@ namespace Util.Tests.Parameters {
         /// <summary>
         /// Url参数生成器
         /// </summary>
-        private readonly UrlParameterBuilder _builder;
+        private UrlParameterBuilder _builder;
 
         /// <summary>
         /// 测试初始化
@@ -24,6 +24,70 @@ namespace Util.Tests.Parameters {
         [Fact]
         public void TestDefault() {
             Assert.Empty( _builder.Result() );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        [Fact]
+        public void TestLoadUrl_1() {
+            _builder = new UrlParameterBuilder("a");
+            Assert.Equal( 0, _builder.GetDictionary().Count );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        [Fact]
+        public void TestLoadUrl_2() {
+            _builder = new UrlParameterBuilder( "a=b" );
+            Assert.Equal( 1, _builder.GetDictionary().Count );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        [Fact]
+        public void TestLoadUrl_3() {
+            _builder = new UrlParameterBuilder( "a=1&b=2" );
+            Assert.Equal( 2, _builder.GetDictionary().Count );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        [Fact]
+        public void TestLoadUrl_4() {
+            _builder = new UrlParameterBuilder( "a=1&b" );
+            Assert.Equal( 1, _builder.GetDictionary().Count );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        [Fact]
+        public void TestLoadUrl_5() {
+            _builder = new UrlParameterBuilder( "a=1&b=" );
+            Assert.Equal( 1, _builder.GetDictionary().Count );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        [Fact]
+        public void TestLoadUrl_6() {
+            _builder = new UrlParameterBuilder( "http://test.com?b=2&c=3&a=1" );
+            Assert.Equal( 3, _builder.GetDictionary().Count );
+            Assert.Equal( "a=1&b=2&c=3", _builder.Result( true ) );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        [Fact]
+        public void TestLoadUrl_7() {
+            _builder = new UrlParameterBuilder( "http://test.com ? b = 2 & c & a = 1 " );
+            Assert.Equal( "a=1&b=2", _builder.Result( true ) );
         }
 
         /// <summary>

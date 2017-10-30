@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Util.Parameters.Formats;
 
 namespace Util.Parameters {
@@ -14,8 +15,41 @@ namespace Util.Parameters {
         /// <summary>
         /// 初始化Url参数生成器
         /// </summary>
-        public UrlParameterBuilder() {
+        public UrlParameterBuilder() : this( "" ) {
+        }
+
+        /// <summary>
+        /// 初始化Url参数生成器
+        /// </summary>
+        /// <param name="url">Url</param>
+        public UrlParameterBuilder( string url ) {
             _builder = new ParameterBuilder();
+            LoadUrl( url );
+        }
+
+        /// <summary>
+        /// 加载Url
+        /// </summary>
+        private void LoadUrl( string url ) {
+            if( string.IsNullOrWhiteSpace( url ) )
+                return;
+            if( url.Contains( "?" ) )
+                url = url.Substring( url.IndexOf( "?", StringComparison.Ordinal ) + 1 );
+            foreach( var parameter in GetParameters( url ) ) {
+                if ( parameter.Contains( "=" ) == false )
+                    continue;
+                var item = parameter.Split( '=' );
+                if( item.Length < 2 )
+                    continue;
+                Add( item[0], item[1] );
+            }
+        }
+
+        /// <summary>
+        /// 获取参数集合
+        /// </summary>
+        private string[] GetParameters( string url ) {
+            return url.Contains( "&" ) ? url.Split( '&' ) : new[] { url };
         }
 
         /// <summary>
