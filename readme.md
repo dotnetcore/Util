@@ -362,6 +362,7 @@ https://github.com/dotnetcore/util/
   - 二维码操作 - 基于QRCoder [已发布]
   - 短信操作 -基于LuoSiMao [已发布]
   - 加密操作 [已发布]
+  - Url参数生成器 [已发布]
 - 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
@@ -426,3 +427,4 @@ https://github.com/dotnetcore/util/
 - 2017年10月21日，更新了Ui组件基类及TagHelper基类，图标组件(Util.Ui.Angular/Material/Icons)及单元测试。
 - 2017年10月25日，更新了二维码操作(Util.Tools.QrCode,基于QRCoder)和短信操作(Util.Tools.Sms，封装了LuoSiMao接口)。
 - 2017年10月29日，更新了加密操作(Util.Helpers.Encrypt，集成了MD5,DES,AES,RSA加密操作)及单元测试。
+- 2017年10月30日，更新了Url参数生成器(Util.Parameters)及单元测试。
