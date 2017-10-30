@@ -1,5 +1,6 @@
 ﻿using System;
 using Util.Biz.Payments.Alipay;
+using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Core;
 
 namespace Util.Biz.Payments.Factories {
@@ -26,8 +27,8 @@ namespace Util.Biz.Payments.Factories {
         /// <param name="way">支付方式</param>
         public IPayService CreatePayService( PayWay way ) {
             switch( way ) {
-                case PayWay.AlipayF2FPay:
-                    return new AlipayF2FPayService( _alipayConfigProvider );
+                case PayWay.AlipayBarcodePay:
+                    return new AlipayBarcodePayService( _alipayConfigProvider );
             }
             throw new NotImplementedException();
         }

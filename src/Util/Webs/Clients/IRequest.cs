@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -56,6 +57,11 @@ namespace Util.Webs.Clients {
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         TRequest Header<T>( string key, T value );
+        /// <summary>
+        /// 添加参数字典
+        /// </summary>
+        /// <param name="parameters">参数字典</param>
+        TRequest Data( IDictionary<string, string> parameters );
         /// <summary>
         /// 添加参数
         /// </summary>

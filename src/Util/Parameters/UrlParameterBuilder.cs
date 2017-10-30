@@ -11,7 +11,7 @@ namespace Util.Parameters {
         /// <summary>
         /// 参数生成器
         /// </summary>
-        private readonly ParameterBuilder _builder;
+        private ParameterBuilder ParameterBuilder { get; }
 
         /// <summary>
         /// 初始化Url参数生成器
@@ -22,22 +22,30 @@ namespace Util.Parameters {
         /// <summary>
         /// 初始化Url参数生成器
         /// </summary>
+        /// <param name="builder">Url参数生成器</param>
+        public UrlParameterBuilder( UrlParameterBuilder builder ) : this( "", builder ) {
+        }
+
+        /// <summary>
+        /// 初始化Url参数生成器
+        /// </summary>
         /// <param name="url">Url</param>
-        public UrlParameterBuilder( string url ) {
-            _builder = new ParameterBuilder();
+        /// <param name="builder">Url参数生成器</param>
+        public UrlParameterBuilder( string url, UrlParameterBuilder builder = null ) {
+            ParameterBuilder = builder == null ? new ParameterBuilder() : new ParameterBuilder( builder.ParameterBuilder );
             LoadUrl( url );
         }
 
         /// <summary>
         /// 加载Url
         /// </summary>
-        private void LoadUrl( string url ) {
+        public void LoadUrl( string url ) {
             if( string.IsNullOrWhiteSpace( url ) )
                 return;
             if( url.Contains( "?" ) )
                 url = url.Substring( url.IndexOf( "?", StringComparison.Ordinal ) + 1 );
             var parameters = HttpUtility.ParseQueryString( url );
-            foreach ( var key in parameters.AllKeys )
+            foreach( var key in parameters.AllKeys )
                 Add( key, parameters.Get( key ) );
         }
 
@@ -47,7 +55,7 @@ namespace Util.Parameters {
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         public UrlParameterBuilder Add( string key, object value ) {
-            _builder.Add( key, value );
+            ParameterBuilder.Add( key, value );
             return this;
         }
 
@@ -55,14 +63,14 @@ namespace Util.Parameters {
         /// 获取字典
         /// </summary>
         public IDictionary<string, string> GetDictionary() {
-            return _builder.GetDictionary();
+            return ParameterBuilder.GetDictionary();
         }
 
         /// <summary>
         /// 获取键值对集合
         /// </summary>
         public IEnumerable<KeyValuePair<string, string>> GetKeyValuePairs() {
-            return _builder.GetKeyValuePairs();
+            return ParameterBuilder.GetKeyValuePairs();
         }
 
         /// <summary>
@@ -70,7 +78,7 @@ namespace Util.Parameters {
         /// </summary>
         /// <param name="isSort">是否按参数名排序</param>
         public string Result( bool isSort = false ) {
-            return _builder.Result( UrlParameterFormat.Instance, isSort );
+            return ParameterBuilder.Result( UrlParameterFormat.Instance, isSort );
         }
 
         /// <summary>
@@ -98,7 +106,7 @@ namespace Util.Parameters {
         /// 清空
         /// </summary>
         public void Clear() {
-            _builder.Clear();
+            ParameterBuilder.Clear();
         }
 
         /// <summary>
@@ -106,7 +114,7 @@ namespace Util.Parameters {
         /// </summary>
         /// <param name="key">键</param>
         public bool Remove( string key ) {
-            return _builder.Remove( key );
+            return ParameterBuilder.Remove( key );
         }
     }
 }

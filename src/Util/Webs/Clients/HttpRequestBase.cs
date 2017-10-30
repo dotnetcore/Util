@@ -22,7 +22,7 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 参数集合
         /// </summary>
-        private readonly Dictionary<string, string> _params;
+        private IDictionary<string, string> _params;
         /// <summary>
         /// Json参数
         /// </summary>
@@ -91,7 +91,7 @@ namespace Util.Webs.Clients {
         /// 返回自身
         /// </summary>
         private TRequest This() {
-            return (TRequest)( (object)this );
+            return (TRequest)(object)this;
         }
 
         /// <summary>
@@ -153,6 +153,15 @@ namespace Util.Webs.Clients {
         /// <param name="value">值</param>
         public TRequest Header<T>( string key, T value ) {
             _headers.Add( key, value.SafeString() );
+            return This();
+        }
+
+        /// <summary>
+        /// 添加参数字典
+        /// </summary>
+        /// <param name="parameters">参数字典</param>
+        public TRequest Data( IDictionary<string,string> parameters ) {
+            _params = parameters ?? throw new ArgumentNullException( nameof( parameters ) );
             return This();
         }
 

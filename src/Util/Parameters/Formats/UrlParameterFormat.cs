@@ -2,7 +2,7 @@
     /// <summary>
     /// Url参数格式化器
     /// </summary>
-    internal class UrlParameterFormat : ParameterFormatBase {
+    public class UrlParameterFormat : ParameterFormatBase {
         /// <summary>
         /// Url参数格式化器实例
         /// </summary>

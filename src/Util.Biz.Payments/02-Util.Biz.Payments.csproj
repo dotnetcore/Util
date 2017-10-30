@@ -33,12 +33,19 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
     <ProjectReference Include="..\Util\01-Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="WeChatPay\" />
     <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.http\2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

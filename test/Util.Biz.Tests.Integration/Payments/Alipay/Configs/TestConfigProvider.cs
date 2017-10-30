@@ -1,7 +1,7 @@
 ﻿using Util.Biz.Payments.Alipay;
 using Util.Biz.Payments.Alipay.Configs;
 
-namespace Util.Biz.Tests.Integration.Payments.Alipay {
+namespace Util.Biz.Tests.Integration.Payments.Alipay.Configs {
     /// <summary>
     /// 支付宝测试配置提供器
     /// </summary>

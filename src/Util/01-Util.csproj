@@ -74,8 +74,4 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     </EmbeddedResource>  
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Signatures\" />
-  </ItemGroup>
-
 </Project>

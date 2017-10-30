@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Util.Helpers;
 using Util.Parameters.Formats;
 
 namespace Util.Parameters {
@@ -10,13 +11,28 @@ namespace Util.Parameters {
         /// <summary>
         /// 参数集合
         /// </summary>
-        private readonly Dictionary<string, string> _params;
+        private readonly IDictionary<string, string> _params;
 
         /// <summary>
         /// 初始化参数生成器
         /// </summary>
         public ParameterBuilder() {
             _params = new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// 初始化参数生成器
+        /// </summary>
+        /// <param name="builder">参数生成器</param>
+        public ParameterBuilder( ParameterBuilder builder ) : this( builder.GetDictionary() ) {
+        }
+
+        /// <summary>
+        /// 初始化参数生成器
+        /// </summary>
+        /// <param name="dictionary">字典</param>
+        public ParameterBuilder( IDictionary<string, string> dictionary ) {
+            _params = dictionary == null ? new Dictionary<string, string>() : new Dictionary<string, string>( dictionary );
         }
 
         /// <summary>
@@ -76,6 +92,13 @@ namespace Util.Parameters {
         /// <param name="key">键</param>
         public bool Remove( string key ) {
             return _params.Remove( key );
+        }
+
+        /// <summary>
+        /// 转换为Json
+        /// </summary>
+        public string ToJson() {
+            return Json.ToJson( _params );
         }
 
         /// <summary>

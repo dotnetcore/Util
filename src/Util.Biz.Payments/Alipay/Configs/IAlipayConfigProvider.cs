@@ -1,6 +1,4 @@
-﻿using Util.Biz.Payments.Alipay.Configs;
-
-namespace Util.Biz.Payments.Alipay {
+﻿namespace Util.Biz.Payments.Alipay.Configs {
     /// <summary>
     /// 支付宝配置提供器
     /// </summary>
