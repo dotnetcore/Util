@@ -42,8 +42,6 @@ namespace Util.Parameters {
         /// 获取值
         /// </summary>
         private string GetValue( object value ) {
-            if( value is string )
-                return value.ToString();
             if( value is DateTime dateTime )
                 return dateTime.ToString( "yyyy-MM-dd HH:mm:ss" );
             if( value is bool boolValue )

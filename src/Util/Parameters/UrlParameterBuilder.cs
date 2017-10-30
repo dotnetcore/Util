@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using Util.Parameters.Formats;
 
 namespace Util.Parameters {
@@ -35,21 +36,9 @@ namespace Util.Parameters {
                 return;
             if( url.Contains( "?" ) )
                 url = url.Substring( url.IndexOf( "?", StringComparison.Ordinal ) + 1 );
-            foreach( var parameter in GetParameters( url ) ) {
-                if ( parameter.Contains( "=" ) == false )
-                    continue;
-                var item = parameter.Split( '=' );
-                if( item.Length < 2 )
-                    continue;
-                Add( item[0], item[1] );
-            }
-        }
-
-        /// <summary>
-        /// 获取参数集合
-        /// </summary>
-        private string[] GetParameters( string url ) {
-            return url.Contains( "&" ) ? url.Split( '&' ) : new[] { url };
+            var parameters = HttpUtility.ParseQueryString( url );
+            foreach ( var key in parameters.AllKeys )
+                Add( key, parameters.Get( key ) );
         }
 
         /// <summary>
