@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Util.Biz.Payments;
 using Util.Biz.Payments.Alipay.Results;
 using Util.Biz.Payments.Alipay.Services;
@@ -14,7 +15,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
     /// <summary>
     /// 支付宝条码支付服务测试
     /// </summary>
-    public class AlipayBarcodePayServiceTest : IDisposable{
+    public class AlipayBarcodePayServiceTest : IDisposable {
         /// <summary>
         /// 控制台输出
         /// </summary>
@@ -103,8 +104,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         public void TestPay_1() {
             var result = "app_id=2016090800463464&biz_content={\"out_trade_no\":\"59f7caeeab89e009e4a4e1fb\",\"subject\":\"test\",\"total_amount\":\"10\",\"timeout_express\":\"90m\",\"auth_code\":\"281023564031402341\",\"scene\":\"bar_code\"}&charset=utf-8&format=json&method=alipay.trade.pay&sign=TrzaFo0mYi5ECKxQqwVj8WeNivimDYdeZfRF9bGV4Hq2rAoaZLshvV6C/1oeGJq/jsfiFFvxi6RNSlJuo2+erZq81FYALKltt+8gL6XwgCf8KL64+nC3zpE1dAmkKJA3ft4xKoEG5uUSMQBKqx59E3DNApAeibrFboF5vP1MB/Dru1pfS7mijixWhPd1LSDMdH0tUCyWlkh1W1MiWnrzBCNNEaNn2slHvYQjyUHZyR577yuCdcst5/MjCwY+0l0Rt0QYaCPizQEU1n6h65gifq/sSyOlkLnaMeX2JZpRSD7yCVzSyMHqsYRAr5vzSBztfYIrMVdb74JkQQKa27QVng==&sign_type=RSA2&timestamp=2017-10-31 08:59:26&version=1.0";
             Time.SetTime( "2017-10-31 08:59:26" );
-            _service = new AlipayBarcodePayService( new TestConfigProvider() );
-            _service.IsSendRequest = false;
+            _service = new AlipayBarcodePayService( new TestConfigProvider() ) { IsSendRequest = false };
             _service.Pay( new PayParam {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",
@@ -118,12 +118,26 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// <summary>
         /// 测试支付
         /// </summary>
-        [Fact(Skip = "请填写正确的付款码")]
+        [Fact( Skip = "请下载沙箱支付宝，填写正确的付款码" )]
         public void TestPay_2() {
             var result = _service.Pay( new PayParam {
                 Money = 10,
                 OrderId = Id.Guid(),
-                AuthCode = "286993999901999384"
+                AuthCode = "280299913207329986"
+            } );
+            _output.WriteLine( result.Message );
+            Assert.True( result.Success );
+        }
+
+        /// <summary>
+        /// 测试支付
+        /// </summary>
+        [Fact( Skip = "请下载沙箱支付宝，填写正确的付款码" )]
+        public async Task TestPayAsync() {
+            var result = await _service.PayAsync( new PayParam {
+                Money = 10,
+                OrderId = Id.Guid(),
+                AuthCode = "281296574204429642"
             } );
             _output.WriteLine( result.Message );
             Assert.True( result.Success );

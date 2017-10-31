@@ -1,5 +1,4 @@
-﻿using Util.Biz.Payments.Alipay;
-using Util.Biz.Payments.Alipay.Configs;
+﻿using Util.Biz.Payments.Alipay.Configs;
 
 namespace Util.Biz.Tests.Integration.Payments.Alipay.Configs {
     /// <summary>

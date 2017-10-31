@@ -1,4 +1,6 @@
-﻿namespace Util.Biz.Payments.Core {
+﻿using System.Threading.Tasks;
+
+namespace Util.Biz.Payments.Core {
     /// <summary>
     /// 支付服务
     /// </summary>
@@ -6,7 +8,12 @@
         /// <summary>
         /// 支付
         /// </summary>
-        /// <param name="parameter">支付参数</param>
-        PayResult Pay( PayParam parameter );
+        /// <param name="param">支付参数</param>
+        PayResult Pay( PayParam param );
+        /// <summary>
+        /// 支付
+        /// </summary>
+        /// <param name="param">支付参数</param>
+        Task<PayResult> PayAsync( PayParam param );
     }
 }

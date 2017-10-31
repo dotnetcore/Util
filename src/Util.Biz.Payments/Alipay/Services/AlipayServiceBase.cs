@@ -1,4 +1,5 @@
-﻿using Util.Biz.Payments.Alipay.Configs;
+﻿using System.Threading.Tasks;
+using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Parameters;
 using Util.Biz.Payments.Alipay.Results;
 using Util.Biz.Payments.Core;
@@ -43,10 +44,18 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// </summary>
         /// <param name="param">支付参数</param>
         public PayResult Pay( PayParam param ) {
+            return Async.Run( async () => await PayAsync( param ) );
+        }
+
+        /// <summary>
+        /// 支付
+        /// </summary>
+        /// <param name="param">支付参数</param>
+        public async Task<PayResult> PayAsync( PayParam param ) {
             Validate( param );
             _payParam = param;
             Config();
-            var result = new AlipayResult( Request() );
+            var result = new AlipayResult( await RequestAsync() );
             WriteLog( result );
             return CreateResult( result );
         }
@@ -103,13 +112,13 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// <summary>
         /// 发送请求
         /// </summary>
-        private string Request() {
+        private async Task<string> RequestAsync() {
             if ( IsSendRequest == false )
                 return string.Empty;
-            return Web.Client()
+            return await Web.Client()
                 .Post( GetGatewayUrl() )
                 .Data( _builder.GetDictionary() )
-                .Result();
+                .ResultAsync();
         }
 
         /// <summary>
