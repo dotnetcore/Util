@@ -14,7 +14,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <Company>何镇汐</Company>
     <AssemblyVersion>1.0.5.3</AssemblyVersion>
     <FileVersion>1.0.5.3</FileVersion>
-    <Version>1.0.5-preview3</Version>
+    <Version>1.0.5-preview4</Version>
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <PackageId>Util.Core</PackageId>
   </PropertyGroup>
