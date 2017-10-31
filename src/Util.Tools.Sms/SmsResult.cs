@@ -7,11 +7,11 @@
         /// 初始化短信接口返回结果
         /// </summary>
         /// <param name="success">是否发送成功</param>
-        /// <param name="message">短信提供商返回的原始消息</param>
+        /// <param name="raw">短信提供商返回的原始消息</param>
         /// <param name="errorCode">短信错误码</param>
-        public SmsResult( bool success = true, string message = "", SmsErrorCode errorCode = SmsErrorCode.Ok ) {
+        public SmsResult( bool success = true, string raw = "", SmsErrorCode errorCode = SmsErrorCode.Ok ) {
             Success = success;
-            Message = message;
+            Raw = raw;
             ErrorCode = errorCode;
         }
 
@@ -28,7 +28,7 @@
         /// <summary>
         /// 短信提供商返回的原始消息
         /// </summary>
-        public string Message { get; }
+        public string Raw { get; }
 
         /// <summary>
         /// 成功消息

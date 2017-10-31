@@ -1,4 +1,5 @@
-﻿using Util.Logs.Abstractions;
+﻿using System.Collections.Generic;
+using Util.Logs.Abstractions;
 
 namespace Util.Logs.Extensions {
     /// <summary>
@@ -9,10 +10,31 @@ namespace Util.Logs.Extensions {
         /// 设置内容
         /// </summary>
         /// <param name="log">日志操作</param>
+        public static ILog Content( this ILog log ) {
+            return log.Set<ILogContent>( content => content.Content( "" ) );
+        }
+
+        /// <summary>
+        /// 设置内容
+        /// </summary>
+        /// <param name="log">日志操作</param>
         /// <param name="value">值</param>
         /// <param name="args">变量值</param>
         public static ILog Content( this ILog log, string value, params object[] args ) {
             return log.Set<ILogContent>( content => content.Content( value, args ) );
+        }
+
+        /// <summary>
+        /// 设置内容
+        /// </summary>
+        /// <param name="log">日志操作</param>
+        /// <param name="dictionary">字典</param>
+        public static ILog Content( this ILog log, IDictionary<string,string> dictionary ) {
+            if ( dictionary == null )
+                return log;
+            foreach ( var keyValue in dictionary )
+                log.Set<ILogContent>( content => content.Content( "{0} : {1}", keyValue.Key, keyValue.Value ) );
+            return log;
         }
     }
 }

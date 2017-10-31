@@ -1,11 +1,12 @@
 ﻿using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Parameters;
+using Util.Biz.Payments.Alipay.Results;
 using Util.Biz.Payments.Core;
 using Util.Helpers;
 using Util.Logs;
 using Util.Logs.Extensions;
 
-namespace Util.Biz.Payments.Alipay {
+namespace Util.Biz.Payments.Alipay.Services {
     /// <summary>
     /// 支付宝支付服务
     /// </summary>
@@ -22,6 +23,10 @@ namespace Util.Biz.Payments.Alipay {
         /// 支付宝参数生成器
         /// </summary>
         private readonly AlipayParameterBuilder _builder;
+        /// <summary>
+        /// 支付参数
+        /// </summary>
+        private PayParam _payParam;
 
         /// <summary>
         /// 初始化支付宝支付服务
@@ -36,11 +41,12 @@ namespace Util.Biz.Payments.Alipay {
         /// <summary>
         /// 支付
         /// </summary>
-        /// <param name="parameter">支付参数</param>
-        public PayResult Pay( PayParam parameter ) {
-            Validate( parameter );
-            Config( parameter );
-            var result = Request();
+        /// <param name="param">支付参数</param>
+        public PayResult Pay( PayParam param ) {
+            Validate( param );
+            _payParam = param;
+            Config();
+            var result = new AlipayResult( Request() );
             WriteLog( result );
             return CreateResult( result );
         }
@@ -48,17 +54,25 @@ namespace Util.Biz.Payments.Alipay {
         /// <summary>
         /// 验证
         /// </summary>
-        private void Validate( PayParam parameter ) {
-            parameter.CheckNull( nameof( parameter ) );
-            parameter.Validate();
+        private void Validate( PayParam param ) {
+            param.CheckNull( nameof( param ) );
+            param.Validate();
+            ValidateParam( param );
             _config.Validate();
+        }
+
+        /// <summary>
+        /// 验证参数
+        /// </summary>
+        /// <param name="param">支付参数</param>
+        protected virtual void ValidateParam( PayParam param ) {
         }
 
         /// <summary>
         /// 参数配置
         /// </summary>
-        private void Config( PayParam parameter ) {
-            var contentBuilder = GetContentBuilder( parameter );
+        private void Config() {
+            var contentBuilder = GetContentBuilder( _payParam );
             contentBuilder.Scene( GetScene() );
             _builder.Content( contentBuilder );
             _builder.Method( GetMethod() );
@@ -67,10 +81,10 @@ namespace Util.Biz.Payments.Alipay {
         /// <summary>
         /// 获取内容参数生成器
         /// </summary>
-        /// <param name="parameter">支付参数</param>
-        protected virtual AlipayContentBuilder GetContentBuilder( PayParam parameter ) {
+        /// <param name="param">支付参数</param>
+        protected virtual AlipayContentBuilder GetContentBuilder( PayParam param ) {
             var builder = new AlipayContentBuilder();
-            builder.Load( parameter );
+            builder.Load( param );
             return builder;
         }
 
@@ -90,11 +104,18 @@ namespace Util.Biz.Payments.Alipay {
         /// 发送请求
         /// </summary>
         private string Request() {
+            if ( IsSendRequest == false )
+                return string.Empty;
             return Web.Client()
                 .Post( GetGatewayUrl() )
                 .Data( _builder.GetDictionary() )
                 .Result();
         }
+
+        /// <summary>
+        /// 是否发送请求
+        /// </summary>
+        public bool IsSendRequest { get; set; } = true;
 
         /// <summary>
         /// 获取支付宝网关Url
@@ -106,18 +127,26 @@ namespace Util.Biz.Payments.Alipay {
         /// <summary>
         /// 写日志
         /// </summary>
-        private void WriteLog( string result ) {
+        private void WriteLog( AlipayResult result ) {
             var log = GetLog();
             if( log.IsTraceEnabled == false )
                 return;
             log.Class( GetType().FullName )
-                .Caption( "支付宝支付请求" )
+                .Caption( "请求支付宝支付" )
                 .Content( "支付方式 : {0}", GetPayWay().Description() )
                 .Content( "支付网关 : {0}", GetGatewayUrl() )
+                .Content()
                 .Content( "请求参数:" )
-                .Content( _builder.Result() )
-                .Content( "返回结果: " )
-                .Content( result )
+                .Content( _builder.GetDictionary() )
+                .Content()
+                .Content( "返回结果:" )
+                .Content( result.GetDictionary() )
+                .Content()
+                .Content( "原始请求:" )
+                .Content( _builder.ToString() )
+                .Content()
+                .Content( "原始响应: " )
+                .Content( result.Raw )
                 .Trace();
         }
 
@@ -141,8 +170,17 @@ namespace Util.Biz.Payments.Alipay {
         /// <summary>
         /// 创建结果
         /// </summary>
-        private PayResult CreateResult( string result ) {
-            return new PayResult( true, result );
+        private PayResult CreateResult( AlipayResult result ) {
+            return new PayResult( result.Success,result.GetTradeNo(), result.Raw ) {
+                Message = result.GetMessage()
+            };
+        }
+
+        /// <summary>
+        /// 输出请求参数
+        /// </summary>
+        public override string ToString() {
+            return _builder.ToString();
         }
     }
 }

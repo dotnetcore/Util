@@ -11,7 +11,7 @@ namespace Util.Biz.Payments.Core {
         /// <summary>
         /// 商户订单号
         /// </summary>
-        [Required(ErrorMessage = "商户订单号不能为空" )]
+        [Required( ErrorMessageResourceType = typeof( PayResource ), ErrorMessageResourceName = "OrderIdIsEmpty" )]
         public string OrderId { get; set; }
         /// <summary>
         /// 支付金额
@@ -34,8 +34,17 @@ namespace Util.Biz.Payments.Core {
         /// 验证
         /// </summary>
         public void Validate() {
+            InitSubject();
             ValidateDataAnnotation();
             CustomValidate();
+        }
+
+        /// <summary>
+        /// 初始化订单标题
+        /// </summary>
+        private void InitSubject() {
+            if ( Subject.IsEmpty() )
+                Subject = OrderId;
         }
 
         /// <summary>
@@ -52,7 +61,7 @@ namespace Util.Biz.Payments.Core {
         /// </summary>
         private void CustomValidate() {
             if( Money <= 0 )
-                throw new Warning( "支付金额必须大于0" );
+                throw new Warning( PayResource.InvalidMoney );
         }
     }
 }

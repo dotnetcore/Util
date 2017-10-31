@@ -7,10 +7,12 @@
         /// 初始化支付结果
         /// </summary>
         /// <param name="success">是否成功</param>
-        /// <param name="result">结果</param>
-        public PayResult( bool success, string result ) {
+        /// <param name="tradeId">交易编号</param>
+        /// <param name="raw">支付接口返回的原始消息</param>
+        public PayResult( bool success,string tradeId, string raw ) {
             Success = success;
-            Result = result;
+            TradeId = tradeId;
+            Raw = raw;
         }
 
         /// <summary>
@@ -19,10 +21,23 @@
         public bool Success { get; }
 
         /// <summary>
-        /// 结果,说明：
-        /// 1. 支付宝手机网站支付，该结果为表单Html 
-        /// 2. 支付宝当面付，该结果为二维码图片地址
+        /// 交易编号，外部支付系统的交易流水号
         /// </summary>
-        public string Result { get; }
+        public string TradeId { get; }
+
+        /// <summary>
+        /// 支付接口返回的原始消息
+        /// </summary>
+        public string Raw { get; }
+
+        /// <summary>
+        /// 结果
+        /// </summary>
+        public string Result { get; set; }
+
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public string Message { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Util.Biz.Payments.Alipay.Configs;
+using Util.Biz.Payments.Alipay.Parameters;
 using Util.Biz.Payments.Core;
+using Util.Exceptions;
 
-namespace Util.Biz.Payments.Alipay {
+namespace Util.Biz.Payments.Alipay.Services {
     /// <summary>
     /// 支付宝条码支付服务
     /// </summary>
@@ -32,6 +34,24 @@ namespace Util.Biz.Payments.Alipay {
         /// </summary>
         protected override PayWay GetPayWay() {
             return PayWay.AlipayBarcodePay;
+        }
+
+        /// <summary>
+        /// 验证参数
+        /// </summary>
+        /// <param name="param">支付参数</param>
+        protected override void ValidateParam( PayParam param ) {
+            if ( param.AuthCode.IsEmpty() )
+                throw new Warning( PayResource.AuthCodeIsEmpty );
+        }
+
+        /// <summary>
+        /// 获取内容参数生成器
+        /// </summary>
+        /// <param name="param">支付参数</param>
+        protected override AlipayContentBuilder GetContentBuilder( PayParam param ) {
+            return base.GetContentBuilder( param )
+                .AuthCode( param.AuthCode );
         }
     }
 }

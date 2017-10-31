@@ -41,7 +41,6 @@
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
-    <ProjectReference Include="..\..\test\Util.Biz.Tests.Integration\Util.Biz.Tests.Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>

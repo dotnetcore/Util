@@ -1,6 +1,7 @@
 ﻿using System;
 using Util.Biz.Payments.Alipay;
 using Util.Biz.Payments.Alipay.Configs;
+using Util.Biz.Payments.Alipay.Services;
 using Util.Biz.Payments.Core;
 
 namespace Util.Biz.Payments.Factories {

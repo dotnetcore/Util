@@ -14,10 +14,9 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// <param name="param">支付参数</param>
         public AlipayContentBuilder Load( PayParam param ) {
             return OutTradeNo( param.OrderId )
-                .AuthCode( param.AuthCode )
                 .Subject( param.Subject )
-                .TimeoutExpress( param.Timeout )
-                .TotalAmount( param.Money );
+                .TotalAmount( param.Money )
+                .TimeoutExpress( param.Timeout );
         }
 
         /// <summary>

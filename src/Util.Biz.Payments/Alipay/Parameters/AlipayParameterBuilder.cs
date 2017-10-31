@@ -142,15 +142,8 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// <summary>
         /// 输出结果
         /// </summary>
-        public string Result() {
-            return GetSignBuilder().Result( true );
-        }
-
-        /// <summary>
-        /// 输出结果
-        /// </summary>
         public override string ToString() {
-            return Result();
+            return GetSignBuilder().Result( true );
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Util.Signatures {
         /// 签名
         /// </summary>
         public string Sign() {
-            return Encrypt.Rsa2( _builder.Result( true ), _key );
+            return Encrypt.Rsa2Sign( _builder.Result( true ), _key );
         }
     }
 }

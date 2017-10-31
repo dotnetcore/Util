@@ -25,7 +25,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Parameters {
         [Fact]
         public void TestLoad() {
             _builder.Load( new PayParam { OrderId = "a",AuthCode = "b",Subject = "c",Timeout = 2,Money = 88.88M} );
-            Assert.Equal( "out_trade_no=a&auth_code=b&subject=c&timeout_express=2m&total_amount=88.88", _builder.ToString() );
+            Assert.Equal( "out_trade_no=a&subject=c&total_amount=88.88&timeout_express=2m", _builder.ToString() );
         }
 
         /// <summary>

@@ -1,12 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using Util.Helpers.Internal;
 
 namespace Util.Helpers {
     /// <summary>
     /// 加密操作
-    /// 说明：AES和RSA加密整理自支付宝SDK
+    /// 说明：
+    /// 1. AES加密整理自支付宝SDK
+    /// 2. RSA加密采用 https://github.com/stulzq/DotnetCore.RSA/blob/master/DotnetCore.RSA/RSAHelper.cs
     /// </summary>
     public static class Encrypt {
 
@@ -277,15 +279,15 @@ namespace Util.Helpers {
 
         #endregion
 
-        #region RSA加密
+        #region RSA签名
 
         /// <summary>
         /// RSA加密，采用 SHA1 算法
         /// </summary>
         /// <param name="value">待加密的值</param>
         /// <param name="key">密钥</param>
-        public static string Rsa( string value, string key ) {
-            return Rsa( value, key, Encoding.UTF8 );
+        public static string RsaSign( string value, string key ) {
+            return RsaSign( value, key, Encoding.UTF8 );
         }
 
         /// <summary>
@@ -294,8 +296,8 @@ namespace Util.Helpers {
         /// <param name="value">待加密的值</param>
         /// <param name="key">密钥</param>
         /// <param name="encoding">编码</param>
-        public static string Rsa( string value, string key, Encoding encoding ) {
-            return Rsa( value, key, encoding, "RSA" );
+        public static string RsaSign( string value, string key, Encoding encoding ) {
+            return RsaSign( value, key, encoding, RSAType.RSA );
         }
 
         /// <summary>
@@ -303,8 +305,8 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="value">待加密的值</param>
         /// <param name="key">密钥</param>
-        public static string Rsa2( string value, string key ) {
-            return Rsa2( value, key, Encoding.UTF8 );
+        public static string Rsa2Sign( string value, string key ) {
+            return Rsa2Sign( value, key, Encoding.UTF8 );
         }
 
         /// <summary>
@@ -313,131 +315,18 @@ namespace Util.Helpers {
         /// <param name="value">待加密的值</param>
         /// <param name="key">密钥</param>
         /// <param name="encoding">编码</param>
-        public static string Rsa2( string value, string key, Encoding encoding ) {
-            return Rsa( value, key, encoding, "RSA2" );
+        public static string Rsa2Sign( string value, string key, Encoding encoding ) {
+            return RsaSign( value, key, encoding, RSAType.RSA2 );
         }
 
         /// <summary>
         /// Rsa加密
         /// </summary>
-        private static string Rsa( string value, string key, Encoding encoding, string type ) {
+        private static string RsaSign( string value, string key, Encoding encoding, RSAType type ) {
             if( string.IsNullOrWhiteSpace( value ) || string.IsNullOrWhiteSpace( key ) )
                 return string.Empty;
-            var provider = CreateRsaProvider( key, type );
-            var bytes = encoding.GetBytes( value );
-            var result = provider.SignData( bytes, GetRsaAlgorithm( type ) );
-            return System.Convert.ToBase64String( result );
-        }
-
-        /// <summary>
-        /// 获取Rsa算法
-        /// </summary>
-        private static string GetRsaAlgorithm( string type ) {
-            return type == "RSA2" ? "SHA256" : "SHA1";
-        }
-
-        /// <summary>
-        /// 创建RSA提供程序
-        /// </summary>
-        private static RSACryptoServiceProvider CreateRsaProvider( string key, string type ) {
-            using ( var stream = new MemoryStream( System.Convert.FromBase64String( key ) ) ) {
-                using ( var reader = new BinaryReader( stream ) ) {
-                    byte bt;
-                    ushort twobytes;
-                    int elems;
-                    twobytes = reader.ReadUInt16();
-                    if( twobytes == 0x8130 )
-                        reader.ReadByte();
-                    else if( twobytes == 0x8230 )
-                        reader.ReadInt16();
-                    else
-                        return null;
-
-                    twobytes = reader.ReadUInt16();
-                    if( twobytes != 0x0102 )
-                        return null;
-                    bt = reader.ReadByte();
-                    if( bt != 0x00 )
-                        return null;
-
-                    elems = GetSize( reader );
-                    var modulus = reader.ReadBytes( elems );
-
-                    elems = GetSize( reader );
-                    var e = reader.ReadBytes( elems );
-
-                    elems = GetSize( reader );
-                    var d = reader.ReadBytes( elems );
-
-                    elems = GetSize( reader );
-                    var p = reader.ReadBytes( elems );
-
-                    elems = GetSize( reader );
-                    var q = reader.ReadBytes( elems );
-
-                    elems = GetSize( reader );
-                    var dp = reader.ReadBytes( elems );
-
-                    elems = GetSize( reader );
-                    var dq = reader.ReadBytes( elems );
-
-                    elems = GetSize( reader );
-                    var iq = reader.ReadBytes( elems );
-
-                    var cspParameters = new CspParameters();
-                    cspParameters.Flags = CspProviderFlags.UseMachineKeyStore;
-
-                    int bitLen = 1024;
-                    if( type == "RSA2" ) {
-                        bitLen = 2048;
-                    }
-
-                    var rsa = new RSACryptoServiceProvider( bitLen, cspParameters );
-                    var parameters = new RSAParameters {
-                        Modulus = modulus,
-                        Exponent = e,
-                        D = d,
-                        P = p,
-                        Q = q,
-                        DP = dp,
-                        DQ = dq,
-                        InverseQ = iq
-                    };
-                    rsa.ImportParameters( parameters );
-                    return rsa;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 获取流长度
-        /// </summary>
-        private static int GetSize( BinaryReader reader ) {
-            byte bt;
-            int count;
-            bt = reader.ReadByte();
-            if( bt != 0x02 )
-                return 0;
-            bt = reader.ReadByte();
-
-            if( bt == 0x81 )
-                count = reader.ReadByte();
-            else
-            if( bt == 0x82 ) {
-                var highByte = reader.ReadByte();
-                var lowByte = reader.ReadByte();
-                byte[] modint = { lowByte, highByte, 0x00, 0x00 };
-                count = BitConverter.ToInt32( modint, 0 );
-            }
-            else {
-                count = bt;
-            }
-
-            while( reader.ReadByte() == 0x00 ) {
-                count -= 1;
-            }
-            reader.BaseStream.Seek( -1, SeekOrigin.Current );
-            return count;
+            var rsa = new RsaHelper( type, encoding, key );
+            return rsa.Sign( value );
         }
 
         #endregion

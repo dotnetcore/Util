@@ -167,19 +167,22 @@ Util暂时未发布到Nuget，待成熟后发布。
 14. Id生成器
   - [ECommon.Utilities.ObjectId](https://github.com/tangxuehua/ecommon/blob/master/src/ECommon/Utilities/ObjectId.cs)
 
-15. 二维码操作
+15. RSA加密算法
+  - [DotnetCore.RSA](https://github.com/stulzq/DotnetCore.RSA/blob/master/DotnetCore.RSA/RSAHelper.cs)
+
+16. 二维码操作
   - [QRCoder](https://github.com/codebude/QRCoder/)
 
-16. 短信操作
+17. 短信操作
   - [Luosimao](https://luosimao.com/)
 
-17. Queryable动态扩展
+18. Queryable动态扩展
   - [System.Linq.Dynamic.Core](https://github.com/StefH/System.Linq.Dynamic.Core)
 
-18. Web框架
+19. Web框架
   - Asp.Net Core 2
 
-19. UI
+20. UI
   - 语言
     - TypeScript
   - js框架
@@ -194,10 +197,10 @@ Util暂时未发布到Nuget，待成熟后发布。
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)
 
-20. 代码生成器
+21. 代码生成器
   - CodeSmith 6.5
 
-21. 参考应用框架
+22. 参考应用框架
   - [ABP](https://github.com/aspnetboilerplate/aspnetboilerplate)
   - [Nop](https://www.nopcommerce.com) ,Nop是一个开源商城，封装了大量实用的基础代码。
 
@@ -393,6 +396,8 @@ https://github.com/dotnetcore/util/
 - 权限 [待启动]
 - 公共业务基类
   - 地址 [已发布]
+- 支付操作
+  - 支付宝条码支付 [已发布]
 
 ## 更新列表
 
@@ -428,3 +433,4 @@ https://github.com/dotnetcore/util/
 - 2017年10月25日，更新了二维码操作(Util.Tools.QrCode,基于QRCoder)和短信操作(Util.Tools.Sms，封装了LuoSiMao接口)。
 - 2017年10月29日，更新了加密操作(Util.Helpers.Encrypt，集成了MD5,DES,AES,RSA加密操作)及单元测试。
 - 2017年10月30日，更新了Url参数生成器(Util.Parameters)及单元测试。
+- 2017年10月31日，更新了支付宝条码支付操作(Util.Biz.Payments/Alipay)及单元测试。
