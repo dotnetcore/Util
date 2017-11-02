@@ -81,10 +81,8 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// 参数配置
         /// </summary>
         private void Config() {
-            var contentBuilder = GetContentBuilder( _payParam );
-            contentBuilder.Scene( GetScene() );
-            _builder.Content( contentBuilder );
-            _builder.Method( GetMethod() );
+            var contentBuilder = GetContentBuilder( _payParam ).Scene( GetScene() );
+            _builder.Content( contentBuilder ).Method( GetMethod() );
         }
 
         /// <summary>
