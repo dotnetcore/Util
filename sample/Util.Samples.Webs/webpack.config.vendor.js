@@ -87,7 +87,7 @@ module.exports = (env) => {
                     test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
                         loader: 'url-loader',
                         options: {
-                            limit: 80000,
+                            limit: 20000,
                             name: "[name].[ext]",
                             outputPath: "images/"
                         }

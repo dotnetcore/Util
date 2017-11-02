@@ -116,8 +116,8 @@ Util暂时未发布到Nuget，待成熟后发布。
 > 如果没有标注版本号，则采用最新版本。
 
 1. 开发工具： 
-  - Visual Studio 2017 15.3
-  - Resharper 2017.2
+  - Visual Studio 2017
+  - Resharper
 
 2. 数据库
   - Sql Server
@@ -186,7 +186,7 @@ Util暂时未发布到Nuget，待成熟后发布。
   - 语言
     - TypeScript
   - js框架
-    - [Angular 4](https://angular.io/)
+    - [Angular 5](https://angular.io/)
   - 组件库
     - [Angular Material](https://material.angular.io/)
   - 样式库
