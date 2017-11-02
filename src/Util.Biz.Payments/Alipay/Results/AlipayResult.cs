@@ -45,7 +45,7 @@ namespace Util.Biz.Payments.Alipay.Results {
                 return;
             foreach( var value in item.Value )
                 AddNodes( value );
-            if( GetIgnoreItems( item ).Contains( item.Name ) )
+            if( GetIgnoreItems().Contains( item.Name ) )
                 return;
             _result.Add( item.Name, item.Value.SafeString() );
         }
@@ -53,7 +53,7 @@ namespace Util.Biz.Payments.Alipay.Results {
         /// <summary>
         /// 获取忽略项
         /// </summary>
-        private List<string> GetIgnoreItems( JProperty item ) {
+        private List<string> GetIgnoreItems() {
             return new List<string> {
                 "alipay_trade_pay_response"
             };
