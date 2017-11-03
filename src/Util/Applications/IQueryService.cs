@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
+using Util.Dependency;
 using Util.Domains.Repositories;
 
 namespace Util.Applications {
@@ -10,7 +11,7 @@ namespace Util.Applications {
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
-    public interface IQueryService<TDto, in TQueryParameter>
+    public interface IQueryService<TDto, in TQueryParameter> : IScopeDependency
         where TDto : IDto, new()
         where TQueryParameter : IQueryParameter {
         /// <summary>
