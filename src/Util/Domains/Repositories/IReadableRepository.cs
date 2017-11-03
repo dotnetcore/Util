@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Util.Dependency;
 
 namespace Util.Domains.Repositories {
     /// <summary>
@@ -17,7 +18,7 @@ namespace Util.Domains.Repositories {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public interface IReadableRepository<TEntity, in TKey> where TEntity : class, IAggregateRoot {
+    public interface IReadableRepository<TEntity, in TKey> : IScopeDependency where TEntity : class, IAggregateRoot {
         /// <summary>
         /// 获取未跟踪的实体集
         /// </summary>

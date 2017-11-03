@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Util.Dependency;
 
 namespace Util.Datas.UnitOfWorks {
     /// <summary>
     /// 工作单元服务
     /// </summary>
-    public interface IUnitOfWorkManager {
+    public interface IUnitOfWorkManager : IScopeDependency {
         /// <summary>
         /// 提交
         /// </summary>
