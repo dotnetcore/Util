@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using Util.Datas.Ef.Configs;
 using Util.Datas.Ef.Core;
+using Util.Helpers;
 using Util.Logs;
 using Util.Logs.Extensions;
 
@@ -59,7 +60,7 @@ namespace Util.Datas.Ef.Logs {
                 .Content( $"事件Id: {eventId.Id}" )
                 .Content( $"事件名称: {eventId.Name}" );
             AddContent( state );
-            _log.Trace();
+            _log.Exception( exception ).Trace();
         }
 
         /// <summary>
@@ -80,7 +81,7 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         private void AddContent<TState>( TState state ) {
             if( EfConfig.LogLevel == EfLogLevel.All )
-                _log.Content().Content( "事件内容：" ).Content( state.SafeString() ).Content();
+                _log.Content( "事件内容：" ).Content( state.SafeString() );
             if( !( state is IEnumerable list ) )
                 return;
             var dictionary = new Dictionary<string, string>();
@@ -94,11 +95,9 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         private void AddDictionary( IDictionary<string, string> dictionary ) {
             AddElapsed( GetValue( dictionary, "elapsed" ) );
-            var sql = GetValue( dictionary, "commandText" );
             var sqlParams = GetValue( dictionary, "parameters" );
-            AddSql( sql );
+            AddSql( GetValue( dictionary, "commandText" ), sqlParams );
             AddSqlParams( sqlParams );
-            AddSql( sql, sqlParams );
         }
 
         /// <summary>
@@ -114,29 +113,29 @@ namespace Util.Datas.Ef.Logs {
         /// 添加执行时间
         /// </summary>
         private void AddElapsed( string value ) {
-            _log.Content( $"执行时间: {value} 毫秒" ).Content();
+            if ( string.IsNullOrWhiteSpace( value ) )
+                return;
+            _log.Content( $"执行时间: {value} 毫秒" );
         }
 
         /// <summary>
         /// 添加Sql
         /// </summary>
-        private void AddSql( string sql ) {
-            _log.Content( "原始Sql语句: " ).Content( sql ).Content();
+        private void AddSql( string sql, string sqlParams ) {
+            if ( string.IsNullOrWhiteSpace( sql ) )
+                return;
+            _log.Sql( "原始Sql: " ).Sql( $"{sql}{Common.Line}" );
+            sql = sql.Replace( "SET NOCOUNT ON;", "" );
+            _log.Sql( $"调试Sql: {GetSql( sql, sqlParams )}{Common.Line}" );
         }
 
         /// <summary>
         /// 添加Sql参数
         /// </summary>
         private void AddSqlParams( string value ) {
-            _log.Content( "Sql参数: " ).Content( value ).Content();
-        }
-
-        /// <summary>
-        /// 添加调试Sql
-        /// </summary>
-        private void AddSql( string sql, string sqlParams ) {
-            sql = sql.Replace( "SET NOCOUNT ON;", "" );
-            _log.Content( $"调试Sql语句: {GetSql( sql, sqlParams )}" );
+            if ( string.IsNullOrWhiteSpace( value ) )
+                return;
+            _log.SqlParams( value );
         }
 
         /// <summary>

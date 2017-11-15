@@ -49,7 +49,7 @@ namespace Util.Samples.Webs {
             services.AddEventBus();
 
             //添加工作单元
-            services.AddUnitOfWork<ISqlServerUnitOfWork, SqlServerUnitOfWork2>( Configuration.GetConnectionString( "DefaultConnection" ) );
+            services.AddUnitOfWork<ISqlServerUnitOfWork, SqlServerUnitOfWork2>( Configuration.GetConnectionString( "DefaultConnection" ),EfLogLevel.All );
 
             //添加Util基础设施服务
             return services.AddUtil();
