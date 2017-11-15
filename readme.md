@@ -107,8 +107,6 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 对于简单的操作，你可以运行和阅读相应单元测试代码，即可了解它们如何使用。对于复杂操作，一方面看单元测试，另外我们会编写相关文档以描述调用方式和工作机制。
 
-Util暂时未发布到Nuget，待成熟后发布。
-
 ## 开发环境及类库依赖
 
 以下是我们在项目开发和部署时使用的工具和组件，这个列表会经常更新。
@@ -146,7 +144,7 @@ Util暂时未发布到Nuget，待成熟后发布。
   - EntityFrameworkCore 2.0
   - Microsoft.EntityFrameworkCore.SqlServer 2.0.0
   - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0
-  - Pomelo.EntityFrameworkCore.MySql 2.0.1-preview-10070
+  - Pomelo.EntityFrameworkCore.MySql 2.0.x
 
 9. Ioc框架
   - Autofac
@@ -372,8 +370,9 @@ https://github.com/dotnetcore/util/
   - 值对象基类 [已发布]
   - 树型实体基类 [已发布]
   - 操作审计 [已发布]
-  - EF实体映射配置基类 [已发布]
-  - EF工作单元基类 [已发布]
+  - EF Core实体映射配置基类 [已发布]
+  - EF Core工作单元基类 [已发布]
+  - EF Core调试日志 [已发布]
   - 仓储基类 [已发布]
   - 查询对象 [已发布]
   - 范围查询条件 [已发布]
@@ -434,3 +433,4 @@ https://github.com/dotnetcore/util/
 - 2017年10月29日，更新了加密操作(Util.Helpers.Encrypt，集成了MD5,DES,AES,RSA加密操作)及单元测试。
 - 2017年10月30日，更新了Url参数生成器(Util.Parameters)及单元测试。
 - 2017年10月31日，更新了支付宝条码支付操作(Util.Biz.Payments/Alipay)及单元测试。
+- 2017年11月15日，更新了EF Core调试日志(Util.Datas/Logs)及单元测试。

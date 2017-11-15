@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 
 namespace Util.Maps {
@@ -52,12 +53,28 @@ namespace Util.Maps {
                     return Mapper.Map( source, destination );
                 var maps = Mapper.Configuration.GetAllTypeMaps();
                 Mapper.Initialize( config => {
+                    ClearConfig();
                     foreach( var item in maps )
                         config.CreateMap( item.SourceType, item.DestinationType );
                     config.CreateMap( sourceType, destinationType );
                 } );
             }
             return Mapper.Map( source, destination );
+        }
+
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        private static Type GetType( object obj ) {
+            var type = obj.GetType();
+            if( ( obj is System.Collections.IEnumerable ) == false )
+                return type;
+            if( type.IsArray )
+                return type.GetElementType();
+            var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
+            if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
+                throw new ArgumentException( "泛型类型参数不能为空" );
+            return genericArgumentsTypes[0];
         }
 
         /// <summary>
@@ -83,18 +100,12 @@ namespace Util.Maps {
         }
 
         /// <summary>
-        /// 获取类型
+        /// 清空配置
         /// </summary>
-        private static Type GetType( object obj ) {
-            var type = obj.GetType();            
-            if( ( obj is System.Collections.IEnumerable ) == false )
-                return type;
-            if( type.IsArray )
-                return type.GetElementType();
-            var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
-            if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
-                throw new ArgumentException( "泛型类型参数不能为空" );
-            return genericArgumentsTypes[0];
+        private static void ClearConfig() {
+            var typeMapper = typeof( Mapper ).GetTypeInfo();
+            var configuration = typeMapper.GetDeclaredField( "_configuration" );
+            configuration.SetValue( null, null, BindingFlags.Static, null, CultureInfo.CurrentCulture );
         }
 
         /// <summary>

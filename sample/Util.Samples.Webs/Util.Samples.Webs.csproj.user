@@ -4,6 +4,7 @@
     <ShowAllFiles>false</ShowAllFiles>
     <ToolsVersionPromptShown>0.0</ToolsVersionPromptShown>
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

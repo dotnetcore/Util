@@ -77,7 +77,7 @@ namespace Util.Domains {
         /// 初始化
         /// </summary>
         public virtual void Init() {
-            if( Id == null || Id.Equals( default( TKey ) ) )
+            if( string.IsNullOrWhiteSpace( Id.SafeString() ) || Id.Equals( default( TKey ) ) )
                 Id = CreateId();
         }
 

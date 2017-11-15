@@ -3,7 +3,6 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Util.Datas.Ef.Core;
-using System.Data.Common;
 using Util.Datas.Ef.Internal;
 using Util.Datas.UnitOfWorks;
 
@@ -15,27 +14,9 @@ namespace Util.Datas.Ef.MySql {
         /// <summary>
         /// 初始化MySql工作单元
         /// </summary>
-        /// <param name="connection">连接字符串</param>
-        /// <param name="manager">工作单元服务</param>
-        protected UnitOfWork( string connection, IUnitOfWorkManager manager = null )
-            : base( new DbContextOptionsBuilder().UseMySql( connection ).Options, manager ) {
-        }
-
-        /// <summary>
-        /// 初始化MySql工作单元
-        /// </summary>
-        /// <param name="connection">连接</param>
-        /// <param name="manager">工作单元服务</param>
-        protected UnitOfWork( DbConnection connection, IUnitOfWorkManager manager = null )
-            : base( new DbContextOptionsBuilder().UseMySql( connection ).Options, manager ) {
-        }
-
-        /// <summary>
-        /// 初始化MySql工作单元
-        /// </summary>
         /// <param name="options">配置</param>
         /// <param name="manager">工作单元服务</param>
-        protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager = null )
+        protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager )
             : base( options, manager ) {
         }
 

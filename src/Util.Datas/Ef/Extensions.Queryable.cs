@@ -8,7 +8,7 @@ namespace Util.Datas.Ef {
     /// <summary>
     /// 查询扩展
     /// </summary>
-    public static class Extensions {
+    public static partial class Extensions {
         /// <summary>
         /// 转换为分页列表
         /// </summary>

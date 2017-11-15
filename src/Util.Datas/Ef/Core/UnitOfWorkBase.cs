@@ -5,10 +5,14 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Util.Datas.Ef.Configs;
 using Util.Datas.UnitOfWorks;
 using Util.Domains.Auditing;
 using Util.Domains.Sessions;
 using Util.Exceptions;
+using Util.Datas.Ef.Logs;
+using Util.Logs;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>
@@ -23,7 +27,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="options">配置</param>
         /// <param name="manager">工作单元服务</param>
-        protected UnitOfWorkBase( DbContextOptions options,IUnitOfWorkManager manager )
+        protected UnitOfWorkBase( DbContextOptions options, IUnitOfWorkManager manager )
             : base( options ) {
             manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
@@ -42,6 +46,55 @@ namespace Util.Datas.Ef.Core {
         /// 用户会话
         /// </summary>
         public ISession Session { get; set; }
+
+        #endregion
+
+        #region OnConfiguring(配置)
+
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="builder">配置生成器</param>
+        protected override void OnConfiguring( DbContextOptionsBuilder builder ) {
+            EnableLog( builder );
+        }
+
+        /// <summary>
+        /// 启用日志
+        /// </summary>
+        protected void EnableLog( DbContextOptionsBuilder builder ) {
+            var log = GetLog();
+            if ( IsEnabled( log ) == false )
+                return;
+            builder.EnableSensitiveDataLogging();
+            builder.UseLoggerFactory( new LoggerFactory( new[] { GetLogProvider( log ) } ) );
+        }
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        protected virtual ILog GetLog() {
+            try {
+                return Log.GetLog( EfLog.TraceLogName );
+            }
+            catch {
+                return Log.Null;
+            }
+        }
+
+        /// <summary>
+        /// 是否启用Ef日志
+        /// </summary>
+        private bool IsEnabled( ILog log ) {
+            return EfConfig.LogLevel != EfLogLevel.Off && log.IsTraceEnabled;
+        }
+
+        /// <summary>
+        /// 获取日志提供器
+        /// </summary>
+        protected virtual ILoggerProvider GetLogProvider( ILog log ) {
+            return new EfLogProvider( log, this );
+        }
 
         #endregion
 
@@ -72,7 +125,7 @@ namespace Util.Datas.Ef.Core {
             catch( DbUpdateConcurrencyException ex ) {
                 throw new ConcurrencyException( ex );
             }
-        } 
+        }
         #endregion
 
         #region OnModelCreating(配置映射)
@@ -192,7 +245,7 @@ namespace Util.Datas.Ef.Core {
         public override Task<int> SaveChangesAsync( CancellationToken cancellationToken = default( CancellationToken ) ) {
             SaveChangesBefore();
             return base.SaveChangesAsync( cancellationToken );
-        } 
+        }
         #endregion
     }
 }

@@ -20,8 +20,8 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Exceptionless.AspNetCore" Version="4.0.1955" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Exceptionless.AspNetCore" Version="4.1.1972" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +41,7 @@
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
+    <ProjectReference Include="..\..\test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\css\style.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,6 +87,8 @@
 
   <!-- Release模式打包 -->
   <Target Name="Release_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release'">
+    <Message Importance="high" Text="开始安装npm包..." />
+    <Exec Command="npm install" />
     <Message Importance="high" Text="Webpack开始打包..." />
     <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.production" />
     <Exec Command="node node_modules/webpack/bin/webpack.js --env.production" />
@@ -93,11 +96,6 @@
 
   <!-- 发布阶段打包 -->
   <Target Name="Publish_RunWebpack" AfterTargets="ComputeFilesToPublish">
-    <Message Importance="high" Text="开始安装npm包..." />
-    <Exec Command="npm install" />
-    <Message Importance="high" Text="Webpack开始打包..." />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.production" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.production" />
     <ItemGroup>
       <DistFiles Include="wwwroot\dist\**;" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">

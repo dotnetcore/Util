@@ -46,7 +46,7 @@ module.exports = (env) => {
     //打包css
     let cssConfig = {
         //输入
-        entry: { app: getPath("wwwroot/css/style.css")},
+        entry: { app: getPath("wwwroot/css/style.scss") },
         //输出
         output: {
             publicPath: './',
@@ -59,7 +59,11 @@ module.exports = (env) => {
         devtool: "source-map",
         module: {
             rules: [
-                { test: /\.css$/, use: extractCss.extract({ use: isDev ? 'css-loader' : 'css-loader?minimize' }) },
+                {
+                    test: /\.scss$/, use: extractCss.extract({
+                        use: isDev ? [{ loader: "css-loader" }, { loader: "sass-loader" }] : [{ loader: "css-loader", options: { minimize: true } }, { loader: "sass-loader" }]
+                    })
+                },
                 {
                     test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
                         loader: 'url-loader',

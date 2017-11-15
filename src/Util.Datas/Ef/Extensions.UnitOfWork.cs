@@ -6,7 +6,7 @@ namespace Util.Datas.Ef {
     /// <summary>
     /// Ef工作单元扩展
     /// </summary>
-    public static class Extension {
+    public static partial class Extensions {
         /// <summary>
         /// 清空缓存
         /// </summary>
