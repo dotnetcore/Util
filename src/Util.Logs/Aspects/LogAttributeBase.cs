@@ -60,7 +60,7 @@ namespace Util.Logs.Aspects {
             var parameter = context.GetReturnParameter();
             log.Caption( $"{context.ServiceMethod.Name}方法执行后" )
                 .Method( methodName )
-                .Content( "返回类型: {0},返回值: {1}", parameter.ParameterInfo.ParameterType.FullName, parameter.Value.SafeString() );
+                .Content( $"返回类型: {parameter.ParameterInfo.ParameterType.FullName},返回值: {parameter.Value.SafeString()}" );
             WriteLog( log );
         }
     }

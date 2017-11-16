@@ -9,22 +9,18 @@ namespace Util.Logs.Extensions {
         /// <summary>
         /// 追加内容
         /// </summary>
-        public static void Append( this ILogContent content, StringBuilder result, string value, params object[] args ) {
+        public static void Append( this ILogContent content, StringBuilder result, string value ) {
             if( string.IsNullOrWhiteSpace( value ) )
                 return;
             result.Append( "   " );
-            if( args == null || args.Length == 0 ) {
-                result.Append( value );
-                return;
-            }
-            result.AppendFormat( value, args );
+            result.Append( value );
         }
 
         /// <summary>
         /// 追加内容并换行
         /// </summary>
-        public static void AppendLine( this ILogContent content, StringBuilder result, string value, params object[] args ) {
-            content.Append( result, value, args );
+        public static void AppendLine( this ILogContent content, StringBuilder result, string value ) {
+            content.Append( result, value );
             result.AppendLine();
         }
 
@@ -33,9 +29,8 @@ namespace Util.Logs.Extensions {
         /// </summary>
         /// <param name="content">日志内容</param>
         /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
-        public static void Content( this ILogContent content, string value, params object[] args ) {
-            content.AppendLine( content.Content, value, args );
+        public static void Content( this ILogContent content, string value ) {
+            content.AppendLine( content.Content, value );
         }
     }
 }

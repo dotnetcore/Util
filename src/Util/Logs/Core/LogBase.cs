@@ -129,9 +129,8 @@ namespace Util.Logs.Core {
         /// 跟踪
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public virtual void Trace( string message, params object[] args ) {
-            LogContent.Content( message, args );
+        public virtual void Trace( string message ) {
+            LogContent.Content( message );
             Trace();
         }
 
@@ -147,9 +146,8 @@ namespace Util.Logs.Core {
         /// 调试
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public virtual void Debug( string message, params object[] args ) {
-            LogContent.Content( message, args );
+        public virtual void Debug( string message ) {
+            LogContent.Content( message );
             Debug();
         }
 
@@ -165,9 +163,8 @@ namespace Util.Logs.Core {
         /// 信息
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public virtual void Info( string message, params object[] args ) {
-            LogContent.Content( message, args );
+        public virtual void Info( string message ) {
+            LogContent.Content( message );
             Info();
         }
 
@@ -183,9 +180,8 @@ namespace Util.Logs.Core {
         /// 警告
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public virtual void Warn( string message, params object[] args ) {
-            LogContent.Content( message, args );
+        public virtual void Warn( string message ) {
+            LogContent.Content( message );
             Warn();
         }
 
@@ -201,9 +197,8 @@ namespace Util.Logs.Core {
         /// 错误
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public virtual void Error( string message, params object[] args ) {
-            LogContent.Content( message, args );
+        public virtual void Error( string message ) {
+            LogContent.Content( message );
             Error();
         }
 
@@ -219,9 +214,8 @@ namespace Util.Logs.Core {
         /// 致命错误
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public virtual void Fatal( string message, params object[] args ) {
-            LogContent.Content( message, args );
+        public virtual void Fatal( string message ) {
+            LogContent.Content( message );
             Fatal();
         }
     }

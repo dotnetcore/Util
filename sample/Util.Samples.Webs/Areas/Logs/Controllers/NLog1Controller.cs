@@ -57,12 +57,12 @@ namespace Util.Samples.Webs.Areas.Logs.Controllers {
                 .Caption( "有人下单了" )
                 .Params( "int","a","1" )
                 .Params( "string", "b", "c" )
-                .Content( "购买商品数量: {0}", 100 )
-                .Content( "购买商品总额：{0}", 200 )
+                .Content( $"购买商品数量: {100}" )
+                .Content( $"购买商品总额：{200}" )
                 .Sql( "select * from system.users" )
                 .Sql( "select * from system.roles" )
-                .SqlParams( "@a={0},@b={1}", 1, 2 )
-                .SqlParams( "@userId={0}", Guid.NewGuid().ToString() )
+                .SqlParams( $"@a={1},@b={2}" )
+                .SqlParams( $"@userId={Guid.NewGuid().ToString()}" )
                 .Info();
             return Content( "写入成功，请查看c:/log/application/info目录" );
         }

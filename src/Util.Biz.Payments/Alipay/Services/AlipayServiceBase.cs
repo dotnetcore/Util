@@ -140,8 +140,8 @@ namespace Util.Biz.Payments.Alipay.Services {
                 return;
             log.Class( GetType().FullName )
                 .Caption( "请求支付宝支付" )
-                .Content( "支付方式 : {0}", GetPayWay().Description() )
-                .Content( "支付网关 : {0}", GetGatewayUrl() )
+                .Content( $"支付方式 : {GetPayWay().Description()}" )
+                .Content( $"支付网关 : {GetGatewayUrl()}" )
                 .Content()
                 .Content( "请求参数:" )
                 .Content( _builder.GetDictionary() )

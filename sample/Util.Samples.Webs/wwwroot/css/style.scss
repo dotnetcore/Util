@@ -1,4 +1,6 @@
-﻿$a : red;
-body {
-    color:#{$a}
-}
+﻿//字符编码
+@charset 'utf-8';
+
+//文件导入
+@import "test";
+
