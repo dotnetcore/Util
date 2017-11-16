@@ -16,9 +16,7 @@ module.exports = (env) => {
 
     //打包js
     let jsConfig = {
-        //输入
         entry: { app: getPath("Typings/main.ts") },
-        //输出
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
@@ -45,9 +43,7 @@ module.exports = (env) => {
 
     //打包css
     let cssConfig = {
-        //输入
-        entry: { app: getPath("wwwroot/css/style.scss") },
-        //输出
+        entry: { app: getPath("wwwroot/css/main.scss") },
         output: {
             publicPath: './',
             path: getPath("wwwroot/dist"),
@@ -61,7 +57,8 @@ module.exports = (env) => {
             rules: [
                 {
                     test: /\.scss$/, use: extractCss.extract({
-                        use: isDev ? [{ loader: "css-loader" }, { loader: "sass-loader" }] : [{ loader: "css-loader", options: { minimize: true } }, { loader: "sass-loader" }]
+                        use: isDev ? ['css-loader', { loader: 'postcss-loader', options: { plugins: [require('autoprefixer')] } }, 'sass-loader']
+                            : ['css-loader?minimize', { loader: 'postcss-loader', options: { plugins: [require('autoprefixer')] } }, 'sass-loader']
                     })
                 },
                 {

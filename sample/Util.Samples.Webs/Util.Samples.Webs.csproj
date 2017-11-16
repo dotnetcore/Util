@@ -48,10 +48,13 @@
     <Folder Include="Areas\Logs\Models\" />
     <Folder Include="Typings\util\" />
     <Folder Include="Typings\test\" />
+    <Folder Include="wwwroot\css\common\dashboard\" />
+    <Folder Include="wwwroot\css\common\components\" />
+    <Folder Include="wwwroot\css\common\base\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\style.scss" />
+    <None Include="wwwroot\css\main.scss" />
   </ItemGroup>
 
   <ItemGroup>
