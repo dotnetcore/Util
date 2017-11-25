@@ -14,10 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Typings\app\app.service.ts" />
-    <None Remove="Typings\boot.browser.ts" />
+    <None Remove="Typings\util\util.ts" />
   </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.1.1972" />
@@ -41,37 +39,18 @@
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
-    <ProjectReference Include="..\..\test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Logs\Models\" />
-    <Folder Include="Typings\util\" />
-    <Folder Include="Typings\test\" />
-    <Folder Include="wwwroot\css\common\dashboard\" />
-    <Folder Include="wwwroot\css\common\components\" />
-    <Folder Include="wwwroot\css\common\base\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\css\main.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="Typings\app\app.component.ts" />
-    <TypeScriptCompile Include="Typings\app\app.module.ts" />
-    <TypeScriptCompile Include="Typings\app\app.service.ts" />
-    <TypeScriptCompile Include="Typings\app\framework.module.ts" />
+    <TypeScriptCompile Include="Typings\test\test.ts" />
+    <TypeScriptCompile Include="Typings\test\util\util.test.ts" />
+    <TypeScriptCompile Include="Typings\util\util.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
   <!-- Debug调试模式打包第三方框架 -->

@@ -3,22 +3,11 @@ import { AppService } from "./app.service";
 
 @Component({
     selector: 'hello-world',
-    templateUrl: "/home/a"
+    template: `<h1>Hello,{{this.target | a}}</h1>`
 })
 export class AppComponent {
-    userName;
-    password;
-
-    public state;
-    constructor( private service:AppService) {
-    }
-
-    public login(): void {
-        let result = this.service.login(this.userName, this.password);
-        if (result) {
-            this.state = "登陆成功";
-            return;
-        }
-        this.state = "登陆失败";
+    target: string;
+    constructor(private service: AppService) {
+        this.target = "ABC";
     }
 }

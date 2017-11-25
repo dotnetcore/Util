@@ -1,2 +1,8 @@
-﻿//导入布局样式 - 头部样式
+﻿//导入变量
+@import "base/variables";
+//导入基础样式
+@import "base/base";
+//导入布局样式 - 头部样式
 @import 'layout/header';
+//导入布局样式 - 导航样式
+@import 'layout/navigation';

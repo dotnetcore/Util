@@ -189,13 +189,14 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Sass](http://www.sass-lang.com) 
   - 组件库
     - [Angular Material](https://material.angular.io/)
-  - 样式库
-    - [Bootstrap 3.x](https://getbootstrap.com/docs/3.3/)
-  - 打包压缩
-    - Webpack
   - 图标
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)
+  - 打包
+    - Webpack
+  - 测试
+    - Karma
+    - Jasmine
 
 21. 代码生成器
   - CodeSmith 6.5

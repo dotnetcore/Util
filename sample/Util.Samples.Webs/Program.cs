@@ -29,8 +29,7 @@ namespace Util.Samples.Webs {
         /// 记录错误日志
         /// </summary>
         private static void WriteLog( Exception ex ) {
-            var log = Log.GetLog().Caption( "应用程序启动失败" );
-            ex.Log( log );
+            ex.Log( Log.GetLog().Caption( "应用程序启动失败" ) );
         }
     }
 }

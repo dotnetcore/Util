@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Webs", "sample\Util.Samples.Webs\Util.Samples.Webs.csproj", "{323B64B7-5CE0-4222-B9ED-9F418730897C}"
 EndProject
@@ -60,11 +60,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Tools.QrCode", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Tools.Sms", "src\Util.Tools.Sms\02-Util.Tools.Sms.csproj", "{883EF7C5-4234-4A1B-82BC-36597D280B57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Util.Biz.Payments", "src\Util.Biz.Payments\02-Util.Biz.Payments.csproj", "{69B79A60-3719-43E5-BE12-78E401C7BC0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Biz.Payments", "src\Util.Biz.Payments\02-Util.Biz.Payments.csproj", "{69B79A60-3719-43E5-BE12-78E401C7BC0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Biz", "03-Biz", "{D1083FEB-81A7-4BBF-ADDB-C03D143BC4AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Biz.Tests.Integration", "test\Util.Biz.Tests.Integration\Util.Biz.Tests.Integration.csproj", "{F680DA14-282E-471E-8E1C-F4D2067B718E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Biz.Tests.Integration", "test\Util.Biz.Tests.Integration\Util.Biz.Tests.Integration.csproj", "{F680DA14-282E-471E-8E1C-F4D2067B718E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

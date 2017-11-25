@@ -16,7 +16,7 @@ module.exports = (env) => {
 
     //打包js
     let jsConfig = {
-        entry: { app: getPath("Typings/main.ts") },
+        entry: { app: getPath("Typings/app/main.ts") },
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
@@ -77,5 +77,26 @@ module.exports = (env) => {
             extractCss
         ]
     }
-    return [jsConfig, cssConfig];
+
+    //打包测试
+    let testConfig = {
+        entry: { test: getPath("Typings/test/test.ts") },
+        output: {
+            publicPath: 'test/',
+            path: getPath("wwwroot/test"),
+            filename: "[name].js"
+        },
+        resolve: {
+            extensions: ['.js', '.ts']
+        },
+        module: {
+            rules: [
+                { test: /\.ts$/, use: ['awesome-typescript-loader?silent=true'] }
+            ]
+        },
+        plugins: [
+            new webpack.optimize.ModuleConcatenationPlugin()
+        ]
+    }
+    return [jsConfig, cssConfig, testConfig];
 }

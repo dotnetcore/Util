@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Util.Datas.Ef;
-using Util.Datas.Ef.Configs;
-using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Events.Default;
 using Util.Logs.Extensions;
 using Util.Webs.Extensions;
@@ -39,17 +36,8 @@ namespace Util.Samples.Webs {
             //添加NLog日志操作
             services.AddNLog();
 
-            //添加Exceptionless日志操作
-            //services.AddExceptionless( config => {
-            //    config.ServerUrl = "http://127.0.0.1:8011";
-            //    config.ApiKey = "oGBxMBfTQhdRJm1npjGgN1kNJvR6eYSWIpws8pvm";
-            //} );
-
             //添加事件总线服务
             services.AddEventBus();
-
-            //添加工作单元
-            services.AddUnitOfWork<ISqlServerUnitOfWork, SqlServerUnitOfWork2>( Configuration.GetConnectionString( "DefaultConnection" ),EfLogLevel.All );
 
             //添加Util基础设施服务
             return services.AddUtil();

@@ -4,7 +4,7 @@ import 'es6-shim'
 import 'hammerjs'
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
-import { AppModule } from "./app/app.module"
+import { AppModule } from "./app.module"
 
 if (module.hot) {
     module.hot.accept();

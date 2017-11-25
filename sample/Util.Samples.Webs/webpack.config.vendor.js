@@ -25,7 +25,6 @@ const jsModules = [
 //第三方Css库
 const cssModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
-    'bootstrap/dist/css/bootstrap.css',
     'material-design-icons/iconfont/material-icons.css',
     'font-awesome/css/font-awesome.css'
 ];
@@ -43,10 +42,9 @@ module.exports = (env) => {
         return pathPlugin.join(__dirname, path);
     }
 
+    //打包js
     let jsConfig =  {
-        //输入
         entry: { vendor: jsModules },
-        //输出
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
@@ -71,9 +69,7 @@ module.exports = (env) => {
 
     //打包css
     let cssConfig = {
-        //输入
         entry: { vendor: cssModules },
-        //输出
         output: {
             publicPath: './',
             path: getPath("wwwroot/dist"),
