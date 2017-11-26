@@ -2,7 +2,6 @@
 //Copyright 2017 何镇汐
 //Licensed under the MIT license
 //================================================
-
 import * as util from "../../util/core"
 
 describe("util.helper", () => {

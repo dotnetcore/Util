@@ -3,9 +3,10 @@
   "name": "util",
   "private": true,
   "scripts": {
-    "dev": "webpack",
+    "vendor": "webpack --config webpack.config.vendor.js",
     "util": "webpack --config webpack.config.util.js",
-    "test": "webpack && karma start Typings/test/karma.conf.js"
+    "app": "webpack",
+    "test": "npm run util && npm run app && karma start Typings/test/karma.conf.js"
   },
   "dependencies": {
     "@angular/animations": "5.1.0-beta.2",
