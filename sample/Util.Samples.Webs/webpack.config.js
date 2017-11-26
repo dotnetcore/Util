@@ -35,6 +35,9 @@ module.exports = (env) => {
             new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             }),
+            new webpack.DllReferencePlugin({
+                manifest: require('./wwwroot/dist/util-manifest.json')
+            }),
             new webpack.optimize.ModuleConcatenationPlugin()
         ].concat(isDev ? [] : [
             new webpack.optimize.UglifyJsPlugin()
@@ -98,5 +101,5 @@ module.exports = (env) => {
             new webpack.optimize.ModuleConcatenationPlugin()
         ]
     }
-    return [jsConfig, cssConfig, testConfig];
+    return [jsConfig, cssConfig,testConfig];
 }

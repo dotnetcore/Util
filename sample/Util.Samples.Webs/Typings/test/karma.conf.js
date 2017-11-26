@@ -4,6 +4,8 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
         files: [
             '../../wwwroot/dist/vendor.js',
+            '../../wwwroot/dist/util.js',
+            '../../wwwroot/dist/app.js',
             '../../wwwroot/test/test.js'
         ],
         exclude: [
