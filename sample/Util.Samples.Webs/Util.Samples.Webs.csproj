@@ -38,9 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="Typings\test\test.ts" />
+    <TypeScriptCompile Include="Typings\test\main.ts" />
     <TypeScriptCompile Include="Typings\util\common\helper.ts" />
-    <TypeScriptCompile Include="Typings\util\core.ts" />
+    <TypeScriptCompile Include="Typings\util\index.ts" />
   </ItemGroup>
 
   <ItemGroup>

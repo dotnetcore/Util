@@ -83,7 +83,7 @@ module.exports = (env) => {
 
     //打包测试
     let testConfig = {
-        entry: { test: getPath("Typings/test/test.ts") },
+        entry: { test: getPath("Typings/test/main.ts") },
         output: {
             publicPath: 'test/',
             path: getPath("wwwroot/test"),

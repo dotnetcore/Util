@@ -13,7 +13,7 @@ module.exports = (env) => {
 
     //打包util脚本库
     return {
-        entry: { util: [getPath("Typings/util/core.ts")] },
+        entry: { util: [getPath("Typings/util/index.ts")] },
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
