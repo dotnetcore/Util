@@ -173,30 +173,34 @@ namespace Util.Datas.Ef.Logs {
             var result = new Dictionary<string, string>();
             if( sqlParams == null )
                 return result;
-            var parameters = sqlParams.Split( ',' );
-            foreach( var parameter in parameters )
-                AddSqlParameter( result, parameter );
+            if ( sqlParams.Length < 4 )
+                return result;
+            string symbol = sqlParams.Substring( 0, 1 );
+            string pattern = $@",\s*?{symbol}p";
+            var parameters = Regex.Split( sqlParams, pattern, RegexOptions.IgnoreCase );
+            foreach ( var parameter in parameters )
+                AddParameter( result, parameter, symbol );
             return result;
         }
 
         /// <summary>
-        /// 添加Sql参数
+        /// 添加参数
         /// </summary>
-        private static void AddSqlParameter( Dictionary<string, string> result, string parameter ) {
-            var items = parameter.Split( '=' );
-            if( items.Length < 2 )
-                return;
-            result.Add( items[0].Trim(), GetValue( parameter, items[1] ) );
+        private static void AddParameter( Dictionary<string, string> result,string parameter,string symbol ) {
+            string pattern = $@"{symbol}?p?(\d+)='(.*)'(.*)";
+            var match = Regex.Match( parameter, pattern, RegexOptions.IgnoreCase );
+            result.Add( $"{symbol}p{match.Result( "$1" )}", GetValue( match.Result( "$2" ), match.Result( "$3" ) ) );
         }
 
         /// <summary>
         /// 获取值
         /// </summary>
-        private static string GetValue( string parameter, string value ) {
-            value = value.Substring( 0, value.IndexOf( "'", 1, StringComparison.Ordinal ) + 1 ).Trim();
-            if( value == "''" && parameter.Contains( "DbType = Guid" ) )
+        private static string GetValue( string value,string parameter ) {
+            value = value.SafeString();
+            parameter = parameter.SafeString();
+            if( string.IsNullOrWhiteSpace(value) && parameter.Contains( "DbType = Guid" ))
                 return "null";
-            return value;
+            return $"'{value}'";
         }
     }
 }

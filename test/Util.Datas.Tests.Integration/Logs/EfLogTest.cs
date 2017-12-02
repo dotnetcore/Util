@@ -82,6 +82,32 @@ namespace Util.Datas.Tests.Logs {
         }
 
         /// <summary>
+        /// 获取Sql参数字典
+        /// </summary>
+        [Fact]
+        public void TestGetSqlParameters_7() {
+            var sqlParams = "@p0='{'a':'a','b':'b','c':'888'}' (Size = 500)";
+            var list = EfLog.GetSqlParameters( sqlParams );
+            Assert.Equal( 1, list.Count );
+            Assert.Equal( "@p0", list.Keys.FirstOrDefault() );
+            Assert.Equal( "'{'a':'a','b':'b','c':'888'}'", list.Values.FirstOrDefault() );
+        }
+
+        /// <summary>
+        /// 获取Sql参数字典
+        /// </summary>
+        [Fact]
+        public void TestGetSqlParameters_8() {
+            var sqlParams = "@p0='{'a':'a','b':'b','c':'888'}' (Size = 500), @p1='18.52'";
+            var list = EfLog.GetSqlParameters( sqlParams );
+            Assert.Equal( 2, list.Count );
+            Assert.Equal( "@p0", list.Keys.FirstOrDefault() );
+            Assert.Equal( "'{'a':'a','b':'b','c':'888'}'", list.Values.FirstOrDefault() );
+            Assert.Equal( "@p1", list.Keys.LastOrDefault() );
+            Assert.Equal( "'18.52'", list.Values.LastOrDefault() );
+        }
+
+        /// <summary>
         /// 获取Sql
         /// </summary>
         [Fact]
@@ -146,6 +172,39 @@ namespace Util.Datas.Tests.Logs {
             var sqlParams = "@p1='' (DbType = Guid)";
             var result = EfLog.GetSql( sql, sqlParams );
             Assert.Equal( "VALUES (null)", result );
+        }
+
+        /// <summary>
+        /// 获取Sql
+        /// </summary>
+        [Fact]
+        public void TestGetSql_7() {
+            var sql = "VALUES (@p0)";
+            var sqlParams = "@p0='{\"a\":1}'";
+            var result = EfLog.GetSql( sql, sqlParams );
+            Assert.Equal( "VALUES ('{\"a\":1}')", result );
+        }
+
+        /// <summary>
+        /// 获取Sql
+        /// </summary>
+        [Fact]
+        public void TestGetSql_8() {
+            var sql = "VALUES (@p0)";
+            var sqlParams = "@p0='{'a':1}'";
+            var result = EfLog.GetSql( sql, sqlParams );
+            Assert.Equal( "VALUES ('{'a':1}')", result );
+        }
+
+        /// <summary>
+        /// 获取Sql
+        /// </summary>
+        [Fact]
+        public void TestGetSql_9() {
+            var sql = "VALUES (@p0,@p1)";
+            var sqlParams = "@p0='{'a':'a','b':'b','c':'888'}' (Size = 500), @p1='18.52'";
+            var result = EfLog.GetSql( sql, sqlParams );
+            Assert.Equal( "VALUES ('{'a':'a','b':'b','c':'888'}','18.52')", result );
         }
     }
 }
