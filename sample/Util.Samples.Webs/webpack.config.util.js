@@ -17,7 +17,8 @@ module.exports = (env) => {
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
-            filename: "[name].js"
+            filename: "[name].js",
+            library: '[name]'
         },
         resolve: {
             extensions: ['.js', '.ts']
@@ -29,12 +30,12 @@ module.exports = (env) => {
             ]
         },
         plugins: [
+            new webpack.DllReferencePlugin({
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            }),
             new webpack.DllPlugin({
                 path: getPath("wwwroot/dist/[name]-manifest.json"),
                 name: "[name]"
-            }),
-            new webpack.DllReferencePlugin({
-                manifest: require('./wwwroot/dist/vendor-manifest.json')
             }),
             new webpack.optimize.ModuleConcatenationPlugin()
         ].concat(isDev ? [] : [

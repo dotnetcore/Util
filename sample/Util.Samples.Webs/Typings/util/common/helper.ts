@@ -56,6 +56,7 @@ export let isNumber = (value): boolean => {
 export let toNumber = (value, precision?, isTruncate?: boolean) => {
     if (!isNumber(value))
         return 0;
+    value = value.toString();
     if (isEmpty(precision))
         return parseFloat(value);
     if (isTruncate)

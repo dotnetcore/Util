@@ -14,6 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Typings\util\Util.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.1.1972" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
   </ItemGroup>
@@ -38,13 +42,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="nlog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <TypeScriptCompile Include="Typings\util\angular\http-helper.ts" />
+    <TypeScriptCompile Include="Typings\util\util.ts" />
+    <TypeScriptCompile Include="Typings\util\util.module.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Typings\util\angular\" />
+    <Content Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <!-- Debug调试模式打包第三方框架 -->

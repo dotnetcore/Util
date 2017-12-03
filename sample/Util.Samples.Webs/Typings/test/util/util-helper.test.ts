@@ -2,7 +2,7 @@
 //Copyright 2017 何镇汐
 //Licensed under the MIT license
 //================================================
-import * as util from "../../util"
+import {Util as util} from "../../util"
 
 describe("util.helper", () => {
     it("isEmpty", () => {
@@ -34,6 +34,7 @@ describe("util.helper", () => {
         expect(util.helper.toNumber("8.99999999999999999", 0)).toEqual(9);
         expect(util.helper.isNumber(util.helper.toNumber("8.99999999999999999", 0))).toBeTruthy();
         expect(util.helper.toNumber("8.99999999999999999", 2, true)).toEqual(8.99);
+        expect(util.helper.toNumber(1.567, 1, true)).toEqual(1.5);
         expect(util.helper.isNumber(util.helper.toNumber("8.99999999999999999", 2, true))).toBeTruthy();
     });
     it("isEmptyArray", () => {

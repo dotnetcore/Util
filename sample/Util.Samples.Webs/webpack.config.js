@@ -80,29 +80,5 @@ module.exports = (env) => {
             extractCss
         ]
     }
-
-    //打包测试
-    let testConfig = {
-        entry: { test: getPath("Typings/test/main.ts") },
-        output: {
-            publicPath: 'test/',
-            path: getPath("wwwroot/test"),
-            filename: "[name].js"
-        },
-        resolve: {
-            extensions: ['.js', '.ts']
-        },
-        module: {
-            rules: [
-                { test: /\.ts$/, use: ['awesome-typescript-loader?silent=true'] }
-            ]
-        },
-        plugins: [
-            new webpack.DllReferencePlugin({
-                manifest: require('./wwwroot/dist/vendor-manifest.json')
-            }),
-            new webpack.optimize.ModuleConcatenationPlugin()
-        ]
-    }
-    return [jsConfig, cssConfig,testConfig];
+    return [jsConfig, cssConfig];
 }
