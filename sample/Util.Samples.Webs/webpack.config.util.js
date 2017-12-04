@@ -31,6 +31,9 @@ module.exports = (env) => {
         },
         plugins: [
             new webpack.DllReferencePlugin({
+                manifest: require('./wwwroot/dist/polyfills-manifest.json')
+            }),
+            new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             }),
             new webpack.DllPlugin({

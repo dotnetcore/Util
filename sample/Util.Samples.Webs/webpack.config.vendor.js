@@ -2,8 +2,15 @@
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
 
+//支持老浏览器的补丁
+const polyfillModules = [
+    'es6-shim'
+];
+
 //第三方Js库
 const jsModules = [
+    'reflect-metadata',
+    'zone.js',
     '@angular/animations',
     '@angular/common',
     '@angular/compiler',
@@ -14,10 +21,6 @@ const jsModules = [
     '@angular/platform-browser/animations',
     '@angular/platform-browser-dynamic',
     '@angular/router',
-    'es6-promise',
-    'es6-shim',
-    'reflect-metadata',
-    'zone.js',
     'hammerjs',
     '@angular/material'
 ];
@@ -42,7 +45,29 @@ module.exports = (env) => {
         return pathPlugin.join(__dirname, path);
     }
 
-    //打包js
+    //打包补丁
+    let polyfillsConfig = {
+        entry: { polyfills: polyfillModules },
+        output: {
+            publicPath: 'dist/',
+            path: getPath("wwwroot/dist"),
+            filename: "[name].js",
+            library: '[name]'
+        },
+        resolve: {
+            extensions: ['.js']
+        },
+        devtool: "source-map",
+        plugins: [
+            new webpack.DllPlugin({
+                path: getPath("wwwroot/dist/[name]-manifest.json"),
+                name: "[name]"
+            }),
+            new webpack.optimize.ModuleConcatenationPlugin()
+        ].concat(isDev ? [] : [new webpack.optimize.UglifyJsPlugin()])
+    }
+
+    //打包第三方Js库
     let jsConfig =  {
         entry: { vendor: jsModules },
         output: {
@@ -95,5 +120,5 @@ module.exports = (env) => {
             extractCss
         ]
     }
-    return [jsConfig, cssConfig];
+    return [polyfillsConfig,jsConfig, cssConfig];
 }

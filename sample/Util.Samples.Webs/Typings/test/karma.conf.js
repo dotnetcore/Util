@@ -5,6 +5,7 @@ module.exports = function (config) {
         basePath: '.',
         frameworks: ['jasmine'],
         files: [
+            '../../wwwroot/dist/polyfills.js',
             '../../wwwroot/dist/vendor.js',
             '../../wwwroot/dist/util.js',
             './karma-main.ts'
@@ -30,6 +31,9 @@ module.exports = function (config) {
                 ]
             },
             plugins: [
+                new webpack.DllReferencePlugin({
+                    manifest: require('../../wwwroot/dist/polyfills-manifest.json')
+                }),
                 new webpack.DllReferencePlugin({
                     manifest: require('../../wwwroot/dist/vendor-manifest.json')
                 }),

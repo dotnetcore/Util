@@ -1,10 +1,10 @@
-﻿import 'reflect-metadata'
+﻿import 'reflect-metadata';
 import 'zone.js';
-import 'es6-shim'
-import 'hammerjs'
+import 'es6-shim';
+import 'hammerjs';
 import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
-import { AppModule } from "./app.module"
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from "./app.module";
 
 if (module.hot) {
     module.hot.accept();
