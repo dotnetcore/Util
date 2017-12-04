@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using Util.Datas.Ef.Logs;
 using Xunit;
 
@@ -108,6 +109,32 @@ namespace Util.Datas.Tests.Logs {
         }
 
         /// <summary>
+        /// 获取Sql参数字典
+        /// </summary>
+        [Fact]
+        public void TestGetSqlParameters_9() {
+            var sqlParams = "@__a_b_0='70eac351-1eb0-45d1-b431-431646df7ab1' (Nullable = false)";
+            var list = EfLog.GetSqlParameters( sqlParams );
+            Assert.Equal( 1, list.Count );
+            Assert.Equal( "@__a_b_0", list.Keys.FirstOrDefault() );
+            Assert.Equal( "'70eac351-1eb0-45d1-b431-431646df7ab1'", list.Values.FirstOrDefault() );
+        }
+
+        /// <summary>
+        /// 获取Sql参数字典
+        /// </summary>
+        [Fact(Skip = "尚未实现")]
+        public void TestGetSqlParameters_10() {
+            var sqlParams = "@__a_b_0='a' (Nullable = false),@__a_c='b' (Nullable = false)";
+            var list = EfLog.GetSqlParameters( sqlParams );
+            Assert.Equal( 2, list.Count );
+            Assert.Equal( "@__a_b_0", list.Keys.FirstOrDefault() );
+            Assert.Equal( "'a'", list.Values.FirstOrDefault() );
+            Assert.Equal( "@__a_c", list.Keys.LastOrDefault() );
+            Assert.Equal( "'b'", list.Values.LastOrDefault() );
+        }
+
+        /// <summary>
         /// 获取Sql
         /// </summary>
         [Fact]
@@ -203,6 +230,17 @@ namespace Util.Datas.Tests.Logs {
         public void TestGetSql_9() {
             var sql = "VALUES (@p0,@p1)";
             var sqlParams = "@p0='{'a':'a','b':'b','c':'888'}' (Size = 500), @p1='18.52'";
+            var result = EfLog.GetSql( sql, sqlParams );
+            Assert.Equal( "VALUES ('{'a':'a','b':'b','c':'888'}','18.52')", result );
+        }
+
+        /// <summary>
+        /// 获取Sql
+        /// </summary>
+        [Fact]
+        public void TestGetSql_10() {
+            var sql = "VALUES (@__orderQuery_memberId_0,@__orderQuery_memberId_1)";
+            var sqlParams = "@__orderQuery_memberId_0='{'a':'a','b':'b','c':'888'}' (Size = 500), @__orderQuery_memberId_1='18.52'";
             var result = EfLog.GetSql( sql, sqlParams );
             Assert.Equal( "VALUES ('{'a':'a','b':'b','c':'888'}','18.52')", result );
         }

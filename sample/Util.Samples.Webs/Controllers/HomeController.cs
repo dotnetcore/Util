@@ -14,6 +14,10 @@ namespace Util.Samples.Webs.Controllers {
             return View();
         }
 
+        public IActionResult B() {
+            return Content( "success" );
+        }
+
         public IActionResult Error() {
             return View();
         }

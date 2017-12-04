@@ -14,10 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Typings\util\Util.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.1.1972" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
   </ItemGroup>
@@ -39,12 +35,6 @@
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="Typings\util\angular\http-helper.ts" />
-    <TypeScriptCompile Include="Typings\util\util.ts" />
-    <TypeScriptCompile Include="Typings\util\util.module.ts" />
   </ItemGroup>
 
   <ItemGroup>

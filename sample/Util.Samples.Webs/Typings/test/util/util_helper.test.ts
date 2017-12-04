@@ -2,7 +2,7 @@
 //Copyright 2017 何镇汐
 //Licensed under the MIT license
 //================================================
-import {Util as util} from "../../util"
+import * as util from "../../util"
 
 describe("util.helper", () => {
     it("isEmpty", () => {

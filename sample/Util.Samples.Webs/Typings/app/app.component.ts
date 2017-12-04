@@ -1,7 +1,6 @@
 ﻿import { Component } from "@angular/core"
 import { AppService } from "./app.service"
-import {Util} from "../util";
-import { Http, Response } from '@angular/http'
+import * as util from "../util";
 
 @Component({
     selector: 'hello-world',
@@ -9,6 +8,9 @@ import { Http, Response } from '@angular/http'
 })
 export class AppComponent {
     target;
-    constructor(private util: Util) {
+    constructor() {
+        util.http.get("/home/b").handle(response => {
+            this.target = response.text();
+        });
     }
 }
