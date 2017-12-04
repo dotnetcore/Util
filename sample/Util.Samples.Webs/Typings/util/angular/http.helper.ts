@@ -1,5 +1,5 @@
 ﻿import { Http, Response } from '@angular/http'
-import { IocHelper as ioc } from './ioc_helper'
+import { IocHelper as ioc } from './ioc.helper'
 import { Observable } from "rxjs";
 
 /**

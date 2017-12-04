@@ -9,7 +9,7 @@ import * as Helper from "./common/helper"
 export { Helper as helper }
 
 //导出Ioc操作
-export { IocHelper as ioc } from "./angular/ioc_helper"
+export { IocHelper as ioc } from "./angular/ioc.helper"
 
 //导出Http操作
-export { HttpHelper as http } from "./angular/http_helper"
+export { HttpHelper as http } from "./angular/http.helper"
