@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using Util.Datas.Ef.Configs;
 using Util.Datas.Ef.Core;
@@ -185,7 +184,7 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         private static string GetParamName( string sqlParams ) {
             string pattern = $@"([@].*?)\d+=";
-            return Util.Helpers.Regex.GetResult( sqlParams, pattern, "$1" );
+            return Util.Helpers.Regex.GetValue( sqlParams, pattern, "$1" );
         }
 
         /// <summary>
@@ -193,10 +192,10 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         private static void AddParameter( Dictionary<string, string> result, string parameter, string paramName ) {
             string pattern = $@"(?:{paramName})?(\d+)='(.*)'(.*)";
-            var list = Util.Helpers.Regex.GetResults( parameter, pattern, new[] { "$1", "$2", "$3" } ).Select( t => t.Value ).ToList();
-            if ( list.Count != 3 )
+            var values = Util.Helpers.Regex.GetValues( parameter, pattern, new[] { "$1", "$2", "$3" } ).Select( t => t.Value ).ToList();
+            if ( values.Count != 3 )
                 return;
-            result.Add( $"{paramName}{list[0]}", GetValue( list[1], list[2] ) );
+            result.Add( $"{paramName}{values[0]}", GetValue( values[1], values[2] ) );
         }
 
         /// <summary>
