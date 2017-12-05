@@ -1,9 +1,8 @@
 ﻿import { Component } from "@angular/core"
-import { AppService } from "./app.service"
-import * as util from "../util";
+import { util } from "../util";
 
 @Component({
-    selector: 'hello-world',
+    selector: 'app',
     templateUrl: '/home/a'
 })
 export class AppComponent {

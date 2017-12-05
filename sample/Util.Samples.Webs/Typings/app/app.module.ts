@@ -1,9 +1,7 @@
 ﻿import { NgModule, Injector } from '@angular/core'
-import { HttpModule } from "@angular/http";
-import * as util from "../util";
-import { FrameworkModule } from "./framework.module";
+import { FrameworkModule } from "../framework.module";
+import { util } from "../util";
 import { AppComponent } from "./app.component"
-import { AppService, AppService2 } from './app.service'
 
 /**
  * 应用根模块
@@ -13,15 +11,12 @@ import { AppService, AppService2 } from './app.service'
         AppComponent
     ],
     imports: [
-        FrameworkModule,HttpModule
+        FrameworkModule
     ],
-    providers: [
-        { provide: AppService, useClass: AppService, deps: [AppService2] },
-        AppService2
-    ],
+    providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule{
+export class AppModule {
     /**
      * 初始化应用根模块
      * @param injector 注入器

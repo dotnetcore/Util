@@ -4,7 +4,9 @@ var Extract = require("extract-text-webpack-plugin");
 
 //支持老浏览器的补丁
 const polyfillModules = [
-    'es6-shim'
+    'es6-shim',
+    'es6-promise',
+    'event-source-polyfill'
 ];
 
 //第三方Js库
@@ -35,7 +37,7 @@ const cssModules = [
 //env代表环境变量，如果传入env.production表示正式生产环境
 module.exports = (env) => {
     //是否开发环境
-    const isDev = !(env && env.production);
+    const isDev = !(env && env.prod);
 
     //将css提取到单独文件中
     const extractCss = new Extract("vendor.css");
@@ -46,7 +48,7 @@ module.exports = (env) => {
     }
 
     //打包补丁
-    let polyfillsConfig = {
+    let polyfills = {
         entry: { polyfills: polyfillModules },
         output: {
             publicPath: 'dist/',
@@ -68,7 +70,7 @@ module.exports = (env) => {
     }
 
     //打包第三方Js库
-    let jsConfig =  {
+    let vendorJs =  {
         entry: { vendor: jsModules },
         output: {
             publicPath: 'dist/',
@@ -93,7 +95,7 @@ module.exports = (env) => {
     }
 
     //打包css
-    let cssConfig = {
+    let vendorCss = {
         entry: { vendor: cssModules },
         output: {
             publicPath: './',
@@ -120,5 +122,5 @@ module.exports = (env) => {
             extractCss
         ]
     }
-    return [polyfillsConfig,jsConfig, cssConfig];
+    return [polyfills, vendorJs, vendorCss];
 }

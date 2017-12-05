@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "vendor": "webpack --config webpack.config.vendor.js",
-    "util": "webpack --config webpack.config.util.js",
-    "app": "webpack",
-    "dev": "npm run vendor && npm run util && npm run app",
-    "prod": "webpack --config webpack.config.vendor.js --env.production && webpack --config webpack.config.util.js --env.production && webpack --env.production",
+    "app": "webpack --config webpack.config.util.js && webpack",
+    "dev": "npm run vendor && npm run app",
+    "prod": "webpack --config webpack.config.vendor.js --env.prod && webpack --config webpack.config.util.js --env.prod && webpack --env.prod",
     "test": "karma start Typings/test/karma.conf.js"
   },
   "dependencies": {
@@ -27,6 +26,8 @@
     "rxjs": "5.5.3",
     "zone.js": "0.8.18",
     "es6-shim": "0.35.3",
+    "es6-promise": "4.1.1",
+    "event-source-polyfill": "0.0.12",
     "babel-polyfill": "6.26.0",
     "material-design-icons": "3.0.1"
   },

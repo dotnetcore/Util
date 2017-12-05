@@ -4,7 +4,7 @@ var Extract = require("extract-text-webpack-plugin");
 
 module.exports = (env) => {
     //是否开发环境
-    const isDev = !(env && env.production);
+    const isDev = !(env && env.prod);
 
     //将css提取到单独文件中
     const extractCss = new Extract("app.css");
@@ -16,7 +16,7 @@ module.exports = (env) => {
 
     //打包js
     let jsConfig = {
-        entry: { app: getPath("Typings/app/main.ts") },
+        entry: { app: getPath("Typings/main.ts") },
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
