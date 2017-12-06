@@ -1,17 +1,20 @@
 ﻿import { NgModule, Injector } from '@angular/core'
-import { FrameworkModule } from "../framework.module";
-import { util } from "../util";
-import { AppComponent } from "./app.component"
+import { FrameworkModule } from '../framework.module'
+import { util } from '../util'
+import { AppComponent } from './app.component'
+import { AComponent } from "./a/a";
+import { BComponent } from "./b/b";
+import { Router } from '../router'
 
 /**
  * 应用根模块
  */
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent, AComponent, BComponent
     ],
     imports: [
-        FrameworkModule
+        FrameworkModule, Router
     ],
     providers: [],
     bootstrap: [AppComponent]

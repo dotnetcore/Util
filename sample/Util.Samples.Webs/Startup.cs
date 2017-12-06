@@ -79,6 +79,7 @@ namespace Util.Samples.Webs {
             app.UseMvc( routes => {
                 routes.MapRoute( "areaRoute", "{area:exists}/{controller}/{action=Index}/{id?}" );
                 routes.MapRoute( "default", "{controller=Home}/{action=Index}/{id?}" );
+                routes.MapSpaFallbackRoute( "spa-fallback", "{controller=Home}/{action=Index}" );
             } );
         }
 

@@ -7,3 +7,9 @@
 @Html.Ui().Icon().FontAwesome( FontAwesomeIcon.Apple ).Size( IconSize.Large5X ).Spin()
 
 @Html.Ui().TextBox().Required( "哈哈" ).Name( "a" ).Model( "target" )
+<router-outlet></router-outlet>
+<a [routerLink]="['/a']">aa
+</a>
+<a [routerLink]="['/b']">
+    b
+</a>
