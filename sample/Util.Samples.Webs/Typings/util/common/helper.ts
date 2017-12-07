@@ -1,7 +1,4 @@
-﻿//============== 公共操作库 =================
-//Copyright 2017 何镇汐
-//Licensed under the MIT license
-//============================================
+﻿import { UUID } from './uuid'
 
 /**
  * 是否未定义
@@ -78,4 +75,11 @@ export let isArray = (value): boolean => {
  */
 export let isEmptyArray = (value): boolean => {
     return isArray(value) && value.length === 0;
+}
+
+/**
+ * 创建唯一标识
+ */
+export let uuid = (): string => {
+    return UUID.UUID();
 }

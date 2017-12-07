@@ -1,10 +1,10 @@
 ﻿import { NgModule, Injector } from '@angular/core'
-import { FrameworkModule } from '../framework.module'
+import { FrameworkModule } from './framework.module'
+import { routes as Routes } from './app.routes'
 import { util } from '../util'
 import { AppComponent } from './app.component'
 import { AComponent } from "./a/a";
 import { BComponent } from "./b/b";
-import { Router } from '../router'
 
 /**
  * 应用根模块
@@ -14,7 +14,7 @@ import { Router } from '../router'
         AppComponent, AComponent, BComponent
     ],
     imports: [
-        FrameworkModule, Router
+        FrameworkModule, Routes
     ],
     providers: [],
     bootstrap: [AppComponent]

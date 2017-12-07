@@ -16,11 +16,12 @@ namespace Util.Samples.Webs.Controllers {
         }
 
         public IActionResult B() {
+            var a = Request;
             return Content( "success" );
         }
 
         public IActionResult Error() {
-            return View();
+            return Content( "" );
         }
     }
 }

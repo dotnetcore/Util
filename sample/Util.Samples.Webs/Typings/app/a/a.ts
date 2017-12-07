@@ -8,8 +8,6 @@ import { util } from "../../util";
 export class AComponent {
     target;
     constructor() {
-        util.http.get("/home/b").handle(response => {
-            this.target = response.text();
-        });
+        this.target = util.helper.uuid();
     }
 }

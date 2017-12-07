@@ -8,23 +8,33 @@ import { Observable } from "rxjs";
 export class HttpHelper {
     /**
      * get请求
-     * @param url
+     * @param url 请求地址
      */
-    public static get(url: string): HttpHandler {
-        let response = ioc.get(Http).get(url);
-        return new HttpHandler(response);
+    public static get(url: string): HttpRequest {
+        return new HttpRequest(url);
     }
 }
 
 /**
- * Http响应处理器
+ * Http请求操作
  */
-export class HttpHandler {
+class HttpRequest {
+    private _headers;
+
+    private _response: Observable<Response>;
+
     /**
-     * Http响应处理器
-     * @param response 响应观察者
+     * 初始化Http请求操作
+     * @param url 请求地址
      */
-    constructor(private response: Observable<Response>) {
+    constructor(private url: string) {
+        this._headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded' });
+    }
+
+    private request() {
+        if (this._response)
+            return;
+        this._response = ioc.get(Http).get(this.url, { headers: this._headers});
     }
 
     /**
@@ -32,6 +42,17 @@ export class HttpHandler {
      * @param handler 响应处理函数
      */
     public handle(handler: (value: Response) => void) {
-        this.response.subscribe(handler);
+        this.request();
+        this._response.subscribe(handler);
     }
+}
+
+/**
+ * Http内容类型
+ */
+export enum HttpContentType {
+    /**
+     * application/json
+     */
+    Json
 }
