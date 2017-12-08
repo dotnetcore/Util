@@ -44,10 +44,6 @@ export class HttpHelper {
  */
 export class HttpRequest<T> {
     /**
-     * 内容类型
-     */
-    private contentType: string;
-    /**
      * Http头集合
      */
     private headers: HttpHeaders;
@@ -59,10 +55,6 @@ export class HttpRequest<T> {
      * Http参数集合
      */
     private parameters: HttpParams;
-    /**
-     * 响应观察者
-     */
-    private response: Observable<T>;
 
     /**
      * 初始化Http请求操作
