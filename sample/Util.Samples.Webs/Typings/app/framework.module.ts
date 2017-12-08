@@ -1,8 +1,8 @@
 ﻿import { NgModule } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { HttpModule } from "@angular/http";
 import {
     MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatPaginatorModule,
     MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
@@ -15,7 +15,7 @@ import {
 
 @NgModule({
     exports: [
-        BrowserAnimationsModule, CommonModule, FormsModule, ReactiveFormsModule, HttpModule,
+        BrowserAnimationsModule, CommonModule, HttpClientModule,FormsModule, ReactiveFormsModule,
         MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatPaginatorModule,
         MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
         MatDialogModule, MatGridListModule, MatIconModule, MatInputModule,

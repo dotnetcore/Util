@@ -78,6 +78,14 @@ export let isEmptyArray = (value): boolean => {
 }
 
 /**
+ * 转换为json字符串
+ * @param value 值
+ */
+export let toJson = (value): string => {
+    return JSON.stringify(value);
+}
+
+/**
  * 创建唯一标识
  */
 export let uuid = (): string => {

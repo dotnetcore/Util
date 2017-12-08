@@ -8,8 +8,5 @@ import { util } from "../util";
 export class AppComponent {
     target;
     constructor() {
-        util.http.get("/home/b").handle(response => {
-            this.target = response.text();
-        });
     }
 }

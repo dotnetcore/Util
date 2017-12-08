@@ -1,6 +1,6 @@
-﻿import { Http, Response } from '@angular/http'
+﻿import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http'
 import { IocHelper as ioc } from './ioc.helper'
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
 /**
  * Http操作
@@ -10,49 +10,135 @@ export class HttpHelper {
      * get请求
      * @param url 请求地址
      */
-    public static get(url: string): HttpRequest {
-        return new HttpRequest(url);
+    public static get<T>(url: string): HttpRequest<T> {
+        return new HttpRequest<T>(HttpMethod.Get, url);
+    }
+
+    /**
+     * post请求
+     * @param url 请求地址
+     */
+    public static post<T>(url: string): HttpRequest<T> {
+        return new HttpRequest<T>(HttpMethod.Post, url);
+    }
+
+    /**
+     * put请求
+     * @param url 请求地址
+     */
+    public static put<T>(url: string): HttpRequest<T> {
+        return new HttpRequest<T>(HttpMethod.Put, url);
+    }
+
+    /**
+     * delete请求
+     * @param url 请求地址
+     */
+    public static delete<T>(url: string): HttpRequest<T> {
+        return new HttpRequest<T>(HttpMethod.Delete, url);
     }
 }
 
 /**
  * Http请求操作
  */
-class HttpRequest {
-    private _headers;
-
-    private _response: Observable<Response>;
+export class HttpRequest<T> {
+    /**
+     * 内容类型
+     */
+    private contentType: string;
+    /**
+     * Http头集合
+     */
+    private headers: HttpHeaders;
+    /**
+     * Http主体
+     */
+    private httpBody;
+    /**
+     * Http参数集合
+     */
+    private parameters: HttpParams;
+    /**
+     * 响应观察者
+     */
+    private response: Observable<T>;
 
     /**
      * 初始化Http请求操作
+     * @param httpMethod Http方法
      * @param url 请求地址
      */
-    constructor(private url: string) {
-        this._headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded' });
+    constructor(private httpMethod: HttpMethod, private url: string) {
+        this.headers = new HttpHeaders();
+        this.parameters = new HttpParams();
     }
 
-    private request() {
-        if (this._response)
-            return;
-        this._response = ioc.get(Http).get(this.url, { headers: this._headers});
+    /**
+     * 添加Http头
+     * @param name 名称
+     * @param value 值
+     */
+    public header(name: string, value: string): HttpRequest<T> {
+        this.headers = this.headers.append(name, value);
+        return this;
+    }
+
+    /**
+     * 添加Http主体
+     * @param value 值
+     */
+    public body(value): HttpRequest<T> {
+        this.httpBody = value;
+        return this;
+    }
+
+    /**
+     * 添加Http参数
+     * @param name 名称
+     * @param value 值
+     */
+    public data(name: string, value: string): HttpRequest<T> {
+        this.parameters = this.parameters.append(name, value);
+        return this;
     }
 
     /**
      * 处理响应
      * @param handler 响应处理函数
+     * @param errorHandler 错误处理函数
      */
-    public handle(handler: (value: Response) => void) {
-        this.request();
-        this._response.subscribe(handler);
+    public handle(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void) {
+        this.request().subscribe(handler, errorHandler);
+    }
+
+    /**
+     * 发送请求
+     */
+    private request(): Observable<T> {
+        let httpClient = ioc.get(HttpClient);
+        let options = { headers: this.headers, params: this.parameters };
+        switch (this.httpMethod) {
+            case HttpMethod.Get:
+                return httpClient.get<T>(this.url, options);
+            case HttpMethod.Post:
+                return httpClient.post<T>(this.url, this.httpBody, options);
+            case HttpMethod.Put:
+                return httpClient.put<T>(this.url, this.httpBody, options);
+            case HttpMethod.Delete:
+                return httpClient.delete<T>(this.url, options);
+            default:
+                return httpClient.get<T>(this.url, options);
+        }
     }
 }
 
 /**
- * Http内容类型
+ * Http方法
  */
-export enum HttpContentType {
-    /**
-     * application/json
-     */
-    Json
+enum HttpMethod {
+    Get,
+    Post,
+    Put,
+    Delete
 }

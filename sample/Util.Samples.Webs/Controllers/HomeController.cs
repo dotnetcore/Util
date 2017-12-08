@@ -15,13 +15,20 @@ namespace Util.Samples.Webs.Controllers {
             return View();
         }
 
-        public IActionResult B() {
-            var a = Request;
-            return Content( "success" );
+        [HttpPost]
+        public IActionResult B([FromBody] Test a) {
+            return Json( new {A = Request.Headers["a"], B = Request.Headers["b"],C= a.A } );
         }
 
         public IActionResult Error() {
             return Content( "" );
         }
+
+
+    }
+
+    public class Test {
+        public string A { get; set; }
+        public string B { get; set; }
     }
 }
