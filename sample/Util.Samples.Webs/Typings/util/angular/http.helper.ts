@@ -99,9 +99,13 @@ export class HttpRequest<T> {
      * 处理响应
      * @param handler 响应处理函数
      * @param errorHandler 错误处理函数
+     * @param beforeHandler 发送前处理函数，返回false则取消发送
+     * @param completeHandler 请求完成处理函数
      */
-    public handle(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void) {
-        this.request().subscribe(handler, errorHandler);
+    public handle(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void, beforeHandler?: () => boolean, completeHandler?: () => void) {
+        if (beforeHandler && beforeHandler() === false)
+            return;
+        this.request().subscribe(handler, errorHandler, completeHandler);
     }
 
     /**
