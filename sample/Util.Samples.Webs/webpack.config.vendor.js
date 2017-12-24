@@ -107,7 +107,7 @@ module.exports = (env) => {
             rules: [
                 { test: /\.css$/, use: extractCss.extract({ use: isDev ? 'css-loader' : 'css-loader?minimize' }) },
                 {
-                    test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
+                    test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
                         loader: 'url-loader',
                         options: {
                             limit: 20000,

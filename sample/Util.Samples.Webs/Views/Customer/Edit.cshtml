@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Tile";
+}
+
+<form id="form">
+    @Html.Ui().TextBox().Placeholder("编号").Name("data.Id").Model("data.Id")                                           
+    @Html.Ui().TextBox().Placeholder("姓名").Required("必填").Name("data.Name").Model("data.Name")                      
+    @Html.Ui().TextBox().Placeholder("昵称").Required("必填").Name("data.Nickname").Model("data.Nickname")              
+    @Html.Ui().TextBox().Placeholder("余额").Required("必填").Name("data.Balance").Model("data.Balance")                
+    @Html.Ui().TextBox().Placeholder("性别").Name("data.Gender").Model("data.Gender")                                   
+    @Html.Ui().TextBox().Placeholder("电话").Name("data.Tel").Model("data.Tel")                                         
+    @Html.Ui().TextBox().Placeholder("手机").Name("data.Mobile").Model("data.Mobile")                                   
+    @Html.Ui().TextBox().Placeholder("邮箱").Name("data.Email").Model("data.Email")                                     
+    @Html.Ui().TextBox().Placeholder("创建时间").Name("data.CreationTime").Model("data.CreationTime")                   
+    @Html.Ui().TextBox().Placeholder("创建人").Name("data.CreatorId").Model("data.CreatorId")                           
+    @Html.Ui().TextBox().Placeholder("最后修改时间").Name("data.LastModificationTime").Model("data.LastModificationTime")
+    @Html.Ui().TextBox().Placeholder("最后修改人").Name("data.LastModifierId").Model("data.LastModifierId")              
+    @Html.Ui().TextBox().Placeholder("版本号").Name("data.Version").Model("data.Version")                               
+</form>
+<button (click)="save()">保存</button>

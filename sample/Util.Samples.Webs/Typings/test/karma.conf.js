@@ -8,10 +8,10 @@ module.exports = function (config) {
             '../../wwwroot/dist/polyfills.js',
             '../../wwwroot/dist/vendor.js',
             '../../wwwroot/dist/util.js',
-            './karma_main.ts'
+            './karma-main.ts'
         ],
         preprocessors: {
-            './karma_main.ts':['webpack']
+            './karma-main.ts':['webpack']
         },
         reporters: ['progress'],
         port: 9876,

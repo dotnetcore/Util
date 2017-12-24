@@ -19,7 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Typings\util\angular\router.helper.ts" />
+    <None Remove="Typings\util\core\pager.ts" />
+    <None Remove="Typings\util\util.module.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +45,7 @@
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
+    <ProjectReference Include="..\..\test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,10 +56,20 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Services\Configs\" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="Typings\util\angular\router.helper.ts" />
+    <None Include="Views\Customer\Edit.cshtml" />
+    <None Include="Views\Customer\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Typings\util\angular\base\component-base.ts" />
+    <TypeScriptCompile Include="Typings\util\angular\router-helper.ts" />
+    <TypeScriptCompile Include="Typings\util\core\pager.ts" />
+    <TypeScriptCompile Include="Typings\util\material\table-wrapper.component.ts" />
+    <TypeScriptCompile Include="Typings\util\util.module.ts" />
   </ItemGroup>
 
   <!-- Debug调试模式打包第三方框架 -->

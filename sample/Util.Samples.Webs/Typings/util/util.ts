@@ -1,7 +1,7 @@
 ﻿import * as helper from "./common/helper"
-import { IocHelper } from "./angular/ioc.helper"
-import { HttpHelper } from "./angular/http.helper"
-import { RouterHelper } from './angular/router.helper'
+import { IocHelper } from "./angular/ioc-helper"
+import { HttpHelper } from "./angular/http-helper"
+import { RouterHelper } from './angular/router-helper'
 
 /**
  * 公共操作库

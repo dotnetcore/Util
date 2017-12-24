@@ -11,4 +11,4 @@ if (module.hot) {
 } else {
     enableProdMode();
 }
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic().bootstrapModule(AppModule).catch(ex => console.log(ex));

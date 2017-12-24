@@ -24,7 +24,9 @@ namespace Util.Samples.Webs.Controllers {
             return Content( "" );
         }
 
-
+        public IActionResult Main( ) {
+            return View();
+        }
     }
 
     public class Test {

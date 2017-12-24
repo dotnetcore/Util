@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Datas.Ef;
+using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Events.Default;
 using Util.Logs.Extensions;
 using Util.Webs.Extensions;
@@ -38,6 +40,8 @@ namespace Util.Samples.Webs {
 
             //添加事件总线服务
             services.AddEventBus();
+
+            services.AddUnitOfWork<ISqlServerUnitOfWork, SqlServerUnitOfWork2>( Configuration.GetConnectionString( "DefaultConnection" ) );
 
             //添加Util基础设施服务
             return services.AddUtil();

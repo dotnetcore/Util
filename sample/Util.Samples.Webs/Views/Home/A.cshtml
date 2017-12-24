@@ -3,13 +3,50 @@
 }
 
 
+<div>
+    @Html.Ui().TextBox().Name( "queryParam.Name" ).Model( "queryParam.Name" ).Placeholder( "姓名" )
+    <button mat-raised-button mat-button (click)="query()">查询</button>
+</div>
 
-@Html.Ui().Icon().FontAwesome( FontAwesomeIcon.Apple ).Size( IconSize.Large5X ).Spin()
 
-@Html.Ui().TextBox().Required( "哈哈" ).Name( "a" ).Model( "target" )
-<router-outlet></router-outlet>
-<a [routerLink]="['/a']">aa
-</a>
-<a [routerLink]="['/b']">
-    b
-</a>
+<table-wrapper #grid url="/api/customers" [queryParam]="queryParam">
+
+    <mat-table [dataSource]="grid.dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+
+        <ng-container matColumnDef="lineNumber">
+            <mat-header-cell *matHeaderCellDef>行号</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="check">
+            <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox [(ngModel)]="isCheckAll" (change)="checkAll()">全选</mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-checkbox [(ngModel)]="row.checked"></mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>姓名</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nickname">
+            <mat-header-cell *matHeaderCellDef>昵称</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.nickname }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+            <mat-header-cell *matHeaderCellDef>电话</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.mobile }}</mat-cell>
+        </ng-container>
+
+       
+
+        <mat-header-row *matHeaderRowDef="['name']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['name'];"></mat-row>
+    </mat-table>
+
+
+</table-wrapper>

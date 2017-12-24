@@ -61,6 +61,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 操作成功 的本地化字符串。
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 系统忙，请稍后再试 的本地化字符串。
         /// </summary>
         public static string SystemError {
