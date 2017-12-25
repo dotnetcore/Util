@@ -86,11 +86,11 @@ export class HttpRequest<T> {
     }
 
     /**
-     * 添加Http参数
+     * 添加Http参数,添加到url查询字符串
      * @param name 名称
      * @param value 值
      */
-    public data(name: string, value: string): HttpRequest<T> {
+    public param(name: string, value: string): HttpRequest<T> {
         this.parameters = this.parameters.append(name, value);
         return this;
     }

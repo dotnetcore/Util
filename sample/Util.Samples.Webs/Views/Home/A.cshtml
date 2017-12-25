@@ -9,8 +9,7 @@
 </div>
 
 
-<table-wrapper #grid url="/api/customers" [queryParam]="queryParam">
-
+<table-wrapper #grid url="/api/customers" [queryParam]="queryParam" >
     <mat-table [dataSource]="grid.dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
         <ng-container matColumnDef="lineNumber">
@@ -47,6 +46,4 @@
         <mat-header-row *matHeaderRowDef="['name']"></mat-header-row>
         <mat-row *matRowDef="let row; columns: ['name'];"></mat-row>
     </mat-table>
-
-
 </table-wrapper>

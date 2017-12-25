@@ -7,7 +7,7 @@ import { MatTableDataSource, MatPaginator, MatPaginatorIntl } from '@angular/mat
  * 创建分页本地化提示
  */
 function createMatPaginatorIntl() {
-    var result = new MatPaginatorIntl();
+    let result = new MatPaginatorIntl();
     result.itemsPerPageLabel = "每页显示";
     result.nextPageLabel = "下一页";
     result.previousPageLabel = "上一页";
@@ -16,7 +16,7 @@ function createMatPaginatorIntl() {
         length = Math.max(length, 0);
         const startIndex = page * pageSize;
         const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-        return `当前显示：${startIndex + 1} - ${endIndex}，总行数: ${length}`;
+        return `当前显示：${startIndex + 1} - ${endIndex}，总数: ${length}`;
     };
     return result;
 }
@@ -28,21 +28,18 @@ function createMatPaginatorIntl() {
     selector: 'table-wrapper',
     providers: [{ provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl }],
     template: `
-        <div class="table-container mat-elevation-z8">
+        <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
             <div class="table-loading-shade" *ngIf="loading">
-                <mat-spinner *ngIf="loading"></mat-spinner>
-                <div class="example-rate-limit-reached" *ngIf="loading"></div>
+                <mat-spinner></mat-spinner>
             </div>
             <ng-content></ng-content>
-            <mat-paginator [length]="totalCount" [pageSizeOptions]="[10,20,50,100,200,500]"></mat-paginator>
+            <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeItems"></mat-paginator>
         </div>
     `,
     styles: [`
         .table-container {
           display: flex;
           flex-direction: column;
-          max-height: 500px;
-          min-width: 300px;
           position: relative;
         }
         .table-loading-shade {
@@ -57,11 +54,6 @@ function createMatPaginatorIntl() {
           align-items: center;
           justify-content: center;
         }
-        .example-rate-limit-reached {
-          color: #980000;
-          max-width: 360px;
-          text-align: center;
-        }
     `]
 })
 export class TableWrapperComponent implements OnInit {
@@ -73,6 +65,22 @@ export class TableWrapperComponent implements OnInit {
      * 显示进度条
      */
     private loading: boolean;
+    /**
+     * 最大高度
+     */
+    @Input() maxHeight: number;
+    /**
+     * 最小宽度
+     */
+    @Input() minWidth: number;
+    /**
+     * 宽度
+     */
+    @Input() width: number;
+    /**
+     * 分页长度列表
+     */
+    @Input() pageSizeItems: number[];
     /**
      * 请求地址
      */
@@ -94,27 +102,50 @@ export class TableWrapperComponent implements OnInit {
      * 初始化Mat表格包装器
      */
     constructor() {
+        this.maxHeight = 500;
+        this.minWidth = 300;
+        this.pageSizeItems = [20, 50, 100, 200, 500];
         this.dataSource = new MatTableDataSource();
         this.loading = false;
     }
+
     /**
-     * 
+     * 获取样式
+     */
+    private getStyle() {
+        return {
+            'max-height': `${this.maxHeight}px`,
+            'min-width': `${this.minWidth}px`,
+            'width': this.width ? `${this.width}px` : null
+        };
+    }
+
+    /**
+     * 组件初始化
      */
     ngOnInit() {
         this.initPaginator();
-        this.query();
+        this.initTable();
     }
 
     /**
      * 初始化分页组件
      */
     private initPaginator() {
-        this.paginator.pageSize = this.queryParam.pageSize;
         this.paginator.page.subscribe(() => {
             this.queryParam.page = this.paginator.pageIndex + 1;
             this.queryParam.pageSize = this.paginator.pageSize;
             this.query();
         });
+    }
+
+    /**
+     * 初始化表格
+     */
+    private initTable() {
+        if (this.pageSizeItems && this.pageSizeItems.length > 0)
+            this.queryParam.pageSize = this.pageSizeItems[0];
+        this.query();
     }
 
     /**
