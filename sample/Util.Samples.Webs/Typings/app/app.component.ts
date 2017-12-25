@@ -33,7 +33,7 @@ export class AppComponent {
 
     queryParam: CustomerQueryModel;
 
-    @ViewChild('grid') grid: TableWrapperComponent
+    @ViewChild('grid') grid: TableWrapperComponent<any>
 
     constructor() {
         this.queryParam = new CustomerQueryModel();

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
+using Util.Exceptions;
 using Util.Properties;
 using Util.Webs.Controllers;
 
@@ -32,8 +34,8 @@ namespace Util.Samples.Webs.Base {
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpPost( "Query" )]
-        public virtual IActionResult Query( [FromBody] TQuery query ) {
-            var result = _service.Query( query );
+        public async virtual Task<IActionResult> QueryAsync( [FromBody] TQuery query ) {
+            var result = await _service.QueryAsync( query );
             return Success( R.Success, result );
         }
 
@@ -42,9 +44,8 @@ namespace Util.Samples.Webs.Base {
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpPost]
-        public virtual IActionResult PagerQuery( [FromBody] TQuery query ) {
-            System.Threading.Thread.Sleep( 2000 );
-            var result = _service.PagerQuery( query );
+        public async virtual Task<IActionResult> PagerQueryAsync( [FromBody] TQuery query ) {
+            var result = await _service.PagerQueryAsync( query );
             return Success( R.Success, result );
         }
     }

@@ -1,6 +1,7 @@
 ﻿import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { Util as util } from '../util';
 import { Pager } from '../core/pager';
+import { PagerList } from '../core/pager-list';
 import { MatTableDataSource, MatPaginator, MatPaginatorIntl } from '@angular/material';
 
 /**
@@ -56,11 +57,11 @@ function createMatPaginatorIntl() {
         }
     `]
 })
-export class TableWrapperComponent implements OnInit {
+export class TableWrapperComponent<T> implements OnInit {
     /**
      * 数据源
      */
-    public dataSource: MatTableDataSource<any>;
+    public dataSource: MatTableDataSource<T>;
     /**
      * 显示进度条
      */
@@ -105,7 +106,7 @@ export class TableWrapperComponent implements OnInit {
         this.maxHeight = 500;
         this.minWidth = 300;
         this.pageSizeItems = [20, 50, 100, 200, 500];
-        this.dataSource = new MatTableDataSource();
+        this.dataSource = new MatTableDataSource<T>();
         this.loading = false;
     }
 
@@ -152,18 +153,13 @@ export class TableWrapperComponent implements OnInit {
      * 发送查询请求
      */
     query() {
-        util.http.post<any>(this.url).body(this.queryParam)
-            .handle(t => {
-                this.dataSource.data = t.data.data;
-                this.totalCount = t.data.totalCount;
-
-            }, e => {
-
-            }, () => {
-                this.loading = true;
-                return true;
-            }, () => {
-                this.loading = false;
-            });
+        util.webapi.post<PagerList<T>>(this.url).body(this.queryParam).handle({
+            beforeHandler: () => { this.loading = true; return true; },
+            handler: result => {                
+                this.dataSource.data = result.data.data;
+                this.totalCount = result.data.totalCount;
+            },
+            completeHandler: () => this.loading = false
+        });
     }
 }

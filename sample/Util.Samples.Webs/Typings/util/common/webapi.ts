@@ -1,4 +1,6 @@
 ﻿import { HttpErrorResponse } from '@angular/common/http'
+import { Result, FailResult, StateCode } from '../core/result';
+import { toJson } from '../common/helper';
 import { HttpHelper, HttpRequest } from '../angular/http-helper';
 
 /**
@@ -10,7 +12,7 @@ export class WebApi {
      * @param url 请求地址
      */
     public static get<T>(url: string): WebApiRequest<T> {
-        return new WebApiRequest<T>(HttpHelper.get<T>(url));
+        return new WebApiRequest<T>(HttpHelper.get<Result<T>>(url));
     }
 
     /**
@@ -18,7 +20,7 @@ export class WebApi {
      * @param url 请求地址
      */
     public static post<T>(url: string): WebApiRequest<T> {
-        return new WebApiRequest<T>(HttpHelper.post<T>(url));
+        return new WebApiRequest<T>(HttpHelper.post<Result<T>>(url));
     }
 
     /**
@@ -26,7 +28,7 @@ export class WebApi {
      * @param url 请求地址
      */
     public static put<T>(url: string): WebApiRequest<T> {
-        return new WebApiRequest<T>(HttpHelper.put<T>(url));
+        return new WebApiRequest<T>(HttpHelper.put<Result<T>>(url));
     }
 
     /**
@@ -34,7 +36,7 @@ export class WebApi {
      * @param url 请求地址
      */
     public static delete<T>(url: string): WebApiRequest<T> {
-        return new WebApiRequest<T>(HttpHelper.delete<T>(url));
+        return new WebApiRequest<T>(HttpHelper.delete<Result<T>>(url));
     }
 }
 
@@ -46,7 +48,7 @@ export class WebApiRequest<T> {
      * 初始化WebApi请求操作
      * @param request Http请求操作
      */
-    constructor(private request: HttpRequest<T>) {
+    constructor(private request: HttpRequest<Result<T>>) {
     }
 
     /**
@@ -83,28 +85,71 @@ export class WebApiRequest<T> {
      * @param options 响应处理器配置
      */
     public handle(options: WebApiHandleOptions<T>) {
-        this.request.handle(options.handler);
+        if (!options)
+            return;
+        this.request.handle(
+            (result: Result<T>) => this.handleOk(options, result),
+            (error: HttpErrorResponse) => this.handleFail(options, undefined, error),
+            options.beforeHandler,
+            options.completeHandler
+        )
+    }
+
+    /**
+     * 处理成功响应
+     */
+    private handleOk(options: WebApiHandleOptions<T>, result: Result<T>) {
+        if (!result)
+            return;
+        if (result.code === StateCode.Ok) {
+            options.handler && options.handler(result)
+            return;
+        }
+        this.handleFail(options, result);
+    }
+
+    /**
+     * 处理失败响应
+     */
+    private handleFail(options: WebApiHandleOptions<T>, result?: Result<T>, errorResponse?: HttpErrorResponse) {
+        let failResult = new FailResult(result, errorResponse);
+        if (options.failHandler) {
+            options.failHandler(failResult);
+            return;
+        }
+        this.handleHttpError(options, failResult);
+    }
+
+    /**
+     * 处理Http异常
+     */
+    private handleHttpError(options: WebApiHandleOptions<T>, failResult: FailResult) {
+        if (failResult.errorResponse)
+            console.log(`发送请求失败：${toJson(failResult.errorResponse)}`);
+        if (options.completeHandler)
+            options.completeHandler();
     }
 }
 
 /**
- * WebApi响应处理器配置
+ * WebApi响应处理器
  */
 export class WebApiHandleOptions<T> {
     /**
      * 发送前处理函数，返回false则取消发送
      */
-    beforeHandler? : () => boolean;
+    beforeHandler?: () => boolean;
     /**
-     * 响应处理函数
+     * 成功处理函数
      */
-    handler: (value: T) => void;
+    handler: (value: Result<T>) => void;
     /**
-     * 错误处理函数
+     * 失败处理函数
      */
-    errorHandler? : (error: HttpErrorResponse) => void;
+    failHandler?: (result: FailResult) => void;
     /**
      * 请求完成处理函数
      */
-    completeHandler? : () => void;
+    completeHandler?: () => void;
 }
+
