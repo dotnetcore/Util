@@ -19,6 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Configs\**" />
+    <Content Remove="Services\Configs\**" />
+    <EmbeddedResource Remove="Services\Configs\**" />
+    <None Remove="Services\Configs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Typings\util\core\pager.ts" />
     <None Remove="Typings\util\util.module.ts" />
   </ItemGroup>
@@ -56,7 +63,6 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Services\Configs\" />
   </ItemGroup>
 
   <ItemGroup>

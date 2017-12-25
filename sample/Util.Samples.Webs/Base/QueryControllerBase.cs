@@ -15,35 +15,36 @@ namespace Util.Samples.Webs.Base {
         where TQuery : IQueryParameter
         where TDto : class, IDto, new() {
         /// <summary>
-        /// 初始化查询控制器
+        /// 应用服务
         /// </summary>
-        /// <param name="service">服务</param>
-        protected QueryControllerBase( ICrudService<TDto, TQuery> service ) {
-            Service = service;
-        }
+        private readonly ICrudService<TDto, TQuery> _service;
 
         /// <summary>
-        /// 服务
+        /// 初始化查询控制器
         /// </summary>
-        protected ICrudService<TDto, TQuery> Service { get; }
+        /// <param name="service">应用服务</param>
+        protected QueryControllerBase( ICrudService<TDto, TQuery> service ) {
+            _service = service;
+        }
 
         /// <summary>
         /// 查询
         /// </summary>
-        /// <param name="query">查询对象</param>
+        /// <param name="query">查询参数</param>
         [HttpPost( "Query" )]
         public virtual IActionResult Query( [FromBody] TQuery query ) {
-            var result = Service.Query( query );
+            var result = _service.Query( query );
             return Success( R.Success, result );
         }
 
         /// <summary>
         /// 分页查询
         /// </summary>
-        /// <param name="query">查询对象</param>
+        /// <param name="query">查询参数</param>
         [HttpPost]
         public virtual IActionResult PagerQuery( [FromBody] TQuery query ) {
-            var result = Service.PagerQuery( query );
+            System.Threading.Thread.Sleep( 2000 );
+            var result = _service.PagerQuery( query );
             return Success( R.Success, result );
         }
     }

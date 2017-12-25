@@ -1,6 +1,5 @@
 ﻿import { Component, ViewChild } from "@angular/core"
-import { util, TableWrapperComponent } from "../util";
-import { Pager } from "../util/core/pager"
+import { util, Pager,TableWrapperComponent } from "../util";
 @Component({
     selector: 'app',
     templateUrl: '/Home/a',

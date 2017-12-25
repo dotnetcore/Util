@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Datas.Tests.Samples.Domains.Repositories;
-using Util.Datas.Tests.Samples.Domains.Models;
-using Util.Datas.UnitOfWorks;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
-using Util.Domains.Repositories;
-using Util.Datas.Queries;
 using Donau.Services.Queries.Customers;
 using Donau.Services.Abstractions.Customers;
 using Donau.Services.Dtos.Customers;
 using Donau.Services.Extensions.Customers;
-using Util.Samples.Webs.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Util.Samples.Webs.Controllers
-{
+namespace Util.Samples.Webs.Controllers {
     public class CustomerController : Controller
     {
         public CustomerController(ICustomerRepository customerRepository, ISqlServerUnitOfWork unitOfWork, ICustomersService customersService)
@@ -71,14 +63,6 @@ namespace Util.Samples.Webs.Controllers
         public string Delete(string id)
         {
             CustomersService.Delete(id);
-            return "{}";
-        }
-
-        [HttpPost]
-        public string BatchDelete([FromBody] BatchId ids)
-        {
-            var batchids = ids.ids.ToGuidList();
-            //CustomersService.Delete(ids);
             return "{}";
         }
 
