@@ -61,6 +61,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 删除成功 的本地化字符串。
+        /// </summary>
+        public static string DeleteSuccess {
+            get {
+                return ResourceManager.GetString("DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 操作成功 的本地化字符串。
         /// </summary>
         public static string Success {

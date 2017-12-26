@@ -5,7 +5,7 @@ using Util.Samples.Webs.Base;
 
 namespace Util.Samples.Webs.Api.Customers
 {
-    public class CustomersController : QueryControllerBase<CustomersDto, CustomersQuery>
+    public class CustomersController : CrudControllerBase<CustomersDto, CustomersQuery>
     {
         public CustomersController(ICustomersService customersService) : base(customersService)
         {

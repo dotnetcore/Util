@@ -1,8 +1,8 @@
-﻿import { Component, Input, ViewChild, OnInit } from '@angular/core';
+﻿import { Component, Input, ViewChild, OnInit,ContentChild } from '@angular/core';
 import { Util as util } from '../util';
 import { Pager } from '../core/pager';
 import { PagerList } from '../core/pager-list';
-import { MatTableDataSource, MatPaginator, MatPaginatorIntl } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatPaginatorIntl ,MatSort} from '@angular/material';
 
 /**
  * 创建分页本地化提示
@@ -28,7 +28,28 @@ function createMatPaginatorIntl() {
 @Component({
     selector: 'table-wrapper',
     providers: [{ provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl }],
-    template: `
+    template:`
+        <style>
+            .table-container {
+                display: flex;
+                flex-direction: column;
+            }
+            .table-loading-shade {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 56px;
+                right: 0;
+                background: rgba(0, 0, 0, 0.15);
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            ::ng-deep .mat-table {
+                overflow: auto;
+            }            
+        </style>
         <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
             <div class="table-loading-shade" *ngIf="loading">
                 <mat-spinner></mat-spinner>
@@ -36,26 +57,7 @@ function createMatPaginatorIntl() {
             <ng-content></ng-content>
             <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeItems"></mat-paginator>
         </div>
-    `,
-    styles: [`
-        .table-container {
-          display: flex;
-          flex-direction: column;
-          position: relative;
-        }
-        .table-loading-shade {
-          position: absolute;
-          top: 0;
-          left: 0;
-          bottom: 56px;
-          right: 0;
-          background: rgba(0, 0, 0, 0.15);
-          z-index: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-    `]
+    `
 })
 export class TableWrapperComponent<T> implements OnInit {
     /**
@@ -126,6 +128,7 @@ export class TableWrapperComponent<T> implements OnInit {
      */
     ngOnInit() {
         this.initPaginator();
+        this.initSort();
         this.initTable();
     }
 
@@ -153,13 +156,43 @@ export class TableWrapperComponent<T> implements OnInit {
      * 发送查询请求
      */
     query() {
-        util.webapi.post<PagerList<T>>(this.url).body(this.queryParam).handle({
+        util.webapi.get<PagerList<T>>(this.url).data(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
-            handler: result => {                
+            handler: result => {
+                //行号
+                for (var i = 0; i < result.data.data.length; i++) {
+                    let line = ((((result.data.page - 1) * result.data.pageSize)) + i + 1);
+                    result.data.data[i]["lineNumber"] = line;
+                }
                 this.dataSource.data = result.data.data;
                 this.totalCount = result.data.totalCount;
             },
             completeHandler: () => this.loading = false
         });
+    }
+
+    //排序
+    @ContentChild(MatSort) sort: MatSort;
+    /**
+    * 初始化排序组件
+    */
+    private initSort() {
+        this.sort.sortChange.subscribe(() => {
+            this.queryParam.order = `${this.sort.active} ${this.sort.direction}`;
+            this.query();
+        });
+    }
+
+    isAllSelected() {
+        //const numSelected = this.selection.selected.length;
+        //const numRows = this.dataSource.data.length;
+        //return numSelected === numRows;
+    }
+
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle() {
+        //this.isAllSelected() ?
+        //    this.selection.clear() :
+        //    this.dataSource.data.forEach(row => this.selection.select(row));
     }
 }

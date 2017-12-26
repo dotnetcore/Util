@@ -1,4 +1,4 @@
-﻿import { HttpErrorResponse } from '@angular/common/http'
+﻿import { HttpErrorResponse } from '@angular/common/http';
 import { Result, FailResult, StateCode } from '../core/result';
 import { toJson } from '../common/helper';
 import { HttpHelper, HttpRequest } from '../angular/http-helper';
@@ -81,6 +81,15 @@ export class WebApiRequest<T> {
     }
 
     /**
+     * 添加Http参数,添加到url查询字符串
+     * @param param 参数对象
+     */
+    public data(param): WebApiRequest<T> {
+        this.request.data(param);
+        return this;
+    }
+
+    /**
      * 处理响应
      * @param options 响应处理器配置
      */
@@ -92,7 +101,7 @@ export class WebApiRequest<T> {
             (error: HttpErrorResponse) => this.handleFail(options, undefined, error),
             options.beforeHandler,
             options.completeHandler
-        )
+        );
     }
 
     /**
@@ -102,7 +111,7 @@ export class WebApiRequest<T> {
         if (!result)
             return;
         if (result.code === StateCode.Ok) {
-            options.handler && options.handler(result)
+            options.handler && options.handler(result);
             return;
         }
         this.handleFail(options, result);

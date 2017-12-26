@@ -2,38 +2,12 @@
 import { util, Pager,TableWrapperComponent } from "../util";
 @Component({
     selector: 'app',
-    templateUrl: '/Home/a',
-    styles: [`
-.example-header {
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  padding-left: 24px;
-  font-size: 20px;
-}
-
-.example-table {
-  overflow: auto;
-  min-height: 300px;
-}
-
-
-/* Column Widths */
-.mat-column-number,
-.mat-column-state {
-  max-width: 64px;
-}
-
-.mat-column-created {
-  max-width: 124px;
-}
-`]
+    templateUrl: '/Home/a'
 })
 export class AppComponent {
-
     queryParam: CustomerQueryModel;
 
-    @ViewChild('grid') grid: TableWrapperComponent<any>
+    @ViewChild('grid') grid: TableWrapperComponent<any>;
 
     constructor() {
         this.queryParam = new CustomerQueryModel();
@@ -41,6 +15,12 @@ export class AppComponent {
 
     query() {
         this.grid.query();
+    }
+
+    checkAll(checkBox) {
+        for (var i = 0; i < this.grid.dataSource.data.length; i++) {
+            this.grid.dataSource.data[i]["checked"] = checkBox.checked;
+        }
     }
 }
 

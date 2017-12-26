@@ -1,12 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Webs", "sample\Util.Samples.Webs\Util.Samples.Webs.csproj", "{323B64B7-5CE0-4222-B9ED-9F418730897C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-src", "02-src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-src", "01-src", "{ECBD28DE-AFFB-4C9A-8988-6297FA5ADDD5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-test", "03-test", "{DE1DF0B9-0403-4888-8B24-8208348E9AFA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-test", "02-test", "{DE1DF0B9-0403-4888-8B24-8208348E9AFA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{3746073A-1C5C-40A7-9D50-CB2A94CA888A}"
 EndProject
@@ -20,15 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Datas", "src\Util.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Datas.Tests.Integration", "test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj", "{411B666F-EDA0-47E0-BB34-3EAF047549A0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-document", "01-document", "{0ABE7222-126E-4EDF-B3B9-75842390AFE1}"
-	ProjectSection(SolutionItems) = preProject
-		document\应用程序基础模块.xmind = document\应用程序基础模块.xmind
-		document\应用程序基础模块数据模型.pdm = document\应用程序基础模块数据模型.pdm
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Logs", "src\Util.Logs\03-Util.Logs.csproj", "{0330EB27-814D-4CF6-B377-3BFA884D5FD2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-sample", "04-sample", "{F1B4AAEF-9162-4DFA-8B62-4069FC914839}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-sample", "03-sample", "{F1B4AAEF-9162-4DFA-8B62-4069FC914839}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Ui", "02-Ui", "{78CC88DA-0B25-45BC-86A8-FFE9628B34A6}"
 EndProject

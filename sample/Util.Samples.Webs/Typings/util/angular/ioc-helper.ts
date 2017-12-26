@@ -23,7 +23,7 @@ export class IocHelper {
 
     /**
      * 获取实例，从当前组件注入器中获取
-     * @param token 实例标记，一般为类或接口名称,范例：util.ioc.get(Http)
+     * @param token 实例标记，一般为类或接口名称,范例：util.ioc.getByComponent(Http)
      */
     public static getByComponent<T>(token: Type<T> | InjectionToken<T>): T {
         return IocHelper.componentInjector.get(token);

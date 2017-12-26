@@ -2,32 +2,34 @@
     ViewData["Title"] = "Tile";
 }
 
-
 <div>
     @Html.Ui().TextBox().Name( "queryParam.Name" ).Model( "queryParam.Name" ).Placeholder( "姓名" )
     <button mat-raised-button mat-button (click)="query()">查询</button>
 </div>
 
-
-<table-wrapper #grid url="/api/customers" [queryParam]="queryParam" >
-    <mat-table [dataSource]="grid.dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+<table-wrapper #grid url="/api/customers" [queryParam]="queryParam">
+    <mat-table [dataSource]="grid.dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
         <ng-container matColumnDef="lineNumber">
             <mat-header-cell *matHeaderCellDef>行号</mat-header-cell>
             <mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell>
         </ng-container>
-
-        <ng-container matColumnDef="check">
+        
+        <ng-container matColumnDef="selectCheckbox">
             <mat-header-cell *matHeaderCellDef>
-                <mat-checkbox [(ngModel)]="isCheckAll" (change)="checkAll()">全选</mat-checkbox>
+                <mat-checkbox >
+                    全选
+                </mat-checkbox>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <mat-checkbox [(ngModel)]="row.checked"></mat-checkbox>
+                <mat-checkbox >
+                </mat-checkbox>
             </mat-cell>
         </ng-container>
 
+
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>姓名</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
             <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
         </ng-container>
 
@@ -41,7 +43,7 @@
             <mat-cell *matCellDef="let row">{{ row.mobile }}</mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="['name']"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['name'];"></mat-row>
+        <mat-header-row *matHeaderRowDef="['lineNumber','selectCheckbox', 'name']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['lineNumber','selectCheckbox', 'name'];"></mat-row>
     </mat-table>
 </table-wrapper>

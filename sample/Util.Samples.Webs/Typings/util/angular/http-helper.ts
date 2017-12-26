@@ -96,6 +96,18 @@ export class HttpRequest<T> {
     }
 
     /**
+     * 添加Http参数,添加到url查询字符串
+     * @param param 参数对象
+     */
+    public data(param): HttpRequest<T> {
+        for (let key in param) {
+            if (param.hasOwnProperty(key))
+                this.param(key, param[key]);
+        }
+        return this;
+    }
+
+    /**
      * 处理响应
      * @param handler 响应处理函数
      * @param errorHandler 错误处理函数
