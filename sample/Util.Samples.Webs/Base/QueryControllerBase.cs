@@ -34,7 +34,7 @@ namespace Util.Samples.Webs.Base {
         /// </summary>
         /// <param name="id">标识</param>
         [HttpGet( "{id}" )]
-        public virtual async Task<IActionResult> Get( object id ) {
+        public virtual async Task<IActionResult> Get( string id ) {
             var result = await _service.GetByIdAsync( id );
             return Success( R.Success, result );
         }

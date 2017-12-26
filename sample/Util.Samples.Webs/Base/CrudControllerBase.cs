@@ -33,7 +33,7 @@ namespace Util.Samples.Webs.Base {
         /// </summary>
         /// <param name="dto">数据传输对象</param>
         [HttpPost]
-        public virtual async Task<IActionResult> Save( TDto dto ) {
+        public virtual async Task<IActionResult> Save( [FromBody] TDto dto ) {
             SaveBefore( dto );
             await _service.SaveAsync( dto );
             return Success( R.Success );
