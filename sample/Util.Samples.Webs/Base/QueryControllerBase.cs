@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Util.Applications;
 using Util.Applications.Dtos;
@@ -26,6 +27,16 @@ namespace Util.Samples.Webs.Base {
         /// <param name="service">Crud服务</param>
         protected QueryControllerBase( ICrudService<TDto, TQuery> service ) {
             _service = service;
+        }
+
+        /// <summary>
+        /// 获取单个实例
+        /// </summary>
+        /// <param name="id">标识</param>
+        [HttpGet( "{id}" )]
+        public virtual async Task<IActionResult> Get( object id ) {
+            var result = await _service.GetByIdAsync( id );
+            return Success( R.Success, result );
         }
 
         /// <summary>
