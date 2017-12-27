@@ -48,6 +48,10 @@ export class HttpRequest<T> {
      */
     private headers: HttpHeaders;
     /**
+     * 内容类型
+     */
+    private httpContentType: HttpContentType;
+    /**
      * Http主体
      */
     private httpBody;
@@ -77,12 +81,29 @@ export class HttpRequest<T> {
     }
 
     /**
+     * 设置内容类型
+     * @param contentType 内容类型
+     */
+    public contentType(contentType: HttpContentType): HttpRequest<T> {
+        this.httpContentType = contentType;
+        return this;
+    }
+
+    /**
      * 添加Http主体
      * @param value 值
      */
     public body(value): HttpRequest<T> {
         this.httpBody = value;
         return this;
+    }
+
+    /**
+     * 添加字符串类型的Http主体
+     * @param value 值
+     */
+    public stringBody(value: string): HttpRequest<T> {
+        return this.body(JSON.stringify(value));
     }
 
     /**
@@ -124,6 +145,7 @@ export class HttpRequest<T> {
      * 发送请求
      */
     private request(): Observable<T> {
+        this.setContentType();
         let httpClient = ioc.get(HttpClient);
         let options = { headers: this.headers, params: this.parameters };
         switch (this.httpMethod) {
@@ -139,6 +161,28 @@ export class HttpRequest<T> {
                 return httpClient.get<T>(this.url, options);
         }
     }
+
+    /**
+     * 设置内容类型
+     */
+    private setContentType() {
+        return this.header("Content-Type", this.getContentType(this.httpContentType));
+    }
+
+    /**
+     * 获取内容类型
+     * @param contentType
+     */
+    private getContentType(contentType: HttpContentType) {
+        switch (contentType) {
+        case HttpContentType.FormUrlEncoded:
+            return "application/x-www-form-urlencoded";
+        case HttpContentType.Json:
+            return "application/json";
+        default:
+            return "application/json";
+        }
+    }
 }
 
 /**
@@ -149,4 +193,18 @@ enum HttpMethod {
     Post,
     Put,
     Delete
+}
+
+/**
+ * Http内容类型
+ */
+export enum HttpContentType {
+    /**
+     * application/x-www-form-urlencoded
+     */
+    FormUrlEncoded,
+    /**
+     * application/json
+     */
+    Json
 }

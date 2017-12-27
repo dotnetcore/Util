@@ -1,7 +1,6 @@
 ﻿import { HttpErrorResponse } from '@angular/common/http';
 import { Result, FailResult, StateCode } from '../core/result';
-import { toJson } from '../common/helper';
-import { HttpHelper, HttpRequest } from '../angular/http-helper';
+import { HttpHelper, HttpRequest, HttpContentType } from '../angular/http-helper';
 
 /**
  * WebApi操作,与服务端返回的标准result对象交互
@@ -62,11 +61,29 @@ export class WebApiRequest<T> {
     }
 
     /**
+     * 设置内容类型
+     * @param contentType 内容类型
+     */
+    public contentType(contentType: HttpContentType): WebApiRequest<T> {
+        this.request.contentType(contentType);
+        return this;
+    }
+
+    /**
      * 添加Http主体
      * @param value 值
      */
     public body(value): WebApiRequest<T> {
         this.request.body(value);
+        return this;
+    }
+
+    /**
+     * 添加字符串类型的Http主体
+     * @param value 值
+     */
+    public stringBody(value: string): WebApiRequest<T> {
+        this.request.stringBody(value);
         return this;
     }
 
@@ -134,9 +151,20 @@ export class WebApiRequest<T> {
      */
     private handleHttpError(options: WebApiHandleOptions<T>, failResult: FailResult) {
         if (failResult.errorResponse)
-            console.log(`发送请求失败：${toJson(failResult.errorResponse)}`);
+            console.log(this.getErrorMessage(failResult));
         if (options.completeHandler)
             options.completeHandler();
+    }
+
+    /**
+     * 获取错误消息
+     */
+    private getErrorMessage(failResult: FailResult) {
+        if (!failResult.errorResponse)
+            return "";
+        let error = failResult.errorResponse;
+        return `发送请求失败：\n` + `Url:${error.url}\n` + `状态码:${error.status},${error.statusText}\n`
+            + `错误消息:${error.message}\n` + `错误响应:\n ${error.error.text}\n`;
     }
 }
 

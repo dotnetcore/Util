@@ -33,6 +33,7 @@ function createMatPaginatorIntl() {
             .table-container {
                 display: flex;
                 flex-direction: column;
+                position: relative;
             }
             .table-loading-shade {
                 position: absolute;
@@ -48,7 +49,7 @@ function createMatPaginatorIntl() {
             }
             ::ng-deep .mat-table {
                 overflow: auto;
-            }            
+            }
         </style>
         <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
             <div class="table-loading-shade" *ngIf="loading">
@@ -72,6 +73,10 @@ export class TableWrapperComponent<T> implements OnInit {
      * 最大高度
      */
     @Input() maxHeight: number;
+    /**
+     * 最小高度
+     */
+    @Input() minHeight: number;
     /**
      * 最小宽度
      */
@@ -106,6 +111,7 @@ export class TableWrapperComponent<T> implements OnInit {
      */
     constructor() {
         this.maxHeight = 500;
+        this.minHeight = 300;
         this.minWidth = 300;
         this.pageSizeItems = [20, 50, 100, 200, 500];
         this.dataSource = new MatTableDataSource<T>();

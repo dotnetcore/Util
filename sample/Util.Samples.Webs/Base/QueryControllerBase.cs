@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Util.Applications;
 using Util.Applications.Dtos;
@@ -30,17 +29,17 @@ namespace Util.Samples.Webs.Base {
         }
 
         /// <summary>
-        /// 获取单个实例
+        /// 获取单个实例,调用范例：GET URL(/api/customers/1)
         /// </summary>
         /// <param name="id">标识</param>
         [HttpGet( "{id}" )]
-        public virtual async Task<IActionResult> Get( string id ) {
+        public virtual async Task<IActionResult> GetAsync( string id ) {
             var result = await _service.GetByIdAsync( id );
             return Success( R.Success, result );
         }
 
         /// <summary>
-        /// 查询
+        /// 查询,调用范例：GET URL(/api/customers/query?name=a)
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpGet( "Query" )]
@@ -50,7 +49,7 @@ namespace Util.Samples.Webs.Base {
         }
 
         /// <summary>
-        /// 分页查询
+        /// 分页查询,调用范例：GET URL(/api/customers?name=a)
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpGet]

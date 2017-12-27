@@ -27,6 +27,30 @@ namespace Util.Applications {
         where TRequest : IRequest, new()
         where TQueryParameter : IQueryParameter {
         /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        [UnitOfWork]
+        void Create( [Valid] TRequest request );
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        [UnitOfWork]
+        Task CreateAsync( [Valid] TRequest request );
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        [UnitOfWork]
+        void Update( [Valid] TRequest request );
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        [UnitOfWork]
+        Task UpdateAsync( [Valid] TRequest request );
+        /// <summary>
         /// 保存
         /// </summary>
         /// <param name="request">请求参数</param>
