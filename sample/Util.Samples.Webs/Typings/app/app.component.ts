@@ -1,5 +1,7 @@
 ﻿import { Component, ViewChild } from "@angular/core"
 import { util, QueryParameter, TableWrapperComponent, HttpContentType } from "../util";
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
 @Component({
     selector: 'app',
     templateUrl: '/Home/a'
@@ -9,8 +11,16 @@ export class AppComponent {
 
     @ViewChild('grid') grid: TableWrapperComponent<any>;
 
-    constructor() {
+    msgs: Message[] = [];
+
+
+    constructor(private messageService: MessageService) {
         this.queryParam = new CustomerQueryModel();
+    }
+
+    showSuccess() {
+        this.msgs = [];
+        this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Order submitted' });
     }
 
     query() {

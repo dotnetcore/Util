@@ -1,9 +1,12 @@
 ﻿import { NgModule } from '@angular/core';
+//Util模块
 import { UtilModule } from '../util';
+//Angular模块
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//Material模块
 import {
     MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatPaginatorModule,
     MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
@@ -13,6 +16,9 @@ import {
     MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
     MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule
 } from '@angular/material';
+//PrimeNg模块
+import { ButtonModule, GrowlModule, MessageModule, MessagesModule } from 'primeng/primeng'
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @NgModule({
     exports: [
@@ -23,7 +29,11 @@ import {
         MatListModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule,
         MatRadioModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSortModule,
         MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
-        MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule
+        MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule,
+        ButtonModule,GrowlModule, MessageModule, MessagesModule
+    ],
+    providers: [
+        MessageService
     ]
 })
 export class FrameworkModule {

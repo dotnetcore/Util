@@ -24,14 +24,17 @@ const jsModules = [
     '@angular/platform-browser-dynamic',
     '@angular/router',
     'hammerjs',
-    '@angular/material'
+    '@angular/material',
+    'primeng/primeng'
 ];
 
 //第三方Css库
 const cssModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
     'material-design-icons/iconfont/material-icons.css',
-    'font-awesome/css/font-awesome.css'
+    'font-awesome/css/font-awesome.css',
+    'primeng/resources/themes/omega/theme.css',
+    'primeng/resources/primeng.css'
 ];
 
 //env代表环境变量，如果传入env.production表示正式生产环境

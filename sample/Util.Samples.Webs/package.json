@@ -28,7 +28,8 @@
     "es6-promise": "4.2.2",
     "event-source-polyfill": "0.0.12",
     "babel-polyfill": "6.26.0",
-    "material-design-icons": "3.0.1"
+    "material-design-icons": "3.0.1",
+    "primeng": "5.0.2" 
   },
   "devDependencies": {
     "@angular/compiler-cli": "5.2.0-beta.1",

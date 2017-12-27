@@ -189,7 +189,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Sass](http://www.sass-lang.com) 
   - 组件库
     - [Angular Material](https://material.angular.io/)
-    - [angular-material-app](https://github.com/stbui/angular-material-app)
+    - [PrimeNg](https://www.primefaces.org/primeng)
+    - [Angular-Material-App](https://github.com/stbui/angular-material-app)
   - 图标
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)

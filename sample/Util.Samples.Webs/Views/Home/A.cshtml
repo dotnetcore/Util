@@ -3,10 +3,11 @@
 }
 
 <div>
+    <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
     @Html.Ui().TextBox().Name( "queryParam.Name" ).Model( "queryParam.Name" ).Placeholder( "姓名" )
     <button mat-raised-button mat-button (click)="query()">查询</button>
 </div>
-
+<p-growl [(value)]="msgs"></p-growl>
 <table-wrapper #grid url="/api/customers" [queryParam]="queryParam">
     <mat-table [dataSource]="grid.dataSource" [style.min-height]="grid.minHeight+'px'" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
