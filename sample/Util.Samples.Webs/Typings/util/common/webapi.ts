@@ -144,31 +144,39 @@ export class WebApiRequest<T> {
             return;
         }
         if (result) {
-            console.log(`错误:${result.message}`);
+            this.handleBusinessException(result);
             return;
         }
-        this.handleHttpError(options, failResult);
+        this.handleHttpException(options, failResult);
+    }
+
+    /**
+     * 处理业务异常
+     */
+    private handleBusinessException(result: Result<T>) {
+        if (result.code === StateCode.Fail)
+            console.log(`错误:${result.message}`);
     }
 
     /**
      * 处理Http异常
      */
-    private handleHttpError(options: WebApiHandleOptions<T>, failResult: FailResult) {
+    private handleHttpException(options: WebApiHandleOptions<T>, failResult: FailResult) {
         if (failResult.errorResponse)
-            console.log(this.getErrorMessage(failResult));
+            console.log(this.getHttpExceptionMessage(failResult));
         if (options.completeHandler)
             options.completeHandler();
     }
 
     /**
-     * 获取错误消息
+     * 获取Http异常消息
      */
-    private getErrorMessage(failResult: FailResult) {
+    private getHttpExceptionMessage(failResult: FailResult) {
         if (!failResult.errorResponse)
             return "";
         let error = failResult.errorResponse;
-        return `发送请求失败：\n` + `Url:${error.url}\n` + `状态码:${error.status},${error.statusText}\n`
-            + `错误消息:${error.message}\n` + `错误响应:\n ${error.error.text}\n`;
+        return `发送请求失败：\nUrl:${error.url}\n状态码:${error.status},${error.statusText}\n`
+            + `错误消息:${error.message}\n错误响应:\n ${error.error.text}\n`;
     }
 }
 

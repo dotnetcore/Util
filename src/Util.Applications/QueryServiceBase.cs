@@ -132,6 +132,8 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public List<TDto> Query( TQueryParameter parameter ) {
+            if( parameter == null )
+                return new List<TDto>();
             var queryable = ExecuteQuery( parameter );
             return queryable.ToList().Select( ToDto ).ToList();
         }
@@ -177,6 +179,8 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public async Task<List<TDto>> QueryAsync( TQueryParameter parameter ) {
+            if( parameter == null )
+                return new List<TDto>();
             var queryable = ExecuteQuery( parameter );
             var entities = await queryable.ToListAsync();
             return entities.Select( ToDto ).ToList();
@@ -187,6 +191,8 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public PagerList<TDto> PagerQuery( TQueryParameter parameter ) {
+            if( parameter == null )
+                return new PagerList<TDto>();
             var query = CreateQuery( parameter );
             var pager = query.GetPager();
             return ExecutePagerQuery( query, pager ).ToPagerList( pager ).Convert( ToDto );
@@ -209,6 +215,8 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public async Task<PagerList<TDto>> PagerQueryAsync( TQueryParameter parameter ) {
+            if( parameter == null )
+                return new PagerList<TDto>();
             var query = CreateQuery( parameter );
             var pager = query.GetPager();
             var queryable = ExecutePagerQuery( query, pager );

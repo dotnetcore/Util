@@ -15,11 +15,6 @@ namespace Util.Samples.Webs.Controllers {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult B([FromBody] Test a) {
-            return Json( new {A = Request.Headers["a"], B = Request.Headers["b"],C= a.A } );
-        }
-
         public IActionResult Error() {
             return Content( "" );
         }

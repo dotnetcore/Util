@@ -150,6 +150,8 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="ids">用逗号分隔的Id列表，范例："1,2"</param>
         public void Delete( string ids ) {
+            if ( string.IsNullOrWhiteSpace( ids ) )
+                return;
             var entities = _repository.FindByIds( ids );
             if( entities?.Count == 0 )
                 return;
@@ -180,6 +182,8 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="ids">用逗号分隔的Id列表，范例："1,2"</param>
         public async Task DeleteAsync( string ids ) {
+            if( string.IsNullOrWhiteSpace( ids ) )
+                return;
             var entities = await _repository.FindByIdsAsync( ids );
             if( entities?.Count == 0 )
                 return;

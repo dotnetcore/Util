@@ -35,6 +35,8 @@ namespace Util.Samples.Webs.Base {
         /// <param name="dto">数据传输对象</param>
         [HttpPost]
         public virtual async Task<IActionResult> CreateAsync( [FromBody] TDto dto ) {
+            if ( dto == null )
+                return Fail( "请求参数不能为空" );
             CreateBefore( dto );
             await _service.CreateAsync( dto );
             return Success( R.Success );
@@ -54,6 +56,8 @@ namespace Util.Samples.Webs.Base {
         /// <param name="dto">数据传输对象</param>
         [HttpPut("{id?}")]
         public virtual async Task<IActionResult> UpdateAsync( string id, [FromBody] TDto dto ) {
+            if( dto == null )
+                return Fail( "请求参数不能为空" );
             if( id.IsEmpty() && dto.Id.IsEmpty() )
                 throw new Warning( "Id不能为空" );
             if ( dto.Id.IsEmpty() )
@@ -76,6 +80,8 @@ namespace Util.Samples.Webs.Base {
         /// <param name="dto">数据传输对象</param>
         [HttpPost("save")]
         public virtual async Task<IActionResult> SaveAsync( [FromBody] TDto dto ) {
+            if( dto == null )
+                return Fail( "请求参数不能为空" );
             SaveBefore( dto );
             await _service.SaveAsync( dto );
             return Success( R.Success );
