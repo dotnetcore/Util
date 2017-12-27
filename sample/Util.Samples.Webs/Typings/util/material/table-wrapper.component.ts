@@ -1,6 +1,6 @@
 ﻿import { Component, Input, ViewChild, OnInit,ContentChild } from '@angular/core';
 import { Util as util } from '../util';
-import { Pager } from '../core/pager';
+import { QueryParameter } from "../core/query-parameter";
 import { PagerList } from '../core/pager-list';
 import { MatTableDataSource, MatPaginator, MatPaginatorIntl ,MatSort} from '@angular/material';
 
@@ -96,7 +96,7 @@ export class TableWrapperComponent<T> implements OnInit {
     /**
      * 查询参数
      */
-    @Input() queryParam: Pager;
+    @Input() queryParam: QueryParameter;
     /**
      * 分页组件
      */

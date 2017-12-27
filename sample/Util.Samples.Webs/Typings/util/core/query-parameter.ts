@@ -1,7 +1,7 @@
 ﻿/**
- * 分页参数
+ * 查询参数
  */
-export class Pager {
+export class QueryParameter {
     /**
      * 页索引，即第几页
      */
@@ -14,4 +14,8 @@ export class Pager {
      * 排序条件
      */
     public order: string;
+    /**
+     * 搜索关键字
+     */
+    public keyword:string;
 }

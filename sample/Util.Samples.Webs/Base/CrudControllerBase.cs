@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
+using Util.Exceptions;
 using Util.Properties;
 
 namespace Util.Samples.Webs.Base {
@@ -47,12 +48,16 @@ namespace Util.Samples.Webs.Base {
         }
 
         /// <summary>
-        /// 修改，调用范例：PUT URL(/api/customers/1) BODY({name:'a',age:2})
+        /// 修改，调用范例：PUT URL(/api/customers/1 或 /api/customers) BODY({id:1,name:'a'})
         /// </summary>
         /// <param name="id">标识</param>
         /// <param name="dto">数据传输对象</param>
-        [HttpPut("{id}")]
+        [HttpPut("{id?}")]
         public virtual async Task<IActionResult> UpdateAsync( string id, [FromBody] TDto dto ) {
+            if( id.IsEmpty() && dto.Id.IsEmpty() )
+                throw new Warning( "Id不能为空" );
+            if ( dto.Id.IsEmpty() )
+                dto.Id = id;
             UpdateBefore( dto );
             await _service.UpdateAsync( dto );
             return Success( R.Success );

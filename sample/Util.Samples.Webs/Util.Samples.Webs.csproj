@@ -28,7 +28,7 @@
   <ItemGroup>
     <None Remove="Typings\util\common\webapi.ts" />
     <None Remove="Typings\util\core\pager-list.ts" />
-    <None Remove="Typings\util\core\pager.ts" />
+    <None Remove="Typings\util\core\query-parameter.ts" />
     <None Remove="Typings\util\core\result.ts" />
     <None Remove="Typings\util\util.module.ts" />
   </ItemGroup>
@@ -73,7 +73,7 @@
     <TypeScriptCompile Include="Typings\util\angular\router-helper.ts" />
     <TypeScriptCompile Include="Typings\util\common\webapi.ts" />
     <TypeScriptCompile Include="Typings\util\core\pager-list.ts" />
-    <TypeScriptCompile Include="Typings\util\core\pager.ts" />
+    <TypeScriptCompile Include="Typings\util\core\query-parameter.ts" />
     <TypeScriptCompile Include="Typings\util\core\result.ts" />
     <TypeScriptCompile Include="Typings\util\material\table-wrapper.component.ts" />
     <TypeScriptCompile Include="Typings\util\util.module.ts" />

@@ -1,5 +1,5 @@
 ﻿import { Component, ViewChild } from "@angular/core"
-import { util, Pager, TableWrapperComponent, HttpContentType } from "../util";
+import { util, QueryParameter, TableWrapperComponent, HttpContentType } from "../util";
 @Component({
     selector: 'app',
     templateUrl: '/Home/a'
@@ -25,6 +25,6 @@ export class AppComponent {
 }
 
 
-class CustomerQueryModel extends Pager {
+class CustomerQueryModel extends QueryParameter {
     public name: string;
 }

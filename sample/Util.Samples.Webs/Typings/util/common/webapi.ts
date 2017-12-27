@@ -143,6 +143,10 @@ export class WebApiRequest<T> {
             options.failHandler(failResult);
             return;
         }
+        if (result) {
+            console.log(`错误:${result.message}`);
+            return;
+        }
         this.handleHttpError(options, failResult);
     }
 
