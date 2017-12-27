@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Properties;
-using Util.Webs.Controllers;
 
-namespace Util.Samples.Webs.Base {
+namespace Util.Webs.Controllers {
     /// <summary>
     /// 查询控制器
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
-    /// <typeparam name="TQuery">查询实体类型</typeparam>    
+    /// <typeparam name="TQuery">查询参数类型</typeparam>    
     public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
         where TQuery : IQueryParameter
         where TDto : class, IDto, new() {

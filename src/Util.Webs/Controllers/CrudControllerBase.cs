@@ -6,12 +6,12 @@ using Util.Datas.Queries;
 using Util.Exceptions;
 using Util.Properties;
 
-namespace Util.Samples.Webs.Base {
+namespace Util.Webs.Controllers {
     /// <summary>
     /// Crud控制器
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
-    /// <typeparam name="TQuery">查询实体类型</typeparam>
+    /// <typeparam name="TQuery">查询参数类型</typeparam>
     public abstract class CrudControllerBase<TDto, TQuery> : QueryControllerBase<TDto, TQuery>
         where TQuery : IQueryParameter
         where TDto : DtoBase, new() {

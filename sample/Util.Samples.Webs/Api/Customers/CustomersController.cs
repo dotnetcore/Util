@@ -1,7 +1,7 @@
 ﻿using Donau.Services.Abstractions.Customers;
 using Donau.Services.Dtos.Customers;
 using Donau.Services.Queries.Customers;
-using Util.Samples.Webs.Base;
+using Util.Webs.Controllers;
 
 namespace Util.Samples.Webs.Api.Customers
 {
