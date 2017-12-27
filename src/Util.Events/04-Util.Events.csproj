@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util.Events</AssemblyName>
     <RootNamespace>Util.Events</RootNamespace>
-    <Version>0.0.5-preview</Version>
+    <Version>0.0.6-preview</Version>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
     <Description>Util.Events是Util应用框架的事件总线操作类库。
@@ -17,8 +17,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <RepositoryType>git</RepositoryType>
     <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
     <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
-    <AssemblyVersion>0.0.5.0</AssemblyVersion>
-    <FileVersion>0.0.5.0</FileVersion>
+    <AssemblyVersion>0.0.6.0</AssemblyVersion>
+    <FileVersion>0.0.6.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -33,8 +33,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.1.0-preview-26231671" />
-    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="2.1.0-preview-26231671" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.1.2" />
+    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>

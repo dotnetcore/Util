@@ -40,7 +40,6 @@ namespace Util.Logs.Core {
         /// 跟踪
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
         public void Trace( string message ) {
         }
 
