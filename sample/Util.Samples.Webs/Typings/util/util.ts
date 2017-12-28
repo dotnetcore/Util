@@ -3,6 +3,7 @@ import { IocHelper } from './angular/ioc-helper';
 import { HttpHelper } from './angular/http-helper';
 import { WebApi } from './common/webapi';
 import { RouterHelper } from './angular/router-helper';
+import { Message } from "./common/message";
 
 /**
  * 公共操作库
@@ -28,4 +29,8 @@ export class Util {
      * 路由操作
      */
     public static router = RouterHelper;
+    /**
+     * 消息操作
+     */
+    public static message = Message;
 }

@@ -1,6 +1,7 @@
 ﻿import { HttpErrorResponse } from '@angular/common/http';
 import { Result, FailResult, StateCode } from '../core/result';
 import { HttpHelper, HttpRequest, HttpContentType } from '../angular/http-helper';
+import { Message } from "./message";
 
 /**
  * WebApi操作,与服务端返回的标准result对象交互
@@ -155,7 +156,7 @@ export class WebApiRequest<T> {
      */
     private handleBusinessException(result: Result<T>) {
         if (result.code === StateCode.Fail)
-            console.log(`错误:${result.message}`);
+            Message.error(result.message);
     }
 
     /**
@@ -175,7 +176,7 @@ export class WebApiRequest<T> {
         if (!failResult.errorResponse)
             return "";
         let error = failResult.errorResponse;
-        return `发送请求失败：\nUrl:${error.url}\n状态码:${error.status},${error.statusText}\n`
+        return `Http请求异常：\nUrl:${error.url}\n状态码:${error.status},${error.statusText}\n`
             + `错误消息:${error.message}\n错误响应:\n ${error.error.text}\n`;
     }
 }

@@ -17,8 +17,7 @@ import {
     MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule
 } from '@angular/material';
 //PrimeNg模块
-import { ButtonModule, GrowlModule, MessageModule, MessagesModule } from 'primeng/primeng'
-import { MessageService } from 'primeng/components/common/messageservice';
+import { ButtonModule, GrowlModule, MessageModule, MessagesModule } from 'primeng/primeng';
 
 @NgModule({
     exports: [
@@ -31,9 +30,6 @@ import { MessageService } from 'primeng/components/common/messageservice';
         MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
         MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule,
         ButtonModule,GrowlModule, MessageModule, MessagesModule
-    ],
-    providers: [
-        MessageService
     ]
 })
 export class FrameworkModule {
