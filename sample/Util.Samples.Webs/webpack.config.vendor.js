@@ -25,7 +25,8 @@ const jsModules = [
     '@angular/router',
     'hammerjs',
     '@angular/material',
-    'primeng/primeng'
+    'primeng/primeng',
+    'ngx-perfect-scrollbar'
 ];
 
 //第三方Css库

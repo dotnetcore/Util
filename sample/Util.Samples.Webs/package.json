@@ -29,7 +29,8 @@
     "event-source-polyfill": "0.0.12",
     "babel-polyfill": "6.26.0",
     "material-design-icons": "3.0.1",
-    "primeng": "5.0.2" 
+    "primeng": "5.0.2",
+    "ngx-perfect-scrollbar": "5.2.0"
   },
   "devDependencies": {
     "@angular/compiler-cli": "5.2.0-beta.1",

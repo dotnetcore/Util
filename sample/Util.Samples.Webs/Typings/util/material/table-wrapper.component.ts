@@ -58,6 +58,15 @@ function createMatPaginatorIntl() {
         ::ng-deep .mat-table {
             overflow: auto;
         }
+        ::ng-deep .table-header {
+            min-height: 64px;
+            padding: 8px 24px 0;
+            z-index: 100;
+        }
+        ::ng-deep .mat-form-field {
+            font-size: 14px;
+            width: 100%;
+        }
     `]
 })
 export class TableWrapperComponent<T> implements OnInit {

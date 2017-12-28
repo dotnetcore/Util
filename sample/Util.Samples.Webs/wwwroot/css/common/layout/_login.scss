@@ -1,0 +1,86 @@
+﻿$gray-lighter: #eceeef !default;
+$image_path: "/images/" !default;
+$warm:#fac100;
+$prefix: 'login';
+$login-width:320;
+
+.#{$prefix} {
+
+    &-conainer {
+        min-height: 100%;
+        background: $gray-lighter url('#{$image_path}login_bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    &-main {
+        position: relative;
+        margin: 0 auto;
+        width: 500px;
+        text-align:center;
+    }
+
+    &-main img{
+        margin-top:150px;
+        margin-bottom:70px;
+    }
+}
+.login-logo {
+    position:absolute;
+    top:30px;
+    left:40px;
+}
+.login-logo img{width:auto;}
+
+.full-width {
+    width: 100%;
+    overflow: visible;
+
+    &-username input, &-password input {
+        width: $login-width * 1px;
+        height: 40px;
+        text-align: center;
+        font-size: 14px;
+        border: 0;
+        border-radius: 2px;
+    }
+
+    &-password, &-remberpassword {
+        margin-top: 24px;
+    }
+}
+.mat-raised-button.mat-warm {
+    background: $warm;
+    color: #000;
+}
+.warm-button {
+    width: $login-width * 1px;
+    height: 45px;
+    border-radius: 2px;
+    font-size:14px;
+}
+.remberpsd{
+    width:$login-width * 1px;
+    text-align:left;
+    margin-left:(500-$login-width)/2 * 1px;
+    color:#fff;
+    margin-bottom:60px;
+}
+.remberpsd .mat-checkbox-background, .remberpsd .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #494c53;
+}
+
+.help {
+}
+
+.is-danger {
+}
+
+.sign-third {
+    margin-top: 15px;
+}
+
+.redirect {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #00AAAA;
+}

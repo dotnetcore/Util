@@ -1,0 +1,30 @@
+﻿.mat-drawer {
+    transform: translate3d(0%,0,0);
+    visibility: visible;
+}
+
+:host {
+    display: block;
+}
+
+.brand-toolbar {
+    height: 64px;
+    font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+    padding: 0 10px;
+    width: 100%;
+}
+
+.brand-title {
+    box-sizing: border-box;
+    display: flex;
+    max-height: 100%;
+    place-content: center flex-start;
+    align-items: center;
+}
+
+.logo-text {
+    text-decoration: none;
+    margin-left: 24px;
+    line-height: 1;
+    color: #fff;
+}

@@ -1,11 +1,11 @@
 ﻿import { Component, ViewChild } from "@angular/core"
-import { util, QueryParameter, TableWrapperComponent, HttpContentType } from "../util";
+import { util, QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
 
 @Component({
-    selector: 'app',
-    templateUrl: '/Home/admin'
+    selector: 'demo',
+    templateUrl: '/Home/a'
 })
-export class AppComponent {
+export class DemoComponent {
     queryParam: CustomerQueryModel;
     isloading: Boolean = true;
     sidenavOpen: Boolean = true;

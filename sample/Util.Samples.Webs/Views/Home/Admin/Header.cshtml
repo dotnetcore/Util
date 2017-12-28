@@ -1,0 +1,19 @@
+﻿<div class="main-toolbar mat-elevation-z2">
+    <button mat-icon-button _ngcontent-c7 (click)="showComponent()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex style="flex: 1 1 1e-09px;box-sizing: border-box;"></span>
+    <button mat-icon-button _ngcontent-c7 (click)="fullScreen()">
+        <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+        <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+    </button>
+    <button mat-icon-button _ngcontent-c7>
+        <mat-icon>search</mat-icon>
+    </button>
+    <ui-toolbar-notification></ui-toolbar-notification>
+    <ui-toolbar-user></ui-toolbar-user>
+
+    <button mat-button class="more-btn">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</div>

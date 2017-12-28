@@ -1,0 +1,36 @@
+﻿<div class="toolbar-user-container">
+    <button mat-button (click)="toggleDropdown()" class="toolbar-user-btn" [class.open]="isOpen">
+        <span fxLayout="row" fxLayoutAlign="start center" class="mat-button-wrapper toolbar-user-button-span">
+            <img class="avatar" src="~/css/images/noavatar.png" />
+            @*<img class="avatar" [src]="currentUser.currentUser?.photoURL || 'assets/images/avatars/noavatar.png'">*@
+            <span class="name" fxHide fxShow.gt-sm>joun</span>
+            @*<span class="name" fxHide fxShow.gt-sm>{{currentUser.currentUserName}}</span>*@
+            <mat-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</mat-icon>
+        </span>
+    </button>
+
+    <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
+        <div class="content">
+            <div class="list">
+                <div class="item user-ullist" fxLayout="row" fxLayoutAlign="start center" routerLink="/pages/profile" mat-ripple>
+                    <mat-icon class="icon">account_circle</mat-icon>
+                    <span class="title">个人</span>
+                </div>
+                <div class="item user-ullist" fxLayout="row" fxLayoutAlign="start center" mat-ripple>
+                    <mat-icon class="icon">settings</mat-icon>
+                    <span class="title">设置</span>
+                </div>
+                <div class="item user-ullist" fxLayout="row" fxLayoutAlign="start center" mat-ripple>
+                    <mat-icon class="icon">help</mat-icon>
+                    <span class="title">帮助</span>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="item user-ullist" fxLayout="row" fxLayoutAlign="start center" (click)="logout()" mat-ripple>
+                    <mat-icon class="icon">exit_to_app</mat-icon>
+                    <span class="title">退出</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
