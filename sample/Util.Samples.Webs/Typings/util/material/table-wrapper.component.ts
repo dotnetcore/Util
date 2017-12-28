@@ -28,29 +28,7 @@ function createMatPaginatorIntl() {
 @Component({
     selector: 'table-wrapper',
     providers: [{ provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl }],
-    template:`
-        <style>
-            .table-container {
-                display: flex;
-                flex-direction: column;
-                position: relative;
-            }
-            .table-loading-shade {
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 56px;
-                right: 0;
-                background: rgba(0, 0, 0, 0.15);
-                z-index: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            ::ng-deep .mat-table {
-                overflow: auto;
-            }
-        </style>
+    template:`  
         <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
             <div class="table-loading-shade" *ngIf="loading">
                 <mat-spinner></mat-spinner>
@@ -58,17 +36,43 @@ function createMatPaginatorIntl() {
             <ng-content></ng-content>
             <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeItems"></mat-paginator>
         </div>
-    `
+    `,
+    styles: [`
+        .table-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .table-loading-shade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 56px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.15);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        ::ng-deep .mat-table {
+            overflow: auto;
+        }
+    `]
 })
 export class TableWrapperComponent<T> implements OnInit {
-    /**
-     * 数据源
-     */
-    public dataSource: MatTableDataSource<T>;
     /**
      * 显示进度条
      */
     private loading: boolean;
+    /**
+     * 总行数
+     */
+    private totalCount = 0;
+    /**
+     * 数据源
+     */
+    dataSource: MatTableDataSource<T>;
     /**
      * 最大高度
      */
@@ -102,9 +106,9 @@ export class TableWrapperComponent<T> implements OnInit {
      */
     @ViewChild(MatPaginator) paginator: MatPaginator;
     /**
-     * 总行
+     * 排序组件
      */
-    private totalCount = 0;
+    @ContentChild(MatSort) sort: MatSort;
 
     /**
      * 初始化Mat表格包装器
@@ -165,20 +169,15 @@ export class TableWrapperComponent<T> implements OnInit {
         util.webapi.get<PagerList<T>>(this.url).data(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
-                //行号
-                for (var i = 0; i < result.data.data.length; i++) {
-                    let line = ((((result.data.page - 1) * result.data.pageSize)) + i + 1);
-                    result.data.data[i]["lineNumber"] = line;
-                }
-                this.dataSource.data = result.data.data;
-                this.totalCount = result.data.totalCount;
+                result = new PagerList<T>(result);
+                result.initLineNumbers();
+                this.dataSource.data = result.data;
+                this.totalCount = result.totalCount;
             },
             completeHandler: () => this.loading = false
         });
     }
-
-    //排序
-    @ContentChild(MatSort) sort: MatSort;
+    
     /**
     * 初始化排序组件
     */

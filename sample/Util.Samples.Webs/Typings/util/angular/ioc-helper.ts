@@ -7,17 +7,17 @@ export class IocHelper {
     /**
      * 全局注入器
      */
-    public static injector: Injector;
+    static injector: Injector;
     /**
      * 当前组件注入器
      */
-    public static componentInjector: Injector;
+    static componentInjector: Injector;
 
     /**
      * 获取实例，从全局注入器中获取
      * @param token 实例标记，一般为类或接口名称,范例：util.ioc.get(Http)
      */
-    public static get<T>(token: Type<T> | InjectionToken<T>): T {
+    static get<T>(token: Type<T> | InjectionToken<T>): T {
         return IocHelper.injector.get(token);
     }
 
@@ -25,7 +25,7 @@ export class IocHelper {
      * 获取实例，从当前组件注入器中获取
      * @param token 实例标记，一般为类或接口名称,范例：util.ioc.getByComponent(Http)
      */
-    public static getByComponent<T>(token: Type<T> | InjectionToken<T>): T {
+    static getByComponent<T>(token: Type<T> | InjectionToken<T>): T {
         return IocHelper.componentInjector.get(token);
     }
 }

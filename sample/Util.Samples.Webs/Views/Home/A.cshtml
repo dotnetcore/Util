@@ -9,7 +9,7 @@
 </div>
 <p-growl></p-growl>
 <table-wrapper #grid url="/api/customers" [queryParam]="queryParam">
-    <mat-table [dataSource]="grid.dataSource" [style.min-height]="grid.minHeight+'px'" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+    <mat-table [dataSource]="grid.dataSource" [style.min-height]="grid.minHeight+'px'" [style.max-height]="grid.maxHeight+'px'" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
         <ng-container matColumnDef="lineNumber">
             <mat-header-cell *matHeaderCellDef>行号</mat-header-cell>

@@ -11,7 +11,7 @@ export class WebApi {
      * get请求
      * @param url 请求地址
      */
-    public static get<T>(url: string): WebApiRequest<T> {
+    static get<T>(url: string): WebApiRequest<T> {
         return new WebApiRequest<T>(HttpHelper.get<Result<T>>(url));
     }
 
@@ -19,7 +19,7 @@ export class WebApi {
      * post请求
      * @param url 请求地址
      */
-    public static post<T>(url: string): WebApiRequest<T> {
+    static post<T>(url: string): WebApiRequest<T> {
         return new WebApiRequest<T>(HttpHelper.post<Result<T>>(url));
     }
 
@@ -27,7 +27,7 @@ export class WebApi {
      * put请求
      * @param url 请求地址
      */
-    public static put<T>(url: string): WebApiRequest<T> {
+    static put<T>(url: string): WebApiRequest<T> {
         return new WebApiRequest<T>(HttpHelper.put<Result<T>>(url));
     }
 
@@ -35,7 +35,7 @@ export class WebApi {
      * delete请求
      * @param url 请求地址
      */
-    public static delete<T>(url: string): WebApiRequest<T> {
+    static delete<T>(url: string): WebApiRequest<T> {
         return new WebApiRequest<T>(HttpHelper.delete<Result<T>>(url));
     }
 }
@@ -56,7 +56,7 @@ export class WebApiRequest<T> {
      * @param name 名称
      * @param value 值
      */
-    public header(name: string, value: string): WebApiRequest<T> {
+    header(name: string, value: string): WebApiRequest<T> {
         this.request.header(name, value);
         return this;
     }
@@ -65,7 +65,7 @@ export class WebApiRequest<T> {
      * 设置内容类型
      * @param contentType 内容类型
      */
-    public contentType(contentType: HttpContentType): WebApiRequest<T> {
+    contentType(contentType: HttpContentType): WebApiRequest<T> {
         this.request.contentType(contentType);
         return this;
     }
@@ -74,7 +74,7 @@ export class WebApiRequest<T> {
      * 添加Http主体
      * @param value 值
      */
-    public body(value): WebApiRequest<T> {
+    body(value): WebApiRequest<T> {
         this.request.body(value);
         return this;
     }
@@ -83,7 +83,7 @@ export class WebApiRequest<T> {
      * 添加字符串类型的Http主体
      * @param value 值
      */
-    public stringBody(value: string): WebApiRequest<T> {
+    stringBody(value: string): WebApiRequest<T> {
         this.request.stringBody(value);
         return this;
     }
@@ -93,7 +93,7 @@ export class WebApiRequest<T> {
      * @param name 名称
      * @param value 值
      */
-    public param(name: string, value: string): WebApiRequest<T> {
+    param(name: string, value: string): WebApiRequest<T> {
         this.request.param(name, value);
         return this;
     }
@@ -102,7 +102,7 @@ export class WebApiRequest<T> {
      * 添加Http参数,添加到url查询字符串
      * @param param 参数对象
      */
-    public data(param): WebApiRequest<T> {
+    data(param): WebApiRequest<T> {
         this.request.data(param);
         return this;
     }
@@ -111,7 +111,7 @@ export class WebApiRequest<T> {
      * 处理响应
      * @param options 响应处理器配置
      */
-    public handle(options: WebApiHandleOptions<T>) {
+    handle(options: WebApiHandleOptions<T>) {
         if (!options)
             return;
         this.request.handle(
@@ -129,7 +129,7 @@ export class WebApiRequest<T> {
         if (!result)
             return;
         if (result.code === StateCode.Ok) {
-            options.handler && options.handler(result);
+            options.handler && options.handler(result.data);
             return;
         }
         this.handleFail(options, result);
@@ -192,7 +192,7 @@ export class WebApiHandleOptions<T> {
     /**
      * 成功处理函数
      */
-    handler: (value: Result<T>) => void;
+    handler: (value: T) => void;
     /**
      * 失败处理函数
      */

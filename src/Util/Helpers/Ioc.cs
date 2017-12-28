@@ -83,7 +83,7 @@ namespace Util.Helpers {
         /// <param name="services">服务集合</param>
         /// <param name="configs">依赖配置</param>
         public static IServiceProvider Register( IServiceCollection services, params IConfig[] configs ) {
-            return DefaultContainer.Register( services, null, configs );
+            return DefaultContainer.Register( services, builder => builder.EnableAop(), configs );
         }
 
         /// <summary>

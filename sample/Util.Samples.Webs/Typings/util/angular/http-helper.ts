@@ -10,7 +10,7 @@ export class HttpHelper {
      * get请求
      * @param url 请求地址
      */
-    public static get<T>(url: string): HttpRequest<T> {
+    static get<T>(url: string): HttpRequest<T> {
         return new HttpRequest<T>(HttpMethod.Get, url);
     }
 
@@ -18,7 +18,7 @@ export class HttpHelper {
      * post请求
      * @param url 请求地址
      */
-    public static post<T>(url: string): HttpRequest<T> {
+    static post<T>(url: string): HttpRequest<T> {
         return new HttpRequest<T>(HttpMethod.Post, url);
     }
 
@@ -26,7 +26,7 @@ export class HttpHelper {
      * put请求
      * @param url 请求地址
      */
-    public static put<T>(url: string): HttpRequest<T> {
+    static put<T>(url: string): HttpRequest<T> {
         return new HttpRequest<T>(HttpMethod.Put, url);
     }
 
@@ -34,7 +34,7 @@ export class HttpHelper {
      * delete请求
      * @param url 请求地址
      */
-    public static delete<T>(url: string): HttpRequest<T> {
+    static delete<T>(url: string): HttpRequest<T> {
         return new HttpRequest<T>(HttpMethod.Delete, url);
     }
 }
@@ -75,7 +75,7 @@ export class HttpRequest<T> {
      * @param name 名称
      * @param value 值
      */
-    public header(name: string, value: string): HttpRequest<T> {
+    header(name: string, value: string): HttpRequest<T> {
         this.headers = this.headers.append(name, value);
         return this;
     }
@@ -84,7 +84,7 @@ export class HttpRequest<T> {
      * 设置内容类型
      * @param contentType 内容类型
      */
-    public contentType(contentType: HttpContentType): HttpRequest<T> {
+    contentType(contentType: HttpContentType): HttpRequest<T> {
         this.httpContentType = contentType;
         return this;
     }
@@ -93,7 +93,7 @@ export class HttpRequest<T> {
      * 添加Http主体
      * @param value 值
      */
-    public body(value): HttpRequest<T> {
+    body(value): HttpRequest<T> {
         this.httpBody = value;
         return this;
     }
@@ -102,7 +102,7 @@ export class HttpRequest<T> {
      * 添加字符串类型的Http主体
      * @param value 值
      */
-    public stringBody(value: string): HttpRequest<T> {
+    stringBody(value: string): HttpRequest<T> {
         return this.body(JSON.stringify(value));
     }
 
@@ -111,7 +111,7 @@ export class HttpRequest<T> {
      * @param name 名称
      * @param value 值
      */
-    public param(name: string, value: string): HttpRequest<T> {
+    param(name: string, value: string): HttpRequest<T> {
         this.parameters = this.parameters.append(name, value);
         return this;
     }
@@ -120,7 +120,7 @@ export class HttpRequest<T> {
      * 添加Http参数,添加到url查询字符串
      * @param param 参数对象
      */
-    public data(param): HttpRequest<T> {
+    data(param): HttpRequest<T> {
         for (let key in param) {
             if (param.hasOwnProperty(key))
                 this.param(key, param[key]);
@@ -135,7 +135,7 @@ export class HttpRequest<T> {
      * @param beforeHandler 发送前处理函数，返回false则取消发送
      * @param completeHandler 请求完成处理函数
      */
-    public handle(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void, beforeHandler?: () => boolean, completeHandler?: () => void) {
+    handle(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void, beforeHandler?: () => boolean, completeHandler?: () => void) {
         if (beforeHandler && beforeHandler() === false)
             return;
         this.request().subscribe(handler, errorHandler, completeHandler);

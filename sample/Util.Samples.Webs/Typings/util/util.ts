@@ -12,25 +12,25 @@ export class Util {
     /**
      * 公共操作
      */
-    public static helper = helper;
+    static helper = helper;
     /**
      * Ioc操作
      */
-    public static ioc = IocHelper;
+    static ioc = IocHelper;
     /**
      * Http操作
      */
-    public static http = HttpHelper;
+    static http = HttpHelper;
     /**
      * WebApi操作,与服务端返回的标准result对象交互
      */
-    public static webapi = WebApi;
+    static webapi = WebApi;
     /**
      * 路由操作
      */
-    public static router = RouterHelper;
+    static router = RouterHelper;
     /**
      * 消息操作
      */
-    public static message = Message;
+    static message = Message;
 }

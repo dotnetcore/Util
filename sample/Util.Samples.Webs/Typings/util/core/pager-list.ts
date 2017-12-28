@@ -3,6 +3,21 @@
  */
 export class PagerList<T> {
     /**
+     * 初始化分页集合
+     * @param list 分页集合
+     */
+    constructor(list?: PagerList<T>) {
+        if (!list)
+            return;
+        this.page = list.page;
+        this.pageSize = list.pageSize;
+        this.totalCount = list.totalCount;
+        this.pageCount = list.pageCount;
+        this.order = list.order;
+        this.data = list.data;
+    }
+
+    /**
      * 页索引，即第几页
      */
     page: number;
@@ -26,4 +41,14 @@ export class PagerList<T> {
      * 数据
      */
     data: T[];
+
+    /**
+     * 初始化行号
+     */
+    initLineNumbers(): void {
+        for (let i = 0; i < this.data.length; i++) {
+            let line = (this.page - 1) * this.pageSize + i + 1;
+            this.data[i]["lineNumber"] = line;
+        }
+    }
 }

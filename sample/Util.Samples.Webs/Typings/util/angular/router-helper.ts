@@ -9,7 +9,7 @@ export class RouterHelper {
     /**
      * 返回上一次视图
      */
-    public static back(): void {
+    static back(): void {
         let location = ioc.get(Location);
         location.back();
     }
@@ -19,7 +19,7 @@ export class RouterHelper {
      * @param commands 导航参数，范例: ['team', 33, 'user', 11]，表示 /team/33/user/11
      * @param extras 附加参数，范例: {relativeTo: route}
      */
-    public static navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
+    static navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
         let router = ioc.get(Router);
         return router.navigate(commands);
     }
@@ -28,7 +28,7 @@ export class RouterHelper {
      * 获取当前路由参数值,从路由快照中获取参数
      * @param paramName 参数名
      */
-    public static getParam(paramName: string): string | null {
+    static getParam(paramName: string): string | null {
         let route = ioc.getByComponent(ActivatedRoute);
         return route.snapshot.paramMap.get(paramName);
     }
