@@ -13,10 +13,5 @@ namespace Util.Samples.Webs.Api.Customers
         public CustomersController(ICustomersService customersService) : base(customersService)
         {
         }
-
-        public override Task<IActionResult> PagerQueryAsync( CustomersQuery query ) {
-            System.Threading.Thread.Sleep( 2000 );
-            return base.PagerQueryAsync( query );
-        }
     }
 }

@@ -20,9 +20,7 @@ export class AppComponent {
         this.queryParam = new CustomerQueryModel();
     }
 
-    showSuccess() {
-        util.message.error("出错了","你好");
-    }
+  
 
     query() {
         this.grid.query();

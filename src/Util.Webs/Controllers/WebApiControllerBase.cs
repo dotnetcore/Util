@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Util.Properties;
 using Util.Webs.Commons;
 using Util.Webs.Filters;
 
@@ -13,18 +13,11 @@ namespace Util.Webs.Controllers {
         /// <summary>
         /// 返回成功消息
         /// </summary>
-        /// <param name="message">消息</param>
         /// <param name="data">数据</param>
-        protected virtual IActionResult Success( string message, object data ) {
-            return new Result( StateCode.Ok, message, data );
-        }
-
-        /// <summary>
-        /// 返回成功消息
-        /// </summary>
         /// <param name="message">消息</param>
-        /// <param name="data">数据</param>
-        protected virtual IActionResult Success( string message = "操作成功", IEnumerable<object> data = null ) {
+        protected virtual IActionResult Success( dynamic data = null, string message = null ) {
+            if ( message == null )
+                message = R.Success;
             return new Result( StateCode.Ok, message, data );
         }
 

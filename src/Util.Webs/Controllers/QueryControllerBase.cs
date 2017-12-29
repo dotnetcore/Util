@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
-using Util.Properties;
 
 namespace Util.Webs.Controllers {
     /// <summary>
@@ -34,7 +33,7 @@ namespace Util.Webs.Controllers {
         [HttpGet( "{id}" )]
         public virtual async Task<IActionResult> GetAsync( string id ) {
             var result = await _service.GetByIdAsync( id );
-            return Success( R.Success, result );
+            return Success( result );
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Util.Webs.Controllers {
         [HttpGet( "Query" )]
         public virtual async Task<IActionResult> QueryAsync( TQuery query ) {
             var result = await _service.QueryAsync( query );
-            return Success( R.Success, result );
+            return Success( result );
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace Util.Webs.Controllers {
         [HttpGet]
         public virtual async Task<IActionResult> PagerQueryAsync( TQuery query ) {
             var result = await _service.PagerQueryAsync( query );
-            return Success( R.Success, result );
+            return Success( result );
         }
     }
 }

@@ -4,7 +4,6 @@ using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Exceptions;
-using Util.Properties;
 
 namespace Util.Webs.Controllers {
     /// <summary>
@@ -39,7 +38,8 @@ namespace Util.Webs.Controllers {
                 return Fail( "请求参数不能为空" );
             CreateBefore( dto );
             await _service.CreateAsync( dto );
-            return Success( R.Success );
+            var result = await _service.GetByIdAsync( dto.Id );
+            return Success( result );
         }
 
         /// <summary>
@@ -64,7 +64,8 @@ namespace Util.Webs.Controllers {
                 dto.Id = id;
             UpdateBefore( dto );
             await _service.UpdateAsync( dto );
-            return Success( R.Success );
+            var result = await _service.GetByIdAsync( dto.Id );
+            return Success( result );
         }
 
         /// <summary>
@@ -84,7 +85,8 @@ namespace Util.Webs.Controllers {
                 return Fail( "请求参数不能为空" );
             SaveBefore( dto );
             await _service.SaveAsync( dto );
-            return Success( R.Success );
+            var result = await _service.GetByIdAsync( dto.Id );
+            return Success( result );
         }
 
         /// <summary>
@@ -101,7 +103,7 @@ namespace Util.Webs.Controllers {
         [HttpDelete( "{id}" )]
         public virtual async Task<IActionResult> DeleteAsync( string id ) {
             await _service.DeleteAsync( id );
-            return Success( R.DeleteSuccess );
+            return Success();
         }
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace Util.Webs.Controllers {
         [HttpPost( "delete" )]
         public virtual async Task<IActionResult> DeleteByPostAsync( [FromBody] string ids ) {
             await _service.DeleteAsync( ids );
-            return Success( R.DeleteSuccess );
+            return Success();
         }
     }
 }

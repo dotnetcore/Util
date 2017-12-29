@@ -21,16 +21,16 @@
     <button mat-raised-button mat-button (click)="query()">查询</button>
 </div>*@
 
-<table-wrapper #grid url="/api/customers" [queryParam]="queryParam">
+<table-wrapper #grid url="/api/customers" [queryParam]="queryParam" [maxHeight]="600">
     @*表头*@
     <div class="table-header">
         <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="关键词搜索">
         </mat-form-field>
     </div>
-    <mat-table matSort matSortActive="created" matSortDisableClear matSortDirection="asc" class="table-head-fixed">
+    <mat-table matSort matSortActive="created" matSortDisableClear matSortDirection="asc" class="table-head-fixed" >
         <ng-container matColumnDef="lineNumber">
-            <mat-header-cell *matHeaderCellDef>行号</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>序号</mat-header-cell>
         </ng-container>
 
         <ng-container matColumnDef="selectCheckbox">

@@ -66,10 +66,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Home\Admin\Brand.cshtml" />
     <None Include="Views\Home\Admin\Footer.cshtml" />
     <None Include="Views\Home\Admin\Header.cshtml" />

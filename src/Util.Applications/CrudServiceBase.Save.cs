@@ -17,6 +17,7 @@ namespace Util.Applications {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             Create( entity );
+            request.Id = entity.Id.ToString();
         }
 
         /// <summary>
@@ -90,8 +91,10 @@ namespace Util.Applications {
             var entity = ToEntity( request );
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            if( IsNew( request, entity ) )
+            if ( IsNew( request, entity ) ) {
                 Create( entity );
+                request.Id = entity.Id.ToString();
+            }
             else
                 Update( entity );
         }
