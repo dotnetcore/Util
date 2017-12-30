@@ -1,5 +1,5 @@
-﻿import { Injector } from '@angular/core'
-import { IocHelper as ioc } from '../angular/ioc-helper'
+﻿import { Injector } from '@angular/core';
+import { IocHelper as ioc } from '../angular/ioc-helper';
 
 /**
  * 组件

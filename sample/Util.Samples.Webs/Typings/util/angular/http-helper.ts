@@ -1,6 +1,6 @@
-﻿import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http'
-import { IocHelper as ioc } from './ioc-helper'
-import { Observable } from "rxjs/Observable";
+﻿import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { IocHelper as ioc } from './ioc-helper';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Http操作
@@ -18,16 +18,16 @@ export class HttpHelper {
      * post请求
      * @param url 请求地址
      */
-    static post<T>(url: string): HttpRequest<T> {
-        return new HttpRequest<T>(HttpMethod.Post, url);
+    static post<T>(url: string): HttpBodyRequest<T> {
+        return new HttpBodyRequest<T>(HttpMethod.Post, url);
     }
 
     /**
      * put请求
      * @param url 请求地址
      */
-    static put<T>(url: string): HttpRequest<T> {
-        return new HttpRequest<T>(HttpMethod.Put, url);
+    static put<T>(url: string): HttpBodyRequest<T> {
+        return new HttpBodyRequest<T>(HttpMethod.Put, url);
     }
 
     /**
@@ -51,10 +51,6 @@ export class HttpRequest<T> {
      * 内容类型
      */
     private httpContentType: HttpContentType;
-    /**
-     * Http主体
-     */
-    private httpBody;
     /**
      * Http参数集合
      */
@@ -87,23 +83,6 @@ export class HttpRequest<T> {
     contentType(contentType: HttpContentType): HttpRequest<T> {
         this.httpContentType = contentType;
         return this;
-    }
-
-    /**
-     * 添加Http主体
-     * @param value 值
-     */
-    body(value): HttpRequest<T> {
-        this.httpBody = value;
-        return this;
-    }
-
-    /**
-     * 添加字符串类型的Http主体
-     * @param value 值
-     */
-    stringBody(value: string): HttpRequest<T> {
-        return this.body(JSON.stringify(value));
     }
 
     /**
@@ -152,14 +131,20 @@ export class HttpRequest<T> {
             case HttpMethod.Get:
                 return httpClient.get<T>(this.url, options);
             case HttpMethod.Post:
-                return httpClient.post<T>(this.url, this.httpBody, options);
+                return httpClient.post<T>(this.url, this.getBody(), options);
             case HttpMethod.Put:
-                return httpClient.put<T>(this.url, this.httpBody, options);
+                return httpClient.put<T>(this.url, this.getBody(), options);
             case HttpMethod.Delete:
                 return httpClient.delete<T>(this.url, options);
             default:
                 return httpClient.get<T>(this.url, options);
         }
+    }
+
+    /**
+     * 获取body
+     */
+    protected getBody() {
     }
 
     /**
@@ -182,6 +167,49 @@ export class HttpRequest<T> {
         default:
             return "application/json";
         }
+    }
+}
+
+/**
+ * Http请求操作
+ */
+export class HttpBodyRequest<T> extends HttpRequest<T>{
+    /**
+     * 初始化Http请求操作
+     * @param httpMethod Http方法
+     * @param url 请求地址
+     */
+    constructor( httpMethod: HttpMethod, url: string) {
+        super(httpMethod, url);
+    }
+
+    /**
+     * Http主体
+     */
+    private httpBody;
+
+    /**
+     * 添加Http主体
+     * @param value 值
+     */
+    body(value): HttpBodyRequest<T> {
+        this.httpBody = value;
+        return this;
+    }
+
+    /**
+     * 添加字符串类型的Http主体
+     * @param value 值
+     */
+    stringBody(value: string): HttpBodyRequest<T> {
+        return this.body(JSON.stringify(value));
+    }
+
+    /**
+     * 获取body
+     */
+    protected getBody() {
+        return this.httpBody;
     }
 }
 

@@ -26,15 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Typings\util\common\message.ts" />
-    <None Remove="Typings\util\common\webapi.ts" />
-    <None Remove="Typings\util\core\pager-list.ts" />
-    <None Remove="Typings\util\core\query-parameter.ts" />
-    <None Remove="Typings\util\core\result.ts" />
-    <None Remove="Typings\util\util.module.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.2.1982" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
   </ItemGroup>
@@ -63,33 +54,6 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Home\Admin\Brand.cshtml" />
-    <None Include="Views\Home\Admin\Footer.cshtml" />
-    <None Include="Views\Home\Admin\Header.cshtml" />
-    <None Include="Views\Home\Admin\Header\Notification.cshtml" />
-    <None Include="Views\Home\Admin\Header\User.cshtml" />
-    <None Include="Views\Home\Admin\sidenav.cshtml" />
-    <None Include="Views\Home\Admin\sidenav\Item.cshtml" />
-    <None Include="Views\Public\SearchMenu.cshtml" />
-    <None Include="wwwroot\css\common\layout\header\_toolbar-help.scss" />
-    <None Include="wwwroot\css\common\layout\header\_toolbar-notification.scss" />
-    <None Include="wwwroot\css\common\layout\header\_toolbar-user.scss" />
-    <None Include="wwwroot\css\common\layout\sidenav\_item.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="Typings\util\common\message.ts" />
-    <TypeScriptCompile Include="Typings\util\core\component-base.ts" />
-    <TypeScriptCompile Include="Typings\util\angular\router-helper.ts" />
-    <TypeScriptCompile Include="Typings\util\common\webapi.ts" />
-    <TypeScriptCompile Include="Typings\util\core\pager-list.ts" />
-    <TypeScriptCompile Include="Typings\util\core\query-parameter.ts" />
-    <TypeScriptCompile Include="Typings\util\core\result.ts" />
-    <TypeScriptCompile Include="Typings\util\material\table-wrapper.component.ts" />
-    <TypeScriptCompile Include="Typings\util\util.module.ts" />
   </ItemGroup>
 
   <!-- Debug调试模式打包第三方框架 -->

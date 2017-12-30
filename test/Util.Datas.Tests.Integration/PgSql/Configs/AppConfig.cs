@@ -6,7 +6,7 @@
         /// <summary>
         /// 连接字符串
         /// </summary>
-        public const string Connection = "server=192.168.206.141;User Id=postgres;password=sa;database=UtilTest";
+        public const string Connection = "server=192.168.244.138;User Id=postgres;password=sa;database=UtilTest";
         /// <summary>
         /// 当前用户编号
         /// </summary>

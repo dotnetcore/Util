@@ -10,10 +10,6 @@
         /// <summary>
         /// 失败
         /// </summary>
-        Fail = 2,
-        /// <summary>
-        /// 未授权
-        /// </summary>
-        UnAuthenticate = 3
+        Fail = 2
     }
 }

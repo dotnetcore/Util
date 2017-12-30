@@ -1,4 +1,4 @@
-﻿import { Injector, Type, InjectionToken } from '@angular/core'
+﻿import { Injector, Type, InjectionToken } from '@angular/core';
 
 /**
  * Ioc操作

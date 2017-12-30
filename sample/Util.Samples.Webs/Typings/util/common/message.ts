@@ -1,5 +1,5 @@
 ﻿import { MessageService } from 'primeng/components/common/messageservice';
-import { IocHelper as ioc } from "../angular/ioc-helper";
+import { IocHelper as ioc } from '../angular/ioc-helper';
 
 /**
  * 消息操作

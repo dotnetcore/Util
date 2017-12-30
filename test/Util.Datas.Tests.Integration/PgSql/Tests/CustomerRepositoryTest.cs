@@ -287,5 +287,49 @@ namespace Util.Datas.Tests.PgSql.Tests {
             query.WhereIfNotEmpty( t => t.Name == "C" );
             Assert.Single( _customerRepository.Find( query ).ToList() );
         }
+
+        /// <summary>
+        /// 测试删除
+        /// </summary>
+        [Fact]
+        public void TestRemove() {
+            string id = Id.ObjectId();
+            var customer = new Customer( id ) { Name = "util" };
+            _customerRepository.Add( customer );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            var result = _customerRepository.Single( t => t.Id == id );
+            Assert.NotNull( result );
+
+            _customerRepository.Remove( id );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            result = _customerRepository.Single( t => t.Id == id );
+            Assert.Null( result );
+        }
+
+        /// <summary>
+        /// 测试删除
+        /// </summary>
+        [Fact]
+        public async Task TestRemoveAsync() {
+            string id = Id.ObjectId();
+            var customer = new Customer( id ) { Name = "util" };
+            await _customerRepository.AddAsync( customer );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            var result = await _customerRepository.SingleAsync( t => t.Id == id );
+            Assert.NotNull( result );
+
+            await _customerRepository.RemoveAsync( id );
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.ClearCache();
+
+            result = await _customerRepository.SingleAsync( t => t.Id == id );
+            Assert.Null( result );
+        }
     }
 }

@@ -1,6 +1,6 @@
-﻿import { Router, ActivatedRoute, NavigationExtras } from '@angular/router'
+﻿import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Location } from '@angular/common';
-import { IocHelper as ioc } from './ioc-helper'
+import { IocHelper as ioc } from './ioc-helper';
 
 /**
  * 路由操作
@@ -10,7 +10,7 @@ export class RouterHelper {
      * 返回上一次视图
      */
     static back(): void {
-        let location = ioc.get(Location);
+        let location: Location = ioc.get(Location);
         location.back();
     }
 

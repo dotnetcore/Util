@@ -29,11 +29,11 @@ create table "Customers"."Customers" (
    "Tel" VARCHAR(20)          null,
    "Mobile" VARCHAR(20)          null,
    "Email" VARCHAR(100)         null,
-   "CreationTime" DATE                 null,
+   "CreationTime" TIMESTAMP            null,
    "CreatorId" UUID                 null,
-   "LastModificationTime" DATE                 null,
+   "LastModificationTime" TIMESTAMP            null,
    "LastModifierId" UUID                 null,
-   "Version" Bytea                null,
+   "Version" BYTEA                null,
    constraint PK_CUSTOMERS primary key ("CustomerId")
 );
 

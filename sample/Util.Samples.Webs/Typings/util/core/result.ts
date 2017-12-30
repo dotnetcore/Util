@@ -1,4 +1,4 @@
-﻿import { HttpErrorResponse } from '@angular/common/http'
+﻿import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * 服务端返回的标准结果
@@ -54,9 +54,5 @@ export enum StateCode {
     /**
      * 失败
      */
-    Fail = 2,
-    /**
-     * 未授权
-     */
-    UnAuthenticate = 3
+    Fail = 2
 }

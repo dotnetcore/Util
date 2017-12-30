@@ -126,7 +126,7 @@ namespace Util.Datas.Ef.Logs {
                 return;
             _log.Sql( "原始Sql: " ).Sql( $"{sql}{Common.Line}" );
             sql = sql.Replace( "SET NOCOUNT ON;", "" );
-            _log.Sql( $"调试Sql: {GetSql( sql, sqlParams )}{Common.Line}" );
+            _log.Sql( $"调试Sql: {Common.Line}{GetSql( sql, sqlParams )}{Common.Line}" );
         }
 
         /// <summary>

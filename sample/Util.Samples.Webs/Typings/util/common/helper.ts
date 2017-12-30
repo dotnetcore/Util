@@ -1,4 +1,4 @@
-﻿import { UUID } from './uuid'
+﻿import { UUID } from './uuid';
 
 /**
  * 是否未定义

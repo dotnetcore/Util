@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Util.Datas.Tests.Samples.Datas.SqlServer.Repositories;
+using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.Dependency;
 using Util.Domains.Sessions;
 
@@ -12,6 +14,7 @@ namespace Util.Samples.Webs.Configs {
         /// </summary>
         public void Regist( IServiceCollection services ) {
             services.AddSingleton<ISession, NullSession>();
+            services.AddScoped<ICustomerRepository,CustomerRepository>();
         }
     }
 }
