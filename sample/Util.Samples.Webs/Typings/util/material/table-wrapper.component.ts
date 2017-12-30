@@ -32,7 +32,7 @@ function createMatPaginatorIntl() {
 @Component({
     selector: 'table-wrapper',
     providers: [{ provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl }],
-    template:`  
+    template: `  
         <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
             <div class="table-loading-shade" *ngIf="loading">
                 <mat-spinner></mat-spinner>
@@ -262,7 +262,7 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
     /**
      * 获取被选中实体列表
      */
-    getSelected():T[] {
+    getSelected(): T[] {
         return this.dataSource.data.filter(data => this.selection.isSelected(data));
     }
 
@@ -278,12 +278,21 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      * @param handler 删除成功回调函数
      * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
      */
-    delete(handler?: () => {}, deleteUrl?: string ) {
+    delete(handler?: () => {}, deleteUrl?: string) {
         let ids = this.getSelectedIds();
         if (!ids) {
             message.warn(config.deleteNotSelected);
             return;
         }
+        message.confirm(config.deleteConfirm, () => {
+            this.deleteRequest(ids, handler, deleteUrl);
+        });
+    }
+
+    /**
+     * 发送删除请求
+     */
+    private deleteRequest(ids: string, handler?: () => {}, deleteUrl?: string) {
         deleteUrl = deleteUrl || `/api/${this.baseUrl}/delete`;
         webapi.post(deleteUrl).stringBody(ids).handle({
             handler: () => {

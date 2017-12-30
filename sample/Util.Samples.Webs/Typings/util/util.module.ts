@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule, MatPaginatorModule } from '@angular/material';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/primeng';
 import { TableWrapperComponent } from './material/table-wrapper.component';
 
 /**
@@ -12,7 +13,7 @@ import { TableWrapperComponent } from './material/table-wrapper.component';
     declarations: [TableWrapperComponent],
     exports: [TableWrapperComponent],
     providers: [
-        MessageService
+        MessageService, ConfirmationService
     ]
 })
 export class UtilModule {
