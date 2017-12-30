@@ -1,8 +1,12 @@
-﻿import { Component, Input, ViewChild, OnInit,ContentChild } from '@angular/core';
-import { Util as util } from '../util';
-import { QueryParameter } from "../core/query-parameter";
+﻿import { Component, Input, ViewChild, OnInit, ContentChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatPaginatorIntl, MatSort } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { WebApi as webapi } from "../common/webapi";
+import { Message as message } from "../common/message";
 import { PagerList } from '../core/pager-list';
-import { MatTableDataSource, MatPaginator, MatPaginatorIntl ,MatSort} from '@angular/material';
+import { ViewModel } from '../core/view-model';
+import { QueryParameter } from '../core/query-parameter';
+import { MessageConfig as config } from "../config/message-config";
 
 /**
  * 创建分页本地化提示
@@ -64,12 +68,11 @@ function createMatPaginatorIntl() {
             z-index: 100;
         }
         ::ng-deep .mat-form-field {
-            font-size: 14px;
             width: 100%;
         }
     `]
 })
-export class TableWrapperComponent<T> implements OnInit {
+export class TableWrapperComponent<T extends ViewModel> implements OnInit {
     /**
      * 显示进度条
      */
@@ -79,9 +82,9 @@ export class TableWrapperComponent<T> implements OnInit {
      */
     private totalCount = 0;
     /**
-     * 数据源
+     * 是否自动加载，默认在初始化时自动加载数据，设置成false则手工加载
      */
-    dataSource: MatTableDataSource<T>;
+    @Input() autoLoad: boolean;
     /**
      * 最大高度
      */
@@ -103,13 +106,25 @@ export class TableWrapperComponent<T> implements OnInit {
      */
     @Input() pageSizeItems: number[];
     /**
-     * 请求地址
+    * 基地址，基于该地址构建请求和删除地址，范例：传入test,则请求地址为/api/test,删除地址为/api/test/delete
+    */
+    @Input() baseUrl: string;
+    /**
+     * 请求地址，如果设置了基地址baseUrl，则可以省略该参数
      */
     @Input() url: string;
     /**
      * 查询参数
      */
     @Input() queryParam: QueryParameter;
+    /**
+     * 数据源
+     */
+    dataSource: MatTableDataSource<T>;
+    /**
+     * 选中列表
+     */
+    selection = new SelectionModel<T>(true, []);
     /**
      * 分页组件
      */
@@ -129,17 +144,7 @@ export class TableWrapperComponent<T> implements OnInit {
         this.pageSizeItems = [20, 50, 100, 200, 500];
         this.dataSource = new MatTableDataSource<T>();
         this.loading = false;
-    }
-
-    /**
-     * 获取样式
-     */
-    private getStyle() {
-        return {
-            'max-height': `${this.maxHeight}px`,
-            'min-width': `${this.minWidth}px`,
-            'width': this.width ? `${this.width}px` : null
-        };
+        this.autoLoad = true;
     }
 
     /**
@@ -148,7 +153,8 @@ export class TableWrapperComponent<T> implements OnInit {
     ngOnInit() {
         this.initPaginator();
         this.initSort();
-        this.initTable();
+        if (this.autoLoad)
+            this.init();
     }
 
     /**
@@ -163,31 +169,6 @@ export class TableWrapperComponent<T> implements OnInit {
     }
 
     /**
-     * 初始化表格
-     */
-    private initTable() {
-        if (this.pageSizeItems && this.pageSizeItems.length > 0)
-            this.queryParam.pageSize = this.pageSizeItems[0];
-        this.query();
-    }
-
-    /**
-     * 发送查询请求
-     */
-    query() {
-        util.webapi.get<PagerList<T>>(this.url).data(this.queryParam).handle({
-            beforeHandler: () => { this.loading = true; return true; },
-            handler: result => {
-                result = new PagerList<T>(result);
-                result.initLineNumbers();
-                this.dataSource.data = result.data;
-                this.totalCount = result.totalCount;
-            },
-            completeHandler: () => this.loading = false
-        });
-    }
-    
-    /**
     * 初始化排序组件
     */
     private initSort() {
@@ -197,16 +178,122 @@ export class TableWrapperComponent<T> implements OnInit {
         });
     }
 
-    isAllSelected() {
-        //const numSelected = this.selection.selected.length;
-        //const numRows = this.dataSource.data.length;
-        //return numSelected === numRows;
+    /**
+     * 初始化
+     */
+    init() {
+        this.queryParam.page = 1;
+        if (this.pageSizeItems && this.pageSizeItems.length > 0)
+            this.queryParam.pageSize = this.pageSizeItems[0];
+        this.query();
     }
 
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    /**
+     * 刷新表格
+     */
+    refresh() {
+        this.query();
+    }
+
+    /**
+     * 发送查询请求
+     */
+    query() {
+        let url = this.url || `/api/${this.baseUrl}`;
+        webapi.get<PagerList<T>>(url).data(this.queryParam).handle({
+            beforeHandler: () => { this.loading = true; return true; },
+            handler: result => {
+                result = new PagerList<T>(result);
+                result.initLineNumbers();
+                this.dataSource.data = result.data;
+                this.paginator.pageIndex = result.page - 1;
+                this.totalCount = result.totalCount;
+                this.selection.clear();
+            },
+            completeHandler: () => this.loading = false
+        });
+    }
+
+    /**
+     * 获取样式
+     */
+    private getStyle() {
+        return {
+            'max-height': `${this.maxHeight}px`,
+            'min-width': `${this.minWidth}px`,
+            'width': this.width ? `${this.width}px` : null
+        };
+    }
+
+    /**
+     * 表头主复选框切换选中状态
+     */
     masterToggle() {
-        //this.isAllSelected() ?
-        //    this.selection.clear() :
-        //    this.dataSource.data.forEach(row => this.selection.select(row));
+        if (this.isMasterChecked()) {
+            this.selection.clear();
+            return;
+        }
+        this.dataSource.data.forEach(data => this.selection.select(data));
+    }
+
+    /**
+     * 表头主复选框的选中状态
+     */
+    isMasterChecked() {
+        return this.selection.hasValue() &&
+            this.isAllSelected() &&
+            this.selection.selected.length >= this.dataSource.data.length;
+    }
+
+    /**
+     * 是否所有行复选框被选中
+     */
+    private isAllSelected() {
+        return this.dataSource.data.every(data => this.selection.isSelected(data));
+    }
+
+    /**
+     * 表头主复选框的确定状态
+     */
+    isMasterIndeterminate() {
+        return this.selection.hasValue() && (!this.isAllSelected() || !this.dataSource.data.length);
+    }
+
+    /**
+     * 获取被选中实体列表
+     */
+    getSelected():T[] {
+        return this.dataSource.data.filter(data => this.selection.isSelected(data));
+    }
+
+    /**
+     * 获取被选中实体Id列表
+     */
+    getSelectedIds(): string {
+        return this.getSelected().map((value) => value.id).join(",");
+    }
+
+    /**
+     * 批量删除被选中实体
+     * @param handler 删除成功回调函数
+     * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
+     */
+    delete(handler?: () => {}, deleteUrl?: string ) {
+        let ids = this.getSelectedIds();
+        if (!ids) {
+            message.warn(config.deleteNotSelected);
+            return;
+        }
+        deleteUrl = deleteUrl || `/api/${this.baseUrl}/delete`;
+        webapi.post(deleteUrl).stringBody(ids).handle({
+            handler: () => {
+                if (handler) {
+                    handler();
+                    return;
+                }
+                message.success(config.deleteSuccessed);
+                this.refresh();
+            }
+        });
     }
 }

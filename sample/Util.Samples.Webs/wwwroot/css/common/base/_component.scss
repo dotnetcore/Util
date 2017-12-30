@@ -1,4 +1,20 @@
 ﻿//mat表格复选框
 .mat-column-selectCheckbox {
-    overflow: visible;
+    max-width: 48px;
+    overflow: inherit;
+}
+//mat表格序号
+.mat-column-lineNumber {
+    max-width: 48px;
+    justify-content: flex-end;
+}
+//mat表格行滑过样式
+.mat-row-hover {
+    position: relative;
+    &:hover {
+        background: #f5f5f5;
+    }
+    &:active {
+        background: #eaeaea;
+    }
 }

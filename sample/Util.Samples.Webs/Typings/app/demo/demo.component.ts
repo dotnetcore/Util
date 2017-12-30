@@ -1,5 +1,5 @@
 ﻿import { Component, ViewChild } from "@angular/core"
-import { util, QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
+import { util, ViewModel,QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
 
 @Component({
     selector: 'demo',
@@ -11,17 +11,15 @@ export class DemoComponent {
     sidenavOpen: Boolean = true;
     sidenavMode: string = 'side';
 
-    @ViewChild('grid') grid: TableWrapperComponent<any>;
+    @ViewChild('grid') grid: TableWrapperComponent<CustomerViewModel>;
 
 
-
+    delete() {
+        this.grid.delete();
+    }
 
     constructor() {
         this.queryParam = new CustomerQueryModel();
-    }
-
-    showSuccess() {
-        util.message.error("出错了","你好");
     }
 
     query() {
@@ -53,5 +51,9 @@ export class DemoComponent {
 
 
 class CustomerQueryModel extends QueryParameter {
+    public name: string;
+}
+
+class CustomerViewModel extends ViewModel {
     public name: string;
 }

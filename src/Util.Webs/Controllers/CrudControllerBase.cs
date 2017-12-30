@@ -97,9 +97,10 @@ namespace Util.Webs.Controllers {
         }
 
         /// <summary>
-        /// 删除，调用范例：DELETE URL(/api/customers/1 或 /api/customers/1,2,3)
+        /// 删除，调用范例：DELETE URL(/api/customers/1)，
+        /// 注意：该方法用于删除单个实体，批量删除请使用POST提交，否则可能失败
         /// </summary>
-        /// <param name="id">标识，多个Id用逗号分隔，范例：1,2,3</param>
+        /// <param name="id">标识</param>
         [HttpDelete( "{id}" )]
         public virtual async Task<IActionResult> DeleteAsync( string id ) {
             await _service.DeleteAsync( id );
@@ -107,12 +108,12 @@ namespace Util.Webs.Controllers {
         }
 
         /// <summary>
-        /// 删除，调用范例：POST URL(/api/customers/delete) BODY("'1,2,3'"),
+        /// 批量删除，调用范例：POST URL(/api/customers/delete) BODY("'1,2,3'"),
         /// 注意：body参数需要添加引号，"'1,2,3'"而不是"1,2,3"
         /// </summary>
         /// <param name="ids">标识列表，多个Id用逗号分隔，范例：1,2,3</param>
         [HttpPost( "delete" )]
-        public virtual async Task<IActionResult> DeleteByPostAsync( [FromBody] string ids ) {
+        public virtual async Task<IActionResult> BatchDeleteAsync( [FromBody] string ids ) {
             await _service.DeleteAsync( ids );
             return Success();
         }
