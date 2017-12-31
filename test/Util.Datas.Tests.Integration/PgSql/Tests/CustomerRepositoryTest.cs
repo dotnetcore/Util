@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Util.Datas.Ef;
 using Util.Datas.Queries;
+using Util.Datas.Tests.PgSql.Configs;
 using Util.Datas.Tests.Samples.Datas.Criterias;
 using Util.Datas.Tests.Samples.Datas.PgSql.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
-using Util.Datas.Tests.SqlServer.Configs;
 using Util.Dependency;
 using Util.Helpers;
 using Xunit;
@@ -38,7 +38,7 @@ namespace Util.Datas.Tests.PgSql.Tests {
         /// 测试初始化
         /// </summary>
         public CustomerRepositoryTest() {
-            _scope = Ioc.BeginScope();
+            _scope = AppConfig.Container.BeginScope();
             _unitOfWork = _scope.Create<IPgSqlUnitOfWork>();
             _customerRepository = _scope.Create<ICustomerRepository>();
         }

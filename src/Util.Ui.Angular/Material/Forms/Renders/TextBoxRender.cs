@@ -23,7 +23,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 初始化文本框渲染器
         /// </summary>
         /// <param name="config">文本框配置</param>
-        public TextBoxRender( TextBoxConfig config ) {
+        public TextBoxRender( TextBoxConfig config ) : base( config ){
             _config = config;
         }
 

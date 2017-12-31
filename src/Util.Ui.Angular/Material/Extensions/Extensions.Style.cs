@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
-using Util.Ui.Material.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Operations.Styles;
 
@@ -19,7 +18,7 @@ namespace Util.Ui.Material.Extensions {
         public static TComponent Color<TComponent>( this TComponent component,Color color ) where TComponent : IComponent,IColor {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( MaterialConst.Color, color.ToString().ToLower() );
+                config.SetAttribute( UiConst.Color, color.ToString().ToLower() );
             } );
             return component;
         }

@@ -19,7 +19,7 @@ namespace Util.Ui.Material.Icons.Renders {
         /// 初始化图标渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public IconRender( IConfig config ) {
+        public IconRender( IConfig config ) : base( config ){
             _config = config;
         }
 

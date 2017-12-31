@@ -1,6 +1,6 @@
 ﻿import { HttpErrorResponse } from '@angular/common/http';
 import { Result, FailResult, StateCode } from '../core/result';
-import { HttpHelper, HttpRequest, HttpBodyRequest, HttpContentType } from '../angular/http-helper';
+import { HttpHelper, HttpRequest, HttpContentType } from '../angular/http-helper';
 import { Message } from './message';
 
 /**
@@ -18,17 +18,19 @@ export class WebApi {
     /**
      * post请求
      * @param url 请求地址
+     * @param body Http主体
      */
-    static post<T>(url: string): WebApiBodyRequest<T> {
-        return new WebApiBodyRequest<T>(HttpHelper.post<Result<T>>(url));
+    static post<T>(url: string, body?): WebApiRequest<T> {
+        return new WebApiRequest<T>(HttpHelper.post<Result<T>>(url, body));
     }
 
     /**
      * put请求
      * @param url 请求地址
+     * @param body Http主体
      */
-    static put<T>(url: string): WebApiBodyRequest<T> {
-        return new WebApiBodyRequest<T>(HttpHelper.put<Result<T>>(url));
+    static put<T>(url: string, body?): WebApiRequest<T> {
+        return new WebApiRequest<T>(HttpHelper.put<Result<T>>(url, body));
     }
 
     /**
@@ -162,37 +164,6 @@ export class WebApiRequest<T> {
         let error = failResult.errorResponse;
         return `Http请求异常：\nUrl:${error.url}\n状态码:${error.status},${error.statusText}\n`
             + `错误消息:${error.message}\n错误响应:\n ${error.error.text}\n`;
-    }
-}
-
-/**
- * WebApi请求操作
- */
-export class WebApiBodyRequest<T> extends WebApiRequest<T>{
-    /**
-     * 初始化WebApi请求操作
-     * @param request Http请求操作
-     */
-    constructor(private httpRequest: HttpBodyRequest<Result<T>>) {
-        super(httpRequest);
-    }
-
-    /**
-     * 添加Http主体
-     * @param value 值
-     */
-    body(value): WebApiBodyRequest<T> {
-        this.httpRequest.body(value);
-        return this;
-    }
-
-    /**
-     * 添加字符串类型的Http主体
-     * @param value 值
-     */
-    stringBody(value: string): WebApiBodyRequest<T> {
-        this.httpRequest.stringBody(value);
-        return this;
     }
 }
 

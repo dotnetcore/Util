@@ -4,6 +4,7 @@ using System.Text.Encodings.Web;
 using Util.Helpers;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Forms;
+using Util.Webs;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
@@ -20,8 +21,7 @@ namespace Util.Ui.Tests.Material.Forms {
         /// <summary>
         /// 单引号
         /// </summary>
-        public const string SingleQuotes = "&#x27;";
-
+        public const string Quote = HtmlEscape.SingleQuote27;
         /// <summary>
         /// 文本框
         /// </summary>
@@ -181,7 +181,7 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-form-field>" );
             result.Append( "<input #m_id=\"ngModel\" matInput=\"matInput\" required=\"true\" />" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {SingleQuotes}required{SingleQuotes} )\">a</mat-error>" );
+            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}required{Quote} )\">a</mat-error>" );
             result.Append( "</mat-form-field>" );
             Assert.Equal( result.ToString(), GetResult( _textBox.Required("a") ) );
         }
@@ -206,7 +206,7 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-form-field>" );
             result.Append( "<input #m_id=\"ngModel\" matInput=\"matInput\" minlength=\"3\" />" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {SingleQuotes}minlength{SingleQuotes} )\">a</mat-error>" );
+            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}minlength{Quote} )\">a</mat-error>" );
             result.Append( "</mat-form-field>" );
             Assert.Equal( result.ToString(), GetResult( _textBox.MinLength( 3,"a" ) ) );
         }
@@ -219,8 +219,8 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-form-field>" );
             result.Append( "<input #m_id=\"ngModel\" matInput=\"matInput\" minlength=\"3\" required=\"true\" />" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {SingleQuotes}required{SingleQuotes} )\">a</mat-error>" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {SingleQuotes}minlength{SingleQuotes} )\">b</mat-error>" );
+            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}required{Quote} )\">a</mat-error>" );
+            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}minlength{Quote} )\">b</mat-error>" );
             result.Append( "</mat-form-field>" );
             Assert.Equal( result.ToString(), GetResult( _textBox.Required( "a" ).MinLength( 3,"b" ) ) );
         }

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
 using Util.Helpers;
+using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Icons;
@@ -27,6 +28,7 @@ namespace Util.Ui.Tests.Material.Icons {
         public IconTest( ITestOutputHelper output ) {
             _output = output;
             _icon = new Icon();
+            Config.IsValidate = false;
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace Util.Datas.Tests.PgSql.Configs {
         /// 测试初始化
         /// </summary>
         public GlobalFixture() {
-            Ioc.Register( new IocConfig() );
+            AppConfig.Container = Ioc.CreateContainer( new IocConfig() );
         }
     }
 }

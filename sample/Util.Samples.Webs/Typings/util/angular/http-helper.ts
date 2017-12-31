@@ -17,17 +17,19 @@ export class HttpHelper {
     /**
      * post请求
      * @param url 请求地址
+     * @param body Http主体
      */
-    static post<T>(url: string): HttpBodyRequest<T> {
-        return new HttpBodyRequest<T>(HttpMethod.Post, url);
+    static post<T>(url: string, body?): HttpRequest<T> {
+        return new HttpRequest<T>(HttpMethod.Post, url, body);
     }
 
     /**
      * put请求
      * @param url 请求地址
+     * @param body Http主体
      */
-    static put<T>(url: string): HttpBodyRequest<T> {
-        return new HttpBodyRequest<T>(HttpMethod.Put, url);
+    static put<T>(url: string, body?): HttpRequest<T> {
+        return new HttpRequest<T>(HttpMethod.Put, url, body);
     }
 
     /**
@@ -60,8 +62,9 @@ export class HttpRequest<T> {
      * 初始化Http请求操作
      * @param httpMethod Http方法
      * @param url 请求地址
+     * @param body Http主体
      */
-    constructor(private httpMethod: HttpMethod, private url: string) {
+    constructor(private httpMethod: HttpMethod, private url: string, private body?) {
         this.headers = new HttpHeaders();
         this.parameters = new HttpParams();
     }
@@ -144,7 +147,10 @@ export class HttpRequest<T> {
     /**
      * 获取body
      */
-    protected getBody() {
+    private getBody() {
+        if (typeof this.body === "string")
+            return JSON.stringify(this.body);
+        return this.body;
     }
 
     /**
@@ -160,56 +166,13 @@ export class HttpRequest<T> {
      */
     private getContentType(contentType: HttpContentType) {
         switch (contentType) {
-        case HttpContentType.FormUrlEncoded:
-            return "application/x-www-form-urlencoded";
-        case HttpContentType.Json:
-            return "application/json";
-        default:
-            return "application/json";
+            case HttpContentType.FormUrlEncoded:
+                return "application/x-www-form-urlencoded";
+            case HttpContentType.Json:
+                return "application/json";
+            default:
+                return "application/json";
         }
-    }
-}
-
-/**
- * Http请求操作
- */
-export class HttpBodyRequest<T> extends HttpRequest<T>{
-    /**
-     * 初始化Http请求操作
-     * @param httpMethod Http方法
-     * @param url 请求地址
-     */
-    constructor( httpMethod: HttpMethod, url: string) {
-        super(httpMethod, url);
-    }
-
-    /**
-     * Http主体
-     */
-    private httpBody;
-
-    /**
-     * 添加Http主体
-     * @param value 值
-     */
-    body(value): HttpBodyRequest<T> {
-        this.httpBody = value;
-        return this;
-    }
-
-    /**
-     * 添加字符串类型的Http主体
-     * @param value 值
-     */
-    stringBody(value: string): HttpBodyRequest<T> {
-        return this.body(JSON.stringify(value));
-    }
-
-    /**
-     * 获取body
-     */
-    protected getBody() {
-        return this.httpBody;
     }
 }
 

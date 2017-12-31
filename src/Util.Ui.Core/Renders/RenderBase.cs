@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
 using Util.Ui.Builders;
+using Util.Ui.Configs;
 
 namespace Util.Ui.Renders {
     /// <summary>
@@ -11,6 +12,18 @@ namespace Util.Ui.Renders {
         /// 标签生成器
         /// </summary>
         private ITagBuilder _builder;
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private readonly IConfig _config;
+
+        /// <summary>
+        /// 初始化渲染器
+        /// </summary>
+        /// <param name="config">配置</param>
+        protected RenderBase( IConfig config ) {
+            _config = config;
+        }
 
         /// <summary>
         /// 标签生成器
@@ -35,7 +48,8 @@ namespace Util.Ui.Renders {
         /// 输出组件Html
         /// </summary>
         public override string ToString() {
-            return Builder.ToString();
+            var validateMessage = _config.Validate();
+            return string.IsNullOrWhiteSpace( validateMessage ) ? Builder.ToString() : $"验证失败：{validateMessage}";
         }
     }
 }

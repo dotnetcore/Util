@@ -8,13 +8,13 @@ namespace Util.Ui.Configs {
     /// </summary>
     public interface IConfig {
         /// <summary>
-        /// 属性集合
+        /// 全部属性集合
         /// </summary>
-        TagHelperAttributeList Attributes { get; }
+        TagHelperAttributeList AllAttributes { get; }
         /// <summary>
-        /// 其它属性集合
+        /// 输出属性集合，TagHelper中未明确定义的属性从该集合获取
         /// </summary>
-        TagHelperAttributeList OtherAttributes { get; }
+        TagHelperAttributeList OutputAttributes { get; }
         /// <summary>
         /// 内容
         /// </summary>
@@ -54,5 +54,9 @@ namespace Util.Ui.Configs {
         /// 获取类列表
         /// </summary>
         List<string> GetClassList();
+        /// <summary>
+        /// 验证
+        /// </summary>
+        string Validate();
     }
 }

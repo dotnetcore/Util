@@ -19,7 +19,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Attribute<TComponent>( this TComponent component, string name, string value ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.OtherAttributes.Add( name, value );
+                config.OutputAttributes.Add( name, value );
             } );
             return component;
         }
@@ -33,7 +33,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Attribute<TComponent>( this TComponent component, string value ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.OtherAttributes.Add( value, null );
+                config.OutputAttributes.Add( value, null );
             } );
             return component;
         }
@@ -61,7 +61,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Style<TComponent>( this TComponent component, string style ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.OtherAttributes.Add( UiConst.Style, style );
+                config.OutputAttributes.Add( UiConst.Style, style );
             } );
             return component;
         }
@@ -75,7 +75,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Id<TComponent>( this TComponent component, string id ) where TComponent : IOption {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Attributes.Add( UiConst.Id, id );
+                config.AllAttributes.Add( UiConst.Id, id );
             } );
             return component;
         }
@@ -146,7 +146,7 @@ namespace Util.Ui.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 if( disabled )
-                    config.Attributes.Add( UiConst.Disabled, "disabled" );
+                    config.AllAttributes.Add( UiConst.Disabled, "disabled" );
                 else
                     config.Remove( UiConst.Disabled );
             } );

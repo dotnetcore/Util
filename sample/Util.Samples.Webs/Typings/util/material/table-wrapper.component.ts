@@ -13,7 +13,7 @@ import { MessageConfig as config } from "../config/message-config";
  */
 function createMatPaginatorIntl() {
     let result = new MatPaginatorIntl();
-    result.itemsPerPageLabel = "每页显示";
+    result.itemsPerPageLabel = "每页";
     result.nextPageLabel = "下一页";
     result.previousPageLabel = "上一页";
     result.getRangeLabel = (page: number, pageSize: number, length: number) => {
@@ -21,7 +21,7 @@ function createMatPaginatorIntl() {
         length = Math.max(length, 0);
         const startIndex = page * pageSize;
         const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-        return `当前显示：${startIndex + 1} - ${endIndex}，总数: ${length}`;
+        return `当前：${startIndex + 1} - ${endIndex}，共: ${length}`;
     };
     return result;
 }
@@ -126,13 +126,13 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      */
     selection = new SelectionModel<T>(true, []);
     /**
-     * 分页组件
-     */
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    /**
      * 排序组件
      */
     @ContentChild(MatSort) sort: MatSort;
+    /**
+     * 分页组件
+     */
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     /**
      * 初始化Mat表格包装器
@@ -294,7 +294,7 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      */
     private deleteRequest(ids: string, handler?: () => {}, deleteUrl?: string) {
         deleteUrl = deleteUrl || `/api/${this.baseUrl}/delete`;
-        webapi.post(deleteUrl).stringBody(ids).handle({
+        webapi.post(deleteUrl, ids).handle({
             handler: () => {
                 if (handler) {
                     handler();

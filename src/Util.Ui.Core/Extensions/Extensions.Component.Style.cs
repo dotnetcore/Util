@@ -18,7 +18,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Plain<TComponent>( this TComponent component, bool isPlain = true ) where TComponent : IComponent,IPlain {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Attributes.SetAttribute( new TagHelperAttribute( UiConst.Plain, isPlain.SafeString() ) );
+                config.AllAttributes.SetAttribute( new TagHelperAttribute( UiConst.Plain, isPlain.SafeString() ) );
             } );
             return component;
         }

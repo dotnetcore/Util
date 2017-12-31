@@ -4,8 +4,10 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
+using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.TagHelpers;
 using Util.Ui.Material.Enums;
+using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
@@ -22,28 +24,21 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// <summary>
         /// 按钮
         /// </summary>
-        private readonly ButtonTagHelper _button;
+        private readonly ButtonTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public ButtonTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _button = new ButtonTagHelper();
+            _component = new ButtonTagHelper();
         }
 
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( ButtonTagHelper button, TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
-            var context = new TagHelperContext( "", contextAttributes ?? new TagHelperAttributeList(), new Dictionary<object, object>(), Id.Guid() );
-            var output = new TagHelperOutput( "", outputAttributes ?? new TagHelperAttributeList(), ( useCachedResult, encoder ) => Task.FromResult( content ?? new DefaultTagHelperContent() ) );
-            button.Process( context, output );
-            var writer = new StringWriter();
-            output.WriteTo( writer, HtmlEncoder.Default );
-            var result = writer.ToString();
-            _output.WriteLine( result );
-            return result;
+        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
+            return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content );
         }
 
         /// <summary>
@@ -53,7 +48,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestDefault() {
             var result = new String();
             result.Append( "<button mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button ) );
+            Assert.Equal( result.ToString(), GetResult() );
         }
 
         /// <summary>
@@ -64,7 +59,7 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { "a", "" } };
             var result = new String();
             result.Append( "<button a=\"\" mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button, outputAttributes: attributes ) );
+            Assert.Equal( result.ToString(), GetResult( outputAttributes: attributes ) );
         }
 
         /// <summary>
@@ -75,7 +70,7 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { "a", "1" } };
             var result = new String();
             result.Append( "<button a=\"1\" mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button, outputAttributes: attributes ) );
+            Assert.Equal( result.ToString(), GetResult( outputAttributes: attributes ) );
         }
 
         /// <summary>
@@ -83,11 +78,11 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         [Fact]
         public void TestAttribute_3() {
-            var contextAttributes = new TagHelperAttributeList { { "id", "1" }, { "a", "2" } };
+            var contextAttributes = new TagHelperAttributeList { { UiConst.Id, "1" }, { "a", "2" } };
             var outputAttributes = new TagHelperAttributeList { { "a", "2" } };
             var result = new String();
             result.Append( "<button a=\"2\" id=\"1\" mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button, contextAttributes, outputAttributes ) );
+            Assert.Equal( result.ToString(), GetResult( contextAttributes, outputAttributes ) );
         }
 
         /// <summary>
@@ -95,10 +90,10 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         [Fact]
         public void TestId() {
-            var attributes = new TagHelperAttributeList { { "id", "a" } };
+            var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<button id=\"a\" mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -110,7 +105,7 @@ namespace Util.Ui.Tests.Material.Buttons {
             content.SetContent( "a" );
             var result = new String();
             result.Append( "<button mat-raised-button=\"mat-raised-button\">a</button>" );
-            Assert.Equal( result.ToString(), GetResult( _button,content: content ) );
+            Assert.Equal( result.ToString(), GetResult( content: content ) );
         }
 
         /// <summary>
@@ -118,10 +113,10 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         [Fact]
         public void TestPlain() {
-            var attributes = new TagHelperAttributeList { { "asp-plain", "true" } };
+            var attributes = new TagHelperAttributeList { { UiConst.Plain, "true" } };
             var result = new String();
             result.Append( "<button mat-button=\"mat-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -129,10 +124,10 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         [Fact]
         public void TestColor() {
-            var attributes = new TagHelperAttributeList { { "asp-color", Color.Primary } };
+            var attributes = new TagHelperAttributeList { { UiConst.Color, Color.Primary } };
             var result = new String();
             result.Append( "<button color=\"primary\" mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -140,10 +135,10 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         [Fact]
         public void TestOnClick() {
-            var attributes = new TagHelperAttributeList { { "asp-click", "a" } };
+            var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
             var result = new String();
             result.Append( "<button (click)=\"a\" mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
 }

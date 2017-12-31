@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Icons.TagHelpers;
+using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -22,28 +19,21 @@ namespace Util.Ui.Tests.Material.Icons {
         /// <summary>
         /// 图标
         /// </summary>
-        private readonly IconTagHelper _icon;
+        private readonly IconTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public IconTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _icon = new IconTagHelper();
+            _component = new IconTagHelper();
         }
 
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( IconTagHelper icon, TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
-            var context = new TagHelperContext( "", contextAttributes ?? new TagHelperAttributeList(), new Dictionary<object, object>(), Id.Guid() );
-            var output = new TagHelperOutput( "", outputAttributes ?? new TagHelperAttributeList(), ( useCachedResult, encoder ) => Task.FromResult( content ?? new DefaultTagHelperContent() ) );
-            icon.Process( context, output );
-            var writer = new StringWriter();
-            output.WriteTo( writer, HtmlEncoder.Default );
-            var result = writer.ToString();
-            _output.WriteLine( result );
-            return result;
+        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
+            return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content );
         }
 
         /// <summary>
@@ -51,7 +41,7 @@ namespace Util.Ui.Tests.Material.Icons {
         /// </summary>
         [Fact]
         public void TestDefault() {
-            Assert.Empty( GetResult( _icon ) );
+            Assert.Empty( GetResult() );
         }
 
         /// <summary>
@@ -62,7 +52,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
             var result = new String();
             result.Append( "<i class=\"fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -74,7 +64,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var outputAttributes = new TagHelperAttributeList { { "a", "1" } };
             var result = new String();
             result.Append( "<i a=\"1\" class=\"fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, contextAttributes, outputAttributes ) );
+            Assert.Equal( result.ToString(), GetResult( contextAttributes, outputAttributes ) );
         }
 
         /// <summary>
@@ -86,7 +76,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var outputAttributes = new TagHelperAttributeList { { "class", "a" } };
             var result = new String();
             result.Append( "<i class=\"a fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, contextAttributes, outputAttributes ) );
+            Assert.Equal( result.ToString(), GetResult( contextAttributes, outputAttributes ) );
         }
 
         /// <summary>
@@ -98,7 +88,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var outputAttributes = new TagHelperAttributeList { { "class", "a" } };
             var result = new String();
             result.Append( "<mat-icon class=\"a\">android</mat-icon>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, contextAttributes, outputAttributes ) );
+            Assert.Equal( result.ToString(), GetResult( contextAttributes, outputAttributes ) );
         }
 
         /// <summary>
@@ -110,7 +100,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var outputAttributes = new TagHelperAttributeList { { "style", "a" } };
             var result = new String();
             result.Append( "<mat-icon style=\"a\">android</mat-icon>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, contextAttributes, outputAttributes ) );
+            Assert.Equal( result.ToString(), GetResult( contextAttributes, outputAttributes ) );
         }
 
         /// <summary>
@@ -121,7 +111,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { "id", "a" }, { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
             var result = new String();
             result.Append( "<i class=\"fa fa-android\" id=\"a\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -132,7 +122,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.MaterialIcon, MaterialIcon.Android } };
             var result = new String();
             result.Append( "<mat-icon>android</mat-icon>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -143,7 +133,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.Size, IconSize.Large2X }, { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
             var result = new String();
             result.Append( "<i class=\"fa-2x fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -154,7 +144,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.Size, IconSize.Large2X }, { UiConst.MaterialIcon, MaterialIcon.Android } };
             var result = new String();
             result.Append( "<mat-icon class=\"fa-2x\">android</mat-icon>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -165,7 +155,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.Spin, true }, { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
             var result = new String();
             result.Append( "<i class=\"fa-spin fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -176,7 +166,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.Spin, false }, { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
             var result = new String();
             result.Append( "<i class=\"fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -187,7 +177,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.Spin, true }, { UiConst.MaterialIcon, MaterialIcon.Android } };
             var result = new String();
             result.Append( "<mat-icon class=\"fa-spin\">android</mat-icon>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -198,7 +188,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.Rotate, RotateType.Rotate180 }, { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
             var result = new String();
             result.Append( "<i class=\"fa-rotate-180 fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -209,7 +199,7 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.Rotate, RotateType.Rotate180 }, { UiConst.MaterialIcon, MaterialIcon.Android } };
             var result = new String();
             result.Append( "<mat-icon class=\"fa-rotate-180\">android</mat-icon>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -223,7 +213,7 @@ namespace Util.Ui.Tests.Material.Icons {
             result.Append( "<i class=\"fa-stack-2x fa fa-square-o\"></i>" );
             result.Append( "<i class=\"fa-stack-1x fa fa-twitter\"></i>" );
             result.Append( "</span>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -241,7 +231,7 @@ namespace Util.Ui.Tests.Material.Icons {
             result.Append( "<i class=\"fa-stack-2x fa fa-square-o\"></i>" );
             result.Append( "<i class=\"a fa-stack-1x fa fa-twitter\"></i>" );
             result.Append( "</span>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -259,7 +249,7 @@ namespace Util.Ui.Tests.Material.Icons {
             result.Append( "<i class=\"fa-stack-2x fa fa-square-o\"></i>" );
             result.Append( "<i class=\"fa-stack-1x fa fa-twitter\"></i>" );
             result.Append( "</span>" );
-            Assert.Equal( result.ToString(), GetResult( _icon, attributes ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
 }

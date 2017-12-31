@@ -21,30 +21,35 @@ namespace Util.Ui.Configs {
         /// <summary>
         /// 初始化配置
         /// </summary>
-        /// <param name="attributes">属性集合</param>
-        /// <param name="otherAttributes">其它属性集合</param>
+        /// <param name="allAttributes">全部属性集合</param>
+        /// <param name="outputAttributes">输出属性集合，TagHelper中未明确定义的属性从该集合获取</param>
         /// <param name="content">内容</param>
-        public Config( TagHelperAttributeList attributes, TagHelperAttributeList otherAttributes, IHtmlContent content ) {
+        public Config( TagHelperAttributeList allAttributes, TagHelperAttributeList outputAttributes, IHtmlContent content ) {
             _classList = new List<string>();
-            Attributes = attributes;
-            OtherAttributes = otherAttributes;
+            AllAttributes = allAttributes;
+            OutputAttributes = outputAttributes;
             Content = content;
         }
 
         /// <summary>
-        /// 属性集合
+        /// 全部属性集合
         /// </summary>
-        public TagHelperAttributeList Attributes { get; }
+        public TagHelperAttributeList AllAttributes { get; }
 
         /// <summary>
-        /// 其它属性集合
+        /// 输出属性集合，TagHelper中未明确定义的属性从该集合获取
         /// </summary>
-        public TagHelperAttributeList OtherAttributes { get; }
+        public TagHelperAttributeList OutputAttributes { get; }
 
         /// <summary>
         /// 内容
         /// </summary>
         public IHtmlContent Content { get; set; }
+
+        /// <summary>
+        /// 是否验证
+        /// </summary>
+        public static bool IsValidate { get; set; } = true;
 
         /// <summary>
         /// 名称
@@ -96,7 +101,7 @@ namespace Util.Ui.Configs {
         /// </summary>
         /// <param name="name">属性名</param>
         public bool Contains( string name ) {
-            return Attributes.ContainsName( name );
+            return AllAttributes.ContainsName( name );
         }
 
         /// <summary>
@@ -104,7 +109,7 @@ namespace Util.Ui.Configs {
         /// </summary>
         /// <param name="name">属性名</param>
         public string GetValue( string name ) {
-            return Contains( name ) ? Attributes[name].Value.SafeString() : string.Empty;
+            return Contains( name ) ? AllAttributes[name].Value.SafeString() : string.Empty;
         }
 
         /// <summary>
@@ -122,7 +127,7 @@ namespace Util.Ui.Configs {
         /// <param name="name">属性名</param>
         /// <param name="value">值</param>
         public void SetAttribute( string name,object value ) {
-            Attributes.SetAttribute( new TagHelperAttribute( name,value ) );
+            AllAttributes.SetAttribute( new TagHelperAttribute( name,value ) );
         }
 
         /// <summary>
@@ -130,7 +135,7 @@ namespace Util.Ui.Configs {
         /// </summary>
         /// <param name="name">属性名</param>
         public void Remove( string name ) {
-            Attributes.RemoveAll( name );
+            AllAttributes.RemoveAll( name );
         }
 
         /// <summary>
@@ -149,6 +154,22 @@ namespace Util.Ui.Configs {
         /// </summary>
         public List<string> GetClassList() {
             return _classList;
+        }
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        public string Validate() {
+            if ( IsValidate )
+                return GetValidateMessage();
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 获取验证消息
+        /// </summary>
+        public virtual string GetValidateMessage() {
+            return string.Empty;
         }
     }
 }

@@ -1,8 +1,14 @@
-﻿namespace Util.Datas.Tests.PgSql.Configs {
+﻿using Util.Dependency;
+
+namespace Util.Datas.Tests.PgSql.Configs {
     /// <summary>
     /// 测试应用程序配置
     /// </summary>
     public static class AppConfig {
+        /// <summary>
+        /// PgSql测试容器
+        /// </summary>
+        public static IContainer Container { get; set; }
         /// <summary>
         /// 连接字符串
         /// </summary>

@@ -7,10 +7,10 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Buttons.TagHelpers {
     /// <summary>
-    /// 按钮TagHelper
+    /// 按钮
     /// </summary>
-    [HtmlTargetElement("button")]
-    [HtmlTargetElement( "a" )]
+    [HtmlTargetElement("util-button")]
+    [HtmlTargetElement( "util-a" )]
     public class ButtonTagHelper : ButtonTagHelperBase {
         /// <summary>
         /// 颜色
@@ -22,7 +22,7 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new ButtonRender( new Config( context.Attributes, context.OtherAttributes, context.Content ) );
+            return new ButtonRender( new Config( context.AllAttributes, context.OutputAttributes, context.Content ) );
         }
     }
 }

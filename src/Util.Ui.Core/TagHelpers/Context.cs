@@ -13,20 +13,20 @@ namespace Util.Ui.TagHelpers {
         /// <param name="output">TagHelper输出</param>
         /// <param name="content">内容</param>
         public Context( TagHelperContext context, TagHelperOutput output, IHtmlContent content ) {
-            Attributes = new TagHelperAttributeList( context.AllAttributes ) ;
-            OtherAttributes = output.Attributes;
+            AllAttributes = new TagHelperAttributeList( context.AllAttributes ) ;
+            OutputAttributes = output.Attributes;
             Content = content;
         }
-        
-        /// <summary>
-        /// 属性集合，包含全部属性
-        /// </summary>
-        public TagHelperAttributeList Attributes { get; }
 
         /// <summary>
-        /// 属性集合，在TagHelper中未明确定义的属性放入该集合
+        /// 全部属性集合
         /// </summary>
-        public TagHelperAttributeList OtherAttributes { get; }
+        public TagHelperAttributeList AllAttributes { get; }
+
+        /// <summary>
+        /// 输出属性集合，TagHelper中未明确定义的属性从该集合获取
+        /// </summary>
+        public TagHelperAttributeList OutputAttributes { get; }
 
         /// <summary>
         /// 内容

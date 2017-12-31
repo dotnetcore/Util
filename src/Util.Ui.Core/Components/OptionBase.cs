@@ -10,9 +10,9 @@ namespace Util.Ui.Components {
     /// </summary>
     public abstract class OptionBase : IOption, IOptionConfig {
         /// <summary>
-        /// 控件跟踪日志名
+        /// 跟踪日志名
         /// </summary>
-        public const string TraceLogName = "UiControlTraceLog";
+        public const string TraceLogName = "UiTraceLog";
 
         /// <summary>
         /// 配置

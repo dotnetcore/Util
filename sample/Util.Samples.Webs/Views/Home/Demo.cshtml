@@ -10,11 +10,58 @@
         <button class="spam" mat-icon-button matTooltip="修改">
             <mat-icon>edit</mat-icon>
         </button>
-        <button class="delete" mat-icon-button matTooltip="删除">
+        <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
             <mat-icon>delete</mat-icon>
         </button>
-        @Html.Ui().Button( "全部删除" ).OnClick( "delete()" )
     </div>
+</div>
+
+<div style="width: 300px">
+
+    <mat-form-field>
+        <mat-select>
+            <mat-option></mat-option>
+            <mat-option value="1">A</mat-option>
+            <mat-option value="2">B</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field floatPlaceholder="never">
+        <mat-select placeholder="应用程序" [(ngModel)]="model.a" #select2="matSelect" name="BB" required="true" #selectModel2="ngModel" [disabled]="false" [multiple]="true">
+            <mat-select-trigger>应用程序: {{ select2.triggerValue }}</mat-select-trigger>
+            <mat-option></mat-option>
+            <mat-option value="1">A</mat-option>
+            <mat-option value="2">B</mat-option>
+            <mat-option value="3">C</mat-option>
+            <mat-option value="4">D</mat-option>
+            <mat-option value="5">E</mat-option>
+        </mat-select>
+        <mat-error *ngIf="selectModel2?.hasError( 'required' )">必填项</mat-error>
+    </mat-form-field>
+
+    <mat-form-field floatPlaceholder="never">
+        <mat-select placeholder="应用程序" [(ngModel)]="model.value" #select="matSelect" name="a" required="true" #selectModel="ngModel" [disabled]="false" [multiple]="true">
+            <mat-select-trigger>应用程序: {{ select.triggerValue }}</mat-select-trigger>
+            <mat-option></mat-option>
+            <mat-option *ngFor="let item of foods" [value]="item.value" [disabled]="item.disabled">
+                {{ item.viewValue }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="selectModel?.hasError( 'required' )">必填项</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-select placeholder="Pokemon">
+            <mat-option>-- None --</mat-option>
+            <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"
+                          [disabled]="group.disabled">
+                <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
+                    {{ pokemon.viewValue }}
+                </mat-option>
+            </mat-optgroup>
+        </mat-select>
+    </mat-form-field>
 </div>
 @*<div>
     <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>

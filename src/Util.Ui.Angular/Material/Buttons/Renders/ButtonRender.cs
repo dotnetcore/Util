@@ -3,7 +3,6 @@ using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.Builders;
 using Util.Ui.Renders;
 using Util.Ui.Extensions;
-using Util.Ui.Material.Configs;
 
 namespace Util.Ui.Material.Buttons.Renders {
     /// <summary>
@@ -19,7 +18,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 初始化按钮渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ButtonRender( IConfig config ) {
+        public ButtonRender( IConfig config ) : base( config ){
             _config = config;
         }
 
@@ -32,7 +31,7 @@ namespace Util.Ui.Material.Buttons.Renders {
             builder.Id( _config );
             builder.Text( _config );
             SetPlainStyle( builder );
-            builder.AddAttribute( "color", _config.GetValue( MaterialConst.Color ).ToLower() );
+            builder.AddAttribute( "color", _config.GetValue( UiConst.Color ).ToLower() );
             SetDisabled( builder );
             SetEvents( builder );
             return builder;

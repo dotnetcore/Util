@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Util.Helpers;
+using Util.Webs.Filters;
 
 namespace Util.Samples.Webs.Controllers {
     public class HomeController : Controller {
@@ -11,7 +12,7 @@ namespace Util.Samples.Webs.Controllers {
             return View();
         }
 
-        public IActionResult A() {
+        public IActionResult Demo() {
             return View();
         }
 
