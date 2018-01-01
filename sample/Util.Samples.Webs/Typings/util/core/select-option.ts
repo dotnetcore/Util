@@ -17,12 +17,7 @@ export class SelectOption {
  */
 export class SelectOptionGroup {
     /**
-     * 是否组
-     */
-    isGroup: boolean = true;
-
-    /**
-     * 初始化下拉列表项
+     * 初始化下拉列表组
      * @param text 文本
      * @param value 值
      * @param disabled 禁用

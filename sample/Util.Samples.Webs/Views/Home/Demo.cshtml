@@ -27,9 +27,9 @@
         { value: '7', text: 'aa' },
         { value: '8', text: 'bb' },
         { value: '9', text: 'cc' }
-    ]"></mat-select-wrapper>
-    
-
+    ]" [(model)]="model.name"></mat-select-wrapper>
+    {{model.name}}
+    <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哈哈" [dataSource]="testGroup" [isGroup]="true"></mat-select-wrapper>
 
 
     <mat-form-field floatPlaceholder="never">

@@ -83,6 +83,25 @@ export class DemoComponent {
             ]
         }
     ];
+
+    testGroup = [
+        {
+            text: 'Grass',
+            value: [
+                { value: 'bulbasaur-0', text: 'Bulbasaur' },
+                { value: 'oddish-1', text: 'Oddish' },
+                { value: 'bellsprout-2', text: 'Bellsprout', disabled: true }
+            ]
+        },
+        {
+            text: 'Water',
+            value: [
+                { value: 'squirtle-3', text: 'Squirtle' },
+                { value: 'psyduck-4', text: 'Psyduck' },
+                { value: 'horsea-5', text: 'Horsea' }
+            ]
+        }
+    ];
 }
 
 

@@ -1,5 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule, MatPaginatorModule, MatSelectModule } from '@angular/material';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/primeng';
@@ -10,7 +11,7 @@ import { SelectWrapperComponent } from './material/select-wrapper.component';
  * Util模块
  */
 @NgModule({
-    imports: [CommonModule, MatProgressSpinnerModule, MatPaginatorModule, MatSelectModule],
+    imports: [CommonModule, FormsModule, MatProgressSpinnerModule, MatPaginatorModule, MatSelectModule],
     declarations: [TableWrapperComponent, SelectWrapperComponent],
     exports: [TableWrapperComponent, SelectWrapperComponent],
     providers: [
