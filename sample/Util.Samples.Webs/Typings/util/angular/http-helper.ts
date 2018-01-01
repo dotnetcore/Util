@@ -90,23 +90,25 @@ export class HttpRequest<T> {
 
     /**
      * 添加Http参数,添加到url查询字符串
+     * @param data 参数对象
+     */
+    param(data): HttpRequest<T>;
+    /**
+     * 添加Http参数,添加到url查询字符串
      * @param name 名称
      * @param value 值
      */
-    param(name: string, value: string): HttpRequest<T> {
-        this.parameters = this.parameters.append(name, value);
-        return this;
-    }
-
-    /**
-     * 添加Http参数,添加到url查询字符串
-     * @param param 参数对象
-     */
-    data(param): HttpRequest<T> {
-        for (let key in param) {
-            if (param.hasOwnProperty(key))
-                this.param(key, param[key]);
+    param(name: string, value: string): HttpRequest<T>;
+    param(data, value?: string): HttpRequest<T> {
+        if (typeof data === "object") {
+            for (let key in data) {
+                if (data.hasOwnProperty(key))
+                    this.parameters = this.parameters.append(key, data[key]);
+            }
+            return this;
         }
+        if (typeof data === "string" && value)
+            this.parameters = this.parameters.append(data, value);
         return this;
     }
 

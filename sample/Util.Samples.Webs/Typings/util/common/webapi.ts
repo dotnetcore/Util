@@ -74,20 +74,22 @@ export class WebApiRequest<T> {
 
     /**
      * 添加Http参数,添加到url查询字符串
+     * @param data 参数对象
+     */
+    param(data): WebApiRequest<T>;
+    /**
+     * 添加Http参数,添加到url查询字符串
      * @param name 名称
      * @param value 值
      */
-    param(name: string, value: string): WebApiRequest<T> {
-        this.request.param(name, value);
-        return this;
-    }
-
-    /**
-     * 添加Http参数,添加到url查询字符串
-     * @param param 参数对象
-     */
-    data(param): WebApiRequest<T> {
-        this.request.data(param);
+    param(name: string, value: string): WebApiRequest<T>;
+    param(data, value?: string): WebApiRequest<T> {
+        if (typeof data === "object") {
+            this.request.param(data);
+            return this;
+        }
+        if (typeof data === "string" && value)
+            this.request.param(data, value);
         return this;
     }
 

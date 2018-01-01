@@ -200,7 +200,7 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      */
     query() {
         let url = this.url || `/api/${this.baseUrl}`;
-        webapi.get<PagerList<T>>(url).data(this.queryParam).handle({
+        webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
                 result = new PagerList<T>(result);
