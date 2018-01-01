@@ -32,7 +32,7 @@ function createMatPaginatorIntl() {
 @Component({
     selector: 'table-wrapper',
     providers: [{ provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl }],
-    template: `  
+    template: `
         <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
             <div class="table-loading-shade" *ngIf="loading">
                 <mat-spinner></mat-spinner>
@@ -277,9 +277,10 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      * 批量删除被选中实体
      * @param handler 删除成功回调函数
      * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
+     * @param ids 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
      */
-    delete(handler?: () => {}, deleteUrl?: string) {
-        let ids = this.getSelectedIds();
+    delete(handler?: () => {}, deleteUrl?: string, ids?: string) {
+        ids = ids || this.getSelectedIds();
         if (!ids) {
             message.warn(config.deleteNotSelected);
             return;
@@ -292,7 +293,7 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
     /**
      * 发送删除请求
      */
-    private deleteRequest(ids: string, handler?: () => {}, deleteUrl?: string) {
+    private deleteRequest(ids?: string, handler?: () => {}, deleteUrl?: string) {
         deleteUrl = deleteUrl || `/api/${this.baseUrl}/delete`;
         webapi.post(deleteUrl, ids).handle({
             handler: () => {

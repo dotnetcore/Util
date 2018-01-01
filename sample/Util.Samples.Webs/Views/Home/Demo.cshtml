@@ -17,14 +17,20 @@
 </div>
 
 <div style="width: 300px">
+    <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哪里跑" [dataSource]="[
+        { value: '1', text: '哈哈2' },
+        { value: '2', text: '嘿嘿', disabled: true },
+        { value: '3', text: 'a' },
+        { value: '4', text: 'b' },
+        { value: '5', text: 'c' },
+        { value: '6', text: 'd' },
+        { value: '7', text: 'aa' },
+        { value: '8', text: 'bb' },
+        { value: '9', text: 'cc' }
+    ]"></mat-select-wrapper>
+    
 
-    <mat-form-field>
-        <mat-select>
-            <mat-option></mat-option>
-            <mat-option value="1">A</mat-option>
-            <mat-option value="2">B</mat-option>
-        </mat-select>
-    </mat-form-field>
+
 
     <mat-form-field floatPlaceholder="never">
         <mat-select placeholder="应用程序" [(ngModel)]="model.a" #select2="matSelect" name="BB" required="true" #selectModel2="ngModel" [disabled]="false" [multiple]="true">

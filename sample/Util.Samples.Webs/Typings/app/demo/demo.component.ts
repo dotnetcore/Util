@@ -25,6 +25,18 @@ export class DemoComponent {
         this.grid.query();
     }
 
+    data = [
+        { value: '1', viewValue: '哈哈' },
+        { value: '2', viewValue: '嘿嘿', disabled: true },
+        { value: '3', viewValue: 'C3333333333333' },
+        { value: '4', viewValue: 'D34444444444444444444' },
+        { value: '5', viewValue: 'E55555555555555' },
+        { value: '6', viewValue: 'F666666666666' },
+        { value: '7', viewValue: 'G777777777' },
+        { value: '8', viewValue: 'H7777777777' },
+        { value: '9', viewValue: 'I8888888888888' }
+    ];
+
     foods = [
         { value: '1', viewValue: 'A11111111111111111' },
         { value: '2', viewValue: 'B1122222222222222222', disabled: true },

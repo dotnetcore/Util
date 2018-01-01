@@ -12,11 +12,13 @@ namespace Util {
         /// <param name="value">值</param>
         /// <param name="sortId">排序号</param>
         /// <param name="group">组</param>
-        public Item( string text, string value, int sortId = 0,string group = "" ) {
+        /// <param name="disabled">禁用</param>
+        public Item( string text, string value, int sortId = 0,string group = "",bool disabled = false) {
             Text = text;
             Value = value;
             SortId = sortId;
             Group = group;
+            Disabled = disabled;
         }
 
         /// <summary>
@@ -38,6 +40,11 @@ namespace Util {
         /// 组
         /// </summary>
         public string Group { get; }
+
+        /// <summary>
+        /// 禁用
+        /// </summary>
+        public bool Disabled { get; }
 
         /// <summary>
         /// 比较
