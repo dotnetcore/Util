@@ -275,11 +275,11 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
 
     /**
      * 批量删除被选中实体
+     * @param ids 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
      * @param handler 删除成功回调函数
      * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
-     * @param ids 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
      */
-    delete(handler?: () => {}, deleteUrl?: string, ids?: string) {
+    delete(ids?: string, handler?: () => {}, deleteUrl?: string) {
         ids = ids || this.getSelectedIds();
         if (!ids) {
             message.warn(config.deleteNotSelected);
