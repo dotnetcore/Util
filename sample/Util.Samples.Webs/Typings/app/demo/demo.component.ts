@@ -102,6 +102,10 @@ export class DemoComponent {
             ]
         }
     ];
+
+    onChange(value) {
+        util.message.info(value);
+    }
 }
 
 

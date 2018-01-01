@@ -1,4 +1,8 @@
-﻿import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+﻿//============== 路由操作=========================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Location } from '@angular/common';
 import { IocHelper as ioc } from './ioc-helper';
 

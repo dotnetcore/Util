@@ -1,4 +1,8 @@
-﻿import { Injector, Type, InjectionToken } from '@angular/core';
+﻿//============== Ioc操作=========================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { Injector, Type, InjectionToken } from '@angular/core';
 
 /**
  * Ioc操作

@@ -1,4 +1,8 @@
-﻿import { MessageService } from 'primeng/components/common/messageservice';
+﻿//============== 消息操作=========================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/primeng';
 import { IocHelper as ioc } from '../angular/ioc-helper';
 

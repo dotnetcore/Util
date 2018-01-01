@@ -17,6 +17,9 @@
 </div>
 
 <div style="width: 300px">
+    <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哪里跑" url="/api/customers/test"
+                        [(model)]="model.name" [required]="true" requiredMessage="必须填写哦" template="应用：|" floatPlaceholder="never" (onChange)="onChange($event)">
+    </mat-select-wrapper>
     <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哪里跑" [dataSource]="[
         { value: '1', text: '哈哈2' },
         { value: '2', text: '嘿嘿', disabled: true },
@@ -27,7 +30,7 @@
         { value: '7', text: 'aa' },
         { value: '8', text: 'bb' },
         { value: '9', text: 'cc' }
-    ]" [(model)]="model.name"></mat-select-wrapper>
+    ]" [(model)]="model.name" [required]="true" requiredMessage="必须填写哦" template="应用：|" floatPlaceholder="never" (onChange)="onChange($event)"></mat-select-wrapper>
     {{model.name}}
     <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哈哈" [dataSource]="testGroup" [isGroup]="true"></mat-select-wrapper>
 
@@ -57,17 +60,6 @@
     </mat-form-field>
 
 
-    <mat-form-field>
-        <mat-select placeholder="Pokemon">
-            <mat-option>-- None --</mat-option>
-            <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"
-                          [disabled]="group.disabled">
-                <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
-                    {{ pokemon.viewValue }}
-                </mat-option>
-            </mat-optgroup>
-        </mat-select>
-    </mat-form-field>
 </div>
 @*<div>
     <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>

@@ -1,4 +1,8 @@
-﻿import { HttpErrorResponse } from '@angular/common/http';
+﻿//============== 服务端结果约定格式===============
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * 服务端返回的标准结果

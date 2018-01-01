@@ -1,4 +1,8 @@
-﻿import { UUID } from './uuid';
+﻿//============== 公共操作=========================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { UUID } from './uuid';
 
 /**
  * 是否未定义

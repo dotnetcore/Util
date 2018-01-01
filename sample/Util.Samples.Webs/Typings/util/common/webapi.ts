@@ -1,4 +1,8 @@
-﻿import { HttpErrorResponse } from '@angular/common/http';
+﻿//============== WebApi操作=========================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { HttpErrorResponse } from '@angular/common/http';
 import { Result, FailResult, StateCode } from '../core/result';
 import { HttpHelper, HttpRequest, HttpContentType } from '../angular/http-helper';
 import { Message } from './message';

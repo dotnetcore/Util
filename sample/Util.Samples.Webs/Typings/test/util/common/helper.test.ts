@@ -1,8 +1,8 @@
-﻿//============== Util公共操作库测试===============
-//Copyright 2017 何镇汐
+﻿//============== Util公共操作测试=================
+//Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { util } from "../../util"
+import { util } from "../../../util"
 
 describe("util.helper", () => {
     it("isEmpty", () => {

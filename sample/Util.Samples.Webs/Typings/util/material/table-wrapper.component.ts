@@ -1,12 +1,16 @@
-﻿import { Component, Input, ViewChild, OnInit, ContentChild } from '@angular/core';
+﻿//============== 表格包装器=======================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { Component, Input, ViewChild, OnInit, ContentChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatPaginatorIntl, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { WebApi as webapi } from "../common/webapi";
-import { Message as message } from "../common/message";
+import { WebApi as webapi } from '../common/webapi';
+import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
 import { ViewModel } from '../core/view-model';
 import { QueryParameter } from '../core/query-parameter';
-import { MessageConfig as config } from "../config/message-config";
+import { MessageConfig as config } from '../config/message-config';
 
 /**
  * 创建分页本地化提示

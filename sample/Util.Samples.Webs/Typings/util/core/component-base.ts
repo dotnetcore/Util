@@ -1,4 +1,8 @@
-﻿import { Injector } from '@angular/core';
+﻿//============== 组件基类=========================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import { Injector } from '@angular/core';
 import { IocHelper as ioc } from '../angular/ioc-helper';
 
 /**

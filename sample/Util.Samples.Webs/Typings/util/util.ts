@@ -1,4 +1,8 @@
-﻿import * as helper from './common/helper';
+﻿//============== util操作库=======================
+//Copyright 2018 何镇汐
+//Licensed under the MIT license
+//================================================
+import * as helper from './common/helper';
 import { IocHelper } from './angular/ioc-helper';
 import { HttpHelper } from './angular/http-helper';
 import { WebApi } from './common/webapi';
@@ -6,7 +10,7 @@ import { RouterHelper } from './angular/router-helper';
 import { Message } from "./common/message";
 
 /**
- * 公共操作库
+ * 操作库
  */
 export class Util {
     /**
