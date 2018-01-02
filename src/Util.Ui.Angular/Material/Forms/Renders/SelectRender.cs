@@ -91,7 +91,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置模型绑定
         /// </summary>
         private void ConfigModel( SelectWrapperBuilder builder ) {
-            builder.AddAttribute( "[(model)]", _config.GetBoolValue( UiConst.Model ) );
+            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
         }
 
         /// <summary>

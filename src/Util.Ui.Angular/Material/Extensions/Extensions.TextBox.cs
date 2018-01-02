@@ -2,7 +2,7 @@
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 
-namespace Util.Ui.Extensions {
+namespace Util.Ui.Material.Extensions {
     /// <summary>
     /// 文本框扩展
     /// </summary>

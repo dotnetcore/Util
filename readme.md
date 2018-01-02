@@ -395,6 +395,7 @@ https://github.com/dotnetcore/util/
   - 组件基类  [已发布]
   - TagHelper基类  [已发布]
   - 图标 - 集成了Material Design和Font Awesome图标集 [已发布]
+  - 下拉列表 - 基于Material Select组件 [已发布]
   - 按钮 [开发中]
   - 文本框 [开发中]
 - 权限 [待启动]
@@ -439,3 +440,4 @@ https://github.com/dotnetcore/util/
 - 2017年10月30日，更新了Url参数生成器(Util.Parameters)及单元测试。
 - 2017年10月31日，更新了支付宝条码支付操作(Util.Biz.Payments/Alipay)及单元测试。
 - 2017年11月15日，更新了EF Core调试日志(Util.Datas/Logs)及单元测试。
+- 2018年1月2日，更新了下拉列表组件(Util.Ui.Angular/Material/Forms)及单元测试。

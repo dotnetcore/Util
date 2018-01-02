@@ -11,7 +11,7 @@ namespace Util.Ui.Material.Extensions {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// 设置占位符
+        /// 设置占位提示符
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>

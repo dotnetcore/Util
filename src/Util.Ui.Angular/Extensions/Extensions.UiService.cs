@@ -3,6 +3,7 @@ using Util.Ui.Components;
 using Util.Ui.Material.Buttons;
 using Util.Ui.Material.Forms;
 using Util.Ui.Material.Icons;
+using Util.Ui.Material.Services;
 using Util.Ui.Services;
 
 namespace Util.Ui.Extensions {
@@ -14,7 +15,7 @@ namespace Util.Ui.Extensions {
         /// 图标
         /// </summary>
         /// <param name="service">组件服务</param>
-        public static IIcon Icon( this IUiService service ) {
+        public static IIcon Icon<TModel>( this IUiService<TModel> service ) {
             return new Icon();
         }
 
@@ -22,7 +23,7 @@ namespace Util.Ui.Extensions {
         /// 下拉列表
         /// </summary>
         /// <param name="service">组件服务</param>
-        public static ISelect Select( this IUiService service ) {
+        public static ISelect Select<TModel>( this IUiService<TModel> service ) {
             return new Select();
         }
 
@@ -31,7 +32,7 @@ namespace Util.Ui.Extensions {
         /// </summary>
         /// <param name="service">组件服务</param>
         /// <param name="text">文本</param>
-        public static Util.Ui.Material.Buttons.IButton Button( this IUiService service,string text ) {
+        public static Util.Ui.Material.Buttons.IButton Button<TModel>( this IUiService<TModel> service, string text ) {
             return new Button().Text( text );
         }
 
@@ -39,7 +40,7 @@ namespace Util.Ui.Extensions {
         /// 文本框
         /// </summary>
         /// <param name="service">组件服务</param>
-        public static ITextBox TextBox( this IUiService service ) {
+        public static ITextBox TextBox<TModel>( this IUiService<TModel> service ) {
             return new TextBox();
         }
 
@@ -47,8 +48,8 @@ namespace Util.Ui.Extensions {
         /// 表单
         /// </summary>
         /// <param name="service">组件服务</param>
-        public static IForm Form( this IUiService service ) {
-            if( !( service is IContext context ))
+        public static IForm Form<TModel>( this IUiService<TModel> service ) {
+            if( !( service is IContext<TModel> context ) )
                 throw new NotImplementedException( "组件服务必须实现Util.Ui.Services.IContext" );
             return new Form( context.Helper.ViewContext.Writer, context.Encoder );
         }

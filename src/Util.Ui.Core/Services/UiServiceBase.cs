@@ -5,13 +5,13 @@ namespace Util.Ui.Services {
     /// <summary>
     /// 组件服务
     /// </summary>
-    public class UiService : IUiService, IContext {
+    public class UiServiceBase<TModel> : IContext<TModel> {
         /// <summary>
         /// 初始化组件服务
         /// </summary>
         /// <param name="helper">HtmlHelper</param>
         /// <param name="encoder">Html编码</param>
-        public UiService( IHtmlHelper helper, HtmlEncoder encoder) {
+        public UiServiceBase( IHtmlHelper<TModel> helper, HtmlEncoder encoder ) {
             Helper = helper;
             Encoder = encoder;
         }
@@ -19,7 +19,7 @@ namespace Util.Ui.Services {
         /// <summary>
         /// HtmlHelper
         /// </summary>
-        public IHtmlHelper Helper { get; }
+        public IHtmlHelper<TModel> Helper { get; }
 
         /// <summary>
         /// Html编码

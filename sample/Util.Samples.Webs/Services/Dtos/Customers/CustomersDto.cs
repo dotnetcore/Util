@@ -1,7 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Util.Applications.Dtos;
+using Util.Biz.Enums;
+using Util.Ui.Attributes;
 
 namespace Donau.Services.Dtos.Customers {
     /// <summary>
@@ -29,17 +32,16 @@ namespace Donau.Services.Dtos.Customers {
         /// <summary>
         /// 余额
         /// </summary>
-        [Required(ErrorMessage = "余额不能为空")]
-        [Display( Name = "余额" )]
         [DataMember]
-        public decimal Balance { get; set; }
+        public string Balance { get; set; }
         
         /// <summary>
         /// 性别
         /// </summary>
         [Display( Name = "性别" )]
         [DataMember]
-        public int? Gender { get; set; }
+        [Model(Ignore = true)]
+        public Gender Gender { get; set; }
         
         /// <summary>
         /// 联系电话

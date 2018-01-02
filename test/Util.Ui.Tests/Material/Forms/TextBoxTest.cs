@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Encodings.Web;
 using Util.Helpers;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Forms;
 using Util.Webs;
 using Xunit;

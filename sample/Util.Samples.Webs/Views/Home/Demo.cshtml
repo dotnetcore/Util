@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Donau.Services.Dtos.Customers.CustomersDto
+@{
     ViewData["Title"] = "Tile";
 }
 <div class="toolbar toolbar-detail search-menu" fxLayout="row" fxLayoutAlign="start center">
@@ -23,9 +24,9 @@
     
     
 
-    @(Html.Ui().Select().Placeholder( "民族" ).Enum<Util.Biz.Enums.Nation>().Multiple())
+    @Html.Ui().Select(t => t.Gender )
 
-
+  
 
 
 

@@ -123,5 +123,19 @@ namespace Util.Helpers {
         }
 
         #endregion
+
+        #region FirstLowerCase(首字母小写)
+
+        /// <summary>
+        /// 首字母小写
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string FirstLowerCase( string value ) {
+            if ( string.IsNullOrWhiteSpace( value ) )
+                return string.Empty;
+            return $"{value.Substring( 0, 1 ).ToLower()}{value.Substring( 1 )}";
+        }
+
+        #endregion
     }
 }

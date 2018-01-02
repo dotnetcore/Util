@@ -81,7 +81,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 获取属性显示名称或描述,使用DisplayNameAttribute或DisplayAttribute设置显示名称,使用DescriptionAttribute设置描述
         /// </summary>
-        public static string GetDisplayNameOrDescription( PropertyInfo member ) {
+        public static string GetDisplayNameOrDescription( MemberInfo member ) {
             var result = GetDisplayName( member );
             return string.IsNullOrWhiteSpace( result ) ? GetDescription( member ) : result;
         }
@@ -89,7 +89,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 获取类型成员显示名称，使用DisplayNameAttribute或DisplayAttribute设置显示名称
         /// </summary>
-        private static string GetDisplayName( PropertyInfo member ) {
+        private static string GetDisplayName( MemberInfo member ) {
             if( member == null )
                 return string.Empty;
             if( member.GetCustomAttribute( typeof( DisplayNameAttribute ) ) is DisplayNameAttribute displayNameAttribute )
@@ -147,11 +147,7 @@ namespace Util.Helpers {
         /// 是否布尔类型
         /// </summary>
         private static bool IsBool( PropertyInfo property ) {
-            if( property.PropertyType == typeof( bool ) )
-                return true;
-            if( property.PropertyType == typeof( bool? ) )
-                return true;
-            return false;
+            return property.PropertyType == typeof( bool ) || property.PropertyType == typeof( bool? );
         }
 
         /// <summary>
