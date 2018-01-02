@@ -16,48 +16,17 @@
     </div>
 </div>
 
-<div style="width: 300px">
-    <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哪里跑" url="/api/customers/test"
-                        [(model)]="model.name" [required]="true" requiredMessage="必须填写哦" template="应用：|" floatPlaceholder="never" (onChange)="onChange($event)">
-    </mat-select-wrapper>
-    <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哪里跑" [dataSource]="[
-        { value: '1', text: '哈哈2' },
-        { value: '2', text: '嘿嘿', disabled: true },
-        { value: '3', text: 'a' },
-        { value: '4', text: 'b' },
-        { value: '5', text: 'c' },
-        { value: '6', text: 'd' },
-        { value: '7', text: 'aa' },
-        { value: '8', text: 'bb' },
-        { value: '9', text: 'cc' }
-    ]" [(model)]="model.name" [required]="true" requiredMessage="必须填写哦" template="应用：|" floatPlaceholder="never" (onChange)="onChange($event)"></mat-select-wrapper>
-    {{model.name}}
-    <mat-select-wrapper resetOptionText="-- 请选择 --" [multiple]="false" placeholder="哈哈" [dataSource]="testGroup" [isGroup]="true"></mat-select-wrapper>
+<div style="margin: 300px;width: 300px">
 
 
-    <mat-form-field floatPlaceholder="never">
-        <mat-select placeholder="应用程序" [(ngModel)]="model.a" #select2="matSelect" name="BB" required="true" #selectModel2="ngModel" [disabled]="false" [multiple]="true">
-            <mat-select-trigger>应用程序: {{ select2.triggerValue }}</mat-select-trigger>
-            <mat-option></mat-option>
-            <mat-option value="1">A</mat-option>
-            <mat-option value="2">B</mat-option>
-            <mat-option value="3">C</mat-option>
-            <mat-option value="4">D</mat-option>
-            <mat-option value="5">E</mat-option>
-        </mat-select>
-        <mat-error *ngIf="selectModel2?.hasError( 'required' )">必填项</mat-error>
-    </mat-form-field>
+    
+    
+    
 
-    <mat-form-field floatPlaceholder="never">
-        <mat-select placeholder="应用程序" [(ngModel)]="model.value" #select="matSelect" name="a" required="true" #selectModel="ngModel" [disabled]="false" [multiple]="true">
-            <mat-select-trigger>应用程序: {{ select.triggerValue }}</mat-select-trigger>
-            <mat-option></mat-option>
-            <mat-option *ngFor="let item of foods" [value]="item.value" [disabled]="item.disabled">
-                {{ item.viewValue }}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="selectModel?.hasError( 'required' )">必填项</mat-error>
-    </mat-form-field>
+    @(Html.Ui().Select().Placeholder( "民族" ).Enum<Util.Biz.Enums.Nation>().Multiple())
+
+
+
 
 
 </div>
@@ -67,7 +36,7 @@
     <button mat-raised-button mat-button (click)="query()">查询</button>
 </div>*@
 
-<table-wrapper #grid baseUrl="customers" [queryParam]="queryParam" >
+<table-wrapper #grid  [queryParam]="queryParam" baseUrl="customers">
     @*表头*@
     <div class="table-header">
         <mat-form-field>

@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
   </ItemGroup>
 

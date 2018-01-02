@@ -45,7 +45,7 @@ namespace Util.Ui.Material.Icons.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new IconRender( new IconConfig( context.AllAttributes, context.OutputAttributes, context.Content ) );
+            return new IconRender( new IconConfig( context ) );
         }
     }
 }

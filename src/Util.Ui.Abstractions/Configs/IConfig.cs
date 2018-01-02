@@ -36,6 +36,11 @@ namespace Util.Ui.Configs {
         /// <param name="name">属性名</param>
         T GetValue<T>( string name );
         /// <summary>
+        /// 获取布尔属性值
+        /// </summary>
+        /// <param name="name">属性名</param>
+        string GetBoolValue( string name );
+        /// <summary>
         /// 设置属性
         /// </summary>
         /// <param name="name">属性名</param>

@@ -19,6 +19,14 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 下拉列表
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static ISelect Select( this IUiService service ) {
+            return new Select();
+        }
+
+        /// <summary>
         /// 按钮
         /// </summary>
         /// <param name="service">组件服务</param>
@@ -31,7 +39,7 @@ namespace Util.Ui.Extensions {
         /// 文本框
         /// </summary>
         /// <param name="service">组件服务</param>
-        public static Util.Ui.Components.ITextBox TextBox( this IUiService service ) {
+        public static ITextBox TextBox( this IUiService service ) {
             return new TextBox();
         }
 

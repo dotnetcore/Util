@@ -16,7 +16,7 @@ import { WebApi as webapi } from '../common/webapi';
             <mat-select [placeholder]="placeholder" [multiple]="multiple" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                         #select="matSelect" #selectModel="ngModel" [required]="required">
                 <mat-select-trigger *ngIf="template">{{getTemplate(select.triggerValue)}}</mat-select-trigger>
-                <mat-option *ngIf="!multiple">{{resetOptionText}}</mat-option>
+                <mat-option *ngIf="enableResetOption && !multiple">{{resetOptionText}}</mat-option>
                 <ng-container *ngIf="!isGroup">
                     <mat-option *ngFor="let item of dataSource" [value]="item.value" [disabled]="item.disabled">
                         {{ item.text }}
@@ -42,13 +42,13 @@ export class SelectWrapperComponent implements OnInit {
      */
     @Input() dataSource: SelectOption[] | SelectOptionGroup[];
     /**
+     * 列表项集合，SelectItem形式的数据源
+     */
+    @Input() selectItems: SelectItem[];
+    /**
      * 请求地址
      */
     @Input() url: string;
-    /**
-     * 查询参数
-     */
-    @Input() queryParam;
     /**
      * 按组显示
      */
@@ -58,13 +58,17 @@ export class SelectWrapperComponent implements OnInit {
      */
     @Input() multiple: boolean;
     /**
-     * 浮动占位提示位置，可选值：auto,never,always
+     * 占位提示浮动位置，可选值：auto,never,always
      */
     @Input() floatPlaceholder:string;
     /**
      * 占位提示
      */
     @Input() placeholder: string;
+    /**
+     * 启用重置项
+     */
+    @Input() enableResetOption:boolean;
     /**
      * 重置项文本
      */
@@ -78,7 +82,7 @@ export class SelectWrapperComponent implements OnInit {
      */
     @Output() modelChange = new EventEmitter<any>();
     /**
-     * 选项变更事件
+     * 变更事件
      */
     @Output() onChange = new EventEmitter<any>();
     /**
@@ -99,6 +103,7 @@ export class SelectWrapperComponent implements OnInit {
      */
     constructor() {
         this.floatPlaceholder = "auto";
+        this.enableResetOption = true;
         this.requiredMessage = "必填项";
     }
 
@@ -106,26 +111,46 @@ export class SelectWrapperComponent implements OnInit {
      * 组件初始化
      */
     ngOnInit() {
+        this.loadFromItems();
         this.load();
     }
 
     /**
-     * 从服务器加载
+     * 从列表项集合加载数据源
+     */
+    private loadFromItems() {
+        if (this.dataSource)
+            return;
+        this.selectItems && this.updateDataSource(this.selectItems);
+    }
+
+    /**
+     * 更新数据源
+     * @param items 列表项集合
+     */
+    private updateDataSource(items:SelectItem[]) {
+        let select = new Select(items);
+        if (select.isGroup()) {
+            this.isGroup = true;
+            this.dataSource = select.toSelectOptionGroups();
+            return;
+        }
+        this.dataSource = select.toSelectOptions();
+    }
+
+    /**
+     * 从服务器加载数据源
      */
     load() {
         if (this.dataSource)
             return;
-        if (!this.url)
+        if (!this.url) {
+            console.log("请设置下拉列表数据源或Url");
             return;
-        webapi.get<SelectItem[]>(this.url).param(this.queryParam).handle({
+        }
+        webapi.get<SelectItem[]>(this.url).handle({
             handler: result => {
-                let select = new Select(result);
-                if (select.isGroup()) {
-                    this.isGroup = true;
-                    this.dataSource = select.toSelectOptionGroups();
-                    return;
-                }
-                this.dataSource = select.toSelectOptions();
+                this.updateDataSource(result);
             }
         });
     }

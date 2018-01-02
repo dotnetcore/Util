@@ -86,6 +86,10 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      */
     private totalCount = 0;
     /**
+     * 数据源
+     */
+    dataSource: MatTableDataSource<T>;
+    /**
      * 是否自动加载，默认在初始化时自动加载数据，设置成false则手工加载
      */
     @Input() autoLoad: boolean;
@@ -122,14 +126,6 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      */
     @Input() queryParam: QueryParameter;
     /**
-     * 数据源
-     */
-    dataSource: MatTableDataSource<T>;
-    /**
-     * 选中列表
-     */
-    selection = new SelectionModel<T>(true, []);
-    /**
      * 排序组件
      */
     @ContentChild(MatSort) sort: MatSort;
@@ -137,6 +133,10 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      * 分页组件
      */
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    /**
+     * 选中列表
+     */
+    selection = new SelectionModel<T>(true, []);
 
     /**
      * 初始化Mat表格包装器
@@ -145,7 +145,7 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
         this.maxHeight = 500;
         this.minHeight = 300;
         this.minWidth = 300;
-        this.pageSizeItems = [20, 50, 100, 200, 500];
+        this.pageSizeItems = [20, 50, 100, 200];
         this.dataSource = new MatTableDataSource<T>();
         this.loading = false;
         this.autoLoad = true;
@@ -193,17 +193,14 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
     }
 
     /**
-     * 刷新表格
-     */
-    refresh() {
-        this.query();
-    }
-
-    /**
      * 发送查询请求
      */
     query() {
-        let url = this.url || `/api/${this.baseUrl}`;
+        let url = this.url || (this.baseUrl && `/api/${this.baseUrl}`);
+        if (!url) {
+            console.log("表格url未设置");
+            return;
+        }
         webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
@@ -216,6 +213,13 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
             },
             completeHandler: () => this.loading = false
         });
+    }
+
+    /**
+     * 刷新表格
+     */
+    refresh() {
+        this.query();
     }
 
     /**

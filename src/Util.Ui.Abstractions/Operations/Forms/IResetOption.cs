@@ -1,7 +1,7 @@
 ﻿namespace Util.Ui.Operations.Forms {
     /// <summary>
-    /// 占位提示符
+    /// 重置项
     /// </summary>
-    public interface IPlaceholder {
+    public interface IResetOption {
     }
 }

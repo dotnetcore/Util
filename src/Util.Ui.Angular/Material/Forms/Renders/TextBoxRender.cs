@@ -1,5 +1,6 @@
 ﻿using Util.Helpers;
 using Util.Ui.Builders;
+using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
@@ -46,10 +47,10 @@ namespace Util.Ui.Material.Forms.Renders {
             inputBuilder.AddOtherAttributes( _config );
             inputBuilder.Id( _config );
             inputBuilder.AddAttribute( "name", _config.Name );
-            inputBuilder.AddAttribute( "placeholder", _config.Placeholder );
+            inputBuilder.AddAttribute( "placeholder", _config.GetValue( UiConst.Placeholder ) );
             inputBuilder.AddAttribute( "value", _config.Value );
             inputBuilder.AddAttribute( "type", _config.Type );
-            inputBuilder.AddAttribute( "[(ngModel)]", _config.Model );
+            inputBuilder.AddAttribute( "[(ngModel)]", _config.GetValue( UiConst.Model ) );
             AddValidations( formFieldBuilder, inputBuilder );
         }
 
@@ -65,10 +66,10 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 添加必填项验证
         /// </summary>
         private void AddRequired( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
-            if( _config.Required == false )
+            if( _config.Contains( UiConst.Required ) == false )
                 return;
-            inputBuilder.AddAttribute( "required", "true" );
-            AddError( formFieldBuilder, inputBuilder, "required", _config.RequiredMessage );
+            inputBuilder.AddAttribute( UiConst.Required, "true" );
+            AddError( formFieldBuilder, inputBuilder, UiConst.Required, _config.GetValue( UiConst.RequiredMessage ) );
         }
 
         /// <summary>

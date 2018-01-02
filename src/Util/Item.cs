@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Util {
     /// <summary>
@@ -13,7 +14,7 @@ namespace Util {
         /// <param name="sortId">排序号</param>
         /// <param name="group">组</param>
         /// <param name="disabled">禁用</param>
-        public Item( string text, string value, int sortId = 0,string group = "",bool disabled = false) {
+        public Item( string text, string value, int? sortId = null, string group = null, bool? disabled = null ) {
             Text = text;
             Value = value;
             SortId = sortId;
@@ -24,27 +25,32 @@ namespace Util {
         /// <summary>
         /// 文本
         /// </summary>
+        [JsonProperty( "text", NullValueHandling = NullValueHandling.Ignore )]
         public string Text { get; }
 
         /// <summary>
         /// 值
         /// </summary>
+        [JsonProperty( "value", NullValueHandling = NullValueHandling.Ignore )]
         public string Value { get; }
 
         /// <summary>
         /// 排序号
         /// </summary>
-        public int SortId { get; }
+        [JsonProperty( "sortId", NullValueHandling = NullValueHandling.Ignore )]
+        public int? SortId { get; }
 
         /// <summary>
         /// 组
         /// </summary>
+        [JsonProperty( "group", NullValueHandling = NullValueHandling.Ignore )]
         public string Group { get; }
 
         /// <summary>
         /// 禁用
         /// </summary>
-        public bool Disabled { get; }
+        [JsonProperty( "disabled", NullValueHandling = NullValueHandling.Ignore )]
+        public bool? Disabled { get; }
 
         /// <summary>
         /// 比较

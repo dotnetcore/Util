@@ -17,8 +17,8 @@ namespace Util.Ui.Extensions {
         public static TComponent Required<TComponent>( this TComponent component, string message = "" ) where TComponent : IComponent, IRequired {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Required = true;
-                config.RequiredMessage = message;
+                config.SetAttribute( UiConst.Required,true );
+                config.SetAttribute( UiConst.RequiredMessage, message );
             } );
             return component;
         }

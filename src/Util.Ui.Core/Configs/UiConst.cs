@@ -34,7 +34,11 @@
         /// <summary>
         /// 单击事件
         /// </summary>
-        public const string OnClick = "click";
+        public const string OnClick = "on-click";
+        /// <summary>
+        /// 变更事件
+        /// </summary>
+        public const string OnChange = "on-change";
         /// <summary>
         /// 图标
         /// </summary>
@@ -67,5 +71,41 @@
         /// 子组件class
         /// </summary>
         public const string ChildClass = "child-class";
+        /// <summary>
+        /// Url
+        /// </summary>
+        public const string Url = "url";
+        /// <summary>
+        /// 数据源
+        /// </summary>
+        public const string DataSource = "datas-source";
+        /// <summary>
+        /// 占位提示
+        /// </summary>
+        public const string Placeholder = "placeholder";
+        /// <summary>
+        /// 多选
+        /// </summary>
+        public const string Multiple = "multiple";
+        /// <summary>
+        /// 模型绑定
+        /// </summary>
+        public const string Model = "model";
+        /// <summary>
+        /// 必填项
+        /// </summary>
+        public const string Required = "required";
+        /// <summary>
+        /// 必填项错误消息
+        /// </summary>
+        public const string RequiredMessage = "required-message";
+        /// <summary>
+        /// 模板
+        /// </summary>
+        public const string Template = "template";
+        /// <summary>
+        /// 组
+        /// </summary>
+        public const string Group = "group";
     }
 }

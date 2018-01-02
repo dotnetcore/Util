@@ -14,10 +14,10 @@ export class Select {
     }
 
     /**
-     * 转换为下拉列表项集合或下拉列表组集合
+     * 转换为下拉列表项集合
      */
     toSelectOptions(): SelectOption[] {
-        return this.getSortedItems().map<SelectOption>(value => new SelectOption(value));
+        return this.getSortedItems().map(value => new SelectOption(value));
     }
 
     /**
@@ -28,13 +28,15 @@ export class Select {
     }
 
     /**
-     * 转换为下拉列表项集合或下拉列表组集合
+     * 转换为下拉列表组集合
      */
     toSelectOptionGroups(): SelectOptionGroup[] {
         let result: SelectOptionGroup[] = new Array<SelectOptionGroup>();
         this.getSortedItems().forEach(item => {
+            if (!item.group)
+                return;
             let group = result.find(group => group.text === item.group);
-            if (group && group.value) {
+            if (group) {
                 group.value.push(new SelectOption(item));
                 return;
             }
@@ -74,7 +76,7 @@ export class SelectItem {
     /**
      * 组
      */
-    group?:string;
+    group?: string;
 }
 
 /**
@@ -115,6 +117,6 @@ export class SelectOptionGroup {
      * @param value 值
      * @param disabled 禁用
      */
-    constructor(public text?: string, public value?: SelectOption[], public disabled?: boolean) {
+    constructor(public text: string, public value: SelectOption[], public disabled?: boolean) {
     }
 }

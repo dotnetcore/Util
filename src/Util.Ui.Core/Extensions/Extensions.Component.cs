@@ -2,7 +2,6 @@
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Operations;
-using Util.Ui.Operations.Forms;
 
 namespace Util.Ui.Extensions {
     /// <summary>
@@ -97,7 +96,7 @@ namespace Util.Ui.Extensions {
         /// <summary>
         /// 设置文本
         /// </summary>
-        /// <typeparam name="TComponent">标题组件类型</typeparam>
+        /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="text">标题文本</param>
         public static TComponent Text<TComponent>( this TComponent component, string text ) where TComponent : IComponent, IText {
@@ -109,23 +108,9 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
-        /// 设置占位符
-        /// </summary>
-        /// <typeparam name="TComponent">标题组件类型</typeparam>
-        /// <param name="component">组件实例</param>
-        /// <param name="text">文本</param>
-        public static TComponent Placeholder<TComponent>( this TComponent component, string text ) where TComponent : IComponent, IPlaceholder {
-            var option = component as IOptionConfig;
-            option?.Config<Config>( config => {
-                config.Placeholder = text;
-            } );
-            return component;
-        }
-
-        /// <summary>
         /// 设置值
         /// </summary>
-        /// <typeparam name="TComponent">标题组件类型</typeparam>
+        /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="value">值</param>
         public static TComponent Value<TComponent>( this TComponent component, string value ) where TComponent : IComponent, IValue {
@@ -139,7 +124,7 @@ namespace Util.Ui.Extensions {
         /// <summary>
         /// 禁用
         /// </summary>
-        /// <typeparam name="TComponent">标题组件类型</typeparam>
+        /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="disabled">是否禁用</param>
         public static TComponent Disable<TComponent>( this TComponent component, bool disabled = true ) where TComponent : IComponent, IDisable {

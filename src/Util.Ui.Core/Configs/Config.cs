@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Configs {
     /// <summary>
@@ -15,7 +16,14 @@ namespace Util.Ui.Configs {
         /// <summary>
         /// 初始化配置
         /// </summary>
-        public Config() : this( new TagHelperAttributeList(), new TagHelperAttributeList(), null ) {
+        public Config() : this( null, null, null ) {
+        }
+
+        /// <summary>
+        /// 初始化配置
+        /// </summary>
+        /// <param name="context">TagHelper上下文</param>
+        public Config( Context context ) : this( context.AllAttributes, context.OutputAttributes, context.Content ) {
         }
 
         /// <summary>
@@ -26,8 +34,8 @@ namespace Util.Ui.Configs {
         /// <param name="content">内容</param>
         public Config( TagHelperAttributeList allAttributes, TagHelperAttributeList outputAttributes, IHtmlContent content ) {
             _classList = new List<string>();
-            AllAttributes = allAttributes;
-            OutputAttributes = outputAttributes;
+            AllAttributes = allAttributes ?? new TagHelperAttributeList();
+            OutputAttributes = outputAttributes ?? new TagHelperAttributeList();
             Content = content;
         }
 
@@ -67,21 +75,6 @@ namespace Util.Ui.Configs {
         public string Type { get; set; }
 
         /// <summary>
-        /// 占位符
-        /// </summary>
-        public string Placeholder { get; set; }
-
-        /// <summary>
-        /// 必填项
-        /// </summary>
-        public bool Required { get; set; }
-
-        /// <summary>
-        /// 必填项错误消息
-        /// </summary>
-        public string RequiredMessage { get; set; }
-
-        /// <summary>
         /// 最小长度
         /// </summary>
         public int MinLength { get; set; }
@@ -90,11 +83,6 @@ namespace Util.Ui.Configs {
         /// 最小长度错误消息
         /// </summary>
         public string MinLengthMessage { get; set; }
-
-        /// <summary>
-        /// 模型
-        /// </summary>
-        public string Model { get; set; }
 
         /// <summary>
         /// 属性集合是否包含指定属性
@@ -119,6 +107,14 @@ namespace Util.Ui.Configs {
         /// <param name="name">属性名</param>
         public T GetValue<T>( string name ) {
             return Util.Helpers.Convert.To<T>( GetValue( name ) );
+        }
+
+        /// <summary>
+        /// 获取布尔属性值
+        /// </summary>
+        /// <param name="name">属性名</param>
+        public string GetBoolValue( string name ) {
+            return GetValue( name ).SafeString().ToLower();
         }
 
         /// <summary>

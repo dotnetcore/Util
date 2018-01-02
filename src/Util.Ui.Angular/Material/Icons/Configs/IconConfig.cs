@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
+﻿using Util.Ui.Configs;
+using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Icons.Configs {
     /// <summary>
@@ -16,11 +15,8 @@ namespace Util.Ui.Material.Icons.Configs {
         /// <summary>
         /// 初始化图标配置
         /// </summary>
-        /// <param name="allAttributes">全部属性集合</param>
-        /// <param name="outputAttributes">输出属性集合，TagHelper中未明确定义的属性从该集合获取</param>
-        /// <param name="content">内容</param>
-        public IconConfig( TagHelperAttributeList allAttributes, TagHelperAttributeList outputAttributes, IHtmlContent content ) 
-            : base( allAttributes, outputAttributes, content ) {
+        /// <param name="context">TagHelper上下文</param>
+        public IconConfig( Context context ) : base( context ) {
         }
 
         /// <summary>
