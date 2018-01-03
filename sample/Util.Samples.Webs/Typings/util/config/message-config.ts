@@ -3,6 +3,14 @@
  */
 export class MessageConfig {
     /**
+     * 重置项默认文本
+     */
+    static resetOptionText = "-- 请选择 --";
+    /**
+     * 必填项默认验证消息
+     */
+    static requiredMessage = "必填项";
+    /**
      * 请选择待删除的记录
      */
     static deleteNotSelected = "请选择待删除的记录";

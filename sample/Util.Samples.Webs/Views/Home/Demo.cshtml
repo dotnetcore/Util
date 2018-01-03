@@ -1,6 +1,8 @@
-﻿@model Donau.Services.Dtos.Customers.CustomersDto
+﻿@using Util.Biz.Enums
+@model Donau.Services.Dtos.Customers.CustomersDto
 @{
     ViewData["Title"] = "Tile";
+    var x = Html.Ui();
 }
 <div class="toolbar toolbar-detail search-menu" fxLayout="row" fxLayoutAlign="start center">
     <span fxFlex style="flex: 1 1 1e-09px; box-sizing: border-box;"></span>
@@ -17,17 +19,12 @@
     </div>
 </div>
 
-<div style="margin: 300px;width: 300px">
+<div style="margin: 300px;width: 300px">    
 
-
+    @x.Select(t => t.Nation )
     
+  {{model.nation}}
     
-    
-
-    @Html.Ui().Select(t => t.Gender )
-
-  
-
 
 
 </div>

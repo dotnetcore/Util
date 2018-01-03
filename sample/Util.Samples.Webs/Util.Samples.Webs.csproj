@@ -90,8 +90,6 @@
 
   <!-- Release模式打包 -->
   <Target Name="Release_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release'">
-    <Message Importance="high" Text="开始安装npm包..." />
-    <Exec Command="npm install" />
     <Message Importance="high" Text="Webpack开始打包..." />
     <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
     <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.util.js --env.prod" />

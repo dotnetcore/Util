@@ -3,20 +3,21 @@
 //Licensed under the MIT license
 //================================================
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Select,SelectItem,SelectOption, SelectOptionGroup } from '../core/select';
+import { Select, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
 import { WebApi as webapi } from '../common/webapi';
+import { MessageConfig } from '../config/message-config';
 
 /**
  * Mat下拉列表包装器
  */
 @Component({
     selector: 'mat-select-wrapper',
-    template:`
+    template: `
         <mat-form-field [floatPlaceholder]="floatPlaceholder">
             <mat-select [placeholder]="placeholder" [multiple]="multiple" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                         #select="matSelect" #selectModel="ngModel" [required]="required">
                 <mat-select-trigger *ngIf="template">{{getTemplate(select.triggerValue)}}</mat-select-trigger>
-                <mat-option *ngIf="enableResetOption && !multiple">{{resetOptionText}}</mat-option>
+                <mat-option *ngIf="enableResetOption && !multiple">{{resetOptionText }}</mat-option>
                 <ng-container *ngIf="!isGroup">
                     <mat-option *ngFor="let item of dataSource" [value]="item.value" [disabled]="item.disabled">
                         {{ item.text }}
@@ -60,7 +61,7 @@ export class SelectWrapperComponent implements OnInit {
     /**
      * 占位提示浮动位置，可选值：auto,never,always
      */
-    @Input() floatPlaceholder:string;
+    @Input() floatPlaceholder: string;
     /**
      * 占位提示
      */
@@ -68,7 +69,7 @@ export class SelectWrapperComponent implements OnInit {
     /**
      * 启用重置项
      */
-    @Input() enableResetOption:boolean;
+    @Input() enableResetOption: boolean;
     /**
      * 重置项文本
      */
@@ -104,7 +105,8 @@ export class SelectWrapperComponent implements OnInit {
     constructor() {
         this.floatPlaceholder = "auto";
         this.enableResetOption = true;
-        this.requiredMessage = "必填项";
+        this.resetOptionText = MessageConfig.resetOptionText;
+        this.requiredMessage = MessageConfig.requiredMessage;
     }
 
     /**
@@ -128,7 +130,7 @@ export class SelectWrapperComponent implements OnInit {
      * 更新数据源
      * @param items 列表项集合
      */
-    private updateDataSource(items:SelectItem[]) {
+    private updateDataSource(items: SelectItem[]) {
         let select = new Select(items);
         if (select.isGroup()) {
             this.isGroup = true;

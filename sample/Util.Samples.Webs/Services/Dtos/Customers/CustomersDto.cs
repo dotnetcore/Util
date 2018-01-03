@@ -11,6 +11,7 @@ namespace Donau.Services.Dtos.Customers {
     /// 客户数据传输对象
     /// </summary>
     [DataContract]
+    [Model("model")]
     public class CustomersDto : DtoBase {
         /// <summary>
         /// 客户名称
@@ -40,9 +41,24 @@ namespace Donau.Services.Dtos.Customers {
         /// </summary>
         [Display( Name = "性别" )]
         [DataMember]
-        [Model(Ignore = true)]
         public Gender Gender { get; set; }
-        
+
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        [Display( Name = "性别" )]
+        [DataMember]
+        public bool IsGender { get; set; }
+
+        /// <summary>
+        /// 民族
+        /// </summary>
+        [Display( Name = "民族" )]
+        [Required(ErrorMessage = "必须选择一个民族" )]
+        [DataMember]
+        public Nation Nation { get; set; }
+
         /// <summary>
         /// 联系电话
         /// </summary>
