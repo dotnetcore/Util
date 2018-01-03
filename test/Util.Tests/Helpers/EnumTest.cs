@@ -142,11 +142,11 @@ namespace Util.Tests.Helpers {
             var items = Util.Helpers.Enum.GetItems<EnumSample>();
             Assert.Equal( 5, items.Count );
             Assert.Equal( "A", items[0].Text );
-            Assert.Equal( "1", items[0].Value );
+            Assert.Equal( 1, items[0].Value );
             Assert.Equal( "D4", items[3].Text );
-            Assert.Equal( "4", items[3].Value );
+            Assert.Equal( 4, items[3].Value );
             Assert.Equal( "E5", items[4].Text );
-            Assert.Equal( "5", items[4].Value );
+            Assert.Equal( 5, items[4].Value );
         }
 
         /// <summary>
@@ -157,11 +157,11 @@ namespace Util.Tests.Helpers {
             var items = Util.Helpers.Enum.GetItems<EnumSample?>();
             Assert.Equal( 5, items.Count );
             Assert.Equal( "A", items[0].Text );
-            Assert.Equal( "1", items[0].Value );
+            Assert.Equal( 1, items[0].Value );
             Assert.Equal( "D4", items[3].Text );
-            Assert.Equal( "4", items[3].Value );
+            Assert.Equal( 4, items[3].Value );
             Assert.Equal( "E5", items[4].Text );
-            Assert.Equal( "5", items[4].Value );
+            Assert.Equal( 5, items[4].Value );
         }
 
         /// <summary>
