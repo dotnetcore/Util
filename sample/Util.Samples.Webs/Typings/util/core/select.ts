@@ -64,7 +64,7 @@ export class SelectItem {
     /**
      * 值
      */
-    value: string;
+    value;
     /**
      * 禁用
      */
@@ -90,7 +90,7 @@ export class SelectOption {
     /**
      * 值
      */
-    value: string;
+    value;
     /**
      * 禁用
      */

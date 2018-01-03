@@ -1,11 +1,11 @@
-﻿import { Component, ViewChild } from "@angular/core"
+﻿import { Component, ViewChild,OnInit } from "@angular/core"
 import { util, ViewModel,QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
 
 @Component({
     selector: 'demo',
     templateUrl: '/Home/Demo'
 })
-export class DemoComponent {
+export class DemoComponent implements OnInit {
     queryParam: CustomerQueryModel;
 
     @ViewChild('grid') grid: TableWrapperComponent<CustomerViewModel>;
@@ -28,6 +28,10 @@ export class DemoComponent {
     onChange(value) {
         util.message.info(value);
     }
+
+    ngOnInit() {
+        this.model.nation = 30;
+    }
 }
 
 
@@ -38,6 +42,5 @@ class CustomerQueryModel extends QueryParameter {
 class CustomerViewModel extends ViewModel {
     public name: string;
     public value: string;
-    public a: string;
-    public isGender;
+    public nation;
 }

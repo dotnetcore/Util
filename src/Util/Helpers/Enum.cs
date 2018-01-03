@@ -114,7 +114,7 @@ namespace Util.Helpers {
                 return;
             var value = GetValue<TEnum>( field.Name );
             var description = Reflection.GetDescription( field );
-            result.Add( new Item( description, value.ToString(), value ) );
+            result.Add( new Item( description, value, value ) );
         }
     }
 }

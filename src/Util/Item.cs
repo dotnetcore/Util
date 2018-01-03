@@ -14,7 +14,7 @@ namespace Util {
         /// <param name="sortId">排序号</param>
         /// <param name="group">组</param>
         /// <param name="disabled">禁用</param>
-        public Item( string text, string value, int? sortId = null, string group = null, bool? disabled = null ) {
+        public Item( string text, object value, int? sortId = null, string group = null, bool? disabled = null ) {
             Text = text;
             Value = value;
             SortId = sortId;
@@ -32,7 +32,7 @@ namespace Util {
         /// 值
         /// </summary>
         [JsonProperty( "value", NullValueHandling = NullValueHandling.Ignore )]
-        public string Value { get; }
+        public object Value { get; }
 
         /// <summary>
         /// 排序号

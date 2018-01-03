@@ -147,7 +147,7 @@ namespace Util.Logs.Exceptionless {
             if ( content == null )
                 return;
             foreach ( var parameter in content.To().OrderBy( t => t.SortId ) ) {
-                if ( string.IsNullOrWhiteSpace( parameter.Value ) )
+                if ( string.IsNullOrWhiteSpace( parameter.Value.SafeString() ) )
                     continue;
                 builder.SetProperty( $"{GetLine()}. {parameter.Text}", parameter.Value );
             }
