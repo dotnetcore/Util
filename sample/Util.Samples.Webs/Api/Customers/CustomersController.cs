@@ -18,10 +18,10 @@ namespace Util.Samples.Webs.Api.Customers
         [HttpGet("test")]
         public IActionResult Test() {
             List<Item> items = new List<Item> {
-                new Item( "B","1" ),
-                new Item( "A","2" ),
-                new Item( "D","3" ),
-                new Item( "C","4" ),
+                new Item( "B","1",2,"Group1" ),
+                new Item( "A","2",1,"Group2" ),
+                new Item( "D","3",4,"Group1" ),
+                new Item( "C","4",3,"Group2" ),
             };
             return Success( items );
         }

@@ -24,7 +24,7 @@ export class Select {
      * 获取已排序的列表项集合
      */
     private getSortedItems() {
-        return this.items.sort((a, b) => a.sortId && b.sortId ? a.sortId - b.sortId : -1);
+        return this.items.sort((a, b) => (a.sortId === undefined || b.sortId === undefined) ? 0 : a.sortId - b.sortId );
     }
 
     /**

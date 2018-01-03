@@ -113,14 +113,14 @@ export class SelectWrapperComponent implements OnInit {
      * 组件初始化
      */
     ngOnInit() {
-        this.loadFromItems();
+        this.loadItems();
         this.load();
     }
 
     /**
      * 从列表项集合加载数据源
      */
-    private loadFromItems() {
+    private loadItems() {
         if (this.dataSource)
             return;
         this.selectItems && this.updateDataSource(this.selectItems);
