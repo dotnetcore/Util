@@ -217,8 +217,8 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestEnum() {
             var result = new String();
             result.Append( "<mat-select-wrapper [selectItems]=\"[" );
-            result.Append( "{&quot;text&quot;:&quot;&#x5973;&#x58EB;&quot;,&quot;value&quot;:&quot;1&quot;,&quot;sortId&quot;:1}," );
-            result.Append( "{&quot;text&quot;:&quot;&#x5148;&#x751F;&quot;,&quot;value&quot;:&quot;2&quot;,&quot;sortId&quot;:2}" );
+            result.Append( "{&quot;text&quot;:&quot;&#x5973;&#x58EB;&quot;,&quot;value&quot;:1,&quot;sortId&quot;:1}," );
+            result.Append( "{&quot;text&quot;:&quot;&#x5148;&#x751F;&quot;,&quot;value&quot;:2,&quot;sortId&quot;:2}" );
             result.Append( "]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( (Select)_component.Enum<Gender>() ) );
         }
