@@ -16,9 +16,9 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <RepositoryType>git</RepositoryType>
     <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
     <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
-    <Version>0.0.8-preview</Version>
-    <AssemblyVersion>0.0.8.0</AssemblyVersion>
-    <FileVersion>0.0.7.0</FileVersion>
+    <Version>0.0.9-preview</Version>
+    <AssemblyVersion>0.0.9.0</AssemblyVersion>
+    <FileVersion>0.0.9.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
