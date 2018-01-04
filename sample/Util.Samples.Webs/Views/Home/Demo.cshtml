@@ -26,16 +26,10 @@
         <mat-error *ngIf="input?.hasError( &#x27;required&#x27; )">a</mat-error>
         <mat-error *ngIf="input?.hasError( &#x27;minlength&#x27; )">b</mat-error>
     </mat-form-field>
-
-    {{model.nation}}
-    <util-select datas-source="[{text:'a',value:1},{text:'b',value:2}]" model="model.nation" placeholder="认出来了" float-placeholder="Never"></util-select>
+    
     
 </div>
-<div>
-    <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
-    @Html.Ui().TextBox().Name( "queryParam.Name" ).Model( "queryParam.Name" ).Placeholder( "姓名" ).Required( "a" ).MinLength( 1, "b" ).Number()
-    <button mat-raised-button mat-button (click)="query()">查询</button>
-</div>
+
 
 <table-wrapper #grid  [queryParam]="queryParam" baseUrl="customers">
     @*表头*@

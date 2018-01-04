@@ -15,7 +15,7 @@ namespace Util.Ui.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="name">属性名</param>
         /// <param name="value">属性值</param>
-        public static TComponent Attribute<TComponent>( this TComponent component, string name, string value ) where TComponent : IOption {
+        public static TComponent Attribute<TComponent>( this TComponent component, string name, string value ) where TComponent : IOption,IAttribute {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.OutputAttributes.Add( name, value );
@@ -29,38 +29,10 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="value">属性值</param>
-        public static TComponent Attribute<TComponent>( this TComponent component, string value ) where TComponent : IOption {
+        public static TComponent Attribute<TComponent>( this TComponent component, string value ) where TComponent : IOption, IAttribute {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.OutputAttributes.Add( value, null );
-            } );
-            return component;
-        }
-
-        /// <summary>
-        /// 设置class
-        /// </summary>
-        /// <typeparam name="TComponent">组件类型</typeparam>
-        /// <param name="component">组件实例</param>
-        /// <param name="class">css类名</param>
-        public static TComponent Class<TComponent>( this TComponent component, string @class ) where TComponent : IOption {
-            var option = component as IOptionConfig;
-            option?.Config<Config>( config => {
-                config.AddClass( @class );
-            } );
-            return component;
-        }
-
-        /// <summary>
-        /// 设置样式
-        /// </summary>
-        /// <typeparam name="TComponent">组件类型</typeparam>
-        /// <param name="component">组件实例</param>
-        /// <param name="style">样式</param>
-        public static TComponent Style<TComponent>( this TComponent component, string style ) where TComponent : IOption {
-            var option = component as IOptionConfig;
-            option?.Config<Config>( config => {
-                config.OutputAttributes.Add( UiConst.Style, style );
             } );
             return component;
         }
@@ -71,7 +43,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="id">组件标识</param>
-        public static TComponent Id<TComponent>( this TComponent component, string id ) where TComponent : IOption {
+        public static TComponent Id<TComponent>( this TComponent component, string id ) where TComponent : IOption, IId {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.AllAttributes.Add( UiConst.Id, id );
