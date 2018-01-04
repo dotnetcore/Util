@@ -30,7 +30,9 @@
     <None Remove="Typings\util\config\message-config.ts" />
     <None Remove="Typings\util\core\select.ts" />
     <None Remove="Typings\util\core\view-model.ts" />
+    <None Remove="Typings\util\material\base\wrapper-component-base.ts" />
     <None Remove="Typings\util\material\select-wrapper.component.ts" />
+    <None Remove="Typings\util\material\textbox-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,7 +65,9 @@
     <TypeScriptCompile Include="Typings\util\config\message-config.ts" />
     <TypeScriptCompile Include="Typings\util\core\select.ts" />
     <TypeScriptCompile Include="Typings\util\core\view-model.ts" />
+    <TypeScriptCompile Include="Typings\util\material\base\wrapper-component-base.ts" />
     <TypeScriptCompile Include="Typings\util\material\select-wrapper.component.ts" />
+    <TypeScriptCompile Include="Typings\util\material\textbox-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

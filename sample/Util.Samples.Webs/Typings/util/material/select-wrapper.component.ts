@@ -3,6 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { WrapperComponentBase } from './base/wrapper-component-base';
 import { Select, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
 import { WebApi as webapi } from '../common/webapi';
 import { MessageConfig } from '../config/message-config';
@@ -33,11 +34,9 @@ import { MessageConfig } from '../config/message-config';
             </mat-select>
             <mat-error *ngIf="selectModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
         </mat-form-field>
-    `,
-    styles: [`
-    `]
+    `
 })
-export class SelectWrapperComponent implements OnInit {
+export class SelectWrapperComponent extends WrapperComponentBase implements OnInit {
     /**
      * 按组显示
      */
@@ -62,14 +61,6 @@ export class SelectWrapperComponent implements OnInit {
      * 多选
      */
     @Input() multiple: boolean;
-    /**
-     * 占位提示浮动位置，可选值：auto,never,always
-     */
-    @Input() floatPlaceholder: string;
-    /**
-     * 占位提示
-     */
-    @Input() placeholder: string;
     /**
      * 启用重置项
      */
@@ -107,6 +98,7 @@ export class SelectWrapperComponent implements OnInit {
      * 初始化Mat下拉列表包装器
      */
     constructor() {
+        super();
         this.floatPlaceholder = "auto";
         this.enableResetOption = true;
         this.resetOptionText = MessageConfig.resetOptionText;
@@ -117,15 +109,18 @@ export class SelectWrapperComponent implements OnInit {
      * 组件初始化
      */
     ngOnInit() {
-        this.loadDataSource();
-        this.load();
+        this.loadData();
+        if (this.dataSource)
+            return;
+        this.loadUrl();
     }
 
     /**
-     * 加载数据源
+     * 加载数据
+     * @param data 列表项集合
      */
-    private loadDataSource(items?: SelectItem[]) {
-        let data = items || this.dataSource;
+    loadData(data?: SelectItem[]) {
+        data = data || this.dataSource;
         let select = new Select(data);
         if (select.isGroup()) {
             this.isGroup = true;
@@ -136,18 +131,18 @@ export class SelectWrapperComponent implements OnInit {
     }
 
     /**
-     * 从服务器加载数据源
+     * 从服务器加载
+     * @param url 请求地址
      */
-    load() {
-        if (this.dataSource)
-            return;
-        if (!this.url) {
-            console.log("请设置下拉列表数据源或Url");
+    loadUrl(url?: string) {
+        url = url || this.url;
+        if (!url) {
+            console.log("请设置下拉列表Url");
             return;
         }
-        webapi.get<SelectItem[]>(this.url).handle({
+        webapi.get<SelectItem[]>(url).handle({
             handler: result => {
-                this.loadDataSource(result);
+                this.loadData(result);
             }
         });
     }

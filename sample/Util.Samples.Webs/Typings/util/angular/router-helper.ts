@@ -21,11 +21,11 @@ export class RouterHelper {
     /**
      * 导航
      * @param commands 导航参数，范例: ['team', 33, 'user', 11]，表示 /team/33/user/11
-     * @param extras 附加参数，范例: {relativeTo: route}
+     * @param extras 附加参数，范例: {queryParams: {id:'1'}}，表示 ?id=1
      */
     static navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
         let router = ioc.get(Router);
-        return router.navigate(commands);
+        return router.navigate(commands, extras);
     }
 
     /**
@@ -35,5 +35,14 @@ export class RouterHelper {
     static getParam(paramName: string): string | null {
         let route = ioc.getByComponent(ActivatedRoute);
         return route.snapshot.paramMap.get(paramName);
+    }
+
+    /**
+     * 获取当前路由参数值,从查询字符串获取
+     * @param paramName 参数名
+     */
+    static getQueryParam(paramName: string): string | null {
+        let route = ioc.getByComponent(ActivatedRoute);
+        return route.snapshot.queryParamMap.get(paramName);
     }
 }
