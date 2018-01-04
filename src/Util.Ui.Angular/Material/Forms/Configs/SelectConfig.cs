@@ -38,7 +38,7 @@ namespace Util.Ui.Material.Forms.Configs {
         /// 获取验证消息
         /// </summary>
         public override string GetValidateMessage() {
-            if ( !Contains( UiConst.Url ) && !Contains( UiConst.DataSource ) && !Contains( MaterialConst.SelectItems ) )
+            if ( !Contains( UiConst.Url ) && !Contains( UiConst.DataSource ) )
                 return "请设置数据源或Url";
             return string.Empty;
         }

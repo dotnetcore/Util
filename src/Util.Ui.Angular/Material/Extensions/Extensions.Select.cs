@@ -9,19 +9,6 @@ namespace Util.Ui.Material.Extensions {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// 按组显示
-        /// </summary>
-        /// <typeparam name="TComponent">组件类型</typeparam>
-        /// <param name="component">组件实例</param>
-        public static TComponent Group<TComponent>( this TComponent component ) where TComponent : ISelect {
-            var option = component as IOptionConfig;
-            option?.Config<SelectConfig>( config => {
-                config.SetAttribute( UiConst.Group, true );
-            } );
-            return component;
-        }
-
-        /// <summary>
         /// 显示模板，值用|表示，范例：当前选中：| ,显示为 当前选中：1,2,3
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
@@ -43,7 +30,7 @@ namespace Util.Ui.Material.Extensions {
         /// <param name="text">文本</param>
         /// <param name="value">值</param>
         /// <param name="group">组</param>
-        public static TComponent Add<TComponent>( this TComponent component, string text, string value,string group = null ) where TComponent : ISelect {
+        public static TComponent Add<TComponent>( this TComponent component, string text, object value,string group = null ) where TComponent : ISelect {
             var option = component as IOptionConfig;
             option?.Config<SelectConfig>( config => {
                 config.AddItems( new Item( text, value, null, group ) );

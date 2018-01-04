@@ -10,6 +10,6 @@ export { ViewModel } from './core/view-model';
 export { PagerList } from './core/pager-list';
 export { QueryParameter } from './core/query-parameter';
 export { Result, FailResult, StateCode } from './core/result';
-export { SelectOption, SelectOptionGroup } from './core/select';
+export { SelectItem } from './core/select';
 export { TableWrapperComponent } from './material/table-wrapper.component';
 export { SelectWrapperComponent } from './material/select-wrapper.component';

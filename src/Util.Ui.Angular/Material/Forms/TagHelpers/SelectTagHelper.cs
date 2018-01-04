@@ -20,10 +20,6 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string DatasSource { get; set; }
         /// <summary>
-        /// 按组显示
-        /// </summary>
-        public bool Group { get; set; }
-        /// <summary>
         /// 占位提示符
         /// </summary>
         public string Placeholder { get; set; }

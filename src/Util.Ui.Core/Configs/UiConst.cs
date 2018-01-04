@@ -103,9 +103,5 @@
         /// 模板
         /// </summary>
         public const string Template = "template";
-        /// <summary>
-        /// 组
-        /// </summary>
-        public const string Group = "group";
     }
 }

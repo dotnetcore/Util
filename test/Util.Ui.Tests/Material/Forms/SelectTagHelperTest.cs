@@ -71,17 +71,6 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
-        /// 测试按组显示
-        /// </summary>
-        [Fact]
-        public void TestGroup() {
-            var attributes = new TagHelperAttributeList { { UiConst.Group, true } };
-            var result = new String();
-            result.Append( "<mat-select-wrapper [isGroup]=\"true\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
         /// 测试设置占位提示
         /// </summary>
         [Fact]

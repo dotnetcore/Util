@@ -74,16 +74,6 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
-        /// 测试按组显示
-        /// </summary>
-        [Fact]
-        public void TestGroup() {
-            var result = new String();
-            result.Append( "<mat-select-wrapper [isGroup]=\"true\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Group() ) );
-        }
-
-        /// <summary>
         /// 测试设置占位提示
         /// </summary>
         [Fact]
@@ -179,7 +169,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestAdd_1() {
             var result = new String();
-            result.Append( "<mat-select-wrapper [selectItems]=\"[{" );
+            result.Append( "<mat-select-wrapper [dataSource]=\"[{" );
             result.Append( "&quot;text&quot;:&quot;a&quot;,&quot;value&quot;:&quot;1&quot;" );
             result.Append( "}]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Add( "a","1" ) ) );
@@ -191,7 +181,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestAdd_2() {
             var result = new String();
-            result.Append( "<mat-select-wrapper [selectItems]=\"[{" );
+            result.Append( "<mat-select-wrapper [dataSource]=\"[{" );
             result.Append( "&quot;text&quot;:&quot;a&quot;,&quot;value&quot;:&quot;1&quot;" );
             result.Append( "}]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Add( new Item( "a", "1" ) ) ) );
@@ -203,7 +193,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestBool() {
             var result = new String();
-            result.Append( "<mat-select-wrapper [selectItems]=\"[" );
+            result.Append( "<mat-select-wrapper [dataSource]=\"[" );
             result.Append( "{&quot;text&quot;:&quot;&#x662F;&quot;,&quot;value&quot;:&quot;true&quot;}," );
             result.Append( "{&quot;text&quot;:&quot;&#x5426;&quot;,&quot;value&quot;:&quot;false&quot;}" );
             result.Append( "]\"></mat-select-wrapper>" );
@@ -216,7 +206,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestEnum() {
             var result = new String();
-            result.Append( "<mat-select-wrapper [selectItems]=\"[" );
+            result.Append( "<mat-select-wrapper [dataSource]=\"[" );
             result.Append( "{&quot;text&quot;:&quot;&#x5973;&#x58EB;&quot;,&quot;value&quot;:1,&quot;sortId&quot;:1}," );
             result.Append( "{&quot;text&quot;:&quot;&#x5148;&#x751F;&quot;,&quot;value&quot;:2,&quot;sortId&quot;:2}" );
             result.Append( "]\"></mat-select-wrapper>" );

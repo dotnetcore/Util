@@ -60,8 +60,6 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigDataSource( SelectWrapperBuilder builder ) {
             builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.DataSource ) );
-            builder.AddAttribute( "[selectItems]", _config.GetValue( MaterialConst.SelectItems ) );
-            builder.AddAttribute( "[isGroup]", _config.GetBoolValue( UiConst.Group ) );
         }
 
         /// <summary>

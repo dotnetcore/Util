@@ -15,9 +15,5 @@
         /// 重置项文本
         /// </summary>
         public const string ResetOptionText = "reset-option-text";
-        /// <summary>
-        /// 列表项集合
-        /// </summary>
-        public const string SelectItems = "select-items";
     }
 }

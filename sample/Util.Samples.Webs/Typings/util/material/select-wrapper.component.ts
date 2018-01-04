@@ -19,12 +19,12 @@ import { MessageConfig } from '../config/message-config';
                 <mat-select-trigger *ngIf="template">{{getTemplate(select.triggerValue)}}</mat-select-trigger>
                 <mat-option *ngIf="enableResetOption && !multiple">{{resetOptionText }}</mat-option>
                 <ng-container *ngIf="!isGroup">
-                    <mat-option *ngFor="let item of dataSource" [value]="item.value" [disabled]="item.disabled">
+                    <mat-option *ngFor="let item of options" [value]="item.value" [disabled]="item.disabled">
                         {{ item.text }}
                     </mat-option>
                 </ng-container>
                 <ng-container *ngIf="isGroup">
-                    <mat-optgroup *ngFor="let group of dataSource" [label]="group.text" [disabled]="group.disabled">
+                    <mat-optgroup *ngFor="let group of optionGroups" [label]="group.text" [disabled]="group.disabled">
                         <mat-option *ngFor="let item of group.value" [value]="item.value" [disabled]="item.disabled">
                             {{ item.text }}
                         </mat-option>
@@ -39,21 +39,25 @@ import { MessageConfig } from '../config/message-config';
 })
 export class SelectWrapperComponent implements OnInit {
     /**
+     * 按组显示
+     */
+    private isGroup: boolean;
+    /**
+     * 列表项集合
+     */
+    private options: SelectOption[];
+    /**
+     * 列表组集合
+     */
+    private optionGroups: SelectOptionGroup[];
+    /**
      * 数据源
      */
-    @Input() dataSource: SelectOption[] | SelectOptionGroup[];
-    /**
-     * 列表项集合，SelectItem形式的数据源
-     */
-    @Input() selectItems: SelectItem[];
+    @Input() dataSource: SelectItem[];
     /**
      * 请求地址
      */
     @Input() url: string;
-    /**
-     * 按组显示
-     */
-    @Input() isGroup: boolean;
     /**
      * 多选
      */
@@ -113,31 +117,22 @@ export class SelectWrapperComponent implements OnInit {
      * 组件初始化
      */
     ngOnInit() {
-        this.loadItems();
+        this.loadDataSource();
         this.load();
     }
 
     /**
-     * 从列表项集合加载数据源
+     * 加载数据源
      */
-    private loadItems() {
-        if (this.dataSource)
-            return;
-        this.selectItems && this.updateDataSource(this.selectItems);
-    }
-
-    /**
-     * 更新数据源
-     * @param items 列表项集合
-     */
-    private updateDataSource(items: SelectItem[]) {
-        let select = new Select(items);
+    private loadDataSource(items?: SelectItem[]) {
+        let data = items || this.dataSource;
+        let select = new Select(data);
         if (select.isGroup()) {
             this.isGroup = true;
-            this.dataSource = select.toSelectOptionGroups();
+            this.optionGroups = select.toSelectOptionGroups();
             return;
         }
-        this.dataSource = select.toSelectOptions();
+        this.options = select.toSelectOptions();
     }
 
     /**
@@ -152,7 +147,7 @@ export class SelectWrapperComponent implements OnInit {
         }
         webapi.get<SelectItem[]>(this.url).handle({
             handler: result => {
-                this.updateDataSource(result);
+                this.loadDataSource(result);
             }
         });
     }

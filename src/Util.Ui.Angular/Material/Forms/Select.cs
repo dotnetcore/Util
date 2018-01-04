@@ -2,6 +2,7 @@
 using System.Text.Encodings.Web;
 using Util.Ui.Components;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Configs;
 using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Forms.Configs;
@@ -54,7 +55,7 @@ namespace Util.Ui.Material.Forms {
         private void AddItems() {
             if( _config.Items.Count == 0 )
                 return;
-            _config.SetAttribute( MaterialConst.SelectItems, Util.Helpers.Json.ToJson( _config.Items ) );
+            this.DataSource( Util.Helpers.Json.ToJson( _config.Items ) );
         }
 
         /// <summary>
