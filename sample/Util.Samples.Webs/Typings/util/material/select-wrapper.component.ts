@@ -129,10 +129,10 @@ export class SelectWrapperComponent implements OnInit {
         let select = new Select(data);
         if (select.isGroup()) {
             this.isGroup = true;
-            this.optionGroups = select.toSelectOptionGroups();
+            this.optionGroups = select.toGroups();
             return;
         }
-        this.options = select.toSelectOptions();
+        this.options = select.toOptions();
     }
 
     /**

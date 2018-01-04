@@ -16,7 +16,7 @@ export class Select {
     /**
      * 转换为下拉列表项集合
      */
-    toSelectOptions(): SelectOption[] {
+    toOptions(): SelectOption[] {
         return this.getSortedItems().map(value => new SelectOption(value));
     }
 
@@ -30,7 +30,7 @@ export class Select {
     /**
      * 转换为下拉列表组集合
      */
-    toSelectOptionGroups(): SelectOptionGroup[] {
+    toGroups(): SelectOptionGroup[] {
         let result: SelectOptionGroup[] = new Array<SelectOptionGroup>();
         this.getSortedItems().forEach(item => {
             if (!item.group)
