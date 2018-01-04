@@ -1,12 +1,12 @@
-﻿//============== 包装器===========================
+﻿//============== 表单控件包装器===========================
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
 import { Input, Output, EventEmitter } from '@angular/core';
 /**
- * 包装器
+ * 表单控件包装器
  */
-export class WrapperComponentBase {
+export class FormControlWrapperBase {
     /**
      * 占位提示符
      */

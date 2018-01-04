@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { WrapperComponentBase } from './base/wrapper-component-base';
+import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { Select, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
 import { WebApi as webapi } from '../common/webapi';
 import { MessageConfig } from '../config/message-config';
@@ -36,7 +36,7 @@ import { MessageConfig } from '../config/message-config';
         </mat-form-field>
     `
 })
-export class SelectWrapperComponent extends WrapperComponentBase implements OnInit {
+export class SelectWrapperComponent extends FormControlWrapperBase implements OnInit {
     /**
      * 按组显示
      */
@@ -121,6 +121,8 @@ export class SelectWrapperComponent extends WrapperComponentBase implements OnIn
      */
     loadData(data?: SelectItem[]) {
         data = data || this.dataSource;
+        if (!data)
+            return;
         let select = new Select(data);
         if (select.isGroup()) {
             this.isGroup = true;

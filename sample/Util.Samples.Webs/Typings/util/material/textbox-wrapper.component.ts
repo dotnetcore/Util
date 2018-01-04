@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { WrapperComponentBase } from './base/wrapper-component-base';
+import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 
 /**
  * Mat文本框包装器
@@ -16,7 +16,7 @@ import { WrapperComponentBase } from './base/wrapper-component-base';
         </mat-form-field>
     `
 })
-export class TextBoxWrapperComponent extends WrapperComponentBase implements OnInit {
+export class TextBoxWrapperComponent extends FormControlWrapperBase implements OnInit {
     /**
      * 组件初始化
      */

@@ -38,7 +38,7 @@ export class RouterHelper {
     }
 
     /**
-     * 获取当前路由参数值,从查询字符串获取
+     * 获取当前路由参数值,从路由快照中的查询字符串获取参数
      * @param paramName 参数名
      */
     static getQueryParam(paramName: string): string | null {
