@@ -8,7 +8,7 @@ namespace Util.Ui.TagHelpers {
     /// <summary>
     /// TagHelper
     /// </summary>
-    public abstract partial class TagHelperBase : TagHelper {
+    public abstract class TagHelperBase : TagHelper {
         /// <summary>
         /// 渲染
         /// </summary>

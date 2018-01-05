@@ -13,10 +13,10 @@ import { MessageConfig } from '../config/message-config';
  */
 @Component({
     selector: 'mat-select-wrapper',
-    template: `
+    template:`
         <mat-form-field [floatPlaceholder]="floatPlaceholder">
-            <mat-select [placeholder]="placeholder" [multiple]="multiple" [ngModel]="model" (ngModelChange)="onModelChange($event)"
-                        #select="matSelect" #selectModel="ngModel" [required]="required">
+            <mat-select #select="matSelect" #selectModel="ngModel" [name]="name" [placeholder]="placeholder" [multiple]="multiple" 
+                [ngModel]="model" (ngModelChange)="onModelChange($event)" [required]="required">
                 <mat-select-trigger *ngIf="template">{{getTemplate(select.triggerValue)}}</mat-select-trigger>
                 <mat-option *ngIf="enableResetOption && !multiple">{{resetOptionText }}</mat-option>
                 <ng-container *ngIf="!isGroup">
@@ -32,6 +32,12 @@ import { MessageConfig } from '../config/message-config';
                     </mat-optgroup>
                 </ng-container>
             </mat-select>
+            <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
+            <mat-hint *ngIf="endHint" align="end">{{endHint}}</mat-hint>
+            <span matPrefix *ngIf="prefixText">{{prefixText}}&nbsp;</span>
+            <mat-icon matSuffix [style.cursor]="'pointer'" (click)="$event.stopPropagation();suffixIconClick()" *ngIf="suffixMaterialIcon">{{suffixMaterialIcon}}</mat-icon>
+            <i matSuffix class="fa fa-lg {{suffixFontAwesomeIcon}}" [style.cursor]="'pointer'" (click)="$event.stopPropagation();suffixIconClick()" *ngIf="suffixFontAwesomeIcon"></i>
+            <span matSuffix *ngIf="suffixText">{{suffixText}}</span>
             <mat-error *ngIf="selectModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
         </mat-form-field>
     `
@@ -70,25 +76,9 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
      */
     @Input() resetOptionText: string;
     /**
-     * 模型，用于双向绑定
-     */
-    @Input() model;
-    /**
-     * 模型变更事件,用于双向绑定
-     */
-    @Output() modelChange = new EventEmitter<any>();
-    /**
      * 变更事件
      */
     @Output() onChange = new EventEmitter<any>();
-    /**
-     * 必填项
-     */
-    @Input() required: boolean;
-    /**
-     * 必填项验证消息
-     */
-    @Input() requiredMessage: string;
     /**
      * 显示模板，值用|表示，范例：当前选中：| ,显示为 当前选中：1,2,3
      */
@@ -99,10 +89,8 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
      */
     constructor() {
         super();
-        this.floatPlaceholder = "auto";
         this.enableResetOption = true;
         this.resetOptionText = MessageConfig.resetOptionText;
-        this.requiredMessage = MessageConfig.requiredMessage;
     }
 
     /**
@@ -150,10 +138,10 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
     }
 
     /**
-     * 下拉列表变更事件处理
+     * 模型变更事件处理
      */
-    private onModelChange(value) {
-        this.modelChange.emit(value);
+    protected onModelChange(value) {
+        super.onModelChange(value);
         this.onChange.emit(value);
     }
 

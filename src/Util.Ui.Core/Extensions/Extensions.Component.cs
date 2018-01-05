@@ -60,7 +60,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Name<TComponent>( this TComponent component, string name ) where TComponent : IOption, IName {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.Name = name;
+                config.SetAttribute( UiConst.Name, name );
             } );
             return component;
         }
@@ -103,7 +103,7 @@ namespace Util.Ui.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 if( disabled )
-                    config.AllAttributes.Add( UiConst.Disabled, "disabled" );
+                    config.SetAttribute( UiConst.Disabled, "disabled" );
                 else
                     config.Remove( UiConst.Disabled );
             } );

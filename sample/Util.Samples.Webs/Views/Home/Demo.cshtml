@@ -16,20 +16,15 @@
         <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
             <mat-icon>delete</mat-icon>
         </button>
+        <util-select prefix="￥" suffix-font-awesome-icon="Apple" url="/api/customers/test" placeholder="测试" on-suffix-icon-click="onChange()"></util-select>
+        @x.Select(t=> t.Nation).Suffix( FontAwesomeIcon.Android,"onChange()" )
     </div>
 </div>
 
-<div style="margin: 300px;width: 300px">
-    <mat-form-field>
-        <input #input="ngModel" matInput="matInput" minlength="1" 
-               name="queryParam.Name" placeholder="&#x59D3;&#x540D;" required="true" type="number" [(ngModel)]="queryParam.Name" />
-        <mat-error *ngIf="input?.hasError( &#x27;required&#x27; )">a</mat-error>
-        <mat-error *ngIf="input?.hasError( &#x27;minlength&#x27; )">b</mat-error>
-    </mat-form-field>
-    
-    
-</div>
 
+<mat-textbox-wrapper name="a" placeholder="哈哈" startHint="左边" endHint="右边" [required]="true"  [multiple]="true" [rows]="5"
+                     [minLength]="3" minLengthMessage="最小都得3位呀" type="number" [suffixMaterialIcon]="model.hide ? 'visibility' : 'visibility_off'" prefixText="$&nbsp;" (onSuffixIconClick)="onChange($event)"></mat-textbox-wrapper>
+<br />
 
 <table-wrapper #grid  [queryParam]="queryParam" baseUrl="customers">
     @*表头*@

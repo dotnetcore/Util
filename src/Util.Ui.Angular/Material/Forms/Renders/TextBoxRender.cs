@@ -46,7 +46,7 @@ namespace Util.Ui.Material.Forms.Renders {
             inputBuilder.SetText();
             inputBuilder.AddOtherAttributes( _config );
             inputBuilder.Id( _config );
-            inputBuilder.AddAttribute( "name", _config.Name );
+            inputBuilder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
             inputBuilder.AddAttribute( "placeholder", _config.GetValue( UiConst.Placeholder ) );
             inputBuilder.AddAttribute( "value", _config.Value );
             inputBuilder.AddAttribute( "type", _config.Type );

@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Material.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
@@ -37,15 +38,26 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置
         /// </summary>
         private void Config( SelectWrapperBuilder builder ) {
+            ConfigName( builder );
             ConfigUrl( builder );
             ConfigDataSource( builder );
             ConfigPlaceholder( builder );
+            ConfigHint( builder );
             ConfigResetOption( builder );
             ConfigMultiple( builder );
             ConfigModel( builder );
             ConfigRequired( builder );
             ConfigTemplate( builder );
             ConfigOnChange( builder );
+            ConfigPrefix( builder );
+            ConfigSuffix( builder );
+        }
+
+        /// <summary>
+        /// 配置名称
+        /// </summary>
+        private void ConfigName( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
         }
 
         /// <summary>
@@ -63,11 +75,19 @@ namespace Util.Ui.Material.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置占位提示
+        /// 配置占位符
         /// </summary>
         private void ConfigPlaceholder( SelectWrapperBuilder builder ) {
             builder.AddAttribute( UiConst.Placeholder, _config.GetValue( UiConst.Placeholder ) );
-            builder.AddAttribute( "floatPlaceholder", _config.GetValue<FloatPlaceholder?>( MaterialConst.FloatPlaceholder )?.Description() );
+            builder.AddAttribute( "floatPlaceholder", _config.GetValue<FloatType?>( MaterialConst.FloatPlaceholder )?.Description() );
+        }
+
+        /// <summary>
+        /// 配置提示
+        /// </summary>
+        private void ConfigHint( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "startHint", _config.GetValue( MaterialConst.StartHint ) );
+            builder.AddAttribute( "endHint", _config.GetValue( MaterialConst.EndHint ) );
         }
 
         /// <summary>
@@ -112,6 +132,23 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigOnChange( SelectWrapperBuilder builder ) {
             builder.AddAttribute( "(onChange)", _config.GetValue( UiConst.OnChange ) );
+        }
+
+        /// <summary>
+        /// 配置前缀
+        /// </summary>
+        private void ConfigPrefix( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "prefixText", _config.GetValue( UiConst.Prefix ) );
+        }
+
+        /// <summary>
+        /// 配置后缀
+        /// </summary>
+        private void ConfigSuffix( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "suffixText", _config.GetValue( MaterialConst.SuffixText ) );
+            builder.AddAttribute( "suffixFontAwesomeIcon", _config.GetValue<FontAwesomeIcon?>( MaterialConst.SuffixFontAwesomeIcon )?.Description() );
+            builder.AddAttribute( "suffixMaterialIcon", _config.GetValue<MaterialIcon?>( MaterialConst.SuffixMaterialIcon )?.Description() );
+            builder.AddAttribute( "(onSuffixIconClick)", _config.GetValue( MaterialConst.OnSuffixIconClick ) );
         }
     }
 }

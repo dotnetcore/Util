@@ -4,6 +4,10 @@
     /// </summary>
     public static class UiConst {
         /// <summary>
+        /// 名称
+        /// </summary>
+        public const string Name = "name";
+        /// <summary>
         /// 类名
         /// </summary>
         public const string Class = "class";
@@ -103,5 +107,9 @@
         /// 模板
         /// </summary>
         public const string Template = "template";
+        /// <summary>
+        /// 前缀
+        /// </summary>
+        public const string Prefix = "prefix";
     }
 }

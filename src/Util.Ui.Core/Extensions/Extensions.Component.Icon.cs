@@ -18,7 +18,7 @@ namespace Util.Ui.Extensions {
         public static TComponent FontAwesome<TComponent>( this TComponent component, FontAwesomeIcon icon ) where TComponent : IIcon {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.FontAwesomeIcon, icon.ToString() );
+                config.SetAttribute( UiConst.FontAwesomeIcon, icon );
             } );
             return component;
         }
@@ -32,7 +32,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Material<TComponent>( this TComponent component, MaterialIcon icon ) where TComponent : IComponent, IIcon {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.MaterialIcon, icon.ToString() );
+                config.SetAttribute( UiConst.MaterialIcon, icon );
             } );
             return component;
         }
@@ -46,7 +46,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Size<TComponent>( this TComponent component, IconSize size ) where TComponent : IIcon {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.Size, size.ToString() );
+                config.SetAttribute( UiConst.Size, size );
             } );
             return component;
         }
@@ -74,7 +74,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Rotate<TComponent>( this TComponent component, RotateType type ) where TComponent : IIcon {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.Rotate, type.ToString() );
+                config.SetAttribute( UiConst.Rotate, type );
             } );
             return component;
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Enums;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
@@ -24,9 +25,17 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string Placeholder { get; set; }
         /// <summary>
-        /// 占位提示浮动位置
+        /// 占位符浮动类型
         /// </summary>
-        public FloatPlaceholder FloatPlaceholder { get; set; }
+        public FloatType FloatPlaceholder { get; set; }
+        /// <summary>
+        /// 起始提示，显示在控件左下方
+        /// </summary>
+        public string StartHint { get; set; }
+        /// <summary>
+        /// 结束提示，显示在控件右下方
+        /// </summary>
+        public string EndHint { get; set; }
         /// <summary>
         /// 启用重置项，重置项显示在列表的第一行，用于清空当前选择的值
         /// </summary>
@@ -59,6 +68,26 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 变更事件处理函数,用$event访问值,范例：change($event)
         /// </summary>
         public string OnChange { get; set; }
+        /// <summary>
+        /// 前缀
+        /// </summary>
+        public string Prefix { get; set; }
+        /// <summary>
+        /// 后缀文本
+        /// </summary>
+        public string SuffixText { get; set; }
+        /// <summary>
+        /// 后缀FontAwesome图标
+        /// </summary>
+        public FontAwesomeIcon SuffixFontAwesomeIcon { get; set; }
+        /// <summary>
+        /// 后缀Material图标
+        /// </summary>
+        public MaterialIcon SuffixMaterialIcon { get; set; }
+        /// <summary>
+        /// 后缀图标单击事件,范例：click()
+        /// </summary>
+        public string OnSuffixIconClick { get; set; }
 
         /// <summary>
         /// 获取渲染器

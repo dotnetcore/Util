@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Material.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.TagHelpers;
@@ -49,6 +50,17 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试设置名称
+        /// </summary>
+        [Fact]
+        public void TestName() {
+            var attributes = new TagHelperAttributeList { { UiConst.Name, "a" } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper name=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试设置Url
         /// </summary>
         [Fact]
@@ -86,9 +98,31 @@ namespace Util.Ui.Tests.Material.Forms {
         /// </summary>
         [Fact]
         public void TestFloatPlaceholder() {
-            var attributes = new TagHelperAttributeList { { MaterialConst.FloatPlaceholder, FloatPlaceholder.Never } };
+            var attributes = new TagHelperAttributeList { { MaterialConst.FloatPlaceholder, FloatType.Never } };
             var result = new String();
             result.Append( "<mat-select-wrapper floatPlaceholder=\"never\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置起始提示
+        /// </summary>
+        [Fact]
+        public void TestStartHint() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.StartHint, "a" } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper startHint=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置结束提示
+        /// </summary>
+        [Fact]
+        public void TestEndHint() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.EndHint, "a" } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper endHint=\"a\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -177,6 +211,61 @@ namespace Util.Ui.Tests.Material.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.OnChange, "a" } };
             var result = new String();
             result.Append( "<mat-select-wrapper (onChange)=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置前缀
+        /// </summary>
+        [Fact]
+        public void TestPrefix() {
+            var attributes = new TagHelperAttributeList { { UiConst.Prefix, "a" } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper prefixText=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀文本
+        /// </summary>
+        [Fact]
+        public void TestSuffixText() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.SuffixText, "a" } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper suffixText=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀FontAwesome图标
+        /// </summary>
+        [Fact]
+        public void TestSuffixFontAwesomeIcon() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.SuffixFontAwesomeIcon, FontAwesomeIcon.Apple } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper suffixFontAwesomeIcon=\"fa-apple\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀Material图标
+        /// </summary>
+        [Fact]
+        public void TestSuffixMaterialIcon() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.SuffixMaterialIcon, MaterialIcon.Android } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper suffixMaterialIcon=\"android\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀图标单击事件
+        /// </summary>
+        [Fact]
+        public void TestOnSuffixIconClick() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.OnSuffixIconClick, "a" } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper (onSuffixIconClick)=\"a\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

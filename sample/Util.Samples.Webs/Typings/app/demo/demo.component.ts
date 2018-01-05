@@ -25,8 +25,9 @@ export class DemoComponent implements OnInit {
         this.grid.query();
     }
 
-    onChange(value) {
-        util.message.info(value);
+    onChange() {
+        this.model.hide = !this.model.hide;
+        util.message.info("成功了");
     }
 
     ngOnInit() {
@@ -43,4 +44,5 @@ class CustomerViewModel extends ViewModel {
     public name: string;
     public value: string;
     public nation;
+    public hide:boolean;
 }

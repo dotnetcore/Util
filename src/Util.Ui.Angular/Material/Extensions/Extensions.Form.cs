@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Material.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Operations.Forms;
@@ -16,13 +17,31 @@ namespace Util.Ui.Material.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="text">占位提示文本</param>
-        /// <param name="position">占位提示浮动位置</param>
-        public static TComponent Placeholder<TComponent>( this TComponent component, string text,FloatPlaceholder? position ) where TComponent : IComponent, IPlaceholder {
+        /// <param name="type">占位符浮动类型</param>
+        public static TComponent Placeholder<TComponent>( this TComponent component, string text, FloatType? type ) where TComponent : IComponent, IPlaceholder {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Placeholder, text );
-                if( position != null )
-                    config.SetAttribute( MaterialConst.FloatPlaceholder,position.Description() );
+                config.SetAttribute( MaterialConst.FloatPlaceholder, type );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置提示,显示在控件下方
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="text">提示文本</param>
+        /// <param name="right">显示到右侧</param>
+        public static TComponent Hint<TComponent>( this TComponent component, string text, bool right = false ) where TComponent : IComponent, IHint {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                if( right ) {
+                    config.SetAttribute( MaterialConst.EndHint, text );
+                    return;
+                }
+                config.SetAttribute( MaterialConst.StartHint, text );
             } );
             return component;
         }
@@ -65,6 +84,66 @@ namespace Util.Ui.Material.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Multiple, true );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置前缀
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="text">文本</param>
+        public static TComponent Prefix<TComponent>( this TComponent component,string text ) where TComponent : IComponent, IPrefix {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Prefix, text );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置后缀
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="text">文本</param>
+        public static TComponent Suffix<TComponent>( this TComponent component, string text ) where TComponent : IComponent, IPrefix {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( MaterialConst.SuffixText, text );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置后缀
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="icon">FontAwesome图标</param>
+        /// <param name="onClick">图标单击事件处理函数，范例：click()</param>
+        public static TComponent Suffix<TComponent>( this TComponent component, FontAwesomeIcon icon,string onClick = null ) where TComponent : IComponent, IPrefix {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( MaterialConst.SuffixFontAwesomeIcon, icon );
+                config.SetAttribute( MaterialConst.OnSuffixIconClick, onClick );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置后缀
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="icon">Material图标</param>
+        /// <param name="onClick">图标单击事件处理函数，范例：click()</param>
+        public static TComponent Suffix<TComponent>( this TComponent component, MaterialIcon icon, string onClick = null ) where TComponent : IComponent, IPrefix {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( MaterialConst.SuffixMaterialIcon, icon );
+                config.SetAttribute( MaterialConst.OnSuffixIconClick, onClick );
             } );
             return component;
         }

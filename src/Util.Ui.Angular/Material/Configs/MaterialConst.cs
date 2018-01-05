@@ -15,5 +15,29 @@
         /// 重置项文本
         /// </summary>
         public const string ResetOptionText = "reset-option-text";
+        /// <summary>
+        /// 起始提示
+        /// </summary>
+        public const string StartHint = "start-hint";
+        /// <summary>
+        /// 结束提示
+        /// </summary>
+        public const string EndHint = "end-hint";
+        /// <summary>
+        /// 后缀文本
+        /// </summary>
+        public const string SuffixText = "suffix-text";
+        /// <summary>
+        /// 后缀FontAwesome图标
+        /// </summary>
+        public const string SuffixFontAwesomeIcon = "suffix-font-awesome-icon";
+        /// <summary>
+        /// 后缀Material图标
+        /// </summary>
+        public const string SuffixMaterialIcon = "suffix-material-icon";
+        /// <summary>
+        /// 后缀图标单击事件
+        /// </summary>
+        public const string OnSuffixIconClick = "on-suffix-icon-click";
     }
 }
