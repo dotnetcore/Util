@@ -10,14 +10,14 @@
     "test": "karma start Typings/test/karma.conf.js"
   },
   "dependencies": {
-    "@angular/animations": "5.2.0-beta.1",
-    "@angular/common": "5.2.0-beta.1",
-    "@angular/compiler": "5.2.0-beta.1",
-    "@angular/core": "5.2.0-beta.1",
-    "@angular/forms": "5.2.0-beta.1",
-    "@angular/platform-browser": "5.2.0-beta.1",
-    "@angular/platform-browser-dynamic": "5.2.0-beta.1",
-    "@angular/router": "5.2.0-beta.1",
+    "@angular/animations": "5.2.0-rc.0",
+    "@angular/common": "5.2.0-rc.0",
+    "@angular/compiler": "5.2.0-rc.0",
+    "@angular/core": "5.2.0-rc.0",
+    "@angular/forms": "5.2.0-rc.0",
+    "@angular/platform-browser": "5.2.0-rc.0",
+    "@angular/platform-browser-dynamic": "5.2.0-rc.0",
+    "@angular/router": "5.2.0-rc.0",
     "@angular/cdk": "5.0.3",
     "@angular/material": "5.0.3",
     "font-awesome": "4.7.0",
@@ -33,7 +33,7 @@
     "ngx-perfect-scrollbar": "5.3.1"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "5.2.0-beta.1",
+    "@angular/compiler-cli": "5.2.0-rc.0",
     "@types/jasmine": "2.8.3",
     "@types/webpack-env": "1.13.3",
     "aspnet-webpack": "2.0.1",

@@ -32,9 +32,12 @@ namespace Util.Tests.Helpers {
         /// 测试获取枚举实例 - 可空枚举
         ///</summary>
         [Theory]
+        [InlineData( null, null )]
+        [InlineData( "", null )]
+        [InlineData( " ", null )]
         [InlineData( "C", EnumSample.C )]
         [InlineData( "3", EnumSample.C )]
-        public void TestParse_Nullable( string memeber, EnumSample sample ) {
+        public void TestParse_Nullable( string memeber, EnumSample? sample ) {
             Assert.Equal( sample, Util.Helpers.Enum.Parse<EnumSample?>( memeber ) );
         }
 

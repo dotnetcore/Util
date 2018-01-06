@@ -1,5 +1,4 @@
-﻿@using Util.Biz.Enums
-@model Donau.Services.Dtos.Customers.CustomersDto
+﻿@model Donau.Services.Dtos.Customers.CustomersDto
 @{
     ViewData["Title"] = "Tile";
     var x = Html.Ui();
@@ -17,16 +16,18 @@
             <mat-icon>delete</mat-icon>
         </button>
         <util-select prefix="￥" suffix-font-awesome-icon="Apple" url="/api/customers/test" placeholder="测试" on-suffix-icon-click="onChange()"></util-select>
-        @x.Select(t=> t.Nation).Suffix( FontAwesomeIcon.Android,"onChange()" )
+        @x.Select( t => t.Nation ).Suffix( FontAwesomeIcon.Android, "onChange()" )
     </div>
 </div>
 
+<div style="margin: 300px">
+    <mat-textbox-wrapper placeholder="哈哈" startHint="左边" endHint="右边" type="number" [required]="true"  [(model)]="model.num" [maxLength]="8" 
+                         [suffixMaterialIcon]="model.hide ? 'visibility' : 'visibility_off'" prefixText="$&nbsp;" (onSuffixIconClick)="onChange($event)"></mat-textbox-wrapper>
+    {{model.value}}
+    <mat-textarea-wrapper placeholder="哈哈" [(model)]="model.value"></mat-textarea-wrapper>
+</div>
 
-<mat-textbox-wrapper name="a" placeholder="哈哈" startHint="左边" endHint="右边" [required]="true"  [multiple]="true" [rows]="5"
-                     [minLength]="3" minLengthMessage="最小都得3位呀" type="number" [suffixMaterialIcon]="model.hide ? 'visibility' : 'visibility_off'" prefixText="$&nbsp;" (onSuffixIconClick)="onChange($event)"></mat-textbox-wrapper>
-<br />
-
-<table-wrapper #grid  [queryParam]="queryParam" baseUrl="customers">
+<table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
     @*表头*@
     <div class="table-header">
         <mat-form-field>

@@ -14,6 +14,14 @@ export class FormControlWrapperBase {
      */
     @Input() name: string;
     /**
+     * 禁用
+     */
+    @Input() disabled: boolean;
+    /**
+     * 只读
+     */
+    @Input() readonly: boolean;
+    /**
      * 占位提示符
      */
     @Input() placeholder: string;
@@ -46,6 +54,14 @@ export class FormControlWrapperBase {
      */
     @Input() suffixMaterialIcon: string;
     /**
+     * 必填项
+     */
+    @Input() required: boolean;
+    /**
+     * 必填项验证消息
+     */
+    @Input() requiredMessage: string;
+    /**
      * 后缀图标单击事件
      */
     @Output() onSuffixIconClick = new EventEmitter<any>();
@@ -58,13 +74,21 @@ export class FormControlWrapperBase {
      */
     @Output() modelChange = new EventEmitter<any>();
     /**
-     * 必填项
+     * 变更事件
      */
-    @Input() required: boolean;
+    @Output() onChange = new EventEmitter<any>();
     /**
-     * 必填项验证消息
+     * 获得焦点事件
      */
-    @Input() requiredMessage: string;
+    @Output() onFocus = new EventEmitter<FocusEvent>();
+    /**
+     * 失去焦点事件
+     */
+    @Output() onBlur = new EventEmitter<FocusEvent>();
+    /**
+     * 键盘按下事件
+     */
+    @Output() onKeydown = new EventEmitter<KeyboardEvent>();
 
     /**
      * 表单控件包装器
@@ -79,6 +103,7 @@ export class FormControlWrapperBase {
      */
     protected onModelChange(value) {
         this.modelChange.emit(value);
+        this.onChange.emit(value);
     }
 
     /**
@@ -86,5 +111,26 @@ export class FormControlWrapperBase {
      */
     protected suffixIconClick() {
         this.onSuffixIconClick.emit();
+    }
+
+    /**
+     * 获得焦点事件
+     */
+    protected focus(event: FocusEvent) {
+        this.onFocus.emit(event);
+    }
+
+    /**
+     * 失去焦点事件
+     */
+    protected blur(event: FocusEvent) {
+        this.onBlur.emit(event);
+    }
+
+    /**
+     * 键盘按下事件
+     */
+    protected keydown(event: KeyboardEvent) {
+        this.onKeydown.emit(event);
     }
 }

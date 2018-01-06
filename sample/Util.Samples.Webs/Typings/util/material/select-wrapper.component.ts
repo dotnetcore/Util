@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { Select, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
 import { WebApi as webapi } from '../common/webapi';
@@ -15,8 +15,9 @@ import { MessageConfig } from '../config/message-config';
     selector: 'mat-select-wrapper',
     template:`
         <mat-form-field [floatPlaceholder]="floatPlaceholder">
-            <mat-select #select="matSelect" #selectModel="ngModel" [name]="name" [placeholder]="placeholder" [multiple]="multiple" 
-                [ngModel]="model" (ngModelChange)="onModelChange($event)" [required]="required">
+            <mat-select #select="matSelect" #selectModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
+                (blur)="blur($event)" (focus)="focus($event)" (keydown)="keydown($event)"
+                [placeholder]="placeholder" [disabled]="disabled" [multiple]="multiple" [required]="required">
                 <mat-select-trigger *ngIf="template">{{getTemplate(select.triggerValue)}}</mat-select-trigger>
                 <mat-option *ngIf="enableResetOption && !multiple">{{resetOptionText }}</mat-option>
                 <ng-container *ngIf="!isGroup">
@@ -76,10 +77,6 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
      */
     @Input() resetOptionText: string;
     /**
-     * 变更事件
-     */
-    @Output() onChange = new EventEmitter<any>();
-    /**
      * 显示模板，值用|表示，范例：当前选中：| ,显示为 当前选中：1,2,3
      */
     @Input() template: string;
@@ -135,14 +132,6 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
                 this.loadData(result);
             }
         });
-    }
-
-    /**
-     * 模型变更事件处理
-     */
-    protected onModelChange(value) {
-        super.onModelChange(value);
-        this.onChange.emit(value);
     }
 
     /**

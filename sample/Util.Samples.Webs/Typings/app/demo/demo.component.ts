@@ -27,11 +27,12 @@ export class DemoComponent implements OnInit {
 
     onChange() {
         this.model.hide = !this.model.hide;
-        util.message.info("成功了");
+        util.message.info("现在是："+this.model.nation.toString());
     }
 
     ngOnInit() {
         this.model.nation = 30;
+        this.model.num = 10;
     }
 }
 
@@ -44,5 +45,6 @@ class CustomerViewModel extends ViewModel {
     public name: string;
     public value: string;
     public nation;
-    public hide:boolean;
+    public hide: boolean;
+    public num:number;
 }

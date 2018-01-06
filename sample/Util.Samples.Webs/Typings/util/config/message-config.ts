@@ -3,6 +3,10 @@
  */
 export class MessageConfig {
     /**
+     * 清除
+     */
+    static clear = "清除";
+    /**
      * 重置项默认文本
      */
     static resetOptionText = "-- 请选择 --";
