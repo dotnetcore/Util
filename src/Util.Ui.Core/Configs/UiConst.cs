@@ -44,6 +44,18 @@
         /// </summary>
         public const string OnChange = "on-change";
         /// <summary>
+        /// 获得焦点事件
+        /// </summary>
+        public const string OnFocus = "on-focus";
+        /// <summary>
+        /// 失去焦点事件
+        /// </summary>
+        public const string OnBlur = "on-blur";
+        /// <summary>
+        /// 键盘按下事件
+        /// </summary>
+        public const string OnKeydown = "on-keydown";
+        /// <summary>
         /// 图标
         /// </summary>
         public const string Icon = "icon";

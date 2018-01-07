@@ -39,6 +39,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void Config( SelectWrapperBuilder builder ) {
             ConfigName( builder );
+            ConfigDisabled( builder );
             ConfigUrl( builder );
             ConfigDataSource( builder );
             ConfigPlaceholder( builder );
@@ -48,7 +49,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigModel( builder );
             ConfigRequired( builder );
             ConfigTemplate( builder );
-            ConfigOnChange( builder );
+            ConfigEvents( builder );
             ConfigPrefix( builder );
             ConfigSuffix( builder );
         }
@@ -58,6 +59,13 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigName( SelectWrapperBuilder builder ) {
             builder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
+        }
+
+        /// <summary>
+        /// 配置禁用
+        /// </summary>
+        private void ConfigDisabled( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
         }
 
         /// <summary>
@@ -128,10 +136,13 @@ namespace Util.Ui.Material.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置变更事件
+        /// 配置事件
         /// </summary>
-        private void ConfigOnChange( SelectWrapperBuilder builder ) {
+        private void ConfigEvents( SelectWrapperBuilder builder ) {
             builder.AddAttribute( "(onChange)", _config.GetValue( UiConst.OnChange ) );
+            builder.AddAttribute( "(onFocus)", _config.GetValue( UiConst.OnFocus ) );
+            builder.AddAttribute( "(onBlur)", _config.GetValue( UiConst.OnBlur ) );
+            builder.AddAttribute( "(onKeydown)", _config.GetValue( UiConst.OnKeydown ) );
         }
 
         /// <summary>

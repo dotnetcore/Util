@@ -43,4 +43,16 @@ describe("util.helper", () => {
         expect(util.helper.isEmptyArray([])).toBeTruthy();
         expect(util.helper.isEmptyArray([1])).toBeFalsy();
     });
+    it("toDate", () => {
+        expect(util.helper.toDate("1999-09-09").getFullYear()).toBe(1999);
+        expect(util.helper.toDate("1999-09-09").getMonth()).toBe(8);
+        expect(util.helper.toDate("1999-09-09").getDate()).toBe(9);
+    });
+    it("formatDate", () => {
+        var date = new Date(2014, 11, 30, 1, 20, 15);
+        expect(util.helper.formatDate(date,"yyyy-MM-dd HH:mm:ss")).toBe("2014-12-30 01:20:15");
+        expect(util.helper.formatDate(date, "yyyy年MM月dd日 HH:mm:ss")).toBe("2014年12月30日 01:20:15");
+
+        expect(util.helper.formatDate("1999-09-09", "yyyy年MM月dd日")).toBe("1999年09月09日");
+    });
 });

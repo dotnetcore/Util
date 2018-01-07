@@ -67,6 +67,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisable() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper [disabled]=\"true\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Disable() ) );
+        }
+
+        /// <summary>
         /// 测试设置Url
         /// </summary>
         [Fact]
@@ -194,6 +204,36 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-select-wrapper (onChange)=\"a\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.OnChange( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试获得焦点事件
+        /// </summary>
+        [Fact]
+        public void TestOnFocus() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper (onFocus)=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnFocus( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试失去焦点事件
+        /// </summary>
+        [Fact]
+        public void TestOnBlur() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper (onBlur)=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnBlur( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试键盘按下事件
+        /// </summary>
+        [Fact]
+        public void TestOnKeydown() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper (onKeydown)=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnKeydown( "a" ) ) );
         }
 
         /// <summary>

@@ -31,6 +31,8 @@
     <None Remove="Typings\util\core\select.ts" />
     <None Remove="Typings\util\core\view-model.ts" />
     <None Remove="Typings\util\material\base\form-control-wrapper-base.ts" />
+    <None Remove="Typings\util\material\date-picker-wrapper.component.ts" />
+    <None Remove="Typings\util\material\local\date-adapter.ts" />
     <None Remove="Typings\util\material\select-wrapper.component.ts" />
     <None Remove="Typings\util\material\text-box-wrapper.component.ts" />
   </ItemGroup>
@@ -66,6 +68,8 @@
     <TypeScriptCompile Include="Typings\util\core\select.ts" />
     <TypeScriptCompile Include="Typings\util\core\view-model.ts" />
     <TypeScriptCompile Include="Typings\util\material\base\form-control-wrapper-base.ts" />
+    <TypeScriptCompile Include="Typings\util\material\date-picker-wrapper.component.ts" />
+    <TypeScriptCompile Include="Typings\util\material\local\date-adapter.ts" />
     <TypeScriptCompile Include="Typings\util\material\select-wrapper.component.ts" />
     <TypeScriptCompile Include="Typings\util\material\text-box-wrapper.component.ts" />
   </ItemGroup>

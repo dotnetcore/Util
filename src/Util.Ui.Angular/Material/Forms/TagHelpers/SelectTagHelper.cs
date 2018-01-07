@@ -13,6 +13,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     [HtmlTargetElement( "util-select" )]
     public class SelectTagHelper : TagHelperBase {
         /// <summary>
+        /// 禁用
+        /// </summary>
+        public bool Disabled { get; set; }
+        /// <summary>
         /// 请求地址
         /// </summary>
         public string Url { get; set; }
@@ -68,6 +72,18 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 变更事件处理函数,用$event访问值,范例：change($event)
         /// </summary>
         public string OnChange { get; set; }
+        /// <summary>
+        /// 获得焦点事件
+        /// </summary>
+        public string OnFocus { get; set; }
+        /// <summary>
+        /// 失去焦点事件
+        /// </summary>
+        public string OnBlur { get; set; }
+        /// <summary>
+        /// 键盘按下事件
+        /// </summary>
+        public string OnKeydown { get; set; }
         /// <summary>
         /// 前缀
         /// </summary>

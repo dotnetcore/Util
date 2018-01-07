@@ -60,11 +60,6 @@ namespace Util.Ui.Configs {
         public static bool IsValidate { get; set; } = true;
 
         /// <summary>
-        /// 值
-        /// </summary>
-        public string Value { get; set; }
-
-        /// <summary>
         /// 类型
         /// </summary>
         public string Type { get; set; }

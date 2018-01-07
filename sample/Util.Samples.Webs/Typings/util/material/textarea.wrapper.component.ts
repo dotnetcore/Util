@@ -45,6 +45,10 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
      */
     @Input() maxRows: number;
     /**
+     * 只读
+     */
+    @Input() readonly: boolean;
+    /**
      * 最小长度
      */
     @Input() minLength: number;

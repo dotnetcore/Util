@@ -48,7 +48,6 @@ namespace Util.Ui.Material.Forms.Renders {
             inputBuilder.Id( _config );
             inputBuilder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
             inputBuilder.AddAttribute( "placeholder", _config.GetValue( UiConst.Placeholder ) );
-            inputBuilder.AddAttribute( "value", _config.Value );
             inputBuilder.AddAttribute( "type", _config.Type );
             inputBuilder.AddAttribute( "[(ngModel)]", _config.GetValue( UiConst.Model ) );
             AddValidations( formFieldBuilder, inputBuilder );

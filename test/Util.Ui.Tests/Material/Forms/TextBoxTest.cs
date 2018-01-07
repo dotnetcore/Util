@@ -127,18 +127,6 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
-        /// 测试值
-        /// </summary>
-        [Fact]
-        public void TestValue() {
-            var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" value=\"a\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Value( "a" ) ) );
-        }
-
-        /// <summary>
         /// 测试设置为密码框
         /// </summary>
         [Fact]

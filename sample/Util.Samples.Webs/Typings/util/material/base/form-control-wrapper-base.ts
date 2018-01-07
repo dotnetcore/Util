@@ -18,10 +18,6 @@ export class FormControlWrapperBase {
      */
     @Input() disabled: boolean;
     /**
-     * 只读
-     */
-    @Input() readonly: boolean;
-    /**
      * 占位提示符
      */
     @Input() placeholder: string;

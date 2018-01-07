@@ -80,32 +80,14 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
-        /// 设置值
-        /// </summary>
-        /// <typeparam name="TComponent">组件类型</typeparam>
-        /// <param name="component">组件实例</param>
-        /// <param name="value">值</param>
-        public static TComponent Value<TComponent>( this TComponent component, string value ) where TComponent : IComponent, IValue {
-            var option = component as IOptionConfig;
-            option?.Config<Config>( config => {
-                config.Value = value;
-            } );
-            return component;
-        }
-
-        /// <summary>
         /// 禁用
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
-        /// <param name="disabled">是否禁用</param>
-        public static TComponent Disable<TComponent>( this TComponent component, bool disabled = true ) where TComponent : IComponent, IDisable {
+        public static TComponent Disable<TComponent>( this TComponent component ) where TComponent : IComponent, IDisabled {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                if( disabled )
-                    config.SetAttribute( UiConst.Disabled, "disabled" );
-                else
-                    config.Remove( UiConst.Disabled );
+                config.SetAttribute( UiConst.Disabled, true );
             } );
             return component;
         }

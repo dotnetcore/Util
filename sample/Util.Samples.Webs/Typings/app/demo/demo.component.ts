@@ -19,6 +19,7 @@ export class DemoComponent implements OnInit {
     constructor() {
         this.queryParam = new CustomerQueryModel();
         this.model = new CustomerViewModel();
+        
     }
 
     query() {
@@ -33,6 +34,11 @@ export class DemoComponent implements OnInit {
     ngOnInit() {
         this.model.nation = 30;
         this.model.num = 10;
+        this.model.date = util.helper.toDate("1990-10-18");
+    }
+
+    getDate() {
+        return util.helper.formatDate(this.model.date, "yyyy年MM月dd日");
     }
 }
 
@@ -46,5 +52,6 @@ class CustomerViewModel extends ViewModel {
     public value: string;
     public nation;
     public hide: boolean;
-    public num:number;
+    public num: number;
+    public date:Date;
 }

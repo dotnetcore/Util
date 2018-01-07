@@ -5,6 +5,6 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 按钮
     /// </summary>
-    public interface IButton : IComponent, IText, IDisable, IOnClick {
+    public interface IButton : IComponent, IText, IDisabled, IOnClick {
     }
 }

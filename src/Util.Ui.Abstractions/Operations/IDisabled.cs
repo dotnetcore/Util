@@ -1,7 +1,7 @@
 ﻿namespace Util.Ui.Operations {
     /// <summary>
-    /// 值
+    /// 禁用
     /// </summary>
-    public interface IValue {
+    public interface IDisabled {
     }
 }

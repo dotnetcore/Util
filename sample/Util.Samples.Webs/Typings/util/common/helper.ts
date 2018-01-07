@@ -95,3 +95,51 @@ export let toJson = (value): string => {
 export let uuid = (): string => {
     return UUID.UUID();
 }
+
+/**
+ * 转换为日期
+ * @param date 日期，无效则返回当前日期
+ */
+export let toDate = (date: Date | string | undefined): Date => {
+    if (!date)
+        return new Date();
+    if (typeof date === 'string')
+        return new Date(Date.parse(date));
+    return date;
+}
+
+/**
+ *  格式化日期
+ * @param datetime 日期
+ * @param format 格式化字符串，范例：yyyy-MM-dd,可选值：
+ * (1) y : 年
+ * (2) M : 月
+ * (3) d : 日
+ * (4) H : 时
+ * (5) m : 分
+ * (6) s : 秒
+ * (7) S : 毫秒
+ */
+export let formatDate = (datetime: Date | string | undefined, format: string): string => {
+    if (!datetime)
+        return "";
+    let date: Date = toDate(datetime);
+    let options = {
+        "M+": date.getMonth() + 1,
+        "d+": date.getDate(),
+        "H+": date.getHours(),
+        "m+": date.getMinutes(),
+        "s+": date.getSeconds(),
+        "S": date.getMilliseconds()
+    };
+    if (/(y+)/.test(format))
+        format = format.replace(RegExp.$1, `${date.getFullYear()}`.substr(4 - RegExp.$1.length));
+    for (let option in options) {
+        let regex = new RegExp(`(${option})`);
+        if (regex.test(format)) {
+            let value = options[option];
+            format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? value : `00${value}`.substr(`${value}`.length));
+        }
+    }
+    return format;
+}

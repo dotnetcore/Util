@@ -139,15 +139,5 @@ namespace Util.Ui.Tests.Material.Buttons {
             result.Append( "<button disabled=\"disabled\" mat-raised-button=\"mat-raised-button\"></button>" );
             Assert.Equal( result.ToString(), GetResult( _button.Disable() ) );
         }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestDisable_False() {
-            var result = new String();
-            result.Append( "<button mat-raised-button=\"mat-raised-button\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _button.Disable().Disable( false ) ) );
-        }
     }
 }

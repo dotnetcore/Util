@@ -3,7 +3,6 @@
     ViewData["Title"] = "Tile";
     var x = Html.Ui();
 }
-<div class="toolbar toolbar-detail search-menu" fxLayout="row" fxLayoutAlign="start center">
     <span fxFlex style="flex: 1 1 1e-09px; box-sizing: border-box;"></span>
     <div class="icon-group">
         <button class="spam" mat-icon-button matTooltip="新增">
@@ -15,14 +14,13 @@
         <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
             <mat-icon>delete</mat-icon>
         </button>
-        <util-select prefix="￥" suffix-font-awesome-icon="Apple" url="/api/customers/test" placeholder="测试" on-suffix-icon-click="onChange()"></util-select>
-        @x.Select( t => t.Nation ).Suffix( FontAwesomeIcon.Android, "onChange()" )
+   
     </div>
-</div>
 
 <div style="margin: 300px">
     
-    
+    <mat-date-picker-wrapper [(model)]="model.date" placeholder="哈哈"></mat-date-picker-wrapper>
+    {{getDate()}}
 
     <mat-textbox-wrapper placeholder="哈哈" startHint="哈楼" endHint="你好" type="text" [required]="true" [(model)]="model.value" [maxLength]="5"
                          [suffixMaterialIcon]="model.hide ? 'visibility' : 'visibility_off'" prefixText="$&nbsp;" (onSuffixIconClick)="onChange($event)"></mat-textbox-wrapper>

@@ -6,7 +6,7 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 下拉列表
     /// </summary>
-    public interface ISelect : IFormControl, IUrl, IDataSource, IResetOption, IMultiple, IOnChange {
+    public interface ISelect : IFormControl, IUrl, IDataSource, IResetOption, IMultiple, IOnChange,IOnFocus,IOnBlur, IOnKeydown {
         /// <summary>
         /// 绑定枚举
         /// </summary>

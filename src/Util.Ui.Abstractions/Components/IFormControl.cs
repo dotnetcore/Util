@@ -6,6 +6,6 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 表单控件
     /// </summary>
-    public interface IFormControl : IComponent, IName, IPlaceholder, IHint, IModel, IRequired, IPrefix, ISuffix {
+    public interface IFormControl : IComponent, IName,IDisabled, IPlaceholder, IHint, IModel, IRequired, IPrefix, ISuffix {
     }
 }
