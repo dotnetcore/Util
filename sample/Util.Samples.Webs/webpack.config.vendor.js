@@ -11,6 +11,7 @@ const polyfillModules = [
 
 //第三方Js库
 const jsModules = [
+    'moment',
     'reflect-metadata',
     'zone.js',
     '@angular/animations',

@@ -38,7 +38,7 @@ export class DemoComponent implements OnInit {
     }
 
     getDate() {
-        return util.helper.formatDate(this.model.date, "yyyy年MM月dd日");
+        return util.helper.formatDate(this.model.date, "YYYY年MM月DD日");
     }
 }
 

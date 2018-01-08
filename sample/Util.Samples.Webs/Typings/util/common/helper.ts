@@ -3,6 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { UUID } from './uuid';
+import * as moment from 'moment';
 
 /**
  * 是否未定义
@@ -97,49 +98,73 @@ export let uuid = (): string => {
 }
 
 /**
- * 转换为日期
- * @param date 日期，无效则返回当前日期
+ * 是否有效日期
+ * @param date 日期
  */
-export let toDate = (date: Date | string | undefined): Date => {
+export let isValidDate = (date): boolean => {
+    return moment(getValidDate(date)).isValid();
+}
+
+/**
+ * *获取有效的日期字符串，对无效日期补全前导0，不支持毫秒
+ * @param date 日期
+ */
+export let getValidDate = (date) => {
     if (!date)
-        return new Date();
-    if (typeof date === 'string')
-        return new Date(Date.parse(date));
-    return date;
+        return date;
+    if (typeof date !== "string")
+        return date;
+    if (date.indexOf("-") <= 0)
+        return date;
+    let regex = /(\d{4})-(\d{1,2})-(\d{1,2})(?:(?:\s+)(\d{1,2}):(\d{1,2}):?(\d{1,2})?)?/;
+    if (!regex.test(date))
+        return date;
+    let dateSegment = date.match(regex);
+    if (!dateSegment)
+        return date;
+    let year = dateSegment[1];
+    let month = dateSegment[2];
+    let day = dateSegment[3];
+    let hour = dateSegment[4];
+    let minute = dateSegment[5];
+    let second = dateSegment[6];
+    month = month.length === 1 ? `0${month}` : month;
+    day = day.length === 1 ? `0${day}` : day;
+    let result = `${year}-${month}-${day}`;
+    if (hour && minute) {
+        hour = hour.length === 1 ? `0${hour}` : hour;
+        minute = minute.length === 1 ? `0${minute}` : minute;
+        result += ` ${hour}:${minute}`;
+    }
+    if (second) {
+        second = second.length === 1 ? `0${second}` : second;
+        result += `:${second}`;
+    }
+    return result;
+}
+
+/**
+ * 转换为日期
+ * @param date 日期，字符串日期范例：2001-01-01
+ */
+export let toDate = (date): Date => {
+    return moment(getValidDate(date)).toDate();
 }
 
 /**
  *  格式化日期
- * @param datetime 日期
- * @param format 格式化字符串，范例：yyyy-MM-dd,可选值：
- * (1) y : 年
- * (2) M : 月
- * (3) d : 日
- * (4) H : 时
- * (5) m : 分
- * (6) s : 秒
- * (7) S : 毫秒
+ * @param date 日期
+ * @param format 格式化字符串，范例：YYYY-MM-DD,可选值：(注意：区分大小写)
+ * (1) 年: YYYY
+ * (2) 月: MM
+ * (3) 日: DD
+ * (4) 时: HH
+ * (5) 分: mm
+ * (6) 秒: ss
+ * (7) 毫秒: SSS
  */
-export let formatDate = (datetime: Date | string | undefined, format: string): string => {
-    if (!datetime)
+export let formatDate = (date, format: string): string => {
+    if (!isValidDate(date))
         return "";
-    let date: Date = toDate(datetime);
-    let options = {
-        "M+": date.getMonth() + 1,
-        "d+": date.getDate(),
-        "H+": date.getHours(),
-        "m+": date.getMinutes(),
-        "s+": date.getSeconds(),
-        "S": date.getMilliseconds()
-    };
-    if (/(y+)/.test(format))
-        format = format.replace(RegExp.$1, `${date.getFullYear()}`.substr(4 - RegExp.$1.length));
-    for (let option in options) {
-        let regex = new RegExp(`(${option})`);
-        if (regex.test(format)) {
-            let value = options[option];
-            format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? value : `00${value}`.substr(`${value}`.length));
-        }
-    }
-    return format;
+    return moment(getValidDate(date)).format(format);
 }

@@ -181,9 +181,9 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Asp.Net Core 2
 
 20. UI
-  - 语言
+  - 脚本语言
     - [TypeScript](https://www.tslang.cn)
-  - 框架
+  - 脚本框架
     - [Angular 5](https://angular.cn/)
   - Css预处理器
     - [Sass](http://www.sass-lang.com) 
@@ -191,6 +191,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Angular Material](https://material.angular.io/)
     - [PrimeNg](https://www.primefaces.org/primeng)
     - [Angular-Material-App](https://github.com/stbui/angular-material-app)
+  - 脚本库
+    - [Moment](http://momentjs.cn/)
   - 图标
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)
@@ -205,7 +207,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 22. 参考应用框架
   - [ABP](https://github.com/aspnetboilerplate/aspnetboilerplate)
-  - [Nop](https://www.nopcommerce.com) ,Nop是一个开源商城，封装了大量实用的基础代码。
+  - [Nop](https://www.nopcommerce.com) 
+    -Nop是一个开源商城，封装了大量实用的基础代码。
 
 ## 框架开发流程
 

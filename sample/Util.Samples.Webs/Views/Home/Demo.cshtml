@@ -19,7 +19,7 @@
 
 <div style="margin: 300px">
     
-    <mat-date-picker-wrapper [(model)]="model.date" placeholder="哈哈"></mat-date-picker-wrapper>
+    <mat-date-picker-wrapper [(model)]="model.date" placeholder="哈哈" maxDate="2018-3-1" minDate="2018-1-1"></mat-date-picker-wrapper>
     {{getDate()}}
 
     <mat-textbox-wrapper placeholder="哈哈" startHint="哈楼" endHint="你好" type="text" [required]="true" [(model)]="model.value" [maxLength]="5"

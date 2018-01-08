@@ -43,16 +43,35 @@ describe("util.helper", () => {
         expect(util.helper.isEmptyArray([])).toBeTruthy();
         expect(util.helper.isEmptyArray([1])).toBeFalsy();
     });
+    it("isValidDate", () => {
+        expect(util.helper.isValidDate("1999-09-09")).toBeTruthy();
+        expect(util.helper.isValidDate("1999-9-9")).toBeTruthy();
+    });
     it("toDate", () => {
+        expect(util.helper.isValidDate(util.helper.toDate("1999-09-09"))).toBeTruthy();
         expect(util.helper.toDate("1999-09-09").getFullYear()).toBe(1999);
         expect(util.helper.toDate("1999-09-09").getMonth()).toBe(8);
         expect(util.helper.toDate("1999-09-09").getDate()).toBe(9);
+        expect(util.helper.isValidDate(util.helper.toDate("1999-9-9"))).toBeTruthy();
+        expect(util.helper.toDate("1999-9-9 1:2:3").getFullYear()).toBe(1999);
+        expect(util.helper.toDate("1999-9-9 1:2:3").getMonth()).toBe(8);
+        expect(util.helper.toDate("1999-9-9 1:2:3").getDate()).toBe(9);
+        expect(util.helper.toDate("1999-9-9 1:2:3").getHours()).toBe(1);
+        expect(util.helper.toDate("1999-9-9 1:2:3").getMinutes()).toBe(2);
+        expect(util.helper.toDate("1999-9-9 1:2:3").getSeconds()).toBe(3);
     });
     it("formatDate", () => {
-        var date = new Date(2014, 11, 30, 1, 20, 15);
-        expect(util.helper.formatDate(date,"yyyy-MM-dd HH:mm:ss")).toBe("2014-12-30 01:20:15");
-        expect(util.helper.formatDate(date, "yyyy年MM月dd日 HH:mm:ss")).toBe("2014年12月30日 01:20:15");
+        var date = new Date(2014, 11, 30, 1, 20, 15, 285);
+        expect(util.helper.formatDate(date, "YYYY-MM-DD HH:mm:ss:SSS")).toBe("2014-12-30 01:20:15:285");
+        expect(util.helper.formatDate(date, "YYYY年MM月DD日 HH:mm:ss")).toBe("2014年12月30日 01:20:15");
 
-        expect(util.helper.formatDate("1999-09-09", "yyyy年MM月dd日")).toBe("1999年09月09日");
+        expect(util.helper.formatDate("1999-09-09", "YYYY年MM月DD日")).toBe("1999年09月09日");
+        expect(util.helper.formatDate("1999-9-9", "YYYY年MM月DD日")).toBe("1999年09月09日");
+    });
+    it("getValidDate", () => {
+        expect(util.helper.getValidDate("1999-09-09")).toBe("1999-09-09");
+        expect(util.helper.getValidDate("1999-9-9")).toBe("1999-09-09");
+        expect(util.helper.getValidDate("1999-9-9 1:2")).toBe("1999-09-09 01:02");
+        expect(util.helper.getValidDate("1999-9-9 1:2:3")).toBe("1999-09-09 01:02:03");
     });
 });

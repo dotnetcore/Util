@@ -30,6 +30,7 @@
     "babel-polyfill": "6.26.0",
     "material-design-icons": "3.0.1",
     "primeng": "5.0.2",
+    "moment": "2.20.1",
     "ngx-perfect-scrollbar": "5.3.1"
   },
   "devDependencies": {

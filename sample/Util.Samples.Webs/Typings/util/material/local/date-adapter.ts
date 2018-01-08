@@ -8,7 +8,7 @@
 
 import { Inject, Injectable, Optional } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
-import { formatDate } from "../../common/helper"
+import {isValidDate,formatDate,toDate} from "../../common/helper"
 
 /** The default month names to use if Intl API is not available. */
 const DEFAULT_MONTH_NAMES = {
@@ -145,19 +145,11 @@ export class UtilDateAdapter extends DateAdapter<Date> {
     }
 
     parse(value: any): Date | null {
-        // We have no way using the native JS Date to set the parse format or locale, so we ignore these
-        // parameters.
-        if (typeof value == 'number') {
-            return new Date(value);
-        }
-        return value ? new Date(Date.parse(value)) : null;
+        return toDate(value);
     }
 
     format(date: Date, displayFormat: Object): string {
-        if (!this.isValid(date)) {
-            throw Error('无效的日期.');
-        }
-        return this._stripDirectionalityCharacters(formatDate(date,"yyyy-MM-dd"));
+        return this._stripDirectionalityCharacters(formatDate(date,"YYYY-MM-DD"));
     }
 
     addCalendarYears(date: Date, years: number): Date {
