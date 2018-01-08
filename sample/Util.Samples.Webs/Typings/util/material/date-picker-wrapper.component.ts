@@ -19,7 +19,7 @@ import { MessageConfig } from '../config/message-config';
                 (blur)="blur($event)" (focus)="focus($event)" (keydown)="keydown($event)"
                 (click)="picker.open()" [required]="required" 
             />            
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker #picker [startView]="startView"></mat-datepicker>
             <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
             <mat-hint *ngIf="endHint" align="end">{{endHint}}</mat-hint>
             <span *ngIf="prefixText" matPrefix>{{prefixText}}&nbsp;</span>
@@ -47,6 +47,10 @@ export class DatePickerWrapperComponent extends FormControlWrapperBase {
      * 只读
      */
     @Input() readonly: boolean;
+    /**
+     * 起始视图，可选值：year,month
+     */
+    @Input() startView: string;
 
     /**
      * 初始化Mat文本框包装器

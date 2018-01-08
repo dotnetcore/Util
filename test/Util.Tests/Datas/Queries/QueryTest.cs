@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Util.Datas.Queries;
 using Util.Datas.Queries.Criterias;
+using Util.Properties;
 using Util.Tests.Samples;
 using Util.Tests.XUnitHelpers;
 using Xunit;
@@ -110,12 +111,12 @@ namespace Util.Tests.Datas.Queries {
         /// <summary>
         /// 测试添加查询条件 - 同时添加2个查询条件，抛出异常
         /// </summary>
-        //[Fact]
-        //public void TestWhereIfNotEmpty_2Condition_Throw() {
-        //    AssertHelper.Throws<InvalidOperationException>( () => {
-        //        _query.WhereIfNotEmpty( t => t.Name == "A" && t.Tel == 1 );
-        //    }, string.Format( LibraryResource.OnlyOnePredicate, "t => ((t.Name == \"A\") AndAlso (t.Tel == 1))" ) );
-        //}
+        [Fact]
+        public void TestWhereIfNotEmpty_2Condition_Throw() {
+            AssertHelper.Throws<InvalidOperationException>( () => {
+                _query.WhereIfNotEmpty( t => t.Name == "A" && t.Tel == 1 );
+            }, string.Format( LibraryResource.OnlyOnePredicate, "t => ((t.Name == \"A\") AndAlso (t.Tel == 1))" ) );
+        }
 
         /// <summary>
         /// 添加范围查询条件 - 整型
@@ -236,6 +237,15 @@ namespace Util.Tests.Datas.Queries {
             var query = new Query<AggregateRootSample>();
             query.Where( t => t.Tel == 1 );
             _query.Or( query );
+            Assert.Equal( "t => ((t.Name == \"A\") OrElse (t.Tel == 1))", _query.GetPredicate().ToString() );
+        }
+
+        /// <summary>
+        /// 测试或连接
+        /// </summary>
+        [Fact]
+        public void TestOr_2() {
+            _query.Or( t => t.Name == "A", t => t.Name == "", t => t.Tel == 1 );
             Assert.Equal( "t => ((t.Name == \"A\") OrElse (t.Tel == 1))", _query.GetPredicate().ToString() );
         }
 

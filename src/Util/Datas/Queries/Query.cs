@@ -214,9 +214,16 @@ namespace Util.Datas.Queries {
         /// <summary>
         /// 或连接
         /// </summary>
-        /// <param name="predicate">查询条件</param>
-        public IQuery<TEntity, TKey> Or( Expression<Func<TEntity, bool>> predicate ) {
-            _predicate = _predicate.Or( predicate );
+        /// <param name="predicates">查询条件</param>
+        public IQuery<TEntity, TKey> Or( params Expression<Func<TEntity, bool>>[] predicates ) {
+            if ( predicates == null )
+                return this;
+            foreach ( var item in predicates ) {
+                var predicate = Helper.GetWhereIfNotEmptyExpression( item );
+                if( predicate == null )
+                    continue;
+                _predicate = _predicate.Or( predicate );
+            }
             return this;
         }
 
@@ -225,7 +232,7 @@ namespace Util.Datas.Queries {
         /// </summary>
         /// <param name="query">查询对象</param>
         public IQuery<TEntity, TKey> Or( IQuery<TEntity, TKey> query ) {
-            Or( query.GetPredicate() );
+            _predicate = _predicate.Or( query.GetPredicate() );
             OrderBy( query.GetOrder() );
             return this;
         }
