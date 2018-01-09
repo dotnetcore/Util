@@ -53,7 +53,7 @@ export class DatePickerWrapperComponent extends FormControlWrapperBase {
      */
     @Input() startView: string;
     /**
-     * 是否触摸屏
+     * 触摸模式
      */
     @Input() touchUi: boolean;
     /**

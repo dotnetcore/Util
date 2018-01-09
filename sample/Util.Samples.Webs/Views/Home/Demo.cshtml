@@ -18,17 +18,17 @@
     </div>
 
     <div style="margin: 300px">
+        
+        <util-datepicker model="model.date"  min-date="1991-1-6" max-date="1992-2-3" start-view="Year" width="300"></util-datepicker>
 
-        <mat-datepicker-wrapper [(model)]="model.date" placeholder="哈哈" maxDate="2018-3-1" minDate="2018-1-1" [required]="true" [width]="300"></mat-datepicker-wrapper>
         {{getDate()}}
 
 
         <div style="margin: 100px">
-            <util-textbox  prefix="$" placeholder="你好啊"  model="model.value" required="true" ></util-textbox>
-            <util-textarea placeholder="在吗" min-length="10" end-hint="a"  model="model.value" ></util-textarea>
+      
         </div>
         <div style="margin: 100px">
-            @x.TextBox().Prefix( "$" ).Placeholder( "你不好" ).Model( "model.value" ).Required().ToTextArea( 5,6 )
+            @x.TextBox().Prefix( "$" ).Placeholder( "你不好" ).Model( "model.value" ).Required().ToDatePicker( "2018-2-1","2019-5-6" )
         </div>
         
        

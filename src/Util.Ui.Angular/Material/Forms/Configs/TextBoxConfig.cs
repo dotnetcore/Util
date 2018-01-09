@@ -23,5 +23,10 @@ namespace Util.Ui.Material.Forms.Configs {
         /// 是否多行文本框
         /// </summary>
         public bool IsTextArea { get; set; }
+
+        /// <summary>
+        /// 是否日期选择框
+        /// </summary>
+        public bool IsDatePicker { get; set; }
     }
 }

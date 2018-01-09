@@ -51,5 +51,21 @@
         /// 最大行数
         /// </summary>
         public const string MaxRows = "max-rows";
+        /// <summary>
+        /// 起始视图
+        /// </summary>
+        public const string StartView = "start-view";
+        /// <summary>
+        /// 触摸模式
+        /// </summary>
+        public const string TouchUi = "touch-ui";
+        /// <summary>
+        /// 最小日期
+        /// </summary>
+        public const string MinDate = "min-date";
+        /// <summary>
+        /// 最大日期
+        /// </summary>
+        public const string MaxDate = "max-date";
     }
 }

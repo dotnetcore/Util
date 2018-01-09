@@ -30,6 +30,7 @@ namespace Util.Ui.Material.Forms.Renders {
             var builder = CreateBuilder();
             base.Config( builder );
             ConfigTextArea( builder );
+            ConfigDatePicker( builder );
             ConfigTextBox( builder );
             return builder;
         }
@@ -40,6 +41,8 @@ namespace Util.Ui.Material.Forms.Renders {
         private TagBuilder CreateBuilder() {
             if( _config.IsTextArea )
                 return new TextAreaWrapperBuilder();
+            if( _config.IsDatePicker )
+                return new DatePickerWrapperBuilder();
             return new TextBoxWrapperBuilder();
         }
 
@@ -51,6 +54,19 @@ namespace Util.Ui.Material.Forms.Renders {
                 return;
             builder.AddAttribute( "[minRows]", _config.GetValue( MaterialConst.MinRows ) );
             builder.AddAttribute( "[maxRows]", _config.GetValue( MaterialConst.MaxRows ) );
+        }
+
+        /// <summary>
+        /// 配置日期选择框
+        /// </summary>
+        private void ConfigDatePicker( TagBuilder builder ) {
+            if( _config.IsDatePicker == false )
+                return;
+            builder.AddAttribute( "[width]", _config.GetValue( UiConst.Width ) );
+            builder.AddAttribute( "startView", _config.GetValue<DateView?>( MaterialConst.StartView )?.Description() );
+            builder.AddAttribute( "[touchUi]", _config.GetBoolValue( MaterialConst.TouchUi ) );
+            builder.AddAttribute( "minDate", _config.GetValue( MaterialConst.MinDate ) );
+            builder.AddAttribute( "maxDate", _config.GetValue( MaterialConst.MaxDate ) );
         }
 
         /// <summary>

@@ -147,5 +147,9 @@
         /// 前缀
         /// </summary>
         public const string Prefix = "prefix";
+        /// <summary>
+        /// 宽度
+        /// </summary>
+        public const string Width = "width";
     }
 }

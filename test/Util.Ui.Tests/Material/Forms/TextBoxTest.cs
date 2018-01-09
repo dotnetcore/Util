@@ -357,5 +357,45 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "<mat-textarea-wrapper [maxRows]=\"5\" [minRows]=\"3\"></mat-textarea-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.ToTextArea( 3,5 ) ) );
         }
+
+        /// <summary>
+        /// 测试转换为日期选择框
+        /// </summary>
+        [Fact]
+        public void TestToDatePicker_1() {
+            var result = new String();
+            result.Append( "<mat-datepicker-wrapper></mat-datepicker-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker() ) );
+        }
+
+        /// <summary>
+        /// 测试转换为日期选择框
+        /// </summary>
+        [Fact]
+        public void TestToDatePicker_2() {
+            var result = new String();
+            result.Append( "<mat-datepicker-wrapper minDate=\"a\"></mat-datepicker-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker("a") ) );
+        }
+
+        /// <summary>
+        /// 测试转换为日期选择框
+        /// </summary>
+        [Fact]
+        public void TestToDatePicker_3() {
+            var result = new String();
+            result.Append( "<mat-datepicker-wrapper maxDate=\"b\" minDate=\"a\"></mat-datepicker-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker( "a" ,"b") ) );
+        }
+
+        /// <summary>
+        /// 测试转换为日期选择框
+        /// </summary>
+        [Fact]
+        public void TestToDatePicker_4() {
+            var result = new String();
+            result.Append( "<mat-datepicker-wrapper [width]=\"1\" startView=\"year\" [touchUi]=\"true\"></mat-datepicker-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker( 1, DateView.Year, true ) ) );
+        }
     }
 }

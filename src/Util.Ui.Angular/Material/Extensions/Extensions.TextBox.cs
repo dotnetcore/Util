@@ -2,6 +2,7 @@
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Material.Configs;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 
 namespace Util.Ui.Material.Extensions {
@@ -77,6 +78,42 @@ namespace Util.Ui.Material.Extensions {
                 config.IsTextArea = true;
                 config.SetAttribute( MaterialConst.MinRows, minRows );
                 config.SetAttribute( MaterialConst.MaxRows, maxRows );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 转换为日期选择框
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="minDate">最小日期限制，范例：2000-1-1</param>
+        /// <param name="maxDate">最大日期限制，范例：2000-1-1</param>
+        public static TComponent ToDatePicker<TComponent>( this TComponent component, string minDate = null, string maxDate = null ) where TComponent : ITextBox {
+            var option = component as IOptionConfig;
+            option?.Config<TextBoxConfig>( config => {
+                config.IsDatePicker = true;
+                config.SetAttribute( MaterialConst.MinDate, minDate );
+                config.SetAttribute( MaterialConst.MaxDate, maxDate );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 转换为日期选择框
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="width">宽度</param>
+        /// <param name="startView">起始视图</param>
+        /// <param name="touchUi">触摸模式</param>
+        public static TComponent ToDatePicker<TComponent>( this TComponent component, double width, DateView? startView = null,bool? touchUi = null ) where TComponent : ITextBox {
+            var option = component as IOptionConfig;
+            option?.Config<TextBoxConfig>( config => {
+                config.IsDatePicker = true;
+                config.SetAttribute( UiConst.Width, width );
+                config.SetAttribute( MaterialConst.StartView, startView );
+                config.SetAttribute( MaterialConst.TouchUi, touchUi );
             } );
             return component;
         }
