@@ -5,6 +5,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
+import { MessageConfig } from '../config/message-config';
 
 /**
  * Mat多行文本框包装器
@@ -83,7 +84,7 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
         if (this.inputModel.hasError('required'))
             return this.requiredMessage;
         if (this.inputModel.hasError('minlength'))
-            return this.minLengthMessage;
+            return this.minLengthMessage || MessageConfig.minLengthMessage.replace(/\{0\}/, String(this.minLength));
         return "";
     }
 }

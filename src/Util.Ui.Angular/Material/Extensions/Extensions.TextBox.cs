@@ -2,7 +2,7 @@
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Material.Configs;
-using Util.Ui.Operations.Forms.Validations;
+using Util.Ui.Material.Forms.Configs;
 
 namespace Util.Ui.Material.Extensions {
     /// <summary>
@@ -41,7 +41,7 @@ namespace Util.Ui.Material.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="message">电子邮件验证错误消息</param>
-        public static TComponent Email<TComponent>( this TComponent component,string message = null ) where TComponent : IComponent,IEmail {
+        public static TComponent Email<TComponent>( this TComponent component,string message = null ) where TComponent : ITextBox {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Type, "email" );
@@ -60,6 +60,23 @@ namespace Util.Ui.Material.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( MaterialConst.ShowClearButton, isShow );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 转换为多行文本框
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="minRows">最小行数</param>
+        /// <param name="maxRows">最大行数</param>
+        public static TComponent ToTextArea<TComponent>( this TComponent component, int? minRows = null,int? maxRows = null ) where TComponent : ITextBox {
+            var option = component as IOptionConfig;
+            option?.Config<TextBoxConfig>( config => {
+                config.IsTextArea = true;
+                config.SetAttribute( MaterialConst.MinRows, minRows );
+                config.SetAttribute( MaterialConst.MaxRows, maxRows );
             } );
             return component;
         }

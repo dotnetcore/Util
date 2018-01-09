@@ -28,14 +28,14 @@ namespace Util.Ui.Material.Forms.Renders {
         protected override ITagBuilder GetTagBuilder() {
             var builder = new SelectWrapperBuilder();
             base.Config( builder );
-            Config( builder );
+            ConfigSelect( builder );
             return builder;
         }
 
         /// <summary>
         /// 配置
         /// </summary>
-        private void Config( SelectWrapperBuilder builder ) {
+        private void ConfigSelect( SelectWrapperBuilder builder ) {
             ConfigUrl( builder );
             ConfigDataSource( builder );
             ConfigResetOption( builder );

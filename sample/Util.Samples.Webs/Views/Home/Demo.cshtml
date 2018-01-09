@@ -24,11 +24,11 @@
 
 
         <div style="margin: 100px">
-            <util-textbox name="a" max-length="8" prefix="$" placeholder="你好啊"  model="model.value" required="true" min-length="4" readonly="true"></util-textbox>
+            <util-textbox  prefix="$" placeholder="你好啊"  model="model.value" required="true" ></util-textbox>
+            <util-textarea placeholder="在吗" min-length="10" end-hint="a"  model="model.value" ></util-textarea>
         </div>
         <div style="margin: 100px">
-            @(x.TextBox().Name( "b" ).Prefix( "$" ).MinLength( 5 ).MaxLength( 8 ).ShowClearButton( false ).ReadOnly( false )
-                .Placeholder( "你不好" ).Hint( "左边" ).Hint( "右边", true ).Model( "model.value" ).Required())
+            @x.TextBox().Prefix( "$" ).Placeholder( "你不好" ).Model( "model.value" ).Required().ToTextArea( 5,6 )
         </div>
         
        

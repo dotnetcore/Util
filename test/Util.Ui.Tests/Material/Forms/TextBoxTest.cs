@@ -337,5 +337,25 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "<mat-textbox-wrapper [maxLength]=\"3\"></mat-textbox-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.MaxLength( 3 ) ) );
         }
+
+        /// <summary>
+        /// 测试多行文本框
+        /// </summary>
+        [Fact]
+        public void TestToTextArea_1() {
+            var result = new String();
+            result.Append( "<mat-textarea-wrapper [minRows]=\"3\"></mat-textarea-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ToTextArea( 3) ) );
+        }
+
+        /// <summary>
+        /// 测试多行文本框
+        /// </summary>
+        [Fact]
+        public void TestToTextArea_2() {
+            var result = new String();
+            result.Append( "<mat-textarea-wrapper [maxRows]=\"5\" [minRows]=\"3\"></mat-textarea-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ToTextArea( 3,5 ) ) );
+        }
     }
 }

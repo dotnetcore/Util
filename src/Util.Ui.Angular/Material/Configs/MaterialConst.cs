@@ -43,5 +43,13 @@
         /// 是否显示清除按钮
         /// </summary>
         public const string ShowClearButton = "show-clear-button";
+        /// <summary>
+        /// 最小行数
+        /// </summary>
+        public const string MinRows = "min-rows";
+        /// <summary>
+        /// 最大行数
+        /// </summary>
+        public const string MaxRows = "max-rows";
     }
 }

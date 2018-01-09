@@ -27,16 +27,36 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override ITagBuilder GetTagBuilder() {
-            var builder = new TextBoxWrapperBuilder();
+            var builder = CreateBuilder();
             base.Config( builder );
-            Config( builder );
+            ConfigTextArea( builder );
+            ConfigTextBox( builder );
             return builder;
         }
 
         /// <summary>
-        /// 配置
+        /// 创建标签生成器
         /// </summary>
-        private void Config( TextBoxWrapperBuilder builder ) {
+        private TagBuilder CreateBuilder() {
+            if( _config.IsTextArea )
+                return new TextAreaWrapperBuilder();
+            return new TextBoxWrapperBuilder();
+        }
+
+        /// <summary>
+        /// 配置多行文本框
+        /// </summary>
+        private void ConfigTextArea( TagBuilder builder ) {
+            if( _config.IsTextArea == false )
+                return;
+            builder.AddAttribute( "[minRows]", _config.GetValue( MaterialConst.MinRows ) );
+            builder.AddAttribute( "[maxRows]", _config.GetValue( MaterialConst.MaxRows ) );
+        }
+
+        /// <summary>
+        /// 配置文本框
+        /// </summary>
+        private void ConfigTextBox( TagBuilder builder ) {
             ConfigType( builder );
             ConfigReadOnly( builder );
             ConfigShowClearButton( builder );
@@ -67,7 +87,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <summary>
         /// 配置验证操作
         /// </summary>
-        private void ConfigValidations( TextBoxWrapperBuilder builder ) {
+        private void ConfigValidations( TagBuilder builder ) {
             ConfigEmail( builder );
             ConfigMinLength( builder );
             ConfigMaxLength( builder );
@@ -83,7 +103,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <summary>
         /// 配置最小长度验证
         /// </summary>
-        private void ConfigMinLength( TextBoxWrapperBuilder builder ) {
+        private void ConfigMinLength( TagBuilder builder ) {
             builder.AddAttribute( "[minLength]", _config.GetValue( UiConst.MinLength ) );
             builder.AddAttribute( "minLengthMessage", _config.GetValue( UiConst.MinLengthMessage ) );
         }
@@ -91,8 +111,10 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <summary>
         /// 配置最大长度验证
         /// </summary>
-        private void ConfigMaxLength( TextBoxWrapperBuilder builder ) {
+        private void ConfigMaxLength( TagBuilder builder ) {
             builder.AddAttribute( "[maxLength]", _config.GetValue( UiConst.MaxLength ) );
         }
+
+        
     }
 }

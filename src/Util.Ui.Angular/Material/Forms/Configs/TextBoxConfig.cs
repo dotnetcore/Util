@@ -18,5 +18,10 @@ namespace Util.Ui.Material.Forms.Configs {
         /// <param name="context">TagHelper上下文</param>
         public TextBoxConfig( Context context ) : base( context ) {
         }
+
+        /// <summary>
+        /// 是否多行文本框
+        /// </summary>
+        public bool IsTextArea { get; set; }
     }
 }
