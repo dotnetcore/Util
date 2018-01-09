@@ -1,11 +1,9 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Biz.Enums;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
-using Util.Ui.Material.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Forms;
@@ -100,7 +98,7 @@ namespace Util.Ui.Tests.Material.Forms {
         /// 测试设置占位提示
         /// </summary>
         [Fact]
-        public void TestPlaceholder_1() {
+        public void TestPlaceholder() {
             var result = new String();
             result.Append( "<mat-select-wrapper placeholder=\"a\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Placeholder( "a" ) ) );
@@ -110,7 +108,7 @@ namespace Util.Ui.Tests.Material.Forms {
         /// 测试设置占位提示
         /// </summary>
         [Fact]
-        public void TestPlaceholder_2() {
+        public void TestPlaceholder_Float() {
             var result = new String();
             result.Append( "<mat-select-wrapper floatPlaceholder=\"never\" placeholder=\"a\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Placeholder( "a", FloatType.Never ) ) );
@@ -134,6 +132,66 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-select-wrapper endHint=\"a\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Hint( "a",true ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置前缀
+        /// </summary>
+        [Fact]
+        public void TestPrefix() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper prefixText=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Prefix( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀文本
+        /// </summary>
+        [Fact]
+        public void TestSuffix_Text() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper suffixText=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀FontAwesome图标
+        /// </summary>
+        [Fact]
+        public void TestSuffix_FontAwesomeIcon() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper suffixFontAwesomeIcon=\"fa-apple\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( FontAwesomeIcon.Apple ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀Material图标
+        /// </summary>
+        [Fact]
+        public void TestSuffix_MaterialIcon() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper suffixMaterialIcon=\"android\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( MaterialIcon.Android ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀FontAwesome图标单击事件
+        /// </summary>
+        [Fact]
+        public void TestSuffix_FontAwesomeIcon_Click() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper (onSuffixIconClick)=\"a\" suffixFontAwesomeIcon=\"fa-apple\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( FontAwesomeIcon.Apple, "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀Material图标单击事件
+        /// </summary>
+        [Fact]
+        public void TestSuffix_MaterialIcon_Click() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper (onSuffixIconClick)=\"a\" suffixMaterialIcon=\"android\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( MaterialIcon.Android, "a" ) ) );
         }
 
         /// <summary>
@@ -284,66 +342,6 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "{&quot;text&quot;:&quot;&#x5148;&#x751F;&quot;,&quot;value&quot;:2,&quot;sortId&quot;:2}" );
             result.Append( "]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( (Select)_component.Enum<Gender>() ) );
-        }
-
-        /// <summary>
-        /// 测试设置前缀
-        /// </summary>
-        [Fact]
-        public void TestPrefix() {
-            var result = new String();
-            result.Append( "<mat-select-wrapper prefixText=\"a\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Prefix( "a" ) ) );
-        }
-
-        /// <summary>
-        /// 测试设置后缀文本
-        /// </summary>
-        [Fact]
-        public void TestSuffix_Text() {
-            var result = new String();
-            result.Append( "<mat-select-wrapper suffixText=\"a\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Suffix( "a" ) ) );
-        }
-
-        /// <summary>
-        /// 测试设置后缀FontAwesome图标
-        /// </summary>
-        [Fact]
-        public void TestSuffix_FontAwesomeIcon() {
-            var result = new String();
-            result.Append( "<mat-select-wrapper suffixFontAwesomeIcon=\"fa-apple\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Suffix( FontAwesomeIcon.Apple ) ) );
-        }
-
-        /// <summary>
-        /// 测试设置后缀Material图标
-        /// </summary>
-        [Fact]
-        public void TestSuffix_MaterialIcon() {
-            var result = new String();
-            result.Append( "<mat-select-wrapper suffixMaterialIcon=\"android\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Suffix( MaterialIcon.Android ) ) );
-        }
-
-        /// <summary>
-        /// 测试设置后缀FontAwesome图标单击事件
-        /// </summary>
-        [Fact]
-        public void TestSuffix_FontAwesomeIcon_Click() {
-            var result = new String();
-            result.Append( "<mat-select-wrapper (onSuffixIconClick)=\"a\" suffixFontAwesomeIcon=\"fa-apple\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Suffix( FontAwesomeIcon.Apple,"a" ) ) );
-        }
-
-        /// <summary>
-        /// 测试设置后缀Material图标单击事件
-        /// </summary>
-        [Fact]
-        public void TestSuffix_MaterialIcon_Click() {
-            var result = new String();
-            result.Append( "<mat-select-wrapper (onSuffixIconClick)=\"a\" suffixMaterialIcon=\"android\"></mat-select-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Suffix( MaterialIcon.Android, "a" ) ) );
         }
     }
 }

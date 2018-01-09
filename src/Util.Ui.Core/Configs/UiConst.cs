@@ -20,6 +20,10 @@
         /// </summary>
         public const string Color = "color";
         /// <summary>
+        /// 类型
+        /// </summary>
+        public const string Type = "type";
+        /// <summary>
         /// 标识
         /// </summary>
         public const string Id = "id";
@@ -31,6 +35,10 @@
         /// 禁用
         /// </summary>
         public const string Disabled = "disabled";
+        /// <summary>
+        /// 只读
+        /// </summary>
+        public const string ReadOnly = "readonly";
         /// <summary>
         /// 扁平风格
         /// </summary>
@@ -115,6 +123,22 @@
         /// 必填项错误消息
         /// </summary>
         public const string RequiredMessage = "required-message";
+        /// <summary>
+        /// 最小长度
+        /// </summary>
+        public const string MinLength = "min-length";
+        /// <summary>
+        /// 最小长度错误消息
+        /// </summary>
+        public const string MinLengthMessage = "min-length-message";
+        /// <summary>
+        /// 最大长度
+        /// </summary>
+        public const string MaxLength = "max-length";
+        /// <summary>
+        /// 电子邮件错误消息
+        /// </summary>
+        public const string EmailMessage = "email-message";
         /// <summary>
         /// 模板
         /// </summary>

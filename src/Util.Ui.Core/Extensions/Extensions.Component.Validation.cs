@@ -14,7 +14,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="message">错误消息</param>
-        public static TComponent Required<TComponent>( this TComponent component, string message = "" ) where TComponent : IComponent, IRequired {
+        public static TComponent Required<TComponent>( this TComponent component, string message = null ) where TComponent : IComponent, IRequired {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Required,true );
@@ -30,11 +30,25 @@ namespace Util.Ui.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="minLength">最小长度</param>
         /// <param name="message">错误消息</param>
-        public static TComponent MinLength<TComponent>( this TComponent component, int minLength, string message = "" ) where TComponent : IComponent, IMinLength {
+        public static TComponent MinLength<TComponent>( this TComponent component, int minLength, string message = null ) where TComponent : IComponent, IMinLength {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.MinLength = minLength;
-                config.MinLengthMessage = message;
+                config.SetAttribute( UiConst.MinLength,minLength );
+                config.SetAttribute( UiConst.MinLengthMessage,message );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 最大长度
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="maxLength">最大长度</param>
+        public static TComponent MaxLength<TComponent>( this TComponent component, int maxLength ) where TComponent : IComponent, IMaxLength {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.MaxLength, maxLength );
             } );
             return component;
         }

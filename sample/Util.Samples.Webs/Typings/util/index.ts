@@ -13,5 +13,6 @@ export { Result, FailResult, StateCode } from './core/result';
 export { SelectItem } from './core/select';
 export { TableWrapperComponent } from './material/table-wrapper.component';
 export { SelectWrapperComponent } from './material/select-wrapper.component';
-export { TextBoxWrapperComponent } from './material/text-box-wrapper.component';
-export { TextareaWrapperComponent } from './material/textarea.wrapper.component';
+export { TextBoxWrapperComponent } from './material/textbox-wrapper.component';
+export { TextareaWrapperComponent } from './material/textarea-wrapper.component';
+export { DatePickerWrapperComponent } from './material/datepicker-wrapper.component';

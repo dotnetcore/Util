@@ -1,20 +1,15 @@
-﻿using Util.Helpers;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
+using Util.Ui.Material.Configs;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
     /// 文本框渲染器
     /// </summary>
-    public class TextBoxRender : RenderBase {
-        /// <summary>
-        /// 引用Id
-        /// </summary>
-        private string _refrenceId;
+    public class TextBoxRender : FormControlRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -24,7 +19,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 初始化文本框渲染器
         /// </summary>
         /// <param name="config">文本框配置</param>
-        public TextBoxRender( TextBoxConfig config ) : base( config ){
+        public TextBoxRender( TextBoxConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -32,73 +27,72 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override ITagBuilder GetTagBuilder() {
-            var formFieldBuilder = new FormFieldBuilder();
-            var inputBuilder = new InputBuilder();
-            formFieldBuilder.AppendChild( inputBuilder );
-            InitInputBuilder( formFieldBuilder, inputBuilder );
-            return formFieldBuilder;
+            var builder = new TextBoxWrapperBuilder();
+            base.Config( builder );
+            Config( builder );
+            return builder;
         }
 
         /// <summary>
-        /// 初始化输入控件生成器
+        /// 配置
         /// </summary>
-        private void InitInputBuilder( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
-            inputBuilder.SetText();
-            inputBuilder.AddOtherAttributes( _config );
-            inputBuilder.Id( _config );
-            inputBuilder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
-            inputBuilder.AddAttribute( "placeholder", _config.GetValue( UiConst.Placeholder ) );
-            inputBuilder.AddAttribute( "type", _config.Type );
-            inputBuilder.AddAttribute( "[(ngModel)]", _config.GetValue( UiConst.Model ) );
-            AddValidations( formFieldBuilder, inputBuilder );
+        private void Config( TextBoxWrapperBuilder builder ) {
+            ConfigType( builder );
+            ConfigReadOnly( builder );
+            ConfigShowClearButton( builder );
+            ConfigValidations( builder );
         }
 
         /// <summary>
-        /// 添加验证操作
+        /// 配置类型
         /// </summary>
-        private void AddValidations( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
-            AddRequired( formFieldBuilder, inputBuilder );
-            AddMinLength( formFieldBuilder, inputBuilder );
+        private void ConfigType( TagBuilder builder ) {
+            builder.AddAttribute( UiConst.Type, _config.GetValue<TextBoxType?>( UiConst.Type )?.Description() );
         }
 
         /// <summary>
-        /// 添加必填项验证
+        /// 配置只读
         /// </summary>
-        private void AddRequired( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
-            if( _config.Contains( UiConst.Required ) == false )
-                return;
-            inputBuilder.AddAttribute( UiConst.Required, "true" );
-            AddError( formFieldBuilder, inputBuilder, UiConst.Required, _config.GetValue( UiConst.RequiredMessage ) );
+        private void ConfigReadOnly( TagBuilder builder ) {
+            builder.AddAttribute( "[readonly]", _config.GetBoolValue( UiConst.ReadOnly ) );
         }
 
         /// <summary>
-        /// 添加错误消息
+        /// 配置是否显示清除按钮
         /// </summary>
-        private void AddError( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder, string type, string message ) {
-            if( string.IsNullOrWhiteSpace( message ) )
-                return;
-            AddRefrenceId( inputBuilder );
-            formFieldBuilder.AppendChild( new ErrorBuilder( _refrenceId, type, message ) );
+        private void ConfigShowClearButton( TagBuilder builder ) {
+            builder.AddAttribute( "[showClearButton]", _config.GetBoolValue( MaterialConst.ShowClearButton ) );
         }
 
         /// <summary>
-        /// 添加引用Id
+        /// 配置验证操作
         /// </summary>
-        private void AddRefrenceId( InputBuilder inputBuilder ) {
-            if ( _refrenceId != null )
-                return;
-            _refrenceId = $"m_{Id.Guid()}";
-            inputBuilder.AddAttribute( $"#{_refrenceId}", "ngModel" );
+        private void ConfigValidations( TextBoxWrapperBuilder builder ) {
+            ConfigEmail( builder );
+            ConfigMinLength( builder );
+            ConfigMaxLength( builder );
         }
 
         /// <summary>
-        /// 添加最小长度验证
+        /// 配置Email验证
         /// </summary>
-        private void AddMinLength( FormFieldBuilder formFieldBuilder, InputBuilder inputBuilder ) {
-            if( _config.MinLength <= 0 )
-                return;
-            inputBuilder.AddAttribute( "minlength", _config.MinLength.ToString() );
-            AddError( formFieldBuilder, inputBuilder, "minlength", _config.MinLengthMessage );
+        private void ConfigEmail( TagBuilder builder ) {
+            builder.AddAttribute( "emailMessage", _config.GetValue( UiConst.EmailMessage ) );
+        }
+
+        /// <summary>
+        /// 配置最小长度验证
+        /// </summary>
+        private void ConfigMinLength( TextBoxWrapperBuilder builder ) {
+            builder.AddAttribute( "[minLength]", _config.GetValue( UiConst.MinLength ) );
+            builder.AddAttribute( "minLengthMessage", _config.GetValue( UiConst.MinLengthMessage ) );
+        }
+
+        /// <summary>
+        /// 配置最大长度验证
+        /// </summary>
+        private void ConfigMaxLength( TextBoxWrapperBuilder builder ) {
+            builder.AddAttribute( "[maxLength]", _config.GetValue( UiConst.MaxLength ) );
         }
     }
 }

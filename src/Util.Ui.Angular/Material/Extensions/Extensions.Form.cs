@@ -147,5 +147,19 @@ namespace Util.Ui.Material.Extensions {
             } );
             return component;
         }
+
+        /// <summary>
+        /// 设置只读
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="isReadOnly">是否只读</param>
+        public static TComponent ReadOnly<TComponent>( this TComponent component, bool isReadOnly = true ) where TComponent : IComponent, IReadOnly {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.ReadOnly, isReadOnly );
+            } );
+            return component;
+        }
     }
 }

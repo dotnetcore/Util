@@ -25,6 +25,7 @@ const jsModules = [
     '@angular/platform-browser-dynamic',
     '@angular/router',
     'hammerjs',
+    '@angular/cdk/esm5/collections.es5',
     '@angular/material',
     'primeng/primeng',
     'ngx-perfect-scrollbar'

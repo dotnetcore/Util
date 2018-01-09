@@ -1,12 +1,11 @@
 ﻿using Util.Ui.Operations.Datas;
-using Util.Ui.Operations.Events;
 using Util.Ui.Operations.Forms;
 
 namespace Util.Ui.Components {
     /// <summary>
     /// 下拉列表
     /// </summary>
-    public interface ISelect : IFormControl, IUrl, IDataSource, IResetOption, IMultiple, IOnChange,IOnFocus,IOnBlur, IOnKeydown {
+    public interface ISelect : IFormControl, IUrl, IDataSource, IResetOption, IMultiple {
         /// <summary>
         /// 绑定枚举
         /// </summary>

@@ -39,5 +39,9 @@
         /// 后缀图标单击事件
         /// </summary>
         public const string OnSuffixIconClick = "on-suffix-icon-click";
+        /// <summary>
+        /// 是否显示清除按钮
+        /// </summary>
+        public const string ShowClearButton = "show-clear-button";
     }
 }

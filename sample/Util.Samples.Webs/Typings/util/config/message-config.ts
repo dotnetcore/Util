@@ -13,7 +13,15 @@ export class MessageConfig {
     /**
      * 必填项默认验证消息
      */
-    static requiredMessage = "必填项";
+    static requiredMessage = "该项必须填写";
+    /**
+     * 最小长度默认验证消息
+     */
+    static minLengthMessage = "输入内容的长度必须大于{0}位";
+    /**
+     * 电子邮件默认验证消息
+     */
+    static emailMessage = "请输入有效的电子邮件";
     /**
      * 请选择待删除的记录
      */

@@ -4,6 +4,7 @@
 //================================================
 import { Injector } from '@angular/core';
 import { IocHelper as ioc } from '../angular/ioc-helper';
+import { RouterHelper as router } from "../angular/router-helper";
 
 /**
  * 组件
@@ -15,5 +16,12 @@ export class ComponentBase {
      */
     constructor( injector: Injector ) {
         ioc.componentInjector = injector;
+    }
+
+    /**
+     * 返回上一次视图
+     */
+    back() : void {
+        router.back();
     }
 }

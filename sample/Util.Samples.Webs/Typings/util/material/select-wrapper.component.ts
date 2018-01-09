@@ -77,7 +77,7 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
      */
     @Input() resetOptionText: string;
     /**
-     * 显示模板，值用|表示，范例：当前选中：| ,显示为 当前选中：1,2,3
+     * 显示模板，值用{0}表示，范例：当前选中：{0} ,显示为 当前选中：1,2,3
      */
     @Input() template: string;
 
@@ -138,6 +138,6 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
      * 获取模板
      */
     private getTemplate(value) {
-        return this.template.replace(/\|/g, value);
+        return this.template.replace(/\{0\}/g, value);
     }
 }

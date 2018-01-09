@@ -106,7 +106,8 @@ export let isValidDate = (date): boolean => {
 }
 
 /**
- * *获取有效的日期字符串，对无效日期补全前导0，不支持毫秒
+ * *获取有效的日期字符串，对无效日期补全前导0，不支持毫秒,
+ * 范例：2000-1-1 1：2：3，返回2000-01-01 01:02:03
  * @param date 日期
  */
 export let getValidDate = (date) => {
@@ -153,7 +154,7 @@ export let toDate = (date): Date => {
 
 /**
  *  格式化日期
- * @param date 日期
+ * @param datetime 日期
  * @param format 格式化字符串，范例：YYYY-MM-DD,可选值：(注意：区分大小写)
  * (1) 年: YYYY
  * (2) 月: MM
@@ -163,8 +164,9 @@ export let toDate = (date): Date => {
  * (6) 秒: ss
  * (7) 毫秒: SSS
  */
-export let formatDate = (date, format: string): string => {
-    if (!isValidDate(date))
+export let formatDate = (datetime, format: string): string => {
+    let date = moment(getValidDate(datetime));
+    if (!date.isValid())
         return "";
-    return moment(getValidDate(date)).format(format);
+    return date.format(format);
 }

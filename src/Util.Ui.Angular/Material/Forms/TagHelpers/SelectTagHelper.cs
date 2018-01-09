@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Enums;
-using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
 using Util.Ui.Renders;
@@ -11,11 +9,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// 下拉列表
     /// </summary>
     [HtmlTargetElement( "util-select" )]
-    public class SelectTagHelper : TagHelperBase {
-        /// <summary>
-        /// 禁用
-        /// </summary>
-        public bool Disabled { get; set; }
+    public class SelectTagHelper : FormControlTagHelperBase {
         /// <summary>
         /// 请求地址
         /// </summary>
@@ -24,22 +18,6 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 数据源
         /// </summary>
         public string DatasSource { get; set; }
-        /// <summary>
-        /// 占位提示符
-        /// </summary>
-        public string Placeholder { get; set; }
-        /// <summary>
-        /// 占位符浮动类型
-        /// </summary>
-        public FloatType FloatPlaceholder { get; set; }
-        /// <summary>
-        /// 起始提示，显示在控件左下方
-        /// </summary>
-        public string StartHint { get; set; }
-        /// <summary>
-        /// 结束提示，显示在控件右下方
-        /// </summary>
-        public string EndHint { get; set; }
         /// <summary>
         /// 启用重置项，重置项显示在列表的第一行，用于清空当前选择的值
         /// </summary>
@@ -53,57 +31,9 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public bool Multiple { get; set; }
         /// <summary>
-        /// 模型绑定
-        /// </summary>
-        public string Model { get; set; }
-        /// <summary>
-        /// 必填项
-        /// </summary>
-        public bool Required { get; set; }
-        /// <summary>
-        /// 必填项错误消息
-        /// </summary>
-        public string RequiredMessage { get; set; }
-        /// <summary>
-        /// 显示模板，值用|表示，范例：当前选中：| ,显示为 当前选中：1,2,3
+        /// 显示模板，值用{0}表示，范例：当前选中：{0} ,显示为 当前选中：1,2,3
         /// </summary>
         public string Template { get; set; }
-        /// <summary>
-        /// 变更事件处理函数,用$event访问值,范例：change($event)
-        /// </summary>
-        public string OnChange { get; set; }
-        /// <summary>
-        /// 获得焦点事件
-        /// </summary>
-        public string OnFocus { get; set; }
-        /// <summary>
-        /// 失去焦点事件
-        /// </summary>
-        public string OnBlur { get; set; }
-        /// <summary>
-        /// 键盘按下事件
-        /// </summary>
-        public string OnKeydown { get; set; }
-        /// <summary>
-        /// 前缀
-        /// </summary>
-        public string Prefix { get; set; }
-        /// <summary>
-        /// 后缀文本
-        /// </summary>
-        public string SuffixText { get; set; }
-        /// <summary>
-        /// 后缀FontAwesome图标
-        /// </summary>
-        public FontAwesomeIcon SuffixFontAwesomeIcon { get; set; }
-        /// <summary>
-        /// 后缀Material图标
-        /// </summary>
-        public MaterialIcon SuffixMaterialIcon { get; set; }
-        /// <summary>
-        /// 后缀图标单击事件,范例：click()
-        /// </summary>
-        public string OnSuffixIconClick { get; set; }
 
         /// <summary>
         /// 获取渲染器

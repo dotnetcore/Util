@@ -2,7 +2,9 @@
 using System.IO;
 using System.Text.Encodings.Web;
 using Util.Helpers;
+using Util.Ui.Enums;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Forms;
 using Util.Webs;
@@ -14,7 +16,7 @@ namespace Util.Ui.Tests.Material.Forms {
     /// <summary>
     /// 文本框测试
     /// </summary>
-    public class TextBoxTest : IDisposable {
+    public class TextBoxTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -26,22 +28,14 @@ namespace Util.Ui.Tests.Material.Forms {
         /// <summary>
         /// 文本框
         /// </summary>
-        private readonly TextBox _textBox;
+        private readonly TextBox _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public TextBoxTest( ITestOutputHelper output ) {
             _output = output;
-            _textBox = new TextBox();
-            Id.SetId( "id" );
-        }
-
-        /// <summary>
-        /// 测试清理
-        /// </summary>
-        public void Dispose() {
-            Id.Reset();
+            _component = new TextBox();
         }
 
         /// <summary>
@@ -60,46 +54,8 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox ) );
-        }
-
-        /// <summary>
-        /// 测试添加属性
-        /// </summary>
-        [Fact]
-        public void TestAttribute_1() {
-            var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input a=\"\" matInput=\"matInput\" />" );
-            result.Append( "</mat-form-field>" );
-            //Assert.Equal( result.ToString(), GetResult( _textBox.Attribute( "a" ) ) );
-        }
-
-        /// <summary>
-        /// 测试添加属性
-        /// </summary>
-        [Fact]
-        public void TestAttribute_2() {
-            var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input a=\"1\" matInput=\"matInput\" />" );
-            result.Append( "</mat-form-field>" );
-            //Assert.Equal( result.ToString(), GetResult( _textBox.Attribute( "a", "1" ) ) );
-        }
-
-        /// <summary>
-        /// 测试添加标识
-        /// </summary>
-        [Fact]
-        public void TestId() {
-            var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input id=\"a\" matInput=\"matInput\" />" );
-            result.Append( "</mat-form-field>" );
-            //Assert.Equal( result.ToString(), GetResult( _textBox.Id( "a" ) ) );
+            result.Append( "<mat-textbox-wrapper></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component ) );
         }
 
         /// <summary>
@@ -108,10 +64,28 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestName() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" name=\"a\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Name( "a" ) ) );
+            result.Append( "<mat-textbox-wrapper name=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Name( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisabled() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [disabled]=\"true\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Disable() ) );
+        }
+
+        /// <summary>
+        /// 测试只读
+        /// </summary>
+        [Fact]
+        public void TestReadOnly() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [readonly]=\"false\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ReadOnly(false) ) );
         }
 
         /// <summary>
@@ -120,98 +94,108 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestPlaceholder() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" placeholder=\"a\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Placeholder( "a" ) ) );
+            result.Append( "<mat-textbox-wrapper placeholder=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Placeholder( "a" ) ) );
         }
 
         /// <summary>
-        /// 测试设置为密码框
+        /// 测试设置占位提示浮动位置
         /// </summary>
         [Fact]
-        public void TestPassword() {
+        public void TestPlaceholder_Float() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" type=\"password\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Password() ) );
+            result.Append( "<mat-textbox-wrapper floatPlaceholder=\"never\" placeholder=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Placeholder( "a", FloatType.Never ) ) );
         }
 
         /// <summary>
-        /// 测试只能输入数字
+        /// 测试设置起始提示
         /// </summary>
         [Fact]
-        public void TestNumber() {
+        public void TestHint_Start() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" type=\"number\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Number() ) );
+            result.Append( "<mat-textbox-wrapper startHint=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Hint( "a" ) ) );
         }
 
         /// <summary>
-        /// 测试必填项
+        /// 测试设置结束提示
         /// </summary>
         [Fact]
-        public void TestRequired() {
+        public void TestHint_End() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" required=\"true\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Required() ) );
+            result.Append( "<mat-textbox-wrapper endHint=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Hint( "a", true ) ) );
         }
 
         /// <summary>
-        /// 测试必填项,添加指定错误消息
+        /// 测试设置前缀
         /// </summary>
         [Fact]
-        public void TestRequired_Message() {
+        public void TestPrefix() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input #m_id=\"ngModel\" matInput=\"matInput\" required=\"true\" />" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}required{Quote} )\">a</mat-error>" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Required("a") ) );
+            result.Append( "<mat-textbox-wrapper prefixText=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Prefix( "a" ) ) );
         }
 
         /// <summary>
-        /// 测试最小长度
+        /// 测试设置后缀文本
         /// </summary>
         [Fact]
-        public void TestMinLength() {
+        public void TestSuffix_Text() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" minlength=\"3\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.MinLength(3) ) );
+            result.Append( "<mat-textbox-wrapper suffixText=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( "a" ) ) );
         }
 
         /// <summary>
-        /// 测试最小长度,添加指定错误消息
+        /// 测试设置后缀FontAwesome图标
         /// </summary>
         [Fact]
-        public void TestMinLength_Message() {
+        public void TestSuffix_FontAwesomeIcon() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input #m_id=\"ngModel\" matInput=\"matInput\" minlength=\"3\" />" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}minlength{Quote} )\">a</mat-error>" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.MinLength( 3,"a" ) ) );
+            result.Append( "<mat-textbox-wrapper suffixFontAwesomeIcon=\"fa-apple\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( FontAwesomeIcon.Apple ) ) );
         }
 
         /// <summary>
-        /// 测试同时验证必填和最小长度
+        /// 测试设置后缀Material图标
         /// </summary>
         [Fact]
-        public void TestRequired_MinLength_Message() {
+        public void TestSuffix_MaterialIcon() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input #m_id=\"ngModel\" matInput=\"matInput\" minlength=\"3\" required=\"true\" />" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}required{Quote} )\">a</mat-error>" );
-            result.Append( $"<mat-error *ngIf=\"m_id?.hasError( {Quote}minlength{Quote} )\">b</mat-error>" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Required( "a" ).MinLength( 3,"b" ) ) );
+            result.Append( "<mat-textbox-wrapper suffixMaterialIcon=\"android\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( MaterialIcon.Android ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀FontAwesome图标单击事件
+        /// </summary>
+        [Fact]
+        public void TestSuffix_FontAwesomeIcon_Click() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper (onSuffixIconClick)=\"a\" suffixFontAwesomeIcon=\"fa-apple\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( FontAwesomeIcon.Apple, "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置后缀Material图标单击事件
+        /// </summary>
+        [Fact]
+        public void TestSuffix_MaterialIcon_Click() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper (onSuffixIconClick)=\"a\" suffixMaterialIcon=\"android\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Suffix( MaterialIcon.Android, "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试是否显示清除按钮
+        /// </summary>
+        [Fact]
+        public void TestShowClearButton() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [showClearButton]=\"false\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ShowClearButton( false ) ) );
         }
 
         /// <summary>
@@ -220,10 +204,138 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestModel() {
             var result = new String();
-            result.Append( "<mat-form-field>" );
-            result.Append( "<input matInput=\"matInput\" [(ngModel)]=\"a\" />" );
-            result.Append( "</mat-form-field>" );
-            Assert.Equal( result.ToString(), GetResult( _textBox.Model("a") ) );
+            result.Append( "<mat-textbox-wrapper [(model)]=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Model( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试必填项
+        /// </summary>
+        [Fact]
+        public void TestRequired() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [required]=\"true\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Required() ) );
+        }
+
+        /// <summary>
+        /// 测试必填项,添加指定错误消息
+        /// </summary>
+        [Fact]
+        public void TestRequired_Message() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper requiredMessage=\"a\" [required]=\"true\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Required( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试变更事件
+        /// </summary>
+        [Fact]
+        public void TestOnChange() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper (onChange)=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnChange( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试获得焦点事件
+        /// </summary>
+        [Fact]
+        public void TestOnFocus() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper (onFocus)=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnFocus( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试失去焦点事件
+        /// </summary>
+        [Fact]
+        public void TestOnBlur() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper (onBlur)=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnBlur( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试键盘按下事件
+        /// </summary>
+        [Fact]
+        public void TestOnKeydown() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper (onKeydown)=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnKeydown( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置为密码框
+        /// </summary>
+        [Fact]
+        public void TestPassword() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper type=\"password\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Password() ) );
+        }
+
+        /// <summary>
+        /// 测试只能输入数字
+        /// </summary>
+        [Fact]
+        public void TestNumber() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper type=\"number\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Number() ) );
+        }
+
+        /// <summary>
+        /// 测试电子邮件验证
+        /// </summary>
+        [Fact]
+        public void TestEmail() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper type=\"email\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Email() ) );
+        }
+
+        /// <summary>
+        /// 测试设置电子邮件验证消息
+        /// </summary>
+        [Fact]
+        public void TestEmail_Message() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper emailMessage=\"a\" type=\"email\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Email("a") ) );
+        }
+
+        /// <summary>
+        /// 测试最小长度
+        /// </summary>
+        [Fact]
+        public void TestMinLength() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [minLength]=\"3\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.MinLength(3) ) );
+        }
+
+        /// <summary>
+        /// 测试最小长度,添加指定错误消息
+        /// </summary>
+        [Fact]
+        public void TestMinLength_Message() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper minLengthMessage=\"a\" [minLength]=\"3\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.MinLength( 3,"a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试最大长度
+        /// </summary>
+        [Fact]
+        public void TestMaxLength() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [maxLength]=\"3\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.MaxLength( 3 ) ) );
         }
     }
 }

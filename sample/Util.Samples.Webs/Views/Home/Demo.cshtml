@@ -17,17 +17,23 @@
    
     </div>
 
-<div style="margin: 300px">
-    
-    <mat-date-picker-wrapper [(model)]="model.date" placeholder="哈哈" maxDate="2018-3-1" minDate="2018-1-1"></mat-date-picker-wrapper>
-    {{getDate()}}
+    <div style="margin: 300px">
 
-    <mat-textbox-wrapper placeholder="哈哈" startHint="哈楼" endHint="你好" type="text" [required]="true" [(model)]="model.value" [maxLength]="5"
-                         [suffixMaterialIcon]="model.hide ? 'visibility' : 'visibility_off'" prefixText="$&nbsp;" (onSuffixIconClick)="onChange($event)"></mat-textbox-wrapper>
-    
+        <mat-datepicker-wrapper [(model)]="model.date" placeholder="哈哈" maxDate="2018-3-1" minDate="2018-1-1" [required]="true" [width]="300"></mat-datepicker-wrapper>
+        {{getDate()}}
 
 
-</div>
+        <div style="margin: 100px">
+            <util-textbox name="a" max-length="8" prefix="$" placeholder="你好啊"  model="model.value" required="true" min-length="4" readonly="true"></util-textbox>
+        </div>
+        <div style="margin: 100px">
+            @(x.TextBox().Name( "b" ).Prefix( "$" ).MinLength( 5 ).MaxLength( 8 ).ShowClearButton( false ).ReadOnly( false )
+                .Placeholder( "你不好" ).Hint( "左边" ).Hint( "右边", true ).Model( "model.value" ).Required())
+        </div>
+        
+       
+
+    </div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
     @*表头*@

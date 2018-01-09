@@ -55,26 +55,6 @@ namespace Util.Ui.Configs {
         public IHtmlContent Content { get; set; }
 
         /// <summary>
-        /// 是否验证
-        /// </summary>
-        public static bool IsValidate { get; set; } = true;
-
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public string Type { get; set; }
-
-        /// <summary>
-        /// 最小长度
-        /// </summary>
-        public int MinLength { get; set; }
-
-        /// <summary>
-        /// 最小长度错误消息
-        /// </summary>
-        public string MinLengthMessage { get; set; }
-
-        /// <summary>
         /// 属性集合是否包含指定属性
         /// </summary>
         /// <param name="name">属性名</param>
@@ -141,6 +121,11 @@ namespace Util.Ui.Configs {
         public List<string> GetClassList() {
             return _classList;
         }
+
+        /// <summary>
+        /// 是否验证
+        /// </summary>
+        public static bool IsValidate { get; set; } = true;
 
         /// <summary>
         /// 验证

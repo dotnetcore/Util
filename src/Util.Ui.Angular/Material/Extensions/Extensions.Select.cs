@@ -9,7 +9,7 @@ namespace Util.Ui.Material.Extensions {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// 显示模板，值用|表示，范例：当前选中：| ,显示为 当前选中：1,2,3
+        /// 显示模板，值用{0}表示，范例：当前选中：{0} ,显示为 当前选中：1,2,3
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
