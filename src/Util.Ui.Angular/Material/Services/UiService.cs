@@ -28,5 +28,14 @@ namespace Util.Ui.Material.Services {
         public ISelect Select<TProperty>( Expression<Func<TModel, TProperty>> expression ) {
             return new ModelSelect<TModel, TProperty>( expression );
         }
+
+        /// <summary>
+        /// 文本框
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        public ITextBox TextBox<TProperty>( Expression<Func<TModel, TProperty>> expression ) {
+            return new ModelTextBox<TModel, TProperty>( expression );
+        }
     }
 }

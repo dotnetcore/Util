@@ -17,7 +17,7 @@ namespace Donau.Services.Dtos.Customers {
         /// 客户名称
         /// </summary>
         [Required(ErrorMessage = "客户名称不能为空")]
-        [StringLength( 20, ErrorMessage = "客户名称输入过长，不能超过20位" )]
+        [StringLength( 20, ErrorMessage = "客户名称输入过长，不能超过20位" ,MinimumLength = 3)]
         [Display( Name = "客户名称" )]
         [DataMember]
         public string Name { get; set; }
@@ -34,8 +34,8 @@ namespace Donau.Services.Dtos.Customers {
         /// 余额
         /// </summary>
         [DataMember]
-        public string Balance { get; set; }
-        
+        public double Balance { get; set; }
+
         /// <summary>
         /// 性别
         /// </summary>
@@ -50,6 +50,14 @@ namespace Donau.Services.Dtos.Customers {
         [Display( Name = "性别" )]
         [DataMember]
         public bool IsGender { get; set; }
+
+        /// <summary>
+        /// 年龄
+        /// </summary>
+        [Display( Name = "年龄" )]
+        [Required(ErrorMessage = "年龄不能为空")]
+        [DataMember]
+        public double Age { get; set; }
 
         /// <summary>
         /// 民族
@@ -81,6 +89,7 @@ namespace Donau.Services.Dtos.Customers {
         [StringLength( 100, ErrorMessage = "电子邮件输入过长，不能超过100位" )]
         [Display( Name = "电子邮件" )]
         [DataMember]
+        [EmailAddress(ErrorMessage = "你的电子邮件是错的")]
         public string Email { get; set; }
         
         /// <summary>

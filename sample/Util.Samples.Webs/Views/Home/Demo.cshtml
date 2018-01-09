@@ -28,10 +28,10 @@
       
         </div>
         <div style="margin: 100px">
-            @x.TextBox().Prefix( "$" ).Placeholder( "你不好" ).Model( "model.value" ).Required().ToDatePicker( "2018-2-1","2019-5-6" )
+            @x.TextBox( t => t.Name )
         </div>
         
-       
+       {{model.name}}
 
     </div>
 

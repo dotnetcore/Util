@@ -38,7 +38,7 @@ export class DemoComponent implements OnInit {
     }
 
     getDate() {
-        return util.helper.formatDate(this.model.date, "YYYY年MM月DD日");
+        return util.helper.formatDate(this.model.creationTime, "YYYY年MM月DD日");
     }
 }
 
@@ -53,5 +53,6 @@ class CustomerViewModel extends ViewModel {
     public nation;
     public hide: boolean;
     public num: number;
-    public date:Date;
+    public date: Date;
+    public creationTime;
 }
