@@ -62,34 +62,41 @@ export class Message {
         /**
          * 确认回调函数
          */
-        accept: () => void,
+        ok: () => void,
+        /**
+         * 取消回调函数
+         */
+        cancel?: () => void,
         /**
          * 标题
          */
-        header?: string;
+        title?: string;
     }): void;
     /**
      * 确认
      * @param message 消息
-     * @param accept 确认回调函数
+     * @param ok 确认回调函数
      */
-    static confirm(message: string, accept?: () => void): void;
-    static confirm(options, accept?): void {
+    static confirm(message: string, ok?: () => void): void;
+    static confirm(options, ok?): void {
         var service = ioc.get(ConfirmationService);
         let message = "";
-        let header = "";
+        let title = "";
+        let cancel = () => {};
         if (typeof options === "object") {
             message = options["message"];
-            header = options["header"];
-            accept = options["accept"];
+            title = options["title"];
+            ok = options["ok"];
+            cancel = options["cancel"];
         }
         else if (typeof options === "string") {
             message = options;
         }
         service.confirm({
             message: message,
-            accept: accept,
-            header: header || "确认"
+            accept: ok,
+            reject: cancel,
+            header: title || "确认"
         });
     }
 }

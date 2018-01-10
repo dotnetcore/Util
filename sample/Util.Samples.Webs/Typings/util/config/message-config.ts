@@ -27,6 +27,10 @@ export class MessageConfig {
      */
     static deleteNotSelected = "请选择待删除的记录";
     /**
+     * 操作成功
+     */
+    static successed = "操作成功";
+    /**
      * 删除成功
      */
     static deleteSuccessed = "删除成功";

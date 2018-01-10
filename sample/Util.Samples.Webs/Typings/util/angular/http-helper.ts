@@ -11,6 +11,27 @@ import { Observable } from 'rxjs/Observable';
  */
 export class HttpHelper {
     /**
+     * 发送请求
+     * @param url 请求地址
+     * @param httpMethod http方法
+     * @param data 数据
+     */
+    static send<T>(url: string, httpMethod: HttpMethod, data?): HttpRequest<T> {
+        switch (httpMethod) {
+        case HttpMethod.Get:
+            return this.get<T>(url).param(data);
+        case HttpMethod.Post:
+            return this.post<T>(url,data);
+        case HttpMethod.Put:
+            return this.put<T>(url, data);
+        case HttpMethod.Delete:
+            return this.delete<T>(url).param(data);
+        default:
+            return this.get<T>(url).param(data);
+        }
+    }
+
+    /**
      * get请求
      * @param url 请求地址
      */
@@ -185,7 +206,7 @@ export class HttpRequest<T> {
 /**
  * Http方法
  */
-enum HttpMethod {
+export enum HttpMethod {
     Get,
     Post,
     Put,

@@ -23,6 +23,7 @@ export class DemoComponent implements OnInit {
     }
 
     query() {
+        
         this.grid.query();
     }
 

@@ -34,6 +34,7 @@ namespace Donau.Services.Dtos.Customers {
         /// 余额
         /// </summary>
         [DataMember]
+        [Display( Name = "余额" )]
         public double Balance { get; set; }
 
         /// <summary>

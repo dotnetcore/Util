@@ -7,7 +7,8 @@ import { IocHelper } from './angular/ioc-helper';
 import { HttpHelper } from './angular/http-helper';
 import { WebApi } from './common/webapi';
 import { RouterHelper } from './angular/router-helper';
-import { Message } from "./common/message";
+import { Message } from './common/message';
+import { Form } from './common/form';
 
 /**
  * 操作库
@@ -37,4 +38,8 @@ export class Util {
      * 消息操作
      */
     static message = Message;
+    /**
+     * 表单操作
+     */
+    static form = new Form();
 }

@@ -3,37 +3,49 @@
     ViewData["Title"] = "Tile";
     var x = Html.Ui();
 }
-    <span fxFlex style="flex: 1 1 1e-09px; box-sizing: border-box;"></span>
-    <div class="icon-group">
-        <button class="spam" mat-icon-button matTooltip="新增">
-            <mat-icon>add</mat-icon>
-        </button>
-        <button class="spam" mat-icon-button matTooltip="修改">
-            <mat-icon>edit</mat-icon>
-        </button>
-        <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
-            <mat-icon>delete</mat-icon>
-        </button>
-   
-    </div>
+<span fxFlex style="flex: 1 1 1e-09px; box-sizing: border-box;"></span>
+<div class="icon-group">
+    <button class="spam" mat-icon-button matTooltip="新增">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button class="spam" mat-icon-button matTooltip="修改">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
+        <mat-icon>delete</mat-icon>
+    </button>
+
+</div>
+
+<div style="margin: 300px">
+    
+
+
+
 
     <div style="margin: 300px">
+
+
+
+     
         
-        <util-datepicker model="model.date"  min-date="1991-1-6" max-date="1992-2-3" start-view="Year" width="300"></util-datepicker>
-
-        {{getDate()}}
 
 
-        <div style="margin: 100px">
-      
-        </div>
-        <div style="margin: 100px">
-            @x.TextBox( t => t.Name )
-        </div>
-        
-       {{model.name}}
+
+
+
+
+
+
+
+
 
     </div>
+
+
+    {{model.name}}
+
+</div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
     @*表头*@

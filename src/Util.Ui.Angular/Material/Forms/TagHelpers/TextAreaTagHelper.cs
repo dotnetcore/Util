@@ -6,7 +6,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Forms.TagHelpers {
     /// <summary>
-    /// 文本框
+    /// 多行文本框
     /// </summary>
     [HtmlTargetElement( "util-textarea" )]
     public class TextAreaTagHelper : FormControlTagHelperBase {

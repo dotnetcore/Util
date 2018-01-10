@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { UUID } from './uuid';
+import { UUID } from './internal/uuid';
 import * as moment from 'moment';
 
 /**

@@ -4,13 +4,34 @@
 //================================================
 import { HttpErrorResponse } from '@angular/common/http';
 import { Result, FailResult, StateCode } from '../core/result';
-import { HttpHelper, HttpRequest, HttpContentType } from '../angular/http-helper';
+import { HttpHelper, HttpRequest, HttpContentType,HttpMethod } from '../angular/http-helper';
 import { Message } from './message';
 
 /**
  * WebApi操作,与服务端返回的标准result对象交互
  */
 export class WebApi {
+    /**
+     * 发送请求
+     * @param url 请求地址
+     * @param httpMethod http方法
+     * @param data 数据
+     */
+    static send<T>(url: string, httpMethod: HttpMethod, data?): WebApiRequest<T> {
+        switch (httpMethod) {
+        case HttpMethod.Get:
+            return this.get<T>(url).param(data);
+        case HttpMethod.Post:
+            return this.post<T>(url, data);
+        case HttpMethod.Put:
+            return this.put<T>(url, data);
+        case HttpMethod.Delete:
+            return this.delete<T>(url).param(data);
+        default:
+            return this.get<T>(url).param(data);
+        }
+    }
+
     /**
      * get请求
      * @param url 请求地址

@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <None Remove="Typings\test\util\core\select.test.ts" />
+    <None Remove="Typings\util\common\form.ts" />
     <None Remove="Typings\util\config\message-config.ts" />
     <None Remove="Typings\util\core\select.ts" />
     <None Remove="Typings\util\core\view-model.ts" />
@@ -35,6 +36,10 @@
     <None Remove="Typings\util\material\local\date-adapter.ts" />
     <None Remove="Typings\util\material\select-wrapper.component.ts" />
     <None Remove="Typings\util\material\textbox-wrapper.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Typings\util\common\form.ts" />
   </ItemGroup>
 
   <ItemGroup>
