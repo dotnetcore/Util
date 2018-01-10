@@ -39,10 +39,18 @@ namespace Util.Ui.Material.Forms.Models {
         /// 初始化
         /// </summary>
         private void Init() {
+            InitName();
             InitModel();
             InitPlaceholder();
             InitType();
             InitValidation();
+        }
+
+        /// <summary>
+        /// 初始化名称
+        /// </summary>
+        private void InitName() {
+            this.Name( Util.Helpers.String.FirstLowerCase( Lambda.GetName( _expression ) ) );
         }
 
         /// <summary>

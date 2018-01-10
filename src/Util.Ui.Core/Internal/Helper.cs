@@ -19,7 +19,7 @@ namespace Util.Ui.Internal {
             var propertyName = Util.Helpers.String.FirstLowerCase( GetPropertyName( expression ) );
             if ( string.IsNullOrWhiteSpace( modelName ) || string.IsNullOrWhiteSpace( propertyName ) )
                 return string.Empty;
-            return $"{modelName}.{propertyName}";
+            return $"{modelName}&&{modelName}.{propertyName}";
         }
 
         /// <summary>
