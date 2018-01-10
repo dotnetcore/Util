@@ -6,9 +6,9 @@
     <RootNamespace>Util.Webs</RootNamespace>
     <OutputPath>..\..\output\release\</OutputPath>
     <DocumentationFile>..\..\output\release\netstandard2.0\Util.Webs.xml</DocumentationFile>
-    <Version>0.1.3-preview</Version>
-    <AssemblyVersion>0.1.3.0</AssemblyVersion>
-    <FileVersion>0.1.3.0</FileVersion>
+    <Version>0.1.4-preview</Version>
+    <AssemblyVersion>0.1.4.0</AssemblyVersion>
+    <FileVersion>0.1.4.0</FileVersion>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
     <Description>Util.Webs是Util应用框架的Asp.Net Core操作类库。
@@ -34,8 +34,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
