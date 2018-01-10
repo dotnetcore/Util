@@ -75,9 +75,7 @@ export class Form {
             handler: result => {
                 this.submitHandler(options, result);
             },
-            failHandler: result => {
-                options.failHandler && options.failHandler(result);
-            },
+            failHandler: options.failHandler,
             completeHandler: options.completeHandler
         });
     }
