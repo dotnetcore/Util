@@ -11,7 +11,7 @@ namespace Util.Ui.Renders {
         /// <summary>
         /// 标签生成器
         /// </summary>
-        private ITagBuilder _builder;
+        private TagBuilder _builder;
         /// <summary>
         /// 配置
         /// </summary>
@@ -28,12 +28,12 @@ namespace Util.Ui.Renders {
         /// <summary>
         /// 标签生成器
         /// </summary>
-        private ITagBuilder Builder => _builder ?? ( _builder = GetTagBuilder() );
+        private TagBuilder Builder => _builder ?? ( _builder = GetTagBuilder() );
 
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected abstract ITagBuilder GetTagBuilder();
+        protected abstract TagBuilder GetTagBuilder();
 
         /// <summary>
         /// 渲染

@@ -26,7 +26,7 @@ namespace Util.Ui.Material.Icons.Renders {
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected override ITagBuilder GetTagBuilder() {
+        protected override TagBuilder GetTagBuilder() {
             TagBuilder result = GetIconBuilder();
             if ( result == TagBuilder.Null )
                 return result;

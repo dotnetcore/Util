@@ -25,7 +25,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected override ITagBuilder GetTagBuilder() {
+        protected override TagBuilder GetTagBuilder() {
             var builder = new SelectWrapperBuilder();
             base.Config( builder );
             ConfigSelect( builder );

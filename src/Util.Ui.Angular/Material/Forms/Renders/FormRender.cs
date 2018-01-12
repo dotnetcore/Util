@@ -7,7 +7,7 @@ namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
     /// 表单渲染器
     /// </summary>
-    public class FormRender : ContainerRenderBase<FormBuilder> {
+    public class FormRender : ContainerRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,24 +17,23 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 初始化表单渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public FormRender( Config config ) {
+        public FormRender( Config config ) : base( config ) {
             _config = config;
         }
 
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected override FormBuilder GetTagBuilder() {
+        protected override TagBuilder GetTagBuilder() {
             var builder = new FormBuilder();
-            ConfigAttributes( builder );
-            ConfigContent( builder );
+            Config( builder );
             return builder;
         }
 
         /// <summary>
-        /// 配置属性
+        /// 配置
         /// </summary>
-        private void ConfigAttributes( TagBuilder builder ) {
+        private void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigEvents( builder );
         }
@@ -52,13 +51,6 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(ngSubmit)", _config.GetValue( UiConst.OnSubmit ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            builder.SetContent( _config.Content );
         }
     }
 }

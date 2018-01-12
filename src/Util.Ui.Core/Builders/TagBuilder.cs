@@ -8,7 +8,7 @@ namespace Util.Ui.Builders {
     /// <summary>
     /// 标签生成器，注意：已禁用Html编码
     /// </summary>
-    public class TagBuilder : ITagBuilder {
+    public class TagBuilder : IHtmlContent {
         /// <summary>
         /// 标签生成器
         /// </summary>
