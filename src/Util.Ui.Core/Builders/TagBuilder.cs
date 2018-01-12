@@ -2,10 +2,11 @@
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Util.Ui.Builders {
     /// <summary>
-    /// 标签生成器
+    /// 标签生成器，注意：已禁用Html编码
     /// </summary>
     public class TagBuilder : ITagBuilder {
         /// <summary>
@@ -123,25 +124,23 @@ namespace Util.Ui.Builders {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         public virtual void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
-            _tagBuilder.WriteTo( writer,encoder );
+            _tagBuilder.WriteTo( writer, NullHtmlEncoder.Default );
         }
 
         /// <summary>
         /// 渲染起始标签
         /// </summary>
         /// <param name="writer">流写入器</param>
-        /// <param name="encoder">编码</param>
-        public void RenderStartTag( TextWriter writer, HtmlEncoder encoder ) {
-            _tagBuilder.RenderStartTag().WriteTo( writer, encoder );
+        public void RenderStartTag( TextWriter writer ) {
+            _tagBuilder.RenderStartTag().WriteTo( writer, NullHtmlEncoder.Default );
         }
 
         /// <summary>
         /// 渲染结束标签
         /// </summary>
         /// <param name="writer">流写入器</param>
-        /// <param name="encoder">编码</param>
-        public void RenderEndTag( TextWriter writer, HtmlEncoder encoder ) {
-            _tagBuilder.RenderEndTag().WriteTo( writer, encoder );
+        public void RenderEndTag( TextWriter writer ) {
+            _tagBuilder.RenderEndTag().WriteTo( writer, NullHtmlEncoder.Default );
         }
 
         /// <summary>
@@ -149,7 +148,7 @@ namespace Util.Ui.Builders {
         /// </summary>
         public override string ToString() {
             using( var writer = new StringWriter() ) {
-                _tagBuilder.WriteTo( writer, HtmlEncoder.Default );
+                _tagBuilder.WriteTo( writer, NullHtmlEncoder.Default );
                 return writer.ToString();
             }
         }

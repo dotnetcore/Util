@@ -46,7 +46,7 @@ namespace Util.Ui.Extensions {
         public static TComponent Id<TComponent>( this TComponent component, string id ) where TComponent : IOption, IId {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
-                config.AllAttributes.Add( UiConst.Id, id );
+                config.SetAttribute( UiConst.Id, id );
             } );
             return component;
         }

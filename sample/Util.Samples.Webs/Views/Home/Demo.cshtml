@@ -1,4 +1,5 @@
-﻿@model Donau.Services.Dtos.Customers.CustomersDto
+﻿@using Util.Biz.Enums
+@model Donau.Services.Dtos.Customers.CustomersDto
 @{
     ViewData["Title"] = "Tile";
     var x = Html.Ui();
@@ -18,32 +19,13 @@
 </div>
 
 <div style="margin: 300px">
-    
 
 
-
-
-    <div style="margin: 300px">
-
-
-
-     
-        
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-
-
-    {{model.name}}
+    <form #a="ngForm" (ngSubmit)="onSubmit()">
+        @x.TextBox( t => t.Name )
+        @x.Select( t => t.Nation )
+        <button type="submit" mat-raised-button [disabled]="!a.valid">Submit</button>
+    </form>
 
 </div>
 

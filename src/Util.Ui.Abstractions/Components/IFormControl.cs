@@ -7,6 +7,6 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 表单控件
     /// </summary>
-    public interface IFormControl : IComponent, IName,IDisabled, IPlaceholder, IHint, IPrefix, ISuffix, IModel, IRequired, IOnChange, IOnFocus, IOnBlur, IOnKeydown {
+    public interface IFormControl : IComponent,IId, IName,IDisabled, IPlaceholder, IHint, IPrefix, ISuffix, IModel, IRequired, IOnChange, IOnFocus, IOnBlur, IOnKeyup, IOnKeydown {
     }
 }

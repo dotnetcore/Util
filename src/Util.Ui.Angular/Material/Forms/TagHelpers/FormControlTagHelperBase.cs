@@ -8,6 +8,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// </summary>
     public abstract class FormControlTagHelperBase : TagHelperBase {
         /// <summary>
+        /// 控件标识，指向控件的引用变量，而不是Id属性
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
         /// 控件的名称
         /// </summary>
         public string Name { get; set; }
@@ -75,6 +79,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 失去焦点事件处理函数,用$event访问事件参数,范例：handle($event)
         /// </summary>
         public string OnBlur { get; set; }
+        /// <summary>
+        /// 键盘按键事件处理函数,用$event访问事件参数,范例：handle($event)
+        /// </summary>
+        public string OnKeyup { get; set; }
         /// <summary>
         /// 键盘按下事件处理函数,用$event访问事件参数,范例：handle($event)
         /// </summary>

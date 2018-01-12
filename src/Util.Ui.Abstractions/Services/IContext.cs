@@ -1,5 +1,4 @@
-﻿using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Util.Ui.Services {
     /// <summary>
@@ -10,9 +9,5 @@ namespace Util.Ui.Services {
         /// HtmlHelper
         /// </summary>
         IHtmlHelper<TModel> Helper { get; }
-        /// <summary>
-        /// Html编码
-        /// </summary>
-        HtmlEncoder Encoder { get; }
     }
 }

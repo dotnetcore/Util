@@ -25,7 +25,7 @@ namespace Util.Ui.Tests.Material.Forms {
         /// </summary>
         public FormTest( ITestOutputHelper output ) {
             _output = output;
-            _form = new Form( new StringWriter(), HtmlEncoder.Default );
+            _form = new Form( new StringWriter() );
         }
 
         /// <summary>

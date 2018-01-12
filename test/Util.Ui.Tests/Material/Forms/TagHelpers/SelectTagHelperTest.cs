@@ -50,6 +50,17 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         }
 
         /// <summary>
+        /// 测试添加标识
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
+            var result = new String();
+            result.Append( "<mat-select-wrapper #a=\"\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试设置名称
         /// </summary>
         [Fact]

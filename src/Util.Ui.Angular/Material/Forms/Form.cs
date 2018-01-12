@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text.Encodings.Web;
 using Util.Ui.Components;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Renders;
@@ -20,8 +19,7 @@ namespace Util.Ui.Material.Forms {
         /// 初始化表单
         /// </summary>
         /// <param name="writer">流写入器</param>
-        /// <param name="encoder">Html编码器</param>
-        public Form( TextWriter writer, HtmlEncoder encoder ) : base( writer, encoder ) {
+        public Form( TextWriter writer ) : base( writer ) {
             _config = new Config();
         }
 

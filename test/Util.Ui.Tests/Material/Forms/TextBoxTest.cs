@@ -59,6 +59,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试添加标识
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper #a=\"\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Id( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试添加名称
         /// </summary>
         [Fact]
@@ -259,6 +269,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试键盘按键事件
+        /// </summary>
+        [Fact]
+        public void TestOnKeyUp() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper (onKeyup)=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.OnKeyup( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试键盘按下事件
         /// </summary>
         [Fact]
@@ -394,7 +414,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestToDatePicker_4() {
             var result = new String();
-            result.Append( "<mat-datepicker-wrapper [width]=\"1\" startView=\"year\" [touchUi]=\"true\"></mat-datepicker-wrapper>" );
+            result.Append( "<mat-datepicker-wrapper startView=\"year\" [touchUi]=\"true\" [width]=\"1\"></mat-datepicker-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker( 1, DateView.Year, true ) ) );
         }
     }

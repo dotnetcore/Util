@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 using Util.Helpers;
-using Util.Ui.Extensions;
-using Util.Ui.Internal;
 using Util.Ui.Material.Extensions;
+using Util.Ui.Material.Internal;
 
 namespace Util.Ui.Material.Forms.Models {
     /// <summary>
@@ -39,35 +37,8 @@ namespace Util.Ui.Material.Forms.Models {
         /// 初始化
         /// </summary>
         private void Init() {
-            InitName();
-            InitModel();
-            InitPlaceholder();
+            Helper.InitModelControl( this, _expression, _memberInfo );
             InitType();
-            InitRequired();
-        }
-
-        /// <summary>
-        /// 初始化名称
-        /// </summary>
-        private void InitName() {
-            this.Name( Util.Helpers.String.FirstLowerCase( Lambda.GetName( _expression ) ) );
-        }
-
-        /// <summary>
-        /// 初始化模型绑定
-        /// </summary>
-        private void InitModel() {
-            var model = Helper.GetModel( _expression );
-            if ( string.IsNullOrWhiteSpace( model ) )
-                return;
-            this.Model( model );
-        }
-
-        /// <summary>
-        /// 初始化占位提示符
-        /// </summary>
-        private void InitPlaceholder() {
-            this.Placeholder( Reflection.GetDisplayNameOrDescription( _memberInfo ) );
         }
 
         /// <summary>
@@ -78,15 +49,6 @@ namespace Util.Ui.Material.Forms.Models {
                 this.Bool();
             else if( Reflection.IsEnum( _memberInfo ) )
                 Enum<TProperty>();
-        }
-
-        /// <summary>
-        /// 初始化必填项验证
-        /// </summary>
-        private void InitRequired() {
-            var attribute = Lambda.GetAttribute<RequiredAttribute>( _expression );
-            if( attribute != null )
-                this.Required( attribute.ErrorMessage );
         }
     }
 }

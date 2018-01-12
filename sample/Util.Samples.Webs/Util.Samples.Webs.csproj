@@ -26,6 +26,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Typings\util\angular\event-helper.ts" />
+    <None Remove="Typings\util\material\form-wrapper.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.2.1982" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
   </ItemGroup>
@@ -48,6 +53,11 @@
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
     <ProjectReference Include="..\..\test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Typings\util\angular\event-helper.ts" />
+    <TypeScriptCompile Include="Typings\util\material\form-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Text.Encodings.Web;
 
 namespace Util.Ui.Renders {
     /// <summary>
@@ -10,13 +9,11 @@ namespace Util.Ui.Renders {
         /// 渲染起始标签
         /// </summary>
         /// <param name="writer">流写入器</param>
-        /// <param name="encoder">编码</param>
-        void RenderStartTag( TextWriter writer, HtmlEncoder encoder );
+        void RenderStartTag( TextWriter writer );
         /// <summary>
         /// 渲染结束标签
         /// </summary>
         /// <param name="writer">流写入器</param>
-        /// <param name="encoder">编码</param>
-        void RenderEndTag( TextWriter writer, HtmlEncoder encoder );
+        void RenderEndTag( TextWriter writer );
     }
 }

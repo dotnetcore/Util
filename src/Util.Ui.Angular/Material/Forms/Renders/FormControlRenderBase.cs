@@ -27,6 +27,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
+            ConfigId( builder );
             ConfigName( builder );
             ConfigDisabled( builder );
             ConfigPlaceholder( builder );
@@ -36,6 +37,14 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigModel( builder );
             ConfigRequired( builder );
             ConfigEvents( builder );
+        }
+
+        /// <summary>
+        /// 配置标识
+        /// </summary>
+        private void ConfigId( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Id ) )
+                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "", false );
         }
 
         /// <summary>
@@ -107,6 +116,7 @@ namespace Util.Ui.Material.Forms.Renders {
             builder.AddAttribute( "(onChange)", _config.GetValue( UiConst.OnChange ) );
             builder.AddAttribute( "(onFocus)", _config.GetValue( UiConst.OnFocus ) );
             builder.AddAttribute( "(onBlur)", _config.GetValue( UiConst.OnBlur ) );
+            builder.AddAttribute( "(onKeyup)", _config.GetValue( UiConst.OnKeyup ) );
             builder.AddAttribute( "(onKeydown)", _config.GetValue( UiConst.OnKeydown ) );
         }
     }

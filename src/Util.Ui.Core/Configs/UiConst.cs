@@ -60,6 +60,10 @@
         /// </summary>
         public const string OnBlur = "on-blur";
         /// <summary>
+        /// 键盘按键事件
+        /// </summary>
+        public const string OnKeyup = "on-keyup";
+        /// <summary>
         /// 键盘按下事件
         /// </summary>
         public const string OnKeydown = "on-keydown";

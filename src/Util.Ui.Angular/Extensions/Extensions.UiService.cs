@@ -51,7 +51,7 @@ namespace Util.Ui.Extensions {
         public static IForm Form<TModel>( this IUiService<TModel> service ) {
             if( !( service is IContext<TModel> context ) )
                 throw new NotImplementedException( "组件服务必须实现Util.Ui.Services.IContext" );
-            return new Form( context.Helper.ViewContext.Writer, context.Encoder );
+            return new Form( context.Helper.ViewContext.Writer );
         }
     }
 }

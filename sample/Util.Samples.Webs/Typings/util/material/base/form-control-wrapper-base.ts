@@ -2,13 +2,18 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Input, Output, EventEmitter, ViewChild, Optional, Host,AfterViewInit } from '@angular/core';
+import { NgModel, NgForm } from '@angular/forms';
 import { MessageConfig } from '../../config/message-config';
 
 /**
  * 表单控件包装器
  */
-export class FormControlWrapperBase {
+export class FormControlWrapperBase implements AfterViewInit{
+    /**
+     * 表单
+     */
+    private form: NgForm | null = null;
     /**
      * 名称
      */
@@ -82,16 +87,40 @@ export class FormControlWrapperBase {
      */
     @Output() onBlur = new EventEmitter<FocusEvent>();
     /**
+     * 键盘按键事件
+     */
+    @Output() onKeyup = new EventEmitter<KeyboardEvent>();
+    /**
      * 键盘按下事件
      */
     @Output() onKeydown = new EventEmitter<KeyboardEvent>();
+    /**
+     * 控件模型
+     */
+    @ViewChild('controlModel') controlModel: NgModel;
 
     /**
      * 表单控件包装器
+     * @param form 表单
      */
-    constructor() {
+    constructor( @Optional() @Host() form: NgForm) {
         this.floatPlaceholder = "auto";
         this.requiredMessage = MessageConfig.requiredMessage;
+        this.form = form;
+    }
+
+    /**
+     * 视图加载完成
+     */
+    ngAfterViewInit(): void {
+        this.form && this.form.addControl(this.controlModel);
+    }
+
+    /**
+     * 获取值
+     */
+    get value() {
+        return this.controlModel.value;
     }
 
     /**
@@ -121,6 +150,13 @@ export class FormControlWrapperBase {
      */
     protected blur(event: FocusEvent) {
         this.onBlur.emit(event);
+    }
+
+    /**
+     * 键盘按键事件
+     */
+    protected keyup(event: KeyboardEvent) {
+        this.onKeyup.emit(event);
     }
 
     /**

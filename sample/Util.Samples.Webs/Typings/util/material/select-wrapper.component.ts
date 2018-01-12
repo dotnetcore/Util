@@ -2,7 +2,8 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Host, Optional } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { Select, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
 import { WebApi as webapi } from '../common/webapi';
@@ -13,12 +14,12 @@ import { MessageConfig } from '../config/message-config';
  */
 @Component({
     selector: 'mat-select-wrapper',
-    template:`
+    template: `
         <mat-form-field [floatPlaceholder]="floatPlaceholder">
-            <mat-select #select="matSelect" #selectModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
-                (blur)="blur($event)" (focus)="focus($event)" (keydown)="keydown($event)"
+            <mat-select #control="matSelect" #controlModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
+                (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                 [placeholder]="placeholder" [disabled]="disabled" [multiple]="multiple" [required]="required">
-                <mat-select-trigger *ngIf="template">{{getTemplate(select.triggerValue)}}</mat-select-trigger>
+                <mat-select-trigger *ngIf="template">{{getTemplate(control.triggerValue)}}</mat-select-trigger>
                 <mat-option *ngIf="enableResetOption && !multiple">{{resetOptionText }}</mat-option>
                 <ng-container *ngIf="!isGroup">
                     <mat-option *ngFor="let item of options" [value]="item.value" [disabled]="item.disabled">
@@ -39,7 +40,7 @@ import { MessageConfig } from '../config/message-config';
             <mat-icon matSuffix [style.cursor]="'pointer'" (click)="$event.stopPropagation();suffixIconClick()" *ngIf="suffixMaterialIcon">{{suffixMaterialIcon}}</mat-icon>
             <i matSuffix class="fa fa-lg {{suffixFontAwesomeIcon}}" [style.cursor]="'pointer'" (click)="$event.stopPropagation();suffixIconClick()" *ngIf="suffixFontAwesomeIcon"></i>
             <span matSuffix *ngIf="suffixText">{{suffixText}}</span>
-            <mat-error *ngIf="selectModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
+            <mat-error *ngIf="controlModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
         </mat-form-field>
     `
 })
@@ -84,8 +85,8 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
     /**
      * 初始化Mat下拉列表包装器
      */
-    constructor() {
-        super();
+    constructor( @Optional() @Host() form: NgForm ) {
+        super(form);
         this.enableResetOption = true;
         this.resetOptionText = MessageConfig.resetOptionText;
     }

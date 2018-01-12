@@ -65,6 +65,20 @@ namespace Util.Ui.Material.Extensions {
         }
 
         /// <summary>
+        /// 键盘按键事件处理函数
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="handler">键盘按键事件处理函数，用$event访问值,范例：handle($event)</param>
+        public static TComponent OnKeyup<TComponent>( this TComponent component, string handler ) where TComponent : IComponent, IOnKeyup {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.OnKeyup, handler );
+            } );
+            return component;
+        }
+
+        /// <summary>
         /// 键盘按下事件处理函数
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>

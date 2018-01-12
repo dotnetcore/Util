@@ -11,6 +11,19 @@ namespace Util.Samples.Webs.Controllers {
         }
 
         public IActionResult Index( string id ) {
+
+
+
+            
+
+
+
+
+
+
+
+
+
             return View();
         }
 

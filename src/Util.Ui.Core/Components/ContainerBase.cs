@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text.Encodings.Web;
 using Util.Ui.Components.Internal;
 using Util.Ui.Renders;
 
@@ -16,10 +15,6 @@ namespace Util.Ui.Components {
         /// </summary>
         private readonly TextWriter _writer;
         /// <summary>
-        /// Html编码器
-        /// </summary>
-        private readonly HtmlEncoder _encoder;
-        /// <summary>
         /// 渲染器
         /// </summary>
         private IContainerRender _render;
@@ -28,11 +23,9 @@ namespace Util.Ui.Components {
         /// 初始化容器
         /// </summary>
         /// <param name="writer">流写入器</param>
-        /// <param name="encoder">Html编码器</param>
-        protected ContainerBase( TextWriter writer, HtmlEncoder encoder ) {
+        protected ContainerBase( TextWriter writer ) {
             writer.CheckNull( nameof( writer ) );
             _writer = writer;
-            _encoder = encoder;
         }
 
         /// <summary>
@@ -49,7 +42,7 @@ namespace Util.Ui.Components {
         /// 准备渲染容器
         /// </summary>
         public TWrapper Begin() {
-            Render.RenderStartTag( _writer, _encoder );
+            Render.RenderStartTag( _writer );
             WriteLog( "渲染容器" );
             return GetWrapper();
         }
@@ -63,7 +56,7 @@ namespace Util.Ui.Components {
         /// 容器渲染结束
         /// </summary>
         public void End() {
-            Render.RenderEndTag( _writer, _encoder );
+            Render.RenderEndTag( _writer );
         }
 
         /// <summary>

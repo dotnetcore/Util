@@ -55,6 +55,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试添加标识
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper #a=\"\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Id( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试设置名称
         /// </summary>
         [Fact]
@@ -301,7 +311,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestAdd_1() {
             var result = new String();
             result.Append( "<mat-select-wrapper [dataSource]=\"[{" );
-            result.Append( "&quot;text&quot;:&quot;a&quot;,&quot;value&quot;:&quot;1&quot;" );
+            result.Append( "'text':'a','value':'1'" );
             result.Append( "}]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Add( "a","1" ) ) );
         }
@@ -313,7 +323,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestAdd_2() {
             var result = new String();
             result.Append( "<mat-select-wrapper [dataSource]=\"[{" );
-            result.Append( "&quot;text&quot;:&quot;a&quot;,&quot;value&quot;:&quot;1&quot;" );
+            result.Append( "'text':'a','value':'1'" );
             result.Append( "}]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Add( new Item( "a", "1" ) ) ) );
         }
@@ -325,8 +335,8 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestBool() {
             var result = new String();
             result.Append( "<mat-select-wrapper [dataSource]=\"[" );
-            result.Append( "{&quot;text&quot;:&quot;&#x662F;&quot;,&quot;value&quot;:&quot;true&quot;}," );
-            result.Append( "{&quot;text&quot;:&quot;&#x5426;&quot;,&quot;value&quot;:&quot;false&quot;}" );
+            result.Append( "{'text':'是','value':'true'}," );
+            result.Append( "{'text':'否','value':'false'}" );
             result.Append( "]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Bool() ) );
         }
@@ -338,8 +348,8 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestEnum() {
             var result = new String();
             result.Append( "<mat-select-wrapper [dataSource]=\"[" );
-            result.Append( "{&quot;text&quot;:&quot;&#x5973;&#x58EB;&quot;,&quot;value&quot;:1,&quot;sortId&quot;:1}," );
-            result.Append( "{&quot;text&quot;:&quot;&#x5148;&#x751F;&quot;,&quot;value&quot;:2,&quot;sortId&quot;:2}" );
+            result.Append( "{'text':'女士','value':1,'sortId':1}," );
+            result.Append( "{'text':'先生','value':2,'sortId':2}" );
             result.Append( "]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( (Select)_component.Enum<Gender>() ) );
         }

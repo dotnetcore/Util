@@ -5,8 +5,9 @@
 import * as helper from './common/helper';
 import { IocHelper } from './angular/ioc-helper';
 import { HttpHelper } from './angular/http-helper';
-import { WebApi } from './common/webapi';
 import { RouterHelper } from './angular/router-helper';
+import { EventHelper } from "./angular/event-helper";
+import { WebApi } from './common/webapi';
 import { Message } from './common/message';
 import { Form } from './common/form';
 
@@ -26,6 +27,10 @@ export class Util {
      * Http操作
      */
     static http = HttpHelper;
+    /**
+     * 事件操作
+     */
+    static event = EventHelper;
     /**
      * WebApi操作,与服务端返回的标准result对象交互
      */

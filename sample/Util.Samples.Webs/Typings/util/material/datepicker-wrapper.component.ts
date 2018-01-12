@@ -2,7 +2,8 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, Input } from '@angular/core';
+import { Component, Input, Host, Optional } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { MessageConfig } from '../config/message-config';
 import { toDate } from '../common/helper';
@@ -16,22 +17,22 @@ import { toDate } from '../common/helper';
         <mat-form-field [floatPlaceholder]="floatPlaceholder" [style.width]="width?width+'px':null">
             <input  matInput [matDatepicker]="picker"  [name]="name" [style.cursor]="'pointer'"
                 [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
-                #inputModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
-                (blur)="blur($event)" (focus)="focus($event)" (keydown)="keydown($event)"
+                #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
+                (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                 (click)="picker.open()" [required]="required" [min]="minDate" [max]="maxDate"
             />            
             <mat-datepicker #picker [startView]="startView" [touchUi]="touchUi"></mat-datepicker>
             <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
             <mat-hint *ngIf="endHint" align="end">{{endHint}}</mat-hint>
             <span *ngIf="prefixText" matPrefix>{{prefixText}}&nbsp;</span>
-            <button *ngIf="showClearButton&&model" matSuffix mat-button mat-icon-button  (click)="inputModel.reset()" [matTooltip]="clearButtonTooltip">
+            <button *ngIf="showClearButton&&model" matSuffix mat-button mat-icon-button  (click)="controlModel.reset()" [matTooltip]="clearButtonTooltip">
                 <mat-icon >close</mat-icon>
             </button>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-icon *ngIf="suffixMaterialIcon" matSuffix [style.cursor]="'pointer'" (click)="$event.stopPropagation();suffixIconClick()">{{suffixMaterialIcon}}</mat-icon>
             <i *ngIf="suffixFontAwesomeIcon" matSuffix class="fa fa-lg {{suffixFontAwesomeIcon}}" [style.cursor]="'pointer'" (click)="$event.stopPropagation();suffixIconClick()"></i>
             <span *ngIf="suffixText" matSuffix>{{suffixText}}</span>            
-            <mat-error *ngIf="inputModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
+            <mat-error *ngIf="controlModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
         </mat-form-field>
     `
 })
@@ -90,10 +91,11 @@ export class DatePickerWrapperComponent extends FormControlWrapperBase {
     }
 
     /**
-     * 初始化Mat文本框包装器
+     * 初始化Mat日期选择包装器
+     * @param form 表单
      */
-    constructor() {
-        super();
+    constructor( @Optional() @Host() form: NgForm) {
+        super(form);
         this.readonly = true;
         this.clearButtonTooltip = MessageConfig.clear;
         this.showClearButton = true;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Util.Ui.Components;
 using Util.Ui.Material.Forms.Models;
@@ -16,8 +15,7 @@ namespace Util.Ui.Material.Services {
         /// 初始化组件服务
         /// </summary>
         /// <param name="helper">HtmlHelper</param>
-        /// <param name="encoder">Html编码</param>
-        public UiService( IHtmlHelper<TModel> helper, HtmlEncoder encoder ) : base( helper, encoder ) {
+        public UiService( IHtmlHelper<TModel> helper ) : base( helper ) {
         }
 
         /// <summary>

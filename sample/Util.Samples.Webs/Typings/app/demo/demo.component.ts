@@ -11,6 +11,7 @@ export class DemoComponent implements OnInit {
     @ViewChild('grid') grid: TableWrapperComponent<CustomerViewModel>;
 
     model: CustomerViewModel;
+    id:string;
 
     delete() {
         this.grid.delete();
@@ -19,23 +20,20 @@ export class DemoComponent implements OnInit {
     constructor() {
         this.queryParam = new CustomerQueryModel();
         this.model = new CustomerViewModel();
-        
     }
 
     query() {
-        
+
+
         this.grid.query();
     }
 
-    onChange() {
-        this.model.hide = !this.model.hide;
-        util.message.info("现在是："+this.model.nation.toString());
+    onChange(event) {
+        let number = util.event.getValue<string>(event);
+        util.message.info(number);
     }
 
     ngOnInit() {
-        this.model.nation = 30;
-        this.model.num = 10;
-        this.model.date = util.helper.toDate("1990-10-18");
     }
 
     getDate() {
