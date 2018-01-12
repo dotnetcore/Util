@@ -80,12 +80,33 @@ export class WebApiRequest<T> {
 
     /**
      * 添加Http头
+     * @param headers Http头集合
+     */
+    header(headers?: { name: string, value }[]): WebApiRequest<T>;
+    /**
+     * 添加Http头
      * @param name 名称
      * @param value 值
      */
-    header(name: string, value: string): WebApiRequest<T> {
-        this.request.header(name, value);
+    header(name: string, value): WebApiRequest<T>;
+    header(name, value?): WebApiRequest<T> {
+        if (typeof name === "object")
+            this.addHeaders(name);
+        else if (typeof name === "string")
+            this.request.header(name, value);
         return this;
+    }
+
+    /**
+     * 添加Http头
+     */
+    private addHeaders(param) {
+        let headers = param as { name: string, value }[];
+        if (!headers)
+            return;
+        headers.forEach(item => {
+            this.request.header(item.name, item.value);
+        });
     }
 
     /**

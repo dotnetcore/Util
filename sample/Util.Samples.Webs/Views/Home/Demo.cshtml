@@ -20,13 +20,17 @@
 
 <div style="margin: 300px">
 
+    
+    <form #form="ngForm" (ngSubmit)="onChange(form,$event)">
 
-    <form #a="ngForm" (ngSubmit)="onSubmit()">
+        <mat-progress-bar color="primary" mode="indeterminate" *ngIf="form.submitted"></mat-progress-bar>
+
         @x.TextBox( t => t.Name )
         @x.Select( t => t.Nation )
-        <button type="submit" mat-raised-button [disabled]="!a.valid">Submit</button>
-    </form>
+        <button type="submit" mat-raised-button [disabled]="form&&(!form.valid||form.submitted)">提 交</button>
+        <button mat-raised-button type="reset">重 置</button>
 
+    </form>
 </div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">

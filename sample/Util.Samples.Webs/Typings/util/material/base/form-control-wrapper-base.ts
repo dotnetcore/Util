@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Input, Output, EventEmitter, ViewChild, Optional, Host,AfterViewInit } from '@angular/core';
+import { Input, Output, EventEmitter, ViewChild, Optional, Host, AfterViewInit } from '@angular/core';
 import { NgModel, NgForm } from '@angular/forms';
 import { MessageConfig } from '../../config/message-config';
 

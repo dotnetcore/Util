@@ -18,16 +18,16 @@ export class HttpHelper {
      */
     static send<T>(url: string, httpMethod: HttpMethod, data?): HttpRequest<T> {
         switch (httpMethod) {
-        case HttpMethod.Get:
-            return this.get<T>(url).param(data);
-        case HttpMethod.Post:
-            return this.post<T>(url,data);
-        case HttpMethod.Put:
-            return this.put<T>(url, data);
-        case HttpMethod.Delete:
-            return this.delete<T>(url).param(data);
-        default:
-            return this.get<T>(url).param(data);
+            case HttpMethod.Get:
+                return this.get<T>(url).param(data);
+            case HttpMethod.Post:
+                return this.post<T>(url, data);
+            case HttpMethod.Put:
+                return this.put<T>(url, data);
+            case HttpMethod.Delete:
+                return this.delete<T>(url).param(data);
+            default:
+                return this.get<T>(url).param(data);
         }
     }
 
@@ -99,8 +99,11 @@ export class HttpRequest<T> {
      * @param name 名称
      * @param value 值
      */
-    header(name: string, value: string): HttpRequest<T> {
-        this.headers = this.headers.append(name, value);
+    header(name: string, value): HttpRequest<T> {
+        let stringValue = "";
+        if (value !== undefined && value !== null)
+            stringValue = String(value);
+        this.headers = this.headers.append(name, stringValue );
         return this;
     }
 

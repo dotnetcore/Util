@@ -1,4 +1,5 @@
-﻿import { Component, ViewChild,OnInit } from "@angular/core"
+﻿import { Component, ViewChild, OnInit } from "@angular/core"
+import { NgForm } from "@angular/forms"
 import { util, ViewModel,QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
 
 @Component({
@@ -28,9 +29,24 @@ export class DemoComponent implements OnInit {
         this.grid.query();
     }
 
-    onChange(event) {
-        let number = util.event.getValue<string>(event);
-        util.message.info(number);
+    onChange(form: NgForm, event) {
+        util.form.submit({
+            url: '/api/customers',
+            data: this.model,
+            form: form
+        });
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     ngOnInit() {

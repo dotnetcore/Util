@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <None Remove="Typings\util\angular\event-helper.ts" />
-    <None Remove="Typings\util\material\form-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,7 +56,6 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="Typings\util\angular\event-helper.ts" />
-    <TypeScriptCompile Include="Typings\util\material\form-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

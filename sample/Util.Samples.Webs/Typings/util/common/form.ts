@@ -2,11 +2,12 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
+import { NgForm } from '@angular/forms';
 import { FailResult } from '../core/result';
 import { ViewModel } from '../core/view-model';
 import { HttpMethod } from '../angular/http-helper';
 import { WebApi } from './webapi';
-import { RouterHelper } from "../angular/router-helper";
+import { RouterHelper } from '../angular/router-helper';
 import { Message } from './message';
 import { MessageConfig } from '../config/message-config';
 
@@ -19,10 +20,15 @@ export class Form {
      * @param options 表单提交参数
      */
     submit(options: FormSubmitOptions): void {
-        if (!this.validateSubmit(options))
+        this.initSubmit(options);
+        if (!this.validateSubmit(options)) {
+            options["fnComplete"]();
             return;
-        if (!this.submitBefore(options))
+        }
+        if (!this.submitBefore(options)) {
+            options["fnComplete"]();
             return;
+        }
         if (!options.confirm) {
             this.submitForm(options);
             return;
@@ -31,8 +37,21 @@ export class Form {
             title: options.confirmTitle,
             message: options.confirm,
             ok: () => this.submitForm(options),
-            cancel: options.completeHandler
+            cancel: options["fnComplete"]
         });
+    }
+
+    /**
+     * 提交表单初始化
+     */
+    private initSubmit(options: FormSubmitOptions) {
+        if (!options)
+            return;
+        options["fnComplete"] = () => {
+            if (options.form)
+                (options.form as { submitted: boolean }).submitted = false;
+            options.completeHandler && options.completeHandler();
+        };
     }
 
     /**
@@ -40,11 +59,19 @@ export class Form {
      */
     private validateSubmit(options: FormSubmitOptions) {
         if (!options) {
-            console.log("表单参数[options: FormSubmitOptions]不能为空");
+            Message.error("表单参数[options: FormSubmitOptions]未设置");
+            return false;
+        }
+        if (!options.url) {
+            Message.error("表单url未设置");
+            return false;
+        }
+        if (!options.form) {
+            Message.error("表单ngForm未设置");
             return false;
         }
         if (!options.data) {
-            Message.error("表单参数不能为空");
+            Message.error("表单数据未设置");
             return false;
         }
         return true;
@@ -63,20 +90,15 @@ export class Form {
      * 提交表单
      */
     private submitForm(options: FormSubmitOptions) {
-        if (!options.url) {
-            Message.error("表单Url未设置");
-            options.completeHandler && options.completeHandler();
-            return;
-        }
         if (!options.httpMethod) {
             options.httpMethod = options.data.id ? HttpMethod.Put : HttpMethod.Post;
         }
-        WebApi.send(options.url, options.httpMethod, options.data).handle({
+        WebApi.send(options.url, options.httpMethod, options.data).header(options.header).handle({
             handler: result => {
                 this.submitHandler(options, result);
             },
             failHandler: options.failHandler,
-            completeHandler: options.completeHandler
+            completeHandler: options["fnComplete"]
         });
     }
 
@@ -84,12 +106,12 @@ export class Form {
      * 提交表单成功处理函数
      */
     private submitHandler(options: FormSubmitOptions, result) {
-        if (options.handler) {
-            options.handler(result);
-            return;
-        }
-        Message.success(MessageConfig.successed);
-        if (!options.isDialog)
+        options.handler && options.handler(result);
+        if (options.showMessage !== false)
+            Message.success(MessageConfig.successed);
+        if (options.reset)
+            options.form.resetForm();
+        if (options.back !== false)
             RouterHelper.back();
     }
 }
@@ -99,19 +121,27 @@ export class Form {
  */
 export class FormSubmitOptions {
     /**
+     * 表单
+     */
+    form: NgForm;
+    /**
      * 请求地址
      */
-    url?: string;
-    /**
-     * Http方法
-     */
-    httpMethod?: HttpMethod;
+    url: string;
     /**
      * 提交数据
      */
     data: ViewModel;
     /**
-     * 提交前是否需要确认,确认消息
+     * Http头
+     */
+    header?: { name: string, value }[];
+    /**
+     * Http方法
+     */
+    httpMethod?: HttpMethod;
+    /**
+     * 确认消息,设置该项则提交前需要确认
      */
     confirm?: string;
     /**
@@ -119,9 +149,21 @@ export class FormSubmitOptions {
      */
     confirmTitle?: string;
     /**
-     * 是否弹出层编辑方式，默认为否，在操作成功后，返回上一个视图，如果设为true,则关闭弹出层
+     * 提交成功后是否显示成功提示，默认为true
      */
-    isDialog?:boolean;
+    showMessage?: boolean;
+    /**
+     * 提交成功后是否返回上一个视图，默认为true
+     */
+    back?: boolean;
+    /**
+     * 提交成功后是否关闭弹出层，当在弹出层中编辑时使用，默认为false
+     */
+    closeDialog?: boolean;
+    /**
+     * 提交成功后是否重置表单，默认为false
+     */
+    reset?: boolean;
     /**
      * 提交前处理函数，返回false则取消提交
      */
