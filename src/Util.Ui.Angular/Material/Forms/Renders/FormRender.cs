@@ -1,5 +1,5 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.Extensions;
+﻿using Util.Ui.Builders;
+using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Renders;
 
@@ -26,9 +26,39 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         protected override FormBuilder GetTagBuilder() {
             var builder = new FormBuilder();
-            builder.AddOtherAttributes( _config );
-            builder.Id( _config );
+            ConfigAttributes( builder );
+            ConfigContent( builder );
             return builder;
+        }
+
+        /// <summary>
+        /// 配置属性
+        /// </summary>
+        private void ConfigAttributes( TagBuilder builder ) {
+            ConfigId( builder );
+            ConfigEvents( builder );
+        }
+
+        /// <summary>
+        /// 配置标识
+        /// </summary>
+        private void ConfigId( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Id ) )
+                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "ngForm" );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(ngSubmit)", _config.GetValue( UiConst.OnSubmit ) );
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        private void ConfigContent( TagBuilder builder ) {
+            builder.SetContent( _config.Content );
         }
     }
 }

@@ -68,6 +68,10 @@
         /// </summary>
         public const string OnKeydown = "on-keydown";
         /// <summary>
+        /// 提交事件
+        /// </summary>
+        public const string OnSubmit = "on-submit";
+        /// <summary>
         /// 图标
         /// </summary>
         public const string Icon = "icon";

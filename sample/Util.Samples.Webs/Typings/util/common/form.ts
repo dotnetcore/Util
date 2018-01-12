@@ -111,7 +111,7 @@ export class Form {
             Message.success(MessageConfig.successed);
         if (options.reset)
             options.form.resetForm();
-        if (options.back !== false)
+        if (options.back)
             RouterHelper.back();
     }
 }
@@ -153,7 +153,7 @@ export class FormSubmitOptions {
      */
     showMessage?: boolean;
     /**
-     * 提交成功后是否返回上一个视图，默认为true
+     * 提交成功后是否返回上一个视图，默认为false
      */
     back?: boolean;
     /**
@@ -177,7 +177,7 @@ export class FormSubmitOptions {
      */
     failHandler?: (result: FailResult) => void;
     /**
-     * 操作完成处理函数
+     * 操作完成处理函数，注意：该函数在任意情况下都会执行
      */
     completeHandler?: () => void;
 }

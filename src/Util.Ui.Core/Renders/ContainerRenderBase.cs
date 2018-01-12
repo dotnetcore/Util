@@ -1,11 +1,12 @@
 ﻿using System.IO;
+using System.Text.Encodings.Web;
 using Util.Ui.Builders;
 
 namespace Util.Ui.Renders {
     /// <summary>
     /// 容器渲染器
     /// </summary>
-    public abstract class ContainerRenderBase<TTagBuilder> : IContainerRender where TTagBuilder : TagBuilder {
+    public abstract class ContainerRenderBase<TTagBuilder> :IRender, IContainerRender where TTagBuilder : TagBuilder {
         /// <summary>
         /// 标签生成器
         /// </summary>
@@ -20,6 +21,15 @@ namespace Util.Ui.Renders {
         /// 获取标签生成器
         /// </summary>
         protected abstract TTagBuilder GetTagBuilder();
+
+        /// <summary>
+        /// 渲染
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        /// <param name="encoder">编码</param>
+        public void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
+            Builder.WriteTo( writer, encoder );
+        }
 
         /// <summary>
         /// 渲染起始标签

@@ -1,15 +1,16 @@
-﻿using System.IO;
-using Util.Ui.Extensions;
-using Util.Ui.Material.Forms;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Configs;
+using Util.Ui.Material.Forms.TagHelpers;
+using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
-namespace Util.Ui.Tests.Material.Forms {
+namespace Util.Ui.Tests.Material.Forms.TagHelpers {
     /// <summary>
     /// 表单测试
     /// </summary>
-    public class FormTest {
+    public class FormTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -17,24 +18,22 @@ namespace Util.Ui.Tests.Material.Forms {
         /// <summary>
         /// 表单
         /// </summary>
-        private readonly Form _form;
+        private readonly FormTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public FormTest( ITestOutputHelper output ) {
+        public FormTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _form = new Form( new StringWriter() );
+            _component = new FormTagHelper();
+            Config.IsValidate = false;
         }
 
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( Form form ) {
-            form.Begin();
-            var result = form.ToString();
-            _output.WriteLine( result );
-            return result;
+        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
+            return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content );
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestDefault() {
             var result = new String();
             result.Append( "<form></form>" );
-            Assert.Equal( result.ToString(), GetResult( _form ) );
+            Assert.Equal( result.ToString(), GetResult() );
         }
 
         /// <summary>
@@ -52,10 +51,11 @@ namespace Util.Ui.Tests.Material.Forms {
         /// </summary>
         [Fact]
         public void TestId() {
+            var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<form #a=\"ngForm\">" );
             result.Append( "</form>" );
-            Assert.Equal( result.ToString(), GetResult( _form.Id( "a" ) ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
@@ -63,10 +63,11 @@ namespace Util.Ui.Tests.Material.Forms {
         /// </summary>
         [Fact]
         public void TestOnSubmit() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnSubmit, "a" } };
             var result = new String();
             result.Append( "<form (ngSubmit)=\"a\">" );
             result.Append( "</form>" );
-            Assert.Equal( result.ToString(), GetResult( _form.OnSubmit( "a" ) ) );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
 }

@@ -400,8 +400,8 @@ https://github.com/dotnetcore/util/
   - 图标 - 集成了Material Design和Font Awesome图标集 [已发布]
   - 下拉列表 - 基于Material Select组件 [已发布]
   - 文本框 - 基于Material 文本框和日期选择框组件 [已发布]
+  - 表单 [已发布]
   - 按钮 [开发中]
-  - 表单 [开发中]
   - 表格 [开发中]
   - 单选框 [开发中]
   - 复选框 [开发中]
@@ -449,3 +449,4 @@ https://github.com/dotnetcore/util/
 - 2017年11月15日，更新了EF Core调试日志(Util.Datas/Logs)及单元测试。
 - 2018年1月2日，更新了下拉列表组件(Util.Ui.Angular/Material/Forms)及单元测试。
 - 2018年1月10日，更新了文本框组件(Util.Ui.Angular/Material/Forms)及单元测试。
+- 2018年1月12日，更新了表单组件(Util.Ui.Angular/Material/Forms)及单元测试。

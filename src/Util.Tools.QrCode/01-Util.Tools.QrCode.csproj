@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util.Tools.QrCode</AssemblyName>
     <RootNamespace>Util.Tools.QrCode</RootNamespace>
-    <Version>0.1.5-preview</Version>
+    <Version>0.1.6-preview</Version>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
     <Description>Util.Tools.QrCode是Util应用框架的二维码操作类库。
@@ -17,8 +17,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <RepositoryType>git</RepositoryType>
     <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
     <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
-    <AssemblyVersion>0.1.5.0</AssemblyVersion>
-    <FileVersion>0.1.5.0</FileVersion>
+    <AssemblyVersion>0.1.6.0</AssemblyVersion>
+    <FileVersion>0.1.6.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
