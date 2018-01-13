@@ -26,7 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Typings\app\demo\demo.module.ts" />
     <None Remove="Typings\util\angular\event-helper.ts" />
+    <None Remove="Typings\util\material\button-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,7 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="Typings\app\demo\demo.module.ts" />
     <TypeScriptCompile Include="Typings\util\angular\event-helper.ts" />
+    <TypeScriptCompile Include="Typings\util\material\button-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 //Util模块
 import { UtilModule } from '../util';
-//Angular模块
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Material模块
 import {
     MatButtonToggleModule,
@@ -16,7 +14,7 @@ import {
 
 @NgModule({
     exports: [
-        UtilModule,BrowserAnimationsModule,
+        UtilModule,
         MatButtonToggleModule,
         MatCardModule, MatCheckboxModule, MatChipsModule,
         MatDialogModule, MatGridListModule,

@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
 //Material模块
 import {
-    MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
+    MatCommonModule,MatRippleModule,MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
@@ -25,6 +25,7 @@ import { SelectWrapperComponent } from './material/select-wrapper.component';
 import { TextBoxWrapperComponent } from './material/textbox-wrapper.component';
 import { TextareaWrapperComponent } from './material/textarea-wrapper.component';
 import { DatePickerWrapperComponent } from './material/datepicker-wrapper.component';
+import { ButtonWrapperComponent } from './material/button-wrapper.component';
 
 /**
  * Util模块
@@ -32,21 +33,23 @@ import { DatePickerWrapperComponent } from './material/datepicker-wrapper.compon
 @NgModule({
     imports: [
         CommonModule, FormsModule, HttpClientModule,
+        MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent
     ],
     exports: [
         CommonModule, FormsModule, HttpClientModule,
+        MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent
     ],
     providers: [
         MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,

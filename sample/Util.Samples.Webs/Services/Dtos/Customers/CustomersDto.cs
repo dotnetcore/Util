@@ -17,7 +17,6 @@ namespace Donau.Services.Dtos.Customers {
         /// 客户名称
         /// </summary>
         [Required(ErrorMessage = "客户名称不能为空")]
-        [StringLength( 20, ErrorMessage = "客户名称输入过长，不能超过20位" ,MinimumLength = 3)]
         [Display( Name = "客户名称" )]
         [DataMember]
         public string Name { get; set; }

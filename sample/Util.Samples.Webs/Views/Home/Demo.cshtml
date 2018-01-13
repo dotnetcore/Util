@@ -23,10 +23,11 @@
 
     <util-form id="form" on-submit="onChange(form)">
         <mat-progress-bar color="primary" mode="indeterminate" *ngIf="form.submitted"></mat-progress-bar>
-        <util-datepicker name="a" model="model.creation"></util-datepicker>
-        @x.Select( t => t.Nation )
-        <button type="submit" mat-raised-button [disabled]="form&&(!form.valid||form.submitted)">提 交</button>
-        <button mat-raised-button type="reset">重 置</button>
+        @x.TextBox( t => t.Name )
+    @x.Select( t => t.Nation )
+    <mat-button-wrapper type="reset" category="mat-button" color="primary" text="重 置"></mat-button-wrapper>
+    <mat-button-wrapper type="submit" category="mat-raised-button" color="warn" text="提 交"></mat-button-wrapper>
+    <mat-button-wrapper [isAnchor]="true" text="哥来了" color="accent"></mat-button-wrapper>
     </util-form>
   
 </div>
@@ -107,9 +108,9 @@
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']" style="display: none"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['selectCheckbox','lineNumber', 'name','nickname','mobile'];"
+        <mat-row matRipple *matRowDef="let row; columns: ['selectCheckbox','lineNumber', 'name','nickname','mobile'];"
                  class="mat-row-hover"
-                 (click)="grid.selection.toggle(row)">
+                 >
         </mat-row>
     </mat-table>
 </table-wrapper>

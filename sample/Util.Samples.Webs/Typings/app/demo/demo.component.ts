@@ -24,13 +24,10 @@ export class DemoComponent implements OnInit {
     }
 
     query() {
-
-
         this.grid.query();
     }
 
     onChange(form: NgForm, event) {
-        debugger 
         util.form.submit({
             url: '/api/customers',
             data: this.model,

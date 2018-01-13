@@ -1,6 +1,8 @@
 ﻿import { NgModule, Injector } from '@angular/core';
+//Angular模块
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FrameworkModule } from './framework.module';
-import { RoutingModule } from './routing.module';
+import { AppRoutingModule } from './app.routing.module';
 import { util } from '../util';
 import { AppComponent } from './app.component';
 
@@ -15,7 +17,8 @@ import { ToolbarNotificationComponent } from './admin/header/notification/notifi
 import { ToolbarUserComponent } from './admin/header/user/user.component';
 
 import { SearchMenuComponent } from './public/searchMenu';
-import { DemoComponent } from "./demo/demo.component";
+
+
 
 import { SidenavService } from './admin/sidenav/sidenav.service';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -29,11 +32,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
  */
 @NgModule({
     declarations: [
-        AppComponent, DemoComponent
+        AppComponent
         , BrandComponent, SidenavComponent, ItemComponent, HeaderComponent, ToolbarNotificationComponent, ToolbarUserComponent, FooterComponent,  SearchMenuComponent
     ],
     imports: [
-        FrameworkModule, RoutingModule, PerfectScrollbarModule
+        BrowserAnimationsModule,FrameworkModule, AppRoutingModule, PerfectScrollbarModule
     ],
     bootstrap: [AppComponent],
     providers: [

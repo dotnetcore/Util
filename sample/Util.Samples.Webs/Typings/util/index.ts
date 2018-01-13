@@ -16,3 +16,4 @@ export { SelectWrapperComponent } from './material/select-wrapper.component';
 export { TextBoxWrapperComponent } from './material/textbox-wrapper.component';
 export { TextareaWrapperComponent } from './material/textarea-wrapper.component';
 export { DatePickerWrapperComponent } from './material/datepicker-wrapper.component';
+export { ButtonWrapperComponent } from './material/button-wrapper.component';

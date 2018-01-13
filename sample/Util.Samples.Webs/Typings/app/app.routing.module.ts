@@ -1,13 +1,12 @@
 ﻿import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { SearchMenuComponent } from "./public/searchMenu";
-import { DemoComponent} from "./demo/demo.component";
 
 //路由配置
 const routes: Routes = [
-    { path: '', redirectTo: 'demo', pathMatch: 'full' },
-    { path: 'demo', component: DemoComponent },
+    { path: '', redirectTo: 'searchmenu', pathMatch: 'full' },
     { path: 'searchmenu', component: SearchMenuComponent },
+    { path: 'demo', loadChildren: "./demo/demo.module#DemoModule" },
     { path: '**', redirectTo: '/' }
 ];
 
@@ -18,4 +17,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class RoutingModule { }
+export class AppRoutingModule { }
