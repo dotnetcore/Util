@@ -7,10 +7,10 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Buttons.TagHelpers {
     /// <summary>
-    /// 按钮
+    /// 链接
     /// </summary>
-    [HtmlTargetElement("util-button")]
-    public class ButtonTagHelper : TagHelperBase {
+    [HtmlTargetElement("util-a")]
+    public class ATagHelper : TagHelperBase {
         /// <summary>
         /// 标识，指向模板引用变量，而不是Id属性
         /// </summary>
@@ -19,10 +19,6 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// 文本
         /// </summary>
         public string Text { get; set; }
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public ButtonType Type { get; set; }
         /// <summary>
         /// 样式
         /// </summary>
@@ -40,6 +36,10 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         public string Tooltip { get; set; }
         /// <summary>
+        /// 路由链接地址
+        /// </summary>
+        public string Link { get; set; }
+        /// <summary>
         /// 单击事件处理函数,范例：handle()
         /// </summary>
         public string OnClick { get; set; }
@@ -49,7 +49,7 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new ButtonRender( new Config( context ) );
+            return new ARender( new Config( context ) );
         }
     }
 }

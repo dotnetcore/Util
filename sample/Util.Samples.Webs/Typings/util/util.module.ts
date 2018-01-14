@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 //Angular模块
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 //Material模块
 import {
@@ -26,13 +27,14 @@ import { TextBoxWrapperComponent } from './material/textbox-wrapper.component';
 import { TextareaWrapperComponent } from './material/textarea-wrapper.component';
 import { DatePickerWrapperComponent } from './material/datepicker-wrapper.component';
 import { ButtonWrapperComponent } from './material/button-wrapper.component';
+import { AWrapperComponent } from './material/a-wrapper.component';
 
 /**
  * Util模块
  */
 @NgModule({
     imports: [
-        CommonModule, FormsModule, HttpClientModule,
+        CommonModule, FormsModule, RouterModule,HttpClientModule,
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
@@ -40,16 +42,16 @@ import { ButtonWrapperComponent } from './material/button-wrapper.component';
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent
     ],
     exports: [
-        CommonModule, FormsModule, HttpClientModule,
+        CommonModule, FormsModule, RouterModule, HttpClientModule,
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent
     ],
     providers: [
         MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,

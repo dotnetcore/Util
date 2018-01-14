@@ -4,8 +4,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Util.Helpers;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Commons.Internal;
 using Util.Ui.Material.Extensions;
-using Util.Ui.Material.Internal;
 
 namespace Util.Ui.Material.Forms.Models {
     /// <summary>

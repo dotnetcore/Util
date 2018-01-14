@@ -16,6 +16,10 @@
         /// </summary>
         public const string Style = "style";
         /// <summary>
+        /// 样式
+        /// </summary>
+        public const string Styles = "styles";
+        /// <summary>
         /// 颜色
         /// </summary>
         public const string Color = "color";
@@ -39,10 +43,6 @@
         /// 只读
         /// </summary>
         public const string ReadOnly = "readonly";
-        /// <summary>
-        /// 扁平风格
-        /// </summary>
-        public const string Plain = "plain";
         /// <summary>
         /// 单击事件
         /// </summary>
@@ -159,5 +159,13 @@
         /// 宽度
         /// </summary>
         public const string Width = "width";
+        /// <summary>
+        /// 提示
+        /// </summary>
+        public const string Tooltip = "tooltip";
+        /// <summary>
+        /// 链接
+        /// </summary>
+        public const string Link = "link";
     }
 }

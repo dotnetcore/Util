@@ -84,7 +84,7 @@ namespace Util.Ui.Configs {
         /// </summary>
         /// <param name="name">属性名</param>
         public string GetBoolValue( string name ) {
-            return GetValue( name ).SafeString().ToLower();
+            return Util.Helpers.String.FirstLowerCase( GetValue( name ) );
         }
 
         /// <summary>

@@ -8,7 +8,6 @@ using Util.Datas.Ef;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Events.Default;
 using Util.Logs.Extensions;
-using Util.Ui.Material.Configs;
 using Util.Webs.Extensions;
 
 namespace Util.Samples.Webs {

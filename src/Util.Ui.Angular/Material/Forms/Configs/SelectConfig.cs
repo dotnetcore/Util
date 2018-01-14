@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Util.Ui.Configs;
-using Util.Ui.Material.Configs;
 using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Forms.Configs {

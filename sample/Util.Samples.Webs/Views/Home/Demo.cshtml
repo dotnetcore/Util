@@ -18,18 +18,23 @@
 
 </div>
 
-<div style="margin: 300px">
+<div style="margin: 300px" >
+    
+    
+    
+    
 
 
     <util-form id="form" on-submit="onChange(form)">
-        <mat-progress-bar color="primary" mode="indeterminate" *ngIf="form.submitted"></mat-progress-bar>
         @x.TextBox( t => t.Name )
-    @x.Select( t => t.Nation )
-    <mat-button-wrapper type="reset" category="mat-button" color="primary" text="重 置"></mat-button-wrapper>
-    <mat-button-wrapper type="submit" category="mat-raised-button" color="warn" text="提 交"></mat-button-wrapper>
-    <mat-button-wrapper [isAnchor]="true" text="哥来了" color="accent"></mat-button-wrapper>
+        @x.Select( t => t.Nation )
+        <util-button styles="Icon" type="Reset" color="Primary" tooltip="重置">
+            <util-icon material="Android" spin="true"></util-icon>
+        </util-button>
+        @x.Button().Submit()
     </util-form>
-  
+    
+
 </div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">

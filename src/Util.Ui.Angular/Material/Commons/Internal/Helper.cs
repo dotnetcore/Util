@@ -7,7 +7,7 @@ using Util.Ui.Attributes;
 using Util.Ui.Components;
 using Util.Ui.Extensions;
 
-namespace Util.Ui.Material.Internal {
+namespace Util.Ui.Material.Commons.Internal {
     /// <summary>
     /// 辅助操作
     /// </summary>

@@ -89,6 +89,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisabled_String() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [disabled]=\"a.B\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Disable("a.B") ) );
+        }
+
+        /// <summary>
         /// 测试只读
         /// </summary>
         [Fact]
@@ -96,6 +106,16 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-textbox-wrapper [readonly]=\"false\"></mat-textbox-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.ReadOnly(false) ) );
+        }
+
+        /// <summary>
+        /// 测试只读
+        /// </summary>
+        [Fact]
+        public void TestReadOnly_String() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [readonly]=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.ReadOnly( "a" ) ) );
         }
 
         /// <summary>

@@ -4,8 +4,8 @@ using Util.Ui.Operations.Styles;
 
 namespace Util.Ui.Components {
     /// <summary>
-    /// 按钮
+    /// 链接
     /// </summary>
-    public interface IButton : IComponent, IText, IDisabled, IColor, ITooltip, IButtonStyle, IOnClick {
+    public interface IAnchor : IComponent, IText, IDisabled, IColor, ITooltip, IButtonStyle, IOnClick {
     }
 }

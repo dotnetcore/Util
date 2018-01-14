@@ -20,9 +20,10 @@ namespace Util.Ui.Tests.XUnitHelpers {
         /// <param name="contextAttributes">上下文属性集合</param>
         /// <param name="outputAttributes">输出属性集合</param>
         /// <param name="content">内容</param>
-        public static string GetResult<TTagHelper>( ITestOutputHelper outputHelper, TTagHelper component, TagHelperAttributeList contextAttributes = null,TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) where TTagHelper : TagHelper{
+        public static string GetResult<TTagHelper>( ITestOutputHelper outputHelper, TTagHelper component, TagHelperAttributeList contextAttributes = null,
+            TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) where TTagHelper : TagHelper{
             var context = new TagHelperContext( "", contextAttributes ?? new TagHelperAttributeList(), new Dictionary<object, object>(), Id.Guid() );
-            var output = new TagHelperOutput( "", outputAttributes ?? new TagHelperAttributeList(),( useCachedResult, encoder ) => Task.FromResult( content ?? new DefaultTagHelperContent() ) );
+            var output = new TagHelperOutput( "", outputAttributes ?? new TagHelperAttributeList(),( useCachedResult, encoder ) => Task.FromResult( content ) );
             component.Process( context, output );
             var writer = new StringWriter();
             output.WriteTo( writer, HtmlEncoder.Default );

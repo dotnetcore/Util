@@ -91,5 +91,19 @@ namespace Util.Ui.Extensions {
             } );
             return component;
         }
+
+        /// <summary>
+        /// 提示
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="tooltip">提示</param>
+        public static TComponent Tooltip<TComponent>( this TComponent component,string tooltip ) where TComponent : IComponent, ITooltip {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Tooltip, tooltip );
+            } );
+            return component;
+        }
     }
 }

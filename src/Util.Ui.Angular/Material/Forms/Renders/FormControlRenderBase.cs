@@ -1,7 +1,7 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Material.Configs;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Renders;
 

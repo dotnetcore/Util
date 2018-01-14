@@ -7,6 +7,14 @@ export class MessageConfig {
      */
     static clear = "清除";
     /**
+     * 重 置
+     */
+    static reset = "重 置";
+    /**
+     * 提 交
+     */
+    static submit = "提 交";
+    /**
      * 重置项默认文本
      */
     static resetOptionText = "-- 请选择 --";

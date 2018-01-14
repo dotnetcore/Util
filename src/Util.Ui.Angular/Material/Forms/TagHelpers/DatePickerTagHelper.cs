@@ -7,7 +7,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Forms.TagHelpers {
     /// <summary>
-    /// 日期选择框
+    /// 日期选择
     /// </summary>
     [HtmlTargetElement( "util-datepicker" )]
     public class DatePickerTagHelper : FormControlTagHelperBase {

@@ -28,6 +28,7 @@ export class DemoComponent implements OnInit {
     }
 
     onChange(form: NgForm, event) {
+        debugger 
         util.form.submit({
             url: '/api/customers',
             data: this.model,

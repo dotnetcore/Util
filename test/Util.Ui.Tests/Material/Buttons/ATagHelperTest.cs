@@ -9,9 +9,9 @@ using String = Util.Helpers.String;
 
 namespace Util.Ui.Tests.Material.Buttons {
     /// <summary>
-    /// 按钮测试
+    /// 链接测试
     /// </summary>
-    public class ButtonTagHelperTest {
+    public class ATagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -19,14 +19,14 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// <summary>
         /// 按钮
         /// </summary>
-        private readonly ButtonTagHelper _component;
+        private readonly ATagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public ButtonTagHelperTest( ITestOutputHelper output ) {
+        public ATagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new ButtonTagHelper();
+            _component = new ATagHelper();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-button-wrapper></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -53,7 +53,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<mat-button-wrapper #a=\"\"></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper #a=\"\"></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -64,18 +64,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestText() {
             var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
             var result = new String();
-            result.Append( "<mat-button-wrapper text=\"a\"></mat-button-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试类型
-        /// </summary>
-        [Fact]
-        public void TestType() {
-            var attributes = new TagHelperAttributeList { { UiConst.Type, ButtonType.Reset } };
-            var result = new String();
-            result.Append( "<mat-button-wrapper type=\"reset\"></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper text=\"a\"></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -86,7 +75,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestStyle() {
             var attributes = new TagHelperAttributeList { { UiConst.Styles, ButtonStyle.Fab } };
             var result = new String();
-            result.Append( "<mat-button-wrapper style=\"mat-fab\"></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper style=\"mat-fab\"></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -97,7 +86,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestColor() {
             var attributes = new TagHelperAttributeList { { UiConst.Color, Color.Primary } };
             var result = new String();
-            result.Append( "<mat-button-wrapper color=\"primary\"></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper color=\"primary\"></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -108,7 +97,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestDisabled() {
             var attributes = new TagHelperAttributeList { { UiConst.Disabled, "a" } };
             var result = new String();
-            result.Append( "<mat-button-wrapper [disabled]=\"a\"></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper [disabled]=\"a\"></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -119,7 +108,18 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestTooltip() {
             var attributes = new TagHelperAttributeList { { UiConst.Tooltip, "a" } };
             var result = new String();
-            result.Append( "<mat-button-wrapper tooltip=\"a\"></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper tooltip=\"a\"></mat-a-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试路由链接地址
+        /// </summary>
+        [Fact]
+        public void TestLink() {
+            var attributes = new TagHelperAttributeList { { UiConst.Link, "a" } };
+            var result = new String();
+            result.Append( "<mat-a-wrapper link=\"a\"></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -130,7 +130,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestOnClick() {
             var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
             var result = new String();
-            result.Append( "<mat-button-wrapper (onClick)=\"a\"></mat-button-wrapper>" );
+            result.Append( "<mat-a-wrapper (onClick)=\"a\"></mat-a-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

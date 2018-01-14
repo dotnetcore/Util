@@ -1,7 +1,7 @@
 ﻿namespace Util.Ui.Operations.Styles {
     /// <summary>
-    /// 扁平风格
+    /// 按钮样式
     /// </summary>
-    public interface IPlain {
+    public interface IButtonStyle {
     }
 }
