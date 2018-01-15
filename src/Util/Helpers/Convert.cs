@@ -20,8 +20,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="input">输入值</param>
         public static int? ToIntOrNull( object input ) {
-            int result;
-            var success = int.TryParse( input.SafeString(), out result );
+            var success = int.TryParse( input.SafeString(), out var result );
             if( success )
                 return result;
             try {
@@ -48,8 +47,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="input">输入值</param>
         public static long? ToLongOrNull( object input ) {
-            long result;
-            var success = long.TryParse( input.SafeString(), out result );
+            var success = long.TryParse( input.SafeString(), out var result );
             if( success )
                 return result;
             try {
@@ -78,8 +76,7 @@ namespace Util.Helpers {
         /// <param name="input">输入值</param>
         /// <param name="digits">小数位数</param>
         public static float? ToFloatOrNull( object input, int? digits = null ) {
-            float result;
-            var success = float.TryParse( input.SafeString(), out result );
+            var success = float.TryParse( input.SafeString(), out var result );
             if( !success )
                 return null;
             if( digits == null )
@@ -102,8 +99,7 @@ namespace Util.Helpers {
         /// <param name="input">输入值</param>
         /// <param name="digits">小数位数</param>
         public static double? ToDoubleOrNull( object input, int? digits = null ) {
-            double result;
-            var success = double.TryParse( input.SafeString(), out result );
+            var success = double.TryParse( input.SafeString(), out var result );
             if( !success )
                 return null;
             if( digits == null )
@@ -126,8 +122,7 @@ namespace Util.Helpers {
         /// <param name="input">输入值</param>
         /// <param name="digits">小数位数</param>
         public static decimal? ToDecimalOrNull( object input, int? digits = null ) {
-            decimal result;
-            var success = decimal.TryParse( input.SafeString(), out result );
+            var success = decimal.TryParse( input.SafeString(), out var result );
             if( !success )
                 return null;
             if( digits == null )
@@ -151,8 +146,7 @@ namespace Util.Helpers {
             bool? value = GetBool( input );
             if( value != null )
                 return value.Value;
-            bool result;
-            return bool.TryParse( input.SafeString(), out result ) ? (bool?)result : null;
+            return bool.TryParse( input.SafeString(), out var result ) ? (bool?)result : null;
         }
 
         /// <summary>
@@ -196,8 +190,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="input">输入值</param>
         public static DateTime? ToDateOrNull( object input ) {
-            DateTime result;
-            return DateTime.TryParse( input.SafeString(), out result ) ? (DateTime?)result : null;
+            return DateTime.TryParse( input.SafeString(), out var result ) ? (DateTime?)result : null;
         }
 
         /// <summary>
@@ -213,8 +206,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="input">输入值</param>
         public static Guid? ToGuidOrNull( object input ) {
-            Guid result;
-            return Guid.TryParse( input.SafeString(), out result ) ? (Guid?)result : null;
+            return Guid.TryParse( input.SafeString(), out var result ) ? (Guid?)result : null;
         }
 
         /// <summary>

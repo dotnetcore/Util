@@ -22,7 +22,7 @@
     
     
     
-    
+    <p-fileUpload name="s" url="/api/customers/upload"></p-fileUpload>
 
 
     <util-form id="form" on-submit="onChange(form)">
@@ -31,7 +31,7 @@
         <util-button styles="Icon" type="Reset" color="Primary" tooltip="重置">
             <util-icon material="Android" spin="true"></util-icon>
         </util-button>
-        @x.Button().Submit()
+        @x.Button().Submit().Color( Color.Primary )
     </util-form>
     
 

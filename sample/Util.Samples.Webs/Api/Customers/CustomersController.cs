@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Donau.Services.Abstractions.Customers;
@@ -8,14 +9,15 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Prerendering;
 using Util.Exceptions;
+using Util.Files;
 using Util.Webs.Controllers;
 
 namespace Util.Samples.Webs.Api.Customers
 {
-    public class CustomersController : CrudControllerBase<CustomersDto, CustomersQuery>
-    {
-        public CustomersController(ICustomersService customersService) : base(customersService)
-        {
+    public class CustomersController : CrudControllerBase<CustomersDto, CustomersQuery> {
+        private IFileStore _fileStore;
+        public CustomersController(ICustomersService customersService,IFileStore fileStore) : base(customersService) {
+            _fileStore = fileStore;
         }
 
         [HttpGet("test")]
@@ -27,6 +29,25 @@ namespace Util.Samples.Webs.Api.Customers
                 new Item( "C","4",3,"Group2" ),
             };
             return Success( items );
+        }
+
+        //https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads
+        [HttpPost("upload")]
+        public IActionResult Upload() {
+            var file = Util.Helpers.Web.GetFile();
+            var path = _fileStore.Save( ToBytes( file.OpenReadStream() ), file.FileName );
+            return Content( path );
+        }
+
+        /// <summary>
+        /// 流转换为字节流
+        /// </summary>
+        /// <param name="stream">流</param>
+        public static byte[] ToBytes( Stream stream ) {
+            stream.Seek( 0, SeekOrigin.Begin );
+            var buffer = new byte[stream.Length];
+            stream.Read( buffer, 0, buffer.Length );
+            return buffer;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Util.Tests.Files.Paths {
         /// 初始化测试
         /// </summary>
         public DefaultPathGeneratorTest() {
-            _generator = new DefaultPathGenerator( @"c:\",new StubRandomGenerator() );
+            _generator = new DefaultPathGenerator( new DefaultBasePath( @"c:\" ) ,new StubRandomGenerator() );
         }
 
         /// <summary>

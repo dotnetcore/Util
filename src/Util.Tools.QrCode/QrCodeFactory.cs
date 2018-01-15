@@ -12,7 +12,7 @@ namespace Util.Tools.QrCode {
         /// </summary>
         /// <param name="path">二维码文件存储目录</param>
         public static IQrCodeService Create( string path ) {
-            return new QrCoderService( new DefaultFileStore( new DefaultPathGenerator( path ) ) );
+            return new QrCoderService( new DefaultFileStore( new DefaultPathGenerator( new DefaultBasePath( path ) ) ) );
         }
     }
 }

@@ -7,16 +7,16 @@ namespace Util.Files.Paths {
     /// </summary>
     public class DefaultPathGenerator : PathGeneratorBase {
         /// <summary>
-        /// path
+        /// 基路径
         /// </summary>
-        private readonly string _basePath;
+        private readonly IBasePath _basePath;
 
         /// <summary>
         /// 初始化路径生成器
         /// </summary>
-        /// <param name="basePath">基础路径</param>
+        /// <param name="basePath">基路径</param>
         /// <param name="randomGenerator">随机数生成器</param>
-        public DefaultPathGenerator( string basePath, IRandomGenerator randomGenerator = null ) : base( randomGenerator ) {
+        public DefaultPathGenerator( IBasePath basePath, IRandomGenerator randomGenerator = null ) : base( randomGenerator ) {
             _basePath = basePath;
         }
 
@@ -25,7 +25,7 @@ namespace Util.Files.Paths {
         /// </summary>
         /// <param name="fileName">被处理过的安全有效的文件名</param>
         protected override string GeneratePath( string fileName ) {
-            return Path.Combine( _basePath, fileName );
+            return Path.Combine( _basePath.GetPath(), fileName );
         }
     }
 }

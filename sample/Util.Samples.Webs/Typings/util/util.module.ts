@@ -16,7 +16,8 @@ import {
 } from '@angular/material';
 //PrimeNg模块
 import {
-    ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, ConfirmationService
+    ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, ConfirmationService,
+    FileUploadModule
 } from 'primeng/primeng';
 //Util组件
 import { UtilDateAdapter } from './material/local/date-adapter';
@@ -38,7 +39,7 @@ import { AWrapperComponent } from './material/a-wrapper.component';
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule
+        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
@@ -50,6 +51,7 @@ import { AWrapperComponent } from './material/a-wrapper.component';
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
+        FileUploadModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent
     ],

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Http;
@@ -130,6 +131,34 @@ namespace Util.Helpers {
         /// 浏览器
         /// </summary>
         public static string Browser => HttpContext?.Request?.Headers["User-Agent"];
+
+        #endregion
+
+        #region GetFiles(获取客户端文件集合)
+
+        /// <summary>
+        /// 获取客户端文件集合
+        /// </summary>
+        public static List<IFormFile> GetFiles() {
+            var result = new List<IFormFile>();
+            var files = HttpContext.Request.Form.Files;
+            if( files == null || files.Count == 0 )
+                return result;
+            result.AddRange( files.Where( file => file?.Length > 0 ) );
+            return result;
+        }
+
+        #endregion
+
+        #region GetFile(获取客户端文件)
+
+        /// <summary>
+        /// 获取客户端文件
+        /// </summary>
+        public static IFormFile GetFile() {
+            var files = GetFiles();
+            return files.Count == 0 ? null : files[0];
+        }
 
         #endregion
     }
