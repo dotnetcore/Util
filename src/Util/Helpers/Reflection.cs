@@ -247,6 +247,8 @@ namespace Util.Helpers {
         public static bool IsNumber( MemberInfo member ) {
             if( member == null )
                 return false;
+            if ( IsInt( member ) )
+                return true;
             switch( member.MemberType ) {
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.Double" || member.ToString() == "System.Decimal" || member.ToString() == "System.Single";

@@ -126,6 +126,10 @@ namespace Util.Tests.Helpers {
             Assert.True( Util.Helpers.Reflection.IsNumber( _sample.FloatValue.GetType().GetTypeInfo() ), "FloatValue GetType" );
             Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "FloatValue" )[0] ), "FloatValue" );
             Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "NullableFloatValue" )[0] ), "NullableFloatValue" );
+
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.IntValue.GetType().GetTypeInfo() ), "IntValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "IntValue" )[0] ), "IntValue" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "NullableIntValue" )[0] ), "NullableIntValue" );
         }
 
         /// <summary>
