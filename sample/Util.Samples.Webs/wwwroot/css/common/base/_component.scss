@@ -1,7 +1,10 @@
 ﻿//mat表格复选框
 .mat-column-selectCheckbox {
     max-width: 48px;
-    overflow: inherit;
+    overflow: initial !important;
+}
+.mat-cell, .mat-header-cell {
+    overflow: initial !important;
 }
 //mat表格序号
 .mat-column-lineNumber {
