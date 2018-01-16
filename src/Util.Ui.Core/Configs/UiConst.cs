@@ -167,5 +167,13 @@
         /// 链接
         /// </summary>
         public const string Link = "link";
+        /// <summary>
+        /// 位置
+        /// </summary>
+        public const string Position = "position";
+        /// <summary>
+        /// 不确定
+        /// </summary>
+        public const string Indeterminate = "indeterminate";
     }
 }

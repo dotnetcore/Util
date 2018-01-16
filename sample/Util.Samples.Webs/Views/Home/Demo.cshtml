@@ -15,23 +15,23 @@
     <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
         <mat-icon>delete</mat-icon>
     </button>
-
+    <p-fileUpload name="s" url="/api/customers/upload"></p-fileUpload>
 </div>
 
 <div style="margin: 300px" >
     
     
     
-    <p-fileUpload name="s" url="/api/customers/upload"></p-fileUpload>
+    
+
 
 
     <util-form id="form" on-submit="onChange(form)">
         @x.TextBox( t => t.Name )
         @x.Select( t => t.Nation )
-        <util-button styles="Icon" type="Reset" color="Primary" tooltip="重置">
-            <util-icon material="Android" spin="true"></util-icon>
-        </util-button>
-        @x.Button().Submit().Color( Color.Primary )
+        @x.CheckBox(t => t.IsGender)
+        @x.Button().Reset()
+        @x.Button().Submit()
     </util-form>
     
 

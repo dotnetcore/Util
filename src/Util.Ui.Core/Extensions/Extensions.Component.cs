@@ -70,7 +70,7 @@ namespace Util.Ui.Extensions {
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
-        /// <param name="text">标题文本</param>
+        /// <param name="text">文本</param>
         public static TComponent Text<TComponent>( this TComponent component, string text ) where TComponent : IComponent, IText {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {

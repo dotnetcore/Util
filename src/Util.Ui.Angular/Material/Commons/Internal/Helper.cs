@@ -6,6 +6,8 @@ using Util.Helpers;
 using Util.Ui.Attributes;
 using Util.Ui.Components;
 using Util.Ui.Extensions;
+using Util.Ui.Operations.Forms;
+using Util.Ui.Operations.Forms.Validations;
 
 namespace Util.Ui.Material.Commons.Internal {
     /// <summary>
@@ -30,7 +32,7 @@ namespace Util.Ui.Material.Commons.Internal {
         /// <summary>
         /// 初始化模型
         /// </summary>
-        private static void InitModel<TModel, TProperty>( IFormControl control, Expression<Func<TModel, TProperty>> expression ) {
+        public static void InitModel<TModel, TProperty>( IModel control, Expression<Func<TModel, TProperty>> expression ) {
             var model = GetModel( expression );
             if( string.IsNullOrWhiteSpace( model ) )
                 return;
@@ -40,7 +42,7 @@ namespace Util.Ui.Material.Commons.Internal {
         /// <summary>
         /// 初始化必填项验证
         /// </summary>
-        private static void InitRequired<TModel, TProperty>( IFormControl control, Expression<Func<TModel, TProperty>> expression ) {
+        public static void InitRequired<TModel, TProperty>( IRequired control, Expression<Func<TModel, TProperty>> expression ) {
             var attribute = Lambda.GetAttribute<RequiredAttribute>( expression );
             if ( attribute == null )
                 return;

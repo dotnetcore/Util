@@ -3,7 +3,6 @@ using Util.Ui.Components;
 using Util.Ui.Material.Buttons;
 using Util.Ui.Material.Forms;
 using Util.Ui.Material.Icons;
-using Util.Ui.Material.Services;
 using Util.Ui.Services;
 
 namespace Util.Ui.Extensions {
@@ -17,6 +16,14 @@ namespace Util.Ui.Extensions {
         /// <param name="service">组件服务</param>
         public static IIcon Icon<TModel>( this IUiService<TModel> service ) {
             return new Icon();
+        }
+
+        /// <summary>
+        /// 复选框
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static ICheckBox CheckBox<TModel>( this IUiService<TModel> service ) {
+            return new CheckBox();
         }
 
         /// <summary>

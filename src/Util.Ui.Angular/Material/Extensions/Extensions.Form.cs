@@ -95,7 +95,7 @@ namespace Util.Ui.Material.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="text">文本</param>
-        public static TComponent Prefix<TComponent>( this TComponent component,string text ) where TComponent : IComponent, IPrefix {
+        public static TComponent Prefix<TComponent>( this TComponent component, string text ) where TComponent : IComponent, IPrefix {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Prefix, text );
@@ -124,7 +124,7 @@ namespace Util.Ui.Material.Extensions {
         /// <param name="component">组件实例</param>
         /// <param name="icon">FontAwesome图标</param>
         /// <param name="onClick">图标单击事件处理函数，范例：click()</param>
-        public static TComponent Suffix<TComponent>( this TComponent component, FontAwesomeIcon icon,string onClick = null ) where TComponent : IComponent, IPrefix {
+        public static TComponent Suffix<TComponent>( this TComponent component, FontAwesomeIcon icon, string onClick = null ) where TComponent : IComponent, IPrefix {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( MaterialConst.SuffixFontAwesomeIcon, icon );
@@ -155,7 +155,7 @@ namespace Util.Ui.Material.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="disabled">禁用表达式</param>
-        public static TComponent Disable<TComponent>( this TComponent component,string disabled ) where TComponent : IComponent, IDisabled {
+        public static TComponent Disable<TComponent>( this TComponent component, string disabled ) where TComponent : IComponent, IDisabled {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Disabled, disabled );

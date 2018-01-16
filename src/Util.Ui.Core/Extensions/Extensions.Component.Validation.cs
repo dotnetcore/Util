@@ -14,7 +14,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="message">错误消息</param>
-        public static TComponent Required<TComponent>( this TComponent component, string message = null ) where TComponent : IComponent, IRequired {
+        public static TComponent Required<TComponent>( this TComponent component, string message = null ) where TComponent : IRequired {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Required,true );

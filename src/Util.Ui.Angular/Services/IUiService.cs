@@ -2,11 +2,17 @@
 using System.Linq.Expressions;
 using Util.Ui.Components;
 
-namespace Util.Ui.Material.Services {
+namespace Util.Ui.Services {
     /// <summary>
     /// 组件服务
     /// </summary>
     public interface IUiService<TModel> {
+        /// <summary>
+        /// 复选框
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        ICheckBox CheckBox<TProperty>( Expression<Func<TModel, TProperty>> expression );
         /// <summary>
         /// 下拉列表
         /// </summary>

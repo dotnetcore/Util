@@ -1,12 +1,12 @@
-﻿import { Component, ViewChild, OnInit } from "@angular/core"
+﻿import { Component, ViewChild, OnInit,Injector } from "@angular/core"
 import { NgForm } from "@angular/forms"
-import { util, ViewModel,QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
+import { ComponentBase,ViewModel,QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
 
 @Component({
     selector: 'demo',
     templateUrl: '/Home/Demo'
 })
-export class DemoComponent implements OnInit {
+export class DemoComponent extends ComponentBase implements OnInit {
     queryParam: CustomerQueryModel;
 
     @ViewChild('grid') grid: TableWrapperComponent<CustomerViewModel>;
@@ -18,7 +18,8 @@ export class DemoComponent implements OnInit {
         this.grid.delete();
     }
 
-    constructor() {
+    constructor(injector: Injector) {
+        super(injector);
         this.queryParam = new CustomerQueryModel();
         this.model = new CustomerViewModel();
     }
@@ -28,20 +29,11 @@ export class DemoComponent implements OnInit {
     }
 
     onChange(form: NgForm, event) {
-        debugger 
-        util.form.submit({
-            url: '/api/customers',
-            data: this.model,
-            form: form
-        });
-
+        this.util.message.info("嘿嘿");
     }
 
     ngOnInit() {
-    }
-
-    getDate() {
-        return util.helper.formatDate(this.model.creationTime, "YYYY年MM月DD日");
+        this.model.isGender = true;
     }
 }
 
@@ -51,11 +43,12 @@ class CustomerQueryModel extends QueryParameter {
 }
 
 class CustomerViewModel extends ViewModel {
-    public name: string;
-    public value: string;
-    public nation;
-    public hide: boolean;
-    public num: number;
-    public date: Date;
-    public creationTime;
+    name: string;
+    value: string;
+    nation;
+    hide: boolean;
+    num: number;
+    date: Date;
+    creationTime;
+    isGender:boolean;
 }

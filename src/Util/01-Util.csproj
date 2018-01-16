@@ -12,9 +12,9 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
-    <AssemblyVersion>1.0.7.1</AssemblyVersion>
-    <FileVersion>1.0.7.1</FileVersion>
-    <Version>1.0.7-preview1</Version>  
+    <AssemblyVersion>1.0.7.2</AssemblyVersion>
+    <FileVersion>1.0.7.2</FileVersion>
+    <Version>1.0.7-preview2</Version>  
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <PackageId>Util.Core</PackageId>
     <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>

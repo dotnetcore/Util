@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Util.Ui.Material.Services;
+using Util.Ui.Services;
 
 namespace Util.Ui.Extensions {
     /// <summary>
