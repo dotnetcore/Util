@@ -4,11 +4,11 @@ import { UtilModule } from '../util';
 //Material模块
 import {
     MatButtonToggleModule,
-    MatCardModule, MatCheckboxModule, MatChipsModule,
+    MatCardModule, MatChipsModule,
     MatDialogModule, MatGridListModule,
     MatListModule, MatMenuModule, MatProgressBarModule,
     MatRadioModule, MatSidenavModule, MatSliderModule, MatSortModule,
-    MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
+    MatTableModule, MatTabsModule, MatToolbarModule,
     MatExpansionModule, MatStepperModule
 } from '@angular/material';
 
@@ -16,11 +16,11 @@ import {
     exports: [
         UtilModule,
         MatButtonToggleModule,
-        MatCardModule, MatCheckboxModule, MatChipsModule,
+        MatCardModule, MatChipsModule,
         MatDialogModule, MatGridListModule,
         MatListModule, MatMenuModule, MatProgressBarModule,
         MatRadioModule, MatSidenavModule, MatSliderModule, MatSortModule,
-        MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
+        MatTableModule, MatTabsModule, MatToolbarModule,
         MatExpansionModule, MatStepperModule
     ]
 })

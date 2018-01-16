@@ -108,7 +108,7 @@ export class Form {
     private submitHandler(options: IFormSubmitOptions, result) {
         options.handler && options.handler(result);
         if (options.showMessage !== false)
-            Message.success(MessageConfig.successed);
+            Message.snack(MessageConfig.successed);
         if (options.reset)
             options.form.resetForm();
         if (options.back)

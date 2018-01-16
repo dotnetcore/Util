@@ -12,7 +12,8 @@ import { HttpClientModule } from "@angular/common/http";
 import {
     MatCommonModule, MatRippleModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
-    MatCheckboxModule,
+    MatCheckboxModule, MatSlideToggleModule,
+    MatSnackBarModule,
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
@@ -40,7 +41,8 @@ import { AWrapperComponent } from './material/a-wrapper.component';
         CommonModule, FormsModule, RouterModule,HttpClientModule,
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
-        MatCheckboxModule,
+        MatCheckboxModule, MatSlideToggleModule,
+        MatSnackBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule
     ],
@@ -52,7 +54,8 @@ import { AWrapperComponent } from './material/a-wrapper.component';
         CommonModule, FormsModule, RouterModule, HttpClientModule,
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
-        MatCheckboxModule,
+        MatCheckboxModule, MatSlideToggleModule,
+        MatSnackBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
         FileUploadModule,

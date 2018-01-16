@@ -2,6 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
+import { MatSnackBar } from '@angular/material';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/primeng';
 import { IocHelper as ioc } from '../angular/ioc-helper';
@@ -79,10 +80,10 @@ export class Message {
      */
     static confirm(message: string, ok?: () => void): void;
     static confirm(options, ok?): void {
-        var service = ioc.get(ConfirmationService);
+        let service = ioc.get(ConfirmationService);
         let message = "";
         let title = "";
-        let cancel = () => {};
+        let cancel = () => { };
         if (typeof options === "object") {
             message = options["message"];
             title = options["title"];
@@ -98,5 +99,54 @@ export class Message {
             reject: cancel,
             header: title || "确认"
         });
+    }
+
+    /**
+     * 小提示
+     * @param options
+     */
+    static snack(options: {
+        /**
+         * 消息
+         */
+        message: string;
+        /**
+         * 持续时间，单位：毫秒，默认值：2000
+         */
+        duration?: number;
+        /**
+         * 操作文本
+         */
+        actionLabel?: string;
+        /**
+         * 操作
+         */
+        action?: () => void;
+    });
+    /**
+     * 小提示
+     * @param message 消息
+     */
+    static snack(message: string);
+    static snack(options) {
+        let bar = ioc.get(MatSnackBar);
+        let message = "";
+        let actionLabel = "";
+        let action;
+        let duration;
+        if (typeof options === "object") {
+            message = options["message"];
+            actionLabel = options["actionLabel"];
+            action = options["action"];
+            duration = options["duration"];
+        }
+        else if (typeof options === "string") {
+            message = options;
+        }
+        let ref = bar.open(message, actionLabel || "关闭", {
+            duration: duration || 2000
+        });
+        if (action)
+            ref.onAction().subscribe(action); 
     }
 }

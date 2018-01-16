@@ -49,5 +49,9 @@ namespace Util.Samples.Webs.Api.Customers
             stream.Read( buffer, 0, buffer.Length );
             return buffer;
         }
+
+        public override async Task<IActionResult> CreateAsync([FromBody] CustomersDto dto ) {
+            return Success();
+        }
     }
 }

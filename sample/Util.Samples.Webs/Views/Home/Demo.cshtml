@@ -27,9 +27,10 @@
 
 
     <util-form id="form" on-submit="onChange(form)">
+        <mat-slide-toggle>Slide me!</mat-slide-toggle>
         @x.TextBox( t => t.Name )
         @x.Select( t => t.Nation )
-        @x.CheckBox(t => t.IsGender)
+        @x.CheckBox( t => t.IsGender )
         @x.Button().Reset()
         @x.Button().Submit()
     </util-form>
