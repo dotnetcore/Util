@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
-using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
@@ -11,31 +9,31 @@ using String = Util.Helpers.String;
 
 namespace Util.Ui.Tests.Material.Forms.TagHelpers {
     /// <summary>
-    /// 复选框测试
+    /// 滑动开关测试
     /// </summary>
-    public class CheckBoxTagHelperTest {
+    public class SlideToggleTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 复选框
+        /// 滑动开关
         /// </summary>
-        private readonly CheckBoxTagHelper _component;
+        private readonly SlideToggleTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public CheckBoxTagHelperTest( ITestOutputHelper output ) {
+        public SlideToggleTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new CheckBoxTagHelper();
+            _component = new SlideToggleTagHelper();
             Config.IsValidate = false;
         }
 
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( TagHelperAttributeList contextAttributes = null,TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
+        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
             return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content );
         }
 
@@ -45,7 +43,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-checkbox></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -56,7 +54,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<mat-checkbox #a=\"\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle #a=\"\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -67,7 +65,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestName() {
             var attributes = new TagHelperAttributeList { { UiConst.Name, "a" } };
             var result = new String();
-            result.Append( "<mat-checkbox name=\"a\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle name=\"a\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -78,7 +76,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestText() {
             var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
             var result = new String();
-            result.Append( "<mat-checkbox>a</mat-checkbox>" );
+            result.Append( "<mat-slide-toggle>a</mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -89,7 +87,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestPosition() {
             var attributes = new TagHelperAttributeList { { UiConst.Position, LabelPosition.Left } };
             var result = new String();
-            result.Append( "<mat-checkbox labelPosition=\"before\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle labelPosition=\"before\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -100,7 +98,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestDisabled() {
             var attributes = new TagHelperAttributeList { { UiConst.Disabled, true } };
             var result = new String();
-            result.Append( "<mat-checkbox [disabled]=\"true\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle [disabled]=\"true\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -111,7 +109,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestColor() {
             var attributes = new TagHelperAttributeList { { UiConst.Color, Color.Primary } };
             var result = new String();
-            result.Append( "<mat-checkbox color=\"primary\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle color=\"primary\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -122,18 +120,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestModel() {
             var attributes = new TagHelperAttributeList { { UiConst.Model, "a" } };
             var result = new String();
-            result.Append( "<mat-checkbox [(ngModel)]=\"a\"></mat-checkbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试设置不确定样式
-        /// </summary>
-        [Fact]
-        public void TestIndeterminate() {
-            var attributes = new TagHelperAttributeList { { UiConst.Indeterminate, "a" } };
-            var result = new String();
-            result.Append( "<mat-checkbox [indeterminate]=\"a\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle [(ngModel)]=\"a\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -144,7 +131,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestRequired() {
             var attributes = new TagHelperAttributeList { { UiConst.Required, true } };
             var result = new String();
-            result.Append( "<mat-checkbox [required]=\"true\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle [required]=\"true\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -155,7 +142,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         public void TestOnChange() {
             var attributes = new TagHelperAttributeList { { UiConst.OnChange, "a" } };
             var result = new String();
-            result.Append( "<mat-checkbox (change)=\"a\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle (change)=\"a\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

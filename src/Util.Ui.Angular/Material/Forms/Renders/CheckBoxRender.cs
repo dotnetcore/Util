@@ -39,6 +39,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigName( builder );
             ConfigLabel( builder );
             ConfigDisabled( builder );
+            ConfigColor( builder );
             ConfigModel( builder );
             ConfigIndeterminate( builder );
             ConfigRequired( builder );
@@ -73,6 +74,13 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigDisabled( TagBuilder builder ) {
             builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
+        }
+
+        /// <summary>
+        /// 配置颜色
+        /// </summary>
+        private void ConfigColor( TagBuilder builder ) {
+            builder.AddAttribute( UiConst.Color, _config.GetValue( UiConst.Color )?.ToLower() );
         }
 
         /// <summary>

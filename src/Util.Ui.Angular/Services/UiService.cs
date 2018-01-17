@@ -27,6 +27,15 @@ namespace Util.Ui.Services {
         }
 
         /// <summary>
+        /// 滑动开关
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        public ISlideToggle SlideToggle<TProperty>( Expression<Func<TModel, TProperty>> expression ) {
+            return new ModelSlideToggle<TModel, TProperty>( expression );
+        }
+
+        /// <summary>
         /// 下拉列表
         /// </summary>
         /// <typeparam name="TProperty">属性类型</typeparam>

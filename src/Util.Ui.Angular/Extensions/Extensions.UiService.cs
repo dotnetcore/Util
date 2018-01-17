@@ -27,6 +27,14 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 滑动开关
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static ISlideToggle SlideToggle<TModel>( this IUiService<TModel> service ) {
+            return new SlideToggle();
+        }
+
+        /// <summary>
         /// 下拉列表
         /// </summary>
         /// <param name="service">组件服务</param>

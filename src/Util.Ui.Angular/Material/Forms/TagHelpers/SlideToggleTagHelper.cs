@@ -7,10 +7,10 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Forms.TagHelpers {
     /// <summary>
-    /// 复选框
+    /// 滑动开关
     /// </summary>
-    [HtmlTargetElement( "util-checkbox" )]
-    public class CheckBoxTagHelper : TagHelperBase {
+    [HtmlTargetElement( "util-slide-toggle" )]
+    public class SlideToggleTagHelper : TagHelperBase {
         /// <summary>
         /// 标识，指向模板引用变量，而不是Id属性
         /// </summary>
@@ -40,10 +40,6 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string Model { get; set; }
         /// <summary>
-        /// 设置不确定样式
-        /// </summary>
-        public string Indeterminate { get; set; }
-        /// <summary>
         /// 必填项
         /// </summary>
         public bool Required { get; set; }
@@ -57,7 +53,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new CheckBoxRender( new Config( context ) );
+            return new SlideToggleRender( new Config( context ) );
         }
     }
 }

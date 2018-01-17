@@ -11,31 +11,31 @@ using String = Util.Helpers.String;
 
 namespace Util.Ui.Tests.Material.Forms {
     /// <summary>
-    /// 复选框测试
+    /// 滑动开关测试
     /// </summary>
-    public class CheckBoxTest {
+    public class SlideToggleTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 复选框
+        /// 滑动开关
         /// </summary>
-        private readonly CheckBox _component;
+        private readonly SlideToggle _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public CheckBoxTest( ITestOutputHelper output ) {
+        public SlideToggleTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new CheckBox();
+            _component = new SlideToggle();
             Config.IsValidate = false;
         }
 
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( CheckBox component ) {
+        private string GetResult( SlideToggle component ) {
             component.WriteTo( new StringWriter(), HtmlEncoder.Default );
             var result = component.ToString();
             _output.WriteLine( result );
@@ -48,7 +48,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-checkbox></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component ) );
         }
 
@@ -58,7 +58,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestId() {
             var result = new String();
-            result.Append( "<mat-checkbox #a=\"\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle #a=\"\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Id( "a" ) ) );
         }
 
@@ -68,7 +68,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestName() {
             var result = new String();
-            result.Append( "<mat-checkbox name=\"a\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle name=\"a\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Name( "a" ) ) );
         }
 
@@ -78,7 +78,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestText() {
             var result = new String();
-            result.Append( "<mat-checkbox>a</mat-checkbox>" );
+            result.Append( "<mat-slide-toggle>a</mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Text( "a" ) ) );
         }
 
@@ -88,7 +88,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestPosition() {
             var result = new String();
-            result.Append( "<mat-checkbox labelPosition=\"before\">a</mat-checkbox>" );
+            result.Append( "<mat-slide-toggle labelPosition=\"before\">a</mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Text( "a", true ) ) );
         }
 
@@ -98,7 +98,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestDisable() {
             var result = new String();
-            result.Append( "<mat-checkbox [disabled]=\"true\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle [disabled]=\"true\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Disable() ) );
         }
 
@@ -108,7 +108,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestColor() {
             var result = new String();
-            result.Append( "<mat-checkbox color=\"primary\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle color=\"primary\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Color( Color.Primary ) ) );
         }
 
@@ -118,18 +118,8 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestModel() {
             var result = new String();
-            result.Append( "<mat-checkbox [(ngModel)]=\"a\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle [(ngModel)]=\"a\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Model( "a" ) ) );
-        }
-
-        /// <summary>
-        /// 测试设置不确定样式
-        /// </summary>
-        [Fact]
-        public void TestIndeterminate() {
-            var result = new String();
-            result.Append( "<mat-checkbox [indeterminate]=\"a\"></mat-checkbox>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Indeterminate( "a" ) ) );
         }
 
         /// <summary>
@@ -138,7 +128,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestRequired() {
             var result = new String();
-            result.Append( "<mat-checkbox [required]=\"true\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle [required]=\"true\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.Required() ) );
         }
 
@@ -148,7 +138,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestOnChange() {
             var result = new String();
-            result.Append( "<mat-checkbox (change)=\"a\"></mat-checkbox>" );
+            result.Append( "<mat-slide-toggle (change)=\"a\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.OnChange( "a" ) ) );
         }
     }

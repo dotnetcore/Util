@@ -14,6 +14,12 @@ namespace Util.Ui.Services {
         /// <param name="expression">属性表达式</param>
         ICheckBox CheckBox<TProperty>( Expression<Func<TModel, TProperty>> expression );
         /// <summary>
+        /// 滑动开关
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        ISlideToggle SlideToggle<TProperty>( Expression<Func<TModel, TProperty>> expression );
+        /// <summary>
         /// 下拉列表
         /// </summary>
         /// <typeparam name="TProperty">属性类型</typeparam>

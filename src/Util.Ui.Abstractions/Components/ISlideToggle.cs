@@ -6,8 +6,8 @@ using Util.Ui.Operations.Styles;
 
 namespace Util.Ui.Components {
     /// <summary>
-    /// 复选框
+    /// 滑动开关
     /// </summary>
-    public interface ICheckBox : IComponent, IName,IText, IDisabled, IModel, IRequired, IOnChange, ILabelPosition,IColor {
+    public interface ISlideToggle : IComponent, IName, IText, IDisabled, IModel, IRequired, IOnChange, ILabelPosition, IColor {
     }
 }

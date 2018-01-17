@@ -404,8 +404,8 @@ https://github.com/dotnetcore/util/
   - 按钮 - 基于Material 按钮组件 [已发布]
   - 链接 - 基于Material 链接组件 [已发布]
   - 复选框 - 基于Material 复选框组件 [已发布]
-  - 开关 - 基于Material slide-toggle组件 [开发中]
-  - 单选框 [待启动]
+  - 滑动开关 - 基于Material slide-toggle组件 [已发布]
+  - 单选框 - 基于Material 单选框组件 [开发中]
   - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   - 表格 [开发中]
 - 权限 [待启动]
@@ -455,3 +455,4 @@ https://github.com/dotnetcore/util/
 - 2018年1月12日，更新了表单组件(Util.Ui.Angular/Material/Forms)及单元测试。
 - 2018年1月14日，更新了按钮和链接组件(Util.Ui.Angular/Material/Buttons)及单元测试。
 - 2018年1月16日，更新了复选框组件(Util.Ui.Angular/Material/Forms)及单元测试。
+- 2018年1月17日，更新了滑动开关组件(Util.Ui.Angular/Material/Forms)及单元测试。
