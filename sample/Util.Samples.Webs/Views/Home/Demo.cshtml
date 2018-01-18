@@ -15,27 +15,32 @@
     <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
         <mat-icon>delete</mat-icon>
     </button>
-    <p-fileUpload name="s" url="/api/customers/upload"></p-fileUpload>
+
 </div>
+
+
 <div style="margin: 300px">
 
-
-
-
-
+    <util-icon material="Remove_Circle_Outline"></util-icon>
 
     <util-form id="form" on-submit="onChange(form)">
-        @x.TextBox( t => t.Name )
-        @x.Select( t => t.Nation )
-        @x.Radio( t => t.Nation )
-        @x.Button().Reset()
-        @x.Button().Submit()
+        <mat-card>
+            <mat-card-content>
+                @x.TextBox( t => t.Name )
+                @x.Select( t => t.Nation )
+                @x.Radio( t => t.Gender ).OnChange( "onChange()" )
+            </mat-card-content>
+            <mat-card-content>
+                <prime-fileUpload url="/api/customers/upload" ></prime-fileUpload>
+            </mat-card-content>
+            <mat-card-content>
+                @x.Button().Reset()
+                @x.Button().Submit()
+            </mat-card-content>
+        </mat-card>
+
     </util-form>
-    
-    
-    
-    
-    
+
 
 </div>
 

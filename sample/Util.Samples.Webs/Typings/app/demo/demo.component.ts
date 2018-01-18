@@ -16,6 +16,7 @@ export class DemoComponent extends ComponentBase implements OnInit {
     id:string;
 
     delete() {
+        
         this.grid.delete();
     }
 
@@ -31,8 +32,7 @@ export class DemoComponent extends ComponentBase implements OnInit {
 
     onChange(form: NgForm, event) {
 
-
-
+        this.util.message.success("a");
 
         this.util.form.submit({
             form: form,

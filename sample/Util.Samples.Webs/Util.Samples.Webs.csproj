@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <None Remove="Typings\util\material\radio-wrapper.component.ts" />
+    <None Remove="Typings\util\prime\fileUpload.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +57,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="Typings\util\material\radio-wrapper.component.ts" />
+    <TypeScriptCompile Include="Typings\util\prime\fileUpload.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

@@ -33,6 +33,7 @@ import { DatePickerWrapperComponent } from './material/datepicker-wrapper.compon
 import { ButtonWrapperComponent } from './material/button-wrapper.component';
 import { AWrapperComponent } from './material/a-wrapper.component';
 import { RadioWrapperComponent } from './material/radio-wrapper.component';
+import { FileUploadComponent } from './prime/fileUpload.component';
 
 /**
  * Util模块
@@ -49,7 +50,8 @@ import { RadioWrapperComponent } from './material/radio-wrapper.component';
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
+        FileUploadComponent
     ],
     exports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule,
@@ -61,7 +63,8 @@ import { RadioWrapperComponent } from './material/radio-wrapper.component';
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
         FileUploadModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
+        FileUploadComponent
     ],
     providers: [
         MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,

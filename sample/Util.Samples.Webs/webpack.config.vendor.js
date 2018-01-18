@@ -36,7 +36,6 @@ const cssModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
     'material-design-icons/iconfont/material-icons.css',
     'font-awesome/css/font-awesome.css',
-    'primeng/resources/themes/omega/theme.css',
     'primeng/resources/primeng.css'
 ];
 

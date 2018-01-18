@@ -7,6 +7,18 @@ export class MessageConfig {
      */
     static clear = "清除";
     /**
+     * 取消
+     */
+    static cancel = "取消";
+    /**
+     * 上传
+     */
+    static upload = "上传";
+    /**
+     * 选择文件
+     */
+    static chooseFile = "选择文件";
+    /**
      * 重 置
      */
     static reset = "重 置";

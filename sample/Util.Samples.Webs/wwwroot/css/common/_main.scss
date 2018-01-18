@@ -1,6 +1,9 @@
 ﻿//导入变量
 @import "base/variables";
 
+//导入prime组件样式
+@import "prime/theme";
+
 //导入基础样式
 @import "base/base";
 @import "base/custom";
@@ -27,6 +30,3 @@
 
 //导入 - loading加载样式
 @import 'layout/loading';
-
-/*导入 - search搜索栏样式*/
-@import 'base/searchMenu';
