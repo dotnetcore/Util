@@ -17,24 +17,24 @@
     </button>
     <p-fileUpload name="s" url="/api/customers/upload"></p-fileUpload>
 </div>
+<div style="margin: 300px">
 
-<div style="margin: 300px" >
-    
-    
-    
-    
+
+
 
 
 
     <util-form id="form" on-submit="onChange(form)">
         @x.TextBox( t => t.Name )
         @x.Select( t => t.Nation )
-
-        @x.SlideToggle(t => t.IsGender)
-
+        @x.Radio( t => t.Nation )
         @x.Button().Reset()
         @x.Button().Submit()
     </util-form>
+    
+    
+    
+    
     
 
 </div>
@@ -116,8 +116,7 @@
 
         <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']" style="display: none"></mat-header-row>
         <mat-row matRipple *matRowDef="let row; columns: ['selectCheckbox','lineNumber', 'name','nickname','mobile'];"
-                 class="mat-row-hover"
-                 >
+                 class="mat-row-hover">
         </mat-row>
     </mat-table>
 </table-wrapper>

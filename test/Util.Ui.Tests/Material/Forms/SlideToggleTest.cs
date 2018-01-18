@@ -73,23 +73,23 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
-        /// 测试设置文本
+        /// 测试设置标签
         /// </summary>
         [Fact]
         public void TestText() {
             var result = new String();
             result.Append( "<mat-slide-toggle>a</mat-slide-toggle>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Text( "a" ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Label( "a" ) ) );
         }
 
         /// <summary>
-        /// 测试文本位置
+        /// 测试标签位置
         /// </summary>
         [Fact]
         public void TestPosition() {
             var result = new String();
             result.Append( "<mat-slide-toggle labelPosition=\"before\">a</mat-slide-toggle>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Text( "a", true ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Label( "a", true ) ) );
         }
 
         /// <summary>

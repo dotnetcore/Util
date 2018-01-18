@@ -168,6 +168,10 @@
         /// </summary>
         public const string Link = "link";
         /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Label = "label";
+        /// <summary>
         /// 位置
         /// </summary>
         public const string Position = "position";
@@ -175,5 +179,9 @@
         /// 不确定
         /// </summary>
         public const string Indeterminate = "indeterminate";
+        /// <summary>
+        /// 垂直
+        /// </summary>
+        public const string Vertical = "vertical";
     }
 }

@@ -8,6 +8,12 @@ namespace Util.Ui.Services {
     /// </summary>
     public interface IUiService<TModel> {
         /// <summary>
+        /// 单选框
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        IRadio Radio<TProperty>( Expression<Func<TModel, TProperty>> expression );
+        /// <summary>
         /// 复选框
         /// </summary>
         /// <typeparam name="TProperty">属性类型</typeparam>

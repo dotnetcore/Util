@@ -22,7 +22,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// <summary>
         /// 标签文本
         /// </summary>
-        public string Text { get; set; }
+        public string Label { get; set; }
         /// <summary>
         /// 标签位置
         /// </summary>

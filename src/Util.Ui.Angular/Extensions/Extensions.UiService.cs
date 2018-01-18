@@ -19,6 +19,14 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 单选框
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IRadio Radio<TModel>( this IUiService<TModel> service ) {
+            return new Radio();
+        }
+
+        /// <summary>
         /// 复选框
         /// </summary>
         /// <param name="service">组件服务</param>

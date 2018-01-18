@@ -12,7 +12,7 @@ import { HttpClientModule } from "@angular/common/http";
 import {
     MatCommonModule, MatRippleModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
-    MatCheckboxModule, MatSlideToggleModule,
+    MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
     MatSnackBarModule,
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
@@ -32,6 +32,7 @@ import { TextareaWrapperComponent } from './material/textarea-wrapper.component'
 import { DatePickerWrapperComponent } from './material/datepicker-wrapper.component';
 import { ButtonWrapperComponent } from './material/button-wrapper.component';
 import { AWrapperComponent } from './material/a-wrapper.component';
+import { RadioWrapperComponent } from './material/radio-wrapper.component';
 
 /**
  * Util模块
@@ -41,26 +42,26 @@ import { AWrapperComponent } from './material/a-wrapper.component';
         CommonModule, FormsModule, RouterModule,HttpClientModule,
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
-        MatCheckboxModule, MatSlideToggleModule,
+        MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent
     ],
     exports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule,
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
-        MatCheckboxModule, MatSlideToggleModule,
+        MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
         FileUploadModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent
+        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent
     ],
     providers: [
         MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,

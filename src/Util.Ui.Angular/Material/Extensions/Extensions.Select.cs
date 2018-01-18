@@ -2,6 +2,7 @@
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Configs;
+using Util.Ui.Operations.Datas;
 
 namespace Util.Ui.Material.Extensions {
     /// <summary>
@@ -30,7 +31,7 @@ namespace Util.Ui.Material.Extensions {
         /// <param name="text">文本</param>
         /// <param name="value">值</param>
         /// <param name="group">组</param>
-        public static TComponent Add<TComponent>( this TComponent component, string text, object value,string group = null ) where TComponent : ISelect {
+        public static TComponent Add<TComponent>( this TComponent component, string text, object value,string group = null ) where TComponent : IItem {
             var option = component as IOptionConfig;
             option?.Config<SelectConfig>( config => {
                 config.AddItems( new Item( text, value, null, group ) );
@@ -44,7 +45,7 @@ namespace Util.Ui.Material.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="items">列表项集合</param>
-        public static TComponent Add<TComponent>( this TComponent component, params Item[] items ) where TComponent : ISelect {
+        public static TComponent Add<TComponent>( this TComponent component, params Item[] items ) where TComponent : IItem {
             var option = component as IOptionConfig;
             option?.Config<SelectConfig>( config => {
                 if ( items == null )
@@ -59,7 +60,7 @@ namespace Util.Ui.Material.Extensions {
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
-        public static TComponent Bool<TComponent>( this TComponent component ) where TComponent : ISelect {
+        public static TComponent Bool<TComponent>( this TComponent component ) where TComponent : IItem {
             return component.Add( "是", "true" ).Add( "否", "false" );
         }
     }

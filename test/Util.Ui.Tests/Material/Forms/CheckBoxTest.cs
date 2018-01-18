@@ -73,23 +73,23 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
-        /// 测试设置文本
+        /// 测试设置标签
         /// </summary>
         [Fact]
         public void TestText() {
             var result = new String();
             result.Append( "<mat-checkbox>a</mat-checkbox>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Text( "a" ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Label( "a" ) ) );
         }
 
         /// <summary>
-        /// 测试文本位置
+        /// 测试标签位置
         /// </summary>
         [Fact]
         public void TestPosition() {
             var result = new String();
             result.Append( "<mat-checkbox labelPosition=\"before\">a</mat-checkbox>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Text( "a", true ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Label( "a", true ) ) );
         }
 
         /// <summary>

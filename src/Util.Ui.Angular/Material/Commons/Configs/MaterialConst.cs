@@ -67,5 +67,9 @@
         /// 最大日期
         /// </summary>
         public const string MaxDate = "max-date";
+        /// <summary>
+        /// 是否显示标签
+        /// </summary>
+        public const string ShowLabel = "show-label";
     }
 }

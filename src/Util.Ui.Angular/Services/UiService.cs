@@ -18,6 +18,15 @@ namespace Util.Ui.Services {
         }
 
         /// <summary>
+        /// 单选框
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        public IRadio Radio<TProperty>( Expression<Func<TModel, TProperty>> expression ) {
+            return new ModelRadio<TModel, TProperty>( expression );
+        }
+
+        /// <summary>
         /// 复选框
         /// </summary>
         /// <typeparam name="TProperty">属性类型</typeparam>

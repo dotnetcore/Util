@@ -8,16 +8,16 @@ using Util.Ui.Material.Extensions;
 
 namespace Util.Ui.Material.Forms.Models {
     /// <summary>
-    /// 模型滑动开关
+    /// 模型单选框
     /// </summary>
     /// <typeparam name="TModel">模型类型</typeparam>
     /// <typeparam name="TProperty">属性类型</typeparam>
-    public class ModelSlideToggle<TModel, TProperty> : SlideToggle {
+    public class ModelRadio<TModel, TProperty> : Radio {
         /// <summary>
-        /// 初始化模型滑动开关
+        /// 初始化模型单选框
         /// </summary>
         /// <param name="expression">属性表达式</param>
-        public ModelSlideToggle( Expression<Func<TModel, TProperty>> expression ) {
+        public ModelRadio( Expression<Func<TModel, TProperty>> expression ) {
             if( expression == null )
                 return;
             _expression = expression;
@@ -42,6 +42,17 @@ namespace Util.Ui.Material.Forms.Models {
             this.Label( Reflection.GetDisplayNameOrDescription( _memberInfo ) );
             Helper.InitModel( this, _expression );
             Helper.InitRequired( this, _expression );
+            InitType();
+        }
+
+        /// <summary>
+        /// 根据类型初始化
+        /// </summary>
+        private void InitType() {
+            if( Reflection.IsBool( _memberInfo ) )
+                this.Bool();
+            else if( Reflection.IsEnum( _memberInfo ) )
+                Enum<TProperty>();
         }
     }
 }

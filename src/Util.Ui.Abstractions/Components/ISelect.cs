@@ -5,7 +5,7 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 下拉列表
     /// </summary>
-    public interface ISelect : IFormControl, IUrl, IDataSource, IResetOption, IMultiple {
+    public interface ISelect : IFormControl, IUrl, IDataSource, IResetOption, IMultiple, IItem {
         /// <summary>
         /// 绑定枚举
         /// </summary>

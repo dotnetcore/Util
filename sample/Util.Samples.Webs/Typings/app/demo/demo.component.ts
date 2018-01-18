@@ -30,15 +30,33 @@ export class DemoComponent extends ComponentBase implements OnInit {
     }
 
     onChange(form: NgForm, event) {
+
+
+
+
         this.util.form.submit({
             form: form,
             url: '/api/customers',
-            data:this.model
+            data: this.model,
+            
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     ngOnInit() {
-        
+        this.model.isGender = true;
     }
 }
 

@@ -190,5 +190,22 @@ namespace Util.Ui.Material.Extensions {
             } );
             return component;
         }
+
+        /// <summary>
+        /// 设置标签
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="text">文本</param>
+        /// <param name="left">是否显示到左边</param>
+        public static TComponent Label<TComponent>( this TComponent component, string text, bool? left = null ) where TComponent : ILabel {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Label, text );
+                if( left != null )
+                    config.SetAttribute( UiConst.Position, left.SafeValue() ? LabelPosition.Left : LabelPosition.Right );
+            } );
+            return component;
+        }
     }
 }

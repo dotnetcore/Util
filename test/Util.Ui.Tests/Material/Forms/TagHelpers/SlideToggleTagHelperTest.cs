@@ -70,18 +70,18 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         }
 
         /// <summary>
-        /// 测试设置文本
+        /// 测试设置标签
         /// </summary>
         [Fact]
-        public void TestText() {
-            var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
+        public void TestLabel() {
+            var attributes = new TagHelperAttributeList { { UiConst.Label, "a" } };
             var result = new String();
             result.Append( "<mat-slide-toggle>a</mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试文本位置
+        /// 测试标签位置
         /// </summary>
         [Fact]
         public void TestPosition() {

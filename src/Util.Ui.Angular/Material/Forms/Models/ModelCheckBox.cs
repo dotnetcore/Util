@@ -4,6 +4,7 @@ using System.Reflection;
 using Util.Helpers;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Commons.Internal;
+using Util.Ui.Material.Extensions;
 
 namespace Util.Ui.Material.Forms.Models {
     /// <summary>
@@ -38,7 +39,7 @@ namespace Util.Ui.Material.Forms.Models {
         /// </summary>
         private void Init() {
             this.Name( Util.Helpers.String.FirstLowerCase( Lambda.GetName( _expression ) ) );
-            this.Text( Reflection.GetDisplayNameOrDescription( _memberInfo ) );
+            this.Label( Reflection.GetDisplayNameOrDescription( _memberInfo ) );
             Helper.InitModel( this, _expression );
             Helper.InitRequired( this, _expression );
         }

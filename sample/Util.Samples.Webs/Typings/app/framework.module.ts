@@ -7,11 +7,10 @@ import {
     MatCardModule, MatChipsModule,
     MatDialogModule, MatGridListModule,
     MatListModule, MatMenuModule, MatProgressBarModule,
-    MatRadioModule, MatSidenavModule, MatSliderModule, MatSortModule,
+    MatSidenavModule, MatSliderModule, MatSortModule,
     MatTableModule, MatTabsModule, MatToolbarModule,
     MatExpansionModule, MatStepperModule
 } from '@angular/material';
-
 @NgModule({
     exports: [
         UtilModule,
@@ -19,7 +18,7 @@ import {
         MatCardModule, MatChipsModule,
         MatDialogModule, MatGridListModule,
         MatListModule, MatMenuModule, MatProgressBarModule,
-        MatRadioModule, MatSidenavModule, MatSliderModule, MatSortModule,
+        MatSidenavModule, MatSliderModule, MatSortModule,
         MatTableModule, MatTabsModule, MatToolbarModule,
         MatExpansionModule, MatStepperModule
     ]

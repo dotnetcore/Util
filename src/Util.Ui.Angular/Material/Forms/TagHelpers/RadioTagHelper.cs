@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
+using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Forms.TagHelpers {
     /// <summary>
-    /// 滑动开关
+    /// 单选框
     /// </summary>
-    [HtmlTargetElement( "util-slide-toggle" )]
-    public class SlideToggleTagHelper : TagHelperBase {
+    [HtmlTargetElement( "util-radio" )]
+    public class RadioTagHelper : TagHelperBase {
         /// <summary>
         /// 标识，指向模板引用变量，而不是Id属性
         /// </summary>
@@ -20,6 +20,14 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// 是否垂直布局
+        /// </summary>
+        public bool Vertical { get; set; }
+        /// <summary>
+        /// 是否显示标签
+        /// </summary>
+        public bool ShowLabel { get; set; }
+        /// <summary>
         /// 标签文本
         /// </summary>
         public string Label { get; set; }
@@ -28,13 +36,17 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public LabelPosition Position { get; set; }
         /// <summary>
+        /// 请求地址
+        /// </summary>
+        public string Url { get; set; }
+        /// <summary>
+        /// 数据源
+        /// </summary>
+        public string DatasSource { get; set; }
+        /// <summary>
         /// 禁用
         /// </summary>
         public string Disabled { get; set; }
-        /// <summary>
-        /// 颜色
-        /// </summary>
-        public Color Color { get; set; }
         /// <summary>
         /// 模型绑定
         /// </summary>
@@ -53,7 +65,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new SlideToggleRender( new Config( context ) );
+            return new RadioRender( new SelectConfig( context ) );
         }
     }
 }

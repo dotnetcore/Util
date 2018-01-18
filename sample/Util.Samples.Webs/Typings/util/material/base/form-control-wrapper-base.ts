@@ -11,10 +11,6 @@ import { MessageConfig } from '../../config/message-config';
  */
 export class FormControlWrapperBase implements AfterViewInit{
     /**
-     * 表单
-     */
-    private form: NgForm | null = null;
-    /**
      * 名称
      */
     @Input() name: string;
@@ -103,10 +99,9 @@ export class FormControlWrapperBase implements AfterViewInit{
      * 表单控件包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() form: NgForm) {
+    constructor( @Optional() @Host() private form: NgForm) {
         this.floatPlaceholder = "auto";
         this.requiredMessage = MessageConfig.requiredMessage;
-        this.form = form;
     }
 
     /**

@@ -1,24 +1,26 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
+using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
-    /// 复选框渲染器
+    /// 单选框渲染器
     /// </summary>
-    public class CheckBoxRender : RenderBase {
+    public class RadioRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly Config _config;
+        private readonly SelectConfig _config;
 
         /// <summary>
-        /// 初始化复选框渲染器
+        /// 初始化单选框渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public CheckBoxRender( Config config ) : base( config ) {
+        public RadioRender( SelectConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -26,7 +28,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new CheckBoxBuilder();
+            var builder = new RadioWrapperBuilder();
             Config( builder );
             return builder;
         }
@@ -34,16 +36,16 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TagBuilder builder ) {
+        private void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigName( builder );
             ConfigLabel( builder );
             ConfigDisabled( builder );
-            ConfigColor( builder );
             ConfigModel( builder );
-            ConfigIndeterminate( builder );
             ConfigRequired( builder );
             ConfigEvents( builder );
+            ConfigUrl( builder );
+            ConfigDataSource( builder );
         }
 
         /// <summary>
@@ -65,7 +67,9 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置标签
         /// </summary>
         private void ConfigLabel( TagBuilder builder ) {
-            builder.SetContent( _config.GetValue( UiConst.Label ) );
+            builder.AddAttribute( "[vertical]", _config.GetBoolValue( UiConst.Vertical ) );
+            builder.AddAttribute( "[showLabel]", _config.GetBoolValue( MaterialConst.ShowLabel ) );
+            builder.AddAttribute( "label", _config.GetValue( UiConst.Label ) );
             builder.AddAttribute( "labelPosition", _config.GetValue<LabelPosition?>( UiConst.Position )?.Description() );
         }
 
@@ -77,24 +81,10 @@ namespace Util.Ui.Material.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置颜色
-        /// </summary>
-        private void ConfigColor( TagBuilder builder ) {
-            builder.AddAttribute( UiConst.Color, _config.GetValue( UiConst.Color )?.ToLower() );
-        }
-
-        /// <summary>
         /// 配置模型绑定
         /// </summary>
         private void ConfigModel( TagBuilder builder ) {
-            builder.AddAttribute( "[(ngModel)]", _config.GetValue( UiConst.Model ) );
-        }
-
-        /// <summary>
-        /// 配置不确定样式
-        /// </summary>
-        private void ConfigIndeterminate( TagBuilder builder ) {
-            builder.AddAttribute( "[indeterminate]", _config.GetValue( UiConst.Indeterminate ) );
+            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
         }
 
         /// <summary>
@@ -108,7 +98,21 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
-            builder.AddAttribute( "(change)", _config.GetValue( UiConst.OnChange ) );
+            builder.AddAttribute( "(onChange)", _config.GetValue( UiConst.OnChange ) );
+        }
+
+        /// <summary>
+        /// 配置Url
+        /// </summary>
+        private void ConfigUrl( TagBuilder builder ) {
+            builder.AddAttribute( UiConst.Url, _config.GetValue( UiConst.Url ) );
+        }
+
+        /// <summary>
+        /// 配置数据源
+        /// </summary>
+        private void ConfigDataSource( TagBuilder builder ) {
+            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.DataSource ) );
         }
     }
 }
