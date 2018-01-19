@@ -17,7 +17,7 @@ import { MessageConfig } from '../config/message-config';
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <button class="ui-fileupload-choose" type="button" mat-icon-button [matTooltip]="chooseLabel">
                     <mat-icon class="fa-2x">add</mat-icon>
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="true" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
                 </button>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" (click)="upload()" [disabled]="!hasFiles()" mat-icon-button [matTooltip]="uploadLabel">
@@ -43,7 +43,7 @@ import { MessageConfig } from '../config/message-config';
                             <div>{{formatSize(file.size)}}</div>
                             <div>
                                 <button type="button" (click)="remove($event,i)" mat-icon-button [matTooltip]="cancelLabel">
-                                    <mat-icon class="fa-2x">clear</mat-icon>
+                                    <mat-icon>clear</mat-icon>
                                 </button>
                             </div>
                         </div>
@@ -55,14 +55,11 @@ import { MessageConfig } from '../config/message-config';
                 <p-templateLoader [template]="contentTemplate"></p-templateLoader>
             </div>
         </div>
-        <span class="ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" *ngIf="mode === 'basic'" 
-        (mouseup)="onSimpleUploaderClick($event)"
-        [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}">
-            <span class="ui-button-icon-left fa" [ngClass]="{'fa-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
-            <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
-            <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
-                (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
-        </span>
+        <button *ngIf="mode === 'basic'"  class="ui-fileupload-choose" type="button" mat-icon-button [matTooltip]="chooseLabel" (mouseup)="onSimpleUploaderClick($event)">
+            <mat-icon class="fa-2x">cloud_upload</mat-icon>
+            <input #basicfileinput type="file" [accept]="accept" [multiple]="false" [disabled]="disabled"
+                   (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
+        </button>
     `,
     styles: [`
         .mat-progress-bar{

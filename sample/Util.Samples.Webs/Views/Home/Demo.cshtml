@@ -31,7 +31,10 @@
                 @x.Radio( t => t.Gender ).OnChange( "onChange()" )
             </mat-card-content>
             <mat-card-content>
-                <prime-fileUpload url="/api/customers/upload" multiple="true"></prime-fileUpload>
+                <prime-fileUpload url="/api/customers/upload" ></prime-fileUpload>
+            </mat-card-content>
+            <mat-card-content>
+                <prime-single-fileUpload url="/api/customers/upload"></prime-single-fileUpload>
             </mat-card-content>
             <mat-card-content>
                 @x.Button().Reset()

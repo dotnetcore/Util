@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace Util.Samples.Webs.Api.Customers
         public IActionResult Upload() {
             var file = Util.Helpers.Web.GetFile();
             var path = _fileStore.Save( ToBytes( file.OpenReadStream() ), file.FileName );
-            return Content( path );
+            return Content( Util.Helpers.Json.ToJson( new { id = Guid.NewGuid(), url = "http://bpic.588ku.com/element_origin_min_pic/17/11/25/c43b3b5a4e58a2ac8cebddd7fc7e8686.jpg", fileName = file.FileName, extension = Path.GetExtension( file.FileName ) } ) );
         }
 
         /// <summary>

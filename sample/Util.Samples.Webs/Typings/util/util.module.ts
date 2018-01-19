@@ -20,7 +20,7 @@ import {
 //PrimeNg模块
 import {
     ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, ConfirmationService,
-    FileUploadModule
+    FileUploadModule, LightboxModule
 } from 'primeng/primeng';
 //Util组件
 import { UtilDateAdapter } from './material/local/date-adapter';
@@ -34,24 +34,25 @@ import { ButtonWrapperComponent } from './material/button-wrapper.component';
 import { AWrapperComponent } from './material/a-wrapper.component';
 import { RadioWrapperComponent } from './material/radio-wrapper.component';
 import { FileUploadComponent } from './prime/fileUpload.component';
-
+import { SingleFileUploadComponent } from "./prime/single.fileUpload.cpmponent";
+import { FileInfoWrapperComponent } from "./prime/file-info-wrapper.component";
 /**
  * Util模块
  */
 @NgModule({
     imports: [
-        CommonModule, FormsModule, RouterModule,HttpClientModule,
+        CommonModule, FormsModule, RouterModule, HttpClientModule,
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule
+        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
-        FileUploadComponent
+        FileUploadComponent, SingleFileUploadComponent, FileInfoWrapperComponent
     ],
     exports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule,
@@ -60,11 +61,11 @@ import { FileUploadComponent } from './prime/fileUpload.component';
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
+        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, LightboxModule,
         FileUploadModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
-        FileUploadComponent
+        FileUploadComponent, SingleFileUploadComponent, FileInfoWrapperComponent
     ],
     providers: [
         MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,
