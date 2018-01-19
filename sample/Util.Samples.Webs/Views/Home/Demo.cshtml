@@ -21,20 +21,19 @@
 
 <div style="margin: 300px">
     
-    <util-icon material="Add_Circle_Outline"></util-icon>
 
     <util-form id="form" on-submit="onChange(form)">
         <mat-card>
             <mat-card-content>
                 @x.TextBox( t => t.Name )
                 @x.Select( t => t.Nation )
-                @x.Radio( t => t.Gender ).OnChange( "onChange()" )
+                @x.Radio( t => t.Gender )
             </mat-card-content>
             <mat-card-content>
-                <prime-fileUpload url="/api/customers/upload" ></prime-fileUpload>
+                <prime-file-upload url="/api/customers/upload" ></prime-file-upload>
             </mat-card-content>
             <mat-card-content>
-                <prime-single-fileUpload url="/api/customers/upload"></prime-single-fileUpload>
+                <single-file-upload url="/api/customers/upload"></single-file-upload>
             </mat-card-content>
             <mat-card-content>
                 @x.Button().Reset()

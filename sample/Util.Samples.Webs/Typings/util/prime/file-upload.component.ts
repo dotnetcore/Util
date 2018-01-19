@@ -2,16 +2,16 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, NgZone, EventEmitter } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUpload, DomHandler } from 'primeng/primeng';
 import { MessageConfig } from '../config/message-config';
 
 /**
- * 文件上传组件，基于Prime文件上传
+ * 文件上传，基于Prime文件上传组件
  */
 @Component({
-    selector: 'prime-fileUpload',
+    selector: 'prime-file-upload',
     template:`
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
@@ -55,7 +55,7 @@ import { MessageConfig } from '../config/message-config';
                 <p-templateLoader [template]="contentTemplate"></p-templateLoader>
             </div>
         </div>
-        <button *ngIf="mode === 'basic'"  class="ui-fileupload-choose" type="button" mat-icon-button [matTooltip]="chooseLabel" (mouseup)="onSimpleUploaderClick($event)">
+        <button *ngIf="mode === 'basic'"  class="ui-fileupload-choose" type="button" mat-icon-button [matTooltip]="uploadLabel" (mouseup)="onSimpleUploaderClick($event)">
             <mat-icon class="fa-2x">cloud_upload</mat-icon>
             <input #basicfileinput type="file" [accept]="accept" [multiple]="false" [disabled]="disabled"
                    (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
@@ -82,7 +82,7 @@ export class FileUploadComponent extends FileUpload {
     /**
      * 获取进度条样式
      */
-    getProgressStyles() {
+    private getProgressStyles() {
         return {
             'position': 'absolute',
             'top': '0px',

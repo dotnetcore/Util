@@ -33,9 +33,8 @@ import { DatePickerWrapperComponent } from './material/datepicker-wrapper.compon
 import { ButtonWrapperComponent } from './material/button-wrapper.component';
 import { AWrapperComponent } from './material/a-wrapper.component';
 import { RadioWrapperComponent } from './material/radio-wrapper.component';
-import { FileUploadComponent } from './prime/fileUpload.component';
-import { SingleFileUploadComponent } from "./prime/single.fileUpload.cpmponent";
-import { FileInfoWrapperComponent } from "./prime/file-info-wrapper.component";
+import { FileUploadComponent } from './prime/file-upload.component';
+import { SingleFileUploadComponent } from "./prime/single-file-upload.component";
 /**
  * Util模块
  */
@@ -52,7 +51,7 @@ import { FileInfoWrapperComponent } from "./prime/file-info-wrapper.component";
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
-        FileUploadComponent, SingleFileUploadComponent, FileInfoWrapperComponent
+        FileUploadComponent, SingleFileUploadComponent
     ],
     exports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule,
@@ -65,7 +64,7 @@ import { FileInfoWrapperComponent } from "./prime/file-info-wrapper.component";
         FileUploadModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
-        FileUploadComponent, SingleFileUploadComponent, FileInfoWrapperComponent
+        FileUploadComponent, SingleFileUploadComponent
     ],
     providers: [
         MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,

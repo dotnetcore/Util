@@ -28,8 +28,8 @@
   <ItemGroup>
     <None Remove="Typings\util\core\file-info.ts" />
     <None Remove="Typings\util\material\radio-wrapper.component.ts" />
-    <None Remove="Typings\util\prime\fileUpload.component.ts" />
-    <None Remove="Typings\util\prime\single.fileUpload.cpmponent.ts" />
+    <None Remove="Typings\util\prime\file-upload.component.ts" />
+    <None Remove="Typings\util\prime\single-file-upload.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,8 +60,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="Typings\util\core\file-info.ts" />
     <TypeScriptCompile Include="Typings\util\material\radio-wrapper.component.ts" />
-    <TypeScriptCompile Include="Typings\util\prime\fileUpload.component.ts" />
-    <TypeScriptCompile Include="Typings\util\prime\single.fileUpload.cpmponent.ts" />
+    <TypeScriptCompile Include="Typings\util\prime\file-upload.component.ts" />
+    <TypeScriptCompile Include="Typings\util\prime\single-file-upload.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
