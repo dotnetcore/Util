@@ -13,7 +13,7 @@ import {
     MatCommonModule, MatRippleModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
     MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
-    MatSnackBarModule,
+    MatSnackBarModule, MatProgressBarModule,
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
@@ -44,7 +44,7 @@ import { FileUploadComponent } from './prime/fileUpload.component';
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
-        MatSnackBarModule,
+        MatSnackBarModule, MatProgressBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule
     ],
@@ -58,7 +58,7 @@ import { FileUploadComponent } from './prime/fileUpload.component';
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
-        MatSnackBarModule,
+        MatSnackBarModule, MatProgressBarModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule,
         FileUploadModule,

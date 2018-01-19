@@ -6,7 +6,7 @@ import {
     MatButtonToggleModule,
     MatCardModule, MatChipsModule,
     MatDialogModule, MatGridListModule,
-    MatListModule, MatMenuModule, MatProgressBarModule,
+    MatListModule, MatMenuModule, 
     MatSidenavModule, MatSliderModule, MatSortModule,
     MatTableModule, MatTabsModule, MatToolbarModule,
     MatExpansionModule, MatStepperModule
@@ -17,7 +17,7 @@ import {
         MatButtonToggleModule,
         MatCardModule, MatChipsModule,
         MatDialogModule, MatGridListModule,
-        MatListModule, MatMenuModule, MatProgressBarModule,
+        MatListModule, MatMenuModule, 
         MatSidenavModule, MatSliderModule, MatSortModule,
         MatTableModule, MatTabsModule, MatToolbarModule,
         MatExpansionModule, MatStepperModule

@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUpload, DomHandler } from 'primeng/primeng';
 import { MessageConfig } from '../config/message-config';
@@ -12,7 +12,7 @@ import { MessageConfig } from '../config/message-config';
  */
 @Component({
     selector: 'prime-fileUpload',
-    template: `
+    template:`
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <button class="ui-fileupload-choose" type="button" mat-icon-button [matTooltip]="chooseLabel">
@@ -31,7 +31,7 @@ import { MessageConfig } from '../config/message-config';
             </div>
             <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}" 
                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-                <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
+                <mat-progress-bar mode="determinate"[value]="progress" *ngIf="hasFiles()" [ngStyle]="getProgressStyles()"></mat-progress-bar>
                 
                 <p-messages [value]="msgs"></p-messages>
                 
@@ -43,7 +43,7 @@ import { MessageConfig } from '../config/message-config';
                             <div>{{formatSize(file.size)}}</div>
                             <div>
                                 <button type="button" (click)="remove($event,i)" mat-icon-button [matTooltip]="cancelLabel">
-                                    <mat-icon class="fa-2x">remove</mat-icon>
+                                    <mat-icon class="fa-2x">clear</mat-icon>
                                 </button>
                             </div>
                         </div>
@@ -64,6 +64,11 @@ import { MessageConfig } from '../config/message-config';
                 (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
     `,
+    styles: [`
+        .mat-progress-bar{
+            height:2px;
+        }
+    `],
     providers: [DomHandler]
 })
 export class FileUploadComponent extends FileUpload {
@@ -75,5 +80,16 @@ export class FileUploadComponent extends FileUpload {
         this.chooseLabel = MessageConfig.chooseFile;
         this.uploadLabel = MessageConfig.upload;
         this.cancelLabel = MessageConfig.cancel;
+    }
+
+    /**
+     * 获取进度条样式
+     */
+    getProgressStyles() {
+        return {
+            'position': 'absolute',
+            'top': '0px',
+            'left': '0px'
+        };
     }
 }

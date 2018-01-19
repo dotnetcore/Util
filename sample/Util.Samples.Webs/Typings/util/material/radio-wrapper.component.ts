@@ -35,7 +35,7 @@ import { WebApi as webapi } from '../common/webapi';
             flex-direction: column;
         }
         .radio-label{
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color:rgba(0,0,0,.54);
         }
         .radio-required{

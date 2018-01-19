@@ -205,6 +205,17 @@
     }
 }
 
+.ui-fileupload-buttonbar {
+    padding: 0;
+}
+
+.ui-widget-header {
+    background: #fafafa !important;
+}
+.ui-widget-content{
+    border-top:0;
+}
+
 .ui-button:focus,
 .ui-button:enabled:hover,
 .ui-fileupload-choose:not(.ui-state-disabled):hover {
