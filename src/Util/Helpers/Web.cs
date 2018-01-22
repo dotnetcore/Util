@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 
@@ -19,6 +20,7 @@ namespace Util.Helpers {
         static Web() {
             try {
                 HttpContextAccessor = Ioc.Create<IHttpContextAccessor>();
+                Environment = Ioc.Create<IHostingEnvironment>();
             }
             catch{
             }
@@ -37,6 +39,11 @@ namespace Util.Helpers {
         /// 当前Http上下文
         /// </summary>
         public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
+
+        /// <summary>
+        /// 宿主环境
+        /// </summary>
+        public static IHostingEnvironment Environment { get; set; }
 
         #endregion
 
@@ -133,6 +140,24 @@ namespace Util.Helpers {
         public static string Browser => HttpContext?.Request?.Headers["User-Agent"];
 
         #endregion
+
+        #region RootPath(根路径)
+
+        /// <summary>
+        /// 根路径
+        /// </summary>
+        public static string RootPath => Environment?.ContentRootPath;
+
+        #endregion 
+
+        #region WebRootPath(Web根路径)
+
+        /// <summary>
+        /// Web根路径，即wwwroot
+        /// </summary>
+        public static string WebRootPath => Environment?.WebRootPath;
+
+        #endregion 
 
         #region GetFiles(获取客户端文件集合)
 

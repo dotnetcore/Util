@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using Util.Helpers;
 using Util.Randoms;
 
 namespace Util.Files.Paths {
@@ -8,11 +8,6 @@ namespace Util.Files.Paths {
     /// 路径生成器
     /// </summary>
     public abstract class PathGeneratorBase : IPathGenerator {
-        /// <summary>
-        /// 路径参数
-        /// </summary>
-        protected Dictionary<string, string> Parameters { get; }
-
         /// <summary>
         /// 随机数生成器
         /// </summary>
@@ -23,22 +18,7 @@ namespace Util.Files.Paths {
         /// </summary>
         /// <param name="randomGenerator">随机数生成器</param>
         protected PathGeneratorBase( IRandomGenerator randomGenerator ) {
-            Parameters = new Dictionary<string, string>();
             _randomGenerator = randomGenerator ?? GuidRandomGenerator.Instance;
-        }
-
-        /// <summary>
-        /// 添加路径参数
-        /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">值</param>
-        public IPathGenerator Data( string key, string value ) {
-            if( string.IsNullOrWhiteSpace( key ) )
-                return this;
-            if( Parameters.ContainsKey( key ) )
-                return this;
-            Parameters[key] = value;
-            return this;
         }
 
         /// <summary>
@@ -69,7 +49,16 @@ namespace Util.Files.Paths {
             }
             if( string.IsNullOrWhiteSpace( name ) )
                 name = _randomGenerator.Generate();
-            return $"{name}.{extension}";
+            name = FilterFileName( name );
+            return $"{name}-{Time.GetDateTime():HHmmss}.{extension}";
+        }
+
+        /// <summary>
+        /// 过滤文件名
+        /// </summary>
+        private static string FilterFileName( string fileName ) {
+            fileName = Regex.Replace( fileName, "\\W", "" );
+            return Util.Helpers.String.PinYin( fileName );
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Util.Helpers;
 using Util.Randoms;
 
 namespace Util.Files.Paths {
@@ -25,7 +26,7 @@ namespace Util.Files.Paths {
         /// </summary>
         /// <param name="fileName">被处理过的安全有效的文件名</param>
         protected override string GeneratePath( string fileName ) {
-            return Path.Combine( _basePath.GetPath(), fileName );
+            return Common.GetPhysicalPath( Path.Combine( _basePath.GetPath(), fileName ) );
         }
     }
 }

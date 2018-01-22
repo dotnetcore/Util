@@ -9,7 +9,7 @@ namespace Util.Samples.Webs.Configs {
         /// 获取基路径
         /// </summary>
         public string GetPath() {
-            return "/upload";
+            return "upload";
         }
     }
 }

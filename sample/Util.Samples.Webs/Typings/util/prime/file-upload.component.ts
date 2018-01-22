@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ElementRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUpload, DomHandler } from 'primeng/primeng';
 import { MessageConfig } from '../config/message-config';
@@ -27,7 +27,7 @@ import { MessageConfig } from '../config/message-config';
                     <mat-icon class="fa-2x">clear</mat-icon>
                 </button>
             
-                <p-templateLoader [template]="toolbarTemplate"></p-templateLoader>
+                <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
             <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}" 
                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
@@ -52,7 +52,7 @@ import { MessageConfig } from '../config/message-config';
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
-                <p-templateLoader [template]="contentTemplate"></p-templateLoader>
+                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
         </div>
         <button *ngIf="mode === 'basic'"  class="ui-fileupload-choose" type="button" mat-icon-button [matTooltip]="uploadLabel" (mouseup)="onSimpleUploaderClick($event)">
@@ -72,8 +72,8 @@ export class FileUploadComponent extends FileUpload {
     /**
      * 初始化文件上传
      */
-    constructor(domHandler: DomHandler, sanitizer: DomSanitizer, zone: NgZone) {
-        super(domHandler, sanitizer, zone);
+    constructor(el: ElementRef, domHandler: DomHandler, sanitizer: DomSanitizer, zone: NgZone) {
+        super(el, domHandler, sanitizer, zone);
         this.chooseLabel = MessageConfig.chooseFile;
         this.uploadLabel = MessageConfig.upload;
         this.cancelLabel = MessageConfig.cancel;

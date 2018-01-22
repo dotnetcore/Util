@@ -1,4 +1,5 @@
-﻿using Util.Files.Paths;
+﻿using System.IO;
+using Util.Files.Paths;
 
 namespace Util.Files {
     /// <summary>
@@ -25,7 +26,8 @@ namespace Util.Files {
         /// <param name="fileName">文件名，包含扩展名</param>
         public string Save( byte[] stream, string fileName ) {
             var path = _generator.Generate( fileName );
-            stream.ToFile( path );
+            using ( new FileStream( path, FileMode.Create ) ) {
+            }
             return path;
         }
     }

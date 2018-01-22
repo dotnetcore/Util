@@ -45,16 +45,19 @@ namespace Donau.Services.Core.Customers {
         protected override Customer ToEntity( CustomersDto dto ) {
             return dto.MapTo( new Customer( dto.Id ) );
         }
-        
+
+        protected override bool IsTracking => true;
+    
+
         /// <summary>
         /// 创建查询对象
         /// </summary>
         /// <param name="param">客户查询实体</param>
         protected override IQueryBase<Customer> CreateQuery( CustomersQuery param ) {
             return new Query<Customer,string>( param )
-                .And(t => t.Name.Contains(param.Name))
-                .And(t => t.Nickname.Contains(param.Nickname))
-                .And(t => t.Mobile.Contains(param.Mobile));
+                .WhereIfNotEmpty(t => t.Name.Contains(param.Name))
+                .WhereIfNotEmpty( t => t.Nickname.Contains(param.Nickname))
+                .WhereIfNotEmpty( t => t.Mobile.Contains(param.Mobile));
         }
     }
 }

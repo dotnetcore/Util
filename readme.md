@@ -178,7 +178,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - [System.Linq.Dynamic.Core](https://github.com/StefH/System.Linq.Dynamic.Core)
 
 19. Web框架
-  - Asp.Net Core 2
+  - [Asp.Net Core](https://docs.microsoft.com/zh-cn/aspnet/core/)
 
 20. UI
   - 脚本语言
