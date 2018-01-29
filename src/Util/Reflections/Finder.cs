@@ -13,7 +13,7 @@ namespace Util.Reflections {
         /// <summary>
         /// 跳过的程序集
         /// </summary>
-        private const string SkipAssemblies = "^System|^Mscorlib|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Xunit|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted";
+        private const string SkipAssemblies = "^Npoi|^System|^Mscorlib|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Xunit|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted";
 
         /// <summary>
         /// 获取程序集列表
@@ -45,11 +45,54 @@ namespace Util.Reflections {
         /// 加载程序集到当前应用程序域
         /// </summary>
         /// <param name="path">目录绝对路径</param>
-        protected void LoadAssemblies( string path ) {
-            foreach( string file in Directory.GetFiles( path, "*.dll" ) ) {
+        protected void LoadAssemblies( string path ) {            
+            var dllFiles = new List<string>(); 
+            // 自动注册的程序集配置文件，置于当前根路径下
+            // 配置文件内容为程序集文件名称（含后缀名），注意大小写 
+            string configFile = Path.Combine(path, "di.txt");
+            
+            if (File.Exists(configFile))
+            {
+                // 存在配置文件，则从配置文件中读取
+                using (var dllReader = File.OpenText(configFile))
+                {
+                    var line = dllReader.ReadLine();
+                    while (line != null)
+                    {
+                        if (!string.IsNullOrEmpty(line))
+                        {
+                            // 只读取后缀名为.dll的程序集文件
+                            if (line.Trim().EndsWith(".dll"))
+                            {
+                                var fn = Path.Combine(path, line.Trim());
+                                // 如果在当前目录下存在程序集文件，则加入要自动注册的文件集合中
+                                if (File.Exists(fn))
+                                {
+                                    dllFiles.Add(fn);
+                                }
+                            }
+                        }
+                        line = dllReader.ReadLine();
+                    }
+                }
+            }
+            else // 如果不存在配置文件，则自动从当前根路径下读取所有dll文件
+            {
+                dllFiles = Directory.GetFiles(path, "*.dll").ToList();
+            }
+
+            // 遍历所有程序集文件
+            foreach ( string file in dllFiles) {
                 var assemblyName = AssemblyName.GetAssemblyName( file );
-                if( Match( assemblyName ) )
-                    AppDomain.CurrentDomain.Load( assemblyName );
+                if (Match(assemblyName))
+                {
+                    try
+                    {
+                        AppDomain.CurrentDomain.Load(assemblyName);                       
+                    }
+                    finally
+                    { }
+                }
             }
         }
 
