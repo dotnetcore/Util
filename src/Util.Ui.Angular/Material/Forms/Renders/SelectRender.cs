@@ -1,8 +1,10 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
+using Util.Ui.Material.Forms.Resolvers;
 
 namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
@@ -26,10 +28,21 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
+            ResolveExpression();
             var builder = new SelectWrapperBuilder();
             base.Config( builder );
             ConfigSelect( builder );
             return builder;
+        }
+
+        /// <summary>
+        /// 解析属性表达式
+        /// </summary>
+        private void ResolveExpression() {
+            if( _config.Contains( UiConst.For ) == false )
+                return;
+            var expression = _config.GetValue<ModelExpression>( UiConst.For );
+            SelectExpressionResolver.Init( expression, _config );
         }
 
         /// <summary>
@@ -54,7 +67,17 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置数据源
         /// </summary>
         private void ConfigDataSource( SelectWrapperBuilder builder ) {
+            AddItems();
             builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.DataSource ) );
+        }
+
+        /// <summary>
+        /// 添加项集合
+        /// </summary>
+        private void AddItems() {
+            if( _config.Items.Count == 0 )
+                return;
+            _config.SetAttribute( UiConst.DataSource, Util.Helpers.Json.ToJson( _config.Items, true ) );
         }
 
         /// <summary>

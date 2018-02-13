@@ -1,9 +1,11 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
+using Util.Ui.Material.Forms.Resolvers;
 
 namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
@@ -27,12 +29,23 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
+            ResolveExpression();
             var builder = CreateBuilder();
             base.Config( builder );
             ConfigTextArea( builder );
             ConfigDatePicker( builder );
             ConfigTextBox( builder );
             return builder;
+        }
+
+        /// <summary>
+        /// 解析属性表达式
+        /// </summary>
+        private void ResolveExpression() {
+            if( _config.Contains( UiConst.For ) == false )
+                return;
+            var expression = _config.GetValue<ModelExpression>( UiConst.For );
+            TextBoxExpressionResolver.Init( expression, _config );
         }
 
         /// <summary>
@@ -130,7 +143,5 @@ namespace Util.Ui.Material.Forms.Renders {
         private void ConfigMaxLength( TagBuilder builder ) {
             builder.AddAttribute( "[maxLength]", _config.GetValue( UiConst.MaxLength ) );
         }
-
-        
     }
 }

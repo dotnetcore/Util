@@ -33,6 +33,7 @@ namespace Donau.Services.Dtos.Customers {
         /// 余额
         /// </summary>
         [DataMember]
+        [StringLength( 6, ErrorMessage = "昵称输入过长，不能超过30位" )]
         [Display( Name = "余额" )]
         public double Balance { get; set; }
 

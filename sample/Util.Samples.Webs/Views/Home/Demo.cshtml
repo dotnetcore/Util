@@ -25,8 +25,9 @@
     <util-form id="form" on-submit="onChange(form)">
         <mat-card>
             <mat-card-content>
-                @x.TextBox( t => t.Name )
-                @x.Select( t => t.Nation )
+                <util-textbox for="Name"></util-textbox>
+                <util-select for="Gender"></util-select>
+                <util-select for="Nation"></util-select>
                 @x.Radio( t => t.Gender )
             </mat-card-content>
             <mat-card-content>

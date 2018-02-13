@@ -335,8 +335,8 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestBool() {
             var result = new String();
             result.Append( "<mat-select-wrapper [dataSource]=\"[" );
-            result.Append( "{'text':'是','value':'true'}," );
-            result.Append( "{'text':'否','value':'false'}" );
+            result.Append( "{'text':'是','value':true}," );
+            result.Append( "{'text':'否','value':false}" );
             result.Append( "]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Bool() ) );
         }

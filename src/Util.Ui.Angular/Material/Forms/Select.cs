@@ -40,24 +40,6 @@ namespace Util.Ui.Material.Forms {
         }
 
         /// <summary>
-        /// 渲染前操作
-        /// </summary>
-        /// <param name="writer">流写入器</param>
-        /// <param name="encoder">编码</param>
-        protected override void RenderBefore( TextWriter writer, HtmlEncoder encoder ) {
-            AddItems();
-        }
-
-        /// <summary>
-        /// 添加项集合
-        /// </summary>
-        private void AddItems() {
-            if( _config.Items.Count == 0 )
-                return;
-            this.DataSource( Util.Helpers.Json.ToJson( _config.Items,true ) );
-        }
-
-        /// <summary>
         /// 绑定枚举
         /// </summary>
         /// <typeparam name="TEnum">枚举类型</typeparam>

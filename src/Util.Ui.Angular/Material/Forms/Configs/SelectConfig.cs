@@ -29,8 +29,9 @@ namespace Util.Ui.Material.Forms.Configs {
         /// 添加项集合
         /// </summary>
         /// <param name="items">列表项集合</param>
-        public void AddItems( params Item[] items ) {
+        public SelectConfig AddItems( params Item[] items ) {
             Items.AddRange( items );
+            return this;
         }
 
         /// <summary>

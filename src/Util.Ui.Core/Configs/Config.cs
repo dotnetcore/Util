@@ -76,7 +76,7 @@ namespace Util.Ui.Configs {
         /// <typeparam name="T">目标类型</typeparam>
         /// <param name="name">属性名</param>
         public T GetValue<T>( string name ) {
-            return Util.Helpers.Convert.To<T>( GetValue( name ) );
+            return Contains( name ) ? Util.Helpers.Convert.To<T>( AllAttributes[name].Value ) : default(T);
         }
 
         /// <summary>

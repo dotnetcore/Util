@@ -61,7 +61,7 @@ namespace Util.Ui.Material.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         public static TComponent Bool<TComponent>( this TComponent component ) where TComponent : IItem {
-            return component.Add( "是", "true" ).Add( "否", "false" );
+            return component.Add( "是", true ).Add( "否", false );
         }
     }
 }

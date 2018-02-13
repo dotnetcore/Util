@@ -183,5 +183,9 @@
         /// 垂直
         /// </summary>
         public const string Vertical = "vertical";
+        /// <summary>
+        /// for
+        /// </summary>
+        public const string For = "for";
     }
 }

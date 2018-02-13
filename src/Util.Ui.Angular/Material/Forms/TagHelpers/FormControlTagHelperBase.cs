@@ -1,4 +1,5 @@
-﻿using Util.Ui.Enums;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Enums;
 using Util.Ui.Material.Enums;
 using Util.Ui.TagHelpers;
 
@@ -55,6 +56,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 后缀图标单击事件,范例：click()
         /// </summary>
         public string OnSuffixIconClick { get; set; }
+        /// <summary>
+        /// 属性表达式
+        /// </summary>
+        public ModelExpression For { get; set; }
         /// <summary>
         /// 模型绑定
         /// </summary>

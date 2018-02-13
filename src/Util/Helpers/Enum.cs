@@ -89,15 +89,23 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 获取描述项集合,文本设置为Description，值为Value
+        /// 获取项集合,文本设置为Description，值为Value
         /// </summary>
         /// <typeparam name="TEnum">枚举类型</typeparam>
         public static List<Item> GetItems<TEnum>() {
-            TypeInfo enumType = Common.GetType<TEnum>().GetTypeInfo();
+            return GetItems( Common.GetType<TEnum>() );
+        }
+
+        /// <summary>
+        /// 获取项集合,文本设置为Description，值为Value
+        /// </summary>
+        /// <param name="type">枚举类型</param>
+        public static List<Item> GetItems( Type type ) {
+            TypeInfo enumType = type.GetTypeInfo();
             ValidateEnum( enumType );
             var result = new List<Item>();
             foreach( var field in enumType.GetFields() )
-                AddItem<TEnum>( result, field );
+                AddItem( type, result, field );
             return result.OrderBy( t => t.SortId ).ToList();
         }
 
@@ -112,10 +120,10 @@ namespace Util.Helpers {
         /// <summary>
         /// 添加描述项
         /// </summary>
-        private static void AddItem<TEnum>( ICollection<Item> result, FieldInfo field ) {
+        private static void AddItem( Type type, ICollection<Item> result, FieldInfo field ) {
             if( !field.FieldType.GetTypeInfo().IsEnum )
                 return;
-            var value = GetValue<TEnum>( field.Name );
+            var value = GetValue( type, field.Name );
             var description = Reflection.GetDescription( field );
             result.Add( new Item( description, value, value ) );
         }
