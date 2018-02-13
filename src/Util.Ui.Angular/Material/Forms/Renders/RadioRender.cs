@@ -43,7 +43,7 @@ namespace Util.Ui.Material.Forms.Renders {
             if( _config.Contains( UiConst.For ) == false )
                 return;
             var expression = _config.GetValue<ModelExpression>( UiConst.For );
-            RadioExpressionResolver.Init( expression, _config );
+            SelectExpressionResolver.Init( expression, _config );
         }
 
         /// <summary>

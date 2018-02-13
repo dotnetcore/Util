@@ -51,7 +51,7 @@ namespace Util.Ui.Material.Forms.Resolvers {
         /// 初始化
         /// </summary>
         private void Init() {
-            Helper.InitConfig( _config, _expression, _memberInfo );
+            Helper.Init( _config, _expression, _memberInfo );
             InitType();
         }
 

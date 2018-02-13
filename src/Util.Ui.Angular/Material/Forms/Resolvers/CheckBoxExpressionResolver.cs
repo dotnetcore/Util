@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Commons.Internal;
@@ -51,8 +50,7 @@ namespace Util.Ui.Material.Forms.Resolvers {
         /// 初始化
         /// </summary>
         private void Init() {
-            Helper.InitConfig( _config, _expression, _memberInfo );
-            _config.SetAttribute( UiConst.Label, Reflection.GetDisplayNameOrDescription( _memberInfo ) );
+            Helper.Init( _config, _expression, _memberInfo );
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using Util.Biz.Enums
-@model Donau.Services.Dtos.Customers.CustomersDto
+﻿@model Donau.Services.Dtos.Customers.CustomersDto
 @{
     ViewData["Title"] = "Tile";
     var x = Html.Ui();
@@ -25,13 +24,13 @@
     <util-form id="form" on-submit="onChange(form)">
         <mat-card>
             <mat-card-content>
-                <util-textbox for="CreationTime"></util-textbox>
+                <util-textbox for="Name"></util-textbox>
                 <util-select for="Nation"></util-select>
                 <util-checkbox  for="IsGender"></util-checkbox>
                 <util-radio for="Nation"></util-radio>
                 <util-slide-toggle for="IsGender"></util-slide-toggle>
                 @x.Select(t => t.Nation)
-                @x.TextBox(t=>t.CreationTime )
+                @x.TextBox(t=>t.Name )
             </mat-card-content>
             <mat-card-content>
                 @x.Button().Reset()

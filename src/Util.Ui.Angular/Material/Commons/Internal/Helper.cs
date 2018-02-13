@@ -14,37 +14,39 @@ namespace Util.Ui.Material.Commons.Internal {
     /// </summary>
     internal static class Helper {
         /// <summary>
-        /// 初始化配置
+        /// 初始化基础配置
         /// </summary>
         /// <typeparam name="TModel">模型类型</typeparam>
         /// <typeparam name="TProperty">属性类型</typeparam>
         /// <param name="config">配置</param>
         /// <param name="expression">属性表达式</param>
         /// <param name="member">成员</param>
-        public static void InitConfig<TModel, TProperty>( IConfig config, Expression<Func<TModel, TProperty>> expression, MemberInfo member ) {
+        public static void Init<TModel, TProperty>( IConfig config, Expression<Func<TModel, TProperty>> expression, MemberInfo member ) {
             Type modelType = Common.GetType<TModel>();
             var propertyName = Lambda.GetName( expression );
-            InitConfig( config, modelType, member, propertyName );
+            Init( config, modelType, member, propertyName );
         }
 
         /// <summary>
-        /// 初始化配置
+        /// 初始化基础配置
         /// </summary>
         /// <param name="config">配置</param>
         /// <param name="expression">属性表达式</param>
         /// <param name="member">成员</param>
-        public static void InitConfig( IConfig config, ModelExpression expression, MemberInfo member ) {
+        public static void Init( IConfig config, ModelExpression expression, MemberInfo member ) {
             Type modelType = expression.Metadata.ContainerType;
             var propertyName = expression.Name;
-            InitConfig( config, modelType, member, propertyName );
+            Init( config, modelType, member, propertyName );
         }
 
         /// <summary>
-        /// 初始化配置
+        /// 初始化基础配置
         /// </summary>
-        private static void InitConfig( IConfig config, Type modelType, MemberInfo member, string propertyName ) {
+        private static void Init( IConfig config, Type modelType, MemberInfo member, string propertyName ) {
             config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( propertyName ) );
-            config.SetAttribute( UiConst.Placeholder, Reflection.GetDisplayNameOrDescription( member ) );
+            var displayName = Reflection.GetDisplayNameOrDescription( member );
+            config.SetAttribute( UiConst.Placeholder, displayName );
+            config.SetAttribute( UiConst.Label, displayName );
             InitModel( config, modelType, member, propertyName );
             InitRequired( config, member );
         }
@@ -147,8 +149,17 @@ namespace Util.Ui.Material.Commons.Internal {
         /// <param name="config">配置</param>
         /// <param name="member">成员</param>
         public static void InitValidation( TextBoxConfig config, MemberInfo member ) {
-            InitStringLength( config, member );
+            InitLength( config, member );
             InitEmail( config, member );
+        }
+
+        /// <summary>
+        /// 初始化字符串长度验证
+        /// </summary>
+        private static void InitLength( TextBoxConfig config, MemberInfo member ) {
+            InitStringLength( config, member );
+            InitMinLength( config, member );
+            InitMaxLength( config, member );
         }
 
         /// <summary>
@@ -162,6 +173,27 @@ namespace Util.Ui.Material.Commons.Internal {
                 config.SetAttribute( UiConst.MinLength, attribute.MinimumLength );
             if( attribute.MaximumLength > 0 )
                 config.SetAttribute( UiConst.MaxLength, attribute.MaximumLength );
+        }
+
+        /// <summary>
+        /// 初始化字符串最小长度验证
+        /// </summary>
+        private static void InitMinLength( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<MinLengthAttribute>();
+            if( attribute == null )
+                return;
+            config.SetAttribute( UiConst.MinLength, attribute.Length );
+            config.SetAttribute( UiConst.MinLengthMessage, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 初始化字符串最大长度验证
+        /// </summary>
+        private static void InitMaxLength( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<MaxLengthAttribute>();
+            if( attribute == null )
+                return;
+            config.SetAttribute( UiConst.MaxLength, attribute.Length );
         }
 
         /// <summary>
