@@ -51,10 +51,8 @@ namespace Util.Ui.Material.Forms.Resolvers {
         /// 初始化
         /// </summary>
         private void Init() {
-            _config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( _expression.Name ) );
+            Helper.InitConfig( _config, _expression, _memberInfo );
             _config.SetAttribute( UiConst.Label, Reflection.GetDisplayNameOrDescription( _memberInfo ) );
-            Helper.InitModel( _config, _expression );
-            Helper.InitRequired( _config, _expression );
         }
     }
 }

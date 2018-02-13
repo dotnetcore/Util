@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Util.Helpers;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Commons.Internal;
 using Util.Ui.Material.Extensions;
 
@@ -38,10 +37,8 @@ namespace Util.Ui.Material.Forms.Models {
         /// 初始化
         /// </summary>
         private void Init() {
-            this.Name( Util.Helpers.String.FirstLowerCase( Lambda.GetName( _expression ) ) );
+            Helper.InitConfig( OptionConfig, _expression, _memberInfo );
             this.Label( Reflection.GetDisplayNameOrDescription( _memberInfo ) );
-            Helper.InitModel( this, _expression );
-            Helper.InitRequired( this, _expression );
         }
     }
 }

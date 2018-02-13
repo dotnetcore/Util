@@ -13,11 +13,6 @@ namespace Donau.Services.Dtos.Customers {
     [DataContract]
     [Model("model")]
     public class CustomersDto : DtoBase {
-
-        public CustomersDto() {
-            CreationTime = DateTime.Now;
-        }
-
         /// <summary>
         /// 客户名称
         /// </summary>
@@ -29,7 +24,7 @@ namespace Donau.Services.Dtos.Customers {
         /// <summary>
         /// 昵称
         /// </summary>
-        [StringLength( 30, ErrorMessage = "昵称输入过长，不能超过30位" )]
+        [StringLength( 30, ErrorMessage = "昵称输入过长，不能超过30位",MinimumLength = 3)]
         [Display( Name = "昵称" )]
         [DataMember]
         public string Nickname { get; set; }

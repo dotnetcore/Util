@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 using Util.Helpers;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Commons.Internal;
-using Util.Ui.Material.Extensions;
+using Util.Ui.Material.Forms.Configs;
 
 namespace Util.Ui.Material.Forms.Models {
     /// <summary>
@@ -23,6 +21,7 @@ namespace Util.Ui.Material.Forms.Models {
                 return;
             _expression = expression;
             _memberInfo = Lambda.GetMember( _expression );
+            _config = (TextBoxConfig)OptionConfig;
             Init();
         }
 
@@ -34,59 +33,18 @@ namespace Util.Ui.Material.Forms.Models {
         /// 成员
         /// </summary>
         private readonly MemberInfo _memberInfo;
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private readonly TextBoxConfig _config;
 
         /// <summary>
         /// 初始化
         /// </summary>
         private void Init() {
-            Helper.InitControl( this, _expression, _memberInfo );
-            InitType();
-            InitValidation();
-        }
-
-        /// <summary>
-        /// 根据类型初始化
-        /// </summary>
-        private void InitType() {
-            if ( Reflection.IsDate( _memberInfo ) )
-                this.ToDatePicker();
-            else if ( Reflection.IsNumber( _memberInfo ) )
-                this.Number();
-        }
-
-        /// <summary>
-        /// 初始化验证
-        /// </summary>
-        private void InitValidation() {
-            InitStringLength();
-            InitEmail();
-        }
-
-        /// <summary>
-        /// 初始化字符串长度验证
-        /// </summary>
-        private void InitStringLength() {
-            var attribute = Lambda.GetAttribute<StringLengthAttribute>( _expression );
-            if( attribute == null )
-                return;
-            if ( attribute.MinimumLength > 0 )
-                this.MinLength( attribute.MinimumLength );
-            if ( attribute.MaximumLength > 0 )
-                this.MaxLength( attribute.MaximumLength );
-        }
-
-        /// <summary>
-        /// 初始化电子邮件验证
-        /// </summary>
-        private void InitEmail() {
-            var attribute = Lambda.GetAttribute<EmailAddressAttribute>( _expression );
-            if ( attribute == null )
-                return;
-            if ( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) ) {
-                this.Email();
-                return;
-            }
-            this.Email( attribute.ErrorMessage );
+            Helper.InitConfig( _config, _expression, _memberInfo );
+            Helper.InitDataType( _config, _memberInfo );
+            Helper.InitValidation( _config, _memberInfo );
         }
     }
 }

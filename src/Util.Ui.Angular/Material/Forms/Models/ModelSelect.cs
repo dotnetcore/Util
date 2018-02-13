@@ -37,7 +37,7 @@ namespace Util.Ui.Material.Forms.Models {
         /// 初始化
         /// </summary>
         private void Init() {
-            Helper.InitControl( this, _expression, _memberInfo );
+            Helper.InitConfig( OptionConfig, _expression, _memberInfo );
             InitType();
         }
 

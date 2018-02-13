@@ -28,5 +28,26 @@ namespace Util.Ui.Material.Forms.Configs {
         /// 是否日期选择框
         /// </summary>
         public bool IsDatePicker { get; set; }
+
+        /// <summary>
+        /// 设置为数值类型
+        /// </summary>
+        public void Number() {
+            SetAttribute( UiConst.Type, "number" );
+        }
+
+        /// <summary>
+        /// 设置为密码类型
+        /// </summary>
+        public void Password() {
+            SetAttribute( UiConst.Type, "password" );
+        }
+
+        /// <summary>
+        /// 设置为Email类型
+        /// </summary>
+        public void Email() {
+            SetAttribute( UiConst.Type, "email" );
+        }
     }
 }

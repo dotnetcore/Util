@@ -1,16 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
 using Util.Ui.Attributes;
-using Util.Ui.Components;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
-using Util.Ui.Operations.Forms;
-using Util.Ui.Operations.Forms.Validations;
+using Util.Ui.Material.Forms.Configs;
 
 namespace Util.Ui.Material.Commons.Internal {
     /// <summary>
@@ -18,38 +14,49 @@ namespace Util.Ui.Material.Commons.Internal {
     /// </summary>
     internal static class Helper {
         /// <summary>
-        /// 初始化模型表单控件
+        /// 初始化配置
         /// </summary>
         /// <typeparam name="TModel">模型类型</typeparam>
         /// <typeparam name="TProperty">属性类型</typeparam>
-        /// <param name="control">表单控件</param>
+        /// <param name="config">配置</param>
         /// <param name="expression">属性表达式</param>
         /// <param name="member">成员</param>
-        public static void InitControl<TModel, TProperty>( IFormControl control, Expression<Func<TModel, TProperty>> expression, MemberInfo member ) {
-            control.Name( Util.Helpers.String.FirstLowerCase( Lambda.GetName( expression ) ) );
-            control.Placeholder( Reflection.GetDisplayNameOrDescription( member ) );
-            InitModel( control, expression );
-            InitRequired( control, expression );
+        public static void InitConfig<TModel, TProperty>( IConfig config, Expression<Func<TModel, TProperty>> expression, MemberInfo member ) {
+            Type modelType = Common.GetType<TModel>();
+            var propertyName = Lambda.GetName( expression );
+            InitConfig( config, modelType, member, propertyName );
         }
 
         /// <summary>
-        /// 初始化模型
+        /// 初始化配置
         /// </summary>
-        public static void InitModel<TModel, TProperty>( IModel control, Expression<Func<TModel, TProperty>> expression ) {
-            var model = GetModel( expression );
+        /// <param name="config">配置</param>
+        /// <param name="expression">属性表达式</param>
+        /// <param name="member">成员</param>
+        public static void InitConfig( IConfig config, ModelExpression expression, MemberInfo member ) {
+            Type modelType = expression.Metadata.ContainerType;
+            var propertyName = expression.Name;
+            InitConfig( config, modelType, member, propertyName );
+        }
+
+        /// <summary>
+        /// 初始化配置
+        /// </summary>
+        private static void InitConfig( IConfig config, Type modelType, MemberInfo member, string propertyName ) {
+            config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( propertyName ) );
+            config.SetAttribute( UiConst.Placeholder, Reflection.GetDisplayNameOrDescription( member ) );
+            InitModel( config, modelType, member, propertyName );
+            InitRequired( config, member );
+        }
+
+        /// <summary>
+        /// 初始化模型绑定
+        /// </summary>
+        private static void InitModel( IConfig config, Type modelType, MemberInfo member, string propertyName ) {
+            var model = GetModel( GetModelName( modelType ), GetPropertyName( member, propertyName ) );
             if( string.IsNullOrWhiteSpace( model ) )
                 return;
-            control.Model( model );
-        }
-
-        /// <summary>
-        /// 获取模型绑定
-        /// </summary>
-        /// <typeparam name="TModel">模型类型</typeparam>
-        /// <typeparam name="TProperty">属性类型</typeparam>
-        /// <param name="expression">属性表达式</param>
-        public static string GetModel<TModel, TProperty>( Expression<Func<TModel, TProperty>> expression ) {
-            return GetModel( GetModelName<TModel>(), GetPropertyName( expression ) );
+            config.SetAttribute( UiConst.Model, model );
         }
 
         /// <summary>
@@ -66,14 +73,6 @@ namespace Util.Ui.Material.Commons.Internal {
         /// <summary>
         /// 获取模型名称
         /// </summary>
-        private static string GetModelName<TModel>() {
-            Type type = Common.GetType<TModel>();
-            return GetModelName( type );
-        }
-
-        /// <summary>
-        /// 获取模型名称
-        /// </summary>
         private static string GetModelName( Type modelType ) {
             if( modelType.GetCustomAttribute<ModelAttribute>() is ModelAttribute attribute )
                 return attribute.Ignore ? string.Empty : attribute.Model;
@@ -83,87 +82,99 @@ namespace Util.Ui.Material.Commons.Internal {
         /// <summary>
         /// 获取属性名称
         /// </summary>
-        private static string GetPropertyName<TModel, TProperty>( Expression<Func<TModel, TProperty>> expression ) {
-            var attribute = Lambda.GetAttribute<ModelAttribute>( expression );
-            return GetPropertyName( attribute, Lambda.GetName( expression ) );
-        }
-
-        /// <summary>
-        /// 获取属性名称
-        /// </summary>
-        private static string GetPropertyName( ModelAttribute attribute,string propertyName ) {
+        private static string GetPropertyName( MemberInfo member, string propertyName ) {
+            var attribute = member.GetCustomAttribute<ModelAttribute>();
             return attribute == null ? propertyName : attribute.Ignore ? string.Empty : attribute.Model; ;
         }
 
         /// <summary>
         /// 初始化必填项验证
         /// </summary>
-        public static void InitRequired<TModel, TProperty>( IRequired control, Expression<Func<TModel, TProperty>> expression ) {
-            var attribute = Lambda.GetAttribute<RequiredAttribute>( expression );
-            if( attribute == null )
-                return;
-            control.Required( attribute.ErrorMessage );
-        }
-
-        /// <summary>
-        /// 初始化模型配置
-        /// </summary>
         /// <param name="config">配置</param>
-        /// <param name="expression">属性表达式</param>
         /// <param name="member">成员</param>
-        public static void InitConfig( IConfig config, ModelExpression expression, MemberInfo member ) {
-            config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( expression.Name ) );
-            config.SetAttribute( UiConst.Placeholder, Reflection.GetDisplayNameOrDescription( member ) );
-            InitModel( config, expression );
-            InitRequired( config, expression );
-        }
-
-        /// <summary>
-        /// 初始化模型
-        /// </summary>
-        public static void InitModel( IConfig config, ModelExpression expression ) {
-            var model = GetModel( expression );
-            if( string.IsNullOrWhiteSpace( model ) )
-                return;
-            config.SetAttribute( UiConst.Model, model );
-        }
-
-        /// <summary>
-        /// 获取模型绑定
-        /// </summary>
-        public static string GetModel( ModelExpression expression ) {
-            return GetModel( GetModelName( expression ), GetPropertyName( expression ) );
-        }
-
-        /// <summary>
-        /// 获取模型名称
-        /// </summary>
-        private static string GetModelName( ModelExpression expression ) {
-            Type type = expression.Metadata.ContainerType;
-            return GetModelName( type );
-        }
-
-        /// <summary>
-        /// 获取属性名称
-        /// </summary>
-        private static string GetPropertyName( ModelExpression expression ) {
-            var attribute = expression.Metadata.ModelType.GetCustomAttribute<ModelAttribute>();
-            return GetPropertyName( attribute, expression.Name );
-        }
-
-        /// <summary>
-        /// 初始化必填项验证
-        /// </summary>
-        /// <param name="config">配置</param>
-        /// <param name="expression">属性表达式</param>
-        public static void InitRequired( IConfig config, ModelExpression expression ) {
-            if ( expression.Metadata.IsRequired == false )
-                return;
-            var attribute = expression.GetValidationAttribute<RequiredAttribute>();
+        private static void InitRequired( IConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<RequiredAttribute>();
             if( attribute == null )
                 return;
             config.SetAttribute( UiConst.Required, true );
             config.SetAttribute( UiConst.RequiredMessage, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 初始化数据类型
+        /// </summary>
+        /// <param name="config">配置</param>
+        /// <param name="member">成员</param>
+        public static void InitDataType( TextBoxConfig config, MemberInfo member ) {
+            if( Reflection.IsDate( member ) ) {
+                config.IsDatePicker = true;
+                return;
+            }
+            if( Reflection.IsNumber( member ) ) {
+                config.Number();
+                return;
+            }
+            InitDataType( config, member.GetCustomAttribute<DataTypeAttribute>() );
+        }
+
+        /// <summary>
+        /// 初始化数据类型
+        /// </summary>
+        private static void InitDataType( TextBoxConfig config, DataTypeAttribute attribute ) {
+            if( attribute == null )
+                return;
+            switch ( attribute.DataType ) {
+                case DataType.Date:
+                case DataType.DateTime:
+                case DataType.Time:
+                    config.IsDatePicker = true;
+                    break;
+                case DataType.MultilineText:
+                    config.IsTextArea = true;
+                    break;
+                case DataType.EmailAddress:
+                    config.Email();
+                    break;
+                case DataType.Password:
+                    config.Password();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 初始化验证
+        /// </summary>
+        /// <param name="config">配置</param>
+        /// <param name="member">成员</param>
+        public static void InitValidation( TextBoxConfig config, MemberInfo member ) {
+            InitStringLength( config, member );
+            InitEmail( config, member );
+        }
+
+        /// <summary>
+        /// 初始化字符串长度验证
+        /// </summary>
+        private static void InitStringLength( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<StringLengthAttribute>();
+            if( attribute == null )
+                return;
+            if( attribute.MinimumLength > 0 )
+                config.SetAttribute( UiConst.MinLength, attribute.MinimumLength );
+            if( attribute.MaximumLength > 0 )
+                config.SetAttribute( UiConst.MaxLength, attribute.MaximumLength );
+        }
+
+        /// <summary>
+        /// 初始化电子邮件验证
+        /// </summary>
+        private static void InitEmail( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<EmailAddressAttribute>();
+            if( attribute == null )
+                return;
+            config.Email();
+            if( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) )
+                return;
+            config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
         }
     }
 }

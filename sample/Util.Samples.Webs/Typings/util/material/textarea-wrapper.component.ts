@@ -69,7 +69,8 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
     constructor( @Optional() @Host() form: NgForm ) {
         super(form);
         this.showClearButton = true;
-        this.minRows = 3;
+        this.minRows = 1;
+        this.maxRows = 8;
     }
 
     /**

@@ -17,8 +17,8 @@ namespace Util.Ui.Material.Extensions {
         /// <param name="component">组件实例</param>
         public static TComponent Password<TComponent>( this TComponent component ) where TComponent : ITextBox {
             var option = component as IOptionConfig;
-            option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.Type, "password" );
+            option?.Config<TextBoxConfig>( config => {
+                config.Password();
             } );
             return component;
         }
@@ -30,8 +30,8 @@ namespace Util.Ui.Material.Extensions {
         /// <param name="component">组件实例</param>
         public static TComponent Number<TComponent>( this TComponent component ) where TComponent : ITextBox {
             var option = component as IOptionConfig;
-            option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.Type, "number" );
+            option?.Config<TextBoxConfig>( config => {
+                config.Number();
             } );
             return component;
         }
@@ -44,8 +44,8 @@ namespace Util.Ui.Material.Extensions {
         /// <param name="message">电子邮件验证错误消息</param>
         public static TComponent Email<TComponent>( this TComponent component,string message = null ) where TComponent : ITextBox {
             var option = component as IOptionConfig;
-            option?.Config<Config>( config => {
-                config.SetAttribute( UiConst.Type, "email" );
+            option?.Config<TextBoxConfig>( config => {
+                config.Email();
                 config.SetAttribute( UiConst.EmailMessage, message );
             } );
             return component;
