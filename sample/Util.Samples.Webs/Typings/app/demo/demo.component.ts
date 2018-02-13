@@ -72,6 +72,6 @@ class CustomerViewModel extends ViewModel {
     hide: boolean;
     num: number;
     date: Date;
-    creationTime;
+    creationTime:Date;
     isGender:boolean;
 }

@@ -96,6 +96,7 @@ export class DatePickerWrapperComponent extends FormControlWrapperBase {
      */
     constructor( @Optional() @Host() form: NgForm) {
         super(form);
+        this.startView = 'month';
         this.readonly = true;
         this.clearButtonTooltip = MessageConfig.clear;
         this.showClearButton = true;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Renders;
@@ -35,6 +36,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 颜色
         /// </summary>
         public Color Color { get; set; }
+        /// <summary>
+        /// 属性表达式
+        /// </summary>
+        public ModelExpression For { get; set; }
         /// <summary>
         /// 模型绑定
         /// </summary>

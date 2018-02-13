@@ -26,9 +26,15 @@
         <mat-card>
             <mat-card-content>
                 <util-textbox for="Name"></util-textbox>
-                <util-select for="Gender"></util-select>
                 <util-select for="Nation"></util-select>
-                @x.Radio( t => t.Gender )
+                <util-checkbox  for="IsGender"></util-checkbox>
+                <util-radio for="Nation"></util-radio>
+                <util-slide-toggle for="IsGender"></util-slide-toggle>
+                <util-datepicker for="CreationTime" ></util-datepicker>
+                <util-textarea for="Nickname"></util-textarea>
+                
+                @x.Select(t => t.Nation)
+                @x.TextBox(t=>t.Name)
             </mat-card-content>
             <mat-card-content>
                 @x.Button().Reset()
@@ -37,7 +43,8 @@
         </mat-card>
 
     </util-form>
-
+    
+    {{model.isGender}}
 
 </div>
 

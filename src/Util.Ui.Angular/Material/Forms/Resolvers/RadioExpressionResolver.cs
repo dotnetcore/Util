@@ -1,21 +1,22 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
+using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Commons.Internal;
 using Util.Ui.Material.Forms.Configs;
 
 namespace Util.Ui.Material.Forms.Resolvers {
     /// <summary>
-    /// 下拉列表表达式解析器
+    /// 单选框表达式解析器
     /// </summary>
-    public class SelectExpressionResolver {
+    public class RadioExpressionResolver {
         /// <summary>
-        /// 初始化下拉列表表达式解析器
+        /// 初始化单选框表达式解析器
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        private SelectExpressionResolver( ModelExpression expression, SelectConfig config ) {
+        private RadioExpressionResolver( ModelExpression expression, SelectConfig config ) {
             if( expression == null || config == null )
                 return;
             _expression = expression;
@@ -44,14 +45,17 @@ namespace Util.Ui.Material.Forms.Resolvers {
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
         public static void Init( ModelExpression expression, SelectConfig config ) {
-            new SelectExpressionResolver( expression, config ).Init();
+            new RadioExpressionResolver( expression, config ).Init();
         }
 
         /// <summary>
         /// 初始化
         /// </summary>
         private void Init() {
-            Helper.InitConfig( _config, _expression, _memberInfo );
+            _config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( _expression.Name ) );
+            _config.SetAttribute( UiConst.Label, Reflection.GetDisplayNameOrDescription( _memberInfo ) );
+            Helper.InitModel( _config, _expression );
+            Helper.InitRequired( _config, _expression );
             InitType();
         }
 
@@ -59,9 +63,9 @@ namespace Util.Ui.Material.Forms.Resolvers {
         /// 根据类型初始化
         /// </summary>
         private void InitType() {
-            if ( Reflection.IsBool( _memberInfo ) )
+            if( Reflection.IsBool( _memberInfo ) )
                 _config.AddBool();
-            else if ( Reflection.IsEnum( _memberInfo ) )
+            else if( Reflection.IsEnum( _memberInfo ) )
                 _config.AddEnum( _expression.Metadata.ModelType );
         }
     }

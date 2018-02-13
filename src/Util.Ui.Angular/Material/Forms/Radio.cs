@@ -1,8 +1,5 @@
-﻿using System.IO;
-using System.Text.Encodings.Web;
-using Util.Ui.Components;
+﻿using Util.Ui.Components;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
@@ -37,24 +34,6 @@ namespace Util.Ui.Material.Forms {
         /// </summary>
         protected override IRender GetRender() {
             return new RadioRender( _config );
-        }
-
-        /// <summary>
-        /// 渲染前操作
-        /// </summary>
-        /// <param name="writer">流写入器</param>
-        /// <param name="encoder">编码</param>
-        protected override void RenderBefore( TextWriter writer, HtmlEncoder encoder ) {
-            AddItems();
-        }
-
-        /// <summary>
-        /// 添加项集合
-        /// </summary>
-        private void AddItems() {
-            if( _config.Items.Count == 0 )
-                return;
-            this.DataSource( Util.Helpers.Json.ToJson( _config.Items, true ) );
         }
 
         /// <summary>

@@ -13,6 +13,11 @@ namespace Donau.Services.Dtos.Customers {
     [DataContract]
     [Model("model")]
     public class CustomersDto : DtoBase {
+
+        public CustomersDto() {
+            CreationTime = DateTime.Now;
+        }
+
         /// <summary>
         /// 客户名称
         /// </summary>

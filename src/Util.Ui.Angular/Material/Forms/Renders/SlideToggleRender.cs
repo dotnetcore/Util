@@ -18,6 +18,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
+            ResolveExpression();
             var builder = new SlideToggleBuilder();
             Config( builder );
             return builder;

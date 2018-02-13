@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Util.Ui.Configs;
 using Util.Ui.TagHelpers;
 
@@ -29,9 +30,23 @@ namespace Util.Ui.Material.Forms.Configs {
         /// 添加项集合
         /// </summary>
         /// <param name="items">列表项集合</param>
-        public SelectConfig AddItems( params Item[] items ) {
+        public void AddItems( params Item[] items ) {
             Items.AddRange( items );
-            return this;
+        }
+
+        /// <summary>
+        /// 添加布尔
+        /// </summary>
+        public void AddBool() {
+            AddItems( new Item( "是", true ), new Item( "否", false ) );
+        }
+
+        /// <summary>
+        /// 添加枚举
+        /// </summary>
+        /// <param name="type">枚举类型</param>
+        public void AddEnum( Type type ) {
+            AddItems( Util.Helpers.Enum.GetItems( type ).ToArray() );
         }
 
         /// <summary>

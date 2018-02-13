@@ -1,7 +1,9 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
+using Util.Ui.Material.Forms.Resolvers;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Forms.Renders {
@@ -26,9 +28,20 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
+            ResolveExpression();
             var builder = new CheckBoxBuilder();
             Config( builder );
             return builder;
+        }
+
+        /// <summary>
+        /// 解析属性表达式
+        /// </summary>
+        protected void ResolveExpression() {
+            if( _config.Contains( UiConst.For ) == false )
+                return;
+            var expression = _config.GetValue<ModelExpression>( UiConst.For );
+            CheckBoxExpressionResolver.Init( expression, _config );
         }
 
         /// <summary>
