@@ -19,18 +19,22 @@
 
 
 <div style="margin: 300px">
-    
+
 
     <util-form id="form" on-submit="onChange(form)">
         <mat-card>
             <mat-card-content>
                 <util-textbox for="Name"></util-textbox>
                 <util-select for="Nation"></util-select>
-                <util-checkbox  for="IsGender"></util-checkbox>
-                <util-radio for="Nation"></util-radio>
+                <util-checkbox for="IsGender"></util-checkbox>
+            </mat-card-content>
+            <mat-card-content>
+                <util-radio for="Gender"></util-radio>
+            </mat-card-content>
+            <mat-card-content>
                 <util-slide-toggle for="IsGender"></util-slide-toggle>
-                @x.Select(t => t.Nation)
-                @x.TextBox(t=>t.Name )
+                @x.Select( t => t.Nation )
+                @x.TextBox( t => t.Name )
             </mat-card-content>
             <mat-card-content>
                 @x.Button().Reset()
@@ -39,9 +43,95 @@
         </mat-card>
 
     </util-form>
-    
-    {{model.isGender}}
 
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+        <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+        </button>
+        <button mat-menu-item disabled>
+            <util-icon font-awesome="Bus" size="Large"></util-icon>
+            <span>你好</span>
+        </button>
+    </mat-menu>
+
+    <mat-menu #appMenu="matMenu" yPosition="below" xPosition="before">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Help</button>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    
+    
+    <mat-menu #rootMenu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="subMenu">
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+        </button>
+        <a mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+        </a>
+    </mat-menu>
+
+    <mat-menu #subMenu="matMenu">
+        <a mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+        </a>
+        <a mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+        </a>
+        <a mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+        </a>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="rootMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    
+    
+    <mat-menu #a="matMenu">
+        <ng-template matMenuContent>
+            <button mat-menu-item>Settings</button>
+            <button mat-menu-item>Help</button>
+        </ng-template>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="a">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    
+    
+    
+    <mat-menu #b1="matMenu" >
+        <ng-template matMenuContent>
+            <button mat-menu-item>Settings</button>
+            <button mat-menu-item>Log off {{name}}</button>
+        </ng-template>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="b1" [matMenuTriggerData]="{name: 'Sally'}">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="b1" [matMenuTriggerData]="{name: 'Bob'}">
+        <mat-icon>more_vert</mat-icon>
+    </button>
 </div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">

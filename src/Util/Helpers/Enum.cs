@@ -66,7 +66,7 @@ namespace Util.Helpers {
         public static int GetValue( Type type, object member ) {
             string value = member.SafeString();
             if( string.IsNullOrWhiteSpace( value ) )
-                throw new ArgumentNullException( "member" );
+                throw new ArgumentNullException( nameof(member) );
             return (int)System.Enum.Parse( type, member.ToString(), true );
         }
 
@@ -102,19 +102,12 @@ namespace Util.Helpers {
         /// <param name="type">枚举类型</param>
         public static List<Item> GetItems( Type type ) {
             TypeInfo enumType = type.GetTypeInfo();
-            ValidateEnum( enumType );
+            if( enumType.IsEnum == false )
+                throw new InvalidOperationException( $"类型 {type} 不是枚举" );
             var result = new List<Item>();
             foreach( var field in enumType.GetFields() )
                 AddItem( type, result, field );
             return result.OrderBy( t => t.SortId ).ToList();
-        }
-
-        /// <summary>
-        /// 验证是否枚举类型
-        /// </summary>
-        private static void ValidateEnum( TypeInfo enumType ) {
-            if( enumType.IsEnum == false )
-                throw new InvalidOperationException( string.Format( "类型 {0} 不是枚举", enumType ) );
         }
 
         /// <summary>
