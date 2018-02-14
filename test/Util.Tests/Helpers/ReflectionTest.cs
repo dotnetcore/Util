@@ -40,7 +40,7 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
-        /// 测试获取显示名
+        /// 测试显示名
         /// </summary>
         [Fact]
         public void TestGetDisplayName() {

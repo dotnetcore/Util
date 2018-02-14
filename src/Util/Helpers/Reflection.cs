@@ -48,11 +48,11 @@ namespace Util.Helpers {
         public static string GetDescription( MemberInfo member ) {
             if( member == null )
                 return string.Empty;
-            return member.GetCustomAttribute( typeof( DescriptionAttribute ) ) is DescriptionAttribute attribute ? attribute.Description : member.Name;
+            return member.GetCustomAttribute<DescriptionAttribute>() is DescriptionAttribute attribute ? attribute.Description : member.Name;
         }
 
         /// <summary>
-        /// 获取类型显示名称，使用DisplayNameAttribute设置显示名称
+        /// 获取显示名称，使用DisplayNameAttribute设置显示名称
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         public static string GetDisplayName<T>() {
@@ -60,41 +60,32 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 获取类型显示名称，使用DisplayNameAttribute设置显示名称
+        /// 获取显示名称，使用DisplayAttribute或DisplayNameAttribute设置显示名称
         /// </summary>
-        private static string GetDisplayName( Type type ) {
-            if( type == null )
+        public static string GetDisplayName( MemberInfo member ) {
+            if( member == null )
                 return string.Empty;
-            return type.GetCustomAttribute( typeof( DisplayNameAttribute ) ) is DisplayNameAttribute attribute ? attribute.DisplayName : string.Empty;
+            if( member.GetCustomAttribute<DisplayAttribute>() is DisplayAttribute displayAttribute )
+                return displayAttribute.Name;
+            if( member.GetCustomAttribute<DisplayNameAttribute>() is DisplayNameAttribute displayNameAttribute )
+                return displayNameAttribute.DisplayName;
+            return string.Empty;
         }
 
         /// <summary>
-        /// 获取类型显示名称或描述,使用DisplayNameAttribute设置显示名称,使用DescriptionAttribute设置描述
+        /// 获取显示名称或描述,使用DisplayNameAttribute设置显示名称,使用DescriptionAttribute设置描述
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         public static string GetDisplayNameOrDescription<T>() {
-            var type = Common.GetType<T>();
-            var result = GetDisplayName( type );
-            return string.IsNullOrWhiteSpace( result ) ? GetDescription( type ) : result;
+            return GetDisplayNameOrDescription( Common.GetType<T>() );
         }
 
         /// <summary>
-        /// 获取属性显示名称或描述,使用DisplayNameAttribute或DisplayAttribute设置显示名称,使用DescriptionAttribute设置描述
+        /// 获取属性显示名称或描述,使用DisplayAttribute或DisplayNameAttribute设置显示名称,使用DescriptionAttribute设置描述
         /// </summary>
         public static string GetDisplayNameOrDescription( MemberInfo member ) {
             var result = GetDisplayName( member );
             return string.IsNullOrWhiteSpace( result ) ? GetDescription( member ) : result;
-        }
-
-        /// <summary>
-        /// 获取类型成员显示名称，使用DisplayNameAttribute或DisplayAttribute设置显示名称
-        /// </summary>
-        private static string GetDisplayName( MemberInfo member ) {
-            if( member == null )
-                return string.Empty;
-            if( member.GetCustomAttribute( typeof( DisplayNameAttribute ) ) is DisplayNameAttribute displayNameAttribute )
-                return displayNameAttribute.DisplayName;
-            return member.GetCustomAttribute( typeof( DisplayAttribute ) ) is DisplayAttribute displayAttribute ? displayAttribute.Name : string.Empty;
         }
 
         /// <summary>
