@@ -3,6 +3,7 @@ using Util.Ui.Components;
 using Util.Ui.Material.Buttons;
 using Util.Ui.Material.Forms;
 using Util.Ui.Material.Icons;
+using Util.Ui.Material.Menus;
 using Util.Ui.Services;
 
 namespace Util.Ui.Extensions {
@@ -10,6 +11,22 @@ namespace Util.Ui.Extensions {
     /// 组件服务扩展
     /// </summary>
     public static partial class Extensions {
+        /// <summary>
+        /// 链接
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IAnchor A<TModel>( this IUiService<TModel> service ) {
+            return new Anchor();
+        }
+
+        /// <summary>
+        /// 按钮
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IButton Button<TModel>( this IUiService<TModel> service ) {
+            return new Button();
+        }
+
         /// <summary>
         /// 图标
         /// </summary>
@@ -51,22 +68,6 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
-        /// 链接
-        /// </summary>
-        /// <param name="service">组件服务</param>
-        public static IAnchor A<TModel>( this IUiService<TModel> service ) {
-            return new Anchor();
-        }
-
-        /// <summary>
-        /// 按钮
-        /// </summary>
-        /// <param name="service">组件服务</param>
-        public static IButton Button<TModel>( this IUiService<TModel> service ) {
-            return new Button();
-        }
-
-        /// <summary>
         /// 文本框
         /// </summary>
         /// <param name="service">组件服务</param>
@@ -82,6 +83,16 @@ namespace Util.Ui.Extensions {
             if( !( service is IContext<TModel> context ) )
                 throw new NotImplementedException( "组件服务必须实现Util.Ui.Services.IContext" );
             return new Form( context.Helper.ViewContext.Writer );
+        }
+
+        /// <summary>
+        /// 菜单
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IMenu Menu<TModel>( this IUiService<TModel> service ) {
+            if( !( service is IContext<TModel> context ) )
+                throw new NotImplementedException( "组件服务必须实现Util.Ui.Services.IContext" );
+            return new Menu( context.Helper.ViewContext.Writer );
         }
     }
 }

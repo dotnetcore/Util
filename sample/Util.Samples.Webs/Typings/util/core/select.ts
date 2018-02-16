@@ -2,6 +2,8 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
+import { ISort, sort } from '../core/sort';
+
 /**
  * 列表
  */
@@ -24,7 +26,7 @@ export class Select {
      * 获取已排序的列表项集合
      */
     private getSortedItems() {
-        return this.items.sort((a, b) => (a.sortId === undefined || b.sortId === undefined) ? 0 : a.sortId - b.sortId );
+        return sort(this.items);
     }
 
     /**
@@ -56,7 +58,7 @@ export class Select {
 /**
  * 列表项
  */
-export class SelectItem {
+export class SelectItem implements ISort {
     /**
      * 文本
      */

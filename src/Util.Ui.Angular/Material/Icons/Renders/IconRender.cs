@@ -59,8 +59,8 @@ namespace Util.Ui.Material.Icons.Renders {
             var childIcon = GetFontAwesomeBuilder( UiConst.Child ).Class( "fa-stack-1x" );
             if ( _config.Contains( UiConst.ChildClass ) )
                 childIcon.Class( _config.GetValue( UiConst.ChildClass ) );
-            result.AddChild( parentIcon );
-            result.AddChild( childIcon );
+            result.AppendContent( parentIcon );
+            result.AppendContent( childIcon );
             return result;
         }
 
@@ -73,7 +73,7 @@ namespace Util.Ui.Material.Icons.Renders {
                 result = GetFontAwesomeBuilder( UiConst.FontAwesomeIcon );
             if( _config.Contains( UiConst.MaterialIcon ) )
                 result = GetMaterialIconBuilder();
-            result.AddOtherAttributes( _config );
+            result.AddOutputAttributes( _config );
             result.Class( _config );
             return result;
         }

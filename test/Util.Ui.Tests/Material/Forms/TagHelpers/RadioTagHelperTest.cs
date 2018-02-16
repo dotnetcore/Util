@@ -96,7 +96,7 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         /// </summary>
         [Fact]
         public void TestPosition() {
-            var attributes = new TagHelperAttributeList { { UiConst.Position, LabelPosition.Left } };
+            var attributes = new TagHelperAttributeList { { UiConst.Position, XPosition.Left } };
             var result = new String();
             result.Append( "<mat-radio-wrapper labelPosition=\"before\"></mat-radio-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

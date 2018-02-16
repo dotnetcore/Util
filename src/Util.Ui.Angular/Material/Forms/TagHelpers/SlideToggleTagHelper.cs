@@ -27,7 +27,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// <summary>
         /// 标签位置
         /// </summary>
-        public LabelPosition Position { get; set; }
+        public XPosition Position { get; set; }
         /// <summary>
         /// 禁用
         /// </summary>

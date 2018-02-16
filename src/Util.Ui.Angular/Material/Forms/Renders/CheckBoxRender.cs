@@ -79,7 +79,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigLabel( TagBuilder builder ) {
             builder.SetContent( _config.GetValue( UiConst.Label ) );
-            builder.AddAttribute( "labelPosition", _config.GetValue<LabelPosition?>( UiConst.Position )?.Description() );
+            builder.AddAttribute( "labelPosition", _config.GetValue<XPosition?>( UiConst.Position )?.Description() );
         }
 
         /// <summary>

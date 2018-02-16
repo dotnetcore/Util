@@ -3,6 +3,7 @@
     ViewData["Title"] = "Tile";
     var x = Html.Ui();
 }
+
 <span fxFlex style="flex: 1 1 1e-09px; box-sizing: border-box;"></span>
 <div class="icon-group">
     <button class="spam" mat-icon-button matTooltip="新增">
@@ -16,8 +17,6 @@
     </button>
 
 </div>
-
-
 <div style="margin: 300px">
 
 
@@ -45,93 +44,50 @@
     </util-form>
 
 
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-    </button>
 
-    <mat-menu #menu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-        <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
+
+
+    <util-container>
+        <button mat-icon-button [matMenuTriggerFor]="abc5">
+            <mat-icon>more_vert</mat-icon>
         </button>
-        <button mat-menu-item>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-        </button>
-        <button mat-menu-item disabled>
-            <util-icon font-awesome="Bus" size="Large"></util-icon>
-            <span>你好</span>
-        </button>
-    </mat-menu>
 
-    <mat-menu #appMenu="matMenu" yPosition="below" xPosition="before">
-        <button mat-menu-item>Settings</button>
-        <button mat-menu-item>Help</button>
-    </mat-menu>
+        @using( x.Menu().Id( "abc5" ).Position( XPosition.Right, YPosition.Below ).Overlap().Begin() ) {
+            <button mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
+            </button>
+            <button mat-menu-item>
+                <span>B</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voicemail</span>
+            </button>
+            <button mat-menu-item disabled>
+                <util-icon font-awesome="Bus" size="Large"></util-icon>
+                <span>A</span>
+            </button>
+        }
 
-    <button mat-icon-button [matMenuTriggerFor]="appMenu">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    
-    
-    <mat-menu #rootMenu="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="subMenu">
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-        </button>
-        <a mat-menu-item>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-        </a>
-    </mat-menu>
+        <util-menu id="abc3" x-position="Right" y-position="Below" overlap="true">
+            <button mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voicemail</span>
+            </button>
+            <button mat-menu-item disabled>
+                <util-icon font-awesome="Bus" size="Large"></util-icon>
+                <span>D</span>
+            </button>
+        </util-menu>
+    </util-container>
 
-    <mat-menu #subMenu="matMenu">
-        <a mat-menu-item>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-        </a>
-        <a mat-menu-item>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-        </a>
-        <a mat-menu-item>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-        </a>
-    </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="rootMenu">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    
-    
-    <mat-menu #a="matMenu">
-        <ng-template matMenuContent>
-            <button mat-menu-item>Settings</button>
-            <button mat-menu-item>Help</button>
-        </ng-template>
-    </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="a">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    
-    
-    
-    <mat-menu #b1="matMenu" >
-        <ng-template matMenuContent>
-            <button mat-menu-item>Settings</button>
-            <button mat-menu-item>Log off {{name}}</button>
-        </ng-template>
-    </mat-menu>
-
-    <button mat-icon-button [matMenuTriggerFor]="b1" [matMenuTriggerData]="{name: 'Sally'}">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-
-    <button mat-icon-button [matMenuTriggerFor]="b1" [matMenuTriggerData]="{name: 'Bob'}">
-        <mat-icon>more_vert</mat-icon>
-    </button>
 </div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">

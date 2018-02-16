@@ -1,12 +1,12 @@
 ﻿using Util.Ui.Builders;
 
-namespace Util.Ui.Material.Commons.Builders {
+namespace Util.Ui.Angular.Builders {
     /// <summary>
-    /// angular模板生成器
+    /// ng-template模板生成器
     /// </summary>
     public class TemplateBuilder : TagBuilder {
         /// <summary>
-        /// 初始化angular模板生成器
+        /// 初始化ng-template模板生成器
         /// </summary>
         public TemplateBuilder() : base( "ng-template" ) {
         }

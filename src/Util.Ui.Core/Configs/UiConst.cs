@@ -187,5 +187,17 @@
         /// for
         /// </summary>
         public const string For = "for";
+        /// <summary>
+        /// X轴位置
+        /// </summary>
+        public const string XPosition = "x-position";
+        /// <summary>
+        /// Y轴位置
+        /// </summary>
+        public const string YPosition = "y-position";
+        /// <summary>
+        /// 重叠
+        /// </summary>
+        public const string Overlap = "overlap";
     }
 }

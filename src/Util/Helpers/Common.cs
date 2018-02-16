@@ -30,7 +30,6 @@ namespace Util.Helpers {
             var rootPath = Web.WebRootPath;
             if( string.IsNullOrWhiteSpace( rootPath ) )
                 return Path.GetFullPath( relativePath );
-            
             return $"{Web.RootPath}\\{relativePath.Replace( "/", "\\" ).TrimStart( '\\' )}";
         }
     }

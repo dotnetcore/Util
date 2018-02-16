@@ -11,7 +11,7 @@ namespace Util.Ui.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly Config _config;
+        private readonly IConfig _config;
         /// <summary>
         /// 标签生成器
         /// </summary>
@@ -21,14 +21,14 @@ namespace Util.Ui.Renders {
         /// 初始化表单渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        protected ContainerRenderBase( Config config ) {
+        protected ContainerRenderBase( IConfig config ) {
             _config = config;
         }
 
         /// <summary>
         /// 标签生成器
         /// </summary>
-        private TagBuilder Builder => _builder ?? ( _builder = GetTagBuilder() );
+        protected TagBuilder Builder => _builder ?? ( _builder = GetTagBuilder() );
 
         /// <summary>
         /// 获取标签生成器
@@ -40,7 +40,7 @@ namespace Util.Ui.Renders {
         /// </summary>
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
-        public void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
+        public virtual void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
             Builder.SetContent( _config.Content );
             Builder.WriteTo( writer, encoder );
         }
@@ -49,7 +49,7 @@ namespace Util.Ui.Renders {
         /// 渲染起始标签
         /// </summary>
         /// <param name="writer">流写入器</param>
-        public void RenderStartTag( TextWriter writer ) {
+        public virtual void RenderStartTag( TextWriter writer ) {
             Builder.RenderStartTag( writer );
         }
 
@@ -57,7 +57,7 @@ namespace Util.Ui.Renders {
         /// 渲染结束标签
         /// </summary>
         /// <param name="writer">流写入器</param>
-        public void RenderEndTag( TextWriter writer ) {
+        public virtual void RenderEndTag( TextWriter writer ) {
             Builder.RenderEndTag( writer );
         }
 

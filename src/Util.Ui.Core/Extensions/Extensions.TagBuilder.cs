@@ -7,11 +7,11 @@ namespace Util.Ui.Extensions {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// 添加属性列表
+        /// 添加输出属性列表
         /// </summary>
         /// <param name="builder">标签生成器</param>
         /// <param name="config">配置</param>
-        public static TagBuilder AddOtherAttributes( this TagBuilder builder, IConfig config ) {
+        public static TagBuilder AddOutputAttributes( this TagBuilder builder, IConfig config ) {
             foreach( var attribute in config.OutputAttributes ) {
                 if( attribute.Name.ToLower() == UiConst.Class )
                     continue;

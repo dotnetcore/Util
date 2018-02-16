@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnInit, Injector } from "@angular/core"
 import { MatSnackBar} from "@angular/material"
 import { NgForm } from "@angular/forms"
-import { ComponentBase,ViewModel,QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
+import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
 
 @Component({
     selector: 'demo',
@@ -16,7 +16,6 @@ export class DemoComponent extends ComponentBase implements OnInit {
     id:string;
 
     delete() {
-        
         this.grid.delete();
     }
 
@@ -31,34 +30,19 @@ export class DemoComponent extends ComponentBase implements OnInit {
     }
 
     onChange(form: NgForm, event) {
-
-        this.util.message.success("a");
-
         this.util.form.submit({
             form: form,
             url: '/api/customers',
             data: this.model,
-            
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     ngOnInit() {
         this.model.isGender = true;
     }
 }
+
+
 
 
 class CustomerQueryModel extends QueryParameter {

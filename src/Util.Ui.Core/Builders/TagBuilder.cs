@@ -74,11 +74,20 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
-        /// 设置子组件
+        /// 添加内容
         /// </summary>
-        /// <param name="child">子组件</param>
-        public TagBuilder AddChild( IHtmlContent child ) {
-            _tagBuilder.InnerHtml.AppendHtml( child );
+        /// <param name="content">内容</param>
+        public TagBuilder AppendContent( IHtmlContent content ) {
+            _tagBuilder.InnerHtml.AppendHtml( content );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加内容
+        /// </summary>
+        /// <param name="tagBuilder">标签生成器</param>
+        public TagBuilder AppendContent( TagBuilder tagBuilder ) {
+            AppendContent( tagBuilder.GetTagBuilder() );
             return this;
         }
 
@@ -101,20 +110,11 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
-        /// 添加子组件
+        /// 设置内容
         /// </summary>
         /// <param name="tagBuilder">标签生成器</param>
-        public TagBuilder AppendChild( TagBuilder tagBuilder ) {
-            _tagBuilder.InnerHtml.AppendHtml( tagBuilder.GetTagBuilder() );
-            return this;
-        }
-
-        /// <summary>
-        /// 设置子组件
-        /// </summary>
-        /// <param name="tagBuilder">标签生成器</param>
-        public TagBuilder SetChild( TagBuilder tagBuilder ) {
-            _tagBuilder.InnerHtml.SetHtmlContent( tagBuilder.GetTagBuilder() );
+        public TagBuilder SetContent( TagBuilder tagBuilder ) {
+            SetContent( tagBuilder.GetTagBuilder() );
             return this;
         }
 

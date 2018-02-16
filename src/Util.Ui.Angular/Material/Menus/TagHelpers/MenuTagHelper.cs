@@ -1,0 +1,39 @@
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Configs;
+using Util.Ui.Material.Enums;
+using Util.Ui.Material.Menus.Renders;
+using Util.Ui.Renders;
+using Util.Ui.TagHelpers;
+
+namespace Util.Ui.Material.Menus.TagHelpers {
+    /// <summary>
+    /// 菜单
+    /// </summary>
+    [HtmlTargetElement( "util-menu" )]
+    public class MenuTagHelper : TagHelperBase {
+        /// <summary>
+        /// 标识，指向模板引用变量，而不是Id属性
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
+        /// X轴位置
+        /// </summary>
+        public XPosition XPosition { get; set; }
+        /// <summary>
+        /// Y轴位置
+        /// </summary>
+        public YPosition YPosition { get; set; }
+        /// <summary>
+        /// 弹出菜单是否与触发按钮重叠
+        /// </summary>
+        public bool Overlap { get; set; }
+
+        /// <summary>
+        /// 获取渲染器
+        /// </summary>
+        /// <param name="context">上下文</param>
+        protected override IRender GetRender( Context context ) {
+            return new MenuRender( new Config( context ) );
+        }
+    }
+}

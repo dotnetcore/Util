@@ -203,7 +203,7 @@ namespace Util.Ui.Material.Extensions {
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Label, text );
                 if( left != null )
-                    config.SetAttribute( UiConst.Position, left.SafeValue() ? LabelPosition.Left : LabelPosition.Right );
+                    config.SetAttribute( UiConst.Position, left.SafeValue() ? XPosition.Left : XPosition.Right );
             } );
             return component;
         }
