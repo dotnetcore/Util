@@ -54,7 +54,7 @@ namespace Util.Ui.Material.Icons.Renders {
         /// 获取堆叠图标标签生成器
         /// </summary>
         private TagBuilder GetStackIconBuilder() {
-            var result = new SpanBuilder();
+            var result = new StackIconBuilder();
             var parentIcon = GetSingleIconBuilder().Class( "fa-stack-2x" );
             var childIcon = GetFontAwesomeBuilder( UiConst.Child ).Class( "fa-stack-1x" );
             if ( _config.Contains( UiConst.ChildClass ) )
@@ -81,18 +81,18 @@ namespace Util.Ui.Material.Icons.Renders {
         /// <summary>
         /// 获取Font Awesome图标标签生成器
         /// </summary>
-        private ItalicBuilder GetFontAwesomeBuilder( string name ) {
-            var builder = new ItalicBuilder();
-            builder.Class( _config.GetValue<FontAwesomeIcon>( name ).GetIcon() );
+        private FontAwesomeIconBuilder GetFontAwesomeBuilder( string key ) {
+            var builder = new FontAwesomeIconBuilder();
+            builder.SetIcon( _config, key );
             return builder;
         }
 
         /// <summary>
         /// 获取Material图标标签生成器
         /// </summary>
-        private IconBuilder GetMaterialIconBuilder() {
-            var builder = new IconBuilder();
-            builder.SetContent( _config.GetValue<MaterialIcon>( UiConst.MaterialIcon ).Description() );
+        private MaterialIconBuilder GetMaterialIconBuilder() {
+            var builder = new MaterialIconBuilder();
+            builder.SetIcon( _config );
             return builder;
         }
 

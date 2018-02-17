@@ -2,13 +2,13 @@
 
 namespace Util.Ui.Material.Icons.Builders {
     /// <summary>
-    /// 堆叠图标Span生成器
+    /// 堆叠图标生成器
     /// </summary>
-    public class SpanBuilder : TagBuilder {
+    public class StackIconBuilder : TagBuilder {
         /// <summary>
-        /// 初始化堆叠图标Span生成器
+        /// 初始化堆叠图标生成器
         /// </summary>
-        public SpanBuilder() : base( "span" ) {
+        public StackIconBuilder() : base( "span" ) {
             Class( "fa-stack" );
         }
     }

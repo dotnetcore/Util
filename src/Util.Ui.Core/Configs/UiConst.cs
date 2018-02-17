@@ -78,11 +78,11 @@
         /// <summary>
         /// Font Awesome图标
         /// </summary>
-        public const string FontAwesomeIcon = "font-awesome";
+        public const string FontAwesomeIcon = "font-awesome-icon";
         /// <summary>
         /// Material图标
         /// </summary>
-        public const string MaterialIcon = "material";
+        public const string MaterialIcon = "material-icon";
         /// <summary>
         /// 大小
         /// </summary>

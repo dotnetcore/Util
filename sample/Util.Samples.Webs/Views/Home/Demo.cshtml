@@ -37,57 +37,43 @@
             </mat-card-content>
             <mat-card-content>
                 @using( x.Button().Style( ButtonStyle.Icon ).Tooltip( "重置一下" ).Reset().Begin() ) {
-                    <util-icon material="Android"></util-icon>
+                    <util-icon material-icon="Android"></util-icon>
                 }
                 @x.Button().Submit()
             </mat-card-content>
         </mat-card>
 
     </util-form>
-    
+
 
     <util-container id="c1">
-        
 
-        @using ( x.Button().MenuId( "abc5" ).Style( ButtonStyle.Icon ).Begin() ) {
-            <util-icon material="Android"></util-icon>
+        @using( x.Button().MenuId( "menu1" ).Style( ButtonStyle.Icon ).Begin() ) {
+            <util-icon material-icon="More_Vert"></util-icon>
         }
 
-            @using( x.Menu().Id( "abc5" ).Position( XPosition.Right, YPosition.Below ).Overlap().Begin() ) {
-        <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
-        </button>
-        <button mat-menu-item>
-            <span>B</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-        </button>
-        <button mat-menu-item disabled>
-            <util-icon font-awesome="Bus" size="Large"></util-icon>
-            <span>A</span>
-        </button>
-}
+        <util-button menu-id="menu2" styles="Icon">
+            <util-icon material-icon="Brightness_2"></util-icon>
+        </util-button>
 
-        <util-menu id="abc3" x-position="Right" y-position="Below" overlap="true">
-            <button mat-menu-item>
-                <mat-icon>dialpad</mat-icon>
-                <span>Redial</span>
-            </button>
-            <button mat-menu-item>
-                <mat-icon>voicemail</mat-icon>
-                <span>Check voicemail</span>
-            </button>
-            <button mat-menu-item disabled>
-                <util-icon font-awesome="Bus" size="Large"></util-icon>
-                <span>D</span>
-            </button>
+
+
+        @using( x.Menu().Id( "menu1" ).Position( XPosition.Right, YPosition.Below ).Overlap().Begin() ) {
+            <util-menu-item text="文本"></util-menu-item>
+            <util-menu-item font-awesome-icon="Bars" text="苹果" on-click="onChange()"></util-menu-item>
+            <util-menu-item material-icon="Wc" text="卫生间"></util-menu-item>
+            <util-menu-item text="禁用" disabled="true"></util-menu-item>
+            <util-menu-item link="/searchmenu" text="链接" material-icon="Link"></util-menu-item>
+        }
+
+        <util-menu id="menu2" x-position="Left" y-position="Above" overlap="false">
+            <util-menu-item text="文本"></util-menu-item>
+            <util-menu-item font-awesome-icon="Apple" text="苹果" on-click="onChange()"></util-menu-item>
+            <util-menu-item material-icon="Wc" text="卫生间"></util-menu-item>
+            <util-menu-item text="禁用" disabled="true"></util-menu-item>
+            <util-menu-item link="/searchmenu" text="链接" material-icon="Link"></util-menu-item>
         </util-menu>
     </util-container>
-
-
 
 </div>
 

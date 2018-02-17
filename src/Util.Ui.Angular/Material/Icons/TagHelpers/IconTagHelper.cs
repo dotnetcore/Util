@@ -14,11 +14,11 @@ namespace Util.Ui.Material.Icons.TagHelpers {
         /// <summary>
         /// Font Awesome图标
         /// </summary>
-        public FontAwesomeIcon FontAwesome { get; set; }
+        public FontAwesomeIcon FontAwesomeIcon { get; set; }
         /// <summary>
         /// Material图标
         /// </summary>
-        public MaterialIcon Material { get; set; }
+        public MaterialIcon MaterialIcon { get; set; }
         /// <summary>
         /// 图标大小
         /// </summary>
