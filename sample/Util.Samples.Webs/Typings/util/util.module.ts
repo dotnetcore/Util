@@ -31,7 +31,6 @@ import { TextBoxWrapperComponent } from './material/textbox-wrapper.component';
 import { TextareaWrapperComponent } from './material/textarea-wrapper.component';
 import { DatePickerWrapperComponent } from './material/datepicker-wrapper.component';
 import { ButtonWrapperComponent } from './material/button-wrapper.component';
-import { AWrapperComponent } from './material/a-wrapper.component';
 import { RadioWrapperComponent } from './material/radio-wrapper.component';
 import { FileUploadComponent } from './prime/file-upload.component';
 import { SingleFileUploadComponent } from "./prime/single-file-upload.component";
@@ -50,7 +49,7 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
+        DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent,
         FileUploadComponent, SingleFileUploadComponent
     ],
     exports: [
@@ -62,7 +61,7 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, AWrapperComponent, RadioWrapperComponent,
+        DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent,
         FileUploadComponent, SingleFileUploadComponent
     ],
     providers: [

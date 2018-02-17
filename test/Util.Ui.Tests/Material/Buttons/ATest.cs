@@ -46,7 +46,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-a-wrapper></mat-a-wrapper>" );
+            result.Append( "<a mat-raised-button=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component ) );
         }
 
@@ -56,7 +56,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestId() {
             var result = new String();
-            result.Append( "<mat-a-wrapper #a=\"\"></mat-a-wrapper>" );
+            result.Append( "<a #a=\"\" mat-raised-button=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Id( "a" ) ) );
         }
 
@@ -66,7 +66,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestText() {
             var result = new String();
-            result.Append( "<mat-a-wrapper text=\"a\"></mat-a-wrapper>" );
+            result.Append( "<a mat-raised-button=\"\">a</a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Text( "a" ) ) );
         }
 
@@ -76,7 +76,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestStyle() {
             var result = new String();
-            result.Append( "<mat-a-wrapper style=\"mat-fab\"></mat-a-wrapper>" );
+            result.Append( "<a mat-fab=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Style( ButtonStyle.Fab ) ) );
         }
 
@@ -86,7 +86,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestColor() {
             var result = new String();
-            result.Append( "<mat-a-wrapper color=\"primary\"></mat-a-wrapper>" );
+            result.Append( "<a color=\"primary\" mat-raised-button=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Color( Color.Primary ) ) );
         }
 
@@ -96,7 +96,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestDisable() {
             var result = new String();
-            result.Append( "<mat-a-wrapper [disabled]=\"true\"></mat-a-wrapper>" );
+            result.Append( "<a mat-raised-button=\"\" [disabled]=\"true\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Disable() ) );
         }
 
@@ -106,7 +106,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestDisable_String() {
             var result = new String();
-            result.Append( "<mat-a-wrapper [disabled]=\"a\"></mat-a-wrapper>" );
+            result.Append( "<a mat-raised-button=\"\" [disabled]=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Disable("a") ) );
         }
 
@@ -116,7 +116,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestTooltip() {
             var result = new String();
-            result.Append( "<mat-a-wrapper tooltip=\"a\"></mat-a-wrapper>" );
+            result.Append( "<a mat-raised-button=\"\" matTooltip=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Tooltip( "a" ) ) );
         }
 
@@ -126,7 +126,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestLink() {
             var result = new String();
-            result.Append( "<mat-a-wrapper link=\"a\"></mat-a-wrapper>" );
+            result.Append( "<a mat-raised-button=\"\" routerLink=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.Link( "a" ) ) );
         }
 
@@ -136,7 +136,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         [Fact]
         public void TestOnClick() {
             var result = new String();
-            result.Append( "<mat-a-wrapper (onClick)=\"a\"></mat-a-wrapper>" );
+            result.Append( "<a (click)=\"a\" mat-raised-button=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( _component.OnClick( "a" ) ) );
         }
     }

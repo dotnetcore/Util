@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Components;
 using Util.Ui.Material.Buttons.Renders;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Buttons {
@@ -11,7 +12,9 @@ namespace Util.Ui.Material.Buttons {
         /// 获取渲染器
         /// </summary>
         protected override IRender GetRender() {
-            return new ButtonRender( OptionConfig );
+            if( OptionConfig.Contains( MaterialConst.MenuId ) )
+                return new ButtonRender( OptionConfig );
+            return new ButtonWrapperRender( OptionConfig );
         }
     }
 }

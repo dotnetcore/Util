@@ -49,7 +49,7 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new ARender( new Config( context ) );
+            return new AnchorRender( new Config( context ) );
         }
     }
 }

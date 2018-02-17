@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Operations.Styles;
 
@@ -59,6 +60,20 @@ namespace Util.Ui.Material.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Link, routerLink );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置菜单标识
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="menuId">菜单标识</param>
+        public static TComponent MenuId<TComponent>( this TComponent component, string menuId ) where TComponent : IButton {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( MaterialConst.MenuId, menuId );
             } );
             return component;
         }

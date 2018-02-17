@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.TagHelpers;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -131,6 +132,17 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
             var result = new String();
             result.Append( "<mat-button-wrapper (onClick)=\"a\"></mat-button-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置菜单标识
+        /// </summary>
+        [Fact]
+        public void TestMenuId() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.MenuId, "a" } };
+            var result = new String();
+            result.Append( "<button mat-raised-button=\"\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

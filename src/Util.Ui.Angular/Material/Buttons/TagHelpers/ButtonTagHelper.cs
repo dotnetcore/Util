@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.Renders;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -43,13 +44,20 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// 单击事件处理函数,范例：handle()
         /// </summary>
         public string OnClick { get; set; }
+        /// <summary>
+        /// 菜单标识
+        /// </summary>
+        public string MenuId { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new ButtonRender( new Config( context ) );
+            var config = new Config( context );
+            if( config.Contains( MaterialConst.MenuId ) )
+                return new ButtonRender( config );
+            return new ButtonWrapperRender( config );
         }
     }
 }

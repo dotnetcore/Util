@@ -71,5 +71,9 @@
         /// 是否显示标签
         /// </summary>
         public const string ShowLabel = "show-label";
+        /// <summary>
+        /// 菜单标识
+        /// </summary>
+        public const string MenuId = "menu-id";
     }
 }

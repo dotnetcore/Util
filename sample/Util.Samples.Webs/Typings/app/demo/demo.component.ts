@@ -30,6 +30,7 @@ export class DemoComponent extends ComponentBase implements OnInit {
     }
 
     onChange(form: NgForm, event) {
+        this.util.message.error("a");
         this.util.form.submit({
             form: form,
             url: '/api/customers',

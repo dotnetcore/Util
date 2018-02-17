@@ -1,24 +1,25 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Material.Commons.Configs;
+using Util.Ui.Material.Buttons.Builders;
 using Util.Ui.Renders;
 using Util.Ui.Material.Enums;
 
 namespace Util.Ui.Material.Buttons.Renders {
     /// <summary>
-    /// 按钮渲染器
+    /// 按钮包装器渲染器
     /// </summary>
-    public class ButtonRender : RenderBase {
+    public class ButtonWrapperRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化按钮渲染器
+        /// 初始化按钮包装器渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ButtonRender( IConfig config ) : base( config ) {
+        public ButtonWrapperRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -26,7 +27,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new ButtonBuilder();
+            var builder = new ButtonWrapperBuilder();
             Config( builder );
             return builder;
         }
@@ -42,7 +43,7 @@ namespace Util.Ui.Material.Buttons.Renders {
             ConfigColor( builder );
             ConfigDisabled( builder );
             ConfigTooltip( builder );
-            ConfigMenu( builder );
+            ConfigEvents( builder );
             ConfigContent( builder );
         }
 
@@ -58,26 +59,21 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 配置文本
         /// </summary>
         private void ConfigText( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Text ) )
-                builder.SetContent( _config.GetValue( UiConst.Text ) );
+            builder.AddAttribute( UiConst.Text, _config.GetValue( UiConst.Text ) );
         }
 
         /// <summary>
         /// 配置类型
         /// </summary>
         private void ConfigType( TagBuilder builder ) {
-            builder.AddAttribute( UiConst.Type, "button" );
+            builder.AddAttribute( UiConst.Type, _config.GetValue( UiConst.Type ).ToLower() );
         }
 
         /// <summary>
         /// 设置样式
         /// </summary>
         private void ConfigStyle( TagBuilder builder ) {
-            if ( _config.Contains( UiConst.Styles ) ) {
-                builder.AddAttribute( _config.GetValue<ButtonStyle?>( UiConst.Styles )?.Description(), "", false );
-                return;
-            }
-            builder.AddAttribute( ButtonStyle.Raised.Description(), "", false );
+            builder.AddAttribute( UiConst.Style, _config.GetValue<ButtonStyle?>( UiConst.Styles )?.Description() );
         }
 
         /// <summary>
@@ -98,23 +94,25 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 配置提示
         /// </summary>
         private void ConfigTooltip( TagBuilder builder ) {
-            builder.AddAttribute( "matTooltip", _config.GetValue( UiConst.Tooltip ) );
+            builder.AddAttribute( UiConst.Tooltip, _config.GetValue( UiConst.Tooltip ) );
         }
 
         /// <summary>
-        /// 配置菜单
+        /// 配置事件
         /// </summary>
-        private void ConfigMenu( TagBuilder builder ) {
-            builder.AddAttribute( "[matMenuTriggerFor]", _config.GetValue( MaterialConst.MenuId ) );
+        private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(onClick)", _config.GetValue( UiConst.OnClick ) );
         }
 
         /// <summary>
         /// 配置内容
         /// </summary>
         private void ConfigContent( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Text ) )
+            if ( _config.Content == null )
                 return;
-            builder.SetContent( _config.Content );
+            var template = new TemplateBuilder();
+            template.SetContent( _config.Content );
+            builder.SetContent( template );
         }
     }
 }

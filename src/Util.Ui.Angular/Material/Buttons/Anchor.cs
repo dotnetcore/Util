@@ -11,7 +11,7 @@ namespace Util.Ui.Material.Buttons {
         /// 获取渲染器
         /// </summary>
         protected override IRender GetRender() {
-            return new ARender( OptionConfig );
+            return new AnchorRender( OptionConfig );
         }
     }
 }
