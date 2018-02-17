@@ -33,7 +33,7 @@ namespace Util.Ui.Material.Forms {
         /// <summary>
         /// 获取渲染器
         /// </summary>
-        protected override IContainerRender GetRender() {
+        protected override IRender GetRender() {
             return new FormRender( _config );
         }
 

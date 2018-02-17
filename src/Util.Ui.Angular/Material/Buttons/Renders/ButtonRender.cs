@@ -34,7 +34,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TagBuilder builder ) {
+        private void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigText( builder );
             ConfigType( builder );
@@ -73,7 +73,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 设置样式
         /// </summary>
         private void ConfigStyle( TagBuilder builder ) {
-            if ( _config.Contains( UiConst.Styles ) ) {
+            if( _config.Contains( UiConst.Styles ) ) {
                 builder.AddAttribute( _config.GetValue<ButtonStyle?>( UiConst.Styles )?.Description(), "", false );
                 return;
             }

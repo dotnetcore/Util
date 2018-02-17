@@ -1,23 +1,18 @@
 ﻿using System;
 using System.IO;
 using Util.Ui.Components.Internal;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Components {
     /// <summary>
     /// 容器
     /// </summary>
     /// <typeparam name="TWrapper">容器包装器类型</typeparam>
-    public abstract class ContainerBase<TWrapper> : OptionBase, IContainer<TWrapper>, IRenderEnd
+    public abstract class ContainerBase<TWrapper> : ComponentBase, IContainer<TWrapper>, IRenderEnd
         where TWrapper : IDisposable {
         /// <summary>
         /// 流写入器
         /// </summary>
         private readonly TextWriter _writer;
-        /// <summary>
-        /// 渲染器
-        /// </summary>
-        private IContainerRender _render;
 
         /// <summary>
         /// 初始化容器
@@ -29,21 +24,10 @@ namespace Util.Ui.Components {
         }
 
         /// <summary>
-        /// 渲染器
-        /// </summary>
-        private IContainerRender Render => _render ?? ( _render = GetRender() );
-
-        /// <summary>
-        /// 获取渲染器
-        /// </summary>
-        protected abstract IContainerRender GetRender();
-
-        /// <summary>
         /// 准备渲染容器
         /// </summary>
         public TWrapper Begin() {
             Render.RenderStartTag( _writer );
-            WriteLog( "渲染容器" );
             return GetWrapper();
         }
 
@@ -57,13 +41,6 @@ namespace Util.Ui.Components {
         /// </summary>
         public void End() {
             Render.RenderEndTag( _writer );
-        }
-
-        /// <summary>
-        /// 输出Html
-        /// </summary>
-        public override string ToString() {
-            return Render.ToString();
         }
     }
 }

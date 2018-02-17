@@ -20,14 +20,6 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
-        /// 按钮
-        /// </summary>
-        /// <param name="service">组件服务</param>
-        public static IButton Button<TModel>( this IUiService<TModel> service ) {
-            return new Button();
-        }
-
-        /// <summary>
         /// 图标
         /// </summary>
         /// <param name="service">组件服务</param>
@@ -83,6 +75,16 @@ namespace Util.Ui.Extensions {
             if( !( service is IContext<TModel> context ) )
                 throw new NotImplementedException( "组件服务必须实现Util.Ui.Services.IContext" );
             return new Form( context.Helper.ViewContext.Writer );
+        }
+
+        /// <summary>
+        /// 按钮
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static Material.Buttons.IButton Button<TModel>( this IUiService<TModel> service ) {
+            if( !( service is IContext<TModel> context ) )
+                throw new NotImplementedException( "组件服务必须实现Util.Ui.Services.IContext" );
+            return new Button( context.Helper.ViewContext.Writer );
         }
 
         /// <summary>

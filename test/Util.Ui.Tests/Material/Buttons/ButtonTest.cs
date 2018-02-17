@@ -27,7 +27,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         public ButtonTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new Button();
+            _component = new Button( new StringWriter() );
         }
 
         /// <summary>

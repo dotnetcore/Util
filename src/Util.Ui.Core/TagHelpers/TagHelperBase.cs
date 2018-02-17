@@ -17,7 +17,6 @@ namespace Util.Ui.TagHelpers {
             var render = GetRender( new Context( context, output, content ) );
             output.SuppressOutput();
             output.PostElement.SetHtmlContent( render );
-            WriteLog( render );
         }
 
         /// <summary>
@@ -29,12 +28,12 @@ namespace Util.Ui.TagHelpers {
         /// <summary>
         /// 写日志
         /// </summary>
-        protected void WriteLog( IRender render ) {
+        protected void WriteLog( IRender render,string caption ) {
             var log = GetLog();
             if( log.IsTraceEnabled == false )
                 return;
             log.Class( GetType().FullName )
-                .Caption( "渲染TagHelper" )
+                .Caption( caption )
                 .Content( render.ToString() )
                 .Trace();
         }
@@ -44,7 +43,7 @@ namespace Util.Ui.TagHelpers {
         /// </summary>
         private ILog GetLog() {
             try {
-                return Log.GetLog( OptionBase.TraceLogName );
+                return Log.GetLog( ComponentBase.TraceLogName );
             }
             catch {
                 return Log.Null;

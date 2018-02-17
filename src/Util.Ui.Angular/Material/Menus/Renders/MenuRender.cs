@@ -10,7 +10,7 @@ namespace Util.Ui.Material.Menus.Renders {
     /// <summary>
     /// 菜单渲染器
     /// </summary>
-    public class MenuRender : ContainerRenderBase {
+    public class MenuRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>

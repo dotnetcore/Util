@@ -36,39 +36,40 @@
                 @x.TextBox( t => t.Name )
             </mat-card-content>
             <mat-card-content>
-                @x.Button().Reset()
+                @using( x.Button().Style( ButtonStyle.Icon ).Tooltip( "重置一下" ).Reset().Begin() ) {
+                    <util-icon material="Android"></util-icon>
+                }
                 @x.Button().Submit()
             </mat-card-content>
         </mat-card>
 
     </util-form>
+    
 
+    <util-container id="c1">
+        
 
-
-
-
-    <util-container>
-        <util-button styles="Icon" menu-id="abc5">
-            <util-icon material="More_Vert"></util-icon>
-        </util-button>
-
-        @using ( x.Menu().Id( "abc5" ).Position( XPosition.Right, YPosition.Below ).Overlap().Begin() ) {
-            <button mat-menu-item>
-                <mat-icon>dialpad</mat-icon>
-                <span>Redial</span>
-            </button>
-            <button mat-menu-item>
-                <span>B</span>
-            </button>
-            <button mat-menu-item>
-                <mat-icon>voicemail</mat-icon>
-                <span>Check voicemail</span>
-            </button>
-            <button mat-menu-item disabled>
-                <util-icon font-awesome="Bus" size="Large"></util-icon>
-                <span>A</span>
-            </button>
+        @using ( x.Button().MenuId( "abc5" ).Style( ButtonStyle.Icon ).Begin() ) {
+            <util-icon material="Android"></util-icon>
         }
+
+            @using( x.Menu().Id( "abc5" ).Position( XPosition.Right, YPosition.Below ).Overlap().Begin() ) {
+        <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+        </button>
+        <button mat-menu-item>
+            <span>B</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+        </button>
+        <button mat-menu-item disabled>
+            <util-icon font-awesome="Bus" size="Large"></util-icon>
+            <span>A</span>
+        </button>
+}
 
         <util-menu id="abc3" x-position="Right" y-position="Below" overlap="true">
             <button mat-menu-item>

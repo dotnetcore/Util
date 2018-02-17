@@ -14,7 +14,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="handler">单击事件处理函数，范例：handle()</param>
-        public static TComponent OnClick<TComponent>( this TComponent component, string handler ) where TComponent : IComponent,IOnClick {
+        public static TComponent OnClick<TComponent>( this TComponent component, string handler ) where TComponent : IOption, IOnClick {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.OnClick,handler );
@@ -28,7 +28,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="handler">变更事件处理函数，范例：handle()</param>
-        public static TComponent OnChange<TComponent>( this TComponent component, string handler ) where TComponent : IComponent, IOnChange {
+        public static TComponent OnChange<TComponent>( this TComponent component, string handler ) where TComponent : IOption, IOnChange {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.OnChange, handler );
@@ -42,7 +42,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="handler">获得焦点事件处理函数，范例：handle()</param>
-        public static TComponent OnFocus<TComponent>( this TComponent component, string handler ) where TComponent : IComponent, IOnFocus {
+        public static TComponent OnFocus<TComponent>( this TComponent component, string handler ) where TComponent : IOption, IOnFocus {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.OnFocus, handler );
@@ -56,7 +56,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="handler">失去焦点事件处理函数，范例：handle()</param>
-        public static TComponent OnBlur<TComponent>( this TComponent component, string handler ) where TComponent : IComponent, IOnBlur {
+        public static TComponent OnBlur<TComponent>( this TComponent component, string handler ) where TComponent : IOption, IOnBlur {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.OnBlur, handler );
@@ -70,7 +70,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="handler">键盘按键事件处理函数，范例：handle()</param>
-        public static TComponent OnKeyup<TComponent>( this TComponent component, string handler ) where TComponent : IComponent, IOnKeyup {
+        public static TComponent OnKeyup<TComponent>( this TComponent component, string handler ) where TComponent : IOption, IOnKeyup {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.OnKeyup, handler );
@@ -84,7 +84,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="handler">键盘按下事件处理函数，范例：handle()</param>
-        public static TComponent OnKeydown<TComponent>( this TComponent component, string handler ) where TComponent : IComponent, IOnKeydown {
+        public static TComponent OnKeydown<TComponent>( this TComponent component, string handler ) where TComponent : IOption, IOnKeydown {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.OnKeydown, handler );

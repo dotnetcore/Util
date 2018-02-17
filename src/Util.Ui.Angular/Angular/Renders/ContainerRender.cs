@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Angular.Renders {
@@ -27,7 +28,8 @@ namespace Util.Ui.Angular.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new ContainerBuilder();
             builder.AddAttribute( "id", _config.GetValue( UiConst.Id ) );
-            builder.AppendContent( _config.Content );
+            builder.SetContent( _config.Content );
+            builder.AddOutputAttributes( _config );
             return builder;
         }
     }

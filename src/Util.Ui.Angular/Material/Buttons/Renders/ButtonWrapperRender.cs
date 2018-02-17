@@ -1,4 +1,6 @@
-﻿using Util.Ui.Angular.Builders;
+﻿using System.IO;
+using System.Text.Encodings.Web;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.Builders;
@@ -14,6 +16,10 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 配置
         /// </summary>
         private readonly IConfig _config;
+        /// <summary>
+        /// 模板生成器
+        /// </summary>
+        private readonly TemplateBuilder _templateBuilder;
 
         /// <summary>
         /// 初始化按钮包装器渲染器
@@ -21,6 +27,41 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// <param name="config">配置</param>
         public ButtonWrapperRender( IConfig config ) : base( config ) {
             _config = config;
+            _templateBuilder = new TemplateBuilder();
+        }
+
+        /// <summary>
+        /// 渲染
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        /// <param name="encoder">编码</param>
+        public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
+            if ( _config.Contains( UiConst.Text ) || _config.Content == null ) {
+                Builder.WriteTo( writer, encoder );
+                return;
+            }
+            _templateBuilder.SetContent( _config.Content );
+            Builder.SetContent( _templateBuilder );
+            Builder.WriteTo( writer, encoder );
+        }
+
+        /// <summary>
+        /// 渲染起始标签
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        public override void RenderStartTag( TextWriter writer ) {
+            Builder.SetContent( _templateBuilder );
+            Builder.RenderStartTag( writer );
+            _templateBuilder.RenderStartTag( writer );
+        }
+
+        /// <summary>
+        /// 渲染结束标签
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        public override void RenderEndTag( TextWriter writer ) {
+            _templateBuilder.RenderEndTag( writer );
+            Builder.RenderEndTag( writer );
         }
 
         /// <summary>
@@ -44,7 +85,6 @@ namespace Util.Ui.Material.Buttons.Renders {
             ConfigDisabled( builder );
             ConfigTooltip( builder );
             ConfigEvents( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -102,17 +142,6 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(onClick)", _config.GetValue( UiConst.OnClick ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if ( _config.Content == null )
-                return;
-            var template = new TemplateBuilder();
-            template.SetContent( _config.Content );
-            builder.SetContent( template );
         }
     }
 }

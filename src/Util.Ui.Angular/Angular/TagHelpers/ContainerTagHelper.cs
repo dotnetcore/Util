@@ -6,21 +6,35 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Angular.TagHelpers {
     /// <summary>
-    /// ng-container容器，用于测试，可输出标签包含的html内容
+    /// ng-container容器
     /// </summary>
     [HtmlTargetElement( "util-container" )]
     public class ContainerTagHelper : TagHelperBase {
+        /// <summary>
+        /// 渲染器
+        /// </summary>
+        private ContainerRender _render;
         /// <summary>
         /// 标识
         /// </summary>
         public string Id { get; set; }
 
         /// <summary>
+        /// 渲染
+        /// </summary>
+        public override void Process( TagHelperContext context, TagHelperOutput output ) {
+            base.Process( context, output );
+            if( _render != null )
+                WriteLog( _render, "渲染ng-container容器" );
+        }
+
+        /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new ContainerRender( new Config( context ) );
+            _render = new ContainerRender( new Config( context ) );
+            return _render;
         }
     }
 }

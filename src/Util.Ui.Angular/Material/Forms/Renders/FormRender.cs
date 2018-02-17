@@ -7,7 +7,7 @@ namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
     /// 表单渲染器
     /// </summary>
-    public class FormRender : ContainerRenderBase {
+    public class FormRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -36,6 +36,7 @@ namespace Util.Ui.Material.Forms.Renders {
         private void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigEvents( builder );
+            ConfigContent( builder );
         }
 
         /// <summary>
@@ -51,6 +52,13 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(ngSubmit)", _config.GetValue( UiConst.OnSubmit ) );
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        private void ConfigContent( TagBuilder builder ) {
+            builder.SetContent( _config.Content );
         }
     }
 }

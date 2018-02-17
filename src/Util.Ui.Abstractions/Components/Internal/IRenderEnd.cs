@@ -4,7 +4,7 @@
     /// </summary>
     public interface IRenderEnd {
         /// <summary>
-        /// 渲染结束标签
+        /// 渲染结束
         /// </summary>
         void End();
     }
