@@ -157,7 +157,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestMenuId() {
             var result = new String();
             result.Append( "<button mat-raised-button=\"\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MenuId( "a" ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ) ) );
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestMenuId_Id() {
             var result = new String();
             result.Append( "<button #b=\"\" mat-raised-button=\"\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MenuId( "a" ).Id( "b" ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ).Id( "b" ) ) );
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestMenuId_Text() {
             var result = new String();
             result.Append( "<button mat-raised-button=\"\" type=\"button\" [matMenuTriggerFor]=\"a\">b</button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MenuId( "a" ).Text( "b" ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ).Text( "b" ) ) );
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestMenuId_Style() {
             var result = new String();
             result.Append( "<button mat-fab=\"\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MenuId( "a" ).Style( ButtonStyle.Fab ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ).Style( ButtonStyle.Fab ) ) );
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestMenuId_Color() {
             var result = new String();
             result.Append( "<button color=\"warn\" mat-raised-button=\"\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MenuId( "a" ).Color( Color.Warn ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ).Color( Color.Warn ) ) );
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestMenuId_Disable() {
             var result = new String();
             result.Append( "<button mat-raised-button=\"\" type=\"button\" [disabled]=\"b\" [matMenuTriggerFor]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MenuId( "a" ).Disable("b") ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ).Disable("b") ) );
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         public void TestMenuId_Tooltip() {
             var result = new String();
             result.Append( "<button mat-raised-button=\"\" matTooltip=\"b\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MenuId( "a" ).Tooltip( "b" ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ).Tooltip( "b" ) ) );
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Menus;
+using Util.Ui.Operations.Navigation;
 
 namespace Util.Ui.Material.Extensions {
     /// <summary>
@@ -34,6 +36,20 @@ namespace Util.Ui.Material.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Overlap, isOverlap );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置菜单
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="menuId">菜单标识</param>
+        public static TComponent Menu<TComponent>( this TComponent component, string menuId ) where TComponent : IMenuId {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( MaterialConst.MenuId, menuId );
             } );
             return component;
         }

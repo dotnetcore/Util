@@ -1,9 +1,9 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Renders;
-using SpanBuilder = Util.Ui.Builders.SpanBuilder;
 
 namespace Util.Ui.Material.Menus.Renders {
     /// <summary>
@@ -50,6 +50,7 @@ namespace Util.Ui.Material.Menus.Renders {
             ConfigDisabled( builder );
             ConfigEvents( builder );
             ConfigLink( builder );
+            ConfigMenu( builder );
         }
 
         /// <summary>
@@ -114,6 +115,13 @@ namespace Util.Ui.Material.Menus.Renders {
         /// </summary>
         private void ConfigLink( TagBuilder builder ) {
             builder.AddAttribute( "routerLink", _config.GetValue( UiConst.Link ) );
+        }
+
+        /// <summary>
+        /// 配置子菜单
+        /// </summary>
+        private void ConfigMenu( TagBuilder builder ) {
+            builder.AddAttribute( "[matMenuTriggerFor]", _config.GetValue( MaterialConst.MenuId ) );
         }
     }
 }

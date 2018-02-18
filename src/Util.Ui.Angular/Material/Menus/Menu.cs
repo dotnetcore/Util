@@ -1,15 +1,15 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Util.Ui.Components;
 using Util.Ui.Configs;
 using Util.Ui.Material.Menus.Renders;
+using Util.Ui.Material.Menus.Wrappers;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Menus {
     /// <summary>
     /// 菜单
     /// </summary>
-    public class Menu : ContainerBase<IDisposable>, IMenu {
+    public class Menu : ContainerBase<IMenuWrapper>, IMenu {
         /// <summary>
         /// 配置
         /// </summary>
@@ -40,8 +40,8 @@ namespace Util.Ui.Material.Menus {
         /// <summary>
         /// 获取容器包装器
         /// </summary>
-        protected override IDisposable GetWrapper() {
-            return new ContainerWrapper( this );
+        protected override IMenuWrapper GetWrapper() {
+            return new MenuWrapper( this );
         }
     }
 }

@@ -35,6 +35,10 @@ namespace Util.Ui.Material.Menus.TagHelpers {
         /// 单击事件处理函数,范例：handle()
         /// </summary>
         public string OnClick { get; set; }
+        /// <summary>
+        /// 子菜单标识
+        /// </summary>
+        public string MenuId { get; set; }
 
         /// <summary>
         /// 获取渲染器

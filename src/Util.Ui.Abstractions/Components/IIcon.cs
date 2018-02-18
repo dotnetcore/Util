@@ -6,6 +6,6 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 图标
     /// </summary>
-    public interface IIcon : IComponent, IAttribute,IClass, IStyle, ISpin {
+    public interface IIcon : IComponent, IIconOperation, IAttribute,IClass, IStyle, ISpin {
     }
 }
