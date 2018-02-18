@@ -4,6 +4,7 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Menus.Builders;
+using Util.Ui.Material.Menus.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Menus.Renders {
@@ -14,13 +15,13 @@ namespace Util.Ui.Material.Menus.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly MenuConfig _config;
 
         /// <summary>
         /// 初始化菜单渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public MenuRender( IConfig config ) : base( config ) {
+        public MenuRender( MenuConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -31,7 +32,7 @@ namespace Util.Ui.Material.Menus.Renders {
         /// <param name="encoder">编码</param>
         public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
             var builder = (MenuBuilder)Builder;
-            builder.TemplateBuilder.SetContent( _config.Content );
+            builder.TemplateBuilder.AppendContent( _config.Content );
             Builder.WriteTo( writer, encoder );
         }
 
@@ -67,10 +68,11 @@ namespace Util.Ui.Material.Menus.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TagBuilder builder ) {
+        protected void Config( MenuBuilder builder ) {
             ConfigId( builder );
             ConfigPosition( builder );
             ConfigOverlap( builder );
+            ConfigItems( builder );
         }
 
         /// <summary>
@@ -97,6 +99,15 @@ namespace Util.Ui.Material.Menus.Renders {
         /// </summary>
         private void ConfigOverlap( TagBuilder builder ) {
             builder.AddAttribute( "[overlapTrigger]", _config.GetBoolValue( UiConst.Overlap ) );
+        }
+
+        /// <summary>
+        /// 配置菜单项
+        /// </summary>
+        private void ConfigItems( MenuBuilder builder ) {
+            _config.Data?.Items.ForEach( item => {
+                builder.TemplateBuilder.AppendContent( new MenuItem( item ) );
+            } );
         }
     }
 }

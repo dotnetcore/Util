@@ -11,28 +11,32 @@ namespace Util.Ui.Extensions {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// Font Awesome图标
+        /// 图标
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
-        /// <param name="icon">图标</param>
-        public static TComponent Icon<TComponent>( this TComponent component, FontAwesomeIcon icon ) where TComponent : IComponent, IIconOperation {
+        /// <param name="icon">Font Awesome图标</param>
+        public static TComponent Icon<TComponent>( this TComponent component, FontAwesomeIcon? icon ) where TComponent : IComponent, IIconOperation {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
+                if ( icon == null )
+                    return;
                 config.SetAttribute( UiConst.FontAwesomeIcon, icon );
             } );
             return component;
         }
 
         /// <summary>
-        /// Material图标
+        /// 图标
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="icon">Material图标</param>
-        public static TComponent Icon<TComponent>( this TComponent component, MaterialIcon icon ) where TComponent : IComponent, IIconOperation {
+        public static TComponent Icon<TComponent>( this TComponent component, MaterialIcon? icon ) where TComponent : IComponent, IIconOperation {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
+                if( icon == null )
+                    return;
                 config.SetAttribute( UiConst.MaterialIcon, icon );
             } );
             return component;

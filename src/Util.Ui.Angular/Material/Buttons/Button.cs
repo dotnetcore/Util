@@ -2,8 +2,8 @@
 using System.IO;
 using Util.Ui.Components;
 using Util.Ui.Configs;
+using Util.Ui.Material.Buttons.Configs;
 using Util.Ui.Material.Buttons.Renders;
-using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Buttons {
@@ -14,14 +14,14 @@ namespace Util.Ui.Material.Buttons {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly ButtonConfig _config;
 
         /// <summary>
         /// 初始化按钮
         /// </summary>
         /// <param name="writer">流写入器</param>
         public Button( TextWriter writer ) : base( writer ) {
-            _config = new Config();
+            _config = new ButtonConfig();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Util.Ui.Material.Buttons {
         /// 获取渲染器
         /// </summary>
         protected override IRender GetRender() {
-            if( _config.Contains( MaterialConst.MenuId ) )
+            if( _config.IsMenu )
                 return new ButtonRender( _config );
             return new ButtonWrapperRender( _config );
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Donau.Services.Dtos.Customers;
+using Microsoft.AspNetCore.Mvc;
 using Util.Helpers;
 using Util.Webs.Filters;
 
@@ -28,7 +29,7 @@ namespace Util.Samples.Webs.Controllers {
         }
 
         public IActionResult Demo() {
-            return View();
+            return View(new CustomersDto());
         }
 
         public IActionResult Error() {

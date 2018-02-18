@@ -60,6 +60,8 @@ namespace Util.Ui.Material.Extensions {
         public static TComponent Link<TComponent>( this TComponent component, string routerLink ) where TComponent : ILink {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
+                if( string.IsNullOrWhiteSpace( routerLink ) )
+                    return;
                 config.SetAttribute( UiConst.Link, routerLink );
             } );
             return component;

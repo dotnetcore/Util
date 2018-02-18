@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Ui.Components.Internal;
+﻿using Util.Ui.Components.Internal;
 
 namespace Util.Ui.Material.Menus.Wrappers {
     /// <summary>
@@ -23,9 +22,8 @@ namespace Util.Ui.Material.Menus.Wrappers {
         ///  渲染结束
         /// </summary>
         public void Dispose() {
-            if( !( _container is IRenderEnd container ) )
-                throw new NotImplementedException( "容器必须实现Util.Ui.Components.IRenderEnd" );
-            container.End();
+            if(  _container is IRenderEnd container )
+                container.End();
         }
 
         /// <summary>

@@ -57,6 +57,7 @@ namespace Util.Ui.Renders {
         /// </summary>
         /// <param name="writer">流写入器</param>
         public virtual void RenderEndTag( TextWriter writer ) {
+            Builder.RenderBody( writer );
             Builder.RenderEndTag( writer );
         }
 

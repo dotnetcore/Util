@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
+using Util.Ui.Material.Menus.Configs;
 using Util.Ui.Material.Menus.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -33,7 +33,7 @@ namespace Util.Ui.Material.Menus.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new MenuRender( new Config( context ) );
+            return new MenuRender( new MenuConfig( context ) );
         }
     }
 }

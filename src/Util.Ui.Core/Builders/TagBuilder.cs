@@ -136,6 +136,14 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
+        /// 渲染内容
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        public void RenderBody( TextWriter writer ) {
+            _tagBuilder.RenderBody().WriteTo( writer, NullHtmlEncoder.Default );
+        }
+
+        /// <summary>
         /// 渲染结束标签
         /// </summary>
         /// <param name="writer">流写入器</param>

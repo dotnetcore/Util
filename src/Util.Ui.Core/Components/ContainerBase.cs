@@ -19,7 +19,6 @@ namespace Util.Ui.Components {
         /// </summary>
         /// <param name="writer">流写入器</param>
         protected ContainerBase( TextWriter writer ) {
-            writer.CheckNull( nameof( writer ) );
             _writer = writer;
         }
 
@@ -27,6 +26,8 @@ namespace Util.Ui.Components {
         /// 准备渲染容器
         /// </summary>
         public TWrapper Begin() {
+            if( _writer == null )
+                throw new ArgumentNullException( "TextWriter未设置" );
             Render.RenderStartTag( _writer );
             return GetWrapper();
         }

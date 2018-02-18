@@ -45,34 +45,10 @@
 
     </util-form>
 
+    @using( x.Button().Menu( Model.GetMenus() ).Style( ButtonStyle.Icon ).Begin() ) {
+        <util-icon material-icon="More_Vert"></util-icon>
+    }
 
-    <util-container id="c1">
-
-        @using( x.Button().Menu( "menu1" ).Style( ButtonStyle.Icon ).Begin() ) {
-            <util-icon material-icon="More_Vert"></util-icon>
-        }
-
-        <util-button menu-id="menu1" styles="Icon">
-            <util-icon material-icon="Brightness_2"></util-icon>
-        </util-button>
-
-
-
-        @using( var menu = x.Menu().Id( "menu1" ).Position( XPosition.Right, YPosition.Below ).Overlap().Begin() ) {
-            @menu.Item().Text( "文本" )
-            @menu.Item().Icon( FontAwesomeIcon.Apple ).Text( "苹果" ).OnClick( "onChange()" )
-            @menu.Item().Icon( MaterialIcon.Wc ).Text( "卫生间" ).Menu( "menu2" )
-            @menu.Item().Link( "/searchmenu" ).Icon( FontAwesomeIcon.Link ).Text( "链接" )
-        }
-
-        <util-menu id="menu2" x-position="Left">
-            <util-menu-item text="文本"></util-menu-item>
-            <util-menu-item font-awesome-icon="Apple" text="苹果" on-click="onChange()"></util-menu-item>
-            <util-menu-item material-icon="Wc" text="卫生间"></util-menu-item>
-            <util-menu-item text="禁用" disabled="true"></util-menu-item>
-            <util-menu-item link="/searchmenu" text="链接" material-icon="Link"></util-menu-item>
-        </util-menu>
-    </util-container>
 
 </div>
 

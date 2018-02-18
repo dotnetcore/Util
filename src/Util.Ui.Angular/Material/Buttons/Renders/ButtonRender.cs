@@ -1,8 +1,12 @@
-﻿using Util.Ui.Builders;
+﻿using System.Linq;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Material.Buttons.Configs;
 using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Renders;
 using Util.Ui.Material.Enums;
+using Util.Ui.Material.Extensions;
+using Util.Ui.Material.Menus;
 
 namespace Util.Ui.Material.Buttons.Renders {
     /// <summary>
@@ -12,13 +16,13 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly ButtonConfig _config;
 
         /// <summary>
         /// 初始化按钮渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ButtonRender( IConfig config ) : base( config ) {
+        public ButtonRender( ButtonConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -106,6 +110,15 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void ConfigMenu( TagBuilder builder ) {
             builder.AddAttribute( "[matMenuTriggerFor]", _config.GetValue( MaterialConst.MenuId ) );
+            AddMenus( builder );
+        }
+
+        /// <summary>
+        /// 添加菜单
+        /// </summary>
+        private void AddMenus( TagBuilder builder ) {
+            _config.Data?.Select( data => new Menu().Data( data ) ).ToList()
+                .ForEach( menu => builder.AppendContent( menu ) );
         }
 
         /// <summary>
@@ -114,7 +127,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         private void ConfigContent( TagBuilder builder ) {
             if( _config.Contains( UiConst.Text ) )
                 return;
-            builder.SetContent( _config.Content );
+            builder.AppendContent( _config.Content );
         }
     }
 }

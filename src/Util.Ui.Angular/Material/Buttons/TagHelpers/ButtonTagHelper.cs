@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Material.Buttons.Configs;
 using Util.Ui.Material.Buttons.Renders;
 using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
@@ -54,7 +55,7 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            var config = new Config( context );
+            var config = new ButtonConfig( context );
             if( config.Contains( MaterialConst.MenuId ) )
                 return new ButtonRender( config );
             return new ButtonWrapperRender( config );

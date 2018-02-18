@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Util.Ui.Components;
 using Util.Ui.Configs;
+using Util.Ui.Material.Menus.Configs;
 using Util.Ui.Material.Menus.Renders;
 using Util.Ui.Material.Menus.Wrappers;
 using Util.Ui.Renders;
@@ -13,14 +14,20 @@ namespace Util.Ui.Material.Menus {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly Config _config;
+        private readonly MenuConfig _config;
+
+        /// <summary>
+        /// 初始化菜单
+        /// </summary>
+        public Menu() : this( null ) {
+        }
 
         /// <summary>
         /// 初始化菜单
         /// </summary>
         /// <param name="writer">流写入器</param>
         public Menu( TextWriter writer ) : base( writer ) {
-            _config = new Config();
+            _config = new MenuConfig();
         }
 
         /// <summary>
