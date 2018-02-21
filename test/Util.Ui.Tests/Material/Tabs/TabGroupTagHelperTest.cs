@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tabs.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -53,6 +54,28 @@ namespace Util.Ui.Tests.Material.Tabs {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<mat-tab-group #a=\"\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置背景色
+        /// </summary>
+        [Fact]
+        public void TestBackgroundColor() {
+            var attributes = new TagHelperAttributeList { { UiConst.BackgroundColor, Color.Primary } };
+            var result = new String();
+            result.Append( "<mat-tab-group backgroundColor=\"primary\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置主题色
+        /// </summary>
+        [Fact]
+        public void TestColor() {
+            var attributes = new TagHelperAttributeList { { UiConst.Color, Color.Primary } };
+            var result = new String();
+            result.Append( "<mat-tab-group color=\"primary\"></mat-tab-group>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

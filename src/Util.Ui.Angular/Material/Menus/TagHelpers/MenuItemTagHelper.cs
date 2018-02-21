@@ -12,9 +12,9 @@ namespace Util.Ui.Material.Menus.TagHelpers {
     [HtmlTargetElement( "util-menu-item" )]
     public class MenuItemTagHelper : TagHelperBase {
         /// <summary>
-        /// 文本
+        /// 标签
         /// </summary>
-        public string Text { get; set; }
+        public string Label { get; set; }
         /// <summary>
         /// Material图标
         /// </summary>

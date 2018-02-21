@@ -82,6 +82,15 @@ namespace Util.Ui.Builders {
         /// 添加内容
         /// </summary>
         /// <param name="content">内容</param>
+        public TagBuilder AppendContent( string content ) {
+            _tagBuilder.InnerHtml.AppendHtml( content );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加内容
+        /// </summary>
+        /// <param name="content">内容</param>
         public TagBuilder AppendContent( IHtmlContent content ) {
             _tagBuilder.InnerHtml.AppendHtml( content );
             return this;

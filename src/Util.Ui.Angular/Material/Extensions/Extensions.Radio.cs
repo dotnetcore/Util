@@ -2,7 +2,6 @@
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Material.Commons.Configs;
-using Util.Ui.Operations.Forms;
 
 namespace Util.Ui.Material.Extensions {
     /// <summary>
@@ -15,7 +14,7 @@ namespace Util.Ui.Material.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="showLabel">是否显示标签</param>
-        public static TComponent Label<TComponent>( this TComponent component, bool showLabel ) where TComponent : IRadio, ILabel {
+        public static TComponent Label<TComponent>( this TComponent component, bool showLabel ) where TComponent : IRadio {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( MaterialConst.ShowLabel, showLabel );

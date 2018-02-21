@@ -1,12 +1,23 @@
 ﻿using System.Collections.Generic;
-using Util.Ui.Datas;
 using Util.Ui.Enums;
 
 namespace Util.Ui.Material.Menus.Datas {
     /// <summary>
     /// 菜单节点
     /// </summary>
-    public class MenuNode : TreeNode {
+    public class MenuNode {
+        /// <summary>
+        /// 标识
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
+        /// 父标识
+        /// </summary>
+        public string ParentId { get; set; }
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public string Label { get; set; }
         /// <summary>
         /// Material图标
         /// </summary>
@@ -34,7 +45,7 @@ namespace Util.Ui.Material.Menus.Datas {
         /// <param name="nodes">菜单节点列表</param>
         public MenuItemData ToMenuItemData( List<MenuNode> nodes ) {
             return new MenuItemData {
-                Text = Text,
+                Label = Label,
                 MaterialIcon = MaterialIcon,
                 FontAwesomeIcon = FontAwesomeIcon,
                 Disabled = Disabled,

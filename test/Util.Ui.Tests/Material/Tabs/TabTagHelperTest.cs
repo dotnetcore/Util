@@ -1,33 +1,32 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Material.Commons.Configs;
-using Util.Ui.Material.Menus.TagHelpers;
+using Util.Ui.Material.Tabs.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
-namespace Util.Ui.Tests.Material.Menus {
+namespace Util.Ui.Tests.Material.Tabs {
     /// <summary>
-    /// 菜单项测试
+    /// 选项卡测试
     /// </summary>
-    public class MenuItemTagHelperTest {
+    public class TabTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 菜单项
+        /// 选项卡
         /// </summary>
-        private readonly MenuItemTagHelper _component;
+        private readonly TabTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public MenuItemTagHelperTest( ITestOutputHelper output ) {
+        public TabTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new MenuItemTagHelper();
+            _component = new TabTagHelper();
         }
 
         /// <summary>
@@ -43,18 +42,29 @@ namespace Util.Ui.Tests.Material.Menus {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<button mat-menu-item=\"\"></button>" );
+            result.Append( "<mat-tab><ng-template mat-tab-label=\"\"></ng-template></mat-tab>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
         /// <summary>
-        /// 测试标签
+        /// 测试添加标识
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
+            var result = new String();
+            result.Append( "<mat-tab #a=\"\"><ng-template mat-tab-label=\"\"></ng-template></mat-tab>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试添加标签
         /// </summary>
         [Fact]
         public void TestLabel() {
             var attributes = new TagHelperAttributeList { { UiConst.Label, "a" } };
             var result = new String();
-            result.Append( "<button mat-menu-item=\"\"><span>a</span></button>" );
+            result.Append( "<mat-tab><ng-template mat-tab-label=\"\">a</ng-template></mat-tab>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -65,7 +75,7 @@ namespace Util.Ui.Tests.Material.Menus {
         public void TestMaterialIcon() {
             var attributes = new TagHelperAttributeList { { UiConst.MaterialIcon, MaterialIcon.Add } };
             var result = new String();
-            result.Append( "<button mat-menu-item=\"\"><mat-icon>add</mat-icon></button>" );
+            result.Append( "<mat-tab><ng-template mat-tab-label=\"\"><mat-icon>add</mat-icon></ng-template></mat-tab>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -76,7 +86,18 @@ namespace Util.Ui.Tests.Material.Menus {
         public void TestFontAwesomeIcon() {
             var attributes = new TagHelperAttributeList { { UiConst.FontAwesomeIcon, FontAwesomeIcon.Bus } };
             var result = new String();
-            result.Append( "<button mat-menu-item=\"\"><i class=\"fa fa-bus\"></i></button>" );
+            result.Append( "<mat-tab><ng-template mat-tab-label=\"\"><i class=\"fa fa-bus\"></i></ng-template></mat-tab>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试标签和Material图标
+        /// </summary>
+        [Fact]
+        public void TestLabel_MaterialIcon() {
+            var attributes = new TagHelperAttributeList { { UiConst.Label, "a" },{ UiConst.MaterialIcon, MaterialIcon.Add } };
+            var result = new String();
+            result.Append( "<mat-tab><ng-template mat-tab-label=\"\"><mat-icon>add</mat-icon>a</ng-template></mat-tab>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -87,40 +108,7 @@ namespace Util.Ui.Tests.Material.Menus {
         public void TestDisabled() {
             var attributes = new TagHelperAttributeList { { UiConst.Disabled, "a" } };
             var result = new String();
-            result.Append( "<button mat-menu-item=\"\" [disabled]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试路由链接地址
-        /// </summary>
-        [Fact]
-        public void TestLink() {
-            var attributes = new TagHelperAttributeList { { UiConst.Link, "a" }, { UiConst.Label, "b" }, { UiConst.MaterialIcon, MaterialIcon.Add } };
-            var result = new String();
-            result.Append( "<a mat-menu-item=\"\" routerLink=\"a\"><mat-icon>add</mat-icon><span>b</span></a>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试单击事件
-        /// </summary>
-        [Fact]
-        public void TestOnClick() {
-            var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
-            var result = new String();
-            result.Append( "<button (click)=\"a\" mat-menu-item=\"\"></button>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试设置子菜单
-        /// </summary>
-        [Fact]
-        public void TestMenuId() {
-            var attributes = new TagHelperAttributeList { { MaterialConst.MenuId, "a" } };
-            var result = new String();
-            result.Append( "<button mat-menu-item=\"\" [matMenuTriggerFor]=\"a\"></button>" );
+            result.Append( "<mat-tab [disabled]=\"a\"><ng-template mat-tab-label=\"\"></ng-template></mat-tab>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

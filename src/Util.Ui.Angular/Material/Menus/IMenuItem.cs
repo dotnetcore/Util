@@ -7,6 +7,6 @@ namespace Util.Ui.Material.Menus {
     /// <summary>
     /// 菜单项
     /// </summary>
-    public interface IMenuItem : IComponent,IText,IIconOperation,IDisabled,ILink,IOnClick, IMenuId {
+    public interface IMenuItem : IComponent,ILabel,IIconOperation,IDisabled,ILink,IOnClick, IMenuId {
     }
 }

@@ -1,35 +1,43 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Material.Enums;
+using Util.Ui.Enums;
 using Util.Ui.Material.Tabs.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Tabs.TagHelpers {
     /// <summary>
-    /// 选项卡组
+    /// 选项卡
     /// </summary>
-    [HtmlTargetElement( "util-tabs" )]
-    public class TabGroupTagHelper : TagHelperBase {
+    [HtmlTargetElement( "util-tab" )]
+    public class TabTagHelper : TagHelperBase {
         /// <summary>
         /// 标识，指向模板引用变量，而不是Id属性
         /// </summary>
         public string Id { get; set; }
         /// <summary>
-        /// 背景色
+        /// 标签
         /// </summary>
-        public Color BackgroundColor { get; set; }
+        public string Label { get; set; }
         /// <summary>
-        /// 主题色
+        /// Material图标
         /// </summary>
-        public Color Color { get; set; }
+        public MaterialIcon MaterialIcon { get; set; }
+        /// <summary>
+        /// Font Awesome图标
+        /// </summary>
+        public FontAwesomeIcon FontAwesomeIcon { get; set; }
+        /// <summary>
+        /// 禁用
+        /// </summary>
+        public string Disabled { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new TabGroupRender( new Config( context ) );
+            return new TabRender( new Config( context ) );
         }
     }
 }

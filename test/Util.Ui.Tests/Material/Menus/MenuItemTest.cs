@@ -51,13 +51,13 @@ namespace Util.Ui.Tests.Material.Menus {
         }
 
         /// <summary>
-        /// 测试文本
+        /// 测试标签
         /// </summary>
         [Fact]
-        public void TestText() {
+        public void TestLabel() {
             var result = new String();
             result.Append( "<button mat-menu-item=\"\"><span>a</span></button>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Text("a") ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Label("a") ) );
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Util.Ui.Tests.Material.Menus {
         public void TestLink() {
             var result = new String();
             result.Append( "<a mat-menu-item=\"\" routerLink=\"a\"><mat-icon>add</mat-icon><span>b</span></a>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Link("a").Text( "b" ).Icon( MaterialIcon.Add ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Link("a").Label( "b" ).Icon( MaterialIcon.Add ) ) );
         }
 
         /// <summary>

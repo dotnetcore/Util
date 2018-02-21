@@ -1,4 +1,4 @@
-﻿namespace Util.Ui.Operations.Forms {
+﻿namespace Util.Ui.Operations {
     /// <summary>
     /// 标签
     /// </summary>

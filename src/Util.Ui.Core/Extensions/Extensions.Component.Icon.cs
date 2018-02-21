@@ -16,7 +16,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="icon">Font Awesome图标</param>
-        public static TComponent Icon<TComponent>( this TComponent component, FontAwesomeIcon? icon ) where TComponent : IComponent, IIconOperation {
+        public static TComponent Icon<TComponent>( this TComponent component, FontAwesomeIcon? icon ) where TComponent : IOption, IIconOperation {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 if ( icon == null )
@@ -32,7 +32,7 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
         /// <param name="icon">Material图标</param>
-        public static TComponent Icon<TComponent>( this TComponent component, MaterialIcon? icon ) where TComponent : IComponent, IIconOperation {
+        public static TComponent Icon<TComponent>( this TComponent component, MaterialIcon? icon ) where TComponent : IOption, IIconOperation {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 if( icon == null )

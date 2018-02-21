@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Enums;
+using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Tabs;
 using Xunit;
 using Xunit.Abstractions;
@@ -55,6 +57,26 @@ namespace Util.Ui.Tests.Material.Tabs {
             var result = new String();
             result.Append( "<mat-tab-group #a=\"\"></mat-tab-group>" );
             Assert.Equal( result.ToString(), GetResult( _component.Id( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置背景色
+        /// </summary>
+        [Fact]
+        public void TestBackgroundColor() {
+            var result = new String();
+            result.Append( "<mat-tab-group backgroundColor=\"primary\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BackgroundColor( Color.Primary ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置主题色
+        /// </summary>
+        [Fact]
+        public void TestColor() {
+            var result = new String();
+            result.Append( "<mat-tab-group color=\"primary\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Color( Color.Primary ) ) );
         }
     }
 }

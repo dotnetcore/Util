@@ -10,25 +10,25 @@ namespace Util.Ui.Components {
     public abstract class ContainerBase<TWrapper> : ComponentBase, IContainer<TWrapper>, IRenderEnd
         where TWrapper : IDisposable {
         /// <summary>
-        /// 流写入器
-        /// </summary>
-        private readonly TextWriter _writer;
-
-        /// <summary>
         /// 初始化容器
         /// </summary>
         /// <param name="writer">流写入器</param>
         protected ContainerBase( TextWriter writer ) {
-            _writer = writer;
+            Writer = writer;
         }
+
+        /// <summary>
+        /// 流写入器
+        /// </summary>
+        public TextWriter Writer { get; set; }
 
         /// <summary>
         /// 准备渲染容器
         /// </summary>
         public TWrapper Begin() {
-            if( _writer == null )
+            if( Writer == null )
                 throw new ArgumentNullException( "TextWriter未设置" );
-            Render.RenderStartTag( _writer );
+            Render.RenderStartTag( Writer );
             return GetWrapper();
         }
 
@@ -41,7 +41,7 @@ namespace Util.Ui.Components {
         /// 容器渲染结束
         /// </summary>
         public void End() {
-            Render.RenderEndTag( _writer );
+            Render.RenderEndTag( Writer );
         }
     }
 }

@@ -135,22 +135,22 @@ namespace Donau.Services.Dtos.Customers {
         public MenuNodeCollection GetMenus() {
             var result = new MenuNodeCollection();
             result.Overlap = false;
-            result.Nodes.Add( new MenuNode{Text = "A", MaterialIcon = MaterialIcon.Block,OnClick = "onChange()"} );
-            result.Nodes.Add( new MenuNode { Id = "2",Text = "B", MaterialIcon = MaterialIcon.Android,Link = "/searchmenu" } );
-            result.Nodes.Add( new MenuNode { Id = "3", Text = "C", MaterialIcon = MaterialIcon.Bluetooth, OnClick = "onChange()" } );
-            result.Nodes.Add( new MenuNode { ParentId = "2",Text = "D", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled="true" } );
-            result.Nodes.Add( new MenuNode { ParentId = "2", Text = "E", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
-            result.Nodes.Add( new MenuNode { Id = "4", ParentId = "2", Text = "F", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
-            result.Nodes.Add( new MenuNode { ParentId = "3", Text = "H", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled = "true" } );
-            result.Nodes.Add( new MenuNode { ParentId = "3", Text = "I", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
-            result.Nodes.Add( new MenuNode { ParentId = "2", Text = "G", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode{Label = "A", MaterialIcon = MaterialIcon.Block,OnClick = "onChange()"} );
+            result.Nodes.Add( new MenuNode { Id = "2", Label = "B", MaterialIcon = MaterialIcon.Android,Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { Id = "3", Label = "C", MaterialIcon = MaterialIcon.Bluetooth, OnClick = "onChange()" } );
+            result.Nodes.Add( new MenuNode { ParentId = "2", Label = "D", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled="true" } );
+            result.Nodes.Add( new MenuNode { ParentId = "2", Label = "E", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { Id = "4", ParentId = "2", Label = "F", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { ParentId = "3", Label = "H", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled = "true" } );
+            result.Nodes.Add( new MenuNode { ParentId = "3", Label = "I", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { ParentId = "2", Label = "G", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
 
-            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "D", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled = "true" } );
-            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "E", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
-            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "F", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
-            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "H", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled = "true" } );
-            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "I", MaterialIcon = MaterialIcon.Android, Link = "/searchmenu" } );
-            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "G", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { ParentId = "4", Label = "D", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled = "true" } );
+            result.Nodes.Add( new MenuNode { ParentId = "4", Label = "E", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { ParentId = "4", Label = "F", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { ParentId = "4", Label = "H", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled = "true" } );
+            result.Nodes.Add( new MenuNode { ParentId = "4", Label = "I", MaterialIcon = MaterialIcon.Android, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { ParentId = "4", Label = "G", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
             return result;
         }
     }

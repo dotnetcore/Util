@@ -35,7 +35,16 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigColor( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置颜色
+        /// </summary>
+        private void ConfigColor( TagBuilder builder ) {
+            builder.AddAttribute( "backgroundColor", _config.GetValue( UiConst.BackgroundColor )?.ToLower() );
+            builder.AddAttribute( "color", _config.GetValue( UiConst.Color )?.ToLower() );
         }
 
         /// <summary>

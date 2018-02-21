@@ -17,7 +17,7 @@
     </button>
 
 </div>
-<div style="margin: 300px">
+<div style="margin: 100px">
 
 
     <util-form id="form" on-submit="onChange(form)">
@@ -52,114 +52,31 @@
     </div>
 
     <util-container>
-        <util-tabs>
-            <mat-tab label="你好">大家好</mat-tab>
-            <mat-tab label="我好">你也好</mat-tab>
+        <util-tabs  color="Primary">
+            <util-tab  material-icon="Security" label="哈哈">
+                哈哈
+            </util-tab>
+            <util-tab font-awesome-icon="Linux" label="嘿嘿" disabled="false">
+                嘿嘿
+            </util-tab>
         </util-tabs>
-        @using( x.Tabs().Begin() ) {
-            <mat-tab label="你好2">大家好2</mat-tab>
-            <mat-tab label="我好2">你也好2</mat-tab>
+        
+        
+
+        @using( var tabs = x.Tabs().BackgroundColor( Color.Primary ).Color( Color.Primary ).Begin() ) {
+            using ( tabs.Tab().Label( "哈哈" ).Icon( FontAwesomeIcon.Linux ).Begin() ) {
+                <div>哈哈2</div>
+            }
+            using ( tabs.Tab().Label( "FontAwesome图标" ).Icon( MaterialIcon.Security ).Begin() ) {
+                foreach ( var item in Util.Helpers.Enum.GetItems<FontAwesomeIcon>() ) {
+                     <span style="margin: 20px">
+                         @x.Icon().Icon( ( Util.Helpers.Enum.Parse<FontAwesomeIcon>( item.Value ) ) ).Size( IconSize.Large5X ) <span>@item.Text</span>
+                     </span>
+                 }
+            }
         }
     </util-container>
 
-    <mat-tab-group>
-        <mat-tab label="One">
-            <h1>Some tab content</h1>
-            <p>...</p>
-        </mat-tab>
-        <mat-tab label="Two">
-            <h1>Some more tab content</h1>
-            <p>...</p>
-        </mat-tab>
-    </mat-tab-group>
-
-    <mat-tab-group height="200px">
-        <mat-tab>
-            <ng-template mat-tab-label>
-                The <em>best</em> pasta
-            </ng-template>
-            <h1>Best pasta restaurants</h1>
-            <p>...</p>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>thumb_down</mat-icon> The worst sushi
-            </ng-template>
-            <h1>Terrible sushi restaurants</h1>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-        </mat-tab>
-    </mat-tab-group>
-
-    <mat-card>
-        <mat-card-content>
-            <h2 class="example-h2">Tabs with icon labels</h2>
-            <mat-tab-group class="demo-tab-group">
-                <mat-tab label="Tab 1">
-                    <ng-template mat-tab-label>
-                        <mat-icon>security</mat-icon>
-                    </ng-template>
-                    <div class="demo-tab-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                        Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-                        In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-                        feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-                        orci enim rutrum enim, vel tempor sapien arcu a tellus.
-                    </div>
-                </mat-tab>
-                <mat-tab label="Tab 2">
-                    <ng-template mat-tab-label>
-                        <mat-icon>attach_file</mat-icon>
-                    </ng-template>
-                    <div class="demo-tab-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                        Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-                        In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-                        feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-                        orci enim rutrum enim, vel tempor sapien arcu a tellus.
-                    </div>
-                </mat-tab>
-                <mat-tab label="Tab 3" disabled>
-                    <ng-template mat-tab-label>
-                        <mat-icon>block</mat-icon>
-                    </ng-template>
-                    No content
-                </mat-tab>
-                <mat-tab label="Tab 4">
-                    <ng-template mat-tab-label>
-                        <mat-icon>loop</mat-icon>
-                    </ng-template>
-                    <div class="demo-tab-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                        Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-                        In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-                        feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-                        orci enim rutrum enim, vel tempor sapien arcu a tellus.
-                        <br />
-                        <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                        Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-                        In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-                        feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-                        orci enim rutrum enim, vel tempor sapien arcu a tellus.
-                    </div>
-                </mat-tab>
-                <mat-tab label="Tab 5">
-                    <ng-template mat-tab-label>
-                        <util-icon font-awesome-icon="Car"></util-icon> 哈哈
-                    </ng-template>
-                    No content
-                </mat-tab>
-                <mat-tab label="Tab 6">
-                    <ng-template mat-tab-label>
-                        <mat-icon>thumb_down</mat-icon> 哈哈
-                    </ng-template>
-                    No content
-                </mat-tab>
-            </mat-tab-group>
-        </mat-card-content>
-    </mat-card>
 
 
     <nav mat-tab-nav-bar>
@@ -172,7 +89,8 @@
         </a>
     </nav>
     <router-outlet></router-outlet>
-
+    
+    
 </div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">

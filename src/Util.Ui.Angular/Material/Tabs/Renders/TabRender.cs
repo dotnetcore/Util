@@ -1,25 +1,25 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
-using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Icons.Builders;
+using Util.Ui.Material.Tabs.Builders;
 using Util.Ui.Renders;
 
-namespace Util.Ui.Material.Menus.Renders {
+namespace Util.Ui.Material.Tabs.Renders {
     /// <summary>
-    /// 菜单项渲染器
+    /// 选项卡渲染器
     /// </summary>
-    public class MenuItemRender : RenderBase {
+    public class TabRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化菜单项渲染器
+        /// 初始化选项卡渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public MenuItemRender( IConfig config ) : base( config ) {
+        public TabRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -27,39 +27,31 @@ namespace Util.Ui.Material.Menus.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = CreateBuilder();
-            builder.AddAttribute( "mat-menu-item", "", false );
+            var builder = new TabBuilder();
             Config( builder );
             return builder;
-        }
-
-        /// <summary>
-        /// 创建标签生成器
-        /// </summary>
-        private TagBuilder CreateBuilder() {
-            if( _config.Contains( UiConst.Link ) )
-                return new AnchorBuilder();
-            return new ButtonBuilder();
         }
 
         /// <summary>
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            ConfigContent( builder );
+            ConfigId( builder );
+            ConfigCaption( builder );
             ConfigDisabled( builder );
-            ConfigEvents( builder );
-            ConfigLink( builder );
-            ConfigMenu( builder );
+            ConfigContent( builder );
         }
 
         /// <summary>
-        /// 配置内容
+        /// 配置标题
         /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            ConfigMaterialIcon( builder );
-            ConfigFontAwesomeIcon( builder );
-            ConfigLabel( builder );
+        private void ConfigCaption( TagBuilder builder ) {
+            var templateBuilder = new TemplateBuilder();
+            templateBuilder.AddAttribute( "mat-tab-label", "", false );
+            ConfigMaterialIcon( templateBuilder );
+            ConfigFontAwesomeIcon( templateBuilder );
+            ConfigLabel( templateBuilder );
+            builder.AppendContent( templateBuilder );
         }
 
         /// <summary>
@@ -90,9 +82,7 @@ namespace Util.Ui.Material.Menus.Renders {
         private void ConfigLabel( TagBuilder builder ) {
             if( _config.Contains( UiConst.Label ) == false )
                 return;
-            var spanBuilder = new SpanBuilder();
-            spanBuilder.SetContent( _config.GetValue( UiConst.Label ) );
-            builder.AppendContent( spanBuilder );
+            builder.AppendContent( _config.GetValue( UiConst.Label ) );
         }
 
         /// <summary>
@@ -103,24 +93,12 @@ namespace Util.Ui.Material.Menus.Renders {
         }
 
         /// <summary>
-        /// 配置事件
+        /// 配置内容
         /// </summary>
-        private void ConfigEvents( TagBuilder builder ) {
-            builder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClick ) );
-        }
-
-        /// <summary>
-        /// 配置链接
-        /// </summary>
-        private void ConfigLink( TagBuilder builder ) {
-            builder.AddAttribute( "routerLink", _config.GetValue( UiConst.Link ) );
-        }
-
-        /// <summary>
-        /// 配置子菜单
-        /// </summary>
-        private void ConfigMenu( TagBuilder builder ) {
-            builder.AddAttribute( "[matMenuTriggerFor]", _config.GetValue( MaterialConst.MenuId ) );
+        private void ConfigContent( TagBuilder builder ) {
+            if( _config.Content == null )
+                return;
+            builder.AppendContent( _config.Content );
         }
     }
 }

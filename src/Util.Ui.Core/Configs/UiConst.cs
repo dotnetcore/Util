@@ -24,6 +24,10 @@
         /// </summary>
         public const string Color = "color";
         /// <summary>
+        /// 背景色
+        /// </summary>
+        public const string BackgroundColor = "background-color";
+        /// <summary>
         /// 类型
         /// </summary>
         public const string Type = "type";

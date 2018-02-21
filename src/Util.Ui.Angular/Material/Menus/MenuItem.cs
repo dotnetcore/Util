@@ -21,7 +21,7 @@ namespace Util.Ui.Material.Menus {
         /// </summary>
         /// <param name="data">菜单项数据</param>
         public MenuItem( MenuItemData data ) {
-            this.Text( data.Text ).Icon( data.FontAwesomeIcon ).Icon( data.MaterialIcon )
+            this.Label( data.Label ).Icon( data.FontAwesomeIcon ).Icon( data.MaterialIcon )
                 .Disable( data.Disabled ).Link( data.Link ).OnClick( data.OnClick ).Menu( data.MenuId );
         }
 
