@@ -51,14 +51,6 @@ namespace Util.Ui.Material.Buttons.Renders {
         }
 
         /// <summary>
-        /// 配置标识
-        /// </summary>
-        private void ConfigId( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Id ) )
-                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "", false );
-        }
-
-        /// <summary>
         /// 配置文本
         /// </summary>
         private void ConfigText( TagBuilder builder ) {

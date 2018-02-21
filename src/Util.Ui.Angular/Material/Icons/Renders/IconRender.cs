@@ -100,10 +100,18 @@ namespace Util.Ui.Material.Icons.Renders {
         /// 公共配置
         /// </summary>
         private void Config( TagBuilder builder ) {
-            builder.Id( _config );
+            ConfigId( builder );
             ConfigSize( builder );
             ConfigSpin( builder );
             ConfigRotate( builder );
+        }
+
+        /// <summary>
+        /// 配置标识
+        /// </summary>
+        protected override void ConfigId( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Id ) )
+                builder.Attribute( UiConst.Id, _config.GetValue( UiConst.Id ), true );
         }
 
         /// <summary>

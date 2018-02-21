@@ -60,14 +60,6 @@ namespace Util.Ui.Material.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置标识
-        /// </summary>
-        private void ConfigId( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Id ) )
-                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "", false );
-        }
-
-        /// <summary>
         /// 配置名称
         /// </summary>
         private void ConfigName( TagBuilder builder ) {

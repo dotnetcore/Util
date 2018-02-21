@@ -31,30 +31,5 @@ namespace Util.Ui.Extensions {
             config.GetClassList().ForEach( s => builder.Class( s ) );
             return builder;
         }
-
-        /// <summary>
-        /// 设置Id
-        /// </summary>
-        /// <param name="builder">标签生成器</param>
-        /// <param name="config">配置</param>
-        public static TagBuilder Id( this TagBuilder builder, IConfig config ) {
-            if( config.Contains( UiConst.Id ) )
-                builder.Attribute( UiConst.Id, config.GetValue( UiConst.Id ), true );
-            return builder;
-        }
-
-        /// <summary>
-        /// 设置文本
-        /// </summary>
-        /// <param name="builder">标签生成器</param>
-        /// <param name="config">配置</param>
-        public static TagBuilder Text( this TagBuilder builder, IConfig config ) {
-            if( config.Contains( UiConst.Text ) ) {
-                builder.SetContent( config.GetValue( UiConst.Text ) );
-                return builder;
-            }
-            builder.SetContent( config.Content );
-            return builder;
-        }
     }
 }

@@ -78,7 +78,7 @@ namespace Util.Ui.Material.Menus.Renders {
         /// <summary>
         /// 配置标识
         /// </summary>
-        private void ConfigId( TagBuilder builder ) {
+        protected override void ConfigId( TagBuilder builder ) {
             if( _config.Contains( UiConst.Id ) ) {
                 builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "matMenu" );
                 return;

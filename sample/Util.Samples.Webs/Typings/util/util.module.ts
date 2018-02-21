@@ -13,7 +13,7 @@ import {
     MatCommonModule, MatRippleModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
     MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
-    MatSnackBarModule, MatProgressBarModule, MatMenuModule,
+    MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
@@ -43,7 +43,7 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
-        MatSnackBarModule, MatProgressBarModule, MatMenuModule,
+        MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule
     ],
@@ -57,7 +57,7 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
         MatCommonModule, MatRippleModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
-        MatSnackBarModule, MatProgressBarModule, MatMenuModule,
+        MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,

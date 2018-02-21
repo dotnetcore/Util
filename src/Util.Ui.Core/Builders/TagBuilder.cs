@@ -34,6 +34,11 @@ namespace Util.Ui.Builders {
         public IHtmlContentBuilder InnerHtml => _tagBuilder.InnerHtml;
 
         /// <summary>
+        /// 是否包含Html内容
+        /// </summary>
+        public bool HasInnerHtml => _tagBuilder.HasInnerHtml;
+
+        /// <summary>
         /// 获取标签生成器
         /// </summary>
         public Microsoft.AspNetCore.Mvc.Rendering.TagBuilder GetTagBuilder() {

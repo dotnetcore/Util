@@ -76,7 +76,7 @@ namespace Util.Ui.Tests.Material.Menus {
         public void TestFontAwesomeIcon() {
             var attributes = new TagHelperAttributeList { { UiConst.FontAwesomeIcon, FontAwesomeIcon.Bus } };
             var result = new String();
-            result.Append( "<button mat-menu-item=\"\"><i class=\"fa fa-bus fa-lg\"></i></button>" );
+            result.Append( "<button mat-menu-item=\"\"><i class=\"fa fa-bus\"></i></button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

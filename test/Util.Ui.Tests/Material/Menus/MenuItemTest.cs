@@ -76,7 +76,7 @@ namespace Util.Ui.Tests.Material.Menus {
         [Fact]
         public void TestFontAwesomeIcon() {
             var result = new String();
-            result.Append( "<button mat-menu-item=\"\"><i class=\"fa fa-bus fa-lg\"></i></button>" );
+            result.Append( "<button mat-menu-item=\"\"><i class=\"fa fa-bus\"></i></button>" );
             Assert.Equal( result.ToString(), GetResult( _component.Icon( FontAwesomeIcon.Bus ) ) );
         }
 

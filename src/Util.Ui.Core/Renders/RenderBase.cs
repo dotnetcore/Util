@@ -57,7 +57,8 @@ namespace Util.Ui.Renders {
         /// </summary>
         /// <param name="writer">流写入器</param>
         public virtual void RenderEndTag( TextWriter writer ) {
-            Builder.RenderBody( writer );
+            if( Builder.HasInnerHtml )
+                Builder.RenderBody( writer );
             Builder.RenderEndTag( writer );
         }
 
@@ -67,6 +68,14 @@ namespace Util.Ui.Renders {
         public override string ToString() {
             var validateMessage = _config.Validate();
             return string.IsNullOrWhiteSpace( validateMessage ) ? Builder.ToString() : $"验证失败：{validateMessage}";
+        }
+
+        /// <summary>
+        /// 配置标识
+        /// </summary>
+        protected virtual void ConfigId( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Id ) )
+                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "", false );
         }
     }
 }

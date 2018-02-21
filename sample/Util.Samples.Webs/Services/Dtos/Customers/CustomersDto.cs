@@ -149,7 +149,7 @@ namespace Donau.Services.Dtos.Customers {
             result.Nodes.Add( new MenuNode { ParentId = "4", Text = "E", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
             result.Nodes.Add( new MenuNode { ParentId = "4", Text = "F", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
             result.Nodes.Add( new MenuNode { ParentId = "4", Text = "H", FontAwesomeIcon = FontAwesomeIcon.Apple, OnClick = "onChange()", Disabled = "true" } );
-            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "I", FontAwesomeIcon = FontAwesomeIcon.Book, Link = "/searchmenu" } );
+            result.Nodes.Add( new MenuNode { ParentId = "4", Text = "I", MaterialIcon = MaterialIcon.Android, Link = "/searchmenu" } );
             result.Nodes.Add( new MenuNode { ParentId = "4", Text = "G", FontAwesomeIcon = FontAwesomeIcon.Anchor, Link = "/searchmenu" } );
             return result;
         }

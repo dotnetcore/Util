@@ -8,7 +8,7 @@ import {
     MatDialogModule, MatGridListModule,
     MatListModule,  
     MatSidenavModule, MatSliderModule, MatSortModule,
-    MatTableModule, MatTabsModule, MatToolbarModule,
+     MatToolbarModule,
     MatExpansionModule, MatStepperModule
 } from '@angular/material';
 @NgModule({
@@ -19,7 +19,7 @@ import {
         MatDialogModule, MatGridListModule,
         MatListModule, 
         MatSidenavModule, MatSliderModule, MatSortModule,
-        MatTableModule, MatTabsModule, MatToolbarModule,
+        MatToolbarModule,
         MatExpansionModule, MatStepperModule
     ]
 })

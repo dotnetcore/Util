@@ -23,6 +23,7 @@ export class DemoComponent extends ComponentBase implements OnInit {
         super(injector);
         this.queryParam = new CustomerQueryModel();
         this.model = new CustomerViewModel();
+        this.navLinks = [{ label: '哈哈', path: "a" }, { label: '嘿嘿', path: "b" }];
     }
 
     query() {
@@ -41,6 +42,8 @@ export class DemoComponent extends ComponentBase implements OnInit {
     ngOnInit() {
         this.model.isGender = true;
     }
+
+    navLinks:any[];
 }
 
 
@@ -60,3 +63,16 @@ class CustomerViewModel extends ViewModel {
     creationTime:Date;
     isGender:boolean;
 }
+
+
+@Component({
+    selector: 'ao',
+    template: 'This is the routed body of the sunny tab.1111111111',
+})
+export class A1 { }
+
+@Component({
+    selector: 'bo',
+    template: 'This is the routed body of the sunny tab.2222222222',
+})
+export class B1 { }

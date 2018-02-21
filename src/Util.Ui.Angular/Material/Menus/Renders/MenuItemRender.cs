@@ -80,7 +80,6 @@ namespace Util.Ui.Material.Menus.Renders {
             if( _config.Contains( UiConst.FontAwesomeIcon ) == false )
                 return;
             var iconBuilder = new FontAwesomeIconBuilder();
-            iconBuilder.Class( IconSize.Large.Description() );
             iconBuilder.SetIcon( _config );
             builder.AppendContent( iconBuilder );
         }
