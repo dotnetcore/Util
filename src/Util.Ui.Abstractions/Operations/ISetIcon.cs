@@ -1,7 +1,7 @@
 ﻿namespace Util.Ui.Operations {
     /// <summary>
-    /// 图标操作
+    /// 设置图标
     /// </summary>
-    public interface IIconOperation {
+    public interface ISetIcon {
     }
 }

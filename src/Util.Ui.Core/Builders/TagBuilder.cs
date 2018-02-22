@@ -79,6 +79,14 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
+        /// 添加属性
+        /// </summary>
+        /// <param name="name">属性名</param>
+        public TagBuilder AddAttribute( string name ) {
+            return Attribute( name, string.Empty ); ;
+        }
+
+        /// <summary>
         /// 添加内容
         /// </summary>
         /// <param name="content">内容</param>

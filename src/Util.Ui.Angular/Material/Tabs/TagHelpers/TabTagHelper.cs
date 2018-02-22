@@ -31,6 +31,10 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
         /// 禁用
         /// </summary>
         public string Disabled { get; set; }
+        /// <summary>
+        /// 延迟加载
+        /// </summary>
+        public bool LazyLoad { get; set; }
 
         /// <summary>
         /// 获取渲染器

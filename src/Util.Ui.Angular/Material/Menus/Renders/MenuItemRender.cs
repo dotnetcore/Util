@@ -28,7 +28,7 @@ namespace Util.Ui.Material.Menus.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             var builder = CreateBuilder();
-            builder.AddAttribute( "mat-menu-item", "", false );
+            builder.AddAttribute( "mat-menu-item" );
             Config( builder );
             return builder;
         }

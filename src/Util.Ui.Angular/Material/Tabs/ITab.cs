@@ -6,6 +6,6 @@ namespace Util.Ui.Material.Tabs {
     /// <summary>
     /// 选项卡
     /// </summary>
-    public interface ITab : IContainer<IDisposable>, ILabel, IIconOperation,IDisabled {
+    public interface ITab : IContainer<IDisposable>, ILabel, ISetIcon,IDisabled {
     }
 }

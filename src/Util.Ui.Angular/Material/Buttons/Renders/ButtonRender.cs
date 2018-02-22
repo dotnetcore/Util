@@ -70,10 +70,10 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void ConfigStyle( TagBuilder builder ) {
             if( _config.Contains( UiConst.Styles ) ) {
-                builder.AddAttribute( _config.GetValue<ButtonStyle?>( UiConst.Styles )?.Description(), "", false );
+                builder.AddAttribute( _config.GetValue<ButtonStyle?>( UiConst.Styles )?.Description() );
                 return;
             }
-            builder.AddAttribute( ButtonStyle.Raised.Description(), "", false );
+            builder.AddAttribute( ButtonStyle.Raised.Description() );
         }
 
         /// <summary>

@@ -1,5 +1,7 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Material.Commons.Configs;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tabs.Builders;
 using Util.Ui.Renders;
 
@@ -36,6 +38,10 @@ namespace Util.Ui.Material.Tabs.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigColor( builder );
+            ConfigHeight( builder );
+            ConfigStretch( builder );
+            ConfigSelectedIndex( builder );
+            ConfigHeaderPosition( builder );
             ConfigContent( builder );
         }
 
@@ -45,6 +51,38 @@ namespace Util.Ui.Material.Tabs.Renders {
         private void ConfigColor( TagBuilder builder ) {
             builder.AddAttribute( "backgroundColor", _config.GetValue( UiConst.BackgroundColor )?.ToLower() );
             builder.AddAttribute( "color", _config.GetValue( UiConst.Color )?.ToLower() );
+        }
+
+        /// <summary>
+        /// 配置高度
+        /// </summary>
+        private void ConfigHeight( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Height ) )
+                builder.AddAttribute( "style", $"height:{_config.GetValue( UiConst.Height )}px" );
+            if ( _config.GetValue<bool>( MaterialConst.DynamicHeight ) )
+                builder.AddAttribute( "dynamicHeight" );
+        }
+
+        /// <summary>
+        /// 配置拉伸选项卡
+        /// </summary>
+        private void ConfigStretch( TagBuilder builder ) {
+            if ( _config.GetValue<bool>( UiConst.Stretch ) )
+                builder.AddAttribute( "mat-stretch-tabs" );
+        }
+
+        /// <summary>
+        /// 配置选中索引
+        /// </summary>
+        private void ConfigSelectedIndex( TagBuilder builder ) {
+            builder.AddAttribute( "[(selectedIndex)]", _config.GetValue( UiConst.SelectedIndex ) );
+        }
+
+        /// <summary>
+        /// 配置标题位置
+        /// </summary>
+        private void ConfigHeaderPosition( TagBuilder builder ) {
+            builder.AddAttribute( "headerPosition", _config.GetValue<YPosition?>( MaterialConst.HeaderPosition )?.Description() );
         }
 
         /// <summary>

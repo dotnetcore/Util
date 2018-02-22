@@ -1,5 +1,7 @@
 ﻿using System.IO;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Tabs;
@@ -77,6 +79,56 @@ namespace Util.Ui.Tests.Material.Tabs {
             var result = new String();
             result.Append( "<mat-tab-group color=\"primary\"></mat-tab-group>" );
             Assert.Equal( result.ToString(), GetResult( _component.Color( Color.Primary ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置固定高度
+        /// </summary>
+        [Fact]
+        public void TestHeight() {
+            var result = new String();
+            result.Append( "<mat-tab-group style=\"height:200px\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Height(200) ) );
+        }
+
+        /// <summary>
+        /// 测试设置动态高度
+        /// </summary>
+        [Fact]
+        public void TestDynamicHeight() {
+            var result = new String();
+            result.Append( "<mat-tab-group dynamicHeight=\"\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( _component.DynamicHeight() ) );
+        }
+
+        /// <summary>
+        /// 测试拉伸选项卡
+        /// </summary>
+        [Fact]
+        public void TestStretch() {
+            var result = new String();
+            result.Append( "<mat-tab-group mat-stretch-tabs=\"\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Stretch() ) );
+        }
+
+        /// <summary>
+        /// 测试选中索引
+        /// </summary>
+        [Fact]
+        public void TestSelect() {
+            var result = new String();
+            result.Append( "<mat-tab-group [(selectedIndex)]=\"a\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Select( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试标题位置
+        /// </summary>
+        [Fact]
+        public void TestHeaderPosition() {
+            var result = new String();
+            result.Append( "<mat-tab-group headerPosition=\"below\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( _component.HeaderPosition( YPosition.Below ) ) );
         }
     }
 }

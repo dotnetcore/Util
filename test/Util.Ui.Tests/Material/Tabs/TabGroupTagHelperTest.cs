@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tabs.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
@@ -76,6 +77,61 @@ namespace Util.Ui.Tests.Material.Tabs {
             var attributes = new TagHelperAttributeList { { UiConst.Color, Color.Primary } };
             var result = new String();
             result.Append( "<mat-tab-group color=\"primary\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置固定高度
+        /// </summary>
+        [Fact]
+        public void TestHeight() {
+            var attributes = new TagHelperAttributeList { { UiConst.Height, 200 } };
+            var result = new String();
+            result.Append( "<mat-tab-group style=\"height:200px\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置动态高度
+        /// </summary>
+        [Fact]
+        public void TestDynamicHeight() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.DynamicHeight, true } };
+            var result = new String();
+            result.Append( "<mat-tab-group dynamicHeight=\"\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试拉伸选项卡
+        /// </summary>
+        [Fact]
+        public void TestStretch() {
+            var attributes = new TagHelperAttributeList { { UiConst.Stretch, true } };
+            var result = new String();
+            result.Append( "<mat-tab-group mat-stretch-tabs=\"\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试选中索引
+        /// </summary>
+        [Fact]
+        public void TestSelectedIndex() {
+            var attributes = new TagHelperAttributeList { { UiConst.SelectedIndex, "a" } };
+            var result = new String();
+            result.Append( "<mat-tab-group [(selectedIndex)]=\"a\"></mat-tab-group>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试标题位置
+        /// </summary>
+        [Fact]
+        public void TestHeaderPosition() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.HeaderPosition, YPosition.Below } };
+            var result = new String();
+            result.Append( "<mat-tab-group headerPosition=\"below\"></mat-tab-group>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

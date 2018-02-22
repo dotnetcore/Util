@@ -1,4 +1,4 @@
-﻿using Util.Ui.Angular.Builders;
+﻿using System.IO;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Icons.Builders;
@@ -24,6 +24,30 @@ namespace Util.Ui.Material.Tabs.Renders {
         }
 
         /// <summary>
+        /// 渲染起始标签
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        public override void RenderStartTag( TextWriter writer ) {
+            var builder = (TabBuilder)Builder;
+            builder.RenderStartTag( writer );
+            if( Builder.HasInnerHtml )
+                Builder.RenderBody( writer );
+            if( _config.GetValue<bool>( UiConst.LazyLoad ) )
+                builder.ContenTemplateBuilder.RenderStartTag( writer );
+        }
+
+        /// <summary>
+        /// 渲染结束标签
+        /// </summary>
+        /// <param name="writer">流写入器</param>
+        public override void RenderEndTag( TextWriter writer ) {
+            var builder = (TabBuilder)Builder;
+            if( _config.GetValue<bool>( UiConst.LazyLoad ) )
+                builder.ContenTemplateBuilder.RenderEndTag( writer );
+            builder.RenderEndTag( writer );
+        }
+
+        /// <summary>
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
@@ -35,7 +59,7 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TagBuilder builder ) {
+        protected void Config( TabBuilder builder ) {
             ConfigId( builder );
             ConfigCaption( builder );
             ConfigDisabled( builder );
@@ -45,13 +69,11 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// <summary>
         /// 配置标题
         /// </summary>
-        private void ConfigCaption( TagBuilder builder ) {
-            var templateBuilder = new TemplateBuilder();
-            templateBuilder.AddAttribute( "mat-tab-label", "", false );
-            ConfigMaterialIcon( templateBuilder );
-            ConfigFontAwesomeIcon( templateBuilder );
-            ConfigLabel( templateBuilder );
-            builder.AppendContent( templateBuilder );
+        private void ConfigCaption( TabBuilder builder ) {
+            ConfigMaterialIcon( builder.HeaderTemplateBuilder );
+            ConfigFontAwesomeIcon( builder.HeaderTemplateBuilder );
+            ConfigLabel( builder.HeaderTemplateBuilder );
+            builder.AppendContent( builder.HeaderTemplateBuilder );
         }
 
         /// <summary>
@@ -95,10 +117,15 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// <summary>
         /// 配置内容
         /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
+        private void ConfigContent( TabBuilder builder ) {
             if( _config.Content == null )
                 return;
-            builder.AppendContent( _config.Content );
+            if ( _config.GetValue<bool>( UiConst.LazyLoad ) == false ) {
+                builder.AppendContent( _config.Content );
+                return;
+            }
+            builder.ContenTemplateBuilder.AppendContent( _config.Content );
+            builder.AppendContent( builder.ContenTemplateBuilder );
         }
     }
 }

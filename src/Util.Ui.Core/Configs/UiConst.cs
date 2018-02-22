@@ -164,6 +164,10 @@
         /// </summary>
         public const string Width = "width";
         /// <summary>
+        /// 高度
+        /// </summary>
+        public const string Height = "height";
+        /// <summary>
         /// 提示
         /// </summary>
         public const string Tooltip = "tooltip";
@@ -203,5 +207,17 @@
         /// 重叠
         /// </summary>
         public const string Overlap = "overlap";
+        /// <summary>
+        /// 拉伸
+        /// </summary>
+        public const string Stretch = "stretch";
+        /// <summary>
+        /// 选中索引
+        /// </summary>
+        public const string SelectedIndex = "selected-index";
+        /// <summary>
+        /// 延迟加载
+        /// </summary>
+        public const string LazyLoad = "lazy-load";
     }
 }

@@ -105,5 +105,19 @@ namespace Util.Ui.Extensions {
             } );
             return component;
         }
+
+        /// <summary>
+        /// 设置高度
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="height">高度</param>
+        public static TComponent Height<TComponent>( this TComponent component, double height ) where TComponent : IOption, IHeight {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Height, height );
+            } );
+            return component;
+        }
     }
 }

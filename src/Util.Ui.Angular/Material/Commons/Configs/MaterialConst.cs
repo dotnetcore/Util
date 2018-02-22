@@ -75,5 +75,13 @@
         /// 菜单标识
         /// </summary>
         public const string MenuId = "menu-id";
+        /// <summary>
+        /// 动态高度
+        /// </summary>
+        public const string DynamicHeight = "dynamic-height";
+        /// <summary>
+        /// 标题位置
+        /// </summary>
+        public const string HeaderPosition = "header-position";
     }
 }

@@ -24,6 +24,8 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.queryParam = new CustomerQueryModel();
         this.model = new CustomerViewModel();
         this.navLinks = [{ label: '哈哈', path: "a" }, { label: '嘿嘿', path: "b" }];
+        this.navLinks2 = [{ label: '哈哈2', path: "c" }, { label: '嘿嘿2', path: "d" }];
+        this.selectedIndex = 2;
     }
 
     query() {
@@ -43,7 +45,9 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.model.isGender = true;
     }
 
-    navLinks:any[];
+    navLinks: any[];
+    navLinks2: any[];
+    selectedIndex:number;
 }
 
 
@@ -76,3 +80,14 @@ export class A1 { }
     template: 'This is the routed body of the sunny tab.2222222222',
 })
 export class B1 { }
+@Component({
+    selector: 'co',
+    template: 'This is the routed body of the sunny tab.333333333333',
+})
+export class C1 { }
+
+@Component({
+    selector: 'do',
+    template: 'This is the routed body of the sunny tab.444444444444',
+})
+export class D1 { }

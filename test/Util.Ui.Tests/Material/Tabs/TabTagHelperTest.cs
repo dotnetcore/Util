@@ -111,5 +111,30 @@ namespace Util.Ui.Tests.Material.Tabs {
             result.Append( "<mat-tab [disabled]=\"a\"><ng-template mat-tab-label=\"\"></ng-template></mat-tab>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试延迟加载
+        /// </summary>
+        [Fact]
+        public void TestLazyLoad() {
+            var attributes = new TagHelperAttributeList { { UiConst.LazyLoad,true } };
+            var content = new DefaultTagHelperContent();
+            content.AppendHtml( "a" );
+            var result = new String();
+            result.Append( "<mat-tab><ng-template mat-tab-label=\"\"></ng-template><ng-template matTabContent=\"\">a</ng-template></mat-tab>" );
+            Assert.Equal( result.ToString(), GetResult( attributes,content: content ) );
+        }
+
+        /// <summary>
+        /// 测试非延迟加载
+        /// </summary>
+        [Fact]
+        public void TestNoLazyLoad() {
+            var content = new DefaultTagHelperContent();
+            content.AppendHtml( "a" );
+            var result = new String();
+            result.Append( "<mat-tab><ng-template mat-tab-label=\"\"></ng-template>a</mat-tab>" );
+            Assert.Equal( result.ToString(), GetResult( content: content ) );
+        }
     }
 }
