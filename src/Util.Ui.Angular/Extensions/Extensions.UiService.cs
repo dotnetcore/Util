@@ -107,5 +107,15 @@ namespace Util.Ui.Extensions {
                 throw new NotSupportedException();
             return new TabGroup( context.Helper.ViewContext.Writer );
         }
+
+        /// <summary>
+        /// 导航选项卡
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static ITabNavigation NavTabs<TModel>( this IUiService<TModel> service ) {
+            if( !( service is IContext<TModel> context ) )
+                throw new NotSupportedException();
+            return new TabNavigation( context.Helper.ViewContext.Writer );
+        }
     }
 }

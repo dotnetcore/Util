@@ -407,6 +407,7 @@ https://github.com/dotnetcore/util/
   - 滑动开关 - 基于Material slide-toggle组件 [已发布]
   - 单选框 - 基于Material 单选框组件 [已发布]
   - 菜单 - 基于Material Menu组件 [已发布]
+  - 选项卡 - 基于Material Tabs组件 [已发布]
   - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   - 表格 [待启动]
 - 权限 [待启动]
@@ -459,3 +460,4 @@ https://github.com/dotnetcore/util/
 - 2018年1月17日，更新了滑动开关组件(Util.Ui.Angular/Material/Forms)及单元测试。
 - 2018年1月18日，更新了单选框组件(Util.Ui.Angular/Material/Forms)及单元测试。
 - 2018年2月18日，更新了菜单组件(Util.Ui.Angular/Material/Menus)及单元测试。
+- 2018年2月22日，更新了选项卡组件(Util.Ui.Angular/Material/Tabs)及单元测试。

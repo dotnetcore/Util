@@ -23,8 +23,6 @@ export class DemoComponent extends ComponentBase implements OnInit {
         super(injector);
         this.queryParam = new CustomerQueryModel();
         this.model = new CustomerViewModel();
-        this.navLinks = [{ label: '哈哈', path: "a" }, { label: '嘿嘿', path: "b" }];
-        this.navLinks2 = [{ label: '哈哈2', path: "c" }, { label: '嘿嘿2', path: "d" }];
         this.selectedIndex = 2;
     }
 
@@ -45,8 +43,6 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.model.isGender = true;
     }
 
-    navLinks: any[];
-    navLinks2: any[];
     selectedIndex:number;
 }
 

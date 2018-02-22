@@ -45,80 +45,8 @@
 
     </util-form>
 
-    <div style="margin: 100px">
-        @using( x.Button().Menu( Model.GetMenus() ).Style( ButtonStyle.Icon ).Begin() ) {
-            <util-icon material-icon="More_Vert"></util-icon>
-        }
-    </div>
+  
 
-    <util-container>
-
-
-
-        <util-tabs color="Primary" stretch="true" >
-            <util-tab material-icon="Security" label="哈哈">
-                哈哈
-            </util-tab>
-            <util-tab font-awesome-icon="Linux" label="嘿嘿">
-                a
-            </util-tab>
-            <util-tab font-awesome-icon="Android" label="卡卡" lazy-load="true">
-                b
-            </util-tab>
-        </util-tabs>
-
-
-
-        @using( var tabs = x.Tabs().Stretch().Select( "selectedIndex" ).Color( Color.Accent ).Begin() ) {
-            using( tabs.Tab().Label( "哈哈" ).Icon( FontAwesomeIcon.Linux ).Begin() ) {
-                <div>哈哈2</div>
-            }
-            using( tabs.Tab().Label( "FontAwesome图标" ).Icon( MaterialIcon.Security ).Begin() ) {
-                <span>a</span>
-            }
-            <util-tab font-awesome-icon="Android" label="卡卡">
-                a
-            </util-tab>
-        }
-        
-        
-        <mat-tab-group color="accent" mat-stretch-tabs="" [(selectedIndex)]="selectedIndex">
-            <mat-tab>
-                <div>哈哈2</div>
-            </mat-tab>
-            <mat-tab>
-                 <span>a</span>
-            </mat-tab>
-            <mat-tab>
-                <ng-template mat-tab-label=""><i class="fa fa-android"></i>卡卡</ng-template>
-                a
-            </mat-tab>
-        </mat-tab-group>
-
-    </util-container>
-
-
-    <nav mat-tab-nav-bar>
-        <a mat-tab-link
-           *ngFor="let link of navLinks"
-           [routerLink]="link.path"
-           routerLinkActive #rla="routerLinkActive"
-           [active]="rla.isActive">
-            {{link.label}}
-        </a>
-    </nav>
-    <router-outlet></router-outlet>
-
-    <nav mat-tab-nav-bar>
-        <a mat-tab-link
-           *ngFor="let link of navLinks2"
-           [routerLink]="link.path"
-           routerLinkActive #rla="routerLinkActive"
-           [active]="rla.isActive">
-            {{link.label}}
-        </a>
-    </nav>
-    <router-outlet></router-outlet>
 </div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
