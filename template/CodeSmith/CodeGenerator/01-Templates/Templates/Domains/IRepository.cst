@@ -16,9 +16,9 @@
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
 using Util.Domains.Repositories;
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %> {
+namespace <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %> {
     /// <summary>
     /// <%= Description %>仓储
     /// </summary>

@@ -422,7 +422,7 @@ namespace SchemaMapper
         {
             if (string.IsNullOrWhiteSpace(TableSchema) || TableSchema.ToLower().Trim() == "dbo")
                 return string.Format("{0}.{1}{2}", baseNamespace, layer, GetCategory(category));
-            return string.Format("{0}.{1}.{2}{3}", baseNamespace, layer, TableSchema, GetCategory(category));
+            return string.Format("{0}.{1}.{2}{3}", baseNamespace, TableSchema, layer, GetCategory(category));
         }
 
         /// <summary>

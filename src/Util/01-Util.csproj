@@ -12,9 +12,9 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
-    <AssemblyVersion>1.0.7.3</AssemblyVersion>
-    <FileVersion>1.0.7.3</FileVersion>
-    <Version>1.0.7-preview3</Version>  
+    <AssemblyVersion>1.0.7.4</AssemblyVersion>
+    <FileVersion>1.0.7.4</FileVersion>
+    <Version>1.0.7-preview4</Version>  
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <PackageId>Util.Core</PackageId>
     <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
@@ -39,8 +39,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.4" />
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.4" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.3.1" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.3.1" />
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="AutoMapper" Version="6.2.2" />
@@ -49,7 +49,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.1-beta3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0-pre-05" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />

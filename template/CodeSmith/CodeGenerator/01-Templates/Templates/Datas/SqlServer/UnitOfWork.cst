@@ -14,10 +14,10 @@
 <%@ Property Name="Namespace" Type="System.String"  %>
 <%@ Property Name="UnitOfWork" Type="System.String"  %>
 <%@ Property Name="IUnitOfWorkNamespace" Type="System.String"  %>
-using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using Util.Datas.UnitOfWorks;
 
-namespace <%= Namespace %>.Datas {
+namespace <%= Namespace %>.Data.SqlServer {
     /// <summary>
     /// 工作单元
     /// </summary>
@@ -25,25 +25,9 @@ namespace <%= Namespace %>.Datas {
         /// <summary>
         /// 初始化工作单元
         /// </summary>
-        /// <param name="connection">连接字符串</param>
-        protected <%= UnitOfWork %>( string connection )
-            : base( connection ) {
-        }
-
-        /// <summary>
-        /// 初始化工作单元
-        /// </summary>
-        /// <param name="connection">连接</param>
-        protected <%= UnitOfWork %>( DbConnection connection )
-            : base( connection ) {
-        }
-
-        /// <summary>
-        /// 初始化工作单元
-        /// </summary>
-        /// <param name="options">配置</param>
-        protected <%= UnitOfWork %>( DbContextOptions options )
-            : base( options ) {
+        /// <param name="options">配置项</param>
+        /// <param name="unitOfWorkManager">工作单元服务</param>
+        public <%= UnitOfWork %>( DbContextOptions options, IUnitOfWorkManager unitOfWorkManager ) : base( options, unitOfWorkManager ) {
         }
     }
 }

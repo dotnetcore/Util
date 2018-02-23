@@ -18,9 +18,9 @@
 <% string Description = Entity.Description; %>
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
-namespace <%= string.Format("{0}.Datas.{1}.Mappings.SqlServer",Namespace,Entity.TableSchema) %> {
+namespace <%= string.Format("{0}.Data.SqlServer.Mappings.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>映射配置
     /// </summary>
@@ -36,7 +36,6 @@ namespace <%= string.Format("{0}.Datas.{1}.Mappings.SqlServer",Namespace,Entity.
         /// 映射属性
         /// </summary>
         protected override void MapProperties( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
-            base.MapProperties( builder );
             <%
             foreach(var p in Entity.Properties)
             {                

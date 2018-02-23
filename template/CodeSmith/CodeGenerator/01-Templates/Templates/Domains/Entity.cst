@@ -11,7 +11,7 @@
 
 <%@ Property Name="Entity" Type="SchemaMapper.Entity"  %>
 <%@ Property Name="Namespace" Type="System.String" Description="实体命名空间" %>
-namespace <%= Entity.GetNamespace(Namespace,"Domains","Models") %> {
+namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
     /// <summary>
     /// <%= Entity.Description %>
     /// </summary>

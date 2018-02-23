@@ -12,9 +12,9 @@
 
 <%@ Property Name="Namespace" Type="System.String"  %>
 <%@ Property Name="UnitOfWork" Type="System.String"  %>
-using Util.Datas;
+using Util.Datas.UnitOfWorks;
 
-namespace <%= Namespace %>.Datas {
+namespace <%= Namespace %>.Data {
     /// <summary>
     /// 工作单元
     /// </summary>
