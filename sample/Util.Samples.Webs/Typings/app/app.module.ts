@@ -3,28 +3,14 @@ import { NgModule, Injector } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //框架模块
-import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { FrameworkModule } from './framework.module';
 import { util } from '../util';
 
 //根组件
 import { AppComponent } from './app.component';
+
+//路由模块
 import { AppRoutingModule } from './app.routing.module';
-
-//demo
-import { BrandComponent } from "./admin/brand/brand.component";
-import { SidenavComponent } from "./admin/sidenav/sidenav.component";
-import { ItemComponent } from './admin/sidenav/item/item.component';
-import { HeaderComponent } from "./admin/header/header.component";
-import { FooterComponent } from "./admin/footer/footer.component";
-import { ToolbarNotificationComponent } from './admin/header/notification/notification.component';
-import { ToolbarUserComponent } from './admin/header/user/user.component';
-import { SearchMenuComponent } from './public/searchMenu';
-import { SidenavService } from './admin/sidenav/sidenav.service';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-    suppressScrollX: true
-};
 
 /**
  * 应用根模块
@@ -32,19 +18,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
     declarations: [
         AppComponent
-        , BrandComponent, SidenavComponent, ItemComponent, HeaderComponent, ToolbarNotificationComponent, ToolbarUserComponent, FooterComponent,  SearchMenuComponent
     ],
     imports: [
-        BrowserAnimationsModule,FrameworkModule, AppRoutingModule, PerfectScrollbarModule
+        BrowserAnimationsModule,FrameworkModule, AppRoutingModule
     ],
-    bootstrap: [AppComponent],
-    providers: [
-        { provide: 'sidenavService', useClass: SidenavService },
-        {
-            provide: PERFECT_SCROLLBAR_CONFIG,
-            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-        }
-    ]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
     /**

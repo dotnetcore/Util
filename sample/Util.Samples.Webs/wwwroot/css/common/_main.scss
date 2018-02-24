@@ -1,32 +1,16 @@
 ﻿//导入变量
 @import "base/variables";
 
-//导入prime组件样式
-@import "prime/theme";
-
 //导入基础样式
 @import "base/base";
-@import "base/custom";
 
-//导入基础组件样式
+//导入组件样式
 @import "base/component";
 
-//导入布局样式 - 商标样式
-@import 'layout/brand';
+//导入primeNg组件样式
+@import "prime/theme";
 
-//导入布局样式 - 左侧导航样式
-@import 'layout/navigation';
-@import 'layout/sidenav';
-@import 'layout/sidenav/item';
-
-//导入布局样式 - 头部样式
+//导入主界面布局样式
 @import 'layout/header';
-@import 'layout/header/toolbar-help';
-@import 'layout/header/toolbar-notification';
-@import 'layout/header/toolbar-user';
-
-/*导入布局样式 - 底部样式*/
+@import 'layout/navigation';
 @import 'layout/footer';
-
-//导入 - loading加载样式
-@import 'layout/loading';

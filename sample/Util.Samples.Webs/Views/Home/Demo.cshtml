@@ -1,46 +1,35 @@
 ﻿@model Donau.Services.Dtos.Customers.CustomersDto
 @{
-    ViewData["Title"] = "Tile";
     var x = Html.Ui();
 }
 
-<span fxFlex style="flex: 1 1 1e-09px; box-sizing: border-box;"></span>
-<div class="icon-group">
-    <button class="spam" mat-icon-button matTooltip="新增">
-        <mat-icon>add</mat-icon>
-    </button>
-    <button class="spam" mat-icon-button matTooltip="修改">
-        <mat-icon>edit</mat-icon>
-    </button>
-    <button class="delete" mat-icon-button matTooltip="删除" (click)="delete()">
-        <mat-icon>delete</mat-icon>
-    </button>
-
-</div>
 <div style="margin: 100px">
 
 
     <util-form id="form" on-submit="onChange(form)">
         <mat-card>
-            <mat-card-content>
-                <util-textbox for="Name"></util-textbox>
-                <util-select for="Nation"></util-select>
-                <util-checkbox for="IsGender"></util-checkbox>
-            </mat-card-content>
-            <mat-card-content>
-                <util-radio for="Gender"></util-radio>
-            </mat-card-content>
-            <mat-card-content>
-                <util-slide-toggle for="IsGender"></util-slide-toggle>
-                @x.Select( t => t.Nation )
-                @x.TextBox( t => t.Name )
-            </mat-card-content>
-            <mat-card-content>
-                @using( x.Button().Style( ButtonStyle.Icon ).Tooltip( "重置一下" ).Reset().Begin() ) {
-                    <util-icon material-icon="Android"></util-icon>
-                }
-                @x.Button().Submit()
-            </mat-card-content>
+            <mat-card-title>
+                哈哈
+            </mat-card-title>
+                <mat-card-content>
+                    <util-textbox for="Name"></util-textbox>
+                    <util-select for="Nation"></util-select>
+                    <util-checkbox for="IsGender"></util-checkbox>
+                </mat-card-content>
+                <mat-card-content>
+                    <util-radio for="Gender"></util-radio>
+                </mat-card-content>
+                <mat-card-content>
+                    <util-slide-toggle for="IsGender"></util-slide-toggle>
+                    @x.Select( t => t.Nation )
+                    @x.TextBox( t => t.Name )
+                </mat-card-content>
+                <mat-card-content>
+                    @using( x.Button().Style( ButtonStyle.Icon ).Tooltip( "重置一下" ).Reset().Begin() ) {
+                <util-icon material-icon="Android"></util-icon>
+    }
+                    @x.Button().Submit()
+                </mat-card-content>
         </mat-card>
 
     </util-form>
@@ -71,7 +60,7 @@
         </ng-container>
 
         <ng-container matColumnDef="lineNumber">
-            <mat-header-cell *matHeaderCellDef>No</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
         </ng-container>
 
         <ng-container matColumnDef="name">
@@ -107,7 +96,7 @@
         </ng-container>
 
         <ng-container matColumnDef="lineNumber">
-            <mat-header-cell *matHeaderCellDef>No</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
             <mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell>
         </ng-container>
 

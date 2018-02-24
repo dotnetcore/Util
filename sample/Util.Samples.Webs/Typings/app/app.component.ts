@@ -1,25 +1,11 @@
-﻿import { Component, ViewChild } from "@angular/core"
+﻿import { Component } from "@angular/core"
 
+/**
+ * 根组件
+ */
 @Component({
     selector: 'app',
-    templateUrl: '/Home/admin'
+    templateUrl: '/home/main'
 })
 export class AppComponent {
-    isloading: Boolean = true;
-    sidenavOpen: Boolean = true;
-    sidenavMode: string = 'side';
-
-    showloading(val) {
-        val = val * 1000;
-        this.isloading = false;
-        var self = this;
-        setTimeout(function () {
-            self.isloading = true;
-        }, val);
-    }
-
-    sidenavOpens(agreed: boolean) {
-        this.sidenavMode = (agreed) ? 'over' : 'side';
-        this.sidenavOpen = !agreed;
-    }
 }
