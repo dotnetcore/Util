@@ -3,7 +3,10 @@
     var x = Html.Ui();
 }
 
-<div style="margin: 100px">
+<mat-drawer-container>
+    <mat-drawer mode="side" opened="true" position="start">子导航菜单</mat-drawer>
+    <mat-drawer-content>
+
 
 
     <util-form id="form" on-submit="onChange(form)">
@@ -36,9 +39,6 @@
 
     
     
-
-
-</div>
 
 <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
     @*表头*@
@@ -122,3 +122,5 @@
     </mat-table>
 </table-wrapper>
 
+    </mat-drawer-content>
+</mat-drawer-container>

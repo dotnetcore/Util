@@ -23,15 +23,15 @@ namespace Util.Ui.Tests.Configs {
         /// </summary>
         [Fact]
         public void TestAddClass() {
-            Assert.Equal( 0,_config.GetClassList().Count );
+            Assert.Empty( _config.GetClassList());
             _config.AddClass( "" );
             _config.AddClass( " " );
-            Assert.Equal( 0, _config.GetClassList().Count );
+            Assert.Empty( _config.GetClassList());
             _config.AddClass( "a" );
-            Assert.Equal( 1, _config.GetClassList().Count );
+            Assert.Single( _config.GetClassList());
             Assert.Equal( "a", _config.GetClassList()[0] );
             _config.AddClass( "a" );
-            Assert.Equal( 1, _config.GetClassList().Count );
+            Assert.Single( _config.GetClassList());
             _config.AddClass( "b" );
             Assert.Equal( 2, _config.GetClassList().Count );
         }
