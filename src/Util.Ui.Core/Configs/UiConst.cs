@@ -219,5 +219,9 @@
         /// 延迟加载
         /// </summary>
         public const string LazyLoad = "lazy-load";
+        /// <summary>
+        /// 全屏
+        /// </summary>
+        public const string Fullscreen = "fullscreen";
     }
 }

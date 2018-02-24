@@ -5,19 +5,19 @@ using Util.Ui.Renders;
 
 namespace Util.Ui.Material.SideNavs.Renders {
     /// <summary>
-    /// 侧边栏导航容器渲染器
+    /// 侧边栏导航渲染器
     /// </summary>
-    public class SideNavContainerRender : RenderBase {
+    public class SideNavRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化侧边栏导航容器渲染器
+        /// 初始化侧边栏导航渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public SideNavContainerRender( IConfig config ) : base( config ) {
+        public SideNavRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -25,7 +25,7 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new SideNavContainerBuilder();
+            var builder = new SideNavBuilder();
             Config( builder );
             return builder;
         }
@@ -35,16 +35,7 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigFullscreen( builder );
             ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置全屏
-        /// </summary>
-        private void ConfigFullscreen( TagBuilder builder ) {
-            if ( _config.GetValue<bool>( UiConst.Fullscreen ) )
-                builder.AddAttribute( UiConst.Fullscreen );
         }
 
         /// <summary>

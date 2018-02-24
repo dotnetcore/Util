@@ -6,26 +6,26 @@ using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
-namespace Util.Ui.Tests.Material.SideNavs.TagHelpers {
+namespace Util.Ui.Tests.Material.SideNavs {
     /// <summary>
-    /// 侧边栏导航容器测试
+    /// 侧边栏导航测试
     /// </summary>
-    public class SideNavContainerTagHelperTest {
+    public class DrawerTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 侧边栏导航容器
+        /// 侧边栏导航
         /// </summary>
-        private readonly SideNavContainerTagHelper _component;
+        private readonly DrawerTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public SideNavContainerTagHelperTest( ITestOutputHelper output ) {
+        public DrawerTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new SideNavContainerTagHelper();
+            _component = new DrawerTagHelper();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Util.Ui.Tests.Material.SideNavs.TagHelpers {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-sidenav-container></mat-sidenav-container>" );
+            result.Append( "<mat-drawer></mat-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -52,7 +52,7 @@ namespace Util.Ui.Tests.Material.SideNavs.TagHelpers {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<mat-sidenav-container #a=\"\"></mat-sidenav-container>" );
+            result.Append( "<mat-drawer #a=\"\"></mat-drawer>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
