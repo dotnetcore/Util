@@ -21,7 +21,20 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
-        /// 添加属性列表
+        /// 添加样式
+        /// </summary>
+        /// <param name="builder">标签生成器</param>
+        /// <param name="config">配置</param>
+        public static TagBuilder Style( this TagBuilder builder, IConfig config ) {
+            if( config.OutputAttributes.ContainsName( UiConst.Style ) && config.Contains( UiConst.Style ) == false )
+                config.AllAttributes.SetAttribute( UiConst.Style, config.OutputAttributes[UiConst.Style].Value.SafeString() );
+            if ( config.Contains( UiConst.Style ) )
+                builder.Attribute( UiConst.Style, config.GetValue( UiConst.Style ) );
+            return builder;
+        }
+
+        /// <summary>
+        /// 添加class
         /// </summary>
         /// <param name="builder">标签生成器</param>
         /// <param name="config">配置</param>

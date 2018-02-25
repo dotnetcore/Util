@@ -100,6 +100,7 @@ namespace Util.Ui.Material.Icons.Renders {
         /// 公共配置
         /// </summary>
         private void Config( TagBuilder builder ) {
+            builder.Style( _config );
             ConfigId( builder );
             ConfigSize( builder );
             ConfigSpin( builder );
