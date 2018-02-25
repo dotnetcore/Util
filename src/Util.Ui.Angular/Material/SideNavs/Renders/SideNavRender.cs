@@ -1,5 +1,8 @@
-﻿using Util.Ui.Builders;
+﻿using System;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.SideNavs.Builders;
 using Util.Ui.Renders;
@@ -35,9 +38,13 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
+            builder.Class( _config );
+            builder.AddStyle( _config );
             ConfigId( builder );
             ConfigPosition( builder );
             ConfigOpened( builder );
+            ConfigMode( builder );
+            ConfigDisableClose( builder );
             ConfigContent( builder );
         }
 
@@ -55,6 +62,20 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// </summary>
         private void ConfigOpened( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Opened, _config.GetBoolValue( UiConst.Opened ) );
+        }
+
+        /// <summary>
+        /// 配置打开模式
+        /// </summary>
+        private void ConfigMode( TagBuilder builder ) {
+            builder.AddAttribute( UiConst.Mode, _config.GetValue( UiConst.Mode )?.ToLower() );
+        }
+
+        /// <summary>
+        /// 配置禁用关闭
+        /// </summary>
+        private void ConfigDisableClose( TagBuilder builder ) {
+            builder.AddAttribute( "disableClose", _config.GetBoolValue( MaterialConst.DisableClose ) );
         }
 
         /// <summary>

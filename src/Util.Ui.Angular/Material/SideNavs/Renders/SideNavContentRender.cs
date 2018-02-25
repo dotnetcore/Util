@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.SideNavs.Builders;
 using Util.Ui.Renders;
 
@@ -34,6 +35,7 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
+            builder.Class( _config );
             ConfigId( builder );
             ConfigContent( builder );
         }

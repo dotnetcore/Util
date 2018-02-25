@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.SideNavs.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
@@ -76,6 +77,28 @@ namespace Util.Ui.Tests.Material.SideNavs {
             var attributes = new TagHelperAttributeList { { UiConst.Opened, true } };
             var result = new String();
             result.Append( "<mat-sidenav opened=\"true\"></mat-sidenav>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试打开模式
+        /// </summary>
+        [Fact]
+        public void TestMode() {
+            var attributes = new TagHelperAttributeList { { UiConst.Mode, SideNavMode.Side } };
+            var result = new String();
+            result.Append( "<mat-sidenav mode=\"side\"></mat-sidenav>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试禁用关闭
+        /// </summary>
+        [Fact]
+        public void TestDisableClose() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.DisableClose, true } };
+            var result = new String();
+            result.Append( "<mat-sidenav disableClose=\"true\"></mat-sidenav>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

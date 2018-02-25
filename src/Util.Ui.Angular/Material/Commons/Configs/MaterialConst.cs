@@ -83,5 +83,9 @@
         /// 标题位置
         /// </summary>
         public const string HeaderPosition = "header-position";
+        /// <summary>
+        /// 禁用关闭
+        /// </summary>
+        public const string DisableClose = "disable-close";
     }
 }

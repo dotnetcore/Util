@@ -227,5 +227,13 @@
         /// 打开
         /// </summary>
         public const string Opened = "opened";
+        /// <summary>
+        /// 模式
+        /// </summary>
+        public const string Mode = "mode";
+        /// <summary>
+        /// 自动调整大小
+        /// </summary>
+        public const string AutoSize = "auto-size";
     }
 }

@@ -14,6 +14,10 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
         /// 标识，指向模板引用变量，而不是Id属性
         /// </summary>
         public string Id { get; set; }
+        /// <summary>
+        /// 自动调整大小
+        /// </summary>
+        public bool AutoSize { get; set; }
 
         /// <summary>
         /// 获取渲染器

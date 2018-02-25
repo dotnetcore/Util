@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.SideNavs.Builders;
 using Util.Ui.Renders;
 
@@ -34,8 +35,10 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
+            builder.Class( _config );
             ConfigId( builder );
             ConfigFullscreen( builder );
+            ConfigAutoSize( builder );
             ConfigContent( builder );
         }
 
@@ -45,6 +48,13 @@ namespace Util.Ui.Material.SideNavs.Renders {
         private void ConfigFullscreen( TagBuilder builder ) {
             if ( _config.GetValue<bool>( UiConst.Fullscreen ) )
                 builder.AddAttribute( UiConst.Fullscreen );
+        }
+
+        /// <summary>
+        /// 配置自动调整大小
+        /// </summary>
+        private void ConfigAutoSize( TagBuilder builder ) {
+            builder.AddAttribute( "autosize", _config.GetBoolValue( UiConst.AutoSize ) );
         }
 
         /// <summary>

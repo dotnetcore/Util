@@ -23,6 +23,14 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
         /// 是否打开
         /// </summary>
         public bool Opened { get; set; }
+        /// <summary>
+        /// 显示模式
+        /// </summary>
+        public SideNavMode Mode { get; set; }
+        /// <summary>
+        /// 禁用ESC键或点击背景关闭
+        /// </summary>
+        public bool DisableClose { get; set; }
 
         /// <summary>
         /// 获取渲染器

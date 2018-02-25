@@ -44,7 +44,7 @@ export class DemoComponent extends ComponentBase implements OnInit {
     }
 
     selectedIndex: number;
-    events = [];
+    showFiller:boolean;
 }
 
 

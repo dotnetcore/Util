@@ -55,5 +55,16 @@ namespace Util.Ui.Tests.Material.SideNavs {
             result.Append( "<mat-drawer-container #a=\"\"></mat-drawer-container>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试自动调整大小
+        /// </summary>
+        [Fact]
+        public void TestAutoSize() {
+            var attributes = new TagHelperAttributeList { { UiConst.AutoSize, true } };
+            var result = new String();
+            result.Append( "<mat-drawer-container autosize=\"true\"></mat-drawer-container>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }
