@@ -1,8 +1,9 @@
 ﻿<util-sidenav-container fullscreen="true">
-    <util-sidenav>
+    <util-sidenav  id="sidenav" opened="true">
         导航菜单
     </util-sidenav>
     <util-sidenav-content>
+        <button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button>
         <util-router-outlet></util-router-outlet>
     </util-sidenav-content>
 </util-sidenav-container>

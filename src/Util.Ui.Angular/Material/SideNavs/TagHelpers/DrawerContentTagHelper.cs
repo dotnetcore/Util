@@ -6,7 +6,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.SideNavs.TagHelpers {
     /// <summary>
-    /// 侧边栏导航内容
+    /// 侧边栏内容区域
     /// </summary>
     [HtmlTargetElement( "util-drawer-content" )]
     public class DrawerContentTagHelper : TagHelperBase {

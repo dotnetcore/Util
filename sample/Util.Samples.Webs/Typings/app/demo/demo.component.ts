@@ -43,7 +43,8 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.model.isGender = true;
     }
 
-    selectedIndex:number;
+    selectedIndex: number;
+    events = [];
 }
 
 

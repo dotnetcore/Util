@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.SideNavs.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -53,6 +54,28 @@ namespace Util.Ui.Tests.Material.SideNavs {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<mat-sidenav #a=\"\"></mat-sidenav>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置位置
+        /// </summary>
+        [Fact]
+        public void TestPosition() {
+            var attributes = new TagHelperAttributeList { { UiConst.Position, XPosition.Right } };
+            var result = new String();
+            result.Append( "<mat-sidenav position=\"end\"></mat-sidenav>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置打开
+        /// </summary>
+        [Fact]
+        public void TestOpened() {
+            var attributes = new TagHelperAttributeList { { UiConst.Opened, true } };
+            var result = new String();
+            result.Append( "<mat-sidenav opened=\"true\"></mat-sidenav>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

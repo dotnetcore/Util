@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.SideNavs.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.SideNavs.TagHelpers {
     /// <summary>
-    /// 侧边栏导航
+    /// 侧边栏导航区域
     /// </summary>
     [HtmlTargetElement( "util-sidenav" )]
     public class SideNavTagHelper : TagHelperBase {
@@ -14,6 +15,14 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
         /// 标识，指向模板引用变量，而不是Id属性
         /// </summary>
         public string Id { get; set; }
+        /// <summary>
+        /// 位置
+        /// </summary>
+        public XPosition Position { get; set; }
+        /// <summary>
+        /// 是否打开
+        /// </summary>
+        public bool Opened { get; set; }
 
         /// <summary>
         /// 获取渲染器

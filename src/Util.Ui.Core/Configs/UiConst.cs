@@ -223,5 +223,9 @@
         /// 全屏
         /// </summary>
         public const string Fullscreen = "fullscreen";
+        /// <summary>
+        /// 打开
+        /// </summary>
+        public const string Opened = "opened";
     }
 }
