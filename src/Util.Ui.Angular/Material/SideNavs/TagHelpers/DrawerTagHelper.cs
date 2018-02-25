@@ -31,6 +31,10 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
         /// 禁用ESC键或点击背景关闭
         /// </summary>
         public bool DisableClose { get; set; }
+        /// <summary>
+        /// 宽度，单位：px
+        /// </summary>
+        public double Width { get; set; }
 
         /// <summary>
         /// 获取渲染器

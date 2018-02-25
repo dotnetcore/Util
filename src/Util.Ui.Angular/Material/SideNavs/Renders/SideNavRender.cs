@@ -38,14 +38,22 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            builder.Class( _config );
-            builder.AddStyle( _config );
             ConfigId( builder );
+            ConfigStyle( builder );
             ConfigPosition( builder );
             ConfigOpened( builder );
             ConfigMode( builder );
             ConfigDisableClose( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置样式
+        /// </summary>
+        private void ConfigStyle( TagBuilder builder ) {
+            builder.Class( _config );
+            if( _config.Contains( UiConst.Width ) )
+                builder.AddAttribute( UiConst.Style, $"width:{_config.GetValue( UiConst.Width )}px" );
         }
 
         /// <summary>

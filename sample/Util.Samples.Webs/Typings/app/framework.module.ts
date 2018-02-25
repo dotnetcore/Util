@@ -7,7 +7,7 @@ import {
     MatCardModule, MatChipsModule,
     MatDialogModule, MatGridListModule,
     MatListModule,  
-    MatSidenavModule, MatSliderModule, MatSortModule,
+     MatSliderModule, MatSortModule,
      MatToolbarModule,
     MatExpansionModule, MatStepperModule
 } from '@angular/material';
@@ -18,7 +18,7 @@ import {
         MatCardModule, MatChipsModule,
         MatDialogModule, MatGridListModule,
         MatListModule, 
-        MatSidenavModule, MatSliderModule, MatSortModule,
+        MatSliderModule, MatSortModule,
         MatToolbarModule,
         MatExpansionModule, MatStepperModule
     ]

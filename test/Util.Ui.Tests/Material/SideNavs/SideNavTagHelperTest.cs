@@ -101,5 +101,16 @@ namespace Util.Ui.Tests.Material.SideNavs {
             result.Append( "<mat-sidenav disableClose=\"true\"></mat-sidenav>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试设置宽度
+        /// </summary>
+        [Fact]
+        public void TestWidth() {
+            var attributes = new TagHelperAttributeList { { UiConst.Width, 50 } };
+            var result = new String();
+            result.Append( "<mat-sidenav style=\"width:50px\"></mat-sidenav>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

@@ -1,14 +1,14 @@
 ﻿<util-container>
-<util-sidenav-container fullscreen="true">
-    <util-sidenav  id="sidenav" opened="true" mode="Side" style="width: 200px" >
-        导航菜单
-    </util-sidenav>
-    <util-sidenav-content>
-        <util-button styles="Icon" on-click="sidenav.toggle()">
-            <util-icon font-awesome-icon="Apple" size="Large2X" spin="true"></util-icon>
-        </util-button>
-        <util-router-outlet></util-router-outlet>
-    </util-sidenav-content>
-</util-sidenav-container>
+    <util-sidenav-container fullscreen="true">
+        <util-sidenav id="sidenav" opened="true" mode="Side" width="200">
+            导航
+        </util-sidenav>
+        <util-sidenav-content>
+            <util-button styles="Icon" on-click="sidenav.toggle()">
+                <util-icon font-awesome-icon="Apple" size="Large2X" spin="true"></util-icon>
+            </util-button>
+            <util-router-outlet></util-router-outlet>
+        </util-sidenav-content>
+    </util-sidenav-container>
 
 </util-container>
