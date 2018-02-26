@@ -8,7 +8,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// <summary>
     /// 卡片头像,该标签应放到 util-card-header 中
     /// </summary>
-    [HtmlTargetElement( "util-card-header-avatar" )]
+    [HtmlTargetElement( "util-card-header-avatar", TagStructure = TagStructure.WithoutEndTag )]
     public class CardAvatarTagHelper : TagHelperBase {
         /// <summary>
         /// 图片路径

@@ -10,10 +10,11 @@
     <util-icon material-icon="Code"></util-icon>
 </util-toolbar>
 <util-card>
-    <util-card-title-group>
+    <util-card-header>
         <util-card-title>标题</util-card-title>
         <util-card-subtitle>子标题</util-card-subtitle>
-    </util-card-title-group>
+        <util-card-header-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" />
+    </util-card-header>
     <util-card-content>
         <util-form id="form" on-submit="onChange(form)">
             <util-textbox for="Name"></util-textbox>
@@ -101,6 +102,7 @@
             </mat-table>
         </table-wrapper>
     </util-card-content>
+    <util-divider inset="true"/>
     <util-card-actions align="Right">
         @x.Button().Reset()
         @x.Button().Submit()

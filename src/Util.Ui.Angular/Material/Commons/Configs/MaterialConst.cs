@@ -87,5 +87,9 @@
         /// 禁用关闭
         /// </summary>
         public const string DisableClose = "disable-close";
+        /// <summary>
+        /// 插入
+        /// </summary>
+        public const string Inset = "inset";
     }
 }

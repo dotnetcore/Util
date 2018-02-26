@@ -9,7 +9,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// <summary>
     /// 卡片标题图片,该标签应放到 util-card-title-group 中
     /// </summary>
-    [HtmlTargetElement( "util-card-title-image" )]
+    [HtmlTargetElement( "util-card-title-image",TagStructure = TagStructure.WithoutEndTag)]
     public class CardTitleImageTagHelper : TagHelperBase {
         /// <summary>
         /// 图片路径

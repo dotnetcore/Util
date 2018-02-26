@@ -8,7 +8,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// <summary>
     /// 卡片图片
     /// </summary>
-    [HtmlTargetElement( "util-card-image" )]
+    [HtmlTargetElement( "util-card-image", TagStructure = TagStructure.WithoutEndTag )]
     public class CardImageTagHelper : TagHelperBase {
         /// <summary>
         /// 图片路径
