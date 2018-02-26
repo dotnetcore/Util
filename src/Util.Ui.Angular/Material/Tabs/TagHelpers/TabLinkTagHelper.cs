@@ -12,10 +12,6 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
     [HtmlTargetElement( "util-nav-tab" )]
     public class TabLinkTagHelper : TagHelperBase {
         /// <summary>
-        /// 标识，指向模板引用变量，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
         /// 路由链接
         /// </summary>
         public string Link { get; set; }

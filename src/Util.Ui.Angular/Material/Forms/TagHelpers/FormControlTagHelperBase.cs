@@ -9,10 +9,6 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// </summary>
     public abstract class FormControlTagHelperBase : TagHelperBase {
         /// <summary>
-        /// 标识，指向模板引用变量，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
         /// 控件的名称
         /// </summary>
         public string Name { get; set; }

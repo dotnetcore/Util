@@ -12,10 +12,6 @@ namespace Util.Ui.Material.Menus.TagHelpers {
     [HtmlTargetElement( "util-menu" )]
     public class MenuTagHelper : TagHelperBase {
         /// <summary>
-        /// 标识，指向模板引用变量，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
         /// X轴位置
         /// </summary>
         public XPosition XPosition { get; set; }

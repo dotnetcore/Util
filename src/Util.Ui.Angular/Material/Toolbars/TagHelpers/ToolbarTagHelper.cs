@@ -12,10 +12,6 @@ namespace Util.Ui.Material.Toolbars.TagHelpers {
     [HtmlTargetElement( "util-toolbar" )]
     public class ToolbarTagHelper : TagHelperBase {
         /// <summary>
-        /// 标识，指向模板引用变量，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
         /// 颜色
         /// </summary>
         public Color Color { get; set; }

@@ -11,10 +11,6 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
     [HtmlTargetElement( "util-sidenav-container" )]
     public class SideNavContainerTagHelper : TagHelperBase {
         /// <summary>
-        /// 标识，指向模板引用变量，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
         /// 全屏
         /// </summary>
         public bool Fullscreen { get; set; }

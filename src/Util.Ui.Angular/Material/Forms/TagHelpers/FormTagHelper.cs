@@ -11,10 +11,6 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     [HtmlTargetElement( "util-form" )]
     public class FormTagHelper : TagHelperBase {
         /// <summary>
-        /// 控件标识，创建为模板引用变量，指向表单的ngForm，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
         /// 提交事件处理函数，范例：handle()
         /// </summary>
         public string OnSubmit { get; set; }

@@ -11,11 +11,6 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
     [HtmlTargetElement( "util-drawer-content" )]
     public class DrawerContentTagHelper : TagHelperBase {
         /// <summary>
-        /// 标识，指向模板引用变量，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>

@@ -4,7 +4,7 @@ import { UtilModule } from '../util';
 //Material模块
 import {
     MatButtonToggleModule,
-    MatCardModule, MatChipsModule,
+     MatChipsModule,
     MatDialogModule, MatGridListModule,
     MatListModule,  
      MatSliderModule, MatSortModule,
@@ -14,7 +14,7 @@ import {
     exports: [
         UtilModule,
         MatButtonToggleModule,
-        MatCardModule, MatChipsModule,
+        MatChipsModule,
         MatDialogModule, MatGridListModule,
         MatListModule, 
         MatSliderModule, MatSortModule,

@@ -13,10 +13,6 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
     [HtmlTargetElement("util-button")]
     public class ButtonTagHelper : TagHelperBase {
         /// <summary>
-        /// 标识，指向模板引用变量，而不是Id属性
-        /// </summary>
-        public string Id { get; set; }
-        /// <summary>
         /// 文本
         /// </summary>
         public string Text { get; set; }

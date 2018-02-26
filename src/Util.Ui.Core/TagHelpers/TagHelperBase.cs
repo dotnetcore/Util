@@ -10,6 +10,11 @@ namespace Util.Ui.TagHelpers {
     /// </summary>
     public abstract class TagHelperBase : TagHelper {
         /// <summary>
+        /// 标识
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// 渲染
         /// </summary>
         public override async void Process( TagHelperContext context, TagHelperOutput output ) {

@@ -14,10 +14,6 @@ namespace Util.Ui.Angular.TagHelpers {
         /// 渲染器
         /// </summary>
         private ContainerRender _render;
-        /// <summary>
-        /// 标识
-        /// </summary>
-        public string Id { get; set; }
 
         /// <summary>
         /// 渲染
