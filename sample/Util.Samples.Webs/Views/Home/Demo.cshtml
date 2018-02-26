@@ -4,124 +4,108 @@
 }
 
 <util-toolbar color="Primary">
-    <util-icon material-icon="Menu" ></util-icon>
+    <util-icon material-icon="Menu"></util-icon>
     <span>工具栏</span>
-    <util-toolbar-fill-remain/>
+    <util-toolbar-fill-remain />
     <util-icon material-icon="Code"></util-icon>
 </util-toolbar>
-
-<mat-card>Simple card</mat-card>
-
-<util-form id="form" on-submit="onChange(form)">
-    <mat-card>
-        <mat-card-title>
-            哈哈
-        </mat-card-title>
-        <mat-card-content>
+<util-card>
+    <util-card-title-group>
+        <util-card-title>标题</util-card-title>
+        <util-card-subtitle>子标题</util-card-subtitle>
+    </util-card-title-group>
+    <util-card-content>
+        <util-form id="form" on-submit="onChange(form)">
             <util-textbox for="Name"></util-textbox>
             <util-select for="Nation"></util-select>
             <util-checkbox for="IsGender"></util-checkbox>
-        </mat-card-content>
-        <mat-card-content>
             <util-radio for="Gender"></util-radio>
-        </mat-card-content>
-        <mat-card-content>
             <util-slide-toggle for="IsGender"></util-slide-toggle>
             @x.Select( t => t.Nation )
             @x.TextBox( t => t.Name )
-        </mat-card-content>
-        <mat-card-content>
-            @using( x.Button().Style( ButtonStyle.Icon ).Tooltip( "重置一下" ).Reset().Begin() ) {
-                <util-icon material-icon="Android"></util-icon>
-            }
-            @x.Button().Submit()
-        </mat-card-content>
-    </mat-card>
+        </util-form>
+        <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
+            @*表头*@
+            <mat-table matSort matSortActive="created" matSortDisableClear matSortDirection="asc" class="table-head-fixed">
 
-</util-form>
+                <ng-container matColumnDef="selectCheckbox">
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? grid.masterToggle() : null"
+                                      [disabled]="!grid.dataSource.data.length"
+                                      [checked]="grid.isMasterChecked()"
+                                      [indeterminate]="grid.isMasterIndeterminate()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                </ng-container>
 
+                <ng-container matColumnDef="lineNumber">
+                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                </ng-container>
 
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
+                </ng-container>
 
+                <ng-container matColumnDef="nickname">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>昵称</mat-header-cell>
+                </ng-container>
 
-<table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
-    @*表头*@
-    <div class="table-header">
-        <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="关键词搜索">
-        </mat-form-field>
-    </div>
-    <mat-table matSort matSortActive="created" matSortDisableClear matSortDirection="asc" class="table-head-fixed">
+                <ng-container matColumnDef="mobile">
+                    <mat-header-cell *matHeaderCellDef>电话</mat-header-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']"></mat-header-row>
+            </mat-table>
+            @*数据*@
+            <mat-table [dataSource]="grid.dataSource" [style.min-height]="grid.minHeight+'px'" [style.max-height]="grid.maxHeight+'px'" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
-        <ng-container matColumnDef="selectCheckbox">
-            <mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="$event ? grid.masterToggle() : null"
-                              [disabled]="!grid.dataSource.data.length"
-                              [checked]="grid.isMasterChecked()"
-                              [indeterminate]="grid.isMasterIndeterminate()">
-                </mat-checkbox>
-            </mat-header-cell>
-        </ng-container>
+                <ng-container matColumnDef="selectCheckbox">
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? grid.masterToggle() : null"
+                                      [disabled]="!grid.dataSource.data.length"
+                                      [checked]="grid.isMasterChecked()"
+                                      [indeterminate]="grid.isMasterIndeterminate()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                                      (change)="$event ? grid.selection.toggle(row) : null"
+                                      [checked]="grid.selection.isSelected(row)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="lineNumber">
-            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-        </ng-container>
+                <ng-container matColumnDef="lineNumber">
+                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
-        </ng-container>
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="nickname">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>昵称</mat-header-cell>
-        </ng-container>
+                <ng-container matColumnDef="nickname">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>昵称</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.nickname }}</mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="mobile">
-            <mat-header-cell *matHeaderCellDef>电话</mat-header-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']"></mat-header-row>
-    </mat-table>
-    @*数据*@
-    <mat-table [dataSource]="grid.dataSource" [style.min-height]="grid.minHeight+'px'" [style.max-height]="grid.maxHeight+'px'" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+                <ng-container matColumnDef="mobile">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>电话</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.mobile }}</mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="selectCheckbox">
-            <mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="$event ? grid.masterToggle() : null"
-                              [disabled]="!grid.dataSource.data.length"
-                              [checked]="grid.isMasterChecked()"
-                              [indeterminate]="grid.isMasterIndeterminate()">
-                </mat-checkbox>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()"
-                              (change)="$event ? grid.selection.toggle(row) : null"
-                              [checked]="grid.selection.isSelected(row)">
-                </mat-checkbox>
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="lineNumber">
-            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="nickname">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>昵称</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.nickname }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="mobile">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>电话</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.mobile }}</mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']" style="display: none"></mat-header-row>
-        <mat-row matRipple *matRowDef="let row; columns: ['selectCheckbox','lineNumber', 'name','nickname','mobile'];"
-                 class="mat-row-hover">
-        </mat-row>
-    </mat-table>
-</table-wrapper>
-
+                <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']" style="display: none"></mat-header-row>
+                <mat-row matRipple *matRowDef="let row; columns: ['selectCheckbox','lineNumber', 'name','nickname','mobile'];"
+                         class="mat-row-hover">
+                </mat-row>
+            </mat-table>
+        </table-wrapper>
+    </util-card-content>
+    <util-card-actions align="Right">
+        @x.Button().Reset()
+        @x.Button().Submit()
+    </util-card-actions>
+    <util-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </util-card-footer>
+</util-card>

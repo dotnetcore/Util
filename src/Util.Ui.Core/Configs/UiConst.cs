@@ -235,5 +235,13 @@
         /// 自动调整大小
         /// </summary>
         public const string AutoSize = "auto-size";
+        /// <summary>
+        /// 对齐
+        /// </summary>
+        public const string Align = "align";
+        /// <summary>
+        /// 源路径
+        /// </summary>
+        public const string Src = "src";
     }
 }
