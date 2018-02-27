@@ -8,7 +8,7 @@ import {
     MatDialogModule, MatGridListModule,
     MatListModule,  
      MatSliderModule, MatSortModule,
-    MatExpansionModule, MatStepperModule
+     MatStepperModule
 } from '@angular/material';
 @NgModule({
     exports: [
@@ -18,7 +18,7 @@ import {
         MatDialogModule, MatGridListModule,
         MatListModule, 
         MatSliderModule, MatSortModule,
-        MatExpansionModule, MatStepperModule
+         MatStepperModule
     ]
 })
 export class FrameworkModule {

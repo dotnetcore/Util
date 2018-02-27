@@ -91,5 +91,21 @@
         /// 插入
         /// </summary>
         public const string Inset = "inset";
+        /// <summary>
+        /// 隐藏开关
+        /// </summary>
+        public const string HideToggle = "hide-toggle";
+        /// <summary>
+        /// 显示模式
+        /// </summary>
+        public const string DisplayMode = "display-mode";
+        /// <summary>
+        /// 折叠高度
+        /// </summary>
+        public const string CollapsedHeight = "collapsed-height";
+        /// <summary>
+        /// 展开高度
+        /// </summary>
+        public const string ExpandedHeight = "expanded-height";
     }
 }

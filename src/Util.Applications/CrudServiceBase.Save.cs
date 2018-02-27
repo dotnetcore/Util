@@ -140,6 +140,7 @@ namespace Util.Applications {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             await CreateAsync( entity );
+            request.Id = entity.Id.ToString();
         }
 
         /// <summary>
@@ -185,8 +186,10 @@ namespace Util.Applications {
             var entity = ToEntity( request );
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            if( IsNew( request, entity ) )
+            if ( IsNew( request, entity ) ) {
                 await CreateAsync( entity );
+                request.Id = entity.Id.ToString();
+            }
             else
                 await UpdateAsync( entity );
         }

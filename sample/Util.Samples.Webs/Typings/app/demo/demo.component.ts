@@ -1,8 +1,6 @@
 ﻿import { Component, ViewChild, OnInit, Injector } from "@angular/core"
-import { MatSnackBar} from "@angular/material"
 import { NgForm } from "@angular/forms"
-import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, HttpContentType } from "../../util";
-
+import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, util } from "../../util";
 @Component({
     selector: 'demo',
     templateUrl: '/Home/Demo'
@@ -19,11 +17,10 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.grid.delete();
     }
 
-    constructor(injector: Injector, public snackBar: MatSnackBar) {
+    constructor(injector: Injector) {
         super(injector);
         this.queryParam = new CustomerQueryModel();
         this.model = new CustomerViewModel();
-        this.selectedIndex = 2;
     }
 
     query() {
@@ -43,8 +40,9 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.model.isGender = true;
     }
 
-    selectedIndex: number;
-    showFiller:boolean;
+    show() {
+        util.message.error("aa");
+    }
 }
 
 

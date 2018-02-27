@@ -1,6 +1,32 @@
 ﻿<util-sidenav-container fullscreen="true">
-    <util-sidenav id="sidenav" opened="true" mode="Side" width="200">
-        导航
+    <util-sidenav id="sidenav" opened="true" mode="Side">
+        <util-accordion display-mode="Flat">
+            <util-panel>
+                <util-panel-header >
+                    <util-panel-title>
+                        <util-icon material-icon="Account_Circle"></util-icon>
+                        哈哈
+                    </util-panel-title>
+                </util-panel-header>
+                <util-panel-content>
+                    哈哈
+                </util-panel-content>
+                <util-panel-action>
+                    <util-button text="哈哈" styles="Default"></util-button>
+                </util-panel-action>
+            </util-panel>
+            <util-panel>
+                <util-panel-header>
+                    <util-panel-title>哈哈</util-panel-title>
+                </util-panel-header>
+                <util-panel-content>
+                    哈哈
+                </util-panel-content>
+                <util-panel-action>
+                    <util-button text="哈哈" styles="Default"></util-button>
+                </util-panel-action>
+            </util-panel>
+        </util-accordion>
     </util-sidenav>
     <util-sidenav-content>
         <util-toolbar>
@@ -12,3 +38,5 @@
     </util-sidenav-content>
 </util-sidenav-container>
 
+@*消息提示*@
+<p-growl [(value)]="msgs"></p-growl>

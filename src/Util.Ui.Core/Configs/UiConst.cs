@@ -76,6 +76,14 @@
         /// </summary>
         public const string OnSubmit = "on-submit";
         /// <summary>
+        /// 打开事件
+        /// </summary>
+        public const string OnOpen = "on-open";
+        /// <summary>
+        /// 关闭事件
+        /// </summary>
+        public const string OnClose = "on-close";
+        /// <summary>
         /// 图标
         /// </summary>
         public const string Icon = "icon";
@@ -243,5 +251,9 @@
         /// 源路径
         /// </summary>
         public const string Src = "src";
+        /// <summary>
+        /// 展开
+        /// </summary>
+        public const string Expanded = "expanded";
     }
 }

@@ -1,4 +1,5 @@
 ﻿import { Component } from "@angular/core"
+import {util} from "../util";
 
 /**
  * 根组件

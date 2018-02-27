@@ -19,8 +19,12 @@
         <util-form id="form" on-submit="onChange(form)">
             <util-textbox for="Name"></util-textbox>
             <util-select for="Nation"></util-select>
-            <util-checkbox for="IsGender"></util-checkbox>
-            <util-radio for="Gender"></util-radio>
+            <div>
+                <util-checkbox for="IsGender"></util-checkbox>
+            </div>
+            <div>
+                <util-radio for="Gender"></util-radio>
+            </div>
             <util-slide-toggle for="IsGender"></util-slide-toggle>
             @x.Select( t => t.Nation )
             @x.TextBox( t => t.Name )
@@ -102,7 +106,7 @@
             </mat-table>
         </table-wrapper>
     </util-card-content>
-    <util-divider inset="true"/>
+    <util-divider inset="true" />
     <util-card-actions align="Right">
         @x.Button().Reset()
         @x.Button().Submit()
