@@ -1,0 +1,106 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+
+<%@ Assembly Src="..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\Common\Extensions.cs" %>
+
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="SchemaMapper" %>
+
+<%@ Property Name="Entity" Type="SchemaMapper.Entity"  %>
+<%@ Property Name="Namespace" Type="System.String" %>
+<%-- Safe类名 --%>
+<% string SafeClassName = Entity.ClassName.ToSafeName(); %>
+<%-- 描述 --%>
+<% string Description = Entity.Description; %>
+using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Util;
+using Util.ApplicationServices;
+using Util.Datas.SqlServer;
+using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
+using <%= Entity.GetNamespace(Namespace,"Services.Contracts") %>;
+using <%= Entity.GetNamespace(Namespace,"Services.Dtos") %>;
+using <%= Entity.GetNamespace(Namespace,"Tests.Integration.Dtos") %>;
+
+namespace <%= Entity.GetNamespace(Namespace,"Tests.Integration.Services") %> {
+    /// <summary>
+    /// <%= Description %>服务测试
+    /// </summary>
+    [TestClass]
+    public class <%= SafeClassName %>ServiceTest {
+        /// <summary>
+        /// 随机数生成器
+        /// </summary>
+        private RandomBuilder _builder;
+        /// <summary>
+        /// <%= Description %>服务
+        /// </summary>
+        private I<%= SafeClassName %>Service <%= SafeClassName.ToFieldName() %>Service;
+        /// <summary>
+        /// <%= Description %>仓储
+        /// </summary>
+        private I<%= SafeClassName %>Repository <%= SafeClassName.ToFieldName() %>Repository;
+        /// <summary>
+        /// <%= Description %>Dto
+        /// </summary>
+        private <%= SafeClassName %>Dto <%= SafeClassName.ToFieldName() %>Dto;
+
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
+        [TestInitialize]
+        public void TestInit() {
+            _builder = new RandomBuilder();
+            <%= SafeClassName.ToFieldName() %>Repository = Ioc.Create<I<%= SafeClassName %>Repository>();
+            <%= SafeClassName.ToFieldName() %>Service = Ioc.Create<I<%= SafeClassName %>Service>();
+            <%= SafeClassName.ToFieldName() %>Dto = <%= SafeClassName %>DtoTest.Create2( <%= Entity.GetKeyDefault() %> );
+        }
+        
+        /// <summary>
+        /// 测试
+        /// </summary>
+        [TestMethod]
+        public void Test() {
+            var count = <%= SafeClassName.ToFieldName() %>Repository.Count();
+            <%= SafeClassName.ToFieldName() %>Service.Save( <%= SafeClassName.ToFieldName() %>Dto );
+            Assert.AreEqual( count + 1, <%= SafeClassName.ToFieldName() %>Repository.Count() );
+        }
+
+        /// <summary>
+        /// 添加测试数据
+        /// </summary>
+        [TestMethod]
+        [Ignore]
+        public void AddTestDatas() {            
+            for( int i = 0; i < 10; i++ ) {
+                var entities = new List<<%= SafeClassName %>>();
+                for( int j = 0; j < 10000; j++ ) {
+                    var entity = new <%= SafeClassName %>( <%= Entity.GetNewKey() %> );
+                    <% foreach(Property p in Entity.Properties) { %>
+                    <% if( p.ColumnName == "Version" && p.SystemType == typeof(byte) ) continue;%>
+                    <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+                    <% if( p.SystemType == typeof(string) || p.SystemType == typeof(char) ) {%>
+                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateString( <%= p.MaxLength %> );
+                    <% } %>
+                    <% if( p.SystemType == typeof(bool) ) {%>
+                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateBool();
+                    <% } %>
+                    <% if( p.SystemType == typeof(DateTime) ) {%>
+                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateDate();
+                    <% } %>
+                    <% if( p.SystemType == typeof(short) || p.SystemType == typeof(int) || p.SystemType == typeof(long) ) {%>
+                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateInt( 10000 );
+                    <% } %>
+                    <% } %>   
+                    entities.Add( entity );
+                }
+                <%= SafeClassName.ToFieldName() %>Repository.BulkInsert( entities );
+            }
+        }
+    }
+}

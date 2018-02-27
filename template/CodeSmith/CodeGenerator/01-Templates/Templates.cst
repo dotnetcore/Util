@@ -137,6 +137,18 @@
 <%@ Register Name="ItemGroupClass"
              Template="Templates\Domains\ItemGroup.cst"
              MergeProperties="False" %>
+<%@ Register Name="EntityTestClass"
+             Template="Templates\Tests\EntityTest.cst"
+             MergeProperties="False" %>
+<%@ Register Name="EntityTestDataClass"
+             Template="Templates\Tests\EntityTest.Data.cst"
+             MergeProperties="False" %>
+<%@ Register Name="DtoTestClass"
+             Template="Templates\Tests\DtoTest.cst"
+             MergeProperties="False" %>
+<%@ Register Name="ServiceTestClass"
+             Template="Templates\Tests\ServiceTest.cst"
+             MergeProperties="False" %>
 <% Generate(); %>
 
 <script runat="template">
@@ -169,6 +181,8 @@
         CreateIocConfig( context );
         //创建实体
         CreateEntity(context);
+        //创建工厂
+        CreateFactory(context);
         //创建仓储接口
         CreateIRepository(context);
         //创建仓储
@@ -193,40 +207,26 @@
         CreateSqlServerUnitOfWork(context);
         //创建Sql Server映射
         CreateSqlServerMapping(context);
+        //创建Dto
+        CreateDto( context );
+        //创建Dto扩展
+        CreateDtoExtension( context );
+        //创建查询参数
+        CreateQuery( context );
+        //创建应用服务接口
+        CreateIService( context );
+        //创建应用服务实现
+        CreateService( context );
+        //创建实体测试
+        CreateEntityTest( context );
+        //创建实体测试数据
+        CreateEntityTestData( context );
+        //创建Dto测试
+        CreateDtoTest( context );
+        //创建应用服务测试
+        CreateServiceTest( context );
         //创建项目嵌套设置
         CreateItemGroup(context);
-//        //创建MySql工作单元
-//        CreateMySqlUnitOfWork(context);
-//        //创建仓储基类
-//        CreateRepositoryBase(context);
-          //创建工厂
-          CreateFactory(context);         
-//        //创建映射
-//        CreateMapping(context);
-//        //创建MySql映射
-//        CreateMySqlMapping(context);
-          
-          //创建Dto
-          CreateDto( context );
-          //创建Dto扩展
-          CreateDtoExtension( context );
-          //创建查询参数
-          CreateQuery( context );
-          //创建应用服务接口
-          CreateIService( context );
-          //创建应用服务实现
-          CreateService( context );
-            
-//        //创建实体测试
-//        CreateEntityTest( context );
-//        //创建实体测试数据
-//        CreateEntityTestData( context );
-//        //创建Dto测试
-//        CreateDtoTest( context );
-//        //创建应用服务测试
-//        CreateServiceTest( context );   
-//        //创建控制器
-//        CreateController( context );
           
         //注册引用
         this.RegisterReference("System.Configuration");
@@ -585,6 +585,63 @@
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
             result.RenderToFile(GetPath(className,"Services\\Implements\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建实体测试
+    public void CreateEntityTest(EntityContext entityContext)
+    {
+        EntityTestClass result = this.Create<EntityTestClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Test", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Tests\\UnitTests\\Models\\" + GetSchema(entity) ), true);
+        }
+    }
+    
+    //创建实体测试数据
+    public void CreateEntityTestData(EntityContext entityContext)
+    {
+        EntityTestDataClass result = this.Create<EntityTestDataClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Test.Data", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Tests\\UnitTests\\Models\\" + GetSchema(entity)), true);
+        }
+    }
+    
+    //创建Dto测试
+    public void CreateDtoTest(EntityContext entityContext)
+    {
+        DtoTestClass result = this.Create<DtoTestClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}DtoTest", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Tests\\IntegrationTests\\Dtos\\" + GetSchema(entity)), true);
+        }
+    }
+    
+    //创建应用服务测试
+    public void CreateServiceTest(EntityContext entityContext)
+    {
+        ServiceTestClass result = this.Create<ServiceTestClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {   
+            string className = string.Format( "{0}ServiceTest",entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,"Tests\\IntegrationTests\\Services\\" + GetSchema(entity)), true);
         }
     }
     
