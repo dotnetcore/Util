@@ -13,14 +13,10 @@
 <%@ Property Name="Namespace" Type="System.String" %>
 <%@ Property Name="DbName" Type="System.String" %>
 using Autofac;
-using Util.DependencyInjection;
-using <%= Namespace %>.Domains.Repositories;
-using <%= Namespace %>.Datas.Ef;
-using <%= Namespace %>.Datas.Ef.Repositories;
-using <%= Namespace %>.Services.Contracts;
-using <%= Namespace %>.Services.Impl;
+using Util.Dependency;
+using <%= Namespace %>.Data;
 
-namespace <%= Namespace %>.Services.Configs {
+namespace <%= Namespace %>.Service.Configs {
     /// <summary>
     /// 依赖注入配置
     /// </summary>

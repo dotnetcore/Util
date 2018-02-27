@@ -20,7 +20,7 @@ using System.ComponentModel.DataAnnotations;
 using Util;
 using Util.Datas.Queries;
 
-namespace <%= Entity.GetNamespace(Namespace,"Services.Queries") %> {
+namespace <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>查询实体
     /// </summary>

@@ -20,7 +20,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Util.Applications.Dtos;
 
-namespace <%= Entity.GetNamespace(Namespace,"Services.Dtos") %> {
+namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>数据传输对象
     /// </summary>
@@ -36,8 +36,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Services.Dtos") %> {
         <%}%>
         [Display( Name = "<%= p.Description %>" )]
         [DataMember]
-        public <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> { get; set; }
-        
+        public <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> { get; set; }        
         <% }%>
     }
 }

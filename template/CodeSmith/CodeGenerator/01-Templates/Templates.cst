@@ -539,7 +539,7 @@
             string className = string.Format( "Extensions.{0}Dto", entity.ClassName );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
-            result.RenderToFile(GetPath(className,"Services\\Extensions\\" + GetSchema(entity)), true);
+            result.RenderToFile(GetPath(className,"Services\\Dtos\\" + GetSchema(entity)), true);
         }
     }
     
@@ -584,7 +584,7 @@
             result.Namespace = GetNamespace(entity);
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
-            result.RenderToFile(GetPath(className,"Services\\Core\\" + GetSchema(entity) ), true);
+            result.RenderToFile(GetPath(className,"Services\\Implements\\" + GetSchema(entity) ), true);
         }
     }
     

@@ -16,10 +16,10 @@
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
 using Util.Applications;
-using <%= Entity.GetNamespace(Namespace,"Services.Queries") %>;
-using <%= Entity.GetNamespace(Namespace,"Services.Dtos") %>;
+using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
+using <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSchema) %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Services.Abstractions") %> {
+namespace <%= string.Format("{0}.Service.Abstractions.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>服务
     /// </summary>

@@ -22,14 +22,14 @@ using Util.Maps;
 using Util.Domains.Repositories;
 using Util.Datas.Queries;
 using Util.Applications;
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
-using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
-using <%= string.Format("{0}.Datas",Namespace)  %>;
-using <%= Entity.GetNamespace(Namespace,"Services.Dtos") %>;
-using <%= Entity.GetNamespace(Namespace,"Services.Queries") %>;
-using <%= Entity.GetNamespace(Namespace,"Services.Abstractions") %>;
+using <%= string.Format("{0}.Data",Namespace) %>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %>;
+using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
+using <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSchema) %>;
+using <%= string.Format("{0}.Service.Abstractions.{1}",Namespace,Entity.TableSchema) %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Services.Core") %> {
+namespace <%= string.Format("{0}.Service.Implements.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>服务
     /// </summary>
