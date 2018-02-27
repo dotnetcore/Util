@@ -17,28 +17,27 @@
 <% string Description = Entity.Description; %>
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using <%= Entity.GetNamespace(Namespace,"Services.Dtos") %>;
-using <%= Entity.GetNamespace(Namespace,"Tests.Models") %>;
+using Xunit;
+using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
+using <%= string.Format("{0}.Test.Models.{1}",Namespace,Entity.TableSchema) %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Tests.Integration.Dtos") %> {
+namespace <%= string.Format("{0}.Test.Integration.Dtos.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>数据传输对象测试
     /// </summary>
-    [TestClass]
     public class <%= SafeClassName %>DtoTest {
         /// <summary>
         /// 创建<%= Description %>数据传输对象
         /// </summary>
-        public static <%= SafeClassName %>Dto Create() {
-            return <%= SafeClassName %>Test.Create().ToDto(); 
+        public static <%= SafeClassName %>Dto Create(string id = "") {
+            return <%= SafeClassName %>Test.Create(id).ToDto(); 
         }
         
         /// <summary>
         /// 创建<%= Description %>数据传输对象2
         /// </summary>
         /// <param name="id"><%= Description %>编号</param>
-        public static <%= SafeClassName %>Dto Create2( <%= Entity.GetId().TypeName %> id ) {
+        public static <%= SafeClassName %>Dto Create2( string id = "" ) {
             return <%= SafeClassName %>Test.Create2( id ).ToDto(); 
         }
         
@@ -48,35 +47,35 @@ namespace <%= Entity.GetNamespace(Namespace,"Tests.Integration.Dtos") %> {
         public static List<<%= SafeClassName %>Dto> CreateList() {
             return new List<<%= SafeClassName %>Dto>() {
                 Create(),
-                Create2( <%= SafeClassName %>Test.Id2 )
+                Create2()
             };
         }
         
         /// <summary>
         /// 转换为数据传输对象
         /// </summary>
-        [TestMethod]
+        [Fact]
         public void TestToDto() {
             var dto = Create();
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) { %>
-            Assert.AreEqual( <%= SafeClassName %>Test.Id<%= Entity.GetToDtoConvert() %>,dto.Id,"Id" );
+            Assert.Equal( <%= SafeClassName %>Test.Id<%= Entity.GetToDtoConvert() %>,dto.Id );
         <% continue;}%>
-            Assert.AreEqual( <%= SafeClassName %>Test.<%= p.ColumnName %>,dto.<%= p.ColumnName %>,"<%= p.ColumnName %>" );
+            Assert.Equal( <%= SafeClassName %>Test.<%= p.ColumnName %>,dto.<%= p.ColumnName %> );
         <% }%>
         }
         
         /// <summary>
         /// 转换为实体
         /// </summary>
-        [TestMethod]
+        [Fact]
         public void TestToEntity() {
             var entity = Create().ToEntity();
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) { %>
-            Assert.AreEqual( <%= SafeClassName %>Test.Id,entity.Id,"Id" );
+            Assert.Equal( <%= SafeClassName %>Test.Id,entity.Id );
         <% continue;}%>
-            Assert.AreEqual( <%= SafeClassName %>Test.<%= p.ColumnName %>,entity.<%= p.ColumnName %>,"<%= p.ColumnName %>" );
+            Assert.Equal( <%= SafeClassName %>Test.<%= p.ColumnName %>,entity.<%= p.ColumnName %> );
         <% }%>
         }
     }

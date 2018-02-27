@@ -17,90 +17,64 @@
 <% string Description = Entity.Description; %>
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using Util;
-using Util.ApplicationServices;
-using Util.Datas.SqlServer;
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
-using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
-using <%= Entity.GetNamespace(Namespace,"Services.Contracts") %>;
-using <%= Entity.GetNamespace(Namespace,"Services.Dtos") %>;
-using <%= Entity.GetNamespace(Namespace,"Tests.Integration.Dtos") %>;
+using Util.Helpers;
+using Util.Dependency;
+using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %>;
+using <%= string.Format("{0}.Service.Abstractions.{1}",Namespace,Entity.TableSchema) %>;
+using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
+using <%= string.Format("{0}.Test.Integration.Dtos.{1}",Namespace,Entity.TableSchema) %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Tests.Integration.Services") %> {
+namespace <%= string.Format("{0}.Test.Integration.Services.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>服务测试
     /// </summary>
-    [TestClass]
-    public class <%= SafeClassName %>ServiceTest {
+    [Collection( "GlobalConfig" )]
+    public class <%= SafeClassName %>ServiceTest : IDisposable {
         /// <summary>
-        /// 随机数生成器
+        /// 容器作用域
         /// </summary>
-        private RandomBuilder _builder;
+        private readonly IScope _scope;
         /// <summary>
         /// <%= Description %>服务
         /// </summary>
-        private I<%= SafeClassName %>Service <%= SafeClassName.ToFieldName() %>Service;
+        private readonly I<%= SafeClassName %>Service <%= SafeClassName.ToFieldName() %>Service;
         /// <summary>
         /// <%= Description %>仓储
         /// </summary>
-        private I<%= SafeClassName %>Repository <%= SafeClassName.ToFieldName() %>Repository;
+        private readonly I<%= SafeClassName %>Repository <%= SafeClassName.ToFieldName() %>Repository;
         /// <summary>
         /// <%= Description %>Dto
         /// </summary>
-        private <%= SafeClassName %>Dto <%= SafeClassName.ToFieldName() %>Dto;
+        private readonly <%= SafeClassName %>Dto <%= SafeClassName.ToFieldName() %>Dto;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        [TestInitialize]
-        public void TestInit() {
-            _builder = new RandomBuilder();
-            <%= SafeClassName.ToFieldName() %>Repository = Ioc.Create<I<%= SafeClassName %>Repository>();
-            <%= SafeClassName.ToFieldName() %>Service = Ioc.Create<I<%= SafeClassName %>Service>();
-            <%= SafeClassName.ToFieldName() %>Dto = <%= SafeClassName %>DtoTest.Create2( <%= Entity.GetKeyDefault() %> );
+        public <%= SafeClassName %>ServiceTest() {
+            _scope = Ioc.BeginScope();
+            <%= SafeClassName.ToFieldName() %>Repository = _scope.Create<I<%= SafeClassName %>Repository>();
+            <%= SafeClassName.ToFieldName() %>Service = _scope.Create<I<%= SafeClassName %>Service>();
+            <%= SafeClassName.ToFieldName() %>Dto = <%= SafeClassName %>DtoTest.Create();
+        }
+        
+        /// <summary>
+        /// 测试清理
+        /// </summary>
+        public void Dispose() {
+            _scope.Dispose();
         }
         
         /// <summary>
         /// 测试
         /// </summary>
-        [TestMethod]
+        [Fact]
         public void Test() {
             var count = <%= SafeClassName.ToFieldName() %>Repository.Count();
             <%= SafeClassName.ToFieldName() %>Service.Save( <%= SafeClassName.ToFieldName() %>Dto );
-            Assert.AreEqual( count + 1, <%= SafeClassName.ToFieldName() %>Repository.Count() );
-        }
-
-        /// <summary>
-        /// 添加测试数据
-        /// </summary>
-        [TestMethod]
-        [Ignore]
-        public void AddTestDatas() {            
-            for( int i = 0; i < 10; i++ ) {
-                var entities = new List<<%= SafeClassName %>>();
-                for( int j = 0; j < 10000; j++ ) {
-                    var entity = new <%= SafeClassName %>( <%= Entity.GetNewKey() %> );
-                    <% foreach(Property p in Entity.Properties) { %>
-                    <% if( p.ColumnName == "Version" && p.SystemType == typeof(byte) ) continue;%>
-                    <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
-                    <% if( p.SystemType == typeof(string) || p.SystemType == typeof(char) ) {%>
-                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateString( <%= p.MaxLength %> );
-                    <% } %>
-                    <% if( p.SystemType == typeof(bool) ) {%>
-                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateBool();
-                    <% } %>
-                    <% if( p.SystemType == typeof(DateTime) ) {%>
-                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateDate();
-                    <% } %>
-                    <% if( p.SystemType == typeof(short) || p.SystemType == typeof(int) || p.SystemType == typeof(long) ) {%>
-                    entity.<%= p.PropertyName.ToSafeName() %> = _builder.GenerateInt( 10000 );
-                    <% } %>
-                    <% } %>   
-                    entities.Add( entity );
-                }
-                <%= SafeClassName.ToFieldName() %>Repository.BulkInsert( entities );
-            }
+            Assert.Equal( count + 1, <%= SafeClassName.ToFieldName() %>Repository.Count() );
         }
     }
 }

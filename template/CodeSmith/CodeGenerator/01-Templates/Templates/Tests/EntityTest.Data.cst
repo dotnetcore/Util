@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using Util;
 using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
-namespace <%= string.Format("{0}.Tests.Models.{1}",Namespace,Entity.TableSchema) %> {
+namespace <%= string.Format("{0}.Test.Models.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>测试数据
     /// </summary>
@@ -48,7 +48,7 @@ namespace <%= string.Format("{0}.Tests.Models.{1}",Namespace,Entity.TableSchema)
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = "<%= DateTime.Now %>".ToDate();
         <%continue;} %>
         <% if( p.DataType == DbType.Binary ){ %>
-        public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = Convert.ToBytes( "1" );
+        public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = Util.Helpers.Convert.ToBytes( "1" );
         <%continue;} %>
         <% if( p.DataType == DbType.Boolean ){ %>
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = true;
@@ -80,7 +80,7 @@ namespace <%= string.Format("{0}.Tests.Models.{1}",Namespace,Entity.TableSchema)
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %>2 = "<%= DateTime.Now.AddDays(1) %>".ToDate();
         <%continue;} %>
         <% if( p.DataType == DbType.Binary ){ %>
-        public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %>2 = Convert.ToBytes( "2" );
+        public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %>2 = Util.Helpers.Convert.ToBytes( "2" );
         <%continue;} %>
         <% if( p.DataType == DbType.Boolean ){ %>
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %>2 = true;
@@ -95,8 +95,8 @@ namespace <%= string.Format("{0}.Tests.Models.{1}",Namespace,Entity.TableSchema)
         /// <summary>
         /// 创建<%= Description %>实体
         /// </summary>
-        public static <%= SafeClassName %> Create() {
-            return new <%= SafeClassName %>( Id ) {
+        public static <%= SafeClassName %> Create(string id = "") {
+            return new <%= SafeClassName %>( id<%=Entity.GetToEntityConvert() %> ) {
             <% foreach(Property p in Entity.Properties) { %>
             <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
                 <%= p.PropertyName.ToSafeName() %> = <%= p.PropertyName.ToSafeName() %>,
@@ -108,8 +108,8 @@ namespace <%= string.Format("{0}.Tests.Models.{1}",Namespace,Entity.TableSchema)
         /// 创建<%= Description %>实体2
         /// </summary>
         /// <param name="id"><%= Description %>编号</param>
-        public static <%= SafeClassName %> Create2( <%= Entity.GetId().TypeName %> id ) {
-            return new <%= SafeClassName %>( id ) {
+        public static <%= SafeClassName %> Create2( string id = "" ) {
+            return new <%= SafeClassName %>( id<%=Entity.GetToEntityConvert() %> ) {
             <% foreach(Property p in Entity.Properties) { %>
             <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
                 <%= p.PropertyName.ToSafeName() %> = <%= p.PropertyName.ToSafeName() %>2,
@@ -127,7 +127,7 @@ namespace <%= string.Format("{0}.Tests.Models.{1}",Namespace,Entity.TableSchema)
         public static List<<%= SafeClassName %>> CreateList() {
             return new List<<%= SafeClassName %>>() {
                 Create(),
-                Create2( Id2 )
+                Create2()
             };
         }
 

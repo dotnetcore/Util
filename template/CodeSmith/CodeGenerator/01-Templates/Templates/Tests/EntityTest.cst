@@ -18,7 +18,7 @@
 using Xunit;
 using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
-namespace <%= string.Format("{0}.Tests.Models.{1}",Namespace,Entity.TableSchema) %> {
+namespace <%= string.Format("{0}.Test.Models.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>测试
     /// </summary>
