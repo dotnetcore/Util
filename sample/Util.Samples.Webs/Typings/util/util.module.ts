@@ -10,11 +10,11 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 //Material模块
 import {
-    MatCommonModule, MatRippleModule,
+    MatCommonModule, MatRippleModule, MatSortModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
     MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
     MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
-    MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule,
+    MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
@@ -41,11 +41,11 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
 @NgModule({
     imports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule,
-        MatCommonModule, MatRippleModule,
+        MatCommonModule, MatRippleModule, MatSortModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
-        MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule,
+        MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule
     ],
@@ -56,11 +56,11 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
     ],
     exports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule,
-        MatCommonModule, MatRippleModule,
+        MatCommonModule, MatRippleModule, MatSortModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
-        MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule,
+        MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,

@@ -30,7 +30,10 @@ import { MessageConfig } from '../config/message-config';
             <span *ngIf="suffixText" matSuffix>{{suffixText}}</span>            
             <mat-error *ngIf="controlModel?.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
-    `
+    `,
+    host: {
+        'class': 'util-form-field',
+    }
 })
 export class TextareaWrapperComponent extends FormControlWrapperBase {
     /**

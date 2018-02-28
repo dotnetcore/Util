@@ -27,8 +27,7 @@ const jsModules = [
     'hammerjs',
     '@angular/cdk/esm5/collections.es5',
     '@angular/material',
-    'primeng/primeng',
-    'ngx-perfect-scrollbar'
+    'primeng/primeng'
 ];
 
 //第三方Css库

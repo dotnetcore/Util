@@ -42,7 +42,10 @@ import { MessageConfig } from '../config/message-config';
             <span matSuffix *ngIf="suffixText">{{suffixText}}</span>
             <mat-error *ngIf="controlModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
         </mat-form-field>
-    `
+    `,
+    host: {
+        'class': 'util-form-field',
+    }
 })
 export class SelectWrapperComponent extends FormControlWrapperBase implements OnInit {
     /**

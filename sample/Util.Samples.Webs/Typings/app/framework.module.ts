@@ -5,9 +5,9 @@ import { UtilModule } from '../util';
 import {
     MatButtonToggleModule,
      MatChipsModule,
-    MatDialogModule, MatGridListModule,
+    MatDialogModule, 
     MatListModule,  
-     MatSliderModule, MatSortModule,
+     MatSliderModule, 
      MatStepperModule
 } from '@angular/material';
 @NgModule({
@@ -15,9 +15,9 @@ import {
         UtilModule,
         MatButtonToggleModule,
         MatChipsModule,
-        MatDialogModule, MatGridListModule,
+        MatDialogModule, 
         MatListModule, 
-        MatSliderModule, MatSortModule,
+        MatSliderModule, 
          MatStepperModule
     ]
 })
