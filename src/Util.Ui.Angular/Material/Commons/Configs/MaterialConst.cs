@@ -107,5 +107,9 @@
         /// 展开高度
         /// </summary>
         public const string ExpandedHeight = "expanded-height";
+        /// <summary>
+        /// 单元格间距
+        /// </summary>
+        public const string GutterSize = "gutter-size";
     }
 }

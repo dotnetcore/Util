@@ -255,5 +255,22 @@
         /// 展开
         /// </summary>
         public const string Expanded = "expanded";
+        /// <summary>
+        /// 列
+        /// </summary>
+        public const string Columns = "columns";
+        /// <summary>
+        /// 行高
+        /// </summary>
+        public const string RowHeight = "row-height";
+        /// <summary>
+        /// 合并列
+        /// </summary>
+        public const string Colspan = "colspan";
+        /// <summary>
+        /// 合并行
+        /// </summary>
+        public const string Rowspan = "rowspan";
+        
     }
 }

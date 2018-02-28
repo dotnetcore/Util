@@ -76,5 +76,24 @@ namespace Util.Helpers {
                 return string.Empty;
             return System.Text.RegularExpressions.Regex.Replace( input, pattern, replacement, options );
         }
+
+        /// <summary>
+        /// 验证输入与模式是否匹配
+        /// </summary>
+        /// <param name="input">输入字符串</param>
+        /// <param name="pattern">模式字符串</param>        
+        public static bool IsMatch( string input, string pattern ) {
+            return IsMatch( input, pattern, RegexOptions.IgnoreCase );
+        }
+
+        /// <summary>
+        /// 验证输入与模式是否匹配
+        /// </summary>
+        /// <param name="input">输入的字符串</param>
+        /// <param name="pattern">模式字符串</param>
+        /// <param name="options">选项</param>
+        public static bool IsMatch( string input, string pattern, RegexOptions options ) {
+            return System.Text.RegularExpressions.Regex.IsMatch( input, pattern, options );
+        }
     }
 }

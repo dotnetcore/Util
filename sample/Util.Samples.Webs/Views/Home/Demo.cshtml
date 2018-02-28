@@ -17,17 +17,27 @@
     </util-card-header>
     <util-card-content>
         <util-form id="form" on-submit="onChange(form)">
-            <util-textbox for="Name"></util-textbox>
-            <util-select for="Nation"></util-select>
-            <div>
-                <util-checkbox for="IsGender"></util-checkbox>
-            </div>
-            <div>
-                <util-radio for="Gender"></util-radio>
-            </div>
-            <util-slide-toggle for="IsGender"></util-slide-toggle>
-            @x.Select( t => t.Nation )
-            @x.TextBox( t => t.Name )
+            <util-grid columns="4" row-height="60" gutter-size="20">
+                <util-grid-column colspan="3">
+                    @x.TextBox( t => t.Name )
+                </util-grid-column>
+                <util-grid-column colspan="3">
+                    <util-select for="Nation"></util-select>
+                </util-grid-column>
+                <util-grid-column></util-grid-column>
+                <util-grid-column>
+                    <util-checkbox for="IsGender"></util-checkbox>
+                </util-grid-column>
+                <util-grid-column>
+                    <util-radio for="Gender"></util-radio>
+                </util-grid-column>
+                <util-grid-column>
+                    <util-slide-toggle for="IsGender"></util-slide-toggle>
+                </util-grid-column>
+                <util-grid-column colspan="3">
+                    @x.Select( t => t.Nation )
+                </util-grid-column>
+            </util-grid>
         </util-form>
         <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
             @*表头*@
