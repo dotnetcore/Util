@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
-using Util.Ui.Material.Commons.Configs;
 
 namespace Util.Ui.Material.Extensions {
     /// <summary>

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
-using Util.Ui.Material.Commons.Internal;
+using Util.Ui.Material.Internal;
 
 namespace Util.Ui.Material.Forms.Resolvers {
     /// <summary>

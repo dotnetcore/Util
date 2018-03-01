@@ -1,32 +1,32 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
-using Util.Ui.Material;
-using Util.Ui.Material.Panels.TagHelpers;
+using Util.Ui.Material.Lists.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
-namespace Util.Ui.Tests.Material.Panels {
+namespace Util.Ui.Tests.Material.Lists {
     /// <summary>
-    /// 面板头部测试
+    /// 列表项测试
     /// </summary>
-    public class PanelHeaderTagHelperTest {
+    public class ListItemTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 面板头部
+        /// 列表项
         /// </summary>
-        private readonly PanelHeaderTagHelper _component;
+        private readonly ListItemTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public PanelHeaderTagHelperTest( ITestOutputHelper output ) {
+        public ListItemTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new PanelHeaderTagHelper();
+            _component = new ListItemTagHelper();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Util.Ui.Tests.Material.Panels {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-expansion-panel-header></mat-expansion-panel-header>" );
+            result.Append( "<mat-list-item></mat-list-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -53,29 +53,18 @@ namespace Util.Ui.Tests.Material.Panels {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<mat-expansion-panel-header #a=\"\"></mat-expansion-panel-header>" );
+            result.Append( "<mat-list-item #a=\"\"></mat-list-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试面板折叠时标题的高度
+        /// 测试添加循环
         /// </summary>
         [Fact]
-        public void TestCollapsedHeight() {
-            var attributes = new TagHelperAttributeList { { MaterialConst.CollapsedHeight, 1 } };
+        public void TestNgFor() {
+            var attributes = new TagHelperAttributeList { { AngularConst.NgFor, "a" } };
             var result = new String();
-            result.Append( "<mat-expansion-panel-header collapsedHeight=\"1px\"></mat-expansion-panel-header>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试面板展开时标题的高度
-        /// </summary>
-        [Fact]
-        public void TestExpandedHeight() {
-            var attributes = new TagHelperAttributeList { { MaterialConst.ExpandedHeight, 1 } };
-            var result = new String();
-            result.Append( "<mat-expansion-panel-header expandedHeight=\"1px\"></mat-expansion-panel-header>" );
+            result.Append( "<mat-list-item *ngFor=\"a\"></mat-list-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

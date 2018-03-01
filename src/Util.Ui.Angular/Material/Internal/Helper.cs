@@ -8,7 +8,7 @@ using Util.Ui.Attributes;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Configs;
 
-namespace Util.Ui.Material.Commons.Internal {
+namespace Util.Ui.Material.Internal {
     /// <summary>
     /// 辅助操作
     /// </summary>

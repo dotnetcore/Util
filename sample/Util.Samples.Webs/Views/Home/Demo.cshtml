@@ -14,17 +14,20 @@
 
 <util-form id="form" on-submit="onChange(form)">
     <util-card>
-        <util-card-header>
-            <util-card-title>标题</util-card-title>
-            <util-card-subtitle>子标题</util-card-subtitle>
-            <util-card-header-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" />
-        </util-card-header>
         <util-card-content>
             <util-list>
-                <h3 mat-subheader>Items</h3>
-                <mat-list-item *ngFor="let item of items">
+                <util-list-title>
+                    标题
+                </util-list-title>
+                <util-list-item>
+                    哈哈
+                </util-list-item>
+                <util-list-item>
+                    嘿嘿
+                </util-list-item>
+                <util-list-item ng-for="let item of items">
                     {{item}}
-                </mat-list-item>
+                </util-list-item>
             </util-list>
             @using ( var grid = x.Grid().Columns( 8 ).Colspan( 3, 5 ).RowHeight( "60" ).Begin() ) {
                 @grid.TextBox( t => t.Name )

@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Extensions;
-using Util.Ui.Material.Commons.Internal;
 using Util.Ui.Material.Forms.Configs;
+using Util.Ui.Material.Internal;
 
 namespace Util.Ui.Material.Forms.Resolvers {
     /// <summary>

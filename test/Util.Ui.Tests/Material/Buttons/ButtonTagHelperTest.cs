@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Material;
 using Util.Ui.Material.Buttons.TagHelpers;
-using Util.Ui.Material.Commons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;

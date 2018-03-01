@@ -1,4 +1,4 @@
-﻿namespace Util.Ui.Material.Commons.Configs {
+﻿namespace Util.Ui.Material {
     /// <summary>
     /// Material常量
     /// </summary>
