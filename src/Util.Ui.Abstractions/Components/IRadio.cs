@@ -3,12 +3,13 @@ using Util.Ui.Operations.Datas;
 using Util.Ui.Operations.Events;
 using Util.Ui.Operations.Forms;
 using Util.Ui.Operations.Forms.Validations;
+using Util.Ui.Operations.Layouts;
 
 namespace Util.Ui.Components {
     /// <summary>
     /// 单选框
     /// </summary>
-    public interface IRadio : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition, IUrl, IDataSource, IItem {
+    public interface IRadio : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition, IUrl, IDataSource, IItem, IColspan {
         /// <summary>
         /// 绑定枚举
         /// </summary>

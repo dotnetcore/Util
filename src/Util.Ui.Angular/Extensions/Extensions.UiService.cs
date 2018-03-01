@@ -2,6 +2,7 @@
 using Util.Ui.Components;
 using Util.Ui.Material.Buttons;
 using Util.Ui.Material.Forms;
+using Util.Ui.Material.Grids;
 using Util.Ui.Material.Icons;
 using Util.Ui.Material.Menus;
 using Util.Ui.Material.Tabs;
@@ -116,6 +117,16 @@ namespace Util.Ui.Extensions {
             if( !( service is IContext<TModel> context ) )
                 throw new NotSupportedException();
             return new TabNavigation( context.Helper.ViewContext.Writer );
+        }
+
+        /// <summary>
+        /// 栅格
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IGrid<TModel> Grid<TModel>( this IUiService<TModel> service ) {
+            if( !( service is IContext<TModel> context ) )
+                throw new NotSupportedException();
+            return new Grid<TModel>( context.Helper.ViewContext.Writer );
         }
     }
 }

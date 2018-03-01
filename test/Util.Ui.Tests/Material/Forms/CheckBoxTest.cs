@@ -151,5 +151,46 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "<mat-checkbox (change)=\"a\"></mat-checkbox>" );
             Assert.Equal( result.ToString(), GetResult( _component.OnChange( "a" ) ) );
         }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan() {
+            var result = new String();
+            result.Append( "<mat-grid-tile><mat-checkbox></mat-checkbox></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan() ) );
+        }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan_2() {
+            var result = new String();
+            result.Append( "<mat-grid-tile colspan=\"1\"><mat-checkbox></mat-checkbox></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1 ) ) );
+        }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan_3() {
+            var result = new String();
+            result.Append( "<mat-grid-tile colspan=\"1\"><mat-checkbox></mat-checkbox></mat-grid-tile><mat-grid-tile colspan=\"1\"></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1, 1 ) ) );
+        }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan_4() {
+            var result = new String();
+            result.Append( "<mat-grid-tile colspan=\"2\"></mat-grid-tile><mat-grid-tile colspan=\"1\"><mat-checkbox></mat-checkbox></mat-grid-tile>" );
+            result.Append( "<mat-grid-tile colspan=\"1\"></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1, 1, 2 ) ) );
+        }
     }
 }

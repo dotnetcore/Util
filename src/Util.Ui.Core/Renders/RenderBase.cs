@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 
@@ -67,7 +68,10 @@ namespace Util.Ui.Renders {
         /// </summary>
         public override string ToString() {
             var validateMessage = _config.Validate();
-            return string.IsNullOrWhiteSpace( validateMessage ) ? Builder.ToString() : $"验证失败：{validateMessage}";
+            using( var writer = new StringWriter() ) {
+                WriteTo( writer, NullHtmlEncoder.Default );
+                return string.IsNullOrWhiteSpace( validateMessage ) ? writer.ToString() : $"验证失败：{validateMessage}";
+            }
         }
 
         /// <summary>

@@ -45,7 +45,7 @@ namespace Util.Ui.Tests.Material.Tabs {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<nav mat-tab-nav-bar=\"\"></nav>" );
+            result.Append( "<nav mat-tab-nav-bar=\"\"></nav><router-outlet></router-outlet>" );
             Assert.Equal( result.ToString(), GetResult( _component ) );
         }
 
@@ -55,7 +55,7 @@ namespace Util.Ui.Tests.Material.Tabs {
         [Fact]
         public void TestId() {
             var result = new String();
-            result.Append( "<nav #a=\"\" mat-tab-nav-bar=\"\"></nav>" );
+            result.Append( "<nav #a=\"\" mat-tab-nav-bar=\"\"></nav><router-outlet></router-outlet>" );
             Assert.Equal( result.ToString(), GetResult( _component.Id( "a" ) ) );
         }
 
@@ -65,7 +65,7 @@ namespace Util.Ui.Tests.Material.Tabs {
         [Fact]
         public void TestBackgroundColor() {
             var result = new String();
-            result.Append( "<nav backgroundColor=\"primary\" mat-tab-nav-bar=\"\"></nav>" );
+            result.Append( "<nav backgroundColor=\"primary\" mat-tab-nav-bar=\"\"></nav><router-outlet></router-outlet>" );
             Assert.Equal( result.ToString(), GetResult( _component.BackgroundColor( Color.Primary ) ) );
         }
 
@@ -75,7 +75,7 @@ namespace Util.Ui.Tests.Material.Tabs {
         [Fact]
         public void TestColor() {
             var result = new String();
-            result.Append( "<nav color=\"primary\" mat-tab-nav-bar=\"\"></nav>" );
+            result.Append( "<nav color=\"primary\" mat-tab-nav-bar=\"\"></nav><router-outlet></router-outlet>" );
             Assert.Equal( result.ToString(), GetResult( _component.Color( Color.Primary ) ) );
         }
     }

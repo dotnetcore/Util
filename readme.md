@@ -412,6 +412,7 @@ https://github.com/dotnetcore/util/
   - 工具栏 - 基于Material Toolbar组件 [已发布]
   - 卡片 - 基于Material Card组件 [已发布]
   - 面板 - 基于Material Panel组件 [已发布]
+  - 栅格 - 基于Material Grid List组件 [已发布]
   - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   - 表格 [待启动]
 - 权限 [待启动]
@@ -468,3 +469,4 @@ https://github.com/dotnetcore/util/
 - 2018年2月25日，更新了导航侧边栏组件(Util.Ui.Angular/Material/SideNavs)及工具栏组件(Util.Ui.Angular/Material/Toolbars)。
 - 2018年2月26日，更新了卡片组件(Util.Ui.Angular/Material/Cards)。
 - 2018年2月27日，更新了面板组件(Util.Ui.Angular/Material/Panels)。
+- 2018年3月1日，更新了栅格组件(Util.Ui.Angular/Material/Grids)。

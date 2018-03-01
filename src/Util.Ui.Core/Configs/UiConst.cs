@@ -271,6 +271,13 @@
         /// 合并行
         /// </summary>
         public const string Rowspan = "rowspan";
-        
+        /// <summary>
+        /// 左边合并列
+        /// </summary>
+        public const string BeforeColspan = "before-colspan";
+        /// <summary>
+        /// 右边合并列
+        /// </summary>
+        public const string AfterColspan = "after-colspan";
     }
 }

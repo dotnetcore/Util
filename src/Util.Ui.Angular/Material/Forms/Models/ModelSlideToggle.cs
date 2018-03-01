@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Util.Helpers;
+using Util.Ui.Configs;
 using Util.Ui.Material.Commons.Internal;
 
 namespace Util.Ui.Material.Forms.Models {
@@ -15,7 +16,8 @@ namespace Util.Ui.Material.Forms.Models {
         /// 初始化模型滑动开关
         /// </summary>
         /// <param name="expression">属性表达式</param>
-        public ModelSlideToggle( Expression<Func<TModel, TProperty>> expression ) {
+        /// <param name="gridConfig">栅格配置</param>
+        public ModelSlideToggle( Expression<Func<TModel, TProperty>> expression, IConfig gridConfig = null ) : base( gridConfig ) {
             if( expression == null )
                 return;
             _expression = expression;

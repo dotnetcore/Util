@@ -68,6 +68,28 @@ namespace Util.Ui.Tests.Material.Grids {
         }
 
         /// <summary>
+        /// 测试用于左边占位的合并列
+        /// </summary>
+        [Fact]
+        public void TestBeforeColspan() {
+            var attributes = new TagHelperAttributeList { { UiConst.BeforeColspan, 2 } };
+            var result = new String();
+            result.Append( "<mat-grid-tile colspan=\"2\"></mat-grid-tile><mat-grid-tile></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试用于右边占位的合并列
+        /// </summary>
+        [Fact]
+        public void TestAfterColspan() {
+            var attributes = new TagHelperAttributeList { { UiConst.AfterColspan, 2 } };
+            var result = new String();
+            result.Append( "<mat-grid-tile></mat-grid-tile><mat-grid-tile colspan=\"2\"></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试合并行
         /// </summary>
         [Fact]

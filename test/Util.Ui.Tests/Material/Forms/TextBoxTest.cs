@@ -95,7 +95,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestDisabled_String() {
             var result = new String();
             result.Append( "<mat-textbox-wrapper [disabled]=\"a.B\"></mat-textbox-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Disable("a.B") ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Disable( "a.B" ) ) );
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestReadOnly() {
             var result = new String();
             result.Append( "<mat-textbox-wrapper [readonly]=\"false\"></mat-textbox-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.ReadOnly(false) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.ReadOnly( false ) ) );
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestEmail_Message() {
             var result = new String();
             result.Append( "<mat-textbox-wrapper emailMessage=\"a\" type=\"email\"></mat-textbox-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Email("a") ) );
+            Assert.Equal( result.ToString(), GetResult( _component.Email( "a" ) ) );
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestMinLength() {
             var result = new String();
             result.Append( "<mat-textbox-wrapper [minLength]=\"3\"></mat-textbox-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MinLength(3) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.MinLength( 3 ) ) );
         }
 
         /// <summary>
@@ -365,7 +365,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestMinLength_Message() {
             var result = new String();
             result.Append( "<mat-textbox-wrapper minLengthMessage=\"a\" [minLength]=\"3\"></mat-textbox-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.MinLength( 3,"a" ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.MinLength( 3, "a" ) ) );
         }
 
         /// <summary>
@@ -385,7 +385,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestToTextArea_1() {
             var result = new String();
             result.Append( "<mat-textarea-wrapper [minRows]=\"3\"></mat-textarea-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.ToTextArea( 3) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.ToTextArea( 3 ) ) );
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestToTextArea_2() {
             var result = new String();
             result.Append( "<mat-textarea-wrapper [maxRows]=\"5\" [minRows]=\"3\"></mat-textarea-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.ToTextArea( 3,5 ) ) );
+            Assert.Equal( result.ToString(), GetResult( _component.ToTextArea( 3, 5 ) ) );
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestToDatePicker_2() {
             var result = new String();
             result.Append( "<mat-datepicker-wrapper minDate=\"a\"></mat-datepicker-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker("a") ) );
+            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker( "a" ) ) );
         }
 
         /// <summary>
@@ -425,7 +425,7 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestToDatePicker_3() {
             var result = new String();
             result.Append( "<mat-datepicker-wrapper maxDate=\"b\" minDate=\"a\"></mat-datepicker-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker( "a" ,"b") ) );
+            Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker( "a", "b" ) ) );
         }
 
         /// <summary>
@@ -436,6 +436,47 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-datepicker-wrapper startView=\"year\" [touchUi]=\"true\" [width]=\"1\"></mat-datepicker-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.ToDatePicker( 1, DateView.Year, true ) ) );
+        }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan() {
+            var result = new String();
+            result.Append( "<mat-grid-tile><mat-textbox-wrapper></mat-textbox-wrapper></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan() ) );
+        }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan_2() {
+            var result = new String();
+            result.Append( "<mat-grid-tile colspan=\"1\"><mat-textbox-wrapper></mat-textbox-wrapper></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1 ) ) );
+        }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan_3() {
+            var result = new String();
+            result.Append( "<mat-grid-tile colspan=\"1\"><mat-textbox-wrapper></mat-textbox-wrapper></mat-grid-tile><mat-grid-tile colspan=\"1\"></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1, 1 ) ) );
+        }
+
+        /// <summary>
+        /// 测试栅格合并列
+        /// </summary>
+        [Fact]
+        public void TestColspan_4() {
+            var result = new String();
+            result.Append( "<mat-grid-tile colspan=\"2\"></mat-grid-tile><mat-grid-tile colspan=\"1\"><mat-textbox-wrapper></mat-textbox-wrapper></mat-grid-tile>" );
+            result.Append( "<mat-grid-tile colspan=\"1\"></mat-grid-tile>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1, 1, 2 ) ) );
         }
     }
 }

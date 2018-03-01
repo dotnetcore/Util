@@ -9,113 +9,23 @@
     <util-toolbar-fill-remain />
     <util-icon material-icon="Code"></util-icon>
 </util-toolbar>
-<util-card>
-    <util-card-header>
-        <util-card-title>标题</util-card-title>
-        <util-card-subtitle>子标题</util-card-subtitle>
-        <util-card-header-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" />
-    </util-card-header>
-    <util-card-content>
-        <util-form id="form" on-submit="onChange(form)">
-            <util-grid columns="4" row-height="60" gutter-size="20">
-                <util-grid-column colspan="3">
-                    @x.TextBox( t => t.Name )
-                </util-grid-column>
-                <util-grid-column colspan="3">
-                    <util-select for="Nation"></util-select>
-                </util-grid-column>
-                <util-grid-column></util-grid-column>
-                <util-grid-column>
-                    <util-checkbox for="IsGender"></util-checkbox>
-                </util-grid-column>
-                <util-grid-column>
-                    <util-radio for="Gender"></util-radio>
-                </util-grid-column>
-                <util-grid-column>
-                    <util-slide-toggle for="IsGender"></util-slide-toggle>
-                </util-grid-column>
-                <util-grid-column colspan="3">
-                    @x.Select( t => t.Nation )
-                </util-grid-column>
-            </util-grid>
-        </util-form>
-        <table-wrapper #grid [queryParam]="queryParam" baseUrl="customers">
-            @*表头*@
-            <mat-table matSort matSortActive="created" matSortDisableClear matSortDirection="asc" class="table-head-fixed">
-
-                <ng-container matColumnDef="selectCheckbox">
-                    <mat-header-cell *matHeaderCellDef>
-                        <mat-checkbox (change)="$event ? grid.masterToggle() : null"
-                                      [disabled]="!grid.dataSource.data.length"
-                                      [checked]="grid.isMasterChecked()"
-                                      [indeterminate]="grid.isMasterIndeterminate()">
-                        </mat-checkbox>
-                    </mat-header-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="lineNumber">
-                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="nickname">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>昵称</mat-header-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="mobile">
-                    <mat-header-cell *matHeaderCellDef>电话</mat-header-cell>
-                </ng-container>
-                <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']"></mat-header-row>
-            </mat-table>
-            @*数据*@
-            <mat-table [dataSource]="grid.dataSource" [style.min-height]="grid.minHeight+'px'" [style.max-height]="grid.maxHeight+'px'" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
-
-                <ng-container matColumnDef="selectCheckbox">
-                    <mat-header-cell *matHeaderCellDef>
-                        <mat-checkbox (change)="$event ? grid.masterToggle() : null"
-                                      [disabled]="!grid.dataSource.data.length"
-                                      [checked]="grid.isMasterChecked()"
-                                      [indeterminate]="grid.isMasterIndeterminate()">
-                        </mat-checkbox>
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                        <mat-checkbox (click)="$event.stopPropagation()"
-                                      (change)="$event ? grid.selection.toggle(row) : null"
-                                      [checked]="grid.selection.isSelected(row)">
-                        </mat-checkbox>
-                    </mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="lineNumber">
-                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="nickname">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>昵称</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.nickname }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="mobile">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>电话</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.mobile }}</mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber', 'name','nickname','mobile']" style="display: none"></mat-header-row>
-                <mat-row matRipple *matRowDef="let row; columns: ['selectCheckbox','lineNumber', 'name','nickname','mobile'];"
-                         class="mat-row-hover">
-                </mat-row>
-            </mat-table>
-        </table-wrapper>
-    </util-card-content>
+<util-form id="form" on-submit="onChange(form)">
+    <util-card>
+        <util-card-header>
+            <util-card-title>标题</util-card-title>
+            <util-card-subtitle>子标题</util-card-subtitle>
+            <util-card-header-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" />
+        </util-card-header>
+        <util-card-content>
+            @using ( var grid = x.Grid().Columns( 8 ).Colspan(3,5).RowHeight( "60" ).Begin() ) {
+                @grid.TextBox( t => t.Name )
+                @grid.TextBox( t => t.CreationTime )
+                @grid.Select( t => t.Nation )
+                @grid.CheckBox( t => t.IsGender )
+                @grid.SlideToggle( t => t.IsGender )
+                @grid.Radio( t => t.IsGender )
+            }
+        </util-card-content>
     <util-divider inset="true" />
     <util-card-actions align="Right">
         @x.Button().Reset()
@@ -124,4 +34,5 @@
     <util-card-footer>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </util-card-footer>
-</util-card>
+    </util-card>
+</util-form>

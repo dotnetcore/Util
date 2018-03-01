@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Components;
 using Util.Ui.Configs;
+using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
 using Util.Ui.Renders;
@@ -17,8 +18,10 @@ namespace Util.Ui.Material.Forms {
         /// <summary>
         /// 初始化文本框
         /// </summary>
-        public TextBox() {
+        /// <param name="gridConfig">栅格配置</param>
+        public TextBox( IConfig gridConfig = null ) {
             _config = new TextBoxConfig();
+            _config.AddColspan( gridConfig );
         }
 
         /// <summary>

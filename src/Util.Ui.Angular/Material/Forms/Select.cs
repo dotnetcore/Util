@@ -18,8 +18,10 @@ namespace Util.Ui.Material.Forms {
         /// <summary>
         /// 初始化下拉列表
         /// </summary>
-        public Select() {
+        /// <param name="gridConfig">栅格配置</param>
+        public Select( IConfig gridConfig = null ) {
             _config = new SelectConfig();
+            _config.AddColspan( gridConfig );
         }
 
         /// <summary>
