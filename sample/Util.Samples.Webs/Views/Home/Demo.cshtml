@@ -26,13 +26,13 @@
                 @grid.Radio( t => t.IsGender )
             }
         </util-card-content>
-    <util-divider inset="true" />
-    <util-card-actions align="Right">
-        @x.Button().Reset()
-        @x.Button().Submit()
-    </util-card-actions>
-    <util-card-footer>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </util-card-footer>
+        <util-divider />
+        <util-card-actions align="Right">
+            @x.Button().Reset()
+            @x.Button().Submit()
+        </util-card-actions>
+        <util-card-footer>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </util-card-footer>
     </util-card>
 </util-form>

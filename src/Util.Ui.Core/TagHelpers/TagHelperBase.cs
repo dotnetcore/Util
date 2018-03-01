@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Logs;
 using Util.Logs.Extensions;
 using Util.Ui.Components;
@@ -17,11 +18,22 @@ namespace Util.Ui.TagHelpers {
         /// <summary>
         /// 渲染
         /// </summary>
-        public override async void Process( TagHelperContext context, TagHelperOutput output ) {
+        public override async Task ProcessAsync( TagHelperContext tagHelperContext, TagHelperOutput output ) {
+            ProcessBefore( tagHelperContext, output );
             var content = await output.GetChildContentAsync();
-            var render = GetRender( new Context( context, output, content ) );
+            var context = new Context( tagHelperContext, output, content );
+            var render = GetRender( context );
             output.SuppressOutput();
             output.PostElement.SetHtmlContent( render );
+            ProcessAfter();
+        }
+
+        /// <summary>
+        /// 处理前操作
+        /// </summary>
+        /// <param name="tagHelperContext">TagHelper上下文</param>
+        /// <param name="output">TagHelper输出</param>
+        protected virtual void ProcessBefore( TagHelperContext tagHelperContext, TagHelperOutput output ) {
         }
 
         /// <summary>
@@ -29,6 +41,12 @@ namespace Util.Ui.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected abstract IRender GetRender( Context context );
+
+        /// <summary>
+        /// 处理后操作
+        /// </summary>
+        protected virtual void ProcessAfter() {
+        }
 
         /// <summary>
         /// 写日志

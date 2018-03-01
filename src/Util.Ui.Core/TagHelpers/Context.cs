@@ -16,6 +16,7 @@ namespace Util.Ui.TagHelpers {
             AllAttributes = new TagHelperAttributeList( context.AllAttributes ) ;
             OutputAttributes = output.Attributes;
             Content = content;
+            TagHelperContext = context;
         }
 
         /// <summary>
@@ -32,5 +33,10 @@ namespace Util.Ui.TagHelpers {
         /// 内容
         /// </summary>
         public IHtmlContent Content { get; }
+
+        /// <summary>
+        /// TagHelper上下文
+        /// </summary>
+        public TagHelperContext TagHelperContext { get; }
     }
 }
