@@ -24,7 +24,7 @@ namespace Util.Ui.Tests.XUnitHelpers {
             TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) where TTagHelper : TagHelper{
             var context = new TagHelperContext( "", contextAttributes ?? new TagHelperAttributeList(), new Dictionary<object, object>(), Id.Guid() );
             var output = new TagHelperOutput( "", outputAttributes ?? new TagHelperAttributeList(),( useCachedResult, encoder ) => Task.FromResult( content ) );
-            component.Process( context, output );
+            component.ProcessAsync( context, output );
             var writer = new StringWriter();
             output.WriteTo( writer, HtmlEncoder.Default );
             var result = writer.ToString();

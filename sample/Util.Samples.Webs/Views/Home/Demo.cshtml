@@ -9,6 +9,9 @@
     <util-toolbar-fill-remain />
     <util-icon material-icon="Code"></util-icon>
 </util-toolbar>
+
+
+
 <util-form id="form" on-submit="onChange(form)">
     <util-card>
         <util-card-header>
@@ -17,7 +20,13 @@
             <util-card-header-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" />
         </util-card-header>
         <util-card-content>
-            @using ( var grid = x.Grid().Columns( 8 ).Colspan(3,5).RowHeight( "60" ).Begin() ) {
+            <util-list>
+                <h3 mat-subheader>Items</h3>
+                <mat-list-item *ngFor="let item of items">
+                    {{item}}
+                </mat-list-item>
+            </util-list>
+            @using ( var grid = x.Grid().Columns( 8 ).Colspan( 3, 5 ).RowHeight( "60" ).Begin() ) {
                 @grid.TextBox( t => t.Name )
                 @grid.TextBox( t => t.CreationTime )
                 @grid.Select( t => t.Nation )

@@ -6,7 +6,6 @@ import {
     MatButtonToggleModule,
      MatChipsModule,
     MatDialogModule, 
-    MatListModule,  
      MatSliderModule, 
      MatStepperModule
 } from '@angular/material';
@@ -16,7 +15,6 @@ import {
         MatButtonToggleModule,
         MatChipsModule,
         MatDialogModule, 
-        MatListModule, 
         MatSliderModule, 
          MatStepperModule
     ]
