@@ -11,17 +11,12 @@ namespace Util.Ui.Angular.TagHelpers {
     [HtmlTargetElement( "util-container" )]
     public class ContainerTagHelper : TagHelperBase {
         /// <summary>
-        /// 渲染器
+        /// 处理后操作
         /// </summary>
-        private ContainerRender _render;
-
-        /// <summary>
-        /// 渲染
-        /// </summary>
-        public override void Process( TagHelperContext context, TagHelperOutput output ) {
-            base.Process( context, output );
-            if( _render != null )
-                WriteLog( _render, "渲染ng-container容器" );
+        /// <param name="context">上下文</param>
+        /// <param name="render">渲染器</param>
+        protected override void ProcessAfter( Context context, IRender render ) {
+            WriteLog( render, "渲染ng-container容器" );
         }
 
         /// <summary>
@@ -29,8 +24,7 @@ namespace Util.Ui.Angular.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            _render = new ContainerRender( new Config( context ) );
-            return _render;
+            return new ContainerRender( new Config( context ) );
         }
     }
 }

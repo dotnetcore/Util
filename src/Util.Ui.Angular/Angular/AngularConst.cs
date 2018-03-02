@@ -7,5 +7,9 @@
         /// ngFor指令
         /// </summary>
         public const string NgFor = "ng-for";
+        /// <summary>
+        /// 路由链接属性绑定
+        /// </summary>
+        public const string BindLink = "bind-link";
     }
 }

@@ -147,6 +147,6 @@ export class Message {
             duration: duration || 2000
         });
         if (action)
-            ref.onAction().subscribe(action); 
+            ref.onAction().subscribe(action);
     }
 }

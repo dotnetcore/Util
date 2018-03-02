@@ -10,25 +10,19 @@
     <util-icon material-icon="Code"></util-icon>
 </util-toolbar>
 
-
-
 <util-form id="form" on-submit="onChange(form)">
     <util-card>
-        <util-card-content>
-            <util-list>
-                <util-list-title>
-                    标题
-                </util-list-title>
-                <util-list-item>
-                    哈哈
-                </util-list-item>
-                <util-list-item>
-                    嘿嘿
-                </util-list-item>
-                <util-list-item ng-for="let item of items">
-                    {{item}}
-                </util-list-item>
-            </util-list>
+        <util-card-content >
+            <util-container>
+                <util-list>
+                    <util-list-title>哈哈</util-list-title>
+                    <util-list-item>
+                        <p mat-line>哈哈</p>
+                    </util-list-item>
+                </util-list>
+            </util-container>
+
+            
             @using ( var grid = x.Grid().Columns( 8 ).Colspan( 3, 5 ).RowHeight( "60" ).Begin() ) {
                 @grid.TextBox( t => t.Name )
                 @grid.TextBox( t => t.CreationTime )

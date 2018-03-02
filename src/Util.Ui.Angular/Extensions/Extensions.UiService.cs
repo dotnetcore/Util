@@ -113,10 +113,10 @@ namespace Util.Ui.Extensions {
         /// 导航选项卡
         /// </summary>
         /// <param name="service">组件服务</param>
-        public static ITabNavigation NavTabs<TModel>( this IUiService<TModel> service ) {
+        public static ITabNav NavTabs<TModel>( this IUiService<TModel> service ) {
             if( !( service is IContext<TModel> context ) )
                 throw new NotSupportedException();
-            return new TabNavigation( context.Helper.ViewContext.Writer );
+            return new TabNav( context.Helper.ViewContext.Writer );
         }
 
         /// <summary>

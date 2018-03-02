@@ -25,7 +25,7 @@ namespace Util.Ui.TagHelpers {
             var render = GetRender( context );
             output.SuppressOutput();
             output.PostElement.SetHtmlContent( render );
-            ProcessAfter();
+            ProcessAfter( context,render );
         }
 
         /// <summary>
@@ -45,7 +45,9 @@ namespace Util.Ui.TagHelpers {
         /// <summary>
         /// 处理后操作
         /// </summary>
-        protected virtual void ProcessAfter() {
+        /// <param name="context">上下文</param>
+        /// <param name="render">渲染器</param>
+        protected virtual void ProcessAfter( Context context, IRender render ) {
         }
 
         /// <summary>

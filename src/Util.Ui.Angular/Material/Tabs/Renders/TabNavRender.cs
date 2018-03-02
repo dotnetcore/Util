@@ -10,7 +10,7 @@ namespace Util.Ui.Material.Tabs.Renders {
     /// <summary>
     /// 导航选项卡渲染器
     /// </summary>
-    public class TabNavigationRender : RenderBase {
+    public class TabNavRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -24,7 +24,7 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// 初始化导航选项卡渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TabNavigationRender( IConfig config ) : base( config ) {
+        public TabNavRender( IConfig config ) : base( config ) {
             _config = config;
             _routerOutletBuilder = new RouterOutletBuilder();
         }
@@ -52,7 +52,7 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new TabNavigationBuilder();
+            var builder = new TabNavBuilder();
             Config( builder );
             return builder;
         }

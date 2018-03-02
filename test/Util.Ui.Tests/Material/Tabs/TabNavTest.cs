@@ -11,7 +11,7 @@ namespace Util.Ui.Tests.Material.Tabs {
     /// <summary>
     /// 导航选项卡测试
     /// </summary>
-    public class TabNavigationTest {
+    public class TabNavTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -19,20 +19,20 @@ namespace Util.Ui.Tests.Material.Tabs {
         /// <summary>
         /// 导航选项卡
         /// </summary>
-        private readonly TabNavigation _component;
+        private readonly TabNav _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public TabNavigationTest( ITestOutputHelper output ) {
+        public TabNavTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new TabNavigation( new StringWriter() );
+            _component = new TabNav( new StringWriter() );
         }
 
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( TabNavigation component ) {
+        private string GetResult( TabNav component ) {
             component.Begin();
             var result = component.ToString();
             _output.WriteLine( result );

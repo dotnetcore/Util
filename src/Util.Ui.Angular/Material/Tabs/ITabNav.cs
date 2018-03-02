@@ -6,6 +6,6 @@ namespace Util.Ui.Material.Tabs {
     /// <summary>
     /// 导航选项卡
     /// </summary>
-    public interface ITabNavigation : IContainer<ITabNavigationWrapper>, IColor, IBackgroundColor {
+    public interface ITabNav : IContainer<ITabNavWrapper>, IColor, IBackgroundColor {
     }
 }

@@ -4,7 +4,7 @@
 //================================================
 import { HttpErrorResponse } from '@angular/common/http';
 import { Result, FailResult, StateCode } from '../core/result';
-import { HttpHelper, HttpRequest, HttpContentType,HttpMethod } from '../angular/http-helper';
+import { HttpHelper, HttpRequest, HttpContentType, HttpMethod } from '../angular/http-helper';
 import { Message } from './message';
 
 /**
@@ -19,16 +19,16 @@ export class WebApi {
      */
     static send<T>(url: string, httpMethod: HttpMethod, data?): WebApiRequest<T> {
         switch (httpMethod) {
-        case HttpMethod.Get:
-            return this.get<T>(url).param(data);
-        case HttpMethod.Post:
-            return this.post<T>(url, data);
-        case HttpMethod.Put:
-            return this.put<T>(url, data);
-        case HttpMethod.Delete:
-            return this.delete<T>(url).param(data);
-        default:
-            return this.get<T>(url).param(data);
+            case HttpMethod.Get:
+                return this.get<T>(url).param(data);
+            case HttpMethod.Post:
+                return this.post<T>(url, data);
+            case HttpMethod.Put:
+                return this.put<T>(url, data);
+            case HttpMethod.Delete:
+                return this.delete<T>(url).param(data);
+            default:
+                return this.get<T>(url).param(data);
         }
     }
 
@@ -189,7 +189,7 @@ export class WebApiRequest<T> {
     private handleBusinessException(result: Result<T>) {
         if (result.code === StateCode.Fail) {
             Message.error(result.message);
-            console.log(`业务异常:\n${result.message}` );
+            console.log(`业务异常:\n${result.message}`);
         }
     }
 

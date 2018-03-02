@@ -11,7 +11,7 @@ namespace Util.Ui.Tests.Material.Tabs {
     /// <summary>
     /// 导航选项卡测试
     /// </summary>
-    public class TabNavigationTagHelperTest {
+    public class TabNavTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -19,14 +19,14 @@ namespace Util.Ui.Tests.Material.Tabs {
         /// <summary>
         /// 导航选项卡
         /// </summary>
-        private readonly TabNavigationTagHelper _component;
+        private readonly TabNavTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public TabNavigationTagHelperTest( ITestOutputHelper output ) {
+        public TabNavTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new TabNavigationTagHelper();
+            _component = new TabNavTagHelper();
         }
 
         /// <summary>

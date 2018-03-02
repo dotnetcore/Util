@@ -44,10 +44,9 @@ export class DemoComponent extends ComponentBase implements OnInit {
         util.message.error("aa");
     }
 
-    items: string[] = [
-        'Pepper',
-        'Salt',
-        'Paprika'
+    items = [
+        { text: "a", link: "a" },
+        { text: "b", link: "b" }
     ];
 }
 

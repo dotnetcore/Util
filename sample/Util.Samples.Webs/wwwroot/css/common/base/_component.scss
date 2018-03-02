@@ -1,8 +1,35 @@
-﻿//mat表格复选框
+﻿//font-awesome图标
+.fa {
+    font-size: 24px;
+}
+
+.fa-lg {
+    font-size: 1.33333333em !important;
+    line-height: 0.75em;
+    vertical-align: -15%;
+}
+
+.fa-2x {
+    font-size: 2em !important;
+}
+
+.fa-3x {
+    font-size: 3em !important;
+}
+
+.fa-4x {
+    font-size: 4em !important;
+}
+
+.fa-5x {
+    font-size: 5em !important;
+}
+//mat表格复选框
 .mat-column-selectCheckbox {
     max-width: 48px;
     overflow: initial !important;
 }
+
 .mat-cell, .mat-header-cell {
     overflow: initial !important;
 }
@@ -14,9 +41,11 @@
 //mat表格行滑过样式
 .mat-row-hover {
     position: relative;
+
     &:hover {
         background: #f5f5f5;
     }
+
     &:active {
         background: #eaeaea;
     }
@@ -25,17 +54,16 @@
 .mat-menu-item .fa {
     vertical-align: middle;
     margin-right: 16px;
-    font-size: 24px;
 }
 //mat选项卡font-awesome图标
 .mat-tab-label .fa, .mat-tab-link .fa {
-    font-size: 24px;
     margin-right: 3px;
 }
 //mat工具栏
 .mat-toolbar .mat-icon {
     padding: 0 14px;
 }
+
 .toolbar-fill-remain {
     flex: 1 1 auto;
 }
@@ -49,5 +77,5 @@
 }
 //重置栅格内容左对齐
 .mat-grid-tile .mat-figure {
-    justify-content:flex-start;
+    justify-content: flex-start;
 }

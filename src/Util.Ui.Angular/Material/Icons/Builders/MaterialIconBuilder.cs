@@ -20,5 +20,14 @@ namespace Util.Ui.Material.Icons.Builders {
         public void SetIcon( IConfig config) {
             SetContent( config.GetValue<MaterialIcon?>( UiConst.MaterialIcon )?.Description() );
         }
+
+        /// <summary>
+        /// 配置图标大小
+        /// </summary>
+        /// <param name="config">配置</param>
+        public void SetSize( IConfig config ) {
+            if( config.Contains( UiConst.Size ) )
+                Class( config.GetValue<IconSize>( UiConst.Size ).Description() );
+        }
     }
 }

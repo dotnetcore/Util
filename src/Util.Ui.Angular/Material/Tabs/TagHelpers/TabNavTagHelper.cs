@@ -10,7 +10,7 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
     /// 导航选项卡组
     /// </summary>
     [HtmlTargetElement( "util-nav-tabs" )]
-    public class TabNavigationTagHelper : TagHelperBase {
+    public class TabNavTagHelper : TagHelperBase {
         /// <summary>
         /// 背景色
         /// </summary>
@@ -25,7 +25,7 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new TabNavigationRender( new Config( context ) );
+            return new TabNavRender( new Config( context ) );
         }
     }
 }
