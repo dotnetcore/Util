@@ -5,19 +5,19 @@ using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Lists.Renders {
     /// <summary>
-    /// 导航列表渲染器
+    /// 选择列表渲染器
     /// </summary>
-    public class NavListRender : RenderBase {
+    public class SelectListRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化导航列表渲染器
+        /// 初始化选择列表渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public NavListRender( IConfig config ) : base( config ) {
+        public SelectListRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -25,7 +25,7 @@ namespace Util.Ui.Material.Lists.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new NavListBuilder();
+            var builder = new SelectListBuilder();
             Config( builder );
             return builder;
         }
@@ -35,16 +35,7 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigDense( builder );
             ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置紧凑模式
-        /// </summary>
-        private void ConfigDense( TagBuilder builder ) {
-            if( _config.GetValue<bool?>( UiConst.Dense ) == true )
-                builder.AddAttribute( "dense" );
         }
 
         /// <summary>

@@ -55,5 +55,16 @@ namespace Util.Ui.Tests.Material.Lists {
             result.Append( "<mat-nav-list #a=\"\"></mat-nav-list>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试紧凑模式
+        /// </summary>
+        [Fact]
+        public void TestDense() {
+            var attributes = new TagHelperAttributeList { { UiConst.Dense, true } };
+            var result = new String();
+            result.Append( "<mat-nav-list dense=\"\"></mat-nav-list>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

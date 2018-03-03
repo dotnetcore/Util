@@ -2,13 +2,13 @@
 
 namespace Util.Ui.Material.Lists.Builders {
     /// <summary>
-    /// Mat列表标题生成器
+    /// Mat列表内容生成器
     /// </summary>
-    public class ListTitleBuilder : TagBuilder {
+    public class ListContentBuilder : TagBuilder {
         /// <summary>
-        /// 初始化列表标题生成器
+        /// 初始化列表内容生成器
         /// </summary>
-        public ListTitleBuilder() : base( "h3" ) {
+        public ListContentBuilder() : base( "p" ) {
             AddAttribute( "matLine" );
         }
     }

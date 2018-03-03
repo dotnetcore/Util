@@ -1,23 +1,24 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Lists.Builders;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Lists.Renders {
     /// <summary>
-    /// 导航列表渲染器
+    /// 列表内容渲染器
     /// </summary>
-    public class NavListRender : RenderBase {
+    public class ListContentRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化导航列表渲染器
+        /// 初始化列表内容渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public NavListRender( IConfig config ) : base( config ) {
+        public ListContentRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -25,7 +26,7 @@ namespace Util.Ui.Material.Lists.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new NavListBuilder();
+            var builder = new ListContentBuilder();
             Config( builder );
             return builder;
         }
@@ -35,16 +36,9 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigDense( builder );
+            builder.Class( _config );
+            builder.Style( _config );
             ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置紧凑模式
-        /// </summary>
-        private void ConfigDense( TagBuilder builder ) {
-            if( _config.GetValue<bool?>( UiConst.Dense ) == true )
-                builder.AddAttribute( "dense" );
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Lists.TagHelpers {
     /// <summary>
-    /// 导航列表文本
+    /// 导航列表文本，该标签应放到 util-nav-list-item 中
     /// </summary>
     [HtmlTargetElement( "util-nav-list-text" )]
     public class NavListTextTagHelper : TagHelperBase {

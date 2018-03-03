@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Lists.Builders;
 using Util.Ui.Renders;
 
@@ -35,6 +36,8 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            builder.Class( _config );
+            builder.Style( _config );
             ConfigContent( builder );
         }
 

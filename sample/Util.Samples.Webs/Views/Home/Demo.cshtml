@@ -9,21 +9,19 @@
     <util-toolbar-fill-remain />
     <util-icon material-icon="Code"></util-icon>
 </util-toolbar>
-
+<mat-select-list-wrapper #a title="哈哈" url="/api/customers/test" [(model)]="options" name="b"></mat-select-list-wrapper>
 <util-form id="form" on-submit="onChange(form)">
     <util-card>
-        <util-card-content >
-            <util-container>
-                <util-list>
-                    <util-list-title>哈哈</util-list-title>
-                    <util-list-item>
-                        <p mat-line>哈哈</p>
-                    </util-list-item>
-                </util-list>
-            </util-container>
+        <util-card-content>
 
-            
-            @using ( var grid = x.Grid().Columns( 8 ).Colspan( 3, 5 ).RowHeight( "60" ).Begin() ) {
+            <util-select-list>
+                <util-select-list-item></util-select-list-item>
+            </util-select-list>
+
+
+
+
+            @using( var grid = x.Grid().Columns( 8 ).Colspan( 3, 5 ).RowHeight( "60" ).Begin() ) {
                 @grid.TextBox( t => t.Name )
                 @grid.TextBox( t => t.CreationTime )
                 @grid.Select( t => t.Nation )

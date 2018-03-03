@@ -40,14 +40,7 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.model.isGender = true;
     }
 
-    show() {
-        util.message.error("aa");
-    }
-
-    items = [
-        { text: "a", link: "a" },
-        { text: "b", link: "b" }
-    ];
+    options = ["1"];
 }
 
 

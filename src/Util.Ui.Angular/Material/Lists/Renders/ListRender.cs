@@ -35,7 +35,16 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigDense( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置紧凑模式
+        /// </summary>
+        private void ConfigDense( TagBuilder builder ) {
+            if( _config.GetValue<bool?>( UiConst.Dense ) == true )
+                builder.AddAttribute( "dense" );
         }
 
         /// <summary>

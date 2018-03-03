@@ -6,7 +6,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Lists.TagHelpers {
     /// <summary>
-    /// 列表项
+    /// 列表项，该标签应放到 util-list 中
     /// </summary>
     [HtmlTargetElement( "util-list-item" )]
     public class ListItemTagHelper : TagHelperBase {

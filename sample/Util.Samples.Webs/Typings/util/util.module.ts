@@ -36,6 +36,7 @@ import { ButtonWrapperComponent } from './material/button-wrapper.component';
 import { RadioWrapperComponent } from './material/radio-wrapper.component';
 import { FileUploadComponent } from './prime/file-upload.component';
 import { SingleFileUploadComponent } from "./prime/single-file-upload.component";
+import { SelectListWrapperComponent } from './material/select-list-wrapper.component';
 /**
  * Util模块
  */
@@ -53,7 +54,7 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent,
+        DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         FileUploadComponent, SingleFileUploadComponent
     ],
     exports: [
@@ -67,7 +68,7 @@ import { SingleFileUploadComponent } from "./prime/single-file-upload.component"
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
-        DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent,
+        DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         FileUploadComponent, SingleFileUploadComponent
     ],
     providers: [

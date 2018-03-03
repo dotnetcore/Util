@@ -8,24 +8,24 @@ using String = Util.Helpers.String;
 
 namespace Util.Ui.Tests.Material.Lists {
     /// <summary>
-    /// 列表标题测试
+    /// 列表头像测试
     /// </summary>
-    public class ListTitleTagHelperTest {
+    public class ListAvatarTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 列表标题
+        /// 列表头像
         /// </summary>
-        private readonly ListTitleTagHelper _component;
+        private readonly ListAvatarTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public ListTitleTagHelperTest( ITestOutputHelper output ) {
+        public ListAvatarTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new ListTitleTagHelper();
+            _component = new ListAvatarTagHelper();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Util.Ui.Tests.Material.Lists {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<h3 matLine=\"\"></h3>" );
+            result.Append( "<img matListAvatar=\"\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -52,7 +52,7 @@ namespace Util.Ui.Tests.Material.Lists {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<h3 #a=\"\" matLine=\"\"></h3>" );
+            result.Append( "<img #a=\"\" matListAvatar=\"\" />" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

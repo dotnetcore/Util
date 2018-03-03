@@ -1,14 +1,13 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Material.Base.Renders;
 using Util.Ui.Material.Enums;
-using Util.Ui.Material.Icons.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Lists.Renders {
     /// <summary>
     /// 导航列表图标渲染器
     /// </summary>
-    public class NavListIconRender : RenderBase {
+    public class NavListIconRender : IconRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -23,30 +22,10 @@ namespace Util.Ui.Material.Lists.Renders {
         }
 
         /// <summary>
-        /// 获取标签生成器
-        /// </summary>
-        protected override TagBuilder GetTagBuilder() {
-            if( _config.Contains( UiConst.MaterialIcon ) )
-                return GetMaterialIconBuilder();
-            return _config.Contains( UiConst.FontAwesomeIcon ) ? GetFontAwesomeIconBuilder() : new EmptyTagBuilder();
-        }
-
-        /// <summary>
-        /// 创建MaterialIcon标签生成器
-        /// </summary>
-        private TagBuilder GetMaterialIconBuilder() {
-            var builder = new MaterialIconBuilder();
-            Config( builder );
-            builder.SetIcon( _config );
-            builder.SetSize( _config );
-            return builder;
-        }
-
-        /// <summary>
         /// 公共配置
         /// </summary>
-        private void Config( TagBuilder builder ) {
-            ConfigId( builder );
+        protected override void Config( TagBuilder builder ) {
+            base.Config( builder );
             ConfigPosition( builder );
         }
 
@@ -56,17 +35,6 @@ namespace Util.Ui.Material.Lists.Renders {
         private void ConfigPosition( TagBuilder builder ) {
             if ( _config.GetValue<XPosition?>( UiConst.Position ) != XPosition.Right )
                 builder.AddAttribute( "mat-list-icon" );
-        }
-
-        /// <summary>
-        /// 创建FontAwesomeIcon标签生成器
-        /// </summary>
-        private TagBuilder GetFontAwesomeIconBuilder() {
-            var builder = new FontAwesomeIconBuilder();
-            Config( builder );
-            builder.SetIcon( _config );
-            builder.SetSize( _config );
-            return builder;
         }
     }
 }

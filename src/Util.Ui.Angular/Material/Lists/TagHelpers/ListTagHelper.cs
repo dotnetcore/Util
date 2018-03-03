@@ -11,6 +11,11 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     [HtmlTargetElement( "util-list" )]
     public class ListTagHelper : TagHelperBase {
         /// <summary>
+        /// 紧凑模式，列表内容间距变小
+        /// </summary>
+        public bool Dense { get; set; }
+
+        /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>

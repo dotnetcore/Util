@@ -6,21 +6,21 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Lists.TagHelpers {
     /// <summary>
-    /// 导航列表
+    /// 列表头像，该标签应放到 util-list-item 中
     /// </summary>
-    [HtmlTargetElement( "util-nav-list" )]
-    public class NavListTagHelper : TagHelperBase {
+    [HtmlTargetElement( "util-list-avatar", TagStructure = TagStructure.WithoutEndTag )]
+    public class ListAvatarTagHelper : TagHelperBase {
         /// <summary>
-        /// 紧凑模式，列表内容间距变小
+        /// 图片路径
         /// </summary>
-        public bool Dense { get; set; }
+        public string Src { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new NavListRender( new Config( context ) );
+            return new ListAvatarRender( new Config( context ) );
         }
     }
 }

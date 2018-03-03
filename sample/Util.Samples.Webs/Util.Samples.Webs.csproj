@@ -28,11 +28,12 @@
   <ItemGroup>
     <None Remove="Typings\util\core\sort.ts" />
     <None Remove="Typings\util\core\tree-node.ts" />
+    <None Remove="Typings\util\material\select-list-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.2.1989" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +59,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Typings\util\core\sort.ts" />
     <TypeScriptCompile Include="Typings\util\core\tree-node.ts" />
+    <TypeScriptCompile Include="Typings\util\material\select-list-wrapper.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

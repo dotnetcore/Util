@@ -6,21 +6,21 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Lists.TagHelpers {
     /// <summary>
-    /// 导航列表
+    /// 选择列表项，该标签应放到 util-select-list 中
     /// </summary>
-    [HtmlTargetElement( "util-nav-list" )]
-    public class NavListTagHelper : TagHelperBase {
+    [HtmlTargetElement( "util-select-list-item" )]
+    public class SelectListOptionTagHelper : TagHelperBase {
         /// <summary>
-        /// 紧凑模式，列表内容间距变小
+        /// ngFor指令，范例：let item of items
         /// </summary>
-        public bool Dense { get; set; }
+        public string NgFor { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new NavListRender( new Config( context ) );
+            return new SelectListOptionRender( new Config( context ) );
         }
     }
 }

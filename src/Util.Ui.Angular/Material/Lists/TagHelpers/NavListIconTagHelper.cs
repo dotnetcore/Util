@@ -8,7 +8,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Lists.TagHelpers {
     /// <summary>
-    /// 导航列表图标
+    /// 导航列表图标，该标签应放到 util-nav-list-item 中
     /// </summary>
     [HtmlTargetElement( "util-nav-list-icon",TagStructure = TagStructure.WithoutEndTag)]
     public class NavListIconTagHelper : TagHelperBase {

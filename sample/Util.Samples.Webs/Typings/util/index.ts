@@ -18,3 +18,4 @@ export { TextareaWrapperComponent } from './material/textarea-wrapper.component'
 export { DatePickerWrapperComponent } from './material/datepicker-wrapper.component';
 export { ButtonWrapperComponent } from './material/button-wrapper.component';
 export { RadioWrapperComponent } from './material/radio-wrapper.component';
+export { SelectListWrapperComponent } from './material/select-list-wrapper.component';

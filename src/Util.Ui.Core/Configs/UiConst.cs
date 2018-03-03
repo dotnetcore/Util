@@ -279,5 +279,9 @@
         /// 右边合并列
         /// </summary>
         public const string AfterColspan = "after-colspan";
+        /// <summary>
+        /// 紧凑
+        /// </summary>
+        public const string Dense = "dense";
     }
 }

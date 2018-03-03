@@ -6,21 +6,16 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Lists.TagHelpers {
     /// <summary>
-    /// 导航列表
+    /// 列表头，该标签应放到 util-list 中
     /// </summary>
-    [HtmlTargetElement( "util-nav-list" )]
-    public class NavListTagHelper : TagHelperBase {
-        /// <summary>
-        /// 紧凑模式，列表内容间距变小
-        /// </summary>
-        public bool Dense { get; set; }
-
+    [HtmlTargetElement( "util-list-header" )]
+    public class ListHeaderTagHelper : TagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new NavListRender( new Config( context ) );
+            return new ListHeaderRender( new Config( context ) );
         }
     }
 }
