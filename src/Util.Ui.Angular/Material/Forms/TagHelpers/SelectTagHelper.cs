@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
+using Util.Ui.Material.Internal;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
@@ -40,7 +41,9 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new SelectRender( new SelectConfig( context ) );
+            var config = new SelectConfig( context );
+            Helper.SetColspan( config, context );
+            return new SelectRender( config );
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
+using Util.Ui.Material.Internal;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
@@ -61,15 +63,15 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string OnChange { get; set; }
         /// <summary>
-        /// 合并列
+        /// 栅格合并列
         /// </summary>
         public int Colspan { get; set; }
         /// <summary>
-        /// 左边占位合并列
+        /// 栅格左边占位合并列
         /// </summary>
         public int BeforeColspan { get; set; }
         /// <summary>
-        /// 右边占位合并列
+        /// 栅格右边占位合并列
         /// </summary>
         public int AfterColspan { get; set; }
 
@@ -78,7 +80,9 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new RadioRender( new SelectConfig( context ) );
+            var config = new SelectConfig( context );
+            Helper.SetColspan( config, context );
+            return new RadioRender( config );
         }
     }
 }

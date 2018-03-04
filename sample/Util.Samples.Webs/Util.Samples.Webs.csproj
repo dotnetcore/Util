@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-Util.Samples.Webs-D0551EBC-0589-40AD-ADC2-A88CA4609632</UserSecretsId>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>

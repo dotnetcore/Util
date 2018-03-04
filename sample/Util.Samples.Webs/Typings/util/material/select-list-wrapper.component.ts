@@ -16,12 +16,15 @@ import { WebApi as webapi } from '../common/webapi';
     template: `
         <mat-selection-list #controlModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                 [disabled]="disabled" >
-            <h3 mat-subheader *ngIf="title">{{title}}</h3>
+            <h3 mat-subheader *ngIf="label">{{label}}</h3>
             <mat-list-option *ngFor="let item of options" [value]="item.value" [disabled]="item.disabled" [checkboxPosition]="checkboxPosition">
                 {{ item.text }}
             </mat-list-option>
         </mat-selection-list>
-    `
+    `,
+    host: {
+        'class': 'util-form-field',
+    }
 })
 export class SelectListWrapperComponent implements OnInit, AfterViewInit {
     /**
@@ -47,7 +50,7 @@ export class SelectListWrapperComponent implements OnInit, AfterViewInit {
     /**
      * 标题
      */
-    @Input() title: string;
+    @Input() label: string;
     /**
      * 复选框位置，可选值： 'before' , 'after'
      */

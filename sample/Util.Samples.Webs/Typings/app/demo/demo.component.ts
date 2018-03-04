@@ -27,8 +27,12 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.grid.query();
     }
 
-    onChange(form: NgForm, event) {
-        this.util.message.error("a");
+    onChange(value) {
+        this.util.message.error(util.helper.toJson(value));
+        
+    }
+
+    onSubmit(form: NgForm) {
         this.util.form.submit({
             form: form,
             url: '/api/customers',
@@ -40,7 +44,8 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.model.isGender = true;
     }
 
-    options = ["1"];
+    options = ['1'];
+    options2 = [{ text: 'a', value: '1' }, { text: 'b', value: '2' }];
 }
 
 

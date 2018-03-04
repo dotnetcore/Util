@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Util.Ui.Components;
+using Util.Ui.Material.Lists;
 
 namespace Util.Ui.Material.Grids.Wrappers {
     /// <summary>
@@ -32,6 +33,10 @@ namespace Util.Ui.Material.Grids.Wrappers {
         /// <typeparam name="TProperty">属性类型</typeparam>
         /// <param name="expression">属性表达式</param>
         ISelect Select<TProperty>( Expression<Func<TModel, TProperty>> expression );
+        /// <summary>
+        /// 选择列表
+        /// </summary>
+        ISelectList SelectList();
         /// <summary>
         /// 文本框
         /// </summary>

@@ -1,6 +1,8 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.Lists.Builders;
 using Util.Ui.Renders;
 
@@ -37,7 +39,40 @@ namespace Util.Ui.Material.Lists.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             builder.NgFor( _config );
+            ConfigValue( builder );
+            ConfigCheckboxPosition( builder );
+            ConfigSelected( builder );
+            ConfigDisabled( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置值
+        /// </summary>
+        private void ConfigValue( TagBuilder builder ) {
+            builder.AddAttribute( UiConst.Value, _config.GetValue( UiConst.Value ) );
+            builder.AddAttribute( "[value]", _config.GetValue( AngularConst.BindValue ) );
+        }
+
+        /// <summary>
+        /// 配置复选框位置
+        /// </summary>
+        private void ConfigCheckboxPosition( TagBuilder builder ) {
+            builder.AddAttribute( "checkboxPosition", _config.GetValue<XPosition?>( MaterialConst.CheckboxPosition )?.Description() );
+        }
+
+        /// <summary>
+        /// 配置选中状态
+        /// </summary>
+        private void ConfigSelected( TagBuilder builder ) {
+            builder.AddAttribute( "[selected]", _config.GetBoolValue( UiConst.Selected ) );
+        }
+
+        /// <summary>
+        /// 配置禁用
+        /// </summary>
+        private void ConfigDisabled( TagBuilder builder ) {
+            builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
         }
 
         /// <summary>

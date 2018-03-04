@@ -7,6 +7,7 @@ using Util.Helpers;
 using Util.Ui.Attributes;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Configs;
+using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Internal {
     /// <summary>
@@ -207,6 +208,21 @@ namespace Util.Ui.Material.Internal {
             if( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) )
                 return;
             config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 设置合并列
+        /// </summary>
+        public static void SetColspan( IConfig config, Context context ) {
+            var colspan = context.GetValue<int?>( UiConst.Colspan );
+            var beforeColspan = context.GetValue<int?>( UiConst.BeforeColspan );
+            var afterColspan = context.GetValue<int?>( UiConst.AfterColspan );
+            if( colspan != null )
+                config.SetAttribute( UiConst.Colspan,colspan,false );
+            if( beforeColspan != null )
+                config.SetAttribute( UiConst.BeforeColspan, beforeColspan, false );
+            if( afterColspan != null )
+                config.SetAttribute( UiConst.AfterColspan, afterColspan, false );
         }
     }
 }

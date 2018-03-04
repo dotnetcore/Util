@@ -11,5 +11,9 @@
         /// 路由链接属性绑定
         /// </summary>
         public const string BindLink = "bind-link";
+        /// <summary>
+        /// 值属性绑定
+        /// </summary>
+        public const string BindValue = "bind-value";
     }
 }

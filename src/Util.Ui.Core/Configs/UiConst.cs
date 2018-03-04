@@ -283,5 +283,17 @@
         /// 紧凑
         /// </summary>
         public const string Dense = "dense";
+        /// <summary>
+        /// 值
+        /// </summary>
+        public const string Value = "value";
+        /// <summary>
+        /// 选中
+        /// </summary>
+        public const string Selected = "selected";
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public const string Title = "title";
     }
 }

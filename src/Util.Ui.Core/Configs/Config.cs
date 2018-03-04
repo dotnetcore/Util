@@ -92,7 +92,10 @@ namespace Util.Ui.Configs {
         /// </summary>
         /// <param name="name">属性名</param>
         /// <param name="value">值</param>
-        public void SetAttribute( string name,object value ) {
+        /// <param name="replaceExisting">是否替换已存在的属性</param>
+        public void SetAttribute( string name,object value, bool replaceExisting = true ) {
+            if ( replaceExisting == false && Contains( name ) )
+                return;
             AllAttributes.SetAttribute( new TagHelperAttribute( name,value ) );
         }
 

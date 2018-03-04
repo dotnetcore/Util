@@ -4,6 +4,7 @@ using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Models;
+using Util.Ui.Material.Lists;
 
 namespace Util.Ui.Material.Grids.Wrappers {
     /// <summary>
@@ -72,6 +73,13 @@ namespace Util.Ui.Material.Grids.Wrappers {
         /// <param name="expression">属性表达式</param>
         public ISelect Select<TProperty>( Expression<Func<TModel, TProperty>> expression ) {
             return new ModelSelect<TModel, TProperty>( expression, _config );
+        }
+
+        /// <summary>
+        /// 选择列表
+        /// </summary>
+        public ISelectList SelectList() {
+            return new SelectList( _config );
         }
 
         /// <summary>

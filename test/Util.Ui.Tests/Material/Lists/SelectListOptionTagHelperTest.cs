@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular;
 using Util.Ui.Configs;
+using Util.Ui.Material;
+using Util.Ui.Material.Enums;
 using Util.Ui.Material.Lists.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -65,6 +67,61 @@ namespace Util.Ui.Tests.Material.Lists {
             var attributes = new TagHelperAttributeList { { AngularConst.NgFor, "a" } };
             var result = new String();
             result.Append( "<mat-list-option *ngFor=\"a\"></mat-list-option>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试值
+        /// </summary>
+        [Fact]
+        public void TestValue() {
+            var attributes = new TagHelperAttributeList { { UiConst.Value, "a" } };
+            var result = new String();
+            result.Append( "<mat-list-option value=\"a\"></mat-list-option>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试值绑定
+        /// </summary>
+        [Fact]
+        public void TestBindValue() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindValue, "a" } };
+            var result = new String();
+            result.Append( "<mat-list-option [value]=\"a\"></mat-list-option>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试复选框位置
+        /// </summary>
+        [Fact]
+        public void TestCheckboxPosition() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.CheckboxPosition, XPosition.Right } };
+            var result = new String();
+            result.Append( "<mat-list-option checkboxPosition=\"after\"></mat-list-option>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试选中
+        /// </summary>
+        [Fact]
+        public void TestSelected() {
+            var attributes = new TagHelperAttributeList { { UiConst.Selected, "a" } };
+            var result = new String();
+            result.Append( "<mat-list-option [selected]=\"a\"></mat-list-option>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisabled() {
+            var attributes = new TagHelperAttributeList { { UiConst.Disabled, "a" } };
+            var result = new String();
+            result.Append( "<mat-list-option [disabled]=\"a\"></mat-list-option>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

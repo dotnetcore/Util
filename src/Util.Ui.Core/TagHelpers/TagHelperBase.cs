@@ -31,9 +31,9 @@ namespace Util.Ui.TagHelpers {
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="tagHelperContext">TagHelper上下文</param>
+        /// <param name="context">TagHelper上下文</param>
         /// <param name="output">TagHelper输出</param>
-        protected virtual void ProcessBefore( TagHelperContext tagHelperContext, TagHelperOutput output ) {
+        protected virtual void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
         }
 
         /// <summary>

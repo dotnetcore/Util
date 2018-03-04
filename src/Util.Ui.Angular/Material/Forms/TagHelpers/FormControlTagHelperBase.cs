@@ -89,15 +89,15 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string OnKeydown { get; set; }
         /// <summary>
-        /// 合并列
+        /// 栅格合并列
         /// </summary>
         public int Colspan { get; set; }
         /// <summary>
-        /// 左边占位合并列
+        /// 栅格左边占位合并列
         /// </summary>
         public int BeforeColspan { get; set; }
         /// <summary>
-        /// 右边占位合并列
+        /// 栅格右边占位合并列
         /// </summary>
         public int AfterColspan { get; set; }
     }

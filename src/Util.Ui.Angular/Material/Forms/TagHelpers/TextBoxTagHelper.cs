@@ -2,6 +2,7 @@
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
+using Util.Ui.Material.Internal;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
@@ -45,7 +46,9 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new TextBoxRender( new TextBoxConfig( context ) );
+            var config = new TextBoxConfig( context );
+            Helper.SetColspan( config, context );
+            return new TextBoxRender( config );
         }
     }
 }

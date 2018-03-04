@@ -4,6 +4,7 @@ using Util.Ui.Material.Buttons;
 using Util.Ui.Material.Forms;
 using Util.Ui.Material.Grids;
 using Util.Ui.Material.Icons;
+using Util.Ui.Material.Lists;
 using Util.Ui.Material.Menus;
 using Util.Ui.Material.Tabs;
 using Util.Ui.Services;
@@ -59,6 +60,14 @@ namespace Util.Ui.Extensions {
         /// <param name="service">组件服务</param>
         public static ISelect Select<TModel>( this IUiService<TModel> service ) {
             return new Select();
+        }
+
+        /// <summary>
+        /// 选择列表
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static ISelectList SelectList<TModel>( this IUiService<TModel> service ) {
+            return new SelectList();
         }
 
         /// <summary>

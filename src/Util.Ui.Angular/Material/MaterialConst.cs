@@ -111,5 +111,9 @@
         /// 单元格间距
         /// </summary>
         public const string GutterSize = "gutter-size";
+        /// <summary>
+        /// 复选框位置
+        /// </summary>
+        public const string CheckboxPosition = "checkbox-position";
     }
 }

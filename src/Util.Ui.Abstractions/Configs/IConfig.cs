@@ -45,7 +45,8 @@ namespace Util.Ui.Configs {
         /// </summary>
         /// <param name="name">属性名</param>
         /// <param name="value">值</param>
-        void SetAttribute( string name, object value );
+        /// <param name="replaceExisting">是否替换已存在的属性</param>
+        void SetAttribute( string name, object value, bool replaceExisting = true );
         /// <summary>
         /// 移除属性
         /// </summary>

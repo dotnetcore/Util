@@ -35,7 +35,52 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigName( builder );
+            ConfigDisabled( builder );
+            ConfigModel( builder );
+            ConfigEvents( builder );
+            ConfigLabel( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置名称
+        /// </summary>
+        private void ConfigName( TagBuilder builder ) {
+            builder.AddAttribute( "name", _config.GetValue( UiConst.Name ) );
+        }
+
+        /// <summary>
+        /// 配置禁用
+        /// </summary>
+        private void ConfigDisabled( TagBuilder builder ) {
+            builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
+        }
+
+        /// <summary>
+        /// 配置模型绑定
+        /// </summary>
+        private void ConfigModel( TagBuilder builder ) {
+            builder.AddAttribute( "[(ngModel)]", _config.GetValue( UiConst.Model ) );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(ngModelChange)", _config.GetValue( UiConst.OnChange ) );
+        }
+
+        /// <summary>
+        /// 配置标题
+        /// </summary>
+        private void ConfigLabel( TagBuilder builder ) {
+            var title = _config.GetValue( UiConst.Label );
+            if( string.IsNullOrWhiteSpace( title ) )
+                return;
+            var headerBuilder = new ListHeaderBuilder();
+            headerBuilder.SetContent( title );
+            builder.AppendContent( headerBuilder );
         }
 
         /// <summary>
@@ -44,7 +89,7 @@ namespace Util.Ui.Material.Lists.Renders {
         private void ConfigContent( TagBuilder builder ) {
             if( _config.Content == null )
                 return;
-            builder.SetContent( _config.Content );
+            builder.AppendContent( _config.Content );
         }
     }
 }
