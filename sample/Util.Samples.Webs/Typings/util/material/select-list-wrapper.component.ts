@@ -128,7 +128,7 @@ export class SelectListWrapperComponent implements OnInit, AfterViewInit {
      */
     private selectOptions() {
         setTimeout(() => {
-            this.list.options.forEach(t => t.selected = this.model.some(m => m === t.value));
+            this.list.options.forEach(t => t.selected = this.model && this.model.some(m => m === t.value));
         }, 0);
     }
 
