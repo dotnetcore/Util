@@ -158,7 +158,7 @@ export class HttpRequest<T> {
      */
     private request(): Observable<T> {
         this.setContentType();
-        let httpClient = ioc.get(HttpClient);
+        let httpClient = ioc.get<HttpClient>(HttpClient);
         let options = { headers: this.headers, params: this.parameters };
         switch (this.httpMethod) {
             case HttpMethod.Get:

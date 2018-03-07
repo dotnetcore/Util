@@ -15,7 +15,7 @@ import {
     MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
     MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
     MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
-    MatListModule,
+    MatListModule, MatDialogModule, 
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
@@ -37,6 +37,9 @@ import { RadioWrapperComponent } from './material/radio-wrapper.component';
 import { FileUploadComponent } from './prime/file-upload.component';
 import { SingleFileUploadComponent } from "./prime/single-file-upload.component";
 import { SelectListWrapperComponent } from './material/select-list-wrapper.component';
+import { DialogWrapperComponent } from './material/dialog-wrapper.component';
+//Util管道
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 /**
  * Util模块
  */
@@ -48,13 +51,15 @@ import { SelectListWrapperComponent } from './material/select-list-wrapper.compo
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
-        MatListModule,
+        MatListModule, MatDialogModule, 
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
+        DialogWrapperComponent,
+        SafeUrlPipe,
         FileUploadComponent, SingleFileUploadComponent
     ],
     exports: [
@@ -64,12 +69,16 @@ import { SelectListWrapperComponent } from './material/select-list-wrapper.compo
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
-        MatListModule,
+        MatListModule, MatDialogModule, 
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
+        SafeUrlPipe,
         FileUploadComponent, SingleFileUploadComponent
+    ],
+    entryComponents: [
+        DialogWrapperComponent
     ],
     providers: [
         MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,

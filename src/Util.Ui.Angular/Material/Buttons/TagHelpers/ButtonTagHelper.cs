@@ -43,6 +43,10 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// 菜单标识
         /// </summary>
         public string MenuId { get; set; }
+        /// <summary>
+        /// 关闭弹出层，设置返回消息
+        /// </summary>
+        public string CloseDialog { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -50,7 +54,7 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
             var config = new ButtonConfig( context );
-            if( config.Contains( MaterialConst.MenuId ) )
+            if( config.UseButtonRender() )
                 return new ButtonRender( config );
             return new ButtonWrapperRender( config );
         }

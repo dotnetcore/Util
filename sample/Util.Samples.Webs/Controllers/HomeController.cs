@@ -17,5 +17,9 @@ namespace Util.Samples.Webs.Controllers {
         public IActionResult Demo() {
             return View(new CustomersDto());
         }
+
+        public IActionResult Dialog() {
+            return View();
+        }
     }
 }

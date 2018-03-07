@@ -46,6 +46,7 @@ namespace Util.Ui.Material.Buttons.Renders {
             ConfigDisabled( builder );
             ConfigTooltip( builder );
             ConfigMenu( builder );
+            ConfigCloseDialog( builder );
             ConfigContent( builder );
         }
 
@@ -110,6 +111,14 @@ namespace Util.Ui.Material.Buttons.Renders {
         private void AddMenus( TagBuilder builder ) {
             _config.Data?.Select( data => new Menu().Data( data ) ).ToList()
                 .ForEach( menu => builder.AppendContent( menu ) );
+        }
+
+        /// <summary>
+        /// 配置关闭弹出层
+        /// </summary>
+        private void ConfigCloseDialog( TagBuilder builder ) {
+            if( _config.Contains( MaterialConst.CloseDialog ) )
+                builder.AddAttribute( "mat-dialog-close", _config.GetValue( MaterialConst.CloseDialog ),false );
         }
 
         /// <summary>

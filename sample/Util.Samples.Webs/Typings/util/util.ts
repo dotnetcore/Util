@@ -10,6 +10,7 @@ import { EventHelper } from "./angular/event-helper";
 import { WebApi } from './common/webapi';
 import { Message } from './common/message';
 import { Form } from './common/form';
+import { Dialog } from './common/dialog';
 
 /**
  * 操作库
@@ -47,4 +48,8 @@ export class Util {
      * 表单操作
      */
     static form = new Form();
+    /**
+     * 弹出层操作
+     */
+    static dialog = Dialog;
 }

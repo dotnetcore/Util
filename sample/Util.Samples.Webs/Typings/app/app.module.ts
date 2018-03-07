@@ -12,16 +12,20 @@ import { AppComponent } from './app.component';
 //路由模块
 import { AppRoutingModule } from './app.routing.module';
 
+//Demo
+import { DialogComponent } from "./demo/dialog.component";
+
 /**
  * 应用根模块
  */
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent, DialogComponent
     ],
     imports: [
         BrowserAnimationsModule,FrameworkModule, AppRoutingModule
     ],
+    entryComponents: [DialogComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -33,3 +37,4 @@ export class AppModule {
         util.ioc.injector = injector;
     }
 }
+

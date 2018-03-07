@@ -22,13 +22,15 @@ namespace Util.Ui.Material.Buttons.Configs {
         }
 
         /// <summary>
-        /// 是否菜单操作
-        /// </summary>
-        public bool IsMenu => Contains( MaterialConst.MenuId );
-
-        /// <summary>
         /// 菜单数据列表
         /// </summary>
         public List<MenuData> Data { get; set; }
+
+        /// <summary>
+        /// 使用ButtonRender渲染器
+        /// </summary>
+        public bool UseButtonRender() {
+            return Contains( MaterialConst.MenuId ) || Contains( MaterialConst.CloseDialog );
+        }
     }
 }

@@ -145,5 +145,16 @@ namespace Util.Ui.Tests.Material.Buttons {
             result.Append( "<button mat-raised-button=\"\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试关闭弹出层
+        /// </summary>
+        [Fact]
+        public void TestCloseDialog() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.CloseDialog, "a" } };
+            var result = new String();
+            result.Append( "<button mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

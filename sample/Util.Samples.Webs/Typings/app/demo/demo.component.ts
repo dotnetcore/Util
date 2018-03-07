@@ -1,6 +1,7 @@
 ﻿import { Component, ViewChild, OnInit, Injector } from "@angular/core"
 import { NgForm } from "@angular/forms"
 import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, util } from "../../util";
+import {DialogComponent} from "./dialog.component"
 @Component({
     selector: 'demo',
     templateUrl: '/Home/Demo'
@@ -27,9 +28,18 @@ export class DemoComponent extends ComponentBase implements OnInit {
         this.grid.query();
     }
 
-    onChange(value) {
-        this.util.message.error(util.helper.toJson(value));
+    onChange() {
+        util.dialog.open({
+            dialogComponent: DialogComponent,
+            minWidth: 800,
+            hasBackdrop: false,
+            beforeClose: result => util.message.success(result),
+        });
         
+    }
+
+    onClose() {
+        util.dialog.close("abc");
     }
 
     onSubmit(form: NgForm) {

@@ -35,7 +35,7 @@ namespace Util.Ui.Material.Buttons {
         /// 获取渲染器
         /// </summary>
         protected override IRender GetRender() {
-            if( _config.IsMenu )
+            if( _config.UseButtonRender() )
                 return new ButtonRender( _config );
             return new ButtonWrapperRender( _config );
         }

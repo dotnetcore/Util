@@ -29,6 +29,8 @@
         </util-card-content>
         <util-divider />
         <util-card-actions align="Right">
+            @x.Button().Text( "我弹" ).OnClick( "onChange()" )
+            @x.Button().Text( "我关" ).OnClick( "onClose()" )
             @x.Button().Reset()
             @x.Button().Submit()
         </util-card-actions>

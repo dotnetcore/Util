@@ -115,5 +115,9 @@
         /// 复选框位置
         /// </summary>
         public const string CheckboxPosition = "checkbox-position";
+        /// <summary>
+        /// 关闭弹出层
+        /// </summary>
+        public const string CloseDialog = "close-dialog";
     }
 }

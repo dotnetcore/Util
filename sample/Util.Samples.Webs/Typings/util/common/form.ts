@@ -19,7 +19,7 @@ export class Form {
      * 提交表单
      * @param options 表单提交参数
      */
-    submit(options: IFormSubmitOptions): void {
+    submit(options: IFormSubmitOption): void {
         this.initSubmit(options);
         if (!this.validateSubmit(options)) {
             options["fnComplete"]();
@@ -44,7 +44,7 @@ export class Form {
     /**
      * 提交表单初始化
      */
-    private initSubmit(options: IFormSubmitOptions) {
+    private initSubmit(options: IFormSubmitOption) {
         if (!options)
             return;
         options["fnComplete"] = () => {
@@ -57,7 +57,7 @@ export class Form {
     /**
      * 提交表单验证
      */
-    private validateSubmit(options: IFormSubmitOptions) {
+    private validateSubmit(options: IFormSubmitOption) {
         if (!options) {
             Message.error("表单参数[options: FormSubmitOptions]未设置");
             return false;
@@ -80,7 +80,7 @@ export class Form {
     /**
      * 提交前操作
      */
-    private submitBefore(options: IFormSubmitOptions) {
+    private submitBefore(options: IFormSubmitOption) {
         if (!options.beforeHandler)
             return true;
         return options.beforeHandler();
@@ -89,7 +89,7 @@ export class Form {
     /**
      * 提交表单
      */
-    private submitForm(options: IFormSubmitOptions) {
+    private submitForm(options: IFormSubmitOption) {
         if (!options.httpMethod) {
             options.httpMethod = options.data.id ? HttpMethod.Put : HttpMethod.Post;
         }
@@ -105,7 +105,7 @@ export class Form {
     /**
      * 提交表单成功处理函数
      */
-    private submitHandler(options: IFormSubmitOptions, result) {
+    private submitHandler(options: IFormSubmitOption, result) {
         options.handler && options.handler(result);
         if (options.showMessage !== false)
             Message.snack(MessageConfig.successed);
@@ -119,7 +119,7 @@ export class Form {
 /**
  * 表单提交参数
  */
-export interface IFormSubmitOptions {
+export interface IFormSubmitOption {
     /**
      * 表单
      */

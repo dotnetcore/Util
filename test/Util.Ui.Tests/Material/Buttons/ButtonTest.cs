@@ -219,5 +219,25 @@ namespace Util.Ui.Tests.Material.Buttons {
             result.Append( "<button mat-raised-button=\"\" matTooltip=\"b\" type=\"button\" [matMenuTriggerFor]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult( _component.Menu( "a" ).Tooltip( "b" ) ) );
         }
+
+        /// <summary>
+        /// 测试关闭弹出层
+        /// </summary>
+        [Fact]
+        public void TestCloseDialog() {
+            var result = new String();
+            result.Append( "<button mat-dialog-close=\"\" mat-raised-button=\"\" type=\"button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _component.CloseDialog() ) );
+        }
+
+        /// <summary>
+        /// 测试关闭弹出层
+        /// </summary>
+        [Fact]
+        public void TestCloseDialog_2() {
+            var result = new String();
+            result.Append( "<button mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( _component.CloseDialog( "a" ) ) );
+        }
     }
 }

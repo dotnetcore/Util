@@ -415,6 +415,7 @@ https://github.com/dotnetcore/util/
   - 面板 - 基于Material Panel组件 [已发布]
   - 栅格 - 基于Material Grid List组件 [已发布]
   - 列表 - 基于Material List组件 [已发布]
+  - 弹出层 - 基于Material Dialog组件 [已发布]
   - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   - 表格 [待启动]
 - 权限 [待启动]
@@ -473,3 +474,4 @@ https://github.com/dotnetcore/util/
 - 2018年2月27日，更新了面板组件(Util.Ui.Angular/Material/Panels)。
 - 2018年3月1日，更新了栅格组件(Util.Ui.Angular/Material/Grids)。
 - 2018年3月4日，更新了列表，导航列表，选择列表组件(Util.Ui.Angular/Material/Lists)。
+- 2018年3月7日，更新了弹出层组件(Util.Ui.Angular/Material/Dialogs)。

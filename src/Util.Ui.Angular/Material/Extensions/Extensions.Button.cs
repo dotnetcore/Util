@@ -37,6 +37,20 @@ namespace Util.Ui.Material.Extensions {
         }
 
         /// <summary>
+        /// 关闭弹出层
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="result">返回结果</param>
+        public static TComponent CloseDialog<TComponent>( this TComponent component,string result = "" ) where TComponent : IButton {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( MaterialConst.CloseDialog, result );
+            } );
+            return component;
+        }
+
+        /// <summary>
         /// 设置样式
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
