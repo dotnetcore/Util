@@ -6,9 +6,9 @@
     <RootNamespace>Util.Webs</RootNamespace>
     <OutputPath>..\..\output\release\</OutputPath>
     <DocumentationFile>..\..\output\release\netstandard2.0\Util.Webs.xml</DocumentationFile>
-    <Version>0.2.2-preview</Version>
-    <AssemblyVersion>0.2.2.0</AssemblyVersion>
-    <FileVersion>0.2.2.0</FileVersion>
+    <Version>0.2.3-preview</Version>
+    <AssemblyVersion>0.2.3.0</AssemblyVersion>
+    <FileVersion>0.2.3.0</FileVersion>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
     <Description>Util.Webs是Util应用框架的Asp.Net Core操作类库。
