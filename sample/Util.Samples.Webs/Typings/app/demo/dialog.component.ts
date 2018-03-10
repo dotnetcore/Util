@@ -19,7 +19,6 @@ export class DialogComponent {
 
     onclick() {
         util.dialog.open({
-            hasBackdrop: false,
             title:"测试",
             url: "http://www.bing.com",
             minWidth: 1200,

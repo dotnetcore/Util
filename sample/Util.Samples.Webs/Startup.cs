@@ -51,19 +51,23 @@ namespace Util.Samples.Webs {
         /// 配置请求管道
         /// </summary>
         public void Configure( IApplicationBuilder app, IHostingEnvironment env ) {
-            if( env.IsDevelopment() == false ) {
-                ProductionConfig( app );
+            if( env.IsDevelopment() ) {
+                DevelopmentConfig( app );
                 return;
             }
-            DevelopmentConfig( app );
+            ProductionConfig( app );
         }
 
         /// <summary>
-        /// 生产环境配置
+        /// 开发环境配置
         /// </summary>
-        private void ProductionConfig( IApplicationBuilder app ) {
-            app.UseExceptionHandler( "/Home/Error" );
-            app.UseAuthentication();
+        private void DevelopmentConfig( IApplicationBuilder app ) {
+            app.UseBrowserLink();
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
+            app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
+                HotModuleReplacement = true
+            } );
             CommonConfig( app );
         }
 
@@ -73,6 +77,7 @@ namespace Util.Samples.Webs {
         private void CommonConfig( IApplicationBuilder app ) {
             app.UseErrorLog();
             app.UseStaticFiles();
+            app.UseAuthentication();
             ConfigRoute( app );
         }
 
@@ -88,14 +93,10 @@ namespace Util.Samples.Webs {
         }
 
         /// <summary>
-        /// 开发环境配置
+        /// 生产环境配置
         /// </summary>
-        private void DevelopmentConfig( IApplicationBuilder app ) {
-            app.UseBrowserLink();
-            app.UseDeveloperExceptionPage();
-            app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
-                HotModuleReplacement = true
-            } );
+        private void ProductionConfig( IApplicationBuilder app ) {
+            app.UseExceptionHandler( "/Home/Error" );
             CommonConfig( app );
         }
     }

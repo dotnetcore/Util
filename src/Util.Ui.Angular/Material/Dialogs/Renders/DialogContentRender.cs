@@ -35,19 +35,10 @@ namespace Util.Ui.Material.Dialogs.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            builder.Style( _config );
-            builder.Class( _config );
             ConfigId( builder );
             ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
+            builder.Style( _config );
+            builder.Class( _config );
         }
     }
 }

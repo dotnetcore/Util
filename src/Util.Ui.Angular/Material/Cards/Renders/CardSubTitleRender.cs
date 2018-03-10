@@ -37,14 +37,5 @@ namespace Util.Ui.Material.Cards.Renders {
             ConfigId( builder );
             ConfigContent( builder );
         }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
-        }
     }
 }

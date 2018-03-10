@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, Input, ViewChild, OnInit, ContentChild } from '@angular/core';
+import { Component, Input, ViewChild, ContentChild,AfterContentInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatPaginatorIntl, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WebApi as webapi } from '../common/webapi';
@@ -18,8 +18,8 @@ import { MessageConfig as config } from '../config/message-config';
 function createMatPaginatorIntl() {
     let result = new MatPaginatorIntl();
     result.itemsPerPageLabel = "每页";
-    result.nextPageLabel = "下一页";
-    result.previousPageLabel = "上一页";
+    result.nextPageLabel = "下页";
+    result.previousPageLabel = "上页";
     result.getRangeLabel = (page: number, pageSize: number, length: number) => {
         if (length == 0 || pageSize == 0) { return `0`; }
         length = Math.max(length, 0);
@@ -34,7 +34,7 @@ function createMatPaginatorIntl() {
  * Mat表格包装器
  */
 @Component({
-    selector: 'table-wrapper',
+    selector: 'mat-table-wrapper',
     providers: [{ provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl }],
     template: `
         <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
@@ -76,7 +76,7 @@ function createMatPaginatorIntl() {
         }
     `]
 })
-export class TableWrapperComponent<T extends ViewModel> implements OnInit {
+export class TableWrapperComponent<T extends ViewModel> implements AfterContentInit {
     /**
      * 显示进度条
      */
@@ -142,19 +142,19 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      * 初始化Mat表格包装器
      */
     constructor() {
-        this.maxHeight = 500;
         this.minHeight = 300;
         this.minWidth = 300;
-        this.pageSizeItems = [20, 50, 100, 200];
+        this.pageSizeItems = [10, 20, 50, 100, 200];
         this.dataSource = new MatTableDataSource<T>();
         this.loading = false;
         this.autoLoad = true;
+        this.queryParam = new QueryParameter();
     }
 
     /**
-     * 组件初始化
+     * 内容加载完成时进行初始化
      */
-    ngOnInit() {
+    ngAfterContentInit() {
         this.initPaginator();
         this.initSort();
         if (this.autoLoad)
@@ -176,10 +176,22 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
     * 初始化排序组件
     */
     private initSort() {
-        this.sort.sortChange.subscribe(() => {
-            this.queryParam.order = `${this.sort.active} ${this.sort.direction}`;
+        if (!this.sort)
+            return;
+        this.setOrder();
+        this.sort.sortChange && this.sort.sortChange.subscribe(() => {
+            this.setOrder();
             this.query();
         });
+    }
+
+    /**
+     * 设置排序
+     */
+    private setOrder() {
+        if (!this.sort.active)
+            return;
+        this.queryParam.order = `${this.sort.active} ${this.sort.direction}`;
     }
 
     /**
@@ -227,8 +239,8 @@ export class TableWrapperComponent<T extends ViewModel> implements OnInit {
      */
     private getStyle() {
         return {
-            'max-height': `${this.maxHeight}px`,
-            'min-width': `${this.minWidth}px`,
+            'max-height': this.maxHeight ? `${this.maxHeight}px` : null,
+            'min-width': this.minWidth ? `${this.minWidth}px` : null,
             'width': this.width ? `${this.width}px` : null
         };
     }

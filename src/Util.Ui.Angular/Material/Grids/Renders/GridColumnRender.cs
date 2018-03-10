@@ -70,8 +70,8 @@ namespace Util.Ui.Material.Grids.Renders {
         /// </summary>
         protected void Config( GridColumnBuilder builder ) {
             ConfigId( builder );
-            ConfigSpan( builder );
             ConfigContent( builder );
+            ConfigSpan( builder );
         }
 
         /// <summary>
@@ -80,15 +80,6 @@ namespace Util.Ui.Material.Grids.Renders {
         private void ConfigSpan( GridColumnBuilder builder ) {
             builder.AddColspan( _config, UiConst.Colspan );
             builder.AddAttribute( "rowspan", _config.GetValue( UiConst.Rowspan ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

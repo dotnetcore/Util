@@ -9,16 +9,10 @@ namespace Util.Ui.Material.Panels.Renders {
     /// </summary>
     public class PanelActionRender : RenderBase {
         /// <summary>
-        /// 配置
-        /// </summary>
-        private readonly IConfig _config;
-
-        /// <summary>
         /// 初始化面板操作渲染器
         /// </summary>
         /// <param name="config">配置</param>
         public PanelActionRender( IConfig config ) : base( config ) {
-            _config = config;
         }
 
         /// <summary>
@@ -36,15 +30,6 @@ namespace Util.Ui.Material.Panels.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

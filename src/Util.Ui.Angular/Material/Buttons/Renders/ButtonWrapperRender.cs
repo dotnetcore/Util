@@ -36,7 +36,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
-            if ( _config.Contains( UiConst.Text ) || _config.Content == null ) {
+            if ( _config.Contains( UiConst.Text ) || _config.Content == null || _config.Content.IsEmptyOrWhiteSpace ) {
                 Builder.WriteTo( writer, encoder );
                 return;
             }

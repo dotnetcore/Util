@@ -35,11 +35,11 @@ namespace Util.Ui.Material.Panels.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigContent( builder );
             ConfigHideToggle( builder );
             ConfigExpanded( builder );
             ConfigDisabled( builder );
             ConfigEvents( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -69,15 +69,6 @@ namespace Util.Ui.Material.Panels.Renders {
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(opened)", _config.GetValue( UiConst.OnOpen ) );
             builder.AddAttribute( "(closed)", _config.GetValue( UiConst.OnClose ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

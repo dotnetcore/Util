@@ -26,6 +26,7 @@ const jsModules = [
     '@angular/router',
     'hammerjs',
     '@angular/cdk/esm5/collections.es5',
+    '@angular/flex-layout',
     '@angular/material',
     'primeng/primeng'
 ];

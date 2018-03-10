@@ -50,7 +50,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// 设置复选框位置
         /// </summary>
         private void SetCheckboxPosition( Config config, Context context ) {
-            var position = context.GetValue<XPosition?>( MaterialConst.CheckboxPosition );
+            var position = context.GetValueFromItems<XPosition?>( MaterialConst.CheckboxPosition );
             if( position == null )
                 return;
             config.SetAttribute( MaterialConst.CheckboxPosition, position, false );

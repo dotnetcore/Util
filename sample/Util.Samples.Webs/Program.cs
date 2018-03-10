@@ -20,16 +20,9 @@ namespace Util.Samples.Webs {
                     .Build()
                     .Run();
             }
-            catch ( Exception ex ) {
-                WriteLog( ex );
+            catch( Exception ex ) {
+                ex.Log( Log.GetLog().Caption( "应用程序启动失败" ) );
             }
-        }
-
-        /// <summary>
-        /// 记录错误日志
-        /// </summary>
-        private static void WriteLog( Exception ex ) {
-            ex.Log( Log.GetLog().Caption( "应用程序启动失败" ) );
         }
     }
 }

@@ -38,12 +38,12 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigContent( builder );
             builder.NgFor( _config );
             ConfigValue( builder );
             ConfigCheckboxPosition( builder );
             ConfigSelected( builder );
             ConfigDisabled( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -73,15 +73,6 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         private void ConfigDisabled( TagBuilder builder ) {
             builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

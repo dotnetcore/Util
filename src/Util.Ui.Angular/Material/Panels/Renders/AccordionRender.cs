@@ -53,14 +53,5 @@ namespace Util.Ui.Material.Panels.Renders {
         private void ConfigDisplayMode( TagBuilder builder ) {
             builder.AddAttribute( "displayMode", _config.GetBoolValue( MaterialConst.DisplayMode ) );
         }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
-        }
     }
 }

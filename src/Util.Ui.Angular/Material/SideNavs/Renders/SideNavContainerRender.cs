@@ -37,9 +37,9 @@ namespace Util.Ui.Material.SideNavs.Renders {
         protected void Config( TagBuilder builder ) {
             builder.Class( _config );
             ConfigId( builder );
+            ConfigContent( builder );
             ConfigFullscreen( builder );
             ConfigAutoSize( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -55,15 +55,6 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// </summary>
         private void ConfigAutoSize( TagBuilder builder ) {
             builder.AddAttribute( "autosize", _config.GetBoolValue( UiConst.AutoSize ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

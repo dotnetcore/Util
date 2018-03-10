@@ -79,7 +79,16 @@ namespace Util.Ui.Renders {
         /// </summary>
         protected virtual void ConfigId( TagBuilder builder ) {
             if( _config.Contains( UiConst.Id ) )
-                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "", false );
+                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}" );
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected virtual void ConfigContent( TagBuilder builder ) {
+            if( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
+                return;
+            builder.AppendContent( _config.Content );
         }
     }
 }

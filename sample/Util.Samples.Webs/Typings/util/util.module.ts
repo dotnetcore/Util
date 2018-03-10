@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
+//flex布局模块
+import { FlexLayoutModule } from '@angular/flex-layout';
 //Material模块
 import {
     MatCommonModule, MatRippleModule, MatSortModule,
@@ -45,7 +47,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
  */
 @NgModule({
     imports: [
-        CommonModule, FormsModule, RouterModule, HttpClientModule,
+        CommonModule, FormsModule, RouterModule, HttpClientModule, FlexLayoutModule,
         MatCommonModule, MatRippleModule, MatSortModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
@@ -63,7 +65,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
         FileUploadComponent, SingleFileUploadComponent
     ],
     exports: [
-        CommonModule, FormsModule, RouterModule, HttpClientModule,
+        CommonModule, FormsModule, RouterModule, HttpClientModule, FlexLayoutModule,
         MatCommonModule, MatRippleModule, MatSortModule,
         MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,

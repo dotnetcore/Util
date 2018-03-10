@@ -119,5 +119,9 @@
         /// 关闭弹出层
         /// </summary>
         public const string CloseDialog = "close-dialog";
+        /// <summary>
+        /// 表格标识
+        /// </summary>
+        public const string TableId = "tableId";
     }
 }

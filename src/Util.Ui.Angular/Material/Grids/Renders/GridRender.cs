@@ -35,10 +35,10 @@ namespace Util.Ui.Material.Grids.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigContent( builder );
             ConfigColumns( builder );
             ConfigRowHeight( builder );
             ConfigGutterSize( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -70,15 +70,6 @@ namespace Util.Ui.Material.Grids.Renders {
             if( Util.Helpers.Validation.IsNumber( value ) )
                 value = $"{value}px";
             builder.AddAttribute( "gutterSize", value );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

@@ -34,9 +34,9 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置
         /// </summary>
         private void Config( TagBuilder builder ) {
+            ConfigContent( builder );
             ConfigId( builder );
             ConfigEvents( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -52,13 +52,6 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(ngSubmit)", _config.GetValue( UiConst.OnSubmit ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            builder.SetContent( _config.Content );
         }
     }
 }

@@ -37,8 +37,8 @@ namespace Util.Ui.Material.Toolbars.Renders {
         protected void Config( TagBuilder builder ) {
             builder.Style( _config );
             ConfigId( builder );
-            ConfigColor( builder );
             ConfigContent( builder );
+            ConfigColor( builder );
         }
 
         /// <summary>
@@ -46,15 +46,6 @@ namespace Util.Ui.Material.Toolbars.Renders {
         /// </summary>
         private void ConfigColor( TagBuilder builder ) {
             builder.AddAttribute( "color", _config.GetValue( UiConst.Color )?.ToLower() );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

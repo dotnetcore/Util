@@ -4,7 +4,7 @@ import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, util }
 import {DialogComponent} from "./dialog.component"
 @Component({
     selector: 'demo',
-    templateUrl: '/Home/Demo'
+    templateUrl: '/Home/List'
 })
 export class DemoComponent extends ComponentBase implements OnInit {
     queryParam: CustomerQueryModel;
@@ -32,7 +32,6 @@ export class DemoComponent extends ComponentBase implements OnInit {
         util.dialog.open({
             dialogComponent: DialogComponent,
             minWidth: 800,
-            hasBackdrop: false,
             beforeClose: result => util.message.success(result),
         });
         

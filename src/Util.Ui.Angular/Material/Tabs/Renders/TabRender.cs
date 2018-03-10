@@ -118,7 +118,7 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// 配置内容
         /// </summary>
         private void ConfigContent( TabBuilder builder ) {
-            if( _config.Content == null )
+            if( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
                 return;
             if ( _config.GetValue<bool>( UiConst.LazyLoad ) == false ) {
                 builder.AppendContent( _config.Content );

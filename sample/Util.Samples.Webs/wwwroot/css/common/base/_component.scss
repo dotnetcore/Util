@@ -33,6 +33,11 @@
 .mat-cell, .mat-header-cell {
     overflow: initial !important;
 }
+//mat表头
+.mat-table.tableHeader{
+    height:67px;
+    overflow:hidden;
+}
 //mat表格序号
 .mat-column-lineNumber {
     max-width: 48px;
@@ -49,6 +54,10 @@
     &:active {
         background: #eaeaea;
     }
+}
+//分页大小标签样式
+.mat-paginator-page-size-label{
+    width:30px
 }
 //mat菜单font-awesome图标
 .mat-menu-item .fa {

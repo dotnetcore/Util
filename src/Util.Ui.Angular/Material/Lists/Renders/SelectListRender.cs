@@ -82,14 +82,5 @@ namespace Util.Ui.Material.Lists.Renders {
             headerBuilder.SetContent( title );
             builder.AppendContent( headerBuilder );
         }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.AppendContent( _config.Content );
-        }
     }
 }

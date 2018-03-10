@@ -1,5 +1,4 @@
 ﻿using Donau.Services.Dtos.Customers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Util.Samples.Webs.Controllers {
@@ -16,6 +15,10 @@ namespace Util.Samples.Webs.Controllers {
 
         public IActionResult Demo() {
             return View(new CustomersDto());
+        }
+
+        public IActionResult List() {
+            return View();
         }
 
         public IActionResult Dialog() {

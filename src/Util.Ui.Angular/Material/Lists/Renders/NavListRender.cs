@@ -35,8 +35,8 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigDense( builder );
             ConfigContent( builder );
+            ConfigDense( builder );
         }
 
         /// <summary>
@@ -45,15 +45,6 @@ namespace Util.Ui.Material.Lists.Renders {
         private void ConfigDense( TagBuilder builder ) {
             if( _config.GetValue<bool?>( UiConst.Dense ) == true )
                 builder.AddAttribute( "dense" );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

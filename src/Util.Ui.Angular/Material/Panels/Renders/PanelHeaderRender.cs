@@ -35,8 +35,8 @@ namespace Util.Ui.Material.Panels.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigHeight( builder );
             ConfigContent( builder );
+            ConfigHeight( builder );
         }
 
         /// <summary>
@@ -47,15 +47,6 @@ namespace Util.Ui.Material.Panels.Renders {
                 builder.AddAttribute( "collapsedHeight", $"{_config.GetValue( MaterialConst.CollapsedHeight )}px" );
             if( _config.Contains( MaterialConst.ExpandedHeight ) )
                 builder.AddAttribute( "expandedHeight", $"{_config.GetValue( MaterialConst.ExpandedHeight )}px" );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

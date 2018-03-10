@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
 using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Renders;
 
@@ -55,7 +54,7 @@ namespace Util.Ui.Material.Menus.Renders {
         /// <summary>
         /// 配置内容
         /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
+        protected override void ConfigContent( TagBuilder builder ) {
             ConfigMaterialIcon( builder );
             ConfigFontAwesomeIcon( builder );
             ConfigLabel( builder );

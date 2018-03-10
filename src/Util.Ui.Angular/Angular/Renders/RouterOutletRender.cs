@@ -9,16 +9,10 @@ namespace Util.Ui.Angular.Renders {
     /// </summary>
     public class RouterOutletRender : RenderBase {
         /// <summary>
-        /// 配置
-        /// </summary>
-        private readonly IConfig _config;
-
-        /// <summary>
         /// 初始化router-outlet路由出口渲染器
         /// </summary>
         /// <param name="config">配置</param>
         public RouterOutletRender( IConfig config ) : base( config ) {
-            _config = config;
         }
 
         /// <summary>

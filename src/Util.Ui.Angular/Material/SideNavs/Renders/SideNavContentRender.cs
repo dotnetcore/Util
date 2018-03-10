@@ -35,18 +35,10 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            builder.Class( _config );
             ConfigId( builder );
             ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
+            builder.Class( _config );
+            builder.Style( _config );
         }
     }
 }

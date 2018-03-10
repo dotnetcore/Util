@@ -38,12 +38,12 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigContent( builder );
             ConfigStyle( builder );
             ConfigPosition( builder );
             ConfigOpened( builder );
             ConfigMode( builder );
             ConfigDisableClose( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -83,15 +83,6 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// </summary>
         private void ConfigDisableClose( TagBuilder builder ) {
             builder.AddAttribute( "disableClose", _config.GetBoolValue( MaterialConst.DisableClose ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

@@ -258,6 +258,10 @@
         /// <summary>
         /// 列
         /// </summary>
+        public const string Column = "column";
+        /// <summary>
+        /// 列
+        /// </summary>
         public const string Columns = "columns";
         /// <summary>
         /// 行高
@@ -295,5 +299,21 @@
         /// 标题
         /// </summary>
         public const string Title = "title";
+        /// <summary>
+        /// 查询参数
+        /// </summary>
+        public const string QueryParam = "query-param";
+        /// <summary>
+        /// 基地址
+        /// </summary>
+        public const string BaseUrl = "base-url";
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public const string Sort = "sort";
+        /// <summary>
+        /// 排序方向
+        /// </summary>
+        public const string SortDirection = "sort-direction";
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Util.Ui.Configs {
@@ -18,7 +17,7 @@ namespace Util.Ui.Configs {
         /// <summary>
         /// 内容
         /// </summary>
-        IHtmlContent Content { get; set; }
+        TagHelperContent Content { get; }
         /// <summary>
         /// 属性集合是否包含指定属性
         /// </summary>

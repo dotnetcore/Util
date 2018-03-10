@@ -36,12 +36,12 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigContent( builder );
             ConfigColor( builder );
             ConfigHeight( builder );
             ConfigStretch( builder );
             ConfigSelectedIndex( builder );
             ConfigHeaderPosition( builder );
-            ConfigContent( builder );
         }
 
         /// <summary>
@@ -82,15 +82,6 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// </summary>
         private void ConfigHeaderPosition( TagBuilder builder ) {
             builder.AddAttribute( "headerPosition", _config.GetValue<YPosition?>( MaterialConst.HeaderPosition )?.Description() );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
-            if ( _config.Content == null )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

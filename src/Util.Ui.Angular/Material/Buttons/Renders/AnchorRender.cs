@@ -102,7 +102,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// <summary>
         /// 配置内容
         /// </summary>
-        private void ConfigContent( TagBuilder builder ) {
+        protected override void ConfigContent( TagBuilder builder ) {
             if( _config.Contains( UiConst.Text ) )
                 return;
             builder.SetContent( _config.Content );
