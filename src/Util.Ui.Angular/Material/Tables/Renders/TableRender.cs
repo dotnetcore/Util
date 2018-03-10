@@ -34,11 +34,19 @@ namespace Util.Ui.Material.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TagBuilder builder ) {
+        protected virtual void Config( TagBuilder builder ) {
+            ConfigTableWrapper( builder );
+            ConfigTable( builder );
+        }
+
+        /// <summary>
+        /// 配置表格包装器
+        /// </summary>
+        protected void ConfigTableWrapper( TagBuilder builder ) {
             ConfigId( builder );
             ConfigQueryParam( builder );
             ConfigUrl( builder );
-            ConfigTable( builder );
+            ConfigSize( builder );
         }
 
         /// <summary>
@@ -63,15 +71,22 @@ namespace Util.Ui.Material.Tables.Renders {
         }
 
         /// <summary>
+        /// 配置大小
+        /// </summary>
+        private void ConfigSize( TagBuilder builder ) {
+            builder.AddAttribute( "maxHeight", _config.GetValue( UiConst.MaxHeight ) );
+        }
+
+        /// <summary>
         /// 配置表格
         /// </summary>
-        private void ConfigTable( TagBuilder builder ) {
+        protected virtual void ConfigTable( TagBuilder builder ) {
             var tableBuilder = new TableBuilder();
             ConfigTableDefault( tableBuilder );
             ConfigSort( tableBuilder );
             ConfigContent( tableBuilder );
             ConfigRow( tableBuilder );
-            builder.SetContent( tableBuilder );
+            builder.AppendContent( tableBuilder );
         }
 
         /// <summary>
@@ -87,7 +102,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// <summary>
         /// 配置排序
         /// </summary>
-        private void ConfigSort( TagBuilder tableBuilder ) {
+        protected void ConfigSort( TagBuilder tableBuilder ) {
             tableBuilder.AddAttribute( "matSortDisableClear" );
             tableBuilder.AddAttribute( "matSortActive", _config.GetValue( UiConst.Sort ) );
             tableBuilder.AddAttribute( "matSortDirection", _config.GetValue( UiConst.SortDirection )?.ToLower() );
@@ -96,7 +111,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// <summary>
         /// 配置行
         /// </summary>
-        private void ConfigRow( TagBuilder tableBuilder ) {
+        protected virtual void ConfigRow( TagBuilder tableBuilder ) {
             if ( _config.Columns == null || _config.Columns.Count == 0 )
                 return;
             var columns = Util.Helpers.Json.ToJson( _config.Columns,true );
@@ -107,7 +122,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// <summary>
         /// 添加行头
         /// </summary>
-        private void AddHeaderRow( TagBuilder tableBuilder, string columns ) {
+        protected virtual void AddHeaderRow( TagBuilder tableBuilder, string columns ) {
             var headerRowBuilder = new TableHeaderRowBuilder();
             headerRowBuilder.AddColumns( columns );
             tableBuilder.AppendContent( headerRowBuilder );
@@ -116,7 +131,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// <summary>
         /// 添加行
         /// </summary>
-        private void AddRow( TagBuilder tableBuilder, string columns ) {
+        protected void AddRow( TagBuilder tableBuilder, string columns ) {
             var rowBuilder = new TableRowBuilder();
             rowBuilder.AddColumns( columns );
             tableBuilder.AppendContent( rowBuilder );

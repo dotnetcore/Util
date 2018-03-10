@@ -132,5 +132,21 @@ namespace Util.Ui.Tests.Material.Tables {
             result.Append( "</mat-table-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试最大高度
+        /// </summary>
+        [Fact]
+        public void TestMaxHeight() {
+            var attributes = new TagHelperAttributeList { { UiConst.MaxHeight, 1 } };
+            var result = new String();
+            result.Append( "<mat-table-wrapper #m_id=\"\" maxHeight=\"1\">" );
+            result.Append( "<mat-table matSort=\"\" matSortDisableClear=\"\" [dataSource]=\"m_id.dataSource\" " );
+            result.Append( "[style.max-height]=\"m_id.maxHeight?m_id.maxHeight+'px':null\" " );
+            result.Append( "[style.min-height]=\"m_id.minHeight?m_id.minHeight+'px':null\">" );
+            result.Append( "</mat-table>" );
+            result.Append( "</mat-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

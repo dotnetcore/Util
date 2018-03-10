@@ -88,7 +88,7 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     /**
      * 数据源
      */
-    dataSource: MatTableDataSource<T>;
+    private dataSource: MatTableDataSource<T>;
     /**
      * 是否自动加载，默认在初始化时自动加载数据，设置成false则手工加载
      */

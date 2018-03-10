@@ -11,7 +11,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     /// <summary>
     /// 表格
     /// </summary>
-    [HtmlTargetElement( "util-table" )]
+    [HtmlTargetElement( "ex-table")]
     public class TableTagHelper : TagHelperBase {
         /// <summary>
         /// 查询参数
@@ -29,6 +29,10 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// 排序方向
         /// </summary>
         public SortDirection SortDirection { get; set; }
+        /// <summary>
+        /// 最大高度
+        /// </summary>
+        public double MaxHeight { get; set; }
 
         /// <summary>
         /// 获取渲染器

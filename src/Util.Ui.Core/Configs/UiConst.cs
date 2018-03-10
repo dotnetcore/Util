@@ -315,5 +315,9 @@
         /// 排序方向
         /// </summary>
         public const string SortDirection = "sort-direction";
+        /// <summary>
+        /// 最大高度
+        /// </summary>
+        public const string MaxHeight = "max-height";
     }
 }

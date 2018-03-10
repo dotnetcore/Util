@@ -8,7 +8,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     /// <summary>
     /// 表格单元格定义，该标签应放在 util-table-column 中，引用变量名为row，范例：{{row.name}}
     /// </summary>
-    [HtmlTargetElement( "util-table-cell" )]
+    [HtmlTargetElement( "util-table-cell", ParentTag = "util-table-column" )]
     public class TableCellTagHelper : TagHelperBase {
         /// <summary>
         /// 获取渲染器
