@@ -308,6 +308,10 @@
         /// </summary>
         public const string BaseUrl = "base-url";
         /// <summary>
+        /// 删除地址
+        /// </summary>
+        public const string DeleteUrl = "delete-url";
+        /// <summary>
         /// 排序
         /// </summary>
         public const string Sort = "sort";
@@ -319,5 +323,17 @@
         /// 最大高度
         /// </summary>
         public const string MaxHeight = "max-height";
+        /// <summary>
+        /// 最小高度
+        /// </summary>
+        public const string MinHeight = "min-height";
+        /// <summary>
+        /// 自动加载
+        /// </summary>
+        public const string AutoLoad = "auto-load";
+        /// <summary>
+        /// 分页长度列表
+        /// </summary>
+        public const string PageSizeOptions = "page-size-options";
     }
 }

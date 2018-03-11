@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
@@ -14,18 +13,18 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     /// <summary>
     /// 表格列定义，该标签应放在 util-table 中
     /// </summary>
-    [HtmlTargetElement( "util-table-column" )]
-    public class TableColumnTagHelper : TagHelperBase {
+    [HtmlTargetElement( "util-table-column", ParentTag = "util-table" )]
+    public class ColumnTagHelper : TagHelperBase {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly TableColumnConfig _config;
+        private readonly ColumnConfig _config;
 
         /// <summary>
         /// 初始化表格列定义
         /// </summary>
-        public TableColumnTagHelper() {
-            _config = new TableColumnConfig();
+        public ColumnTagHelper() {
+            _config = new ColumnConfig();
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
             _config.Content = context.Content;
-            return new TableColumnRender( _config );
+            return new ColumnRender( _config );
         }
 
         /// <summary>
@@ -65,6 +64,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// <param name="output">TagHelper输出</param>
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
             _config.Load( context, output );
+            _config.InitShare();
             ResolveExpression();
             AddColumnToParent();
         }
@@ -83,10 +83,8 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// 把列添加到表格容器
         /// </summary>
         private void AddColumnToParent() {
-            if( _config.Context.Items.ContainsKey( UiConst.Columns ) == false )
-                return;
-            var columns = _config.Context.GetValueFromItems<List<string>>( UiConst.Columns );
-            columns.Add( GetColumn() );
+            var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            shareConfig?.Columns.Add( GetColumn() );
         }
 
         /// <summary>

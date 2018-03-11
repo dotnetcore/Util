@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.Material;
 using Util.Ui.Material.Enums;
+using Util.Ui.Material.Tables.Configs;
 using Util.Ui.Material.Tables.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -22,14 +22,14 @@ namespace Util.Ui.Tests.Material.Tables {
         /// <summary>
         /// 表格列
         /// </summary>
-        private readonly TableColumnTagHelper _component;
+        private readonly ColumnTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public TableColumnTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new TableColumnTagHelper();
+            _component = new ColumnTagHelper();
         }
 
         /// <summary>
@@ -75,6 +75,19 @@ namespace Util.Ui.Tests.Material.Tables {
         }
 
         /// <summary>
+        /// 测试列名称- 取消自动创建
+        /// </summary>
+        [Fact]
+        public void TestColumn_Cancel() {
+            var attributes = new TagHelperAttributeList { { UiConst.Column, "a" } };
+            var items = new Dictionary<object, object> { { ColumnConfig.ColumnShareKey, new ColumnShareConfig { AutoCreateCell = false } } };
+            var result = new String();
+            result.Append( "<ng-container matColumnDef=\"a\">" );
+            result.Append( "</ng-container>" );
+            Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
+        }
+
+        /// <summary>
         /// 测试添加标题
         /// </summary>
         [Fact]
@@ -85,6 +98,19 @@ namespace Util.Ui.Tests.Material.Tables {
             result.Append( "<mat-header-cell *matHeaderCellDef=\"\">a</mat-header-cell>" );
             result.Append( "</ng-container>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试添加标题 - 取消自动创建
+        /// </summary>
+        [Fact]
+        public void TestTitle_Cancel() {
+            var attributes = new TagHelperAttributeList { { UiConst.Title, "a" } };
+            var items = new Dictionary<object,object>{{ ColumnConfig.ColumnShareKey,new ColumnShareConfig{AutoCreateHeaderCell = false} } };
+            var result = new String();
+            result.Append( "<ng-container>" );
+            result.Append( "</ng-container>" );
+            Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }
 
         /// <summary>
@@ -134,7 +160,7 @@ namespace Util.Ui.Tests.Material.Tables {
         [Fact]
         public void TestType_Checkbox() {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
-            var items = new Dictionary<object, object> { { MaterialConst.TableId, "id" } };
+            var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
             var result = new String();
             result.Append( "<ng-container matColumnDef=\"selectCheckbox\">" );
             result.Append( "<mat-header-cell *matHeaderCellDef=\"\">" );

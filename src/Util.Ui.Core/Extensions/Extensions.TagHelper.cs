@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Util.Ui.Extensions {
     /// <summary>

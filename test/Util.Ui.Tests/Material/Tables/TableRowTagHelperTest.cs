@@ -18,14 +18,14 @@ namespace Util.Ui.Tests.Material.Tables {
         /// <summary>
         /// 表格行
         /// </summary>
-        private readonly TableRowTagHelper _component;
+        private readonly RowTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public TableRowTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new TableRowTagHelper();
+            _component = new RowTagHelper();
         }
 
         /// <summary>
@@ -67,11 +67,25 @@ namespace Util.Ui.Tests.Material.Tables {
         /// </summary>
         [Fact]
         public void TestColumns() {
-            var attributes = new TagHelperAttributeList { { UiConst.Columns, "a" } };
+            var attributes = new TagHelperAttributeList { { UiConst.Columns, "['a','b']" } };
             var result = new String();
-            result.Append( "<mat-header-row *matHeaderRowDef=\"a\">" );
+            result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b']\">" );
             result.Append( "</mat-header-row>" );
-            result.Append( "<mat-row *matRowDef=\"let row;columns:a\" class=\"mat-row-hover\" matRipple=\"\">" );
+            result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\" matRipple=\"\">" );
+            result.Append( "</mat-row>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试添加列
+        /// </summary>
+        [Fact]
+        public void TestColumns_2() {
+            var attributes = new TagHelperAttributeList { { UiConst.Columns, "'a','b'" } };
+            var result = new String();
+            result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b']\">" );
+            result.Append( "</mat-header-row>" );
+            result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\" matRipple=\"\">" );
             result.Append( "</mat-row>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

@@ -7,19 +7,19 @@ using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tables.Renders {
     /// <summary>
-    /// 表格行渲染器
+    /// 行渲染器
     /// </summary>
-    public class TableRowRender : RenderBase {
+    public class RowRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化表格行渲染器
+        /// 初始化行渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableRowRender( IConfig config ) : base( config ) {
+        public RowRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -37,7 +37,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 渲染行头
         /// </summary>
         private void RenderHeaderRow( TextWriter writer, HtmlEncoder encoder ) {
-            var headerRowBuilder = new TableHeaderRowBuilder();
+            var headerRowBuilder = new HeaderRowBuilder();
             headerRowBuilder.AddColumns( _config.GetValue( UiConst.Columns ) );
             headerRowBuilder.WriteTo( writer, encoder );
         }
@@ -53,7 +53,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new TableRowBuilder();
+            var builder = new RowBuilder();
             Config( builder );
             return builder;
         }
@@ -61,7 +61,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private void Config( TableRowBuilder builder ) {
+        private void Config( RowBuilder builder ) {
             ConfigId( builder );
             ConfigColumns( builder );
         }
@@ -69,7 +69,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// <summary>
         /// 配置列集合
         /// </summary>
-        private void ConfigColumns( TableRowBuilder builder ) {
+        private void ConfigColumns( RowBuilder builder ) {
             if( _config.Contains( UiConst.Columns ) )
                 builder.AddColumns( _config.GetValue( UiConst.Columns ) );
         }

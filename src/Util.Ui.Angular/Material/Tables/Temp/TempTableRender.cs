@@ -57,7 +57,7 @@ namespace Util.Ui.Material.Tables.Temp {
             if( _config.Columns == null || _config.Columns.Count == 0 )
                 return;
             var columns = Util.Helpers.Json.ToJson( _config.Columns, true );
-            var headerRowBuilder = new TableHeaderRowBuilder();
+            var headerRowBuilder = new HeaderRowBuilder();
             headerRowBuilder.AddColumns( columns );
             tableBuilder.AppendContent( headerRowBuilder );
         }
@@ -66,7 +66,7 @@ namespace Util.Ui.Material.Tables.Temp {
         /// 添加行头
         /// </summary>
         protected override void AddHeaderRow( TagBuilder tableBuilder, string columns ) {
-            var headerRowBuilder = new TableHeaderRowBuilder();
+            var headerRowBuilder = new HeaderRowBuilder();
             headerRowBuilder.AddColumns( columns );
             headerRowBuilder.AddAttribute( "style", "display: none" );
             tableBuilder.AppendContent( headerRowBuilder );

@@ -5,19 +5,19 @@ using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tables.Renders {
     /// <summary>
-    /// 表格列头渲染器
+    /// 列头渲染器
     /// </summary>
-    public class TableHeaderCellRender : RenderBase {
+    public class HeaderCellRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化表格列头渲染器
+        /// 初始化列头渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableHeaderCellRender( IConfig config ) : base( config ) {
+        public HeaderCellRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -25,7 +25,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new TableHeaderCellBuilder();
+            var builder = new HeaderCellBuilder();
             Config( builder );
             return builder;
         }

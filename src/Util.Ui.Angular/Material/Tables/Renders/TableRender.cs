@@ -47,6 +47,8 @@ namespace Util.Ui.Material.Tables.Renders {
             ConfigQueryParam( builder );
             ConfigUrl( builder );
             ConfigSize( builder );
+            ConfigAutoLoad( builder );
+            ConfigPageSizeOptions( builder );
         }
 
         /// <summary>
@@ -68,6 +70,8 @@ namespace Util.Ui.Material.Tables.Renders {
         /// </summary>
         private void ConfigUrl( TagBuilder builder ) {
             builder.AddAttribute( "baseUrl", _config.GetValue( UiConst.BaseUrl ) );
+            builder.AddAttribute( "url", _config.GetValue( UiConst.Url ) );
+            builder.AddAttribute( "deleteUrl", _config.GetValue( UiConst.DeleteUrl ) );
         }
 
         /// <summary>
@@ -75,6 +79,27 @@ namespace Util.Ui.Material.Tables.Renders {
         /// </summary>
         private void ConfigSize( TagBuilder builder ) {
             builder.AddAttribute( "maxHeight", _config.GetValue( UiConst.MaxHeight ) );
+            builder.AddAttribute( "minHeight", _config.GetValue( UiConst.MinHeight ) );
+            builder.AddAttribute( "width", _config.GetValue( UiConst.Width ) );
+        }
+
+        /// <summary>
+        /// 配置自动加载
+        /// </summary>
+        private void ConfigAutoLoad( TagBuilder builder ) {
+            builder.AddAttribute( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
+        }
+
+        /// <summary>
+        /// 配置分页长度列表
+        /// </summary>
+        private void ConfigPageSizeOptions( TagBuilder builder ) {
+            var value = _config.GetValue( UiConst.PageSizeOptions );
+            if ( string.IsNullOrWhiteSpace( value ) )
+                return;
+            if ( value.StartsWith( "[" ) == false )
+                value = $"[{value}]";
+            builder.AddAttribute( "[pageSizeItems]", value );
         }
 
         /// <summary>
@@ -112,7 +137,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 配置行
         /// </summary>
         protected virtual void ConfigRow( TagBuilder tableBuilder ) {
-            if ( _config.Columns == null || _config.Columns.Count == 0 )
+            if ( _config.Columns.Count == 0 || _config.AutoCreateRow == false )
                 return;
             var columns = Util.Helpers.Json.ToJson( _config.Columns,true );
             AddHeaderRow( tableBuilder, columns );
@@ -123,7 +148,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 添加行头
         /// </summary>
         protected virtual void AddHeaderRow( TagBuilder tableBuilder, string columns ) {
-            var headerRowBuilder = new TableHeaderRowBuilder();
+            var headerRowBuilder = new HeaderRowBuilder();
             headerRowBuilder.AddColumns( columns );
             tableBuilder.AppendContent( headerRowBuilder );
         }
@@ -132,7 +157,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 添加行
         /// </summary>
         protected void AddRow( TagBuilder tableBuilder, string columns ) {
-            var rowBuilder = new TableRowBuilder();
+            var rowBuilder = new RowBuilder();
             rowBuilder.AddColumns( columns );
             tableBuilder.AppendContent( rowBuilder );
         }

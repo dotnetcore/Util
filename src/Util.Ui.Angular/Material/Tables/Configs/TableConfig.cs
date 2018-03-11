@@ -16,13 +16,23 @@ namespace Util.Ui.Material.Tables.Configs {
         }
 
         /// <summary>
+        /// 表格共享键
+        /// </summary>
+        public const string TableShareKey = "TableShare";
+
+        /// <summary>
         /// 表格标识
         /// </summary>
-        public string Id => Context.GetValueFromItems<string>( MaterialConst.TableId );
+        public string Id => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).TableId;
 
         /// <summary>
         /// 列集合
         /// </summary>
-        public List<string> Columns => Context.GetValueFromItems<List<string>>( UiConst.Columns );
+        public List<string> Columns => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).Columns;
+
+        /// <summary>
+        /// 是否自动创建行
+        /// </summary>
+        public bool AutoCreateRow => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).AutoCreateRow;
     }
 }

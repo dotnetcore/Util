@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -6,30 +6,39 @@ using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Tables.Builders;
 using Util.Ui.Material.Tables.Configs;
-using Util.Ui.Material.Tables.Resolvers;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tables.Renders {
     /// <summary>
-    /// 表格列渲染器
+    /// 列渲染器
     /// </summary>
-    public class TableColumnRender : RenderBase {
+    public class ColumnRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly TableColumnConfig _config;
+        private readonly ColumnConfig _config;
         /// <summary>
         /// 表格标识
         /// </summary>
         private readonly string _tableId;
+        /// <summary>
+        /// 是否自动创建列头
+        /// </summary>
+        private readonly bool _autoCreateHeaderCell;
+        /// <summary>
+        /// 是否自动创建单元格
+        /// </summary>
+        private readonly bool _autoCreateCell;
 
         /// <summary>
-        /// 初始化表格列渲染器
+        /// 初始化列渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableColumnRender( TableColumnConfig config ) : base( config ) {
+        public ColumnRender( ColumnConfig config ) : base( config ) {
             _config = config;
             _tableId = config.TableId;
+            _autoCreateHeaderCell = config.AutoCreateHeaderCell();
+            _autoCreateCell = config.AutoCreateCell();
         }
 
         /// <summary>
@@ -91,7 +100,7 @@ namespace Util.Ui.Material.Tables.Renders {
             checkBoxBuilder.AddAttribute( "[disabled]", $"!{_tableId}.dataSource.data.length" );
             checkBoxBuilder.AddAttribute( "[checked]", $"{_tableId}.isMasterChecked()" );
             checkBoxBuilder.AddAttribute( "[indeterminate]", $"{_tableId}.isMasterIndeterminate()" );
-            var headerCellBuilder = new TableHeaderCellBuilder();
+            var headerCellBuilder = new HeaderCellBuilder();
             headerCellBuilder.AppendContent( checkBoxBuilder );
             builder.AppendContent( headerCellBuilder );
         }
@@ -104,7 +113,7 @@ namespace Util.Ui.Material.Tables.Renders {
             checkBoxBuilder.AddAttribute( "(click)", "$event.stopPropagation()" );
             checkBoxBuilder.AddAttribute( "(change)", $"$event?{_tableId}.selection.toggle(row):null" );
             checkBoxBuilder.AddAttribute( "[checked]", $"{_tableId}.selection.isSelected(row)" );
-            var cellBuilder = new TableCellBuilder();
+            var cellBuilder = new CellBuilder();
             cellBuilder.AppendContent( checkBoxBuilder );
             builder.AppendContent( cellBuilder );
         }
@@ -115,7 +124,9 @@ namespace Util.Ui.Material.Tables.Renders {
         private void ConfigHeader( TagBuilder builder ) {
             if( _config.Contains( UiConst.Title ) == false )
                 return;
-            var headerCellBuilder = new TableHeaderCellBuilder();
+            if( _autoCreateHeaderCell == false )
+                return;
+            var headerCellBuilder = new HeaderCellBuilder();
             ConfigTitle( headerCellBuilder );
             ConfigSort( headerCellBuilder );
             builder.AppendContent( headerCellBuilder );
@@ -153,9 +164,9 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 添加单元格配置
         /// </summary>
         private void AddCell( TagBuilder builder ) {
-            if( _config.AutoCreateCell() == false )
+            if( _autoCreateCell == false )
                 return;
-            var cellBuilder = new TableCellBuilder();
+            var cellBuilder = new CellBuilder();
             cellBuilder.AppendContent( $"{{{{ row.{_config.GetValue( UiConst.Column )} }}}}" );
             builder.AppendContent( cellBuilder );
         }

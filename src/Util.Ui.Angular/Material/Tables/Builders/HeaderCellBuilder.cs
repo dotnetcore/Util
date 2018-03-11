@@ -2,13 +2,13 @@
 
 namespace Util.Ui.Material.Tables.Builders {
     /// <summary>
-    /// Material表格列头生成器
+    /// Material列头生成器
     /// </summary>
-    public class TableHeaderCellBuilder : TagBuilder {
+    public class HeaderCellBuilder : TagBuilder {
         /// <summary>
-        /// 初始化表格列头生成器
+        /// 初始化列头生成器
         /// </summary>
-        public TableHeaderCellBuilder() : base( "mat-header-cell" ) {
+        public HeaderCellBuilder() : base( "mat-header-cell" ) {
             AddAttribute( "*matHeaderCellDef" );
         }
     }

@@ -42,7 +42,7 @@ function createMatPaginatorIntl() {
                 <mat-spinner></mat-spinner>
             </div>
             <ng-content></ng-content>
-            <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeItems"></mat-paginator>
+            <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
         </div>
     `,
     styles: [`
@@ -90,7 +90,11 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      */
     private dataSource: MatTableDataSource<T>;
     /**
-     * 是否自动加载，默认在初始化时自动加载数据，设置成false则手工加载
+     * 选中列表
+     */
+    private selection = new SelectionModel<T>(true, []);
+    /**
+     * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
      */
     @Input() autoLoad: boolean;
     /**
@@ -102,25 +106,25 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      */
     @Input() minHeight: number;
     /**
-     * 最小宽度
-     */
-    @Input() minWidth: number;
-    /**
      * 宽度
      */
     @Input() width: number;
     /**
      * 分页长度列表
      */
-    @Input() pageSizeItems: number[];
+    @Input() pageSizeOptions: number[];
     /**
-    * 基地址，基于该地址构建请求和删除地址，范例：传入test,则请求地址为/api/test,删除地址为/api/test/delete
+    * 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
     */
     @Input() baseUrl: string;
     /**
-     * 请求地址，如果设置了基地址baseUrl，则可以省略该参数
+     * 数据加载地址，范例：/api/test
      */
     @Input() url: string;
+    /**
+     * 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
+     */
+    @Input() deleteUrl: string;
     /**
      * 查询参数
      */
@@ -133,18 +137,13 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      * 分页组件
      */
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    /**
-     * 选中列表
-     */
-    selection = new SelectionModel<T>(true, []);
 
     /**
      * 初始化Mat表格包装器
      */
     constructor() {
         this.minHeight = 300;
-        this.minWidth = 300;
-        this.pageSizeItems = [10, 20, 50, 100, 200];
+        this.pageSizeOptions = [10, 20, 50, 100];
         this.dataSource = new MatTableDataSource<T>();
         this.loading = false;
         this.autoLoad = true;
@@ -199,8 +198,8 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      */
     init() {
         this.queryParam.page = 1;
-        if (this.pageSizeItems && this.pageSizeItems.length > 0)
-            this.queryParam.pageSize = this.pageSizeItems[0];
+        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
+            this.queryParam.pageSize = this.pageSizeOptions[0];
         this.query();
     }
 
@@ -240,7 +239,6 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     private getStyle() {
         return {
             'max-height': this.maxHeight ? `${this.maxHeight}px` : null,
-            'min-width': this.minWidth ? `${this.minWidth}px` : null,
             'width': this.width ? `${this.width}px` : null
         };
     }
@@ -314,7 +312,11 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      * 发送删除请求
      */
     private deleteRequest(ids?: string, handler?: () => {}, deleteUrl?: string) {
-        deleteUrl = deleteUrl || `/api/${this.baseUrl}/delete`;
+        deleteUrl = deleteUrl || this.deleteUrl || (this.baseUrl && `/api/${this.baseUrl}/delete`);
+        if (!deleteUrl) {
+            console.log("表格deleteUrl未设置");
+            return;
+        }
         webapi.post(deleteUrl, ids).handle({
             handler: () => {
                 if (handler) {

@@ -18,14 +18,14 @@ namespace Util.Ui.Tests.Material.Tables {
         /// <summary>
         /// 表格单元格
         /// </summary>
-        private readonly TableCellTagHelper _component;
+        private readonly CellTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public TableCellTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new TableCellTagHelper();
+            _component = new CellTagHelper();
         }
 
         /// <summary>
