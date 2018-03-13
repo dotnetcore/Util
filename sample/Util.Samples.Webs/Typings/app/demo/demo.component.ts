@@ -4,7 +4,7 @@ import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, util }
 import {DialogComponent} from "./dialog.component"
 @Component({
     selector: 'demo',
-    templateUrl: '/Home/List'
+    templateUrl: '/Home/demo'
 })
 export class DemoComponent extends ComponentBase implements OnInit {
     queryParam: CustomerQueryModel;

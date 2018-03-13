@@ -80,11 +80,3 @@
 .mat-form-field {
     width: 100%;
 }
-//修复自定义表单组件宽度
-.util-form-field {
-    width: 100%;
-}
-//重置栅格内容左对齐
-.mat-grid-tile .mat-figure {
-    justify-content: flex-start;
-}

@@ -6,7 +6,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Grids.TagHelpers {
     /// <summary>
-    /// 栅格列
+    /// 网格列
     /// </summary>
     [HtmlTargetElement( "util-grid-column" )]
     public class GridColumnTagHelper : TagHelperBase {
@@ -14,14 +14,6 @@ namespace Util.Ui.Material.Grids.TagHelpers {
         /// 合并列
         /// </summary>
         public int Colspan { get; set; }
-        /// <summary>
-        /// 左边占位合并列
-        /// </summary>
-        public int BeforeColspan { get; set; }
-        /// <summary>
-        /// 右边占位合并列
-        /// </summary>
-        public int AfterColspan { get; set; }
         /// <summary>
         /// 合并行
         /// </summary>

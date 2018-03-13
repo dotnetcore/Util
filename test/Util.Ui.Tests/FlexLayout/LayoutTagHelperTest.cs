@@ -1,32 +1,32 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Material;
-using Util.Ui.Material.Grids.TagHelpers;
+using Util.Ui.FlexLayout.Enums;
+using Util.Ui.FlexLayout.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
-namespace Util.Ui.Tests.Material.Grids {
+namespace Util.Ui.Tests.FlexLayout {
     /// <summary>
-    /// 网格测试
+    /// 浮动布局测试
     /// </summary>
-    public class GridTagHelperTest {
+    public class LayoutTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 网格
+        /// 浮动布局
         /// </summary>
-        private readonly GridTagHelper _component;
+        private readonly LayoutTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public GridTagHelperTest( ITestOutputHelper output ) {
+        public LayoutTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new GridTagHelper();
+            _component = new LayoutTagHelper();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Util.Ui.Tests.Material.Grids {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<mat-grid-list></mat-grid-list>" );
+            result.Append( "<div fxLayout=\"row\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -53,62 +53,73 @@ namespace Util.Ui.Tests.Material.Grids {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<mat-grid-list #a=\"\"></mat-grid-list>" );
+            result.Append( "<div #a=\"\" fxLayout=\"row\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试列数
+        /// 测试布局方向
         /// </summary>
         [Fact]
-        public void TestColumns() {
-            var attributes = new TagHelperAttributeList { { UiConst.Columns, 2 } };
+        public void TestDirection() {
+            var attributes = new TagHelperAttributeList { { UiConst.Direction, LayoutDirection.Column } };
             var result = new String();
-            result.Append( "<mat-grid-list cols=\"2\"></mat-grid-list>" );
+            result.Append( "<div fxLayout=\"column\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试行高
+        /// 测试布局方向
         /// </summary>
         [Fact]
-        public void TestRowHeight() {
-            var attributes = new TagHelperAttributeList { { UiConst.RowHeight, "2" } };
+        public void TestDirection_Xs() {
+            var attributes = new TagHelperAttributeList { { $"{UiConst.Direction}-xs", LayoutDirection.Column } };
             var result = new String();
-            result.Append( "<mat-grid-list rowHeight=\"2px\"></mat-grid-list>" );
+            result.Append( "<div fxLayout.xs=\"column\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试行高
+        /// 测试X轴水平对齐方式
         /// </summary>
         [Fact]
-        public void TestRowHeight_2() {
-            var attributes = new TagHelperAttributeList { { UiConst.RowHeight, "2em" } };
+        public void TestXAlign() {
+            var attributes = new TagHelperAttributeList { { UiConst.XAlign, XAlign.End } };
             var result = new String();
-            result.Append( "<mat-grid-list rowHeight=\"2em\"></mat-grid-list>" );
+            result.Append( "<div fxLayout=\"row\" fxLayoutAlign=\"end start\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试单元格间距
+        /// 测试Y轴水平对齐方式
         /// </summary>
         [Fact]
-        public void TestGutterSize() {
-            var attributes = new TagHelperAttributeList { { MaterialConst.GutterSize, "2" } };
+        public void TestYAlign() {
+            var attributes = new TagHelperAttributeList { { UiConst.YAlign, YAlign.End } };
             var result = new String();
-            result.Append( "<mat-grid-list gutterSize=\"2px\"></mat-grid-list>" );
+            result.Append( "<div fxLayout=\"row\" fxLayoutAlign=\"start end\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试单元格间距
+        /// 测试单元格间隙
         /// </summary>
         [Fact]
-        public void TestGutterSize_2() {
-            var attributes = new TagHelperAttributeList { { MaterialConst.GutterSize, "2em" } };
+        public void TestGap() {
+            var attributes = new TagHelperAttributeList { { UiConst.Gap, "a" } };
             var result = new String();
-            result.Append( "<mat-grid-list gutterSize=\"2em\"></mat-grid-list>" );
+            result.Append( "<div fxLayout=\"row\" fxLayoutGap=\"a\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试单元格间隙 - 添加默认单位
+        /// </summary>
+        [Fact]
+        public void TestGap_Unit() {
+            var attributes = new TagHelperAttributeList { { UiConst.Gap, "1" } };
+            var result = new String();
+            result.Append( "<div fxLayout=\"row\" fxLayoutGap=\"1px\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

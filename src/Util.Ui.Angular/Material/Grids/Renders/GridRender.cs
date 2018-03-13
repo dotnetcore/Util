@@ -5,7 +5,7 @@ using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Grids.Renders {
     /// <summary>
-    /// 栅格渲染器
+    /// 网格渲染器
     /// </summary>
     public class GridRender : RenderBase {
         /// <summary>
@@ -14,7 +14,7 @@ namespace Util.Ui.Material.Grids.Renders {
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化栅格渲染器
+        /// 初始化网格渲染器
         /// </summary>
         /// <param name="config">配置</param>
         public GridRender( IConfig config ) : base( config ) {

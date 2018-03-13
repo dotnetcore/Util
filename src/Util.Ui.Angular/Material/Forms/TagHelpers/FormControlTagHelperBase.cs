@@ -88,17 +88,5 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 键盘按下事件处理函数,范例：handle()
         /// </summary>
         public string OnKeydown { get; set; }
-        /// <summary>
-        /// 栅格合并列
-        /// </summary>
-        public int Colspan { get; set; }
-        /// <summary>
-        /// 栅格左边占位合并列
-        /// </summary>
-        public int BeforeColspan { get; set; }
-        /// <summary>
-        /// 栅格右边占位合并列
-        /// </summary>
-        public int AfterColspan { get; set; }
     }
 }

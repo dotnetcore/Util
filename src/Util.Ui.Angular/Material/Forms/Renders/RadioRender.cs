@@ -1,13 +1,10 @@
-﻿using System.IO;
-using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Resolvers;
-using Util.Ui.Material.Grids.Builders;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Forms.Renders {
@@ -26,53 +23,6 @@ namespace Util.Ui.Material.Forms.Renders {
         /// <param name="config">配置</param>
         public RadioRender( SelectConfig config ) : base( config ) {
             _config = config;
-        }
-
-        /// <summary>
-        /// 渲染
-        /// </summary>
-        /// <param name="writer">流写入器</param>
-        /// <param name="encoder">编码</param>
-        public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
-            RenderBeforeColumn( writer, encoder );
-            RenderFormControl( writer, encoder );
-            RenderAfterColumn( writer, encoder );
-        }
-
-        /// <summary>
-        /// 渲染左侧占位列
-        /// </summary>
-        private void RenderBeforeColumn( TextWriter writer, HtmlEncoder encoder ) {
-            if( _config.Contains( UiConst.BeforeColspan ) == false )
-                return;
-            var builder = new GridColumnBuilder();
-            builder.AddColspan( _config, UiConst.BeforeColspan );
-            builder.WriteTo( writer, encoder );
-        }
-
-        /// <summary>
-        /// 渲染表单控件
-        /// </summary>
-        private void RenderFormControl( TextWriter writer, HtmlEncoder encoder ) {
-            if( _config.Contains( UiConst.Colspan ) == false ) {
-                Builder.WriteTo( writer, encoder );
-                return;
-            }
-            var columnBuilder = new GridColumnBuilder();
-            columnBuilder.AddColspan( _config, UiConst.Colspan );
-            columnBuilder.SetContent( Builder );
-            columnBuilder.WriteTo( writer, encoder );
-        }
-
-        /// <summary>
-        /// 渲染右侧占位列
-        /// </summary>
-        private void RenderAfterColumn( TextWriter writer, HtmlEncoder encoder ) {
-            if( _config.Contains( UiConst.AfterColspan ) == false )
-                return;
-            var builder = new GridColumnBuilder();
-            builder.AddColspan( _config, UiConst.AfterColspan );
-            builder.WriteTo( writer, encoder );
         }
 
         /// <summary>

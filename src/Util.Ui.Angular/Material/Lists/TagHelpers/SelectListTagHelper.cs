@@ -2,7 +2,6 @@
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
-using Util.Ui.Material.Internal;
 using Util.Ui.Material.Lists.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -45,18 +44,6 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// 变更事件
         /// </summary>
         public string OnChange { get; set; }
-        /// <summary>
-        /// 栅格合并列
-        /// </summary>
-        public int Colspan { get; set; }
-        /// <summary>
-        /// 栅格左边占位合并列
-        /// </summary>
-        public int BeforeColspan { get; set; }
-        /// <summary>
-        /// 栅格右边占位合并列
-        /// </summary>
-        public int AfterColspan { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -64,7 +51,6 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
             var config = new SelectConfig( context );
-            Helper.SetColspan( config,context );
             if( config.Contains( UiConst.DataSource ) || config.Contains( UiConst.Url ) )
                 return new SelectListWrapperRender( config );
             return new SelectListRender( config );

@@ -34,10 +34,7 @@ import { toDate } from '../common/helper';
             <span *ngIf="suffixText" matSuffix>{{suffixText}}</span>            
             <mat-error *ngIf="controlModel?.hasError( 'required' )">{{requiredMessage}}</mat-error>
         </mat-form-field>
-    `,
-    host: {
-        'class': 'util-form-field',
-    }
+    `
 })
 export class DatePickerWrapperComponent extends FormControlWrapperBase {
     /**

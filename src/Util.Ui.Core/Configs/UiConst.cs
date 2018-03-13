@@ -335,5 +335,41 @@
         /// 分页长度列表
         /// </summary>
         public const string PageSizeOptions = "page-size-options";
+        /// <summary>
+        /// 方向
+        /// </summary>
+        public const string Direction = "direction";
+        /// <summary>
+        /// X轴水平对齐方式
+        /// </summary>
+        public const string XAlign = "x-align";
+        /// <summary>
+        /// Y轴垂直对齐方式
+        /// </summary>
+        public const string YAlign = "y-align";
+        /// <summary>
+        /// 间隙
+        /// </summary>
+        public const string Gap = "gap";
+        /// <summary>
+        /// 弹性
+        /// </summary>
+        public const string Flex = "flex";
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public const string Order = "order";
+        /// <summary>
+        /// 偏移
+        /// </summary>
+        public const string Offset = "offset";
+        /// <summary>
+        /// 填充
+        /// </summary>
+        public const string Fill = "fill";
+        /// <summary>
+        /// 换行
+        /// </summary>
+        public const string Wrap = "wrap";
     }
 }

@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Util.Helpers;
-using Util.Ui.Configs;
 using Util.Ui.Material.Extensions;
 using Util.Ui.Material.Internal;
 
@@ -17,8 +16,7 @@ namespace Util.Ui.Material.Forms.Models {
         /// 初始化模型单选框
         /// </summary>
         /// <param name="expression">属性表达式</param>
-        /// <param name="gridConfig">栅格配置</param>
-        public ModelRadio( Expression<Func<TModel, TProperty>> expression, IConfig gridConfig = null ) : base( gridConfig ) {
+        public ModelRadio( Expression<Func<TModel, TProperty>> expression ) {
             if( expression == null )
                 return;
             _expression = expression;

@@ -8,7 +8,7 @@ using String = Util.Helpers.String;
 
 namespace Util.Ui.Tests.Material.Grids {
     /// <summary>
-    /// 栅格列测试
+    /// 网格列测试
     /// </summary>
     public class GridColumnTagHelperTest {
         /// <summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.Tests.Material.Grids {
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 栅格列
+        /// 网格列
         /// </summary>
         private readonly GridColumnTagHelper _component;
 
@@ -64,28 +64,6 @@ namespace Util.Ui.Tests.Material.Grids {
             var attributes = new TagHelperAttributeList { { UiConst.Colspan, 2 } };
             var result = new String();
             result.Append( "<mat-grid-tile colspan=\"2\"></mat-grid-tile>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试用于左边占位的合并列
-        /// </summary>
-        [Fact]
-        public void TestBeforeColspan() {
-            var attributes = new TagHelperAttributeList { { UiConst.BeforeColspan, 2 } };
-            var result = new String();
-            result.Append( "<mat-grid-tile colspan=\"2\"></mat-grid-tile><mat-grid-tile></mat-grid-tile>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试用于右边占位的合并列
-        /// </summary>
-        [Fact]
-        public void TestAfterColspan() {
-            var attributes = new TagHelperAttributeList { { UiConst.AfterColspan, 2 } };
-            var result = new String();
-            result.Append( "<mat-grid-tile></mat-grid-tile><mat-grid-tile colspan=\"2\"></mat-grid-tile>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

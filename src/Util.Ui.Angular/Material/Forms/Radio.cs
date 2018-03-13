@@ -18,10 +18,8 @@ namespace Util.Ui.Material.Forms {
         /// <summary>
         /// 初始化单选框
         /// </summary>
-        /// <param name="gridConfig">栅格配置</param>
-        public Radio( IConfig gridConfig = null ) {
+        public Radio() {
             _config = new SelectConfig();
-            _config.AddColspan( gridConfig );
         }
 
         /// <summary>

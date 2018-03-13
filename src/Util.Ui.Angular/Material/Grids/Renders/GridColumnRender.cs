@@ -7,7 +7,7 @@ using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Grids.Renders {
     /// <summary>
-    /// 栅格列渲染器
+    /// 网格列渲染器
     /// </summary>
     public class GridColumnRender : RenderBase {
         /// <summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.Material.Grids.Renders {
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化栅格列渲染器
+        /// 初始化网格列渲染器
         /// </summary>
         /// <param name="config">配置</param>
         public GridColumnRender( IConfig config ) : base( config ) {
@@ -29,31 +29,7 @@ namespace Util.Ui.Material.Grids.Renders {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
-            RenderBeforeColumn( writer, encoder );
             Builder.WriteTo( writer, encoder );
-            RenderAfterColumn( writer, encoder );
-        }
-
-        /// <summary>
-        /// 渲染左侧占位列
-        /// </summary>
-        private void RenderBeforeColumn( TextWriter writer, HtmlEncoder encoder ) {
-            if ( _config.Contains( UiConst.BeforeColspan ) == false )
-                return;
-            var builder = new GridColumnBuilder();
-            builder.AddColspan( _config, UiConst.BeforeColspan );
-            builder.WriteTo( writer, encoder );
-        }
-
-        /// <summary>
-        /// 渲染右侧占位列
-        /// </summary>
-        private void RenderAfterColumn( TextWriter writer, HtmlEncoder encoder ) {
-            if( _config.Contains( UiConst.AfterColspan ) == false )
-                return;
-            var builder = new GridColumnBuilder();
-            builder.AddColspan( _config, UiConst.AfterColspan );
-            builder.WriteTo( writer, encoder );
         }
 
         /// <summary>

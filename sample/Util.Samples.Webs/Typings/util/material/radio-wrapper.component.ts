@@ -29,9 +29,6 @@ import { WebApi as webapi } from '../common/webapi';
             </mat-radio-group>
         </div>
     `,
-    host: {
-        'class': 'util-form-field',
-    },
     styles: [`
         .radio-layout-vertical {
             display: inline-flex;

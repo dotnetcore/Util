@@ -21,10 +21,7 @@ import { WebApi as webapi } from '../common/webapi';
                 {{ item.text }}
             </mat-list-option>
         </mat-selection-list>
-    `,
-    host: {
-        'class': 'util-form-field',
-    }
+    `
 })
 export class SelectListWrapperComponent implements OnInit, AfterViewInit {
     /**

@@ -30,7 +30,7 @@
     "event-source-polyfill": "0.0.12",
     "babel-polyfill": "6.26.0",
     "material-design-icons": "3.0.1",
-    "primeng": "5.2.1",
+    "primeng": "5.2.3",
     "moment": "2.21.0"
   },
   "devDependencies": {

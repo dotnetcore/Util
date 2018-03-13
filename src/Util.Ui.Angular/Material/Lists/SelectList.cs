@@ -18,10 +18,8 @@ namespace Util.Ui.Material.Lists {
         /// <summary>
         /// 初始化选择列表
         /// </summary>
-        /// <param name="gridConfig">栅格配置</param>
-        public SelectList( IConfig gridConfig = null ) {
+        public SelectList() {
             _config = new SelectConfig();
-            _config.AddColspan( gridConfig );
         }
 
         /// <summary>

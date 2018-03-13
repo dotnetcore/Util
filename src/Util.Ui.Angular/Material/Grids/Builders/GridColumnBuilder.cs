@@ -3,11 +3,11 @@ using Util.Ui.Configs;
 
 namespace Util.Ui.Material.Grids.Builders {
     /// <summary>
-    /// Mat栅格列生成器
+    /// Mat网格列生成器
     /// </summary>
     public class GridColumnBuilder : TagBuilder {
         /// <summary>
-        /// 初始化栅格列生成器
+        /// 初始化网格列生成器
         /// </summary>
         public GridColumnBuilder() : base( "mat-grid-tile" ) {
         }

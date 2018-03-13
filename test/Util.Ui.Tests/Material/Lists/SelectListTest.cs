@@ -171,46 +171,5 @@ namespace Util.Ui.Tests.Material.Lists {
             result.Append( "]\"></mat-select-list-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( (SelectList)_component.Enum<Gender>() ) );
         }
-
-        /// <summary>
-        /// 测试栅格合并列
-        /// </summary>
-        [Fact]
-        public void TestColspan() {
-            var result = new String();
-            result.Append( "<mat-grid-tile><mat-select-list-wrapper></mat-select-list-wrapper></mat-grid-tile>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Colspan() ) );
-        }
-
-        /// <summary>
-        /// 测试栅格合并列
-        /// </summary>
-        [Fact]
-        public void TestColspan_2() {
-            var result = new String();
-            result.Append( "<mat-grid-tile colspan=\"1\"><mat-select-list-wrapper></mat-select-list-wrapper></mat-grid-tile>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1 ) ) );
-        }
-
-        /// <summary>
-        /// 测试栅格合并列
-        /// </summary>
-        [Fact]
-        public void TestColspan_3() {
-            var result = new String();
-            result.Append( "<mat-grid-tile colspan=\"1\"><mat-select-list-wrapper></mat-select-list-wrapper></mat-grid-tile><mat-grid-tile colspan=\"1\"></mat-grid-tile>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1, 1 ) ) );
-        }
-
-        /// <summary>
-        /// 测试栅格合并列
-        /// </summary>
-        [Fact]
-        public void TestColspan_4() {
-            var result = new String();
-            result.Append( "<mat-grid-tile colspan=\"2\"></mat-grid-tile><mat-grid-tile colspan=\"1\"><mat-select-list-wrapper></mat-select-list-wrapper></mat-grid-tile>" );
-            result.Append( "<mat-grid-tile colspan=\"1\"></mat-grid-tile>" );
-            Assert.Equal( result.ToString(), GetResult( _component.Colspan( 1, 1, 2 ) ) );
-        }
     }
 }

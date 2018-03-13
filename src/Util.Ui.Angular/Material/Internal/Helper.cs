@@ -209,20 +209,5 @@ namespace Util.Ui.Material.Internal {
                 return;
             config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
         }
-
-        /// <summary>
-        /// 设置合并列
-        /// </summary>
-        public static void SetColspan( IConfig config, Context context ) {
-            var colspan = context.GetValueFromItems<int?>( UiConst.Colspan );
-            var beforeColspan = context.GetValueFromItems<int?>( UiConst.BeforeColspan );
-            var afterColspan = context.GetValueFromItems<int?>( UiConst.AfterColspan );
-            if( colspan != null )
-                config.SetAttribute( UiConst.Colspan,colspan,false );
-            if( beforeColspan != null )
-                config.SetAttribute( UiConst.BeforeColspan, beforeColspan, false );
-            if( afterColspan != null )
-                config.SetAttribute( UiConst.AfterColspan, afterColspan, false );
-        }
     }
 }

@@ -127,15 +127,5 @@ namespace Util.Ui.Extensions {
                 throw new NotSupportedException();
             return new TabNav( context.Helper.ViewContext.Writer );
         }
-
-        /// <summary>
-        /// 栅格
-        /// </summary>
-        /// <param name="service">组件服务</param>
-        public static IGrid<TModel> Grid<TModel>( this IUiService<TModel> service ) {
-            if( !( service is IContext<TModel> context ) )
-                throw new NotSupportedException();
-            return new Grid<TModel>( context.Helper.ViewContext.Writer );
-        }
     }
 }

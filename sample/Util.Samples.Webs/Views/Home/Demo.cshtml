@@ -3,37 +3,41 @@
     var x = Html.Ui();
 }
 
-<util-toolbar color="Primary">
-    <util-icon material-icon="Menu"></util-icon>
-    <span>工具栏</span>
-    <util-toolbar-fill-remain />
-    <util-icon material-icon="Code"></util-icon>
-</util-toolbar>
+<util-container>
+    <util-toolbar color="Primary">
+        <util-icon material-icon="Menu"></util-icon>
+        <span>工具栏</span>
+        <util-toolbar-fill-remain />
+        <util-icon material-icon="Code"></util-icon>
+    </util-toolbar>
 
-<util-form id="form" on-submit="onChange(form)">
-    <util-card>
-        <util-card-content>
-            <util-grid columns="8" row-height="60" colspan="3" after-colspan="5" >
-                <util-textbox for="Name"></util-textbox>
-                <util-select for="Nation"></util-select>
-                <util-radio for="IsGender"></util-radio>
-                <util-checkbox for="IsGender"></util-checkbox>
-                <util-slide-toggle for="IsGender"></util-slide-toggle>
-                <util-datepicker for="LastModificationTime" colspan="2"></util-datepicker>
-            </util-grid>
-            <util-grid columns="8" row-height="220" colspan="2" after-colspan="6">
-                <util-select-list url="/api/customers/test" label="测试" checkbox-position="Left"></util-select-list>
-            </util-grid>
-        </util-card-content>
-        <util-divider />
-        <util-card-actions align="Right">
-            @x.Button().Text( "我弹" ).OnClick( "onChange()" )
-            @x.Button().Text( "我关" ).OnClick( "onClose()" )
-            @x.Button().Reset()
-            @x.Button().Submit()
-        </util-card-actions>
-        <util-card-footer>
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </util-card-footer>
-    </util-card>
-</util-form>
+    <util-form id="form" on-submit="onChange(form)">
+        <util-card>
+            <util-card-content>
+                <util-layout gap="10px">
+                    <util-layout-item>
+                        <util-textbox for="Name"></util-textbox>
+                    </util-layout-item>
+                    <util-select for="Nation"></util-select>
+                    <util-datepicker for="LastModificationTime"></util-datepicker>
+                </util-layout>
+                <util-layout direction="Column" gap="20px">
+                    <util-radio for="IsGender"></util-radio>
+                    <util-checkbox for="IsGender"></util-checkbox>
+                    <util-slide-toggle for="IsGender"></util-slide-toggle>
+                    <util-select-list url="/api/customers/test" label="测试" checkbox-position="Left"></util-select-list>
+                </util-layout>
+            </util-card-content>
+            <util-divider />
+            <util-card-actions align="Right">
+                @x.Button().Text( "我弹" ).OnClick( "onChange()" )
+                @x.Button().Text( "我关" ).OnClick( "onClose()" )
+                @x.Button().Reset()
+                @x.Button().Submit()
+            </util-card-actions>
+            <util-card-footer>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </util-card-footer>
+        </util-card>
+    </util-form>
+</util-container>

@@ -46,9 +46,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            var config = new TextBoxConfig( context );
-            Helper.SetColspan( config, context );
-            return new TextBoxRender( config );
+            return new TextBoxRender( new TextBoxConfig( context ) );
         }
     }
 }
