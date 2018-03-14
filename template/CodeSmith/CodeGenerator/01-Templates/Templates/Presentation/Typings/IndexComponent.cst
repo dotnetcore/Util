@@ -1,0 +1,71 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+
+<%@ Assembly Src="..\..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
+
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="SchemaMapper" %>
+
+<%@ Property Name="Entity" Type="SchemaMapper.Entity"  %>
+<%@ Property Name="Namespace" Type="System.String" %>
+<%-- Safe类名 --%>
+<% string SafeClassName = Entity.ClassName.ToSafeName(); %>
+<%-- 描述 --%>
+<% string Description = Entity.Description; %>
+<%-- 驼峰形式类名 --%>
+<% string CamelClassName = SafeClassName.ToCamelCase(); %>
+import { Component, ViewChild, OnInit, Injector } from '@angular/core';
+import { ComponentBase,TableWrapperComponent } from '../../../util';
+import { <%=SafeClassName%>Query } from './<%=CamelClassName%>-query';
+import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
+
+/**
+ * <%=Description%>首页
+ */
+@Component({
+    selector: '<%=CamelClassName%>',
+    templateUrl: '/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
+})
+export class <%=SafeClassName%>IndexComponent extends ComponentBase implements OnInit {
+    /**
+     * 查询参数
+     */
+    private queryParam: <%=SafeClassName%>Query;
+    /**
+     * 表格组件
+     */
+    @ViewChild(TableWrapperComponent) private table: TableWrapperComponent<<%=SafeClassName%>ViewModel>;
+    
+    /**
+     * 初始化<%=Description%>首页
+     * @param injector 注入器
+     */
+    constructor(injector: Injector) {
+        super(injector);
+        this.queryParam = new <%=SafeClassName%>Query();
+    }
+    
+    /**
+     * 初始化
+     */
+    ngOnInit() {
+        this.query();
+    }
+    
+    /**
+     * 查询
+     */
+    query() {
+        this.table.query();
+    }
+    
+    /**
+     * 删除
+     */
+    delete() {
+        this.table.delete();
+    }
+}

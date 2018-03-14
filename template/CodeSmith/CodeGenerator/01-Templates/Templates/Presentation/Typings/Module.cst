@@ -1,0 +1,40 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+
+<%@ Assembly Src="..\..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
+
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="SchemaMapper" %>
+
+<%@ Property Name="Entity" Type="SchemaMapper.Entity"  %>
+<%@ Property Name="Namespace" Type="System.String" %>
+<%-- Safe类名 --%>
+<% string SafeClassName = Entity.ClassName.ToSafeName(); %>
+<%-- 描述 --%>
+<% string Description = Entity.Description; %>
+<%-- 驼峰形式类名 --%>
+<% string CamelClassName = SafeClassName.ToCamelCase(); %>
+import { NgModule } from '@angular/core';
+import { FrameworkModule } from "../framework.module";
+import { <%=Entity.TableSchema.ToSingular()%>RoutingModule } from "./<%=Entity.TableSchema.ToSingular().ToCamelCase()%>.routing.module";
+import { ApplicationIndexComponent } from "./<%=CamelClassName%>/<%=CamelClassName%>-index.component";
+
+/**
+ * <%=Namespace%>模块
+ */
+@NgModule({
+    declarations: [
+        <%=SafeClassName%>IndexComponent
+    ],
+    imports: [
+        FrameworkModule,<%=Entity.TableSchema.ToSingular()%>RoutingModule
+    ],
+    exports: [
+        ApplicationIndexComponent
+    ]
+})
+export class <%=Entity.TableSchema.ToSingular()%>Module {
+}

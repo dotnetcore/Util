@@ -448,7 +448,7 @@ namespace SchemaMapper
         }
 
         /// <summary>
-        /// 是否表单隐藏属性
+        /// 是否隐藏
         /// </summary>
         /// <param name="property">属性</param>
         public bool IsHidden(Property property) {
