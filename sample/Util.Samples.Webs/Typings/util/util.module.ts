@@ -23,8 +23,7 @@ import {
 } from '@angular/material';
 //PrimeNg模块
 import {
-    ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, ConfirmationService,
-    FileUploadModule, LightboxModule
+    ButtonModule, GrowlModule, MessageModule, MessagesModule, FileUploadModule, LightboxModule
 } from 'primeng/primeng';
 //Util组件
 import { UtilDateAdapter } from './material/local/date-adapter';
@@ -40,6 +39,7 @@ import { FileUploadComponent } from './prime/file-upload.component';
 import { SingleFileUploadComponent } from "./prime/single-file-upload.component";
 import { SelectListWrapperComponent } from './material/select-list-wrapper.component';
 import { DialogWrapperComponent } from './material/dialog-wrapper.component';
+import { ConfirmComponent } from './material/confirm.component';
 //Util管道
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 /**
@@ -55,12 +55,12 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatListModule, MatDialogModule, 
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule
+        ButtonModule, GrowlModule, MessageModule, MessagesModule, FileUploadModule, LightboxModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
-        DialogWrapperComponent,
+        DialogWrapperComponent, ConfirmComponent,
         SafeUrlPipe,
         FileUploadComponent, SingleFileUploadComponent
     ],
@@ -73,17 +73,17 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatListModule, MatDialogModule, 
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        ButtonModule, GrowlModule, MessageModule, MessagesModule, ConfirmDialogModule, FileUploadModule, LightboxModule,
+        ButtonModule, GrowlModule, MessageModule, MessagesModule, FileUploadModule, LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         SafeUrlPipe,
         FileUploadComponent, SingleFileUploadComponent
     ],
     entryComponents: [
-        DialogWrapperComponent
+        DialogWrapperComponent, ConfirmComponent
     ],
     providers: [
-        MessageService, ConfirmationService, MAT_DATE_LOCALE_PROVIDER,
+        MessageService, MAT_DATE_LOCALE_PROVIDER,
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
         { provide: DateAdapter, useClass: UtilDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }

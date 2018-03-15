@@ -68,7 +68,10 @@ public string PropertyExpression(Property property)
     bool isByteArray = property.SystemType == typeof(byte[]);
     bool isDecimal = property.SystemType == typeof(Decimal);
     
-    if( property.IsKey == false )
+    if( property.ColumnName.ToLower() == "isdeleted" )
+        return "            builder.HasQueryFilter( t => t.IsDeleted == false );\r\n";
+    
+    if( property.IsKey == false  )
         return string.Empty;
     
     if( property.ColumnName.ToLower() == "version" && isByteArray )
@@ -90,7 +93,7 @@ public string PropertyExpression(Property property)
     sb.Append(".HasColumnName(\"");
     sb.Append(property.ColumnName);
     sb.Append("\")");
-
+    
     if (property.IsIdentity == true)
     {
       sb.AppendLine();

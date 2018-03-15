@@ -143,8 +143,14 @@
 <%@ Register Name="IndexViewClass"
              Template="Templates\Presentation\Views\IndexView.cst"
              MergeProperties="False" %>
+<%@ Register Name="EditViewClass"
+             Template="Templates\Presentation\Views\EditView.cst"
+             MergeProperties="False" %>
 <%@ Register Name="IndexComponentClass"
              Template="Templates\Presentation\Typings\IndexComponent.cst"
+             MergeProperties="False" %>
+<%@ Register Name="EditComponentClass"
+             Template="Templates\Presentation\Typings\EditComponent.cst"
              MergeProperties="False" %>
 <%@ Register Name="ModuleClass"
              Template="Templates\Presentation\Typings\Module.cst"
@@ -247,8 +253,12 @@
         CreateController( context );
         //创建Index视图
         CreateIndexView( context );
+        //创建Edit视图
+        CreateEditView( context );
         //创建Index组件
         CreateIndexComponent( context );
+        //创建Edit组件
+        CreateEditComponent( context );
         //创建angular模块
         CreateModule( context );
         //创建angular路由
@@ -675,6 +685,21 @@
         }
     }
     
+    //创建Edit视图
+    public void CreateEditView(EntityContext entityContext)
+    {
+        EditViewClass result = this.Create<EditViewClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = "Edit";
+            result.Entity = entity;
+            result.Namespace = GetSchema(entity).ToLower();
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Areas\\{0}\\Views\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
+        }
+    }
+    
     //创建Index组件
     public void CreateIndexComponent(EntityContext entityContext)
     {
@@ -684,6 +709,21 @@
         foreach(Entity entity in entityContext.Entities)
         {
             string className = string.Format("{0}-index.component",entity.ClassName.ToCamelCase());
+            result.Entity = entity;
+            result.Namespace = GetSchema(entity).ToLower();
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
+        }
+    }
+    
+    //创建Edit组件
+    public void CreateEditComponent(EntityContext entityContext)
+    {
+        EditComponentClass result = this.Create<EditComponentClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format("{0}-edit.component",entity.ClassName.ToCamelCase());
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);

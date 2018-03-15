@@ -4,8 +4,9 @@
 //================================================
 import { MatSnackBar } from '@angular/material';
 import { MessageService } from 'primeng/components/common/messageservice';
-import { ConfirmationService } from 'primeng/primeng';
 import { IocHelper as ioc } from '../angular/ioc-helper';
+import { Dialog } from '../common/dialog';
+import { ConfirmComponent } from '../material/confirm.component';
 
 /**
  * 消息操作
@@ -80,7 +81,6 @@ export class Message {
      */
     static confirm(message: string, ok?: () => void): void;
     static confirm(options, ok?): void {
-        let service = ioc.get(ConfirmationService);
         let message = "";
         let title = "";
         let cancel = () => { };
@@ -93,11 +93,18 @@ export class Message {
         else if (typeof options === "string") {
             message = options;
         }
-        service.confirm({
-            message: message,
-            accept: ok,
-            reject: cancel,
-            header: title || "确认"
+        Dialog.open({
+            dialogComponent: ConfirmComponent,
+            title: title || "提示",
+            autoFocus: false,
+            minWidth: "20em",
+            maxWidth: "40em",
+            disableClose:true,
+            data: {
+                content: message,
+                ok: ok,
+                cancel: cancel
+            }
         });
     }
 

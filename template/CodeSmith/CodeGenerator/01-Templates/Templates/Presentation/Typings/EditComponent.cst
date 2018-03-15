@@ -18,54 +18,28 @@
 <%-- 驼峰形式类名 --%>
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 import { Component, ViewChild, AfterViewInit, Injector } from '@angular/core';
-import { ComponentBase,TableWrapperComponent } from '../../../util';
-import { <%=SafeClassName%>Query } from './<%=CamelClassName%>-query';
+import { ComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
 
 /**
- * <%=Description%>首页
+ * <%=Description%>编辑页
  */
 @Component({
     selector: '<%=CamelClassName%>',
-    templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
+    templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
 })
-export class <%=SafeClassName%>IndexComponent extends ComponentBase implements AfterViewInit {
+export class <%=SafeClassName%>EditComponent extends ComponentBase implements AfterViewInit {    
     /**
-     * 查询参数
-     */
-    private queryParam: <%=SafeClassName%>Query;
-    /**
-     * 表格组件
-     */
-    @ViewChild(TableWrapperComponent) private table: TableWrapperComponent<<%=SafeClassName%>ViewModel>;
-    
-    /**
-     * 初始化<%=Description%>首页
+     * 初始化<%=Description%>编辑页
      * @param injector 注入器
      */
     constructor(injector: Injector) {
         super(injector);
-        this.queryParam = new <%=SafeClassName%>Query();
     }
     
     /**
      * 初始化
      */
     ngAfterViewInit() {
-        this.query();
-    }
-    
-    /**
-     * 查询
-     */
-    query() {
-        this.table.query();
-    }
-    
-    /**
-     * 删除
-     */
-    delete() {
-        this.table.delete();
     }
 }

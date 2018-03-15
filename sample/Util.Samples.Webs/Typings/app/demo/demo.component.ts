@@ -4,7 +4,7 @@ import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, util }
 import {DialogComponent} from "./dialog.component"
 @Component({
     selector: 'demo',
-    templateUrl: '/Home/list'
+    templateUrl: '/Home/demo'
 })
 export class DemoComponent extends ComponentBase implements OnInit {
     queryParam: CustomerQueryModel;
@@ -38,7 +38,12 @@ export class DemoComponent extends ComponentBase implements OnInit {
     }
 
     onClose() {
-        util.dialog.close("abc");
+        util.message.confirm({
+            message: "您确定删除选中的记录吗?",
+            ok: () => {
+                util.message.success("成功");
+            }
+        });
     }
 
     onSubmit(form: NgForm) {

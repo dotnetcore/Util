@@ -27,7 +27,14 @@ namespace <%= Namespace,Entity.TableSchema %>.Areas.<%= Schema %>.Controllers {
         /// <summary>
         /// 首页
         /// </summary>
-        public virtual ActionResult Index() {
+        public virtual IActionResult Index() {
+            return View();
+        }
+        
+        /// <summary>
+        /// 编辑页
+        /// </summary>
+        public virtual IActionResult Edit() {
             return View();
         }
     }
