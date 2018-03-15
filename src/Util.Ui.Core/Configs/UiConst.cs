@@ -371,5 +371,9 @@
         /// 换行
         /// </summary>
         public const string Wrap = "wrap";
+        /// <summary>
+        /// 日期格式化
+        /// </summary>
+        public const string DateFormat = "date-format";
     }
 }

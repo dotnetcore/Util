@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
+using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tables.Builders;
 using Util.Ui.Material.Tables.Configs;
 using Util.Ui.Renders;
@@ -167,8 +168,47 @@ namespace Util.Ui.Material.Tables.Renders {
             if( _autoCreateCell == false )
                 return;
             var cellBuilder = new CellBuilder();
-            cellBuilder.AppendContent( $"{{{{ row.{_config.GetValue( UiConst.Column )} }}}}" );
             builder.AppendContent( cellBuilder );
+            var type = _config.GetValue<TableColumnType?>( UiConst.Type );
+            var column = _config.GetValue( UiConst.Column );
+            switch( type ) {
+                case TableColumnType.Bool:
+                    AddBoolCell( cellBuilder, column );
+                    return;
+                case TableColumnType.Date:
+                    AddDateCell( cellBuilder, column );
+                    return;
+                default:
+                    AddDefaultCell( cellBuilder, column );
+                    return;
+            }
+        }
+
+        /// <summary>
+        /// 添加布尔类型单元格
+        /// </summary>
+        private void AddBoolCell( TagBuilder cellBuilder,string column ) {
+            var checkIconBuilder = new MaterialIconBuilder().SetContent( MaterialIcon.Check.Description() ).AddAttribute( "*ngIf", $"row.{column}" );
+            cellBuilder.AppendContent( checkIconBuilder );
+            var clearIconBuilder = new MaterialIconBuilder().SetContent( MaterialIcon.Clear.Description() ).AddAttribute( "*ngIf", $"!row.{column}" );
+            cellBuilder.AppendContent( clearIconBuilder );
+        }
+
+        /// <summary>
+        /// 添加日期类型单元格
+        /// </summary>
+        private void AddDateCell( TagBuilder cellBuilder, string column ) {
+            var format = _config.GetValue( UiConst.DateFormat );
+            if ( string.IsNullOrWhiteSpace( format ) )
+                format = "yyyy-MM-dd";
+            cellBuilder.AppendContent( $"{{{{ row.{column} | date:\"{format}\" }}}}" );
+        }
+
+        /// <summary>
+        /// 添加默认单元格
+        /// </summary>
+        private void AddDefaultCell( TagBuilder cellBuilder, string column ) {
+            cellBuilder.AppendContent( $"{{{{ row.{column} }}}}" );
         }
     }
 }

@@ -10,6 +10,14 @@
         /// <summary>
         /// 复选框
         /// </summary>
-        Checkbox
+        Checkbox,
+        /// <summary>
+        /// 布尔
+        /// </summary>
+        Bool,
+        /// <summary>
+        /// 日期
+        /// </summary>
+        Date
     }
 }

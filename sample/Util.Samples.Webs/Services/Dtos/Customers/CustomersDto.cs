@@ -54,7 +54,7 @@ namespace Donau.Services.Dtos.Customers {
         /// </summary>
         [Display( Name = "性别" )]
         [DataMember]
-        public bool IsGender { get; set; }
+        public bool IsGender { get; set; } = true;
 
         /// <summary>
         /// 年龄

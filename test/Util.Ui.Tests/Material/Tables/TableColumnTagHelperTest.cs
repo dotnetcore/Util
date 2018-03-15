@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Material;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tables.Configs;
 using Util.Ui.Material.Tables.TagHelpers;
@@ -177,6 +176,52 @@ namespace Util.Ui.Tests.Material.Tables {
             result.Append( "</mat-cell>" );
             result.Append( "</ng-container>" );
             Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
+        }
+
+        /// <summary>
+        /// 测试设置布尔类型
+        /// </summary>
+        [Fact]
+        public void TestType_Bool() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Bool }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<ng-container matColumnDef=\"a\">" );
+            result.Append( "<mat-cell *matCellDef=\"let row\">" );
+            result.Append( "<mat-icon *ngIf=\"row.a\">check</mat-icon>" );
+            result.Append( "<mat-icon *ngIf=\"!row.a\">clear</mat-icon>" );
+            result.Append( "</mat-cell>" );
+            result.Append( "</ng-container>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置日期类型
+        /// </summary>
+        [Fact]
+        public void TestType_Date() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<ng-container matColumnDef=\"a\">" );
+            result.Append( "<mat-cell *matCellDef=\"let row\">" );
+            result.Append( "{{ row.a | date:\"yyyy-MM-dd\" }}" );
+            result.Append( "</mat-cell>" );
+            result.Append( "</ng-container>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置日期类型 - 指定格式化字符串
+        /// </summary>
+        [Fact]
+        public void TestType_Date_Format() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.DateFormat, "a" }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<ng-container matColumnDef=\"a\">" );
+            result.Append( "<mat-cell *matCellDef=\"let row\">" );
+            result.Append( "{{ row.a | date:\"a\" }}" );
+            result.Append( "</mat-cell>" );
+            result.Append( "</ng-container>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
 }

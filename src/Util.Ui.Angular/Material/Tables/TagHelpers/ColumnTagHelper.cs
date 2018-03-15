@@ -44,6 +44,17 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// </summary>
         public TableColumnType Type { get; set; }
         /// <summary>
+        /// 日期格式化字符串，格式说明：
+        /// 1. 年 - yyyy
+        /// 2. 月 - MM
+        /// 3. 日 - dd
+        /// 4. 时 - HH
+        /// 5. 分 - mm
+        /// 6. 秒 - ss
+        /// 7. 毫秒 - SSS
+        /// </summary>
+        public string DateFormat { get; set; }
+        /// <summary>
         /// 启用排序
         /// </summary>
         public bool Sort { get; set; }
