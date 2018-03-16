@@ -673,6 +673,8 @@ namespace SchemaMapper
         {
             if (IsRequired == false)
                 return;
+            if (DataType == DbType.Boolean)
+                return;
             result.Add(string.Format("[Required(ErrorMessage = \"{0}不能为空\")]", Description));
         }
 

@@ -19,12 +19,12 @@
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 @model <%=SafeClassName%>Dto
 
-<util-form id="form" on-submit="onChange(form)">
+<util-form id="form" on-submit="submit(form)">
     <util-card>
         <util-card-header>
-            编辑应用程序
+            编辑<%=Description%>
         </util-card-header>
-        <util-card-content style="padding: 30px 0 0 50px;">
+        <util-card-content class="formContent">
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         <% if( Entity.IsHidden(p) ) continue; %>
@@ -38,8 +38,8 @@
         <% } %>
         </util-card-content>
         <util-card-actions align="Right">
-            <util-button type="Reset"></util-button>
-            <util-button type="Submit"></util-button>
+            <util-button text="返回" styles="Default" on-click="back()"></util-button>
+            <util-button type="Submit" color="Primary"></util-button>
         </util-card-actions>
     </util-card>
 </util-form>

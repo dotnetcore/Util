@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.FlexLayout.Enums;
 using Util.Ui.Renders;
 
@@ -35,6 +36,9 @@ namespace Util.Ui.FlexLayout.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
+            builder.Style( _config );
+            builder.Class( _config );
+            builder.AddOutputAttributes( _config );
             ConfigId( builder );
             ConfigDirection( builder );
             ConfigAlign( builder );

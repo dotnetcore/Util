@@ -112,8 +112,8 @@ namespace Util.Ui.Material.Tables.Renders {
         private void ConfigCheckboxCell( TagBuilder builder ) {
             var checkBoxBuilder = new CheckBoxBuilder();
             checkBoxBuilder.AddAttribute( "(click)", "$event.stopPropagation()" );
-            checkBoxBuilder.AddAttribute( "(change)", $"$event?{_tableId}.selection.toggle(row):null" );
-            checkBoxBuilder.AddAttribute( "[checked]", $"{_tableId}.selection.isSelected(row)" );
+            checkBoxBuilder.AddAttribute( "(change)", $"$event?{_tableId}.checkedSelection.toggle(row):null" );
+            checkBoxBuilder.AddAttribute( "[checked]", $"{_tableId}.checkedSelection.isSelected(row)" );
             var cellBuilder = new CellBuilder();
             cellBuilder.AppendContent( checkBoxBuilder );
             builder.AppendContent( cellBuilder );

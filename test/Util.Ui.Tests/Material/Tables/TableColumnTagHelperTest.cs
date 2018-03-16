@@ -170,9 +170,9 @@ namespace Util.Ui.Tests.Material.Tables {
             result.Append( "</mat-header-cell>" );
             result.Append( "<mat-cell *matCellDef=\"let row\">" );
             result.Append( "<mat-checkbox " );
-            result.Append( "(change)=\"$event?id.selection.toggle(row):null\" " );
+            result.Append( "(change)=\"$event?id.checkedSelection.toggle(row):null\" " );
             result.Append( "(click)=\"$event.stopPropagation()\" " );
-            result.Append( "[checked]=\"id.selection.isSelected(row)\"></mat-checkbox>" );
+            result.Append( "[checked]=\"id.checkedSelection.isSelected(row)\"></mat-checkbox>" );
             result.Append( "</mat-cell>" );
             result.Append( "</ng-container>" );
             Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );

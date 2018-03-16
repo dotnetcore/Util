@@ -33,11 +33,6 @@
 .mat-cell, .mat-header-cell {
     overflow: initial !important;
 }
-//mat表头
-.mat-table.tableHeader{
-    height:67px;
-    overflow:hidden;
-}
 //mat表格序号
 .mat-column-lineNumber {
     max-width: 48px;
@@ -55,9 +50,9 @@
         background: #eaeaea;
     }
 }
-//分页大小标签样式
-.mat-paginator-page-size-label{
-    width:30px
+//mat表格点击选中样式
+.mat-row.selected {
+    background: #f5f5f5;
 }
 //mat菜单font-awesome图标
 .mat-menu-item .fa {
@@ -79,4 +74,12 @@
 //修复表单组件宽度
 .mat-form-field {
     width: 100%;
+}
+//修复自定义表单组件宽度
+.util-form-field {
+    width: 100%;
+}
+//重置栅格内容左对齐
+.mat-grid-tile .mat-figure {
+    justify-content: flex-start;
 }

@@ -131,6 +131,16 @@ namespace Util.Ui.Tests.Material.Buttons {
         }
 
         /// <summary>
+        /// 测试路由链接地址
+        /// </summary>
+        [Fact]
+        public void TestBindLink() {
+            var result = new String();
+            result.Append( "<a mat-raised-button=\"\" [routerLink]=\"a\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BindLink( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试单击事件
         /// </summary>
         [Fact]

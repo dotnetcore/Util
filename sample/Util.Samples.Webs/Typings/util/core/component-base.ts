@@ -3,9 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { Injector } from '@angular/core';
-import { IocHelper as ioc } from '../angular/ioc-helper';
-import { RouterHelper as router } from "../angular/router-helper";
-import { Util } from '../util';
+import { util } from '../index';
 
 /**
  * 组件
@@ -16,18 +14,11 @@ export class ComponentBase {
      * @param injector 注入器
      */
     constructor(injector: Injector) {
-        ioc.componentInjector = injector;
+        util.ioc.componentInjector = injector;
     }
 
     /**
      * 操作库
      */
-    protected util =  Util;
-
-    /**
-     * 返回上一次视图
-     */
-    back(): void {
-        router.back();
-    }
+    protected util = util;
 }

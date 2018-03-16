@@ -28,5 +28,14 @@ namespace Util.Ui.Material.Tables.Builders {
                 return null;
             return columns.StartsWith( "[" ) ? columns : $"[{columns}]";
         }
+
+        /// <summary>
+        /// 添加选中样式
+        /// </summary>
+        /// <param name="tableId">表格标识</param>
+        public void AddSelected( string tableId ) {
+            AddAttribute( "[class.selected]", $"{tableId}.selectedSelection.isSelected(row)" );
+            AddAttribute( "(click)", $"{tableId}.selectedSelection.select(row)" );
+        }
     }
 }

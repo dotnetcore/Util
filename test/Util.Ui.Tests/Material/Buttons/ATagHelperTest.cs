@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.TagHelpers;
 using Util.Ui.Material.Enums;
@@ -120,6 +121,17 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { UiConst.Link, "a" } };
             var result = new String();
             result.Append( "<a mat-raised-button=\"\" routerLink=\"a\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试路由链接地址
+        /// </summary>
+        [Fact]
+        public void TestBindLink() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindLink, "a" } };
+            var result = new String();
+            result.Append( "<a mat-raised-button=\"\" [routerLink]=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

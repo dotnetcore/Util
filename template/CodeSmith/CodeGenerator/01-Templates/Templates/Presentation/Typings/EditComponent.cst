@@ -17,8 +17,8 @@
 <% string Description = Entity.Description; %>
 <%-- 驼峰形式类名 --%>
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
-import { Component, ViewChild, AfterViewInit, Injector } from '@angular/core';
-import { ComponentBase } from '../../../util';
+import { Component, Injector, OnInit } from '@angular/core';
+import { CrudEditComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
 
 /**
@@ -28,18 +28,20 @@ import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
     selector: '<%=CamelClassName%>',
     templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
 })
-export class <%=SafeClassName%>EditComponent extends ComponentBase implements AfterViewInit {    
+export class <%=SafeClassName%>EditComponent extends CrudEditComponentBase<<%=SafeClassName%>ViewModel> implements OnInit {
     /**
-     * 初始化<%=Description%>编辑页
+     * 初始化组件
      * @param injector 注入器
      */
     constructor(injector: Injector) {
         super(injector);
+        this.model = new <%=SafeClassName%>ViewModel();
     }
-    
+
     /**
-     * 初始化
+     * 获取基地址
      */
-    ngAfterViewInit() {
+    protected getBaseUrl() {
+        return "<%=CamelClassName%>";
     }
 }

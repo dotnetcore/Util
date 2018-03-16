@@ -16,7 +16,7 @@ namespace Util.Ui.TagHelpers {
             TagHelperContext = context;
             Output = output;
             AllAttributes = new TagHelperAttributeList( context.AllAttributes ) ;
-            OutputAttributes = output.Attributes;
+            OutputAttributes = new TagHelperAttributeList( output.Attributes ); 
             Content = content;
         }
 

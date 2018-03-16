@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, Input, ViewChild, ContentChild,AfterContentInit } from '@angular/core';
+import { Component, Input, ViewChild, ContentChild, AfterContentInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatPaginatorIntl, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WebApi as webapi } from '../common/webapi';
@@ -11,6 +11,7 @@ import { PagerList } from '../core/pager-list';
 import { ViewModel } from '../core/view-model';
 import { QueryParameter } from '../core/query-parameter';
 import { MessageConfig as config } from '../config/message-config';
+import { DicService } from '../services/dic.service';
 
 /**
  * 创建分页本地化提示
@@ -42,7 +43,7 @@ function createMatPaginatorIntl() {
                 <mat-spinner></mat-spinner>
             </div>
             <ng-content></ng-content>
-            <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+            <mat-paginator [length]="totalCount" [pageSize]="queryParam&&queryParam.pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
         </div>
     `,
     styles: [`
@@ -86,13 +87,25 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      */
     private totalCount = 0;
     /**
+     * 初始排序
+     */
+    private initOrder: string;
+    /**
      * 数据源
      */
-    private dataSource: MatTableDataSource<T>;
+    dataSource: MatTableDataSource<T>;
     /**
-     * 选中列表
+     * checkbox选中列表
      */
-    private selection = new SelectionModel<T>(true, []);
+    checkedSelection: SelectionModel<T>;
+    /**
+     * 点击行选中列表
+     */
+    selectedSelection: SelectionModel<T>;
+    /**
+     * 键
+     */
+    @Input() key: string;
     /**
      * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
      */
@@ -141,10 +154,12 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     /**
      * 初始化Mat表格包装器
      */
-    constructor() {
+    constructor(private dic: DicService<QueryParameter>) {
         this.minHeight = 300;
         this.pageSizeOptions = [10, 20, 50, 100];
         this.dataSource = new MatTableDataSource<T>();
+        this.checkedSelection = new SelectionModel<T>(true, []);
+        this.selectedSelection = new SelectionModel<T>(false, []);
         this.loading = false;
         this.autoLoad = true;
         this.queryParam = new QueryParameter();
@@ -156,19 +171,30 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     ngAfterContentInit() {
         this.initPaginator();
         this.initSort();
+        this.loadQueryParam();
         if (this.autoLoad)
-            this.init();
+            this.query();
     }
 
     /**
      * 初始化分页组件
      */
     private initPaginator() {
+        this.initPage();
         this.paginator.page.subscribe(() => {
             this.queryParam.page = this.paginator.pageIndex + 1;
             this.queryParam.pageSize = this.paginator.pageSize;
             this.query();
         });
+    }
+
+    /**
+     * 初始化分页参数
+     */
+    private initPage() {
+        this.queryParam.page = 1;
+        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
+            this.queryParam.pageSize = this.pageSizeOptions[0];
     }
 
     /**
@@ -190,17 +216,21 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     private setOrder() {
         if (!this.sort.active)
             return;
-        this.queryParam.order = `${this.sort.active} ${this.sort.direction}`;
+        let order = `${this.sort.active} ${this.sort.direction}`;
+        if (!this.initOrder)
+            this.initOrder = order;
+        this.queryParam.order = order;
     }
 
     /**
-     * 初始化
+     * 加载查询参数
      */
-    init() {
-        this.queryParam.page = 1;
-        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
-            this.queryParam.pageSize = this.pageSizeOptions[0];
-        this.query();
+    private loadQueryParam() {
+        if (!this.key)
+            return;
+        let query = this.dic.get(this.key);
+        if (query)
+            this.queryParam = query;
     }
 
     /**
@@ -212,6 +242,8 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
             console.log("表格url未设置");
             return;
         }
+        if (this.key)
+            this.dic.add(this.key, this.queryParam);
         webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
@@ -220,7 +252,7 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
                 this.dataSource.data = result.data;
                 this.paginator.pageIndex = result.page - 1;
                 this.totalCount = result.totalCount;
-                this.selection.clear();
+                this.checkedSelection.clear();
             },
             completeHandler: () => this.loading = false
         });
@@ -230,6 +262,9 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      * 刷新表格
      */
     refresh() {
+        this.queryParam = new QueryParameter();
+        this.initPage();
+        this.queryParam.order = this.initOrder;
         this.query();
     }
 
@@ -248,47 +283,47 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      */
     masterToggle() {
         if (this.isMasterChecked()) {
-            this.selection.clear();
+            this.checkedSelection.clear();
             return;
         }
-        this.dataSource.data.forEach(data => this.selection.select(data));
+        this.dataSource.data.forEach(data => this.checkedSelection.select(data));
     }
 
     /**
      * 表头主复选框的选中状态
      */
     isMasterChecked() {
-        return this.selection.hasValue() &&
-            this.isAllSelected() &&
-            this.selection.selected.length >= this.dataSource.data.length;
+        return this.checkedSelection.hasValue() &&
+            this.isAllChecked() &&
+            this.checkedSelection.selected.length >= this.dataSource.data.length;
     }
 
     /**
      * 是否所有行复选框被选中
      */
-    private isAllSelected() {
-        return this.dataSource.data.every(data => this.selection.isSelected(data));
+    private isAllChecked() {
+        return this.dataSource.data.every(data => this.checkedSelection.isSelected(data));
     }
 
     /**
      * 表头主复选框的确定状态
      */
     isMasterIndeterminate() {
-        return this.selection.hasValue() && (!this.isAllSelected() || !this.dataSource.data.length);
+        return this.checkedSelection.hasValue() && (!this.isAllChecked() || !this.dataSource.data.length);
     }
 
     /**
-     * 获取被选中实体列表
+     * 获取复选框被选中实体列表
      */
-    getSelected(): T[] {
-        return this.dataSource.data.filter(data => this.selection.isSelected(data));
+    getChecked(): T[] {
+        return this.dataSource.data.filter(data => this.checkedSelection.isSelected(data));
     }
 
     /**
-     * 获取被选中实体Id列表
+     * 获取复选框被选中实体Id列表
      */
-    getSelectedIds(): string {
-        return this.getSelected().map((value) => value.id).join(",");
+    getCheckedIds(): string {
+        return this.getChecked().map((value) => value.id).join(",");
     }
 
     /**
@@ -298,7 +333,7 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
      */
     delete(ids?: string, handler?: () => {}, deleteUrl?: string) {
-        ids = ids || this.getSelectedIds();
+        ids = ids || this.getCheckedIds();
         if (!ids) {
             message.warn(config.deleteNotSelected);
             return;
@@ -323,8 +358,8 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
                     handler();
                     return;
                 }
-                message.success(config.deleteSuccessed);
-                this.refresh();
+                message.snack(config.deleteSuccessed);
+                this.query();
             }
         });
     }

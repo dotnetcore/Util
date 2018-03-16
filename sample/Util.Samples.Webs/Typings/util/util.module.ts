@@ -17,7 +17,7 @@ import {
     MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
     MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
     MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
-    MatListModule, MatDialogModule, 
+    MatListModule, MatDialogModule,
     MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
     DateAdapter, MAT_DATE_LOCALE_PROVIDER, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MAT_DATE_LOCALE
 } from '@angular/material';
@@ -42,6 +42,8 @@ import { DialogWrapperComponent } from './material/dialog-wrapper.component';
 import { ConfirmComponent } from './material/confirm.component';
 //Util管道
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+//Util服务
+import { DicService } from './services/dic.service';
 /**
  * Util模块
  */
@@ -53,7 +55,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
-        MatListModule, MatDialogModule, 
+        MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, FileUploadModule, LightboxModule
     ],
@@ -71,7 +73,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
         MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
         MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
-        MatListModule, MatDialogModule, 
+        MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         ButtonModule, GrowlModule, MessageModule, MessagesModule, FileUploadModule, LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
@@ -83,7 +85,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
         DialogWrapperComponent, ConfirmComponent
     ],
     providers: [
-        MessageService, MAT_DATE_LOCALE_PROVIDER,
+        MessageService, MAT_DATE_LOCALE_PROVIDER, DicService,
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
         { provide: DateAdapter, useClass: UtilDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }

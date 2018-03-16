@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using Util.Ui.Attributes;
 using Util.Applications.Dtos;
 
 namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %> {
@@ -25,6 +26,7 @@ namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema)
     /// <%= Description %>数据传输对象
     /// </summary>
     [DataContract]
+    [Model("model")]
     public class <%= SafeClassName %>Dto : DtoBase {
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
@@ -36,7 +38,11 @@ namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema)
         <%}%>
         [Display( Name = "<%= p.Description %>" )]
         [DataMember]
-        public <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> { get; set; }        
+        <% if( p.DataType == DbType.Boolean ) { %>
+        public bool? <%= p.PropertyName.ToSafeName() %> { get; set; }
+        <% }else {%>
+        public <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> { get; set; }
+        <% }%>
         <% }%>
     }
 }

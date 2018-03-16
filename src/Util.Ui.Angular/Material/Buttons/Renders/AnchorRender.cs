@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Renders;
 using Util.Ui.Material.Enums;
@@ -90,6 +91,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void ConfigLink( TagBuilder builder ) {
             builder.AddAttribute( "routerLink", _config.GetValue( UiConst.Link ) );
+            builder.AddAttribute( "[routerLink]", _config.GetValue( AngularConst.BindLink ) );
         }
 
         /// <summary>

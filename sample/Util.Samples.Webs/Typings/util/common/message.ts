@@ -99,7 +99,7 @@ export class Message {
             autoFocus: false,
             minWidth: "20em",
             maxWidth: "40em",
-            disableClose:true,
+            disableClose: true,
             data: {
                 content: message,
                 ok: ok,
@@ -118,7 +118,7 @@ export class Message {
          */
         message: string;
         /**
-         * 持续时间，单位：毫秒，默认值：2000
+         * 持续时间，单位：毫秒，默认值：3000
          */
         duration?: number;
         /**
@@ -151,7 +151,7 @@ export class Message {
             message = options;
         }
         let ref = bar.open(message, actionLabel || "关闭", {
-            duration: duration || 2000
+            duration: duration || 3000
         });
         if (action)
             ref.onAction().subscribe(action);

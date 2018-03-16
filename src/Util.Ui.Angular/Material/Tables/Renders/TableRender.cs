@@ -56,6 +56,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// </summary>
         protected override void ConfigId( TagBuilder builder ) {
             builder.AddAttribute( $"#{_config.Id}" );
+            builder.AddAttribute( "key", _config.Id );
         }
 
         /// <summary>
@@ -95,9 +96,9 @@ namespace Util.Ui.Material.Tables.Renders {
         /// </summary>
         private void ConfigPageSizeOptions( TagBuilder builder ) {
             var value = _config.GetValue( UiConst.PageSizeOptions );
-            if ( string.IsNullOrWhiteSpace( value ) )
+            if( string.IsNullOrWhiteSpace( value ) )
                 return;
-            if ( value.StartsWith( "[" ) == false )
+            if( value.StartsWith( "[" ) == false )
                 value = $"[{value}]";
             builder.AddAttribute( "[pageSizeItems]", value );
         }
@@ -137,9 +138,9 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 配置行
         /// </summary>
         protected virtual void ConfigRow( TagBuilder tableBuilder ) {
-            if ( _config.Columns.Count == 0 || _config.AutoCreateRow == false )
+            if( _config.Columns.Count == 0 || _config.AutoCreateRow == false )
                 return;
-            var columns = Util.Helpers.Json.ToJson( _config.Columns,true );
+            var columns = Util.Helpers.Json.ToJson( _config.Columns, true );
             AddHeaderRow( tableBuilder, columns );
             AddRow( tableBuilder, columns );
         }
@@ -159,6 +160,7 @@ namespace Util.Ui.Material.Tables.Renders {
         protected void AddRow( TagBuilder tableBuilder, string columns ) {
             var rowBuilder = new RowBuilder();
             rowBuilder.AddColumns( columns );
+            rowBuilder.AddSelected( _config.Id );
             tableBuilder.AppendContent( rowBuilder );
         }
     }
