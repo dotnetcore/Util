@@ -90,7 +90,17 @@ namespace Util.Ui.FlexLayout.Renders {
                 return;
             var itemBuilder = new DivBuilder();
             itemBuilder.AddAttribute( "fxFlex", _config.GetValue( UiConst.Flex ) );
+            itemBuilder.AppendContent( _config.Content );
             builder.AppendContent( itemBuilder );
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected override void ConfigContent( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Flex ) )
+                return;
+            base.ConfigContent( builder );
         }
     }
 }

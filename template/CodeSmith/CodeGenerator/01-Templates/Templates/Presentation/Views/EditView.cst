@@ -28,12 +28,14 @@
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         <% if( Entity.IsHidden(p) ) continue; %>
-            <util-layout >
-                <util-layout-item flex="50%">
-                    <util-textbox for="<%= p.PropertyName.ToSafeName() %>"></util-textbox>
-                </util-layout-item>
+            <util-layout flex="50%">
+                <% if( p.DataType == DbType.Boolean ){%>
+                <util-slide-toggle for="<%= p.PropertyName.ToSafeName() %>"></util-slide-toggle>
+                <% }else{ %>           
+                <util-textbox for="<%= p.PropertyName.ToSafeName() %>"></util-textbox>
+                <% } %>
             </util-layout>
-        <% } %>            
+        <% } %>
         </util-card-content>
         <util-card-actions align="Right">
             <util-button type="Reset"></util-button>
