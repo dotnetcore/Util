@@ -79,6 +79,10 @@ namespace Util.Ui.FlexLayout.TagHelpers {
         /// 单元格间隙，范例：20px
         /// </summary>
         public string Gap { get; set; }
+        /// <summary>
+        /// 尺寸调整策略，格式：增大比例 缩小比例 基础尺寸，前两个参数默认值为1，可省略，范例1：1 1 auto，范例2：20px，代表1 1 20px
+        /// </summary>
+        public string Flex { get; set; }
 
         /// <summary>
         /// 获取渲染器

@@ -122,5 +122,16 @@ namespace Util.Ui.Tests.FlexLayout {
             result.Append( "<div fxLayout=\"row\" fxLayoutGap=\"1px\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试布局策略
+        /// </summary>
+        [Fact]
+        public void TestFlex() {
+            var attributes = new TagHelperAttributeList { { UiConst.Flex, "a" } };
+            var result = new String();
+            result.Append( "<div fxLayout=\"row\"><div fxFlex=\"a\"></div></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

@@ -39,6 +39,7 @@ namespace Util.Ui.FlexLayout.Renders {
             ConfigDirection( builder );
             ConfigAlign( builder );
             ConfigGap( builder );
+            ConfigFlex( builder );
             ConfigContent( builder );
         }
 
@@ -79,6 +80,17 @@ namespace Util.Ui.FlexLayout.Renders {
             if ( Util.Helpers.Validation.IsNumber( value ) )
                 value = $"{value}px";
             builder.AddAttribute( "fxLayoutGap", value );
+        }
+
+        /// <summary>
+        /// 配置布局策略
+        /// </summary>
+        private void ConfigFlex( TagBuilder builder ) {
+            if ( _config.Contains( UiConst.Flex ) == false )
+                return;
+            var itemBuilder = new DivBuilder();
+            itemBuilder.AddAttribute( "fxFlex", _config.GetValue( UiConst.Flex ) );
+            builder.AppendContent( itemBuilder );
         }
     }
 }
