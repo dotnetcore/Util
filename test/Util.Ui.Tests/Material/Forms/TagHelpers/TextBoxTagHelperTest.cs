@@ -249,6 +249,17 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         }
 
         /// <summary>
+        /// 测试设置为多行文本框
+        /// </summary>
+        [Fact]
+        public void TestType_Multiple() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TextBoxType.Multiple } };
+            var result = new String();
+            result.Append( "<mat-textarea-wrapper type=\"text\"></mat-textarea-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试设置为电子邮件框
         /// </summary>
         [Fact]

@@ -36,6 +36,7 @@ namespace Util.Ui.Material.Cards.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             builder.Style( _config );
+            builder.Class( _config );
             ConfigId( builder );
             ConfigContent( builder );
         }

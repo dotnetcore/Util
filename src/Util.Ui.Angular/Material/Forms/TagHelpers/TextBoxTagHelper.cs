@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
@@ -46,7 +47,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new TextBoxRender( new TextBoxConfig( context ) );
+            var config = new TextBoxConfig( context );
+            if ( config.GetValue<TextBoxType?>( UiConst.Type ) == TextBoxType.Multiple )
+                config.IsTextArea = true;
+            return new TextBoxRender( config );
         }
     }
 }

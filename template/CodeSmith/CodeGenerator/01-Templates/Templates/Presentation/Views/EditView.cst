@@ -19,12 +19,25 @@
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 @model <%=SafeClassName%>Dto
 
-<util-table base-url="<%=CamelClassName%>">
-    <util-table-column type="Checkbox"></util-table-column>
-    <util-table-column type="LineNumber"></util-table-column>
-    <% foreach(Property p in Entity.Properties) { %>
-    <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
-    <% if( Entity.IsHidden(p) ) continue; %>
-    <util-table-column for="<%= p.PropertyName.ToSafeName() %>" sort="true"></util-table-column>
-    <% } %>    
-</util-table>
+<util-form id="form" on-submit="onChange(form)">
+    <util-card>
+        <util-card-header>
+            编辑应用程序
+        </util-card-header>
+        <util-card-content style="padding: 30px 0 0 50px;">
+        <% foreach(Property p in Entity.Properties) { %>
+        <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+        <% if( Entity.IsHidden(p) ) continue; %>
+            <util-layout >
+                <util-layout-item flex="50%">
+                    <util-textbox for="<%= p.PropertyName.ToSafeName() %>"></util-textbox>
+                </util-layout-item>
+            </util-layout>
+        <% } %>            
+        </util-card-content>
+        <util-card-actions align="Right">
+            <util-button type="Reset"></util-button>
+            <util-button type="Submit"></util-button>
+        </util-card-actions>
+    </util-card>
+</util-form>

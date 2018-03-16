@@ -24,6 +24,11 @@ namespace Util.Ui.Material.Enums {
         /// 电子邮件框
         /// </summary>
         [Description( "email" )]
-        Email
+        Email,
+        /// <summary>
+        /// 多行文本框
+        /// </summary>
+        [Description( "text" )]
+        Multiple
     }
 }
