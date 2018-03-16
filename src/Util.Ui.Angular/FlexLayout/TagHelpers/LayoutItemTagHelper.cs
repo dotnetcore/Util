@@ -83,18 +83,6 @@ namespace Util.Ui.FlexLayout.TagHelpers {
         /// 是否占满
         /// </summary>
         public bool Fill { get; set; }
-        /// <summary>
-        /// 合并列
-        /// </summary>
-        public int Colspan { get; set; }
-        /// <summary>
-        /// 左边占位合并列
-        /// </summary>
-        public int BeforeColspan { get; set; }
-        /// <summary>
-        /// 右边占位合并列
-        /// </summary>
-        public int AfterColspan { get; set; }
 
         /// <summary>
         /// 获取渲染器

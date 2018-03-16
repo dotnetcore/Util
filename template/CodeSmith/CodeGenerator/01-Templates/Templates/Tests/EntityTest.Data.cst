@@ -50,6 +50,9 @@ namespace <%= string.Format("{0}.Test.Models.{1}",Namespace,Entity.TableSchema) 
         <% if( p.DataType == DbType.Binary ){ %>
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = Util.Helpers.Convert.ToBytes( "1" );
         <%continue;} %>
+        <% if( p.ColumnName.ToLower() == "isdeleted" ){ %>
+        public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = false;
+        <%continue;} %>
         <% if( p.DataType == DbType.Boolean ){ %>
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = true;
         <%continue;} %>
@@ -81,6 +84,9 @@ namespace <%= string.Format("{0}.Test.Models.{1}",Namespace,Entity.TableSchema) 
         <%continue;} %>
         <% if( p.DataType == DbType.Binary ){ %>
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %>2 = Util.Helpers.Convert.ToBytes( "2" );
+        <%continue;} %>
+        <% if( p.ColumnName.ToLower() == "isdeleted" ){ %>
+        public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> = false;
         <%continue;} %>
         <% if( p.DataType == DbType.Boolean ){ %>
         public static readonly <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %>2 = true;
