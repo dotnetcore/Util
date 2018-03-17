@@ -11,6 +11,10 @@ import { util, ViewModel } from '../index';
  */
 export abstract class CrudEditComponentBase<TViewModel extends ViewModel> implements OnInit {
     /**
+     * 操作库
+     */
+    protected util = util;
+    /**
      * 视图模型
      */
     protected model: TViewModel;
@@ -21,12 +25,13 @@ export abstract class CrudEditComponentBase<TViewModel extends ViewModel> implem
      */
     constructor(injector: Injector) {
         util.ioc.componentInjector = injector;
+        this.model = this.createModel();
     }
 
     /**
-     * 操作库
+     * 创建视图模型
      */
-    protected util = util;
+    protected abstract createModel(): TViewModel;
 
     /**
      * 初始化

@@ -8,7 +8,11 @@ import { util, ViewModel, QueryParameter, TableWrapperComponent } from '../index
 /**
  * Crud列表页组件基类
  */
-export class CrudIndexComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> implements AfterViewInit {
+export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> implements AfterViewInit {
+    /**
+     * 操作库
+     */
+    protected util = util;
     /**
      * 查询参数
      */
@@ -28,12 +32,13 @@ export class CrudIndexComponentBase<TViewModel extends ViewModel, TQuery extends
      */
     constructor(injector: Injector) {
         util.ioc.componentInjector = injector;
+        this.queryParam = this.createQuery();
     }
 
     /**
-     * 操作库
+     * 创建查询参数
      */
-    protected util = util;
+    protected abstract createQuery(): TQuery;
 
     /**
      * 初始化
@@ -79,6 +84,7 @@ export class CrudIndexComponentBase<TViewModel extends ViewModel, TQuery extends
      * 刷新
      */
     refresh() {
-        this.table.refresh();
+        this.queryParam = this.createQuery();
+        this.table.refresh(this.queryParam);
     }
 }

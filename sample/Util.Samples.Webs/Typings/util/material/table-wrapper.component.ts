@@ -242,8 +242,9 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
             console.log("表格url未设置");
             return;
         }
+        this.filterParam();
         if (this.key)
-            this.dic.add(this.key, this.queryParam);
+            this.dic.add(this.key,this.queryParam);
         webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
@@ -259,12 +260,22 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     }
 
     /**
-     * 刷新表格
+     * 过滤参数
      */
-    refresh() {
-        this.queryParam = new QueryParameter();
+    private filterParam() {
+        if (!this.queryParam.keyword)
+            this.queryParam.keyword = "";
+    }
+
+    /**
+     * 刷新表格
+     * @param queryParam 查询参数
+     */
+    refresh(queryParam) {
+        this.queryParam = queryParam;
         this.initPage();
         this.queryParam.order = this.initOrder;
+        this.dic.remove(this.key);
         this.query();
     }
 

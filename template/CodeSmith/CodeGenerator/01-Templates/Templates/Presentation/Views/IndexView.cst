@@ -54,7 +54,7 @@
     </util-button>
 </util-toolbar>
 
-<util-table id="table<%=SafeClassName%>" base-url="<%=CamelClassName%>" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
+<util-table id="table<%=SafeClassName%>" query-param="queryParam" base-url="<%=CamelClassName%>" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
     <util-table-column type="Checkbox"></util-table-column>
     <util-table-column type="LineNumber"></util-table-column>
     <% foreach(Property p in Entity.Properties) { %>

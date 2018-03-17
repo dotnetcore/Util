@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 
 /**
  * 字典服务
@@ -34,7 +34,15 @@ export class DicService<TValue> {
      * 获取数据
      * @param key 键
      */
-    get(key: string): TValue | undefined{
+    get(key: string): TValue | undefined {
         return this.data.get(key);
+    }
+
+    /**
+     * 移除数据
+     * @param key 键
+     */
+    remove(key: string) {
+        this.data.delete(key);
     }
 }
