@@ -21,16 +21,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 <% foreach(Entity entity in EntityContext.Entities) {%>
-import { <%= entity.ClassName.ToSafeName() %>IndexComponent } from "./<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-index.component";
+import { <%= entity.ClassName.ToSafeName() %>IndexComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-index.component';
+import { <%= entity.ClassName.ToSafeName() %>EditComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-edit.component';
+import { <%= entity.ClassName.ToSafeName() %>DetailComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-detail.component';
 <%} %>
 
 //路由配置
 const routes: Routes = [
     {
-        path: '', redirectTo: '<%=EntityContext.Entities.FirstOrDefault().ClassName.ToSafeName().ToCamelCase() %>',
+        path: '',
         children: [
         <% foreach(Entity entity in EntityContext.Entities) {%>
-            { path: '<%= entity.ClassName.ToSafeName().ToCamelCase() %>', component: <%= entity.ClassName.ToSafeName() %>IndexComponent }
+            {path: '<%= entity.ClassName.ToSafeName().ToCamelCase() %>', children: [
+                { path: '', component: <%= entity.ClassName.ToSafeName() %>IndexComponent },
+                { path: 'create', component: <%= entity.ClassName.ToSafeName() %>EditComponent },
+                { path: 'edit/:id', component: <%= entity.ClassName.ToSafeName() %>EditComponent },
+                { path: 'detail/:id', component: <%= entity.ClassName.ToSafeName() %>DetailComponent }
+            ]},
         <%} %>
         ]
     }

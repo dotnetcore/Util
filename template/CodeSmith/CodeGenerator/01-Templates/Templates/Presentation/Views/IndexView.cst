@@ -38,7 +38,7 @@
     }
     <% } %>
     .mat-column-operation {
-        max-width: 100px;
+        max-width: 120px;
     }
 </style>
 
@@ -54,7 +54,7 @@
     </util-button>
 </util-toolbar>
 
-<util-table id="table<%=SafeClassName%>" query-param="queryParam" base-url="<%=CamelClassName%>" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
+<util-table id="table<%=SafeClassName%>" max-height="700" query-param="queryParam" base-url="<%=CamelClassName%>" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
     <util-table-column type="Checkbox"></util-table-column>
     <util-table-column type="LineNumber"></util-table-column>
     <% foreach(Property p in Entity.Properties) { %>
@@ -73,6 +73,9 @@
             <util-button styles="Icon" tooltip="删除" on-click="delete(row.id)">
                 <util-icon material-icon="Delete"></util-icon>
             </util-button>
+            <util-a styles="Icon" tooltip="查看详细" bind-link="['detail',row.id]">
+                <util-icon material-icon="Visibility"></util-icon>
+            </util-a>
         </util-table-cell>
     </util-table-column>
 </util-table>

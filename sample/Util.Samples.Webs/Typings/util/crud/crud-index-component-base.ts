@@ -24,7 +24,7 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
     /**
      * 表格组件
      */
-    @ViewChild(TableWrapperComponent) protected table: TableWrapperComponent<ViewModel>;
+    @ViewChild(TableWrapperComponent) protected table: TableWrapperComponent<TViewModel>;
 
     /**
      * 初始化组件

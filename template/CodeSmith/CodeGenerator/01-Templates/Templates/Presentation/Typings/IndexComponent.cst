@@ -26,7 +26,7 @@ import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
  * <%=Description%>首页
  */
 @Component({
-    selector: '<%=CamelClassName%>',
+    selector: '<%=CamelClassName%>-index',
     templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
 })
 export class <%=SafeClassName%>IndexComponent extends CrudIndexComponentBase<<%=SafeClassName%>ViewModel, <%=SafeClassName%>Query>  {
@@ -36,6 +36,12 @@ export class <%=SafeClassName%>IndexComponent extends CrudIndexComponentBase<<%=
      */
     constructor(injector: Injector) {
         super(injector);
-        this.queryParam = new <%=SafeClassName%>Query();
+    }
+    
+    /**
+     * 创建查询参数
+     */
+    protected createQuery() {
+        return new <%=SafeClassName%>Query();
     }
 }

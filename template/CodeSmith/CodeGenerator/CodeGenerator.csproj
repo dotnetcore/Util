@@ -121,8 +121,10 @@
     <None Include="01-Templates\Templates\Presentation\Typings\Routing.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\ViewModel.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\EditComponent.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\DetailComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\IndexView.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\EditView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Views\DetailView.cst" />
     <None Include="01-Templates\Templates\Services\Dto.cst" />
     <None Include="01-Templates\Templates\Services\DtoExtension.cst" />
     <None Include="01-Templates\Templates\Services\IocConfig.cst" />
@@ -140,6 +142,7 @@
     <None Include="01-Templates\Templates\Tests\EntityTest.cst" />
     <None Include="01-Templates\Templates\Tests\EntityTest.Data.cst" />
     <None Include="01-Templates\Templates\Tests\ServiceTest.cst" />
+    <None Include="02-Result\Presentation\Areas\Systems\Views\Application\Detail.cshtml" />
     <None Include="02-Result\Presentation\Areas\Systems\Views\Application\Edit.cshtml" />
     <None Include="02-Result\Presentation\Areas\Systems\Views\Application\Index.cshtml" />
     <None Include="Project.csp" />
@@ -147,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="02-Result\Domains\Systems\ItemGroup..txt" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\application\application-detail.component.ts" />
     <Content Include="02-Result\Presentation\Typings\app\systems\application\application-edit.component.ts" />
     <Content Include="02-Result\Presentation\Typings\app\systems\application\application-index.component.ts" />
     <Content Include="02-Result\Presentation\Typings\app\systems\application\application-query.ts" />

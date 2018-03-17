@@ -18,30 +18,23 @@
 <%-- 驼峰形式类名 --%>
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 import { Component, Injector } from '@angular/core';
-import { CrudEditComponentBase } from '../../../util';
+import { CrudDetailComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
 
 /**
- * <%=Description%>编辑页
+ * <%=Description%>详细页
  */
 @Component({
-    selector: '<%=CamelClassName%>-edit',
-    templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
+    selector: '<%=CamelClassName%>-detail',
+    templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/detail'
 })
-export class <%=SafeClassName%>EditComponent extends CrudEditComponentBase<<%=SafeClassName%>ViewModel> {
+export class <%=SafeClassName%>DetailComponent extends CrudDetailComponentBase<<%=SafeClassName%>ViewModel> {
     /**
      * 初始化组件
      * @param injector 注入器
      */
     constructor(injector: Injector) {
         super(injector);
-    }
-    
-    /**
-     * 创建视图模型
-     */
-    protected createModel() {
-        return new <%=SafeClassName%>ViewModel();
     }
 
     /**

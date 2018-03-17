@@ -37,5 +37,12 @@ namespace <%= Namespace,Entity.TableSchema %>.Areas.<%= Schema %>.Controllers {
         public virtual IActionResult Edit() {
             return View();
         }
+        
+        /// <summary>
+        /// 详细页
+        /// </summary>
+        public virtual IActionResult Detail() {
+            return View();
+        }
     }
 }

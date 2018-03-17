@@ -146,11 +146,17 @@
 <%@ Register Name="EditViewClass"
              Template="Templates\Presentation\Views\EditView.cst"
              MergeProperties="False" %>
+<%@ Register Name="DetailViewClass"
+             Template="Templates\Presentation\Views\DetailView.cst"
+             MergeProperties="False" %>
 <%@ Register Name="IndexComponentClass"
              Template="Templates\Presentation\Typings\IndexComponent.cst"
              MergeProperties="False" %>
 <%@ Register Name="EditComponentClass"
              Template="Templates\Presentation\Typings\EditComponent.cst"
+             MergeProperties="False" %>
+<%@ Register Name="DetailComponentClass"
+             Template="Templates\Presentation\Typings\DetailComponent.cst"
              MergeProperties="False" %>
 <%@ Register Name="ModuleClass"
              Template="Templates\Presentation\Typings\Module.cst"
@@ -255,10 +261,14 @@
         CreateIndexView( context );
         //创建Edit视图
         CreateEditView( context );
+        //创建Detail视图
+        CreateDetailView( context );
         //创建Index组件
         CreateIndexComponent( context );
         //创建Edit组件
         CreateEditComponent( context );
+        //创建Detail组件
+        CreateDetailComponent( context );
         //创建angular模块
         CreateModule( context );
         //创建angular路由
@@ -700,6 +710,21 @@
         }
     }
     
+    //创建Detail视图
+    public void CreateDetailView(EntityContext entityContext)
+    {
+        DetailViewClass result = this.Create<DetailViewClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = "Detail";
+            result.Entity = entity;
+            result.Namespace = GetSchema(entity).ToLower();
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Areas\\{0}\\Views\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
+        }
+    }
+    
     //创建Index组件
     public void CreateIndexComponent(EntityContext entityContext)
     {
@@ -730,6 +755,21 @@
         }
     }
     
+    //创建Detail组件
+    public void CreateDetailComponent(EntityContext entityContext)
+    {
+        DetailComponentClass result = this.Create<DetailComponentClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format("{0}-detail.component",entity.ClassName.ToCamelCase());
+            result.Entity = entity;
+            result.Namespace = GetSchema(entity).ToLower();
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
+        }
+    }
+    
     //创建angular模块
     public void CreateModule(EntityContext entityContext)
     {
@@ -739,6 +779,7 @@
         foreach(Entity entity in entityContext.Entities)
         {
             string className = string.Format("{0}.module",GetSchema(entity).ToSingular().ToCamelCase());
+            result.EntityContext = entityContext;
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}", GetSchema(entity).ToCamelCase() ), "ts" ), true);

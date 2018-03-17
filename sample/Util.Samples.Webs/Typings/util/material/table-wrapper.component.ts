@@ -244,7 +244,7 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
         }
         this.filterParam();
         if (this.key)
-            this.dic.add(this.key,this.queryParam);
+            this.dic.add(this.key, this.queryParam);
         webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
@@ -263,7 +263,7 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      * 过滤参数
      */
     private filterParam() {
-        if (!this.queryParam.keyword)
+        if (this.queryParam.keyword === null)
             this.queryParam.keyword = "";
     }
 
