@@ -280,7 +280,7 @@ namespace Util.Datas.Ef.Internal {
                 throw new ConcurrencyException();
             for( int i = 0; i < oldEntity.Version.Length; i++ ) {
                 if( newEntity.Version[i] != oldEntity.Version[i] )
-                    throw new ConcurrencyException( $"新实体:{newEntity.SafeString()},旧实体:{oldEntity.SafeString()}" );
+                    throw new ConcurrencyException( $"新实体:{newEntity.Version},旧实体:{oldEntity.Version}" );
             }
         }
 
