@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Component, Input, ViewChild, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, Input, Output, ViewChild, ContentChild, AfterContentInit, EventEmitter } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatPaginatorIntl, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WebApi as webapi } from '../common/webapi';
@@ -143,6 +143,10 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
      */
     @Input() queryParam: QueryParameter;
     /**
+     * 查询参数还原事件
+     */
+    @Output() onQueryRestore = new EventEmitter<QueryParameter>();
+    /**
      * 排序组件
      */
     @ContentChild(MatSort) sort: MatSort;
@@ -171,7 +175,7 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     ngAfterContentInit() {
         this.initPaginator();
         this.initSort();
-        this.loadQueryParam();
+        this.restoreQueryParam();
         if (this.autoLoad)
             this.query();
     }
@@ -223,14 +227,16 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     }
 
     /**
-     * 加载查询参数
+     * 还原查询参数
      */
-    private loadQueryParam() {
+    private restoreQueryParam() {
         if (!this.key)
             return;
         let query = this.dic.get(this.key);
-        if (query)
-            this.queryParam = query;
+        if (!query)
+            return;
+        this.queryParam = query;
+        this.onQueryRestore.emit(query);
     }
 
     /**

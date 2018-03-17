@@ -123,5 +123,9 @@
         /// 表格标识
         /// </summary>
         public const string TableId = "tableId";
+        /// <summary>
+        /// 还原查询参数
+        /// </summary>
+        public const string OnQueryRestore = "on-query-restore";
     }
 }

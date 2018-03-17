@@ -8,7 +8,6 @@ export { HttpContentType } from "./angular/http-helper";
 export { ComponentBase } from './core/component-base';
 export { CrudIndexComponentBase } from './crud/crud-index-component-base';
 export { CrudEditComponentBase } from './crud/crud-edit-component-base';
-export { CrudDetailComponentBase } from './crud/crud-detail-component-base';
 export { ViewModel } from './core/view-model';
 export { PagerList } from './core/pager-list';
 export { QueryParameter } from './core/query-parameter';

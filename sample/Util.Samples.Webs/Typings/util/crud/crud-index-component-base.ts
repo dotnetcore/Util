@@ -16,7 +16,7 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
     /**
      * 查询参数
      */
-    protected queryParam: TQuery;
+    queryParam: TQuery;
     /**
      * 查询延迟
      */
@@ -86,5 +86,12 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
     refresh() {
         this.queryParam = this.createQuery();
         this.table.refresh(this.queryParam);
+    }
+
+    /**
+     * 还原查询参数
+     */
+    restoreQueryParam(query: TQuery) {
+        this.queryParam = query;
     }
 }
