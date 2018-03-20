@@ -6,7 +6,7 @@ import { env } from "../env"
 
 @Component({
     selector: 'demo',
-    templateUrl: env.prod ? './demo.html' : '/Home/demo'
+    templateUrl: env.prod ? './demo.component.html' : '/Home/demo'
 })
 export class DemoComponent extends ComponentBase implements OnInit {
     queryParam: CustomerQueryModel;

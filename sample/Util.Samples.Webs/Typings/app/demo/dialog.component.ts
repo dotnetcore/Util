@@ -8,7 +8,7 @@ import { env } from "../env"
  */
 @Component({
     selector: 'dialog-demo',
-    templateUrl: env.prod ? './dialog.html' :'/home/dialog'
+    templateUrl: env.prod ? './dialog.component.html' :'/home/dialog'
 })
 export class DialogComponent {
     /**

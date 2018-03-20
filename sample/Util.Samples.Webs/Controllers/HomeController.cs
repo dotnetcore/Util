@@ -1,5 +1,6 @@
 ﻿using Donau.Services.Dtos.Customers;
 using Microsoft.AspNetCore.Mvc;
+using Util.Ui.Attributes;
 
 namespace Util.Samples.Webs.Controllers {
 
@@ -9,10 +10,12 @@ namespace Util.Samples.Webs.Controllers {
             return View();
         }
 
+        [Html( "/Typings/app/app.component.html" )]
         public IActionResult Main() {
             return View();
         }
 
+        [Html( "/Typings/app/demo/demo.component.html" )]
         public IActionResult Demo() {
             return View(new CustomersDto());
         }
@@ -21,6 +24,7 @@ namespace Util.Samples.Webs.Controllers {
             return View();
         }
 
+        [Html( "/Typings/app/demo/dialog.component.html" )]
         public IActionResult Dialog() {
             return View();
         }
