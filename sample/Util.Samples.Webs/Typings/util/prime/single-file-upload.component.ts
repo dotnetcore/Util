@@ -26,9 +26,9 @@ export class SingleFileUploadComponent {
      */
     @Input() url: string;
 
-    private images: any[];
+    images: any[];
 
-    private file:FileInfo;
+    file:FileInfo;
 
     constructor() {
         this.images = new Array();

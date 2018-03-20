@@ -1,12 +1,13 @@
 ﻿import { Component } from "@angular/core"
-import {util} from "../util";
+import { util } from "../util";
+import {env} from "./env"
 
 /**
  * 根组件
  */
 @Component({
     selector: 'app',
-    templateUrl: '/home/main'
+    templateUrl: env.prod? './app.html':'/home/main'
 })
 export class AppComponent {
 }

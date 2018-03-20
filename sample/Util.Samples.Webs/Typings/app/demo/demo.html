@@ -1,0 +1,38 @@
+﻿<ng-container id="demo">
+    <mat-toolbar color="primary">
+        <mat-icon>menu</mat-icon>
+        <span>工具栏</span>
+        <span class="toolbar-fill-remain"></span>
+        <mat-icon>code</mat-icon>
+    </mat-toolbar>
+
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <mat-card>
+            <mat-card-content>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <div fxFlex="1 1 auto">
+                        <mat-textarea-wrapper name="name" placeholder="客户名称" requiredMessage="客户名称不能为空" type="text" [(model)]="model&&model.name" [maxLength]="20" [required]="true"></mat-textarea-wrapper>
+                    </div>
+
+                    <mat-select-wrapper name="nation" placeholder="民族" requiredMessage="必须选择一个民族" [(model)]="model&&model.nation" [dataSource]="[{'text':'汉族','value':0,'sortId':0},{'text':'蒙古族','value':1,'sortId':1},{'text':'回族','value':2,'sortId':2},{'text':'藏族','value':3,'sortId':3},{'text':'维吾尔族','value':4,'sortId':4},{'text':'苗族','value':5,'sortId':5},{'text':'彝族','value':6,'sortId':6},{'text':'壮族','value':7,'sortId':7},{'text':'布依族','value':8,'sortId':8},{'text':'朝鲜族','value':9,'sortId':9},{'text':'满族','value':10,'sortId':10},{'text':'侗族','value':11,'sortId':11},{'text':'瑶族','value':12,'sortId':12},{'text':'白族','value':13,'sortId':13},{'text':'土家族','value':14,'sortId':14},{'text':'哈尼族','value':15,'sortId':15},{'text':'哈萨克族','value':16,'sortId':16},{'text':'傣族','value':17,'sortId':17},{'text':'黎族','value':18,'sortId':18},{'text':'傈僳族','value':19,'sortId':19},{'text':'佤族','value':20,'sortId':20},{'text':'畲族','value':21,'sortId':21},{'text':'高山族','value':22,'sortId':22},{'text':'拉祜族','value':23,'sortId':23},{'text':'水族','value':24,'sortId':24},{'text':'东乡族','value':25,'sortId':25},{'text':'纳西族','value':26,'sortId':26},{'text':'景颇族','value':27,'sortId':27},{'text':'柯尔克孜族','value':28,'sortId':28},{'text':'土族','value':29,'sortId':29},{'text':'达斡尔族','value':30,'sortId':30},{'text':'仫佬族','value':31,'sortId':31},{'text':'羌族','value':32,'sortId':32},{'text':'布朗族','value':33,'sortId':33},{'text':'撒拉族','value':34,'sortId':34},{'text':'毛南族','value':35,'sortId':35},{'text':'仡佬族','value':36,'sortId':36},{'text':'锡伯族','value':37,'sortId':37},{'text':'阿昌族','value':38,'sortId':38},{'text':'普米族','value':39,'sortId':39},{'text':'塔吉克族','value':40,'sortId':40},{'text':'怒族','value':41,'sortId':41},{'text':'乌孜别克族','value':42,'sortId':42},{'text':'俄罗斯族','value':43,'sortId':43},{'text':'鄂温克族','value':44,'sortId':44},{'text':'德昂族','value':45,'sortId':45},{'text':'保安族','value':46,'sortId':46},{'text':'裕固族','value':47,'sortId':47},{'text':'京族','value':48,'sortId':48},{'text':'塔塔尔族','value':49,'sortId':49},{'text':'独龙族','value':50,'sortId':50},{'text':'鄂伦春族','value':51,'sortId':51},{'text':'赫哲族','value':52,'sortId':52},{'text':'门巴族','value':53,'sortId':53},{'text':'珞巴族','value':54,'sortId':54},{'text':'基诺族','value':55,'sortId':55}]" [multiple]="true" [required]="true"></mat-select-wrapper>
+
+                    <mat-datepicker-wrapper name="lastModificationTime" placeholder="最后修改时间" [(model)]="model&&model.lastModificationTime"></mat-datepicker-wrapper>
+                </div>
+                <div fxLayout="column" fxLayoutGap="20px">
+                    <mat-radio-wrapper label="性别" name="isGender" [(model)]="model&&model.isGender" [dataSource]="[{'text':'是','value':true},{'text':'否','value':false}]"></mat-radio-wrapper>
+                    <mat-checkbox name="isGender" [(ngModel)]="model&&model.isGender">性别</mat-checkbox>
+                    <mat-slide-toggle name="isGender" [(ngModel)]="model&&model.isGender">性别</mat-slide-toggle>
+                    <mat-select-list-wrapper checkboxPosition="before" label="测试" url="/api/customers/test"></mat-select-list-wrapper>
+                </div>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions align="end">
+                <mat-button-wrapper type="reset"></mat-button-wrapper>
+                <mat-button-wrapper type="submit"></mat-button-wrapper>
+            </mat-card-actions>
+            <mat-card-footer>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
+        </mat-card>
+    </form>
+</ng-container>

@@ -164,7 +164,7 @@ export class RadioWrapperComponent implements OnInit, AfterViewInit {
     /**
      * 模型变更事件处理
      */
-    protected onModelChange(value) {
+    onModelChange(value) {
         this.modelChange.emit(value);
         this.onChange.emit(value);
     }

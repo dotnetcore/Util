@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <None Remove="Typings\app\demo\dialog.component.ts" />
+    <None Remove="Typings\env.ts" />
     <None Remove="Typings\util\common\dialog.ts" />
     <None Remove="Typings\util\core\sort.ts" />
     <None Remove="Typings\util\core\tree-node.ts" />
@@ -63,6 +64,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="Typings\app\demo\dialog.component.ts" />
+    <TypeScriptCompile Include="Typings\app\env.ts" />
     <TypeScriptCompile Include="Typings\util\common\dialog.ts" />
     <TypeScriptCompile Include="Typings\util\core\sort.ts" />
     <TypeScriptCompile Include="Typings\util\core\tree-node.ts" />

@@ -121,7 +121,7 @@ export class FormControlWrapperBase implements AfterViewInit{
     /**
      * 模型变更事件处理
      */
-    protected onModelChange(value) {
+    onModelChange(value) {
         this.modelChange.emit(value);
         this.onChange.emit(value);
     }
@@ -129,35 +129,35 @@ export class FormControlWrapperBase implements AfterViewInit{
     /**
      * 后缀图标单击事件
      */
-    protected suffixIconClick() {
+    suffixIconClick() {
         this.onSuffixIconClick.emit();
     }
 
     /**
      * 获得焦点事件
      */
-    protected focus(event: FocusEvent) {
+    focus(event: FocusEvent) {
         this.onFocus.emit(event);
     }
 
     /**
      * 失去焦点事件
      */
-    protected blur(event: FocusEvent) {
+    blur(event: FocusEvent) {
         this.onBlur.emit(event);
     }
 
     /**
      * 键盘按键事件
      */
-    protected keyup(event: KeyboardEvent) {
+    keyup(event: KeyboardEvent) {
         this.onKeyup.emit(event);
     }
 
     /**
      * 键盘按下事件
      */
-    protected keydown(event: KeyboardEvent) {
+    keydown(event: KeyboardEvent) {
         this.onKeydown.emit(event);
     }
 }

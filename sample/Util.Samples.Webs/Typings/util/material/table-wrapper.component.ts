@@ -16,7 +16,7 @@ import { DicService } from '../services/dic.service';
 /**
  * 创建分页本地化提示
  */
-function createMatPaginatorIntl() {
+export function createMatPaginatorIntl() {
     let result = new MatPaginatorIntl();
     result.itemsPerPageLabel = "每页";
     result.nextPageLabel = "下页";
@@ -81,15 +81,15 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     /**
      * 显示进度条
      */
-    private loading: boolean;
+    loading: boolean;
     /**
      * 总行数
      */
-    private totalCount = 0;
+    totalCount = 0;
     /**
      * 初始排序
      */
-    private initOrder: string;
+    initOrder: string;
     /**
      * 数据源
      */
@@ -288,7 +288,7 @@ export class TableWrapperComponent<T extends ViewModel> implements AfterContentI
     /**
      * 获取样式
      */
-    private getStyle() {
+    getStyle() {
         return {
             'max-height': this.maxHeight ? `${this.maxHeight}px` : null,
             'width': this.width ? `${this.width}px` : null

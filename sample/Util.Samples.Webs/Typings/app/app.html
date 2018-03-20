@@ -1,0 +1,79 @@
+﻿    <mat-sidenav-container fullscreen="">
+        <mat-sidenav #sidenav="" mode="side" opened="true" style="width:260px">
+            <mat-accordion displayMode="flat">
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon>android</mat-icon>
+                            <span style="margin-left: 16px">哈哈</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent="">
+                        <mat-nav-list>
+                            <a mat-list-item="" routerLink="demo">
+                                <mat-icon mat-list-icon="">android</mat-icon>
+                                <span mat-line="">哈哈</span>
+                            </a>
+                            <a mat-list-item="" routerLink="demo/a">
+                                <mat-icon mat-list-icon="">touch_app</mat-icon>
+                                <span mat-line="">哈哈</span>
+                            </a>
+                            <a mat-list-item="" routerLink="demo/b">
+                                <mat-icon mat-list-icon="">folder</mat-icon>
+                                <span mat-line="">哈哈</span>
+                            </a>
+
+                            <a mat-list-item="" routerLink="demo/d">
+                                <mat-icon mat-list-icon="">wc</mat-icon>
+                                <span mat-line="">嘿嘿</span>
+                            </a>
+                        </mat-nav-list>
+                    </ng-template>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fa fa-android"></i>
+                            <span style="margin-left: 16px">哈哈</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent="">
+                        <mat-nav-list>
+                            <a mat-list-item="" routerLink="demo">
+                                <mat-icon mat-list-icon="">android</mat-icon>
+                                <span mat-line="">哈哈</span>
+                            </a>
+                            <a mat-list-item="" routerLink="demo/a">
+                                <mat-icon mat-list-icon="">touch_app</mat-icon>
+                                <span mat-line="">哈哈</span>
+                            </a>
+                            <a mat-list-item="" routerLink="demo/b">
+                                <mat-icon mat-list-icon="">folder</mat-icon>
+                                <span mat-line="">哈哈</span>
+                            </a>
+                            <a mat-list-item="" routerLink="demo/c">
+                                <mat-icon mat-list-icon="">wifi</mat-icon>
+                                <span mat-line="">哈哈</span>
+                            </a>
+                            <a mat-list-item="" routerLink="demo/d">
+                                <mat-icon mat-list-icon="">wc</mat-icon>
+                                <span mat-line="">嘿嘿</span>
+                            </a>
+                        </mat-nav-list>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <mat-toolbar>
+                <mat-button-wrapper (onClick)="sidenav.toggle()" style="mat-icon-button">
+                    <ng-template>
+                        <i class="fa-spin fa-2x fa fa-apple"></i>
+                    </ng-template>
+                </mat-button-wrapper>
+            </mat-toolbar>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+    <p-growl></p-growl>

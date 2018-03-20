@@ -1,6 +1,8 @@
 ﻿const pathPlugin = require('path');
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
 module.exports = (env) => {
     //是否开发环境
@@ -20,7 +22,8 @@ module.exports = (env) => {
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
-            filename: "[name].js"
+            filename: "[name].js",
+            chunkFilename: '[id].chunk.js'
         },
         resolve: {
             extensions: ['.js', '.ts']
@@ -28,10 +31,11 @@ module.exports = (env) => {
         devtool: "source-map",
         module: {
             rules: [
-                { test: /\.ts$/, use: ['awesome-typescript-loader?silent=true', 'angular-router-loader'] }
+                { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular-router-loader'] : ['@ngtools/webpack'] },
+                { test: /\.html$/, use: 'html-loader?minimize=false' }
             ]
         },
-        plugins: [
+        plugins: isDev ? [
             new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/polyfills-manifest.json')
             }),
@@ -40,11 +44,14 @@ module.exports = (env) => {
             }),
             new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/util-manifest.json')
-            }),
-            new webpack.optimize.ModuleConcatenationPlugin()
-        ].concat(isDev ? [] : [
-            new webpack.optimize.UglifyJsPlugin()
-        ])
+            })
+        ] : [
+            new webpack.optimize.UglifyJsPlugin(),
+            new AngularCompilerPlugin({
+                tsConfigPath: 'tsconfig.json',
+                "entryModule": "Typings/app/app.module#AppModule"
+            })
+        ]
     }
 
     //打包css

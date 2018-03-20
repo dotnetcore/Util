@@ -69,13 +69,12 @@ module.exports = (env) => {
             new webpack.DllPlugin({
                 path: getPath("wwwroot/dist/[name]-manifest.json"),
                 name: "[name]"
-            }),
-            new webpack.optimize.ModuleConcatenationPlugin()
+            })
         ].concat(isDev ? [] : [new webpack.optimize.UglifyJsPlugin()])
     }
 
     //打包第三方Js库
-    let vendorJs =  {
+    let vendorJs = {
         entry: { vendor: jsModules },
         output: {
             publicPath: 'dist/',
@@ -92,7 +91,6 @@ module.exports = (env) => {
                 path: getPath("wwwroot/dist/[name]-manifest.json"),
                 name: "[name]"
             }),
-            new webpack.optimize.ModuleConcatenationPlugin(),
             new webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, getPath('./Typings')),
             new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, getPath('./Typings')),
             new webpack.IgnorePlugin(/^vertx$/)

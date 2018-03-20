@@ -1,12 +1,14 @@
-﻿    <util-dialog-title>
+﻿<util-container id="dialog">
+    <util-dialog-title>
         哈哈
     </util-dialog-title>
     <util-dialog-content>
         你好
     </util-dialog-content>
-<util-dialog-actions align="Right">
-    <util-container>
-        @Html.Ui().Button().Text( "关闭" ).CloseDialog("a")
-    </util-container>
-    <util-button on-click="onclick()" text="再弹"></util-button>
-</util-dialog-actions>
+    <util-dialog-actions align="Right">
+        <util-container>
+            @Html.Ui().Button().Text( "关闭" ).CloseDialog( "a" )
+        </util-container>
+        <util-button on-click="onclick()" text="再弹"></util-button>
+    </util-dialog-actions>
+</util-container>

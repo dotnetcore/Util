@@ -48,15 +48,15 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
     /**
      * 按组显示
      */
-    private isGroup: boolean;
+    isGroup: boolean;
     /**
      * 列表项集合
      */
-    private options: SelectOption[];
+    options: SelectOption[];
     /**
      * 列表组集合
      */
-    private optionGroups: SelectOptionGroup[];
+    optionGroups: SelectOptionGroup[];
     /**
      * 数据源
      */

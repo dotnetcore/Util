@@ -24,20 +24,20 @@ export class DialogWrapperComponent {
     /**
      * 请求地址
      */
-    private url: string;
+    url: string;
 
     /**
      * 初始化弹出层包装器
      * @param data 数据
      */
-    constructor( @Inject(MAT_DIALOG_DATA) private data) {
+    constructor( @Inject(MAT_DIALOG_DATA) public data) {
         this.url = data.dialogUrl;
     }
 
     /**
      * 获取内容区高度
      */
-    private getContentStyle() {
+    getContentStyle() {
         return {
             "height": this.data.dialogHeight
         };

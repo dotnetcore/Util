@@ -34,6 +34,6 @@ export class ConfirmComponent {
      * 初始化确认消息框
      * @param data 数据
      */
-    constructor( @Inject(MAT_DIALOG_DATA) private data) {
+    constructor( @Inject(MAT_DIALOG_DATA) public data) {
     }
 }

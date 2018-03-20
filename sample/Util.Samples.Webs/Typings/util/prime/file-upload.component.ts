@@ -82,7 +82,7 @@ export class FileUploadComponent extends FileUpload {
     /**
      * 获取进度条样式
      */
-    private getProgressStyles() {
+    getProgressStyles() {
         return {
             'position': 'absolute',
             'top': '0px',

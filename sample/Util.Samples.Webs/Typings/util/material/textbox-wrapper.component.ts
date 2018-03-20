@@ -37,15 +37,15 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
     /**
      * 是否密码框
      */
-    private isPassword: boolean;
+    isPassword: boolean;
     /**
      * 密码显示隐藏开关
      */
-    private hide: boolean;
+    hide: boolean;
     /**
      * 清除按钮提示
      */
-    private clearButtonTooltip: string;
+    clearButtonTooltip: string;
     /**
      * 是否显示清除按钮
      */
@@ -115,7 +115,7 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
     /**
      * 后缀图标单击事件
      */
-    protected suffixIconClick() {
+    suffixIconClick() {
         super.suffixIconClick();
         if (this.isPassword)
             this.togglePassword();

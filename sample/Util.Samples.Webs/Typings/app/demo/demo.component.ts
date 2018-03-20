@@ -1,10 +1,12 @@
 ﻿import { Component, ViewChild, OnInit, Injector } from "@angular/core"
 import { NgForm } from "@angular/forms"
 import { ComponentBase, ViewModel, QueryParameter, TableWrapperComponent, util } from "../../util";
-import {DialogComponent} from "./dialog.component"
+import { DialogComponent } from "./dialog.component"
+import { env } from "../env"
+
 @Component({
     selector: 'demo',
-    templateUrl: '/Home/demo'
+    templateUrl: env.prod ? './demo.html' : '/Home/demo'
 })
 export class DemoComponent extends ComponentBase implements OnInit {
     queryParam: CustomerQueryModel;
@@ -77,7 +79,8 @@ class CustomerViewModel extends ViewModel {
     num: number;
     date: Date;
     creationTime:Date;
-    isGender:boolean;
+    isGender: boolean;
+    lastModificationTime;
 }
 
 

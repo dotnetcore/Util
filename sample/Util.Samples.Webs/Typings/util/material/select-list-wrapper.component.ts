@@ -27,7 +27,7 @@ export class SelectListWrapperComponent implements OnInit, AfterViewInit {
     /**
      * 列表项集合
      */
-    private options: SelectOption[];
+    options: SelectOption[];
     /**
      * 数据源
      */
@@ -139,7 +139,7 @@ export class SelectListWrapperComponent implements OnInit, AfterViewInit {
     /**
      * 模型变更事件处理
      */
-    protected onModelChange(value) {
+    onModelChange(value) {
         this.modelChange.emit(value);
         this.onChange.emit(value);
     }
