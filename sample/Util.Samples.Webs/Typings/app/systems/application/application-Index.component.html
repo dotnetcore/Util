@@ -1,0 +1,92 @@
+
+<style>
+    .mat-column-code {
+        max-width: 10%;
+    }
+
+    .mat-column-name {
+        max-width: 20%;
+    }
+
+    .mat-column-comment {
+        max-width: 40%;
+    }
+
+    .mat-column-enabled {
+        max-width: 80px;
+    }
+
+    .mat-column-registerEnabled {
+        max-width: 80px;
+    }
+
+    .mat-column-creationTime {
+        max-width: 100px;
+    }
+
+    .mat-column-operation {
+        max-width: 130px;
+    }
+</style>
+
+<mat-toolbar color="primary">
+    <a mat-icon-button="" matTooltip="添加应用程序" routerLink="create">
+        <i class="fa fa-plus"></i>
+    </a>
+    <mat-button-wrapper (onClick)="delete()" style="mat-icon-button" tooltip="批量删除"><ng-template>
+        <mat-icon>delete</mat-icon>
+    </ng-template></mat-button-wrapper>
+    <mat-button-wrapper (onClick)="refresh()" style="mat-icon-button" tooltip="刷新"><ng-template>
+        <mat-icon>sync</mat-icon>
+    </ng-template></mat-button-wrapper>
+</mat-toolbar>
+<ng-container>
+    <div fxLayout="row"><div fxFlex="40%">
+        <mat-textbox-wrapper (onChange)="search()" placeholder="搜索" [(model)]="queryParam.keyword"></mat-textbox-wrapper>
+    </div></div>
+    <mat-table-wrapper #tableApplication="" (onQueryRestore)="restoreQueryParam($event)" baseUrl="application" key="tableApplication" maxHeight="700" [queryParam]="queryParam"><mat-table class="tableHeader" matSort="" matSortActive="CreationTime" matSortDirection="desc" matSortDisableClear="">
+        <ng-container matColumnDef="selectCheckbox"><mat-header-cell *matHeaderCellDef=""><mat-checkbox (change)="$event?tableApplication.masterToggle():null" [checked]="tableApplication.isMasterChecked()" [disabled]="!tableApplication.dataSource.data.length" [indeterminate]="tableApplication.isMasterIndeterminate()"></mat-checkbox></mat-header-cell><mat-cell *matCellDef="let row"><mat-checkbox (change)="$event?tableApplication.checkedSelection.toggle(row):null" (click)="$event.stopPropagation()" [checked]="tableApplication.checkedSelection.isSelected(row)"></mat-checkbox></mat-cell></ng-container>
+        <ng-container matColumnDef="lineNumber"><mat-header-cell *matHeaderCellDef="">ID</mat-header-cell><mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell></ng-container>
+        <ng-container matColumnDef="code"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">应用程序编码</mat-header-cell><mat-cell *matCellDef="let row">{{ row.code }}</mat-cell></ng-container>
+        <ng-container matColumnDef="name"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">应用程序名称</mat-header-cell><mat-cell *matCellDef="let row">{{ row.name }}</mat-cell></ng-container>
+        <ng-container matColumnDef="comment"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">备注</mat-header-cell><mat-cell *matCellDef="let row">{{ row.comment }}</mat-cell></ng-container>
+        <ng-container matColumnDef="enabled"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">启用</mat-header-cell><mat-cell *matCellDef="let row"><mat-icon *ngIf="row.enabled">check</mat-icon><mat-icon *ngIf="!row.enabled">clear</mat-icon></mat-cell></ng-container>
+        <ng-container matColumnDef="registerEnabled"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">启用注册</mat-header-cell><mat-cell *matCellDef="let row"><mat-icon *ngIf="row.registerEnabled">check</mat-icon><mat-icon *ngIf="!row.registerEnabled">clear</mat-icon></mat-cell></ng-container>
+        <ng-container matColumnDef="creationTime"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">创建时间</mat-header-cell><mat-cell *matCellDef="let row">{{ row.creationTime | date:"yyyy-MM-dd" }}</mat-cell></ng-container>
+        <ng-container matColumnDef="operation"><mat-header-cell *matHeaderCellDef="">操作</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <a mat-icon-button="" matTooltip="编辑" [routerLink]="['edit',row.id]">
+                    <mat-icon>edit</mat-icon>
+                </a>
+                <mat-button-wrapper (onClick)="delete(row.id)" style="mat-icon-button" tooltip="删除"><ng-template>
+                    <mat-icon>delete</mat-icon>
+                </ng-template></mat-button-wrapper>
+                <a mat-icon-button="" matTooltip="查看详细" [routerLink]="['detail',row.id]">
+                    <mat-icon>visibility</mat-icon>
+                </a>
+            </mat-cell>
+        </ng-container>
+    <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']"></mat-header-row></mat-table><mat-table matSort="" matSortActive="CreationTime" matSortDirection="desc" matSortDisableClear="" [dataSource]="tableApplication.dataSource" [style.max-height]="tableApplication.maxHeight?tableApplication.maxHeight+'px':null" [style.min-height]="tableApplication.minHeight?tableApplication.minHeight+'px':null">
+        <ng-container matColumnDef="selectCheckbox"><mat-header-cell *matHeaderCellDef=""><mat-checkbox (change)="$event?tableApplication.masterToggle():null" [checked]="tableApplication.isMasterChecked()" [disabled]="!tableApplication.dataSource.data.length" [indeterminate]="tableApplication.isMasterIndeterminate()"></mat-checkbox></mat-header-cell><mat-cell *matCellDef="let row"><mat-checkbox (change)="$event?tableApplication.checkedSelection.toggle(row):null" (click)="$event.stopPropagation()" [checked]="tableApplication.checkedSelection.isSelected(row)"></mat-checkbox></mat-cell></ng-container>
+        <ng-container matColumnDef="lineNumber"><mat-header-cell *matHeaderCellDef="">ID</mat-header-cell><mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell></ng-container>
+        <ng-container matColumnDef="code"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">应用程序编码</mat-header-cell><mat-cell *matCellDef="let row">{{ row.code }}</mat-cell></ng-container>
+        <ng-container matColumnDef="name"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">应用程序名称</mat-header-cell><mat-cell *matCellDef="let row">{{ row.name }}</mat-cell></ng-container>
+        <ng-container matColumnDef="comment"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">备注</mat-header-cell><mat-cell *matCellDef="let row">{{ row.comment }}</mat-cell></ng-container>
+        <ng-container matColumnDef="enabled"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">启用</mat-header-cell><mat-cell *matCellDef="let row"><mat-icon *ngIf="row.enabled">check</mat-icon><mat-icon *ngIf="!row.enabled">clear</mat-icon></mat-cell></ng-container>
+        <ng-container matColumnDef="registerEnabled"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">启用注册</mat-header-cell><mat-cell *matCellDef="let row"><mat-icon *ngIf="row.registerEnabled">check</mat-icon><mat-icon *ngIf="!row.registerEnabled">clear</mat-icon></mat-cell></ng-container>
+        <ng-container matColumnDef="creationTime"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">创建时间</mat-header-cell><mat-cell *matCellDef="let row">{{ row.creationTime | date:"yyyy-MM-dd" }}</mat-cell></ng-container>
+        <ng-container matColumnDef="operation"><mat-header-cell *matHeaderCellDef="">操作</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <a mat-icon-button="" matTooltip="编辑" [routerLink]="['edit',row.id]">
+                    <mat-icon>edit</mat-icon>
+                </a>
+                <mat-button-wrapper (onClick)="delete(row.id)" style="mat-icon-button" tooltip="删除"><ng-template>
+                    <mat-icon>delete</mat-icon>
+                </ng-template></mat-button-wrapper>
+                <a mat-icon-button="" matTooltip="查看详细" [routerLink]="['detail',row.id]">
+                    <mat-icon>visibility</mat-icon>
+                </a>
+            </mat-cell>
+        </ng-container>
+    <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" style="display: none"></mat-header-row><mat-row (click)="tableApplication.selectedSelection.select(row)" *matRowDef="let row;columns:['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" class="mat-row-hover" matRipple="" [class.selected]="tableApplication.selectedSelection.isSelected(row)"></mat-row></mat-table></mat-table-wrapper>
+</ng-container>

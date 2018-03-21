@@ -1,0 +1,34 @@
+﻿@model ApplicationDto
+
+<util-form id="form" on-submit="submit(form)">
+    <util-card>
+        <util-card-header>
+            应用程序详情
+        </util-card-header>
+        <util-card-content class="formContent">
+            <util-layout flex="50%">
+                <label asp-for="Code"></label>
+                {{model.code}}
+            </util-layout>
+            <util-layout flex="50%">
+                <label asp-for="Name"></label>
+                {{model.name}}
+            </util-layout>
+            <util-layout flex="50%">
+                <label asp-for="Comment"></label>
+                {{model.comment}}
+            </util-layout>
+            <util-layout flex="50%">
+                <label asp-for="Enabled"></label>
+                {{model.enabled}}
+            </util-layout>
+            <util-layout flex="50%">
+                <label asp-for="RegisterEnabled"></label>
+                {{model.registerEnabled}}
+            </util-layout>
+        </util-card-content>
+        <util-card-actions align="Right">
+            <util-button text="返回" styles="Default" on-click="back()"></util-button>
+        </util-card-actions>
+    </util-card>
+</util-form>

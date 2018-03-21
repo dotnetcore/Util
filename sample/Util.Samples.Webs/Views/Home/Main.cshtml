@@ -1,80 +1,35 @@
-﻿<util-container id="main">
-    <util-sidenav-container fullscreen="true">
-        <util-sidenav id="sidenav" opened="true" mode="Side" width="260">
-            <util-accordion display-mode="Flat">
-                <util-panel expanded="true">
-                    <util-panel-header>
-                        <util-panel-title>
-                            <util-icon material-icon="Android"></util-icon>
-                            <span style="margin-left: 16px">哈哈</span>
-                        </util-panel-title>
-                    </util-panel-header>
-                    <util-panel-content>
-                        <util-nav-list>
-                            <util-nav-list-item link="demo">
-                                <util-nav-list-icon material-icon="Android" />
-                                <util-nav-list-text>哈哈</util-nav-list-text>
-                            </util-nav-list-item>
-                            <util-nav-list-item link="demo/a">
-                                <util-nav-list-icon material-icon="Touch_App" />
-                                <util-nav-list-text>哈哈</util-nav-list-text>
-                            </util-nav-list-item>
-                            <util-nav-list-item link="demo/b">
-                                <util-nav-list-icon material-icon="Folder" />
-                                <util-nav-list-text>哈哈</util-nav-list-text>
-                            </util-nav-list-item>
-
-                            <util-nav-list-item link="demo/d">
-                                <util-nav-list-icon material-icon="Wc" />
-                                <util-nav-list-text>嘿嘿</util-nav-list-text>
-                            </util-nav-list-item>
-                        </util-nav-list>
-                    </util-panel-content>
-                </util-panel>
-                <util-panel>
-                    <util-panel-header>
-                        <util-panel-title>
-                            <util-icon font-awesome-icon="Android"></util-icon>
-                            <span style="margin-left: 16px">哈哈</span>
-                        </util-panel-title>
-                    </util-panel-header>
-                    <util-panel-content>
-                        <util-nav-list>
-                            <util-nav-list-item link="demo">
-                                <util-nav-list-icon material-icon="Android" />
-                                <util-nav-list-text>哈哈</util-nav-list-text>
-                            </util-nav-list-item>
-                            <util-nav-list-item link="demo/a">
-                                <util-nav-list-icon material-icon="Touch_App" />
-                                <util-nav-list-text>哈哈</util-nav-list-text>
-                            </util-nav-list-item>
-                            <util-nav-list-item link="demo/b">
-                                <util-nav-list-icon material-icon="Folder" />
-                                <util-nav-list-text>哈哈</util-nav-list-text>
-                            </util-nav-list-item>
-                            <util-nav-list-item link="demo/c">
-                                <util-nav-list-icon material-icon="Wifi" />
-                                <util-nav-list-text>哈哈</util-nav-list-text>
-                            </util-nav-list-item>
-                            <util-nav-list-item link="demo/d">
-                                <util-nav-list-icon material-icon="Wc" />
-                                <util-nav-list-text>嘿嘿</util-nav-list-text>
-                            </util-nav-list-item>
-                        </util-nav-list>
-                    </util-panel-content>
-                </util-panel>
-            </util-accordion>
-        </util-sidenav>
-        <util-sidenav-content>
-            <util-toolbar>
-                <util-button styles="Icon" on-click="sidenav.toggle()">
-                    <util-icon font-awesome-icon="Apple" size="Large2X" spin="true"></util-icon>
-                </util-button>
-            </util-toolbar>
+﻿<util-sidenav-container fullscreen="true">
+    <util-sidenav id="sidenav" opened="true" mode="Side" width="260">
+        <util-accordion display-mode="Flat">
+            <util-panel expanded="true">
+                <util-panel-header>
+                    <util-panel-title>
+                        <util-icon material-icon="Android"></util-icon>
+                        <span style="margin-left: 16px">哈哈</span>
+                    </util-panel-title>
+                </util-panel-header>
+                <util-panel-content>
+                    <util-nav-list>
+                        <util-nav-list-item link="systems/application">
+                            <util-nav-list-icon material-icon="Android" />
+                            <util-nav-list-text>应用程序</util-nav-list-text>
+                        </util-nav-list-item>
+                    </util-nav-list>
+                </util-panel-content>
+            </util-panel>
+        </util-accordion>
+    </util-sidenav>
+    <util-sidenav-content>
+        <util-toolbar>
+            <util-button styles="Icon" on-click="sidenav.toggle()">
+                <util-icon font-awesome-icon="Apple" size="Large2X" spin="true"></util-icon>
+            </util-button>
+        </util-toolbar>
+        <div style="padding: 8px">
             <util-router-outlet></util-router-outlet>
-        </util-sidenav-content>
-    </util-sidenav-container>
+        </div>
+    </util-sidenav-content>
+</util-sidenav-container>
 
-    @*消息提示*@
-    <p-growl></p-growl>
-</util-container>
+@*消息提示*@
+<p-growl life="5000"></p-growl>

@@ -1,31 +1,31 @@
-﻿using Donau.Services.Dtos.Customers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Util.Ui.Attributes;
 
 namespace Util.Samples.Webs.Controllers {
-
+    /// <summary>
+    /// 主控制器
+    /// </summary>
     public class HomeController : Controller {
-
+        /// <summary>
+        /// 首页
+        /// </summary>
         public IActionResult Index() {
             return View();
         }
 
-        [Html( "/Typings/app/app.component.html" )]
+        /// <summary>
+        /// 主界面
+        /// </summary>
+        [Html(Path = "Typings/app/app.component.html" )]
         public IActionResult Main() {
             return View();
         }
 
-        [Html( "/Typings/app/demo/demo.component.html" )]
-        public IActionResult Demo() {
-            return View(new CustomersDto());
-        }
-
-        public IActionResult List() {
-            return View();
-        }
-
-        [Html( "/Typings/app/demo/dialog.component.html" )]
-        public IActionResult Dialog() {
+        /// <summary>
+        /// 404页面
+        /// </summary>
+        [Html( Path = "Typings/app/base/not-found.component.html" )]
+        public IActionResult NotFoundPage() {
             return View();
         }
     }

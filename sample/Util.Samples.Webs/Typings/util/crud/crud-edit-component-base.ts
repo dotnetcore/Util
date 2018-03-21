@@ -17,7 +17,7 @@ export abstract class CrudEditComponentBase<TViewModel extends ViewModel> implem
     /**
      * 视图模型
      */
-    protected model: TViewModel;
+    model: TViewModel;
 
     /**
      * 初始化组件

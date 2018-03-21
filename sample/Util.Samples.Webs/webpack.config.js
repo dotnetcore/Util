@@ -2,7 +2,6 @@
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
 module.exports = (env) => {
     //是否开发环境
@@ -49,7 +48,7 @@ module.exports = (env) => {
             new webpack.optimize.UglifyJsPlugin(),
             new AngularCompilerPlugin({
                 tsConfigPath: 'tsconfig.json',
-                "entryModule": "Typings/app/app.module#AppModule"
+                entryModule: "Typings/app/app.module#AppModule"
             })
         ]
     }

@@ -1,0 +1,33 @@
+
+<form #form="ngForm" (ngSubmit)="submit(form)">
+    <mat-card>
+        <mat-card-header>
+            应用程序详情
+        </mat-card-header>
+        <mat-card-content class="formContent">
+            <div fxLayout="row"><div fxFlex="50%">
+                <label for="Code">应用程序编码</label>
+                {{model.code}}
+            </div></div>
+            <div fxLayout="row"><div fxFlex="50%">
+                <label for="Name">应用程序名称</label>
+                {{model.name}}
+            </div></div>
+            <div fxLayout="row"><div fxFlex="50%">
+                <label for="Comment">备注</label>
+                {{model.comment}}
+            </div></div>
+            <div fxLayout="row"><div fxFlex="50%">
+                <label for="Enabled">启用</label>
+                {{model.enabled}}
+            </div></div>
+            <div fxLayout="row"><div fxFlex="50%">
+                <label for="RegisterEnabled">启用注册</label>
+                {{model.registerEnabled}}
+            </div></div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <mat-button-wrapper (onClick)="back()" style="mat-button" text="返回"></mat-button-wrapper>
+        </mat-card-actions>
+    </mat-card>
+</form>

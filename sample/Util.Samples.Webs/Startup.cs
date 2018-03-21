@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Datas.Ef;
-using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Events.Default;
 using Util.Logs.Extensions;
+using Util.Samples.Webs.Datas;
+using Util.Samples.Webs.Datas.SqlServer;
 using Util.Webs.Extensions;
 
 namespace Util.Samples.Webs {
@@ -44,7 +45,8 @@ namespace Util.Samples.Webs {
             //添加事件总线服务
             services.AddEventBus();
 
-            services.AddUnitOfWork<ISqlServerUnitOfWork, SqlServerUnitOfWork2>( Configuration.GetConnectionString( "DefaultConnection" ) );
+            //添加工作单元
+            services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
 
             //添加Util基础设施服务
             return services.AddUtil();
@@ -89,7 +91,7 @@ namespace Util.Samples.Webs {
         /// </summary>
         private void ConfigRoute( IApplicationBuilder app ) {
             app.UseMvc( routes => {
-                routes.MapRoute( "areaRoute", "{area:exists}/{controller}/{action=Index}/{id?}" );
+                routes.MapRoute( "areaRoute", "view/{area:exists}/{controller}/{action=Index}/{id?}" );
                 routes.MapRoute( "default", "{controller=Home}/{action=Index}/{id?}" );
                 routes.MapSpaFallbackRoute( "spa-fallback", new { controller = "Home", action = "Index" } );
             } );

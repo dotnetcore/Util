@@ -1,3 +1,6 @@
-﻿export let env = {
-    prod: false
+﻿/**
+ * 环境变量
+ */
+export let env = {
+    prod : false
 };

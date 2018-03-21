@@ -1,0 +1,32 @@
+﻿@model ApplicationDto
+
+<util-container>
+    <util-form id="form" on-submit="submit(form)">
+        <util-card>
+            <util-card-header>
+                编辑应用程序
+            </util-card-header>
+            <util-card-content class="formContent">
+                <util-layout flex="50%">
+                    <util-textbox for="Code"></util-textbox>
+                </util-layout>
+                <util-layout flex="50%">
+                    <util-textbox for="Name"></util-textbox>
+                </util-layout>
+                <util-layout flex="50%">
+                    <util-textbox for="Comment"></util-textbox>
+                </util-layout>
+                <util-layout class="mt30">
+                    <util-slide-toggle for="Enabled"></util-slide-toggle>
+                </util-layout>
+                <util-layout class="mt30">
+                    <util-slide-toggle for="RegisterEnabled"></util-slide-toggle>
+                </util-layout>
+            </util-card-content>
+            <util-card-actions align="Right">
+                <util-button text="返回" styles="Default" on-click="back()"></util-button>
+                <util-button type="Submit" color="Primary"></util-button>
+            </util-card-actions>
+        </util-card>
+    </util-form>
+</util-container>

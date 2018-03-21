@@ -21,13 +21,14 @@ import { Component, Injector } from '@angular/core';
 import { CrudIndexComponentBase } from '../../../util';
 import { <%=SafeClassName%>Query } from './<%=CamelClassName%>-query';
 import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
+import { env } from '../../env';
 
 /**
  * <%=Description%>首页
  */
 @Component({
     selector: '<%=CamelClassName%>-index',
-    templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
+    templateUrl: env.prod ? './<%=CamelClassName%>-index.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
 })
 export class <%=SafeClassName%>IndexComponent extends CrudIndexComponentBase<<%=SafeClassName%>ViewModel, <%=SafeClassName%>Query>  {
     /**

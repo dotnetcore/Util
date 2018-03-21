@@ -20,13 +20,14 @@
 import { Component, Injector } from '@angular/core';
 import { CrudEditComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
+import { env } from '../../env';
 
 /**
  * <%=Description%>编辑页
  */
 @Component({
     selector: '<%=CamelClassName%>-edit',
-    templateUrl: '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
+    templateUrl: env.prod ? './<%=CamelClassName%>-edit.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
 })
 export class <%=SafeClassName%>EditComponent extends CrudEditComponentBase<<%=SafeClassName%>ViewModel> {
     /**

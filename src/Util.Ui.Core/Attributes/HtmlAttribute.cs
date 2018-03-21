@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Routing;
 using Util.Helpers;
+using Util.Logs;
+using Util.Logs.Extensions;
 
 namespace Util.Ui.Attributes {
     /// <summary>
@@ -18,12 +19,9 @@ namespace Util.Ui.Attributes {
     /// </summary>
     public class HtmlAttribute : ActionFilterAttribute {
         /// <summary>
-        /// 初始化
+        /// 是否忽略，设置为true则不生成html文件
         /// </summary>
-        /// <param name="path">生成路径，相对根路径，范例：/Typings/app/app.component.html</param>
-        public HtmlAttribute( string path ) {
-            Path = path;
-        }
+        public bool Ignore { get; set; }
 
         /// <summary>
         /// 生成路径，相对根路径，范例：/Typings/app/app.component.html
@@ -33,55 +31,65 @@ namespace Util.Ui.Attributes {
         /// <summary>
         /// 执行生成
         /// </summary>
-        public override async Task OnActionExecutionAsync( ActionExecutingContext context, ActionExecutionDelegate next ) {
+        public override async Task OnResultExecutionAsync( ResultExecutingContext context, ResultExecutionDelegate next ) {
             await WriteViewToFileAsync( context );
-            await base.OnActionExecutionAsync( context, next );
+            await base.OnResultExecutionAsync( context, next );
         }
 
         /// <summary>
         /// 将视图写入html文件
         /// </summary>
-        private async Task WriteViewToFileAsync( ActionExecutingContext context ) {
-            var viewName = $"{context.RouteData.Values["controller"]}/{context.RouteData.Values["action"]}";
-            object model = null;
-            if( context.Result is ViewResult result ) {
-                viewName = string.IsNullOrWhiteSpace( result.ViewName ) ? viewName : result.ViewName;
-                model = result.Model;
+        private async Task WriteViewToFileAsync( ResultExecutingContext context ) {
+            try {
+                if( Ignore )
+                    return;
+                var html = await RenderToStringAsync( context );
+                if( string.IsNullOrWhiteSpace( html ) )
+                    return;
+                var path = Util.Helpers.Common.GetPhysicalPath( string.IsNullOrWhiteSpace( Path ) ? GetPath( context ) : Path );
+                File.WriteAllText( path, html );
             }
-            var html = await RenderToStringAsync( viewName, model );
-            File.WriteAllText( Util.Helpers.Common.GetPhysicalPath( Path ), html );
+            catch( Exception ex ) {
+                ex.Log( Log.GetLog().Caption( "生成html静态文件失败" ) );
+            }
         }
 
         /// <summary>
         /// 渲染视图
         /// </summary>
-        /// <param name="viewName">视图名称</param>
-        /// <param name="model">视图模型</param>
-        public async Task<string> RenderToStringAsync( string viewName, object model ) {
+        public async Task<string> RenderToStringAsync( ResultExecutingContext context ) {
+            string viewName = "";
+            object model = null;
+            if ( context.Result is ViewResult result ) {
+                viewName = string.IsNullOrWhiteSpace( viewName ) ? context.RouteData.Values["action"].SafeString() : viewName;
+                model = result.Model;
+            }
             var razorViewEngine = Ioc.Create<IRazorViewEngine>();
             var tempDataProvider = Ioc.Create<ITempDataProvider>();
             var serviceProvider = Ioc.Create<IServiceProvider>();
             var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
-            var actionContext = new ActionContext( httpContext, new RouteData(), new ActionDescriptor() );
+            var actionContext = new ActionContext( httpContext, context.RouteData, new ActionDescriptor() );
             using( var stringWriter = new StringWriter() ) {
-                var viewResult = razorViewEngine.FindView( actionContext, viewName, false );
-                if( viewResult.View == null ) {
+                var viewResult = razorViewEngine.FindView( actionContext, viewName, true );
+                if( viewResult.View == null )
                     throw new ArgumentNullException( $"未找到视图： {viewName}" );
-                }
-                var viewDictionary = new ViewDataDictionary( new EmptyModelMetadataProvider(), new ModelStateDictionary() ) {
-                    Model = model
-                };
-                var viewContext = new ViewContext(
-                    actionContext,
-                    viewResult.View,
-                    viewDictionary,
-                    new TempDataDictionary( actionContext.HttpContext, tempDataProvider ),
-                    stringWriter,
-                    new HtmlHelperOptions()
-                );
+                var viewDictionary = new ViewDataDictionary( new EmptyModelMetadataProvider(), new ModelStateDictionary() ) { Model = model };
+                var viewContext = new ViewContext( actionContext, viewResult.View, viewDictionary, new TempDataDictionary( actionContext.HttpContext, tempDataProvider ), stringWriter, new HtmlHelperOptions() );
                 await viewResult.View.RenderAsync( viewContext );
                 return stringWriter.ToString();
             }
+        }
+
+        /// <summary>
+        /// 获取Html默认生成路径
+        /// </summary>
+        protected virtual string GetPath( ResultExecutingContext context ) {
+            var area = context.RouteData.Values["area"];
+            var controller = context.RouteData.Values["controller"];
+            var action = context.RouteData.Values["action"];
+            if( string.IsNullOrWhiteSpace( area.SafeString() ) )
+                return $"Typings/app/{controller}/{action}.component.html";
+            return $"Typings/app/{area}/{controller}/{controller}-{action}.component.html";
         }
     }
 }

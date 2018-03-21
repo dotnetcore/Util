@@ -1,0 +1,105 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Util.Datas.Queries;
+
+namespace Util.Samples.Webs.Services.Queries.Systems {
+    /// <summary>
+    /// 应用程序查询实体
+    /// </summary>
+    public class ApplicationQuery : QueryParameter {
+        /// <summary>
+        /// 应用程序编号
+        /// </summary>
+        [Display( Name = "应用程序编号" )]
+        public Guid? ApplicationId { get; set; }
+
+        private string _code = string.Empty;
+        /// <summary>
+        /// 应用程序编码
+        /// </summary>
+        [Display( Name = "应用程序编码" )]
+        public string Code {
+            get => _code == null ? string.Empty : _code.Trim();
+            set => _code = value;
+        }
+
+        private string _name = string.Empty;
+        /// <summary>
+        /// 应用程序名称
+        /// </summary>
+        [Display( Name = "应用程序名称" )]
+        public string Name {
+            get => _name == null ? string.Empty : _name.Trim();
+            set => _name = value;
+        }
+
+        private string _comment = string.Empty;
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [Display( Name = "备注" )]
+        public string Comment {
+            get => _comment == null ? string.Empty : _comment.Trim();
+            set => _comment = value;
+        }
+        /// <summary>
+        /// 启用
+        /// </summary>
+        [Display( Name = "启用" )]
+        public bool? Enabled { get; set; }
+        /// <summary>
+        /// 启用注册
+        /// </summary>
+        [Display( Name = "启用注册" )]
+        public bool? RegisterEnabled { get; set; }
+        /// <summary>
+        /// 起始创建时间
+        /// </summary>
+        [Display( Name = "起始创建时间" )]
+        public DateTime? BeginCreationTime { get; set; }
+        /// <summary>
+        /// 结束创建时间
+        /// </summary>
+        [Display( Name = "结束创建时间" )]
+        public DateTime? EndCreationTime { get; set; }
+        /// <summary>
+        /// 创建人编号
+        /// </summary>
+        [Display( Name = "创建人编号" )]
+        public Guid? CreatorId { get; set; }
+        /// <summary>
+        /// 起始最后修改时间
+        /// </summary>
+        [Display( Name = "起始最后修改时间" )]
+        public DateTime? BeginLastModificationTime { get; set; }
+        /// <summary>
+        /// 结束最后修改时间
+        /// </summary>
+        [Display( Name = "结束最后修改时间" )]
+        public DateTime? EndLastModificationTime { get; set; }
+        /// <summary>
+        /// 最后修改人编号
+        /// </summary>
+        [Display( Name = "最后修改人编号" )]
+        public Guid? LastModifierId { get; set; }
+
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+            base.AddDescriptions();
+            AddDescription( "应用程序编号", ApplicationId );
+            AddDescription( "应用程序编码", Code );
+            AddDescription( "应用程序名称", Name );
+            AddDescription( "备注", Comment );
+            AddDescription( "启用", Enabled.Description() );
+            AddDescription( "启用注册", RegisterEnabled.Description() );
+            AddDescription( "起始创建时间", BeginCreationTime );
+            AddDescription( "结束创建时间", EndCreationTime );
+            AddDescription( "创建人编号", CreatorId );
+            AddDescription( "起始最后修改时间", BeginLastModificationTime );
+            AddDescription( "结束最后修改时间", EndLastModificationTime );
+            AddDescription( "最后修改人编号", LastModifierId );
+        }
+    }
+}

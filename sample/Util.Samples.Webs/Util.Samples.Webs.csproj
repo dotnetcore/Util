@@ -19,22 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\Configs\**" />
-    <Content Remove="Services\Configs\**" />
-    <EmbeddedResource Remove="Services\Configs\**" />
-    <None Remove="Services\Configs\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Typings\app\demo\dialog.component.ts" />
-    <None Remove="Typings\env.ts" />
-    <None Remove="Typings\util\common\dialog.ts" />
-    <None Remove="Typings\util\core\sort.ts" />
-    <None Remove="Typings\util\core\tree-node.ts" />
-    <None Remove="Typings\util\material\confirm.component.ts" />
-    <None Remove="Typings\util\material\dialog-wrapper.component.ts" />
-    <None Remove="Typings\util\material\select-list-wrapper.component.ts" />
-    <None Remove="Typings\util\pipes\safe-url.pipe.ts" />
+    <None Remove="Typings\app\env.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,19 +44,10 @@
     <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\07-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
-    <ProjectReference Include="..\..\test\Util.Datas.Tests.Integration\02-Util.Datas.Tests.Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="Typings\app\demo\dialog.component.ts" />
     <TypeScriptCompile Include="Typings\app\env.ts" />
-    <TypeScriptCompile Include="Typings\util\common\dialog.ts" />
-    <TypeScriptCompile Include="Typings\util\core\sort.ts" />
-    <TypeScriptCompile Include="Typings\util\core\tree-node.ts" />
-    <TypeScriptCompile Include="Typings\util\material\confirm.component.ts" />
-    <TypeScriptCompile Include="Typings\util\material\select-list-wrapper.component.ts" />
-    <TypeScriptCompile Include="Typings\util\material\dialog-wrapper.component.ts" />
-    <TypeScriptCompile Include="Typings\util\pipes\safe-url.pipe.ts" />
   </ItemGroup>
 
   <ItemGroup>

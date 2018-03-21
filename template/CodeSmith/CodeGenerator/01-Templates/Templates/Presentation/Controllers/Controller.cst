@@ -17,13 +17,14 @@
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
 using Microsoft.AspNetCore.Mvc;
+using Util.Ui.Controllers;
 
 namespace <%= Namespace,Entity.TableSchema %>.Areas.<%= Schema %>.Controllers {
     /// <summary>
     /// <%= Description %>控制器
     /// </summary>
     [Area( "<%= Schema %>" )]
-    public class <%= SafeClassName %>Controller : Controller {        
+    public class <%= SafeClassName %>Controller : ViewControllerBase {        
         /// <summary>
         /// 首页
         /// </summary>

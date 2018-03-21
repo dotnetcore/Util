@@ -76,7 +76,7 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
      * 删除
      * @param id 标识
      */
-    delete(id: string | undefined) {
+    delete(id?: string | undefined) {
         this.table.delete(id);
     }
 
