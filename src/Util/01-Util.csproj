@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util</AssemblyName>
@@ -12,9 +13,6 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
-    <AssemblyVersion>1.0.8.5</AssemblyVersion>
-    <FileVersion>1.0.8.5</FileVersion>
-    <Version>1.0.8-preview5</Version>  
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <PackageId>Util.Core</PackageId>
     <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
