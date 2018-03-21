@@ -2,13 +2,13 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, ViewChild, AfterViewInit } from '@angular/core';
+import { Injector, ViewChild } from '@angular/core';
 import { util, ViewModel, QueryParameter, TableWrapperComponent } from '../index';
 
 /**
  * Crud列表页组件基类
  */
-export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> implements AfterViewInit {
+export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> {
     /**
      * 操作库
      */
@@ -39,13 +39,6 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
      * 创建查询参数
      */
     protected abstract createQuery(): TQuery;
-
-    /**
-     * 初始化
-     */
-    ngAfterViewInit() {
-        this.query();
-    }
 
     /**
      * 查询
