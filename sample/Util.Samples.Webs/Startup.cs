@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Xml.XPath;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using Util.Datas.Ef;
 using Util.Events.Default;
 using Util.Logs.Extensions;
@@ -48,6 +51,14 @@ namespace Util.Samples.Webs {
             //添加工作单元
             services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
 
+            //添加Swagger
+            services.AddSwaggerGen( c => {
+                c.SwaggerDoc( "v1", new Info { Title = "Util Web Api Demo", Version = "v1" } );
+                c.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.xml" ) );
+                c.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Webs.xml" ) );
+                c.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.Webs.xml" ) );
+            } );
+
             //添加Util基础设施服务
             return services.AddUtil();
         }
@@ -73,7 +84,18 @@ namespace Util.Samples.Webs {
             app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
                 HotModuleReplacement = true
             } );
+            ConfigSwagger( app );
             CommonConfig( app );
+        }
+
+        /// <summary>
+        /// 配置Swagger
+        /// </summary>
+        private void ConfigSwagger( IApplicationBuilder app ) {
+            app.UseSwagger();
+            app.UseSwaggerUI( c => {
+                c.SwaggerEndpoint( "/swagger/v1/swagger.json", "api v1" );
+            } );
         }
 
         /// <summary>

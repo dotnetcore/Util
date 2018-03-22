@@ -27,8 +27,13 @@ namespace Util.Webs.Controllers {
         }
 
         /// <summary>
-        /// 获取单个实例,调用范例：GET URL(/api/customers/1)
+        /// 获取单个实例
         /// </summary>
+        /// <remarks> 
+        /// 调用范例: 
+        /// GET
+        /// /api/customer/1 
+        /// </remarks>
         /// <param name="id">标识</param>
         [HttpGet( "{id}" )]
         public virtual async Task<IActionResult> GetAsync( string id ) {
