@@ -42,7 +42,7 @@ namespace Util.Webs.Controllers {
         }
 
         /// <summary>
-        /// 查询,调用范例：GET URL(/api/customers/query?name=a)
+        /// 查询,调用范例：GET /api/customer/query?name=a
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpGet( "Query" )]
@@ -52,7 +52,7 @@ namespace Util.Webs.Controllers {
         }
 
         /// <summary>
-        /// 分页查询,调用范例：GET URL(/api/customers?name=a)
+        /// 分页查询,调用范例：GET /api/customer?name=a
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpGet]

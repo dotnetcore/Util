@@ -11,6 +11,7 @@ using Util.Events.Default;
 using Util.Logs.Extensions;
 using Util.Samples.Webs.Datas;
 using Util.Samples.Webs.Datas.SqlServer;
+using Util.Ui.Extensions;
 using Util.Webs.Extensions;
 
 namespace Util.Samples.Webs {
@@ -46,6 +47,9 @@ namespace Util.Samples.Webs {
 
             //添加事件总线服务
             services.AddEventBus();
+
+            //添加angular服务
+            services.AddAngular();
 
             //添加工作单元
             services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
@@ -104,6 +108,7 @@ namespace Util.Samples.Webs {
             app.UseErrorLog();
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseAngular();
             ConfigRoute( app );
         }
 
