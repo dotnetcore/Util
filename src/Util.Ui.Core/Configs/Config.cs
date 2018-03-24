@@ -40,7 +40,7 @@ namespace Util.Ui.Configs {
             AllAttributes = context.AllAttributes;
             OutputAttributes = context.OutputAttributes;
             Content = context.Content;
-            Context = context.TagHelperContext;
+            Context = new TagHelperContext( AllAttributes, context.TagHelperContext.Items, context.TagHelperContext.UniqueId );
             Output = context.Output;
         }
 
