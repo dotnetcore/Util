@@ -93,9 +93,9 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
             <% if( p.ColumnName == "Version" && p.DataType == DbType.Binary ) continue;%>
             <% if( p.ColumnName == "IsDeleted" && p.DataType == DbType.Boolean ) continue;%>
             <% if( p.IsPrimaryKey.Value ){ %>
-            AddDescription( "<%=p.Description %>", Id );
+            AddDescription( t => t.Id );
             <% continue;} %>
-            AddDescription( "<%=p.Description %>", <%= p.PropertyName.ToSafeName() %><%= p.ShowDescription() %> );
+            AddDescription( t => t.<%= p.PropertyName.ToSafeName() %> );
             <% } %>
         }
         
@@ -107,9 +107,9 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
             <% if( p.ColumnName == "Version" && p.DataType == DbType.Binary ) continue;%>
             <% if( p.ColumnName == "IsDeleted" && p.DataType == DbType.Boolean ) continue;%>
             <% if( p.IsPrimaryKey.Value ){ %>
-            AddChange( "Id", "<%=p.Description %>", Id, other.Id );            
+            AddChange( t => t.Id, other.Id );            
             <%continue; } %>
-            AddChange( "<%=p.ColumnName %>", "<%=p.Description %>", <%= p.PropertyName.ToSafeName() %>, other.<%= p.PropertyName.ToSafeName() %> );
+            AddChange( t => t.<%= p.PropertyName.ToSafeName() %>, other.<%= p.PropertyName.ToSafeName() %> );
             <% } %>
         }
     }

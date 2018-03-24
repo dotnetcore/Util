@@ -86,32 +86,32 @@ namespace Util.Samples.Webs.Domains.Models {
         /// 添加描述
         /// </summary>
         protected override void AddDescriptions() {
-            AddDescription( "应用程序编号", Id );
-            AddDescription( "应用程序编码", Code );
-            AddDescription( "应用程序名称", Name );
-            AddDescription( "备注", Comment );
-            AddDescription( "启用", Enabled.Description() );
-            AddDescription( "启用注册", RegisterEnabled.Description() );
-            AddDescription( "创建时间", CreationTime );
-            AddDescription( "创建人编号", CreatorId );
-            AddDescription( "最后修改时间", LastModificationTime );
-            AddDescription( "最后修改人编号", LastModifierId );
+            AddDescription( t => t.Id );
+            AddDescription( t => t.Code );
+            AddDescription( t => t.Name );
+            AddDescription( t => t.Comment );
+            AddDescription( t => t.Enabled );
+            AddDescription( t => t.RegisterEnabled );
+            AddDescription( t => t.CreationTime );
+            AddDescription( t => t.CreatorId );
+            AddDescription( t => t.LastModificationTime );
+            AddDescription( t => t.LastModifierId );
         }
 
         /// <summary>
         /// 添加变更列表
         /// </summary>
         protected override void AddChanges( Application other ) {
-            AddChange( "Id", "应用程序编号", Id, other.Id );
-            AddChange( "Code", "应用程序编码", Code, other.Code );
-            AddChange( "Name", "应用程序名称", Name, other.Name );
-            AddChange( "Comment", "备注", Comment, other.Comment );
-            AddChange( "Enabled", "启用", Enabled, other.Enabled );
-            AddChange( "RegisterEnabled", "启用注册", RegisterEnabled, other.RegisterEnabled );
-            AddChange( "CreationTime", "创建时间", CreationTime, other.CreationTime );
-            AddChange( "CreatorId", "创建人编号", CreatorId, other.CreatorId );
-            AddChange( "LastModificationTime", "最后修改时间", LastModificationTime, other.LastModificationTime );
-            AddChange( "LastModifierId", "最后修改人编号", LastModifierId, other.LastModifierId );
+            AddChange( t => t.Id, other.Id );
+            AddChange( t => t.Code, other.Code );
+            AddChange( t => t.Name, other.Name );
+            AddChange( t => t.Comment, other.Comment );
+            AddChange( t => t.Enabled, other.Enabled );
+            AddChange( t => t.RegisterEnabled, other.RegisterEnabled );
+            AddChange( t => t.CreationTime, other.CreationTime );
+            AddChange( t => t.CreatorId, other.CreatorId );
+            AddChange( t => t.LastModificationTime, other.LastModificationTime );
+            AddChange( t => t.LastModifierId, other.LastModifierId );
         }
     }
 }

@@ -56,11 +56,11 @@ namespace Util.Helpers {
         /// <summary>
         /// 获取成员名称
         /// </summary>
-        private static string GetMemberName( MemberExpression memberExpression ) {
+        public static string GetMemberName( MemberExpression memberExpression ) {
             if( memberExpression == null )
                 return string.Empty;
             string result = memberExpression.ToString();
-            return result.Substring( result.IndexOf( "." ) + 1 );
+            return result.Substring( result.IndexOf( ".", StringComparison.Ordinal ) + 1 );
         }
 
         #endregion

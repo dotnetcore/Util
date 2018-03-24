@@ -21,7 +21,7 @@ using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
 using <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSchema) %>;
 using <%= string.Format("{0}.Service.Abstractions.{1}",Namespace,Entity.TableSchema) %>;
 
-namespace <%= Namespace,Entity.TableSchema %>.Apis.<%= Schema %> {
+namespace <%= Namespace %>.Apis.<%= Schema %> {
     /// <summary>
     /// <%= Description %>Api控制器
     /// </summary>

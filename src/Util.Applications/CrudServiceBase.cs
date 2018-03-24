@@ -117,15 +117,6 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 添加日志
-        /// </summary>
-        /// <param name="entity">实体</param>
-        protected void AddLog( TEntity entity ) {
-            Log.BusinessId( entity.Id.SafeString() );
-            Log.Content( entity.ToString() );
-        }
-
-        /// <summary>
         /// 写日志
         /// </summary>
         /// <param name="caption">标题</param>
@@ -133,6 +124,15 @@ namespace Util.Applications {
         protected void WriteLog( string caption, IList<TEntity> entities ) {
             AddLog( entities );
             WriteLog( caption );
+        }
+
+        /// <summary>
+        /// 添加日志
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected void AddLog( TEntity entity ) {
+            Log.BusinessId( entity.Id.SafeString() );
+            Log.Content( entity.ToString() );
         }
 
         /// <summary>

@@ -19,7 +19,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Util.Ui.Controllers;
 
-namespace <%= Namespace,Entity.TableSchema %>.Areas.<%= Schema %>.Controllers {
+namespace <%= Namespace %>.Areas.<%= Schema %>.Controllers {
     /// <summary>
     /// <%= Description %>控制器
     /// </summary>

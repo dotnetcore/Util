@@ -55,7 +55,7 @@ namespace Util.Tests.Samples {
         }
 
         public EntitySample Find( object id ) {
-            throw new NotImplementedException();
+            return new EntitySample();
         }
 
         public Task<EntitySample> FindAsync( object id ) {

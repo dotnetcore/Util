@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Util.Domains;
+using Util.Logs.Extensions;
 
 namespace Util.Applications {
     /// <summary>
@@ -60,9 +62,13 @@ namespace Util.Applications {
         /// 修改实体
         /// </summary>
         protected void Update( TEntity entity ) {
+            var oldEntity = _repository.Find( entity.Id );
+            var changes = new ChangeValueCollection();
+            if( oldEntity != null)
+                changes = oldEntity.GetChanges( entity );
             UpdateBefore( entity );
             _repository.Update( entity );
-            UpdateAfter( entity );
+            UpdateAfter( entity, changes );
         }
 
         /// <summary>
@@ -76,8 +82,9 @@ namespace Util.Applications {
         /// 修改后操作
         /// </summary>
         /// <param name="entity">实体</param>
-        protected virtual void UpdateAfter( TEntity entity ) {
-            AddLog( entity );
+        /// <param name="changeValues">变更值集合</param>
+        protected virtual void UpdateAfter( TEntity entity, ChangeValueCollection changeValues ) {
+            Log.BusinessId( entity.Id.SafeString() ).Content( changeValues.SafeString() );
         }
 
         /// <summary>
@@ -170,9 +177,13 @@ namespace Util.Applications {
         /// 修改实体
         /// </summary>
         protected async Task UpdateAsync( TEntity entity ) {
+            var oldEntity = await _repository.FindAsync( entity.Id );
+            var changes = new ChangeValueCollection();
+            if( oldEntity != null )
+                changes = oldEntity.GetChanges( entity );
             UpdateBefore( entity );
             await _repository.UpdateAsync( entity );
-            UpdateAfter( entity );
+            UpdateAfter( entity, changes );
         }
 
         /// <summary>

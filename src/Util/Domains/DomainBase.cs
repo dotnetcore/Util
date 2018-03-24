@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
+using Util.Helpers;
 using Util.Validations;
 
 namespace Util.Domains {
@@ -155,9 +155,10 @@ namespace Util.Domains {
         /// <param name="expression">属性表达式,范例：t => t.Name</param>
         /// <param name="newValue">新值,范例：newEntity.Name</param>
         protected void AddChange<TProperty, TValue>( Expression<Func<T, TProperty>> expression, TValue newValue ) {
-            var name = Util.Helpers.Lambda.GetName( expression );
-            var description = Util.Helpers.Reflection.GetDisplayNameOrDescription( (PropertyInfo)Util.Helpers.Lambda.GetMember( expression ) );
-            var value = Util.Helpers.Lambda.GetValue( expression );
+            var member = Util.Helpers.Lambda.GetMemberExpression( expression );
+            var name = Util.Helpers.Lambda.GetMemberName( member );
+            var description = Util.Helpers.Reflection.GetDisplayNameOrDescription( member.Member );
+            var value = member.Member.GetPropertyValue( this );
             AddChange( name, description, Util.Helpers.Convert.To<TValue>( value ), newValue );
         }
 
@@ -233,11 +234,22 @@ namespace Util.Domains {
         /// 添加描述
         /// </summary>
         protected void AddDescription<TValue>( string name, TValue value ) {
-            if( value == null )
-                return;
-            if( string.IsNullOrWhiteSpace( value.ToString() ) )
+            if( string.IsNullOrWhiteSpace( value.SafeString() ) )
                 return;
             _description.AppendFormat( "{0}:{1},", name, value );
+        }
+
+        /// <summary>
+        /// 添加变更
+        /// </summary>
+        /// <param name="expression">属性表达式,范例：t => t.Name</param>
+        protected void AddDescription<TProperty>( Expression<Func<T, TProperty>> expression ) {
+            var member = Util.Helpers.Lambda.GetMember( expression );
+            var description = Util.Helpers.Reflection.GetDisplayNameOrDescription( member );
+            var value = member.GetPropertyValue( this );
+            if ( Reflection.IsBool( member ) )
+                value = Util.Helpers.Convert.ToBool( value ).Description();
+            AddDescription( description, value );
         }
 
         #endregion
