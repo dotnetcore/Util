@@ -9,8 +9,6 @@ using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 using Util.Applications.Dtos;
 using Util.Datas.Ef;
-using Util.Domains.Sessions;
-using Util.Logs;
 using Util.Maps;
 
 namespace Util.Applications {
@@ -40,7 +38,7 @@ namespace Util.Applications {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public abstract class QueryServiceBase<TEntity, TDto, TQueryParameter, TKey> : IQueryService<TDto, TQueryParameter>
+    public abstract class QueryServiceBase<TEntity, TDto, TQueryParameter, TKey> : ServiceBase, IQueryService<TDto, TQueryParameter>
         where TEntity : class, IAggregateRoot<TEntity, TKey>
         where TDto : IDto, new()
         where TQueryParameter : IQueryParameter {
@@ -55,19 +53,7 @@ namespace Util.Applications {
         /// <param name="repository">仓储</param>
         protected QueryServiceBase( IRepository<TEntity, TKey> repository ) {
             _repository = repository ?? throw new ArgumentNullException( nameof( repository ) );
-            Log = Util.Logs.Log.Null;
-            Session = Util.Domains.Sessions.Session.Null;
         }
-
-        /// <summary>
-        /// 日志组件
-        /// </summary>
-        public ILog Log { get; set; }
-
-        /// <summary>
-        /// 用户会话
-        /// </summary>
-        public ISession Session { get; set; }
 
         /// <summary>
         /// 转换为数据传输对象

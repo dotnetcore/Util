@@ -1,17 +1,16 @@
 ﻿using Util.Domains.Sessions;
 using Util.Logs;
-using Util.Logs.Core;
 
-namespace Util.Domains.Services {
+namespace Util.Applications {
     /// <summary>
-    /// 领域服务
+    /// 应用服务
     /// </summary>
-    public abstract class DomainServiceBase : IDomainService {
+    public abstract class ServiceBase : IService {
         /// <summary>
-        /// 初始化领域服务
+        /// 初始化应用服务
         /// </summary>
-        protected DomainServiceBase() {
-            Log = NullLog.Instance;
+        protected ServiceBase() {
+            Log = Util.Logs.Log.Null;
             Session = Util.Domains.Sessions.Session.Null;
         }
 
