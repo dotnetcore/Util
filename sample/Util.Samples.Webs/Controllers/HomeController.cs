@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Util.Ui.Attributes;
+using Util.Webs.Filters;
 
 namespace Util.Samples.Webs.Controllers {
     /// <summary>

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Util.Ui.Attributes;
+using Util.Webs.Filters;
 
 namespace Util.Ui.Controllers {
     /// <summary>
     /// 视图控制器
     /// </summary>
-    [Html]
+    [Html(Template = "Typings/app/{area}/{controller}/{controller}-{action}.component.html" )]
     public class ViewControllerBase : Controller {
     }
 }

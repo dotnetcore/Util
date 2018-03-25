@@ -5,23 +5,15 @@
             编辑应用程序
         </mat-card-header>
         <mat-card-content class="formContent">
-            <div fxLayout="row">
-                <div fxFlex="50%">
-                    <mat-textbox-wrapper name="code" placeholder="应用程序编码" requiredMessage="应用程序编码不能为空" 
-                                         [(model)]="model&&model.code" [maxLength]="60" [required]="true"></mat-textbox-wrapper>
-                </div>
-            </div>
-            <div fxLayout="row">
-                <div fxFlex="50%">
-                    <mat-textbox-wrapper name="name" placeholder="应用程序名称" requiredMessage="应用程序名称不能为空" 
-                                         [(model)]="model&&model.name" [maxLength]="200" [required]="true"></mat-textbox-wrapper>
-                </div>
-            </div>
-            <div fxLayout="row">
-                <div fxFlex="50%">
-                    <mat-textbox-wrapper name="comment" placeholder="备注" [(model)]="model&&model.comment" [maxLength]="500"></mat-textbox-wrapper>
-                </div>
-            </div>
+            <div fxLayout="row"><div fxFlex="50%">
+                <mat-textbox-wrapper name="code" placeholder="应用程序编码" requiredMessage="应用程序编码不能为空" [(model)]="model&&model.code" [maxLength]="60" [required]="true"></mat-textbox-wrapper>
+            </div></div>
+            <div fxLayout="row"><div fxFlex="50%">
+                <mat-textbox-wrapper name="name" placeholder="应用程序名称" requiredMessage="应用程序名称不能为空" [(model)]="model&&model.name" [maxLength]="200" [required]="true"></mat-textbox-wrapper>
+            </div></div>
+            <div fxLayout="row"><div fxFlex="50%">
+                <mat-textbox-wrapper name="comment" placeholder="备注" [(model)]="model&&model.comment" [maxLength]="500"></mat-textbox-wrapper>
+            </div></div>
             <div class="mt30" fxLayout="row">
                 <mat-slide-toggle name="enabled" [(ngModel)]="model&&model.enabled">启用</mat-slide-toggle>
             </div>

@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,7 +13,7 @@ using Util.Helpers;
 using Util.Logs;
 using Util.Logs.Extensions;
 
-namespace Util.Ui.Attributes {
+namespace Util.Webs.Filters {
     /// <summary>
     /// 生成Html静态文件
     /// </summary>
@@ -27,6 +27,11 @@ namespace Util.Ui.Attributes {
         /// 生成路径，相对根路径，范例：/Typings/app/app.component.html
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// 路径模板，范例：Typings/app/{area}/{controller}/{controller}-{action}.component.html
+        /// </summary>
+        public string Template { get; set; }
 
         /// <summary>
         /// 执行生成
@@ -57,7 +62,7 @@ namespace Util.Ui.Attributes {
         /// <summary>
         /// 渲染视图
         /// </summary>
-        public async Task<string> RenderToStringAsync( ResultExecutingContext context ) {
+        protected async Task<string> RenderToStringAsync( ResultExecutingContext context ) {
             string viewName = "";
             object model = null;
             if ( context.Result is ViewResult result ) {
@@ -84,12 +89,10 @@ namespace Util.Ui.Attributes {
         /// 获取Html默认生成路径
         /// </summary>
         protected virtual string GetPath( ResultExecutingContext context ) {
-            var area = context.RouteData.Values["area"];
-            var controller = context.RouteData.Values["controller"];
-            var action = context.RouteData.Values["action"];
-            if( string.IsNullOrWhiteSpace( area.SafeString() ) )
-                return $"Typings/app/{controller}/{action}.component.html";
-            return $"Typings/app/{area}/{controller}/{controller}-{action}.component.html";
+            var area = context.RouteData.Values["area"].SafeString();
+            var controller = context.RouteData.Values["controller"].SafeString();
+            var action = context.RouteData.Values["action"].SafeString();
+            return Template.Replace( "{area}",area ).Replace( "{controller}", controller ).Replace( "{action}", action );
         }
     }
 }
