@@ -1,7 +1,7 @@
 ﻿using Util.Maps;
 using Util.Samples.Webs.Domains.Models;
 
-namespace Util.Samples.Webs.Services.Dtos.Systems {
+namespace Util.Samples.Webs.Services.Dtos.Systems.Extensions {
     /// <summary>
     /// 应用程序数据传输对象扩展
     /// </summary>

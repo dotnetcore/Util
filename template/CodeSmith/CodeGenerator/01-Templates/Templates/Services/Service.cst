@@ -54,7 +54,7 @@ namespace <%= string.Format("{0}.Service.Implements.{1}",Namespace,Entity.TableS
         /// </summary>
         /// <param name="entity">实体</param>
         protected override <%= SafeClassName %>Dto ToDto( <%= SafeClassName %> entity ) {
-            return entity.MapTo<<%= SafeClassName %>Dto>();
+            return entity.ToDto();
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace <%= string.Format("{0}.Service.Implements.{1}",Namespace,Entity.TableS
         /// </summary>
         /// <param name="dto">数据传输对象</param>
         protected override <%= SafeClassName %> ToEntity( <%= SafeClassName %>Dto dto ) {
-            return dto.MapTo( new <%= SafeClassName %>( dto.Id<%=Entity.GetToEntityConvert() %> ) );
+            return dto.ToEntity();
         }
         
         /// <summary>

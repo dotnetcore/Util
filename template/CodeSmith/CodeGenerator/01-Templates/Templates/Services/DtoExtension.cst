@@ -19,7 +19,7 @@ using Util;
 using Util.Maps;
 using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
-namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %> {
+namespace <%= string.Format("{0}.Service.Dtos.{1}.Extensions",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>数据传输对象扩展
     /// </summary>

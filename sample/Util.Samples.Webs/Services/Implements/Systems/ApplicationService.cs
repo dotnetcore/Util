@@ -2,12 +2,12 @@
 using Util.Datas.Queries;
 using Util.Domains.Repositories;
 using Util.Exceptions;
-using Util.Maps;
 using Util.Samples.Webs.Datas;
 using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Domains.Repositories;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
+using Util.Samples.Webs.Services.Dtos.Systems.Extensions;
 using Util.Samples.Webs.Services.Queries.Systems;
 
 namespace Util.Samples.Webs.Services.Implements.Systems {
@@ -35,7 +35,7 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// </summary>
         /// <param name="entity">实体</param>
         protected override ApplicationDto ToDto( Application entity ) {
-            return entity.MapTo<ApplicationDto>();
+            return entity.ToDto();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// </summary>
         /// <param name="dto">数据传输对象</param>
         protected override Application ToEntity( ApplicationDto dto ) {
-            return dto.MapTo( new Application( dto.Id.ToGuid() ) );
+            return dto.ToEntity();
         }
 
         /// <summary>

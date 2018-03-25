@@ -25,38 +25,38 @@ namespace <%= Namespace %>.Service.Configs {
         /// 加载配置
         /// </summary>
         protected override void Load( ContainerBuilder builder ) {
-            LoadInfrastructure( builder );            
-            LoadDomainServices( builder );
+            LoadInfrastructure( builder );
             LoadRepositories( builder );
+            LoadDomainServices( builder );
             LoadApplicationServices( builder );
         }
 
         /// <summary>
         /// 加载基础设施
         /// </summary>
-        private void LoadInfrastructure( ContainerBuilder builder ) {
+        protected virtual void LoadInfrastructure( ContainerBuilder builder ) {
             builder.AddScoped<I<%= DbName %>UnitOfWork, <%= DbName %>UnitOfWork>();
-        }        
-
-        /// <summary>
-        /// 加载领域服务
-        /// </summary>
-        private void LoadDomainServices( ContainerBuilder builder ) {
         }
 
         /// <summary>
         /// 加载仓储
         /// </summary>
-        private void LoadRepositories( ContainerBuilder builder ) {
+        protected virtual void LoadRepositories( ContainerBuilder builder ) {
         <% foreach(Entity entity in EntityContext.Entities) {%>
             builder.AddScoped<I<%= entity.ClassName.ToSafeName() %>Repository,<%= entity.ClassName.ToSafeName() %>Repository>();
         <%} %>
         }
         
         /// <summary>
+        /// 加载领域服务
+        /// </summary>
+        protected virtual void LoadDomainServices( ContainerBuilder builder ) {
+        }
+        
+        /// <summary>
         /// 加载应用服务
         /// </summary>
-        private void LoadApplicationServices( ContainerBuilder builder ) {
+        protected virtual void LoadApplicationServices( ContainerBuilder builder ) {
         <% foreach(Entity entity in EntityContext.Entities) {%>
             builder.AddScoped<I<%= entity.ClassName.ToSafeName() %>Service,<%= entity.ClassName.ToSafeName() %>Service>().PropertiesAutowired();
         <%} %>
