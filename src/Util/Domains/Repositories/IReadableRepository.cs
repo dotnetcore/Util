@@ -87,7 +87,7 @@ namespace Util.Domains.Repositories {
         /// 获取单个实体
         /// </summary>
         /// <param name="predicate">查询条件</param>
-        /// <param name="cancellationToken">取消标识</param>
+        /// <param name="cancellationToken">取消令牌</param>
         Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default( CancellationToken ) );
         /// <summary>
         /// 查找实体集合

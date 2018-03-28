@@ -61,6 +61,24 @@ namespace Util.Security {
         }
         
         /// <summary>
+        ///   查找类似 电子邮件 {0} 已存在 的本地化字符串。
+        /// </summary>
+        public static string DuplicateEmail {
+            get {
+                return ResourceManager.GetString("DuplicateEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户名 {0} 已存在 的本地化字符串。
+        /// </summary>
+        public static string DuplicateUserName {
+            get {
+                return ResourceManager.GetString("DuplicateUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 用户名 {0} 无效，仅允许字母或数字 的本地化字符串。
         /// </summary>
         public static string InvalidUserName {

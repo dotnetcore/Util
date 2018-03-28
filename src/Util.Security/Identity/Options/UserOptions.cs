@@ -9,7 +9,7 @@
         public string UserNameCharacters { get; set; } = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
         /// <summary>
-        /// 每个用户具有唯一的电子邮件，默认不启用
+        /// 用户的电子邮件必须唯一，默认不启用
         /// </summary>
         public bool UniqueEmail { get; set; }
     }

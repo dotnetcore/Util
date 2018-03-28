@@ -8,7 +8,6 @@ namespace Util.Security.Identity.Describers {
         /// <summary>
         /// 密码太短
         /// </summary>
-        /// <param name="length">密码长度</param>
         public override IdentityError PasswordTooShort( int length ) {
             return new IdentityError {
                 Code = nameof( PasswordTooShort ),
@@ -63,6 +62,26 @@ namespace Util.Security.Identity.Describers {
             return new IdentityError {
                 Code = nameof( InvalidUserName ),
                 Description = string.Format( SecurityResource.InvalidUserName, userName )
+            };
+        }
+
+        /// <summary>
+        /// 用户名重复
+        /// </summary>
+        public override IdentityError DuplicateUserName( string userName ) {
+            return new IdentityError {
+                Code = nameof( DuplicateUserName ),
+                Description = string.Format( SecurityResource.DuplicateUserName, userName )
+            };
+        }
+
+        /// <summary>
+        /// 电子邮件重复
+        /// </summary>
+        public override IdentityError DuplicateEmail( string email ) {
+            return new IdentityError {
+                Code = nameof( DuplicateEmail ),
+                Description = string.Format( SecurityResource.DuplicateEmail, email )
             };
         }
     }

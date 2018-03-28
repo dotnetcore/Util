@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>电子邮件 {0} 已存在</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>用户名 {0} 已存在</value>
+  </data>
   <data name="InvalidUserName" xml:space="preserve">
     <value>用户名 {0} 无效，仅允许字母或数字</value>
   </data>
