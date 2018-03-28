@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Internal;
@@ -156,8 +157,8 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 获取单个实体
         /// </summary>
-        public async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate ) {
-            return await _wrapper.SingleAsync( predicate );
+        public async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            return await _wrapper.SingleAsync( predicate, cancellationToken );
         }
 
         /// <summary>

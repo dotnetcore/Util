@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Util.Domains;
 using Util.Domains.Repositories;
@@ -90,7 +91,7 @@ namespace Util.Tests.Samples {
             throw new NotImplementedException();
         }
 
-        public Task<EntitySample> SingleAsync( Expression<Func<EntitySample, bool>> predicate ) {
+        public Task<EntitySample> SingleAsync( Expression<Func<EntitySample, bool>> predicate, CancellationToken cancellationToken = default( CancellationToken ) ) {
             throw new NotImplementedException();
         }
 

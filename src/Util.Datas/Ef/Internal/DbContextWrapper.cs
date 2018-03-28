@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Core;
@@ -117,8 +118,9 @@ namespace Util.Datas.Ef.Internal {
         /// 获取单个实体
         /// </summary>
         /// <param name="predicate">查询条件</param>
-        public async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate ) {
-            return await Find().FirstOrDefaultAsync( predicate );
+        /// <param name="cancellationToken">取消标识</param>
+        public async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            return await Find().FirstOrDefaultAsync( predicate, cancellationToken );
         }
 
         /// <summary>
