@@ -97,8 +97,8 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 查找实体
         /// </summary>
-        public async Task<TEntity> FindAsync( object id ) {
-            return await _wrapper.FindAsync( id );
+        public async Task<TEntity> FindAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            return await _wrapper.FindAsync( id, cancellationToken );
         }
 
         /// <summary>

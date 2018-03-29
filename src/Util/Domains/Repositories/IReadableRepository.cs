@@ -47,7 +47,8 @@ namespace Util.Domains.Repositories {
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
-        Task<TEntity> FindAsync( object id );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task<TEntity> FindAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) );
         /// <summary>
         /// 查找实体集合
         /// </summary>

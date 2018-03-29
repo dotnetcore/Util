@@ -64,10 +64,11 @@ namespace Util.Datas.Ef.Internal {
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
-        public async Task<TEntity> FindAsync( object id ) {
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task<TEntity> FindAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( id == null )
                 return null;
-            return await Set.FindAsync( id );
+            return await Set.FindAsync( new [] { id }, cancellationToken );
         }
 
         /// <summary>
