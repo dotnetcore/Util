@@ -11,5 +11,9 @@
         /// 用户配置
         /// </summary>
         public UserOptions User { get; set; } = new UserOptions();
+        /// <summary>
+        /// 存储配置
+        /// </summary>
+        public StoreOptions Store { get; set; } = new StoreOptions();
     }
 }

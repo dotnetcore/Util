@@ -5,7 +5,7 @@ namespace Util.Security.Identity.Extensions {
     /// <summary>
     /// Identity配置扩展
     /// </summary>
-    public static class IdentityOptionsExtensions {
+    public static partial class Extensions {
         /// <summary>
         /// 加载权限配置
         /// </summary>
@@ -16,6 +16,7 @@ namespace Util.Security.Identity.Extensions {
                 return;
             LoadPassword( options, permissionOptions );
             LoadUser( options, permissionOptions );
+            LoadStore( options, permissionOptions );
         }
 
         /// <summary>
@@ -36,6 +37,13 @@ namespace Util.Security.Identity.Extensions {
         private static void LoadUser( IdentityOptions options, PermissionOptions permissionOptions ) {
             options.User.AllowedUserNameCharacters = permissionOptions.User.UserNameCharacters;
             options.User.RequireUniqueEmail = permissionOptions.User.UniqueEmail;
+        }
+
+        /// <summary>
+        /// 加载存储配置
+        /// </summary>
+        private static void LoadStore( IdentityOptions options, PermissionOptions permissionOptions ) {
+            options.Stores.MaxLengthForKeys = permissionOptions.Store.MaxLengthForKeys;
         }
     }
 }
