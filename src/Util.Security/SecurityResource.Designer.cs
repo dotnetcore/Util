@@ -79,11 +79,29 @@ namespace Util.Security {
         }
         
         /// <summary>
+        ///   查找类似 无效的令牌 的本地化字符串。
+        /// </summary>
+        public static string InvalidToken {
+            get {
+                return ResourceManager.GetString("InvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 用户名 {0} 无效，仅允许字母或数字 的本地化字符串。
         /// </summary>
         public static string InvalidUserName {
             get {
                 return ResourceManager.GetString("InvalidUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码错误 的本地化字符串。
+        /// </summary>
+        public static string PasswordMismatch {
+            get {
+                return ResourceManager.GetString("PasswordMismatch", resourceCulture);
             }
         }
         

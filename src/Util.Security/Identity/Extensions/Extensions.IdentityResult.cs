@@ -11,7 +11,7 @@ namespace Util.Security.Identity.Extensions {
         /// 失败抛出异常
         /// </summary>
         /// <param name="result">Identity结果</param>
-        public static void Throw( this IdentityResult result ) {
+        public static void ThrowIfError( this IdentityResult result ) {
             if( result.Succeeded == false )
                 throw new Warning( result.Errors.First().Description );
         }

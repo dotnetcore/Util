@@ -84,5 +84,25 @@ namespace Util.Security.Identity.Describers {
                 Description = string.Format( SecurityResource.DuplicateEmail, email )
             };
         }
+
+        /// <summary>
+        /// 无效令牌
+        /// </summary>
+        public override IdentityError InvalidToken() {
+            return new IdentityError {
+                Code = nameof( InvalidToken ),
+                Description = SecurityResource.InvalidToken
+            };
+        }
+
+        /// <summary>
+        /// 密码错误
+        /// </summary>
+        public override IdentityError PasswordMismatch() {
+            return new IdentityError {
+                Code = nameof( PasswordMismatch ),
+                Description = SecurityResource.PasswordMismatch
+            };
+        }
     }
 }
