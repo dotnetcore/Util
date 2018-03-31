@@ -203,10 +203,14 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - Karma
     - Jasmine
 
-21. 代码生成器
+21. 权限
+    - [Asp Net Core Identity](https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?tabs=visual-studio%2Caspnetcore2x)
+    - [Identity Server](https://identityserver4.readthedocs.io/en/release/)
+
+22. 代码生成器
   - CodeSmith 6.5
 
-22. 参考应用框架
+23. 参考应用框架
   - [ABP](https://github.com/aspnetboilerplate/aspnetboilerplate)
   - [Nop](https://www.nopcommerce.com) 
     - Nop是一个开源商城，封装了大量实用的基础代码。
@@ -421,7 +425,8 @@ https://github.com/dotnetcore/util/
   - 布局(栅格) - 基于Angular flex-layout组件 [已发布]
   - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   
-- 权限 [待启动]
+- 权限 [开发中]
+  - Identity集成 [开发中]
 - 公共业务基类
   - 地址 [已发布]
 - 支付操作

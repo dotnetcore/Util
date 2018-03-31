@@ -35,6 +35,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0-preview1-final" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.0-preview1-final" />
   </ItemGroup>
 

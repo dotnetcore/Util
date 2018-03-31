@@ -216,5 +216,9 @@ namespace Util.Tests.Samples {
         public Task RemoveAsync( IEnumerable<EntitySample> entities ) {
             throw new NotImplementedException();
         }
+
+        public Task<EntitySample> FindAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -86,23 +86,23 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
             <% if( p.ColumnName == "Version" && p.DataType == DbType.Binary ) continue;%>
             <% if( p.ColumnName == "IsDeleted" && p.DataType == DbType.Boolean ) continue;%>
             <% if( p.IsPrimaryKey.Value ){ %>
-            AddDescription( "<%=p.Description %>", Id );
+            AddDescription( t => t.Id );
             <% continue;} %>
-            AddDescription( "<%=p.Description %>", <%= p.PropertyName.ToSafeName() %><%= p.ShowDescription() %> );
+            AddDescription( t => t.<%= p.PropertyName.ToSafeName() %> );
             <% } %>
         }
         
         /// <summary>
         /// 添加变更列表
         /// </summary>
-        protected override void AddChanges( <%= SafeClassName %> newEntity ) {
+        protected override void AddChanges( <%= SafeClassName %> other ) {
             <% foreach(Property p in Entity.Properties) { %>
             <% if( p.ColumnName == "Version" && p.DataType == DbType.Binary ) continue;%>
             <% if( p.ColumnName == "IsDeleted" && p.DataType == DbType.Boolean ) continue;%>
             <% if( p.IsPrimaryKey.Value ){ %>
-            AddChange( "Id", "<%=p.Description %>", Id, newEntity.Id );            
+            AddChange( t => t.Id, other.Id );
             <%continue; } %>
-            AddChange( "<%=p.ColumnName %>", "<%=p.Description %>", <%= p.PropertyName.ToSafeName() %>, newEntity.<%= p.PropertyName.ToSafeName() %> );
+            AddChange( t => t.<%= p.PropertyName.ToSafeName() %>, other.<%= p.PropertyName.ToSafeName() %> );
             <% } %>
         }
     }

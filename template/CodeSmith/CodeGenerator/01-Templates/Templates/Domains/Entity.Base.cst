@@ -107,7 +107,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
             <% if( p.ColumnName == "Version" && p.DataType == DbType.Binary ) continue;%>
             <% if( p.ColumnName == "IsDeleted" && p.DataType == DbType.Boolean ) continue;%>
             <% if( p.IsPrimaryKey.Value ){ %>
-            AddChange( t => t.Id, other.Id );            
+            AddChange( t => t.Id, other.Id );
             <%continue; } %>
             AddChange( t => t.<%= p.PropertyName.ToSafeName() %>, other.<%= p.PropertyName.ToSafeName() %> );
             <% } %>
