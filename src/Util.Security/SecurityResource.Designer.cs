@@ -61,6 +61,24 @@ namespace Util.Security {
         }
         
         /// <summary>
+        ///   查找类似 应用程序编码 {0} 已存在 的本地化字符串。
+        /// </summary>
+        public static string DuplicateApplicationCode {
+            get {
+                return ResourceManager.GetString("DuplicateApplicationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 应用程序名称 {0} 已存在 的本地化字符串。
+        /// </summary>
+        public static string DuplicateApplicationName {
+            get {
+                return ResourceManager.GetString("DuplicateApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 电子邮件 {0} 已存在 的本地化字符串。
         /// </summary>
         public static string DuplicateEmail {
@@ -93,6 +111,15 @@ namespace Util.Security {
         public static string InvalidUserName {
             get {
                 return ResourceManager.GetString("InvalidUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 由于您多次登录失败，暂时被系统锁定，请稍后再试 的本地化字符串。
+        /// </summary>
+        public static string LoginFailLock {
+            get {
+                return ResourceManager.GetString("LoginFailLock", resourceCulture);
             }
         }
         
@@ -142,11 +169,20 @@ namespace Util.Security {
         }
         
         /// <summary>
-        ///   查找类似 密码不能少于 {0} 个字符. 的本地化字符串。
+        ///   查找类似 密码不能少于 {0} 个字符 的本地化字符串。
         /// </summary>
         public static string PasswordTooShort {
             get {
                 return ResourceManager.GetString("PasswordTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您的帐户已被冻结，请联系管理员 的本地化字符串。
+        /// </summary>
+        public static string UserIsDisabled {
+            get {
+                return ResourceManager.GetString("UserIsDisabled", resourceCulture);
             }
         }
         

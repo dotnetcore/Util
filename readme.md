@@ -184,13 +184,19 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - 脚本语言
     - [TypeScript](https://www.tslang.cn)
   - 脚本框架
-    - [Angular 6](https://angular.cn/)
+    - [Angular 5](https://angular.cn/)
   - Css预处理器
     - [Sass](http://www.sass-lang.com) 
   - 组件库
     - [Angular Material](https://material.angular.io/)
     - [Angular Flex-Layout](https://github.com/angular/flex-layout)
     - [PrimeNg](https://www.primefaces.org/primeng)
+    - [Ngx-Admin](http://akveo.com/ngx-admin)
+    - [Vmware-Clarity](http://clarity.design)
+    - [阿里-Ng-Zorro](https://ng.ant.design)
+    - [Ng-Alain](http://ng-alain.com/)
+    - [饿了么-Element](https://element-angular.faas.ele.me/)
+    - [中兴-Jigsaw](https://github.com/rdkmaster/jigsaw)
     - [Angular-Material-App](https://github.com/stbui/angular-material-app)
   - 脚本库
     - [Moment](http://momentjs.cn/)
