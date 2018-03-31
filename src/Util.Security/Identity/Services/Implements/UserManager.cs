@@ -6,6 +6,7 @@ using Util.Domains.Services;
 using Util.Security.Identity.Extensions;
 using Util.Security.Identity.Models;
 using Util.Security.Identity.Options;
+using Util.Security.Identity.Repositories;
 using Util.Security.Identity.Services.Abstractions;
 
 namespace Util.Security.Identity.Services.Implements {
@@ -20,9 +21,12 @@ namespace Util.Security.Identity.Services.Implements {
         /// </summary>
         /// <param name="userManager">Identity用户服务</param>
         /// <param name="options">权限配置</param>
-        public UserManager( IdentityUserManager<TUser, TKey> userManager, IOptions<PermissionOptions> options ) {
+        /// <param name="userRepository">用户仓储</param>
+        public UserManager( IdentityUserManager<TUser, TKey> userManager, IOptions<PermissionOptions> options,
+                IUserRepository<TUser,TKey> userRepository ) {
             Manager = userManager;
             Options = options;
+            UserRepository = userRepository;
         }
 
         /// <summary>
@@ -33,6 +37,10 @@ namespace Util.Security.Identity.Services.Implements {
         /// 权限配置
         /// </summary>
         protected IOptions<PermissionOptions> Options { get; set; }
+        /// <summary>
+        /// 用户仓储
+        /// </summary>
+        protected IUserRepository<TUser, TKey> UserRepository { get; set; }
 
         /// <summary>
         /// 创建用户
@@ -114,6 +122,30 @@ namespace Util.Security.Identity.Services.Implements {
         public async Task ChangePasswordAsync( TUser user, string currentPassword, string newPassword ) {
             var result = await Manager.ChangePasswordAsync( user, currentPassword, newPassword );
             result.ThrowIfError();
+        }
+
+        /// <summary>
+        /// 通过用户名查找
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        public Task<TUser> FindByNameAsync( string userName ) {
+            return Manager.FindByNameAsync( userName );
+        }
+
+        /// <summary>
+        /// 通过电子邮件查找
+        /// </summary>
+        /// <param name="email">电子邮件</param>
+        public Task<TUser> FindByEmailAsync( string email ) {
+            return Manager.FindByEmailAsync( email );
+        }
+
+        /// <summary>
+        /// 通过手机号查找
+        /// </summary>
+        /// <param name="phoneNumber">手机号</param>
+        public Task<TUser> FindByPhoneAsync( string phoneNumber ) {
+            return UserRepository.SingleAsync( t => t.PhoneNumber == phoneNumber );
         }
     }
 }

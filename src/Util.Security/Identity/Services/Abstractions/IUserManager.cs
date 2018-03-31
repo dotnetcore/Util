@@ -8,7 +8,7 @@ namespace Util.Security.Identity.Services.Abstractions {
     /// </summary>
     /// <typeparam name="TUser">用户类型</typeparam>
     /// <typeparam name="TKey">用户标识类型</typeparam>
-    public interface IUserManager<in TUser, TKey> : IDomainService where TUser: User<TUser,TKey> {
+    public interface IUserManager<TUser, TKey> : IDomainService where TUser: User<TUser,TKey> {
         /// <summary>
         /// 创建用户
         /// </summary>
@@ -57,5 +57,20 @@ namespace Util.Security.Identity.Services.Abstractions {
         /// <param name="currentPassword">当前密码</param>
         /// <param name="newPassword">新密码</param>
         Task ChangePasswordAsync( TUser user, string currentPassword, string newPassword );
+        /// <summary>
+        /// 通过用户名查找
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        Task<TUser> FindByNameAsync( string userName );
+        /// <summary>
+        /// 通过电子邮件查找
+        /// </summary>
+        /// <param name="email">电子邮件</param>
+        Task<TUser> FindByEmailAsync( string email );
+        /// <summary>
+        /// 通过手机号查找
+        /// </summary>
+        /// <param name="phoneNumber">手机号</param>
+        Task<TUser> FindByPhoneAsync( string phoneNumber );
     }
 }
