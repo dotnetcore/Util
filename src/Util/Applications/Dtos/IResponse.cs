@@ -1,6 +1,6 @@
 ﻿namespace Util.Applications.Dtos {
     /// <summary>
-    /// 响应对象
+    /// 响应结果
     /// </summary>
     public interface IResponse {
     }

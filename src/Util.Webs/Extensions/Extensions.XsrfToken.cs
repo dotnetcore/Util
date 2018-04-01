@@ -5,25 +5,25 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Helpers;
 
-namespace Util.Ui.Extensions {
+namespace Util.Webs.Extensions {
     /// <summary>
     /// 服务扩展
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// 注册Angular服务
+        /// 注册XSRF令牌服务
         /// </summary>
         /// <param name="services">服务集合</param>
-        public static IServiceCollection AddAngular( this IServiceCollection services ) {
+        public static IServiceCollection AddXsrfToken( this IServiceCollection services ) {
             services.AddAntiforgery( options => options.HeaderName = "X-XSRF-TOKEN" );
             return services;
         }
 
         /// <summary>
-        /// 配置Angular
+        /// 配置XSRF令牌
         /// </summary>
         /// <param name="app">应用程序生成器</param>
-        public static IApplicationBuilder UseAngular( this IApplicationBuilder app ) {
+        public static IApplicationBuilder UseXsrfToken( this IApplicationBuilder app ) {
             var antiforgery = Ioc.Create<IAntiforgery>();
             app.Use( next => context => {
                 if( string.Equals( context.Request.Path.Value, "/", StringComparison.OrdinalIgnoreCase ) ||

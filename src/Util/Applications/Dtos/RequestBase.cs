@@ -5,7 +5,7 @@ using Util.Validations;
 
 namespace Util.Applications.Dtos {
     /// <summary>
-    /// 请求对象
+    /// 请求参数
     /// </summary>
     [DataContract]
     public abstract class RequestBase : IRequest {
