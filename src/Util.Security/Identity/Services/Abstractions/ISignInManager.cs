@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Util.Domains.Services;
 using Util.Security.Identity.Models;
 
 namespace Util.Security.Identity.Services.Abstractions {
@@ -7,7 +8,7 @@ namespace Util.Security.Identity.Services.Abstractions {
     /// </summary>
     /// <typeparam name="TUser">用户类型</typeparam>
     /// <typeparam name="TKey">用户类型</typeparam>
-    public interface ISignInManager<in TUser, TKey> where TUser : User<TUser, TKey> {
+    public interface ISignInManager<in TUser, TKey> : IDomainService where TUser : User<TUser, TKey> {
         /// <summary>
         /// 密码登录
         /// </summary>
