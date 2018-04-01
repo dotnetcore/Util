@@ -85,18 +85,6 @@ namespace Util.Security.Identity.Models {
         [StringLength( 1024, ErrorMessage = "安全码散列输入过长，不能超过1024位" )]
         public string SafePasswordHash { get; set; }
         /// <summary>
-        /// 密码问题
-        /// </summary>
-        [DisplayName( "密码问题" )]
-        [StringLength( 100, ErrorMessage = "密码问题输入过长，不能超过100位" )]
-        public string Question { get; set; }
-        /// <summary>
-        /// 密码答案
-        /// </summary>
-        [DisplayName( "密码答案" )]
-        [StringLength( 100, ErrorMessage = "密码答案输入过长，不能超过100位" )]
-        public string Answer { get; set; }
-        /// <summary>
         /// 启用锁定
         /// </summary>
         [DisplayName( "启用锁定" )]
@@ -213,8 +201,6 @@ namespace Util.Security.Identity.Models {
             AddDescription( t => t.PasswordHash );
             AddDescription( t => t.SafePassword );
             AddDescription( t => t.SafePasswordHash );
-            AddDescription( t => t.Question );
-            AddDescription( t => t.Answer );
             AddDescription( t => t.LockoutEnabled );
             AddDescription( t => t.LockoutEnd );
             AddDescription( t => t.LastLoginTime );
@@ -250,8 +236,6 @@ namespace Util.Security.Identity.Models {
             AddChange( t => t.PasswordHash, other.PasswordHash );
             AddChange( t => t.SafePassword, other.SafePassword );
             AddChange( t => t.SafePasswordHash, other.SafePasswordHash );
-            AddChange( t => t.Question, other.Question );
-            AddChange( t => t.Answer, other.Answer );
             AddChange( t => t.LockoutEnabled, other.LockoutEnabled );
             AddChange( t => t.LockoutEnd, other.LockoutEnd );
             AddChange( t => t.LastLoginTime, other.LastLoginTime );
