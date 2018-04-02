@@ -25,24 +25,44 @@
     }
 
     .mat-column-operation {
-        max-width: 130px;
+        max-width: 140px;
+    }
+
+    .mat-expansion-panel {
+        margin-bottom: 10px;
     }
 </style>
-
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            直通车
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent="">
+            <div fxLayout="row" fxLayoutGap="20px">
+                <a color="primary" mat-raised-button="" matTooltip="快速通道1">快速通道1</a>
+                <a color="primary" mat-raised-button="" matTooltip="快速通道2">快速通道2</a>
+                <a color="primary" mat-button="" matTooltip="快速通道3">快速通道3</a>
+                <a color="primary" mat-button="" matTooltip="快速通道4">快速通道4</a>
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
+</mat-accordion>
 <mat-toolbar color="primary">
-    <a mat-icon-button="" matTooltip="添加应用程序" routerLink="create">
-        <i class="fa fa-plus"></i>
-    </a>
-    <mat-button-wrapper (onClick)="delete()" style="mat-icon-button" tooltip="批量删除"><ng-template>
-        <mat-icon>delete</mat-icon>
-    </ng-template></mat-button-wrapper>
-    <mat-button-wrapper (onClick)="refresh()" style="mat-icon-button" tooltip="刷新"><ng-template>
-        <mat-icon>sync</mat-icon>
-    </ng-template></mat-button-wrapper>
+    <div fxLayout="row">
+        <mat-textbox-wrapper (onChange)="search()" placeholder="搜索" [(model)]="queryParam.keyword"></mat-textbox-wrapper>
+    </div>
+    <div fxLayout="row">
+        <a mat-icon-button="" matTooltip="添加应用程序" routerLink="create">
+            <i class="fa fa-plus"></i>
+        </a>
+        <mat-button-wrapper (onClick)="delete()" style="mat-icon-button" tooltip="批量删除"><ng-template>
+            <mat-icon>delete</mat-icon>
+        </ng-template></mat-button-wrapper>
+        <mat-button-wrapper (onClick)="refresh()" style="mat-icon-button" tooltip="刷新"><ng-template>
+            <mat-icon>sync</mat-icon>
+        </ng-template></mat-button-wrapper>
+    </div>
 </mat-toolbar>
-<div fxLayout="row"><div fxFlex="40%">
-    <mat-textbox-wrapper (onChange)="search()" placeholder="搜索" [(model)]="queryParam.keyword"></mat-textbox-wrapper>
-</div></div>
 <mat-table-wrapper #tableApplication="" (onQueryRestore)="restoreQueryParam($event)" baseUrl="application" key="tableApplication" maxHeight="700" [queryParam]="queryParam"><mat-table class="tableHeader" matSort="" matSortActive="CreationTime" matSortDirection="desc" matSortDisableClear="">
     <ng-container matColumnDef="selectCheckbox"><mat-header-cell *matHeaderCellDef=""><mat-checkbox (change)="$event?tableApplication.masterToggle():null" [checked]="tableApplication.isMasterChecked()" [disabled]="!tableApplication.dataSource.data.length" [indeterminate]="tableApplication.isMasterIndeterminate()"></mat-checkbox></mat-header-cell><mat-cell *matCellDef="let row"><mat-checkbox (change)="$event?tableApplication.checkedSelection.toggle(row):null" (click)="$event.stopPropagation()" [checked]="tableApplication.checkedSelection.isSelected(row)"></mat-checkbox></mat-cell></ng-container>
     <ng-container matColumnDef="lineNumber"><mat-header-cell *matHeaderCellDef="">ID</mat-header-cell><mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell></ng-container>

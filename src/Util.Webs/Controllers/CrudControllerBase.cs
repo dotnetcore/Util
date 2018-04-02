@@ -32,7 +32,7 @@ namespace Util.Webs.Controllers {
         /// 创建，调用范例：POST URL(/api/customers) BODY({name:'a',age:2})
         /// </summary>
         /// <param name="dto">数据传输对象</param>
-        [HttpPost( Name = "CreateAsync" )]
+        [HttpPost]
         public virtual async Task<IActionResult> CreateAsync( [FromBody] TDto dto ) {
             if ( dto == null )
                 return Fail( "请求参数不能为空" );

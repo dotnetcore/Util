@@ -1,29 +1,51 @@
 
 <form #form="ngForm" (ngSubmit)="submit(form)">
-    <mat-card>
-        <mat-card-header>
-            编辑应用程序
-        </mat-card-header>
-        <mat-card-content class="formContent">
-            <div fxLayout="row"><div fxFlex="50%">
-                <mat-textbox-wrapper name="code" placeholder="应用程序编码" requiredMessage="应用程序编码不能为空" [(model)]="model&&model.code" [maxLength]="60" [required]="true"></mat-textbox-wrapper>
-            </div></div>
-            <div fxLayout="row"><div fxFlex="50%">
-                <mat-textbox-wrapper name="name" placeholder="应用程序名称" requiredMessage="应用程序名称不能为空" [(model)]="model&&model.name" [maxLength]="200" [required]="true"></mat-textbox-wrapper>
-            </div></div>
-            <div fxLayout="row"><div fxFlex="50%">
-                <mat-textbox-wrapper name="comment" placeholder="备注" [(model)]="model&&model.comment" [maxLength]="500"></mat-textbox-wrapper>
-            </div></div>
-            <div class="mt30" fxLayout="row">
-                <mat-slide-toggle name="enabled" [(ngModel)]="model&&model.enabled">启用</mat-slide-toggle>
-            </div>
-            <div class="mt30" fxLayout="row">
-                <mat-slide-toggle name="registerEnabled" [(ngModel)]="model&&model.registerEnabled">启用注册</mat-slide-toggle>
-            </div>
-        </mat-card-content>
-        <mat-card-actions align="end">
-            <mat-button-wrapper (onClick)="back()" style="mat-button" text="返回"></mat-button-wrapper>
-            <mat-button-wrapper color="primary" type="submit"></mat-button-wrapper>
-        </mat-card-actions>
-    </mat-card>
+    <div fxLayout="row" fxLayoutAlign="center start"><div fxFlex="70%">
+        <mat-card>
+            <mat-card-header>
+                编辑应用程序
+            </mat-card-header>
+            <mat-card-content class="formContent">
+                <div fxLayout="row" fxLayoutAlign="center start"><div fxFlex="100%">
+                    <mat-textbox-wrapper name="code" placeholder="应用程序编码" requiredMessage="应用程序编码不能为空" [(model)]="model&&model.code" [maxLength]="60" [required]="true"></mat-textbox-wrapper>
+                </div></div>
+                <div fxLayout="row" fxLayoutAlign="center start"><div fxFlex="100%">
+                    <mat-textbox-wrapper name="name" placeholder="应用程序名称" requiredMessage="应用程序名称不能为空" [(model)]="model&&model.name" [maxLength]="200" [required]="true"></mat-textbox-wrapper>
+                </div></div>
+                <div fxLayout="row" fxLayoutAlign="center start"><div fxFlex="100%">
+                    <mat-textbox-wrapper name="comment" placeholder="备注" [(model)]="model&&model.comment" [maxLength]="500"></mat-textbox-wrapper>
+                </div></div>
+                <div class="mt30" fxLayout="row">
+                    <mat-slide-toggle name="enabled" [(ngModel)]="model&&model.enabled">启用</mat-slide-toggle>
+                </div>
+                <div class="mt30" fxLayout="row">
+                    <mat-slide-toggle name="registerEnabled" [(ngModel)]="model&&model.registerEnabled">启用注册</mat-slide-toggle>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <div fxFlex="1 1 auto">
+                        <mat-textbox-wrapper placeholder="输入框1"></mat-textbox-wrapper>
+                    </div>
+                    <div fxFlex="1 1 auto">
+                        <mat-textbox-wrapper placeholder="输入框2"></mat-textbox-wrapper>
+                    </div>
+                    <div fxFlex="1 1 auto">
+                        <mat-textbox-wrapper placeholder="输入框3"></mat-textbox-wrapper>
+                    </div>
+                </div>
+                <div class="mt30" fxLayout="row" fxLayoutGap="20px"><div fxFlex="100%">
+                    <mat-datepicker-wrapper name="lastModificationTime" placeholder="最后修改时间" [(model)]="model&&model.lastModificationTime"></mat-datepicker-wrapper>
+                </div></div>
+                <div class="mt30" fxLayout="row"><div fxFlex="100%">
+                    <mat-select-wrapper name="version" placeholder="版本号" [(model)]="model&&model.version"></mat-select-wrapper>
+                </div></div>
+                <div class="mt30" fxLayout="row"><div fxFlex="100%">
+                    <mat-textarea-wrapper placeholder="多行文本" [minRows]="3"></mat-textarea-wrapper>
+                </div></div>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <mat-button-wrapper (onClick)="back()" style="mat-button" text="返回"></mat-button-wrapper>
+                <mat-button-wrapper color="primary" type="submit"></mat-button-wrapper>
+            </mat-card-actions>
+        </mat-card>
+    </div></div>
 </form>

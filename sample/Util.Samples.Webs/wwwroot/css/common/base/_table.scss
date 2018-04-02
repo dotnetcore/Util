@@ -1,0 +1,32 @@
+﻿.mat-toolbar-single-row {
+    justify-content: space-between;
+    mat-textbox-wrapper{
+        font-size:14px;
+    }
+    .mat-input-infix.mat-form-field-infix {
+        width: 300px;
+
+    }
+}
+.mat-toolbar {
+    &.mat-toolbar-single-row {
+        margin-bottom: 10px;
+    }
+}
+.mat-cell {
+    .mat-icon-button {
+        color: #666666;
+
+        &[mattooltip='编辑']:hover {
+            color: #5db54d;
+        }
+
+        &[mattooltip='删除']:hover, &[ng-reflect-message='删除']:hover {
+            color: #ed5565;
+        }
+
+        &[mattooltip='查看详细']:hover {
+            color: #1ab394;
+        }
+    }
+}

@@ -1,33 +1,17 @@
 ﻿<util-sidenav-container fullscreen="true">
-    <util-sidenav id="sidenav" opened="true" mode="Side" width="260">
-        <util-accordion display-mode="Flat">
-            <util-panel expanded="true">
-                <util-panel-header>
-                    <util-panel-title>
-                        <util-icon material-icon="Android"></util-icon>
-                        <span style="margin-left: 16px">哈哈</span>
-                    </util-panel-title>
-                </util-panel-header>
-                <util-panel-content>
-                    <util-nav-list>
-                        <util-nav-list-item link="systems/application">
-                            <util-nav-list-icon material-icon="Android" />
-                            <util-nav-list-text>应用程序</util-nav-list-text>
-                        </util-nav-list-item>
-                    </util-nav-list>
-                </util-panel-content>
-            </util-panel>
-        </util-accordion>
+    @*导航侧边栏*@
+    <util-sidenav id="sidenav" opened="true" mode="Side" width="250">
+        @Html.Partial( "Main/SideNav" )
     </util-sidenav>
     <util-sidenav-content>
-        <util-toolbar>
-            <util-button styles="Icon" on-click="sidenav.toggle()">
-                <util-icon font-awesome-icon="Apple" size="Large2X" spin="true"></util-icon>
-            </util-button>
-        </util-toolbar>
-        <div style="padding: 8px">
+        @*页头*@
+        @Html.Partial( "Main/Header" )
+        @*内容区*@
+        <div class="navbar-content">
             <util-router-outlet></util-router-outlet>
         </div>
+        @*页脚*@
+        @Html.Partial( "Main/Footer" )
     </util-sidenav-content>
 </util-sidenav-container>
 

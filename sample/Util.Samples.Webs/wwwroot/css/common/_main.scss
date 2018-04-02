@@ -6,11 +6,14 @@
 
 //导入组件样式
 @import "base/component";
+//导入table样式
+@import "base/table";
 
 //导入primeNg组件样式
 @import "prime/theme";
 
 //导入主界面布局样式
+@import 'layout/common';
 @import 'layout/header';
 @import 'layout/navigation';
 @import 'layout/footer';

@@ -3,6 +3,7 @@ using System.Text.Encodings.Web;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Buttons.Builders;
 using Util.Ui.Renders;
 using Util.Ui.Material.Enums;
@@ -77,6 +78,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
+            builder.Class( _config );
             ConfigId( builder );
             ConfigText( builder );
             ConfigType( builder );
