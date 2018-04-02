@@ -1,0 +1,65 @@
+﻿//表单内容区
+.form-content {
+    padding: 30px 50px 0 50px;
+
+    > div {
+        margin-top: 10px;
+
+        > div {
+            label {
+                min-width: 120px;
+                display: inline-flex;
+                color: rgba(0,0,0,.65);
+            }
+        }
+    }
+}
+.form-list-content {
+    padding: 30px 50px 0 50px;
+
+    > div {
+        > div {
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(0,0,0,.2);
+        }
+    }
+}
+
+.form-content .mt30 {
+    margin-top: 30px;
+    &:first-child {
+        margin-top: 30px;
+    }
+}
+mat-card {
+    margin-bottom: 15px;
+}
+mat-card-actions {
+    > mat-button-wrapper {
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+.mat-accordion {
+    .mat-expansion-panel-spacing {
+        &:last-child {
+            margin-bottom: 15px !important;
+        }
+    }
+}
+
+.mat-list {
+    .mat-list-item {
+        .mat-list-item-content {
+            > label {
+                width: 120px;
+                text-align: right;
+                margin-right: 40px;
+                font-size: 14px;
+            }
+        }
+    }
+}

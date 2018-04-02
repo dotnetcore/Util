@@ -35,19 +35,17 @@
 <mat-accordion>
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
-            直通车
+            测试
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent="">
             <div fxLayout="row" fxLayoutGap="20px">
-                <a color="primary" mat-raised-button="" matTooltip="快速通道1">快速通道1</a>
-                <a color="primary" mat-raised-button="" matTooltip="快速通道2">快速通道2</a>
-                <a color="primary" mat-button="" matTooltip="快速通道3">快速通道3</a>
-                <a color="primary" mat-button="" matTooltip="快速通道4">快速通道4</a>
+                <mat-button-wrapper color="primary" style="mat-raised-button" text="测试"></mat-button-wrapper>
+                <mat-button-wrapper color="primary" style="mat-raised-button" text="测试2"></mat-button-wrapper>
             </div>
         </ng-template>
     </mat-expansion-panel>
 </mat-accordion>
-<mat-toolbar color="primary">
+<mat-toolbar>
     <div fxLayout="row">
         <mat-textbox-wrapper (onChange)="search()" placeholder="搜索" [(model)]="queryParam.keyword"></mat-textbox-wrapper>
     </div>

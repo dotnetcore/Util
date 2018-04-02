@@ -24,7 +24,7 @@
         <util-card-header>
             编辑<%=Description%>
         </util-card-header>
-        <util-card-content class="formContent">
+        <util-card-content class="form-content">
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         <% if( Entity.IsHidden(p) ) continue; %>

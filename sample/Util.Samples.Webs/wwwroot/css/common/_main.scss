@@ -4,11 +4,6 @@
 //导入基础样式
 @import "base/base";
 
-//导入组件样式
-@import "base/component";
-//导入table样式
-@import "base/table";
-
 //导入primeNg组件样式
 @import "prime/theme";
 
@@ -18,5 +13,8 @@
 @import 'layout/navigation';
 @import 'layout/footer';
 
-//导入表单布局样式
-@import 'layout/form';
+//导入表单相关样式
+@import 'form/form';
+@import "form/component";
+@import "form/table";
+@import "form/timeline";
