@@ -22,7 +22,7 @@ import { MessageConfig } from '../config/message-config';
             <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
             <mat-hint *ngIf="endHint" align="end">{{endHint}}</mat-hint>
             <span *ngIf="prefixText" matPrefix>{{prefixText}}&nbsp;</span>
-            <button *ngIf="showClearButton&&model" matSuffix mat-button mat-icon-button  (click)="controlModel.reset()">
+            <button *ngIf="showClearButton&&model" matSuffix mat-button mat-icon-button  (click)="controlModel.reset()" [matTooltip]="clearButtonTooltip" tabindex="-100">
                 <mat-icon>close</mat-icon>
             </button>
             <mat-icon *ngIf="suffixMaterialIcon" matSuffix [style.cursor]="'pointer'" (click)="$event.stopPropagation();suffixIconClick()">{{suffixMaterialIcon}}</mat-icon>
@@ -33,6 +33,10 @@ import { MessageConfig } from '../config/message-config';
     `
 })
 export class TextareaWrapperComponent extends FormControlWrapperBase {
+    /**
+     * 清除按钮提示
+     */
+    clearButtonTooltip: string;
     /**
      * 是否显示清除按钮
      */
@@ -69,6 +73,7 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
     constructor( @Optional() @Host() form: NgForm ) {
         super(form);
         this.showClearButton = true;
+        this.clearButtonTooltip = MessageConfig.clear;
         this.minRows = 1;
         this.maxRows = 8;
     }

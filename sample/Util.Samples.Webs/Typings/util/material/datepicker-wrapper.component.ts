@@ -25,7 +25,7 @@ import { toDate } from '../common/helper';
             <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
             <mat-hint *ngIf="endHint" align="end">{{endHint}}</mat-hint>
             <span *ngIf="prefixText" matPrefix>{{prefixText}}&nbsp;</span>
-            <button *ngIf="showClearButton&&model" matSuffix mat-button mat-icon-button  (click)="controlModel.reset()" [matTooltip]="clearButtonTooltip">
+            <button *ngIf="showClearButton&&model" matSuffix mat-button mat-icon-button  (click)="controlModel.reset()" [matTooltip]="clearButtonTooltip" tabindex="-100">
                 <mat-icon >close</mat-icon>
             </button>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
