@@ -17,6 +17,8 @@ namespace Util.Security.Identity.Extensions {
             LoadPassword( options, permissionOptions );
             LoadUser( options, permissionOptions );
             LoadStore( options, permissionOptions );
+            LoadSignIn( options, permissionOptions );
+            LoadLockout( options, permissionOptions );
         }
 
         /// <summary>
@@ -44,6 +46,23 @@ namespace Util.Security.Identity.Extensions {
         /// </summary>
         private static void LoadStore( IdentityOptions options, PermissionOptions permissionOptions ) {
             options.Stores.MaxLengthForKeys = permissionOptions.Store.MaxLengthForKeys;
+        }
+
+        /// <summary>
+        /// 加载登录配置
+        /// </summary>
+        private static void LoadSignIn( IdentityOptions options, PermissionOptions permissionOptions ) {
+            options.SignIn.RequireConfirmedEmail = permissionOptions.SignIn.ConfirmedEmail;
+            options.SignIn.RequireConfirmedPhoneNumber = permissionOptions.SignIn.ConfirmedPhoneNumber;
+        }
+
+        /// <summary>
+        /// 加载登录锁定配置
+        /// </summary>
+        private static void LoadLockout( IdentityOptions options, PermissionOptions permissionOptions ) {
+            options.Lockout.AllowedForNewUsers = permissionOptions.Lockout.AllowedForNewUsers;
+            options.Lockout.DefaultLockoutTimeSpan = permissionOptions.Lockout.LockoutTimeSpan;
+            options.Lockout.MaxFailedAccessAttempts = permissionOptions.Lockout.MaxFailedAccessAttempts;
         }
     }
 }

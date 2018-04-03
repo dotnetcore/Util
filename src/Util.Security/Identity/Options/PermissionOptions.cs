@@ -15,5 +15,13 @@
         /// 存储配置
         /// </summary>
         public StoreOptions Store { get; set; } = new StoreOptions();
+        /// <summary>
+        /// 登录配置
+        /// </summary>
+        public SignInOptions SignIn { get; set; } = new SignInOptions();
+        /// <summary>
+        /// 登录锁定配置
+        /// </summary>
+        public LockoutOptions Lockout { get; set; } = new LockoutOptions();
     }
 }

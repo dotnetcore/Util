@@ -125,7 +125,7 @@ namespace Util.Security.Identity.Models {
         /// 登陆失败次数
         /// </summary>
         [DisplayName( "登陆失败次数" )]
-        public int? AccessFailedCount { get; set; }
+        public int AccessFailedCount { get; set; }
         /// <summary>
         /// 启用两阶段认证
         /// </summary>

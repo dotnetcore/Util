@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Util.Exceptions;
+using Util.Properties;
 using Util.Security.Identity.Models;
+using Util.Security.Identity.Results;
 using Util.Security.Identity.Services.Abstractions;
 
 namespace Util.Security.Identity.Services.Implements {
@@ -15,14 +16,20 @@ namespace Util.Security.Identity.Services.Implements {
         /// 初始化登录服务
         /// </summary>
         /// <param name="signInManager">Identity登录服务</param>
-        public SignInManager( SignInManager<TUser> signInManager ) {
-            Manager = signInManager;
+        /// <param name="userManager">用户服务</param>
+        public SignInManager( IdentitySignInManager<TUser, TKey> signInManager,IUserManager<TUser, TKey> userManager ) {
+            IdentitySignInManager = signInManager;
+            UserManager = userManager;
         }
 
         /// <summary>
         /// Identity登录服务
         /// </summary>
-        protected SignInManager<TUser> Manager { get; }
+        protected IdentitySignInManager<TUser, TKey> IdentitySignInManager { get; }
+        /// <summary>
+        /// 用户服务
+        /// </summary>
+        protected IUserManager<TUser, TKey> UserManager { get; }
 
         /// <summary>
         /// 密码登录
@@ -31,14 +38,60 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        public async Task PasswordSignInAsync( TUser user, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
-            var result = await Manager.PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
-            if( result.Succeeded )
-                return;
-            if( result.IsLockedOut )
-                throw new Warning( SecurityResource.LoginFailLock );
+        public async Task<SignInResult> PasswordSignInAsync( TUser user, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+            var result = await IdentitySignInManager.PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
             if( result.IsNotAllowed )
                 throw new Warning( SecurityResource.UserIsDisabled );
+            if( result.IsLockedOut )
+                throw new Warning( SecurityResource.LoginFailLock );
+            if( result.Succeeded )
+                return SignInResult.Succeeded;
+            if ( result.RequiresTwoFactor )
+                return SignInResult.TwoFactor;
+            throw new Warning( R.SystemError );
+        }
+
+        /// <summary>
+        /// 用户名密码登录
+        /// </summary>
+        /// <param name="userName">用户</param>
+        /// <param name="password">密码</param>
+        /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
+        /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
+        public async Task<SignInResult> SignInByUserNameAsync( string userName, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+            var user = await UserManager.FindByNameAsync( userName );
+            return await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+        }
+
+        /// <summary>
+        /// 电子邮件密码登录
+        /// </summary>
+        /// <param name="email">电子邮件</param>
+        /// <param name="password">密码</param>
+        /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
+        /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
+        public async Task<SignInResult> SignInByEmailAsync( string email, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+            var user = await UserManager.FindByEmailAsync( email );
+            return await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+        }
+
+        /// <summary>
+        /// 手机号密码登录
+        /// </summary>
+        /// <param name="phoneNumber">手机号</param>
+        /// <param name="password">密码</param>
+        /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
+        /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
+        public async Task<SignInResult> SignInByPhoneAsync( string phoneNumber, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+            var user = await UserManager.FindByPhoneAsync( phoneNumber );
+            return await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+        }
+
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        public async Task SignOutAsync() {
+            await IdentitySignInManager.SignOutAsync();
         }
     }
 }
