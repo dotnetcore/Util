@@ -97,6 +97,24 @@ namespace Util.Security {
         }
         
         /// <summary>
+        ///   查找类似 电子邮件无效或密码不正确 的本地化字符串。
+        /// </summary>
+        public static string InvalidEmailOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidEmailOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 手机号无效或密码不正确 的本地化字符串。
+        /// </summary>
+        public static string InvalidPhoneOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidPhoneOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 无效的令牌 的本地化字符串。
         /// </summary>
         public static string InvalidToken {
@@ -111,6 +129,15 @@ namespace Util.Security {
         public static string InvalidUserName {
             get {
                 return ResourceManager.GetString("InvalidUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户名无效或密码不正确 的本地化字符串。
+        /// </summary>
+        public static string InvalidUserNameOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidUserNameOrPassword", resourceCulture);
             }
         }
         

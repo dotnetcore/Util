@@ -129,11 +129,20 @@
   <data name="DuplicateUserName" xml:space="preserve">
     <value>用户名 {0} 已存在</value>
   </data>
+  <data name="InvalidEmailOrPassword" xml:space="preserve">
+    <value>电子邮件无效或密码不正确</value>
+  </data>
+  <data name="InvalidPhoneOrPassword" xml:space="preserve">
+    <value>手机号无效或密码不正确</value>
+  </data>
   <data name="InvalidToken" xml:space="preserve">
     <value>无效的令牌</value>
   </data>
   <data name="InvalidUserName" xml:space="preserve">
     <value>用户名 {0} 无效，仅允许字母或数字</value>
+  </data>
+  <data name="InvalidUserNameOrPassword" xml:space="preserve">
+    <value>用户名无效或密码不正确</value>
   </data>
   <data name="LoginFailLock" xml:space="preserve">
     <value>由于您多次登录失败，暂时被系统锁定，请稍后再试</value>

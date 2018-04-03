@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Util.Exceptions;
-using Util.Properties;
 using Util.Security.Identity.Models;
 using Util.Security.Identity.Results;
 using Util.Security.Identity.Services.Abstractions;
@@ -40,15 +39,15 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
         public async Task<SignInResult> PasswordSignInAsync( TUser user, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
             var result = await IdentitySignInManager.PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( result.Succeeded )
+                return SignInResult.Succeeded;
+            if( result.RequiresTwoFactor )
+                return SignInResult.TwoFactor;
             if( result.IsNotAllowed )
                 throw new Warning( SecurityResource.UserIsDisabled );
             if( result.IsLockedOut )
                 throw new Warning( SecurityResource.LoginFailLock );
-            if( result.Succeeded )
-                return SignInResult.Succeeded;
-            if ( result.RequiresTwoFactor )
-                return SignInResult.TwoFactor;
-            throw new Warning( R.SystemError );
+            return SignInResult.Failed;
         }
 
         /// <summary>
@@ -60,7 +59,12 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
         public async Task<SignInResult> SignInByUserNameAsync( string userName, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
             var user = await UserManager.FindByNameAsync( userName );
-            return await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( user == null )
+                throw new Warning( SecurityResource.InvalidUserNameOrPassword );
+            var result =  await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( result == SignInResult.Failed )
+                throw new Warning( SecurityResource.InvalidUserNameOrPassword );
+            return result;
         }
 
         /// <summary>
@@ -72,7 +76,12 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
         public async Task<SignInResult> SignInByEmailAsync( string email, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
             var user = await UserManager.FindByEmailAsync( email );
-            return await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( user == null )
+                throw new Warning( SecurityResource.InvalidEmailOrPassword );
+            var result = await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( result == SignInResult.Failed )
+                throw new Warning( SecurityResource.InvalidEmailOrPassword );
+            return result;
         }
 
         /// <summary>
@@ -84,7 +93,12 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
         public async Task<SignInResult> SignInByPhoneAsync( string phoneNumber, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
             var user = await UserManager.FindByPhoneAsync( phoneNumber );
-            return await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( user == null )
+                throw new Warning( SecurityResource.InvalidPhoneOrPassword );
+            var result = await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( result == SignInResult.Failed )
+                throw new Warning( SecurityResource.InvalidPhoneOrPassword );
+            return result;
         }
 
         /// <summary>
