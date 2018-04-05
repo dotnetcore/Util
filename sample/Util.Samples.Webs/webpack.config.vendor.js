@@ -35,8 +35,7 @@ const jsModules = [
 const cssModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
     'material-design-icons/iconfont/material-icons.css',
-    'font-awesome/css/font-awesome.css',
-    'primeng/resources/primeng.css'
+    'font-awesome/css/font-awesome.css'
 ];
 
 //env代表环境变量，如果传入env.production表示正式生产环境
@@ -94,7 +93,7 @@ module.exports = (env) => {
             new webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, getPath('./Typings')),
             new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, getPath('./Typings')),
             new webpack.IgnorePlugin(/^vertx$/)
-        ].concat(isDev ? [] : [new webpack.optimize.UglifyJsPlugin()])
+        ]
     }
 
     //打包css
@@ -125,5 +124,5 @@ module.exports = (env) => {
             extractCss
         ]
     }
-    return [polyfills, vendorJs, vendorCss];
+    return isDev ? [polyfills, vendorJs, vendorCss] : [vendorCss];
 }

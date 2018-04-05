@@ -86,3 +86,9 @@
         </util-table-cell>
     </util-table-column>
 </util-table>
+
+<p-treeTable [value]="files" selectionMode="checkbox">
+    <p-column field="name" header="Name"></p-column>
+    <p-column field="size" header="Size"></p-column>
+    <p-column field="type" header="Type"></p-column>
+</p-treeTable>

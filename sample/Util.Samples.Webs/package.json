@@ -6,7 +6,7 @@
     "vendor": "webpack --config webpack.config.vendor.js",
     "app": "webpack --config webpack.config.util.js && webpack",
     "dev": "npm run vendor && npm run app",
-    "prod": "webpack --env.prod",
+    "prod": "webpack --config webpack.config.vendor.js --env.prod && webpack --env.prod",
     "test": "karma start Typings/test/karma.conf.js"
   },
   "dependencies": {

@@ -106,3 +106,9 @@
         </mat-cell>
     </ng-container>
 <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" style="display: none"></mat-header-row><mat-row (click)="tableApplication.selectedSelection.select(row)" *matRowDef="let row;columns:['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" class="mat-row-hover" matRipple="" [class.selected]="tableApplication.selectedSelection.isSelected(row)"></mat-row></mat-table></mat-table-wrapper>
+
+<p-treeTable [value]="files" selectionMode="checkbox">
+    <p-column field="name" header="Name"></p-column>
+    <p-column field="size" header="Size"></p-column>
+    <p-column field="type" header="Type"></p-column>
+</p-treeTable>
