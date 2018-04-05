@@ -8,7 +8,7 @@ import { env } from '../../env';
  */
 @Component({
     selector: 'application-detail',
-    templateUrl: env.prod ? './application-detail.component.html' : '/view/systems/application/detail'
+    templateUrl: env.prod() ? './application-detail.component.html' : '/view/systems/application/detail'
 })
 export class ApplicationDetailComponent extends CrudEditComponentBase<ApplicationViewModel> {
     /**

@@ -56,7 +56,9 @@ namespace Util.Reflections {
         /// <summary>
         /// 程序集是否匹配
         /// </summary>
-        private bool Match( AssemblyName assemblyName ) {
+        protected virtual bool Match( AssemblyName assemblyName ) {
+            if ( assemblyName.FullName.Contains( "PrecompiledViews" ) )
+                return false;
             return !Regex.IsMatch( assemblyName.FullName, SkipAssemblies, RegexOptions.IgnoreCase | RegexOptions.Compiled );
         }
 

@@ -6,7 +6,7 @@ import { env } from './env';
  */
 @Component({
     selector: 'app',
-    templateUrl: env.prod ? './app.component.html' : '/home/main'
+    templateUrl: env.prod() ? './app.component.html' : '/home/main'
 })
 export class AppComponent {
 }

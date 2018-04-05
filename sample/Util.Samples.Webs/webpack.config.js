@@ -34,7 +34,11 @@ module.exports = (env) => {
                 { test: /\.html$/, use: 'html-loader?minimize=false' }
             ]
         },
-        plugins: isDev ? [
+        plugins: [
+            new webpack.DefinePlugin({
+                'process.env': { NODE_ENV: isDev ? JSON.stringify("dev") : JSON.stringify("prod") }
+            })
+        ].concat(isDev ? [
             new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/polyfills-manifest.json')
             }),
@@ -50,7 +54,7 @@ module.exports = (env) => {
                 tsConfigPath: 'tsconfig.json',
                 entryModule: "Typings/app/app.module#AppModule"
             })
-        ]
+        ])
     }
 
     //打包css

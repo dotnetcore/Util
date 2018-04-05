@@ -9,7 +9,7 @@ import { env } from '../../env';
  */
 @Component({
     selector: 'application-index',
-    templateUrl: env.prod ? './application-index.component.html' : '/view/systems/application'
+    templateUrl: env.prod() ? './application-index.component.html' : '/view/systems/application'
 })
 export class ApplicationIndexComponent extends CrudIndexComponentBase<ApplicationViewModel, ApplicationQuery>  {
     /**
