@@ -27,7 +27,7 @@ import { env } from '../../env';
  */
 @Component({
     selector: '<%=CamelClassName%>-detail',
-    templateUrl: env.prod ? './<%=CamelClassName%>-detail.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/detail'
+    templateUrl: env.prod() ? './<%=CamelClassName%>-detail.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/detail'
 })
 export class <%=SafeClassName%>DetailComponent extends CrudEditComponentBase<<%=SafeClassName%>ViewModel> {
     /**

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Util.Ui.Angular;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
@@ -58,6 +59,8 @@ namespace Util.Ui.Material.Buttons.Renders {
         private void ConfigText( TagBuilder builder ) {
             if( _config.Contains( UiConst.Text ) )
                 builder.SetContent( _config.GetValue( UiConst.Text ) );
+            if( _config.Contains( AngularConst.BindText ) )
+                builder.SetContent( $"{{{{{_config.GetValue( AngularConst.BindText )}}}}}" );
         }
 
         /// <summary>
@@ -127,7 +130,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// 配置内容
         /// </summary>
         protected override void ConfigContent( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Text ) )
+            if( _config.Contains( UiConst.Text ) || _config.Contains( AngularConst.BindText ) )
                 return;
             builder.AppendContent( _config.Content );
         }

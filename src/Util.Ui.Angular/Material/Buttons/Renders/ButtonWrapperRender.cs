@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
+using Util.Ui.Angular;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -94,6 +95,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void ConfigText( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Text, _config.GetValue( UiConst.Text ) );
+            builder.AddAttribute( "[text]", _config.GetValue( AngularConst.BindText ) );
         }
 
         /// <summary>

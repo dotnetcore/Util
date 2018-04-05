@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
 using Util.Ui.Material;
 using Util.Ui.Material.Buttons.TagHelpers;
@@ -66,6 +67,17 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
             var result = new String();
             result.Append( "<mat-button-wrapper text=\"a\"></mat-button-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试绑定文本
+        /// </summary>
+        [Fact]
+        public void TestBindText() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindText, "a" } };
+            var result = new String();
+            result.Append( "<mat-button-wrapper [text]=\"a\"></mat-button-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -154,6 +166,17 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { MaterialConst.CloseDialog, "a" } };
             var result = new String();
             result.Append( "<button mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试关闭弹出层,设置文本绑定属性
+        /// </summary>
+        [Fact]
+        public void TestCloseDialog_BindText() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.CloseDialog, "a" },{ AngularConst.BindText ,"b"} };
+            var result = new String();
+            result.Append( "<button mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\">{{b}}</button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

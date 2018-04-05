@@ -16,6 +16,10 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         public string Text { get; set; }
         /// <summary>
+        /// 文本属性绑定
+        /// </summary>
+        public string BindText { get; set; }
+        /// <summary>
         /// 类型
         /// </summary>
         public ButtonType Type { get; set; }

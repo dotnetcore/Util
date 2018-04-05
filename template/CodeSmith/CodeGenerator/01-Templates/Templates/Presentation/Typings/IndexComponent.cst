@@ -28,7 +28,7 @@ import { env } from '../../env';
  */
 @Component({
     selector: '<%=CamelClassName%>-index',
-    templateUrl: env.prod ? './<%=CamelClassName%>-index.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
+    templateUrl: env.prod() ? './<%=CamelClassName%>-index.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
 })
 export class <%=SafeClassName%>IndexComponent extends CrudIndexComponentBase<<%=SafeClassName%>ViewModel, <%=SafeClassName%>Query>  {
     /**
