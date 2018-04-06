@@ -2,6 +2,8 @@
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
+const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env) => {
     //是否开发环境
@@ -31,6 +33,7 @@ module.exports = (env) => {
         module: {
             rules: [
                 { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular-router-loader'] : ['@ngtools/webpack'] },
+                { test: /\.js$/, loader: '@angular-devkit/build-optimizer/webpack-loader', options: { sourceMap: false } },
                 { test: /\.html$/, use: 'html-loader?minimize=false' }
             ]
         },
@@ -40,21 +43,19 @@ module.exports = (env) => {
             })
         ].concat(isDev ? [
             new webpack.DllReferencePlugin({
-                manifest: require('./wwwroot/dist/polyfills-manifest.json')
-            }),
-            new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             }),
             new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/util-manifest.json')
             })
         ] : [
-            new webpack.optimize.UglifyJsPlugin(),
-            new AngularCompilerPlugin({
-                tsConfigPath: 'tsconfig.json',
-                entryModule: "Typings/app/app.module#AppModule"
-            })
-        ])
+                new AngularCompilerPlugin({
+                    tsConfigPath: 'tsconfig.json',
+                    entryModule: "Typings/app/app.module#AppModule"
+                }),
+                new PurifyPlugin(),
+                new UglifyJsPlugin()
+            ])
     }
 
     //打包css

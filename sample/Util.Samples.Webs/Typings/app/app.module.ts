@@ -23,7 +23,7 @@ import { NotFoundComponent } from './base/not-found.component';
         AppComponent, NotFoundComponent
     ],
     imports: [
-        BrowserAnimationsModule,FrameworkModule, AppRoutingModule
+        BrowserAnimationsModule, FrameworkModule, AppRoutingModule
     ],
     bootstrap: [AppComponent]
 })

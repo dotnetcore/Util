@@ -13,6 +13,7 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "strictPropertyInitialization": false,
+    "strictNullChecks": false,
     "strict": true,
     "lib": [ "es6", "dom" ],
     "types": [ "webpack-env", "jasmine" ],
