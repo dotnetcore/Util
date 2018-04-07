@@ -3,7 +3,7 @@ import { CrudIndexComponentBase } from '../../../util';
 import { ApplicationQuery } from './application-query';
 import { ApplicationViewModel } from './application-view-model';
 import { env } from '../../env';
-import { TreeNode } from "primeng/primeng";
+
 
 /**
  * 应用程序首页
@@ -19,7 +19,7 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
      */
     constructor(injector: Injector) {
         super(injector);
-        this.files = <TreeNode[]>this.value.data;
+     
     }
 
     /**
@@ -31,7 +31,7 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
 
 
 
-    files:TreeNode[];
+
 
     value = {
         "data":

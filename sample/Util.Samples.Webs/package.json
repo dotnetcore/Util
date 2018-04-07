@@ -26,6 +26,8 @@
     "rxjs": "5.5.8",
     "zone.js": "0.8.25",
     "es6-shim": "0.35.3",
+    "es6-promise": "4.2.4",
+    "event-source-polyfill": "0.0.12",
     "core-js": "2.5.4",
     "babel-polyfill": "6.26.0",
     "material-design-icons": "3.0.1",

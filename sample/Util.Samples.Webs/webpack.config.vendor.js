@@ -2,8 +2,17 @@
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
 
+//支持老浏览器的补丁
+const polyfillModules = [
+    'es6-shim',
+    'es6-promise',
+    'event-source-polyfill'
+];
+
 //第三方Js库
 const jsModules = [
+    'reflect-metadata',
+    'zone.js',
     'moment',
     '@angular/animations',
     '@angular/common',
@@ -39,6 +48,27 @@ module.exports = (env) => {
     //获取路径
     function getPath(path) {
         return pathPlugin.join(__dirname, path);
+    }
+
+    //打包补丁
+    let polyfills = {
+        entry: { polyfills: polyfillModules },
+        output: {
+            publicPath: 'dist/',
+            path: getPath("wwwroot/dist"),
+            filename: "[name].js",
+            library: '[name]'
+        },
+        resolve: {
+            extensions: ['.js']
+        },
+        devtool: "source-map",
+        plugins: [
+            new webpack.DllPlugin({
+                path: getPath("wwwroot/dist/[name]-manifest.json"),
+                name: "[name]"
+            })
+        ].concat(isDev ? [] : [new webpack.optimize.UglifyJsPlugin()])
     }
 
     //打包第三方Js库
@@ -93,5 +123,5 @@ module.exports = (env) => {
             extractCss
         ]
     }
-    return isDev ? [vendorJs, vendorCss] : [vendorCss];
+    return isDev ? [polyfills, vendorJs, vendorCss] : [vendorCss];
 }

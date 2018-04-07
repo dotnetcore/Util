@@ -4,6 +4,7 @@
 //================================================
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { IocHelper as ioc } from './ioc-helper';
+import { uuid } from '../common/helper';
 import { Observable } from 'rxjs/Observable';
 
 /**
@@ -103,7 +104,7 @@ export class HttpRequest<T> {
         let stringValue = "";
         if (value !== undefined && value !== null)
             stringValue = String(value);
-        this.headers = this.headers.append(name, stringValue );
+        this.headers = this.headers.append(name, stringValue);
         return this;
     }
 
@@ -159,6 +160,7 @@ export class HttpRequest<T> {
     private request(): Observable<T> {
         this.setContentType();
         let httpClient = ioc.get<HttpClient>(HttpClient);
+        this.initParameters();
         let options = { headers: this.headers, params: this.parameters };
         switch (this.httpMethod) {
             case HttpMethod.Get:
@@ -172,6 +174,14 @@ export class HttpRequest<T> {
             default:
                 return httpClient.get<T>(this.url, options);
         }
+    }
+
+    /**
+     * 初始化请求参数
+     */
+    private initParameters() {
+        if (this.httpMethod === HttpMethod.Get)
+            this.param("no-cache-tag", uuid());
     }
 
     /**
