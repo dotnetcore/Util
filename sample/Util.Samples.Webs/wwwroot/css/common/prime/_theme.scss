@@ -391,12 +391,7 @@
     }
 }
 
-.ui-treetable {
-    .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
-        background: $stateHoverBgColor;
-        color: $stateHoverTextColor;
-    }
-}
+
 
 .ui-organizationchart {
     .ui-organizationchart-node-content {
