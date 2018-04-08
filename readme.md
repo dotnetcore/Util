@@ -19,7 +19,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
 几位好友（[AlexLEWIS](https://github.com/alexinea "刘怡") [Kiler](https://github.com/kiler398 "谢炀") [Lemon](https://github.com/liuhaoyang "刘浩杨") ）发起了.net core学习小组，并打算为国内.net core开源大业作出贡献，我果断加入了队伍进行学习，并决定对Util应用框架进行开源。
 
-经讨论，大家决定将各自的开源项目统一发布到 [.NET China Foundation](https://github.com/dotnetcore) 之下，以方便国内.net core开源项目的推广，同时也欢迎国内.net core开源项目作者的加入。
+经讨论，大家决定将各自的开源项目统一发布到 [.NET Core Community](https://github.com/dotnetcore) 之下，以方便国内.net core开源项目的推广，同时也欢迎国内.net core开源项目作者的加入。
 
 ## 技术框架与应用框架
 
