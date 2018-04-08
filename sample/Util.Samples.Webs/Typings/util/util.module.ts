@@ -27,10 +27,10 @@ import {
 //PrimeNg模块
 import { MessageService } from 'primeng/components/common/messageservice';
 import {
-     GrowlModule, LightboxModule, TreeTableModule
+     GrowlModule, LightboxModule
 } from 'primeng/primeng';
 
-//Util组件
+//Util Material组件
 import { UtilDateAdapter } from './material/local/date-adapter';
 import { TableWrapperComponent } from './material/table-wrapper.component';
 import { SelectWrapperComponent } from './material/select-wrapper.component';
@@ -42,6 +42,9 @@ import { RadioWrapperComponent } from './material/radio-wrapper.component';
 import { SelectListWrapperComponent } from './material/select-list-wrapper.component';
 import { DialogWrapperComponent } from './material/dialog-wrapper.component';
 import { ConfirmComponent } from './material/confirm.component';
+
+//Util Prime组件
+import { TreeTableModule } from './prime/treetable.component';
 
 //Util管道
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
@@ -62,7 +65,8 @@ import { DicService } from './services/dic.service';
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        GrowlModule,  LightboxModule, TreeTableModule
+        GrowlModule, LightboxModule,
+        TreeTableModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
@@ -79,9 +83,10 @@ import { DicService } from './services/dic.service';
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        GrowlModule,  LightboxModule, TreeTableModule,
+        GrowlModule,  LightboxModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
+        TreeTableModule,
         SafeUrlPipe
     ],
     entryComponents: [
