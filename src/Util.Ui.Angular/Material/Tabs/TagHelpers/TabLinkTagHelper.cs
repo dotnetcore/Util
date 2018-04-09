@@ -9,12 +9,16 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
     /// <summary>
     /// 导航选项卡
     /// </summary>
-    [HtmlTargetElement( "util-nav-tab" )]
+    [HtmlTargetElement( "util-nav-tab",ParentTag = "util-nav-tabs" )]
     public class TabLinkTagHelper : TagHelperBase {
         /// <summary>
         /// 路由链接
         /// </summary>
         public string Link { get; set; }
+        /// <summary>
+        /// 路由链接
+        /// </summary>
+        public string BindLink { get; set; }
         /// <summary>
         /// 标签
         /// </summary>

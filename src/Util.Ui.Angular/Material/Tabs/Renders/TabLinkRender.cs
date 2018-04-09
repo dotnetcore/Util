@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tabs.Builders;
@@ -47,6 +48,7 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// </summary>
         private void ConfigLink( TagBuilder builder ) {
             builder.AddAttribute( "routerLink", _config.GetValue( UiConst.Link ) );
+            builder.AddAttribute( "[routerLink]", _config.GetValue( AngularConst.BindLink ) );
         }
 
         /// <summary>
