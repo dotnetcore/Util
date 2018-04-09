@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Tables.Builders;
 using Util.Ui.Material.Tables.Configs;
 using Util.Ui.Renders;
@@ -43,6 +44,8 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 配置表格包装器
         /// </summary>
         protected void ConfigTableWrapper( TagBuilder builder ) {
+            builder.Class( _config );
+            builder.Style( _config );
             ConfigId( builder );
             ConfigQueryParam( builder );
             ConfigUrl( builder );

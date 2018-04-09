@@ -6,9 +6,20 @@
 }
 
 .ui-treetable {
-    th.ui-state-default {
-        background: #ebedf0;
-        border-color: #d9d9d9;
+    tr.ui-state-default {
+        border-top: 0;
+        height: 57px;
+
+        th.ui-state-default {
+            background: #ffffff;
+            border-color: #d9d9d9;
+            font-size: 12px;
+            color: rgba(0,0,0,.54);
+        }
+    }
+
+    .ui-state-highlight a{
+        color:#000000;
     }
 }
 
@@ -20,6 +31,7 @@
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
 }
 
 .ui-treetable .ui-treetable-header,
@@ -37,21 +49,29 @@
 }
 
 .ui-treetable th, .ui-treetable tfoot td {
-    text-align: center;
+    text-align: left;
 }
 
 .ui-treetable thead th,
 .ui-treetable tbody td,
 .ui-treetable tfoot td {
-    padding: .25em .5em;
+    padding: 0 24px;
     overflow: hidden;
     white-space: nowrap;
-    border-width: 1px;
+    border: 0;
+    border-bottom-width: 1px;
     border-style: solid;
+    height: 48px;
+    line-height: 48px;
+    font-size: 14px;
+    color: rgba(0,0,0,.87);
 }
 
 .ui-treetable tbody td {
-    border-color: inherit;
+    border-color: rgba(0,0,0,.12);
+    mat-checkbox{
+        margin-right:10px;
+    }
 }
 
 .ui-treetable tbody td:first-child span {
@@ -113,7 +133,7 @@
 }
 
 .ui-treetable-resizable {
-    padding-bottom: 1px; /*fix for webkit overlow*/
+    padding-bottom: 1px;
     overflow: auto;
 }
 
@@ -128,7 +148,6 @@
     position: relative;
 }
 
-/* PrimeNG */
 .ui-treetable td.ui-treetable-child-table-container {
     padding: 0;
     border: 0 none;
@@ -139,10 +158,11 @@
     border-bottom: 0 transparent
 }
 
-.ui-treetable tbody .ui-treetable-row td {
-    border: 0 none;
-}
-
 .ui-treetable tbody .ui-treetable-row td input {
     outline: 0 none;
+}
+
+/*主复选框样式*/
+.ui-treetable .master-checkbox{
+    margin-right:12px;
 }

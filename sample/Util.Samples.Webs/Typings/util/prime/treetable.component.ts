@@ -1,3 +1,8 @@
+//============== Prime树型表格 ===================
+//Copyright PrimeNg
+// 修改： 何镇汐
+//Licensed under the MIT license
+//================================================
 import { NgModule, Component, Input, Output, EventEmitter, AfterContentInit, ElementRef, ContentChild, IterableDiffers, ChangeDetectorRef, ContentChildren, QueryList, Inject, forwardRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode, Header, Footer, Column, SharedModule, DomHandler } from "primeng/primeng";
@@ -8,14 +13,16 @@ import { MatCommonModule, MatCheckboxModule } from '@angular/material';
 @Component({
     selector: '[pTreeRow]',
     template: `
-        <div [class]="node.styleClass" [ngClass]="{'ui-treetable-row': true, 'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
+        <div [class]="node.styleClass" [ngClass]="{'ui-treetable-row': true, 'ui-treetable-row-selectable':true}">
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" 
+                (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
                 <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
                 </a>
-                <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0"></mat-checkbox>
+                <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
+                    (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
             </td>
@@ -66,6 +73,13 @@ export class UITreeRow implements OnInit {
         return this.treeTable.isSelected(this.node);
     }
 
+    /**
+     * 复选框的确定状态
+     */
+    isIndeterminate() {
+        return this.treeTable.isIndeterminate(this.node);
+    }
+
     onRowClick(event: MouseEvent) {
         this.treeTable.onRowClick(event, this.node);
     }
@@ -113,9 +127,11 @@ export class UITreeRow implements OnInit {
                 <table #tbl class="ui-widget-content" [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead>
                         <tr class="ui-state-default">
-                            <th #headerCell *ngFor="let col of columns; let lastCol=last "  [ngStyle]="col.headerStyle||col.style" [class]="col.headerStyleClass||col.styleClass" 
+                            <th #headerCell *ngFor="let col of columns; let lastCol = last;let i = index;"  [ngStyle]="col.headerStyle||col.style" [class]="col.headerStyleClass||col.styleClass" 
                                 [ngClass]="'ui-state-default ui-unselectable-text'">
-                                <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>
+                                <mat-checkbox class="master-checkbox" *ngIf="selectionMode == 'checkbox' && i==0" [checked]="isMasterChecked()" 
+                                    [indeterminate]="isIndeterminate()" (change)="masterToggle()"></mat-checkbox>
+                                <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>                                
                                 <span class="ui-column-title" *ngIf="col.headerTemplate">
                                     <ng-container *ngTemplateOutlet="col.headerTemplate; context: {$implicit: col}"></ng-container>
                                 </span>
@@ -216,12 +232,100 @@ export class TreeTable implements AfterContentInit {
         this.columns = this.cols.toArray();
     }
 
-    onRowClick(event: MouseEvent, node: TreeNode) {
-        let eventTarget = (<Element>event.target);
-        if (eventTarget.className && eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
+    /**
+     * 表头主复选框切换选中状态
+     */
+    masterToggle() {
+        if (this.isMasterChecked()) {
+            let length = this.selection.length;
+            for (let i = 0; i < length; i++)
+                this.selection.pop(this.selection[i]);
             return;
         }
-        else if (this.selectionMode) {
+        this.value.forEach(node => {
+            this.propagateSelectionDown(node, true);
+            if (node.parent) {
+                this.propagateSelectionUp(node.parent, true);
+            }
+            this.selectionChange.emit(this.selection);
+            this.onNodeSelect.emit({ originalEvent: event, node: node });
+        });
+    }
+
+    /**
+     * 表头主复选框的选中状态
+     */
+    isMasterChecked() {
+        if (!this.selection)
+            return false;
+        let length = this.getNodesLength(this.value);
+        return this.selection.length === length;
+    }
+
+    /**
+     * 获取节点列表长度
+     */
+    private getNodesLength(treeNodes: TreeNode[]) {
+        let allNodes = this.getAllNodes(treeNodes);
+        if (!allNodes)
+            return 0;
+        return allNodes.length;
+    }
+
+    /**
+     * 获取所有节点
+     */
+    private getAllNodes(treeNodes: TreeNode[]) {
+        if (!treeNodes)
+            return treeNodes;
+        let result = Array<TreeNode>();
+        result.push(...treeNodes);
+        for (let i = 0; i < treeNodes.length; i++)
+            result.push(...this.getAllNodes(treeNodes[i].children));
+        return result;
+    }
+
+    /**
+     * 获取所有下级节点
+     */
+    private getChildNodes(treeNodes: TreeNode[]) {
+        let nodes = this.getAllNodes(treeNodes);
+        nodes.splice(0, treeNodes.length);
+        return nodes;
+    }
+
+    /**
+     * 复选框的确定状态
+     */
+    isIndeterminate(treeNode: TreeNode) {
+        if (!this.selection || this.selection.length === 0)
+            return false;
+        if (!treeNode) {
+            let length = this.getNodesLength(this.value);
+            return this.selection.length !== length;
+        }
+        if (!treeNode.children || treeNode.children.length === 0)
+            return false;
+        let nodes = this.getChildNodes([treeNode]);
+        if (nodes.every(node => this.isSelected(node)))
+            return false;
+        return nodes.some(node => this.isSelected(node));
+    }
+
+    isSelected(node: TreeNode) {
+        return this.findIndexInSelection(node) != -1;
+    }
+
+    onRowClick(event, node: TreeNode) {
+        let eventTarget = null;
+        if (event) {
+            eventTarget = (<Element>event.target);
+            if (eventTarget.className && eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
+                return;
+            }
+        }
+        
+        if (this.selectionMode) {
             if (node.selectable === false) {
                 return;
             }
@@ -409,10 +513,6 @@ export class TreeTable implements AfterContentInit {
         }
     }
 
-    isSelected(node: TreeNode) {
-        return this.findIndexInSelection(node) != -1;
-    }
-
     isSingleSelectionMode() {
         return this.selectionMode && this.selectionMode == 'single';
     }
@@ -426,7 +526,7 @@ export class TreeTable implements AfterContentInit {
     }
 
     hasFooter() {
-        if (this.columns)  {
+        if (this.columns) {
             let columnsArr = this.cols.toArray();
             for (let i = 0; i < columnsArr.length; i++) {
                 if (columnsArr[i].footer) {

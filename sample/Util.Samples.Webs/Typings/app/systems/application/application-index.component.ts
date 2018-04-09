@@ -30,8 +30,45 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
     }
 
     files: TreeNode[];
+    selectedFiles: TreeNode[];
 
-
+    value2 = {
+        "data":
+            [
+                {
+                    "data": {
+                        "name": "Documents",
+                        "size": "75kb",
+                        "type": "Folder"
+                    },
+                    "children": [
+                        {
+                            "data": {
+                                "name": "Work",
+                                "size": "55kb",
+                                "type": "Folder"
+                            },
+                            "children": [
+                                {
+                                    "data": {
+                                        "name": "Expenses.doc",
+                                        "size": "30kb",
+                                        "type": "Document"
+                                    }
+                                },
+                                {
+                                    "data": {
+                                        "name": "Resume.doc",
+                                        "size": "25kb",
+                                        "type": "Resume"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+    };
 
     value = {
         "data":
