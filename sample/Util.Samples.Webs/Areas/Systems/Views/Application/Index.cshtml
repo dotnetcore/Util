@@ -10,15 +10,15 @@
     }
 
     .mat-column-comment {
-        max-width: 40%;
+        max-width: 30%;
     }
 
     .mat-column-enabled {
-        max-width: 80px;
+        max-width: 120px;
     }
 
     .mat-column-registerEnabled {
-        max-width: 80px;
+        max-width: 120px;
     }
 
     .mat-column-creationTime {
@@ -62,7 +62,7 @@
         </util-button>
     </util-layout>
 </util-toolbar>
-<util-table id="tableApplication" query-param="queryParam" on-query-restore="restoreQueryParam($event)" base-url="application"
+<util-table  id="tableApplication" query-param="queryParam" on-query-restore="restoreQueryParam($event)" base-url="application"
             sort="CreationTime" sort-direction="Desc" max-height="700" style="margin: 20px">
     <util-table-column type="Checkbox"></util-table-column>
     <util-table-column type="LineNumber"></util-table-column>
