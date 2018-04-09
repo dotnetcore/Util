@@ -110,5 +110,19 @@ namespace Util.Tests.Maps {
                 Assert.Equal( "a", sample2.Name );
             } );
         }
+
+        /// <summary>
+        /// 测试忽略特性
+        /// </summary>
+        [Fact]
+        public void TestMapTo_Ignore() {
+            DtoSample sample2 = new DtoSample { Name = "a",IgnoreValue = "b"};
+            EntitySample sample = sample2.MapTo<EntitySample>();
+            Assert.Equal( "a", sample.Name );
+            Assert.Null( sample.IgnoreValue );
+            DtoSample sample3 = sample.MapTo<DtoSample>();
+            Assert.Equal( "a", sample3.Name );
+            Assert.Null( sample3.IgnoreValue );
+        }
     }
 }

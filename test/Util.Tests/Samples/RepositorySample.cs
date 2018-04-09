@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Util.Domains;
 using Util.Domains.Repositories;
 
@@ -26,6 +27,12 @@ namespace Util.Tests.Samples {
         /// </summary>
         [Required(ErrorMessage = "名称不能为空")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 忽略值
+        /// </summary>
+        [IgnoreMap]
+        public string IgnoreValue { get; set; }
     }
 
     /// <summary>

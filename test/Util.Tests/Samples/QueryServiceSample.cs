@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
@@ -15,6 +16,12 @@ namespace Util.Tests.Samples {
         /// </summary>
         [Required(ErrorMessage = "名称不能为空" )]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 忽略值
+        /// </summary>
+        [IgnoreMap]
+        public string IgnoreValue { get; set; }
 
         /// <summary>
         /// 创建空集合
