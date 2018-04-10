@@ -19,7 +19,7 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
      */
     constructor(injector: Injector) {
         super(injector);
-        this.files = <TreeNode[]>this.value.data;
+        
     }
 
     /**
@@ -28,6 +28,18 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
     protected createQuery() {
         return new ApplicationQuery();
     }
+
+
+    ngOnInit() {
+        this.util.webapi.get<TreeNode[]>("/api/application/a").handle({
+            handler: result => {
+                this.files = result;
+            }
+        });
+        //this.files = <TreeNode[]>this.value.data;
+    }
+
+   
 
     files: TreeNode[];
     selectedFiles: TreeNode[];

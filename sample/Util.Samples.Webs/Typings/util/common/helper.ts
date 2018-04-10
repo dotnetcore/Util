@@ -91,6 +91,22 @@ export let toJson = (value): string => {
 }
 
 /**
+ * json字符串转换为对象
+ * @param json json字符串
+ */
+export let toObjectFromJson = <T>(json: string): T => {
+    return JSON.parse(json);
+}
+
+/**
+ * 复制对象
+ * @param obj 对象
+ */
+export let clone = <T>(obj): T => {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+/**
  * 创建唯一标识
  */
 export let uuid = (): string => {

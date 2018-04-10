@@ -19,9 +19,5 @@
         /// 级数
         /// </summary>
         public int? Level { get; set; }
-        /// <summary>
-        /// 文本
-        /// </summary>
-        public string Text { get; set; }
     }
 }

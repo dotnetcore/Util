@@ -74,4 +74,27 @@ describe("util.helper", () => {
         expect(util.helper.getValidDate("1999-9-9 1:2")).toBe("1999-09-09 01:02");
         expect(util.helper.getValidDate("1999-9-9 1:2:3")).toBe("1999-09-09 01:02:03");
     });
+    it("toObjectFromJson", () => {
+        let obj = new Test();
+        obj.name = "a";
+        let json = util.helper.toJson(obj);
+        let result = util.helper.toObjectFromJson<Test>(json);
+        expect(result.name).toBe("a");
+    });
+    it("clone", () => {
+        let obj = new Test();
+        obj.name = "a";
+        obj.test = new Test();
+        obj.test.name = 'b';
+        let result = util.helper.clone<Test>(obj);
+        expect(result.name).toBe("a");
+        expect(result.test.name).toBe("b");
+        expect(result).not.toEqual(obj);
+        expect(result.test).not.toEqual(obj.test);
+    });
 });
+
+class Test {
+    name: string;
+    test: Test;
+}

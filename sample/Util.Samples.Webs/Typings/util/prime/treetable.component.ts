@@ -8,113 +8,14 @@ import { CommonModule } from '@angular/common';
 import { TreeNode, Header, Footer, Column, SharedModule, DomHandler } from "primeng/primeng";
 import { Subscription } from 'rxjs/Subscription';
 //Material模块
-import { MatCommonModule, MatCheckboxModule } from '@angular/material';
-
-@Component({
-    selector: '[pTreeRow]',
-    template: `
-        <div [class]="node.styleClass" [ngClass]="{'ui-treetable-row': true, 'ui-treetable-row-selectable':true}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" 
-                (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
-                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
-                    [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
-                    (click)="toggle($event)"
-                    [title]="node.expanded ? labelCollapse : labelExpand">
-                </a>
-                <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
-                    (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>
-                <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
-                <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
-            </td>
-        </div>
-        <div *ngIf="node.children && node.expanded" class="ui-treetable-row" style="display:table-row">
-            <td [attr.colspan]="treeTable.columns.length" class="ui-treetable-child-table-container">
-                <table [class]="treeTable.tableStyleClass" [ngStyle]="treeTable.tableStyle">
-                    <tbody pTreeRow *ngFor="let childNode of node.children" [node]="childNode" [level]="level+1" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [parentNode]="node"></tbody>
-                </table>
-            </td>
-        </div>
-    `
-})
-export class UITreeRow implements OnInit {
-
-    @Input() node: TreeNode;
-
-    @Input() parentNode: TreeNode;
-
-    @Input() level: number = 0;
-
-    @Input() labelExpand: string = "Expand";
-
-    @Input() labelCollapse: string = "Collapse";
-
-    constructor( @Inject(forwardRef(() => TreeTable)) public treeTable: TreeTable) { }
-
-    ngOnInit() {
-        this.node.parent = this.parentNode;
-    }
-
-    toggle(event: Event) {
-        if (this.node.expanded)
-            this.treeTable.onNodeCollapse.emit({ originalEvent: event, node: this.node });
-        else
-            this.treeTable.onNodeExpand.emit({ originalEvent: event, node: this.node });
-
-        this.node.expanded = !this.node.expanded;
-
-        event.preventDefault();
-    }
-
-    isLeaf() {
-        return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
-    }
-
-    isSelected() {
-        return this.treeTable.isSelected(this.node);
-    }
-
-    /**
-     * 复选框的确定状态
-     */
-    isIndeterminate() {
-        return this.treeTable.isIndeterminate(this.node);
-    }
-
-    onRowClick(event: MouseEvent) {
-        this.treeTable.onRowClick(event, this.node);
-    }
-
-    onRowRightClick(event: MouseEvent) {
-        this.treeTable.onRowRightClick(event, this.node);
-    }
-
-    rowDblClick(event: MouseEvent) {
-        this.treeTable.onRowDblclick.emit({ originalEvent: event, node: this.node });
-    }
-
-    onRowTouchEnd() {
-        this.treeTable.onRowTouchEnd();
-    }
-
-    resolveFieldData(data: any, field: string): any {
-        if (data && field) {
-            if (field.indexOf('.') == -1) {
-                return data[field];
-            }
-            else {
-                let fields: string[] = field.split('.');
-                let value = data;
-                for (var i = 0, len = fields.length; i < len; ++i) {
-                    value = value[fields[i]];
-                }
-                return value;
-            }
-        }
-        else {
-            return null;
-        }
-    }
-}
+import { MatCommonModule, MatCheckboxModule, MatPaginator, MatSort } from '@angular/material';
+import { WebApi as webapi } from '../common/webapi';
+import { Message as message } from '../common/message';
+import { PagerList } from '../core/pager-list';
+import { ViewModel } from '../core/view-model';
+import { QueryParameter } from '../core/query-parameter';
+import { MessageConfig as config } from '../config/message-config';
+import { DicService } from '../services/dic.service';
 
 @Component({
     selector: 'p-treeTable',
@@ -159,8 +60,7 @@ export class UITreeRow implements OnInit {
     `,
     providers: [DomHandler]
 })
-export class TreeTable implements AfterContentInit {
-
+export class TreeTable<T extends ViewModel> implements AfterContentInit {
     @Input() value: TreeNode[];
 
     @Input() selectionMode: string;
@@ -188,6 +88,35 @@ export class TreeTable implements AfterContentInit {
     @Input() collapsedIcon: string = "fa-caret-right";
 
     @Input() expandedIcon: string = "fa-caret-down";
+
+    /**
+     * 显示进度条
+     */
+    loading: boolean;
+    /**
+    * 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
+    */
+    @Input() baseUrl: string;
+    /**
+     * 数据加载地址，范例：/api/test
+     */
+    @Input() url: string;
+    /**
+     * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
+     */
+    @Input() autoLoad: boolean;
+    /**
+     * 键
+     */
+    @Input() key: string;
+    /**
+     * 查询参数
+     */
+    @Input() queryParam: QueryParameter;
+    /**
+     * 查询参数还原事件
+     */
+    @Output() onQueryRestore = new EventEmitter<QueryParameter>();
 
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
 
@@ -217,19 +146,60 @@ export class TreeTable implements AfterContentInit {
 
     columnsSubscription: Subscription;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2) { }
+    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2, private dic: DicService<QueryParameter>) { }
 
     ngAfterContentInit() {
         this.initColumns();
-
         this.columnsSubscription = this.cols.changes.subscribe(_ => {
             this.initColumns();
             this.changeDetector.markForCheck();
         });
+        this.init();
     }
 
     initColumns(): void {
         this.columns = this.cols.toArray();
+    }
+
+    /**
+     * 初始化
+     */
+    private init() {
+        if (this.autoLoad)
+            this.query();
+    }
+
+    /**
+     * 发送查询请求
+     */
+    query() {
+        let url = this.url || (this.baseUrl && `/api/${this.baseUrl}`);
+        if (!url) {
+            console.log("树型表格url未设置");
+            return;
+        }
+        this.filterParam();
+        if (this.key)
+            this.dic.add(this.key, this.queryParam);
+        webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
+            beforeHandler: () => { this.loading = true; return true; },
+            handler: result => {
+                result = new PagerList<T>(result);
+                //this.dataSource.data = result.data;
+                //this.paginator.pageIndex = result.page - 1;
+                //this.totalCount = result.totalCount;
+                //this.checkedSelection.clear();
+            },
+            completeHandler: () => this.loading = false
+        });
+    }
+
+    /**
+     * 过滤参数
+     */
+    private filterParam() {
+        if (this.queryParam.keyword === null)
+            this.queryParam.keyword = "";
     }
 
     /**
@@ -535,6 +505,113 @@ export class TreeTable implements AfterContentInit {
             }
         }
         return false;
+    }
+}
+
+@Component({
+    selector: '[pTreeRow]',
+    template: `
+        <div [class]="node.styleClass" [ngClass]="{'ui-treetable-row': true, 'ui-treetable-row-selectable':true}">
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" 
+                (click)="onRowClick($event,i)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
+                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
+                    [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
+                    (click)="toggle($event)"
+                    [title]="node.expanded ? labelCollapse : labelExpand">
+                </a>
+                <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
+                    (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>
+                <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
+                <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
+            </td>
+        </div>
+        <div *ngIf="node.children && node.expanded" class="ui-treetable-row" style="display:table-row">
+            <td [attr.colspan]="treeTable.columns.length" class="ui-treetable-child-table-container">
+                <table [class]="treeTable.tableStyleClass" [ngStyle]="treeTable.tableStyle">
+                    <tbody pTreeRow *ngFor="let childNode of node.children" [node]="childNode" [level]="level+1" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [parentNode]="node"></tbody>
+                </table>
+            </td>
+        </div>
+    `
+})
+export class UITreeRow<T extends ViewModel> implements OnInit {
+
+    @Input() node: TreeNode;
+
+    @Input() parentNode: TreeNode;
+
+    @Input() level: number = 0;
+
+    @Input() labelExpand: string = "Expand";
+
+    @Input() labelCollapse: string = "Collapse";
+
+    constructor( @Inject(forwardRef(() => TreeTable)) public treeTable: TreeTable<T>) { }
+
+    ngOnInit() {
+        this.node.parent = this.parentNode;
+    }
+
+    toggle(event: Event) {
+        if (this.node.expanded)
+            this.treeTable.onNodeCollapse.emit({ originalEvent: event, node: this.node });
+        else
+            this.treeTable.onNodeExpand.emit({ originalEvent: event, node: this.node });
+
+        this.node.expanded = !this.node.expanded;
+
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    isLeaf() {
+        return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
+    }
+
+    isSelected() {
+        return this.treeTable.isSelected(this.node);
+    }
+
+    /**
+     * 复选框的确定状态
+     */
+    isIndeterminate() {
+        return this.treeTable.isIndeterminate(this.node);
+    }
+
+    onRowClick(event: MouseEvent,index:number) {
+        this.treeTable.onRowClick(event, this.node);
+    }
+
+    onRowRightClick(event: MouseEvent) {
+        this.treeTable.onRowRightClick(event, this.node);
+    }
+
+    rowDblClick(event: MouseEvent) {
+        this.treeTable.onRowDblclick.emit({ originalEvent: event, node: this.node });
+    }
+
+    onRowTouchEnd() {
+        this.treeTable.onRowTouchEnd();
+    }
+
+    resolveFieldData(data: any, field: string): any {
+        if (data && field) {
+            if (field.indexOf('.') == -1) {
+                return data[field];
+            }
+            else {
+                let fields: string[] = field.split('.');
+                let value = data;
+                for (var i = 0, len = fields.length; i < len; ++i) {
+                    value = value[fields[i]];
+                }
+                return value;
+            }
+        }
+        else {
+            return null;
+        }
     }
 }
 
