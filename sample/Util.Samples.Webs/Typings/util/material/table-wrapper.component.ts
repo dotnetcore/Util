@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { Component, Input, Output, ViewChild, ContentChild, AfterContentInit, EventEmitter } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatPaginatorIntl, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
@@ -14,29 +14,10 @@ import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
 
 /**
- * 创建分页本地化提示
- */
-export function createMatPaginatorIntl() {
-    let result = new MatPaginatorIntl();
-    result.itemsPerPageLabel = "每页";
-    result.nextPageLabel = "下页";
-    result.previousPageLabel = "上页";
-    result.getRangeLabel = (page: number, pageSize: number, length: number) => {
-        if (length == 0 || pageSize == 0) { return `0`; }
-        length = Math.max(length, 0);
-        const startIndex = page * pageSize;
-        const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-        return `当前：${startIndex + 1} - ${endIndex}，共: ${length}`;
-    };
-    return result;
-}
-
-/**
  * Mat表格包装器
  */
 @Component({
     selector: 'mat-table-wrapper',
-    providers: [{ provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl }],
     template: `
         <div class="table-container mat-elevation-z8" [ngStyle]="getStyle()">
             <div class="table-loading-shade" *ngIf="loading">

@@ -14,7 +14,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 //Material模块
 import {
-    MatCommonModule, MatRippleModule, MatSortModule,
+    MatCommonModule, MatRippleModule, MatSortModule, MatPaginatorIntl,
     MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule,
     MatCheckboxModule, MatSlideToggleModule, MatRadioModule,
     MatSnackBarModule, MatProgressBarModule, MatMenuModule, MatTableModule, MatTabsModule,
@@ -94,10 +94,29 @@ import { DicService } from './services/dic.service';
     ],
     providers: [
         MessageService, MAT_DATE_LOCALE_PROVIDER, DicService,
+        { provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl },
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
         { provide: DateAdapter, useClass: UtilDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }
     ]
 })
 export class UtilModule {
+}
+
+/**
+ * 创建分页本地化提示
+ */
+export function createMatPaginatorIntl() {
+    let result = new MatPaginatorIntl();
+    result.itemsPerPageLabel = "每页";
+    result.nextPageLabel = "下页";
+    result.previousPageLabel = "上页";
+    result.getRangeLabel = (page: number, pageSize: number, length: number) => {
+        if (length == 0 || pageSize == 0) { return `0`; }
+        length = Math.max(length, 0);
+        const startIndex = page * pageSize;
+        const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+        return `当前：${startIndex + 1} - ${endIndex}，共: ${length}`;
+    };
+    return result;
 }
