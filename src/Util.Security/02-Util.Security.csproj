@@ -58,4 +58,13 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Identity/Models/Role.*.cs">
+      <DependentUpon>Role.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Identity/Models/User.*.cs">
+      <DependentUpon>User.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

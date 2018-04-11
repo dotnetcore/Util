@@ -236,21 +236,19 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 添加实体
         /// </summary>
-        /// <param name="entity">实体</param>
-        public async Task AddAsync( TEntity entity ) {
+        public async Task AddAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            await Set.AddAsync( entity );
+            await Set.AddAsync( entity, cancellationToken );
         }
 
         /// <summary>
         /// 添加实体集合
         /// </summary>
-        /// <param name="entities">实体集合</param>
-        public async Task AddAsync( IEnumerable<TEntity> entities ) {
+        public async Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entities == null )
                 throw new ArgumentNullException( nameof( entities ) );
-            await Set.AddRangeAsync( entities );
+            await Set.AddRangeAsync( entities, cancellationToken );
         }
 
         /// <summary>

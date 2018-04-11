@@ -104,5 +104,15 @@ namespace Util.Security.Identity.Describers {
                 Description = SecurityResource.PasswordMismatch
             };
         }
+
+        /// <summary>
+        /// 角色名重复
+        /// </summary>
+        public override IdentityError InvalidRoleName( string role ) {
+            return new IdentityError {
+                Code = nameof( InvalidRoleName ),
+                Description = string.Format( SecurityResource.DuplicateRoleName, role )
+            };
+        }
     }
 }

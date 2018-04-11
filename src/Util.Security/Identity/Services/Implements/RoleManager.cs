@@ -37,7 +37,7 @@ namespace Util.Security.Identity.Services.Implements {
         /// 创建角色
         /// </summary>
         /// <param name="role">角色</param>
-        public async Task CreateAsync( TRole role ) {
+        public virtual async Task CreateAsync( TRole role ) {
             role.CheckNull( nameof( role ) );
             var parent = await Repository.FindAsync( role.ParentId );
             role.Init();

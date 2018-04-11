@@ -32,12 +32,14 @@ namespace Util.Domains.Repositories {
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
-        Task AddAsync( [Valid] TEntity entity );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task AddAsync( [Valid] TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) );
         /// <summary>
         /// 添加实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        Task AddAsync( [Valid] IEnumerable<TEntity> entities );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task AddAsync( [Valid] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) );
         /// <summary>
         /// 修改实体
         /// </summary>

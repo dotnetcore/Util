@@ -88,6 +88,15 @@ namespace Util.Security {
         }
         
         /// <summary>
+        ///   查找类似 角色名 {0} 已存在 的本地化字符串。
+        /// </summary>
+        public static string DuplicateRoleName {
+            get {
+                return ResourceManager.GetString("DuplicateRoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 用户名 {0} 已存在 的本地化字符串。
         /// </summary>
         public static string DuplicateUserName {

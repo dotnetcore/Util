@@ -321,17 +321,15 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 添加实体
         /// </summary>
-        /// <param name="entity">实体</param>
-        public async Task AddAsync( TEntity entity ) {
-            await _wrapper.AddAsync( entity );
+        public async Task AddAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _wrapper.AddAsync( entity, cancellationToken );
         }
 
         /// <summary>
         /// 添加实体集合
         /// </summary>
-        /// <param name="entities">实体集合</param>
-        public async Task AddAsync( IEnumerable<TEntity> entities ) {
-            await _wrapper.AddAsync( entities );
+        public async Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _wrapper.AddAsync( entities, cancellationToken );
         }
 
         /// <summary>

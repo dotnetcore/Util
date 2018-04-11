@@ -38,10 +38,14 @@ namespace <%= string.Format("{0}.Data.SqlServer.Mappings.{1}",Namespace,Entity.T
         protected override void MapProperties( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
             <%
             foreach(var p in Entity.Properties)
-            {                
+            {
                 Response.Write(PropertyExpression(p));
             }
             %>
+            <%if(Entity.IsTreeEntity()){%>
+            builder.Property( t => t.Path ).HasColumnName( "Path" );
+            builder.Property( t => t.Level ).HasColumnName( "Level" );
+            <%}%>
         }
         
         /// <summary>

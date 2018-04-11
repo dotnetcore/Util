@@ -177,6 +177,14 @@ namespace Util.Tests.Samples {
             throw new NotImplementedException();
         }
 
+        public Task AddAsync( EntitySample entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAsync( IEnumerable<EntitySample> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
         public Task AddAsync( EntitySample entity ) {
             throw new NotImplementedException();
         }
