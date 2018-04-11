@@ -312,9 +312,8 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 移除实体
         /// </summary>
-        /// <param name="id">实体标识</param>
-        public async Task RemoveAsync( TKey id ) {
-            var entity = await FindAsync( id );
+        public async Task RemoveAsync( TKey id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            var entity = await FindAsync( id, cancellationToken );
             Delete( entity );
         }
 
@@ -330,11 +329,10 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 移除实体
         /// </summary>
-        /// <param name="entity">实体</param>
-        public async Task RemoveAsync( TEntity entity ) {
+        public async Task RemoveAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entity == null )
                 return;
-            await RemoveAsync( entity.Id );
+            await RemoveAsync( entity.Id, cancellationToken );
         }
 
         /// <summary>
@@ -367,11 +365,10 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 移除实体集合
         /// </summary>
-        /// <param name="ids">实体编号集合</param>
-        public async Task RemoveAsync( IEnumerable<TKey> ids ) {
+        public async Task RemoveAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( ids == null )
                 return;
-            var list = await FindByIdsAsync( ids );
+            var list = await Find().Where( t => ids.Contains( t.Id ) ).ToListAsync( cancellationToken );
             Delete( list );
         }
 
@@ -388,11 +385,10 @@ namespace Util.Datas.Ef.Internal {
         /// <summary>
         /// 移除实体集合
         /// </summary>
-        /// <param name="entities">实体集合</param>
-        public async Task RemoveAsync( IEnumerable<TEntity> entities ) {
+        public async Task RemoveAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entities == null )
                 return;
-            await RemoveAsync( entities.Select( t => t.Id ) );
+            await RemoveAsync( entities.Select( t => t.Id ), cancellationToken );
         }
     }
 }

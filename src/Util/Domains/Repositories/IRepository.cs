@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Util.Validations.Aspects;
 
@@ -56,7 +57,8 @@ namespace Util.Domains.Repositories {
         /// 移除实体
         /// </summary>
         /// <param name="id">实体标识</param>
-        Task RemoveAsync( TKey id );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task RemoveAsync( TKey id, CancellationToken cancellationToken = default( CancellationToken ) );
         /// <summary>
         /// 移除实体
         /// </summary>
@@ -66,7 +68,8 @@ namespace Util.Domains.Repositories {
         /// 移除实体
         /// </summary>
         /// <param name="entity">实体</param>
-        Task RemoveAsync( TEntity entity );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task RemoveAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) );
         /// <summary>
         /// 移除实体集合
         /// </summary>
@@ -76,7 +79,8 @@ namespace Util.Domains.Repositories {
         /// 移除实体集合
         /// </summary>
         /// <param name="ids">实体编号集合</param>
-        Task RemoveAsync( IEnumerable<TKey> ids );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task RemoveAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default( CancellationToken ) );
         /// <summary>
         /// 移除实体集合
         /// </summary>
@@ -86,6 +90,7 @@ namespace Util.Domains.Repositories {
         /// 移除实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        Task RemoveAsync( IEnumerable<TEntity> entities );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task RemoveAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) );
     }
 }

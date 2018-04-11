@@ -196,11 +196,19 @@ namespace Util.Tests.Samples {
             throw new NotImplementedException();
         }
 
+        public Task RemoveAsync( Guid id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
         public Task RemoveAsync( Guid id ) {
             throw new NotImplementedException();
         }
 
         public void Remove( EntitySample entity ) {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync( EntitySample entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
             throw new NotImplementedException();
         }
 
@@ -212,11 +220,19 @@ namespace Util.Tests.Samples {
             throw new NotImplementedException();
         }
 
+        public Task RemoveAsync( IEnumerable<Guid> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
         public Task RemoveAsync( IEnumerable<Guid> ids ) {
             throw new NotImplementedException();
         }
 
         public void Remove( IEnumerable<EntitySample> entities ) {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync( IEnumerable<EntitySample> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
             throw new NotImplementedException();
         }
 

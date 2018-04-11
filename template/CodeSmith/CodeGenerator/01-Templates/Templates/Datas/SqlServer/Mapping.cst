@@ -114,52 +114,52 @@ public string PropertyExpression(Property property)
 public string ManyToManyExpression(Relationship relationship)
 {
     StringBuilder sb = new StringBuilder();
-    sb.AppendLine("            //" + Entity.GetOtherDescription(relationship.OtherEntity ));
-    
-    sb.Append(' ', 3 * 4);
-    sb.Append("builder.HasMany(t => t.");
-    sb.Append(relationship.ThisPropertyName);
-    sb.Append(")");
-
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append(".WithMany(t => t.");
-    sb.Append(relationship.OtherPropertyName);
-    sb.Append(")");
-
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append(".Map(m =>");
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append("{");
-
-    sb.AppendLine();
-    sb.Append(' ', 5 * 4);
-    sb.Append("m.ToTable(\"");
-    sb.Append(relationship.JoinTable);
-    sb.Append("\", \"");
-    sb.Append(relationship.JoinSchema);
-    sb.Append("\");");
-
-    sb.AppendLine();
-    sb.Append(' ', 5 * 4);
-    sb.Append("m.MapLeftKey(");
-    sb.Append(relationship.JoinThisColumn.ToDelimitedString(", ", "\"{0}\""));
-    sb.Append(");");
-
-    sb.AppendLine();
-    sb.Append(' ', 5 * 4);
-    sb.Append("m.MapRightKey(");
-    sb.Append(relationship.JoinOtherColumn.ToDelimitedString(", ", "\"{0}\""));
-    sb.Append(");");
-
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append("})");
-
-    sb.Append(";");
-    sb.AppendLine();
+//    sb.AppendLine("            //" + Entity.GetOtherDescription(relationship.OtherEntity ));
+//    
+//    sb.Append(' ', 3 * 4);
+//    sb.Append("builder.HasMany(t => t.");
+//    sb.Append(relationship.ThisPropertyName);
+//    sb.Append(")");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append(".WithMany(t => t.");
+//    sb.Append(relationship.OtherPropertyName);
+//    sb.Append(")");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append(".Map(m =>");
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append("{");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 5 * 4);
+//    sb.Append("m.ToTable(\"");
+//    sb.Append(relationship.JoinTable);
+//    sb.Append("\", \"");
+//    sb.Append(relationship.JoinSchema);
+//    sb.Append("\");");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 5 * 4);
+//    sb.Append("m.MapLeftKey(");
+//    sb.Append(relationship.JoinThisColumn.ToDelimitedString(", ", "\"{0}\""));
+//    sb.Append(");");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 5 * 4);
+//    sb.Append("m.MapRightKey(");
+//    sb.Append(relationship.JoinOtherColumn.ToDelimitedString(", ", "\"{0}\""));
+//    sb.Append(");");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append("})");
+//
+//    sb.Append(";");
+//    sb.AppendLine();
 
     return sb.ToString();
 }

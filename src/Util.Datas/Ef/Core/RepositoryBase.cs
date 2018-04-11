@@ -367,9 +367,8 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除实体
         /// </summary>
-        /// <param name="id">实体标识</param>
-        public async Task RemoveAsync( TKey id ) {
-            await _wrapper.RemoveAsync( id );
+        public async Task RemoveAsync( TKey id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _wrapper.RemoveAsync( id, cancellationToken );
         }
 
         /// <summary>
@@ -383,9 +382,8 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除实体
         /// </summary>
-        /// <param name="entity">实体</param>
-        public async Task RemoveAsync( TEntity entity ) {
-            await _wrapper.RemoveAsync( entity );
+        public async Task RemoveAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _wrapper.RemoveAsync( entity, cancellationToken );
         }
 
         /// <summary>
@@ -399,9 +397,8 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除实体集合
         /// </summary>
-        /// <param name="ids">实体编号集合</param>
-        public async Task RemoveAsync( IEnumerable<TKey> ids ) {
-            await _wrapper.RemoveAsync( ids );
+        public async Task RemoveAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _wrapper.RemoveAsync( ids, cancellationToken );
         }
 
         /// <summary>
@@ -415,9 +412,8 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 移除实体集合
         /// </summary>
-        /// <param name="entities">实体集合</param>
-        public async Task RemoveAsync( IEnumerable<TEntity> entities ) {
-            await _wrapper.RemoveAsync( entities );
+        public async Task RemoveAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _wrapper.RemoveAsync( entities, cancellationToken );
         }
     }
 }

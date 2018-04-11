@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Util.Domains.Services;
+using Util.Security.Identity.Extensions;
 using Util.Security.Identity.Models;
+using Util.Security.Identity.Repositories;
 using Util.Security.Identity.Services.Abstractions;
 
 namespace Util.Security.Identity.Services.Implements {
@@ -15,13 +18,32 @@ namespace Util.Security.Identity.Services.Implements {
         /// 初始化角色服务
         /// </summary>
         /// <param name="roleManager">Identity角色服务</param>
-        protected RoleManager( RoleManager<TRole> roleManager ) {
+        /// <param name="repository">角色仓储</param>
+        protected RoleManager( RoleManager<TRole> roleManager, IRoleRepository<TRole, TKey, TParentId> repository ) {
             Manager = roleManager;
+            Repository = repository;
         }
 
         /// <summary>
         /// Identity角色服务
         /// </summary>
-        protected RoleManager<TRole> Manager { get; set; }
+        private RoleManager<TRole> Manager { get; }
+        /// <summary>
+        /// 角色仓储
+        /// </summary>
+        private IRoleRepository<TRole, TKey, TParentId> Repository { get; }
+
+        /// <summary>
+        /// 创建角色
+        /// </summary>
+        /// <param name="role">角色</param>
+        public async Task CreateAsync( TRole role ) {
+            role.CheckNull( nameof( role ) );
+            var parent = await Repository.FindAsync( role.ParentId );
+            role.Init();
+            role.InitPath( parent );
+            var result = await Manager.CreateAsync( role );
+            result.ThrowIfError();
+        }
     }
 }

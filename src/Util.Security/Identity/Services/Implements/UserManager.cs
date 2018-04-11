@@ -32,15 +32,15 @@ namespace Util.Security.Identity.Services.Implements {
         /// <summary>
         /// Identity用户服务
         /// </summary>
-        protected IdentityUserManager<TUser, TKey> Manager { get; }
+        private IdentityUserManager<TUser, TKey> Manager { get; }
         /// <summary>
         /// 权限配置
         /// </summary>
-        protected IOptions<PermissionOptions> Options { get; set; }
+        private IOptions<PermissionOptions> Options { get; }
         /// <summary>
         /// 用户仓储
         /// </summary>
-        protected IUserRepository<TUser, TKey> UserRepository { get; set; }
+        private IUserRepository<TUser, TKey> UserRepository { get; }
 
         /// <summary>
         /// 创建用户
@@ -51,7 +51,6 @@ namespace Util.Security.Identity.Services.Implements {
             if( user == null )
                 throw new ArgumentNullException( nameof( user ) );
             user.Init();
-            user.Validate();
             var result = await Manager.CreateAsync( user, password );
             result.ThrowIfError();
             user.SetPassword( Options?.Value.Store.StoreOriginalPassword, password );
