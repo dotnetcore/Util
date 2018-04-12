@@ -89,11 +89,11 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 获取实现了接口的所有具体类型
+        /// 获取实现了接口的所有实例
         /// </summary>
         /// <typeparam name="TInterface">接口类型</typeparam>
         /// <param name="assembly">在该程序集中查找</param>
-        public static List<TInterface> GetTypesByInterface<TInterface>( Assembly assembly ) {
+        public static List<TInterface> GetInstancesByInterface<TInterface>( Assembly assembly ) {
             var typeInterface = typeof( TInterface );
             return assembly.GetTypes()
                 .Where( t => typeInterface.GetTypeInfo().IsAssignableFrom( t ) && t != typeInterface && t.GetTypeInfo().IsAbstract == false )

@@ -25,7 +25,7 @@ namespace Util.Datas.Ef.PgSql {
         /// </summary>
         /// <param name="assembly">程序集</param>
         protected override IEnumerable<Util.Datas.Ef.Core.IMap> GetMapTypes( Assembly assembly ) {
-            return Util.Helpers.Reflection.GetTypesByInterface<IMap>( assembly );
+            return Util.Helpers.Reflection.GetInstancesByInterface<IMap>( assembly );
         }
 
         /// <summary>

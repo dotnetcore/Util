@@ -160,7 +160,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="assembly">程序集</param>
         protected virtual IEnumerable<IMap> GetMapTypes( Assembly assembly ) {
-            return Util.Helpers.Reflection.GetTypesByInterface<IMap>( assembly );
+            return Util.Helpers.Reflection.GetInstancesByInterface<IMap>( assembly );
         }
 
         #endregion
