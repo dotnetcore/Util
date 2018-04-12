@@ -39,19 +39,19 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   <ItemGroup>
     <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.3.1" />
     <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.3.1" />
-    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac" Version="4.7.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
-    <PackageReference Include="AutoMapper" Version="6.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.0-preview1-final" />
+    <PackageReference Include="AutoMapper" Version="7.0.0-alpha-0001" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.0-preview2-final" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0-pre-05" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0-preview1-26216-02" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0-preview2-26406-04" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0-preview1-26216-02" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0-preview2-26406-04" />
   </ItemGroup>
 
   <ItemGroup>

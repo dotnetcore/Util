@@ -355,7 +355,6 @@ https://github.com/dotnetcore/util/
 > 包括.net core版本的跳跃式升级等，比如从.net core1.x升级到2.0。
 
 - 2017年7月21日，将.net core升级到2.0 Preview 2。
-- 2018年3月2日，将.net core升级到2.1 Preview 1。
 
 ## 更新计划
 
