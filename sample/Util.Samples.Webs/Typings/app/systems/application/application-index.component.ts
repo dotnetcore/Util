@@ -10,7 +10,7 @@ import {TreeNode} from "primeng/primeng"
  */
 @Component({
     selector: 'application-index',
-    templateUrl: env.prod() ? './application-index.component.html' : '/view/systems/application'
+    templateUrl: env.prod() ? './html/application-index.component.html' : '/view/systems/application'
 })
 export class ApplicationIndexComponent extends CrudIndexComponentBase<ApplicationViewModel, ApplicationQuery>  {
     /**
