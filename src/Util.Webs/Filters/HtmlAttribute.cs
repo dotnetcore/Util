@@ -52,6 +52,9 @@ namespace Util.Webs.Filters {
                 if( string.IsNullOrWhiteSpace( html ) )
                     return;
                 var path = Util.Helpers.Common.GetPhysicalPath( string.IsNullOrWhiteSpace( Path ) ? GetPath( context ) : Path );
+                var directory = System.IO.Path.GetDirectoryName( path );
+                if ( Directory.Exists( directory ) == false )
+                    Directory.CreateDirectory( directory );
                 File.WriteAllText( path, html );
             }
             catch( Exception ex ) {
@@ -66,6 +69,7 @@ namespace Util.Webs.Filters {
             string viewName = "";
             object model = null;
             if ( context.Result is ViewResult result ) {
+                viewName = result.ViewName;
                 viewName = string.IsNullOrWhiteSpace( viewName ) ? context.RouteData.Values["action"].SafeString() : viewName;
                 model = result.Model;
             }

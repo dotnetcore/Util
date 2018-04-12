@@ -15,7 +15,7 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-import { ViewModel } from '../../../util';
+import { ViewModel } from '../../../../util';
 
 /**
  * <%=Entity.Description%>视图模型

@@ -812,7 +812,7 @@
             string className = string.Format( "{0}-query", entity.ClassName.ToCamelCase() );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}\\model", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
         }
     }
     
@@ -826,7 +826,7 @@
             string className = string.Format( "{0}-view-model", entity.ClassName.ToCamelCase() );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}\\model", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
         }
     }
     

@@ -15,7 +15,7 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-import { QueryParameter } from '../../../util';
+import { QueryParameter } from '../../../../util';
 
 /**
  * <%=Entity.Description%>查询参数
