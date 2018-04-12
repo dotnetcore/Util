@@ -105,6 +105,10 @@ namespace Util.Domains {
         private ValidationResultCollection GetValidationResults() {
             var result = DataAnnotationValidation.Validate( this );
             Validate( result );
+
+            if (!result.IsValid)
+                return result;
+
             foreach( var rule in _rules )
                 result.Add( rule.Validate() );
             return result;
