@@ -35,9 +35,6 @@ namespace Util.Samples.Webs {
         /// 配置服务
         /// </summary>
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
-            //添加HttpContextAccessor服务
-            services.AddHttpContextAccessor();
-
             //添加Mvc服务
             services.AddMvc().AddControllersAsServices();
 

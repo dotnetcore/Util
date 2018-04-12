@@ -17,6 +17,9 @@ import { QueryParameter } from '../core/query-parameter';
 import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
 
+/**
+ * Prime树型表格
+ */
 @Component({
     selector: 'p-treeTable',
     template: `
