@@ -1,4 +1,4 @@
-﻿import { ViewModel } from '../../../util';
+﻿import { ViewModel } from '../../../../util';
 
 /**
  * 应用程序视图模型

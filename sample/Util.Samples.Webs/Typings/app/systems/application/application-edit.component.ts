@@ -1,6 +1,6 @@
 ﻿import { Component, Injector } from '@angular/core';
 import { CrudEditComponentBase } from '../../../util';
-import { ApplicationViewModel } from './application-view-model';
+import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
 
 /**
@@ -8,7 +8,7 @@ import { env } from '../../env';
  */
 @Component({
     selector: 'application-edit',
-    templateUrl: env.prod() ? './application-edit.component.html' : '/view/systems/application/edit'
+    templateUrl: env.prod() ? './html/application-edit.component.html' : '/view/systems/application/edit'
 })
 export class ApplicationEditComponent extends CrudEditComponentBase<ApplicationViewModel> {
     /**
@@ -23,10 +23,7 @@ export class ApplicationEditComponent extends CrudEditComponentBase<ApplicationV
      * 创建视图模型
      */
     protected createModel() {
-        let model = new ApplicationViewModel();
-        model.enabled = true;
-        model.registerEnabled = true;
-        return model;
+        return new ApplicationViewModel();
     }
 
     /**

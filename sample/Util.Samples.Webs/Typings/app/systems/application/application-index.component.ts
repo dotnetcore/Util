@@ -1,7 +1,7 @@
 ﻿import { Component, Injector } from '@angular/core';
 import { CrudIndexComponentBase } from '../../../util';
-import { ApplicationQuery } from './application-query';
-import { ApplicationViewModel } from './application-view-model';
+import { ApplicationQuery } from './model/application-query';
+import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
 import {TreeNode} from "primeng/primeng"
 

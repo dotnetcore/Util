@@ -19,7 +19,7 @@
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 import { Component, Injector } from '@angular/core';
 import { CrudEditComponentBase } from '../../../util';
-import { <%=SafeClassName%>ViewModel } from './<%=CamelClassName%>-view-model';
+import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-model';
 import { env } from '../../env';
 
 /**

@@ -1,6 +1,6 @@
 ﻿import { Component, Injector } from '@angular/core';
 import { CrudEditComponentBase } from '../../../util';
-import { ApplicationViewModel } from './application-view-model';
+import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
 
 /**
@@ -8,7 +8,7 @@ import { env } from '../../env';
  */
 @Component({
     selector: 'application-detail',
-    templateUrl: env.prod() ? './application-detail.component.html' : '/view/systems/application/detail'
+    templateUrl: env.prod() ? './html/application-detail.component.html' : '/view/systems/application/detail'
 })
 export class ApplicationDetailComponent extends CrudEditComponentBase<ApplicationViewModel> {
     /**

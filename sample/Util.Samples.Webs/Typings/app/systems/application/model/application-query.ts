@@ -1,4 +1,4 @@
-﻿import { QueryParameter } from '../../../util';
+﻿import { QueryParameter } from '../../../../util';
 
 /**
  * 应用程序查询参数
