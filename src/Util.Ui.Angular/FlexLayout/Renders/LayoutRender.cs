@@ -44,6 +44,7 @@ namespace Util.Ui.FlexLayout.Renders {
             ConfigAlign( builder );
             ConfigGap( builder );
             ConfigFlex( builder );
+            ConfigIf( builder );
             ConfigContent( builder );
         }
 
@@ -51,8 +52,12 @@ namespace Util.Ui.FlexLayout.Renders {
         /// 配置方向
         /// </summary>
         private void ConfigDirection( TagBuilder builder ) {
+            if ( _config.GetValue<bool>( UiConst.Wrap ) ) {
+                builder.AddAttribute( "fxLayout", "row wrap" );
+                return;
+            }
             if( _config.AllAttributes.Any( t => t.Name.StartsWith( UiConst.Direction ) ) == false ) {
-                builder.AddAttribute( "fxLayout", LayoutDirection.Row.Description() );
+                builder.AddAttribute( "fxLayout", "row" );
                 return;
             }
             builder.AddAttribute( "fxLayout", _config.GetValue<LayoutDirection?>( UiConst.Direction )?.Description() );
@@ -96,6 +101,13 @@ namespace Util.Ui.FlexLayout.Renders {
             itemBuilder.AddAttribute( "fxFlex", _config.GetValue( UiConst.Flex ) );
             itemBuilder.AppendContent( _config.Content );
             builder.AppendContent( itemBuilder );
+        }
+
+        /// <summary>
+        /// 配置If
+        /// </summary>
+        private void ConfigIf( TagBuilder builder ) {
+            builder.AddAttribute( "*ngIf", _config.GetValue( UiConst.If ));
         }
 
         /// <summary>

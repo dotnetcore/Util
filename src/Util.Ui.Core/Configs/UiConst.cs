@@ -375,5 +375,9 @@
         /// 日期格式化
         /// </summary>
         public const string DateFormat = "date-format";
+        /// <summary>
+        /// if
+        /// </summary>
+        public const string If = "if";
     }
 }

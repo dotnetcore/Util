@@ -133,5 +133,27 @@ namespace Util.Ui.Tests.FlexLayout {
             result.Append( "<div fxLayout=\"row\"><div fxFlex=\"a\"></div></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试换行
+        /// </summary>
+        [Fact]
+        public void TestWrap() {
+            var attributes = new TagHelperAttributeList { { UiConst.Wrap, true } };
+            var result = new String();
+            result.Append( "<div fxLayout=\"row wrap\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试If
+        /// </summary>
+        [Fact]
+        public void TestIf() {
+            var attributes = new TagHelperAttributeList { { UiConst.If, "a" } };
+            var result = new String();
+            result.Append( "<div *ngIf=\"a\" fxLayout=\"row\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }
