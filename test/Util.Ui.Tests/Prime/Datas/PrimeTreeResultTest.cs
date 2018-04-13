@@ -20,7 +20,7 @@ namespace Util.Ui.Tests.Prime.Datas {
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes );
             var result = treeResult.GetResult();
             Assert.Single( result );
-            result = treeNodes.ToPrimeTreeNodes();
+            result = treeNodes.ToPrimeResult();
             Assert.Single( result );
         }
 
@@ -37,7 +37,7 @@ namespace Util.Ui.Tests.Prime.Datas {
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes );
             var result = treeResult.GetResult();
             Assert.Equal( 2, result.Count );
-            result = treeNodes.ToPrimeTreeNodes();
+            result = treeNodes.ToPrimeResult();
             Assert.Equal( 2, result.Count );
         }
 
@@ -53,7 +53,7 @@ namespace Util.Ui.Tests.Prime.Datas {
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes );
             var result = treeResult.GetResult();
             Assert.Single( result );
-            result = treeNodes.ToPrimeTreeNodes();
+            result = treeNodes.ToPrimeResult();
             Assert.Single( result );
         }
 
@@ -72,7 +72,7 @@ namespace Util.Ui.Tests.Prime.Datas {
             Assert.Equal( "1", result[0].Data.ParentId );
             Assert.Equal( 2, result[0].Data.Level );
             Assert.Equal( "1,2,", result[0].Data.Path );
-            result = treeNodes.ToPrimeTreeNodes();
+            result = treeNodes.ToPrimeResult();
             Assert.Single( result );
         }
 

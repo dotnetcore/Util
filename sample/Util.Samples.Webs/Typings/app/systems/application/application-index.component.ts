@@ -3,7 +3,6 @@ import { CrudIndexComponentBase } from '../../../util';
 import { ApplicationQuery } from './model/application-query';
 import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
-import {TreeNode} from "primeng/primeng"
 
 /**
  * 应用程序首页
@@ -28,16 +27,4 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
     protected createQuery() {
         return new ApplicationQuery();
     }
-
-
-    ngOnInit() {
-        this.util.webapi.get<TreeNode[]>("/api/application/a").handle({
-            handler: result => {
-                this.files = result;
-            }
-        });
-    }
-
-    files: TreeNode[];
-    selectedFiles: TreeNode[];
 }
