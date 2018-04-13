@@ -20,7 +20,7 @@ export class Dialog {
         if (options.beforeOpen && !options.beforeOpen())
             return;
         Dialog.initOptions(options);
-        let dialog = ioc.get(MatDialog);
+        let dialog = ioc.getByComponent(MatDialog);
         let dialogRef = dialog.open(options.dialogComponent, options);
         dialogRef.afterOpen().subscribe(() => options.afterOpen && options.afterOpen());
         dialogRef.beforeClose().subscribe((result) => options.beforeClose && options.beforeClose(result));
@@ -91,7 +91,7 @@ export class Dialog {
      * 关闭所有弹出层
      */
     static closeAll() {
-        let dialog = ioc.get(MatDialog);
+        let dialog = ioc.getByComponent(MatDialog);
         dialog.closeAll();
     }
 
@@ -107,7 +107,7 @@ export class Dialog {
      */
     static close<TResult>(result?: TResult,id?: string);
     static close<TResult>(result?: TResult,id?: string) {
-        let dialog = ioc.get(MatDialog);
+        let dialog = ioc.getByComponent(MatDialog);
         let dialogRef;
         if (id)
             dialogRef = dialog.getDialogById(id);
