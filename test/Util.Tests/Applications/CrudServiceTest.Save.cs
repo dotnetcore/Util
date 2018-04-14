@@ -108,6 +108,7 @@ namespace Util.Tests.Applications {
         /// </summary>
         [Fact]
         public void TestSave_Update() {
+            _repository.Find( _id ).Returns( t => new EntitySample( _id ) );
             _service.Save( new DtoSample { Id =_id.ToString(), Name = "b" } );
             _repository.DidNotReceive().Add( Arg.Any<EntitySample>() );
             _repository.Received().Update( Arg.Is<EntitySample>( t => t.Name == "b" ) );
@@ -127,6 +128,7 @@ namespace Util.Tests.Applications {
         /// </summary>
         [Fact]
         public async Task TestSaveAsync_Update() {
+            _repository.FindAsync( _id ).Returns( t => new EntitySample( _id ) );
             await _service.SaveAsync( new DtoSample { Id = _id.ToString(), Name = "b" } );
             await _repository.DidNotReceive().AddAsync( Arg.Any<EntitySample>() );
             await _repository.Received().UpdateAsync( Arg.Is<EntitySample>( t => t.Name == "b" ) );

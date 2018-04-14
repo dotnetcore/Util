@@ -188,6 +188,9 @@ namespace Util.Tests.Applications {
             var deleteList = new List<DtoSample> {
                 new DtoSample{Id = id3.ToString()}
             };
+            _repository.Find( id3 ).Returns( t => new EntitySample( id3 ) );
+            _repository.Find( id4 ).Returns( t => new EntitySample( id4 ) );
+            _repository.Find( id5 ).Returns( t => new EntitySample( id5 ) );
             var result = _service.Save( addList, updateList, deleteList );
             _repository.Received( 2 ).Add( Arg.Any<EntitySample>() );
             _repository.Received( 2 ).Update( Arg.Any<EntitySample>() );
@@ -229,7 +232,8 @@ namespace Util.Tests.Applications {
         /// </summary>
         [Fact]
         public async Task TestSaveAsync_Update_1() {
-            _repository.Find( _id ).Returns( t => new EntitySample( _id ) );
+            var entity = new EntitySample( _id );
+            _repository.FindAsync( _id ).Returns( t => entity );
             var input = new List<DtoSample> {
                 new DtoSample{Id = _id.ToString(),Name = "b"}
             };
@@ -243,8 +247,8 @@ namespace Util.Tests.Applications {
         /// </summary>
         [Fact]
         public async Task TestSaveAsync_Update_2() {
-            _repository.Find( _id ).Returns( t => new EntitySample( _id ) );
-            _repository.Find( _id2 ).Returns( t => new EntitySample( _id2 ) );
+            _repository.FindAsync( _id ).Returns( t => new EntitySample( _id ) );
+            _repository.FindAsync( _id2 ).Returns( t => new EntitySample( _id2 ) );
             var input = new List<DtoSample> {
                 new DtoSample{Id = _id.ToString(),Name = "b"},
                 new DtoSample{Id = _id2.ToString(),Name = "b"}
@@ -290,6 +294,9 @@ namespace Util.Tests.Applications {
             var deleteList = new List<DtoSample> {
                 new DtoSample{Id = id3.ToString()}
             };
+            _repository.FindAsync( id3 ).Returns( t => new EntitySample( id3 ) );
+            _repository.FindAsync( id4 ).Returns( t => new EntitySample( id4 ) );
+            _repository.FindAsync( id5 ).Returns( t => new EntitySample( id5 ) );
             var result = await _service.SaveAsync( addList, updateList, deleteList );
             await _repository.Received( 2 ).AddAsync( Arg.Any<EntitySample>() );
             await _repository.Received( 2 ).UpdateAsync( Arg.Any<EntitySample>() );
