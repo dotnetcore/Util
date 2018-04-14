@@ -4,7 +4,7 @@
 //================================================
 import { NgForm } from '@angular/forms';
 import { FailResult } from '../core/result';
-import { ViewModel } from '../core/view-model';
+import { ViewModel } from '../core/model';
 import { HttpMethod } from '../angular/http-helper';
 import { WebApi } from './webapi';
 import { RouterHelper } from '../angular/router-helper';
@@ -109,6 +109,8 @@ export class Form {
         options.handler && options.handler(result);
         if (options.showMessage !== false)
             Message.snack(MessageConfig.successed);
+        if (options.reset)
+            options.form.resetForm();
         if (options.back)
             RouterHelper.back();
     }
@@ -158,6 +160,10 @@ export interface IFormSubmitOption {
      * 提交成功后是否关闭弹出层，当在弹出层中编辑时使用，默认为false
      */
     closeDialog?: boolean;
+    /**
+     * 提交成功后是否重置表单，默认为false
+     */
+    reset?: boolean;
     /**
      * 提交前处理函数，返回false则取消提交
      */

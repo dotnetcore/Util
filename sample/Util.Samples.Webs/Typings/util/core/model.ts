@@ -1,7 +1,28 @@
-﻿//============== 查询参数=========================
+﻿//============== 模型=========================
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
+
+/**
+ * 标识
+ */
+export interface IKey {
+    /**
+     * 标识
+     */
+    id: string;
+}
+
+/**
+ * 视图模型
+ */
+export class ViewModel implements IKey {
+    /**
+     * 标识
+     */
+    id: string;
+}
+
 /**
  * 查询参数
  */
@@ -21,5 +42,5 @@ export class QueryParameter {
     /**
      * 搜索关键字
      */
-    keyword:string;
+    keyword: string;
 }

@@ -8,8 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
-import { ViewModel } from '../core/view-model';
-import { QueryParameter } from '../core/query-parameter';
+import { IKey, QueryParameter } from '../core/model';
 import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
 
@@ -58,7 +57,7 @@ import { DicService } from '../services/dic.service';
         }
     `]
 })
-export class TableWrapperComponent<T extends ViewModel> implements AfterContentInit {
+export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**
      * 显示进度条
      */

@@ -12,14 +12,10 @@ import { MatCommonModule, MatCheckboxModule, MatPaginator, MatSort } from '@angu
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
-import { ViewModel } from '../core/view-model';
-import { QueryParameter } from '../core/query-parameter';
+import { IKey, QueryParameter } from '../core/model';
 import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
 
-/**
- * Prime树型表格
- */
 @Component({
     selector: 'p-treeTable',
     template: `
@@ -63,8 +59,8 @@ import { DicService } from '../services/dic.service';
     `,
     providers: [DomHandler]
 })
-export class TreeTable<T extends ViewModel> implements AfterContentInit {
-    @Input() value: TreeNode[];
+export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
+    @Input() value: T[];
 
     @Input() selectionMode: string;
 
@@ -188,7 +184,7 @@ export class TreeTable<T extends ViewModel> implements AfterContentInit {
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
                 result = new PagerList<T>(result);
-                //this.dataSource.data = result.data;
+                this.value = result.data;
                 //this.paginator.pageIndex = result.page - 1;
                 //this.totalCount = result.totalCount;
                 //this.checkedSelection.clear();
@@ -297,7 +293,7 @@ export class TreeTable<T extends ViewModel> implements AfterContentInit {
                 return;
             }
         }
-        
+
         if (this.selectionMode) {
             if (node.selectable === false) {
                 return;
@@ -537,7 +533,7 @@ export class TreeTable<T extends ViewModel> implements AfterContentInit {
         </div>
     `
 })
-export class UITreeRow<T extends ViewModel> implements OnInit {
+export class UITreeRow<T extends TreeNode & IKey> implements OnInit {
 
     @Input() node: TreeNode;
 
@@ -582,7 +578,7 @@ export class UITreeRow<T extends ViewModel> implements OnInit {
         return this.treeTable.isIndeterminate(this.node);
     }
 
-    onRowClick(event: MouseEvent,index:number) {
+    onRowClick(event: MouseEvent, index: number) {
         this.treeTable.onRowClick(event, this.node);
     }
 
