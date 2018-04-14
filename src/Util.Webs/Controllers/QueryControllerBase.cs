@@ -14,15 +14,15 @@ namespace Util.Webs.Controllers {
         where TQuery : IQueryParameter
         where TDto : class, IDto, new() {
         /// <summary>
-        /// Crud服务
+        /// 查询服务
         /// </summary>
-        private readonly ICrudService<TDto, TQuery> _service;
+        private readonly IQueryService<TDto, TQuery> _service;
 
         /// <summary>
         /// 初始化查询控制器
         /// </summary>
-        /// <param name="service">Crud服务</param>
-        protected QueryControllerBase( ICrudService<TDto, TQuery> service ) {
+        /// <param name="service">查询服务</param>
+        protected QueryControllerBase( IQueryService<TDto, TQuery> service ) {
             _service = service;
         }
 
@@ -42,22 +42,32 @@ namespace Util.Webs.Controllers {
         }
 
         /// <summary>
-        /// 查询,调用范例：GET /api/customer/query?name=a
+        /// 分页查询
         /// </summary>
-        /// <param name="query">查询参数</param>
-        [HttpGet( "Query" )]
-        public virtual async Task<IActionResult> QueryAsync( TQuery query ) {
-            var result = await _service.QueryAsync( query );
-            return Success( result );
-        }
-
-        /// <summary>
-        /// 分页查询,调用范例：GET /api/customer?name=a
-        /// </summary>
+        /// <remarks> 
+        /// 调用范例: 
+        /// GET
+        /// /api/customer?name=a
+        /// </remarks>
         /// <param name="query">查询参数</param>
         [HttpGet]
         public virtual async Task<IActionResult> PagerQueryAsync( TQuery query ) {
             var result = await _service.PagerQueryAsync( query );
+            return Success( result );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <remarks> 
+        /// 调用范例: 
+        /// GET
+        /// /api/customer/query?name=a
+        /// </remarks>
+        /// <param name="query">查询参数</param>
+        [HttpGet( "Query" )]
+        public virtual async Task<IActionResult> QueryAsync( TQuery query ) {
+            var result = await _service.QueryAsync( query );
             return Success( result );
         }
     }
