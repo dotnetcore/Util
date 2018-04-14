@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
+using Util.Domains.Repositories;
 
 namespace Util.Webs.Controllers {
     /// <summary>
@@ -53,7 +55,15 @@ namespace Util.Webs.Controllers {
         [HttpGet]
         public virtual async Task<IActionResult> PagerQueryAsync( TQuery query ) {
             var result = await _service.PagerQueryAsync( query );
-            return Success( result );
+            return Success( ToPagerQueryResult( result ) );
+        }
+
+        /// <summary>
+        /// 转换分页查询结果
+        /// </summary>
+        /// <param name="result">分页查询结果</param>
+        protected virtual dynamic ToPagerQueryResult( PagerList<TDto> result ) {
+            return result;
         }
 
         /// <summary>
@@ -68,7 +78,15 @@ namespace Util.Webs.Controllers {
         [HttpGet( "Query" )]
         public virtual async Task<IActionResult> QueryAsync( TQuery query ) {
             var result = await _service.QueryAsync( query );
-            return Success( result );
+            return Success( ToQueryResult( result ) );
+        }
+
+        /// <summary>
+        /// 转换查询结果
+        /// </summary>
+        /// <param name="result">查询结果</param>
+        protected virtual dynamic ToQueryResult( List<TDto> result ) {
+            return result;
         }
     }
 }

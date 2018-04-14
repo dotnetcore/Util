@@ -40,8 +40,9 @@ namespace Util.Domains.Repositories {
         /// <param name="pageSize">每页显示行数</param>
         /// <param name="totalCount">总行数</param>
         /// <param name="order">排序条件</param>
-        public PagerList( int page, int pageSize, int totalCount, string order ) {
-            Data = new List<T>();
+        /// <param name="data">内容</param>
+        public PagerList( int page, int pageSize, int totalCount, string order, List<T> data = null ) {
+            Data = data ?? new List<T>();
             var pager = new Pager( page, pageSize, totalCount );
             TotalCount = pager.TotalCount;
             PageCount = pager.GetPageCount();
@@ -92,7 +93,7 @@ namespace Util.Domains.Repositories {
         /// 索引器
         /// </summary>
         /// <param name="index">索引</param>
-        public T this[ int index ] {
+        public T this[int index] {
             get => Data[index];
             set => Data[index] = value;
         }

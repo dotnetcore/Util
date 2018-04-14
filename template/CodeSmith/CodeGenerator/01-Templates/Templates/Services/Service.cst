@@ -50,25 +50,9 @@ namespace <%= string.Format("{0}.Service.Implements.{1}",Namespace,Entity.TableS
         public I<%= SafeClassName %>Repository <%= SafeClassName %>Repository { get; set; }
         
         /// <summary>
-        /// 转换为数据传输对象
-        /// </summary>
-        /// <param name="entity">实体</param>
-        protected override <%= SafeClassName %>Dto ToDto( <%= SafeClassName %> entity ) {
-            return entity.ToDto();
-        }
-
-        /// <summary>
-        /// 转换为实体
-        /// </summary>
-        /// <param name="dto">数据传输对象</param>
-        protected override <%= SafeClassName %> ToEntity( <%= SafeClassName %>Dto dto ) {
-            return dto.ToEntity();
-        }
-        
-        /// <summary>
         /// 创建查询对象
         /// </summary>
-        /// <param name="param"><%= Description %>查询实体</param>
+        /// <param name="param">查询参数</param>
         protected override IQueryBase<<%= SafeClassName %>> CreateQuery( <%= SafeClassName %>Query param ) {
             return new Query<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>>( param );
         }
