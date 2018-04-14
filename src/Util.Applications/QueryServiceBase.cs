@@ -20,7 +20,7 @@ namespace Util.Applications {
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     public abstract class QueryServiceBase<TEntity, TDto, TQueryParameter> : QueryServiceBase<TEntity, TDto, TQueryParameter, Guid>
         where TEntity : class, IAggregateRoot<TEntity, Guid>
-        where TDto : IDto, new()
+        where TDto : IResponse, new()
         where TQueryParameter : IQueryParameter {
         /// <summary>
         /// 初始化查询服务
@@ -40,7 +40,7 @@ namespace Util.Applications {
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract class QueryServiceBase<TEntity, TDto, TQueryParameter, TKey> : ServiceBase, IQueryService<TDto, TQueryParameter>
         where TEntity : class, IAggregateRoot<TEntity, TKey>
-        where TDto : IDto, new()
+        where TDto : IResponse, new()
         where TQueryParameter : IQueryParameter {
         /// <summary>
         /// 仓储

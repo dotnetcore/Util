@@ -37,8 +37,8 @@ namespace Util.Webs.Controllers {
             if ( dto == null )
                 return Fail( "请求参数不能为空" );
             CreateBefore( dto );
-            await _service.CreateAsync( dto );
-            var result = await _service.GetByIdAsync( dto.Id );
+            var id = await _service.CreateAsync( dto );
+            var result = await _service.GetByIdAsync( id );
             return Success( result );
         }
 

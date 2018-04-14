@@ -7,7 +7,6 @@ using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Domains.Repositories;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
-using Util.Samples.Webs.Services.Dtos.Systems.Extensions;
 using Util.Samples.Webs.Services.Queries.Systems;
 
 namespace Util.Samples.Webs.Services.Implements.Systems {
@@ -29,22 +28,6 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// 应用程序仓储
         /// </summary>
         public IApplicationRepository ApplicationRepository { get; set; }
-
-        /// <summary>
-        /// 转换为数据传输对象
-        /// </summary>
-        /// <param name="entity">实体</param>
-        protected override ApplicationDto ToDto( Application entity ) {
-            return entity.ToDto();
-        }
-
-        /// <summary>
-        /// 转换为实体
-        /// </summary>
-        /// <param name="dto">数据传输对象</param>
-        protected override Application ToEntity( ApplicationDto dto ) {
-            return dto.ToEntity();
-        }
 
         /// <summary>
         /// 创建查询对象

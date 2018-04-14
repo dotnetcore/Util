@@ -2,24 +2,25 @@
 using System.Threading.Tasks;
 using Util.Domains;
 using Util.Logs.Extensions;
+using Util.Maps;
 
 namespace Util.Applications {
     /// <summary>
     /// 增删改查服务 - Save
     /// </summary>
-    public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TQueryParameter, TKey> {
+    public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TCreateRequest, TUpdateRequest, TQueryParameter, TKey> {
         /// <summary>
         /// 创建
         /// </summary>
-        /// <param name="request">请求参数</param>
-        public void Create( TRequest request ) {
+        /// <param name="request">创建参数</param>
+        public string Create( TCreateRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
-            var entity = ToEntity( request );
+            var entity = ToEntityFromCreateRequest( request );
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             Create( entity );
-            request.Id = entity.Id.ToString();
+            return entity.Id.ToString();
         }
 
         /// <summary>
@@ -46,13 +47,37 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 修改
+        /// 创建
         /// </summary>
-        /// <param name="request">请求参数</param>
-        public void Update( TRequest request ) {
+        /// <param name="request">创建参数</param>
+        public async Task<string> CreateAsync( TCreateRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
-            var entity = ToEntity( request );
+            var entity = ToEntityFromCreateRequest( request );
+            if( entity == null )
+                throw new ArgumentNullException( nameof( entity ) );
+            await CreateAsync( entity );
+            return entity.Id.ToString();
+        }
+
+        /// <summary>
+        /// 创建实体
+        /// </summary>
+        protected async Task CreateAsync( TEntity entity ) {
+            CreateBefore( entity );
+            entity.Init();
+            await _repository.AddAsync( entity );
+            CreateAfter( entity );
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="request">修改参数</param>
+        public void Update( TUpdateRequest request ) {
+            if( request == null )
+                throw new ArgumentNullException( nameof( request ) );
+            var entity = ToEntityFromUpdateRequest( request );
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             Update( entity );
@@ -88,86 +113,13 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 保存
-        /// </summary>
-        /// <param name="request">请求参数</param>
-        public void Save( TRequest request ) {
-            if( request == null )
-                throw new ArgumentNullException( nameof( request ) );
-            SaveBefore( request );
-            var entity = ToEntity( request );
-            if( entity == null )
-                throw new ArgumentNullException( nameof( entity ) );
-            if ( IsNew( request, entity ) ) {
-                Create( entity );
-                request.Id = entity.Id.ToString();
-            }
-            else
-                Update( entity );
-        }
-
-        /// <summary>
-        /// 保存前操作
-        /// </summary>
-        /// <param name="request">请求参数</param>
-        protected virtual void SaveBefore( TRequest request ) {
-        }
-
-        /// <summary>
-        /// 是否创建
-        /// </summary>
-        /// <param name="request">请求参数</param>
-        /// <param name="entity">实体</param>
-        protected virtual bool IsNew( TRequest request, TEntity entity ) {
-            return string.IsNullOrWhiteSpace( request.Id ) || entity.Id.Equals( default( TKey ) );
-        }
-
-        /// <summary>
-        /// 保存后操作
-        /// </summary>
-        protected virtual void SaveAfter() {
-            WriteLog( $"保存{EntityDescription}成功" );
-        }
-
-        /// <summary>
-        /// 提交后操作 - 该方法由工作单元拦截器调用
-        /// </summary>
-        public void CommitAfter() {
-            SaveAfter();
-        }
-
-        /// <summary>
-        /// 创建
-        /// </summary>
-        /// <param name="request">请求参数</param>
-        public async Task CreateAsync( TRequest request ) {
-            if( request == null )
-                throw new ArgumentNullException( nameof( request ) );
-            var entity = ToEntity( request );
-            if( entity == null )
-                throw new ArgumentNullException( nameof( entity ) );
-            await CreateAsync( entity );
-            request.Id = entity.Id.ToString();
-        }
-
-        /// <summary>
-        /// 创建实体
-        /// </summary>
-        protected async Task CreateAsync( TEntity entity ) {
-            CreateBefore( entity );
-            entity.Init();
-            await _repository.AddAsync( entity );
-            CreateAfter( entity );
-        }
-
-        /// <summary>
         /// 修改
         /// </summary>
-        /// <param name="request">请求参数</param>
-        public async Task UpdateAsync( TRequest request ) {
+        /// <param name="request">修改参数</param>
+        public async Task UpdateAsync( TUpdateRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
-            var entity = ToEntity( request );
+            var entity = ToEntityFromUpdateRequest( request );
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             await UpdateAsync( entity );
@@ -189,7 +141,56 @@ namespace Util.Applications {
         /// <summary>
         /// 保存
         /// </summary>
-        /// <param name="request">请求参数</param>
+        /// <param name="request">参数</param>
+        public void Save( TRequest request ) {
+            if( request == null )
+                throw new ArgumentNullException( nameof( request ) );
+            SaveBefore( request );
+            var entity = ToEntity( request );
+            if( entity == null )
+                throw new ArgumentNullException( nameof( entity ) );
+            if ( IsNew( request, entity ) ) {
+                Create( entity );
+                request.Id = entity.Id.ToString();
+            }
+            else
+                Update( entity );
+        }
+
+        /// <summary>
+        /// 保存前操作
+        /// </summary>
+        /// <param name="request">参数</param>
+        protected virtual void SaveBefore( TRequest request ) {
+        }
+
+        /// <summary>
+        /// 是否创建
+        /// </summary>
+        /// <param name="request">参数</param>
+        /// <param name="entity">实体</param>
+        protected virtual bool IsNew( TRequest request, TEntity entity ) {
+            return string.IsNullOrWhiteSpace( request.Id ) || entity.Id.Equals( default( TKey ) );
+        }
+
+        /// <summary>
+        /// 保存后操作
+        /// </summary>
+        protected virtual void SaveAfter() {
+            WriteLog( $"保存{EntityDescription}成功" );
+        }
+
+        /// <summary>
+        /// 提交后操作 - 该方法由工作单元拦截器调用
+        /// </summary>
+        public void CommitAfter() {
+            SaveAfter();
+        }
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="request">参数</param>
         public async Task SaveAsync( TRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );

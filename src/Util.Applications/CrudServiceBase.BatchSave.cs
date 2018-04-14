@@ -7,7 +7,7 @@ namespace Util.Applications {
     /// <summary>
     /// 增删改查服务 - 批量Save
     /// </summary>
-    public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TQueryParameter, TKey> {
+    public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TCreateRequest, TUpdateRequest, TQueryParameter, TKey> {
         /// <summary>
         /// 批量保存
         /// </summary>

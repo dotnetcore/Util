@@ -23,7 +23,10 @@ export class ApplicationEditComponent extends CrudEditComponentBase<ApplicationV
      * 创建视图模型
      */
     protected createModel() {
-        return new ApplicationViewModel();
+        var model = new ApplicationViewModel();
+        model.registerEnabled = true;
+        model.enabled = true;
+        return model;
     }
 
     /**
