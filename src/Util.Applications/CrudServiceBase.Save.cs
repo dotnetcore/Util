@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Util.Domains;
 using Util.Logs.Extensions;
-using Util.Maps;
 
 namespace Util.Applications {
     /// <summary>
@@ -88,9 +87,9 @@ namespace Util.Applications {
         /// </summary>
         protected void Update( TEntity entity ) {
             var oldEntity = _repository.Find( entity.Id );
-            var changes = new ChangeValueCollection();
-            if( oldEntity != null)
-                changes = oldEntity.GetChanges( entity );
+            if( oldEntity == null )
+                throw new ArgumentNullException( nameof( oldEntity ) );
+            var changes = oldEntity.GetChanges( entity );
             UpdateBefore( entity );
             _repository.Update( entity );
             UpdateAfter( entity, changes );
@@ -130,9 +129,9 @@ namespace Util.Applications {
         /// </summary>
         protected async Task UpdateAsync( TEntity entity ) {
             var oldEntity = await _repository.FindAsync( entity.Id );
-            var changes = new ChangeValueCollection();
-            if( oldEntity != null )
-                changes = oldEntity.GetChanges( entity );
+            if( oldEntity == null )
+                throw new ArgumentNullException( nameof( oldEntity ) );
+            var changes = oldEntity.GetChanges( entity );
             UpdateBefore( entity );
             await _repository.UpdateAsync( entity );
             UpdateAfter( entity, changes );
@@ -149,7 +148,7 @@ namespace Util.Applications {
             var entity = ToEntity( request );
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            if ( IsNew( request, entity ) ) {
+            if( IsNew( request, entity ) ) {
                 Create( entity );
                 request.Id = entity.Id.ToString();
             }
@@ -198,7 +197,7 @@ namespace Util.Applications {
             var entity = ToEntity( request );
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            if ( IsNew( request, entity ) ) {
+            if( IsNew( request, entity ) ) {
                 await CreateAsync( entity );
                 request.Id = entity.Id.ToString();
             }
