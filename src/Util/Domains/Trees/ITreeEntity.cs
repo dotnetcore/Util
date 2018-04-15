@@ -6,7 +6,7 @@ namespace Util.Domains.Trees {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    /// <typeparam name="TParentId">父编号类型</typeparam>
+    /// <typeparam name="TParentId">父标识类型</typeparam>
     public interface ITreeEntity<TEntity, TKey, TParentId> : IAggregateRoot<TEntity, TKey> where TEntity : ITreeEntity<TEntity, TKey, TParentId> {
         /// <summary>
         /// 父对象

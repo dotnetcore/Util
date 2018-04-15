@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Ui.Attributes;
-using Util.Ui.Datas;
 
 namespace Util.Samples.Webs.Services.Dtos.Systems {
     /// <summary>

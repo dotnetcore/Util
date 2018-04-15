@@ -10,7 +10,7 @@ namespace Util.Samples.Webs.Services.Abstractions.Systems {
     /// <summary>
     /// 角色服务
     /// </summary>
-    public interface IRoleService : IQueryService<RoleDto, RoleQuery> {
+    public interface IRoleService : ITreeService<RoleDto, RoleQuery> {
         /// <summary>
         /// 创建角色
         /// </summary>

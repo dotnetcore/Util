@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Util.Applications.Dtos;
 
-namespace Util.Applications {
+namespace Util.Applications.Operations {
     /// <summary>
     /// 获取指定标识实体
     /// </summary>

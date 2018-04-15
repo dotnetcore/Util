@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Util.Datas.Queries.Trees {
     /// <summary>
@@ -22,7 +21,6 @@ namespace Util.Datas.Queries.Trees {
         /// <summary>
         /// 启用
         /// </summary>
-        [Display( Name = "启用" )]
         bool? Enabled { get; set; }
     }
 

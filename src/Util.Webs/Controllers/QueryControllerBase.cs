@@ -54,7 +54,7 @@ namespace Util.Webs.Controllers {
         /// <param name="query">查询参数</param>
         [HttpGet]
         public virtual async Task<IActionResult> PagerQueryAsync( TQuery query ) {
-            PagerQueryAsyncBefore( query );
+            PagerQueryBefore( query );
             var result = await _service.PagerQueryAsync( query );
             return Success( ToPagerQueryResult( result ) );
         }
@@ -63,7 +63,7 @@ namespace Util.Webs.Controllers {
         /// 分页查询前操作
         /// </summary>
         /// <param name="query">查询参数</param>
-        protected virtual void PagerQueryAsyncBefore( TQuery query ) {
+        protected virtual void PagerQueryBefore( TQuery query ) {
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Util.Webs.Controllers {
         /// <param name="query">查询参数</param>
         [HttpGet( "Query" )]
         public virtual async Task<IActionResult> QueryAsync( TQuery query ) {
-            QueryAsyncBefore( query );
+            QueryBefore( query );
             var result = await _service.QueryAsync( query );
             return Success( ToQueryResult( result ) );
         }
@@ -94,7 +94,7 @@ namespace Util.Webs.Controllers {
         /// 查询前操作
         /// </summary>
         /// <param name="query">查询参数</param>
-        protected virtual void QueryAsyncBefore( TQuery query ) {
+        protected virtual void QueryBefore( TQuery query ) {
         }
 
         /// <summary>

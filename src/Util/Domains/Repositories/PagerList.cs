@@ -41,8 +41,8 @@ namespace Util.Domains.Repositories {
         /// <param name="totalCount">总行数</param>
         /// <param name="order">排序条件</param>
         /// <param name="data">内容</param>
-        public PagerList( int page, int pageSize, int totalCount, string order, List<T> data = null ) {
-            Data = data ?? new List<T>();
+        public PagerList( int page, int pageSize, int totalCount, string order, IEnumerable<T> data = null ) {
+            Data = data == null ? new List<T>() : data.ToList();
             var pager = new Pager( page, pageSize, totalCount );
             TotalCount = pager.TotalCount;
             PageCount = pager.GetPageCount();
@@ -122,14 +122,20 @@ namespace Util.Domains.Repositories {
         }
 
         /// <summary>
-        /// 转换分页集合的元素类型
+        /// 转换分页集合
         /// </summary>
         /// <typeparam name="TResult">目标元素类型</typeparam>
         /// <param name="converter">转换方法</param>
         public PagerList<TResult> Convert<TResult>( Func<T, TResult> converter ) {
-            var result = new PagerList<TResult>( Page, PageSize, TotalCount, Order );
-            result.AddRange( this.Data.Select( converter ) );
-            return result;
+            return Convert( this.Data.Select( converter ) );
+        }
+
+        /// <summary>
+        /// 转换分页集合
+        /// </summary>
+        /// <param name="data">内容</param>
+        public PagerList<TResult> Convert<TResult>( IEnumerable<TResult> data ) {
+            return new PagerList<TResult>( Page, PageSize, TotalCount, Order, data );
         }
     }
 }

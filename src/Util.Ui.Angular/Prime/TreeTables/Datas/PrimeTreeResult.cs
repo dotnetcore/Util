@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Util.Ui.Datas;
+using Util.Applications;
 
 namespace Util.Ui.Prime.TreeTables.Datas {
     /// <summary>
@@ -11,13 +11,19 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         /// 树型节点列表
         /// </summary>
         private readonly IEnumerable<TNode> _nodes;
+        /// <summary>
+        /// 是否异步加载
+        /// </summary>
+        private readonly bool _async;
 
         /// <summary>
         /// 初始化Prime树结果
         /// </summary>
         /// <param name="nodes">树型节点列表</param>
-        public PrimeTreeResult( IEnumerable<TNode> nodes ) {
+        /// <param name="async">是否异步加载</param>
+        public PrimeTreeResult( IEnumerable<TNode> nodes, bool async = false ) {
             _nodes = nodes;
+            _async = async;
         }
 
         /// <summary>
@@ -57,14 +63,24 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         private void AddNode( List<PrimeTreeNode<TNode>> result, PrimeTreeNode<TNode> node ) {
             if( node == null )
                 return;
+            SetDefault( node );
             if( IsRoot( node.Data ) )
                 result.Add( node );
             if( IsLeaf( node.Data ) ) {
+                SetLeaf( node );
                 return;
             }
             node.Children = GetChilds( node.Data );
             foreach( var child in node.Children )
                 AddNode( result, child );
+        }
+
+        /// <summary>
+        /// 设置默认值
+        /// </summary>
+        private void SetDefault( PrimeTreeNode<TNode> node ) {
+            if( _async )
+                node.Leaf = false;
         }
 
         /// <summary>
@@ -74,6 +90,14 @@ namespace Util.Ui.Prime.TreeTables.Datas {
             if ( node.Id.IsEmpty() )
                 return true;
             return _nodes.All( t => t.ParentId != node.Id );
+        }
+
+        /// <summary>
+        /// 设置叶节点状态
+        /// </summary>
+        private void SetLeaf( PrimeTreeNode<TNode> node ) {
+            if( _async )
+                node.Leaf = true;
         }
 
         /// <summary>

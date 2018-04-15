@@ -20,6 +20,23 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes );
             var result = treeResult.GetResult();
             Assert.Single( result );
+            Assert.Null( result[0].Leaf );
+            result = treeNodes.ToPrimeResult();
+            Assert.Single( result );
+        }
+
+        /// <summary>
+        /// 测试获取结果 - 异步加载
+        /// </summary>
+        [Fact]
+        public void TestGetResult_Async() {
+            var treeNodes = new List<TreeNodeSample> {
+                new TreeNodeSample{Id = "1"}
+            };
+            var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes, true );
+            var result = treeResult.GetResult();
+            Assert.Single( result );
+            Assert.True( result[0].Leaf );
             result = treeNodes.ToPrimeResult();
             Assert.Single( result );
         }
@@ -37,6 +54,29 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes );
             var result = treeResult.GetResult();
             Assert.Equal( 2, result.Count );
+            Assert.Null( result[0].Leaf );
+            Assert.Null( result[1].Leaf );
+            Assert.Null( result[0].Children[0].Leaf );
+            result = treeNodes.ToPrimeResult();
+            Assert.Equal( 2, result.Count );
+        }
+
+        /// <summary>
+        /// 测试获取结果 - 异步加载
+        /// </summary>
+        [Fact]
+        public void TestGetResult_2_Async() {
+            var treeNodes = new List<TreeNodeSample> {
+                new TreeNodeSample{Id = "1"},
+                new TreeNodeSample{Id = "2"},
+                new TreeNodeSample{Id = "3",ParentId = "1"}
+            };
+            var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes,true );
+            var result = treeResult.GetResult();
+            Assert.Equal( 2, result.Count );
+            Assert.False( result[0].Leaf );
+            Assert.True( result[1].Leaf );
+            Assert.True( result[0].Children[0].Leaf );
             result = treeNodes.ToPrimeResult();
             Assert.Equal( 2, result.Count );
         }
@@ -277,7 +317,7 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes );
             var result = treeResult.GetResult();
             Assert.Single( result );
-            Assert.Equal( "a",result[0].Data.Name );
+            Assert.Equal( "a", result[0].Data.Name );
         }
     }
 }

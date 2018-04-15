@@ -16,7 +16,7 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
     /// <summary>
     /// 角色服务
     /// </summary>
-    public class RoleService : QueryServiceBase<Role, RoleDto, RoleQuery, Guid>, IRoleService {
+    public class RoleService : TreeServiceBase<Role, RoleDto, RoleQuery>, IRoleService {
         /// <summary>
         /// 初始化角色服务
         /// </summary>

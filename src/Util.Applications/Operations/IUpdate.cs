@@ -2,7 +2,7 @@
 using Util.Applications.Dtos;
 using Util.Validations.Aspects;
 
-namespace Util.Applications {
+namespace Util.Applications.Operations {
     /// <summary>
     /// 修改操作
     /// </summary>

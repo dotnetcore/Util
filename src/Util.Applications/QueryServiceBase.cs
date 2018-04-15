@@ -26,7 +26,7 @@ namespace Util.Applications {
         /// 初始化查询服务
         /// </summary>
         /// <param name="repository">仓储</param>
-        protected QueryServiceBase( IRepository<TEntity> repository )
+        protected QueryServiceBase( IRepository<TEntity, Guid> repository )
             : base( repository ) {
         }
     }
@@ -130,7 +130,7 @@ namespace Util.Applications {
         private IQueryable<TEntity> ExecuteQuery( TQueryParameter parameter ) {
             var query = CreateQuery( parameter );
             var queryable = Filter( query );
-            queryable = Filter( queryable );
+            queryable = Filter( queryable, parameter );
             var order = query.GetOrder();
             return string.IsNullOrWhiteSpace( order ) ? queryable : queryable.OrderBy( order );
         }
@@ -156,7 +156,7 @@ namespace Util.Applications {
         /// <summary>
         /// 过滤
         /// </summary>
-        protected virtual IQueryable<TEntity> Filter( IQueryable<TEntity> queryable ) {
+        protected virtual IQueryable<TEntity> Filter( IQueryable<TEntity> queryable, TQueryParameter parameter ) {
             return queryable;
         }
 
@@ -181,15 +181,15 @@ namespace Util.Applications {
                 return new PagerList<TDto>();
             var query = CreateQuery( parameter );
             var pager = query.GetPager();
-            return ExecutePagerQuery( query, pager ).ToPagerList( pager ).Convert( ToDto );
+            return ExecutePagerQuery( query, pager, parameter ).ToPagerList( pager ).Convert( ToDto );
         }
 
         /// <summary>
         /// 执行分页查询
         /// </summary>
-        private IQueryable<TEntity> ExecutePagerQuery( IQueryBase<TEntity> query, IPager pager ) {
+        private IQueryable<TEntity> ExecutePagerQuery( IQueryBase<TEntity> query, IPager pager, TQueryParameter parameter ) {
             var queryable = Filter( query );
-            queryable = Filter( queryable );
+            queryable = Filter( queryable, parameter );
             var order = query.GetOrder();
             if( string.IsNullOrWhiteSpace( order ) )
                 order = "Id";
@@ -205,7 +205,7 @@ namespace Util.Applications {
                 return new PagerList<TDto>();
             var query = CreateQuery( parameter );
             var pager = query.GetPager();
-            var queryable = ExecutePagerQuery( query, pager );
+            var queryable = ExecutePagerQuery( query, pager, parameter );
             var result = await queryable.ToPagerListAsync( pager );
             return result.Convert( ToDto );
         }
