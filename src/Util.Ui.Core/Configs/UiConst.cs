@@ -379,5 +379,13 @@
         /// if
         /// </summary>
         public const string If = "if";
+        /// <summary>
+        /// 还原查询参数
+        /// </summary>
+        public const string OnQueryRestore = "on-query-restore";
+        /// <summary>
+        /// 复选框
+        /// </summary>
+        public const string Checkbox = "checkbox";
     }
 }

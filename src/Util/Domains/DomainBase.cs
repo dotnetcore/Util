@@ -240,7 +240,7 @@ namespace Util.Domains {
         }
 
         /// <summary>
-        /// 添加变更
+        /// 添加描述
         /// </summary>
         /// <param name="expression">属性表达式,范例：t => t.Name</param>
         protected void AddDescription<TProperty>( Expression<Func<T, TProperty>> expression ) {

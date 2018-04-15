@@ -1,17 +1,17 @@
 ﻿<util-sidenav-container fullscreen="true">
     @*导航侧边栏*@
     <util-sidenav id="sidenav" opened="true" mode="Side" width="250">
-        @Html.Partial( "Main/SideNav" )
+        @await Html.PartialAsync( "Main/SideNav" )
     </util-sidenav>
     <util-sidenav-content>
         @*页头*@
-        @Html.Partial( "Main/Header" )
+        @await Html.PartialAsync( "Main/Header" )
         @*内容区*@
         <div class="navbar-content">
             <util-router-outlet></util-router-outlet>
         </div>
         @*页脚*@
-        @Html.Partial( "Main/Footer" )
+        @await Html.PartialAsync( "Main/Footer" )
     </util-sidenav-content>
 </util-sidenav-container>
 

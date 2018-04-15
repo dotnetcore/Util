@@ -83,6 +83,14 @@ namespace Util.Ui.FlexLayout.TagHelpers {
         /// 是否占满
         /// </summary>
         public bool Fill { get; set; }
+        /// <summary>
+        /// *ngIf
+        /// </summary>
+        public string If { get; set; }
+        /// <summary>
+        /// *ngFor
+        /// </summary>
+        public string NgFor { get; set; }
 
         /// <summary>
         /// 获取渲染器

@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { TreeNode, Header, Footer, Column, SharedModule, DomHandler } from "primeng/primeng";
 import { Subscription } from 'rxjs/Subscription';
 //Material模块
-import { MatCommonModule, MatCheckboxModule, MatPaginator, MatSort } from '@angular/material';
+import { MatCommonModule, MatCheckboxModule, MatPaginatorModule, MatProgressBarModule, MatSortModule, MatPaginator, MatSort } from '@angular/material';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
@@ -17,50 +17,119 @@ import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
 
 @Component({
-    selector: 'p-treeTable',
+    selector: 'p-tree-table',
     template: `
-        <div [ngClass]="'ui-treetable ui-widget'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-treetable-header ui-widget-header" *ngIf="header">
-                <ng-content select="p-header"></ng-content>
-            </div>
-            <div class="ui-treetable-tablewrapper">
-                <table #tbl class="ui-widget-content" [class]="tableStyleClass" [ngStyle]="tableStyle">
-                    <thead>
-                        <tr class="ui-state-default">
-                            <th #headerCell *ngFor="let col of columns; let lastCol = last;let i = index;"  [ngStyle]="col.headerStyle||col.style" [class]="col.headerStyleClass||col.styleClass" 
-                                [ngClass]="'ui-state-default ui-unselectable-text'">
-                                <mat-checkbox class="master-checkbox" *ngIf="selectionMode == 'checkbox' && i==0" [checked]="isMasterChecked()" 
-                                    [indeterminate]="isIndeterminate()" (change)="masterToggle()"></mat-checkbox>
-                                <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>                                
-                                <span class="ui-column-title" *ngIf="col.headerTemplate">
-                                    <ng-container *ngTemplateOutlet="col.headerTemplate; context: {$implicit: col}"></ng-container>
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tfoot *ngIf="hasFooter()">
-                        <tr>
-                            <td *ngFor="let col of columns" [ngStyle]="col.footerStyle||col.style" [class]="col.footerStyleClass||col.styleClass" [ngClass]="{'ui-state-default':true}">
-                                <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
-                                <span class="ui-column-footer" *ngIf="col.footerTemplate">
-                                    <ng-container *ngTemplateOutlet="col.headerTemplate; context: {$implicit: col}"></ng-container>
-                                </span>
-                            </td>
-                        </tr>
-                    </tfoot>
-                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
-                </table>
-            </div>
-            
-            <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
-                <ng-content select="p-footer"></ng-content>
-            </div>
+<div class="table-container mat-elevation-z8">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <div [ngClass]="'ui-treetable ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div class="ui-treetable-header ui-widget-header" *ngIf="header">
+            <ng-content select="p-header"></ng-content>
         </div>
+        <div class="ui-treetable-tablewrapper">
+            <table #tbl class="ui-widget-content" [class]="tableStyleClass" [ngStyle]="tableStyle">
+                <thead>
+                    <tr class="ui-state-default">
+                        <th #headerCell *ngFor="let col of columns; let lastCol = last;let i = index;"  [ngStyle]="col.headerStyle||col.style" [class]="col.headerStyleClass||col.styleClass" 
+                            [ngClass]="'ui-state-default ui-unselectable-text'">
+                            <mat-checkbox class="master-checkbox" *ngIf="selectionMode == 'checkbox' && i==0" [checked]="isMasterChecked()" 
+                                [indeterminate]="isIndeterminate()" (change)="masterToggle()"></mat-checkbox>
+                            <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>                                
+                            <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                <ng-container *ngTemplateOutlet="col.headerTemplate; context: {$implicit: col}"></ng-container>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot *ngIf="hasFooter()">
+                    <tr>
+                        <td *ngFor="let col of columns" [ngStyle]="col.footerStyle||col.style" [class]="col.footerStyleClass||col.styleClass" [ngClass]="{'ui-state-default':true}">
+                            <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
+                            <span class="ui-column-footer" *ngIf="col.footerTemplate">
+                                <ng-container *ngTemplateOutlet="col.headerTemplate; context: {$implicit: col}"></ng-container>
+                            </span>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody pTreeRow *ngFor="let node of dataSource" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
+            </table>
+        </div>
+            
+        <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
+            <ng-content select="p-footer"></ng-content>
+        </div>
+    </div>
+    <mat-paginator [length]="totalCount" [pageSize]="queryParam&&queryParam.pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+</div>
     `,
+    styles: [`
+        .table-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        ::ng-deep .ui-treetable {
+            overflow: auto;
+        } 
+    `],
     providers: [DomHandler]
 })
 export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
-    @Input() value: T[];
+    /**
+     * 显示进度条
+     */
+    loading: boolean;
+    /**
+     * 总行数
+     */
+    totalCount = 0;
+    /**
+     * 初始排序
+     */
+    initOrder: string;
+    /**
+     * 数据源
+     */
+    @Input() dataSource: T[];
+    /**
+     * 键
+     */
+    @Input() key: string;
+    /**
+     * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
+     */
+    @Input() autoLoad: boolean;
+    /**
+     * 分页长度列表
+     */
+    @Input() pageSizeOptions: number[];
+    /**
+    * 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
+    */
+    @Input() baseUrl: string;
+    /**
+     * 数据加载地址，范例：/api/test
+     */
+    @Input() url: string;
+    /**
+     * 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
+     */
+    @Input() deleteUrl: string;
+    /**
+     * 查询参数
+     */
+    @Input() queryParam: QueryParameter;
+    /**
+     * 查询参数还原事件
+     */
+    @Output() onQueryRestore = new EventEmitter<QueryParameter>();
+    /**
+     * 排序组件
+     */
+    @ContentChild(MatSort) sort: MatSort;
+    /**
+     * 分页组件
+     */
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     @Input() selectionMode: string;
 
@@ -88,35 +157,6 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
 
     @Input() expandedIcon: string = "fa-caret-down";
 
-    /**
-     * 显示进度条
-     */
-    loading: boolean;
-    /**
-    * 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
-    */
-    @Input() baseUrl: string;
-    /**
-     * 数据加载地址，范例：/api/test
-     */
-    @Input() url: string;
-    /**
-     * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
-     */
-    @Input() autoLoad: boolean;
-    /**
-     * 键
-     */
-    @Input() key: string;
-    /**
-     * 查询参数
-     */
-    @Input() queryParam: QueryParameter;
-    /**
-     * 查询参数还原事件
-     */
-    @Output() onQueryRestore = new EventEmitter<QueryParameter>();
-
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
@@ -139,13 +179,20 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
 
     @ViewChild('tbl') tableViewChild: ElementRef;
 
+
+
     public rowTouched: boolean;
 
     public columns: Column[];
 
     columnsSubscription: Subscription;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2, private dic: DicService<QueryParameter>) { }
+    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2, private dic: DicService<QueryParameter>) {
+        this.pageSizeOptions = [10, 20, 50, 100];
+        this.loading = false;
+        this.autoLoad = true;
+        this.queryParam = new QueryParameter();
+    }
 
     ngAfterContentInit() {
         this.initColumns();
@@ -164,8 +211,44 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
      * 初始化
      */
     private init() {
+        this.initPaginator();
+        this.restoreQueryParam();
         if (this.autoLoad)
             this.query();
+    }
+
+    /**
+     * 初始化分页组件
+     */
+    private initPaginator() {
+        this.initPage();
+        this.paginator.page.subscribe(() => {
+            this.queryParam.page = this.paginator.pageIndex + 1;
+            this.queryParam.pageSize = this.paginator.pageSize;
+            this.query();
+        });
+    }
+
+    /**
+     * 初始化分页参数
+     */
+    private initPage() {
+        this.queryParam.page = 1;
+        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
+            this.queryParam.pageSize = this.pageSizeOptions[0];
+    }
+
+    /**
+     * 还原查询参数
+     */
+    private restoreQueryParam() {
+        if (!this.key)
+            return;
+        let query = this.dic.get(this.key);
+        if (!query)
+            return;
+        this.queryParam = query;
+        this.onQueryRestore.emit(query);
     }
 
     /**
@@ -184,10 +267,10 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
                 result = new PagerList<T>(result);
-                this.value = result.data;
-                //this.paginator.pageIndex = result.page - 1;
-                //this.totalCount = result.totalCount;
-                //this.checkedSelection.clear();
+                this.dataSource = result.data;
+                this.paginator.pageIndex = result.page - 1;
+                this.totalCount = result.totalCount;
+                this.selection = new Array<T>();
             },
             completeHandler: () => this.loading = false
         });
@@ -211,7 +294,7 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
                 this.selection.pop(this.selection[i]);
             return;
         }
-        this.value.forEach(node => {
+        this.dataSource.forEach(node => {
             this.propagateSelectionDown(node, true);
             if (node.parent) {
                 this.propagateSelectionUp(node.parent, true);
@@ -227,7 +310,7 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
     isMasterChecked() {
         if (!this.selection)
             return false;
-        let length = this.getNodesLength(this.value);
+        let length = this.getNodesLength(this.dataSource);
         return this.selection.length === length;
     }
 
@@ -270,7 +353,7 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
         if (!this.selection || this.selection.length === 0)
             return false;
         if (!treeNode) {
-            let length = this.getNodesLength(this.value);
+            let length = this.getNodesLength(this.dataSource);
             return this.selection.length !== length;
         }
         if (!treeNode.children || treeNode.children.length === 0)
@@ -615,7 +698,7 @@ export class UITreeRow<T extends TreeNode & IKey> implements OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, MatCommonModule, MatCheckboxModule],
+    imports: [CommonModule, MatCommonModule, MatCheckboxModule, MatProgressBarModule, MatPaginatorModule, MatSortModule],
     exports: [TreeTable, SharedModule],
     declarations: [TreeTable, UITreeRow]
 })

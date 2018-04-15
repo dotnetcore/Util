@@ -82,24 +82,5 @@ namespace Util.Samples.Webs.Services.Queries.Systems {
         /// </summary>
         [Display( Name = "最后修改人编号" )]
         public Guid? LastModifierId { get; set; }
-
-        /// <summary>
-        /// 添加描述
-        /// </summary>
-        protected override void AddDescriptions() {
-            base.AddDescriptions();
-            AddDescription( "应用程序编号", ApplicationId );
-            AddDescription( "应用程序编码", Code );
-            AddDescription( "应用程序名称", Name );
-            AddDescription( "备注", Comment );
-            AddDescription( "启用", Enabled.Description() );
-            AddDescription( "启用注册", RegisterEnabled.Description() );
-            AddDescription( "起始创建时间", BeginCreationTime );
-            AddDescription( "结束创建时间", EndCreationTime );
-            AddDescription( "创建人编号", CreatorId );
-            AddDescription( "起始最后修改时间", BeginLastModificationTime );
-            AddDescription( "结束最后修改时间", EndLastModificationTime );
-            AddDescription( "最后修改人编号", LastModifierId );
-        }
     }
 }

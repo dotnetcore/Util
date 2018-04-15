@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Util.Ui.Prime.Datas {
+namespace Util.Ui.Prime.TreeTables.Datas {
     /// <summary>
     /// Prime树节点
     /// </summary>

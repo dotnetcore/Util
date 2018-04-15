@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Util.Ui.Extensions;
-using Util.Ui.Prime.Datas;
+using Util.Ui.Prime.TreeTables.Datas;
 using Util.Ui.Tests.Samples;
 using Xunit;
 
-namespace Util.Ui.Tests.Prime.Datas {
+namespace Util.Ui.Tests.Prime.TreeTables.Datas {
     /// <summary>
     /// Prime树结果测试
     /// </summary>

@@ -2,7 +2,7 @@
 using System.Linq;
 using Util.Ui.Datas;
 
-namespace Util.Ui.Prime.Datas {
+namespace Util.Ui.Prime.TreeTables.Datas {
     /// <summary>
     /// Prime树结果
     /// </summary>

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Util.Ui.Angular;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.FlexLayout.Enums;
@@ -41,6 +42,7 @@ namespace Util.Ui.FlexLayout.Renders {
             ConfigOffset( builder );
             ConfigAlign( builder );
             ConfigFill( builder );
+            ConfigAngular( builder );
             ConfigContent( builder );
         }
 
@@ -83,6 +85,14 @@ namespace Util.Ui.FlexLayout.Renders {
         private void ConfigFill( TagBuilder builder ) {
             if( _config.GetValue<bool?>( UiConst.Fill ) == true )
                 builder.AddAttribute( "fxFlexFill" );
+        }
+
+        /// <summary>
+        /// 配置angular属性
+        /// </summary>
+        private void ConfigAngular( TagBuilder builder ) {
+            builder.AddAttribute( "*ngIf", _config.GetValue( UiConst.If ) );
+            builder.AddAttribute( "*ngFor", _config.GetValue( AngularConst.NgFor ) );
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Util.Ui.FlexLayout.Renders {
             ConfigAlign( builder );
             ConfigGap( builder );
             ConfigFlex( builder );
-            ConfigIf( builder );
+            ConfigAngular( builder );
             ConfigContent( builder );
         }
 
@@ -104,9 +104,9 @@ namespace Util.Ui.FlexLayout.Renders {
         }
 
         /// <summary>
-        /// 配置If
+        /// 配置angular属性
         /// </summary>
-        private void ConfigIf( TagBuilder builder ) {
+        private void ConfigAngular( TagBuilder builder ) {
             builder.AddAttribute( "*ngIf", _config.GetValue( UiConst.If ));
         }
 

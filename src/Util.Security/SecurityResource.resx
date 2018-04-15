@@ -138,6 +138,9 @@
   <data name="InvalidPhoneOrPassword" xml:space="preserve">
     <value>手机号无效或密码不正确</value>
   </data>
+  <data name="InvalidRoleName" xml:space="preserve">
+    <value>用户名 {0} 无效</value>
+  </data>
   <data name="InvalidToken" xml:space="preserve">
     <value>无效的令牌</value>
   </data>

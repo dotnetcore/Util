@@ -106,11 +106,21 @@ namespace Util.Security.Identity.Describers {
         }
 
         /// <summary>
-        /// 角色名重复
+        /// 角色名无效
         /// </summary>
         public override IdentityError InvalidRoleName( string role ) {
             return new IdentityError {
                 Code = nameof( InvalidRoleName ),
+                Description = string.Format( SecurityResource.InvalidRoleName, role )
+            };
+        }
+
+        /// <summary>
+        /// 角色名重复
+        /// </summary>
+        public override IdentityError DuplicateRoleName( string role ) {
+            return new IdentityError {
+                Code = nameof( DuplicateRoleName ),
                 Description = string.Format( SecurityResource.DuplicateRoleName, role )
             };
         }

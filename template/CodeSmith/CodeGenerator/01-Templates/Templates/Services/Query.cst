@@ -1,4 +1,5 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+<%@ Register Name="TreeQuery" Template="TreeQuery.cst" MergeProperties="False" ExcludeProperties="" %>
 
 <%@ Assembly Src="..\..\Common\Model.cs" %>
 <%@ Assembly Src="..\..\Common\Extensions.cs" %>
@@ -15,6 +16,16 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
+<%-- 如果是树型实体，则调用子模板 --%>
+<%
+if( Entity.IsTreeEntity() ){
+    CodeTemplate template = new TreeQuery();
+    template.SetProperty("Namespace",Namespace);
+    template.SetProperty("Entity",Entity);
+    template.Render(this.Response);
+    return;
+}
+%>
 using System;
 using System.ComponentModel.DataAnnotations;
 using Util;
@@ -48,7 +59,7 @@ namespace <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSche
         [Display(Name="<%=p.Description %>")]
         public <%= p.SystemType.ToNullableType(true) %> <%= p.PropertyName.ToSafeName() %> {
             get => <%= p.PropertyName.ToFieldName() %> == null ? string.Empty : <%= p.PropertyName.ToFieldName() %>.Trim();
-            set => <%= p.PropertyName.ToFieldName() %>=value;
+            set => <%= p.PropertyName.ToFieldName() %> = value;
         }
         <%continue;} %>
         /// <summary>
@@ -57,20 +68,5 @@ namespace <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSche
         [Display(Name="<%=p.Description %>")]
         public <%= p.SystemType.ToNullableType(true) %> <%= p.PropertyName.ToSafeName() %> { get; set; }
         <% } %>
-        
-        /// <summary>
-        /// 添加描述
-        /// </summary>
-        protected override void AddDescriptions() {
-            base.AddDescriptions();
-            <% foreach(Property p in Entity.Properties) { %>
-            <% if( Entity.IsFilterByQueryObject(p) ) continue;%>
-            <% if( p.DataType == DbType.DateTime ) {%>
-            AddDescription( "起始<%=p.Description %>", Begin<%= p.PropertyName.ToSafeName() %> );
-            AddDescription( "结束<%=p.Description %>", End<%= p.PropertyName.ToSafeName() %> );
-            <%continue; } %>
-            AddDescription( "<%=p.Description %>", <%= p.PropertyName.ToSafeName() %><%= p.ShowDescription() %> );
-            <% } %>
-        } 
     }
 }

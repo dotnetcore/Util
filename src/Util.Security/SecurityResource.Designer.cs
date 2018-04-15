@@ -124,6 +124,15 @@ namespace Util.Security {
         }
         
         /// <summary>
+        ///   查找类似 用户名 {0} 无效 的本地化字符串。
+        /// </summary>
+        public static string InvalidRoleName {
+            get {
+                return ResourceManager.GetString("InvalidRoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 无效的令牌 的本地化字符串。
         /// </summary>
         public static string InvalidToken {

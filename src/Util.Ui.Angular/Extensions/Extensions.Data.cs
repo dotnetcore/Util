@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Util.Ui.Datas;
-using Util.Ui.Prime.Datas;
+using Util.Ui.Prime.TreeTables.Datas;
 
 namespace Util.Ui.Extensions {
     /// <summary>

@@ -67,7 +67,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// </summary>
         private void ConfigQueryParam( TagBuilder builder ) {
             builder.AddAttribute( "[queryParam]", _config.GetValue( UiConst.QueryParam ) );
-            builder.AddAttribute( "(onQueryRestore)", _config.GetValue( MaterialConst.OnQueryRestore ) );
+            builder.AddAttribute( "(onQueryRestore)", _config.GetValue( UiConst.OnQueryRestore ) );
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Util.Ui.Material.Tables.Renders {
                 return;
             if( value.StartsWith( "[" ) == false )
                 value = $"[{value}]";
-            builder.AddAttribute( "[pageSizeItems]", value );
+            builder.AddAttribute( "[pageSizeOptions]", value );
         }
 
         /// <summary>

@@ -21,3 +21,4 @@ export { DatePickerWrapperComponent } from './material/datepicker-wrapper.compon
 export { ButtonWrapperComponent } from './material/button-wrapper.component';
 export { RadioWrapperComponent } from './material/radio-wrapper.component';
 export { SelectListWrapperComponent } from './material/select-list-wrapper.component';
+export { TreeTable } from './prime/treetable.component';

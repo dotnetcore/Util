@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
 using Util.Ui.Configs;
-using Util.Ui.Material;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tables.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
@@ -237,7 +236,7 @@ namespace Util.Ui.Tests.Material.Tables {
         public void TestPageSizeOptions() {
             var attributes = new TagHelperAttributeList { { UiConst.PageSizeOptions, "1,2" } };
             var result = new String();
-            result.Append( "<mat-table-wrapper #m_id=\"\" key=\"m_id\" [pageSizeItems]=\"[1,2]\">" );
+            result.Append( "<mat-table-wrapper #m_id=\"\" key=\"m_id\" [pageSizeOptions]=\"[1,2]\">" );
             result.Append( "<mat-table matSort=\"\" matSortDisableClear=\"\" [dataSource]=\"m_id.dataSource\" " );
             result.Append( "[style.max-height]=\"m_id.maxHeight?m_id.maxHeight+'px':null\" " );
             result.Append( "[style.min-height]=\"m_id.minHeight?m_id.minHeight+'px':null\">" );
@@ -253,7 +252,7 @@ namespace Util.Ui.Tests.Material.Tables {
         public void TestPageSizeOptions_2() {
             var attributes = new TagHelperAttributeList { { UiConst.PageSizeOptions, "[1,2]" } };
             var result = new String();
-            result.Append( "<mat-table-wrapper #m_id=\"\" key=\"m_id\" [pageSizeItems]=\"[1,2]\">" );
+            result.Append( "<mat-table-wrapper #m_id=\"\" key=\"m_id\" [pageSizeOptions]=\"[1,2]\">" );
             result.Append( "<mat-table matSort=\"\" matSortDisableClear=\"\" [dataSource]=\"m_id.dataSource\" " );
             result.Append( "[style.max-height]=\"m_id.maxHeight?m_id.maxHeight+'px':null\" " );
             result.Append( "[style.min-height]=\"m_id.minHeight?m_id.minHeight+'px':null\">" );
@@ -267,7 +266,7 @@ namespace Util.Ui.Tests.Material.Tables {
         /// </summary>
         [Fact]
         public void TestOnQueryRestore() {
-            var attributes = new TagHelperAttributeList { { MaterialConst.OnQueryRestore, "a" } };
+            var attributes = new TagHelperAttributeList { { UiConst.OnQueryRestore, "a" } };
             var result = new String();
             result.Append( "<mat-table-wrapper #m_id=\"\" (onQueryRestore)=\"a\" key=\"m_id\">" );
             result.Append( "<mat-table matSort=\"\" matSortDisableClear=\"\" [dataSource]=\"m_id.dataSource\" " );

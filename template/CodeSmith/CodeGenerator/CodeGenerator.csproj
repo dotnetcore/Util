@@ -109,6 +109,7 @@
     <None Include="01-Templates\Templates\Services\IService.cst" />
     <None Include="01-Templates\Templates\Services\Query.cst" />
     <None Include="01-Templates\Templates\Services\Service.cst" />
+    <None Include="01-Templates\Templates\Services\TreeQuery.cst" />
     <None Include="01-Templates\Templates\Tests\DtoTest.cst" />
     <None Include="01-Templates\Templates\Tests\EntityTest.cst" />
     <None Include="01-Templates\Templates\Tests\EntityTest.Data.cst" />
