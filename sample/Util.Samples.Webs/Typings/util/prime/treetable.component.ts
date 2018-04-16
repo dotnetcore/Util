@@ -244,9 +244,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     private initPaginator() {
         this.initPage();
         this.paginator.page.subscribe(() => {
-            if (this.operation === LoadOperation.LoadChild)
-                this.operation = LoadOperation.Query;
-            this.queryParam.parentId = "";
+            this.clearLoadChildState();
             this.queryParam.page = this.paginator.pageIndex + 1;
             this.queryParam.pageSize = this.paginator.pageSize;
             this.query();
@@ -260,6 +258,15 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         this.queryParam.page = 1;
         if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
             this.queryParam.pageSize = this.pageSizeOptions[0];
+    }
+
+    /**
+     * 清空加载子节点状态
+     */
+    private clearLoadChildState() {
+        if (this.operation === LoadOperation.LoadChild)
+            this.operation = LoadOperation.Query;
+        this.queryParam.parentId = "";
     }
 
     /**
@@ -419,6 +426,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                     return;
                 }
                 message.snack(config.deleteSuccessed);
+                this.clearLoadChildState();
                 this.query();
             }
         });
