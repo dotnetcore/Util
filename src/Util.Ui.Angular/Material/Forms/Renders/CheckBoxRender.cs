@@ -59,6 +59,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigIndeterminate( builder );
             ConfigRequired( builder );
             ConfigEvents( builder );
+            ConfigChecked( builder );
         }
 
         /// <summary>
@@ -116,6 +117,13 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(change)", _config.GetValue( UiConst.OnChange ) );
+        }
+
+        /// <summary>
+        /// 配置选中
+        /// </summary>
+        private void ConfigChecked( TagBuilder builder ) {
+            builder.AddAttribute( "[checked]", _config.GetValue( UiConst.Checked ) );
         }
     }
 }

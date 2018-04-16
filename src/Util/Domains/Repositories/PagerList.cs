@@ -18,9 +18,18 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 初始化分页集合
         /// </summary>
+        /// <param name="data">内容</param>
+        public PagerList( IEnumerable<T> data = null )
+            : this( 0, data ) {
+        }
+
+        /// <summary>
+        /// 初始化分页集合
+        /// </summary>
         /// <param name="totalCount">总行数</param>
-        public PagerList( int totalCount )
-            : this( 1, 20, totalCount ) {
+        /// <param name="data">内容</param>
+        public PagerList( int totalCount, IEnumerable<T> data = null )
+            : this( 1, 20, totalCount, data ) {
         }
 
         /// <summary>
@@ -29,8 +38,9 @@ namespace Util.Domains.Repositories {
         /// <param name="page">页索引</param>
         /// <param name="pageSize">每页显示行数</param>
         /// <param name="totalCount">总行数</param>
-        public PagerList( int page, int pageSize, int totalCount )
-            : this( page, pageSize, totalCount, "" ) {
+        /// <param name="data">内容</param>
+        public PagerList( int page, int pageSize, int totalCount, IEnumerable<T> data = null )
+            : this( page, pageSize, totalCount, "", data ) {
         }
 
         /// <summary>
@@ -55,8 +65,9 @@ namespace Util.Domains.Repositories {
         /// 初始化分页集合
         /// </summary>
         /// <param name="pager">查询对象</param>
-        public PagerList( IPager pager )
-            : this( pager.Page, pager.PageSize, pager.TotalCount, pager.Order ) {
+        /// <param name="data">内容</param>
+        public PagerList( IPager pager, IEnumerable<T> data = null )
+            : this( pager.Page, pager.PageSize, pager.TotalCount, pager.Order, data ) {
         }
 
         /// <summary>

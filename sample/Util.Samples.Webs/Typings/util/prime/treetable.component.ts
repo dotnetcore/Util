@@ -8,11 +8,11 @@ import { CommonModule } from '@angular/common';
 import { TreeNode, Header, Footer, Column, SharedModule, DomHandler } from "primeng/primeng";
 import { Subscription } from 'rxjs/Subscription';
 //Material模块
-import { MatCommonModule, MatCheckboxModule, MatPaginatorModule, MatProgressBarModule, MatSortModule, MatPaginator, MatSort } from '@angular/material';
+import { MatCommonModule, MatCheckboxModule, MatPaginatorModule, MatProgressBarModule, MatPaginator } from '@angular/material';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
-import { IKey, QueryParameter } from '../core/model';
+import { ITreeNode, LoadOperation, TreeQueryParameter } from '../core/tree';
 import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
 
@@ -73,7 +73,19 @@ import { DicService } from '../services/dic.service';
     `],
     providers: [DomHandler]
 })
-export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
+export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentInit {
+    /**
+     * 操作标记
+     */
+    operation: LoadOperation;
+    /**
+     * 查询延迟
+     */
+    timeout;
+    /**
+     * 查询延迟间隔，单位：毫秒，默认500
+     */
+    @Input() delay: number;
     /**
      * 显示进度条
      */
@@ -117,15 +129,11 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
     /**
      * 查询参数
      */
-    @Input() queryParam: QueryParameter;
+    @Input() queryParam: TreeQueryParameter;
     /**
      * 查询参数还原事件
      */
-    @Output() onQueryRestore = new EventEmitter<QueryParameter>();
-    /**
-     * 排序组件
-     */
-    @ContentChild(MatSort) sort: MatSort;
+    @Output() onQueryRestore = new EventEmitter<TreeQueryParameter>();
     /**
      * 分页组件
      */
@@ -187,34 +195,47 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
 
     columnsSubscription: Subscription;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2, private dic: DicService<QueryParameter>) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2, private dic: DicService<TreeQueryParameter>) {
         this.pageSizeOptions = [10, 20, 50, 100];
         this.loading = false;
         this.autoLoad = true;
-        this.queryParam = new QueryParameter();
+        this.queryParam = new TreeQueryParameter();
+        this.delay = 500;
+        this.selection = new Array<T>();
     }
 
     ngAfterContentInit() {
-        this.initColumns();
-        this.columnsSubscription = this.cols.changes.subscribe(_ => {
-            this.initColumns();
-            this.changeDetector.markForCheck();
-        });
         this.init();
-    }
-
-    initColumns(): void {
-        this.columns = this.cols.toArray();
     }
 
     /**
      * 初始化
      */
     private init() {
+        this.initColumns();
+        this.initOperation();
+        this.columnsSubscription = this.cols.changes.subscribe(_ => {
+            this.initColumns();
+            this.changeDetector.markForCheck();
+        });
         this.initPaginator();
         this.restoreQueryParam();
         if (this.autoLoad)
             this.query();
+    }
+
+    /**
+     * 初始化列集合
+     */
+    private initColumns() {
+        this.columns = this.cols.toArray();
+    }
+
+    /**
+     * 初始化操作标记
+     */
+    private initOperation() {
+        this.operation = LoadOperation.FirstLoad;
     }
 
     /**
@@ -223,6 +244,9 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
     private initPaginator() {
         this.initPage();
         this.paginator.page.subscribe(() => {
+            if (this.operation === LoadOperation.LoadChild)
+                this.operation = LoadOperation.Query;
+            this.queryParam.parentId = "";
             this.queryParam.page = this.paginator.pageIndex + 1;
             this.queryParam.pageSize = this.paginator.pageSize;
             this.query();
@@ -252,28 +276,44 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
     }
 
     /**
+     * 查询
+     */
+    private query() {
+        this.sendQuery(result => {
+            result = new PagerList<T>(result);
+            this.dataSource = result.data;
+            this.paginator.pageIndex = result.page - 1;
+            this.totalCount = result.totalCount;
+            this.selection = new Array<T>();
+        });
+    }
+
+    /**
      * 发送查询请求
      */
-    query() {
+    private sendQuery(handler: (result: PagerList<T>) => void) {
         let url = this.url || (this.baseUrl && `/api/${this.baseUrl}`);
         if (!url) {
             console.log("树型表格url未设置");
             return;
         }
+        this.processParam();
+        webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
+            beforeHandler: () => { this.loading = true; return true; },
+            handler: handler,
+            completeHandler: () => this.loading = false
+        });
+    }
+
+    /**
+     * 对参数进行处理
+     */
+    private processParam() {
+        if (this.operation)
+            this.queryParam["operation"] = this.operation;
         this.filterParam();
         if (this.key)
             this.dic.add(this.key, this.queryParam);
-        webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
-            beforeHandler: () => { this.loading = true; return true; },
-            handler: result => {
-                result = new PagerList<T>(result);
-                this.dataSource = result.data;
-                this.paginator.pageIndex = result.page - 1;
-                this.totalCount = result.totalCount;
-                this.selection = new Array<T>();
-            },
-            completeHandler: () => this.loading = false
-        });
     }
 
     /**
@@ -282,6 +322,106 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
     private filterParam() {
         if (this.queryParam.keyword === null)
             this.queryParam.keyword = "";
+        if (!this.queryParam.order)
+            this.queryParam.order = "";
+    }
+
+    /**
+     * 延迟搜索
+     * @param delay 查询延迟间隔，单位：毫秒，默认500
+     */
+    search(delay?: number) {
+        if (this.timeout)
+            clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+            this.operation = LoadOperation.Query;
+            this.query();
+        }, delay || this.delay);
+    }
+
+    /**
+     * 刷新
+     * @param queryParam 查询参数
+     */
+    refresh(queryParam) {
+        this.queryParam = queryParam;
+        this.initOperation();
+        this.initPage();
+        this.queryParam.order = this.initOrder;
+        this.dic.remove(this.key);
+        this.query();
+    }
+
+    /**
+     * 加载下级节点
+     * @param node 父节点
+     */
+    loadChild(node: T) {
+        if (!node)
+            return;
+        if (node.children)
+            return;
+        this.operation = LoadOperation.LoadChild;
+        this.queryParam.parentId = node.data.id;
+        this.sendQuery(result => {
+            if (result && result.data && result.data.length > 0) {
+                node.children = result.data;
+                return;
+            }
+            node.leaf = true;
+        });
+    }
+
+    /**
+     * 获取复选框被选中实体列表
+     */
+    getChecked(): T[] {
+        return this.selection;
+    }
+
+    /**
+     * 获取复选框被选中实体Id列表
+     */
+    getCheckedIds(): string {
+        return this.selection.map((node) => node && node.data && node.data.id).join(",");
+    }
+
+    /**
+     * 批量删除被选中实体
+     * @param ids 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
+     * @param handler 删除成功回调函数
+     * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
+     */
+    delete(ids?: string, handler?: () => {}, deleteUrl?: string) {
+        ids = ids || this.getCheckedIds();
+        if (!ids) {
+            message.warn(config.deleteNotSelected);
+            return;
+        }
+        message.confirm(config.deleteConfirm, () => {
+            this.deleteRequest(ids, handler, deleteUrl);
+        });
+    }
+
+    /**
+     * 发送删除请求
+     */
+    private deleteRequest(ids?: string, handler?: () => {}, deleteUrl?: string) {
+        deleteUrl = deleteUrl || this.deleteUrl || (this.baseUrl && `/api/${this.baseUrl}/delete`);
+        if (!deleteUrl) {
+            console.log("树型表格deleteUrl未设置");
+            return;
+        }
+        webapi.post(deleteUrl, ids).handle({
+            handler: () => {
+                if (handler) {
+                    handler();
+                    return;
+                }
+                message.snack(config.deleteSuccessed);
+                this.query();
+            }
+        });
     }
 
     /**
@@ -308,7 +448,7 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
      * 表头主复选框的选中状态
      */
     isMasterChecked() {
-        if (!this.selection)
+        if (!this.selection || this.selection.length === 0)
             return false;
         let length = this.getNodesLength(this.dataSource);
         return this.selection.length === length;
@@ -616,9 +756,9 @@ export class TreeTable<T extends TreeNode & IKey> implements AfterContentInit {
         </div>
     `
 })
-export class UITreeRow<T extends TreeNode & IKey> implements OnInit {
+export class UITreeRow<T extends TreeNode & ITreeNode> implements OnInit {
 
-    @Input() node: TreeNode;
+    @Input() node: T;
 
     @Input() parentNode: TreeNode;
 
@@ -637,8 +777,10 @@ export class UITreeRow<T extends TreeNode & IKey> implements OnInit {
     toggle(event: Event) {
         if (this.node.expanded)
             this.treeTable.onNodeCollapse.emit({ originalEvent: event, node: this.node });
-        else
+        else {
+            this.treeTable.loadChild(this.node);
             this.treeTable.onNodeExpand.emit({ originalEvent: event, node: this.node });
+        }
 
         this.node.expanded = !this.node.expanded;
 
@@ -698,7 +840,7 @@ export class UITreeRow<T extends TreeNode & IKey> implements OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, MatCommonModule, MatCheckboxModule, MatProgressBarModule, MatPaginatorModule, MatSortModule],
+    imports: [CommonModule, MatCommonModule, MatCheckboxModule, MatProgressBarModule, MatPaginatorModule],
     exports: [TreeTable, SharedModule],
     declarations: [TreeTable, UITreeRow]
 })

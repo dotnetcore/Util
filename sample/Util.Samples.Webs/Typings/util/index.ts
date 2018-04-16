@@ -9,6 +9,7 @@ export { ComponentBase } from './core/component-base';
 export { CrudIndexComponentBase } from './crud/crud-index-component-base';
 export { CrudEditComponentBase } from './crud/crud-edit-component-base';
 export { IKey, ViewModel, QueryParameter } from './core/model';
+export { TreeNode,ITreeNode,TreeQueryParameter } from './core/tree';
 export { PagerList } from './core/pager-list';
 export { Result, FailResult, StateCode } from './core/result';
 export { SelectItem } from './core/select';

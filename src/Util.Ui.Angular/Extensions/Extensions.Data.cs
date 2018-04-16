@@ -12,8 +12,9 @@ namespace Util.Ui.Extensions {
         /// </summary>
         /// <typeparam name="TNode">节点类型</typeparam>
         /// <param name="nodes">组件实例</param>
-        public static List<PrimeTreeNode<TNode>> ToPrimeResult<TNode>( this IEnumerable<TNode> nodes ) where TNode : ITreeNode {
-            return new PrimeTreeResult<TNode>( nodes ).GetResult();
+        /// <param name="async">是否异步加载</param>
+        public static List<PrimeTreeNode<TNode>> ToPrimeResult<TNode>( this IEnumerable<TNode> nodes, bool async = false ) where TNode : ITreeNode {
+            return new PrimeTreeResult<TNode>( nodes, async ).GetResult();
         }
     }
 }

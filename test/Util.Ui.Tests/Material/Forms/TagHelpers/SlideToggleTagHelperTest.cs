@@ -103,6 +103,17 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         }
 
         /// <summary>
+        /// 测试选中
+        /// </summary>
+        [Fact]
+        public void TestChecked() {
+            var attributes = new TagHelperAttributeList { { UiConst.Checked, "a" } };
+            var result = new String();
+            result.Append( "<mat-slide-toggle [checked]=\"a\"></mat-slide-toggle>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试颜色
         /// </summary>
         [Fact]

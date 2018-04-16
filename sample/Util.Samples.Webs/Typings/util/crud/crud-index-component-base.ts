@@ -18,10 +18,6 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
      */
     queryParam: TQuery;
     /**
-     * 查询延迟
-     */
-    private timeout;
-    /**
      * 表格组件
      */
     @ViewChild(TableWrapperComponent) protected table: TableWrapperComponent<TViewModel>;
@@ -51,11 +47,7 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
      * 延迟搜索
      */
     search() {
-        if (this.timeout)
-            clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-            this.query();
-        }, this.getDelay());
+        this.table.search(this.getDelay());
     }
 
     /**

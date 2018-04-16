@@ -387,5 +387,9 @@
         /// 复选框
         /// </summary>
         public const string Checkbox = "checkbox";
+        /// <summary>
+        /// 选中
+        /// </summary>
+        public const string Checked = "checked";
     }
 }

@@ -9,7 +9,7 @@ namespace Util.Samples.Webs.Apis.Systems {
     /// <summary>
     /// 角色控制器
     /// </summary>
-    public class RoleController : TreeControllerBase<RoleDto, RoleQuery> {
+    public class RoleController : PrimeTreeControllerBase<RoleDto, RoleQuery> {
         /// <summary>
         /// 初始化角色控制器
         /// </summary>
@@ -28,7 +28,7 @@ namespace Util.Samples.Webs.Apis.Systems {
         /// </summary>
         /// <param name="request">创建角色请求参数</param>
         [HttpPost]
-        public async Task<IActionResult> CreateAsync( [FromBody]CreateRoleRequest request ) {
+        public async Task<IActionResult> CreateAsync([FromBody]CreateRoleRequest request ) {
             var id = await RoleService.CreateAsync( request );
             return Success( id );
         }

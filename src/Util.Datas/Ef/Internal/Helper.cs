@@ -12,7 +12,7 @@ namespace Util.Datas.Ef.Internal {
         /// 初始化版本号
         /// </summary>
         public static void InitVersion( EntityEntry entry ) {
-            if( !( entry.Entity is IAggregateRoot entity ) )
+            if( !( entry.Entity is IVersion entity ) )
                 return;
             entity.Version = Encoding.UTF8.GetBytes( Guid.NewGuid().ToString() );
         }

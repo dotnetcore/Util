@@ -66,11 +66,9 @@ namespace Util.Ui.Prime.TreeTables.Datas {
             SetDefault( node );
             if( IsRoot( node.Data ) )
                 result.Add( node );
-            if( IsLeaf( node.Data ) ) {
-                SetLeaf( node );
+            if ( IsLeaf( node.Data ) )
                 return;
-            }
-            node.Children = GetChilds( node.Data );
+            node.Children = GetChildren( node.Data );
             foreach( var child in node.Children )
                 AddNode( result, child );
         }
@@ -93,17 +91,9 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         }
 
         /// <summary>
-        /// 设置叶节点状态
-        /// </summary>
-        private void SetLeaf( PrimeTreeNode<TNode> node ) {
-            if( _async )
-                node.Leaf = true;
-        }
-
-        /// <summary>
         /// 获取节点直接下级
         /// </summary>
-        private List<PrimeTreeNode<TNode>> GetChilds( TNode node ) {
+        private List<PrimeTreeNode<TNode>> GetChildren( TNode node ) {
             return _nodes.Where( t => t.ParentId == node.Id ).Select( t => new PrimeTreeNode<TNode> { Data = t } ).ToList();
         }
     }

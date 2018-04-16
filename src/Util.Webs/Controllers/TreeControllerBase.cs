@@ -1,0 +1,82 @@
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Util.Applications;
+using Util.Applications.Dtos;
+using Util.Applications.Trees;
+using Util.Datas.Queries.Trees;
+
+namespace Util.Webs.Controllers {
+    /// <summary>
+    /// 树型控制器
+    /// </summary>
+    /// <typeparam name="TDto">数据传输对象类型</typeparam>
+    /// <typeparam name="TQuery">查询参数类型</typeparam>
+    /// <typeparam name="TParentId">父标识类型</typeparam>
+    public abstract class TreeControllerBase<TDto, TQuery, TParentId> : WebApiControllerBase
+        where TDto : class, IResponse, ITreeNode, new()
+        where TQuery : class, ITreeQueryParameter<TParentId> {
+        /// <summary>
+        /// 树型服务
+        /// </summary>
+        private readonly ITreeService<TDto, TQuery, TParentId> _service;
+
+        /// <summary>
+        /// 初始化树型控制器
+        /// </summary>
+        /// <param name="service">树型服务</param>
+        protected TreeControllerBase( ITreeService<TDto, TQuery, TParentId> service ) {
+            _service = service;
+        }
+
+        /// <summary>
+        /// 获取加载模式
+        /// </summary>
+        protected virtual LoadMode LoadMode => LoadMode.Async;
+
+        /// <summary>
+        /// 获取单个实例
+        /// </summary>
+        /// <remarks> 
+        /// 调用范例: 
+        /// GET
+        /// /api/customer/1 
+        /// </remarks>
+        /// <param name="id">标识</param>
+        [HttpGet( "{id}" )]
+        public virtual async Task<IActionResult> GetAsync( string id ) {
+            var result = await _service.GetByIdAsync( id );
+            return Success( result );
+        }
+
+        /// <summary>
+        /// 删除，注意：该方法用于删除单个实体，批量删除请使用POST提交，否则可能失败
+        /// </summary>
+        /// <remarks>
+        /// 调用范例:
+        /// DELETE
+        /// /api/customer/1
+        /// </remarks>
+        /// <param name="id">标识</param>
+        [HttpDelete( "{id}" )]
+        public virtual async Task<IActionResult> DeleteAsync( string id ) {
+            await _service.DeleteAsync( id );
+            return Success();
+        }
+
+        /// <summary>
+        /// 批量删除，注意：body参数需要添加引号，"'1,2,3'"而不是"1,2,3"
+        /// </summary>
+        /// <remarks>
+        /// 调用范例:
+        /// POST   
+        /// /api/customer/delete
+        /// body: "'1,2,3'"
+        /// </remarks>
+        /// <param name="ids">标识列表，多个Id用逗号分隔，范例：1,2,3</param>
+        [HttpPost( "delete" )]
+        public virtual async Task<IActionResult> BatchDeleteAsync( [FromBody] string ids ) {
+            await _service.DeleteAsync( ids );
+            return Success();
+        }
+    }
+}

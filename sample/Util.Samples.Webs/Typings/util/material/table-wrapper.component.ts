@@ -59,6 +59,14 @@ import { DicService } from '../services/dic.service';
 })
 export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**
+     * 查询延迟
+     */
+    timeout;
+    /**
+     * 查询延迟间隔，单位：毫秒，默认500
+     */
+    @Input() delay: number;
+    /**
      * 显示进度条
      */
     loading: boolean;
@@ -136,6 +144,16 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     /**
+     * 获取样式
+     */
+    getStyle() {
+        return {
+            'max-height': this.maxHeight ? `${this.maxHeight}px` : null,
+            'width': this.width ? `${this.width}px` : null
+        };
+    }
+
+    /**
      * 初始化Mat表格包装器
      */
     constructor(private dic: DicService<QueryParameter>) {
@@ -147,6 +165,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         this.loading = false;
         this.autoLoad = true;
         this.queryParam = new QueryParameter();
+        this.delay = 500;
     }
 
     /**
@@ -251,10 +270,24 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     private filterParam() {
         if (this.queryParam.keyword === null)
             this.queryParam.keyword = "";
+        if (!this.queryParam.order)
+            this.queryParam.order = "";
     }
 
     /**
-     * 刷新表格
+     * 延迟搜索
+     * @param delay 查询延迟间隔，单位：毫秒，默认500
+     */
+    search(delay?:number) {
+        if (this.timeout)
+            clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+            this.query();
+        }, delay || this.delay);
+    }
+
+    /**
+     * 刷新
      * @param queryParam 查询参数
      */
     refresh(queryParam) {
@@ -263,16 +296,6 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         this.queryParam.order = this.initOrder;
         this.dic.remove(this.key);
         this.query();
-    }
-
-    /**
-     * 获取样式
-     */
-    getStyle() {
-        return {
-            'max-height': this.maxHeight ? `${this.maxHeight}px` : null,
-            'width': this.width ? `${this.width}px` : null
-        };
     }
 
     /**

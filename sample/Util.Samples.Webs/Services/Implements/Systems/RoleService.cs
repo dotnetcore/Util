@@ -23,7 +23,7 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="roleManager">角色服务</param>
         /// <param name="roleRepository">角色仓储</param>
-        public RoleService( ISampleUnitOfWork unitOfWork, IRoleManager roleManager, IRoleRepository roleRepository ) : base( roleRepository ) {
+        public RoleService( ISampleUnitOfWork unitOfWork, IRoleManager roleManager, IRoleRepository roleRepository ) : base( unitOfWork, roleRepository ) {
             UnitOfWork = unitOfWork;
             RoleManager = roleManager;
             RoleRepository = roleRepository;
@@ -65,7 +65,11 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// </summary>
         /// <param name="param">查询参数</param>
         protected override IQueryBase<Role> CreateQuery( RoleQuery param ) {
-            return new Query<Role>( param );
+            return new Query<Role>( param )
+                .Or( t => t.Name.Contains( param.Keyword ),
+                    t => t.Code.Contains( param.Keyword ), 
+                    t => t.PinYin.Contains( param.Keyword ), 
+                    t => t.PinYin.Contains( param.Keyword ) );
         }
     }
 }

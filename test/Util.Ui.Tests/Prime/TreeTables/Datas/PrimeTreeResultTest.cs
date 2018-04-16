@@ -36,7 +36,7 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes, true );
             var result = treeResult.GetResult();
             Assert.Single( result );
-            Assert.True( result[0].Leaf );
+            Assert.False( result[0].Leaf );
             result = treeNodes.ToPrimeResult();
             Assert.Single( result );
         }
@@ -75,8 +75,8 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
             var result = treeResult.GetResult();
             Assert.Equal( 2, result.Count );
             Assert.False( result[0].Leaf );
-            Assert.True( result[1].Leaf );
-            Assert.True( result[0].Children[0].Leaf );
+            Assert.False( result[1].Leaf );
+            Assert.False( result[0].Children[0].Leaf );
             result = treeNodes.ToPrimeResult();
             Assert.Equal( 2, result.Count );
         }

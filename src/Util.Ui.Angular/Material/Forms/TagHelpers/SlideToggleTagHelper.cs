@@ -49,6 +49,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 变更事件处理函数,范例：handle()
         /// </summary>
         public string OnChange { get; set; }
+        /// <summary>
+        /// 选中
+        /// </summary>
+        public string Checked { get; set; }
 
         /// <summary>
         /// 获取渲染器

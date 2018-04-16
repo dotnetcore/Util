@@ -1,9 +1,9 @@
-﻿import { QueryParameter } from '../../../../util';
+﻿import { TreeQueryParameter } from '../../../../util';
 
 /**
  * 角色查询参数
  */
-export class RoleQuery extends QueryParameter {
+export class RoleQuery extends TreeQueryParameter {
     /**
      * 角色编号
      */
@@ -24,14 +24,6 @@ export class RoleQuery extends QueryParameter {
      * 管理员
      */
     isAdmin;
-    /**
-     * 父编号
-     */
-    parentId;
-    /**
-     * 路径
-     */
-    path;
     /**
      * 级数
      */

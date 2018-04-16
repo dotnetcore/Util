@@ -401,10 +401,12 @@ https://github.com/dotnetcore/util/
   - 工作单元服务 [已发布]
   - 工作单元拦截器 [已发布]
   - Crud服务 [已发布]
-  - 树型Crud服务 [待启动]
+  - 树型服务 [已发布]
   - 持久化对象Po基类 [已发布]
   - 持久化对象存储基类 [已发布]
   - 事件总线 [已发布]
+  - Crud控制器基类 [已发布]
+  - 树型控制器基类 [已发布]
 - UI组件 - 支持HtmlHelper和TagHelper两种方式
   - 组件基类  [已发布]
   - TagHelper基类  [已发布]
@@ -428,6 +430,7 @@ https://github.com/dotnetcore/util/
   - 弹出层 - 基于Material Dialog组件 [已发布]
   - 表格 - 基于Material Table组件 [已发布]
   - 布局(栅格) - 基于Angular flex-layout组件 [已发布]
+  - 树型表格 - 基于PrimeNg TreeTable组件改造 [已发布]
   - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   
 - 权限 [开发中]
@@ -490,3 +493,4 @@ https://github.com/dotnetcore/util/
 - 2018年3月7日，更新了弹出层组件(Util.Ui.Angular/Material/Dialogs)。
 - 2018年3月10日，更新了表格组件(Util.Ui.Angular/Material/Tables)。
 - 2018年3月13日，更新了布局组件(Util.Ui.Angular/FlexLayout)。
+- 2018年4月16日，更新了树型表格组件，树型控制器，树型服务。
