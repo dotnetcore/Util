@@ -69,6 +69,10 @@ import { DicService } from '../services/dic.service';
         ::ng-deep .ui-treetable {
             overflow: auto;
         } 
+        mat-paginator{
+            border:1px solid #d2d2d2;
+            border-top:0;
+        }
     `],
     providers: [DomHandler]
 })
@@ -723,13 +727,13 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" 
                 (click)="onRowClick($event,i)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
                 <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
-                    [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
+                    [ngStyle]="{'margin-left':level*22 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
                 </a>
                 <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
                     (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>                
-                <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" 
+                <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" [ngStyle]="{'margin-left':-30 + 'px'}" 
                     *ngIf="treeTable.selectionMode == 'single' && i==0 && isLeaf()" [checked]="isSelected()"></mat-radio-button>                
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
