@@ -22,6 +22,10 @@ namespace Util.Datas.Queries.Trees {
         /// 启用
         /// </summary>
         bool? Enabled { get; set; }
+        /// <summary>
+        /// 是否搜索
+        /// </summary>
+        bool IsSearch();
     }
 
     /// <summary>

@@ -212,7 +212,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
      */
     private init() {
         this.initColumns();
-        this.initOperation();
         this.columnsSubscription = this.cols.changes.subscribe(_ => {
             this.initColumns();
             this.changeDetector.markForCheck();
@@ -231,19 +230,11 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     }
 
     /**
-     * 初始化操作标记
-     */
-    private initOperation() {
-        this.operation = LoadOperation.FirstLoad;
-    }
-
-    /**
      * 初始化分页组件
      */
     private initPaginator() {
         this.initPage();
         this.paginator.page.subscribe(() => {
-            this.clearLoadChildState();
             this.queryParam.page = this.paginator.pageIndex + 1;
             this.queryParam.pageSize = this.paginator.pageSize;
             this.query();
@@ -257,15 +248,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         this.queryParam.page = 1;
         if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
             this.queryParam.pageSize = this.pageSizeOptions[0];
-    }
-
-    /**
-     * 清空加载子节点状态
-     */
-    private clearLoadChildState() {
-        if (this.operation === LoadOperation.LoadChild)
-            this.operation = LoadOperation.Query;
-        this.queryParam.parentId = "";
     }
 
     /**
@@ -340,7 +322,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         if (this.timeout)
             clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-            this.operation = LoadOperation.Query;
             this.query();
         }, delay || this.delay);
     }
@@ -351,7 +332,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
      */
     refresh(queryParam) {
         this.queryParam = queryParam;
-        this.initOperation();
         this.initPage();
         this.queryParam.order = this.initOrder;
         this.dic.remove(this.key);
@@ -425,7 +405,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                     return;
                 }
                 message.snack(config.deleteSuccessed);
-                this.clearLoadChildState();
                 this.query();
             }
         });

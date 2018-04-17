@@ -238,7 +238,7 @@ namespace Util.Helpers {
         public static bool IsNumber( MemberInfo member ) {
             if( member == null )
                 return false;
-            if ( IsInt( member ) )
+            if( IsInt( member ) )
                 return true;
             switch( member.MemberType ) {
                 case MemberTypes.TypeInfo:
@@ -273,7 +273,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="type">类型</param>
         public static bool IsGenericCollection( Type type ) {
-            if ( !type.IsGenericType )
+            if( !type.IsGenericType )
                 return false;
             var typeDefinition = type.GetGenericTypeDefinition();
             return typeDefinition == typeof( IEnumerable<> )
@@ -292,6 +292,15 @@ namespace Util.Helpers {
             return Directory.GetFiles( directoryPath, "*.*", SearchOption.AllDirectories ).ToList()
                 .Where( t => t.EndsWith( ".exe" ) || t.EndsWith( ".dll" ) )
                 .Select( path => Assembly.Load( new AssemblyName( path ) ) ).ToList();
+        }
+
+        /// <summary>
+        /// 获取公共属性列表
+        /// </summary>
+        /// <param name="instance">实例</param>
+        public static List<Item> GetPublicProperties( object instance ) {
+            var properties =instance.GetType().GetProperties();
+            return properties.ToList().Select( t => new Item( t.Name, t.GetValue( instance ) ) ).ToList();
         }
     }
 }

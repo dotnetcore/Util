@@ -12,8 +12,8 @@
         /// </summary>
         LoadChild = 2,
         /// <summary>
-        /// 查询
+        /// 搜索
         /// </summary>
-        Query = 3
+        Search = 3
     }
 }

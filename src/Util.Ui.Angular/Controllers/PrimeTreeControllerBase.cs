@@ -66,7 +66,7 @@ namespace Util.Ui.Controllers {
             QueryBefore( query );
             ProcessParam( query );
             PagerList<PrimeTreeNode<TDto>> result;
-            switch( GetOperation() ) {
+            switch( GetOperation( query ) ) {
                 case LoadOperation.FirstLoad:
                     result = await FirstLoad( query );
                     break;
@@ -93,15 +93,21 @@ namespace Util.Ui.Controllers {
         /// <param name="query">查询参数</param>
         protected virtual void ProcessParam( TQuery query ) {
             query.Path = null;
-            if( GetOperation() != LoadOperation.LoadChild )
-                query.ParentId = default( TParentId );
+            if ( GetOperation( query ) == LoadOperation.LoadChild )
+                return;
+            query.ParentId = default( TParentId );
         }
 
         /// <summary>
         /// 获取操作
         /// </summary>
-        protected LoadOperation? GetOperation() {
-            return Util.Helpers.Enum.Parse<LoadOperation?>( HttpContext.Request.Query["operation"] );
+        protected LoadOperation? GetOperation( TQuery query ) {
+            var operation = Util.Helpers.Enum.Parse<LoadOperation?>( HttpContext.Request.Query["operation"] );
+            if ( operation == LoadOperation.LoadChild )
+                return LoadOperation.LoadChild;
+            if ( query.IsSearch() )
+                return LoadOperation.Search;
+            return LoadOperation.FirstLoad;
         }
 
         /// <summary>

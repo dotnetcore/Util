@@ -56,8 +56,8 @@ export enum LoadOperation {
      */
     LoadChild = 2,
     /**
-     * 查询
+     * 搜索
      */
-    Query = 3
+    Search = 3
 }
 

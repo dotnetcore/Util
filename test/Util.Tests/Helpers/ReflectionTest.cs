@@ -17,7 +17,7 @@ namespace Util.Tests.Helpers {
         /// <summary>
         /// 测试样例
         /// </summary>
-        private Sample _sample;
+        private readonly Sample _sample;
 
         /// <summary>
         /// 测试获取类成员描述
@@ -138,6 +138,23 @@ namespace Util.Tests.Helpers {
         [Fact]
         public void TestIsGenericCollection() {
             Assert.True( Util.Helpers.Reflection.IsGenericCollection( _sample.StringList.GetType() ) );
+        }
+
+        /// <summary>
+        /// 测试获取公共属性列表
+        /// </summary>
+        [Fact]
+        public void TestGetPublicProperties() {
+            Sample4 sample = new Sample4 {
+                A = "1",
+                B = "2"
+            };
+            var items = Util.Helpers.Reflection.GetPublicProperties( sample );
+            Assert.Equal( 2,items.Count );
+            Assert.Equal( "A", items[0].Text );
+            Assert.Equal( "1", items[0].Value );
+            Assert.Equal( "B", items[1].Text );
+            Assert.Equal( "2", items[1].Value );
         }
     }
 }
