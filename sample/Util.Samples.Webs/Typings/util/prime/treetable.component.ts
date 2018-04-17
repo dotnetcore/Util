@@ -6,9 +6,8 @@
 import { NgModule, Component, Input, Output, EventEmitter, AfterContentInit, ElementRef, ContentChild, IterableDiffers, ChangeDetectorRef, ContentChildren, QueryList, Inject, forwardRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode, Header, Footer, Column, SharedModule, DomHandler } from "primeng/primeng";
-import { Subscription } from 'rxjs/Subscription';
 //Material模块
-import { MatCommonModule, MatCheckboxModule, MatPaginatorModule, MatProgressBarModule, MatPaginator } from '@angular/material';
+import { MatCommonModule, MatCheckboxModule, MatPaginatorModule, MatProgressBarModule, MatPaginator, MatRadioModule } from '@angular/material';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
@@ -49,7 +48,7 @@ import { DicService } from '../services/dic.service';
                             </span>
                         </td>
                     </tr>
-                </tfoot>
+                </tfoot>                
                 <tbody pTreeRow *ngFor="let node of dataSource" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
             </table>
         </div>
@@ -151,7 +150,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
 
     @Input() labelCollapse: string = "Collapse";
 
-    @Input() metaKeySelection: boolean = true;
+    @Input() metaKeySelection: boolean = false;
 
     @Input() contextMenu: any;
 
@@ -193,7 +192,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
 
     public columns: Column[];
 
-    columnsSubscription: Subscription;
+    columnsSubscription;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2, private dic: DicService<TreeQueryParameter>) {
         this.pageSizeOptions = [10, 20, 50, 100];
@@ -741,7 +740,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
 @Component({
     selector: '[pTreeRow]',
     template: `
-        <div [class]="node.styleClass" [ngClass]="{'ui-treetable-row': true, 'ui-treetable-row-selectable':true}">
+        <div [class]="node.styleClass" [ngClass]="{'ui-treetable-row': true, 'ui-treetable-row-selectable':true}">                   
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" 
                 (click)="onRowClick($event,i)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
                 <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
@@ -750,7 +749,9 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                     [title]="node.expanded ? labelCollapse : labelExpand">
                 </a>
                 <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
-                    (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>
+                    (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>                
+                <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" 
+                    *ngIf="treeTable.selectionMode == 'single' && i==0 && isLeaf()" [checked]="isSelected()"></mat-radio-button>                
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
             </td>
@@ -801,7 +802,8 @@ export class UITreeRow<T extends TreeNode & ITreeNode> implements OnInit {
     }
 
     isSelected() {
-        return this.treeTable.isSelected(this.node);
+        var result = this.treeTable.isSelected(this.node);
+        return result;
     }
 
     /**
@@ -848,7 +850,7 @@ export class UITreeRow<T extends TreeNode & ITreeNode> implements OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, MatCommonModule, MatCheckboxModule, MatProgressBarModule, MatPaginatorModule],
+    imports: [CommonModule, MatCommonModule, MatCheckboxModule, MatProgressBarModule, MatPaginatorModule, MatRadioModule],
     exports: [TreeTable, SharedModule],
     declarations: [TreeTable, UITreeRow]
 })

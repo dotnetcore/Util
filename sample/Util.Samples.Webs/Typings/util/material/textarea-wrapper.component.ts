@@ -13,7 +13,7 @@ import { MessageConfig } from '../config/message-config';
 @Component({
     selector: 'mat-textarea-wrapper',
     template:`
-        <mat-form-field [floatPlaceholder]="floatPlaceholder">
+        <mat-form-field [floatLabel]="floatPlaceholder">
             <textarea  matInput [name]="name" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
 				matTextareaAutosize [matAutosizeMinRows]="minRows" [matAutosizeMaxRows]="maxRows"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)" 

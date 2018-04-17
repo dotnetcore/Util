@@ -13,7 +13,7 @@ import { MessageConfig } from '../config/message-config';
 @Component({
     selector: 'mat-textbox-wrapper',
     template: `
-        <mat-form-field [floatPlaceholder]="floatPlaceholder">
+        <mat-form-field [floatLabel]="floatPlaceholder">
             <input matInput [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"

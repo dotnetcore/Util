@@ -121,6 +121,18 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         }
 
         /// <summary>
+        /// 测试显示单选框
+        /// </summary>
+        [Fact]
+        public void TestRadio() {
+            var attributes = new TagHelperAttributeList { { UiConst.Radio, true } };
+            var result = new String();
+            result.Append( "<p-tree-table #id=\"\" key=\"id\" selectionMode=\"single\">" );
+            result.Append( "</p-tree-table>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试自动加载
         /// </summary>
         [Fact]

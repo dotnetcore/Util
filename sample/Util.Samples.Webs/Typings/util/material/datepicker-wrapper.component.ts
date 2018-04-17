@@ -14,7 +14,7 @@ import { toDate } from '../common/helper';
 @Component({
     selector: 'mat-datepicker-wrapper',
     template: `
-        <mat-form-field [floatPlaceholder]="floatPlaceholder" [style.width]="width?width+'px':null">
+        <mat-form-field [floatLabel]="floatPlaceholder" [style.width]="width?width+'px':null">
             <input  matInput [matDatepicker]="picker"  [name]="name" [style.cursor]="'pointer'"
                 [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"

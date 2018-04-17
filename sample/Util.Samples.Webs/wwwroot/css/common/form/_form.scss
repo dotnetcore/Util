@@ -1,18 +1,6 @@
 ﻿//表单内容区
 .form-content {
     padding: 30px 50px 0 50px;
-
-    > div {
-        margin-top: 10px;
-
-        > div {
-            label {
-                min-width: 120px;
-                display: inline-flex;
-                color: rgba(0,0,0,.65);
-            }
-        }
-    }
 }
 .form-list-content {
     padding: 30px 50px 0 50px;

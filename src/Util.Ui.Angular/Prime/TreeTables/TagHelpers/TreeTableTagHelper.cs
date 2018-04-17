@@ -35,6 +35,10 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// </summary>
         public bool Checkbox { get; set; }
         /// <summary>
+        /// 是否显示单选框
+        /// </summary>
+        public string Radio { get; set; }
+        /// <summary>
         /// 初始化时是否自动加载数据，默认为true,设置成false则手工加载
         /// </summary>
         public bool AutoLoad { get; set; }

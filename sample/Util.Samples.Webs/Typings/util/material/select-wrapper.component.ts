@@ -15,7 +15,7 @@ import { MessageConfig } from '../config/message-config';
 @Component({
     selector: 'mat-select-wrapper',
     template: `
-        <mat-form-field [floatPlaceholder]="floatPlaceholder">
+        <mat-form-field [floatLabel]="floatPlaceholder">
             <mat-select #control="matSelect" #controlModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                 [placeholder]="placeholder" [disabled]="disabled" [multiple]="multiple" [required]="required">

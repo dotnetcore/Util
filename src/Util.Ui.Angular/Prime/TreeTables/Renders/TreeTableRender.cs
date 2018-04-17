@@ -80,6 +80,8 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         private void ConfigCheckbox( TagBuilder builder ) {
             if( _config.GetValue<bool>( UiConst.Checkbox ) )
                 builder.AddAttribute( "selectionMode", "checkbox" );
+            if( _config.GetValue<bool>( UiConst.Radio ) )
+                builder.AddAttribute( "selectionMode", "single" );
         }
 
         /// <summary>

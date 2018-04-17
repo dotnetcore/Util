@@ -5,7 +5,6 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { IocHelper as ioc } from './ioc-helper';
 import { uuid } from '../common/helper';
-import { Observable } from 'rxjs/Observable';
 
 /**
  * Http操作
@@ -157,7 +156,7 @@ export class HttpRequest<T> {
     /**
      * 发送请求
      */
-    private request(): Observable<T> {
+    private request() {
         this.setContentType();
         let httpClient = ioc.get<HttpClient>(HttpClient);
         this.initParameters();

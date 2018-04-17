@@ -6,7 +6,7 @@ import {
     MatButtonToggleModule,
      MatChipsModule,
      MatSliderModule, 
-     MatStepperModule
+    MatStepperModule
 } from '@angular/material';
 
 @NgModule({
