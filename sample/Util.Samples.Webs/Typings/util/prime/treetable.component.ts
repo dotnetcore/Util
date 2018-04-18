@@ -14,6 +14,7 @@ import { PagerList } from '../core/pager-list';
 import { ITreeNode, LoadOperation, TreeQueryParameter } from '../core/tree';
 import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
+import { Util as util } from '../util';
 
 @Component({
     selector: 'p-tree-table',
@@ -270,7 +271,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     /**
      * 查询
      */
-    private query() {
+    query() {
         this.sendQuery(result => {
             result = new PagerList<T>(result);
             this.dataSource = result.data;
@@ -339,6 +340,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         this.initPage();
         this.queryParam.order = this.initOrder;
         this.dic.remove(this.key);
+        this.selection = new Array<T>();
         this.query();
     }
 
@@ -354,6 +356,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         this.operation = LoadOperation.LoadChild;
         this.queryParam.parentId = node.data.id;
         this.sendQuery(result => {
+            this.operation = LoadOperation.Search;
             if (result && result.data && result.data.length > 0) {
                 node.children = result.data;
                 return;
@@ -370,10 +373,10 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     }
 
     /**
-     * 获取复选框被选中实体Id列表
+     * 获取被选中实体Id列表
      */
     getCheckedIds(): string {
-        return this.selection.map((node) => node && node.data && node.data.id).join(",");
+        return this.selection.map(node => node && node.data && node.data.id).join(",");
     }
 
     /**
@@ -382,7 +385,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
      * @param handler 删除成功回调函数
      * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
      */
-    delete(ids?: string, handler?: () => {}, deleteUrl?: string) {
+    delete(ids?: string, handler?: () => void, deleteUrl?: string) {
         ids = ids || this.getCheckedIds();
         if (!ids) {
             message.warn(config.deleteNotSelected);
@@ -396,7 +399,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     /**
      * 发送删除请求
      */
-    private deleteRequest(ids?: string, handler?: () => {}, deleteUrl?: string) {
+    private deleteRequest(ids?: string, handler?: () => void, deleteUrl?: string) {
         deleteUrl = deleteUrl || this.deleteUrl || (this.baseUrl && `/api/${this.baseUrl}/delete`);
         if (!deleteUrl) {
             console.log("树型表格deleteUrl未设置");
@@ -409,9 +412,23 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                     return;
                 }
                 message.snack(config.deleteSuccessed);
-                this.query();
+                let idList = util.helper.toList<string>(ids);
+                this.removeFromDataSource(null, this.dataSource, idList);
+                this.selection = new Array<T>();
             }
         });
+    }
+
+    /**
+     * 从数据源移除项
+     */
+    private removeFromDataSource(parent, treeNodes: any[], ids: string[]) {
+        if (!treeNodes)
+            return treeNodes;
+        util.helper.remove(treeNodes, t => ids.some(id => id === t.data.id));
+        if (treeNodes && treeNodes.length === 0 && parent)
+            parent.children = null;
+        treeNodes.forEach(t => this.removeFromDataSource(t, t.children, ids));
     }
 
     /**
@@ -498,7 +515,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         return this.findIndexInSelection(node) != -1;
     }
 
-    onRowClick(event, node: TreeNode) {
+    onRowClick(event, node: T) {
         let eventTarget = null;
         if (event) {
             eventTarget = (<Element>event.target);
@@ -564,14 +581,10 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                 }
                 else {
                     if (this.isSingleSelectionMode()) {
-                        if (selected) {
-                            this.selection = null;
-                            this.onNodeUnselect.emit({ originalEvent: event, node: node });
-                        }
-                        else {
-                            this.selection = node;
-                            this.onNodeSelect.emit({ originalEvent: event, node: node });
-                        }
+                        if (!this.isLeaf(node))
+                            return;
+                        this.selection = new Array<T>(node);
+                        this.onNodeSelect.emit({ originalEvent: event, node: node });
                     }
                     else {
                         if (selected) {
@@ -623,9 +636,9 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
 
         if (this.selectionMode && this.selection) {
             if (this.isSingleSelectionMode()) {
-                index = (this.selection == node) ? 0 : - 1;
-            }
-            else {
+                if (this.selection && this.selection.length > 0)
+                    index = (this.selection[0] == node) ? 0 : - 1;
+            } else {
                 for (let i = 0; i < this.selection.length; i++) {
                     if (this.selection[i] == node) {
                         index = i;
@@ -717,6 +730,10 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
             }
         }
         return false;
+    }
+
+    isLeaf(node) {
+        return node.leaf == false ? false : !(node.children && node.children.length);
     }
 }
 

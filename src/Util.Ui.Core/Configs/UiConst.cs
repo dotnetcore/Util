@@ -395,5 +395,9 @@
         /// 选中
         /// </summary>
         public const string Checked = "checked";
+        /// <summary>
+        /// 选择模式
+        /// </summary>
+        public const string SelectionMode = "selection-mode";
     }
 }

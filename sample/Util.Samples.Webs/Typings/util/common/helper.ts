@@ -4,6 +4,7 @@
 //================================================
 import { UUID } from './internal/uuid';
 import * as moment from 'moment';
+import * as _  from "lodash";
 
 /**
  * 是否未定义
@@ -102,7 +103,7 @@ export let toObjectFromJson = <T>(json: string): T => {
  * 复制对象
  * @param obj 对象
  */
-export let clone = <T>(obj): T => {
+export let clone = <T>(obj: T): T => {
     return JSON.parse(JSON.stringify(obj));
 }
 
@@ -185,4 +186,38 @@ export let formatDate = (datetime, format: string): string => {
     if (!date.isValid())
         return "";
     return date.format(format);
+}
+
+/**
+ * 通用泛型转换
+ * @param value 值
+ */
+export let to = <T>(value): T => {
+    return <T>value;
+}
+
+/**
+ * 从数组中移除子集
+ * @param array 数组
+ * @param predicate 条件
+ */
+export let remove = <T>(array: Array<T>, predicate: (value: T) => boolean): Array<T> => {
+    return _.remove(array, t => predicate(t));
+}
+
+/**
+ * 泛型集合转换
+ * @param input 以逗号分隔的元素集合字符串，范例: 1,2
+ */
+export let toList = <T>(input:string): T[] => {
+    var result = new Array<T>();
+    if (!input)
+        return result;
+    var array = input.split(',');
+    array.forEach(value => {
+        if (!value)
+            return;
+        result.push(to<T>(value));
+    });
+    return result;
 }

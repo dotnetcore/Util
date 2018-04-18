@@ -32,7 +32,8 @@
     "babel-polyfill": "6.26.0",
     "material-design-icons": "3.0.1",
     "primeng": "5.2.4",
-    "moment": "2.22.0"
+    "moment": "2.22.0",
+    "lodash": "4.5.0" 
   },
   "devDependencies": {
     "@angular/compiler-cli": "5.2.9",
@@ -40,6 +41,7 @@
     "@angular-devkit/build-optimizer": "0.4.0",
     "@types/jasmine": "2.8.6",
     "@types/webpack-env": "1.13.5",
+    "@types/lodash": "4.14.107",
     "aspnet-webpack": "2.0.3",
     "autoprefixer": "8.1.0",
     "awesome-typescript-loader": "3.5.0",
@@ -60,6 +62,6 @@
     "webpack": "3.11.0",
     "webpack-hot-middleware": "2.21.2",
     "angular-router-loader": "0.8.2",
-    "uglifyjs-webpack-plugin": "1.2.4" 
+    "uglifyjs-webpack-plugin": "1.2.4"
   }
 }

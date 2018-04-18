@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Prime.TreeTables.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -31,13 +32,9 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// </summary>
         public string OnQueryRestore { get; set; }
         /// <summary>
-        /// 是否显示复选框
+        /// 选择模式
         /// </summary>
-        public bool Checkbox { get; set; }
-        /// <summary>
-        /// 是否显示单选框
-        /// </summary>
-        public string Radio { get; set; }
+        public SelectionMode SelectionMode { get; set; }
         /// <summary>
         /// 初始化时是否自动加载数据，默认为true,设置成false则手工加载
         /// </summary>

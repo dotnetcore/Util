@@ -16,7 +16,7 @@
     "strictNullChecks": false,
     "strict": true,
     "lib": [ "es6", "dom" ],
-    "types": [ "webpack-env", "jasmine" ],
+    "types": [ "webpack-env", "jasmine", "lodash" ],
     "baseUrl": "."
   },
   "angularCompilerOptions": {

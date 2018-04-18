@@ -50,11 +50,16 @@ namespace Util.Applications {
         where TDto : class, IDto, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter<TParentId> {
         /// <summary>
+        /// 仓储
+        /// </summary>
+        private readonly IRepository<TEntity, TKey> _repository;
+        /// <summary>
         /// 初始化树型服务
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="repository">仓储</param>
         protected TreeServiceBase( IUnitOfWork unitOfWork, IRepository<TEntity, TKey> repository ) : base( unitOfWork, repository ) {
+            _repository = repository;
         }
 
         /// <summary>

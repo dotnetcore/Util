@@ -92,6 +92,32 @@ describe("util.helper", () => {
         expect(result).not.toEqual(obj);
         expect(result.test).not.toEqual(obj.test);
     });
+    it("remove", () => {
+        let list = new Array<Test>();
+
+        let a = new Test();
+        a.name = "a";
+        list.push(a);
+
+        let b = new Test();
+        b.name = "b";
+        list.push(b);
+
+        let c = new Test();
+        c.name = "c";
+        list.push(c);
+
+        util.helper.remove(list, t => ["a", "b"].some(name => name === t.name) );
+        expect(list.length).toBe(1);
+        expect(list[0].name).toBe("c");
+    });
+    it("toList", () => {
+        let input = "a,,b";
+        let result = util.helper.toList<string>(input);
+        expect(result.length).toBe(2);
+        expect(result[0]).toBe("a");
+        expect(result[1]).toBe("b");
+    });
 });
 
 class Test {

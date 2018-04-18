@@ -1,6 +1,7 @@
 ﻿using Util.Helpers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Prime.TreeTables.Builders;
 using Util.Ui.Renders;
@@ -41,7 +42,7 @@ namespace Util.Ui.Prime.TreeTables.Renders {
             ConfigId( builder );
             ConfigQueryParam( builder );
             ConfigUrl( builder );
-            ConfigCheckbox( builder );
+            ConfigSelectionMode( builder );
             ConfigAutoLoad( builder );
             ConfigPageSizeOptions( builder );
             ConfigContent( builder );
@@ -75,13 +76,18 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         }
 
         /// <summary>
-        /// 配置复选框
+        /// 配置选择模式
         /// </summary>
-        private void ConfigCheckbox( TagBuilder builder ) {
-            if( _config.GetValue<bool>( UiConst.Checkbox ) )
-                builder.AddAttribute( "selectionMode", "checkbox" );
-            if( _config.GetValue<bool>( UiConst.Radio ) )
-                builder.AddAttribute( "selectionMode", "single" );
+        private void ConfigSelectionMode( TagBuilder builder ) {
+            var mode = _config.GetValue<SelectionMode?>( UiConst.SelectionMode );
+            switch ( mode ) {
+                case SelectionMode.Multiple:
+                    builder.AddAttribute( "selectionMode", "checkbox" );
+                    return;
+                case SelectionMode.Single:
+                    builder.AddAttribute( "selectionMode", "single" );
+                    return;
+            }
         }
 
         /// <summary>

@@ -352,7 +352,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * @param handler 删除成功回调函数
      * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
      */
-    delete(ids?: string, handler?: () => {}, deleteUrl?: string) {
+    delete(ids?: string, handler?: () => void, deleteUrl?: string) {
         ids = ids || this.getCheckedIds();
         if (!ids) {
             message.warn(config.deleteNotSelected);
@@ -366,7 +366,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**
      * 发送删除请求
      */
-    private deleteRequest(ids?: string, handler?: () => {}, deleteUrl?: string) {
+    private deleteRequest(ids?: string, handler?: () => void, deleteUrl?: string) {
         deleteUrl = deleteUrl || this.deleteUrl || (this.baseUrl && `/api/${this.baseUrl}/delete`);
         if (!deleteUrl) {
             console.log("表格deleteUrl未设置");

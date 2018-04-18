@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Prime.TreeTables.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -109,11 +110,11 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         }
 
         /// <summary>
-        /// 测试显示复选框
+        /// 测试多选
         /// </summary>
         [Fact]
-        public void TestCheckBox() {
-            var attributes = new TagHelperAttributeList { { UiConst.Checkbox, true } };
+        public void TestSelectionMode_Multiple() {
+            var attributes = new TagHelperAttributeList { { UiConst.SelectionMode, SelectionMode.Multiple } };
             var result = new String();
             result.Append( "<p-tree-table #id=\"\" key=\"id\" selectionMode=\"checkbox\">" );
             result.Append( "</p-tree-table>" );
@@ -121,11 +122,11 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         }
 
         /// <summary>
-        /// 测试显示单选框
+        /// 测试单选
         /// </summary>
         [Fact]
-        public void TestRadio() {
-            var attributes = new TagHelperAttributeList { { UiConst.Radio, true } };
+        public void TestSelectionMode_Single() {
+            var attributes = new TagHelperAttributeList { { UiConst.SelectionMode, SelectionMode.Single } };
             var result = new String();
             result.Append( "<p-tree-table #id=\"\" key=\"id\" selectionMode=\"single\">" );
             result.Append( "</p-tree-table>" );
