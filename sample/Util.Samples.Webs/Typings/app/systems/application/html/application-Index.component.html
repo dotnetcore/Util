@@ -39,7 +39,7 @@
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent="">
             <div fxLayout="row" fxLayoutGap="20px">
-                <mat-button-wrapper color="primary" style="mat-raised-button" text="测试"></mat-button-wrapper>
+                <mat-button-wrapper (onClick)="test(btn)" color="primary" style="mat-raised-button" text="测试"></mat-button-wrapper>
                 <mat-button-wrapper color="primary" style="mat-raised-button" text="测试2"></mat-button-wrapper>
             </div>
         </ng-template>

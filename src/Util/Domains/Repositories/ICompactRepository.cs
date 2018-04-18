@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Util.Dependency;
 using Util.Validations.Aspects;
 
 namespace Util.Domains.Repositories {
@@ -17,7 +18,7 @@ namespace Util.Domains.Repositories {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public interface ICompactRepository<TEntity, in TKey> where TEntity : class, IAggregateRoot {
+    public interface ICompactRepository<TEntity, in TKey> : IScopeDependency where TEntity : class, IAggregateRoot {
         /// <summary>
         /// 查找实体
         /// </summary>

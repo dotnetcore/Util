@@ -27,4 +27,8 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
     protected createQuery() {
         return new ApplicationQuery();
     }
+
+    test(btn) {
+        debugger 
+    }
 }

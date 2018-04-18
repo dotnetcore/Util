@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Util.Dependency;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Persistence {
@@ -18,7 +19,7 @@ namespace Util.Datas.Persistence {
     /// </summary>
     /// <typeparam name="TPo">持久化对象类型</typeparam>
     /// <typeparam name="TKey">持久化对象标识类型</typeparam>
-    public interface IPersistentStore<TPo, in TKey> where TPo : class, IPersistentObject<TKey> {
+    public interface IPersistentStore<TPo, in TKey> : IScopeDependency where TPo : class, IPersistentObject<TKey> {
         /// <summary>
         /// 获取未跟踪的持久化对象集合
         /// </summary>
