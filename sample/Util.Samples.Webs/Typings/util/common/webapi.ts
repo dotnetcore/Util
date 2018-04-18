@@ -72,6 +72,19 @@ export class WebApi {
  */
 export class WebApiRequest<T> {
     /**
+     * 按钮
+     */
+    private btn;
+    /**
+     * 按钮文本
+     */
+    private btnText;
+    /**
+     * 禁用时显示的按钮文本
+     */
+    private disableText;
+
+    /**
      * 初始化WebApi请求操作
      * @param request Http请求操作
      */
@@ -140,6 +153,20 @@ export class WebApiRequest<T> {
     }
 
     /**
+     * 设置按钮
+     * @param btn 按钮实例
+     * @param text 禁用时显示的按钮文本
+     */
+    button(btn, text: string = "loading..."): WebApiRequest<T> {
+        if (!btn)
+            return this;
+        this.btn = btn;
+        this.disableText = text;
+        this.btnText = btn.text;
+        return this;
+    }
+
+    /**
      * 处理响应
      * @param options 响应处理器配置
      */
@@ -149,8 +176,8 @@ export class WebApiRequest<T> {
         this.request.handle(
             (result: Result<T>) => this.handleOk(options, result),
             (error: HttpErrorResponse) => this.handleFail(options, undefined, error),
-            options.beforeHandler,
-            options.completeHandler
+            () => this.handleBefore(options),
+            () => this.handleComplete(options)
         );
     }
 
@@ -212,6 +239,31 @@ export class WebApiRequest<T> {
         let error = failResult.errorResponse;
         return `Http请求异常：\nUrl:${error.url}\n状态码:${error.status},${error.statusText}\n`
             + `错误消息:${error.message}\n错误响应:\n ${error.error.text}\n`;
+    }
+
+    /**
+     * 发送前操作
+     */
+    private handleBefore(options: WebApiHandleOptions<T>): boolean {
+        let result = options && options.beforeHandler && options.beforeHandler();
+        if (result === false)
+            return false;
+        if (this.btn) {
+            this.btn.text = this.disableText;
+            this.btn.disabled = true;
+        }
+        return true;
+    }
+
+    /**
+     * 完成操作
+     */
+    private handleComplete(options: WebApiHandleOptions<T>) {
+        options && options.completeHandler && options.completeHandler();
+        if (this.btn) {
+            this.btn.text = this.btnText;
+            this.btn.disabled = false;
+        }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using Util.Samples.Webs.Services.Abstractions.Systems;
+﻿using System.Threading;
+using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
 using Util.Samples.Webs.Services.Queries.Systems;
 using Util.Webs.Controllers;
@@ -20,5 +21,10 @@ namespace Util.Samples.Webs.Apis.Systems {
         /// 应用程序服务
         /// </summary>
         public IApplicationService ApplicationService { get; }
+
+        protected override void PagerQueryBefore( ApplicationQuery query ) {
+            Thread.Sleep( 3000 );
+            base.PagerQueryBefore( query );
+        }
     }
 }

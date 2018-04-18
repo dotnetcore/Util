@@ -29,6 +29,19 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
     }
 
     test(btn) {
-        debugger 
+        this.util.webapi.get("/api/application").button(btn).handle({
+            handler: () => {
+            }
+        });
+    }
+
+    test2() {
+        this.util.dialog.open({
+            url: "http://www.bing.com",
+            hasBackdrop: true,
+            minWidth: 1200,
+            minHeight: 600,
+            disableClose:true
+        });
     }
 }
