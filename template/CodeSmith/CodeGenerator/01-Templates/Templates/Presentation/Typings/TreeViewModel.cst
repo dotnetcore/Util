@@ -1,5 +1,4 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreeViewModel" Template="TreeViewModel.cst" MergeProperties="False" ExcludeProperties="" %>
 
 <%@ Assembly Src="..\..\..\Common\Model.cs" %>
 <%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
@@ -16,22 +15,12 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-<%-- 如果是树型实体，则调用子模板 --%>
-<%
-if( Entity.IsTreeEntity() ){
-    CodeTemplate template =new TreeViewModel();
-    template.SetProperty("Namespace",Namespace);
-    template.SetProperty("Entity",Entity);
-    template.Render(this.Response);
-    return;
-}
-%>
-import { ViewModel } from '../../../../util';
+import { TreeNode } from '../../../../util';
 
 /**
  * <%=Entity.Description%>视图模型
  */
-export class <%=SafeClassName%>ViewModel extends ViewModel {
+export class <%=SafeClassName%>ViewModel extends TreeNode {
     <% foreach(Property p in Entity.Properties) { %>
     <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
     /**

@@ -1,9 +1,9 @@
-﻿import { ViewModel } from '../../../../util';
+﻿import { TreeNode } from '../../../../util';
 
 /**
  * 角色视图模型
  */
-export class RoleViewModel extends ViewModel {
+export class RoleViewModel extends TreeNode {
     /**
      * 角色编码
      */

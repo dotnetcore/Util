@@ -21,6 +21,10 @@ export class TreeNode implements ITreeNode {
      * 排序号
      */
     sortId?: number;
+    /**
+     * 类型
+     */
+    type?;
 }
 
 /**

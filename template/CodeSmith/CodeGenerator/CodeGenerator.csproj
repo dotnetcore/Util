@@ -93,6 +93,7 @@
     <None Include="01-Templates\Templates\Presentation\Typings\ViewModel.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\EditComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\DetailComponent.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\TreeViewModel.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\IndexView.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\EditView.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\DetailView.cst" />
