@@ -79,10 +79,6 @@ import { Util as util } from '../util';
 })
 export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentInit {
     /**
-     * 操作标记
-     */
-    operation: LoadOperation;
-    /**
      * 查询延迟
      */
     timeout;
@@ -284,7 +280,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     /**
      * 发送查询请求
      */
-    private sendQuery(handler: (result: PagerList<T>) => void) {
+    private sendQuery(handler: (result: PagerList<T>) => void, completeHandler?: () => void) {
         let url = this.url || (this.baseUrl && `/api/${this.baseUrl}`);
         if (!url) {
             console.log("树型表格url未设置");
@@ -294,7 +290,10 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: handler,
-            completeHandler: () => this.loading = false
+            completeHandler: () => {
+                this.loading = false;
+                completeHandler && completeHandler();
+            }
         });
     }
 
@@ -302,8 +301,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
      * 对参数进行处理
      */
     private processParam() {
-        if (this.operation)
-            this.queryParam["operation"] = this.operation;
         this.filterParam();
         if (this.key)
             this.dic.add(this.key, this.queryParam);
@@ -353,16 +350,17 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
             return;
         if (node.children)
             return;
-        this.operation = LoadOperation.LoadChild;
+        this.queryParam["operation"] = LoadOperation.LoadChild;
         this.queryParam.parentId = node.data.id;
         this.sendQuery(result => {
-            this.operation = LoadOperation.Search;
-            this.queryParam.parentId = "";
             if (result && result.data && result.data.length > 0) {
                 node.children = result.data;
                 return;
             }
             node.leaf = true;
+        }, () => {
+            this.queryParam["operation"] = ""; 
+            this.queryParam.parentId = "";
         });
     }
 
