@@ -114,7 +114,7 @@ namespace Util.Ui.Controllers {
         /// 首次加载
         /// </summary>
         protected virtual async Task<PagerList<PrimeTreeNode<TDto>>> FirstLoad( TQuery query ) {
-            if( LoadMode == LoadMode.Sync )
+            if( GetLoadMode() == LoadMode.Sync )
                 return await SyncFirstLoad( query );
             return await AsyncFirstLoad( query );
         }
@@ -153,7 +153,7 @@ namespace Util.Ui.Controllers {
             if( query.ParentId == null )
                 throw new Warning( "父节点标识为空，加载子节点失败" );
             List<PrimeTreeNode<TDto>> result;
-            if( LoadMode == LoadMode.Async )
+            if( GetLoadMode() == LoadMode.Async )
                 result = await AsyncLoadChildren( query );
             else
                 result = await SyncLoadChildren( query );

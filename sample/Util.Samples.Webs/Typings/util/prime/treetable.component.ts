@@ -357,6 +357,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         this.queryParam.parentId = node.data.id;
         this.sendQuery(result => {
             this.operation = LoadOperation.Search;
+            this.queryParam.parentId = "";
             if (result && result.data && result.data.length > 0) {
                 node.children = result.data;
                 return;
