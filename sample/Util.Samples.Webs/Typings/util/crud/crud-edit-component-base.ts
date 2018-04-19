@@ -78,7 +78,6 @@ export abstract class CrudEditComponentBase<TViewModel extends ViewModel> implem
             data: this.model,
             form: form,
             button: button,
-            loading: true,
             back: true
         });
     }

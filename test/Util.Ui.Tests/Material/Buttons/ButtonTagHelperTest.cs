@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Material;
 using Util.Ui.Material.Buttons.TagHelpers;
 using Util.Ui.Material.Enums;
@@ -144,6 +145,28 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
             var result = new String();
             result.Append( "<mat-button-wrapper (onClick)=\"a\"></mat-button-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试等待时显示的文本
+        /// </summary>
+        [Fact]
+        public void TestWaitingText() {
+            var attributes = new TagHelperAttributeList { { UiConst.WaitingText, "a" } };
+            var result = new String();
+            result.Append( "<mat-button-wrapper waitingText=\"a\"></mat-button-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试等待时显示的图标
+        /// </summary>
+        [Fact]
+        public void TestWaitingIcon() {
+            var attributes = new TagHelperAttributeList { { UiConst.WaitingIcon, MaterialIcon.Access_Alarm } };
+            var result = new String();
+            result.Append( "<mat-button-wrapper waitingMatIcon=\"access_alarm\"></mat-button-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

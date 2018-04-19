@@ -80,6 +80,13 @@
 .mat-form-field {
     width: 100%;
 }
-//loading面板样式
+//去除loading面板样式
 .loading-panel {
+    mat-dialog-container {
+        background: none;
+        box-shadow: none;
+    }
+    .mat-progress-spinner circle, .mat-spinner circle {
+        stroke: #2f3e9d;
+    }
 }

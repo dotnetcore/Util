@@ -399,5 +399,13 @@
         /// 选择模式
         /// </summary>
         public const string SelectionMode = "selection-mode";
+        /// <summary>
+        /// 等待文本
+        /// </summary>
+        public const string WaitingText = "waiting-text";
+        /// <summary>
+        /// 等待图标
+        /// </summary>
+        public const string WaitingIcon = "waiting-icon";
     }
 }

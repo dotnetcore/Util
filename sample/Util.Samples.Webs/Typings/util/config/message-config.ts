@@ -27,6 +27,10 @@ export class MessageConfig {
      */
     static submit = "提 交";
     /**
+     * 进度提示
+     */
+    static loading = "loading...";
+    /**
      * 重置项默认文本
      */
     static resetOptionText = "-- 请选择 --";

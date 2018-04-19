@@ -4,6 +4,7 @@ using Util.Ui.Angular;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Buttons.Builders;
 using Util.Ui.Renders;
@@ -88,6 +89,7 @@ namespace Util.Ui.Material.Buttons.Renders {
             ConfigDisabled( builder );
             ConfigTooltip( builder );
             ConfigEvents( builder );
+            ConfigWaiting( builder );
         }
 
         /// <summary>
@@ -138,6 +140,14 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(onClick)", _config.GetValue( UiConst.OnClick ) );
+        }
+
+        /// <summary>
+        /// 配置等待状态
+        /// </summary>
+        private void ConfigWaiting( TagBuilder builder ) {
+            builder.AddAttribute( "waitingText", _config.GetValue( UiConst.WaitingText ) );
+            builder.AddAttribute( "waitingMatIcon", _config.GetValue<MaterialIcon?>( UiConst.WaitingIcon )?.Description() );
         }
     }
 }

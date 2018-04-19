@@ -10,6 +10,7 @@ import { RouterHelper } from '../angular/router-helper';
 import { Message } from './message';
 import { MessageConfig } from '../config/message-config';
 import { Dialog } from './dialog';
+import { IButton } from '../material/button-wrapper.component';
 
 /**
  * 表单操作
@@ -59,10 +60,10 @@ export class Form {
      * 提交表单
      */
     private submitForm(options: IFormSubmitOption) {
-        debugger 
         this.initHttpMethod(options);
-        WebApi.send(options.url, options.httpMethod, options.data).header(options.header)
-            .button(options.button, options.buttonDisabledText)
+        WebApi.send(options.url, options.httpMethod, options.data)
+            .header(options.header)
+            .button(options.button)
             .loading(options.loading || false)
             .handle({
                 beforeHandler: options.beforeHandler,
@@ -133,7 +134,7 @@ export interface IFormSubmitOption {
     /**
      * 按钮实例，在请求期间禁用该按钮
      */
-    button?,
+    button?: IButton,
     /**
      * 按钮被禁用时显示的文本，默认值：loading...
      */

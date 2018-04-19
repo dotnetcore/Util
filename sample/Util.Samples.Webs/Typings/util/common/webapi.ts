@@ -8,6 +8,7 @@ import { Dialog } from './dialog';
 import { Result, FailResult, StateCode } from '../core/result';
 import { HttpHelper, HttpRequest, HttpContentType, HttpMethod } from '../angular/http-helper';
 import { Message } from './message';
+import { IButton } from '../material/button-wrapper.component';
 
 /**
  * WebApi操作,与服务端返回的标准result对象交互
@@ -76,15 +77,7 @@ export class WebApiRequest<T> {
     /**
      * 按钮
      */
-    private btn;
-    /**
-     * 按钮文本
-     */
-    private btnText: string;
-    /**
-     * 禁用时显示的按钮文本
-     */
-    private disableText: string;
+    private btn: IButton;
     /**
      * 是否显示进度条
      */
@@ -161,14 +154,9 @@ export class WebApiRequest<T> {
     /**
      * 设置按钮
      * @param btn 按钮实例
-     * @param text 禁用时显示的按钮文本，默认值：loading...
      */
-    button(btn, text?: string): WebApiRequest<T> {
-        if (!btn)
-            return this;
+    button(btn: IButton): WebApiRequest<T> {
         this.btn = btn;
-        this.disableText = text || "loading...";
-        this.btnText = btn.text;
         return this;
     }
 
@@ -273,8 +261,7 @@ export class WebApiRequest<T> {
     private disableButton() {
         if (!this.btn)
             return;
-        this.btn.text = this.disableText;
-        this.btn.disabled = true;
+        this.btn.disable();
     }
 
     /**
@@ -305,8 +292,7 @@ export class WebApiRequest<T> {
     private enableButton() {
         if (!this.btn)
             return;
-        this.btn.text = this.btnText;
-        this.btn.disabled = false;
+        this.btn.enable();
     }
 
     /**
