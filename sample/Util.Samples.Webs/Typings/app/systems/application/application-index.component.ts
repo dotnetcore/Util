@@ -29,7 +29,7 @@ export class ApplicationIndexComponent extends CrudIndexComponentBase<Applicatio
     }
 
     test(btn) {
-        this.util.webapi.get("/api/application").button(btn).handle({
+        this.util.webapi.get("/api/application").button(btn).loading().handle({
             handler: () => {
             }
         });

@@ -42,6 +42,7 @@ import { RadioWrapperComponent } from './material/radio-wrapper.component';
 import { SelectListWrapperComponent } from './material/select-list-wrapper.component';
 import { DialogWrapperComponent } from './material/dialog-wrapper.component';
 import { ConfirmComponent } from './material/confirm.component';
+import { LoadingComponent  } from "./material/loading.component";
 
 //Util Prime组件
 import { TreeTableModule } from './prime/treetable.component';
@@ -71,7 +72,7 @@ import { DicService } from './services/dic.service';
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
-        DialogWrapperComponent, ConfirmComponent,
+        DialogWrapperComponent, ConfirmComponent, LoadingComponent,
         SafeUrlPipe
     ],
     exports: [
@@ -90,7 +91,7 @@ import { DicService } from './services/dic.service';
         SafeUrlPipe
     ],
     entryComponents: [
-        DialogWrapperComponent, ConfirmComponent
+        DialogWrapperComponent, ConfirmComponent, LoadingComponent
     ],
     providers: [
         MessageService, MAT_DATE_LOCALE_PROVIDER, DicService,

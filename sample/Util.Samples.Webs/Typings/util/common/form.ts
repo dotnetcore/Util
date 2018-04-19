@@ -4,7 +4,6 @@
 //================================================
 import { NgForm } from '@angular/forms';
 import { FailResult } from '../core/result';
-import { ViewModel } from '../core/model';
 import { HttpMethod } from '../angular/http-helper';
 import { WebApi } from './webapi';
 import { RouterHelper } from '../angular/router-helper';
@@ -21,15 +20,8 @@ export class Form {
      * @param options 表单提交参数
      */
     submit(options: IFormSubmitOption): void {
-        this.initSubmit(options);
-        if (!this.validateSubmit(options)) {
-            options["fnComplete"]();
+        if (!this.validateSubmit(options))
             return;
-        }
-        if (!this.submitBefore(options)) {
-            options["fnComplete"]();
-            return;
-        }
         if (!options.confirm) {
             this.submitForm(options);
             return;
@@ -38,21 +30,8 @@ export class Form {
             title: options.confirmTitle,
             message: options.confirm,
             ok: () => this.submitForm(options),
-            cancel: options["fnComplete"]
+            cancel: options.completeHandler
         });
-    }
-
-    /**
-     * 提交表单初始化
-     */
-    private initSubmit(options: IFormSubmitOption) {
-        if (!options)
-            return;
-        options["fnComplete"] = () => {
-            if (options.form)
-                (options.form as { submitted: boolean }).submitted = false;
-            options.completeHandler && options.completeHandler();
-        };
     }
 
     /**
@@ -60,15 +39,13 @@ export class Form {
      */
     private validateSubmit(options: IFormSubmitOption) {
         if (!options) {
-            Message.error("表单参数[options: FormSubmitOptions]未设置");
+            Message.error("表单参数 options: FormSubmitOptions 未设置");
             return false;
         }
+        if (options.form && !options.form.valid)
+            return false;
         if (!options.url) {
             Message.error("表单url未设置");
-            return false;
-        }
-        if (!options.form) {
-            Message.error("表单ngForm未设置");
             return false;
         }
         if (!options.data) {
@@ -79,28 +56,32 @@ export class Form {
     }
 
     /**
-     * 提交前操作
-     */
-    private submitBefore(options: IFormSubmitOption) {
-        if (!options.beforeHandler)
-            return true;
-        return options.beforeHandler();
-    }
-
-    /**
      * 提交表单
      */
     private submitForm(options: IFormSubmitOption) {
-        if (!options.httpMethod) {
-            options.httpMethod = options.data.id ? HttpMethod.Put : HttpMethod.Post;
-        }
-        WebApi.send(options.url, options.httpMethod, options.data).header(options.header).handle({
-            handler: result => {
-                this.submitHandler(options, result);
-            },
-            failHandler: options.failHandler,
-            completeHandler: options["fnComplete"]
-        });
+        debugger 
+        this.initHttpMethod(options);
+        WebApi.send(options.url, options.httpMethod, options.data).header(options.header)
+            .button(options.button, options.buttonDisabledText)
+            .loading(options.loading || false)
+            .handle({
+                beforeHandler: options.beforeHandler,
+                handler: result => {
+                    this.submitHandler(options, result);
+                },
+                failHandler: options.failHandler,
+                completeHandler: options.completeHandler
+            });
+    }
+
+    /**
+     * 初始化Http方法
+     * @param options
+     */
+    private initHttpMethod(options: IFormSubmitOption) {
+        if (options.httpMethod)
+            return;
+        options.httpMethod = options.data.id ? HttpMethod.Put : HttpMethod.Post;
     }
 
     /**
@@ -122,17 +103,13 @@ export class Form {
  */
 export interface IFormSubmitOption {
     /**
-     * 表单
-     */
-    form: NgForm;
-    /**
      * 请求地址
      */
     url: string;
     /**
      * 提交数据
      */
-    data: ViewModel;
+    data;
     /**
      * Http头
      */
@@ -150,6 +127,22 @@ export interface IFormSubmitOption {
      */
     confirmTitle?: string;
     /**
+     * 表单
+     */
+    form?: NgForm;
+    /**
+     * 按钮实例，在请求期间禁用该按钮
+     */
+    button?,
+    /**
+     * 按钮被禁用时显示的文本，默认值：loading...
+     */
+    buttonDisabledText?: string,
+    /**
+     * 请求时显示进度条，默认为false
+     */
+    loading?: boolean,
+    /**
      * 提交成功后是否显示成功提示，默认为true
      */
     showMessage?: boolean;
@@ -158,7 +151,7 @@ export interface IFormSubmitOption {
      */
     back?: boolean;
     /**
-     * 提交成功后是否关闭弹出层，当在弹出层中编辑时使用，默认为false
+     * 提交成功后关闭弹出层，当在弹出层中编辑时使用，默认为false
      */
     closeDialog?: boolean;
     /**

@@ -3,6 +3,8 @@
 //Licensed under the MIT license
 //================================================
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoadingComponent } from "../material/loading.component";
+import { Dialog } from './dialog';
 import { Result, FailResult, StateCode } from '../core/result';
 import { HttpHelper, HttpRequest, HttpContentType, HttpMethod } from '../angular/http-helper';
 import { Message } from './message';
@@ -78,11 +80,15 @@ export class WebApiRequest<T> {
     /**
      * 按钮文本
      */
-    private btnText;
+    private btnText: string;
     /**
      * 禁用时显示的按钮文本
      */
-    private disableText;
+    private disableText: string;
+    /**
+     * 是否显示进度条
+     */
+    private isShowLoading?: boolean;
 
     /**
      * 初始化WebApi请求操作
@@ -155,14 +161,22 @@ export class WebApiRequest<T> {
     /**
      * 设置按钮
      * @param btn 按钮实例
-     * @param text 禁用时显示的按钮文本
+     * @param text 禁用时显示的按钮文本，默认值：loading...
      */
-    button(btn, text: string = "loading..."): WebApiRequest<T> {
+    button(btn, text?: string): WebApiRequest<T> {
         if (!btn)
             return this;
         this.btn = btn;
-        this.disableText = text;
+        this.disableText = text || "loading...";
         this.btnText = btn.text;
+        return this;
+    }
+
+    /**
+     * 请求时显示进度条
+     */
+    loading(isShowLoading?: boolean): WebApiRequest<T> {
+        this.isShowLoading = isShowLoading === undefined ? true : isShowLoading;
         return this;
     }
 
@@ -248,11 +262,32 @@ export class WebApiRequest<T> {
         let result = options && options.beforeHandler && options.beforeHandler();
         if (result === false)
             return false;
-        if (this.btn) {
-            this.btn.text = this.disableText;
-            this.btn.disabled = true;
-        }
+        this.disableButton();
+        this.showLoading();
         return true;
+    }
+
+    /**
+     * 禁用按钮
+     */
+    private disableButton() {
+        if (!this.btn)
+            return;
+        this.btn.text = this.disableText;
+        this.btn.disabled = true;
+    }
+
+    /**
+     * 显示遮罩
+     */
+    private showLoading() {
+        if (!this.isShowLoading)
+            return;
+        Dialog.open({
+            panelClass: "loading-panel",
+            disableClose: true,
+            dialogComponent: LoadingComponent
+        });
     }
 
     /**
@@ -260,10 +295,27 @@ export class WebApiRequest<T> {
      */
     private handleComplete(options: WebApiHandleOptions<T>) {
         options && options.completeHandler && options.completeHandler();
-        if (this.btn) {
-            this.btn.text = this.btnText;
-            this.btn.disabled = false;
-        }
+        this.enableButton();
+        this.closeLoading();
+    }
+
+    /**
+     * 启用按钮
+     */
+    private enableButton() {
+        if (!this.btn)
+            return;
+        this.btn.text = this.btnText;
+        this.btn.disabled = false;
+    }
+
+    /**
+     * 关闭遮罩
+     */
+    private closeLoading() {
+        if (!this.isShowLoading)
+            return;
+        Dialog.close();
     }
 }
 

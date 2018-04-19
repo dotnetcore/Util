@@ -89,7 +89,7 @@ export class ButtonWrapperComponent {
     private isDisabled() {
         if (this.disabled !== undefined)
             return this.disabled;
-        return this.type === 'submit' && this.form && (!this.form.valid || this.form.submitted);
+        return this.type === 'submit' && this.form && !this.form.valid;
     }
 
     /**

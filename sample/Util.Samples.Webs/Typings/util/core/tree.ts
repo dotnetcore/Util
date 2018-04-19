@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { ISort } from '../core/sort';
-import { IKey,QueryParameter } from '../core/model';
+import { IViewModel,QueryParameter } from '../core/model';
 
 /**
  * 树节点
@@ -30,7 +30,7 @@ export class TreeNode implements ITreeNode {
 /**
  * 树节点
  */
-export interface ITreeNode extends IKey, ISort {
+export interface ITreeNode extends IViewModel, ISort {
     /**
      * 父标识
      */

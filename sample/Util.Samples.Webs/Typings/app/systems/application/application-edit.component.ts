@@ -2,6 +2,7 @@
 import { CrudEditComponentBase } from '../../../util';
 import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
+import { NgForm } from '@angular/forms';
 
 /**
  * 应用程序编辑页
@@ -34,5 +35,20 @@ export class ApplicationEditComponent extends CrudEditComponentBase<ApplicationV
      */
     protected getBaseUrl() {
         return "application";
+    }
+
+    /**
+     * 提交表单
+     * @param form 表单
+     * @param button 按钮
+     */
+    submit(form?: NgForm, button?) {
+        this.util.form.submit({
+            form: form,
+            button: button,
+            loading:true,
+            url: this.getSubmitUrl(),
+            data: this.model
+        });
     }
 }

@@ -70,12 +70,15 @@ export abstract class CrudEditComponentBase<TViewModel extends ViewModel> implem
     /**
      * 提交表单
      * @param form 表单
+     * @param button 按钮
      */
-    submit(form: NgForm) {
+    submit(form?: NgForm, button?) {
         this.util.form.submit({
-            form: form,
             url: this.getSubmitUrl(),
             data: this.model,
+            form: form,
+            button: button,
+            loading: true,
             back: true
         });
     }

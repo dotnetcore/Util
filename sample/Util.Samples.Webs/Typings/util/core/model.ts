@@ -16,7 +16,13 @@ export interface IKey {
 /**
  * 视图模型
  */
-export class ViewModel implements IKey {
+export interface IViewModel extends IKey {
+}
+
+/**
+ * 视图模型
+ */
+export class ViewModel implements IViewModel {
     /**
      * 标识
      */

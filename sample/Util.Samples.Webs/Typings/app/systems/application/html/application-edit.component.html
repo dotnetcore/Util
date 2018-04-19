@@ -1,5 +1,5 @@
 
-<form #form="ngForm" (ngSubmit)="submit(form)">
+<form #form="ngForm" (ngSubmit)="submit(form,btnSubmit)">
     <div fxLayout="row" fxLayoutAlign="center start"><div fxFlex="70%">
         <mat-card>
             <mat-card-header>
@@ -24,7 +24,7 @@
             </mat-card-content>
             <mat-card-actions align="end">
                 <mat-button-wrapper (onClick)="back()" style="mat-button" text="返回"></mat-button-wrapper>
-                <mat-button-wrapper color="primary" type="submit"></mat-button-wrapper>
+                <mat-button-wrapper #btnSubmit="" color="primary" type="submit"></mat-button-wrapper>
             </mat-card-actions>
         </mat-card>
     </div></div>
