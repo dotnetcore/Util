@@ -6,6 +6,7 @@ using Util.Ui.Material.Icons;
 using Util.Ui.Material.Lists;
 using Util.Ui.Material.Menus;
 using Util.Ui.Material.Tabs;
+using Util.Ui.Prime.ColorPickers;
 using Util.Ui.Services;
 
 namespace Util.Ui.Extensions {
@@ -19,6 +20,14 @@ namespace Util.Ui.Extensions {
         /// <param name="service">组件服务</param>
         public static IAnchor A<TModel>( this IUiService<TModel> service ) {
             return new Anchor();
+        }
+
+        /// <summary>
+        /// 颜色选择器
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IColorPicker ColorPicker<TModel>( this IUiService<TModel> service ) {
+            return new ColorPicker();
         }
 
         /// <summary>

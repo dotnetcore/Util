@@ -27,7 +27,7 @@ import {
 //PrimeNg模块
 import { MessageService } from 'primeng/components/common/messageservice';
 import {
-     GrowlModule, LightboxModule
+    GrowlModule, LightboxModule, ColorPickerModule
 } from 'primeng/primeng';
 
 //Util Material组件
@@ -42,7 +42,7 @@ import { RadioWrapperComponent } from './material/radio-wrapper.component';
 import { SelectListWrapperComponent } from './material/select-list-wrapper.component';
 import { DialogWrapperComponent } from './material/dialog-wrapper.component';
 import { ConfirmComponent } from './material/confirm.component';
-import { LoadingComponent  } from "./material/loading.component";
+import { LoadingComponent } from "./material/loading.component";
 
 //Util Prime组件
 import { TreeTableModule } from './prime/treetable.component';
@@ -66,7 +66,7 @@ import { DicService } from './services/dic.service';
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        GrowlModule, LightboxModule,
+        GrowlModule, LightboxModule, ColorPickerModule,
         TreeTableModule
     ],
     declarations: [
@@ -84,7 +84,7 @@ import { DicService } from './services/dic.service';
         MatSidenavModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule,
         MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
-        GrowlModule,  LightboxModule,
+        GrowlModule, LightboxModule, ColorPickerModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         TreeTableModule,

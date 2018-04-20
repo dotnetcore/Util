@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
-using Util.Ui.Material.Internal;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
@@ -11,7 +9,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// <summary>
     /// 日期选择
     /// </summary>
-    [HtmlTargetElement( "util-datepicker" )]
+    [HtmlTargetElement( "util-date-picker" )]
     public class DatePickerTagHelper : FormControlTagHelperBase {
         /// <summary>
         /// 是否显示清除按钮

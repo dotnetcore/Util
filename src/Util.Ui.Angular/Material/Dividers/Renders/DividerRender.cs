@@ -35,7 +35,6 @@ namespace Util.Ui.Material.Dividers.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigContent( builder );
             ConfigInset( builder );
             ConfigVertical( builder );
         }

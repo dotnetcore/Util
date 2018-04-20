@@ -36,5 +36,11 @@ namespace Util.Ui.Services {
         /// <typeparam name="TProperty">属性类型</typeparam>
         /// <param name="expression">属性表达式</param>
         ITextBox TextBox<TProperty>( Expression<Func<TModel, TProperty>> expression );
+        /// <summary>
+        /// 颜色选择器
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        IColorPicker ColorPicker<TProperty>( Expression<Func<TModel, TProperty>> expression );
     }
 }

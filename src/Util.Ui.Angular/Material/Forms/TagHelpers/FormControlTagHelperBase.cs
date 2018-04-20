@@ -9,7 +9,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// </summary>
     public abstract class FormControlTagHelperBase : TagHelperBase {
         /// <summary>
-        /// 控件的名称
+        /// 控件名称
         /// </summary>
         public string Name { get; set; }
         /// <summary>

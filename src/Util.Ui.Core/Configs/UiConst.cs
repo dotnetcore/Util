@@ -407,5 +407,9 @@
         /// 等待图标
         /// </summary>
         public const string WaitingIcon = "waiting-icon";
+        /// <summary>
+        /// 内联
+        /// </summary>
+        public const string Inline = "inline";
     }
 }
