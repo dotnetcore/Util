@@ -379,6 +379,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试独立
+        /// </summary>
+        [Fact]
+        public void TestStandalone() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [ngModelOptions]=\"{standalone: true}\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Standalone() ) );
+        }
+
+        /// <summary>
         /// 测试多行文本框
         /// </summary>
         [Fact]

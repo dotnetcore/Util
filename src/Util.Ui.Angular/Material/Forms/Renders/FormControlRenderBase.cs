@@ -36,6 +36,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigModel( builder );
             ConfigRequired( builder );
             ConfigEvents( builder );
+            ConfigStandalone( builder );
         }
 
         /// <summary>
@@ -109,6 +110,14 @@ namespace Util.Ui.Material.Forms.Renders {
             builder.AddAttribute( "(onBlur)", _config.GetValue( UiConst.OnBlur ) );
             builder.AddAttribute( "(onKeyup)", _config.GetValue( UiConst.OnKeyup ) );
             builder.AddAttribute( "(onKeydown)", _config.GetValue( UiConst.OnKeydown ) );
+        }
+
+        /// <summary>
+        /// 配置独立
+        /// </summary>
+        private void ConfigStandalone( TagBuilder builder ) {
+            if( _config.GetValue<bool>( UiConst.Standalone ) )
+                builder.AddAttribute( "[ngModelOptions]", "{standalone: true}" );
         }
     }
 }

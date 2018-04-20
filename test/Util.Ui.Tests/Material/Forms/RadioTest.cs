@@ -173,6 +173,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试独立
+        /// </summary>
+        [Fact]
+        public void TestStandalone() {
+            var result = new String();
+            result.Append( "<mat-radio-wrapper [ngModelOptions]=\"{standalone: true}\"></mat-radio-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Standalone() ) );
+        }
+
+        /// <summary>
         /// 测试添加项
         /// </summary>
         [Fact]

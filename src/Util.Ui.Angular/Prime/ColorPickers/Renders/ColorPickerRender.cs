@@ -53,6 +53,7 @@ namespace Util.Ui.Prime.ColorPickers.Renders {
             ConfigDisabled( builder );
             ConfigInline( builder );
             ConfigEvents( builder );
+            ConfigStandalone( builder );
         }
 
         /// <summary>
@@ -88,6 +89,14 @@ namespace Util.Ui.Prime.ColorPickers.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(onChange)", _config.GetValue( UiConst.OnChange ) );
+        }
+
+        /// <summary>
+        /// 配置独立
+        /// </summary>
+        private void ConfigStandalone( TagBuilder builder ) {
+            if( _config.GetValue<bool>( UiConst.Standalone ) )
+                builder.AddAttribute( "[ngModelOptions]", "{standalone: true}" );
         }
     }
 }

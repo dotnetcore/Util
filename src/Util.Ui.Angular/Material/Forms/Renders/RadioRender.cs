@@ -58,6 +58,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigEvents( builder );
             ConfigUrl( builder );
             ConfigDataSource( builder );
+            ConfigStandalone( builder );
         }
 
         /// <summary>
@@ -127,6 +128,14 @@ namespace Util.Ui.Material.Forms.Renders {
             if( _config.Items.Count == 0 )
                 return;
             _config.SetAttribute( UiConst.DataSource, Util.Helpers.Json.ToJson( _config.Items, true ) );
+        }
+
+        /// <summary>
+        /// 配置独立
+        /// </summary>
+        private void ConfigStandalone( TagBuilder builder ) {
+            if( _config.GetValue<bool>( UiConst.Standalone ) )
+                builder.AddAttribute( "[ngModelOptions]", "{standalone: true}" );
         }
     }
 }

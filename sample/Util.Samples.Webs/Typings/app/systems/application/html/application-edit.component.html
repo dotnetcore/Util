@@ -21,6 +21,9 @@
                 <div class="mt30" fxLayout="row">
                     <mat-slide-toggle name="registerEnabled" [(ngModel)]="model&&model.registerEnabled">启用注册</mat-slide-toggle>
                 </div>
+                <div class="mt30" fxLayout="row">
+                    <p-colorPicker name="name" [(ngModel)]="model&&model.name"></p-colorPicker>
+                </div>
             </mat-card-content>
             <mat-card-actions align="end">
                 <mat-button-wrapper (onClick)="back()" style="mat-button" text="返回"></mat-button-wrapper>

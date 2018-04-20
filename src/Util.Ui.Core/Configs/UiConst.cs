@@ -411,5 +411,9 @@
         /// 内联
         /// </summary>
         public const string Inline = "inline";
+        /// <summary>
+        /// 独立
+        /// </summary>
+        public const string Standalone = "standalone";
     }
 }

@@ -110,5 +110,16 @@ namespace Util.Ui.Tests.Prime.ColorPickers {
             result.Append( "<p-colorPicker (onChange)=\"a\"></p-colorPicker>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试独立
+        /// </summary>
+        [Fact]
+        public void TestStandalone() {
+            var attributes = new TagHelperAttributeList {{UiConst.Standalone, true}};
+            var result = new String();
+            result.Append( "<p-colorPicker [ngModelOptions]=\"{standalone: true}\"></p-colorPicker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

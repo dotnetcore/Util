@@ -141,5 +141,15 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "<mat-slide-toggle (change)=\"a\"></mat-slide-toggle>" );
             Assert.Equal( result.ToString(), GetResult( _component.OnChange( "a" ) ) );
         }
+
+        /// <summary>
+        /// 测试独立
+        /// </summary>
+        [Fact]
+        public void TestStandalone() {
+            var result = new String();
+            result.Append( "<mat-slide-toggle [ngModelOptions]=\"{standalone: true}\"></mat-slide-toggle>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Standalone() ) );
+        }
     }
 }

@@ -21,5 +21,18 @@ namespace Util.Ui.Extensions {
             } );
             return component;
         }
+
+        /// <summary>
+        /// 在循环中创建表单组件时使用，设置了ngModel，但无法设置固定的name，可以使用该属性创建控件，这样创建的控件独立于FormGroup
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        public static TComponent Standalone<TComponent>( this TComponent component ) where TComponent : IOption, IDisabled {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Standalone, true );
+            } );
+            return component;
+        }
     }
 }

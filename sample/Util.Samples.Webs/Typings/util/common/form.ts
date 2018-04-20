@@ -136,10 +136,6 @@ export interface IFormSubmitOption {
      */
     button?: IButton,
     /**
-     * 按钮被禁用时显示的文本，默认值：loading...
-     */
-    buttonDisabledText?: string,
-    /**
      * 请求时显示进度条，默认为false
      */
     loading?: boolean,

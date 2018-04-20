@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
@@ -60,6 +58,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigRequired( builder );
             ConfigEvents( builder );
             ConfigChecked( builder );
+            ConfigStandalone( builder );
         }
 
         /// <summary>
@@ -124,6 +123,14 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigChecked( TagBuilder builder ) {
             builder.AddAttribute( "[checked]", _config.GetValue( UiConst.Checked ) );
+        }
+
+        /// <summary>
+        /// 配置独立
+        /// </summary>
+        private void ConfigStandalone( TagBuilder builder ) {
+            if( _config.GetValue<bool>( UiConst.Standalone ) )
+                builder.AddAttribute( "[ngModelOptions]", "{standalone: true}" );
         }
     }
 }

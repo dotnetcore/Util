@@ -9,7 +9,7 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 单选框
     /// </summary>
-    public interface IRadio : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition, IUrl, IDataSource, IItem, IColspan {
+    public interface IRadio : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition, IUrl, IDataSource, IItem, IColspan, IStandalone {
         /// <summary>
         /// 绑定枚举
         /// </summary>

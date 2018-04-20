@@ -35,6 +35,10 @@ namespace Util.Ui.Prime.ColorPickers.TagHelpers {
         /// 变更事件处理函数,范例：handle()
         /// </summary>
         public string OnChange { get; set; }
+        /// <summary>
+        /// 在循环中创建表单组件时使用，设置了ngModel，但无法设置固定的name，可以使用该属性创建控件，这样创建的控件独立于FormGroup
+        /// </summary>
+        public bool Standalone { get; set; }
 
         /// <summary>
         /// 获取渲染器

@@ -151,5 +151,15 @@ namespace Util.Ui.Tests.Material.Forms {
             result.Append( "<mat-checkbox (change)=\"a\"></mat-checkbox>" );
             Assert.Equal( result.ToString(), GetResult( _component.OnChange( "a" ) ) );
         }
+
+        /// <summary>
+        /// 测试独立
+        /// </summary>
+        [Fact]
+        public void TestStandalone() {
+            var result = new String();
+            result.Append( "<mat-checkbox [ngModelOptions]=\"{standalone: true}\"></mat-checkbox>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Standalone() ) );
+        }
     }
 }

@@ -9,6 +9,6 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 滑动开关
     /// </summary>
-    public interface ISlideToggle : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition, IColor, IColspan {
+    public interface ISlideToggle : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition, IColor, IColspan, IStandalone {
     }
 }

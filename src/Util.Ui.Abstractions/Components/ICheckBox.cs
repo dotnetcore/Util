@@ -9,6 +9,6 @@ namespace Util.Ui.Components {
     /// <summary>
     /// 复选框
     /// </summary>
-    public interface ICheckBox : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition,IColor, IColspan {
+    public interface ICheckBox : IComponent, IName, ILabel, IDisabled, IModel, IRequired, IOnChange, ILabelPosition,IColor, IColspan, IStandalone {
     }
 }
