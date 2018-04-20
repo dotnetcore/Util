@@ -431,6 +431,7 @@ https://github.com/dotnetcore/util/
   - 表格 - 基于Material Table组件 [已发布]
   - 布局(栅格) - 基于Angular flex-layout组件 [已发布]
   - 树型表格 - 基于PrimeNg TreeTable组件改造 [已发布]
+  - 颜色选择器 - 基于PrimeNg ColorPicker组件 [已发布]
   - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   
 - 权限 [开发中]
@@ -493,4 +494,5 @@ https://github.com/dotnetcore/util/
 - 2018年3月7日，更新了弹出层组件(Util.Ui.Angular/Material/Dialogs)。
 - 2018年3月10日，更新了表格组件(Util.Ui.Angular/Material/Tables)。
 - 2018年3月13日，更新了布局组件(Util.Ui.Angular/FlexLayout)。
-- 2018年4月16日，更新了树型表格组件，树型控制器，树型服务。
+- 2018年4月16日，更新了树型表格组件(Util.Ui.Angular/Prime/TreeTables)，树型控制器，树型服务。
+- 2018年4月20日，更新了颜色选择器组件(Util.Ui.Angular/Prime/ColorPickers)。
