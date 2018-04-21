@@ -198,6 +198,9 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [饿了么-Element](https://element-angular.faas.ele.me/)
     - [中兴-Jigsaw](https://github.com/rdkmaster/jigsaw)
     - [Angular-Material-App](https://github.com/stbui/angular-material-app)
+  - 编辑器
+    - [CKEditor](https://ckeditor.com/ckeditor-4/)
+    - [TinyMce](https://github.com/tinymce/tinymce-angular)
   - 脚本库
     - [Moment](http://momentjs.cn/)
   - 图标

@@ -30,6 +30,9 @@ import {
     GrowlModule, LightboxModule, ColorPickerModule
 } from 'primeng/primeng';
 
+//CKEditor模块
+import { CKEditorModule } from 'ng2-ckeditor';
+
 //Util Material组件
 import { UtilDateAdapter } from './material/local/date-adapter';
 import { TableWrapperComponent } from './material/table-wrapper.component';
@@ -67,7 +70,7 @@ import { DicService } from './services/dic.service';
         MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         GrowlModule, LightboxModule, ColorPickerModule,
-        TreeTableModule
+        TreeTableModule, CKEditorModule
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
@@ -87,7 +90,7 @@ import { DicService } from './services/dic.service';
         GrowlModule, LightboxModule, ColorPickerModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
-        TreeTableModule,
+        TreeTableModule, CKEditorModule,
         SafeUrlPipe
     ],
     entryComponents: [

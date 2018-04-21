@@ -1,7 +1,9 @@
-﻿using Util.Ui.Components;
+﻿using Util.Ui.Angular;
+using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Operations;
+using Util.Ui.Operations.Bind;
 
 namespace Util.Ui.Extensions {
     /// <summary>
@@ -23,7 +25,7 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
-        /// 在循环中创建表单组件时使用，设置了ngModel，但无法设置固定的name，可以使用该属性创建控件，这样创建的控件独立于FormGroup
+        /// 组件不添加到FormGroup，独立存在，这样也无法基于NgForm进行表单验证
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
         /// <param name="component">组件实例</param>
@@ -31,6 +33,20 @@ namespace Util.Ui.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Standalone, true );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 添加绑定名称 [name]
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="name">名称</param>
+        public static TComponent BindName<TComponent>( this TComponent component, string name ) where TComponent : IOption, IBindName {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( AngularConst.BindName, name );
             } );
             return component;
         }

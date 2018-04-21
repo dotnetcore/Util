@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Angular;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Prime.ColorPickers.Builders;
@@ -61,6 +62,7 @@ namespace Util.Ui.Prime.ColorPickers.Renders {
         /// </summary>
         private void ConfigName( TagBuilder builder ) {
             builder.AddAttribute( "name", _config.GetValue( UiConst.Name ) );
+            builder.AddAttribute( "[name]", _config.GetValue( AngularConst.BindName ) );
         }
 
         /// <summary>

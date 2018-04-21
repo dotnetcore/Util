@@ -27,7 +27,8 @@ const jsModules = [
     '@angular/cdk/esm5/collections.es5',
     '@angular/flex-layout',
     '@angular/material',
-    'primeng/primeng'
+    'primeng/primeng',
+    'lodash'
 ];
 
 //第三方Css库

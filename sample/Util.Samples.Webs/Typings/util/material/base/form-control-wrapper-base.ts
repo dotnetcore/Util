@@ -9,11 +9,15 @@ import { MessageConfig } from '../../config/message-config';
 /**
  * 表单控件包装器
  */
-export class FormControlWrapperBase implements AfterViewInit{
+export class FormControlWrapperBase implements AfterViewInit {
     /**
      * 名称
      */
     @Input() name: string;
+    /**
+     * 组件不添加到FormGroup，独立存在，这样也无法基于NgForm进行表单验证
+     */
+    @Input() standalone: boolean;
     /**
      * 禁用
      */
@@ -108,6 +112,15 @@ export class FormControlWrapperBase implements AfterViewInit{
      * 视图加载完成
      */
     ngAfterViewInit(): void {
+        this.addControl();
+    }
+
+    /**
+     * 将控件添加到FormGroup
+     */
+    private addControl() {
+        if (this.standalone)
+            return;
         this.form && this.form.addControl(this.controlModel);
     }
 

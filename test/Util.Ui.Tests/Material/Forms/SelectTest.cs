@@ -75,6 +75,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试添加绑定名称
+        /// </summary>
+        [Fact]
+        public void TestBindName() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper [name]=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BindName( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试禁用
         /// </summary>
         [Fact]
@@ -310,7 +320,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestStandalone() {
             var result = new String();
-            result.Append( "<mat-select-wrapper [ngModelOptions]=\"{standalone: true}\"></mat-select-wrapper>" );
+            result.Append( "<mat-select-wrapper [standalone]=\"true\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Standalone() ) );
         }
 

@@ -34,6 +34,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigTextArea( builder );
             ConfigDatePicker( builder );
             ConfigTextBox( builder );
+            ConfigStandalone( builder );
             return builder;
         }
 
@@ -141,6 +142,13 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigMaxLength( TagBuilder builder ) {
             builder.AddAttribute( "[maxLength]", _config.GetValue( UiConst.MaxLength ) );
+        }
+
+        /// <summary>
+        /// 配置独立
+        /// </summary>
+        private void ConfigStandalone( TagBuilder builder ) {
+            builder.AddAttribute( "[standalone]", _config.GetBoolValue( UiConst.Standalone ) );
         }
     }
 }

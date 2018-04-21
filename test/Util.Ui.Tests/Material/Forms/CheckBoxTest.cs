@@ -73,6 +73,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试添加绑定名称
+        /// </summary>
+        [Fact]
+        public void TestBindName() {
+            var result = new String();
+            result.Append( "<mat-checkbox [name]=\"a\"></mat-checkbox>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BindName( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试设置标签
         /// </summary>
         [Fact]

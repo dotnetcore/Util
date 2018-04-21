@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Enums;
@@ -36,7 +37,6 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigModel( builder );
             ConfigRequired( builder );
             ConfigEvents( builder );
-            ConfigStandalone( builder );
         }
 
         /// <summary>
@@ -44,6 +44,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigName( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
+            builder.AddAttribute( "[name]", _config.GetValue( AngularConst.BindName ) );
         }
 
         /// <summary>
@@ -110,14 +111,6 @@ namespace Util.Ui.Material.Forms.Renders {
             builder.AddAttribute( "(onBlur)", _config.GetValue( UiConst.OnBlur ) );
             builder.AddAttribute( "(onKeyup)", _config.GetValue( UiConst.OnKeyup ) );
             builder.AddAttribute( "(onKeydown)", _config.GetValue( UiConst.OnKeydown ) );
-        }
-
-        /// <summary>
-        /// 配置独立
-        /// </summary>
-        private void ConfigStandalone( TagBuilder builder ) {
-            if( _config.GetValue<bool>( UiConst.Standalone ) )
-                builder.AddAttribute( "[ngModelOptions]", "{standalone: true}" );
         }
     }
 }

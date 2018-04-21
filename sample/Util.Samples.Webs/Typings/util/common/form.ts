@@ -66,7 +66,9 @@ export class Form {
             .button(options.button)
             .loading(options.loading || false)
             .handle({
-                beforeHandler: options.beforeHandler,
+                beforeHandler: () => {
+                    return options.beforeHandler(options.data);
+                },
                 handler: result => {
                     this.submitHandler(options, result);
                 },
@@ -104,11 +106,11 @@ export class Form {
  */
 export interface IFormSubmitOption {
     /**
-     * 请求地址
+     * 服务端地址
      */
     url: string;
     /**
-     * 提交数据
+     * 数据
      */
     data;
     /**
@@ -153,10 +155,12 @@ export interface IFormSubmitOption {
     closeDialog?: boolean;
     /**
      * 提交前处理函数，返回false则取消提交
+     * @param data 数据
      */
-    beforeHandler?: () => boolean;
+    beforeHandler?: (data) => boolean;
     /**
      * 提交成功处理函数
+     * @param result 结果
      */
     handler?: (result) => void;
     /**

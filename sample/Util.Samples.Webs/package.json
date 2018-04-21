@@ -33,7 +33,8 @@
     "material-design-icons": "3.0.1",
     "primeng": "5.2.4",
     "moment": "2.22.0",
-    "lodash": "4.5.0" 
+    "lodash": "4.5.0",
+    "ng2-ckeditor": "1.2.0"
   },
   "devDependencies": {
     "@angular/compiler-cli": "5.2.9",

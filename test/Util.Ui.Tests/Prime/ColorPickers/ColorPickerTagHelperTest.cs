@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
+using Util.Ui.Material;
 using Util.Ui.Prime.ColorPickers.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -64,6 +66,17 @@ namespace Util.Ui.Tests.Prime.ColorPickers {
             var attributes = new TagHelperAttributeList { { UiConst.Name, "a" } };
             var result = new String();
             result.Append( "<p-colorPicker name=\"a\"></p-colorPicker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试添加绑定名称
+        /// </summary>
+        [Fact]
+        public void TestBindName() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindName, "a" } };
+            var result = new String();
+            result.Append( "<p-colorPicker [name]=\"a\"></p-colorPicker>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

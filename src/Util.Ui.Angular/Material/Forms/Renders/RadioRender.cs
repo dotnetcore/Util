@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Angular;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
@@ -66,6 +67,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigName( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
+            builder.AddAttribute( "[name]", _config.GetValue( AngularConst.BindName ) );
         }
 
         /// <summary>
@@ -134,8 +136,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置独立
         /// </summary>
         private void ConfigStandalone( TagBuilder builder ) {
-            if( _config.GetValue<bool>( UiConst.Standalone ) )
-                builder.AddAttribute( "[ngModelOptions]", "{standalone: true}" );
+            builder.AddAttribute( "[standalone]", _config.GetBoolValue( UiConst.Standalone ) );
         }
     }
 }

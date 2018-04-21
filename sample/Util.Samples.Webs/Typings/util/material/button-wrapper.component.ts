@@ -130,7 +130,7 @@ export class ButtonWrapperComponent implements IButton{
      * 初始化Mat按钮包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() private form: NgForm) {
+    constructor(@Optional() @Host() private form: NgForm) {
         this.type = "button";
         this.waitingText = MessageConfig.loading;
         this.waitingMatIcon = "donut_large";

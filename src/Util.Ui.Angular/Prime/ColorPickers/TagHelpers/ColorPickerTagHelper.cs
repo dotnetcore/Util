@@ -16,6 +16,10 @@ namespace Util.Ui.Prime.ColorPickers.TagHelpers {
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// 控件的绑定名称 [name]
+        /// </summary>
+        public string BindName { get; set; }
+        /// <summary>
         /// 模型绑定
         /// </summary>
         public string Model { get; set; }

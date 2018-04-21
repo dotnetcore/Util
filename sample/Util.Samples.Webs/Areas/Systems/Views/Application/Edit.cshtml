@@ -22,10 +22,13 @@
                 <util-layout class="mt30">
                     <util-slide-toggle for="RegisterEnabled"></util-slide-toggle>
                 </util-layout>
+                <util-layout flex="100%" class="mt30">
+                    <ckeditor [(ngModel)]="model.comment" [config]="{skin:'moono-lisa',uiColor:'#ffffff',extraPlugins: 'uploadimage'}" [readonly]="false" name="abcd" debounce="500"></ckeditor>
+                </util-layout>
             </util-card-content>
             <util-card-actions align="Right">
                 <util-button text="返回" styles="Default" on-click="back()"></util-button>
-                <util-button id="btnSubmit" type="Submit" color="Primary" ></util-button>
+                <util-button id="btnSubmit" type="Submit" color="Primary"></util-button>
             </util-card-actions>
         </util-card>
     </util-layout>

@@ -12,6 +12,10 @@
         /// </summary>
         public const string BindLink = "bind-link";
         /// <summary>
+        /// 名称属性绑定
+        /// </summary>
+        public const string BindName = "bind-name";
+        /// <summary>
         /// 文本属性绑定
         /// </summary>
         public const string BindText = "bind-text";

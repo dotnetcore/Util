@@ -73,6 +73,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试添加绑定名称
+        /// </summary>
+        [Fact]
+        public void TestBindName() {
+            var result = new String();
+            result.Append( "<mat-radio-wrapper [name]=\"a\"></mat-radio-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BindName( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试是否垂直布局
         /// </summary>
         [Fact]
@@ -178,7 +188,7 @@ namespace Util.Ui.Tests.Material.Forms {
         [Fact]
         public void TestStandalone() {
             var result = new String();
-            result.Append( "<mat-radio-wrapper [ngModelOptions]=\"{standalone: true}\"></mat-radio-wrapper>" );
+            result.Append( "<mat-radio-wrapper [standalone]=\"true\"></mat-radio-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Standalone() ) );
         }
 

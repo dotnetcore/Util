@@ -53,6 +53,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigResetOption( builder );
             ConfigMultiple( builder );
             ConfigTemplate( builder );
+            ConfigStandalone( builder );
         }
 
         /// <summary>
@@ -99,6 +100,13 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigTemplate( SelectWrapperBuilder builder ) {
             builder.AddAttribute( UiConst.Template, _config.GetValue( UiConst.Template ) );
+        }
+
+        /// <summary>
+        /// 配置独立
+        /// </summary>
+        private void ConfigStandalone( TagBuilder builder ) {
+            builder.AddAttribute( "[standalone]", _config.GetBoolValue( UiConst.Standalone ) );
         }
     }
 }

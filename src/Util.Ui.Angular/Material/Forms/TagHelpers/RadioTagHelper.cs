@@ -17,6 +17,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// 控件的绑定名称 [name]
+        /// </summary>
+        public string BindName { get; set; }
+        /// <summary>
         /// 是否垂直布局
         /// </summary>
         public bool Vertical { get; set; }
@@ -61,7 +65,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string OnChange { get; set; }
         /// <summary>
-        /// 在循环中创建表单组件时使用，设置了ngModel，但无法设置固定的name，可以使用该属性创建控件，这样创建的控件独立于FormGroup
+        /// 组件不添加到FormGroup，独立存在，这样也无法基于NgForm进行表单验证
         /// </summary>
         public bool Standalone { get; set; }
 
