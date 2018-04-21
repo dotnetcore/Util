@@ -200,8 +200,9 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Angular-Material-App](https://github.com/stbui/angular-material-app)
   - 编辑器
     - [CKEditor](https://ckeditor.com/ckeditor-4/)
-    - [TinyMce](https://github.com/tinymce/tinymce-angular)
+    - [TinyMce](https://www.tinymce.com/)
   - 脚本库
+    - [Lodash](https://lodash.com/)
     - [Moment](http://momentjs.cn/)
   - 图标
     - [Material Design Icon](https://material.io/icons/)

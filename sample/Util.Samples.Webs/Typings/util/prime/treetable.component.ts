@@ -79,6 +79,10 @@ import { Util as util } from '../util';
 })
 export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentInit {
     /**
+     * 仅在叶节点显示单选按钮
+     */
+    @Input() radioOnlyLeaf: boolean = false;
+    /**
      * 查询延迟
      */
     timeout;
@@ -580,7 +584,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                 }
                 else {
                     if (this.isSingleSelectionMode()) {
-                        if (!this.isLeaf(node))
+                        if (!this.showRadio(node))
                             return;
                         this.selection = new Array<T>(node);
                         this.onNodeSelect.emit({ originalEvent: event, node: node });
@@ -734,6 +738,12 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     isLeaf(node) {
         return node.leaf == false ? false : !(node.children && node.children.length);
     }
+
+    showRadio(node) {
+        if (this.radioOnlyLeaf && !this.isLeaf(node))
+            return false;
+        return true;
+    }
 }
 
 @Component({
@@ -749,8 +759,8 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                 </a>
                 <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
                     (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>                
-                <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" [ngStyle]="{'margin-left':-30 + 'px'}" 
-                    *ngIf="treeTable.selectionMode == 'single' && i==0 && isLeaf()" [checked]="isSelected()"></mat-radio-button>                
+                <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" [ngStyle]="getRadioStyle()" 
+                    *ngIf="treeTable.selectionMode == 'single' && i==0 && showRadio()" [checked]="isSelected()"></mat-radio-button>                
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
             </td>
@@ -794,6 +804,18 @@ export class UITreeRow<T extends TreeNode & ITreeNode> implements OnInit {
 
         event.preventDefault();
         event.stopPropagation();
+    }
+
+    showRadio() {
+        if (this.treeTable.radioOnlyLeaf && !this.isLeaf())
+            return false;
+        return true;
+    }
+
+    getRadioStyle() {
+        return {
+            'margin-left': this.isLeaf() ? '-30px' : '60px'
+        }
     }
 
     isLeaf() {
