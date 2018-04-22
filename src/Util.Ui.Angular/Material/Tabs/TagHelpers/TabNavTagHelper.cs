@@ -19,6 +19,10 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
         /// 主题色
         /// </summary>
         public Color Color { get; set; }
+        /// <summary>
+        /// *ngIf
+        /// </summary>
+        public string If { get; set; }
 
         /// <summary>
         /// 获取渲染器

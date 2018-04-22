@@ -7,7 +7,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Tabs.TagHelpers {
     /// <summary>
-    /// 导航选项卡
+    /// 导航选项卡，应放在 util-nav-tabs 标签中
     /// </summary>
     [HtmlTargetElement( "util-nav-tab",ParentTag = "util-nav-tabs" )]
     public class TabLinkTagHelper : TagHelperBase {
@@ -35,6 +35,10 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
         /// 禁用
         /// </summary>
         public string Disabled { get; set; }
+        /// <summary>
+        /// *ngIf
+        /// </summary>
+        public string If { get; set; }
 
         /// <summary>
         /// 获取渲染器

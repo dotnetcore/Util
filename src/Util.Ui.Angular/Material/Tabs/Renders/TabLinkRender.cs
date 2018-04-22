@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tabs.Builders;
 using Util.Ui.Renders;
@@ -41,6 +42,7 @@ namespace Util.Ui.Material.Tabs.Renders {
             ConfigLink( builder );
             ConfigCaption( builder );
             ConfigDisabled( builder );
+            ConfigAngular( builder );
         }
 
         /// <summary>
@@ -96,6 +98,13 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// </summary>
         private void ConfigDisabled( TagBuilder builder ) {
             builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
+        }
+
+        /// <summary>
+        /// 配置angular属性
+        /// </summary>
+        private void ConfigAngular( TagBuilder builder ) {
+            builder.NgIf( _config );
         }
     }
 }

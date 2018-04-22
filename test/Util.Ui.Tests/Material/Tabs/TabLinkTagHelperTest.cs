@@ -136,5 +136,16 @@ namespace Util.Ui.Tests.Material.Tabs {
             result.Append( "<a #m_id=\"routerLinkActive\" mat-tab-link=\"\" routerLinkActive=\"\" [active]=\"m_id.isActive\" [disabled]=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试ngIf
+        /// </summary>
+        [Fact]
+        public void TestIf() {
+            var attributes = new TagHelperAttributeList { { UiConst.If, "a" } };
+            var result = new String();
+            result.Append( "<a #m_id=\"routerLinkActive\" *ngIf=\"a\" mat-tab-link=\"\" routerLinkActive=\"\" [active]=\"m_id.isActive\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

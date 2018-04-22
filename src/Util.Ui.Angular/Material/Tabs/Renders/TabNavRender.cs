@@ -3,6 +3,7 @@ using System.Text.Encodings.Web;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Material.Tabs.Builders;
 using Util.Ui.Renders;
 
@@ -64,6 +65,7 @@ namespace Util.Ui.Material.Tabs.Renders {
             ConfigId( builder );
             ConfigContent( builder );
             ConfigColor( builder );
+            ConfigAngular( builder );
         }
 
         /// <summary>
@@ -72,6 +74,13 @@ namespace Util.Ui.Material.Tabs.Renders {
         private void ConfigColor( TagBuilder builder ) {
             builder.AddAttribute( "backgroundColor", _config.GetValue( UiConst.BackgroundColor )?.ToLower() );
             builder.AddAttribute( "color", _config.GetValue( UiConst.Color )?.ToLower() );
+        }
+
+        /// <summary>
+        /// 配置angular属性
+        /// </summary>
+        private void ConfigAngular( TagBuilder builder ) {
+            builder.NgIf( _config );
         }
     }
 }

@@ -32,6 +32,11 @@
         margin-bottom: 10px;
     }
 </style>
+<nav mat-tab-nav-bar="">
+    <a #m_86b1dd19af6c439ebaf577f657fb6df6="routerLinkActive" *ngIf="true" mat-tab-link="" routerLink="create" routerLinkActive="" [active]="m_86b1dd19af6c439ebaf577f657fb6df6.isActive" [disabled]="true">哈哈</a>
+    <a #m_f8ae19f770ae4c6cbabba5f6779d8872="routerLinkActive" *ngIf="true" mat-tab-link="" routerLink="create" routerLinkActive="" [active]="m_f8ae19f770ae4c6cbabba5f6779d8872.isActive">嘿嘿</a>
+</nav><router-outlet></router-outlet>
+
 <mat-accordion>
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
@@ -106,5 +111,3 @@
         </mat-cell>
     </ng-container>
 <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" style="display: none"></mat-header-row><mat-row (click)="tableApplication.selectedSelection.select(row)" *matRowDef="let row;columns:['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" class="mat-row-hover" matRipple="" [class.selected]="tableApplication.selectedSelection.isSelected(row)"></mat-row></mat-table></mat-table-wrapper>
-
-

@@ -8,6 +8,17 @@ namespace Util.Ui.Extensions {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
+        /// 添加NgIf指令
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        public static TBuilder NgIf<TBuilder>( this TBuilder builder, IConfig config ) where TBuilder : TagBuilder {
+            builder.AddAttribute( "*ngIf", config.GetValue( UiConst.If ) );
+            return builder;
+        }
+
+        /// <summary>
         /// 添加NgFor指令
         /// </summary>
         /// <typeparam name="TBuilder">生成器类型</typeparam>

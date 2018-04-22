@@ -107,7 +107,7 @@ namespace Util.Ui.FlexLayout.Renders {
         /// 配置angular属性
         /// </summary>
         private void ConfigAngular( TagBuilder builder ) {
-            builder.AddAttribute( "*ngIf", _config.GetValue( UiConst.If ));
+            builder.NgIf( _config );
         }
 
         /// <summary>

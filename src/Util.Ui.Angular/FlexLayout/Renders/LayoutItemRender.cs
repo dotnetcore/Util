@@ -2,6 +2,7 @@
 using Util.Ui.Angular;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.FlexLayout.Enums;
 using Util.Ui.Renders;
 
@@ -91,8 +92,8 @@ namespace Util.Ui.FlexLayout.Renders {
         /// 配置angular属性
         /// </summary>
         private void ConfigAngular( TagBuilder builder ) {
-            builder.AddAttribute( "*ngIf", _config.GetValue( UiConst.If ) );
-            builder.AddAttribute( "*ngFor", _config.GetValue( AngularConst.NgFor ) );
+            builder.NgIf( _config );
+            builder.NgFor( _config );
         }
     }
 }

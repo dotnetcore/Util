@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tabs.TagHelpers;
@@ -76,6 +77,17 @@ namespace Util.Ui.Tests.Material.Tabs {
             var attributes = new TagHelperAttributeList { { UiConst.Color, Color.Primary } };
             var result = new String();
             result.Append( "<nav color=\"primary\" mat-tab-nav-bar=\"\"></nav><router-outlet></router-outlet>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试ngIf
+        /// </summary>
+        [Fact]
+        public void TestIf() {
+            var attributes = new TagHelperAttributeList { { UiConst.If, "a" } };
+            var result = new String();
+            result.Append( "<nav *ngIf=\"a\" mat-tab-nav-bar=\"\"></nav><router-outlet></router-outlet>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
