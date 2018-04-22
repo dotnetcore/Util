@@ -8,6 +8,10 @@
         /// </summary>
         Single,
         /// <summary>
+        /// 单选,仅能选择叶节点
+        /// </summary>
+        SingleLeafOnly,
+        /// <summary>
         /// 多选
         /// </summary>
         Multiple

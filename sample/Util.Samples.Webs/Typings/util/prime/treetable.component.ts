@@ -81,7 +81,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     /**
      * 仅在叶节点显示单选按钮
      */
-    @Input() radioOnlyLeaf: boolean = false;
+    @Input() leafOnly: boolean;
     /**
      * 查询延迟
      */
@@ -740,7 +740,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
     }
 
     showRadio(node) {
-        if (this.radioOnlyLeaf && !this.isLeaf(node))
+        if (this.leafOnly && !this.isLeaf(node))
             return false;
         return true;
     }
@@ -807,15 +807,15 @@ export class UITreeRow<T extends TreeNode & ITreeNode> implements OnInit {
     }
 
     showRadio() {
-        if (this.treeTable.radioOnlyLeaf && !this.isLeaf())
+        if (this.treeTable.leafOnly && !this.isLeaf())
             return false;
         return true;
     }
 
     getRadioStyle() {
-        return {
-            'margin-left': this.isLeaf() ? '-30px' : '60px'
-        }
+        if (this.treeTable.leafOnly)
+            return { 'margin-left': '-30px' };
+        return { 'margin-left': this.isLeaf() ? '-4px' : '-4px' };
     }
 
     isLeaf() {

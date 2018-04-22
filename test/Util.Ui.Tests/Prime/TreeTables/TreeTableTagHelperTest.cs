@@ -134,6 +134,18 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         }
 
         /// <summary>
+        /// 测试仅能选叶节点
+        /// </summary>
+        [Fact]
+        public void TestSelectionMode_SingleLeafOnly() {
+            var attributes = new TagHelperAttributeList { { UiConst.SelectionMode, SelectionMode.SingleLeafOnly } };
+            var result = new String();
+            result.Append( "<p-tree-table #id=\"\" key=\"id\" selectionMode=\"single\" [leafOnly]=\"true\">" );
+            result.Append( "</p-tree-table>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试自动加载
         /// </summary>
         [Fact]

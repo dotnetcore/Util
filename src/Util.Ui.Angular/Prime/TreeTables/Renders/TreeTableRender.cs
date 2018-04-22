@@ -87,6 +87,10 @@ namespace Util.Ui.Prime.TreeTables.Renders {
                 case SelectionMode.Single:
                     builder.AddAttribute( "selectionMode", "single" );
                     return;
+                case SelectionMode.SingleLeafOnly:
+                    builder.AddAttribute( "selectionMode", "single" );
+                    builder.AddAttribute( "[leafOnly]", "true" );
+                    return;
             }
         }
 
