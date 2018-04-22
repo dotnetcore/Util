@@ -23,7 +23,7 @@
                     <util-slide-toggle for="RegisterEnabled"></util-slide-toggle>
                 </util-layout>
                 <util-layout flex="100%" class="mt30">
-                    <ckeditor [(ngModel)]="model.comment" [config]="{skin:'moono-lisa',uiColor:'#ffffff',extraPlugins: 'uploadimage'}" [readonly]="false" name="abcd" debounce="500"></ckeditor>
+                    <ckeditor [(ngModel)]="model.comment" [config]="{skin:'moono-lisa',uiColor:'#ffffff',filebrowserUploadUrl: '/api/upload'}" [readonly]="false" name="abcd"></ckeditor>
                 </util-layout>
             </util-card-content>
             <util-card-actions align="Right">

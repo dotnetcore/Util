@@ -67,7 +67,7 @@ export class Form {
             .loading(options.loading || false)
             .handle({
                 beforeHandler: () => {
-                    return options.beforeHandler(options.data);
+                    return options.beforeHandler && options.beforeHandler(options.data);
                 },
                 handler: result => {
                     this.submitHandler(options, result);

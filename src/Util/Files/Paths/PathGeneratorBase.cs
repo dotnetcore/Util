@@ -42,7 +42,7 @@ namespace Util.Files.Paths {
         /// </summary>
         private string GetFileName( string fileName ) {
             var name = Path.GetFileNameWithoutExtension( fileName );
-            var extension = Path.GetExtension( fileName ).TrimStart( '.' );
+            var extension = Path.GetExtension( fileName )?.TrimStart( '.' );
             if( string.IsNullOrWhiteSpace( extension ) ) {
                 extension = fileName;
                 name = string.Empty;

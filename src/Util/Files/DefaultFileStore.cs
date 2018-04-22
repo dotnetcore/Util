@@ -1,5 +1,8 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
+using Util.Exceptions;
 using Util.Files.Paths;
+using Util.Helpers;
 
 namespace Util.Files {
     /// <summary>
@@ -20,13 +23,19 @@ namespace Util.Files {
         }
 
         /// <summary>
-        /// 保存文件,返回完整文件路径
+        /// 保存文件,返回完整文件路径 w
         /// </summary>
-        /// <param name="stream">文件流</param>
-        /// <param name="fileName">文件名，包含扩展名</param>
-        public string Save( byte[] stream, string fileName ) {
-            var path = _generator.Generate( fileName );
-            using ( new FileStream( path, FileMode.Create ) ) {
+        public async Task<string> SaveAsync() {
+            var fileControl = Web.GetFile();
+            var path = _generator.Generate( fileControl.FileName );
+            var physicalPath = Common.GetWebRootPath( path );
+            var directory = Path.GetDirectoryName( physicalPath );
+            if( string.IsNullOrEmpty( directory ) )
+                throw new Warning( "上传失败" );
+            if( Directory.Exists( directory ) == false )
+                Directory.CreateDirectory( directory );
+            using( var stream = new FileStream( physicalPath, FileMode.Create ) ) {
+                await fileControl.CopyToAsync( stream );
             }
             return path;
         }

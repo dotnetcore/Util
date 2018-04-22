@@ -13,7 +13,7 @@
         public FileInfo( string path, long? size, string fileName = null, string id = null ) {
             Path = path;
             Size = new FileSize( size.SafeValue() );
-            Extension = System.IO.Path.GetExtension( path ).TrimStart( '.' );
+            Extension = System.IO.Path.GetExtension( path )?.TrimStart( '.' );
             FileName = string.IsNullOrWhiteSpace( fileName ) ? System.IO.Path.GetFileName( path ) : fileName;
             Id = id;
         }

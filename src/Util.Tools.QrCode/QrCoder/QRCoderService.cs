@@ -1,4 +1,5 @@
-﻿using QRCoder;
+﻿using System;
+using QRCoder;
 using Util.Files;
 
 namespace Util.Tools.QrCode.QrCoder {
@@ -74,7 +75,7 @@ namespace Util.Tools.QrCode.QrCoder {
         /// <param name="content">内容</param>
         public string Save( string content ) {
             var qrCode = CreateQrCode( content );
-            return _fileStore.Save( qrCode, "jpg" );
+            throw new NotImplementedException();
         }
 
         /// <summary>

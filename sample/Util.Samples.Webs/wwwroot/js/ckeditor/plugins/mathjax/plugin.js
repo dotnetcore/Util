@@ -1,5 +1,5 @@
 ﻿/*
- Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
  For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 (function(){CKEDITOR.plugins.add("mathjax",{lang:"af,ar,az,bg,ca,cs,cy,da,de,de-ch,el,en,en-au,en-gb,eo,es,es-mx,eu,fa,fi,fr,gl,he,hr,hu,id,it,ja,km,ko,ku,lt,nb,nl,no,oc,pl,pt,pt-br,ro,ru,sk,sl,sq,sv,tr,tt,ug,uk,vi,zh,zh-cn",requires:"widget,dialog",icons:"mathjax",hidpi:!0,init:function(b){var c=b.config.mathJaxClass||"math-tex";b.config.mathJaxLib||CKEDITOR.error("mathjax-no-config");b.widgets.add("mathjax",{inline:!0,dialog:"mathjax",button:b.lang.mathjax.button,mask:!0,allowedContent:"span(!"+

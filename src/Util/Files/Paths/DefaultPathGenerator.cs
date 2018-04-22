@@ -1,6 +1,4 @@
-﻿using System.IO;
-using Util.Helpers;
-using Util.Randoms;
+﻿using Util.Randoms;
 
 namespace Util.Files.Paths {
     /// <summary>
@@ -22,11 +20,11 @@ namespace Util.Files.Paths {
         }
 
         /// <summary>
-        /// 创建完整路径
+        /// 创建路径
         /// </summary>
         /// <param name="fileName">被处理过的安全有效的文件名</param>
         protected override string GeneratePath( string fileName ) {
-            return Common.GetPhysicalPath( Path.Combine( _basePath.GetPath(), fileName ) );
+            return $"{_basePath.GetPath()}/{fileName}";
         }
     }
 }
