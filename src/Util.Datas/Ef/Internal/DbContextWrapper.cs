@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Core;
-using Util.Datas.Queries;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
 using Util.Domains.Repositories;
@@ -68,7 +67,7 @@ namespace Util.Datas.Ef.Internal {
         public async Task<TEntity> FindAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( id == null )
                 return null;
-            return await Set.FindAsync( new [] { id }, cancellationToken );
+            return await Set.FindAsync( new[] { id }, cancellationToken );
         }
 
         /// <summary>
@@ -172,18 +171,7 @@ namespace Util.Datas.Ef.Internal {
         /// </summary>
         /// <param name="query">查询对象</param>
         public PagerList<TEntity> PagerQuery( IQueryBase<TEntity> query ) {
-            var pager = query.GetPager();
-            return GetPagerQueryResult( Find(), query, pager ).ToPagerList( pager );
-        }
-
-        /// <summary>
-        /// 获取分页查询结果
-        /// </summary>
-        private IQueryable<TEntity> GetPagerQueryResult( IQueryable<TEntity> queryable, IQueryBase<TEntity> query, IPager pager ) {
-            var order = pager.Order;
-            if( string.IsNullOrWhiteSpace( order ) )
-                order = "Id";
-            return queryable.Where( query ).OrderBy( order ).Pager( pager );
+            return Find().Where( query ).ToPagerList( query.GetPager() );
         }
 
         /// <summary>
@@ -191,8 +179,7 @@ namespace Util.Datas.Ef.Internal {
         /// </summary>
         /// <param name="query">查询对象</param>
         public async Task<PagerList<TEntity>> PagerQueryAsync( IQueryBase<TEntity> query ) {
-            var pager = query.GetPager();
-            return await GetPagerQueryResult( Find(), query, pager ).ToPagerListAsync( pager );
+            return await Find().Where( query ).ToPagerListAsync( query.GetPager() );
         }
 
         /// <summary>
@@ -200,8 +187,7 @@ namespace Util.Datas.Ef.Internal {
         /// </summary>
         /// <param name="query">查询对象</param>
         public PagerList<TEntity> PagerQueryAsNoTracking( IQueryBase<TEntity> query ) {
-            var pager = query.GetPager();
-            return GetPagerQueryResult( FindAsNoTracking(), query, pager ).ToPagerList( pager );
+            return FindAsNoTracking().Where( query ).ToPagerList( query.GetPager() );
         }
 
         /// <summary>
@@ -209,8 +195,7 @@ namespace Util.Datas.Ef.Internal {
         /// </summary>
         /// <param name="query">查询对象</param>
         public async Task<PagerList<TEntity>> PagerQueryAsNoTrackingAsync( IQueryBase<TEntity> query ) {
-            var pager = query.GetPager();
-            return await GetPagerQueryResult( FindAsNoTracking(), query, pager ).ToPagerListAsync( pager );
+            return await FindAsNoTracking().Where( query ).ToPagerListAsync( query.GetPager() );
         }
 
         /// <summary>
@@ -298,7 +283,7 @@ namespace Util.Datas.Ef.Internal {
         /// 删除
         /// </summary>
         private void Delete( TEntity entity ) {
-            if ( entity == null )
+            if( entity == null )
                 return;
             if( entity is IDelete model ) {
                 model.IsDeleted = true;
@@ -348,7 +333,7 @@ namespace Util.Datas.Ef.Internal {
         /// 删除实体集合
         /// </summary>
         private void Delete( List<TEntity> list ) {
-            if ( list == null )
+            if( list == null )
                 return;
             if( !list.Any() )
                 return;

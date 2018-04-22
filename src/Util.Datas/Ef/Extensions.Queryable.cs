@@ -10,7 +10,7 @@ namespace Util.Datas.Ef {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// 转换为分页列表
+        /// 转换为分页列表，包含排序分页操作
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="source">数据源</param>
@@ -20,9 +20,7 @@ namespace Util.Datas.Ef {
                 throw new ArgumentNullException( nameof( source ) );
             if( pager == null )
                 throw new ArgumentNullException( nameof( pager ) );
-            var result = new PagerList<TEntity>( pager );
-            result.AddRange( await source.ToListAsync() );
-            return result;
+            return new PagerList<TEntity>( pager, await source.Page( pager ).ToListAsync() );
         }
     }
 }

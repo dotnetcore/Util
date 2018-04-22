@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using Util.Datas.Queries;
 using Util.Datas.Queries.Criterias;
 using Util.Datas.Queries.Internal;
 using Util.Domains.Repositories;
 
-namespace Util.Datas.Queries {
+namespace Util {
     /// <summary>
     /// 查询扩展
     /// </summary>
-    public static class Extensions {
+    public static partial class Extensions {
         /// <summary>
         /// 添加查询条件
         /// </summary>
@@ -126,23 +128,25 @@ namespace Util.Datas.Queries {
         }
 
         /// <summary>
-        /// 分页
+        /// 分页，包含排序
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="source">数据源</param>
         /// <param name="pager">分页对象</param>
-        public static IQueryable<TEntity> Pager<TEntity>( this IQueryable<TEntity> source, IPager pager ) {
+        public static IQueryable<TEntity> Page<TEntity>( this IQueryable<TEntity> source, IPager pager ) {
             if( source == null )
                 throw new ArgumentNullException( nameof( source ) );
             if( pager == null )
                 throw new ArgumentNullException( nameof( pager ) );
+            if( string.IsNullOrWhiteSpace( pager.Order ) )
+                pager.Order = "Id";
             if( pager.TotalCount <= 0 )
                 pager.TotalCount = source.Count();
-            return source.Skip( pager.GetSkipCount() ).Take( pager.PageSize );
+            return source.OrderBy( pager.Order ).Skip( pager.GetSkipCount() ).Take( pager.PageSize );
         }
 
         /// <summary>
-        /// 转换为分页列表
+        /// 转换为分页列表，包含排序分页操作
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="source">数据源</param>
@@ -152,9 +156,7 @@ namespace Util.Datas.Queries {
                 throw new ArgumentNullException( nameof( source ) );
             if( pager == null )
                 throw new ArgumentNullException( nameof( pager ) );
-            var result = new PagerList<TEntity>( pager );
-            result.AddRange( source.ToList() );
-            return result;
+            return new PagerList<TEntity>( pager, source.Page( pager ).ToList() );
         }
     }
 }

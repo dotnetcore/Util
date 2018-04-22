@@ -117,11 +117,20 @@ namespace Util.Applications {
         /// 查询
         /// </summary>
         /// <param name="parameter">查询参数</param>
+        public async Task<List<TDto>> QueryAsync( TQueryParameter parameter ) {
+            if( parameter == null )
+                return new List<TDto>();
+            return ( await ExecuteQuery( parameter ).ToListAsync() ).Select( ToDto ).ToList();
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="parameter">查询参数</param>
         public List<TDto> Query( TQueryParameter parameter ) {
             if( parameter == null )
                 return new List<TDto>();
-            var queryable = ExecuteQuery( parameter );
-            return queryable.ToList().Select( ToDto ).ToList();
+            return ExecuteQuery( parameter ).ToList().Select( ToDto ).ToList();
         }
 
         /// <summary>
@@ -161,18 +170,6 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 查询
-        /// </summary>
-        /// <param name="parameter">查询参数</param>
-        public async Task<List<TDto>> QueryAsync( TQueryParameter parameter ) {
-            if( parameter == null )
-                return new List<TDto>();
-            var queryable = ExecuteQuery( parameter );
-            var entities = await queryable.ToListAsync();
-            return entities.Select( ToDto ).ToList();
-        }
-
-        /// <summary>
         /// 分页查询
         /// </summary>
         /// <param name="parameter">查询参数</param>
@@ -180,20 +177,9 @@ namespace Util.Applications {
             if( parameter == null )
                 return new PagerList<TDto>();
             var query = CreateQuery( parameter );
-            var pager = query.GetPager();
-            return ExecutePagerQuery( query, pager, parameter ).ToPagerList( pager ).Convert( ToDto );
-        }
-
-        /// <summary>
-        /// 执行分页查询
-        /// </summary>
-        private IQueryable<TEntity> ExecutePagerQuery( IQueryBase<TEntity> query, IPager pager, TQueryParameter parameter ) {
             var queryable = Filter( query );
             queryable = Filter( queryable, parameter );
-            var order = query.GetOrder();
-            if( string.IsNullOrWhiteSpace( order ) )
-                order = "Id";
-            return queryable.OrderBy( order ).Pager( pager );
+            return queryable.ToPagerList( query.GetPager() ).Convert( ToDto );
         }
 
         /// <summary>
@@ -204,10 +190,9 @@ namespace Util.Applications {
             if( parameter == null )
                 return new PagerList<TDto>();
             var query = CreateQuery( parameter );
-            var pager = query.GetPager();
-            var queryable = ExecutePagerQuery( query, pager, parameter );
-            var result = await queryable.ToPagerListAsync( pager );
-            return result.Convert( ToDto );
+            var queryable = Filter( query );
+            queryable = Filter( queryable, parameter );
+            return ( await queryable.ToPagerListAsync( query.GetPager() ) ).Convert( ToDto );
         }
     }
 }
