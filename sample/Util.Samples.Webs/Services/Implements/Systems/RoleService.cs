@@ -68,7 +68,6 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
             return new Query<Role>( param )
                 .Or( t => t.Name.Contains( param.Keyword ),
                     t => t.Code.Contains( param.Keyword ), 
-                    t => t.PinYin.Contains( param.Keyword ), 
                     t => t.PinYin.Contains( param.Keyword ) );
         }
     }
