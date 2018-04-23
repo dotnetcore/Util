@@ -3,6 +3,8 @@
 <%@ Assembly Src="..\..\..\Common\Model.cs" %>
 <%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
 
+<%@ Register Name="TreeIndexView" Template="TreeIndexView.cst" MergeProperties="False" ExcludeProperties="" %>
+
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="System.Text" %>
@@ -17,6 +19,16 @@
 <% string Description = Entity.Description; %>
 <%-- 驼峰形式类名 --%>
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
+<%-- 如果是树型实体，则调用子模板 --%>
+<%
+if( Entity.IsTreeEntity() ){
+    CodeTemplate template =new TreeIndexView();
+    template.SetProperty("Namespace",Namespace);
+    template.SetProperty("Entity",Entity);
+    template.Render(this.Response);
+    return;
+}
+%>
 @model <%=SafeClassName%>Dto
 
 <style>
@@ -54,14 +66,11 @@
     </util-button>
 </util-toolbar>
 
-<util-table id="table_<%=SafeClassName%>" max-height="700" query-param="queryParam" on-query-restore="restoreQueryParam($event)" base-url="<%=CamelClassName%>" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
+<util-table id="table_<%=SafeClassName%>" max-height="700" base-url="<%=CamelClassName%>" query-param="queryParam" on-query-restore="restoreQueryParam($event)" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
     <util-table-column type="Checkbox"></util-table-column>
     <util-table-column type="LineNumber"></util-table-column>
     <% foreach(Property p in Entity.Properties) { %>
     <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
-    <% if( p.ColumnName.ToLower() == "creationtime" ) { %>
-    <util-table-column for="<%= p.PropertyName.ToSafeName() %>" sort="true"></util-table-column>
-    <%continue; } %>
     <% if( Entity.IsHidden(p) ) continue; %>
     <util-table-column for="<%= p.PropertyName.ToSafeName() %>" sort="true"></util-table-column>
     <% } %>

@@ -125,7 +125,7 @@ export class Dialog {
  */
 export interface IDialogOption {
     /**
-     * 弹出层组件，该组件应添加到根模块 NgModule 装饰器的 entryComponents 配置节，默认使用 DialogWrapperComponent，
+     * 弹出层组件，该组件应添加到模块 NgModule 装饰器的 entryComponents 配置节，默认使用 DialogWrapperComponent，
      */
     dialogComponent?,
     /**
@@ -137,7 +137,7 @@ export interface IDialogOption {
      */
     title?: string,
     /**
-     * 自定义数据，使用 MAT_DIALOG_DATA 标记注入到弹出层组件构造函数中，范例：@Inject(MAT_DIALOG_DATA) private data
+     * 自定义数据，使用 MAT_DIALOG_DATA 标记注入到弹出层组件构造函数中
      */
     data?,
     /**

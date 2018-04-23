@@ -28,21 +28,21 @@ namespace <%= Namespace %>.Areas.<%= Schema %>.Controllers {
         /// <summary>
         /// 首页
         /// </summary>
-        public virtual IActionResult Index() {
+        public IActionResult Index() {
             return View();
         }
         
         /// <summary>
         /// 编辑页
         /// </summary>
-        public virtual IActionResult Edit() {
+        public IActionResult Edit() {
             return View();
         }
         
         /// <summary>
         /// 详细页
         /// </summary>
-        public virtual IActionResult Detail() {
+        public IActionResult Detail() {
             return View();
         }
     }

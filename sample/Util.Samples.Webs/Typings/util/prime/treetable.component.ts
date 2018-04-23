@@ -372,7 +372,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
      * 获取复选框被选中实体列表
      */
     getChecked(): T[] {
-        return this.selection;
+        return this.selection.map(node => node && node.data);
     }
 
     /**
@@ -380,6 +380,16 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
      */
     getCheckedIds(): string {
         return this.selection.map(node => node && node.data && node.data.id).join(",");
+    }
+
+    /**
+     * 获取单选框选中的单个实体
+     */
+    getSingleChecked(): T {
+        let checkedNodes = this.getChecked();
+        if (!checkedNodes || checkedNodes.length === 0)
+            return null;
+        return checkedNodes[0];
     }
 
     /**

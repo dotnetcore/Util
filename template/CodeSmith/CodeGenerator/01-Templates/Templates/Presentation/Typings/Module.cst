@@ -38,11 +38,6 @@ import { <%= entity.ClassName.ToSafeName() %>DetailComponent } from './<%= entit
     ],
     imports: [
         FrameworkModule,<%=Entity.TableSchema.ToSingular()%>RoutingModule
-    ],
-    exports: [
-        <% foreach(Entity entity in EntityContext.Entities) {%>
-        <%= entity.ClassName.ToSafeName() %>IndexComponent,<%= entity.ClassName.ToSafeName() %>EditComponent,<%= entity.ClassName.ToSafeName() %>DetailComponent,
-        <%} %>
     ]
 })
 export class <%=Entity.TableSchema.ToSingular()%>Module {

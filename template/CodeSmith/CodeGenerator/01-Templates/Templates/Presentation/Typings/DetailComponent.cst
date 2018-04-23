@@ -18,9 +18,9 @@
 <%-- 驼峰形式类名 --%>
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 import { Component, Injector } from '@angular/core';
+import { env } from '../../env';
 import { CrudEditComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-model';
-import { env } from '../../env';
 
 /**
  * <%=Description%>详细页

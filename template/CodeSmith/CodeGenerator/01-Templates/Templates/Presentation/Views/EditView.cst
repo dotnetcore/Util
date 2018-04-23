@@ -19,7 +19,7 @@
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 @model <%=SafeClassName%>Dto
 
-<util-form id="form" on-submit="submit(form)">
+<util-form id="form" on-submit="submit(form,btnSubmit)">
     <util-card>
         <util-card-header>
             编辑<%=Description%>
@@ -39,7 +39,7 @@
         </util-card-content>
         <util-card-actions align="Right">
             <util-button text="返回" styles="Default" on-click="back()"></util-button>
-            <util-button type="Submit" color="Primary"></util-button>
+            <util-button id="btnSubmit" type="Submit" color="Primary"></util-button>
         </util-card-actions>
     </util-card>
 </util-form>
