@@ -29,6 +29,11 @@ namespace Util.Ui.Configs {
         /// <param name="name">属性名</param>
         string GetValue( string name );
         /// <summary>
+        /// 获取属性值，无值则返回null
+        /// </summary>
+        /// <param name="name">属性名</param>
+        string GetValueOrNull( string name );
+        /// <summary>
         /// 获取属性值
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>

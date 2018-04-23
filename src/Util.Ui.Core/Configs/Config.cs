@@ -95,6 +95,14 @@ namespace Util.Ui.Configs {
         }
 
         /// <summary>
+        /// 获取属性值，无值则返回null
+        /// </summary>
+        /// <param name="name">属性名</param>
+        public string GetValueOrNull( string name ) {
+            return Contains( name ) ? AllAttributes[name].Value.SafeString() : null;
+        }
+
+        /// <summary>
         /// 获取属性值
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>

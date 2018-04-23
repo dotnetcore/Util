@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Util.Ui.CkEditor;
 using Util.Ui.Components;
 namespace Util.Ui.Services {
     /// <summary>
@@ -42,5 +43,11 @@ namespace Util.Ui.Services {
         /// <typeparam name="TProperty">属性类型</typeparam>
         /// <param name="expression">属性表达式</param>
         IColorPicker ColorPicker<TProperty>( Expression<Func<TModel, TProperty>> expression );
+        /// <summary>
+        /// 富文本框编辑器
+        /// </summary>
+        /// <typeparam name="TProperty">属性类型</typeparam>
+        /// <param name="expression">属性表达式</param>
+        IEditor Editor<TProperty>( Expression<Func<TModel, TProperty>> expression );
     }
 }

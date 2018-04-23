@@ -47,7 +47,9 @@ export class ApplicationEditComponent extends CrudEditComponentBase<ApplicationV
             data: this.model,
             form: form,
             button: button,
-            back: false
+            handler: () => {
+                this.util.router.navigate(['systems','application']);
+            }
         });
     }
 }

@@ -12,9 +12,6 @@
                 <div fxLayout="row"><div fxFlex="100%">
                     <mat-textbox-wrapper name="name" placeholder="应用程序名称" requiredMessage="应用程序名称不能为空" [(model)]="model&&model.name" [maxLength]="200" [required]="true"></mat-textbox-wrapper>
                 </div></div>
-                <div fxLayout="row"><div fxFlex="100%">
-                    <mat-textbox-wrapper name="comment" placeholder="备注" [(model)]="model&&model.comment" [maxLength]="500"></mat-textbox-wrapper>
-                </div></div>
                 <div class="mt30" fxLayout="row">
                     <mat-slide-toggle name="enabled" [(ngModel)]="model&&model.enabled">启用</mat-slide-toggle>
                 </div>
@@ -22,7 +19,7 @@
                     <mat-slide-toggle name="registerEnabled" [(ngModel)]="model&&model.registerEnabled">启用注册</mat-slide-toggle>
                 </div>
                 <div class="mt30" fxLayout="row"><div fxFlex="100%">
-                    <ckeditor [(ngModel)]="model.comment" [config]="{skin:'moono-lisa',uiColor:'#ffffff',filebrowserUploadUrl: '/api/upload'}" [readonly]="false" name="abcd"></ckeditor>
+                    <ckeditor name="comment" [(ngModel)]="model&&model.comment" [config]="{'filebrowserUploadUrl':'/api/upload'}"></ckeditor>
                 </div></div>
             </mat-card-content>
             <mat-card-actions align="end">

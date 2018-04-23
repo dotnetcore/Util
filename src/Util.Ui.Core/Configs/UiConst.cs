@@ -415,5 +415,9 @@
         /// 独立
         /// </summary>
         public const string Standalone = "standalone";
+        /// <summary>
+        /// 上传地址
+        /// </summary>
+        public const string UploadUrl = "upload-url";
     }
 }

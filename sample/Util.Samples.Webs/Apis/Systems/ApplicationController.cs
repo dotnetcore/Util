@@ -23,12 +23,12 @@ namespace Util.Samples.Webs.Apis.Systems {
         public IApplicationService ApplicationService { get; }
 
         protected override void PagerQueryBefore( ApplicationQuery query ) {
-            Thread.Sleep( 3000 );
+            //Thread.Sleep( 3000 );
             base.PagerQueryBefore( query );
         }
 
         protected override void CreateBefore( ApplicationDto dto ) {
-            Thread.Sleep( 3000 );
+            //Thread.Sleep( 3000 );
             base.CreateBefore( dto );
         }
     }

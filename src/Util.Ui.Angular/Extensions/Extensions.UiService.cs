@@ -1,4 +1,5 @@
 ﻿using System;
+using Util.Ui.CkEditor;
 using Util.Ui.Components;
 using Util.Ui.Material.Buttons;
 using Util.Ui.Material.Forms;
@@ -84,6 +85,14 @@ namespace Util.Ui.Extensions {
         /// <param name="service">组件服务</param>
         public static ITextBox TextBox<TModel>( this IUiService<TModel> service ) {
             return new TextBox();
+        }
+
+        /// <summary>
+        /// 富文本框编辑器
+        /// </summary>
+        /// <param name="service">组件服务</param>
+        public static IEditor Editor<TModel>( this IUiService<TModel> service ) {
+            return new Editor();
         }
 
         /// <summary>

@@ -13,9 +13,6 @@
                 <util-layout flex="100%">
                     <util-textbox for="Name"></util-textbox>
                 </util-layout>
-                <util-layout flex="100%">
-                    <util-textbox for="Comment"></util-textbox>
-                </util-layout>
                 <util-layout class="mt30">
                     <util-slide-toggle for="Enabled"></util-slide-toggle>
                 </util-layout>
@@ -23,7 +20,7 @@
                     <util-slide-toggle for="RegisterEnabled"></util-slide-toggle>
                 </util-layout>
                 <util-layout flex="100%" class="mt30">
-                    <ckeditor [(ngModel)]="model.comment" [config]="{skin:'moono-lisa',uiColor:'#ffffff',filebrowserUploadUrl: '/api/upload'}" [readonly]="false" name="abcd"></ckeditor>
+                    <util-editor for="Comment" upload-url="/api/upload"></util-editor>
                 </util-layout>
             </util-card-content>
             <util-card-actions align="Right">
