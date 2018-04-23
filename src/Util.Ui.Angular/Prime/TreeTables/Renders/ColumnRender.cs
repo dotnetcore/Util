@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
@@ -68,6 +69,18 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         /// </summary>
         private void ConfigColumn( TagBuilder builder ) {
             builder.AddAttribute( "field", _config.GetValue( UiConst.Column ) );
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected override void ConfigContent( TagBuilder builder ) {
+            if( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
+                return;
+            TemplateBuilder template = new TemplateBuilder();
+            template.AddAttribute( "let-row", "rowData" );
+            template.AppendContent( _config.Content );
+            builder.AppendContent( template );
         }
     }
 }

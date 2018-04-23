@@ -20,4 +20,9 @@
     <p-column field="code" header="角色编码"></p-column>
     <p-column field="name" header="角色名称"></p-column>
     <p-column field="comment" header="备注"></p-column>
+    <p-column header="操作"><ng-template let-row="rowData">
+        <mat-button-wrapper (onClick)="delete(row.data.id)" style="mat-icon-button" tooltip="删除"><ng-template>
+            <mat-icon>delete</mat-icon>
+        </ng-template></mat-button-wrapper>
+    </ng-template></p-column>
 </p-tree-table>

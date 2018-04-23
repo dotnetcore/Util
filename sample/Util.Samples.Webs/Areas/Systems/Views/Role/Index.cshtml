@@ -21,4 +21,9 @@
     <util-tree-table-column for="Code"></util-tree-table-column>
     <util-tree-table-column for="Name"></util-tree-table-column>
     <util-tree-table-column for="Comment"></util-tree-table-column>
+    <util-tree-table-column title="操作">
+        <util-button styles="Icon" tooltip="删除" on-click="delete(row.data.id)">
+            <util-icon material-icon="Delete"></util-icon>
+        </util-button>
+    </util-tree-table-column>
 </util-tree-table>

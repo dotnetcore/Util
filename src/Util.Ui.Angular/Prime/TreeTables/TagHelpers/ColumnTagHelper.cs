@@ -7,7 +7,7 @@ using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Prime.TreeTables.TagHelpers {
     /// <summary>
-    /// 树型表格列，该标签应放在 util-tree-table 中
+    /// 树型表格列，该标签应放在 util-tree-table 中，引用变量为row,访问属性使用 row.data.属性名
     /// </summary>
     [HtmlTargetElement( "util-tree-table-column", ParentTag = "util-tree-table" )]
     public class ColumnTagHelper : TagHelperBase {
