@@ -15,12 +15,12 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-import { TreeNode } from '../../../../util';
+import { TreeViewModel } from '../../../../util';
 
 /**
  * <%=Entity.Description%>视图模型
  */
-export class <%=SafeClassName%>ViewModel extends TreeNode {
+export class <%=SafeClassName%>ViewModel extends TreeViewModel {
     <% foreach(Property p in Entity.Properties) { %>
     <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
     /**

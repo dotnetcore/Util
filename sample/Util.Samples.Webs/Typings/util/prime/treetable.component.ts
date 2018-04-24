@@ -11,7 +11,7 @@ import { MatCommonModule, MatCheckboxModule, MatPaginatorModule, MatProgressBarM
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
-import { ITreeNode, LoadOperation, TreeQueryParameter } from '../core/tree';
+import { TreeViewModel, TreeQueryParameter } from '../core/tree';
 import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
 import { Util as util } from '../util';
@@ -77,7 +77,7 @@ import { Util as util } from '../util';
     `],
     providers: [DomHandler]
 })
-export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentInit {
+export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterContentInit {
     /**
      * 仅在叶节点显示单选按钮
      */
@@ -135,9 +135,9 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
      */
     @Input() queryParam: TreeQueryParameter;
     /**
-     * 查询参数还原事件
+     * 查询参数变更事件
      */
-    @Output() onQueryRestore = new EventEmitter<TreeQueryParameter>();
+    @Output() queryParamChange = new EventEmitter<TreeQueryParameter>();
     /**
      * 分页组件
      */
@@ -265,7 +265,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         if (!query)
             return;
         this.queryParam = query;
-        this.onQueryRestore.emit(query);
+        this.queryParamChange.emit(query);
     }
 
     /**
@@ -277,7 +277,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
             this.dataSource = result.data;
             this.paginator.pageIndex = result.page - 1;
             this.totalCount = result.totalCount;
-            this.selection = new Array<T>();
+            util.helper.clear(this.selection);
         });
     }
 
@@ -341,7 +341,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         this.initPage();
         this.queryParam.order = this.initOrder;
         this.dic.remove(this.key);
-        this.selection = new Array<T>();
+        util.helper.clear(this.selection);
         this.query();
     }
 
@@ -354,7 +354,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
             return;
         if (node.children)
             return;
-        this.queryParam["operation"] = LoadOperation.LoadChild;
+        this.queryParam["operation"] = "LoadChild";
         this.queryParam.parentId = node.data.id;
         this.sendQuery(result => {
             if (result && result.data && result.data.length > 0) {
@@ -363,7 +363,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
             }
             node.leaf = true;
         }, () => {
-            this.queryParam["operation"] = ""; 
+            this.queryParam["operation"] = "";
             this.queryParam.parentId = "";
         });
     }
@@ -427,7 +427,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                 message.snack(config.deleteSuccessed);
                 let idList = util.helper.toList<string>(ids);
                 this.removeFromDataSource(null, this.dataSource, idList);
-                this.selection = new Array<T>();
+                util.helper.clear(this.selection);
             }
         });
     }
@@ -583,12 +583,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                         if (this.isSingleSelectionMode()) {
                             this.selectionChange.emit(node);
                         }
-                        else if (this.isMultipleSelectionMode()) {
-                            this.selection = (!metaKey) ? [] : this.selection || [];
-                            this.selection = [...this.selection, node];
-                            this.selectionChange.emit(this.selection);
-                        }
-
                         this.onNodeSelect.emit({ originalEvent: event, node: node });
                     }
                 }
@@ -631,11 +625,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
                 if (this.isSingleSelectionMode()) {
                     this.selection = node;
                 }
-                else if (this.isMultipleSelectionMode()) {
-                    this.selection = [node];
-                    this.selectionChange.emit(this.selection);
-                }
-
                 this.selectionChange.emit(this.selection);
             }
 
@@ -725,10 +714,6 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         return this.selectionMode && this.selectionMode == 'single';
     }
 
-    isMultipleSelectionMode() {
-        return this.selectionMode && this.selectionMode == 'multiple';
-    }
-
     isCheckboxSelectionMode() {
         return this.selectionMode && this.selectionMode == 'checkbox';
     }
@@ -784,7 +769,7 @@ export class TreeTable<T extends TreeNode & ITreeNode> implements AfterContentIn
         </div>
     `
 })
-export class UITreeRow<T extends TreeNode & ITreeNode> implements OnInit {
+export class UITreeRow<T extends TreeViewModel & TreeNode> implements OnInit {
 
     @Input() node: T;
 

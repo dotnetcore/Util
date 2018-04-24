@@ -66,8 +66,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 配置查询参数
         /// </summary>
         private void ConfigQueryParam( TagBuilder builder ) {
-            builder.AddAttribute( "[queryParam]", _config.GetValue( UiConst.QueryParam ) );
-            builder.AddAttribute( "(onQueryRestore)", _config.GetValue( UiConst.OnQueryRestore ) );
+            builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
         }
 
         /// <summary>

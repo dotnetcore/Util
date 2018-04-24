@@ -4,7 +4,7 @@
 //================================================
 import { UUID } from './internal/uuid';
 import * as moment from 'moment';
-import * as _  from "lodash";
+import * as _ from "lodash";
 
 /**
  * 是否未定义
@@ -206,10 +206,19 @@ export let remove = <T>(array: Array<T>, predicate: (value: T) => boolean): Arra
 }
 
 /**
+ * 清空数组
+ * @param array 数组
+ */
+export let clear = (array): void => {
+    if (array && array.length)
+        array.length = 0;
+}
+
+/**
  * 泛型集合转换
  * @param input 以逗号分隔的元素集合字符串，范例: 1,2
  */
-export let toList = <T>(input:string): T[] => {
+export let toList = <T>(input: string): T[] => {
     var result = new Array<T>();
     if (!input)
         return result;

@@ -131,9 +131,9 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     @Input() queryParam: QueryParameter;
     /**
-     * 查询参数还原事件
+     * 查询参数变更事件
      */
-    @Output() onQueryRestore = new EventEmitter<QueryParameter>();
+    @Output() queryParamChange = new EventEmitter<QueryParameter>();
     /**
      * 排序组件
      */
@@ -235,7 +235,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         if (!query)
             return;
         this.queryParam = query;
-        this.onQueryRestore.emit(query);
+        this.queryParamChange.emit(query);
     }
 
     /**

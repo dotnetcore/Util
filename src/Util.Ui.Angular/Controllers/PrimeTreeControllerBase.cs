@@ -102,8 +102,8 @@ namespace Util.Ui.Controllers {
         /// 获取操作
         /// </summary>
         protected LoadOperation? GetOperation( TQuery query ) {
-            var operation = Util.Helpers.Enum.Parse<LoadOperation?>( HttpContext.Request.Query["operation"] );
-            if ( operation == LoadOperation.LoadChild )
+            var operation = HttpContext.Request.Query["operation"].SafeString();
+            if( operation.ToLower() == "loadchild" )
                 return LoadOperation.LoadChild;
             if ( query.IsSearch() )
                 return LoadOperation.Search;

@@ -31,10 +31,6 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// </summary>
         public string QueryParam { get; set; }
         /// <summary>
-        /// 还原查询参数事件
-        /// </summary>
-        public string OnQueryRestore { get; set; }
-        /// <summary>
         /// 排序列名
         /// </summary>
         public string Sort { get; set; }

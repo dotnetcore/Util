@@ -1,14 +1,14 @@
-﻿//============== Crud列表页组件基类===============
+﻿//=============== 树型表格查询基类================
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
 import { Injector, ViewChild } from '@angular/core';
-import { util, ViewModel, QueryParameter, TableWrapperComponent } from '../index';
+import { util, TreeViewModel, TreeQueryParameter, TreeTable } from '../index';
 
 /**
- * Crud列表页组件基类
+ * 树型表格查询基类
  */
-export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> {
+export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewModel, TQuery extends TreeQueryParameter> {
     /**
      * 操作库
      */
@@ -20,7 +20,7 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
     /**
      * 表格组件
      */
-    @ViewChild(TableWrapperComponent) protected table: TableWrapperComponent<TViewModel>;
+    @ViewChild(TreeTable) protected table: TreeTable<TViewModel>;
 
     /**
      * 初始化组件
@@ -71,12 +71,5 @@ export abstract class CrudIndexComponentBase<TViewModel extends ViewModel, TQuer
     refresh() {
         this.queryParam = this.createQuery();
         this.table.refresh(this.queryParam);
-    }
-
-    /**
-     * 还原查询参数
-     */
-    restoreQueryParam(query: TQuery) {
-        this.queryParam = query;
     }
 }

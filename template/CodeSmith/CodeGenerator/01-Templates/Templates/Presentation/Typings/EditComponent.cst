@@ -19,7 +19,7 @@
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 import { Component, Injector } from '@angular/core';
 import { env } from '../../env';
-import { CrudEditComponentBase } from '../../../util';
+import { EditComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-model';
 
 /**
@@ -29,7 +29,7 @@ import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-mo
     selector: '<%=CamelClassName%>-edit',
     templateUrl: env.prod() ? './html/<%=CamelClassName%>-edit.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
 })
-export class <%=SafeClassName%>EditComponent extends CrudEditComponentBase<<%=SafeClassName%>ViewModel> {
+export class <%=SafeClassName%>EditComponent extends EditComponentBase<<%=SafeClassName%>ViewModel> {
     /**
      * 初始化组件
      * @param injector 注入器

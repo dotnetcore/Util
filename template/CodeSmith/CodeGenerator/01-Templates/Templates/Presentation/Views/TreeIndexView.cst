@@ -31,7 +31,7 @@
     </util-button>
 </util-toolbar>
 
-<util-tree-table id="treeTable_<%=SafeClassName%>" base-url="<%=CamelClassName%>" query-param="queryParam" on-query-restore="restoreQueryParam($event)">
+<util-tree-table id="treeTable_<%=SafeClassName%>" base-url="<%=CamelClassName%>" query-param="queryParam">
     <% foreach(Property p in Entity.Properties) { %>
     <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
     <% if( Entity.IsHidden(p) ) continue; %>

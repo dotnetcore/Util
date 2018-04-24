@@ -61,7 +61,7 @@
         </ng-template></mat-button-wrapper>
     </div>
 </mat-toolbar>
-<mat-table-wrapper #table_Application="" (onQueryRestore)="restoreQueryParam($event)" baseUrl="application" key="table_Application" maxHeight="700" style="margin: 20px" [queryParam]="queryParam"><mat-table class="tableHeader" matSort="" matSortActive="CreationTime" matSortDirection="desc" matSortDisableClear="">
+<mat-table-wrapper #table_Application="" baseUrl="application" key="table_Application" maxHeight="700" style="margin: 20px" [(queryParam)]="queryParam"><mat-table class="tableHeader" matSort="" matSortActive="CreationTime" matSortDirection="desc" matSortDisableClear="">
     <ng-container matColumnDef="selectCheckbox"><mat-header-cell *matHeaderCellDef=""><mat-checkbox (change)="$event?table_Application.masterToggle():null" [checked]="table_Application.isMasterChecked()" [disabled]="!table_Application.dataSource.data.length" [indeterminate]="table_Application.isMasterIndeterminate()"></mat-checkbox></mat-header-cell><mat-cell *matCellDef="let row"><mat-checkbox (change)="$event?table_Application.checkedSelection.toggle(row):null" (click)="$event.stopPropagation()" [checked]="table_Application.checkedSelection.isSelected(row)"></mat-checkbox></mat-cell></ng-container>
     <ng-container matColumnDef="lineNumber"><mat-header-cell *matHeaderCellDef="">ID</mat-header-cell><mat-cell *matCellDef="let row">{{ row.lineNumber }}</mat-cell></ng-container>
     <ng-container matColumnDef="code"><mat-header-cell *matHeaderCellDef="" mat-sort-header="">应用程序编码</mat-header-cell><mat-cell *matCellDef="let row">{{ row.code }}</mat-cell></ng-container>

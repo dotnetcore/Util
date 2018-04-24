@@ -28,10 +28,6 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// </summary>
         public string QueryParam { get; set; }
         /// <summary>
-        /// 还原查询参数事件
-        /// </summary>
-        public string OnQueryRestore { get; set; }
-        /// <summary>
         /// 选择模式
         /// </summary>
         public SelectionMode SelectionMode { get; set; }
@@ -43,6 +39,10 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// 分页长度列表，值通过逗号分隔，范例：10,20,50,100
         /// </summary>
         public string PageSizeOptions { get; set; }
+        /// <summary>
+        /// 选中节点
+        /// </summary>
+        public string Selection { get; set; }
 
         /// <summary>
         /// 获取渲染器

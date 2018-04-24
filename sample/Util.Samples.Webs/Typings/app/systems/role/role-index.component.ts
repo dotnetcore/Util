@@ -23,7 +23,7 @@ export class RoleIndexComponent extends ComponentBase implements OnInit {
     /**
      * 选中的角色列表
      */
-    selectedModels: RoleViewModel[];
+    selectedRoles: RoleViewModel[];
     /**
      * 表格组件
      */

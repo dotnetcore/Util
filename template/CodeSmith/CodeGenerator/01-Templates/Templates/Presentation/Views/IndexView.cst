@@ -66,7 +66,7 @@ if( Entity.IsTreeEntity() ){
     </util-button>
 </util-toolbar>
 
-<util-table id="table_<%=SafeClassName%>" max-height="700" base-url="<%=CamelClassName%>" query-param="queryParam" on-query-restore="restoreQueryParam($event)" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
+<util-table id="table_<%=SafeClassName%>" max-height="700" base-url="<%=CamelClassName%>" query-param="queryParam" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>
     <util-table-column type="Checkbox"></util-table-column>
     <util-table-column type="LineNumber"></util-table-column>
     <% foreach(Property p in Entity.Properties) { %>

@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { CrudEditComponentBase } from '../../../util';
+import { EditComponentBase } from '../../../util';
 import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
 import { NgForm } from '@angular/forms';
@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
     selector: 'application-edit',
     templateUrl: env.prod() ? './html/application-edit.component.html' : '/view/systems/application/edit'
 })
-export class ApplicationEditComponent extends CrudEditComponentBase<ApplicationViewModel> {
+export class ApplicationEditComponent extends EditComponentBase<ApplicationViewModel> {
     /**
      * 初始化组件
      * @param injector 注入器

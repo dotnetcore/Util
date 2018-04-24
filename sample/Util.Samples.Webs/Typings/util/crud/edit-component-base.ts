@@ -9,7 +9,7 @@ import { util, ViewModel } from '../index';
 /**
  * Crud编辑页组件基类
  */
-export abstract class CrudEditComponentBase<TViewModel extends ViewModel> implements OnInit {
+export abstract class EditComponentBase<TViewModel extends ViewModel> implements OnInit {
     /**
      * 操作库
      */

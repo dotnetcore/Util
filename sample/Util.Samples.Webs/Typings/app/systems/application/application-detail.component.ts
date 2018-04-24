@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { CrudEditComponentBase } from '../../../util';
+import { EditComponentBase } from '../../../util';
 import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
 
@@ -10,7 +10,7 @@ import { env } from '../../env';
     selector: 'application-detail',
     templateUrl: env.prod() ? './html/application-detail.component.html' : '/view/systems/application/detail'
 })
-export class ApplicationDetailComponent extends CrudEditComponentBase<ApplicationViewModel> {
+export class ApplicationDetailComponent extends EditComponentBase<ApplicationViewModel> {
     /**
      * 初始化组件
      * @param injector 注入器

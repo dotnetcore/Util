@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { CrudIndexComponentBase } from '../../../util';
+import { TableQueryComponentBase } from '../../../util';
 import { ApplicationQuery } from './model/application-query';
 import { ApplicationViewModel } from './model/application-view-model';
 import { env } from '../../env';
@@ -11,7 +11,7 @@ import { env } from '../../env';
     selector: 'application-index',
     templateUrl: env.prod() ? './html/application-index.component.html' : '/view/systems/application'
 })
-export class ApplicationIndexComponent extends CrudIndexComponentBase<ApplicationViewModel, ApplicationQuery>  {
+export class ApplicationIndexComponent extends TableQueryComponentBase<ApplicationViewModel, ApplicationQuery>  {
     /**
      * 初始化应用程序首页
      * @param injector 注入器

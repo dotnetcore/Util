@@ -68,7 +68,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestQueryParam() {
             var attributes = new TagHelperAttributeList { { UiConst.QueryParam, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" [queryParam]=\"a\">" );
+            result.Append( "<p-tree-table #id=\"\" key=\"id\" [(queryParam)]=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -182,13 +182,13 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         }
 
         /// <summary>
-        /// 测试还原查询参数事件
+        /// 测试选中节点
         /// </summary>
         [Fact]
-        public void TestOnQueryRestore() {
-            var attributes = new TagHelperAttributeList { { UiConst.OnQueryRestore, "a" } };
+        public void TestSelection() {
+            var attributes = new TagHelperAttributeList { { UiConst.Selection, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" (onQueryRestore)=\"a\" key=\"id\">" );
+            result.Append( "<p-tree-table #id=\"\" key=\"id\" [(selection)]=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

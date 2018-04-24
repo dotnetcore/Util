@@ -43,6 +43,7 @@ namespace Util.Ui.Prime.TreeTables.Renders {
             ConfigQueryParam( builder );
             ConfigUrl( builder );
             ConfigSelectionMode( builder );
+            ConfigSelection( builder );
             ConfigAutoLoad( builder );
             ConfigPageSizeOptions( builder );
             ConfigContent( builder );
@@ -62,8 +63,7 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         /// 配置查询参数
         /// </summary>
         private void ConfigQueryParam( TagBuilder builder ) {
-            builder.AddAttribute( "[queryParam]", _config.GetValue( UiConst.QueryParam ) );
-            builder.AddAttribute( "(onQueryRestore)", _config.GetValue( UiConst.OnQueryRestore ) );
+            builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
         }
 
         /// <summary>
@@ -92,6 +92,13 @@ namespace Util.Ui.Prime.TreeTables.Renders {
                     builder.AddAttribute( "[leafOnly]", "true" );
                     return;
             }
+        }
+
+        /// <summary>
+        /// 配置选中节点
+        /// </summary>
+        private void ConfigSelection( TagBuilder builder ) {
+            builder.AddAttribute( "[(selection)]", _config.GetValue( UiConst.Selection ) );
         }
 
         /// <summary>

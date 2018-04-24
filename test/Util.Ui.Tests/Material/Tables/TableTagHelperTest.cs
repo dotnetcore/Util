@@ -76,7 +76,7 @@ namespace Util.Ui.Tests.Material.Tables {
         public void TestQueryParam() {
             var attributes = new TagHelperAttributeList { { UiConst.QueryParam, "a" } };
             var result = new String();
-            result.Append( "<mat-table-wrapper #m_id=\"\" key=\"m_id\" [queryParam]=\"a\">" );
+            result.Append( "<mat-table-wrapper #m_id=\"\" key=\"m_id\" [(queryParam)]=\"a\">" );
             result.Append( "<mat-table matSort=\"\" matSortDisableClear=\"\" [dataSource]=\"m_id.dataSource\" " );
             result.Append( "[style.max-height]=\"m_id.maxHeight?m_id.maxHeight+'px':null\" " );
             result.Append( "[style.min-height]=\"m_id.minHeight?m_id.minHeight+'px':null\">" );
@@ -253,22 +253,6 @@ namespace Util.Ui.Tests.Material.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.PageSizeOptions, "[1,2]" } };
             var result = new String();
             result.Append( "<mat-table-wrapper #m_id=\"\" key=\"m_id\" [pageSizeOptions]=\"[1,2]\">" );
-            result.Append( "<mat-table matSort=\"\" matSortDisableClear=\"\" [dataSource]=\"m_id.dataSource\" " );
-            result.Append( "[style.max-height]=\"m_id.maxHeight?m_id.maxHeight+'px':null\" " );
-            result.Append( "[style.min-height]=\"m_id.minHeight?m_id.minHeight+'px':null\">" );
-            result.Append( "</mat-table>" );
-            result.Append( "</mat-table-wrapper>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试还原查询参数事件
-        /// </summary>
-        [Fact]
-        public void TestOnQueryRestore() {
-            var attributes = new TagHelperAttributeList { { UiConst.OnQueryRestore, "a" } };
-            var result = new String();
-            result.Append( "<mat-table-wrapper #m_id=\"\" (onQueryRestore)=\"a\" key=\"m_id\">" );
             result.Append( "<mat-table matSort=\"\" matSortDisableClear=\"\" [dataSource]=\"m_id.dataSource\" " );
             result.Append( "[style.max-height]=\"m_id.maxHeight?m_id.maxHeight+'px':null\" " );
             result.Append( "[style.min-height]=\"m_id.minHeight?m_id.minHeight+'px':null\">" );
