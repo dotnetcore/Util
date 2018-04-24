@@ -277,7 +277,6 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
             this.dataSource = result.data;
             this.paginator.pageIndex = result.page - 1;
             this.totalCount = result.totalCount;
-            util.helper.clear(this.selection);
         });
     }
 
@@ -633,23 +632,32 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
         }
     }
 
-    findIndexInSelection(node: TreeNode) {
-        let index: number = -1;
-
-        if (this.selectionMode && this.selection) {
-            if (this.isSingleSelectionMode()) {
-                if (this.selection && this.selection.length > 0)
-                    index = (this.selection[0] == node) ? 0 : - 1;
-            } else {
-                for (let i = 0; i < this.selection.length; i++) {
-                    if (this.selection[i] == node) {
-                        index = i;
-                        break;
-                    }
-                }
-            }
+    findIndexInSelection(node) {
+        let index = -1;
+        if (!this.selectionMode || !this.selection)
+            return index;
+        if (this.selection.length && this.selection.length === 0)
+            return index;
+        if (this.isSingleSelectionMode())
+            return this.getSelectionIndex(this.selection[0], node);
+        for (let i = 0; i < this.selection.length; i++) {
+            if (this.getSelectionIndex(this.selection[i], node) !== -1)
+                return i;
         }
+        return index;
+    }
 
+    /**
+     * 获取选择索引
+     */
+    private getSelectionIndex(selectionNode, node) {
+        let index = -1;
+        if (!selectionNode || !node || !node.data )
+            return index;
+        if (selectionNode.data)
+            return (selectionNode.data.id === node.data.id) ? 0 : - 1;
+        if (selectionNode.id)
+            return (selectionNode.id === node.data.id) ? 0 : - 1;
         return index;
     }
 

@@ -2,13 +2,13 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, ViewChild } from '@angular/core';
+import { Injector, ViewChild, OnInit } from '@angular/core';
 import { util, TreeViewModel, TreeQueryParameter, TreeTable } from '../index';
 
 /**
  * 树型表格查询基类
  */
-export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewModel, TQuery extends TreeQueryParameter> {
+export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewModel, TQuery extends TreeQueryParameter> implements OnInit {
     /**
      * 操作库
      */
@@ -17,6 +17,10 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 查询参数
      */
     queryParam: TQuery;
+    /**
+     * 选中列表
+     */
+    selection: TViewModel[];
     /**
      * 表格组件
      */
@@ -29,12 +33,30 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     constructor(injector: Injector) {
         util.ioc.componentInjector = injector;
         this.queryParam = this.createQuery();
+        this.selection = new Array<TViewModel>();
     }
 
     /**
      * 创建查询参数
      */
     protected abstract createQuery(): TQuery;
+
+    /**
+     * 初始化
+     */
+    ngOnInit() {
+        this.initSelection();
+    }
+
+    /**
+     * 初始化选中项
+     */
+    private initSelection() {
+        let selectedNodes = util.dialog.getData<TViewModel>();
+        if (selectedNodes)
+            this.selection.push(selectedNodes);
+    }
+
 
     /**
      * 查询
@@ -74,16 +96,25 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     }
 
     /**
-     * 获取单个选中的实体
-     */
-    getSingleChecked(): TViewModel {
-        return this.table.getSingleChecked();
-    }
-
-    /**
      * 获取选中的实体列表
      */
     getChecked(): TViewModel[] {
         return this.table.getChecked();
+    }
+
+    /**
+     * 选中实体
+     */
+    select() {
+        let selection = this.getChecked();
+        if (!selection || selection.length === 0) {
+            this.util.dialog.close(new TreeViewModel());
+            return;
+        }
+        if (selection.length === 1) {
+            this.util.dialog.close(selection[0]);
+            return;
+        }
+        this.util.dialog.close(selection);
     }
 }

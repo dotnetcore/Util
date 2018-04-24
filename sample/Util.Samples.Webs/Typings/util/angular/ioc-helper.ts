@@ -24,16 +24,8 @@ export class IocHelper {
     static get<T>(token: Type<T> | InjectionToken<T>): T;
     static get(token: any): any;
     static get(token: any): any {
+        if (IocHelper.componentInjector)
+            return IocHelper.componentInjector.get(token);
         return IocHelper.injector.get(token);
-    }
-
-    /**
-     * 获取实例，从当前组件注入器中获取
-     * @param token 实例标记，一般为类或接口名称,范例：util.ioc.getByComponent(Http)
-     */
-    static getByComponent<T>(token: Type<T> | InjectionToken<T>): T;
-    static getByComponent(token: any): any;
-    static getByComponent(token: any): any {
-        return IocHelper.componentInjector.get(token);
     }
 }

@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { MatDialog, DialogPosition } from '@angular/material';
+import { MatDialog, DialogPosition, MAT_DIALOG_DATA } from '@angular/material';
 import { IocHelper as ioc } from '../angular/ioc-helper';
 import { isNumber, toNumber } from './helper';
 import { DialogWrapperComponent } from '../material/dialog-wrapper.component';
@@ -20,7 +20,7 @@ export class Dialog {
         if (options.beforeOpen && !options.beforeOpen())
             return;
         Dialog.initOptions(options);
-        let dialog = ioc.getByComponent(MatDialog);
+        let dialog = ioc.get(MatDialog);
         let dialogRef = dialog.open(options.dialogComponent, options);
         dialogRef.afterOpen().subscribe(() => options.afterOpen && options.afterOpen());
         dialogRef.beforeClose().subscribe((result) => options.beforeClose && options.beforeClose(result));
@@ -37,6 +37,8 @@ export class Dialog {
         Dialog.initPosition(options);
         options.width = Dialog.getUnitValue(options.width);
         options.height = Dialog.getUnitValue(options.height);
+        if (!options.autoFocus)
+            options.autoFocus = false;
     }
 
     /**
@@ -91,7 +93,7 @@ export class Dialog {
      * 关闭所有弹出层
      */
     static closeAll() {
-        let dialog = ioc.getByComponent(MatDialog);
+        let dialog = ioc.get(MatDialog);
         dialog.closeAll();
     }
 
@@ -105,9 +107,9 @@ export class Dialog {
      * @param result 返回结果
      * @param id 弹出层标识
      */
-    static close<TResult>(result?: TResult,id?: string);
-    static close<TResult>(result?: TResult,id?: string) {
-        let dialog = ioc.getByComponent(MatDialog);
+    static close<TResult>(result?: TResult, id?: string);
+    static close<TResult>(result?: TResult, id?: string) {
+        let dialog = ioc.get(MatDialog);
         let dialogRef;
         if (id)
             dialogRef = dialog.getDialogById(id);
@@ -117,6 +119,13 @@ export class Dialog {
             dialogRef = dialog.openDialogs[dialog.openDialogs.length - 1];
         }
         dialogRef && dialogRef.close(result);
+    }
+
+    /**
+     * 获取数据
+     */
+    static getData<T>() {
+        return ioc.get<T>(MAT_DIALOG_DATA);
     }
 }
 
@@ -153,7 +162,7 @@ export interface IDialogOption {
      */
     disableClose?: boolean,
     /**
-     * 是否自动将焦点放在控件上,默认true
+     * 是否自动将焦点放在控件上,默认false
      */
     autoFocus?: boolean,
     /**
@@ -217,5 +226,5 @@ export interface IDialogOption {
     /**
      * 点击遮罩背景操作
      */
-    backdropClick?: (event:MouseEvent) => void,
+    backdropClick?: (event: MouseEvent) => void;
 }

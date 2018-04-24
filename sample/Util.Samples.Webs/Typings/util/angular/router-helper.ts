@@ -33,7 +33,7 @@ export class RouterHelper {
      * @param paramName 参数名
      */
     static getParam(paramName: string): string | null {
-        let route = ioc.getByComponent(ActivatedRoute);
+        let route = ioc.get(ActivatedRoute);
         return route.snapshot.paramMap.get(paramName);
     }
 
@@ -42,7 +42,7 @@ export class RouterHelper {
      * @param paramName 参数名
      */
     static getQueryParam(paramName: string): string | null {
-        let route = ioc.getByComponent(ActivatedRoute);
+        let route = ioc.get(ActivatedRoute);
         return route.snapshot.queryParamMap.get(paramName);
     }
 }
