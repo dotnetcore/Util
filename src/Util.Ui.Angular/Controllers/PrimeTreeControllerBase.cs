@@ -92,6 +92,8 @@ namespace Util.Ui.Controllers {
         /// </summary>
         /// <param name="query">查询参数</param>
         protected virtual void ProcessParam( TQuery query ) {
+            if ( query.Order.IsEmpty() )
+                query.Order = "SortId";
             query.Path = null;
             if ( GetOperation( query ) == LoadOperation.LoadChild )
                 return;

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Util.Datas.Ef.Core;
 using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Domains.Repositories;
@@ -137,6 +138,15 @@ namespace Util.Samples.Webs.Datas.Repositories.Systems {
         public async Task<Role> FindByNameAsync( string normalizedRoleName, CancellationToken cancellationToken ) {
             cancellationToken.ThrowIfCancellationRequested();
             return await SingleAsync( r => r.NormalizedName == normalizedRoleName, cancellationToken );
+        }
+
+        /// <summary>
+        /// 获取最大排序号
+        /// </summary>
+        /// <param name="role">角色</param>
+        public async Task<int> GetMaxSortIdAsync( Role role ) {
+            var maxSortId = await Find( t => t.ParentId == role.ParentId ).MaxAsync( t => t.SortId );
+            return maxSortId.SafeValue() + 1;
         }
     }
 }
