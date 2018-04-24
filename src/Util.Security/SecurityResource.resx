@@ -126,6 +126,9 @@
   <data name="DuplicateEmail" xml:space="preserve">
     <value>电子邮件 {0} 已存在</value>
   </data>
+  <data name="DuplicateRoleCode" xml:space="preserve">
+    <value>角色编码 {0} 已存在</value>
+  </data>
   <data name="DuplicateRoleName" xml:space="preserve">
     <value>角色名 {0} 已存在</value>
   </data>

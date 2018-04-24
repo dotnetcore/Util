@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Util.Domains.Services;
+using Util.Exceptions;
 using Util.Security.Identity.Extensions;
 using Util.Security.Identity.Models;
 using Util.Security.Identity.Repositories;
@@ -38,12 +39,30 @@ namespace Util.Security.Identity.Services.Implements {
         /// </summary>
         /// <param name="role">角色</param>
         public virtual async Task CreateAsync( TRole role ) {
-            role.CheckNull( nameof( role ) );
+            await ValidateCreateAsync( role );
             var parent = await Repository.FindAsync( role.ParentId );
             role.Init();
             role.InitPath( parent );
+            role.SortId = await Repository.GetMaxSortIdAsync( role );
             var result = await Manager.CreateAsync( role );
             result.ThrowIfError();
+        }
+
+        /// <summary>
+        /// 创建角色验证
+        /// </summary>
+        /// <param name="role">角色</param>
+        protected virtual async Task ValidateCreateAsync( TRole role ) {
+            role.CheckNull( nameof( role ) );
+            if( await Repository.ExistsAsync( t => t.Code == role.Code ) )
+                ThrowDuplicateCodeException( role.Code );
+        }
+
+        /// <summary>
+        /// 抛出编码重复异常
+        /// </summary>
+        private void ThrowDuplicateCodeException( string code ) {
+            throw new Warning( string.Format( SecurityResource.DuplicateRoleCode, code ) );
         }
     }
 }

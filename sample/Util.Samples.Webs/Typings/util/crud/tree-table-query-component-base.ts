@@ -72,4 +72,18 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
         this.queryParam = this.createQuery();
         this.table.refresh(this.queryParam);
     }
+
+    /**
+     * 获取单个选中的实体
+     */
+    getSingleChecked(): TViewModel {
+        return this.table.getSingleChecked();
+    }
+
+    /**
+     * 获取选中的实体列表
+     */
+    getChecked(): TViewModel[] {
+        return this.table.getChecked();
+    }
 }
