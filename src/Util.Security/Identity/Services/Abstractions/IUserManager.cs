@@ -58,6 +58,21 @@ namespace Util.Security.Identity.Services.Abstractions {
         /// <param name="newPassword">新密码</param>
         Task ChangePasswordAsync( TUser user, string currentPassword, string newPassword );
         /// <summary>
+        /// 生成令牌
+        /// </summary>
+        /// <param name="phone">手机号</param>
+        /// <param name="purpose">用途</param>
+        /// <param name="application">应用程序</param>
+        Task<string> GenerateTokenAsync( string phone, string purpose, string application = "" );
+        /// <summary>
+        /// 验证令牌
+        /// </summary>
+        /// <param name="phone">手机号</param>
+        /// <param name="purpose">用途</param>
+        /// <param name="token">令牌</param>
+        /// <param name="application">应用程序</param>
+        Task<bool> VerifyTokenAsync( string phone, string purpose, string token, string application = "" );
+        /// <summary>
         /// 通过用户名查找
         /// </summary>
         /// <param name="userName">用户名</param>

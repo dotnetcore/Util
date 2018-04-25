@@ -15,7 +15,7 @@ namespace Util.Security.Identity.Services.Implements {
     /// </summary>
     /// <typeparam name="TUser">用户类型</typeparam>
     /// <typeparam name="TKey">用户标识类型</typeparam>
-    public class UserManager<TUser, TKey> : DomainServiceBase, IUserManager<TUser, TKey> where TUser : User<TUser,TKey> {
+    public class UserManager<TUser, TKey> : DomainServiceBase, IUserManager<TUser, TKey> where TUser : User<TUser,TKey>,new() {
         /// <summary>
         /// 初始化用户服务
         /// </summary>
@@ -145,6 +145,59 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="phoneNumber">手机号</param>
         public Task<TUser> FindByPhoneAsync( string phoneNumber ) {
             return UserRepository.SingleAsync( t => t.PhoneNumber == phoneNumber );
+        }
+
+        /// <summary>
+        /// 生成令牌
+        /// </summary>
+        /// <param name="phone">手机号</param>
+        /// <param name="purpose">用途</param>
+        /// <param name="application">应用程序</param>
+        public async Task<string> GenerateTokenAsync( string phone, string purpose, string application = "" ) {
+            var user = await GetUserOrDefault( phone );
+            purpose = GetPurpose( purpose, application );
+            return await Manager.GenerateUserTokenAsync( user, TokenOptions.DefaultPhoneProvider, purpose );
+        }
+
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        private async Task<TUser> GetUserOrDefault( string phone ) {
+            var user = await this.FindByPhoneAsync( phone );
+            if( user == null ) {
+                user = new TUser() {
+                    PhoneNumber = phone,
+                    SecurityStamp = CreateSecurityStamp()
+                };
+            }
+            return user;
+        }
+
+        /// <summary>
+        /// 创建安全戳
+        /// </summary>
+        protected virtual string CreateSecurityStamp() {
+            return "56df9984-bc05-460a-a4ce-9dec3922a5e9";
+        }
+
+        /// <summary>
+        /// 获取用途
+        /// </summary>
+        private string GetPurpose( string purpose, string application ) {
+            return $"{purpose}_{application}";
+        }
+
+        /// <summary>
+        /// 验证令牌
+        /// </summary>
+        /// <param name="phone">手机号</param>
+        /// <param name="purpose">用途</param>
+        /// <param name="token">令牌</param>
+        /// <param name="application">应用程序</param>
+        public async Task<bool> VerifyTokenAsync( string phone, string purpose, string token, string application = "" ) {
+            var user = await GetUserOrDefault( phone );
+            purpose = GetPurpose( purpose, application );
+            return await Manager.VerifyUserTokenAsync( user, TokenOptions.DefaultPhoneProvider, purpose, token );
         }
     }
 }
