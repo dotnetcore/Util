@@ -371,7 +371,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      * 获取复选框被选中实体列表
      */
     getChecked(): T[] {
-        return this.selection.map(node => node && node.data);
+        return this.selection;
     }
 
     /**
@@ -652,7 +652,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     private getSelectionIndex(selectionNode, node) {
         let index = -1;
-        if (!selectionNode || !node || !node.data )
+        if (!selectionNode || !node || !node.data)
             return index;
         if (selectionNode.data)
             return (selectionNode.data.id === node.data.id) ? 0 : - 1;

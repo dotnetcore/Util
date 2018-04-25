@@ -52,9 +52,8 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 初始化选中项
      */
     private initSelection() {
-        let selectedNodes = util.dialog.getData<TViewModel>();
-        if (selectedNodes)
-            this.selection.push(selectedNodes);
+        let items = util.dialog.getData<any>();
+        this.util.helper.addToArray(this.selection, items);
     }
 
 
@@ -96,17 +95,10 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     }
 
     /**
-     * 获取选中的实体列表
-     */
-    getChecked(): TViewModel[] {
-        return this.table.getChecked();
-    }
-
-    /**
      * 选中实体
      */
     select() {
-        let selection = this.getChecked();
+        let selection = this.selection;
         if (!selection || selection.length === 0) {
             this.util.dialog.close(new TreeViewModel());
             return;

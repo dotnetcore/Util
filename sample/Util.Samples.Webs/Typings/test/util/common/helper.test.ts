@@ -8,6 +8,7 @@ describe("util.helper", () => {
     it("isEmpty", () => {
         expect(util.helper.isEmpty(undefined)).toBeTruthy("undefined");
         expect(util.helper.isEmpty(null)).toBeTruthy("null");
+        expect(util.helper.isEmpty({})).toBeTruthy("{}");
         expect(util.helper.isEmpty("")).toBeTruthy("''");
         expect(util.helper.isEmpty("  ")).toBeTruthy("'  '");
         expect(util.helper.isEmpty(0)).toBeFalsy("0");

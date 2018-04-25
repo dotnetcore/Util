@@ -23,15 +23,11 @@ export let isString = (value): boolean => {
 }
 
 /**
- * 是否空值，当值为undefined、null、空字符串、空Guid时返回true，其余返回false
+ * 是否空值，当值为undefined、null、空对象,空字符串、空Guid时返回true，其余返回false
  * @param value 值
  */
 export let isEmpty = (value): boolean => {
-    if (isUndefined(value))
-        return true;
-    if (value === null)
-        return true;
-    if (!isString(value))
+    if ( typeof value === "number")
         return false;
     if (value && value.trim)
         value = value.trim();
@@ -39,7 +35,7 @@ export let isEmpty = (value): boolean => {
         return true;
     if (value === "00000000-0000-0000-0000-000000000000")
         return true;
-    return false;
+    return _.isEmpty(value);
 }
 
 /**
@@ -198,11 +194,31 @@ export let to = <T>(value): T => {
 
 /**
  * 从数组中移除子集
- * @param array 数组
+ * @param source 源数组
  * @param predicate 条件
  */
-export let remove = <T>(array: Array<T>, predicate: (value: T) => boolean): Array<T> => {
-    return _.remove(array, t => predicate(t));
+export let remove = <T>(source: Array<T>, predicate: (value: T) => boolean): Array<T> => {
+    return _.remove(source, t => predicate(t));
+}
+
+/**
+ * 添加项到数组
+ * @param source 源数组
+ * @param items 项
+ */
+export let addToArray = <T>(source: Array<T>, items): Array<T> => {
+    if (isEmpty(items))
+        return source;
+    if (!items.length) {
+        source.push(items);
+        return source;
+    }
+    items.forEach(item => {
+        if (isEmpty(item))
+            return;
+        source.push(item);
+    });
+    return source;
 }
 
 /**
