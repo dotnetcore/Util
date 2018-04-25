@@ -7,20 +7,6 @@ import { NgForm } from '@angular/forms';
 import { MessageConfig } from '../config/message-config';
 
 /**
- * 按钮
- */
-export interface IButton {
-    /**
-     * 启用
-     */
-    enable();
-    /**
-     * 禁用
-     */
-    disable();
-}
-
-/**
  * Mat按钮包装器
  */
 @Component({
@@ -80,7 +66,7 @@ export interface IButton {
         </ng-container>
     `
 })
-export class ButtonWrapperComponent implements IButton{
+export class ButtonWrapperComponent {
     /**
      * 文本
      */

@@ -37,13 +37,13 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> implements
      * 初始化
      */
     ngOnInit() {
-        this.loadDataById();
+        this.loadById();
     }
 
     /**
      * 通过Id加载数据
      */
-    private loadDataById() {
+    private loadById() {
         let id = this.util.router.getParam("id");
         if (!id)
             return;

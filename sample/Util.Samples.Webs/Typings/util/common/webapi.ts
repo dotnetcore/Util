@@ -8,7 +8,6 @@ import { Dialog } from './dialog';
 import { Result, FailResult, StateCode } from '../core/result';
 import { HttpHelper, HttpRequest, HttpContentType, HttpMethod } from '../angular/http-helper';
 import { Message } from './message';
-import { IButton } from '../material/button-wrapper.component';
 
 /**
  * WebApi操作,与服务端返回的标准result对象交互
@@ -77,7 +76,7 @@ export class WebApiRequest<T> {
     /**
      * 按钮
      */
-    private btn: IButton;
+    private btn;
     /**
      * 是否显示进度条
      */
@@ -155,7 +154,7 @@ export class WebApiRequest<T> {
      * 设置按钮
      * @param btn 按钮实例
      */
-    button(btn: IButton): WebApiRequest<T> {
+    button(btn): WebApiRequest<T> {
         this.btn = btn;
         return this;
     }

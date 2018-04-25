@@ -10,7 +10,6 @@ import { RouterHelper } from '../angular/router-helper';
 import { Message } from './message';
 import { MessageConfig } from '../config/message-config';
 import { Dialog } from './dialog';
-import { IButton } from '../material/button-wrapper.component';
 
 /**
  * 表单操作
@@ -136,7 +135,7 @@ export interface IFormSubmitOption {
     /**
      * 按钮实例，在请求期间禁用该按钮
      */
-    button?: IButton,
+    button,
     /**
      * 请求时显示进度条，默认为false
      */
