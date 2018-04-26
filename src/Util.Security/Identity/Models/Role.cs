@@ -11,6 +11,13 @@ namespace Util.Security.Identity.Models {
         public override void Init() {
             base.Init();
             IsAdmin = false;
+            InitPinYin();
+        }
+
+        /// <summary>
+        /// 初始化拼音简码
+        /// </summary>
+        public void InitPinYin() {
             PinYin = String.PinYin( Name );
         }
     }

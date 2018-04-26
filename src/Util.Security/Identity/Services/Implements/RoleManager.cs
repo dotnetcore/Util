@@ -40,8 +40,8 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="role">角色</param>
         public virtual async Task CreateAsync( TRole role ) {
             await ValidateCreateAsync( role );
-            var parent = await Repository.FindAsync( role.ParentId );
             role.Init();
+            var parent = await Repository.FindAsync( role.ParentId );
             role.InitPath( parent );
             role.SortId = await Repository.GetMaxSortIdAsync( role );
             var result = await Manager.CreateAsync( role );
@@ -61,8 +61,28 @@ namespace Util.Security.Identity.Services.Implements {
         /// <summary>
         /// 抛出编码重复异常
         /// </summary>
-        private void ThrowDuplicateCodeException( string code ) {
+        protected void ThrowDuplicateCodeException( string code ) {
             throw new Warning( string.Format( SecurityResource.DuplicateRoleCode, code ) );
+        }
+
+        /// <summary>
+        /// 修改角色
+        /// </summary>
+        public async Task UpdateAsync( TRole role ) {
+            role.CheckNull( nameof( role ) );
+            await ValidateUpdateAsync( role );
+            var parent = await Repository.FindAsync( role.ParentId );
+            role.InitPath( parent );
+            role.InitPinYin();
+            await Manager.UpdateAsync( role );
+        }
+
+        /// <summary>
+        /// 修改角色验证
+        /// </summary>
+        /// <param name="role">角色</param>
+        protected virtual Task ValidateUpdateAsync( TRole role ) {
+            return Task.CompletedTask;
         }
     }
 }

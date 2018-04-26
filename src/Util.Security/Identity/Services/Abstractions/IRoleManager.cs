@@ -15,5 +15,9 @@ namespace Util.Security.Identity.Services.Abstractions {
         /// </summary>
         /// <param name="role">角色</param>
         Task CreateAsync( TRole role );
+        /// <summary>
+        /// 修改角色
+        /// </summary>
+        Task UpdateAsync( TRole role );
     }
 }
