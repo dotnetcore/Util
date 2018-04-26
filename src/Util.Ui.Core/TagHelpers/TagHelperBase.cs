@@ -14,6 +14,10 @@ namespace Util.Ui.TagHelpers {
         /// 标识
         /// </summary>
         public string Id { get; set; }
+        /// <summary>
+        /// 是否写跟踪日志
+        /// </summary>
+        public bool IsWriteTreceLog { get; set; }
 
         /// <summary>
         /// 渲染
@@ -48,6 +52,8 @@ namespace Util.Ui.TagHelpers {
         /// <param name="context">上下文</param>
         /// <param name="render">渲染器</param>
         protected virtual void ProcessAfter( Context context, IRender render ) {
+            if( IsWriteTreceLog )
+                WriteLog( render, "渲染TagHelper组件" );
         }
 
         /// <summary>

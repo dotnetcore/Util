@@ -11,15 +11,6 @@ namespace Util.Ui.Angular.TagHelpers {
     [HtmlTargetElement( "util-container" )]
     public class ContainerTagHelper : TagHelperBase {
         /// <summary>
-        /// 处理后操作
-        /// </summary>
-        /// <param name="context">上下文</param>
-        /// <param name="render">渲染器</param>
-        protected override void ProcessAfter( Context context, IRender render ) {
-            WriteLog( render, "渲染ng-container容器" );
-        }
-
-        /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>

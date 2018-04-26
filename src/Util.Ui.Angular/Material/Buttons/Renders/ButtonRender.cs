@@ -51,6 +51,7 @@ namespace Util.Ui.Material.Buttons.Renders {
             ConfigMenu( builder );
             ConfigCloseDialog( builder );
             ConfigContent( builder );
+            ConfigAngular( builder );
         }
 
         /// <summary>
@@ -133,6 +134,13 @@ namespace Util.Ui.Material.Buttons.Renders {
             if( _config.Contains( UiConst.Text ) || _config.Contains( AngularConst.BindText ) )
                 return;
             builder.AppendContent( _config.Content );
+        }
+
+        /// <summary>
+        /// 配置angular属性
+        /// </summary>
+        private void ConfigAngular( TagBuilder builder ) {
+            builder.NgIf( _config );
         }
     }
 }

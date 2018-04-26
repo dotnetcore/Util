@@ -90,6 +90,7 @@ namespace Util.Ui.Material.Buttons.Renders {
             ConfigTooltip( builder );
             ConfigEvents( builder );
             ConfigWaiting( builder );
+            ConfigAngular( builder );
         }
 
         /// <summary>
@@ -148,6 +149,13 @@ namespace Util.Ui.Material.Buttons.Renders {
         private void ConfigWaiting( TagBuilder builder ) {
             builder.AddAttribute( "waitingText", _config.GetValue( UiConst.WaitingText ) );
             builder.AddAttribute( "waitingMatIcon", _config.GetValue<MaterialIcon?>( UiConst.WaitingIcon )?.Description() );
+        }
+
+        /// <summary>
+        /// 配置angular属性
+        /// </summary>
+        private void ConfigAngular( TagBuilder builder ) {
+            builder.NgIf( _config );
         }
     }
 }

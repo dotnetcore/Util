@@ -53,6 +53,21 @@ namespace Util.Ui.Controllers {
         }
 
         /// <summary>
+        /// 获取单个实例
+        /// </summary>
+        /// <remarks> 
+        /// 调用范例: 
+        /// GET
+        /// /api/customer/1 
+        /// </remarks>
+        /// <param name="id">标识</param>
+        [HttpGet( "{id}" )]
+        public override async Task<IActionResult> GetAsync( string id ) {
+            var result = await _service.GetByIdAsync( id );
+            return Success( new PrimeTreeNode<TDto> { Data = result } );
+        }
+
+        /// <summary>
         /// 查询
         /// </summary>
         /// <remarks> 
@@ -92,10 +107,10 @@ namespace Util.Ui.Controllers {
         /// </summary>
         /// <param name="query">查询参数</param>
         protected virtual void ProcessParam( TQuery query ) {
-            if ( query.Order.IsEmpty() )
+            if( query.Order.IsEmpty() )
                 query.Order = "SortId";
             query.Path = null;
-            if ( GetOperation( query ) == LoadOperation.LoadChild )
+            if( GetOperation( query ) == LoadOperation.LoadChild )
                 return;
             query.ParentId = default( TParentId );
         }
@@ -107,7 +122,7 @@ namespace Util.Ui.Controllers {
             var operation = HttpContext.Request.Query["operation"].SafeString();
             if( operation.ToLower() == "loadchild" )
                 return LoadOperation.LoadChild;
-            if ( query.IsSearch() )
+            if( query.IsSearch() )
                 return LoadOperation.Search;
             return LoadOperation.FirstLoad;
         }

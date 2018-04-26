@@ -60,6 +60,10 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// 等待时显示的图标
         /// </summary>
         public MaterialIcon WaitingIcon { get; set; }
+        /// <summary>
+        /// *ngIf
+        /// </summary>
+        public string If { get; set; }
 
         /// <summary>
         /// 获取渲染器
