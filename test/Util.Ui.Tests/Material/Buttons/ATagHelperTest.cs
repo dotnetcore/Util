@@ -147,6 +147,17 @@ namespace Util.Ui.Tests.Material.Buttons {
         }
 
         /// <summary>
+        /// 测试查询参数
+        /// </summary>
+        [Fact]
+        public void TestQueryParams() {
+            var attributes = new TagHelperAttributeList { { UiConst.QueryParams, "a" } };
+            var result = new String();
+            result.Append( "<a mat-raised-button=\"\" [queryParams]=\"a\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试单击事件
         /// </summary>
         [Fact]

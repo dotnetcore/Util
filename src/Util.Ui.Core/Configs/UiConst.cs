@@ -308,6 +308,10 @@
         /// </summary>
         public const string QueryParam = "query-param";
         /// <summary>
+        /// 查询参数
+        /// </summary>
+        public const string QueryParams = "query-params";
+        /// <summary>
         /// 基地址
         /// </summary>
         public const string BaseUrl = "base-url";

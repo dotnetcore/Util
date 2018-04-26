@@ -50,7 +50,7 @@
         <mat-textbox-wrapper (onChange)="search()" placeholder="搜索" [(model)]="queryParam.keyword"></mat-textbox-wrapper>
     </div>
     <div fxLayout="row">
-        <a mat-icon-button="" matTooltip="添加应用程序" routerLink="create">
+        <a mat-icon-button="" matTooltip="添加应用程序" routerLink="create" [queryParams]="{id:1}">
             <i class="fa fa-plus"></i>
         </a>
         <mat-button-wrapper (onClick)="delete()" style="mat-icon-button" tooltip="批量删除"><ng-template>

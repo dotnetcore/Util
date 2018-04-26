@@ -29,7 +29,16 @@ export class RouterHelper {
     }
 
     /**
-     * 获取当前路由参数值,从路由快照中获取参数
+     * 导航
+     * @param commands 导航参数，范例: ['team', 33, 'user', 11]，表示 /team/33/user/11
+     * @param queryParams 查询参数，范例: {id:'1'}，表示 ?id=1
+     */
+    static navigateByQuery(commands: any[], queryParams): Promise<boolean> {
+        return this.navigate(commands, { queryParams: queryParams });
+    }
+
+    /**
+     * 获取路径参数值,从路由快照中获取参数
      * @param paramName 参数名
      */
     static getParam(paramName: string): string | null {
@@ -38,7 +47,7 @@ export class RouterHelper {
     }
 
     /**
-     * 获取当前路由参数值,从路由快照中的查询字符串获取参数
+     * 获取查询参数值,从路由快照中的查询字符串获取参数
      * @param paramName 参数名
      */
     static getQueryParam(paramName: string): string | null {

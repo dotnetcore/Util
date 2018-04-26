@@ -94,6 +94,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         private void ConfigLink( TagBuilder builder ) {
             builder.AddAttribute( "routerLink", _config.GetValue( UiConst.Link ) );
             builder.AddAttribute( "[routerLink]", _config.GetValue( AngularConst.BindLink ) );
+            builder.AddAttribute( "[queryParams]", _config.GetValue( UiConst.QueryParams ) );
         }
 
         /// <summary>
