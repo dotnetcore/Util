@@ -33,14 +33,14 @@ namespace <%= Namespace %>.Areas.<%= Schema %>.Controllers {
         }
         
         /// <summary>
-        /// 编辑页
+        /// 编辑
         /// </summary>
         public IActionResult Edit() {
             return View();
         }
         
         /// <summary>
-        /// 详细页
+        /// 详细
         /// </summary>
         public IActionResult Detail() {
             return View();

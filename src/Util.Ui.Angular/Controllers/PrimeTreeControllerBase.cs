@@ -53,16 +53,16 @@ namespace Util.Ui.Controllers {
         }
 
         /// <summary>
-        /// 获取单个实例
+        /// 获取单个树型节点
         /// </summary>
         /// <remarks> 
         /// 调用范例: 
         /// GET
-        /// /api/customer/1 
+        /// /api/role/tree?id=1
         /// </remarks>
         /// <param name="id">标识</param>
-        [HttpGet( "{id}" )]
-        public override async Task<IActionResult> GetAsync( string id ) {
+        [HttpGet( "tree" )]
+        public virtual async Task<IActionResult> GetTreeNodeAsync( string id ) {
             var result = await _service.GetByIdAsync( id );
             return Success( new PrimeTreeNode<TDto> { Data = result } );
         }
@@ -73,7 +73,7 @@ namespace Util.Ui.Controllers {
         /// <remarks> 
         /// 调用范例: 
         /// GET
-        /// /api/customer?name=a
+        /// /api/role?name=a
         /// </remarks>
         /// <param name="query">查询参数</param>
         [HttpGet]

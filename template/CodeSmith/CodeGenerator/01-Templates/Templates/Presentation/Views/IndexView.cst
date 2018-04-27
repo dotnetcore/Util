@@ -76,7 +76,7 @@ if( Entity.IsTreeEntity() ){
     <% } %>
     <util-table-column title="操作" column="operation">
         <util-table-cell>
-            <util-a styles="Icon" tooltip="编辑" bind-link="['edit',row.id]">
+            <util-a styles="Icon" tooltip="编辑" bind-link="['update',row.id]">
                 <util-icon material-icon="Edit"></util-icon>
             </util-a>
             <util-button styles="Icon" tooltip="删除" on-click="delete(row.id)">

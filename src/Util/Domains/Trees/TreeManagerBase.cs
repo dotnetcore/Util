@@ -58,7 +58,7 @@ namespace Util.Domains.Trees {
         /// 修改路径
         /// </summary>
         private async Task UpdateChildrenPath( TEntity parent, List<TEntity> children ) {
-            if( parent == null )
+            if( parent == null || children == null )
                 return;
             var list = children.Where( t => t.ParentId.Equals( parent.Id ) ).ToList();
             foreach( var child in list ) {

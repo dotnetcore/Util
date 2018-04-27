@@ -23,7 +23,7 @@ import { EditComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-model';
 
 /**
- * <%=Description%>详细页
+ * <%=Description%>详细
  */
 @Component({
     selector: '<%=CamelClassName%>-detail',

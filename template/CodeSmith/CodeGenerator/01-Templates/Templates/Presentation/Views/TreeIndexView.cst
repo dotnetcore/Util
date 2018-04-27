@@ -38,7 +38,7 @@
     <util-tree-table-column for="<%= p.PropertyName.ToSafeName() %>"></util-tree-table-column>
     <% } %>
     <util-tree-table-column title="操作">
-        <util-a styles="Icon" tooltip="编辑" bind-link="['edit',row.data.id]">
+        <util-a styles="Icon" tooltip="编辑" bind-link="['update',row.data.id]">
             <util-icon material-icon="Edit"></util-icon>
         </util-a>
         <util-button styles="Icon" tooltip="删除" on-click="delete(row.data.id)">
