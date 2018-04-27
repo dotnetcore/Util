@@ -21,6 +21,14 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 获取实体，不会缓存
+        /// </summary>
+        /// <param name="id">标识</param>
+        public override async Task<TEntity> FindNoCacheAsync( Guid id ) {
+            return await SingleAsync( t => t.Id == id );
+        }
+
+        /// <summary>
         /// 生成排序号
         /// </summary>
         /// <param name="parentId">父编号</param>
@@ -50,6 +58,12 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="parentId">父编号</param>
         public abstract Task<int> GenerateSortIdAsync( TParentId parentId );
+
+        /// <summary>
+        /// 获取实体，不会缓存
+        /// </summary>
+        /// <param name="id">标识</param>
+        public abstract Task<TEntity> FindNoCacheAsync( TKey id );
 
         /// <summary>
         /// 获取全部下级实体

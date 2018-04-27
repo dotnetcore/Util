@@ -9,7 +9,6 @@ namespace Util.Webs.Controllers {
     /// </summary>
     [Route( "api/[controller]" )]
     [ExceptionHandler]
-    [AutoValidateAntiforgeryToken]
     public class WebApiControllerBase : Controller {
         /// <summary>
         /// 返回成功消息

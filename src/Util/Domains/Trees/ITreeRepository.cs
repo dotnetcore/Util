@@ -21,12 +21,17 @@ namespace Util.Domains.Trees {
         /// <summary>
         /// 生成排序号
         /// </summary>
-        /// <param name="parentId">父编号</param>
+        /// <param name="parentId">父标识</param>
         Task<int> GenerateSortIdAsync( TParentId parentId );
         /// <summary>
         /// 获取全部下级实体
         /// </summary>
         /// <param name="parent">父实体</param>
         Task<List<TEntity>> GetAllChildrenAsync( TEntity parent );
+        /// <summary>
+        /// 获取实体，不会缓存
+        /// </summary>
+        /// <param name="id">标识</param>
+        Task<TEntity> FindNoCacheAsync( TKey id );
     }
 }

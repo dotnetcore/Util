@@ -74,7 +74,8 @@ namespace Util.Security.Identity.Services.Implements {
             await ValidateUpdate( role );
             role.InitPinYin();
             await UpdatePathAsync( role );
-            await Manager.UpdateAsync( role );
+            var result = await Manager.UpdateAsync( role );
+            result.ThrowIfError();
         }
 
         /// <summary>

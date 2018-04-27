@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Util.Dependency;
 
 namespace Util.Tools.Sms {
     /// <summary>
     /// 短信服务
     /// </summary>
-    public interface ISmsService {
+    public interface ISmsService : IScopeDependency {
         /// <summary>
         /// 发送短信
         /// </summary>

@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +37,9 @@ namespace Util.Samples.Webs {
         /// </summary>
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
             //添加Mvc服务
-            services.AddMvc().AddControllersAsServices();
+            services.AddMvc( options => 
+                options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() )
+            ).AddControllersAsServices();
 
             //添加NLog日志操作
             services.AddNLog();
