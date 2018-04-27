@@ -1,4 +1,6 @@
 ﻿using System;
+using Util.Domains.Repositories;
+using Util.Domains.Trees;
 using Util.Security.Identity.Models;
 
 namespace Util.Tests.Samples {
@@ -22,5 +24,11 @@ namespace Util.Tests.Samples {
         public Role( Guid id, string path, int level )
             : base( id, path, level ) {
         }
+    }
+
+    /// <summary>
+    /// 角色仓储
+    /// </summary>
+    public interface IRoleRepository : ITreeRepository<Role> {
     }
 }

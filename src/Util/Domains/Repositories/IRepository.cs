@@ -48,8 +48,18 @@ namespace Util.Domains.Repositories {
         /// <summary>
         /// 修改实体
         /// </summary>
+        /// <param name="entities">实体集合</param>
+        void Update( [Valid] IEnumerable<TEntity> entities );
+        /// <summary>
+        /// 修改实体
+        /// </summary>
         /// <param name="entity">实体</param>
         Task UpdateAsync( [Valid] TEntity entity );
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        Task UpdateAsync( [Valid] IEnumerable<TEntity> entities );
         /// <summary>
         /// 移除实体
         /// </summary>

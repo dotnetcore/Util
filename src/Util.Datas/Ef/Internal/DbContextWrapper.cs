@@ -271,6 +271,46 @@ namespace Util.Datas.Ef.Internal {
         }
 
         /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public void Update( IEnumerable<TEntity> entities ) {
+            if( entities == null )
+                throw new ArgumentNullException( nameof( entities ) );
+            var newEntities = entities.ToList();
+            var oldEntities = FindByIds( newEntities.Select( t => t.Id ) );
+            ValidateVersion( newEntities, oldEntities );
+            UnitOfWork.UpdateRange( newEntities );
+        }
+
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task UpdateAsync( IEnumerable<TEntity> entities ) {
+            if( entities == null )
+                throw new ArgumentNullException( nameof( entities ) );
+            var newEntities = entities.ToList();
+            var oldEntities = await FindByIdsAsync( newEntities.Select( t => t.Id ) );
+            ValidateVersion( newEntities, oldEntities );
+            UnitOfWork.UpdateRange( newEntities );
+        }
+
+        //验证版本号
+        private void ValidateVersion( List<TEntity> newEntities, List<TEntity> oldEntities ) {
+            if( oldEntities == null )
+                throw new ArgumentNullException( nameof( oldEntities ) );
+            if( newEntities.Count != oldEntities.Count )
+                throw new ConcurrencyException();
+            foreach( var entity in newEntities ) {
+                var old = oldEntities.Find( t => t.Id.Equals( entity.Id ) );
+                if( old == null)
+                    throw new ConcurrencyException();
+                ValidateVersion( entity, old );
+            }
+        }
+
+        /// <summary>
         /// 移除实体
         /// </summary>
         /// <param name="id">实体标识</param>

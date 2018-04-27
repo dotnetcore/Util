@@ -166,9 +166,25 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 修改实体
         /// </summary>
+        /// <param name="entities">实体集合</param>
+        public void Update( IEnumerable<TEntity> entities ) {
+            _store.Update( entities.Select( ToPo ) );
+        }
+
+        /// <summary>
+        /// 修改实体
+        /// </summary>
         /// <param name="entity">实体</param>
         public async Task UpdateAsync( TEntity entity ) {
             await _store.UpdateAsync( ToPo( entity ) );
+        }
+
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task UpdateAsync( IEnumerable<TEntity> entities ) {
+            await _store.UpdateAsync( entities.Select( ToPo ) );
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace Util.Samples.Webs.Datas.Repositories.Systems {
     /// <summary>
     /// 角色仓储
     /// </summary>
-    public class RoleRepository : RepositoryBase<Role>, IRoleRepository, IRoleStore<Role> {
+    public class RoleRepository : TreeRepositoryBase<Role>, IRoleRepository, IRoleStore<Role> {
         /// <summary>
         /// 初始化角色仓储
         /// </summary>

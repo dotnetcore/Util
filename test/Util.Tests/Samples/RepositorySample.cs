@@ -196,7 +196,15 @@ namespace Util.Tests.Samples {
         public void Update( EntitySample entity ) {
         }
 
+        public void Update( IEnumerable<EntitySample> entities ) {
+            throw new NotImplementedException();
+        }
+
         public Task UpdateAsync( EntitySample entity ) {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync( IEnumerable<EntitySample> entities ) {
             throw new NotImplementedException();
         }
 

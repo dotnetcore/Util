@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Dependency;
 using Util.Domains.Repositories;
+using Util.Validations.Aspects;
 
 namespace Util.Datas.Persistence {
     /// <summary>
@@ -149,10 +150,20 @@ namespace Util.Datas.Persistence {
         /// <param name="po">持久化对象</param>
         void Update( TPo po );
         /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        void Update( [Valid] IEnumerable<TPo> pos );
+        /// <summary>
         /// 修改持久化对象
         /// </summary>
         /// <param name="po">持久化对象</param>
         Task UpdateAsync( TPo po );
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        Task UpdateAsync( [Valid] IEnumerable<TPo> pos );
         /// <summary>
         /// 移除持久化对象
         /// </summary>

@@ -269,6 +269,14 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        public void Update( IEnumerable<TPo> pos ) {
+            _wrapper.Update( pos );
+        }
+
+        /// <summary>
         /// 修改持久化对象
         /// </summary>
         /// <param name="po">持久化对象</param>
@@ -277,6 +285,14 @@ namespace Util.Datas.Ef.Core {
                 throw new ArgumentNullException( nameof( po ) );
             var old = await FindAsync( po.Id );
             _wrapper.Update( po, old );
+        }
+
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="pos">持久化对象集合</param>
+        public async Task UpdateAsync( IEnumerable<TPo> pos ) {
+            await _wrapper.UpdateAsync( pos );
         }
 
         /// <summary>

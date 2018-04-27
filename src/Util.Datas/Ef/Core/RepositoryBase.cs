@@ -343,7 +343,15 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 异步修改实体
+        /// 修改实体
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public void Update( IEnumerable<TEntity> entities ) {
+            _wrapper.Update( entities );
+        }
+
+        /// <summary>
+        /// 修改实体
         /// </summary>
         /// <param name="entity">实体</param>
         public async Task UpdateAsync( TEntity entity ) {
@@ -351,6 +359,14 @@ namespace Util.Datas.Ef.Core {
                 throw new ArgumentNullException( nameof( entity ) );
             var oldEntity = await _wrapper.FindAsync( entity.Id );
             _wrapper.Update( entity, oldEntity );
+        }
+
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task UpdateAsync( IEnumerable<TEntity> entities ) {
+            await _wrapper.UpdateAsync( entities );
         }
 
         /// <summary>
