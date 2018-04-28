@@ -42,7 +42,7 @@ namespace Util.Domains.Trees {
         /// <param name="entity">实体</param>
         public async Task UpdatePathAsync( TEntity entity ) {
             entity.CheckNull( nameof( entity ) );
-            var old = await _repository.FindNoCacheAsync( entity.Id );
+            var old = await _repository.FindNoTrackingAsync( entity.Id );
             if( old == null )
                 return;
             if ( entity.ParentId.Equals( old.ParentId ) )

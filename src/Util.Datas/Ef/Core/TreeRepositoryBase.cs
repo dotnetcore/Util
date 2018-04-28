@@ -21,11 +21,11 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 获取实体，不会缓存
+        /// 获取不被跟踪的实体
         /// </summary>
         /// <param name="id">标识</param>
-        public override async Task<TEntity> FindNoCacheAsync( Guid id ) {
-            return await SingleAsync( t => t.Id == id );
+        public override async Task<TEntity> FindNoTrackingAsync( Guid id ) {
+            return await FindAsNoTracking().FirstOrDefaultAsync( t => t.Id == id );
         }
 
         /// <summary>
@@ -60,10 +60,10 @@ namespace Util.Datas.Ef.Core {
         public abstract Task<int> GenerateSortIdAsync( TParentId parentId );
 
         /// <summary>
-        /// 获取实体，不会缓存
+        /// 获取不被跟踪的实体
         /// </summary>
         /// <param name="id">标识</param>
-        public abstract Task<TEntity> FindNoCacheAsync( TKey id );
+        public abstract Task<TEntity> FindNoTrackingAsync( TKey id );
 
         /// <summary>
         /// 获取全部下级实体

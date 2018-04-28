@@ -29,9 +29,9 @@ namespace Util.Domains.Trees {
         /// <param name="parent">父实体</param>
         Task<List<TEntity>> GetAllChildrenAsync( TEntity parent );
         /// <summary>
-        /// 获取实体，不会缓存
+        /// 获取不被跟踪的实体
         /// </summary>
         /// <param name="id">标识</param>
-        Task<TEntity> FindNoCacheAsync( TKey id );
+        Task<TEntity> FindNoTrackingAsync( TKey id );
     }
 }

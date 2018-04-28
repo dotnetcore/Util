@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Util.Domains;
 using Util.Logs.Extensions;
@@ -86,13 +88,29 @@ namespace Util.Applications {
         /// 修改实体
         /// </summary>
         protected void Update( TEntity entity ) {
-            var oldEntity = _repository.Find( entity.Id );
+            var oldEntity = FindOldEntity( entity.Id );
             if( oldEntity == null )
                 throw new ArgumentNullException( nameof( oldEntity ) );
             var changes = oldEntity.GetChanges( entity );
             UpdateBefore( entity );
             _repository.Update( entity );
             UpdateAfter( entity, changes );
+        }
+
+        /// <summary>
+        /// 查找旧实体
+        /// </summary>
+        /// <param name="id">标识</param>
+        protected virtual TEntity FindOldEntity( TKey id ) {
+            return _repository.Find( id );
+        }
+
+        /// <summary>
+        /// 查找旧实体
+        /// </summary>
+        /// <param name="id">标识</param>
+        protected virtual async Task<TEntity> FindOldEntityAsync( TKey id ) {
+            return await _repository.FindAsync( id );
         }
 
         /// <summary>
@@ -128,7 +146,7 @@ namespace Util.Applications {
         /// 修改实体
         /// </summary>
         protected async Task UpdateAsync( TEntity entity ) {
-            var oldEntity = await _repository.FindAsync( entity.Id );
+            var oldEntity = await FindOldEntityAsync( entity.Id );
             if( oldEntity == null )
                 throw new ArgumentNullException( nameof( oldEntity ) );
             var changes = oldEntity.GetChanges( entity );

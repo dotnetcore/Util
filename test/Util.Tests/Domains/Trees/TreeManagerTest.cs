@@ -95,7 +95,7 @@ namespace Util.Tests.Domains.Trees {
             //设置
             string path = $"{_id2},{_id},";
             var old = new Role( _id, path, 2 ) { ParentId = _id2 };
-            _mockRepository.FindNoCacheAsync( _id ).Returns( old );
+            _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
             _mockRepository.FindAsync( _id3 ).Returns( new Role( _id3, $"{_id3},", 1 ) );
             var list = new List<Role> {};
             _mockRepository.GetAllChildrenAsync( old ).Returns( list );
@@ -118,7 +118,7 @@ namespace Util.Tests.Domains.Trees {
             string path = $"{_id2},{_id},";
             var old = new Role( _id, path, 2 ) { ParentId = _id2 };
             var child = new Role( _id4, $"{path},{_id4}", 3 ) { ParentId = _id };
-            _mockRepository.FindNoCacheAsync( _id ).Returns( old );
+            _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
             _mockRepository.FindAsync( _id3 ).Returns( new Role( _id3, $"{_id3},", 1 ) );
             var list = new List<Role> { child };
             _mockRepository.GetAllChildrenAsync( old ).Returns( list );
@@ -142,7 +142,7 @@ namespace Util.Tests.Domains.Trees {
             var old = new Role( _id, path, 2 ) { ParentId = _id2 };
             var child1 = new Role( _id4, $"{path},{_id4}", 3 ) { ParentId = _id };
             var child2 = new Role( _id5, $"{path},{_id5}", 3 ) { ParentId = _id };
-            _mockRepository.FindNoCacheAsync( _id ).Returns( old );
+            _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
             _mockRepository.FindAsync( _id3 ).Returns( new Role( _id3, $"{_id3},", 1 ) );
             var list = new List<Role> { child1,child2 };
             _mockRepository.GetAllChildrenAsync( old ).Returns( list );
@@ -167,7 +167,7 @@ namespace Util.Tests.Domains.Trees {
             var old = new Role( _id, path, 2 ) { ParentId = _id2 };
             var child1 = new Role( _id4, $"{path},{_id4}", 3 ) { ParentId = _id };
             var child2 = new Role( _id5, $"{path},{_id4},{_id5}", 4 ) { ParentId = _id4 };
-            _mockRepository.FindNoCacheAsync( _id ).Returns( old );
+            _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
             _mockRepository.FindAsync( _id3 ).Returns( new Role( _id3, $"{_id3},", 1 ) );
             var list = new List<Role> { child1, child2 };
             _mockRepository.GetAllChildrenAsync( old ).Returns( list );
