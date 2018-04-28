@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Util.Domains.Trees;
+using Util.Exceptions;
+using Util.Properties;
 using Util.Tests.Samples;
+using Util.Tests.XUnitHelpers;
 using Xunit;
 
 namespace Util.Tests.Domains.Trees {
@@ -65,7 +67,7 @@ namespace Util.Tests.Domains.Trees {
             await _manager.UpdatePathAsync( role );
 
             //验证
-            await _mockRepository.DidNotReceive().FindAsync( _id2 );
+            await _mockRepository.DidNotReceive().GetAllChildrenAsync( role );
             Assert.Equal( path, role.Path );
         }
 
@@ -83,7 +85,7 @@ namespace Util.Tests.Domains.Trees {
             await _manager.UpdatePathAsync( role );
 
             //验证
-            await _mockRepository.DidNotReceive().FindAsync( _id2 );
+            await _mockRepository.DidNotReceive().GetAllChildrenAsync( role );
             Assert.Equal( path, role.Path );
         }
 
@@ -97,7 +99,7 @@ namespace Util.Tests.Domains.Trees {
             var old = new Role( _id, path, 2 ) { ParentId = _id2 };
             _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
             _mockRepository.FindAsync( _id3 ).Returns( new Role( _id3, $"{_id3},", 1 ) );
-            var list = new List<Role> {};
+            var list = new List<Role> { };
             _mockRepository.GetAllChildrenAsync( old ).Returns( list );
 
             //执行
@@ -144,7 +146,7 @@ namespace Util.Tests.Domains.Trees {
             var child2 = new Role( _id5, $"{path},{_id5}", 3 ) { ParentId = _id };
             _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
             _mockRepository.FindAsync( _id3 ).Returns( new Role( _id3, $"{_id3},", 1 ) );
-            var list = new List<Role> { child1,child2 };
+            var list = new List<Role> { child1, child2 };
             _mockRepository.GetAllChildrenAsync( old ).Returns( list );
 
             //执行
@@ -180,6 +182,48 @@ namespace Util.Tests.Domains.Trees {
             Assert.Equal( $"{_id3},{_id},", role.Path );
             Assert.Equal( $"{_id3},{_id},{_id4},", list[0].Path );
             Assert.Equal( $"{_id3},{_id},{_id4},{_id5},", list[1].Path );
+        }
+
+        /// <summary>
+        /// 修改父节点 - 将父节点移动到子节点下
+        /// </summary>
+        [Fact]
+        public async Task TestUpdatePathAsync_7() {
+            //设置
+            string path = $"{_id},";
+            var old = new Role( _id, path, 1 );
+            var child = new Role( _id2, $"{_id},{_id2},", 2 ) { ParentId = _id };
+            _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
+            var list = new List<Role> { child };
+            _mockRepository.GetAllChildrenAsync( old ).Returns( list );
+
+            //执行验证
+            await AssertHelper.ThrowsAsync<Warning>( async () => {
+                Role result = new Role( _id, path, 1 ) { ParentId = _id2 };
+                await _manager.UpdatePathAsync( result );
+            }, LibraryResource.NotSupportMoveToChildren );
+        }
+
+        /// <summary>
+        /// 修改父节点 - 将父节点设置为自己
+        /// </summary>
+        [Fact]
+        public async Task TestUpdatePathAsync_8() {
+            //设置
+            string path = $"{_id},";
+            var old = new Role( _id, path, 1 );
+            var child = new Role( _id2, $"{_id},{_id2},", 2 ) { ParentId = _id };
+            _mockRepository.FindNoTrackingAsync( _id ).Returns( old );
+            var list = new List<Role> { child };
+            _mockRepository.GetAllChildrenAsync( old ).Returns( list );
+
+            //执行
+            Role result = new Role( _id, path, 1 ) { ParentId = _id };
+            await _manager.UpdatePathAsync( result );
+
+            //验证
+            await _mockRepository.DidNotReceive().GetAllChildrenAsync( result );
+            Assert.Equal( path, result.Path );
         }
     }
 }

@@ -70,6 +70,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 不允许将父节点移动到子节点下 的本地化字符串。
+        /// </summary>
+        public static string NotSupportMoveToChildren {
+            get {
+                return ResourceManager.GetString("NotSupportMoveToChildren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 仅允许添加一个条件,条件：{0} 的本地化字符串。
         /// </summary>
         public static string OnlyOnePredicate {

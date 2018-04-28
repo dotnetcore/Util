@@ -56,6 +56,12 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Microsoft.Extensions.DependencyModel">
+      <HintPath>C:\Users\Administrator\.nuget\packages\microsoft.extensions.dependencymodel\1.0.3\lib\netstandard1.6\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\LibraryResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Util.Domains.Services;
+using Util.Exceptions;
+using Util.Properties;
 
 namespace Util.Domains.Trees {
     /// <summary>
@@ -42,12 +44,16 @@ namespace Util.Domains.Trees {
         /// <param name="entity">实体</param>
         public async Task UpdatePathAsync( TEntity entity ) {
             entity.CheckNull( nameof( entity ) );
+            if( entity.ParentId.Equals( entity.Id ) )
+                return;
             var old = await _repository.FindNoTrackingAsync( entity.Id );
             if( old == null )
                 return;
-            if ( entity.ParentId.Equals( old.ParentId ) )
+            if( entity.ParentId.Equals( old.ParentId ) )
                 return;
             var children = await _repository.GetAllChildrenAsync( entity );
+            if( children.Exists( t => t.Id.Equals( entity.ParentId ) ) )
+                throw new Warning( LibraryResource.NotSupportMoveToChildren );
             var parent = await _repository.FindAsync( entity.ParentId );
             entity.InitPath( parent );
             await UpdateChildrenPath( entity, children );
