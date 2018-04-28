@@ -50,8 +50,15 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> implements
         this.util.webapi.get<TViewModel>(this.getUrl(id)).handle({
             handler: result => {
                 this.model = result;
+                this.loadAfter(result);
             }
         });
+    }
+
+    /**
+     * 加载完成后操作
+     */
+    protected loadAfter(result) {
     }
 
     /**

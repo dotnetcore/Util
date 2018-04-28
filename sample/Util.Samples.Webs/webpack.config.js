@@ -53,7 +53,6 @@ module.exports = (env) => {
                     tsConfigPath: 'tsconfig.json',
                     entryModule: "Typings/app/app.module#AppModule"
                 }),
-                new PurifyPlugin(),
                 new UglifyJsPlugin()
             ])
     }

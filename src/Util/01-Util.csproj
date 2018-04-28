@@ -50,7 +50,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0-pre-05" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0-preview2-26406-04" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.3" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.5" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0-preview2-26406-04" />
   </ItemGroup>

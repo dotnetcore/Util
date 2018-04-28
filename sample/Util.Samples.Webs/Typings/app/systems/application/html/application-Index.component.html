@@ -106,3 +106,5 @@
         </mat-cell>
     </ng-container>
 <mat-header-row *matHeaderRowDef="['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" style="display: none"></mat-header-row><mat-row (click)="table_Application.selectedSelection.select(row)" *matRowDef="let row;columns:['selectCheckbox','lineNumber','code','name','comment','enabled','registerEnabled','creationTime','operation']" class="mat-row-hover" matRipple="" [class.selected]="table_Application.selectedSelection.isSelected(row)"></mat-row></mat-table></mat-table-wrapper>
+
+<echarts-ng2 [option]="option"></echarts-ng2>

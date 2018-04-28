@@ -28,7 +28,8 @@ const jsModules = [
     '@angular/flex-layout',
     '@angular/material',
     'primeng/primeng',
-    'lodash'
+    'lodash',
+    "echarts-ng2"
 ];
 
 //第三方Css库

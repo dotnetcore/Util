@@ -33,6 +33,9 @@ import {
 //CKEditor模块
 import { CKEditorModule } from 'ng2-ckeditor';
 
+//Echarts图表模块
+import { EchartsNg2Module } from 'echarts-ng2';
+
 //Util Material组件
 import { UtilDateAdapter } from './material/local/date-adapter';
 import { TableWrapperComponent } from './material/table-wrapper.component';
@@ -70,7 +73,7 @@ import { DicService } from './services/dic.service';
         MatListModule, MatDialogModule,
         MatProgressSpinnerModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule,
         GrowlModule, LightboxModule, ColorPickerModule,
-        TreeTableModule, CKEditorModule
+        TreeTableModule, CKEditorModule, EchartsNg2Module
     ],
     declarations: [
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
@@ -90,7 +93,7 @@ import { DicService } from './services/dic.service';
         GrowlModule, LightboxModule, ColorPickerModule,
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
-        TreeTableModule, CKEditorModule,
+        TreeTableModule, CKEditorModule, EchartsNg2Module,
         SafeUrlPipe
     ],
     entryComponents: [

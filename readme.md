@@ -134,17 +134,17 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Docker
 
 6. 开发平台
-  - .Net Core 2.0
+  - .Net Core 2.1 preview2
 
 7. 单元测试及模拟框架
   - XUnit
   - NSubstitute
 
 8. ORM
-  - EntityFrameworkCore 2.0
-  - Microsoft.EntityFrameworkCore.SqlServer 2.0.0
-  - Npgsql.EntityFrameworkCore.PostgreSQL 2.0.0
-  - Pomelo.EntityFrameworkCore.MySql 2.0.x
+  - EntityFrameworkCore
+  - Microsoft.EntityFrameworkCore.SqlServer
+  - Npgsql.EntityFrameworkCore.PostgreSQL
+  - Pomelo.EntityFrameworkCore.MySql
 
 9. Ioc框架
   - Autofac
@@ -207,6 +207,9 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - 图标
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)
+  - 图表
+    - [echarts](http://echarts.baidu.com/examples/)
+    - [echarts-ng2](https://github.com/twp0217/echarts-ng2)
   - 打包
     - Webpack
   - 测试

@@ -34,7 +34,8 @@
     "primeng": "5.2.4",
     "moment": "2.22.0",
     "lodash": "4.5.0",
-    "ng2-ckeditor": "1.2.0"
+    "ng2-ckeditor": "1.2.0",
+    "echarts-ng2": "5.0.0" 
   },
   "devDependencies": {
     "@angular/compiler-cli": "5.2.9",
