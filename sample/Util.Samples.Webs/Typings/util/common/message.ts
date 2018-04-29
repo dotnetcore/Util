@@ -101,9 +101,14 @@ export class Message {
             maxWidth: "40em",
             disableClose: true,
             data: {
-                content: message,
-                ok: ok,
-                cancel: cancel
+                content: message
+            },
+            afterClosed: result => {
+                if (result === "ok") {
+                    ok && ok();
+                    return;
+                }
+                cancel && cancel();
             }
         });
     }

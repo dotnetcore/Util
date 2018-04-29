@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Util.Helpers;
 using Util.Tests.Samples;
@@ -63,6 +64,19 @@ namespace Util.Tests {
             Assert.True( value.IsEmpty() );
             value = Guid.NewGuid();
             Assert.False( value.IsEmpty() );
+        }
+
+        /// <summary>
+        /// 测试是否空值 - 集合
+        /// </summary>
+        [Fact]
+        public void TestIsEmpty_List() {
+            List<int> list = null;
+            Assert.True( list.IsEmpty() );
+            list = new List<int>();
+            Assert.True( list.IsEmpty() );
+            list.Add( 1 );
+            Assert.False( list.IsEmpty() );
         }
     }
 }

@@ -15,6 +15,10 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     [HtmlTargetElement( "util-table" )]
     public class TableTagHelper : TagHelperBase {
         /// <summary>
+        /// 用于还原查询参数的标识
+        /// </summary>
+        public string Key { get; set; }
+        /// <summary>
         /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
         /// </summary>
         public string BaseUrl { get; set; }

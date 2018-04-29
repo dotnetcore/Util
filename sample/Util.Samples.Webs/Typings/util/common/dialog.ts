@@ -122,7 +122,7 @@ export class Dialog {
     }
 
     /**
-     * 获取数据
+     * 获取数据，注意：必须在OnInit之后的事件调用，不能在构造函数中调用，可能获取不到值
      */
     static getData<T>() {
         return ioc.get<T>(MAT_DIALOG_DATA);

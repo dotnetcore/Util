@@ -16,8 +16,8 @@ import { MAT_DIALOG_DATA } from '@angular/material';
             <mat-icon>help</mat-icon><span>{{data.content}}</span>
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-          <button mat-icon-button mat-dialog-close (click)="data.cancel()" matTooltip="取消"><mat-icon>clear</mat-icon></button>
-          <button mat-icon-button mat-dialog-close (click)="data.ok()" matTooltip="确认"><mat-icon>done</mat-icon></button>
+          <button mat-icon-button mat-dialog-close="" matTooltip="取消"><mat-icon>clear</mat-icon></button>
+          <button mat-icon-button mat-dialog-close="ok" matTooltip="确认"><mat-icon>done</mat-icon></button>
         </mat-dialog-actions>
   `, styles: [`
         .mat-dialog-content .mat-icon{

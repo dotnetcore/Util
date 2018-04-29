@@ -427,5 +427,9 @@
         /// 上传地址
         /// </summary>
         public const string UploadUrl = "upload-url";
+        /// <summary>
+        /// 标识
+        /// </summary>
+        public const string Key = "key";
     }
 }

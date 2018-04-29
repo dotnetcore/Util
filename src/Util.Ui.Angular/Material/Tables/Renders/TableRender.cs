@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Helpers;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Tables.Builders;
@@ -59,7 +60,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// </summary>
         protected override void ConfigId( TagBuilder builder ) {
             builder.AddAttribute( $"#{_config.Id}" );
-            builder.AddAttribute( "key", _config.Id );
+            builder.AddAttribute( "key", _config.GetValue( UiConst.Key ) );
         }
 
         /// <summary>

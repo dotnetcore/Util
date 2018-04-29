@@ -135,7 +135,7 @@ export interface IFormSubmitOption {
     /**
      * 按钮实例，在请求期间禁用该按钮
      */
-    button,
+    button?,
     /**
      * 请求时显示进度条，默认为false
      */
