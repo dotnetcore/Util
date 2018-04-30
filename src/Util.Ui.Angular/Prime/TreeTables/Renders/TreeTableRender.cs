@@ -56,7 +56,7 @@ namespace Util.Ui.Prime.TreeTables.Renders {
             var id = _config.GetValue( UiConst.Id );
             id = id.IsEmpty() ? Id.Guid() : id;
             builder.AddAttribute( $"#{id}" );
-            builder.AddAttribute( "key", id );
+            builder.AddAttribute( "key", _config.GetValue( UiConst.Key ) );
         }
 
         /// <summary>

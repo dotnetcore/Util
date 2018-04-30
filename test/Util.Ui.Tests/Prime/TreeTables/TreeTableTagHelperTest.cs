@@ -44,7 +44,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         [Fact]
         public void TestDefault() {
             var result = new String();  
-            result.Append( "<p-tree-table #id=\"\" key=\"id\">" );
+            result.Append( "<p-tree-table #id=\"\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -56,7 +56,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #a=\"\" key=\"a\">" );
+            result.Append( "<p-tree-table #a=\"\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -68,7 +68,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestQueryParam() {
             var attributes = new TagHelperAttributeList { { UiConst.QueryParam, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" [(queryParam)]=\"a\">" );
+            result.Append( "<p-tree-table #id=\"\" [(queryParam)]=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -80,7 +80,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestBaseUrl() {
             var attributes = new TagHelperAttributeList { { UiConst.BaseUrl, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" baseUrl=\"a\" key=\"id\">" );
+            result.Append( "<p-tree-table #id=\"\" baseUrl=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -92,7 +92,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestUrl() {
             var attributes = new TagHelperAttributeList { { UiConst.Url, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" url=\"a\">" );
+            result.Append( "<p-tree-table #id=\"\" url=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -104,7 +104,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestDeleteUrl() {
             var attributes = new TagHelperAttributeList { { UiConst.DeleteUrl, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" deleteUrl=\"a\" key=\"id\">" );
+            result.Append( "<p-tree-table #id=\"\" deleteUrl=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -116,7 +116,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestSelectionMode_Multiple() {
             var attributes = new TagHelperAttributeList { { UiConst.SelectionMode, SelectionMode.Multiple } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" selectionMode=\"checkbox\">" );
+            result.Append( "<p-tree-table #id=\"\" selectionMode=\"checkbox\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -128,7 +128,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestSelectionMode_Single() {
             var attributes = new TagHelperAttributeList { { UiConst.SelectionMode, SelectionMode.Single } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" selectionMode=\"single\">" );
+            result.Append( "<p-tree-table #id=\"\" selectionMode=\"single\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -140,7 +140,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestSelectionMode_SingleLeafOnly() {
             var attributes = new TagHelperAttributeList { { UiConst.SelectionMode, SelectionMode.SingleLeafOnly } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" selectionMode=\"single\" [leafOnly]=\"true\">" );
+            result.Append( "<p-tree-table #id=\"\" selectionMode=\"single\" [leafOnly]=\"true\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -152,7 +152,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestAutoLoad() {
             var attributes = new TagHelperAttributeList { { UiConst.AutoLoad, false } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" [autoLoad]=\"false\">" );
+            result.Append( "<p-tree-table #id=\"\" [autoLoad]=\"false\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -164,7 +164,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestPageSizeOptions() {
             var attributes = new TagHelperAttributeList { { UiConst.PageSizeOptions, "1,2" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" [pageSizeOptions]=\"[1,2]\">" );
+            result.Append( "<p-tree-table #id=\"\" [pageSizeOptions]=\"[1,2]\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -176,7 +176,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestPageSizeOptions_2() {
             var attributes = new TagHelperAttributeList { { UiConst.PageSizeOptions, "[1,2]" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" [pageSizeOptions]=\"[1,2]\">" );
+            result.Append( "<p-tree-table #id=\"\" [pageSizeOptions]=\"[1,2]\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -188,7 +188,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         public void TestSelection() {
             var attributes = new TagHelperAttributeList { { UiConst.Selection, "a" } };
             var result = new String();
-            result.Append( "<p-tree-table #id=\"\" key=\"id\" [(selection)]=\"a\">" );
+            result.Append( "<p-tree-table #id=\"\" [(selection)]=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
