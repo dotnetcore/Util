@@ -17,13 +17,13 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
-using <%= Entity.GetNamespace(Namespace,"Domains","Repositories") %>;
-using <%= Entity.GetNamespace(Namespace,"Datas","Pos") %>;
-using <%= Entity.GetNamespace(Namespace,"Datas","Stores") %>;
 using Util.Datas.Ef.Core;
+using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %>;
+using <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>;
+using <%= Namespace %>.Data.Stores.Abstractions.<%= Entity.TableSchema %>;
 
-namespace <%= string.Format("{0}.Datas.{1}.Repositories",Namespace,Entity.TableSchema) %> {
+namespace <%=Namespace%>.Data.Repositories.<%=Entity.TableSchema%> {
     /// <summary>
     /// <%= Description %>仓储
     /// </summary>

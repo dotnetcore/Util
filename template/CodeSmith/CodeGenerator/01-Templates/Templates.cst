@@ -477,7 +477,7 @@
             result.Namespace = GetNamespace(entity);
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
-            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\{0}\\Repositories",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Repositories\\{0}",GetSchema(entity)) ), true);
         }
     }
     
