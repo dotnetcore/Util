@@ -156,6 +156,7 @@ namespace Util.Ui.Material.Buttons.Renders {
         /// </summary>
         private void ConfigAngular( TagBuilder builder ) {
             builder.NgIf( _config );
+            builder.NgClass( _config );
         }
     }
 }

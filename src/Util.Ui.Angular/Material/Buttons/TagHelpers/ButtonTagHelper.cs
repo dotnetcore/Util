@@ -64,6 +64,10 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// *ngIf
         /// </summary>
         public string If { get; set; }
+        /// <summary>
+        /// ngClass指令
+        /// </summary>
+        public string NgClass { get; set; }
 
         /// <summary>
         /// 获取渲染器

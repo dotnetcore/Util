@@ -16,10 +16,10 @@
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
 using Util;
-using <%= Entity.GetNamespace(Namespace,"Domains","Models") %>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 using Util.Maps;
 
-namespace <%= string.Format("{0}.Datas.{1}.Pos",Namespace,Entity.TableSchema) %>  {
+namespace <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>.Extensions {
     /// <summary>
     /// <%= Description %>持久化对象扩展
     /// </summary>

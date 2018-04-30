@@ -14,3 +14,7 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Webs/yarn.lock
 /sample/Util.Samples.Webs/.vs
 /sample/Util.Samples.Webs/wwwroot/upload
+/sample/Util.Samples.Webs/Typings/app/base/*.html
+/sample/Util.Samples.Webs/Typings/app/*.html
+/sample/Util.Samples.Webs/Typings/app/systems/application/html
+/sample/Util.Samples.Webs/Typings/app/systems/role/html

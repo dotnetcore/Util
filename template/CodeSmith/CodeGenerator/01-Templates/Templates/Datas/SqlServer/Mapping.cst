@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
-namespace <%= string.Format("{0}.Data.SqlServer.Mappings.{1}",Namespace,Entity.TableSchema) %> {
+namespace <%=Namespace%>.Data.Mappings.<%= Entity.TableSchema %>.SqlServer {
     /// <summary>
     /// <%= Description %>映射配置
     /// </summary>

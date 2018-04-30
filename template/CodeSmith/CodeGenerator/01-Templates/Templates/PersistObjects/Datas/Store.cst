@@ -17,10 +17,11 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-using <%= Entity.GetNamespace(Namespace,"Datas","Pos") %>;
 using Util.Datas.Ef.Core;
+using <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>;
+using <%= Namespace %>.Data.Stores.Abstractions.<%= Entity.TableSchema %>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Datas","Stores") %> {
+namespace <%= Namespace %>.Data.Stores.Implements.<%= Entity.TableSchema %>{
     /// <summary>
     /// <%= Description %>持久化存储
     /// </summary>

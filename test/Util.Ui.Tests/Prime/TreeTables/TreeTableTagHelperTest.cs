@@ -62,6 +62,18 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         }
 
         /// <summary>
+        /// 测试添加还原查询标识
+        /// </summary>
+        [Fact]
+        public void TestKey() {
+            var attributes = new TagHelperAttributeList { { UiConst.Key, "a" } };
+            var result = new String();
+            result.Append( "<p-tree-table #id=\"\" key=\"a\">" );
+            result.Append( "</p-tree-table>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试查询参数
         /// </summary>
         [Fact]

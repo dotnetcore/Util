@@ -125,7 +125,11 @@ export class Dialog {
      * 获取数据，注意：必须在OnInit之后的事件调用，不能在构造函数中调用，可能获取不到值
      */
     static getData<T>() {
-        return ioc.get<T>(MAT_DIALOG_DATA);
+        try {
+            return ioc.get<T>(MAT_DIALOG_DATA);
+        } catch (e) {
+            return <T>{};
+        }
     }
 }
 
@@ -146,7 +150,7 @@ export interface IDialogOption {
      */
     title?: string,
     /**
-     * 自定义数据，使用 MAT_DIALOG_DATA 标记注入到弹出层组件构造函数中
+     * 数据
      */
     data?,
     /**

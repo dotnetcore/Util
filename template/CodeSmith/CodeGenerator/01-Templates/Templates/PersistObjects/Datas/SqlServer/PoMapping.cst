@@ -18,9 +18,9 @@
 <% string Description = Entity.Description; %>
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using <%= Entity.GetNamespace(Namespace,"Datas","Pos") %>;
+using <%=Namespace%>.Data.Pos.<%=Entity.TableSchema%>;
 
-namespace <%= Entity.GetNamespace(Namespace,"Datas","Mappings.SqlServer") %> {
+namespace <%=Namespace%>.Data.Mappings.<%=Entity.TableSchema%>.SqlServer {
     /// <summary>
     /// <%= Description %>持久化对象映射配置
     /// </summary>
@@ -52,6 +52,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Datas","Mappings.SqlServer") %> {
             <%
             foreach(var r in Entity.Relationships.Where(e => e.IsMapped))
             {
+                break;
                 if (r.IsManyToMany)
                     Response.Write(ManyToManyExpression(r));
                 else

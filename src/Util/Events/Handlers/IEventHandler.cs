@@ -1,4 +1,6 @@
-﻿namespace Util.Events.Handlers {
+﻿using System.Threading.Tasks;
+
+namespace Util.Events.Handlers {
     /// <summary>
     /// 事件处理器
     /// </summary>
@@ -14,6 +16,6 @@
         /// 处理事件
         /// </summary>
         /// <param name="event">事件</param>
-        void Handle( TEvent @event ) ;
+        Task HandleAsync( TEvent @event ) ;
     }
 }

@@ -16,9 +16,11 @@
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
 using System;
+using Util.Domains;
+using Util.Domains.Auditing;
 using Util.Datas.Persistence;
 
-namespace <%= string.Format("{0}.Datas.{1}.Pos",Namespace,Entity.TableSchema) %> {
+namespace <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>{
     /// <summary>
     /// <%= Description %>持久化对象
     /// </summary>

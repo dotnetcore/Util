@@ -420,7 +420,7 @@
             string className = string.Format( "{0}Po", entity.ClassName );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);  
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\Pos",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Pos\\{0}",GetSchema(entity)) ), true);
         }
     }
     
@@ -434,7 +434,7 @@
             string className = string.Format( "Extension.{0}Po", entity.ClassName );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);  
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\Pos",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Pos\\{0}\\Extensions",GetSchema(entity)) ), true);
         }
     }
     
@@ -448,7 +448,7 @@
             string className = string.Format( "{0}PoMap", entity.ClassName );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\Mappings\\SqlServer\\",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Mappings\\{0}\\SqlServer",GetSchema(entity)) ), true);
         }
     }
     
@@ -461,7 +461,7 @@
             string className = string.Format( "I{0}Repository", entity.ClassName );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);            
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Domains\\{0}\\Repositories",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Domains\\{0}\\Repositories",GetSchema(entity)) ), true);
         }        
     }
     
@@ -477,7 +477,7 @@
             result.Namespace = GetNamespace(entity);
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\Repositories",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\{0}\\Repositories",GetSchema(entity)) ), true);
         }
     }
     
@@ -493,7 +493,7 @@
             result.Namespace = GetNamespace(entity);
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\Stores",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Stores\\Abstractions\\{0}",GetSchema(entity)) ), true);
         }
     }
     
@@ -509,7 +509,7 @@
             result.Namespace = GetNamespace(entity);
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
-            result.RenderToFile(GetPath(className,string.Format("PersistObjects\\Datas\\{0}\\Stores",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Stores\\Implements\\{0}",GetSchema(entity)) ), true);
         }
     }
     
@@ -535,7 +535,7 @@
         context.DbName = GetDbName( entityContext );
         context.Namespace = GetNamespace( entityContext.Entities.FirstOrDefault() );
         context.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
-        context.RenderToFile(GetPath(className,"Datas\\SqlServer"), true);
+        context.RenderToFile(GetPath(className,"Datas\\UnitOfWorks\\SqlServer"), true);
     }
     
     //创建Sql Server映射
@@ -548,7 +548,7 @@
             string className = string.Format( "{0}Map", entity.ClassName );
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
-            result.RenderToFile(GetPath(className,string.Format("Datas\\SqlServer\\Mappings\\{0}",GetSchema(entity)) ), true);
+            result.RenderToFile(GetPath(className,string.Format("Datas\\Mappings\\{0}\\SqlServer",GetSchema(entity)) ), true);
         }
     }
     

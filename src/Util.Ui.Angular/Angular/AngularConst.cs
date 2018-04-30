@@ -8,6 +8,10 @@
         /// </summary>
         public const string NgFor = "ng-for";
         /// <summary>
+        /// ngClass指令
+        /// </summary>
+        public const string NgClass = "ng-class";
+        /// <summary>
         /// 路由链接属性绑定
         /// </summary>
         public const string BindLink = "bind-link";

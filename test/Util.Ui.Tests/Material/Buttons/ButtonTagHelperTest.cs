@@ -83,6 +83,17 @@ namespace Util.Ui.Tests.Material.Buttons {
         }
 
         /// <summary>
+        /// 测试ngClass
+        /// </summary>
+        [Fact]
+        public void TestNgClass() {
+            var attributes = new TagHelperAttributeList { { AngularConst.NgClass, "a" } };
+            var result = new String();
+            result.Append( "<mat-button-wrapper [ngClass]=\"a\"></mat-button-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试类型
         /// </summary>
         [Fact]
@@ -211,6 +222,17 @@ namespace Util.Ui.Tests.Material.Buttons {
             var attributes = new TagHelperAttributeList { { MaterialConst.CloseDialog, "a" },{ AngularConst.BindText ,"b"} };
             var result = new String();
             result.Append( "<button mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\">{{b}}</button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试ngClass
+        /// </summary>
+        [Fact]
+        public void TestNgClass_CloseDialog() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.CloseDialog, "a" }, { AngularConst.NgClass, "a" } };
+            var result = new String();
+            result.Append( "<button mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\" [ngClass]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

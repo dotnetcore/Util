@@ -30,6 +30,17 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 添加NgClass指令
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        public static TBuilder NgClass<TBuilder>( this TBuilder builder, IConfig config ) where TBuilder : TagBuilder {
+            builder.AddAttribute( "[ngClass]", config.GetValue( AngularConst.NgClass ) );
+            return builder;
+        }
+
+        /// <summary>
         /// 添加链接
         /// </summary>
         /// <typeparam name="TBuilder">生成器类型</typeparam>

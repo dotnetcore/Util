@@ -17,7 +17,7 @@
 using Microsoft.EntityFrameworkCore;
 using Util.Datas.UnitOfWorks;
 
-namespace <%= Namespace %>.Data.SqlServer {
+namespace <%= Namespace %>.Data.UnitOfWorks.SqlServer {
     /// <summary>
     /// 工作单元
     /// </summary>
