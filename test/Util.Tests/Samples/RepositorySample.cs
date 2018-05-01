@@ -86,6 +86,10 @@ namespace Util.Tests.Samples {
             throw new NotImplementedException();
         }
 
+        public Task<List<EntitySample>> FindByIdsAsync( IEnumerable<Guid> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
         public Task<List<EntitySample>> FindByIdsAsync( IEnumerable<Guid> ids ) {
             throw new NotImplementedException();
         }
@@ -220,7 +224,15 @@ namespace Util.Tests.Samples {
             throw new NotImplementedException();
         }
 
+        public void Remove( object id ) {
+            throw new NotImplementedException();
+        }
+
         public void Remove( EntitySample entity ) {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
             throw new NotImplementedException();
         }
 
@@ -257,6 +269,38 @@ namespace Util.Tests.Samples {
         }
 
         public Task<EntitySample> FindAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
+        public EntitySample FindByIdNoTracking( Guid id ) {
+            throw new NotImplementedException();
+        }
+
+        public Task<EntitySample> FindByIdNoTrackingAsync( Guid id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
+        public List<EntitySample> FindByIdsNoTracking( params Guid[] ids ) {
+            throw new NotImplementedException();
+        }
+
+        public List<EntitySample> FindByIdsNoTracking( IEnumerable<Guid> ids ) {
+            throw new NotImplementedException();
+        }
+
+        public List<EntitySample> FindByIdsNoTracking( string ids ) {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<EntitySample>> FindByIdsNoTrackingAsync( params Guid[] ids ) {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<EntitySample>> FindByIdsNoTrackingAsync( IEnumerable<Guid> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<EntitySample>> FindByIdsNoTrackingAsync( string ids ) {
             throw new NotImplementedException();
         }
     }

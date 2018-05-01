@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Util.Applications.Dtos;
-using Util.Applications.Operations;
 using Util.Datas.Queries.Trees;
 
-namespace Util.Applications {
+namespace Util.Applications.Trees {
     /// <summary>
     /// 树型服务
     /// </summary>
@@ -21,14 +19,8 @@ namespace Util.Applications {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public interface ITreeService<TDto, in TQueryParameter, TParentId> : IQueryService<TDto, TQueryParameter>,
-        IDelete,IDeleteAsync
+    public interface ITreeService<TDto, in TQueryParameter, TParentId> : IDeleteService<TDto, TQueryParameter>
         where TDto : class, IResponse, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter<TParentId> {
-        /// <summary>
-        /// 从路径中获取所有上级节点编号
-        /// </summary>
-        /// <param name="dto">数据传输对象</param>
-        List<string> GetParentIdsFromPath( TDto dto );
     }
 }

@@ -1,47 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Util.Datas.Persistence;
+using Util.Datas.Stores;
 using Util.Domains;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>
-    /// 仓储 - 配合持久化对象
+    /// 仓储 - 配合持久化对象使用
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TPo">持久化对象类型</typeparam>
-    public abstract class PersistentRepositoryBase<TEntity, TPo> : PersistentRepositoryBase<TEntity, TPo, Guid>
+    public abstract class CompactRepositoryBase<TEntity, TPo> : CompactRepositoryBase<TEntity, TPo, Guid>
         where TEntity : class, IAggregateRoot<Guid>
-        where TPo : class, IPersistentObject<Guid> {
+        where TPo : class, IKey<Guid>, IVersion {
         /// <summary>
         /// 初始化仓储
         /// </summary>
-        /// <param name="store">持久化存储</param>
-        protected PersistentRepositoryBase( IPersistentStore<TPo> store ) : base( store ) {
+        /// <param name="store">存储器</param>
+        protected CompactRepositoryBase( IStore<TPo,Guid> store ) : base( store ) {
         }
     }
 
     /// <summary>
-    /// 仓储 - 配合持久化对象
+    /// 仓储 - 配合持久化对象使用
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TPo">持久化对象类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public abstract class PersistentRepositoryBase<TEntity, TPo, TKey> : ICompactRepository<TEntity, TKey>
+    public abstract class CompactRepositoryBase<TEntity, TPo, TKey> : ICompactRepository<TEntity, TKey>
         where TEntity : class, IAggregateRoot<TKey>
-        where TPo : class, IPersistentObject<TKey> {
+        where TPo : class, IKey<TKey>,IVersion {
         /// <summary>
-        /// 持久化存储
+        /// 存储器
         /// </summary>
-        private readonly IPersistentStore<TPo, TKey> _store;
+        private readonly IStore<TPo, TKey> _store;
 
         /// <summary>
         /// 初始化仓储
         /// </summary>
-        /// <param name="store">持久化存储</param>
-        protected PersistentRepositoryBase( IPersistentStore<TPo, TKey> store ) {
+        /// <param name="store">存储器</param>
+        protected CompactRepositoryBase( IStore<TPo, TKey> store ) {
             _store = store;
         }
 
@@ -69,8 +70,9 @@ namespace Util.Datas.Ef.Core {
         /// 查找实体
         /// </summary>
         /// <param name="id">实体标识</param>
-        public async Task<TEntity> FindAsync( object id ) {
-            return ToEntity( await _store.FindAsync( id ) );
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task<TEntity> FindAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            return ToEntity( await _store.FindAsync( id, cancellationToken ) );
         }
 
         /// <summary>
@@ -90,6 +92,14 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">逗号分隔的标识列表，范例："1,2"</param>
+        public List<TEntity> FindByIds( string ids ) {
+            return _store.FindByIds( ids ).Select( ToEntity ).ToList();
+        }
+
+        /// <summary>
         /// 查找实体集合
         /// </summary>
         /// <param name="ids">实体标识集合</param>
@@ -99,10 +109,20 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 查找实体集合
+        /// 查找实体列表
         /// </summary>
-        /// <param name="ids">实体标识集合</param>
-        public async Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids ) {
+        /// <param name="ids">标识列表</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            var pos = await _store.FindByIdsAsync( ids, cancellationToken );
+            return pos.Select( ToEntity ).ToList();
+        }
+
+        /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">逗号分隔的标识列表，范例："1,2"</param>
+        public async Task<List<TEntity>> FindByIdsAsync( string ids ) {
             var pos = await _store.FindByIdsAsync( ids );
             return pos.Select( ToEntity ).ToList();
         }
@@ -143,16 +163,18 @@ namespace Util.Datas.Ef.Core {
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
-        public async Task AddAsync( TEntity entity ) {
-            await _store.AddAsync( ToPo( entity ) );
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task AddAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _store.AddAsync( ToPo( entity ), cancellationToken );
         }
 
         /// <summary>
         /// 添加实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        public async Task AddAsync( IEnumerable<TEntity> entities ) {
-            await _store.AddAsync( entities.Select( ToPo ) );
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _store.AddAsync( entities.Select( ToPo ), cancellationToken );
         }
 
         /// <summary>
@@ -191,7 +213,7 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体
         /// </summary>
         /// <param name="id">实体标识</param>
-        public void Remove( TKey id ) {
+        public void Remove( object id ) {
             _store.Remove( id );
         }
 
@@ -199,8 +221,9 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体
         /// </summary>
         /// <param name="id">实体标识</param>
-        public async Task RemoveAsync( TKey id ) {
-            await _store.RemoveAsync( id );
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task RemoveAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _store.RemoveAsync( id, cancellationToken );
         }
 
         /// <summary>
@@ -215,8 +238,9 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体
         /// </summary>
         /// <param name="entity">实体</param>
-        public async Task RemoveAsync( TEntity entity ) {
-            await _store.RemoveAsync( ToPo( entity ) );
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task RemoveAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _store.RemoveAsync( ToPo( entity ), cancellationToken );
         }
 
         /// <summary>
@@ -231,8 +255,9 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体集合
         /// </summary>
         /// <param name="ids">实体编号集合</param>
-        public async Task RemoveAsync( IEnumerable<TKey> ids ) {
-            await _store.RemoveAsync( ids );
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task RemoveAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _store.RemoveAsync( ids, cancellationToken );
         }
 
         /// <summary>
@@ -247,8 +272,9 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        public async Task RemoveAsync( IEnumerable<TEntity> entities ) {
-            await _store.RemoveAsync( entities.Select( ToPo ) );
+        /// <param name="cancellationToken">取消令牌</param>
+        public async Task RemoveAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
+            await _store.RemoveAsync( entities.Select( ToPo ), cancellationToken );
         }
     }
 }

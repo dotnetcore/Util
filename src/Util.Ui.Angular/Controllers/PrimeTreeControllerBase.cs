@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Applications.Trees;
 using Util.Datas.Queries.Trees;
@@ -225,7 +224,7 @@ namespace Util.Ui.Controllers {
         /// 添加父节点标识
         /// </summary>
         protected void AddParentIds( List<string> ids, TDto node ) {
-            var parentIds = _service.GetParentIdsFromPath( node );
+            var parentIds = node.GetParentIdsFromPath();
             parentIds.ForEach( id => {
                 if( ids.Contains( id ) )
                     return;

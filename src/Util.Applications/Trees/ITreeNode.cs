@@ -1,4 +1,4 @@
-﻿namespace Util.Applications {
+﻿namespace Util.Applications.Trees {
     /// <summary>
     /// 树节点
     /// </summary>

@@ -9,7 +9,7 @@ namespace Util.Applications.Operations {
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
-    public interface IPagerQuery<TDto, in TQueryParameter>
+    public interface IPageQuery<TDto, in TQueryParameter>
         where TDto : IResponse, new()
         where TQueryParameter : IQueryParameter {
         /// <summary>

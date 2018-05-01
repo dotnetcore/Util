@@ -8,7 +8,7 @@ namespace Util.Datas.Tests.Samples.Datas.SqlServer.Repositories {
     /// <summary>
     /// 商品仓储
     /// </summary>
-    public class ProductRepository : PersistentRepositoryBase<Product, ProductPo, int>, IProductRepository {
+    public class ProductRepository : CompactRepositoryBase<Product, ProductPo, int>, IProductRepository {
         /// <summary>
         /// 商品持久化存储
         /// </summary>

@@ -7,7 +7,7 @@ namespace Util.Datas.Queries.Trees {
     /// <typeparam name="TParentId">父编号类型</typeparam>
     public interface ITreeQueryParameter<TParentId> : IQueryParameter {
         /// <summary>
-        /// 父编号
+        /// 父标识
         /// </summary>
         TParentId ParentId { get; set; }
         /// <summary>

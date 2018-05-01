@@ -7,31 +7,15 @@ namespace Util.Domains.Trees {
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public interface ITreeEntity<TEntity, TKey, TParentId> : IAggregateRoot<TEntity, TKey> where TEntity : ITreeEntity<TEntity, TKey, TParentId> {
-        /// <summary>
-        /// 父对象
-        /// </summary>
-        TEntity Parent { get; set; }
-        /// <summary>
-        /// 父编号
-        /// </summary>
-        TParentId ParentId { get; set; }
-        /// <summary>
-        /// 级数
-        /// </summary>
-        int Level { get; }
-        /// <summary>
-        /// 路径
-        /// </summary>
-        string Path { get; }
+    public interface ITreeEntity<TEntity, TKey, TParentId> : IAggregateRoot<TEntity, TKey>, IParentId<TParentId>, IPath, IEnabled where TEntity : ITreeEntity<TEntity, TKey, TParentId> {
         /// <summary>
         /// 排序号
         /// </summary>
         int? SortId { get; set; }
         /// <summary>
-        /// 启用
+        /// 父对象
         /// </summary>
-        bool Enabled { get; set; }
+        TEntity Parent { get; set; }
         /// <summary>
         /// 初始化路径
         /// </summary>

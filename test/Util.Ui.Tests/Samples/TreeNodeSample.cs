@@ -1,4 +1,4 @@
-﻿using Util.Applications;
+﻿using Util.Applications.Trees;
 
 namespace Util.Ui.Tests.Samples {
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,6 @@ using Util.Datas.Ef;
 using Util.Datas.Tests.Samples.Datas.SqlServer.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Models;
 using Util.Datas.Tests.Samples.Domains.Repositories;
-using Util.Datas.Tests.SqlServer.Configs;
 using Util.Datas.Tests.XUnitHelpers;
 using Util.Dependency;
 using Util.Exceptions;
@@ -173,7 +173,7 @@ namespace Util.Datas.Tests.SqlServer.Tests {
             order.Code = "B";
             _unitOfWork.Commit();
 
-            var result = _orderRepository.Single( t => t.Id == id );
+            var result = _orderRepository.FindByIdNoTracking( id );
             Assert.Equal( "B", result.Code );
         }
 
@@ -196,6 +196,85 @@ namespace Util.Datas.Tests.SqlServer.Tests {
 
             var result = _orderRepository.Single( t => t.Id == id );
             Assert.Equal( "B", result.Code );
+        }
+
+        /// <summary>
+        /// 测试并发
+        /// </summary>
+        [Fact]
+        public void TestUpdate_Concurrency_Sync() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( order );
+            _unitOfWork.Commit();
+
+            var order2 = _orderRepository.Find( id );
+            order2.Version = Guid.NewGuid().ToByteArray();
+            AssertHelper.Throws<ConcurrencyException>( () => {
+                _orderRepository.Update( order2 );
+            } );
+        }
+
+        /// <summary>
+        /// 批量修改
+        /// </summary>
+        [Fact]
+        public void TestUpdate_Batch() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            Guid id2 = Guid.NewGuid();
+            var order2 = new Order( id2 ) { Name = "Name2", Code = "Code2" };
+            var list = new List<Order> {
+                order,order2
+            };
+            _orderRepository.Add( list );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            order = new Order( id ) { Name = "Name", Code = "A", Version = order.Version };
+            order2 = new Order( id2 ) { Name = "Name2", Code = "B", Version = order2.Version };
+            list = new List<Order> {
+                order,order2
+            };
+            _orderRepository.Update( list );
+            _unitOfWork.Commit();
+
+            order = _orderRepository.FindByIdNoTracking( id );
+            Assert.Equal( "A", order.Code );
+            order2 = _orderRepository.FindByIdNoTracking( id2 );
+            Assert.Equal( "B", order2.Code );
+        }
+
+        /// <summary>
+        /// 批量修改
+        /// </summary>
+        [Fact]
+        public void TestUpdate_Batch_2() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            Guid id2 = Guid.NewGuid();
+            var order2 = new Order( id2 ) { Name = "Name2", Code = "Code2" };
+            var list = new List<Order> {
+                order,order2
+            };
+            _orderRepository.Add( list );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            order = _orderRepository.Find( id );
+            order.Code = "A";
+            order2 = _orderRepository.Find( id2 );
+            order2.Code = "B";
+            list = new List<Order> {
+                order,order2
+            };
+            _orderRepository.Update( list );
+            _unitOfWork.Commit();
+
+            order = _orderRepository.FindByIdNoTracking( id );
+            Assert.Equal( "A", order.Code );
+            order2 = _orderRepository.FindByIdNoTracking( id2 );
+            Assert.Equal( "B", order2.Code );
         }
 
         /// <summary>

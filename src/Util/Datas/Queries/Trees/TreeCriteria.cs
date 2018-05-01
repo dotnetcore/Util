@@ -7,7 +7,7 @@ namespace Util.Datas.Queries.Trees {
     /// <summary>
     /// 树型查询条件
     /// </summary>
-    public class TreeCriteria<TEntity> : TreeCriteria<TEntity, Guid, Guid?> where TEntity : ITreeEntity<TEntity, Guid, Guid?> {
+    public class TreeCriteria<TEntity> : TreeCriteria<TEntity, Guid?> where TEntity : ITreeEntity<TEntity, Guid, Guid?> {
         /// <summary>
         /// 初始化树型查询条件
         /// </summary>
@@ -21,16 +21,16 @@ namespace Util.Datas.Queries.Trees {
     /// <summary>
     /// 树型查询条件
     /// </summary>
-    public class TreeCriteria<TEntity, TKey, TParentId> : ICriteria<TEntity> where TEntity : ITreeEntity<TEntity, TKey, TParentId> {
+    public class TreeCriteria<TEntity, TParentId> : ICriteria<TEntity> where TEntity : IPath, IEnabled {
         /// <summary>
         /// 初始化树型查询条件
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public TreeCriteria( ITreeQueryParameter<TParentId> parameter ) {
-            if( parameter.Level != null )
-                Predicate = Predicate.And( t => t.Level == parameter.Level );
             if( !string.IsNullOrWhiteSpace( parameter.Path ) )
                 Predicate = Predicate.And( t => t.Path.StartsWith( parameter.Path ) );
+            if( parameter.Level != null )
+                Predicate = Predicate.And( t => t.Level == parameter.Level );
             if( parameter.Enabled != null )
                 Predicate = Predicate.And( t => t.Enabled == parameter.Enabled );
         }

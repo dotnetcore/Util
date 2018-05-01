@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Util.Applications;
+using Util.Applications.Trees;
 using Util.Ui.Prime.TreeTables.Datas;
 
 namespace Util.Ui.Extensions {
