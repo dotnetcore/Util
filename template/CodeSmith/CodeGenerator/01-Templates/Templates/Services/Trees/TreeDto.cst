@@ -1,8 +1,7 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreeDto" Template="Trees/TreeDto.cst" MergeProperties="False" ExcludeProperties="" %>
 
-<%@ Assembly Src="..\..\Common\Model.cs" %>
-<%@ Assembly Src="..\..\Common\Extensions.cs" %>
+<%@ Assembly Src="..\..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
 
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Linq" %>
@@ -16,16 +15,6 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-<%-- 如果是树型实体，则调用子模板 --%>
-<%
-if( Entity.IsTreeEntity() ){
-    CodeTemplate template = new TreeDto();
-    template.SetProperty("Namespace",Namespace);
-    template.SetProperty("Entity",Entity);
-    template.Render(this.Response);
-    return;
-}
-%>
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
@@ -37,9 +26,10 @@ namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema)
     /// <%= Description %>数据传输对象
     /// </summary>
     [Model("model")]
-    public class <%= SafeClassName %>Dto : DtoBase {
+    public class <%= SafeClassName %>Dto : TreeDtoBase {
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+        <% if( Entity.IgnoreTreeEntityProperty(p) ) continue;%>
         /// <summary>
         /// <%= p.Description %>
         /// </summary>

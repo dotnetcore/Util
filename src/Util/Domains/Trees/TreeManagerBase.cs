@@ -46,7 +46,7 @@ namespace Util.Domains.Trees {
             entity.CheckNull( nameof( entity ) );
             if( entity.ParentId.Equals( entity.Id ) )
                 return;
-            var old = await _repository.FindNoTrackingAsync( entity.Id );
+            var old = await _repository.FindByIdNoTrackingAsync( entity.Id );
             if( old == null )
                 return;
             if( entity.ParentId.Equals( old.ParentId ) )

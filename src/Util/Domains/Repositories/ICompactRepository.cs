@@ -4,7 +4,7 @@ using Util.Dependency;
 
 namespace Util.Domains.Repositories {
     /// <summary>
-    /// 精简仓储 - 配合Po使用
+    /// 仓储
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     public interface ICompactRepository<TEntity> : ICompactRepository<TEntity, Guid>
@@ -12,7 +12,7 @@ namespace Util.Domains.Repositories {
     }
 
     /// <summary>
-    /// 精简仓储 - 配合Po使用
+    /// 仓储
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>

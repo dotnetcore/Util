@@ -1,5 +1,4 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreeApiController" Template="TreeApiController.cst" MergeProperties="False" ExcludeProperties="" %>
 
 <%@ Assembly Src="..\..\..\Common\Model.cs" %>
 <%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
@@ -17,18 +16,7 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-<%-- 如果是树型实体，则调用子模板 --%>
-<%
-if( Entity.IsTreeEntity() ){
-    CodeTemplate template = new TreeApiController();
-    template.SetProperty("Namespace",Namespace);
-    template.SetProperty("Entity",Entity);
-    template.SetProperty("Schema",Schema);
-    template.Render(this.Response);
-    return;
-}
-%>
-using Util.Webs.Controllers;
+using Util.Ui.Controllers;
 using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
 using <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSchema) %>;
 using <%= string.Format("{0}.Service.Abstractions.{1}",Namespace,Entity.TableSchema) %>;
@@ -37,7 +25,7 @@ namespace <%= Namespace %>.Apis.<%= Schema %> {
     /// <summary>
     /// <%= Description %>控制器
     /// </summary>
-    public class <%= SafeClassName %>Controller : CrudControllerBase<<%= SafeClassName %>Dto, <%= SafeClassName %>Query> {
+    public class <%= SafeClassName %>Controller : PrimeTreeControllerBase<<%= SafeClassName %>Dto, <%= SafeClassName %>Query> {
         /// <summary>
         /// 初始化<%= Description %>控制器
         /// </summary>

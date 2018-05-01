@@ -54,16 +54,21 @@ if( Entity.IsTreeEntity() ){
     }
 </style>
 
-<util-toolbar color="Primary">
-    <util-a styles="Icon" tooltip="添加<%=Description%>" link="create">
-        <util-icon font-awesome-icon="Plus"></util-icon>
-    </util-a>
-    <util-button styles="Icon" tooltip="批量删除" on-click="delete()">
-        <util-icon material-icon="Delete"></util-icon>        
-    </util-button>
-    <util-button styles="Icon" tooltip="刷新" on-click="refresh()">
-        <util-icon material-icon="Sync"></util-icon>
-    </util-button>
+<util-toolbar>
+    <util-layout>
+        <util-textbox model="queryParam.keyword" placeholder="搜索" on-change="search()"></util-textbox>
+    </util-layout>
+    <util-layout>
+        <util-a styles="Icon" tooltip="添加<%=Description%>" link="create">
+            <util-icon font-awesome-icon="Plus"></util-icon>
+        </util-a>
+        <util-button styles="Icon" tooltip="批量删除" on-click="delete()">
+            <util-icon material-icon="Delete"></util-icon>
+        </util-button>
+        <util-button styles="Icon" tooltip="刷新" on-click="refresh()">
+            <util-icon material-icon="Sync"></util-icon>
+        </util-button>
+    </util-layout>
 </util-toolbar>
 
 <util-table id="table_<%=SafeClassName%>" max-height="700" base-url="<%=CamelClassName%>" query-param="queryParam" <% if( Entity.Properties.Any( t => t.ColumnName == "CreationTime" ) ) { %>sort="CreationTime" sort-direction="Desc"<% } %>>

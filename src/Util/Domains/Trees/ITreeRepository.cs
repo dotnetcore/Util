@@ -17,7 +17,8 @@ namespace Util.Domains.Trees {
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public interface ITreeRepository<TEntity,in TKey, in TParentId> : IRepository<TEntity, TKey> where TEntity : class, ITreeEntity<TEntity, TKey, TParentId> {
+    public interface ITreeRepository<TEntity, in TKey, in TParentId> : IRepository<TEntity, TKey>
+        where TEntity : class, ITreeEntity<TEntity, TKey, TParentId> {
         /// <summary>
         /// 生成排序号
         /// </summary>
@@ -28,10 +29,5 @@ namespace Util.Domains.Trees {
         /// </summary>
         /// <param name="parent">父实体</param>
         Task<List<TEntity>> GetAllChildrenAsync( TEntity parent );
-        /// <summary>
-        /// 获取不被跟踪的实体
-        /// </summary>
-        /// <param name="id">标识</param>
-        Task<TEntity> FindNoTrackingAsync( TKey id );
     }
 }

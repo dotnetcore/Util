@@ -22,6 +22,10 @@ export class TreeViewModel implements ISort, IKey {
      */
     sortId?: number;
     /**
+     * 启用
+     */
+    enabled?: boolean;
+    /**
      * 类型
      */
     type?;

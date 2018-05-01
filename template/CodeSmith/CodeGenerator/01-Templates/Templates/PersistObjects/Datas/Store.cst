@@ -23,11 +23,11 @@ using <%= Namespace %>.Data.Stores.Abstractions.<%= Entity.TableSchema %>;
 
 namespace <%= Namespace %>.Data.Stores.Implements.<%= Entity.TableSchema %>{
     /// <summary>
-    /// <%= Description %>持久化存储
+    /// <%= Description %>存储器
     /// </summary>
-    public class <%= SafeClassName %>PoStore : PersistentStoreBase<<%= SafeClassName %>Po<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>PoStore {
+    public class <%= SafeClassName %>PoStore : StoreBase<<%= SafeClassName %>Po<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>PoStore {
         /// <summary>
-        /// 初始化<%= Description %>持久化存储
+        /// 初始化<%= Description %>存储器
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         public <%= SafeClassName %>PoStore( I<%= UnitOfWork %> unitOfWork ) : base( unitOfWork ) {

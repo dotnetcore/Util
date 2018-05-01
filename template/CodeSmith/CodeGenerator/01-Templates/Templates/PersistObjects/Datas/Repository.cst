@@ -22,21 +22,22 @@ using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 using <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %>;
 using <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>;
 using <%= Namespace %>.Data.Stores.Abstractions.<%= Entity.TableSchema %>;
+using <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>.Extensions;
 
 namespace <%=Namespace%>.Data.Repositories.<%=Entity.TableSchema%> {
     /// <summary>
     /// <%= Description %>仓储
     /// </summary>
-    public class <%= SafeClassName %>Repository : PersistentRepositoryBase<<%= SafeClassName %>,<%= SafeClassName %>Po<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Repository {
+    public class <%= SafeClassName %>Repository : CompactRepositoryBase<<%= SafeClassName %>,<%= SafeClassName %>Po<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Repository {
         /// <summary>
         /// 初始化<%= Description %>仓储
         /// </summary>
-        /// <param name="store"><%= Description %>持久化存储</param>
+        /// <param name="store"><%= Description %>存储器</param>
         public <%= SafeClassName %>Repository( I<%= SafeClassName %>PoStore store ) : base( store ) {
         }
         
         /// <summary>
-        /// 将持久化对象转成实体
+        /// 转成实体
         /// </summary>
         /// <param name="po">持久化对象</param>
         protected override <%= SafeClassName %> ToEntity( <%= SafeClassName %>Po po ) {
@@ -44,7 +45,7 @@ namespace <%=Namespace%>.Data.Repositories.<%=Entity.TableSchema%> {
         }
 
         /// <summary>
-        /// 将实体转成持久化对象
+        /// 转成持久化对象
         /// </summary>
         /// <param name="entity">实体</param>
         protected override <%= SafeClassName %>Po ToPo( <%= SafeClassName %> entity ) {

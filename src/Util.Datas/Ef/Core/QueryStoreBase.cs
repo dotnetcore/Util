@@ -16,7 +16,7 @@ namespace Util.Datas.Ef.Core {
     /// 查询存储器
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
-    public abstract class QueryStoreBase<TEntity> : QueryStoreBase<TEntity, Guid> where TEntity : class, IKey<Guid> {
+    public abstract class QueryStoreBase<TEntity> : QueryStoreBase<TEntity, Guid>, IQueryStore<TEntity> where TEntity : class, IKey<Guid> {
         /// <summary>
         /// 初始化查询存储器
         /// </summary>

@@ -1,8 +1,8 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreeService" Template="Trees/TreeService.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="TreeService" Template="TreeService.cst" MergeProperties="False" ExcludeProperties="" %>
 
-<%@ Assembly Src="..\..\Common\Model.cs" %>
-<%@ Assembly Src="..\..\Common\Extensions.cs" %>
+<%@ Assembly Src="..\..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
 
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Linq" %>
@@ -36,38 +36,38 @@ using Util.Domains.Repositories;
 using Util.Datas.Queries;
 using Util.Applications;
 using <%= string.Format("{0}.Data",Namespace) %>;
-using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
-using <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %>;
 using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
 using <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSchema) %>;
 using <%= string.Format("{0}.Service.Abstractions.{1}",Namespace,Entity.TableSchema) %>;
+using <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>;
+using <%= Namespace %>.Data.Stores.Abstractions.<%= Entity.TableSchema %>;
 
 namespace <%= string.Format("{0}.Service.Implements.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
     /// <%= Description %>服务
     /// </summary>
-    public class <%= SafeClassName %>Service : CrudServiceBase<<%= SafeClassName %>, <%= SafeClassName %>Dto, <%= SafeClassName %>Query<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Service {
+    public class <%= SafeClassName %>Service : CrudServiceBase<<%= SafeClassName %>Po, <%= SafeClassName %>Dto, <%= SafeClassName %>Query<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Service {
         /// <summary>
         /// 初始化<%= Description %>服务
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
-        /// <param name="<%= SafeClassName.ToCamelCase() %>Repository"><%= Description %>仓储</param>
-        public <%= SafeClassName %>Service( I<%= UnitOfWork %> unitOfWork, I<%= SafeClassName %>Repository <%= SafeClassName.ToCamelCase() %>Repository )
-            : base( unitOfWork, <%= SafeClassName.ToCamelCase() %>Repository ) {
-            <%= SafeClassName %>Repository = <%= SafeClassName.ToCamelCase() %>Repository;
+        /// <param name="<%= SafeClassName.ToCamelCase() %>Store"><%= Description %>存储器</param>
+        public <%= SafeClassName %>Service( I<%= UnitOfWork %> unitOfWork, I<%= SafeClassName %>PoStore <%= SafeClassName.ToCamelCase() %>Store )
+            : base( unitOfWork, <%= SafeClassName.ToCamelCase() %>Store ) {
+            <%= SafeClassName %>Store = <%= SafeClassName.ToCamelCase() %>Store;
         }
         
         /// <summary>
-        /// <%= Description %>仓储
+        /// <%= Description %>存储器
         /// </summary>
-        public I<%= SafeClassName %>Repository <%= SafeClassName %>Repository { get; set; }
+        public I<%= SafeClassName %>PoStore <%= SafeClassName %>Store { get; set; }
         
         /// <summary>
         /// 创建查询对象
         /// </summary>
         /// <param name="param">查询参数</param>
-        protected override IQueryBase<<%= SafeClassName %>> CreateQuery( <%= SafeClassName %>Query param ) {
-            return new Query<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>>( param );
+        protected override IQueryBase<<%= SafeClassName %>Po> CreateQuery( <%= SafeClassName %>Query param ) {
+            return new Query<<%= SafeClassName %>Po<%= Entity.GetKeyTypeNoContainsGuid() %>>( param );
         }
     }
 }

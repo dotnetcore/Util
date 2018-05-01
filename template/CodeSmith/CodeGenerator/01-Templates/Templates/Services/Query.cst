@@ -1,5 +1,5 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreeQuery" Template="TreeQuery.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="TreeQuery" Template="Trees/TreeQuery.cst" MergeProperties="False" ExcludeProperties="" %>
 
 <%@ Assembly Src="..\..\Common\Model.cs" %>
 <%@ Assembly Src="..\..\Common\Extensions.cs" %>

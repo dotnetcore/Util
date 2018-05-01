@@ -1,4 +1,5 @@
-﻿using Util.Datas.Stores.Operations;
+﻿using System;
+using Util.Datas.Stores.Operations;
 using Util.Dependency;
 using Util.Domains;
 
@@ -7,9 +8,17 @@ namespace Util.Datas.Stores {
     /// 查询存储器
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
+    public interface IQueryStore<TEntity> : IQueryStore<TEntity, Guid>
+        where TEntity : class, IKey<Guid> {
+    }
+
+    /// <summary>
+    /// 查询存储器
+    /// </summary>
+    /// <typeparam name="TEntity">对象类型</typeparam>
     /// <typeparam name="TKey">对象标识类型</typeparam>
     public interface IQueryStore<TEntity, in TKey> : IScopeDependency,
-        IFindQueryable<TEntity, TKey>, 
+        IFindQueryable<TEntity, TKey>,
         IFindById<TEntity, TKey>, IFindByIdAsync<TEntity, TKey>,
         IFindByIds<TEntity, TKey>, IFindByIdsAsync<TEntity, TKey>,
         IFindByIdNoTracking<TEntity, TKey>, IFindByIdNoTrackingAsync<TEntity, TKey>,

@@ -107,6 +107,9 @@
 <%@ Register Name="StoreClass"
              Template="Templates\PersistObjects\Datas\Store.cst"
              MergeProperties="False" %>
+<%@ Register Name="PoServiceClass"
+             Template="Templates\PersistObjects\Services\Service.cst"
+             MergeProperties="False" %>
 <%@ Register Name="IUnitOfWorkClass"
              Template="Templates\Datas\IUnitOfWork.cst"
              MergeProperties="False" %>
@@ -233,6 +236,8 @@
         CreatePoIRepository(context);
         //创建持久化对象仓储
         CreatePoRepository( context );
+        //创建持久化应用服务实现
+        CreatePoService( context );
         //创建持久化对象存储接口
         CreateIStore( context );
         //创建持久化对象存储
@@ -510,6 +515,23 @@
             result.UnitOfWork = GetUnitOfWork(entityContext);
             result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
             result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Stores\\Implements\\{0}",GetSchema(entity)) ), true);
+        }
+    }
+    
+    //创建持久化应用服务实现
+    public void CreatePoService(EntityContext entityContext)
+    {
+        PoServiceClass result = this.Create<PoServiceClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Service",entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.UnitOfWork = GetUnitOfWork(entityContext);
+            result.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Services\\{0}",GetSchema(entity)) ), true);
         }
     }
     

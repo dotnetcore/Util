@@ -15,17 +15,14 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-import { TreeViewModel } from '../../../../util';
+using Util.Applications.Trees;
+using <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %>;
+using <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSchema) %>;
 
-/**
- * <%=Entity.Description%>视图模型
- */
-export class <%=SafeClassName%>ViewModel extends TreeViewModel {
-    <% foreach(Property p in Entity.Properties) { %>
-    <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
-    /**
-     * <%=p.Description %>
-     */
-    <%= p.PropertyName.ToSafeName().ToCamelCase() %>;
-    <% } %>
+namespace <%= string.Format("{0}.Service.Abstractions.{1}",Namespace,Entity.TableSchema) %> {
+    /// <summary>
+    /// <%= Description %>服务
+    /// </summary>
+    public interface I<%= SafeClassName %>Service : ITreeService<<%= SafeClassName %>Dto, <%= SafeClassName %>Query> {
+    }
 }

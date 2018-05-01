@@ -17,13 +17,13 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-using Util.Datas.Persistence;
+using Util.Datas.Stores;
 using <%=Namespace%>.Data.Pos.<%=Entity.TableSchema%>;
 
 namespace <%=Namespace%>.Data.Stores.Abstractions.<%=Entity.TableSchema%>  {
     /// <summary>
-    /// <%= Description %>持久化存储
+    /// <%= Description %>存储器
     /// </summary>
-    public interface I<%= SafeClassName %>PoStore : IPersistentStore<<%= SafeClassName %>Po<%= Entity.GetKeyTypeNoContainsGuid() %>> {
+    public interface I<%= SafeClassName %>PoStore : IStore<<%= SafeClassName %>Po<%= Entity.GetKeyTypeNoContainsGuid() %>> {
     }
 }

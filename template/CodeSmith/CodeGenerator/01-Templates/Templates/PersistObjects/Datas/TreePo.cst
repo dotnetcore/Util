@@ -1,5 +1,4 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreePo" Template="TreePo.cst" MergeProperties="False" ExcludeProperties="" %>
 
 <%@ Assembly Src="..\..\..\Common\Model.cs" %>
 <%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
@@ -16,16 +15,6 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-<%-- 如果是树型实体，则调用子模板 --%>
-<%
-if( Entity.IsTreeEntity() ){
-    CodeTemplate template = new TreePo();
-    template.SetProperty("Namespace",Namespace);
-    template.SetProperty("Entity",Entity);
-    template.Render(this.Response);
-    return;
-}
-%>
 using System;
 using Util.Domains;
 using Util.Domains.Auditing;
@@ -35,9 +24,10 @@ namespace <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>{
     /// <summary>
     /// <%= Description %>持久化对象
     /// </summary>
-    public class <%= SafeClassName %>Po : PersistentObjectBase<<%= Entity.GetKeyTypeString() %>><%=Entity.GetInterfaces()%>{
+    public class <%= SafeClassName %>Po : TreePersistentObjectBase {
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+        <% if( Entity.IgnoreTreeEntityProperty(p) ) continue;%>
         <% if( p.ColumnName == "Version" && p.DataType == DbType.Binary ) continue;%>
         /// <summary>
         /// <%= p.Description %>

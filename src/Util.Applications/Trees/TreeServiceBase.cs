@@ -16,7 +16,7 @@ namespace Util.Applications.Trees {
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     public abstract class TreeServiceBase<TEntity, TDto, TQueryParameter>
         : TreeServiceBase<TEntity, TDto, TQueryParameter, Guid, Guid?>, ITreeService<TDto, TQueryParameter>
-        where TEntity : class, ITreeEntity<TEntity, Guid, Guid?>, new()
+        where TEntity : class, IParentId<Guid?>, IPath, IEnabled, IKey<Guid>, IVersion, new()
         where TDto : class, IDto, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter {
         /// <summary>

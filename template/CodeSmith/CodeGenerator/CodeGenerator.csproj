@@ -84,16 +84,22 @@
     <None Include="01-Templates\Templates\Datas\SqlServer\UnitOfWork.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\SqlServer\PoMapping.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\Repository.cst" />
+    <None Include="01-Templates\Templates\PersistObjects\Datas\TreePo.cst" />
+    <None Include="01-Templates\Templates\PersistObjects\Services\Service.cst" />
+    <None Include="01-Templates\Templates\PersistObjects\Services\TreeService.cst" />
     <None Include="01-Templates\Templates\Presentation\Controllers\ApiController.cst" />
     <None Include="01-Templates\Templates\Presentation\Controllers\Controller.cst" />
+    <None Include="01-Templates\Templates\Presentation\Controllers\TreeApiController.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\IndexComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Module.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Query.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Routing.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\Trees\TreeIndexComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\ViewModel.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\EditComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\DetailComponent.cst" />
-    <None Include="01-Templates\Templates\Presentation\Typings\TreeViewModel.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\Trees\TreeViewModel.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\Trees\TreeQuery.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\IndexView.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\EditView.cst" />
     <None Include="01-Templates\Templates\Presentation\Views\DetailView.cst" />
@@ -111,7 +117,10 @@
     <None Include="01-Templates\Templates\Services\IService.cst" />
     <None Include="01-Templates\Templates\Services\Query.cst" />
     <None Include="01-Templates\Templates\Services\Service.cst" />
-    <None Include="01-Templates\Templates\Services\TreeQuery.cst" />
+    <None Include="01-Templates\Templates\Services\Trees\TreeQuery.cst" />
+    <None Include="01-Templates\Templates\Services\Trees\TreeDto.cst" />
+    <None Include="01-Templates\Templates\Services\Trees\ITreeService.cst" />
+    <None Include="01-Templates\Templates\Services\Trees\TreeService.cst" />
     <None Include="01-Templates\Templates\Tests\DtoTest.cst" />
     <None Include="01-Templates\Templates\Tests\EntityTest.cst" />
     <None Include="01-Templates\Templates\Tests\EntityTest.Data.cst" />
@@ -119,6 +128,7 @@
     <None Include="Project.csp" />
     <None Include="01-Templates\Templates.cst" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

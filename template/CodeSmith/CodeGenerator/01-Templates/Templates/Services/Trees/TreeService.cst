@@ -1,8 +1,7 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreeService" Template="Trees/TreeService.cst" MergeProperties="False" ExcludeProperties="" %>
 
-<%@ Assembly Src="..\..\Common\Model.cs" %>
-<%@ Assembly Src="..\..\Common\Extensions.cs" %>
+<%@ Assembly Src="..\..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
 
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Linq" %>
@@ -18,23 +17,11 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-<%-- 如果是树型实体，则调用子模板 --%>
-<%
-if( Entity.IsTreeEntity() ){
-    CodeTemplate template = new TreeService();
-    template.SetProperty("Namespace",Namespace);
-    template.SetProperty("UnitOfWork",UnitOfWork);
-    template.SetProperty("Entity",Entity);
-    template.SetProperty("IUnitOfWorkNamespace",IUnitOfWorkNamespace);
-    template.Render(this.Response);
-    return;
-}
-%>
 using Util;
 using Util.Maps;
 using Util.Domains.Repositories;
 using Util.Datas.Queries;
-using Util.Applications;
+using Util.Applications.Trees;
 using <%= string.Format("{0}.Data",Namespace) %>;
 using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 using <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %>;
@@ -46,7 +33,7 @@ namespace <%= string.Format("{0}.Service.Implements.{1}",Namespace,Entity.TableS
     /// <summary>
     /// <%= Description %>服务
     /// </summary>
-    public class <%= SafeClassName %>Service : CrudServiceBase<<%= SafeClassName %>, <%= SafeClassName %>Dto, <%= SafeClassName %>Query<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Service {
+    public class <%= SafeClassName %>Service : TreeServiceBase<<%= SafeClassName %>, <%= SafeClassName %>Dto, <%= SafeClassName %>Query<%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Service {
         /// <summary>
         /// 初始化<%= Description %>服务
         /// </summary>

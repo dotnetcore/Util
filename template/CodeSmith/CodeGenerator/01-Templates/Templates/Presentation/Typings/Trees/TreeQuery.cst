@@ -1,8 +1,7 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
-<%@ Register Name="TreeViewModel" Template="Trees/TreeViewModel.cst" MergeProperties="False" ExcludeProperties="" %>
 
-<%@ Assembly Src="..\..\..\Common\Model.cs" %>
-<%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
+<%@ Assembly Src="..\..\..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\..\..\Common\Extensions.cs" %>
 
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Linq" %>
@@ -16,24 +15,25 @@
 <% string SafeClassName = Entity.ClassName.ToSafeName(); %>
 <%-- 描述 --%>
 <% string Description = Entity.Description; %>
-<%-- 如果是树型实体，则调用子模板 --%>
-<%
-if( Entity.IsTreeEntity() ){
-    CodeTemplate template =new TreeViewModel();
-    template.SetProperty("Namespace",Namespace);
-    template.SetProperty("Entity",Entity);
-    template.Render(this.Response);
-    return;
-}
-%>
-import { ViewModel } from '../../../../util';
+import { TreeQueryParameter } from '../../../../util';
 
 /**
- * <%=Entity.Description%>视图模型
+ * <%=Entity.Description%>查询参数
  */
-export class <%=SafeClassName%>ViewModel extends ViewModel {
+export class <%=SafeClassName%>Query extends TreeQueryParameter {
     <% foreach(Property p in Entity.Properties) { %>
-    <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+    <% if( Entity.IsFilterByQueryObject(p) ) continue;%>
+    <% if( Entity.IgnoreTreeEntityProperty(p) ) continue;%>
+    <% if( p.SystemType == typeof(DateTime) ) {%>
+    /**
+     * 起始<%=p.Description %>
+     */
+    begin<%= p.PropertyName.ToSafeName() %>;
+    /**
+     * 结束<%=p.Description %>
+     */
+    end<%= p.PropertyName.ToSafeName() %>;
+    <%continue;}%>
     /**
      * <%=p.Description %>
      */

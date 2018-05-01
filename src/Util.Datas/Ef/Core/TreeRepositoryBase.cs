@@ -11,21 +11,13 @@ namespace Util.Datas.Ef.Core {
     /// 树型仓储
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public abstract class TreeRepositoryBase<TEntity> : TreeRepositoryBase<TEntity, Guid, Guid?>
+    public abstract class TreeRepositoryBase<TEntity> : TreeRepositoryBase<TEntity, Guid, Guid?>, ITreeRepository<TEntity>
         where TEntity : class, ITreeEntity<TEntity, Guid, Guid?> {
         /// <summary>
         /// 初始化树型仓储
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         protected TreeRepositoryBase( IUnitOfWork unitOfWork ) : base( unitOfWork ) {
-        }
-
-        /// <summary>
-        /// 获取不被跟踪的实体
-        /// </summary>
-        /// <param name="id">标识</param>
-        public override async Task<TEntity> FindNoTrackingAsync( Guid id ) {
-            return await FindAsNoTracking().FirstOrDefaultAsync( t => t.Id == id );
         }
 
         /// <summary>
@@ -58,12 +50,6 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="parentId">父编号</param>
         public abstract Task<int> GenerateSortIdAsync( TParentId parentId );
-
-        /// <summary>
-        /// 获取不被跟踪的实体
-        /// </summary>
-        /// <param name="id">标识</param>
-        public abstract Task<TEntity> FindNoTrackingAsync( TKey id );
 
         /// <summary>
         /// 获取全部下级实体

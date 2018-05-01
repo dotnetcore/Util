@@ -13,6 +13,20 @@ namespace Util.Datas.Ef.Core {
     /// 存储器
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
+    public abstract class StoreBase<TEntity> : StoreBase<TEntity, Guid>, IStore<TEntity>
+        where TEntity : class, IKey<Guid>, IVersion {
+        /// <summary>
+        /// 初始化存储器
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        protected StoreBase( IUnitOfWork unitOfWork ) : base( unitOfWork ) {
+        }
+    }
+
+    /// <summary>
+    /// 存储器
+    /// </summary>
+    /// <typeparam name="TEntity">对象类型</typeparam>
     /// <typeparam name="TKey">对象标识类型</typeparam>
     public abstract class StoreBase<TEntity, TKey> : QueryStoreBase<TEntity, TKey>, IStore<TEntity, TKey> where TEntity : class, IKey<TKey>, IVersion {
         /// <summary>
