@@ -20,7 +20,15 @@ export class TreeViewModel implements ISort, IKey {
     /**
      * 父名称
      */
-    parentName;
+    parentName?;
+    /**
+     * 路径
+     */
+    path?;
+    /**
+     * 级数
+     */
+    level?;
     /**
      * 排序号
      */

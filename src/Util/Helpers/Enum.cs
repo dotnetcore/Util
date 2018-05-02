@@ -93,7 +93,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <typeparam name="TEnum">枚举类型</typeparam>
         public static List<Item> GetItems<TEnum>() {
-            return GetItems( Common.GetType<TEnum>() );
+            return GetItems( typeof( TEnum ) );
         }
 
         /// <summary>
@@ -101,11 +101,11 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="type">枚举类型</param>
         public static List<Item> GetItems( Type type ) {
-            TypeInfo enumType = type.GetTypeInfo();
-            if( enumType.IsEnum == false )
+            type = Common.GetType( type );
+            if( type.IsEnum == false )
                 throw new InvalidOperationException( $"类型 {type} 不是枚举" );
             var result = new List<Item>();
-            foreach( var field in enumType.GetFields() )
+            foreach( var field in type.GetFields() )
                 AddItem( type, result, field );
             return result.OrderBy( t => t.SortId ).ToList();
         }
@@ -114,7 +114,7 @@ namespace Util.Helpers {
         /// 添加描述项
         /// </summary>
         private static void AddItem( Type type, ICollection<Item> result, FieldInfo field ) {
-            if( !field.FieldType.GetTypeInfo().IsEnum )
+            if( !field.FieldType.IsEnum )
                 return;
             var value = GetValue( type, field.Name );
             var description = Reflection.GetDescription( field );
