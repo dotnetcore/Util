@@ -217,13 +217,11 @@ namespace Util.Tests.Domains.Trees {
             var list = new List<Role> { child };
             _mockRepository.GetAllChildrenAsync( old ).Returns( list );
 
-            //执行
-            Role result = new Role( _id, path, 1 ) { ParentId = _id };
-            await _manager.UpdatePathAsync( result );
-
-            //验证
-            await _mockRepository.DidNotReceive().GetAllChildrenAsync( result );
-            Assert.Equal( path, result.Path );
+            //执行验证
+            await AssertHelper.ThrowsAsync<Warning>( async () => {
+                Role result = new Role( _id, path, 1 ) { ParentId = _id };
+                await _manager.UpdatePathAsync( result );
+            }, LibraryResource.NotSupportMoveToChildren );
         }
     }
 }

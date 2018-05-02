@@ -6,7 +6,7 @@ using Util.Properties;
 
 namespace Util.Domains.Trees {
     /// <summary>
-    /// 树型服务
+    /// 树型路径更新服务
     /// </summary>
     public class UpdatePathManager<TEntity, TKey, TParentId>
         where TEntity : class, ITreeEntity<TEntity, TKey, TParentId> {
@@ -16,7 +16,7 @@ namespace Util.Domains.Trees {
         private readonly ITreeCompactRepository<TEntity, TKey, TParentId> _repository;
 
         /// <summary>
-        /// 初始化树型服务
+        /// 初始化树型路径更新服务
         /// </summary>
         /// <param name="repository">仓储</param>
         public UpdatePathManager( ITreeCompactRepository<TEntity, TKey, TParentId> repository ) {
@@ -30,7 +30,7 @@ namespace Util.Domains.Trees {
         public async Task UpdatePathAsync( TEntity entity ) {
             entity.CheckNull( nameof( entity ) );
             if( entity.ParentId.Equals( entity.Id ) )
-                return;
+                throw new Warning( LibraryResource.NotSupportMoveToChildren );
             var old = await _repository.FindByIdNoTrackingAsync( entity.Id );
             if( old == null )
                 return;
