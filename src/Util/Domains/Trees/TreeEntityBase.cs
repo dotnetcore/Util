@@ -92,7 +92,7 @@ namespace Util.Domains.Trees {
         /// 初始化路径
         /// </summary>
         /// <param name="parent">父节点</param>
-        public void InitPath( TEntity parent ) {
+        public virtual void InitPath( TEntity parent ) {
             if( Equals( parent, null ) ) {
                 Level = 1;
                 Path = $"{Id},";
