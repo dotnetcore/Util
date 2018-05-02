@@ -36,7 +36,6 @@ namespace <%=Namespace%>.Data.Mappings.<%=Entity.TableSchema%>.SqlServer {
         /// 映射属性
         /// </summary>
         protected override void MapProperties( EntityTypeBuilder<<%= SafeClassName %>Po> builder ) {
-            base.MapProperties( builder );
             <%
             foreach(var p in Entity.Properties)
             {                
@@ -69,6 +68,9 @@ public string PropertyExpression(Property property)
     bool isString = property.SystemType == typeof(string);
     bool isByteArray = property.SystemType == typeof(byte[]);
     bool isDecimal = property.SystemType == typeof(Decimal);
+    
+    if( property.ColumnName.ToLower() == "isdeleted" )
+        return "            builder.HasQueryFilter( t => t.IsDeleted == false );\r\n";
     
     if( property.IsKey == false )
         return string.Empty;

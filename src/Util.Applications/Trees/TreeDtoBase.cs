@@ -9,10 +9,15 @@ namespace Util.Applications.Trees {
     [DataContract]
     public abstract class TreeDtoBase : DtoBase, ITreeNode {
         /// <summary>
-        /// 父编号
+        /// 父标识
         /// </summary>
         [DataMember]
         public string ParentId { get; set; }
+        /// <summary>
+        /// 父名称
+        /// </summary>
+        [DataMember]
+        public string ParentName { get; set; }
         /// <summary>
         /// 路径
         /// </summary>

@@ -16,7 +16,7 @@ namespace Util.Domains.Trees {
         /// 初始化树型服务
         /// </summary>
         /// <param name="repository">仓储</param>
-        public TreeManagerBase( ITreeRepository<TEntity, Guid, Guid?> repository ) : base( repository ) {
+        public TreeManagerBase( ITreeCompactRepository<TEntity, Guid, Guid?> repository ) : base( repository ) {
         }
     }
 
@@ -28,13 +28,13 @@ namespace Util.Domains.Trees {
         /// <summary>
         /// 仓储
         /// </summary>
-        private readonly ITreeRepository<TEntity, TKey, TParentId> _repository;
+        private readonly ITreeCompactRepository<TEntity, TKey, TParentId> _repository;
 
         /// <summary>
         /// 初始化树型服务
         /// </summary>
         /// <param name="repository">仓储</param>
-        protected TreeManagerBase( ITreeRepository<TEntity, TKey, TParentId> repository ) {
+        protected TreeManagerBase( ITreeCompactRepository<TEntity, TKey, TParentId> repository ) {
             _repository = repository;
         }
 

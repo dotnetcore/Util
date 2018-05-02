@@ -1,4 +1,4 @@
-﻿//============== Crud编辑页组件基类===============
+﻿//============== Crud编辑组件基类===============
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 import { util, ViewModel } from '../index';
 
 /**
- * Crud编辑页组件基类
+ * Crud编辑组件基类
  */
 export abstract class EditComponentBase<TViewModel extends ViewModel> implements OnInit {
     /**
@@ -41,24 +41,24 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> implements
     }
 
     /**
-     * 通过Id加载数据
+     * 通过标识加载
      */
     private loadById() {
         let id = this.util.router.getParam("id");
         if (!id)
             return;
-        this.util.webapi.get<TViewModel>(this.getUrl(id)).handle({
+        this.util.webapi.get<TViewModel>(this.getByIdUrl(id)).handle({
             handler: result => {
                 this.model = result;
-                this.loadAfter(result);
+                this.loadByIdAfter(result);
             }
         });
     }
 
     /**
-     * 加载完成后操作
+     * 通过标识加载完成后操作
      */
-    protected loadAfter(result) {
+    protected loadByIdAfter(result) {
     }
 
     /**
@@ -67,10 +67,10 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> implements
     protected abstract getBaseUrl();
 
     /**
-     * 获取数据地址
+     * 获取单个实体地址
      * @param id 标识
      */
-    protected getUrl(id) {
+    protected getByIdUrl(id) {
         return `/api/${this.getBaseUrl()}/${id}`;
     }
 

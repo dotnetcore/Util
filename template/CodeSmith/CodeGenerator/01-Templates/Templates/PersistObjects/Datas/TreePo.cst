@@ -24,7 +24,7 @@ namespace <%= Namespace %>.Data.Pos.<%= Entity.TableSchema %>{
     /// <summary>
     /// <%= Description %>持久化对象
     /// </summary>
-    public class <%= SafeClassName %>Po : TreePersistentObjectBase {
+    public class <%= SafeClassName %>Po : TreePersistentObjectBase<%=Entity.GetInterfaces()%> {
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         <% if( Entity.IgnoreTreeEntityProperty(p) ) continue;%>

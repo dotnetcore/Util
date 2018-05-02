@@ -9,6 +9,7 @@ export { ComponentBase } from './base/component-base';
 export { TableQueryComponentBase } from './base/table-query-component-base';
 export { TreeTableQueryComponentBase } from './base/tree-table-query-component-base';
 export { EditComponentBase } from './base/edit-component-base';
+export { TreeEditComponentBase } from './base/tree-edit-component-base';
 export { IKey, ViewModel, QueryParameter } from './core/model';
 export { TreeViewModel, TreeQueryParameter } from './core/tree';
 export { PagerList } from './core/pager-list';

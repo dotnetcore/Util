@@ -18,6 +18,10 @@ export class TreeViewModel implements ISort, IKey {
      */
     parentId?: string;
     /**
+     * 父名称
+     */
+    parentName;
+    /**
      * 排序号
      */
     sortId?: number;
