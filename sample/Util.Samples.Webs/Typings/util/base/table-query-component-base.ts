@@ -72,4 +72,34 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
         this.queryParam = this.createQuery();
         this.table.refresh(this.queryParam);
     }
+
+    /**
+     * 获取选中项列表
+     */
+    getChecked() {
+        return this.table.getChecked();
+    }
+
+    /**
+     * 获取选中项标识列表
+     */
+    getCheckedIds() {
+        return this.table.getCheckedIds();
+    }
+
+    /**
+     * 选中实体
+     */
+    select() {
+        let selection = this.getChecked();
+        if (!selection || selection.length === 0) {
+            this.util.dialog.close(new ViewModel());
+            return;
+        }
+        if (selection.length === 1) {
+            this.util.dialog.close(selection[0]);
+            return;
+        }
+        this.util.dialog.close(selection);
+    }
 }
