@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Util.Domains.Services;
-using Util.Domains.Trees;
 using Util.Exceptions;
 using Util.Security.Identity.Extensions;
 using Util.Security.Identity.Models;
@@ -15,13 +14,13 @@ namespace Util.Security.Identity.Services.Implements {
     /// <typeparam name="TRole">角色类型</typeparam>
     /// <typeparam name="TKey">角色标识类型</typeparam>
     /// <typeparam name="TParentId">角色父标识类型</typeparam>
-    public abstract class RoleManager<TRole, TKey, TParentId> : TreeManagerBase<TRole, TKey, TParentId>, IRoleManager<TRole, TKey, TParentId> where TRole : Role<TRole, TKey, TParentId> {
+    public abstract class RoleManager<TRole, TKey, TParentId> : DomainServiceBase, IRoleManager<TRole, TKey, TParentId> where TRole : Role<TRole, TKey, TParentId> {
         /// <summary>
         /// 初始化角色服务
         /// </summary>
         /// <param name="roleManager">Identity角色服务</param>
         /// <param name="repository">角色仓储</param>
-        protected RoleManager( RoleManager<TRole> roleManager, IRoleRepository<TRole, TKey, TParentId> repository ) : base( repository ) {
+        protected RoleManager( RoleManager<TRole> roleManager, IRoleRepository<TRole, TKey, TParentId> repository ) {
             Manager = roleManager;
             Repository = repository;
         }
@@ -73,7 +72,7 @@ namespace Util.Security.Identity.Services.Implements {
             role.CheckNull( nameof( role ) );
             await ValidateUpdate( role );
             role.InitPinYin();
-            await UpdatePathAsync( role );
+            await Repository.UpdatePathAsync( role );
             var result = await Manager.UpdateAsync( role );
             result.ThrowIfError();
         }

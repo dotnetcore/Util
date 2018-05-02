@@ -12,13 +12,13 @@ using Xunit;
 
 namespace Util.Tests.Domains.Trees {
     /// <summary>
-    /// 树型服务测试
+    /// 树型更新路径服务测试
     /// </summary>
-    public class TreeManagerTest {
+    public class UpdatePathManagerTest {
         /// <summary>
         /// 树型服务
         /// </summary>
-        private readonly TreeManagerBase<Role> _manager;
+        private readonly UpdatePathManager<Role, Guid, Guid?> _manager;
         /// <summary>
         /// 角色仓储
         /// </summary>
@@ -48,9 +48,9 @@ namespace Util.Tests.Domains.Trees {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public TreeManagerTest() {
+        public UpdatePathManagerTest() {
             _mockRepository = Substitute.For<IRoleRepository>();
-            _manager = new TreeManagerBase<Role>( _mockRepository );
+            _manager = new UpdatePathManager<Role,Guid,Guid?>( _mockRepository );
         }
 
         /// <summary>

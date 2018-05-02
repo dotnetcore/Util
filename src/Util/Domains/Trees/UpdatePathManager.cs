@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Util.Domains.Services;
 using Util.Exceptions;
 using Util.Properties;
 
@@ -10,20 +8,7 @@ namespace Util.Domains.Trees {
     /// <summary>
     /// 树型服务
     /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
-    public class TreeManagerBase<TEntity> : TreeManagerBase<TEntity, Guid, Guid?> where TEntity : class, ITreeEntity<TEntity, Guid, Guid?> {
-        /// <summary>
-        /// 初始化树型服务
-        /// </summary>
-        /// <param name="repository">仓储</param>
-        public TreeManagerBase( ITreeCompactRepository<TEntity, Guid, Guid?> repository ) : base( repository ) {
-        }
-    }
-
-    /// <summary>
-    /// 树型服务
-    /// </summary>
-    public abstract class TreeManagerBase<TEntity, TKey, TParentId> : DomainServiceBase
+    public class UpdatePathManager<TEntity, TKey, TParentId>
         where TEntity : class, ITreeEntity<TEntity, TKey, TParentId> {
         /// <summary>
         /// 仓储
@@ -34,7 +19,7 @@ namespace Util.Domains.Trees {
         /// 初始化树型服务
         /// </summary>
         /// <param name="repository">仓储</param>
-        protected TreeManagerBase( ITreeCompactRepository<TEntity, TKey, TParentId> repository ) {
+        public UpdatePathManager( ITreeCompactRepository<TEntity, TKey, TParentId> repository ) {
             _repository = repository;
         }
 
