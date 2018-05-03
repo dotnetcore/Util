@@ -77,6 +77,7 @@ namespace Util.Ui.Material.Forms.Renders {
             builder.AddAttribute( "[vertical]", _config.GetBoolValue( UiConst.Vertical ) );
             builder.AddAttribute( "[showLabel]", _config.GetBoolValue( MaterialConst.ShowLabel ) );
             builder.AddAttribute( "label", _config.GetValue( UiConst.Label ) );
+            builder.AddAttribute( "[label]", _config.GetValue( AngularConst.BindLabel ) );
             builder.AddAttribute( "labelPosition", _config.GetValue<XPosition?>( UiConst.Position )?.Description() );
         }
 

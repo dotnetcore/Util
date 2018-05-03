@@ -26,6 +26,14 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// [routerLink],路由链接属性绑定
         /// </summary>
         public string BindLink { get; set; }
+        /// <summary>
+        /// 单击事件处理函数,范例：handle()
+        /// </summary>
+        public string OnClick { get; set; }
+        /// <summary>
+        /// ngClass指令
+        /// </summary>
+        public string NgClass { get; set; }
 
         /// <summary>
         /// 获取渲染器

@@ -59,6 +59,7 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigPlaceholder( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Placeholder, _config.GetValue( UiConst.Placeholder ) );
+            builder.AddAttribute( $"[{UiConst.Placeholder}]", _config.GetValue( AngularConst.BindPlaceholder ) );
             builder.AddAttribute( "floatPlaceholder", _config.GetValue<FloatType?>( MaterialConst.FloatPlaceholder )?.Description() );
         }
 

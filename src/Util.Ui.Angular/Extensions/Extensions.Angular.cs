@@ -52,5 +52,16 @@ namespace Util.Ui.Extensions {
             builder.AddAttribute( "[routerLink]", config.GetValue( AngularConst.BindLink ) );
             return builder;
         }
+
+        /// <summary>
+        /// 添加click指令
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        public static TBuilder OnClick<TBuilder>( this TBuilder builder, IConfig config ) where TBuilder : TagBuilder {
+            builder.AddAttribute( "(click)", config.GetValue( UiConst.OnClick ) );
+            return builder;
+        }
     }
 }

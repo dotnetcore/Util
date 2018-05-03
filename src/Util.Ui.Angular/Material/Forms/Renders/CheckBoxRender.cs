@@ -75,6 +75,9 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigLabel( TagBuilder builder ) {
             builder.SetContent( _config.GetValue( UiConst.Label ) );
+            var bindLabel = _config.GetValue( AngularConst.BindLabel );
+            if( !bindLabel.IsEmpty() )
+                builder.SetContent( $"{{{{{bindLabel}}}}}" );
             builder.AddAttribute( "labelPosition", _config.GetValue<XPosition?>( UiConst.Position )?.Description() );
         }
 

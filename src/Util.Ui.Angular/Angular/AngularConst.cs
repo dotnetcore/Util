@@ -27,5 +27,13 @@
         /// 值属性绑定
         /// </summary>
         public const string BindValue = "bind-value";
+        /// <summary>
+        /// 提示绑定
+        /// </summary>
+        public const string BindPlaceholder = "bind-placeholder";
+        /// <summary>
+        /// 标签绑定
+        /// </summary>
+        public const string BindLabel = "bind-label";
     }
 }

@@ -113,6 +113,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试设置标签绑定
+        /// </summary>
+        [Fact]
+        public void TestBindLabel() {
+            var result = new String();
+            result.Append( "<mat-radio-wrapper [label]=\"a\"></mat-radio-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BindLabel( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试标签位置
         /// </summary>
         [Fact]

@@ -117,6 +117,17 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         }
 
         /// <summary>
+        /// 测试设置绑定占位提示
+        /// </summary>
+        [Fact]
+        public void TestBindPlaceholder() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindPlaceholder, "a" } };
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [placeholder]=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试设置占位提示浮动位置
         /// </summary>
         [Fact]

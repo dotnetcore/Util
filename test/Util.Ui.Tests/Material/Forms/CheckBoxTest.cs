@@ -86,10 +86,20 @@ namespace Util.Ui.Tests.Material.Forms {
         /// 测试设置标签
         /// </summary>
         [Fact]
-        public void TestText() {
+        public void TestLabel() {
             var result = new String();
             result.Append( "<mat-checkbox>a</mat-checkbox>" );
             Assert.Equal( result.ToString(), GetResult( _component.Label( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试设置标签绑定
+        /// </summary>
+        [Fact]
+        public void TestBindLabel() {
+            var result = new String();
+            result.Append( "<mat-checkbox>{{a}}</mat-checkbox>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BindLabel( "a" ) ) );
         }
 
         /// <summary>

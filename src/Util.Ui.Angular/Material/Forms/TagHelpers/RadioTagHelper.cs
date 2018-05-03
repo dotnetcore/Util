@@ -33,6 +33,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string Label { get; set; }
         /// <summary>
+        /// 绑定标签
+        /// </summary>
+        public string BindLabel { get; set; }
+        /// <summary>
         /// 标签位置
         /// </summary>
         public XPosition Position { get; set; }

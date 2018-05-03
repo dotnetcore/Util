@@ -100,5 +100,16 @@ namespace Util.Ui.Tests.Material.Lists {
             result.Append( "<a href=\"a\" mat-list-item=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试单击事件
+        /// </summary>
+        [Fact]
+        public void TestOnClick() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
+            var result = new String();
+            result.Append( "<a (click)=\"a\" mat-list-item=\"\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

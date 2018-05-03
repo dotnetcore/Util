@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material;
@@ -101,6 +102,17 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
             var attributes = new TagHelperAttributeList { { UiConst.Placeholder, "a" } };
             var result = new String();
             result.Append( "<mat-datepicker-wrapper placeholder=\"a\"></mat-datepicker-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置绑定占位提示
+        /// </summary>
+        [Fact]
+        public void TestBindPlaceholder() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindPlaceholder, "a" } };
+            var result = new String();
+            result.Append( "<mat-datepicker-wrapper [placeholder]=\"a\"></mat-datepicker-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

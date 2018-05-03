@@ -226,7 +226,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - CodeSmith 6.5
 
 23. 参考应用框架
-  - [ABP](https://github.com/aspnetboilerplate/aspnetboilerplate)
+  - [ABP](http://aspnetboilerplate.com/)
   - [Nop](https://www.nopcommerce.com) 
     - Nop是一个开源商城，封装了大量实用的基础代码。
 

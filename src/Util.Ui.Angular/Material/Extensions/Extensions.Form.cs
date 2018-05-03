@@ -1,4 +1,5 @@
-﻿using Util.Ui.Components;
+﻿using Util.Ui.Angular;
+using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
@@ -22,6 +23,22 @@ namespace Util.Ui.Material.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Placeholder, text );
+                config.SetAttribute( MaterialConst.FloatPlaceholder, type );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置占位提示符绑定
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="text">占位提示文本</param>
+        /// <param name="type">占位符浮动类型</param>
+        public static TComponent BindPlaceholder<TComponent>( this TComponent component, string text, FloatType? type = null ) where TComponent : IComponent, IPlaceholder {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( AngularConst.BindPlaceholder, text );
                 config.SetAttribute( MaterialConst.FloatPlaceholder, type );
             } );
             return component;
@@ -186,6 +203,20 @@ namespace Util.Ui.Material.Extensions {
             var option = component as IOptionConfig;
             option?.Config<Config>( config => {
                 config.SetAttribute( UiConst.Label, text );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 设置绑定标签
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="text">文本</param>
+        public static TComponent BindLabel<TComponent>( this TComponent component, string text ) where TComponent : ILabel {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( AngularConst.BindLabel, text );
             } );
             return component;
         }

@@ -125,6 +125,16 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试设置绑定占位提示
+        /// </summary>
+        [Fact]
+        public void TestBindPlaceholder() {
+            var result = new String();
+            result.Append( "<mat-select-wrapper [placeholder]=\"a\"></mat-select-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.BindPlaceholder( "a" ) ) );
+        }
+
+        /// <summary>
         /// 测试设置占位提示
         /// </summary>
         [Fact]

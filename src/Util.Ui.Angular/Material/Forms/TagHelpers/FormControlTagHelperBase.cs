@@ -25,6 +25,10 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string Placeholder { get; set; }
         /// <summary>
+        /// 占位提示符绑定
+        /// </summary>
+        public string BindPlaceholder { get; set; }
+        /// <summary>
         /// 占位符浮动类型
         /// </summary>
         public FloatType FloatPlaceholder { get; set; }
