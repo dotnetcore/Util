@@ -70,7 +70,7 @@ namespace Util.Properties {
         }
         
         /// <summary>
-        ///   查找类似 不允许将父节点移动到子节点下 的本地化字符串。
+        ///   查找类似 不允许将节点移动到自己或子节点下 的本地化字符串。
         /// </summary>
         public static string NotSupportMoveToChildren {
             get {

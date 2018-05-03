@@ -28,8 +28,8 @@ namespace Util.Tests.Domains.Trees {
             var id = Guid.NewGuid();
             var parent = new TreeEntitySample( parentId );
             parent.InitPath();
-            var child = new TreeEntitySample( id ) { Parent = parent };
-            Assert.Same( parent, child.Parent );
+            var child = new TreeEntitySample( id );
+            child.InitPath( parent );
             Assert.Equal( 2, child.Level );
             Assert.Equal( $"{parentId},{id},", child.Path );
         }
@@ -44,8 +44,10 @@ namespace Util.Tests.Domains.Trees {
             Guid threeId = Guid.NewGuid();
             var one = new TreeEntitySample( oneId );
             one.InitPath();
-            var two = new TreeEntitySample( twoId ) { Parent = one };
-            var three = new TreeEntitySample( threeId ) { Parent = two };
+            var two = new TreeEntitySample( twoId );
+            two.InitPath( one );
+            var three = new TreeEntitySample( threeId );
+            three.InitPath( two );
             Assert.Equal( 3, three.Level );
             Assert.Equal( $"{oneId},{twoId},{threeId},", three.Path );
         }
@@ -80,7 +82,8 @@ namespace Util.Tests.Domains.Trees {
             var id = Guid.NewGuid();
             var parent = new TreeEntitySample( parentId );
             parent.InitPath();
-            var entity = new TreeEntitySample( id ) { Parent = parent };
+            var entity = new TreeEntitySample( id );
+            entity.InitPath( parent );
             Assert.Single( entity.GetParentIdsFromPath());
             Assert.Equal( parentId, entity.GetParentIdsFromPath()[0] );
         }
@@ -117,7 +120,6 @@ namespace Util.Tests.Domains.Trees {
             parent.InitPath();
             var child = new TreeEntitySample( id );
             child.InitPath( parent );
-            Assert.Null( child.Parent );
             Assert.Equal( 2, child.Level );
             Assert.Equal( $"{parentId},{id},", child.Path );
         }

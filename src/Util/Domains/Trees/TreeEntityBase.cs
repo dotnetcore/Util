@@ -28,11 +28,6 @@ namespace Util.Domains.Trees {
     /// <typeparam name="TParentId">父标识类型</typeparam>
     public abstract class TreeEntityBase<TEntity, TKey, TParentId> : AggregateRoot<TEntity, TKey>, ITreeEntity<TEntity, TKey, TParentId> where TEntity : ITreeEntity<TEntity, TKey, TParentId> {
         /// <summary>
-        /// 父对象
-        /// </summary>
-        private TEntity _parent;
-
-        /// <summary>
         /// 初始化树型实体
         /// </summary>
         /// <param name="id">标识</param>
@@ -42,17 +37,6 @@ namespace Util.Domains.Trees {
             : base( id ) {
             Path = path;
             Level = level;
-        }
-
-        /// <summary>
-        /// 父对象
-        /// </summary>
-        public virtual TEntity Parent {
-            get => _parent;
-            set {
-                _parent = value;
-                InitPath();
-            }
         }
 
         /// <summary>
@@ -85,7 +69,7 @@ namespace Util.Domains.Trees {
         /// 初始化路径
         /// </summary>
         public virtual void InitPath() {
-            InitPath( Parent );
+            InitPath( default(TEntity) );
         }
 
         /// <summary>
