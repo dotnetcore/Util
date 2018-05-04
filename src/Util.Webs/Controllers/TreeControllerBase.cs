@@ -31,7 +31,7 @@ namespace Util.Webs.Controllers {
         /// 获取加载模式
         /// </summary>
         protected virtual LoadMode GetLoadMode() {
-            return LoadMode.Async;
+            return LoadMode.OnlyRootAsync;
         }
 
         /// <summary>

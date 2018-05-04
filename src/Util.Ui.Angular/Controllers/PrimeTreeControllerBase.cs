@@ -77,6 +77,8 @@ namespace Util.Ui.Controllers {
         /// <param name="query">查询参数</param>
         [HttpGet]
         public virtual async Task<IActionResult> Query( TQuery query ) {
+            if( query == null )
+                throw new ArgumentNullException( nameof( query ) );
             QueryBefore( query );
             ProcessParam( query );
             PagerList<PrimeTreeNode<TDto>> result;
@@ -180,20 +182,41 @@ namespace Util.Ui.Controllers {
         /// 异步加载子节点
         /// </summary>
         protected virtual async Task<List<PrimeTreeNode<TDto>>> AsyncLoadChildren( TQuery query ) {
-            var queryParam = new TQuery { ParentId = query.ParentId };
+            var queryParam = await GetAsyncLoadChildrenQuery( query );
             var result = await _service.QueryAsync( queryParam );
             return result.ToPrimeResult( true );
+        }
+
+        /// <summary>
+        /// 获取异步加载子节点查询参数
+        /// </summary>
+        /// <param name="query">查询参数</param>
+        protected virtual Task<TQuery> GetAsyncLoadChildrenQuery( TQuery query ) {
+            query.Level = null;
+            query.Path = null;
+            return Task.FromResult( query );
         }
 
         /// <summary>
         /// 同步加载子节点
         /// </summary>
         protected virtual async Task<List<PrimeTreeNode<TDto>>> SyncLoadChildren( TQuery query ) {
-            var parent = await _service.GetByIdAsync( query.ParentId );
-            var queryParam = new TQuery { Path = parent.Path };
+            var queryParam = await GetSyncLoadChildrenQuery( query );
             var result = await _service.QueryAsync( queryParam );
             result.RemoveAll( t => t.Id == query.ParentId.SafeString() );
             return result.ToPrimeResult();
+        }
+
+        /// <summary>
+        /// 获取同步加载子节点查询参数
+        /// </summary>
+        /// <param name="query">查询参数</param>
+        protected virtual async Task<TQuery> GetSyncLoadChildrenQuery( TQuery query ) {
+            var parent = await _service.GetByIdAsync( query.ParentId );
+            query.Path = parent.Path;
+            query.Level = null;
+            query.ParentId = default(TParentId);
+            return query;
         }
 
         /// <summary>
