@@ -65,6 +65,17 @@ namespace Util.Ui.Material.Internal {
         /// <summary>
         /// 获取模型绑定
         /// </summary>
+        /// <param name="expression">属性表达式</param>
+        /// <param name="member">成员</param>
+        public static string GetModel( ModelExpression expression, MemberInfo member ) {
+            Type modelType = expression.Metadata.ContainerType;
+            var propertyName = expression.Name;
+            return GetModel( GetModelName( modelType ), GetPropertyName( member, propertyName ) );
+        }
+
+        /// <summary>
+        /// 获取模型绑定
+        /// </summary>
         private static string GetModel( string modelName, string propertyName ) {
             modelName = Util.Helpers.String.FirstLowerCase( modelName );
             propertyName = GetFirstLowerCasePropertyName( propertyName );

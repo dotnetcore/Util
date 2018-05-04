@@ -34,7 +34,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 生成排序号
         /// </summary>
-        /// <param name="parentId">父编号</param>
+        /// <param name="parentId">父标识</param>
         public override async Task<int> GenerateSortIdAsync( Guid? parentId ) {
             var maxSortId = await _store.Find( t => t.ParentId == parentId ).MaxAsync( t => t.SortId );
             return maxSortId.SafeValue() + 1;
@@ -68,7 +68,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 生成排序号
         /// </summary>
-        /// <param name="parentId">父编号</param>
+        /// <param name="parentId">父标识</param>
         public abstract Task<int> GenerateSortIdAsync( TParentId parentId );
 
         /// <summary>
