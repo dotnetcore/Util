@@ -22,6 +22,10 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      */
     selection: TViewModel[];
     /**
+     * 传入弹出框的数据
+     */
+    data;
+    /**
      * 表格组件
      */
     @ViewChild(TreeTable) protected table: TreeTable<TViewModel>;
@@ -38,16 +42,27 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
 
     /**
      * 创建查询参数
+     * @param data 传入弹出框的数据
      */
-    protected abstract createQuery(): TQuery;
+    protected abstract createQuery(data?): TQuery;
 
     /**
      * 初始化
      */
     ngOnInit() {
-        let data = util.dialog.getData();
-        this.addToSelections(this.getSelectionFromData(data));
-        this.init(data);
+        this.initDialogData();
+    }
+
+    /**
+     * 加载弹出框数据
+     */
+    private initDialogData() {
+        this.data = util.dialog.getData();
+        if (!this.data)
+            return;
+        this.addToSelections(this.getSelectionFromData(this.data));
+        this.queryParam = this.createQuery(this.data);
+        this.init(this.data);
     }
 
     /**
@@ -105,7 +120,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 刷新
      */
     refresh() {
-        this.queryParam = this.createQuery();
+        this.queryParam = this.createQuery(this.data);
         this.table.refresh(this.queryParam);
     }
 

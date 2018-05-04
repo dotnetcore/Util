@@ -18,24 +18,23 @@
 <%-- 驼峰形式类名 --%>
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
 @model <%=SafeClassName%>Dto
-
-<util-form id="form" on-submit="submit(form)">
+<util-layout flex="70%" x-align="Center">
     <util-card>
         <util-card-header>
-            <%=Description%>详情
+            <util-icon font-awesome-icon="AddressCardO" style="margin-right: 10px;"></util-icon>
+            <%=Description%>
         </util-card-header>
-        <util-card-content class="formContent">
-        <% foreach(Property p in Entity.Properties) { %>
-        <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
-        <% if( Entity.IsHidden(p) ) continue; %>
-            <util-layout flex="50%">
-                <label asp-for="<%= p.PropertyName.ToSafeName() %>"></label>
-                {{model.<%= p.PropertyName.ToSafeName().ToCamelCase() %>}}
-            </util-layout>
-        <% } %>
+        <util-card-content class="form-content form-list-content">
+            <% foreach(Property p in Entity.Properties) { %>
+            <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+            <% if( Entity.IsHidden(p) ) continue; %>
+                <util-layout flex="100%">
+                    <label asp-for="<%= p.PropertyName.ToSafeName() %>"></label>: <util-label for="<%= p.PropertyName.ToSafeName() %>"/>
+                </util-layout>
+            <% } %>
         </util-card-content>
         <util-card-actions align="Right">
             <util-button text="返回" styles="Default" on-click="back()"></util-button>
         </util-card-actions>
     </util-card>
-</util-form>
+</util-layout>
