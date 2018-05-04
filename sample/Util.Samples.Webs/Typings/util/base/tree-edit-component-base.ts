@@ -31,9 +31,9 @@ export abstract class TreeEditComponentBase<TViewModel extends TreeViewModel> ex
     }
 
     /**
-     * 通过标识加载完成后操作
+     * 加载完成后操作
      */
-    protected loadByIdAfter(result: TViewModel) {
+    protected loadAfter(result: TViewModel) {
         this.loadParent(result.parentId);
     }
 

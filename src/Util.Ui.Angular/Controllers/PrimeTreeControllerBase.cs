@@ -201,9 +201,10 @@ namespace Util.Ui.Controllers {
         /// 同步加载子节点
         /// </summary>
         protected virtual async Task<List<PrimeTreeNode<TDto>>> SyncLoadChildren( TQuery query ) {
+            var parentId = query.ParentId.SafeString();
             var queryParam = await GetSyncLoadChildrenQuery( query );
             var result = await _service.QueryAsync( queryParam );
-            result.RemoveAll( t => t.Id == query.ParentId.SafeString() );
+            result.RemoveAll( t => t.Id == parentId );
             return result.ToPrimeResult();
         }
 

@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
+using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Renders;
 
 namespace Util.Ui.Angular.Renders {
@@ -62,6 +65,51 @@ namespace Util.Ui.Angular.Renders {
             text = _config.GetValue( AngularConst.BindText );
             if ( text.IsEmpty() )
                 return;
+            ConfigByType( builder, text );
+        }
+
+        /// <summary>
+        /// 根据类型配置
+        /// </summary>
+        private void ConfigByType( TagBuilder builder,string text ) {
+            var type = _config.GetValue<LabelType?>( UiConst.Type );
+            switch( type ) {
+                case LabelType.Bool:
+                    AddBoolType( builder, text );
+                    return;
+                case LabelType.Date:
+                    AddDateType( builder, text );
+                    return;
+                default:
+                    AddText( builder, text );
+                    return;
+            }
+        }
+
+        /// <summary>
+        /// 添加布尔类型
+        /// </summary>
+        private void AddBoolType( TagBuilder builder, string text ) {
+            var checkIconBuilder = new MaterialIconBuilder().SetContent( MaterialIcon.Check.Description() ).AddAttribute( "*ngIf", $"{text}" );
+            builder.AppendContent( checkIconBuilder );
+            var clearIconBuilder = new MaterialIconBuilder().SetContent( MaterialIcon.Clear.Description() ).AddAttribute( "*ngIf", $"!({text})" );
+            builder.AppendContent( clearIconBuilder );
+        }
+
+        /// <summary>
+        /// 添加日期类型
+        /// </summary>
+        private void AddDateType( TagBuilder builder, string text ) {
+            var format = _config.GetValue( UiConst.DateFormat );
+            if( string.IsNullOrWhiteSpace( format ) )
+                format = "yyyy-MM-dd";
+            builder.AppendContent( $"{{{{ {text} | date:\"{format}\" }}}}" );
+        }
+
+        /// <summary>
+        /// 添加文本
+        /// </summary>
+        private void AddText( TagBuilder builder, string text ) {
             builder.SetContent( $"{{{{{text}}}}}" );
         }
     }

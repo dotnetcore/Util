@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Helpers;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Internal;
@@ -51,6 +53,17 @@ namespace Util.Ui.Angular.Resolvers {
         /// </summary>
         private void Init() {
             _config.SetAttribute( AngularConst.BindText,Helper.GetModel( _expression,_memberInfo ) );
+            InitType();
+        }
+
+        /// <summary>
+        /// 根据类型初始化
+        /// </summary>
+        private void InitType() {
+            if( Reflection.IsBool( _memberInfo ) )
+                _config.SetAttribute( UiConst.Type, LabelType.Bool );
+            else if( Reflection.IsDate( _memberInfo ) )
+                _config.SetAttribute( UiConst.Type, LabelType.Date );
         }
     }
 }

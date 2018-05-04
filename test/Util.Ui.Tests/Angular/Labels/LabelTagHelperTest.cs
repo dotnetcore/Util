@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Tests.XUnitHelpers;
@@ -76,6 +77,46 @@ namespace Util.Ui.Tests.Angular.Labels {
             var attributes = new TagHelperAttributeList { { AngularConst.BindText, "a" } };
             var result = new String();
             result.Append( "<span>{{a}}</span>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置布尔类型
+        /// </summary>
+        [Fact]
+        public void TestType_Bool() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindText, "a" },{ UiConst.Type, LabelType.Bool } };
+            var result = new String();
+            result.Append( "<span>" );
+            result.Append( "<mat-icon *ngIf=\"a\">check</mat-icon>" );
+            result.Append( "<mat-icon *ngIf=\"!(a)\">clear</mat-icon>" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置日期类型
+        /// </summary>
+        [Fact]
+        public void TestType_Date() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindText, "a" },{ UiConst.Type, LabelType.Date } };
+            var result = new String();
+            result.Append( "<span>" );
+            result.Append( "{{ a | date:\"yyyy-MM-dd\" }}" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置日期类型 - 指定格式化字符串
+        /// </summary>
+        [Fact]
+        public void TestType_Date_Format() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindText, "a" }, { UiConst.Type, LabelType.Date }, { UiConst.DateFormat, "a" } };
+            var result = new String();
+            result.Append( "<span>" );
+            result.Append( "{{ a | date:\"a\" }}" );
+            result.Append( "</span>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
