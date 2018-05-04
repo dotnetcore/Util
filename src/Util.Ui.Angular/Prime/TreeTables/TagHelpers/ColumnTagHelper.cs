@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Prime.Enums;
 using Util.Ui.Prime.TreeTables.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -23,6 +24,21 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// 列名
         /// </summary>
         public string Column { get; set; }
+        /// <summary>
+        /// 表格列类型
+        /// </summary>
+        public TableColumnType Type { get; set; }
+        /// <summary>
+        /// 日期格式化字符串，格式说明：
+        /// 1. 年 - yyyy
+        /// 2. 月 - MM
+        /// 3. 日 - dd
+        /// 4. 时 - HH
+        /// 5. 分 - mm
+        /// 6. 秒 - ss
+        /// 7. 毫秒 - SSS
+        /// </summary>
+        public string DateFormat { get; set; }
 
         /// <summary>
         /// 获取渲染器

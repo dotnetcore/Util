@@ -2,8 +2,11 @@
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Extensions;
+using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tables.Resolvers;
+using Util.Ui.Prime.Enums;
 using Util.Ui.Prime.TreeTables.Builders;
 using Util.Ui.Renders;
 
@@ -75,12 +78,73 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         /// 配置内容
         /// </summary>
         protected override void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
+            if ( AllowConfigContent() == false )
                 return;
+            var template = GetTemplate();
+            if ( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
+                ConfigType( template );
+            else
+                template.AppendContent( _config.Content );
+            builder.AppendContent( template );
+        }
+
+        /// <summary>
+        /// 允许配置内容
+        /// </summary>
+        private bool AllowConfigContent() {
+            if ( _config.Content != null && _config.Content.IsEmptyOrWhiteSpace == false )
+                return true;
+            var type = _config.GetValue<TableColumnType?>( UiConst.Type );
+            if( type != null )
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// 获取模板
+        /// </summary>
+        private TemplateBuilder GetTemplate() {
             TemplateBuilder template = new TemplateBuilder();
             template.AddAttribute( "let-row", "rowData" );
-            template.AppendContent( _config.Content );
-            builder.AppendContent( template );
+            return template;
+        }
+
+        /// <summary>
+        /// 配置类型
+        /// </summary>
+        private void ConfigType( TemplateBuilder builder ) {
+            var type = _config.GetValue<TableColumnType?>( UiConst.Type );
+            if ( type == null )
+                return;
+            var column = _config.GetValue( UiConst.Column );
+            switch( type ) {
+                case TableColumnType.Bool:
+                    AddBoolType( builder, column );
+                    return;
+                case TableColumnType.Date:
+                    AddDateType( builder, column );
+                    return;
+            }
+        }
+
+        /// <summary>
+        /// 添加布尔类型
+        /// </summary>
+        private void AddBoolType( TemplateBuilder builder, string column ) {
+            var checkIconBuilder = new MaterialIconBuilder().SetContent( MaterialIcon.Check.Description() ).AddAttribute( "*ngIf", $"row.data.{column}" );
+            builder.AppendContent( checkIconBuilder );
+            var clearIconBuilder = new MaterialIconBuilder().SetContent( MaterialIcon.Clear.Description() ).AddAttribute( "*ngIf", $"!row.data.{column}" );
+            builder.AppendContent( clearIconBuilder );
+        }
+
+        /// <summary>
+        /// 添加日期类型
+        /// </summary>
+        private void AddDateType( TemplateBuilder builder, string column ) {
+            var format = _config.GetValue( UiConst.DateFormat );
+            if( string.IsNullOrWhiteSpace( format ) )
+                format = "yyyy-MM-dd";
+            builder.AppendContent( $"{{{{ row.data.{column} | date:\"{format}\" }}}}" );
         }
     }
 }

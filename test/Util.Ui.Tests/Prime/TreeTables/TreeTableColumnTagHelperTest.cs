@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Prime.Enums;
 using Util.Ui.Prime.TreeTables.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
@@ -77,6 +78,52 @@ namespace Util.Ui.Tests.Prime.TreeTables {
             var attributes = new TagHelperAttributeList { { UiConst.Title, "a" } };
             var result = new String();
             result.Append( "<p-column header=\"a\"></p-column>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置布尔类型
+        /// </summary>
+        [Fact]
+        public void TestType_Bool() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Bool }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<p-column field=\"a\">" );
+            result.Append( "<ng-template let-row=\"rowData\">" );
+            result.Append( "<mat-icon *ngIf=\"row.data.a\">check</mat-icon>" );
+            result.Append( "<mat-icon *ngIf=\"!row.data.a\">clear</mat-icon>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</p-column>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置日期类型
+        /// </summary>
+        [Fact]
+        public void TestType_Date() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<p-column field=\"a\">" );
+            result.Append( "<ng-template let-row=\"rowData\">" );
+            result.Append( "{{ row.data.a | date:\"yyyy-MM-dd\" }}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</p-column>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置日期类型 - 指定格式化字符串
+        /// </summary>
+        [Fact]
+        public void TestType_Date_Format() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.DateFormat, "a" }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<p-column field=\"a\">" );
+            result.Append( "<ng-template let-row=\"rowData\">" );
+            result.Append( "{{ row.data.a | date:\"a\" }}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</p-column>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
