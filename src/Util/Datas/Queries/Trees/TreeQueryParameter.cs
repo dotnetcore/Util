@@ -45,23 +45,23 @@ namespace Util.Datas.Queries.Trees {
         /// </summary>
         public virtual bool IsSearch() {
             var items = Reflection.GetPublicProperties( this );
-            return items.All( t => Ignore( t.Text, t.Value ) ) == false;
+            return items.Any( t => IsSearchProperty( t.Text, t.Value ) );
         }
 
         /// <summary>
-        /// 忽略
+        /// 是否搜索属性
         /// </summary>
-        private bool Ignore( string name, object value ) {
+        protected virtual bool IsSearchProperty( string name, object value ) {
             if ( value.SafeString().IsEmpty() )
-                return true;
+                return false;
             switch ( name.SafeString().ToLower() ) {
                 case "order":
                 case "pagesize":
                 case "page":
                 case "totalcount":
-                    return true;
+                    return false;
             }
-            return false;
+            return true;
         }
     }
 

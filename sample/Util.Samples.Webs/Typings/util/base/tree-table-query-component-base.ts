@@ -45,17 +45,32 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 初始化
      */
     ngOnInit() {
-        this.initSelection();
+        let data = util.dialog.getData();
+        this.addToSelections(this.getSelectionFromData(data));
+        this.init(data);
     }
 
     /**
-     * 初始化选中项
+     * 从弹出框数据中获取选中项
+     * @param data 传入弹出框的数据
      */
-    private initSelection() {
-        let items = util.dialog.getData<any>();
-        this.util.helper.addToArray(this.selection, items);
+    protected getSelectionFromData(data) {
+        return data;
     }
 
+    /**
+     * 添加到选中项列表
+     */
+    private addToSelections(selection) {
+        this.util.helper.addToArray(this.selection, selection);
+    }
+
+    /**
+     * 初始化
+     * @param data 传入弹出框的数据
+     */
+    protected init(data) {
+    }
 
     /**
      * 查询
