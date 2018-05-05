@@ -79,5 +79,24 @@ namespace Util.Webs.Controllers {
             await _service.DeleteAsync( ids );
             return Success();
         }
+
+        /// <summary>
+        /// 交换排序
+        /// </summary>
+        /// /// <remarks>
+        /// 调用范例:
+        /// POST   
+        /// /api/customer/SwapSort
+        /// body: "'1,2'"
+        /// </remarks>
+        /// <param name="ids">两个Id的标识列表，用逗号分隔，范例：1,2</param>
+        [HttpPost( "SwapSort" )]
+        public async Task<IActionResult> SwapSortAsync( [FromBody] string ids ) {
+            var idList = ids.ToGuidList();
+            if( idList.Count < 2 )
+                return Fail( "交换排序失败" );
+            await _service.SwapSortAsync( idList[0], idList[1] );
+            return Success();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Util.Applications.Dtos;
 using Util.Datas.Queries.Trees;
 
@@ -22,5 +23,11 @@ namespace Util.Applications.Trees {
     public interface ITreeService<TDto, in TQueryParameter, TParentId> : IDeleteService<TDto, TQueryParameter>
         where TDto : class, IResponse, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter<TParentId> {
+        /// <summary>
+        /// 交换排序
+        /// </summary>
+        /// <param name="id">标识</param>
+        /// <param name="swapId">目标标识</param>
+        Task SwapSortAsync( Guid id, Guid swapId );
     }
 }

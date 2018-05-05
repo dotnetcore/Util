@@ -235,5 +235,16 @@ namespace Util.Ui.Tests.Material.Buttons {
             result.Append( "<button mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\" [ngClass]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试单击事件
+        /// </summary>
+        [Fact]
+        public void TestNgClass_CloseDialog_Click() {
+            var attributes = new TagHelperAttributeList { { MaterialConst.CloseDialog, "a" }, { UiConst.OnClick, "a" } };
+            var result = new String();
+            result.Append( "<button (click)=\"a\" mat-dialog-close=\"a\" mat-raised-button=\"\" type=\"button\"></button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

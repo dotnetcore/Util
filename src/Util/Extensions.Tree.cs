@@ -16,5 +16,16 @@ namespace Util {
             var manager = new UpdatePathManager<TEntity, TKey, TParentId>( repository );
             await manager.UpdatePathAsync( entity );
         }
+
+        /// <summary>
+        /// 交换排序
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <param name="swapEntity">交换实体</param>
+        public static void SwapSort( this ISortId entity, ISortId swapEntity ) {
+            var sortId = entity.SortId;
+            entity.SortId = swapEntity.SortId;
+            swapEntity.SortId = sortId;
+        }
     }
 }
