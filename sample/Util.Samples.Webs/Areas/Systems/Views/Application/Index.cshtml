@@ -2,15 +2,11 @@
 
 <style>
     .mat-column-code {
-        max-width: 10%;
+        max-width: 180px;
     }
 
     .mat-column-name {
-        max-width: 20%;
-    }
-
-    .mat-column-comment {
-        max-width: 30%;
+        max-width: 60%;
     }
 
     .mat-column-enabled {
@@ -26,11 +22,7 @@
     }
 
     .mat-column-operation {
-        max-width: 140px;
-    }
-
-    .mat-expansion-panel {
-        margin-bottom: 10px;
+        max-width: 100px;
     }
 </style>
 <util-accordion>
@@ -68,7 +60,6 @@
     <util-table-column type="LineNumber"></util-table-column>
     <util-table-column for="Code" sort="true"></util-table-column>
     <util-table-column for="Name" sort="true"></util-table-column>
-    <util-table-column for="Comment" sort="true"></util-table-column>
     <util-table-column for="Enabled" sort="true"></util-table-column>
     <util-table-column for="RegisterEnabled" sort="true"></util-table-column>
     <util-table-column for="CreationTime" sort="true"></util-table-column>
@@ -77,14 +68,13 @@
             <util-a styles="Icon" tooltip="编辑" bind-link="['edit',row.id]">
                 <util-icon material-icon="Edit"></util-icon>
             </util-a>
-            <util-button styles="Icon" tooltip="删除" on-click="delete(row.id)">
-                <util-icon material-icon="Delete"></util-icon>
+            <util-button styles="Icon" menu-id="menu">
+                <util-icon material-icon="More_Vert"></util-icon>
+                <util-menu id="menu">
+                    <util-menu-item label="删除" material-icon="Delete" on-click="delete(row.id)"></util-menu-item>
+                    <util-menu-item label="查看详细" material-icon="Visibility" bind-link="['detail',row.id]"></util-menu-item>
+                </util-menu>
             </util-button>
-            <util-a styles="Icon" tooltip="查看详细" bind-link="['detail',row.id]">
-                <util-icon material-icon="Visibility"></util-icon>
-            </util-a>
         </util-table-cell>
     </util-table-column>
 </util-table>
-
-<echarts-ng2 [option]="option"></echarts-ng2>

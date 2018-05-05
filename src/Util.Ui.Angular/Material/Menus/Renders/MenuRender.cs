@@ -32,8 +32,8 @@ namespace Util.Ui.Material.Menus.Renders {
         /// <param name="encoder">编码</param>
         public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
             var builder = (MenuBuilder)Builder;
-            builder.TemplateBuilder.AppendContent( _config.Content );
-            Builder.WriteTo( writer, encoder );
+            builder.TemplateBuilder.SetContent( _config.Content );
+            builder.WriteTo( writer, encoder );
         }
 
         /// <summary>

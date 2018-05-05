@@ -39,7 +39,7 @@ namespace Util.Ui.Material.Lists.Renders {
             ConfigContent( builder );
             builder.NgFor( _config );
             builder.NgClass( _config );
-            builder.Url( _config );
+            builder.Link( _config );
             builder.OnClick( _config );
         }
     }

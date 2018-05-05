@@ -28,9 +28,13 @@ namespace Util.Ui.Material.Menus.TagHelpers {
         /// </summary>
         public string Disabled { get; set; }
         /// <summary>
-        /// 路由链接地址
+        /// 路由地址
         /// </summary>
         public string Link { get; set; }
+        /// <summary>
+        /// 路由地址表达式[routerLink],范例：['edit',row.id]
+        /// </summary>
+        public string BindLink { get; set; }
         /// <summary>
         /// 单击事件处理函数,范例：handle()
         /// </summary>

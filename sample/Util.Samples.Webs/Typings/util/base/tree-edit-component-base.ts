@@ -66,7 +66,7 @@ export abstract class TreeEditComponentBase<TViewModel extends TreeViewModel> ex
         if (!parent)
             return;
         this.parent = parent;
-        this.model.parentId = parent.data.id;
-        this.model.parentName = parent.data.name;
+        this.model.parentId = parent.id || parent.data && parent.data.id;
+        this.model.parentName = parent.name || parent.data && parent.data.name;
     }
 }
