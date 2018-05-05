@@ -10,11 +10,8 @@ import { TreeNode, Header, Footer, Column, SharedModule, DomHandler } from "prim
 import { MatCommonModule, MatCheckboxModule, MatPaginatorModule, MatProgressBarModule, MatPaginator, MatRadioModule } from '@angular/material';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
-import { PagerList } from '../core/pager-list';
-import { TreeViewModel, TreeQueryParameter } from '../core/tree';
 import { MessageConfig as config } from '../config/message-config';
-import { DicService } from '../services/dic.service';
-import { Util as util } from '../util';
+import { util, HttpMethod, PagerList, TreeViewModel, TreeQueryParameter, DicService } from '../index';
 
 @Component({
     selector: 'p-tree-table',
@@ -132,6 +129,10 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      * 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
      */
     @Input() deleteUrl: string;
+    /**
+     * 交换排序地址，范例：/api/test/swap
+     */
+    @Input() swapSortUrl: string;
     /**
      * 查询参数
      */
@@ -436,13 +437,164 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     /**
      * 从数据源移除项
      */
-    private removeFromDataSource(parent, treeNodes: any[], ids: string[]) {
+    private removeFromDataSource(parent, treeNodes: any[], ids: string[]): void {
         if (!treeNodes)
-            return treeNodes;
+            return;
         util.helper.remove(treeNodes, t => ids.some(id => id === t.data.id));
         if (treeNodes && treeNodes.length === 0 && parent)
             parent.children = null;
         treeNodes.forEach(t => this.removeFromDataSource(t, t.children, ids));
+    }
+
+    /**
+     * 获取节点
+     * @param id 节点标识
+     * @param parent 父节点
+     */
+    getById(id, parent?: T): T {
+        id = this.getId(id);
+        if (!id)
+            return null;
+        parent = parent || this.getParent(id);
+        let children = this.getChildren(parent);
+        if (!children)
+            return null;
+        return <T>children.find(t => (t.data && t.data.id) === id);
+    }
+
+    /**
+     * 获取子节点列表
+     */
+    private getChildren(parent) {
+        if (parent === "root")
+            return this.dataSource;
+        if (parent && parent.children)
+            return parent.children;
+        return null;
+    }
+
+    /**
+     * 获取标识，参数可以是标识，也可以是节点
+     */
+    private getId(id) {
+        if (!id)
+            return null;
+        if (id.data)
+            return id.data.id;
+        return id;
+    }
+
+    /**
+     * 获取父节点
+     * @param id 节点标识
+     */
+    getParent(id): T {
+        id = this.getId(id);
+        if (!id)
+            return null;
+        return this.getParentByRecursion(this.dataSource, id, "root");
+    }
+
+    /**
+     * 递归获取父节点
+     */
+    private getParentByRecursion(children: any[], id, parent?): T {
+        if (!children)
+            return null;
+        let current = children.find(t => (t.data && t.data.id) === id);
+        if (current)
+            return parent;
+        let result = null;
+        children.forEach(item => {
+            let node = this.getParentByRecursion(item.children, id, item);
+            if (node)
+                result = node;
+        });
+        return result;
+    }
+
+    /**
+     * 获取前一个节点
+     * @param id 节点标识
+     * @param parent 父节点
+     */
+    getPrev(id, parent?: T) {
+        id = this.getId(id || this.getSingleChecked());
+        if (!id)
+            return null;
+        parent = parent || this.getParent(id);
+        let children = this.getChildren(parent);
+        if (!children)
+            return null;
+        let result = null;
+        for (let i = 0; i < children.length; i++) {
+            let value = children[i];
+            if ((children[i].data && children[i].data.id) === id)
+                return result;
+            result = value;
+        }
+        return result;
+    }
+
+    /**
+     * 上移
+     * @param id 节点标识
+     * @param button 按钮
+     * @param url 上移服务端Url
+     */
+    moveUp(id, button?, url?: string) {
+        id = this.getId(id || this.getSingleChecked());
+        if (!id)
+            return;
+        let parent = this.getParent(id);
+        let children = this.getChildren(parent);
+        let prev = this.getPrev(id, parent);
+        let current = this.getById(id, parent);
+        if (!prev || !prev.data || !current || !current.data)
+            return;
+        this.swapSort(prev, current);
+        this.swapSortRequest(`${current.data.id},${prev.data.id}`, button, () => {
+            this.sort(children);
+        }, url);
+    }
+
+    /**
+     * 交换排序号
+     * @param left 左操作数
+     * @param right 右操作数
+     */
+    swapSort(left, right) {
+        if (!left || !left.data || !right || !right.data)
+            return;
+        var sortId = left.data.sortId;
+        left.data.sortId = right.data.sortId;
+        right.data.sortId = sortId;
+    }
+
+    /**
+     * 发送交换排序请求
+     */
+    private swapSortRequest(ids?: string, button?, handler?: () => void, url?: string) {
+        url = url || this.swapSortUrl || (this.baseUrl && `/api/${this.baseUrl}/SwapSort`);
+        if (!url) {
+            console.log("交换排序Url未设置");
+            return;
+        }
+        util.form.submit({
+            url: url,
+            data: ids,
+            httpMethod: HttpMethod.Post,
+            button: button,
+            showMessage: false,
+            handler: handler
+        });
+    }
+
+    /**
+     * 排序
+     */
+    private sort(nodes) {
+        nodes && nodes.sort((a, b) => (a.data.sortId === undefined || b.data.sortId === undefined) ? 0 : a.data.sortId - b.data.sortId);
     }
 
     /**
