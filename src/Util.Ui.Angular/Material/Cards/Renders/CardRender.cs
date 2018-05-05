@@ -1,14 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Cards.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Cards.Renders {
     /// <summary>
     /// 卡片渲染器
     /// </summary>
-    public class CardRender : RenderBase {
+    public class CardRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -35,8 +34,6 @@ namespace Util.Ui.Material.Cards.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            builder.Style( _config );
-            builder.Class( _config );
             ConfigId( builder );
             ConfigContent( builder );
         }

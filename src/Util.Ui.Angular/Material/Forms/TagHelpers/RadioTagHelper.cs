@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
@@ -11,7 +12,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// 单选框
     /// </summary>
     [HtmlTargetElement( "util-radio" )]
-    public class RadioTagHelper : TagHelperBase {
+    public class RadioTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 控件的名称
         /// </summary>

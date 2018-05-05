@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Lists.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     /// 列表头像，该标签应放到 util-list-item 中
     /// </summary>
     [HtmlTargetElement( "util-list-avatar", TagStructure = TagStructure.WithoutEndTag )]
-    public class ListAvatarTagHelper : TagHelperBase {
+    public class ListAvatarTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 图片路径
         /// </summary>

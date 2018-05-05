@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.FlexLayout.Enums;
 using Util.Ui.FlexLayout.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.FlexLayout.TagHelpers {
     /// 布局项
     /// </summary>
     [HtmlTargetElement( "util-layout-item" )]
-    public class LayoutItemTagHelper : TagHelperBase {
+    public class LayoutItemTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 尺寸调整策略，格式：增大比例 缩小比例 基础尺寸，前两个参数默认值为1，可省略，范例1：1 1 auto，范例2：20px，代表1 1 20px
         /// </summary>
@@ -83,14 +84,6 @@ namespace Util.Ui.FlexLayout.TagHelpers {
         /// 是否占满
         /// </summary>
         public bool Fill { get; set; }
-        /// <summary>
-        /// *ngIf
-        /// </summary>
-        public string If { get; set; }
-        /// <summary>
-        /// *ngFor
-        /// </summary>
-        public string NgFor { get; set; }
 
         /// <summary>
         /// 获取渲染器

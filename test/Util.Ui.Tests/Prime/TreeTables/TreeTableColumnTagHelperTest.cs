@@ -89,7 +89,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Bool }, { UiConst.Column, "a" } };
             var result = new String();
             result.Append( "<p-column field=\"a\">" );
-            result.Append( "<ng-template let-row=\"rowData\">" );
+            result.Append( "<ng-template let-first=\"first\" let-i=\"index\" let-last=\"last\" let-row=\"rowData\">" );
             result.Append( "<mat-icon *ngIf=\"row.data.a\">check</mat-icon>" );
             result.Append( "<mat-icon *ngIf=\"!row.data.a\">clear</mat-icon>" );
             result.Append( "</ng-template>" );
@@ -105,7 +105,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.Column, "a" } };
             var result = new String();
             result.Append( "<p-column field=\"a\">" );
-            result.Append( "<ng-template let-row=\"rowData\">" );
+            result.Append( "<ng-template let-first=\"first\" let-i=\"index\" let-last=\"last\" let-row=\"rowData\">" );
             result.Append( "{{ row.data.a | date:\"yyyy-MM-dd\" }}" );
             result.Append( "</ng-template>" );
             result.Append( "</p-column>" );
@@ -120,7 +120,7 @@ namespace Util.Ui.Tests.Prime.TreeTables {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.DateFormat, "a" }, { UiConst.Column, "a" } };
             var result = new String();
             result.Append( "<p-column field=\"a\">" );
-            result.Append( "<ng-template let-row=\"rowData\">" );
+            result.Append( "<ng-template let-first=\"first\" let-i=\"index\" let-last=\"last\" let-row=\"rowData\">" );
             result.Append( "{{ row.data.a | date:\"a\" }}" );
             result.Append( "</ng-template>" );
             result.Append( "</p-column>" );

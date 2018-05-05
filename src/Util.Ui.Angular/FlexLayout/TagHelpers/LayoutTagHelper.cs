@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.FlexLayout.Enums;
 using Util.Ui.FlexLayout.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.FlexLayout.TagHelpers {
     /// 布局容器
     /// </summary>
     [HtmlTargetElement( "util-layout" )]
-    public class LayoutTagHelper : TagHelperBase {
+    public class LayoutTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 布局方向
         /// </summary>
@@ -87,10 +88,6 @@ namespace Util.Ui.FlexLayout.TagHelpers {
         /// 是否换行
         /// </summary>
         public bool Wrap { get; set; }
-        /// <summary>
-        /// *ngIf
-        /// </summary>
-        public string If { get; set; }
 
         /// <summary>
         /// 获取渲染器

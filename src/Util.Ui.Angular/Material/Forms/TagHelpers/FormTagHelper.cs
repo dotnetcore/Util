@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// 表单
     /// </summary>
     [HtmlTargetElement( "util-form" )]
-    public class FormTagHelper : TagHelperBase {
+    public class FormTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 提交事件处理函数，范例：handle()
         /// </summary>

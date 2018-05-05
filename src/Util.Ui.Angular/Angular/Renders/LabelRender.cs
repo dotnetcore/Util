@@ -5,13 +5,12 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Icons.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Angular.Renders {
     /// <summary>
     /// 标签渲染器
     /// </summary>
-    public class LabelRender : RenderBase {
+    public class LabelRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

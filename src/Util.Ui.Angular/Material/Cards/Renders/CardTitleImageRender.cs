@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Cards.Renders {
     /// <summary>
     /// 卡片标题图片渲染器
     /// </summary>
-    public class CardTitleImageRender : RenderBase {
+    public class CardTitleImageRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

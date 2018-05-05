@@ -1,14 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Dialogs.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Dialogs.Renders {
     /// <summary>
     /// 弹出层内容渲染器
     /// </summary>
-    public class DialogContentRender : RenderBase {
+    public class DialogContentRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -37,8 +36,6 @@ namespace Util.Ui.Material.Dialogs.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigContent( builder );
-            builder.Style( _config );
-            builder.Class( _config );
         }
     }
 }

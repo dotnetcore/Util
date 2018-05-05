@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Tables.Configs;
@@ -11,7 +12,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     /// 表格单元格定义，该标签应放在 util-table-column 中，引用变量名为row，范例：{{row.name}}
     /// </summary>
     [HtmlTargetElement( "util-table-cell", ParentTag = "util-table-column" )]
-    public class CellTagHelper : TagHelperBase {
+    public class CellTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

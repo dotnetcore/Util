@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Lists.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     /// 导航列表文本，该标签应放到 util-nav-list-item 中
     /// </summary>
     [HtmlTargetElement( "util-nav-list-text" )]
-    public class NavListTextTagHelper : TagHelperBase {
+    public class NavListTextTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

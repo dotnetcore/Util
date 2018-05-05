@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Prime.ColorPickers.Renders;
 using Util.Ui.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Prime.ColorPickers.TagHelpers {
     /// 颜色选择器
     /// </summary>
     [HtmlTargetElement( "util-color-picker", TagStructure = TagStructure.WithoutEndTag )]
-    public class ColorPickerTagHelper : TagHelperBase {
+    public class ColorPickerTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 控件名称
         /// </summary>

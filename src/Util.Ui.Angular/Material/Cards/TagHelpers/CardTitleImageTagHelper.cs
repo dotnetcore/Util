@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Renders;
 using Util.Ui.Material.Enums;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// 卡片标题图片,该标签应放到 util-card-title-group 中
     /// </summary>
     [HtmlTargetElement( "util-card-title-image",TagStructure = TagStructure.WithoutEndTag)]
-    public class CardTitleImageTagHelper : TagHelperBase {
+    public class CardTitleImageTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 图片路径
         /// </summary>

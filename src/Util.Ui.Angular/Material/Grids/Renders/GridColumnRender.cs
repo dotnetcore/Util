@@ -1,15 +1,15 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Grids.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Grids.Renders {
     /// <summary>
     /// 网格列渲染器
     /// </summary>
-    public class GridColumnRender : RenderBase {
+    public class GridColumnRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

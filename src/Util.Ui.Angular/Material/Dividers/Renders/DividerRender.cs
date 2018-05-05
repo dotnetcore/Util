@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Dividers.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Dividers.Renders {
     /// <summary>
     /// 分隔线渲染器
     /// </summary>
-    public class DividerRender : RenderBase {
+    public class DividerRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

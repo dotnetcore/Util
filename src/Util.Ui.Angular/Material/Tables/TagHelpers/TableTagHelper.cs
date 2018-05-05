@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Enums;
@@ -13,7 +14,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     /// 表格
     /// </summary>
     [HtmlTargetElement( "util-table" )]
-    public class TableTagHelper : TagHelperBase {
+    public class TableTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 用于还原查询参数的标识
         /// </summary>

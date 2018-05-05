@@ -1,18 +1,18 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Grids.Builders;
 using Util.Ui.Material.Lists.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Lists.Renders {
     /// <summary>
     /// 选择列表包装器渲染器
     /// </summary>
-    public class SelectListWrapperRender : RenderBase {
+    public class SelectListWrapperRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

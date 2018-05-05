@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Panels.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Panels.TagHelpers {
     /// 面板标题
     /// </summary>
     [HtmlTargetElement( "util-panel-title" )]
-    public class PanelTitleTagHelper : TagHelperBase {
+    public class PanelTitleTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

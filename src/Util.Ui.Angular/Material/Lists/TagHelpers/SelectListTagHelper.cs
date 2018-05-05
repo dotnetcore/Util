@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Configs;
@@ -11,7 +12,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     /// 选择列表
     /// </summary>
     [HtmlTargetElement( "util-select-list" )]
-    public class SelectListTagHelper : TagHelperBase {
+    public class SelectListTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 请求地址
         /// </summary>

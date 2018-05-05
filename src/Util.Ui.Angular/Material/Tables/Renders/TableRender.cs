@@ -1,16 +1,15 @@
-﻿using Util.Helpers;
+﻿using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Tables.Builders;
 using Util.Ui.Material.Tables.Configs;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tables.Renders {
     /// <summary>
     /// 表格渲染器
     /// </summary>
-    public class TableRender : RenderBase {
+    public class TableRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -45,8 +44,6 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 配置表格包装器
         /// </summary>
         protected void ConfigTableWrapper( TagBuilder builder ) {
-            builder.Class( _config );
-            builder.Style( _config );
             ConfigId( builder );
             ConfigQueryParam( builder );
             ConfigUrl( builder );

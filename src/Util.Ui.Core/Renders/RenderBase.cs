@@ -42,7 +42,15 @@ namespace Util.Ui.Renders {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         public virtual void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
+            InitBuilder( Builder );
             Builder.WriteTo( writer, encoder );
+        }
+
+        /// <summary>
+        /// 初始化生成器
+        /// </summary>
+        /// <param name="builder">标签生成器</param>
+        protected virtual void InitBuilder( TagBuilder builder ) {
         }
 
         /// <summary>
@@ -50,6 +58,7 @@ namespace Util.Ui.Renders {
         /// </summary>
         /// <param name="writer">流写入器</param>
         public virtual void RenderStartTag( TextWriter writer ) {
+            InitBuilder( Builder );
             Builder.RenderStartTag( writer );
             if( Builder.HasInnerHtml )
                 Builder.RenderBody( writer );
@@ -72,14 +81,6 @@ namespace Util.Ui.Renders {
                 WriteTo( writer, NullHtmlEncoder.Default );
                 return string.IsNullOrWhiteSpace( validateMessage ) ? writer.ToString() : $"验证失败：{validateMessage}";
             }
-        }
-
-        /// <summary>
-        /// 配置标识
-        /// </summary>
-        protected virtual void ConfigId( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Id ) )
-                builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}" );
         }
 
         /// <summary>

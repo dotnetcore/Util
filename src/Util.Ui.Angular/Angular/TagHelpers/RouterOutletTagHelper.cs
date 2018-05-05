@@ -9,7 +9,7 @@ namespace Util.Ui.Angular.TagHelpers {
     /// router-outlet路由出口
     /// </summary>
     [HtmlTargetElement( "util-router-outlet" )]
-    public class RouterOutletTagHelper : TagHelperBase {
+    public class RouterOutletTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

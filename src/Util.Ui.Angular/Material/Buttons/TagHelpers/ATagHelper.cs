@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Buttons.Renders;
 using Util.Ui.Material.Enums;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
     /// 链接
     /// </summary>
     [HtmlTargetElement( "util-a" )]
-    public class ATagHelper : TagHelperBase {
+    public class ATagHelper : AngularTagHelperBase {
         /// <summary>
         /// 文本
         /// </summary>

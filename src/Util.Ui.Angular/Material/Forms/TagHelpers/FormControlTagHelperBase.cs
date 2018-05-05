@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Enums;
 using Util.Ui.Material.Enums;
-using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Forms.TagHelpers {
     /// <summary>
     /// 表单控件
     /// </summary>
-    public abstract class FormControlTagHelperBase : TagHelperBase {
+    public abstract class FormControlTagHelperBase : AngularTagHelperBase {
         /// <summary>
         /// 控件名称
         /// </summary>

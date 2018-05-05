@@ -1,14 +1,14 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Dialogs.Builders;
 using Util.Ui.Material.Enums;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Dialogs.Renders {
     /// <summary>
     /// 弹出层操作渲染器
     /// </summary>
-    public class DialogActionRender : RenderBase {
+    public class DialogActionRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

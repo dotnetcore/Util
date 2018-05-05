@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Toolbars.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Toolbars.Renders {
     /// <summary>
     /// 工具栏项渲染器
     /// </summary>
-    public class ToolbarRowRender : RenderBase {
+    public class ToolbarRowRender : AngularRenderBase {
         /// <summary>
         /// 初始化工具栏项渲染器
         /// </summary>

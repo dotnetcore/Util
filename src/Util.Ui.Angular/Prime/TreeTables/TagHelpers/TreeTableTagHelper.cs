@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Prime.TreeTables.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
     /// 树型表格
     /// </summary>
     [HtmlTargetElement( "util-tree-table" )]
-    public class TreeTableTagHelper : TagHelperBase {
+    public class TreeTableTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 用于还原查询参数的标识
         /// </summary>

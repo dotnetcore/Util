@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Menus.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Menus.TagHelpers {
     /// 菜单项
     /// </summary>
     [HtmlTargetElement( "util-menu-item" )]
-    public class MenuItemTagHelper : TagHelperBase {
+    public class MenuItemTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 标签
         /// </summary>
@@ -35,6 +36,10 @@ namespace Util.Ui.Material.Menus.TagHelpers {
         /// 路由地址表达式[routerLink],范例：['edit',row.id]
         /// </summary>
         public string BindLink { get; set; }
+        /// <summary>
+        /// 查询参数表达式，范例：{id:1}
+        /// </summary>
+        public string QueryParams { get; set; }
         /// <summary>
         /// 单击事件处理函数,范例：handle()
         /// </summary>

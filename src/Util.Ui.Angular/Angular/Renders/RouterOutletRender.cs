@@ -1,13 +1,12 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Angular.Renders {
     /// <summary>
     /// router-outlet路由出口渲染器
     /// </summary>
-    public class RouterOutletRender : RenderBase {
+    public class RouterOutletRender : AngularRenderBase {
         /// <summary>
         /// 初始化router-outlet路由出口渲染器
         /// </summary>

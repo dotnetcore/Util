@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Panels.Builders;
 using Util.Ui.Renders;
@@ -7,7 +8,7 @@ namespace Util.Ui.Material.Panels.Renders {
     /// <summary>
     /// 面板描述渲染器
     /// </summary>
-    public class PanelDescriptionRender : RenderBase {
+    public class PanelDescriptionRender : AngularRenderBase {
         /// <summary>
         /// 初始化面板描述渲染器
         /// </summary>

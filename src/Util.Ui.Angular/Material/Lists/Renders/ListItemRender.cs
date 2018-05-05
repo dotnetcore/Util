@@ -1,15 +1,13 @@
-﻿using Util.Ui.Angular;
+﻿using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Lists.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Lists.Renders {
     /// <summary>
     /// 列表项渲染器
     /// </summary>
-    public class ListItemRender : RenderBase {
+    public class ListItemRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -38,7 +36,6 @@ namespace Util.Ui.Material.Lists.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigContent( builder );
-            builder.NgFor( _config );
         }
     }
 }

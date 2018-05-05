@@ -3,7 +3,7 @@
 // 修改： 何镇汐
 //Licensed under the MIT license
 //================================================
-import { NgModule, Component, Input, Output, EventEmitter, AfterContentInit, ElementRef, ContentChild, IterableDiffers, ChangeDetectorRef, ContentChildren, QueryList, Inject, forwardRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { NgModule, Component, Input, Output, EventEmitter, AfterContentInit, ElementRef, ContentChild, ChangeDetectorRef, ContentChildren, QueryList, Inject, forwardRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode, Header, Footer, Column, SharedModule, DomHandler } from "primeng/primeng";
 //Material模块
@@ -50,7 +50,9 @@ import { Util as util } from '../util';
                         </td>
                     </tr>
                 </tfoot>                
-                <tbody pTreeRow *ngFor="let node of dataSource" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
+                <tbody pTreeRow *ngFor="let node of dataSource;let i = index;let isFirst = first;let isLast = last;" class="ui-treetable-data ui-widget-content" 
+                    [first]="isFirst" [last]="isLast" [index]="i" [node]="node"
+                    [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
             </table>
         </div>
             
@@ -765,7 +767,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
                 <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" [ngStyle]="getRadioStyle()" 
                     *ngIf="treeTable.selectionMode == 'single' && i==0 && showRadio()" [checked]="isSelected()"></mat-radio-button>                
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
-                <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
+                <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node,index:index,first:first,last:last}"></ng-container>
             </td>
         </div>
         <div *ngIf="node.children && node.expanded" class="ui-treetable-row" style="display:table-row">
@@ -778,6 +780,9 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     `
 })
 export class UITreeRow<T extends TreeViewModel & TreeNode> implements OnInit {
+    @Input() index: number;
+    @Input() first: boolean;
+    @Input() last: boolean;
 
     @Input() node: T;
 

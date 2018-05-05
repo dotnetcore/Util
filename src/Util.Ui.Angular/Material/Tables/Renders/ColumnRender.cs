@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
@@ -7,13 +8,12 @@ using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tables.Builders;
 using Util.Ui.Material.Tables.Configs;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tables.Renders {
     /// <summary>
     /// 列渲染器
     /// </summary>
-    public class ColumnRender : RenderBase {
+    public class ColumnRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

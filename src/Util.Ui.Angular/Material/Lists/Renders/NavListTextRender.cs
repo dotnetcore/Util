@@ -1,14 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Lists.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Lists.Renders {
     /// <summary>
     /// 导航列表文本渲染器
     /// </summary>
-    public class NavListTextRender : RenderBase {
+    public class NavListTextRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -36,8 +35,6 @@ namespace Util.Ui.Material.Lists.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            builder.Style( _config );
-            builder.Class( _config );
             ConfigContent( builder );
         }
     }

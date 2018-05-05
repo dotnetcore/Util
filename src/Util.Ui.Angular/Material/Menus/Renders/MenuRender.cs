@@ -1,17 +1,17 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Menus.Builders;
 using Util.Ui.Material.Menus.Configs;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Menus.Renders {
     /// <summary>
     /// 菜单渲染器
     /// </summary>
-    public class MenuRender : RenderBase {
+    public class MenuRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -33,7 +33,7 @@ namespace Util.Ui.Material.Menus.Renders {
         public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
             var builder = (MenuBuilder)Builder;
             builder.TemplateBuilder.SetContent( _config.Content );
-            builder.WriteTo( writer, encoder );
+            base.WriteTo( writer, encoder );
         }
 
         /// <summary>

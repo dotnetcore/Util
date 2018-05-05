@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
     /// 表单渲染器
     /// </summary>
-    public class FormRender : RenderBase {
+    public class FormRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

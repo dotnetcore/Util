@@ -11,7 +11,7 @@ namespace Util.Ui.Angular.TagHelpers {
     /// 标签
     /// </summary>
     [HtmlTargetElement( "util-label", TagStructure = TagStructure.WithoutEndTag )]
-    public class LabelTagHelper : TagHelperBase {
+    public class LabelTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 文本
         /// </summary>

@@ -1,14 +1,14 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tabs.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tabs.Renders {
     /// <summary>
     /// 选项卡组渲染器
     /// </summary>
-    public class TabGroupRender : RenderBase {
+    public class TabGroupRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

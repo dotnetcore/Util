@@ -85,7 +85,7 @@ namespace Util.Ui.Tests.Material.Tabs {
         /// </summary>
         [Fact]
         public void TestIf() {
-            var attributes = new TagHelperAttributeList { { UiConst.If, "a" } };
+            var attributes = new TagHelperAttributeList { { AngularConst.NgIf, "a" } };
             var result = new String();
             result.Append( "<nav *ngIf=\"a\" mat-tab-nav-bar=\"\"></nav><router-outlet></router-outlet>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

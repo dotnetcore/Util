@@ -1,14 +1,12 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Angular.Renders {
     /// <summary>
     /// ng-container容器渲染器
     /// </summary>
-    public class ContainerRender : RenderBase {
+    public class ContainerRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -27,9 +25,8 @@ namespace Util.Ui.Angular.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             var builder = new ContainerBuilder();
-            builder.AddAttribute( "id", _config.GetValue( UiConst.Id ) );
-            builder.SetContent( _config.Content );
-            builder.AddOutputAttributes( _config );
+            ConfigId( builder );
+            ConfigContent( builder );
             return builder;
         }
     }

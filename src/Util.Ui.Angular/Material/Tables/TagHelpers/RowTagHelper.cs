@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Tables.Configs;
@@ -11,7 +12,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     /// 表格行定义，该标签应放在 util-table 中
     /// </summary>
     [HtmlTargetElement( "util-table-row", ParentTag = "util-table" )]
-    public class RowTagHelper : TagHelperBase {
+    public class RowTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 显示列的集合，范例：['selectCheckbox','lineNumber', 'name','nickname','mobile']
         /// </summary>

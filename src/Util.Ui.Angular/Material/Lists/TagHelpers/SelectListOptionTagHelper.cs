@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Lists.Renders;
@@ -10,11 +11,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     /// 选择列表项，该标签应放到 util-select-list 中
     /// </summary>
     [HtmlTargetElement( "util-select-list-item" )]
-    public class SelectListOptionTagHelper : TagHelperBase {
-        /// <summary>
-        /// ngFor指令，范例：let item of items
-        /// </summary>
-        public string NgFor { get; set; }
+    public class SelectListOptionTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 值
         /// </summary>

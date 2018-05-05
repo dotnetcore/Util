@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Renders;
@@ -11,7 +12,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
     /// 滑动开关
     /// </summary>
     [HtmlTargetElement( "util-slide-toggle" )]
-    public class SlideToggleTagHelper : TagHelperBase {
+    public class SlideToggleTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 控件的名称
         /// </summary>

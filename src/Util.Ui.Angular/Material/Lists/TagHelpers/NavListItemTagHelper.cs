@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Lists.Renders;
 using Util.Ui.Renders;
@@ -9,11 +10,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     /// 导航列表项，该标签应放到 util-nav-list 中
     /// </summary>
     [HtmlTargetElement( "util-nav-list-item" )]
-    public class NavListItemTagHelper : TagHelperBase {
-        /// <summary>
-        /// ngFor指令，范例：let item of items
-        /// </summary>
-        public string NgFor { get; set; }
+    public class NavListItemTagHelper : AngularTagHelperBase {
         /// <summary>
         /// href,链接字符串，范例：http://a.com
         /// </summary>
@@ -30,10 +27,6 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// 单击事件处理函数,范例：handle()
         /// </summary>
         public string OnClick { get; set; }
-        /// <summary>
-        /// ngClass指令
-        /// </summary>
-        public string NgClass { get; set; }
 
         /// <summary>
         /// 获取渲染器

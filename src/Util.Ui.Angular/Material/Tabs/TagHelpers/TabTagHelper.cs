@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Tabs.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
     /// 选项卡
     /// </summary>
     [HtmlTargetElement( "util-tab" )]
-    public class TabTagHelper : TagHelperBase {
+    public class TabTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 标签
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using Util.Helpers;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
@@ -10,7 +11,7 @@ namespace Util.Ui.Prime.TreeTables.Renders {
     /// <summary>
     /// 树型表格渲染器
     /// </summary>
-    public class TreeTableRender : RenderBase {
+    public class TreeTableRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -37,8 +38,6 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         /// 配置
         /// </summary>
         protected virtual void Config( TagBuilder builder ) {
-            builder.Class( _config );
-            builder.Style( _config );
             ConfigId( builder );
             ConfigQueryParam( builder );
             ConfigUrl( builder );

@@ -9,7 +9,7 @@ namespace Util.Ui.Angular.TagHelpers {
     /// ng-container容器
     /// </summary>
     [HtmlTargetElement( "util-container" )]
-    public class ContainerTagHelper : TagHelperBase {
+    public class ContainerTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

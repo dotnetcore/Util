@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Toolbars.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Toolbars.TagHelpers {
     /// 工具栏项
     /// </summary>
     [HtmlTargetElement( "util-toolbar-row" )]
-    public class ToolbarRowTagHelper : TagHelperBase {
+    public class ToolbarRowTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

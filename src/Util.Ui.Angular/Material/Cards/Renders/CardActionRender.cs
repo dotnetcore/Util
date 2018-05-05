@@ -1,14 +1,14 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Builders;
 using Util.Ui.Material.Enums;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Cards.Renders {
     /// <summary>
     /// 卡片操作渲染器
     /// </summary>
-    public class CardActionRender : RenderBase {
+    public class CardActionRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

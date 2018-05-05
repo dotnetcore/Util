@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.SideNavs.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
     /// 侧边栏导航区域
     /// </summary>
     [HtmlTargetElement( "util-drawer" )]
-    public class DrawerTagHelper : TagHelperBase {
+    public class DrawerTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 位置
         /// </summary>

@@ -142,7 +142,7 @@ namespace Util.Ui.Tests.Material.Tabs {
         /// </summary>
         [Fact]
         public void TestIf() {
-            var attributes = new TagHelperAttributeList { { UiConst.If, "a" } };
+            var attributes = new TagHelperAttributeList { { AngularConst.NgIf, "a" } };
             var result = new String();
             result.Append( "<a #m_id=\"routerLinkActive\" *ngIf=\"a\" mat-tab-link=\"\" routerLinkActive=\"\" [active]=\"m_id.isActive\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

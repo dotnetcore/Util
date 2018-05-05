@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Toolbars.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Toolbars.TagHelpers {
     /// 工具栏
     /// </summary>
     [HtmlTargetElement( "util-toolbar" )]
-    public class ToolbarTagHelper : TagHelperBase {
+    public class ToolbarTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 颜色
         /// </summary>

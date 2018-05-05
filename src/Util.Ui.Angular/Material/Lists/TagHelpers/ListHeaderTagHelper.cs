@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Lists.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     /// 列表头，该标签应放到 util-list 中
     /// </summary>
     [HtmlTargetElement( "util-list-header" )]
-    public class ListHeaderTagHelper : TagHelperBase {
+    public class ListHeaderTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

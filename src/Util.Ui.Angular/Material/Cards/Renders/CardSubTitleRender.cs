@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Cards.Renders {
     /// <summary>
     /// 卡片副标题渲染器
     /// </summary>
-    public class CardSubTitleRender : RenderBase {
+    public class CardSubTitleRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

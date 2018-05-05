@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Panels.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Panels.Renders {
     /// <summary>
     /// 面板操作渲染器
     /// </summary>
-    public class PanelActionRender : RenderBase {
+    public class PanelActionRender : AngularRenderBase {
         /// <summary>
         /// 初始化面板操作渲染器
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// 卡片头部
     /// </summary>
     [HtmlTargetElement( "util-card-header" )]
-    public class CardHeaderTagHelper : TagHelperBase {
+    public class CardHeaderTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

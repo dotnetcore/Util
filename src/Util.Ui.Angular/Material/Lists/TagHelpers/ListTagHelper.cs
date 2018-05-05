@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Lists.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Lists.TagHelpers {
     /// 列表
     /// </summary>
     [HtmlTargetElement( "util-list" )]
-    public class ListTagHelper : TagHelperBase {
+    public class ListTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 紧凑模式，列表内容间距变小
         /// </summary>

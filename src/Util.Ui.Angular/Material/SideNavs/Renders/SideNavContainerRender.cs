@@ -1,14 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.SideNavs.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.SideNavs.Renders {
     /// <summary>
     /// 侧边栏导航容器渲染器
     /// </summary>
-    public class SideNavContainerRender : RenderBase {
+    public class SideNavContainerRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -35,7 +34,6 @@ namespace Util.Ui.Material.SideNavs.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            builder.Class( _config );
             ConfigId( builder );
             ConfigContent( builder );
             ConfigFullscreen( builder );

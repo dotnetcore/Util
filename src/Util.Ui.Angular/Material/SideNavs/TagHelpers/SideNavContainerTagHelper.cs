@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.SideNavs.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
     /// 侧边栏导航容器
     /// </summary>
     [HtmlTargetElement( "util-sidenav-container" )]
-    public class SideNavContainerTagHelper : TagHelperBase {
+    public class SideNavContainerTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 全屏
         /// </summary>

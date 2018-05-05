@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Dialogs.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Dialogs.TagHelpers {
     /// 弹出层内容
     /// </summary>
     [HtmlTargetElement( "util-dialog-content" )]
-    public class DialogContentTagHelper : TagHelperBase {
+    public class DialogContentTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

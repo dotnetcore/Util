@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Lists.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Lists.Renders {
     /// <summary>
     /// 选择列表渲染器
     /// </summary>
-    public class SelectListRender : RenderBase {
+    public class SelectListRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

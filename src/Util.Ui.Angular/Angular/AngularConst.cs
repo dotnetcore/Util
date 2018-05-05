@@ -4,6 +4,10 @@
     /// </summary>
     public static class AngularConst {
         /// <summary>
+        /// ngIf指令
+        /// </summary>
+        public const string NgIf = "ng-if";
+        /// <summary>
         /// ngFor指令
         /// </summary>
         public const string NgFor = "ng-for";

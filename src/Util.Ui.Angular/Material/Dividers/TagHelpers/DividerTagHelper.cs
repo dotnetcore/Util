@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Dividers.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Dividers.TagHelpers {
     /// 分隔线
     /// </summary>
     [HtmlTargetElement( "util-divider",TagStructure = TagStructure.WithoutEndTag)]
-    public class DividerTagHelper : TagHelperBase {
+    public class DividerTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 分隔线两端是否存在间距
         /// </summary>

@@ -1,15 +1,15 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Tables.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tables.Renders {
     /// <summary>
     /// 行渲染器
     /// </summary>
-    public class RowRender : RenderBase {
+    public class RowRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

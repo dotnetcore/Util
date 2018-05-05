@@ -1,15 +1,15 @@
 ﻿using Util.Ui.Angular;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
-using Util.Ui.Renders;
 using Util.Ui.Material.Enums;
 
 namespace Util.Ui.Material.Buttons.Renders {
     /// <summary>
     /// 链接渲染器
     /// </summary>
-    public class AnchorRender : RenderBase {
+    public class AnchorRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

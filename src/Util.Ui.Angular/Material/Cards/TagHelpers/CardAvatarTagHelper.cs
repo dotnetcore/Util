@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// 卡片头像,该标签应放到 util-card-header 中
     /// </summary>
     [HtmlTargetElement( "util-card-header-avatar", TagStructure = TagStructure.WithoutEndTag )]
-    public class CardAvatarTagHelper : TagHelperBase {
+    public class CardAvatarTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 图片路径
         /// </summary>

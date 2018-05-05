@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Dialogs.Renders;
 using Util.Ui.Material.Enums;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Dialogs.TagHelpers {
     /// 弹出层操作
     /// </summary>
     [HtmlTargetElement( "util-dialog-actions" )]
-    public class DialogActionTagHelper : TagHelperBase {
+    public class DialogActionTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 对齐方式
         /// </summary>

@@ -1,15 +1,15 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Icons.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Icons.Renders {
     /// <summary>
     /// 图标渲染器
     /// </summary>
-    public class IconRender : RenderBase {
+    public class IconRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -21,6 +21,15 @@ namespace Util.Ui.Material.Icons.Renders {
         /// <param name="config">配置</param>
         public IconRender( IConfig config ) : base( config ){
             _config = config;
+        }
+
+        /// <summary>
+        /// 初始化生成器
+        /// </summary>
+        /// <param name="builder">标签生成器</param>
+        protected override void InitBuilder( TagBuilder builder ) {
+            builder.AddOutputAttributes( _config );
+            builder.Angular( _config );
         }
 
         /// <summary>

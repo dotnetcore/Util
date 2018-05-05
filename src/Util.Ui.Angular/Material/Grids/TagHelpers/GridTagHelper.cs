@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Grids.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Grids.TagHelpers {
     /// 网格
     /// </summary>
     [HtmlTargetElement( "util-grid" )]
-    public class GridTagHelper : TagHelperBase {
+    public class GridTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 列数
         /// </summary>

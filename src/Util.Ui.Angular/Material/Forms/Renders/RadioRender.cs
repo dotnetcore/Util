@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Resolvers;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Forms.Renders {
     /// <summary>
     /// 单选框渲染器
     /// </summary>
-    public class RadioRender : RenderBase {
+    public class RadioRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

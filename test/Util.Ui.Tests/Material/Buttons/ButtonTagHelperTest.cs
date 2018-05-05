@@ -175,7 +175,7 @@ namespace Util.Ui.Tests.Material.Buttons {
         /// </summary>
         [Fact]
         public void TestIf() {
-            var attributes = new TagHelperAttributeList { { UiConst.If, "a" } };
+            var attributes = new TagHelperAttributeList { { AngularConst.NgIf, "a" } };
             var result = new String();
             result.Append( "<mat-button-wrapper *ngIf=\"a\"></mat-button-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

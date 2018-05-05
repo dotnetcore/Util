@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Tables.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tables.Renders {
     /// <summary>
     /// 列头渲染器
     /// </summary>
-    public class HeaderCellRender : RenderBase {
+    public class HeaderCellRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

@@ -1,15 +1,14 @@
 ﻿using System.Linq;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.FlexLayout.Enums;
-using Util.Ui.Renders;
 
 namespace Util.Ui.FlexLayout.Renders {
     /// <summary>
     /// 浮动布局渲染器
     /// </summary>
-    public class LayoutRender : RenderBase {
+    public class LayoutRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -36,15 +35,11 @@ namespace Util.Ui.FlexLayout.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            builder.Style( _config );
-            builder.Class( _config );
-            builder.AddOutputAttributes( _config );
             ConfigId( builder );
             ConfigDirection( builder );
             ConfigAlign( builder );
             ConfigGap( builder );
             ConfigFlex( builder );
-            ConfigAngular( builder );
             ConfigContent( builder );
         }
 
@@ -101,13 +96,6 @@ namespace Util.Ui.FlexLayout.Renders {
             itemBuilder.AddAttribute( "fxFlex", _config.GetValue( UiConst.Flex ) );
             itemBuilder.AppendContent( _config.Content );
             builder.AppendContent( itemBuilder );
-        }
-
-        /// <summary>
-        /// 配置angular属性
-        /// </summary>
-        private void ConfigAngular( TagBuilder builder ) {
-            builder.NgIf( _config );
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
@@ -8,13 +9,12 @@ using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tables.Resolvers;
 using Util.Ui.Prime.Enums;
 using Util.Ui.Prime.TreeTables.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Prime.TreeTables.Renders {
     /// <summary>
     /// 树型表格列渲染器
     /// </summary>
-    public class ColumnRender : RenderBase {
+    public class ColumnRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -52,8 +52,6 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         /// 配置
         /// </summary>
         protected void Config( TagBuilder builder ) {
-            builder.Style( _config );
-            builder.Class( _config );
             ConfigId( builder );
             ConfigTitle( builder );
             ConfigColumn( builder );
@@ -106,6 +104,9 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         private TemplateBuilder GetTemplate() {
             TemplateBuilder template = new TemplateBuilder();
             template.AddAttribute( "let-row", "rowData" );
+            template.AddAttribute( "let-i", "index" );
+            template.AddAttribute( "let-first", "first" );
+            template.AddAttribute( "let-last", "last" );
             return template;
         }
 

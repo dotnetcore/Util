@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// 卡片图片
     /// </summary>
     [HtmlTargetElement( "util-card-image", TagStructure = TagStructure.WithoutEndTag )]
-    public class CardImageTagHelper : TagHelperBase {
+    public class CardImageTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 图片路径
         /// </summary>

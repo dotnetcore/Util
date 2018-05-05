@@ -169,11 +169,11 @@ namespace Util.Ui.Tests.FlexLayout {
         }
 
         /// <summary>
-        /// 测试If
+        /// 测试ngIf
         /// </summary>
         [Fact]
-        public void TestIf() {
-            var attributes = new TagHelperAttributeList { { UiConst.If, "a" } };
+        public void TestNgIf() {
+            var attributes = new TagHelperAttributeList { { AngularConst.NgIf, "a" } };
             var result = new String();
             result.Append( "<div *ngIf=\"a\" fxFlex=\"1 1 auto\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

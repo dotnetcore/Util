@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.CkEditor.Builders;
 using Util.Ui.CkEditor.Configs;
 using Util.Ui.CkEditor.Resolvers;
 using Util.Ui.Configs;
-using Util.Ui.Renders;
 
 namespace Util.Ui.CkEditor.Renders {
     /// <summary>
     /// 富文本框编辑器渲染器
     /// </summary>
-    public class EditorRender : RenderBase {
+    public class EditorRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

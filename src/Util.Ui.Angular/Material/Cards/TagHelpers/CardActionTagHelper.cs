@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Renders;
 using Util.Ui.Material.Enums;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Cards.TagHelpers {
     /// 卡片操作
     /// </summary>
     [HtmlTargetElement( "util-card-actions" )]
-    public class CardActionTagHelper : TagHelperBase {
+    public class CardActionTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 对齐方式
         /// </summary>

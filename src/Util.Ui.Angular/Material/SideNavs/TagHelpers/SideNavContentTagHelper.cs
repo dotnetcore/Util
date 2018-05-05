@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.SideNavs.Renders;
 using Util.Ui.Renders;
@@ -9,7 +10,7 @@ namespace Util.Ui.Material.SideNavs.TagHelpers {
     /// 侧边栏内容区域
     /// </summary>
     [HtmlTargetElement( "util-sidenav-content" )]
-    public class SideNavContentTagHelper : TagHelperBase {
+    public class SideNavContentTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 获取渲染器
         /// </summary>

@@ -1,13 +1,13 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Renders;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Cards.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Cards.Renders {
     /// <summary>
     /// 卡片底部渲染器
     /// </summary>
-    public class CardFooterRender : RenderBase {
+    public class CardFooterRender : AngularRenderBase {
         /// <summary>
         /// 初始化卡片底部渲染器
         /// </summary>

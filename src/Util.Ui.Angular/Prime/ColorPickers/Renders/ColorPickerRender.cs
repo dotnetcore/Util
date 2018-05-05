@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Prime.ColorPickers.Builders;
 using Util.Ui.Prime.ColorPickers.Resolvers;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Prime.ColorPickers.Renders {
     /// <summary>
     /// 颜色选择器渲染器
     /// </summary>
-    public class ColorPickerRender : RenderBase {
+    public class ColorPickerRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>

@@ -1,17 +1,16 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
 using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Tabs.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tabs.Renders {
     /// <summary>
     /// 导航选项卡渲染器
     /// </summary>
-    public class TabNavRender : RenderBase {
+    public class TabNavRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -36,6 +35,7 @@ namespace Util.Ui.Material.Tabs.Renders {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
+            InitBuilder( Builder );
             Builder.WriteTo( writer, encoder );
             _routerOutletBuilder.WriteTo( writer, encoder );
         }
@@ -65,7 +65,6 @@ namespace Util.Ui.Material.Tabs.Renders {
             ConfigId( builder );
             ConfigContent( builder );
             ConfigColor( builder );
-            ConfigAngular( builder );
         }
 
         /// <summary>
@@ -74,13 +73,6 @@ namespace Util.Ui.Material.Tabs.Renders {
         private void ConfigColor( TagBuilder builder ) {
             builder.AddAttribute( "backgroundColor", _config.GetValue( UiConst.BackgroundColor )?.ToLower() );
             builder.AddAttribute( "color", _config.GetValue( UiConst.Color )?.ToLower() );
-        }
-
-        /// <summary>
-        /// 配置angular属性
-        /// </summary>
-        private void ConfigAngular( TagBuilder builder ) {
-            builder.NgIf( _config );
         }
     }
 }

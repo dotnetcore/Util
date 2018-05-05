@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Menus.Configs;
 using Util.Ui.Material.Menus.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Menus.TagHelpers {
     /// 菜单
     /// </summary>
     [HtmlTargetElement( "util-menu" )]
-    public class MenuTagHelper : TagHelperBase {
+    public class MenuTagHelper : AngularTagHelperBase {
         /// <summary>
         /// X轴位置
         /// </summary>

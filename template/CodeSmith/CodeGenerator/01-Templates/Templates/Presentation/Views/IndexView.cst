@@ -84,12 +84,13 @@ if( Entity.IsTreeEntity() ){
             <util-a styles="Icon" tooltip="编辑" bind-link="['update',row.id]">
                 <util-icon material-icon="Edit"></util-icon>
             </util-a>
-            <util-button styles="Icon" tooltip="删除" on-click="delete(row.id)">
-                <util-icon material-icon="Delete"></util-icon>
+            <util-button styles="Icon" menu-id="menu">
+                <util-icon material-icon="More_Vert"></util-icon>
+                <util-menu id="menu">
+                    <util-menu-item label="删除" material-icon="Delete" on-click="delete(row.id)"></util-menu-item>
+                    <util-menu-item label="查看详细" material-icon="Visibility" bind-link="['detail',row.id]"></util-menu-item>
+                </util-menu>
             </util-button>
-            <util-a styles="Icon" tooltip="查看详细" bind-link="['detail',row.id]">
-                <util-icon material-icon="Visibility"></util-icon>
-            </util-a>
         </util-table-cell>
     </util-table-column>
 </util-table>

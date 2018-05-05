@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Enums;
 using Util.Ui.Material.Icons.Configs;
 using Util.Ui.Material.Icons.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Icons.TagHelpers {
     /// 图标
     /// </summary>
     [HtmlTargetElement( "util-icon" )]
-    public class IconTagHelper : TagHelperBase {
+    public class IconTagHelper : AngularTagHelperBase {
         /// <summary>
         /// Font Awesome图标
         /// </summary>

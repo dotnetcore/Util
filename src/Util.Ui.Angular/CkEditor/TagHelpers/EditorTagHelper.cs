@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.CkEditor.Renders;
 using Util.Ui.Configs;
 using Util.Ui.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.CkEditor.TagHelpers {
     /// 富文本框编辑器
     /// </summary>
     [HtmlTargetElement( "util-editor" )]
-    public class EditorTagHelper : TagHelperBase {
+    public class EditorTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 控件的名称
         /// </summary>

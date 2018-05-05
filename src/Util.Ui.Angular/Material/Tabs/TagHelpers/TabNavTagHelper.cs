@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tabs.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
     /// 导航选项卡组
     /// </summary>
     [HtmlTargetElement( "util-nav-tabs" )]
-    public class TabNavTagHelper : TagHelperBase {
+    public class TabNavTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 背景色
         /// </summary>
@@ -19,10 +20,6 @@ namespace Util.Ui.Material.Tabs.TagHelpers {
         /// 主题色
         /// </summary>
         public Color Color { get; set; }
-        /// <summary>
-        /// *ngIf
-        /// </summary>
-        public string If { get; set; }
 
         /// <summary>
         /// 获取渲染器

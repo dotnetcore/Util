@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Panels.Renders;
@@ -10,7 +11,7 @@ namespace Util.Ui.Material.Panels.TagHelpers {
     /// 手风琴
     /// </summary>
     [HtmlTargetElement( "util-accordion" )]
-    public class AccordionTagHelper : TagHelperBase {
+    public class AccordionTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 允许多个面板同时处于展开状态
         /// </summary>

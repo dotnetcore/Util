@@ -1,15 +1,15 @@
 ﻿using System.IO;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tabs.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Tabs.Renders {
     /// <summary>
     /// 选项卡渲染器
     /// </summary>
-    public class TabRender : RenderBase {
+    public class TabRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
