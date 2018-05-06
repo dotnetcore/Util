@@ -45,5 +45,10 @@ namespace Util.Applications.Trees {
         /// <param name="id">标识</param>
         /// <param name="swapId">目标标识</param>
         Task SwapSortAsync( Guid id, Guid swapId );
+        /// <summary>
+        /// 修正排序
+        /// </summary>
+        /// <param name="parameter">查询参数</param>
+        Task FixSortIdAsync( TQueryParameter parameter );
     }
 }

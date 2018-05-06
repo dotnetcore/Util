@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Util.Applications.Dtos;
 using Util.Applications.Trees;
 using Util.Datas.Queries.Trees;
+using Util.Helpers;
 
 namespace Util.Webs.Controllers {
     /// <summary>
@@ -85,7 +86,7 @@ namespace Util.Webs.Controllers {
         /// </summary>
         /// <param name="ids">标识列表</param>
         [HttpPost( "enable" )]
-        public async Task<IActionResult> Enable( [FromBody] string ids ) {
+        public virtual async Task<IActionResult> Enable( [FromBody] string ids ) {
             await _service.EnableAsync( ids );
             var result = await _service.FindByIdsAsync( ids );
             return Success( result );
@@ -96,7 +97,7 @@ namespace Util.Webs.Controllers {
         /// </summary>
         /// <param name="ids">标识列表</param>
         [HttpPost( "disable" )]
-        public async Task<IActionResult> Disable( [FromBody] string ids ) {
+        public virtual async Task<IActionResult> Disable( [FromBody] string ids ) {
             await _service.DisableAsync( ids );
             var result = await _service.FindByIdsAsync( ids );
             return Success( result );
@@ -113,11 +114,23 @@ namespace Util.Webs.Controllers {
         /// </remarks>
         /// <param name="ids">两个Id的标识列表，用逗号分隔，范例：1,2</param>
         [HttpPost( "SwapSort" )]
-        public async Task<IActionResult> SwapSortAsync( [FromBody] string ids ) {
+        public virtual async Task<IActionResult> SwapSortAsync( [FromBody] string ids ) {
             var idList = ids.ToGuidList();
             if( idList.Count < 2 )
                 return Fail( "交换排序失败" );
             await _service.SwapSortAsync( idList[0], idList[1] );
+            return Success();
+        }
+
+        /// <summary>
+        /// 修正排序
+        /// </summary> 
+        /// <param name="parameter">查询参数</param>
+        [HttpPost( "fix" )]
+        public virtual async Task<IActionResult> FixAsync( [FromBody] TQuery parameter ) {
+            if ( parameter == null )
+                return Fail( "查询参数不能为空" );
+            await _service.FixSortIdAsync( parameter );
             return Success();
         }
     }

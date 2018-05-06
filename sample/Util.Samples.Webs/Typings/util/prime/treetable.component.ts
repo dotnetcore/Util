@@ -131,6 +131,10 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     @Input() swapSortUrl: string;
     /**
+     * 修正地址，范例：/api/test/fix
+     */
+    @Input() fixUrl: string;
+    /**
      * 查询参数
      */
     @Input() queryParam: TreeQueryParameter;
@@ -355,6 +359,17 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
             return;
         if (node.children)
             return;
+        this.refreshChildren(node, handler);
+    }
+
+    /**
+     * 刷新下级节点
+     * @param node 父节点
+     * @param button 按钮
+     */
+    private refreshChildren(node, handler?: () => void, button?) {
+        if (!node)
+            return;
         this.queryParam["operation"] = "LoadChild";
         this.queryParam.parentId = node.data.id;
         this.sendQuery(result => {
@@ -367,7 +382,17 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
         }, () => {
             this.queryParam["operation"] = "";
             this.queryParam.parentId = "";
-        });
+        }, button);
+    }
+
+    /**
+     * 刷新根节点
+     */
+    private refreshRoots(handler?: () => void, button?) {
+        this.sendQuery(result => {
+            this.dataSource = result.data;
+            handler && handler();
+        }, null, button);
     }
 
     /**
@@ -383,7 +408,17 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     getCheckedIds(checkedNodes?): string {
         checkedNodes = checkedNodes || this.selection;
-        return checkedNodes.map(node => node && node.data && node.data.id).join(",");
+        return this.getIds(checkedNodes);
+    }
+
+    /**
+     * 获取实体标识列表
+     * @param nodes 实体列表
+     */
+    getIds(nodes?): string {
+        if (!nodes)
+            return null;
+        return nodes.map(node => node && node.data && node.data.id).join(",");
     }
 
     /**
@@ -469,7 +504,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      * 获取子节点列表
      */
     private getChildren(parent): T[] {
-        if (parent === "root")
+        if (parent === null)
             return this.dataSource;
         if (parent && parent.children)
             return parent.children;
@@ -497,7 +532,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
         id = this.getId(id);
         if (!id)
             return null;
-        return this.getParentByRecursion(this.dataSource, id, "root");
+        return this.getParentByRecursion(this.dataSource, id, null);
     }
 
     /**
@@ -614,9 +649,27 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
         if (!id)
             return;
         let parent = this.getParent(id);
-        let children = this.getChildren(parent);
         let prev = this.getPrev(id, parent);
         let current = this.getById(id, parent);
+        if (!prev || !prev.data || !current || !current.data)
+            return;
+        if (current.data.sortId !== prev.data.sortId) {
+            this.up(id, parent, button, url);
+            return;
+        }
+        this.fix(parent, button, () => {
+            let parent = this.getParent(id);
+            this.up(id, parent, button, url);
+        }, url);
+    }
+
+    /**
+     * 上移
+     */
+    up(id, parent, button?, url?: string) {
+        let prev = this.getPrev(id, parent);
+        let current = this.getById(id, parent);
+        let children = this.getChildren(parent);
         if (!prev || !prev.data || !current || !current.data)
             return;
         this.swapSort(prev, current);
@@ -637,11 +690,27 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
         if (!id)
             return;
         let parent = this.getParent(id);
-        let children = this.getChildren(parent);
         let current = this.getById(id, parent);
         let next = this.getNext(id, parent);
         if (!next || !next.data || !current || !current.data)
             return;
+        if (current.data.sortId !== next.data.sortId) {
+            this.down(id, parent, button, url);
+            return;
+        }
+        this.fix(parent, button, () => {
+            let parent = this.getParent(id);
+            this.down(id, parent, button, url);
+        }, url);
+    }
+
+    /**
+     * 下移
+     */
+    private down(id, parent, button?, url?: string) {
+        let current = this.getById(id, parent);
+        let next = this.getNext(id, parent);
+        let children = this.getChildren(parent);
         this.swapSort(current, next);
         this.swapSortRequest(`${current.data.id},${next.data.id}`, button, () => {
             this.sort(children);
@@ -686,6 +755,34 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     private sort(nodes) {
         nodes && nodes.sort((a, b) => (a.data.sortId === undefined || b.data.sortId === undefined) ? 0 : a.data.sortId - b.data.sortId);
+    }
+
+    /**
+     * 修正错误
+     * @param parent 父节点
+     * @param url 修正Url
+     */
+    fix(parent, button?, handler?: () => void, url?: string) {
+        url = url || this.fixUrl || (this.baseUrl && `/api/${this.baseUrl}/fix`);
+        let parentId = this.getId(parent);
+        if (typeof parent === "string")
+            parent = this.getById(parent);
+        let param = util.helper.clone(this.queryParam);
+        param.parentId = parentId;
+        util.form.submit({
+            url: url,
+            data: param,
+            httpMethod: HttpMethod.Post,
+            button: button,
+            showMessage: false,
+            handler: () => {
+                if (parent === null) {
+                    this.refreshRoots(handler, button);
+                    return;
+                }
+                this.refreshChildren(parent, handler, button);
+            }
+        });
     }
 
     /**

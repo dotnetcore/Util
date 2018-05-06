@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Util.Helpers;
-using Util.Tests.Samples;
 using Util.Tests.XUnitHelpers;
 using Xunit;
 

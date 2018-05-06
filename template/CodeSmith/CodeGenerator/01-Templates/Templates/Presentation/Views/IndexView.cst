@@ -88,7 +88,7 @@ if( Entity.IsTreeEntity() ){
                 <util-icon material-icon="More_Vert"></util-icon>
                 <util-menu id="menu">
                     <util-menu-item label="删除" material-icon="Delete" on-click="delete(row.id)"></util-menu-item>
-                    <util-menu-item label="查看详细" material-icon="Visibility" bind-link="['detail',row.id]"></util-menu-item>
+                    <util-menu-item label="详细" material-icon="Visibility" bind-link="['detail',row.id]"></util-menu-item>
                 </util-menu>
             </util-button>
         </util-table-cell>

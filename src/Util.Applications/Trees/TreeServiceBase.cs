@@ -8,7 +8,6 @@ using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
 using Util.Domains.Trees;
-using Util.Security.Identity.Models;
 using Convert = Util.Helpers.Convert;
 
 namespace Util.Applications.Trees {
@@ -24,11 +23,17 @@ namespace Util.Applications.Trees {
         where TDto : class, IDto, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter {
         /// <summary>
+        /// 存储器
+        /// </summary>
+        private readonly IStore<TEntity, Guid> _store;
+
+        /// <summary>
         /// 初始化树型服务
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="store">存储器</param>
         protected TreeServiceBase( IUnitOfWork unitOfWork, IStore<TEntity, Guid> store ) : base( unitOfWork, store ) {
+            _store = store;
         }
 
         /// <summary>
@@ -36,6 +41,14 @@ namespace Util.Applications.Trees {
         /// </summary>
         protected override IQueryable<TEntity> Filter( IQueryable<TEntity> queryable, TQueryParameter parameter ) {
             return queryable.Where( new TreeCriteria<TEntity>( parameter ) );
+        }
+
+        /// <summary>
+        /// 获取直接下级子节点列表
+        /// </summary>
+        /// <param name="parameter">查询参数</param>
+        protected override async Task<List<TEntity>> GetChildren( TQueryParameter parameter ) {
+            return await _store.FindAllAsync( t => t.ParentId == parameter.ParentId );
         }
     }
 
@@ -57,7 +70,7 @@ namespace Util.Applications.Trees {
         /// </summary>
         private readonly IUnitOfWork _unitOfWork;
         /// <summary>
-        /// 存储
+        /// 存储器
         /// </summary>
         private readonly IStore<TEntity, TKey> _store;
 
@@ -82,7 +95,7 @@ namespace Util.Applications.Trees {
         /// 查找实体列表
         /// </summary>
         /// <param name="ids">标识列表</param>
-        public async Task<List<TDto>> FindByIdsAsync( string ids ) {
+        public virtual async Task<List<TDto>> FindByIdsAsync( string ids ) {
             var entities = await _store.FindByIdsNoTrackingAsync( ids );
             return entities.Select( ToDto ).ToList();
         }
@@ -133,7 +146,7 @@ namespace Util.Applications.Trees {
         /// </summary>
         /// <param name="id">标识</param>
         /// <param name="swapId">目标标识</param>
-        public async Task SwapSortAsync( Guid id, Guid swapId ) {
+        public virtual async Task SwapSortAsync( Guid id, Guid swapId ) {
             var entity = await _store.FindAsync( id );
             var swapEntity = await _store.FindAsync( swapId );
             if( entity == null || swapEntity == null )
@@ -143,5 +156,26 @@ namespace Util.Applications.Trees {
             await _store.UpdateAsync( swapEntity );
             await _unitOfWork.CommitAsync();
         }
+
+        /// <summary>
+        /// 修正排序
+        /// </summary>
+        /// <param name="parameter">查询参数</param>
+        public virtual async Task FixSortIdAsync( TQueryParameter parameter ) {
+            var children = await GetChildren( parameter );
+            if ( children == null )
+                return;
+            var list = children.OrderBy( t => t.SortId ).ToList();
+            for ( int i = 0; i < children.Count; i++ )
+                children[i].SortId = i + 1;
+            await _store.UpdateAsync( list );
+            await _unitOfWork.CommitAsync();
+        }
+
+        /// <summary>
+        /// 获取直接下级子节点列表
+        /// </summary>
+        /// <param name="parameter">查询参数</param>
+        protected abstract Task<List<TEntity>> GetChildren( TQueryParameter parameter );
     }
 }

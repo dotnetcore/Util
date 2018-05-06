@@ -65,7 +65,7 @@
                 <util-menu-item label="禁用" material-icon="Lock" on-click="disable(row)"></util-menu-item>
                 <util-menu-item label="启用" material-icon="Lock_Open" on-click="enable(row)"></util-menu-item>
                 <util-menu-item label="删除" material-icon="Delete" on-click="delete(row)"></util-menu-item>
-                <util-menu-item label="查看详细" material-icon="Visibility" bind-link="['detail',row.data.id]"></util-menu-item>
+                <util-menu-item label="详细" material-icon="Visibility" bind-link="['detail',row.data.id]"></util-menu-item>
             </util-menu>
         </util-button>
     </util-tree-table-column>
