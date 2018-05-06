@@ -119,6 +119,11 @@ describe("util.helper", () => {
         expect(result[0]).toBe("a");
         expect(result[1]).toBe("b");
     });
+    it("first", () => {
+        let input = ['a','b','c'];
+        let result = util.helper.first(input);
+        expect(result).toBe('a');
+    });
 });
 
 class Test {

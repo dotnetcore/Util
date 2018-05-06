@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Util.Applications.Dtos;
@@ -7,6 +8,8 @@ using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
 using Util.Domains.Trees;
+using Util.Security.Identity.Models;
+using Convert = Util.Helpers.Convert;
 
 namespace Util.Applications.Trees {
     /// <summary>
@@ -73,6 +76,56 @@ namespace Util.Applications.Trees {
         /// </summary>
         protected override IQueryable<TEntity> Filter( IQueryable<TEntity> queryable, TQueryParameter parameter ) {
             return queryable.Where( new TreeCriteria<TEntity, TParentId>( parameter ) );
+        }
+
+        /// <summary>
+        /// 查找实体列表
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        public async Task<List<TDto>> FindByIdsAsync( string ids ) {
+            var entities = await _store.FindByIdsNoTrackingAsync( ids );
+            return entities.Select( ToDto ).ToList();
+        }
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        public virtual async Task EnableAsync( string ids ) {
+            await Enable( Convert.ToList<TKey>( ids ), true );
+        }
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        private async Task Enable( List<TKey> ids, bool enabled ) {
+            if( ids == null || ids.Count == 0 )
+                return;
+            var entities = await _store.FindByIdsAsync( ids );
+            if( entities == null )
+                return;
+            entities.ForEach( async entity => {
+                entity.Enabled = enabled;
+                await _store.UpdateAsync( entity );
+            } );
+            _unitOfWork.Commit();
+            WriteLog( entities, enabled );
+        }
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        private void WriteLog( List<TEntity> entities, bool enabled ) {
+            AddLog( entities );
+            WriteLog( $"{( enabled ? "启用" : "冻结" )}成功" );
+        }
+
+        /// <summary>
+        /// 冻结
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        public virtual Task DisableAsync( string ids ) {
+            return Enable( Convert.ToList<TKey>( ids ), false );
         }
 
         /// <summary>

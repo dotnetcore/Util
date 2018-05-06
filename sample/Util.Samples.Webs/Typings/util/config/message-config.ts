@@ -47,6 +47,10 @@ export class MessageConfig {
      */
     static emailMessage = "请输入有效的电子邮件";
     /**
+     * 请勾选要操作的记录
+     */
+    static notSelected = "请选择要操作的记录";
+    /**
      * 请选择待删除的记录
      */
     static deleteNotSelected = "请选择待删除的记录";
@@ -62,4 +66,12 @@ export class MessageConfig {
      * 您确定删除选中的记录吗?
      */
     static deleteConfirm = "您确定删除选中的记录吗?";
+    /**
+     * 您确定启用选中的记录吗?
+     */
+    static enableConfirm = "您确定启用选中的记录吗?";
+    /**
+     * 您确定禁用选中的记录吗?
+     */
+    static disableConfirm = "您确定禁用选中的记录吗?";
 }

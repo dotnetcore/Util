@@ -80,6 +80,22 @@ export let isEmptyArray = (value): boolean => {
 }
 
 /**
+ * 获取数组中第一个
+ * @param array 数组
+ */
+export let first = <T>(array): T => {
+    return _.first<T>(array);
+}
+
+/**
+ * 获取数组中最后一个
+ * @param array 数组
+ */
+export let last = <T>(array): T => {
+    return _.last<T>(array);
+}
+
+/**
  * 转换为json字符串
  * @param value 值
  */

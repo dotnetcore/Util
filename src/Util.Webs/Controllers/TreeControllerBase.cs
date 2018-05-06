@@ -81,6 +81,28 @@ namespace Util.Webs.Controllers {
         }
 
         /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        [HttpPost( "enable" )]
+        public async Task<IActionResult> Enable( [FromBody] string ids ) {
+            await _service.EnableAsync( ids );
+            var result = await _service.FindByIdsAsync( ids );
+            return Success( result );
+        }
+
+        /// <summary>
+        /// 冻结
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        [HttpPost( "disable" )]
+        public async Task<IActionResult> Disable( [FromBody] string ids ) {
+            await _service.DisableAsync( ids );
+            var result = await _service.FindByIdsAsync( ids );
+            return Success( result );
+        }
+
+        /// <summary>
         /// 交换排序
         /// </summary>
         /// /// <remarks>

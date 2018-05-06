@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Util.Applications.Dtos;
 using Util.Datas.Queries.Trees;
@@ -23,6 +24,21 @@ namespace Util.Applications.Trees {
     public interface ITreeService<TDto, in TQueryParameter, TParentId> : IDeleteService<TDto, TQueryParameter>
         where TDto : class, IResponse, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter<TParentId> {
+        /// <summary>
+        /// 通过标识查找列表
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        Task<List<TDto>> FindByIdsAsync( string ids );
+        /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        Task EnableAsync( string ids );
+        /// <summary>
+        /// 冻结
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        Task DisableAsync( string ids );
         /// <summary>
         /// 交换排序
         /// </summary>

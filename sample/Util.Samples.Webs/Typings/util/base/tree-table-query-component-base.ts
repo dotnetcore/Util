@@ -3,7 +3,8 @@
 //Licensed under the MIT license
 //================================================
 import { Injector, ViewChild, OnInit } from '@angular/core';
-import { util, TreeViewModel, TreeQueryParameter, TreeTable } from '../index';
+import { MessageConfig } from '../config/message-config';
+import { util, TreeViewModel, TreeQueryParameter, TreeTable, HttpMethod } from '../index';
 
 /**
  * 树型表格查询基类
@@ -111,17 +112,20 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     /**
      * 删除
      * @param id 标识
+     * @param button 按钮
      */
-    delete(id?: string | undefined) {
-        this.table.delete(id);
+    delete(id?, button?) {
+        id = this.table.getId(id);
+        this.table.delete(id, null, null, button);
     }
 
     /**
      * 刷新
+     * @param button 按钮
      */
-    refresh() {
+    refresh(button?) {
         this.queryParam = this.createQuery(this.data);
-        this.table.refresh(this.queryParam);
+        this.table.refresh(this.queryParam, button);
     }
 
     /**
@@ -138,5 +142,124 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
             return;
         }
         this.util.dialog.close(selection);
+    }
+
+    /**
+     * 选中行
+     * @param node 节点
+     * @param event 事件
+     */
+    selectRow(node, event?) {
+        this.table.selectRow(node);
+        event && event.stopPropagation();
+    }
+
+    /**
+     * 是否首行
+     * @param node 节点
+     */
+    isFirst(node) {
+        return this.table.isFirst(node);
+    }
+
+    /**
+     * 是否尾行
+     * @param node 节点
+     */
+    isLast(node) {
+        return this.table.isLast(node);
+    }
+
+    /**
+     * 上移
+     * @param node 节点
+     * @param button 按钮
+     * @param event 事件
+     */
+    moveUp(node, button?, event?) {
+        this.table.moveUp(node, button);
+        this.selectRow(node, event);
+    }
+
+    /**
+     * 下移
+     * @param node 节点
+     * @param button 按钮
+     * @param event 事件
+     */
+    moveDown(node, button?, event?) {
+        this.table.moveDown(node, button);
+        this.selectRow(node, event);
+    }
+
+    /**
+     * 启用
+     * @param node 节点
+     * @param button 按钮
+     * @param url 启用服务端Url
+     */
+    enable(node?, button?, url?: string) {
+        this.enableNode(true, node, button, url);
+    }
+
+    /**
+     * 禁用
+     * @param node 节点
+     * @param button 按钮
+     * @param url 禁用服务端Url
+     */
+    disable(node?, button?, url?: string) {
+        this.enableNode(false, node, button, url);
+    }
+
+    /**
+     * 启用禁用
+     */
+    private enableNode(enabled: boolean, node?, btn?, url?: string) {
+        let list = this.getSelectedNodes(node);
+        if (!list || list.length === 0) {
+            util.message.warn(MessageConfig.notSelected);
+            return;
+        }
+        url = url || `/api/${this.table.baseUrl}/${enabled ? 'enable' : 'disable'}`;
+        this.util.form.submit({
+            url: url,
+            data: this.table.getCheckedIds(list),
+            httpMethod: HttpMethod.Post,
+            button: btn,
+            confirm: this.getEnableConfirmMessage(enabled),
+            handler: (result: any[]) => {
+                if (!result || result.length === 0)
+                    return;
+                result.forEach(value => {
+                    if (!value)
+                        return;
+                    let item = list.find(t => t.data.id === value.id);
+                    if (!item)
+                        return;
+                    item.data.enabled = value.enabled;
+                    item.data.version = value.version;
+                });
+            }
+        });
+    }
+
+    /**
+     * 获取选中列表
+     */
+    private getSelectedNodes(node): any[] {
+        let list = new Array();
+        if (node && node.data) {
+            list.push(node);
+            return list;
+        }
+        return this.table.getChecked();
+    }
+
+    /**
+     * 获取启用确认消息
+     */
+    private getEnableConfirmMessage(enabled: boolean) {
+        return enabled ? MessageConfig.enableConfirm : MessageConfig.disableConfirm;
     }
 }
