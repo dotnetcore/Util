@@ -118,11 +118,31 @@ namespace Util.Applications.Trees {
             if( entities == null )
                 return;
             entities.ForEach( async entity => {
+                if ( enabled && await AllowEnable( entity ) == false )
+                    return;
+                if( enabled == false && await AllowDisable( entity ) == false )
+                    return;
                 entity.Enabled = enabled;
                 await _store.UpdateAsync( entity );
             } );
             _unitOfWork.Commit();
             WriteLog( entities, enabled );
+        }
+
+        /// <summary>
+        /// 允许启用
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected virtual Task<bool> AllowEnable( TEntity entity ) {
+            return Task.FromResult( true );
+        }
+
+        /// <summary>
+        /// 允许禁用
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected virtual Task<bool> AllowDisable( TEntity entity ) {
+            return Task.FromResult( true );
         }
 
         /// <summary>

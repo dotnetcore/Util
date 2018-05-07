@@ -10,34 +10,22 @@
     }
 
     .mat-column-enabled {
-        max-width: 120px;
+        max-width: 80px;
     }
 
     .mat-column-registerEnabled {
-        max-width: 120px;
+        max-width: 80px;
     }
 
     .mat-column-creationTime {
-        max-width: 100px;
+        max-width: 120px;
     }
 
     .mat-column-operation {
-        max-width: 100px;
+        max-width: 120px;
     }
 </style>
-<util-accordion>
-    <util-panel expanded="true">
-        <util-panel-header>
-            测试
-        </util-panel-header>
-        <util-panel-content>
-            <util-layout gap="20px">
-                <util-button styles="Raised" color="Primary" text="测试" on-click="test(btn)" id="btn" waiting-text="哈哈" waiting-icon="Wc"></util-button>
-                <util-button styles="Raised" color="Primary" text="Iframe弹出层" on-click="test2()"></util-button>
-            </util-layout>
-        </util-panel-content>
-    </util-panel>
-</util-accordion>
+
 <util-toolbar>
     <util-layout>
         <util-textbox model="queryParam.keyword" placeholder="搜索" on-change="search()"></util-textbox>
@@ -54,8 +42,8 @@
         </util-button>
     </util-layout>
 </util-toolbar>
-<util-table id="table_Application" key="application" query-param="queryParam" base-url="application"
-            sort="CreationTime" sort-direction="Desc" max-height="700" style="margin: 20px">
+<util-table id="tableApplication" query-param="queryParam" base-url="application"
+            sort="CreationTime" sort-direction="Desc" max-height="700">
     <util-table-column type="Checkbox"></util-table-column>
     <util-table-column type="LineNumber"></util-table-column>
     <util-table-column for="Code" sort="true"></util-table-column>
@@ -65,7 +53,7 @@
     <util-table-column for="CreationTime" sort="true"></util-table-column>
     <util-table-column title="操作" column="operation">
         <util-table-cell>
-            <util-a styles="Icon" tooltip="编辑" bind-link="['edit',row.id]">
+            <util-a styles="Icon" tooltip="编辑" bind-link="['update',row.id]">
                 <util-icon material-icon="Edit"></util-icon>
             </util-a>
             <util-button styles="Icon" menu-id="menu">

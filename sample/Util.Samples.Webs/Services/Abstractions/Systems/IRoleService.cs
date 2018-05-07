@@ -16,5 +16,10 @@ namespace Util.Samples.Webs.Services.Abstractions.Systems {
         /// </summary>
         /// <param name="request">创建角色请求参数</param>
         Task<Guid> CreateAsync( [NotNull] [Valid] CreateRoleRequest request );
+        /// <summary>
+        /// 修改角色
+        /// </summary>
+        /// <param name="request">修改角色请求参数</param>
+        Task UpdateAsync( [NotNull] [Valid] UpdateRoleRequest request );
     }
 }

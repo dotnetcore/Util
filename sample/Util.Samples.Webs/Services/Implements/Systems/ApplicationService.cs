@@ -1,13 +1,15 @@
-﻿using Util.Applications;
+﻿using Util.Domains.Repositories;
 using Util.Datas.Queries;
-using Util.Domains.Repositories;
+using Util.Applications;
 using Util.Exceptions;
+using Util.Maps;
 using Util.Samples.Webs.Datas;
 using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Domains.Repositories;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
 using Util.Samples.Webs.Services.Queries.Systems;
+using Util.Security;
 
 namespace Util.Samples.Webs.Services.Implements.Systems {
     /// <summary>
@@ -30,12 +32,32 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         public IApplicationRepository ApplicationRepository { get; set; }
 
         /// <summary>
+        /// 转换为数据传输对象
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected override ApplicationDto ToDto( Application entity ) {
+            if( entity == null )
+                return new ApplicationDto();
+            return entity.MapTo<ApplicationDto>();
+        }
+
+        /// <summary>
+        /// 转换为实体
+        /// </summary>
+        /// <param name="dto">数据传输对象</param>
+        protected override Application ToEntity( ApplicationDto dto ) {
+            if( dto == null )
+                return new Application();
+            return dto.MapTo( new Application( dto.Id.ToGuid() ) );
+        }
+
+        /// <summary>
         /// 创建查询对象
         /// </summary>
         /// <param name="param">应用程序查询实体</param>
         protected override IQueryBase<Application> CreateQuery( ApplicationQuery param ) {
             return new Query<Application>( param )
-                .Or( t => t.Code.Contains( param.Keyword ),t=> t.Name.Contains( param.Keyword ), t => t.Comment.Contains( param.Keyword ) );
+                .Or( t => t.Code.Contains( param.Keyword ), t => t.Name.Contains( param.Keyword ), t => t.Comment.Contains( param.Keyword ) );
         }
 
         /// <summary>
@@ -53,14 +75,14 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// 抛出编码重复异常
         /// </summary>
         private void ThrowCodeRepeatException( string code ) {
-            throw new Warning( string.Format( "应用程序编码 {0} 已存在，请修改", code ) );
+            throw new Warning( string.Format( SecurityResource.DuplicateApplicationCode, code ) );
         }
 
         /// <summary>
         /// 抛出名称重复异常
         /// </summary>
         private void ThrowNameRepeatException( string name ) {
-            throw new Warning( string.Format( "应用程序名称 {0} 已存在，请修改", name ) );
+            throw new Warning( string.Format( SecurityResource.DuplicateApplicationName, name ) );
         }
 
         /// <summary>

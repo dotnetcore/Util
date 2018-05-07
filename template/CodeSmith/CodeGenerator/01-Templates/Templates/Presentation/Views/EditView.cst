@@ -22,18 +22,23 @@
 <util-form id="form" on-submit="submit(form,btnSubmit)">
     <util-card>
         <util-card-header>
-            编辑<%=Description%>
+            <util-card-title>
+                编辑<%=Description%>
+            </util-card-title>
         </util-card-header>
-        <util-card-content class="form-content">
+        <util-card-content>
+            <util-divider inset="true" />
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         <% if( Entity.IsHidden(p) ) continue; %>
-            <util-layout flex="50%">
-                <% if( p.DataType == DbType.Boolean ){%>
-                <util-slide-toggle for="<%= p.PropertyName.ToSafeName() %>"></util-slide-toggle>
-                <% }else{ %>           
-                <util-textbox for="<%= p.PropertyName.ToSafeName() %>"></util-textbox>
-                <% } %>
+            <util-layout class="mt30">
+                <util-layout-item flex="50%" offset="5%">
+                    <% if( p.DataType == DbType.Boolean ){%>
+                    <util-slide-toggle for="<%= p.PropertyName.ToSafeName() %>"></util-slide-toggle>
+                    <% }else{ %>           
+                    <util-textbox for="<%= p.PropertyName.ToSafeName() %>"></util-textbox>                
+                    <% } %>
+                </util-layout-item>
             </util-layout>
         <% } %>
         </util-card-content>

@@ -28,9 +28,19 @@ namespace Util.Samples.Webs.Apis.Systems {
         /// </summary>
         /// <param name="request">创建角色请求参数</param>
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody]CreateRoleRequest request ) {
+        public async Task<IActionResult> CreateAsync( [FromBody]CreateRoleRequest request ) {
             var id = await RoleService.CreateAsync( request );
             return Success( id );
+        }
+
+        /// <summary>
+        /// 修改角色
+        /// </summary>
+        /// <param name="request">修改角色请求参数</param>
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync( [FromBody] UpdateRoleRequest request ) {
+            await RoleService.UpdateAsync( request );
+            return Success();
         }
     }
 }

@@ -9,28 +9,23 @@
     <util-card>
         <util-card-header>
             <util-icon font-awesome-icon="AddressCardO" style="margin-right: 10px;"></util-icon>
-            应用程序详情
+            应用程序
         </util-card-header>
         <util-card-content class="form-content form-list-content">
             <util-layout flex="100%">
-                <label asp-for="Code"></label>
-                {{model.code}}
+                <label asp-for="Code"></label>: <util-label for="Code" />
             </util-layout>
             <util-layout flex="100%">
-                <label asp-for="Name"></label>
-                {{model.name}}
+                <label asp-for="Name"></label>: <util-label for="Name" />
             </util-layout>
             <util-layout flex="100%">
-                <label asp-for="Comment"></label>
-                {{model.comment}}
+                <label asp-for="Comment"></label>: <util-label for="Comment" />
             </util-layout>
             <util-layout flex="100%">
-                <label asp-for="Enabled"></label>
-                {{model.enabled}}
+                <label asp-for="Enabled"></label>: <util-label for="Enabled" />
             </util-layout>
             <util-layout flex="100%">
-                <label asp-for="RegisterEnabled"></label>
-                {{model.registerEnabled}}
+                <label asp-for="RegisterEnabled"></label>: <util-label for="RegisterEnabled" />
             </util-layout>
         </util-card-content>
         <util-card-actions align="Right">

@@ -1,5 +1,5 @@
 ﻿import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { ComponentBase, PagerList, TreeTable } from '../../../util';
+import { TreeTableQueryComponentBase, TreeTable } from '../../../util';
 import { RoleQuery } from './model/role-query';
 import { RoleViewModel } from './model/role-view-model';
 import { env } from '../../env';
@@ -11,19 +11,11 @@ import { env } from '../../env';
     selector: 'role-index',
     templateUrl: env.prod() ? './html/role-index.component.html' : '/view/systems/role'
 })
-export class RoleIndexComponent extends ComponentBase implements OnInit {
-    /**
-     * 角色列表
-     */
-    models: RoleViewModel[];
+export class RoleIndexComponent extends TreeTableQueryComponentBase<RoleViewModel, RoleQuery> implements OnInit {
     /**
      * 角色查询参数
      */
     queryParam: RoleQuery;
-    /**
-     * 选中的角色列表
-     */
-    selectedRoles: RoleViewModel[];
     /**
      * 表格组件
      */
@@ -35,14 +27,7 @@ export class RoleIndexComponent extends ComponentBase implements OnInit {
      */
     constructor(injector: Injector) {
         super(injector);
-        this.models = new Array<RoleViewModel>();
         this.queryParam = new RoleQuery();
-    }
-
-    /**
-     * 初始化
-     */
-    ngOnInit(): void {
     }
 
     /**
@@ -50,35 +35,5 @@ export class RoleIndexComponent extends ComponentBase implements OnInit {
      */
     protected createQuery() {
         return new RoleQuery();
-    }
-
-    /**
-     * 延迟搜索
-     */
-    search() {
-        this.table.search();
-    }
-
-    /**
-     * 删除
-     * @param id 标识
-     */
-    delete(id?: string | undefined) {
-        this.table.delete(id);
-    }
-
-    /**
-     * 刷新
-     */
-    refresh() {
-        this.queryParam = this.createQuery();
-        this.table.refresh(this.queryParam);
-    }
-
-    /**
-     * 还原查询参数
-     */
-    restoreQueryParam(query: RoleQuery) {
-        this.queryParam = query;
     }
 }

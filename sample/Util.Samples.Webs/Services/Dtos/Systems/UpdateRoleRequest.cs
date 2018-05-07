@@ -6,10 +6,16 @@ using Util.Ui.Attributes;
 
 namespace Util.Samples.Webs.Services.Dtos.Systems {
     /// <summary>
-    /// 创建角色参数
+    /// 修改角色请求参数
     /// </summary>
     [Model("model")]
-    public class CreateRoleRequest : RequestBase {
+    public class UpdateRoleRequest : RequestBase {
+        /// <summary>
+        /// 角色标识
+        /// </summary>
+        [Required( ErrorMessage = "角色标识不能为空" )]
+        [DataMember]
+        public string Id { get; set; }
         /// <summary>
         /// 角色编码
         /// </summary>
@@ -50,5 +56,11 @@ namespace Util.Samples.Webs.Services.Dtos.Systems {
         [Display( Name = "备注" )]
         [DataMember]
         public string Comment { get; set; }
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        [Display( Name = "版本号" )]
+        [DataMember]
+        public Byte[] Version { get; set; }
     }
 }

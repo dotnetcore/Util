@@ -76,7 +76,7 @@ namespace Util.Ui.Controllers {
         /// </remarks>
         /// <param name="query">查询参数</param>
         [HttpGet]
-        public virtual async Task<IActionResult> Query( TQuery query ) {
+        public virtual async Task<IActionResult> QueryAsync( TQuery query ) {
             if( query == null )
                 throw new ArgumentNullException( nameof( query ) );
             QueryBefore( query );

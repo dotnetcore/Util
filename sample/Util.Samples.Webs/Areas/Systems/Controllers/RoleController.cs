@@ -6,18 +6,32 @@ namespace Util.Samples.Webs.Areas.Systems.Controllers {
     /// 角色控制器
     /// </summary>
     [Area( "Systems" )]
-    public class RoleController : ViewControllerBase {        
+    public class RoleController : ViewControllerBase {
         /// <summary>
         /// 首页
         /// </summary>
-        public virtual IActionResult Index() {
+        public IActionResult Index() {
             return View();
         }
-        
+
         /// <summary>
-        /// 创建页
+        /// 编辑
         /// </summary>
-        public virtual IActionResult Create() {
+        public IActionResult Edit() {
+            return View();
+        }
+
+        /// <summary>
+        /// 详细
+        /// </summary>
+        public IActionResult Detail() {
+            return View();
+        }
+
+        /// <summary>
+        /// 选择角色弹出框
+        /// </summary>
+        public IActionResult SelectRoleDialog() {
             return View();
         }
     }

@@ -8,7 +8,6 @@ namespace Util.Samples.Webs.Services.Dtos.Systems {
     /// <summary>
     /// 应用程序数据传输对象
     /// </summary>
-    [DataContract]
     [Model( "model" )]
     public class ApplicationDto : DtoBase {
         /// <summary>
