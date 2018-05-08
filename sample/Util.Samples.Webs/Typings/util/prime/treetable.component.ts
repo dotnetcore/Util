@@ -143,6 +143,10 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     @Output() queryParamChange = new EventEmitter<TreeQueryParameter>();
     /**
+     * 复选框点击事件
+     */
+    @Output() onCheckboxClick: EventEmitter<any> = new EventEmitter();
+    /**
      * 分页组件
      */
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -1110,7 +1114,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
                     [title]="node.expanded ? labelCollapse : labelExpand">
                 </a>
                 <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
-                    (change)="onRowClick()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>                
+                    (change)="clickCheckBox()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>                
                 <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" [ngStyle]="getRadioStyle()" 
                     *ngIf="treeTable.selectionMode == 'single' && i==0 && showRadio()" [checked]="isSelected()"></mat-radio-button>                
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
@@ -1145,6 +1149,11 @@ export class UITreeRow<T extends TreeViewModel & TreeNode> implements OnInit {
 
     ngOnInit() {
         this.node.parent = this.parentNode;
+    }
+
+    clickCheckBox(event: MouseEvent) {
+        this.onRowClick(event);
+        this.treeTable.onCheckboxClick.emit(this.node);
     }
 
     toggle(event: Event) {
@@ -1196,7 +1205,7 @@ export class UITreeRow<T extends TreeViewModel & TreeNode> implements OnInit {
         return this.treeTable.isIndeterminate(this.node);
     }
 
-    onRowClick(event: MouseEvent, index: number) {
+    onRowClick(event: MouseEvent) {
         this.treeTable.onRowClick(event, this.node);
     }
 
