@@ -13,8 +13,10 @@ namespace Util.Ui.Extensions {
         /// <typeparam name="TNode">节点类型</typeparam>
         /// <param name="nodes">组件实例</param>
         /// <param name="async">是否异步加载</param>
-        public static List<PrimeTreeNode<TNode>> ToPrimeResult<TNode>( this IEnumerable<TNode> nodes, bool async = false ) where TNode : ITreeNode {
-            return new PrimeTreeResult<TNode>( nodes, async ).GetResult();
+        /// <param name="allExpand">所有节点是否全部展开</param>
+        public static List<PrimeTreeNode<TNode>> ToPrimeResult<TNode>( this IEnumerable<TNode> nodes, 
+            bool async = false,bool allExpand = false ) where TNode : ITreeNode {
+            return new PrimeTreeResult<TNode>( nodes, async, allExpand ).GetResult();
         }
     }
 }

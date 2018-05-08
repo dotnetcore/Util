@@ -22,6 +22,10 @@ namespace Util.Ui.Tests.Samples {
         /// </summary>
         public int? Level { get; set; }
         /// <summary>
+        /// 是否展开
+        /// </summary>
+        public bool? Expanded { get; set; }
+        /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using Util.Applications.Dtos;
 using Util.Applications.Trees;
 using Util.Ui.Attributes;
 
@@ -10,7 +9,7 @@ namespace Util.Samples.Webs.Services.Dtos.Systems {
     /// 角色数据传输对象
     /// </summary>
     [Model( "model" )]
-    public class RoleDto : DtoBase, ITreeNode {
+    public class RoleDto : TreeDtoBase {
         /// <summary>
         /// 角色编码
         /// </summary>
@@ -49,39 +48,6 @@ namespace Util.Samples.Webs.Services.Dtos.Systems {
         [Display( Name = "管理员" )]
         [DataMember]
         public bool? IsAdmin { get; set; }
-        /// <summary>
-        /// 父编号
-        /// </summary>
-        [Display( Name = "父编号" )]
-        [DataMember]
-        public string ParentId { get; set; }
-        /// <summary>
-        /// 路径
-        /// </summary>
-        [Required( ErrorMessage = "路径不能为空" )]
-        [StringLength( 800, ErrorMessage = "路径输入过长，不能超过800位" )]
-        [Display( Name = "路径" )]
-        [DataMember]
-        public string Path { get; set; }
-        /// <summary>
-        /// 级数
-        /// </summary>
-        [Required( ErrorMessage = "级数不能为空" )]
-        [Display( Name = "级数" )]
-        [DataMember]
-        public int? Level { get; set; }
-        /// <summary>
-        /// 排序号
-        /// </summary>
-        [Display( Name = "排序号" )]
-        [DataMember]
-        public int? SortId { get; set; }
-        /// <summary>
-        /// 启用
-        /// </summary>
-        [Display( Name = "启用" )]
-        [DataMember]
-        public bool? Enabled { get; set; }
         /// <summary>
         /// 备注
         /// </summary>

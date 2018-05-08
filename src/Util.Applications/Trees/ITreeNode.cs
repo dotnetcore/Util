@@ -19,5 +19,9 @@
         /// 级数
         /// </summary>
         int? Level { get; set; }
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        bool? Expanded { get; set; }
     }
 }

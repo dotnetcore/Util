@@ -24,5 +24,11 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         /// </summary>
         [JsonProperty( "leaf" )]
         public bool? Leaf { get; set; }
+
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        [JsonProperty( "expanded" )]
+        public bool? Expanded { get; set; }
     }
 }

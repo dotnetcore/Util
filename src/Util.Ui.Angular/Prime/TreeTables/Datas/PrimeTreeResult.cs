@@ -15,15 +15,21 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         /// 是否异步加载
         /// </summary>
         private readonly bool _async;
+        /// <summary>
+        /// 所有节点是否全部展开
+        /// </summary>
+        private readonly bool _allExpand;
 
         /// <summary>
         /// 初始化Prime树结果
         /// </summary>
         /// <param name="nodes">树型节点列表</param>
         /// <param name="async">是否异步加载</param>
-        public PrimeTreeResult( IEnumerable<TNode> nodes, bool async = false ) {
+        /// <param name="allExpand">所有节点是否全部展开</param>
+        public PrimeTreeResult( IEnumerable<TNode> nodes, bool async = false, bool allExpand = false ) {
             _nodes = nodes;
             _async = async;
+            _allExpand = allExpand;
         }
 
         /// <summary>
@@ -52,7 +58,8 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         /// </summary>
         private PrimeTreeNode<TNode> ToPrimeTreeNode( TNode node ) {
             var result = new PrimeTreeNode<TNode> {
-                Data = node
+                Data = node,
+                Expanded = _allExpand ? true : node.Expanded
             };
             return result;
         }
@@ -66,7 +73,7 @@ namespace Util.Ui.Prime.TreeTables.Datas {
             SetDefault( node );
             if( IsRoot( node.Data ) )
                 result.Add( node );
-            if ( IsLeaf( node.Data ) )
+            if( IsLeaf( node.Data ) )
                 return;
             node.Children = GetChildren( node.Data );
             foreach( var child in node.Children )
@@ -85,7 +92,7 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         /// 是否叶节点
         /// </summary>
         private bool IsLeaf( TNode node ) {
-            if ( node.Id.IsEmpty() )
+            if( node.Id.IsEmpty() )
                 return true;
             return _nodes.All( t => t.ParentId != node.Id );
         }
@@ -94,7 +101,7 @@ namespace Util.Ui.Prime.TreeTables.Datas {
         /// 获取节点直接下级
         /// </summary>
         private List<PrimeTreeNode<TNode>> GetChildren( TNode node ) {
-            return _nodes.Where( t => t.ParentId == node.Id ).Select( t => new PrimeTreeNode<TNode> { Data = t } ).ToList();
+            return _nodes.Where( t => t.ParentId == node.Id ).Select( ToPrimeTreeNode ).ToList();
         }
     }
 }

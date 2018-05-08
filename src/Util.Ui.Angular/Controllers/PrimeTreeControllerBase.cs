@@ -149,10 +149,24 @@ namespace Util.Ui.Controllers {
         /// 转换为分页列表
         /// </summary>
         protected virtual PagerList<PrimeTreeNode<TDto>> ToPagerList( List<TDto> data, TQuery query, bool isAsync = false ) {
-            var primeResult = data.ToPrimeResult( isAsync );
+            var primeResult = ToPrimeResult( data,isAsync );
             query.TotalCount = primeResult.Count;
             var result = primeResult.Skip( query.GetSkipCount() ).Take( query.PageSize );
             return new PagerList<PrimeTreeNode<TDto>>( query, result );
+        }
+
+        /// <summary>
+        /// 转换为树节点列表
+        /// </summary>
+        private List<PrimeTreeNode<TDto>> ToPrimeResult( IEnumerable<TDto> data, bool async = false ) {
+            return data.ToPrimeResult( async, IsAllExpand() );
+        }
+
+        /// <summary>
+        /// 所有节点是否全部展开
+        /// </summary>
+        protected virtual bool IsAllExpand() {
+            return false;
         }
 
         /// <summary>
@@ -161,7 +175,7 @@ namespace Util.Ui.Controllers {
         protected async Task<PagerList<PrimeTreeNode<TDto>>> AsyncFirstLoad( TQuery query ) {
             query.Level = 1;
             var result = await _service.PagerQueryAsync( query );
-            return result.Convert( result.Data.ToPrimeResult( true ) );
+            return result.Convert( ToPrimeResult( result.Data,true ) );
         }
 
         /// <summary>
@@ -184,7 +198,7 @@ namespace Util.Ui.Controllers {
         protected virtual async Task<List<PrimeTreeNode<TDto>>> AsyncLoadChildren( TQuery query ) {
             var queryParam = await GetAsyncLoadChildrenQuery( query );
             var result = await _service.QueryAsync( queryParam );
-            return result.ToPrimeResult( true );
+            return ToPrimeResult( result, true );
         }
 
         /// <summary>
@@ -205,7 +219,7 @@ namespace Util.Ui.Controllers {
             var queryParam = await GetSyncLoadChildrenQuery( query );
             var result = await _service.QueryAsync( queryParam );
             result.RemoveAll( t => t.Id == parentId );
-            return result.ToPrimeResult();
+            return ToPrimeResult( result );
         }
 
         /// <summary>

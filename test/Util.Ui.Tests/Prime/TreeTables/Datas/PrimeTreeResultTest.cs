@@ -163,7 +163,7 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
                 new TreeNodeSample{Id = "1"},
                 new TreeNodeSample{Id = "2",ParentId = "1"},
                 new TreeNodeSample{Id = "3"},
-                new TreeNodeSample{Id = "4",ParentId = "3"}
+                new TreeNodeSample{Id = "4",ParentId = "3",Expanded = true}
             };
             var treeResult = new PrimeTreeResult<TreeNodeSample>( treeNodes );
             var result = treeResult.GetResult();
@@ -173,8 +173,10 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
             Assert.Single( result[0].Children );
             Assert.Single( result[1].Children );
             Assert.Equal( "2", result[0].Children[0].Data.Id );
+            Assert.Null( result[0].Children[0].Expanded );
             Assert.Equal( "1", result[0].Children[0].Data.ParentId );
             Assert.Equal( "4", result[1].Children[0].Data.Id );
+            Assert.True( result[1].Children[0].Expanded );
             Assert.Equal( "3", result[1].Children[0].Data.ParentId );
         }
 
@@ -318,6 +320,21 @@ namespace Util.Ui.Tests.Prime.TreeTables.Datas {
             var result = treeResult.GetResult();
             Assert.Single( result );
             Assert.Equal( "a", result[0].Data.Name );
+        }
+
+        /// <summary>
+        /// 测试获取结果，全部节点展开
+        /// </summary>
+        [Fact]
+        public void TestGetResult_15() {
+            var treeNodes = new List<TreeNodeSample> {
+                new TreeNodeSample{Id = "1"},
+                new TreeNodeSample{Id = "2",ParentId = "1"}
+            };
+            var result = treeNodes.ToPrimeResult( false, true );
+            Assert.Single( result );
+            Assert.True( result[0].Expanded );
+            Assert.True( result[0].Children[0].Expanded );
         }
     }
 }

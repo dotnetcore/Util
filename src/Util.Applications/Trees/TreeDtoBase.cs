@@ -40,5 +40,11 @@ namespace Util.Applications.Trees {
         [Display( Name = "排序号" )]
         [DataMember]
         public int? SortId { get; set; }
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        [Display( Name = "是否展开" )]
+        [DataMember]
+        public bool? Expanded { get; set; }
     }
 }
