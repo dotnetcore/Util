@@ -261,6 +261,16 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 查找实体列表,不跟踪
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        public List<TEntity> FindAllNoTracking( Expression<Func<TEntity, bool>> predicate = null ) {
+            if( predicate == null )
+                return FindAsNoTracking().ToList();
+            return FindAsNoTracking().Where( predicate ).ToList();
+        }
+
+        /// <summary>
         /// 查找实体列表
         /// </summary>
         /// <param name="predicate">条件</param>
@@ -268,6 +278,16 @@ namespace Util.Datas.Ef.Core {
             if( predicate == null )
                 return await Set.ToListAsync();
             return await Find( predicate ).ToListAsync();
+        }
+
+        /// <summary>
+        /// 查找实体列表,不跟踪
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        public async Task<List<TEntity>> FindAllNoTrackingAsync( Expression<Func<TEntity, bool>> predicate = null ) {
+            if( predicate == null )
+                return await FindAsNoTracking().ToListAsync();
+            return await FindAsNoTracking().Where( predicate ).ToListAsync();
         }
 
         /// <summary>

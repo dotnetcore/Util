@@ -303,5 +303,13 @@ namespace Util.Tests.Samples {
         public Task<List<EntitySample>> FindByIdsNoTrackingAsync( string ids ) {
             throw new NotImplementedException();
         }
+
+        public List<EntitySample> FindAllNoTracking( Expression<Func<EntitySample, bool>> predicate = null ) {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<EntitySample>> FindAllNoTrackingAsync( Expression<Func<EntitySample, bool>> predicate = null ) {
+            throw new NotImplementedException();
+        }
     }
 }
