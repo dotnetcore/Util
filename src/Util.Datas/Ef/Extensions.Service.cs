@@ -46,7 +46,7 @@ namespace Util.Datas.Ef {
         /// 配置连接字符串
         /// </summary>
         private static void ConfigConnection<TImplementation>( DbContextOptionsBuilder builder, string connection ) where TImplementation : UnitOfWorkBase {
-            builder.UseLazyLoadingProxies();
+            //builder.UseLazyLoadingProxies();
             var type = typeof( TImplementation ).BaseType;
             if( type == typeof( Util.Datas.Ef.SqlServer.UnitOfWork ) ) {
                 builder.UseSqlServer( connection );
