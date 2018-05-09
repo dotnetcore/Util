@@ -98,11 +98,19 @@ namespace Util.Dependency {
         /// 注册事件处理器
         /// </summary>
         private void RegistEventHandlers() {
-            var handlerTypes = GetTypes( typeof( IEventHandler<> ) );
+            RegistEventHandlers( typeof( IEventHandler<> ) );
+            RegistEventHandlers( typeof( ISyncEventHandler<> ) );
+        }
+
+        /// <summary>
+        /// 注册事件处理器
+        /// </summary>
+        private void RegistEventHandlers(Type handlerType ) {
+            var handlerTypes = GetTypes( handlerType );
             foreach( var handler in handlerTypes ) {
                 _builder.RegisterType( handler ).As( handler.FindInterfaces(
                     ( filter, criteria ) => filter.IsGenericType && ( (Type)criteria ).IsAssignableFrom( filter.GetGenericTypeDefinition() )
-                    , typeof( IEventHandler<> )
+                    , handlerType
                 ) ).InstancePerLifetimeScope();
             }
         }
