@@ -37,8 +37,9 @@ namespace Util.Samples.Webs {
         /// </summary>
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
             //添加Mvc服务
-            services.AddMvc( options => 
-                options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() )
+            services.AddMvc( options => {
+                    //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
+                }
             ).AddControllersAsServices();
 
             //添加NLog日志操作

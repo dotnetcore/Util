@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Util.Files;
 using Util.Ui.CkEditor;
+using Util.Webs.Controllers;
 
 namespace Util.Samples.Webs.Apis.Tools {
     /// <summary>
     /// CKEditor控制器
     /// </summary>
-    public class CkEditorController : Controller {
+    public class CkEditorController : WebApiControllerBase {
         /// <summary>
         /// 初始化CKEditor控制器
         /// </summary>

@@ -2,14 +2,14 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Input, Output, EventEmitter, ViewChild, Optional, Host, AfterViewInit } from '@angular/core';
+import { Input, Output, EventEmitter, ViewChild, Optional, Host, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgModel, NgForm } from '@angular/forms';
 import { MessageConfig } from '../../config/message-config';
 
 /**
  * 表单控件包装器
  */
-export class FormControlWrapperBase implements AfterViewInit {
+export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 名称
      */
@@ -122,6 +122,22 @@ export class FormControlWrapperBase implements AfterViewInit {
         if (this.standalone)
             return;
         this.form && this.form.addControl(this.controlModel);
+    }
+
+    /**
+     * 组件销毁
+     */
+    ngOnDestroy() {
+        this.removeControl();
+    }
+
+    /**
+     * 将控件移除FormGroup
+     */
+    private removeControl() {
+        if (this.standalone)
+            return;
+        this.form && this.form.removeControl(this.controlModel);
     }
 
     /**

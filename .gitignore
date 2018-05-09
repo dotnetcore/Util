@@ -15,3 +15,4 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Webs/.vs
 /sample/Util.Samples.Webs/wwwroot/upload
 /sample/Util.Samples.Webs/Typings/**/*.html
+/sample/Util.Samples.Webs/yarn-error.log
