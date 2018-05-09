@@ -147,6 +147,10 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     @Output() onCheckboxClick: EventEmitter<any> = new EventEmitter();
     /**
+     * 数据加载完成事件
+     */
+    @Output() onLoad: EventEmitter<any> = new EventEmitter();
+    /**
      * 分页组件
      */
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -232,7 +236,9 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
         this.initPaginator();
         this.restoreQueryParam();
         if (this.autoLoad)
-            this.query();
+            this.query(null, (data) => {
+                this.onLoad.emit(data);
+            });
     }
 
     /**
@@ -278,13 +284,16 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
 
     /**
      * 查询
+     * @param button 按钮
+     * @param handler 成功回调函数
      */
-    query(button?) {
+    query(button?, handler?: (data: PagerList<T>) => void) {
         this.sendQuery(result => {
             result = new PagerList<T>(result);
             this.dataSource = result.data;
             this.paginator.pageIndex = result.page - 1;
             this.totalCount = result.totalCount;
+            handler && handler(result);
         }, null, button);
     }
 
@@ -1145,7 +1154,7 @@ export class UITreeRow<T extends TreeViewModel & TreeNode> implements OnInit {
 
     @Input() labelCollapse: string = "Collapse";
 
-    constructor( @Inject(forwardRef(() => TreeTable)) public treeTable: TreeTable<T>) { }
+    constructor(@Inject(forwardRef(() => TreeTable)) public treeTable: TreeTable<T>) { }
 
     ngOnInit() {
         this.node.parent = this.parentNode;

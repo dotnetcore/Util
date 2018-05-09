@@ -48,6 +48,10 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// 选中节点
         /// </summary>
         public string Selection { get; set; }
+        /// <summary>
+        /// 数据加载完成事件
+        /// </summary>
+        public string OnLoad { get; set; }
 
         /// <summary>
         /// 获取渲染器

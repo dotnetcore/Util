@@ -431,5 +431,9 @@
         /// 标识
         /// </summary>
         public const string Key = "key";
+        /// <summary>
+        /// 加载事件
+        /// </summary>
+        public const string OnLoad = "on-load";
     }
 }

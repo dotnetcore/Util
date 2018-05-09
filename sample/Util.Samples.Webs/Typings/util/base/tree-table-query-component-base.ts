@@ -4,7 +4,7 @@
 //================================================
 import { Injector, ViewChild, OnInit } from '@angular/core';
 import { MessageConfig } from '../config/message-config';
-import { util, TreeViewModel, TreeQueryParameter, TreeTable, HttpMethod } from '../index';
+import { util, TreeViewModel, TreeQueryParameter, TreeTable, HttpMethod, PagerList } from '../index';
 
 /**
  * 树型表格查询基类
@@ -91,8 +91,16 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     /**
      * 查询
      */
-    query() {
-        this.table.query();
+    query(button?, handler?: (data: PagerList<TViewModel>) => void) {
+        handler = handler || this.queryAfter;
+        this.table.query(button, handler);
+    }
+
+    /**
+     * 查询完成后操作
+     * @param data 数据
+     */
+    protected queryAfter(data: PagerList<TViewModel> ) {
     }
 
     /**

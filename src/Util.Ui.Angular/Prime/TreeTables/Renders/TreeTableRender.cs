@@ -46,6 +46,7 @@ namespace Util.Ui.Prime.TreeTables.Renders {
             ConfigAutoLoad( builder );
             ConfigPageSizeOptions( builder );
             ConfigContent( builder );
+            ConfigEvents( builder );
         }
 
         /// <summary>
@@ -117,6 +118,13 @@ namespace Util.Ui.Prime.TreeTables.Renders {
             if( value.StartsWith( "[" ) == false )
                 value = $"[{value}]";
             builder.AddAttribute( "[pageSizeOptions]", value );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
         }
     }
 }

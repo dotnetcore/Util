@@ -204,5 +204,17 @@ namespace Util.Ui.Tests.Prime.TreeTables {
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试加载完成事件
+        /// </summary>
+        [Fact]
+        public void TestOnLoad() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnLoad, "a" } };
+            var result = new String();
+            result.Append( "<p-tree-table #id=\"\" (onLoad)=\"a\">" );
+            result.Append( "</p-tree-table>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }
