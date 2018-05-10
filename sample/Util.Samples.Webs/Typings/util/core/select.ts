@@ -3,6 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { ISort, sort } from '../core/sort';
+import { util } from '../index';
 
 /**
  * 列表
@@ -34,15 +35,9 @@ export class Select {
      */
     toGroups(): SelectOptionGroup[] {
         let result: SelectOptionGroup[] = new Array<SelectOptionGroup>();
-        this.getSortedItems().forEach(item => {
-            if (!item.group)
-                return;
-            let group = result.find(group => group.text === item.group);
-            if (group) {
-                group.value.push(new SelectOption(item));
-                return;
-            }
-            result.push(new SelectOptionGroup(item.group, [new SelectOption(item)], false));
+        let groups = util.helper.groupBy(this.getSortedItems(), t => t.group);
+        groups.forEach((items, key) => {
+            result.push(new SelectOptionGroup(key, items.map(item => new SelectOption(item)), false));
         });
         return result;
     }

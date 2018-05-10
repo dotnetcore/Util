@@ -141,10 +141,28 @@ describe("util.helper", () => {
         expect(result[0].id).toBe(2);
         expect(result[0].name).toBe("b");
     });
+    it("groupBy_1", () => {
+        let source = new Array<Test>();
+        source.push(new Test(1, "a"), new Test(1, "b"), new Test(2, "c"), new Test(2, "d"));
+        let result = util.helper.groupBy(source, t => t.id);
+        expect(result.size).toBe(2);
+        expect(result.get("1")[0].id).toBe(1);
+        expect(result.get("2")[0].id).toBe(2);
+        expect(result.get("1")[0].name).toBe("a");
+        expect(result.get("1")[1].name).toBe("b");
+        expect(result.get("2")[0].name).toBe("c");
+        expect(result.get("2")[1].name).toBe("d");
+    });
+    it("groupBy_2", () => {
+        let source = new Array<Test>();
+        source.push(new Test(1, "a"), new Test(1, "b"), new Test("", "c"), new Test("", "d"));
+        let result = util.helper.groupBy(source, t => t.id);
+        expect(result.size).toBe(1);
+    });
 });
 
 class Test {
-    constructor(public id?: number,public name?: string) {
+    constructor(public id?: number|string,public name?: string) {
     }
     test: Test;
 }

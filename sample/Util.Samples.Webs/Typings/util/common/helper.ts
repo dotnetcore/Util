@@ -5,6 +5,7 @@
 import { UUID } from './internal/uuid';
 import * as moment from 'moment';
 import * as _ from "lodash";
+import { Dictionary } from 'lodash';
 
 /**
  * 是否未定义
@@ -27,7 +28,7 @@ export let isString = (value): boolean => {
  * @param value 值
  */
 export let isEmpty = (value): boolean => {
-    if ( typeof value === "number")
+    if (typeof value === "number")
         return false;
     if (value && value.trim)
         value = value.trim();
@@ -271,4 +272,20 @@ export let toList = <T>(input: string): T[] => {
  */
 export let except = <T>(source: T[], target: T[], property?: (t: T) => any) => {
     return _.differenceBy(source, target, property);
+}
+
+/**
+ * 分组
+ * @param source 集合
+ * @param property 分组属性
+ */
+export let groupBy = <T>(source: T[], property?: (t: T) => any): Map<string, T[]> => {
+    let groups = _.groupBy(source, property);
+    let result = new Map<string, T[]>();
+    for (var key in groups) {
+        if (!key)
+            continue;
+        result.set(key, groups[key].map(t => <T><any>t));
+    }
+    return result;
 }
