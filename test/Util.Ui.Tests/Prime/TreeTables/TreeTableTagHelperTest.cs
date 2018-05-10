@@ -206,6 +206,18 @@ namespace Util.Ui.Tests.Prime.TreeTables {
         }
 
         /// <summary>
+        /// 测试单击行时选中复选框
+        /// </summary>
+        [Fact]
+        public void TestCheckOnClickRow() {
+            var attributes = new TagHelperAttributeList { { UiConst.CheckOnClickRow, true } };
+            var result = new String();
+            result.Append( "<p-tree-table #id=\"\" [checkOnClickRow]=\"true\">" );
+            result.Append( "</p-tree-table>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试加载完成事件
         /// </summary>
         [Fact]
@@ -213,6 +225,30 @@ namespace Util.Ui.Tests.Prime.TreeTables {
             var attributes = new TagHelperAttributeList { { UiConst.OnLoad, "a" } };
             var result = new String();
             result.Append( "<p-tree-table #id=\"\" (onLoad)=\"a\">" );
+            result.Append( "</p-tree-table>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试复选框单击事件
+        /// </summary>
+        [Fact]
+        public void TestOnCheck() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnCheck, "a" } };
+            var result = new String();
+            result.Append( "<p-tree-table #id=\"\" (onCheck)=\"a\">" );
+            result.Append( "</p-tree-table>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试单击行事件
+        /// </summary>
+        [Fact]
+        public void TestOnClickRow() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnClickRow, "a" } };
+            var result = new String();
+            result.Append( "<p-tree-table #id=\"\" (onClickRow)=\"a\">" );
             result.Append( "</p-tree-table>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

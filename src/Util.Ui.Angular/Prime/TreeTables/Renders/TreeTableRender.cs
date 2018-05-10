@@ -125,6 +125,9 @@ namespace Util.Ui.Prime.TreeTables.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
+            builder.AddAttribute( "(onCheck)", _config.GetValue( UiConst.OnCheck ) );
+            builder.AddAttribute( "(onClickRow)", _config.GetValue( UiConst.OnClickRow ) );
+            builder.AddAttribute( "[checkOnClickRow]", _config.GetBoolValue( UiConst.CheckOnClickRow ) );
         }
     }
 }

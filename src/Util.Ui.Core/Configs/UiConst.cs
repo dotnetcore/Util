@@ -435,5 +435,18 @@
         /// 加载事件
         /// </summary>
         public const string OnLoad = "on-load";
+        /// <summary>
+        /// 选中事件
+        /// </summary>
+        public const string OnCheck = "on-check";
+        /// <summary>
+        /// 单击行事件
+        /// </summary>
+        public const string OnClickRow = "on-click-row";
+        /// <summary>
+        /// 单击行时选中
+        /// </summary>
+        public const string CheckOnClickRow = "check-on-click-row";
+        
     }
 }

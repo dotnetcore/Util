@@ -139,17 +139,25 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     @Input() queryParam: TreeQueryParameter;
     /**
+     * 单击行时选中复选框或单选框
+     */
+    @Input() checkOnClickRow: boolean;
+    /**
      * 查询参数变更事件
      */
     @Output() queryParamChange = new EventEmitter<TreeQueryParameter>();
     /**
-     * 复选框点击事件
-     */
-    @Output() onCheckboxClick: EventEmitter<any> = new EventEmitter();
-    /**
      * 数据加载完成事件
      */
     @Output() onLoad: EventEmitter<any> = new EventEmitter();
+    /**
+     * 复选框或单选框选中事件
+     */
+    @Output() onCheck: EventEmitter<any> = new EventEmitter();
+    /**
+     * 单击行事件
+     */
+    @Output() onClickRow: EventEmitter<any> = new EventEmitter();
     /**
      * 分页组件
      */
@@ -235,10 +243,12 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
         });
         this.initPaginator();
         this.restoreQueryParam();
-        if (this.autoLoad)
-            this.query(null, (data) => {
-                this.onLoad.emit(data);
-            });
+        if (this.autoLoad) {
+            this.query(null,
+                (data) => {
+                    this.onLoad.emit(data);
+                });
+        }
     }
 
     /**
@@ -854,7 +864,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     /**
      * 获取所有下级节点
      */
-    private getChildNodes(treeNodes: TreeNode[]) {
+    private getChildNodes(treeNodes: T[]) {
         let nodes = this.getAllNodes(treeNodes);
         nodes.splice(0, treeNodes.length);
         return nodes;
@@ -863,7 +873,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     /**
      * 复选框的确定状态
      */
-    isIndeterminate(treeNode: TreeNode) {
+    isIndeterminate(treeNode: T) {
         if (!this.selection || this.selection.length === 0)
             return false;
         if (!treeNode) {
@@ -891,6 +901,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
             }
         }
         this.selectedNode = node;
+        this.onClickRow.emit({ originalEvent: event, node: node });
         if (this.selectionMode) {
             if (node.selectable === false) {
                 return;
@@ -900,22 +911,8 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
             let selected = (index >= 0);
 
             if (this.isCheckboxSelectionMode()) {
-                if (selected) {
-                    this.propagateSelectionDown(node, false);
-                    if (node.parent) {
-                        this.propagateSelectionUp(node.parent, false);
-                    }
-                    this.selectionChange.emit(this.selection);
-                    this.onNodeUnselect.emit({ originalEvent: event, node: node });
-                }
-                else {
-                    this.propagateSelectionDown(node, true);
-                    if (node.parent) {
-                        this.propagateSelectionUp(node.parent, true);
-                    }
-                    this.selectionChange.emit(this.selection);
-                    this.onNodeSelect.emit({ originalEvent: event, node: node });
-                }
+                if (this.checkOnClickRow)
+                    this.selectCheckboxs(event, node, selected);
             }
             else {
                 if (metaSelection) {
@@ -941,28 +938,57 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
                 }
                 else {
                     if (this.isSingleSelectionMode()) {
-                        if (!this.showRadio(node))
-                            return;
-                        this.selection = new Array<T>(node);
-                        this.onNodeSelect.emit({ originalEvent: event, node: node });
+                        if (this.checkOnClickRow)
+                            this.selectRadio(event, node);
+                        return;
+                    }
+                    if (selected) {
+                        this.selection = this.selection.filter((val, i) => i != index);
+                        this.onNodeUnselect.emit({ originalEvent: event, node: node });
                     }
                     else {
-                        if (selected) {
-                            this.selection = this.selection.filter((val, i) => i != index);
-                            this.onNodeUnselect.emit({ originalEvent: event, node: node });
-                        }
-                        else {
-                            this.selection = [...this.selection || [], node];
-                            this.onNodeSelect.emit({ originalEvent: event, node: node });
-                        }
+                        this.selection = [...this.selection || [], node];
+                        this.onNodeSelect.emit({ originalEvent: event, node: node });
                     }
-
                     this.selectionChange.emit(this.selection);
                 }
             }
         }
 
         this.rowTouched = false;
+    }
+
+    /**
+     * 选中复选框
+     */
+    selectCheckboxs(event, node: T, selected?: boolean) {
+        selected = selected || this.isSelected(node);
+        if (selected) {
+            this.propagateSelectionDown(node, false);
+            if (node.parent) {
+                this.propagateSelectionUp(node.parent, false);
+            }
+            this.selectionChange.emit(this.selection);
+            this.onNodeUnselect.emit({ originalEvent: event, node: node });
+            return;
+        }
+        this.propagateSelectionDown(node, true);
+        if (node.parent) {
+            this.propagateSelectionUp(node.parent, true);
+        }
+        this.selectionChange.emit(this.selection);
+        this.onNodeSelect.emit({ originalEvent: event, node: node });
+    }
+
+    /**
+     * 选中单选框
+     */
+    selectRadio(event, node: T) {
+        if (!this.showRadio(node))
+            return;
+        this.selection = new Array<T>(node);
+        this.onNodeSelect.emit({ originalEvent: event, node: node });
+        this.selectionChange.emit(this.selection);
     }
 
     onRowTouchEnd() {
@@ -1123,8 +1149,8 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
                     [title]="node.expanded ? labelCollapse : labelExpand">
                 </a>
                 <mat-checkbox *ngIf="treeTable.selectionMode == 'checkbox' && i==0" [checked]="isSelected()" 
-                    (change)="clickCheckBox()" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>                
-                <mat-radio-button name="radioTreeTable" (change)="onRowClick()" (click)="$event.stopPropagation()" [ngStyle]="getRadioStyle()" 
+                    (change)="clickCheckBox($event)" (click)="$event.stopPropagation()" [indeterminate]="isIndeterminate()"></mat-checkbox>                
+                <mat-radio-button name="radioTreeTable" (change)="clickRadio($event)" (click)="$event.stopPropagation()" [ngStyle]="getRadioStyle()" 
                     *ngIf="treeTable.selectionMode == 'single' && i==0 && showRadio()" [checked]="isSelected()"></mat-radio-button>                
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node,index:index,first:first,last:last}"></ng-container>
@@ -1146,7 +1172,7 @@ export class UITreeRow<T extends TreeViewModel & TreeNode> implements OnInit {
 
     @Input() node: T;
 
-    @Input() parentNode: TreeNode;
+    @Input() parentNode: T;
 
     @Input() level: number = 0;
 
@@ -1160,9 +1186,14 @@ export class UITreeRow<T extends TreeViewModel & TreeNode> implements OnInit {
         this.node.parent = this.parentNode;
     }
 
-    clickCheckBox(event: MouseEvent) {
-        this.onRowClick(event);
-        this.treeTable.onCheckboxClick.emit(this.node);
+    clickCheckBox(event) {
+        this.treeTable.selectCheckboxs(event, this.node);
+        this.treeTable.onCheck.emit({ originalEvent: event, node: this.node });
+    }
+
+    clickRadio(event) {
+        this.treeTable.selectRadio(event, this.node);
+        this.treeTable.onCheck.emit({ originalEvent: event, node: this.node });
     }
 
     toggle(event: Event) {

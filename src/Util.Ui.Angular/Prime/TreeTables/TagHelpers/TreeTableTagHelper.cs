@@ -49,9 +49,21 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// </summary>
         public string Selection { get; set; }
         /// <summary>
+        /// 单击行时选中复选框或单选框，设为true选中
+        /// </summary>
+        public string CheckOnClickRow { get; set; }
+        /// <summary>
         /// 数据加载完成事件
         /// </summary>
         public string OnLoad { get; set; }
+        /// <summary>
+        /// 复选框或单选框单击事件
+        /// </summary>
+        public string OnCheck { get; set; }
+        /// <summary>
+        /// 单击行事件
+        /// </summary>
+        public string OnClickRow { get; set; }
 
         /// <summary>
         /// 获取渲染器
