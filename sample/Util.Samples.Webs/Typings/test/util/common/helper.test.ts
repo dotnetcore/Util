@@ -124,9 +124,27 @@ describe("util.helper", () => {
         let result = util.helper.first(input);
         expect(result).toBe('a');
     });
+    it("except_1", () => {
+        let source = ['a', 'b'];
+        let target = ['a', 'c'];
+        let result = util.helper.except(source, target);
+        expect(result.length).toBe(1);
+        expect(result[0]).toBe('b');
+    });
+    it("except_2", () => {
+        let source = new Array<Test>();
+        source.push(new Test(1,"a"), new Test(2,"b"));
+        let target = new Array<Test>();
+        target.push(new Test(1, "a"), new Test(3, "c"));
+        let result = util.helper.except(source, target, t => t.id);
+        expect(result.length).toBe(1);
+        expect(result[0].id).toBe(2);
+        expect(result[0].name).toBe("b");
+    });
 });
 
 class Test {
-    name: string;
+    constructor(public id?: number,public name?: string) {
+    }
     test: Test;
 }

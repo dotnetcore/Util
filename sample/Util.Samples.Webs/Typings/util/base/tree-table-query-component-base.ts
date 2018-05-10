@@ -51,33 +51,34 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 初始化
      */
     ngOnInit() {
-        this.initDialogData();
-    }
-
-    /**
-     * 加载弹出框数据
-     */
-    private initDialogData() {
         this.data = util.dialog.getData();
         if (!this.data)
             return;
-        this.addToSelections(this.getSelectionFromData(this.data));
+        if (this.isLoadSelection())
+            this.addToSelections(this.getSelection(this.data));
         this.queryParam = this.createQuery(this.data);
         this.init(this.data);
+    }
+
+    /**
+     * 是否从弹出框数据中加载选中项
+     */
+    protected isLoadSelection() {
+        return true;
     }
 
     /**
      * 从弹出框数据中获取选中项
      * @param data 传入弹出框的数据
      */
-    protected getSelectionFromData(data) {
+    protected getSelection(data) {
         return data;
     }
 
     /**
      * 添加到选中项列表
      */
-    private addToSelections(selection) {
+    protected addToSelections(selection) {
         this.util.helper.addToArray(this.selection, selection);
     }
 
@@ -100,7 +101,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 查询完成后操作
      * @param data 数据
      */
-    protected queryAfter(data: PagerList<TViewModel> ) {
+    protected queryAfter(data: PagerList<TViewModel>) {
     }
 
     /**

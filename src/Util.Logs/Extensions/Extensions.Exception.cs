@@ -13,11 +13,11 @@ namespace Util.Logs.Extensions {
         /// <param name="exception">异常</param>
         /// <param name="log">日志</param>
         public static void Log( this Exception exception, ILog log ) {
-            if( !( exception is Warning warning ) ) {
-                log.Exception( exception ).Error();
+            if( exception is Warning warning ) {
+                log.Exception( exception, warning.Code ).Warn();
                 return;
             }
-            log.Exception( exception, warning.Code ).Warn();
+            log.Exception( exception ).Error();
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Util.Logs.Extensions {
         /// </summary>
         /// <param name="exception">异常</param>
         public static string GetPrompt( this Exception exception ) {
-            return ExceptionPrompt.Instance.GetPrompt( exception );
+            return ExceptionPrompt.GetPrompt( exception );
         }
     }
 }

@@ -6,22 +6,11 @@ namespace Util.Exceptions.Prompts {
     /// <summary>
     /// 异常提示
     /// </summary>
-    public class ExceptionPrompt {
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        private ExceptionPrompt() {
-        }
-
+    public static class ExceptionPrompt {
         /// <summary>
         /// 异常提示组件集合
         /// </summary>
         private static readonly List<IExceptionPrompt> Prompts = new List<IExceptionPrompt>();
-
-        /// <summary>
-        /// 获取异常提示实例
-        /// </summary>
-        public static readonly ExceptionPrompt Instance = new ExceptionPrompt();
 
         /// <summary>
         /// 添加异常提示
@@ -39,7 +28,7 @@ namespace Util.Exceptions.Prompts {
         /// 获取异常提示
         /// </summary>
         /// <param name="exception">异常</param>
-        public string GetPrompt( Exception exception ) {
+        public static string GetPrompt( Exception exception ) {
             exception = GetException( exception );
             var prompt = GetExceptionPrompt( exception );
             if( string.IsNullOrWhiteSpace( prompt ) == false )
@@ -52,7 +41,7 @@ namespace Util.Exceptions.Prompts {
         /// <summary>
         /// 获取异常
         /// </summary>
-        private Exception GetException( Exception exception ) {
+        private static Exception GetException( Exception exception ) {
             if ( exception == null )
                 return null;
             if ( exception is Autofac.Core.DependencyResolutionException ex )
@@ -63,7 +52,7 @@ namespace Util.Exceptions.Prompts {
         /// <summary>
         /// 获取异常提示
         /// </summary>
-        private string GetExceptionPrompt( Exception exception ) {
+        private static string GetExceptionPrompt( Exception exception ) {
             foreach( var prompt in Prompts ) {
                 var result = prompt.GetPrompt( exception );
                 if( result.IsEmpty() == false )
