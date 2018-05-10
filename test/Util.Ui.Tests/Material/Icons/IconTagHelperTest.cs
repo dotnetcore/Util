@@ -72,11 +72,10 @@ namespace Util.Ui.Tests.Material.Icons {
         /// </summary>
         [Fact]
         public void TestClass_FontAwesome() {
-            var contextAttributes = new TagHelperAttributeList { { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
-            var outputAttributes = new TagHelperAttributeList { { "class", "a" } };
+            var contextAttributes = new TagHelperAttributeList { { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android }, { "class", "a" } };
             var result = new String();
             result.Append( "<i class=\"a fa fa-android\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( contextAttributes, outputAttributes ) );
+            Assert.Equal( result.ToString(), GetResult( contextAttributes ) );
         }
 
         /// <summary>

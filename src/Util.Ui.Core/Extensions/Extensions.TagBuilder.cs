@@ -12,13 +12,8 @@ namespace Util.Ui.Extensions {
         /// <param name="builder">标签生成器</param>
         /// <param name="config">配置</param>
         public static TagBuilder AddOutputAttributes( this TagBuilder builder, IConfig config ) {
-            foreach( var attribute in config.OutputAttributes ) {
-                if( attribute.Name.ToLower() == UiConst.Class )
-                    continue;
-                if( attribute.Name.ToLower() == UiConst.Style )
-                    continue;
+            foreach ( var attribute in config.OutputAttributes )
                 builder.Attribute( attribute.Name, attribute.Value.SafeString() );
-            }
             return builder;
         }
 
