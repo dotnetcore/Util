@@ -71,7 +71,7 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// <summary>
         /// 必填项
         /// </summary>
-        public bool Required { get; set; }
+        public string Required { get; set; }
         /// <summary>
         /// 必填项错误消息
         /// </summary>

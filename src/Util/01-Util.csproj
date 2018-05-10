@@ -41,20 +41,20 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.3.1" />
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.3.1" />
-    <PackageReference Include="Autofac" Version="4.8.0" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.4.0" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.4.0" />
+    <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="AutoMapper" Version="7.0.0-alpha-0001" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.0-preview2-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-preview2-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.0-preview2-final" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.0-rc1-final" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0-pre-05" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0-rc1" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.6" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.7" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0-rc1" />
   </ItemGroup>
