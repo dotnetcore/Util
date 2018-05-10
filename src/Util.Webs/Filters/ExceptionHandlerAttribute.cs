@@ -1,5 +1,5 @@
-﻿using Exceptionless.Extensions;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Util.Logs.Extensions;
 using Util.Webs.Commons;
 
 namespace Util.Webs.Filters {
@@ -13,7 +13,7 @@ namespace Util.Webs.Filters {
         public override void OnException( ExceptionContext context ) {
             context.ExceptionHandled = true;
             context.HttpContext.Response.StatusCode = 200;
-            context.Result = new Result( StateCode.Fail, context.Exception.GetMessage() );
+            context.Result = new Result( StateCode.Fail, context.Exception.GetPrompt() );
         }
     }
 }

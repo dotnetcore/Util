@@ -1,5 +1,6 @@
 ﻿using System;
 using Util.Exceptions;
+using Util.Exceptions.Prompts;
 
 namespace Util.Logs.Extensions {
     /// <summary>
@@ -17,6 +18,14 @@ namespace Util.Logs.Extensions {
                 return;
             }
             log.Exception( exception, warning.Code ).Warn();
+        }
+
+        /// <summary>
+        /// 获取异常提示
+        /// </summary>
+        /// <param name="exception">异常</param>
+        public static string GetPrompt( this Exception exception ) {
+            return ExceptionPrompt.Instance.GetPrompt( exception );
         }
     }
 }
