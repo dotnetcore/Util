@@ -45,13 +45,13 @@ namespace Util.Ui.Prime.TreeTables.TagHelpers {
         /// </summary>
         public string PageSizeOptions { get; set; }
         /// <summary>
-        /// 选中节点
+        /// 选中节点集合
         /// </summary>
         public string Selection { get; set; }
         /// <summary>
-        /// 单击行时选中复选框或单选框，设为true选中
+        /// 单击行时选中复选框或单选框
         /// </summary>
-        public string CheckOnClickRow { get; set; }
+        public bool CheckOnClickRow { get; set; }
         /// <summary>
         /// 数据加载完成事件
         /// </summary>

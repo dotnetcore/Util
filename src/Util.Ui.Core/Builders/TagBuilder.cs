@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,10 @@ namespace Util.Ui.Builders {
         /// 标签生成器
         /// </summary>
         private readonly Microsoft.AspNetCore.Mvc.Rendering.TagBuilder _tagBuilder;
+        /// <summary>
+        /// 类
+        /// </summary>
+        private readonly List<string> _classList;
 
         /// <summary>
         /// 初始化标签生成器
@@ -21,6 +26,7 @@ namespace Util.Ui.Builders {
         /// <param name="renderMode">渲染模式</param>
         public TagBuilder( string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) {
             _tagBuilder = new Microsoft.AspNetCore.Mvc.Rendering.TagBuilder( tagName ) { TagRenderMode = renderMode };
+            _classList = new List<string>();
         }
 
         /// <summary>
@@ -50,6 +56,11 @@ namespace Util.Ui.Builders {
         /// </summary>
         /// <param name="class">class属性值</param>
         public TagBuilder Class( string @class ) {
+            if( string.IsNullOrWhiteSpace( @class ) )
+                return this;
+            if( _classList.Contains( @class ) )
+                return this;
+            _classList.Add( @class );
             _tagBuilder.AddCssClass( @class );
             return this;
         }
