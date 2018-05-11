@@ -29,24 +29,13 @@ namespace Util.Exceptions.Prompts {
         /// </summary>
         /// <param name="exception">异常</param>
         public static string GetPrompt( Exception exception ) {
-            exception = GetException( exception );
+            exception = exception.GetRawException();
             var prompt = GetExceptionPrompt( exception );
             if( string.IsNullOrWhiteSpace( prompt ) == false )
                 return prompt;
             if( exception is Warning warning )
                 return warning.Message;
             return R.SystemError;
-        }
-
-        /// <summary>
-        /// 获取异常
-        /// </summary>
-        private static Exception GetException( Exception exception ) {
-            if ( exception == null )
-                return null;
-            if ( exception is Autofac.Core.DependencyResolutionException ex )
-                return GetException( ex.InnerException );
-            return exception;
         }
 
         /// <summary>

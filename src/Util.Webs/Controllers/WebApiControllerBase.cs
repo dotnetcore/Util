@@ -9,6 +9,7 @@ namespace Util.Webs.Controllers {
     /// </summary>
     [Route( "api/[controller]" )]
     [ExceptionHandler]
+    [ErrorLogAttribute]
     public class WebApiControllerBase : Controller {
         /// <summary>
         /// 返回成功消息
