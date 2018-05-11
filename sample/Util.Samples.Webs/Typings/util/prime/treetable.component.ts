@@ -362,14 +362,15 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      * 刷新
      * @param queryParam 查询参数
      * @param button 按钮
+     * @param handler 刷新后回调函数
      */
-    refresh(queryParam, button?) {
+    refresh(queryParam, button?, handler?: (data: PagerList<T>) => void) {
         this.queryParam = queryParam;
         this.initPage();
         this.queryParam.order = this.initOrder;
         this.dic.remove(this.key);
         util.helper.clear(this.selection);
-        this.query(button);
+        this.query(button, handler);
     }
 
     /**
@@ -874,6 +875,8 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      * 复选框的确定状态
      */
     isIndeterminate(treeNode: T) {
+        if (!this.dataSource || this.dataSource.length === 0)
+            return false;
         if (!this.selection || this.selection.length === 0)
             return false;
         if (!treeNode) {

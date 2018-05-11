@@ -101,7 +101,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 查询完成后操作
      * @param data 数据
      */
-    protected queryAfter(data: PagerList<TViewModel>) {
+    protected queryAfter = (data: PagerList<TViewModel>) => {
     }
 
     /**
@@ -131,10 +131,19 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     /**
      * 刷新
      * @param button 按钮
+     * @param handler 刷新后回调函数
      */
-    refresh(button?) {
+    refresh(button?, handler?: (data: PagerList<TViewModel>) => void) {
+        handler = handler || this.refreshAfter;
         this.queryParam = this.createQuery(this.data);
-        this.table.refresh(this.queryParam, button);
+        this.table.refresh(this.queryParam, button, handler);
+    }
+
+    /**
+     * 刷新完成后操作
+     * @param data 数据
+     */
+    protected refreshAfter = (data: PagerList<TViewModel>) => {
     }
 
     /**
@@ -270,5 +279,12 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      */
     private getEnableConfirmMessage(enabled: boolean) {
         return enabled ? MessageConfig.enableConfirm : MessageConfig.disableConfirm;
+    }
+
+    /**
+     * 获取选中标识列表
+     */
+    getCheckedIds() {
+        return this.table.getCheckedIds();
     }
 }
