@@ -55,7 +55,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
         if (!this.data)
             return;
         if (this.isLoadSelection())
-            this.addToSelections(this.getSelection(this.data));
+            this.addToSelection(this.getSelection(this.data));
         this.queryParam = this.createQuery(this.data);
         this.init(this.data);
     }
@@ -76,9 +76,22 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     }
 
     /**
+     * 获取标识列表
+     * @param nodes 节点列表
+     */
+    protected getIds(nodes: TViewModel[]) {
+        if (!nodes || !nodes.map)
+            return [];
+        let ids = nodes.map(t => t.id || (t.data && t.data.id));
+        return ids;
+    }
+
+    /**
      * 添加到选中项列表
      */
-    protected addToSelections(selection) {
+    protected addToSelection(selection: TViewModel[]) {
+        let ids = this.getIds(selection);
+        selection = this.table.getByIds(ids);
         this.util.helper.addToArray(this.selection, selection);
     }
 

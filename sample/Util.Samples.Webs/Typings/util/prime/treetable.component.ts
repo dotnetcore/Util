@@ -509,6 +509,40 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     }
 
     /**
+     * 获取节点列表
+     * @param ids 节点标识列表
+     */
+    getByIds(ids: string[]): T[] {
+        let result = new Array<T>();
+        this.addToResult(result, this.dataSource, ids);
+        return result;
+    }
+
+    /**
+     * 递归添加到节点
+     */
+    private addToResult(result: Array<T>, children: TreeNode[], ids: string[]) {
+        if (!children)
+            return;
+        children.forEach(item => {
+            if (this.contains(ids, item))
+                result.push(<T>item);
+            this.addToResult(result, item.children, ids);
+        });
+    }
+
+    /**
+     * 是否包含节点
+     */
+    private contains(ids: string[], node) {
+        if (ids.some(id => node.id === id))
+            return true;
+        if (ids.some(id => node.data && node.data.id === id))
+            return true;
+        return false;
+    }
+
+    /**
      * 获取节点
      * @param id 节点标识
      * @param parent 父节点
