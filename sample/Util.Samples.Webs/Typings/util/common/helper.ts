@@ -268,10 +268,41 @@ export let toList = <T>(input: string): T[] => {
  * 获取差集
  * @param source 源集合
  * @param target 目标集合
- * @param property 比较的属性
+ * @param property 比较属性
  */
-export let except = <T>(source: T[], target: T[], property?: (t: T) => any) => {
-    return _.differenceBy(source, target, property);
+export let except = <T>(source: T[], target: T[], property?: (t: T) => any): T[] => {
+    return _.differenceBy(getArray(source), getArray(target), property);
+}
+
+/**
+ * 获取差集
+ * @param source 源集合
+ * @param target 目标集合
+ * @param comparator 比较器
+ */
+export let exceptWith = <T>(source: T[], target: T[], comparator?: (s, t) => boolean): T[] => {
+    return _.differenceWith(getArray(source), getArray(target), comparator);
+}
+
+/**
+ * 获取集合
+ */
+function getArray<T>(array): T[] {
+    let list = new Array<T>();
+    if (array.length === undefined) {
+        list.push(array);
+        return list;
+    }
+    return <T[]>array;
+}
+
+/**
+ * 合并集合
+ * @param source 源集合
+ * @param target 目标集合
+ */
+export let concat = <T>(source: T[], target: T[]) => {
+    return _.concat(source, target);
 }
 
 /**
@@ -288,4 +319,13 @@ export let groupBy = <T>(source: T[], property?: (t: T) => any): Map<string, T[]
         result.set(key, groups[key].map(t => <T><any>t));
     }
     return result;
+}
+
+/**
+ * 去重复
+ * @param source 源集合
+ * @param property 属性
+ */
+export let distinct = <T>(source: T[], property?: (t: T) => any) => {
+    return _.uniqBy(source, property);
 }

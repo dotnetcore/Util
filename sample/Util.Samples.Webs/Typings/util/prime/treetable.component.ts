@@ -442,7 +442,9 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     getIds(nodes?): string {
         if (!nodes)
             return null;
-        return nodes.map(node => node && node.data && node.data.id).join(",");
+        if (!nodes.map)
+            return nodes.id || nodes.data && nodes.data.id;
+        return nodes.map(node => (node && node.id) || (node && node.data && node.data.id)).join(",");
     }
 
     /**
@@ -510,11 +512,13 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
 
     /**
      * 获取节点列表
-     * @param ids 节点标识列表
+     * @param ids 节点标识列表，逗号分隔的标识
      */
-    getByIds(ids: string[]): T[] {
+    getByIds(ids: string): T[] {
+        if (!ids)
+            return [];
         let result = new Array<T>();
-        this.addToResult(result, this.dataSource, ids);
+        this.addToResult(result, this.dataSource, ids.split(","));
         return result;
     }
 
@@ -867,6 +871,8 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      * 表头主复选框的选中状态
      */
     isMasterChecked() {
+        if (!this.dataSource || this.dataSource.length === 0)
+            return false;
         if (!this.selection || this.selection.length === 0)
             return false;
         let length = this.getNodesLength(this.dataSource);
@@ -1000,21 +1006,37 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
      */
     selectCheckboxs(event, node: T, selected?: boolean) {
         selected = selected || this.isSelected(node);
+        this.checkCheckboxs(node, selected);
+        this.distinctSelection();
+        this.selectionChange.emit(this.selection);
+        this.onNodeSelect.emit({ originalEvent: event, node: node });
+    }
+
+    /**
+     * 选中复选框
+     */
+    private checkCheckboxs(node: T, selected?: boolean) {
         if (selected) {
             this.propagateSelectionDown(node, false);
-            if (node.parent) {
+            if (node.parent)
                 this.propagateSelectionUp(node.parent, false);
-            }
-            this.selectionChange.emit(this.selection);
-            this.onNodeUnselect.emit({ originalEvent: event, node: node });
             return;
         }
         this.propagateSelectionDown(node, true);
-        if (node.parent) {
+        if (node.parent)
             this.propagateSelectionUp(node.parent, true);
-        }
-        this.selectionChange.emit(this.selection);
-        this.onNodeSelect.emit({ originalEvent: event, node: node });
+    }
+
+    /**
+     * 去重复
+     * @param nodes 节点列表
+     */
+    distinctSelection() {
+        if (!this.selection || this.selection.length === undefined)
+            return;
+        let distinct = util.helper.distinct(this.selection, (t: any) => t.data && t.data.id);
+        util.helper.clear(this.selection);
+        util.helper.addToArray(this.selection, distinct);
     }
 
     /**
