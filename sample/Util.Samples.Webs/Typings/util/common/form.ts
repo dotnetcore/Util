@@ -92,7 +92,7 @@ export class Form {
     private submitHandler(options: IFormSubmitOption, result) {
         options.handler && options.handler(result);
         if (options.showMessage !== false)
-            Message.snack(MessageConfig.successed);
+            Message.snack(options.message || MessageConfig.successed);
         if (options.back)
             RouterHelper.back();
         if (options.closeDialog)
@@ -144,6 +144,10 @@ export interface IFormSubmitOption {
      * 提交成功后是否显示成功提示，默认为true
      */
     showMessage?: boolean;
+    /**
+     * 提交成功后显示的提示消息，默认为"操作成功"
+     */
+    message?: string;
     /**
      * 提交成功后是否返回上一个视图，默认为false
      */

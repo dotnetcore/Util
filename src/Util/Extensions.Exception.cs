@@ -13,8 +13,10 @@ namespace Util {
         public static Exception GetRawException( this Exception exception ) {
             if( exception == null )
                 return null;
-            if( exception is Autofac.Core.DependencyResolutionException ex )
-                return GetRawException( ex.InnerException );
+            if( exception is Autofac.Core.DependencyResolutionException dependencyResolutionException )
+                return GetRawException( dependencyResolutionException.InnerException );
+            if ( exception is AspectCore.DynamicProxy.AspectInvocationException aspectInvocationException )
+                return GetRawException( aspectInvocationException.InnerException );
             return exception;
         }
 
