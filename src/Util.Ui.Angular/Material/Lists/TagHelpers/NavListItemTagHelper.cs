@@ -24,6 +24,14 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// </summary>
         public string BindLink { get; set; }
         /// <summary>
+        /// routerLinkActive,路由链接激活class
+        /// </summary>
+        public string Active { get; set; }
+        /// <summary>
+        /// [routerLinkActive],路由链接激活绑定
+        /// </summary>
+        public string BindActive { get; set; }
+        /// <summary>
         /// 单击事件处理函数,范例：handle()
         /// </summary>
         public string OnClick { get; set; }

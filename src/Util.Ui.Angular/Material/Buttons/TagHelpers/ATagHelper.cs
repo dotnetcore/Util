@@ -45,6 +45,14 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         public string BindLink { get; set; }
         /// <summary>
+        /// routerLinkActive,路由链接激活class
+        /// </summary>
+        public string Active { get; set; }
+        /// <summary>
+        /// [routerLinkActive],路由链接激活绑定
+        /// </summary>
+        public string BindActive { get; set; }
+        /// <summary>
         /// 查询参数表达式，范例：{id:1}
         /// </summary>
         public string QueryParams { get; set; }

@@ -61,6 +61,8 @@ namespace Util.Ui.Extensions {
             builder.AddAttribute( "href", config.GetValue( UiConst.Url ) );
             builder.AddAttribute( "routerLink", config.GetValue( UiConst.Link ) );
             builder.AddAttribute( "[routerLink]", config.GetValue( AngularConst.BindLink ) );
+            builder.AddAttribute( "routerLinkActive", config.GetValue( UiConst.Active ) );
+            builder.AddAttribute( "[routerLinkActive]", config.GetValue( AngularConst.BindActive ) );
             builder.AddAttribute( "[queryParams]", config.GetValue( UiConst.QueryParams ) );
             return builder;
         }

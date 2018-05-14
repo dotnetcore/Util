@@ -39,5 +39,9 @@
         /// 标签绑定
         /// </summary>
         public const string BindLabel = "bind-label";
+        /// <summary>
+        /// 激活绑定
+        /// </summary>
+        public const string BindActive = "bind-active";
     }
 }

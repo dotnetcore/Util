@@ -447,6 +447,9 @@
         /// 单击行时选中
         /// </summary>
         public const string CheckOnClickRow = "check-on-click-row";
-        
+        /// <summary>
+        /// 激活
+        /// </summary>
+        public const string Active = "active";
     }
 }

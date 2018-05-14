@@ -91,6 +91,28 @@ namespace Util.Ui.Tests.Material.Lists {
         }
 
         /// <summary>
+        /// 测试添加路由激活
+        /// </summary>
+        [Fact]
+        public void TestActive() {
+            var attributes = new TagHelperAttributeList { { UiConst.Active, "a" } };
+            var result = new String();
+            result.Append( "<a mat-list-item=\"\" routerLinkActive=\"a\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试添加路由激活绑定
+        /// </summary>
+        [Fact]
+        public void TestBindActive() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindActive, "a" } };
+            var result = new String();
+            result.Append( "<a mat-list-item=\"\" [routerLinkActive]=\"a\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试添加Url
         /// </summary>
         [Fact]
