@@ -86,7 +86,9 @@ namespace Util.Ui.CkEditor.Renders {
         /// </summary>
         private CkEditorConfig GetCkEditorConfig() {
             var result = new CkEditorConfig {
-                FileBrowserUploadUrl = _config.GetValueOrNull( UiConst.UploadUrl )
+                FileBrowserUploadUrl = _config.GetValueOrNull( UiConst.UploadUrl ),
+                Height = _config.GetValueOrNull( UiConst.Height ),
+                AllowedContent = _config.GetValue( UiConst.DisableFilter ).ToBoolOrNull()
             };
             return result;
         }

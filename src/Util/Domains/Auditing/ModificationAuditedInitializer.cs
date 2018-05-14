@@ -1,5 +1,5 @@
 ﻿using System;
-using Util.Domains.Sessions;
+using Util.Sessions;
 
 namespace Util.Domains.Auditing {
     /// <summary>

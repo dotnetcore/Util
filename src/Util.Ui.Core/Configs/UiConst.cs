@@ -451,5 +451,9 @@
         /// 激活
         /// </summary>
         public const string Active = "active";
+        /// <summary>
+        /// 禁用过滤
+        /// </summary>
+        public const string DisableFilter = "disable-filter";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Util.Exceptions;
+using Util.Security.Encryptors;
 using Util.Validations;
 
 namespace Util.Security.Identity.Models {

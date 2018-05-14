@@ -4,7 +4,7 @@ using Util.Datas.Tests.Samples.Datas.PgSql.UnitOfWorks;
 using Util.Datas.Tests.Samples.Domains.Repositories;
 using Util.Datas.UnitOfWorks;
 using Util.Dependency;
-using Util.Domains.Sessions;
+using Util.Sessions;
 
 namespace Util.Datas.Tests.PgSql.Configs {
     /// <summary>
@@ -25,7 +25,7 @@ namespace Util.Datas.Tests.PgSql.Configs {
         private void LoadInfrastructure( ContainerBuilder builder ) {
             builder.AddScoped<IUnitOfWorkManager, UnitOfWorkManager>();
             builder.AddScoped<IPgSqlUnitOfWork, PgSqlUnitOfWork>().PropertiesAutowired();
-            builder.AddSingleton<ISession>( new Session( AppConfig.UserId ) );
+            builder.AddSingleton<ISession>( new Util.Datas.Tests.Commons.Session( AppConfig.UserId ) );
         }
 
         /// <summary>

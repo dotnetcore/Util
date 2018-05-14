@@ -32,6 +32,14 @@ namespace Util.Ui.CkEditor.TagHelpers {
         /// 上传地址
         /// </summary>
         public string UploadUrl { get; set; }
+        /// <summary>
+        /// 高度
+        /// </summary>
+        public string Height { get; set; }
+        /// <summary>
+        /// 禁用过滤
+        /// </summary>
+        public bool DisableFilter { get; set; }
 
         /// <summary>
         /// 获取渲染器

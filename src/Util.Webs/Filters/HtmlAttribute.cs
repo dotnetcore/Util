@@ -19,11 +19,6 @@ namespace Util.Webs.Filters {
     /// </summary>
     public class HtmlAttribute : ActionFilterAttribute {
         /// <summary>
-        /// 是否忽略，设置为true则不生成html文件
-        /// </summary>
-        public bool Ignore { get; set; }
-
-        /// <summary>
         /// 生成路径，相对根路径，范例：/Typings/app/app.component.html
         /// </summary>
         public string Path { get; set; }
@@ -46,8 +41,6 @@ namespace Util.Webs.Filters {
         /// </summary>
         private async Task WriteViewToFileAsync( ResultExecutingContext context ) {
             try {
-                if( Ignore )
-                    return;
                 var html = await RenderToStringAsync( context );
                 if( string.IsNullOrWhiteSpace( html ) )
                     return;

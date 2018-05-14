@@ -1,4 +1,4 @@
-﻿namespace Util.Security {
+﻿namespace Util.Security.Encryptors {
     /// <summary>
     /// 空加密器
     /// </summary>

@@ -100,5 +100,27 @@ namespace Util.Ui.Tests.CkEditor {
             result.Append( "<ckeditor [config]=\"{'filebrowserUploadUrl':'a'}\"></ckeditor>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试高度
+        /// </summary>
+        [Fact]
+        public void TestHeight() {
+            var attributes = new TagHelperAttributeList { { UiConst.UploadUrl, "a" },{ UiConst.Height, "1" } };
+            var result = new String();
+            result.Append( "<ckeditor [config]=\"{'filebrowserUploadUrl':'a','height':'1'}\"></ckeditor>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试禁用过滤
+        /// </summary>
+        [Fact]
+        public void TestDisableFilter() {
+            var attributes = new TagHelperAttributeList { { UiConst.DisableFilter,true } };
+            var result = new String();
+            result.Append( "<ckeditor [config]=\"{'allowedContent':true}\"></ckeditor>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

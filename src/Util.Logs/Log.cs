@@ -1,10 +1,9 @@
-﻿using System;
-using Util.Domains.Sessions;
-using Util.Helpers;
+﻿using Util.Helpers;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
 using Util.Logs.Exceptionless;
 using Util.Security;
+using Util.Sessions;
 
 namespace Util.Logs {
     /// <summary>
@@ -49,8 +48,8 @@ namespace Util.Logs {
         /// </summary>
         protected override void Init( LogContent content ) {
             base.Init( content );
-            content.Tenant = Session.GetTenant();
-            content.Application = Session.GetApplication();
+            content.Tenant = Session.GetTenantName();
+            content.Application = Session.GetApplicationName();
             content.Operator = Session.GetFullName();
             content.Role = Session.GetRoleName();
         }
@@ -136,7 +135,7 @@ namespace Util.Logs {
                 return Ioc.Create<ISession>();
             }
             catch {
-                return Util.Domains.Sessions.Session.Null;
+                return Util.Security.Sessions.Session.Null;
             }
         }
 

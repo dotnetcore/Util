@@ -1,4 +1,9 @@
-﻿using Util.Domains.Sessions;
+﻿using System;
+using System.Collections.Generic;
+using Util.Helpers;
+using Util.Security.Principals;
+using Util.Sessions;
+using Convert = Util.Helpers.Convert;
 
 namespace Util.Security {
     /// <summary>
@@ -6,19 +11,27 @@ namespace Util.Security {
     /// </summary>
     public static class Extensions {
         /// <summary>
-        /// 获取当前应用程序
+        /// 获取当前操作人标识
         /// </summary>
         /// <param name="session">用户会话</param>
-        public static string GetApplication( this ISession session ) {
-            return "";
+        public static Guid GetUserId( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.UserId ).ToGuid();
         }
 
         /// <summary>
-        /// 获取当前租户
+        /// 获取当前操作人标识
         /// </summary>
         /// <param name="session">用户会话</param>
-        public static string GetTenant( this ISession session ) {
-            return "";
+        public static T GetUserId<T>( this ISession session ) {
+            return Convert.To<T>( Web.Identity.GetValue( ClaimTypes.UserId ) );
+        }
+
+        /// <summary>
+        /// 获取当前操作人用户名
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static string GetUserName( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.UserName );
         }
 
         /// <summary>
@@ -26,7 +39,103 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetFullName( this ISession session ) {
-            return "";
+            return Web.Identity.GetValue( ClaimTypes.FullName );
+        }
+
+        /// <summary>
+        /// 获取当前操作人电子邮件
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static string GetEmail( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.Email );
+        }
+
+        /// <summary>
+        /// 获取当前操作人手机号
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static string GetMobile( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.Mobile );
+        }
+
+        /// <summary>
+        /// 获取当前应用程序标识
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static Guid GetApplicationId( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.ApplicationId ).ToGuid();
+        }
+
+        /// <summary>
+        /// 获取当前应用程序标识
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static T GetApplicationId<T>( this ISession session ) {
+            return Convert.To<T>( Web.Identity.GetValue( ClaimTypes.ApplicationId ) );
+        }
+
+        /// <summary>
+        /// 获取当前应用程序编码
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static string GetApplicationCode( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.ApplicationCode );
+        }
+
+        /// <summary>
+        /// 获取当前应用程序名称
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static string GetApplicationName( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.ApplicationName );
+        }
+
+        /// <summary>
+        /// 获取当前租户标识
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static Guid GetTenantId( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.TenantId ).ToGuid();
+        }
+
+        /// <summary>
+        /// 获取当前租户标识
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static T GetTenantId<T>( this ISession session ) {
+            return Convert.To<T>( Web.Identity.GetValue( ClaimTypes.TenantId ) );
+        }
+
+        /// <summary>
+        /// 获取当前租户编码
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static string GetTenantCode( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.TenantCode );
+        }
+
+        /// <summary>
+        /// 获取当前租户名称
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static string GetTenantName( this ISession session ) {
+            return Web.Identity.GetValue( ClaimTypes.TenantName );
+        }
+
+        /// <summary>
+        /// 获取当前操作人角色标识列表
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static List<Guid> GetRoleIds( this ISession session ) {
+            return session.GetRoleIds<Guid>();
+        }
+
+        /// <summary>
+        /// 获取当前操作人角色标识列表
+        /// </summary>
+        /// <param name="session">用户会话</param>
+        public static List<T> GetRoleIds<T>( this ISession session ) {
+            return Convert.ToList<T>( Web.Identity.GetValue( ClaimTypes.RoleIds ) );
         }
 
         /// <summary>
@@ -34,7 +143,7 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetRoleName( this ISession session ) {
-            return "";
+            return Web.Identity.GetValue( ClaimTypes.RoleName );
         }
     }
 }

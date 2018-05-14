@@ -1,5 +1,5 @@
-﻿using Util.Domains.Sessions;
-using Util.Logs;
+﻿using Util.Logs;
+using Util.Sessions;
 
 namespace Util.Applications {
     /// <summary>
@@ -11,7 +11,7 @@ namespace Util.Applications {
         /// </summary>
         protected ServiceBase() {
             Log = Util.Logs.Log.Null;
-            Session = Util.Domains.Sessions.Session.Null;
+            Session = Util.Security.Sessions.Session.Null;
         }
 
         /// <summary>

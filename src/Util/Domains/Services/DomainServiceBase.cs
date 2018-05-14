@@ -1,6 +1,6 @@
-﻿using Util.Domains.Sessions;
-using Util.Logs;
+﻿using Util.Logs;
 using Util.Logs.Core;
+using Util.Sessions;
 
 namespace Util.Domains.Services {
     /// <summary>
@@ -12,7 +12,7 @@ namespace Util.Domains.Services {
         /// </summary>
         protected DomainServiceBase() {
             Log = NullLog.Instance;
-            Session = Util.Domains.Sessions.Session.Null;
+            Session = NullSession.Instance;
         }
 
         /// <summary>

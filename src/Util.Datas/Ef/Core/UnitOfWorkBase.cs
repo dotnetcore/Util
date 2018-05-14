@@ -9,10 +9,10 @@ using Microsoft.Extensions.Logging;
 using Util.Datas.Ef.Configs;
 using Util.Datas.UnitOfWorks;
 using Util.Domains.Auditing;
-using Util.Domains.Sessions;
 using Util.Exceptions;
 using Util.Datas.Ef.Logs;
 using Util.Logs;
+using Util.Sessions;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>
@@ -31,7 +31,7 @@ namespace Util.Datas.Ef.Core {
             : base( options ) {
             manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
-            Session = Util.Domains.Sessions.Session.Null;
+            Session = Util.Security.Sessions.Session.Null;
         }
 
         #endregion

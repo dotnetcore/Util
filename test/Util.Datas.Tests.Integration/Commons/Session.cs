@@ -1,4 +1,6 @@
-﻿namespace Util.Domains.Sessions {
+﻿using Util.Sessions;
+
+namespace Util.Datas.Tests.Commons {
     /// <summary>
     /// 用户会话
     /// </summary>
@@ -6,18 +8,12 @@
         /// <summary>
         /// 初始化用户会话
         /// </summary>
-        /// <param name="userId">用户编号</param>
         public Session( string userId ) {
             UserId = userId;
         }
 
         /// <summary>
-        /// 空用户会话
-        /// </summary>
-        public static readonly ISession Null = new NullSession();
-
-        /// <summary>
-        /// 用户编号
+        /// 用户标识
         /// </summary>
         public string UserId { get; }
     }
