@@ -19,5 +19,24 @@ namespace Util.Applications.Trees {
                 result = result.Where( id => id.SafeString().ToLower() != node.Id.SafeString().ToLower() ).ToList();
             return result;
         }
+
+        /// <summary>
+        /// 获取缺失的父标识列表
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="entities">实体列表</param>
+        public static List<string> GetMissingParentIds<TEntity>( this IEnumerable<TEntity> entities ) where TEntity : class,ITreeNode {
+            var result = new List<string>();
+            if( entities == null )
+                return result;
+            var list = entities.ToList();
+            list.ForEach( entity => {
+                if( entity == null )
+                    return;
+                result.AddRange( entity.GetParentIdsFromPath().Select( t => t.SafeString() ) );
+            } );
+            var ids = list.Select( t => t?.Id.SafeString() );
+            return result.Except( ids ).ToList();
+        }
     }
 }

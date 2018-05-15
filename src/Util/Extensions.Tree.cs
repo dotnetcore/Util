@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Util.Domains.Trees;
 
 namespace Util {
@@ -26,6 +29,27 @@ namespace Util {
             var sortId = entity.SortId;
             entity.SortId = swapEntity.SortId;
             swapEntity.SortId = sortId;
+        }
+
+        /// <summary>
+        /// 获取缺失的父标识列表
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// /// <typeparam name="TKey">标识类型</typeparam>
+        /// <typeparam name="TParentId">父标识类型</typeparam>
+        /// <param name="entities">实体列表</param>
+        public static List<string> GetMissingParentIds<TEntity,TKey,TParentId>( this IEnumerable<TEntity> entities ) where TEntity : class, ITreeEntity<TEntity, TKey, TParentId> {
+            var result = new List<string>();
+            if ( entities == null )
+                return result;
+            var list = entities.ToList();
+            list.ForEach( entity => {
+                if ( entity == null )
+                    return;
+                result.AddRange( entity.GetParentIdsFromPath().Select( t => t.SafeString() ) );
+            } );
+            var ids = list.Select( t => t?.Id.SafeString() );
+            return result.Except( ids ).ToList();
         }
     }
 }

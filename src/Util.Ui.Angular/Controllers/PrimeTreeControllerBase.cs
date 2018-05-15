@@ -239,35 +239,10 @@ namespace Util.Ui.Controllers {
         /// </summary>
         protected virtual async Task<PagerList<PrimeTreeNode<TDto>>> Search( TQuery query ) {
             var data = await _service.QueryAsync( query );
-            AddParents( data );
+            var ids = data.GetMissingParentIds();
+            var list = await _service.GetByIdsAsync( ids.Join() );
+            data.AddRange( list );
             return ToPagerList( data, query, true );
-        }
-
-        /// <summary>
-        /// 添加父节点
-        /// </summary>
-        protected void AddParents( List<TDto> result ) {
-            var ids = new List<string>();
-            foreach( var node in result )
-                AddParentIds( ids, node );
-            foreach( var node in result ) {
-                if( ids.Contains( node.Id ) )
-                    ids.Remove( node.Id );
-            }
-            var list = _service.GetByIds( ids.Join() );
-            result.AddRange( list );
-        }
-
-        /// <summary>
-        /// 添加父节点标识
-        /// </summary>
-        protected void AddParentIds( List<string> ids, TDto node ) {
-            var parentIds = node.GetParentIdsFromPath();
-            parentIds.ForEach( id => {
-                if( ids.Contains( id ) )
-                    return;
-                ids.Add( id );
-            } );
         }
     }
 }

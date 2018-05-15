@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Util.Security.Sessions {
     /// <summary>
@@ -72,6 +73,15 @@ namespace Util.Security.Sessions {
         /// <param name="context">Http上下文</param>
         protected virtual Task AuthenticateAfter( HttpContext context ) {
             return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 获取服务
+        /// </summary>
+        /// <param name="context">Http上下文</param>
+        /// <typeparam name="T">服务类型</typeparam>
+        protected T GetService<T>( HttpContext context ) {
+            return context.RequestServices.GetService<T>();
         }
     }
 }

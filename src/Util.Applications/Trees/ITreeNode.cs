@@ -1,12 +1,10 @@
-﻿namespace Util.Applications.Trees {
+﻿using Util.Applications.Dtos;
+
+namespace Util.Applications.Trees {
     /// <summary>
     /// 树节点
     /// </summary>
-    public interface ITreeNode {
-        /// <summary>
-        /// 标识
-        /// </summary>
-        string Id { get; set; }
+    public interface ITreeNode : IKey {
         /// <summary>
         /// 父标识
         /// </summary>
