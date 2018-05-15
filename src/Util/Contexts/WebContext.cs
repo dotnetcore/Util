@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Util.Helpers;
 
 namespace Util.Contexts {
     /// <summary>
@@ -6,22 +6,9 @@ namespace Util.Contexts {
     /// </summary>
     public class WebContext : IContext {
         /// <summary>
-        /// 初始化Web上下文
-        /// </summary>
-        /// <param name="accessor">Http上下文访问器</param>
-        public WebContext( IHttpContextAccessor accessor ) {
-            HttpContextAccessor = accessor;
-        }
-
-        /// <summary>
-        /// Http上下文访问器
-        /// </summary>
-        public IHttpContextAccessor HttpContextAccessor { get; set; }
-
-        /// <summary>
         /// 跟踪号
         /// </summary>
-        public string TraceId => HttpContextAccessor?.HttpContext?.TraceIdentifier;
+        public string TraceId => Web.HttpContext?.TraceIdentifier;
 
         /// <summary>
         /// 添加对象
@@ -30,9 +17,9 @@ namespace Util.Contexts {
         /// <param name="key">键名</param>
         /// <param name="value">对象</param>
         public void Add<T>( string key, T value ) {
-            if( HttpContextAccessor?.HttpContext == null )
+            if( Web.HttpContext == null )
                 return;
-            HttpContextAccessor.HttpContext.Items[key] = value;
+            Web.HttpContext.Items[key] = value;
         }
 
         /// <summary>
@@ -41,9 +28,9 @@ namespace Util.Contexts {
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="key">键名</param>
         public T Get<T>( string key ) {
-            if( HttpContextAccessor?.HttpContext == null )
+            if( Web.HttpContext == null )
                 return default( T );
-            return Util.Helpers.Convert.To<T>( HttpContextAccessor.HttpContext.Items[key] );
+            return Util.Helpers.Convert.To<T>( Web.HttpContext.Items[key] );
         }
 
         /// <summary>
@@ -51,7 +38,7 @@ namespace Util.Contexts {
         /// </summary>
         /// <param name="key">键名</param>
         public void Remove( string key ) {
-            HttpContextAccessor?.HttpContext?.Items.Remove( key );
+            Web.HttpContext?.Items.Remove( key );
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Util.Helpers;
 
 namespace Util.Security.Sessions {
     /// <summary>
@@ -34,24 +33,25 @@ namespace Util.Security.Sessions {
         /// 认证
         /// </summary>
         protected virtual async Task Authenticate( HttpContext context ) {
-            await AuthenticateBefore();
+            await AuthenticateBefore( context );
             if( IsAuthenticated( context ) == false )
                 return;
-            await LoadClaims( Web.Identity );
-            await AuthenticateAfter();
+            await LoadClaims( context, context.GetIdentity() );
+            await AuthenticateAfter( context );
         }
 
         /// <summary>
         /// 认证前操作
         /// </summary>
-        protected virtual Task AuthenticateBefore() {
+        /// <param name="context">Http上下文</param>
+        protected virtual Task AuthenticateBefore( HttpContext context ) {
             return Task.CompletedTask;
         }
 
         /// <summary>
         /// 是否认证
         /// </summary>
-        private bool IsAuthenticated( HttpContext context ) {
+        protected virtual bool IsAuthenticated( HttpContext context ) {
             if( context.User == null )
                 return false;
             if( context.User.Identity.IsAuthenticated == false )
@@ -62,13 +62,15 @@ namespace Util.Security.Sessions {
         /// <summary>
         /// 加载声明列表
         /// </summary>
+        /// <param name="context">Http上下文</param>
         /// <param name="identity">身份标识</param>
-        protected abstract Task LoadClaims( ClaimsIdentity identity );
+        protected abstract Task LoadClaims( HttpContext context, ClaimsIdentity identity );
 
         /// <summary>
         /// 认证后操作
         /// </summary>
-        protected virtual Task AuthenticateAfter() {
+        /// <param name="context">Http上下文</param>
+        protected virtual Task AuthenticateAfter( HttpContext context ) {
             return Task.CompletedTask;
         }
     }

@@ -16,7 +16,7 @@ namespace Util.Tests.XUnitHelpers {
         /// <param name="keyword">关键字</param>
         public static TException Throws<TException>( Action action,string keyword = "" ) where TException : Exception {
             var exception = GetException<TException>( action );
-            if( !string.IsNullOrWhiteSpace(keyword) )
+            if( !string.IsNullOrWhiteSpace( keyword ) )
                 Assert.Contains( keyword, exception.Message );
             return exception;
         }

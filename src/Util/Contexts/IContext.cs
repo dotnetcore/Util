@@ -1,8 +1,10 @@
-﻿namespace Util.Contexts {
+﻿using Util.Dependency;
+
+namespace Util.Contexts {
     /// <summary>
     /// 上下文
     /// </summary>
-    public interface IContext {
+    public interface IContext : ISingletonDependency {
         /// <summary>
         /// 跟踪号
         /// </summary>

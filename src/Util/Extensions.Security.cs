@@ -1,4 +1,6 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Util.Security.Principals;
 
 namespace Util {
     /// <summary>
@@ -15,6 +17,20 @@ namespace Util {
             if( claim == null )
                 return string.Empty;
             return claim.Value;
+        }
+
+        /// <summary>
+        /// 获取身份标识
+        /// </summary>
+        /// <param name="context">Http上下文</param>
+        public static ClaimsIdentity GetIdentity( this HttpContext context ) {
+            if( context == null )
+                return UnauthenticatedIdentity.Instance;
+            if( !(context.User is ClaimsPrincipal principal) )
+                return UnauthenticatedIdentity.Instance;
+            if( principal.Identity is ClaimsIdentity identity )
+                return identity;
+            return UnauthenticatedIdentity.Instance;
         }
     }
 }

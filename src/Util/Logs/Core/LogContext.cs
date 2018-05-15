@@ -29,6 +29,33 @@ namespace Util.Logs.Core {
         public IContext Context { get; set; }
 
         /// <summary>
+        /// 跟踪号
+        /// </summary>
+        public string TraceId => GetInfo().TraceId;
+
+        /// <summary>
+        /// 计时器
+        /// </summary>
+        public Stopwatch Stopwatch => GetInfo().Stopwatch;
+
+        /// <summary>
+        /// IP
+        /// </summary>
+        public string Ip => GetInfo().Ip;
+        /// <summary>
+        /// 主机
+        /// </summary>
+        public string Host => GetInfo().Host;
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        public string Browser => GetInfo().Browser;
+        /// <summary>
+        /// 请求地址
+        /// </summary>
+        public string Url => GetInfo().Url;
+
+        /// <summary>
         /// 获取日志上下文信息
         /// </summary>
         private LogContextInfo GetInfo() {
@@ -73,32 +100,5 @@ namespace Util.Logs.Core {
             stopwatch.Start();
             return stopwatch;
         }
-
-        /// <summary>
-        /// 跟踪号
-        /// </summary>
-        public string TraceId => GetInfo().TraceId;
-
-        /// <summary>
-        /// 计时器
-        /// </summary>
-        public Stopwatch Stopwatch => GetInfo().Stopwatch;
-
-        /// <summary>
-        /// IP
-        /// </summary>
-        public string Ip => GetInfo().Ip;
-        /// <summary>
-        /// 主机
-        /// </summary>
-        public string Host => GetInfo().Host;
-        /// <summary>
-        /// 浏览器
-        /// </summary>
-        public string Browser => GetInfo().Browser;
-        /// <summary>
-        /// 请求地址
-        /// </summary>
-        public string Url => GetInfo().Url;
     }
 }

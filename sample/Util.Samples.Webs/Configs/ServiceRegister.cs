@@ -18,7 +18,6 @@ namespace Util.Samples.Webs.Configs {
         /// 注册依赖
         /// </summary>
         public void Regist( IServiceCollection services ) {
-            services.AddSingleton<ISession, NullSession>();
             services.AddIdentity<IdentityUser, Role>()
                 .AddRoleStore<RoleRepository>();
             services.AddScoped<IdentityErrorDescriber, IdentityErrorChineseDescriber>();
