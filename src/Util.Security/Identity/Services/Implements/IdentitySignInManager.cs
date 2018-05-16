@@ -46,6 +46,7 @@ namespace Util.Security.Identity.Services.Implements {
         public override async Task<ClaimsPrincipal> CreateUserPrincipalAsync( TUser user ) {
             var principal = await base.CreateUserPrincipalAsync( user );
             var identity = principal.Identity as ClaimsIdentity;
+            user.AddUserClaims();
             identity?.AddClaims( user.GetClaims() );
             return principal;
         }

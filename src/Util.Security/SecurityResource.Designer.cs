@@ -115,6 +115,15 @@ namespace Util.Security {
         }
         
         /// <summary>
+        ///   查找类似 帐号无效或密码不正确 的本地化字符串。
+        /// </summary>
+        public static string InvalidAccountOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidAccountOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 电子邮件无效或密码不正确 的本地化字符串。
         /// </summary>
         public static string InvalidEmailOrPassword {

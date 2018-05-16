@@ -118,10 +118,18 @@ namespace Util.Security.Identity.Models {
         }
 
         /// <summary>
-        /// 获取声明列表
+        /// 添加声明
         /// </summary>
         public void AddClaim( string type,string value) {
             AddClaim( new Claim( type, value ) );
+        }
+
+        /// <summary>
+        /// 添加用户声明
+        /// </summary>
+        public void AddUserClaims() {
+            AddClaim( Util.Security.Principals.ClaimTypes.Mobile, PhoneNumber );
+            AddClaim( Util.Security.Principals.ClaimTypes.Email, Email );
         }
     }
 }

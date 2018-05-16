@@ -16,7 +16,7 @@ namespace Util.Security.Identity.Services.Implements {
         /// </summary>
         /// <param name="signInManager">Identity登录服务</param>
         /// <param name="userManager">用户服务</param>
-        public SignInManager( IdentitySignInManager<TUser, TKey> signInManager,IUserManager<TUser, TKey> userManager ) {
+        public SignInManager( IdentitySignInManager<TUser, TKey> signInManager, IUserManager<TUser, TKey> userManager ) {
             IdentitySignInManager = signInManager;
             UserManager = userManager;
         }
@@ -31,13 +31,40 @@ namespace Util.Security.Identity.Services.Implements {
         protected IUserManager<TUser, TKey> UserManager { get; }
 
         /// <summary>
-        /// 密码登录
+        /// 登录
         /// </summary>
-        /// <param name="user">用户</param>
+        /// <param name="account">帐号，可以是用户名，手机号或电子邮件</param>
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        public async Task<SignInResult> PasswordSignInAsync( TUser user, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+        /// <param name="applicationCode">应用程序编码</param>
+        public async Task<SignInResult> SignInAsync( string account, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" ) {
+            var user = await GetUser( account );
+            if( user == null )
+                throw new Warning( SecurityResource.InvalidAccountOrPassword );
+            var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
+            if( result == SignInResult.Failed )
+                throw new Warning( SecurityResource.InvalidAccountOrPassword );
+            return result;
+        }
+
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        private async Task<TUser> GetUser( string account ) {
+            var user = await UserManager.FindByPhoneAsync( account );
+            if( user == null )
+                user = await UserManager.FindByNameAsync( account );
+            if( user == null )
+                user = await UserManager.FindByEmailAsync( account );
+            return user;
+        }
+
+        /// <summary>
+        /// 密码登录
+        /// </summary>
+        private async Task<SignInResult> PasswordSignIn( TUser user, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" ) {
+            await AddClaimsToUser( user, applicationCode );
             var result = await IdentitySignInManager.PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
             if( result.Succeeded )
                 return SignInResult.Succeeded;
@@ -51,17 +78,27 @@ namespace Util.Security.Identity.Services.Implements {
         }
 
         /// <summary>
+        /// 添加声明到用户
+        /// </summary>
+        /// <param name="user">用户</param>
+        /// <param name="applicationCode">应用程序编码</param>
+        protected virtual Task AddClaimsToUser( TUser user, string applicationCode ) {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
         /// 用户名密码登录
         /// </summary>
         /// <param name="userName">用户</param>
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        public async Task<SignInResult> SignInByUserNameAsync( string userName, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+        /// <param name="applicationCode">应用程序编码</param>
+        public async Task<SignInResult> SignInByUserNameAsync( string userName, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" ) {
             var user = await UserManager.FindByNameAsync( userName );
             if( user == null )
                 throw new Warning( SecurityResource.InvalidUserNameOrPassword );
-            var result =  await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
             if( result == SignInResult.Failed )
                 throw new Warning( SecurityResource.InvalidUserNameOrPassword );
             return result;
@@ -74,11 +111,12 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        public async Task<SignInResult> SignInByEmailAsync( string email, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+        /// <param name="applicationCode">应用程序编码</param>
+        public async Task<SignInResult> SignInByEmailAsync( string email, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" ) {
             var user = await UserManager.FindByEmailAsync( email );
             if( user == null )
                 throw new Warning( SecurityResource.InvalidEmailOrPassword );
-            var result = await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
             if( result == SignInResult.Failed )
                 throw new Warning( SecurityResource.InvalidEmailOrPassword );
             return result;
@@ -91,11 +129,12 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        public async Task<SignInResult> SignInByPhoneAsync( string phoneNumber, string password, bool isPersistent = false, bool lockoutOnFailure = true ) {
+        /// <param name="applicationCode">应用程序编码</param>
+        public async Task<SignInResult> SignInByPhoneAsync( string phoneNumber, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" ) {
             var user = await UserManager.FindByPhoneAsync( phoneNumber );
             if( user == null )
                 throw new Warning( SecurityResource.InvalidPhoneOrPassword );
-            var result = await PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
             if( result == SignInResult.Failed )
                 throw new Warning( SecurityResource.InvalidPhoneOrPassword );
             return result;

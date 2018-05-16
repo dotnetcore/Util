@@ -11,37 +11,41 @@ namespace Util.Security.Identity.Services.Abstractions {
     /// <typeparam name="TKey">用户类型</typeparam>
     public interface ISignInManager<in TUser, TKey> : IDomainService where TUser : User<TUser, TKey> {
         /// <summary>
-        /// 密码登录
+        /// 登录
         /// </summary>
-        /// <param name="user">用户</param>
+        /// <param name="account">帐号，可以是用户名，手机号或电子邮件</param>
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        Task<SignInResult> PasswordSignInAsync( TUser user, string password, bool isPersistent = false, bool lockoutOnFailure = true );
+        /// <param name="applicationCode">应用程序编码</param>
+        Task<SignInResult> SignInAsync( string account, string password, bool isPersistent = false,bool lockoutOnFailure = true, string applicationCode = "" );
         /// <summary>
-        /// 用户名密码登录
+        /// 用户名登录
         /// </summary>
         /// <param name="userName">用户</param>
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        Task<SignInResult> SignInByUserNameAsync( string userName, string password, bool isPersistent = false,bool lockoutOnFailure = true );
+        /// <param name="applicationCode">应用程序编码</param>
+        Task<SignInResult> SignInByUserNameAsync( string userName, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" );
         /// <summary>
-        /// 电子邮件密码登录
+        /// 电子邮件登录
         /// </summary>
         /// <param name="email">电子邮件</param>
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        Task<SignInResult> SignInByEmailAsync( string email, string password, bool isPersistent = false,bool lockoutOnFailure = true );
+        /// <param name="applicationCode">应用程序编码</param>
+        Task<SignInResult> SignInByEmailAsync( string email, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" );
         /// <summary>
-        /// 手机号密码登录
+        /// 手机号登录
         /// </summary>
         /// <param name="phoneNumber">手机号</param>
         /// <param name="password">密码</param>
         /// <param name="isPersistent">cookie是否持久保留,设置为false,当关闭浏览器则cookie失效</param>
         /// <param name="lockoutOnFailure">达到登录失败次数是否锁定</param>
-        Task<SignInResult> SignInByPhoneAsync( string phoneNumber, string password, bool isPersistent = false,bool lockoutOnFailure = true );
+        /// <param name="applicationCode">应用程序编码</param>
+        Task<SignInResult> SignInByPhoneAsync( string phoneNumber, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" );
         /// <summary>
         /// 退出登录
         /// </summary>
