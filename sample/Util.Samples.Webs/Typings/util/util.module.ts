@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 //Angular模块
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -59,10 +59,6 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 //Util服务
 import { DicService } from './services/dic.service';
 
-//Util安全服务
-import { Authorize } from './security/authorize';
-import { Session } from './security/session';
-
 /**
  * Util模块
  */
@@ -104,7 +100,7 @@ import { Session } from './security/session';
         DialogWrapperComponent, ConfirmComponent, LoadingComponent
     ],
     providers: [
-        Session, Authorize, DicService,
+        DicService,
         MessageService, MAT_DATE_LOCALE_PROVIDER,
         { provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl },
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },

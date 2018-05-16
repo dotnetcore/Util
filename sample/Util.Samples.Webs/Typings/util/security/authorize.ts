@@ -20,8 +20,8 @@ export class Authorize implements CanActivate {
      * 初始化
      * @param session 用户会话
      */
-    constructor(injector: Injector) {
-        util.ioc.injector = injector;
+    constructor(injector: Injector, private session: Session) {
+        util.ioc.componentInjector = injector;
         Authorize.loginUrl = "/login";
     }
 
@@ -29,8 +29,7 @@ export class Authorize implements CanActivate {
      * 是否激活组件
      */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        let session = util.ioc.get(Session);
-        if (session.isAuthenticated)
+        if (this.session && this.session.isAuthenticated)
             return true;
         util.router.navigateByQuery([Authorize.loginUrl], { returnUrl: state.url });
         return false;
