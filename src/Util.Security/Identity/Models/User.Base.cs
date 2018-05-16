@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using Util.Domains;
 using Util.Domains.Auditing;
 
@@ -17,6 +19,7 @@ namespace Util.Security.Identity.Models {
         /// </summary>
         /// <param name="id">用户标识</param>
         protected User( TKey id ) : base( id ) {
+            _claims = new List<Claim>();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -22,8 +23,8 @@ namespace Util.Security.Identity.Services.Implements {
         /// <param name="optionsAccessor">Identity配置</param>
         /// <param name="logger">日志</param>
         /// <param name="schemes">认证架构提供程序</param>
-        public IdentitySignInManager( UserManager<TUser> userManager, IHttpContextAccessor contextAccessor, 
-            IUserClaimsPrincipalFactory<TUser> claimsFactory, IOptions<IdentityOptions> optionsAccessor, 
+        public IdentitySignInManager( UserManager<TUser> userManager, IHttpContextAccessor contextAccessor,
+            IUserClaimsPrincipalFactory<TUser> claimsFactory, IOptions<IdentityOptions> optionsAccessor,
             ILogger<SignInManager<TUser>> logger, IAuthenticationSchemeProvider schemes )
                 : base( userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes ) {
         }
@@ -33,9 +34,20 @@ namespace Util.Security.Identity.Services.Implements {
         /// </summary>
         /// <param name="user">用户</param>
         public override async Task<bool> CanSignInAsync( TUser user ) {
-            if ( user.Enabled == false )
+            if( user.Enabled == false )
                 return false;
             return await base.CanSignInAsync( user );
+        }
+
+        /// <summary>
+        /// 创建用户安全主体
+        /// </summary>
+        /// <param name="user">用户</param>
+        public override async Task<ClaimsPrincipal> CreateUserPrincipalAsync( TUser user ) {
+            var principal = await base.CreateUserPrincipalAsync( user );
+            var identity = principal.Identity as ClaimsIdentity;
+            identity?.AddClaims( user.GetClaims() );
+            return principal;
         }
     }
 }

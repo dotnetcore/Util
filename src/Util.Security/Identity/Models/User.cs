@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
 using Util.Exceptions;
 using Util.Security.Encryptors;
 using Util.Validations;
@@ -8,6 +10,11 @@ namespace Util.Security.Identity.Models {
     /// 用户
     /// </summary>
     public partial class User<TUser,TKey> {
+        /// <summary>
+        /// 声明列表
+        /// </summary>
+        private readonly List<Claim> _claims;
+
         /// <summary>
         /// 加密器
         /// </summary>
@@ -90,6 +97,31 @@ namespace Util.Security.Identity.Models {
         /// </summary>
         public string GetSafePassword() {
             return GetEncryptor().Decrypt( SafePassword );
+        }
+
+        /// <summary>
+        /// 获取声明列表
+        /// </summary>
+        public virtual List<Claim> GetClaims() {
+            return _claims;
+        }
+
+        /// <summary>
+        /// 获取声明列表
+        /// </summary>
+        public void AddClaim( Claim claim ) {
+            if ( claim == null )
+                return;
+            if ( _claims.Exists( t => t.Type.SafeString().ToLower() == claim.Type.SafeString().ToLower() ) )
+                return;
+            _claims.Add( claim );
+        }
+
+        /// <summary>
+        /// 获取声明列表
+        /// </summary>
+        public void AddClaim( string type,string value) {
+            AddClaim( new Claim( type, value ) );
         }
     }
 }
