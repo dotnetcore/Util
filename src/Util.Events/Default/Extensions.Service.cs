@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Events.Handlers;
 
 namespace Util.Events.Default {
@@ -11,8 +12,9 @@ namespace Util.Events.Default {
         /// </summary>
         /// <param name="services">服务集合</param>
         public static IServiceCollection AddEventBus( this IServiceCollection services ) {
-            return services.AddSingleton<IEventHandlerManager, EventHandlerManager>()
-                .AddSingleton<IEventBus, Util.Events.Default.EventBus>();
+            services.TryAddSingleton<IEventHandlerManager, EventHandlerManager>();
+            services.TryAddSingleton<IEventBus, EventBus>();
+            return services;
         }
     }
 }

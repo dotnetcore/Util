@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Datas.Ef.Configs;
 using Util.Datas.Ef.Core;
 using Util.Datas.UnitOfWorks;
@@ -21,7 +22,7 @@ namespace Util.Datas.Ef {
             where TService : class, IUnitOfWork
             where TImplementation : UnitOfWorkBase, TService {
             services.AddDbContext<TImplementation>( configAction );
-            services.AddScoped<TService, TImplementation>();
+            services.TryAddScoped<TService, TImplementation>();
             return services;
         }
 

@@ -87,6 +87,8 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * 添加到选中项列表
      */
     protected addToSelection(selection: TViewModel[]) {
+        if (!selection)
+            return;
         let ids = this.getIds(selection);
         let nodes = this.table.getByIds(ids);
         let except = this.util.helper.exceptWith(selection, nodes, (s, t) => this.compare(s, t));

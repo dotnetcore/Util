@@ -1,6 +1,7 @@
 ﻿using System;
 using Exceptionless;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
 using Util.Logs.Formats;
@@ -15,10 +16,10 @@ namespace Util.Logs.Extensions {
         /// </summary>
         /// <param name="services">服务集合</param>
         public static void AddNLog( this IServiceCollection services ) {
-            services.AddScoped<ILogProviderFactory, Util.Logs.NLog.LogProviderFactory>();
-            services.AddSingleton<ILogFormat, ContentFormat>();
-            services.AddScoped<ILogContext, LogContext>();
-            services.AddScoped<ILog, Log>();
+            services.TryAddScoped<ILogProviderFactory, Util.Logs.NLog.LogProviderFactory>();
+            services.TryAddSingleton<ILogFormat, ContentFormat>();
+            services.TryAddScoped<ILogContext, LogContext>();
+            services.TryAddScoped<ILog, Log>();
         }
 
         /// <summary>
@@ -27,10 +28,10 @@ namespace Util.Logs.Extensions {
         /// <param name="services">服务集合</param>
         /// <param name="configAction">配置操作</param>
         public static void AddExceptionless( this IServiceCollection services, Action<ExceptionlessConfiguration> configAction ) {
-            services.AddScoped<ILogProviderFactory, Util.Logs.Exceptionless.LogProviderFactory>();
-            services.AddSingleton( typeof( ILogFormat ), t => NullLogFormat.Instance );
-            services.AddScoped<ILogContext, Util.Logs.Exceptionless.LogContext>();
-            services.AddScoped<ILog, Log>();
+            services.TryAddScoped<ILogProviderFactory, Util.Logs.Exceptionless.LogProviderFactory>();
+            services.TryAddSingleton( typeof( ILogFormat ), t => NullLogFormat.Instance );
+            services.TryAddScoped<ILogContext, Util.Logs.Exceptionless.LogContext>();
+            services.TryAddScoped<ILog, Log>();
             configAction?.Invoke( ExceptionlessClient.Default.Configuration );
         }
     }
