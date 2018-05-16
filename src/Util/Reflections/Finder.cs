@@ -60,6 +60,8 @@ namespace Util.Reflections {
         protected virtual bool Match( AssemblyName assemblyName ) {
             if ( assemblyName.FullName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.Views" ) )
                 return false;
+            if( assemblyName.FullName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.PrecompiledViews" ) )
+                return false;
             return !Regex.IsMatch( assemblyName.FullName, SkipAssemblies, RegexOptions.IgnoreCase | RegexOptions.Compiled );
         }
 

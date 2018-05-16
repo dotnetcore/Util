@@ -16,6 +16,8 @@ export { PagerList } from './core/pager-list';
 export { Result, FailResult, StateCode } from './core/result';
 export { SelectItem } from './core/select';
 export { DicService } from './services/dic.service';
+export { Authorize } from './security/authorize';
+export { Session } from './security/session';
 export { TableWrapperComponent } from './material/table-wrapper.component';
 export { SelectWrapperComponent } from './material/select-wrapper.component';
 export { TextBoxWrapperComponent } from './material/textbox-wrapper.component';

@@ -59,6 +59,10 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 //Util服务
 import { DicService } from './services/dic.service';
 
+//Util安全服务
+import { Authorize } from './security/authorize';
+import { Session } from './security/session';
+
 /**
  * Util模块
  */
@@ -100,7 +104,8 @@ import { DicService } from './services/dic.service';
         DialogWrapperComponent, ConfirmComponent, LoadingComponent
     ],
     providers: [
-        MessageService, MAT_DATE_LOCALE_PROVIDER, DicService,
+        Session, Authorize, DicService,
+        MessageService, MAT_DATE_LOCALE_PROVIDER,
         { provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl },
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
         { provide: DateAdapter, useClass: UtilDateAdapter },
