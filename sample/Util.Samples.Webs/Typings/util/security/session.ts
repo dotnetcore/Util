@@ -10,18 +10,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Session {
     /**
-     * 初始化
-     */
-    constructor() {
-        this.isAuthenticated = false;
-    }
-
-    /**
      * 是否认证
      */
-    isAuthenticated: boolean;
+    isAuthenticated;
+
     /**
      * 用户标识
      */
-    userId: string;
+    userId;
 }

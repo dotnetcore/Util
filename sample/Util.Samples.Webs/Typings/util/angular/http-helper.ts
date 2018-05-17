@@ -154,6 +154,19 @@ export class HttpRequest<T> {
     }
 
     /**
+     * 处理响应
+     * @param handler 响应处理函数
+     * @param errorHandler 错误处理函数
+     * @param beforeHandler 发送前处理函数，返回false则取消发送
+     * @param completeHandler 请求完成处理函数
+     */
+    handleAsync(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void, beforeHandler?: () => boolean, completeHandler?: () => void): Promise<void> {
+        if (beforeHandler && beforeHandler() === false)
+            return;
+        return this.request().toPromise().then(handler).catch(errorHandler).then(completeHandler);
+    }
+
+    /**
      * 发送请求
      */
     private request() {

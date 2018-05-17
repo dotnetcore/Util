@@ -183,6 +183,21 @@ export class WebApiRequest<T> {
     }
 
     /**
+     * 处理响应
+     * @param options 响应处理器配置
+     */
+    handleAsync(options: WebApiHandleOptions<T>): Promise<void> {
+        if (!options)
+            return;
+        return this.request.handleAsync(
+            (result: Result<T>) => this.handleOk(options, result),
+            (error: HttpErrorResponse) => this.handleFail(options, undefined, error),
+            () => this.handleBefore(options),
+            () => this.handleComplete(options)
+        );
+    }
+
+    /**
      * 处理成功响应
      */
     private handleOk(options: WebApiHandleOptions<T>, result: Result<T>) {
@@ -325,4 +340,3 @@ export class WebApiHandleOptions<T> {
      */
     completeHandler?: () => void;
 }
-

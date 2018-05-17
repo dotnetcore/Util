@@ -43,7 +43,7 @@ namespace Util.Security.Identity.Services.Implements {
             if( user == null )
                 throw new Warning( SecurityResource.InvalidAccountOrPassword );
             var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
-            if( result == SignInResult.Failed )
+            if( result.State == SignInState.Failed )
                 throw new Warning( SecurityResource.InvalidAccountOrPassword );
             return result;
         }
@@ -65,16 +65,16 @@ namespace Util.Security.Identity.Services.Implements {
         /// </summary>
         private async Task<SignInResult> PasswordSignIn( TUser user, string password, bool isPersistent = false, bool lockoutOnFailure = true, string applicationCode = "" ) {
             await AddClaimsToUser( user, applicationCode );
-            var result = await IdentitySignInManager.PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
-            if( result.Succeeded )
-                return SignInResult.Succeeded;
-            if( result.RequiresTwoFactor )
-                return SignInResult.TwoFactor;
-            if( result.IsNotAllowed )
+            var signInResult = await IdentitySignInManager.PasswordSignInAsync( user, password, isPersistent, lockoutOnFailure );
+            if( signInResult.IsNotAllowed )
                 throw new Warning( SecurityResource.UserIsDisabled );
-            if( result.IsLockedOut )
+            if( signInResult.IsLockedOut )
                 throw new Warning( SecurityResource.LoginFailLock );
-            return SignInResult.Failed;
+            if( signInResult.Succeeded )
+                return new SignInResult( SignInState.Succeeded,user.Id.SafeString() );
+            if( signInResult.RequiresTwoFactor )
+                return new SignInResult( SignInState.TwoFactor, user.Id.SafeString() );
+            return new SignInResult( SignInState.Failed, string.Empty );
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Util.Security.Identity.Services.Implements {
             if( user == null )
                 throw new Warning( SecurityResource.InvalidUserNameOrPassword );
             var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
-            if( result == SignInResult.Failed )
+            if( result.State == SignInState.Failed )
                 throw new Warning( SecurityResource.InvalidUserNameOrPassword );
             return result;
         }
@@ -117,7 +117,7 @@ namespace Util.Security.Identity.Services.Implements {
             if( user == null )
                 throw new Warning( SecurityResource.InvalidEmailOrPassword );
             var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
-            if( result == SignInResult.Failed )
+            if( result.State == SignInState.Failed )
                 throw new Warning( SecurityResource.InvalidEmailOrPassword );
             return result;
         }
@@ -135,7 +135,7 @@ namespace Util.Security.Identity.Services.Implements {
             if( user == null )
                 throw new Warning( SecurityResource.InvalidPhoneOrPassword );
             var result = await PasswordSignIn( user, password, isPersistent, lockoutOnFailure, applicationCode );
-            if( result == SignInResult.Failed )
+            if( result.State == SignInState.Failed )
                 throw new Warning( SecurityResource.InvalidPhoneOrPassword );
             return result;
         }

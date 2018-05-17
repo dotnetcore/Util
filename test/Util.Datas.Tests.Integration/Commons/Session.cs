@@ -16,5 +16,10 @@ namespace Util.Datas.Tests.Commons {
         /// 用户标识
         /// </summary>
         public string UserId { get; }
+
+        /// <summary>
+        /// 是否认证
+        /// </summary>
+        public bool IsAuthenticated => throw new System.NotImplementedException();
     }
 }

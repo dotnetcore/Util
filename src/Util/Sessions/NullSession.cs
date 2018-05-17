@@ -4,6 +4,11 @@
     /// </summary>
     public class NullSession : ISession {
         /// <summary>
+        /// 是否认证
+        /// </summary>
+        public bool IsAuthenticated => false;
+
+        /// <summary>
         /// 用户编号
         /// </summary>
         public string UserId => string.Empty;

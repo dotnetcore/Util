@@ -2,18 +2,32 @@
     /// <summary>
     /// 登录结果
     /// </summary>
-    public enum SignInResult {
+    public class SignInResult {
         /// <summary>
-        /// 登录成功
+        /// 初始化
         /// </summary>
-        Succeeded,
+        public SignInResult() {
+            State = SignInState.Failed;
+        }
+
         /// <summary>
-        /// 失败
+        /// 初始化
         /// </summary>
-        Failed,
+        /// <param name="state">登录状态</param>
+        /// <param name="userId">用户标识</param>
+        public SignInResult( SignInState state, string userId ) {
+            State = state;
+            UserId = userId;
+        }
+
         /// <summary>
-        /// 需要两阶段认证
+        /// 登录状态
         /// </summary>
-        TwoFactor
+        public SignInState State { get; set; }
+
+        /// <summary>
+        /// 用户标识
+        /// </summary>
+        public string UserId { get; set; }
     }
 }

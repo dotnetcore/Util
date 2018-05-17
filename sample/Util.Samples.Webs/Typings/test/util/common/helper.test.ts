@@ -38,6 +38,27 @@ describe("util.helper", () => {
         expect(util.helper.toNumber(1.567, 1, true)).toEqual(1.5);
         expect(util.helper.isNumber(util.helper.toNumber("8.99999999999999999", 2, true))).toBeTruthy();
     });
+    it("toBool", () => {
+        expect(util.helper.toBool(true)).toBeTruthy(1);        
+        expect(util.helper.toBool("true")).toBeTruthy(2);
+        expect(util.helper.toBool("TRUE")).toBeTruthy(3);
+        expect(util.helper.toBool(1)).toBeTruthy(4);
+        expect(util.helper.toBool("1")).toBeTruthy(5);
+        expect(util.helper.toBool("yes")).toBeTruthy(6);
+        expect(util.helper.toBool("YES")).toBeTruthy(7);
+        expect(util.helper.toBool("ok")).toBeTruthy(8);
+        expect(util.helper.toBool("OK")).toBeTruthy(9);
+        expect(util.helper.toBool("是")).toBeTruthy(10);
+        expect(util.helper.toBool(undefined)).toBeFalsy(11);
+        expect(util.helper.toBool(null)).toBeFalsy(12);
+        expect(util.helper.toBool("")).toBeFalsy(13);
+        expect(util.helper.toBool(0)).toBeFalsy(14);        
+        expect(util.helper.toBool("0")).toBeFalsy(15);
+        expect(util.helper.toBool(false)).toBeFalsy(16);
+        expect(util.helper.toBool("false")).toBeFalsy(17);
+        expect(util.helper.toBool("FALSE")).toBeFalsy(18);        
+        expect(util.helper.toBool("a")).toBeFalsy(19);
+    });
     it("isEmptyArray", () => {
         expect(util.helper.isEmptyArray(undefined)).toBeFalsy();
         expect(util.helper.isEmptyArray(null)).toBeFalsy();

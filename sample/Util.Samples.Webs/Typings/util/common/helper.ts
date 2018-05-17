@@ -65,6 +65,35 @@ export let toNumber = (value, precision?, isTruncate?: boolean) => {
 }
 
 /**
+ * 转换为字符串
+ * @param value 输入值
+ */
+export let toString = (value): string => {
+    return _.toString(value).trim();
+}
+
+/**
+ * 转换为布尔值
+ * @param value 输入值
+ */
+export let toBool = (value): boolean => {    
+    if (value === true)
+        return true;
+    let strValue = toString(value).toLowerCase();
+    if (strValue === "1")
+        return true;
+    if (strValue === "true")
+        return true;
+    if (strValue === "是")
+        return true;
+    if (strValue === "yes")
+        return true;
+    if (strValue === "ok")
+        return true;    
+    return false
+}
+
+/**
  * 是否数组
  * @param value 值
  */
