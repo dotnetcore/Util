@@ -186,10 +186,10 @@ export class WebApiRequest<T> {
      * 处理响应
      * @param options 响应处理器配置
      */
-    handleAsync(options: WebApiHandleOptions<T>): Promise<void> {
+    async handleAsync(options: WebApiHandleOptions<T>): Promise<void> {
         if (!options)
             return;
-        return this.request.handleAsync(
+        return await this.request.handleAsync(
             (result: Result<T>) => this.handleOk(options, result),
             (error: HttpErrorResponse) => this.handleFail(options, undefined, error),
             () => this.handleBefore(options),

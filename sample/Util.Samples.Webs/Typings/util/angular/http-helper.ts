@@ -160,10 +160,10 @@ export class HttpRequest<T> {
      * @param beforeHandler 发送前处理函数，返回false则取消发送
      * @param completeHandler 请求完成处理函数
      */
-    handleAsync(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void, beforeHandler?: () => boolean, completeHandler?: () => void): Promise<void> {
+    async handleAsync(handler: (value: T) => void, errorHandler?: (error: HttpErrorResponse) => void, beforeHandler?: () => boolean, completeHandler?: () => void): Promise<void> {
         if (beforeHandler && beforeHandler() === false)
             return;
-        return this.request().toPromise().then(handler).catch(errorHandler).then(completeHandler);
+        return await this.request().toPromise().then(handler).catch(errorHandler).then(completeHandler);
     }
 
     /**
