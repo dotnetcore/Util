@@ -14,7 +14,7 @@ namespace Util.Reflections {
         /// <summary>
         /// 跳过的程序集
         /// </summary>
-        private const string SkipAssemblies = "^System|^Mscorlib|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Xunit|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted|^libuv";
+        private const string SkipAssemblies = "^System|^Mscorlib|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Xunit|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted|^libuv|^api-ms|^clrcompression|^clretwrc|^clrjit|^coreclr|^dbgshim|^e_sqlite3|^hostfxr|^hostpolicy|^MessagePack|^mscordaccore|^mscordbi|^mscorrc|sni|sos|SOS.NETCore|^sos_amd64|^SQLitePCLRaw|^StackExchange|^Swashbuckle|WindowsBase|ucrtbase";
 
         /// <summary>
         /// 获取程序集列表
@@ -48,21 +48,22 @@ namespace Util.Reflections {
         /// <param name="path">目录绝对路径</param>
         protected void LoadAssemblies( string path ) {
             foreach( string file in Directory.GetFiles( path, "*.dll" ) ) {
+                if ( Match( Path.GetFileName( file ) ) == false)
+                    continue;
                 var assemblyName = AssemblyName.GetAssemblyName( file );
-                if( Match( assemblyName ) )
-                    AppDomain.CurrentDomain.Load( assemblyName );
+                AppDomain.CurrentDomain.Load( assemblyName );
             }
         }
 
         /// <summary>
         /// 程序集是否匹配
         /// </summary>
-        protected virtual bool Match( AssemblyName assemblyName ) {
-            if ( assemblyName.FullName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.Views" ) )
+        protected virtual bool Match( string assemblyName ) {
+            if( assemblyName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.Views" ) )
                 return false;
-            if( assemblyName.FullName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.PrecompiledViews" ) )
+            if( assemblyName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.PrecompiledViews" ) )
                 return false;
-            return !Regex.IsMatch( assemblyName.FullName, SkipAssemblies, RegexOptions.IgnoreCase | RegexOptions.Compiled );
+            return !Regex.IsMatch( assemblyName, SkipAssemblies, RegexOptions.IgnoreCase | RegexOptions.Compiled );
         }
 
         /// <summary>
