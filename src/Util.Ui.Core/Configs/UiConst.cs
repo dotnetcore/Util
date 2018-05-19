@@ -455,5 +455,9 @@
         /// 禁用过滤
         /// </summary>
         public const string DisableFilter = "disable-filter";
+        /// <summary>
+        /// 精确匹配
+        /// </summary>
+        public const string Exact = "exact";
     }
 }

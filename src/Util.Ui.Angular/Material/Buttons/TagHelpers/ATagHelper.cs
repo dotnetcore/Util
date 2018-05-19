@@ -53,6 +53,10 @@ namespace Util.Ui.Material.Buttons.TagHelpers {
         /// </summary>
         public string BindActive { get; set; }
         /// <summary>
+        /// 路由激活状态是否精确匹配
+        /// </summary>
+        public bool Exact { get; set; }
+        /// <summary>
         /// 查询参数表达式，范例：{id:1}
         /// </summary>
         public string QueryParams { get; set; }

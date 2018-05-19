@@ -32,6 +32,10 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// </summary>
         public string BindActive { get; set; }
         /// <summary>
+        /// 路由激活状态是否精确匹配
+        /// </summary>
+        public bool Exact { get; set; }
+        /// <summary>
         /// 单击事件处理函数,范例：handle()
         /// </summary>
         public string OnClick { get; set; }

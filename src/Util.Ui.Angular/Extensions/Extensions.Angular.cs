@@ -64,6 +64,8 @@ namespace Util.Ui.Extensions {
             builder.AddAttribute( "routerLinkActive", config.GetValue( UiConst.Active ) );
             builder.AddAttribute( "[routerLinkActive]", config.GetValue( AngularConst.BindActive ) );
             builder.AddAttribute( "[queryParams]", config.GetValue( UiConst.QueryParams ) );
+            if( config.GetValue<bool>( UiConst.Exact ) )
+                builder.AddAttribute( "[routerLinkActiveOptions]", "{exact: true}" );
             return builder;
         }
 
