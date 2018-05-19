@@ -45,6 +45,10 @@ export class TreeViewModel implements ISort, IKey {
      * 数据
      */
     data?;
+    /**
+     * 展开
+     */
+    expanded?: boolean;
 }
 
 /**

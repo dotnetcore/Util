@@ -912,20 +912,27 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     }
 
     /**
-     * 复选框的确定状态
+     * 复选框的中间状态
      */
     isIndeterminate(treeNode: T) {
         if (!this.dataSource || this.dataSource.length === 0)
             return false;
         if (!this.selection || this.selection.length === 0)
             return false;
-        if (!treeNode) {
-            let length = this.getNodesLength(this.dataSource);
-            return this.selection.length !== length;
-        }
+        if (!treeNode)
+            return this.isIndeterminateForNodes(this.dataSource);
         if (!treeNode.children || treeNode.children.length === 0)
             return false;
         let nodes = this.getChildNodes([treeNode]);
+        return this.isIndeterminateForNodes(nodes);
+    }
+
+    /**
+     * 复选框的中间状态
+     */
+    private isIndeterminateForNodes(nodes: TreeNode[]) {
+        if (!nodes || nodes.length === 0)
+            return false;
         if (nodes.every(node => this.isSelected(node)))
             return false;
         return nodes.some(node => this.isSelected(node));
