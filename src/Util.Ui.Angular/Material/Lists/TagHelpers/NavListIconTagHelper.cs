@@ -18,9 +18,17 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// </summary>
         public MaterialIcon MaterialIcon { get; set; }
         /// <summary>
+        /// Material图标绑定
+        /// </summary>
+        public string BindMaterialIcon { get; set; }
+        /// <summary>
         /// Font Awesome图标
         /// </summary>
         public FontAwesomeIcon FontAwesomeIcon { get; set; }
+        /// <summary>
+        /// Font Awesome图标绑定
+        /// </summary>
+        public string BindFontAwesomeIcon { get; set; }
         /// <summary>
         /// 图标大小
         /// </summary>

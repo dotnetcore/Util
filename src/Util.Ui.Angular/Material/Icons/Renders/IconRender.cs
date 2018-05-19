@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular.Renders;
+﻿using Util.Ui.Angular;
+using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
@@ -19,7 +20,7 @@ namespace Util.Ui.Material.Icons.Renders {
         /// 初始化图标渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public IconRender( IConfig config ) : base( config ){
+        public IconRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -37,7 +38,7 @@ namespace Util.Ui.Material.Icons.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             TagBuilder result = GetIconBuilder();
-            if ( result == TagBuilder.Null )
+            if( result == TagBuilder.Null )
                 return result;
             Config( result );
             return result;
@@ -66,7 +67,7 @@ namespace Util.Ui.Material.Icons.Renders {
             var result = new StackIconBuilder();
             var parentIcon = GetSingleIconBuilder().Class( "fa-stack-2x" );
             var childIcon = GetFontAwesomeBuilder( UiConst.Child ).Class( "fa-stack-1x" );
-            if ( _config.Contains( UiConst.ChildClass ) )
+            if( _config.Contains( UiConst.ChildClass ) )
                 childIcon.Class( _config.GetValue( UiConst.ChildClass ) );
             result.AppendContent( parentIcon );
             result.AppendContent( childIcon );
@@ -78,9 +79,9 @@ namespace Util.Ui.Material.Icons.Renders {
         /// </summary>
         private TagBuilder GetSingleIconBuilder() {
             TagBuilder result = TagBuilder.Null;
-            if( _config.Contains( UiConst.FontAwesomeIcon ) )
-                result = GetFontAwesomeBuilder( UiConst.FontAwesomeIcon );
-            if( _config.Contains( UiConst.MaterialIcon ) )
+            if( IsFontAwesome() )
+                result = GetFontAwesomeBuilder();
+            if( IsMaterial() )
                 result = GetMaterialIconBuilder();
             result.AddOutputAttributes( _config );
             result.Class( _config );
@@ -88,12 +89,27 @@ namespace Util.Ui.Material.Icons.Renders {
         }
 
         /// <summary>
+        /// 是否FontAwesome图标
+        /// </summary>
+        private bool IsFontAwesome() {
+            return _config.Contains( UiConst.FontAwesomeIcon ) || _config.Contains( AngularConst.BindFontAwesomeIcon );
+        }
+
+        /// <summary>
         /// 获取Font Awesome图标标签生成器
         /// </summary>
-        private FontAwesomeIconBuilder GetFontAwesomeBuilder( string key ) {
+        private FontAwesomeIconBuilder GetFontAwesomeBuilder( string key = "", string bindKey = "" ) {
             var builder = new FontAwesomeIconBuilder();
             builder.SetIcon( _config, key );
+            builder.SetBindIcon( _config, bindKey );
             return builder;
+        }
+
+        /// <summary>
+        /// 是否Material图标
+        /// </summary>
+        private bool IsMaterial() {
+            return _config.Contains( UiConst.MaterialIcon ) || _config.Contains( AngularConst.BindMaterialIcon );
         }
 
         /// <summary>
@@ -102,6 +118,7 @@ namespace Util.Ui.Material.Icons.Renders {
         private MaterialIconBuilder GetMaterialIconBuilder() {
             var builder = new MaterialIconBuilder();
             builder.SetIcon( _config );
+            builder.SetBindIcon( _config );
             return builder;
         }
 

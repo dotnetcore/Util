@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Enums;
@@ -57,6 +58,17 @@ namespace Util.Ui.Tests.Material.Lists {
         }
 
         /// <summary>
+        /// 测试Material图标绑定
+        /// </summary>
+        [Fact]
+        public void TestBindMaterialIcon() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindMaterialIcon, "a" } };
+            var result = new String();
+            result.Append( "<mat-icon mat-list-icon=\"\">{{a}}</mat-icon>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试Material图标标识
         /// </summary>
         [Fact]
@@ -97,6 +109,17 @@ namespace Util.Ui.Tests.Material.Lists {
             var attributes = new TagHelperAttributeList { { UiConst.FontAwesomeIcon, FontAwesomeIcon.Bus } };
             var result = new String();
             result.Append( "<i class=\"fa fa-bus\" mat-list-icon=\"\"></i>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试FontAwesome图标
+        /// </summary>
+        [Fact]
+        public void TestBindFontAwesomeIcon() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindFontAwesomeIcon, "a" } };
+            var result = new String();
+            result.Append( "<i class=\"fa {{a}}\" mat-list-icon=\"\"></i>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

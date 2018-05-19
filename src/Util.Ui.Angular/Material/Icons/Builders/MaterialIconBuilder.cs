@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 
@@ -19,6 +20,17 @@ namespace Util.Ui.Material.Icons.Builders {
         /// <param name="config">配置</param>
         public void SetIcon( IConfig config) {
             SetContent( config.GetValue<MaterialIcon?>( UiConst.MaterialIcon )?.Description() );
+        }
+
+        /// <summary>
+        /// 设置绑定图标
+        /// </summary>
+        /// <param name="config">配置</param>
+        public void SetBindIcon( IConfig config ) {
+            var value = config.GetValue( AngularConst.BindMaterialIcon );
+            if( value.IsEmpty() )
+                return;
+            SetContent( $"{{{{{value}}}}}" );
         }
 
         /// <summary>

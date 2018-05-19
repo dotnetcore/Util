@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 
@@ -18,8 +19,24 @@ namespace Util.Ui.Material.Icons.Builders {
         /// </summary>
         /// <param name="config">配置</param>
         /// <param name="key">键</param>
-        public void SetIcon( IConfig config, string key = UiConst.FontAwesomeIcon ) {
+        public void SetIcon( IConfig config, string key = "" ) {
+            if( key.IsEmpty() )
+                key = UiConst.FontAwesomeIcon;
             Class( config.GetValue<FontAwesomeIcon?>( key ).GetIcon() );
+        }
+
+        /// <summary>
+        /// 设置绑定图标
+        /// </summary>
+        /// <param name="config">配置</param>
+        /// <param name="key">键</param>
+        public void SetBindIcon( IConfig config, string key = "" ) {
+            if( key.IsEmpty() )
+                key = AngularConst.BindFontAwesomeIcon;
+            var value = config.GetValue( key );
+            if ( value.IsEmpty() )
+                return;
+            Class( $"fa {{{{{value}}}}}" );
         }
 
         /// <summary>

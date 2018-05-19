@@ -43,5 +43,13 @@
         /// 激活绑定
         /// </summary>
         public const string BindActive = "bind-active";
+        /// <summary>
+        /// FontAwesome图标绑定
+        /// </summary>
+        public const string BindFontAwesomeIcon = "bind-font-awesome-icon";
+        /// <summary>
+        /// Material图标绑定
+        /// </summary>
+        public const string BindMaterialIcon = "bind-material-icon";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
+using Util.Ui.Angular;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Icons.TagHelpers;
@@ -52,6 +53,17 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.FontAwesomeIcon, FontAwesomeIcon.Android } };
             var result = new String();
             result.Append( "<i class=\"fa fa-android\"></i>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置FontAwesome图标绑定
+        /// </summary>
+        [Fact]
+        public void TestBindFontAwesomeIcon() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindFontAwesomeIcon, "a" } };
+            var result = new String();
+            result.Append( "<i class=\"fa {{a}}\"></i>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -121,6 +133,17 @@ namespace Util.Ui.Tests.Material.Icons {
             var attributes = new TagHelperAttributeList { { UiConst.MaterialIcon, MaterialIcon.Android } };
             var result = new String();
             result.Append( "<mat-icon>android</mat-icon>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置Material图标绑定
+        /// </summary>
+        [Fact]
+        public void TestBindMaterialIcon() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindMaterialIcon, "a" } };
+            var result = new String();
+            result.Append( "<mat-icon>{{a}}</mat-icon>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
