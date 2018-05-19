@@ -38,6 +38,16 @@ export class RouterHelper {
     }
 
     /**
+     * 导航
+     * @param url 地址
+     * @param extras 附加参数，范例: {queryParams: {id:'1'}}，表示 ?id=1
+     */
+    static navigateByUrl(url: string, extras?: NavigationExtras): Promise<boolean> {
+        let router = ioc.get(Router);
+        return router.navigateByUrl(url, extras);
+    }
+
+    /**
      * 获取路径参数值,从路由快照中获取参数
      * @param paramName 参数名
      */
