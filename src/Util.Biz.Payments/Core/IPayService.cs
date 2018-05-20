@@ -9,11 +9,6 @@ namespace Util.Biz.Payments.Core {
         /// 支付
         /// </summary>
         /// <param name="param">支付参数</param>
-        PayResult Pay( PayParam param );
-        /// <summary>
-        /// 支付
-        /// </summary>
-        /// <param name="param">支付参数</param>
         Task<PayResult> PayAsync( PayParam param );
     }
 }

@@ -86,10 +86,6 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 获取结果
         /// </summary>
-        string Result();
-        /// <summary>
-        /// 获取结果
-        /// </summary>
         Task<string> ResultAsync();
     }
 }

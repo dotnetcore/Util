@@ -5,9 +5,9 @@ using Util.Biz.Payments.Alipay.Results;
 using Util.Biz.Payments.Alipay.Services;
 using Util.Biz.Payments.Core;
 using Util.Biz.Tests.Integration.Payments.Alipay.Configs;
+using Util.Biz.Tests.Integration.XUnitHelpers;
 using Util.Exceptions;
 using Util.Helpers;
-using Util.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -44,13 +44,13 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// 验证订单标题为空时，将订单号赋值给订单标题
         /// </summary>
         [Fact]
-        public void TestPay_Validate_Subject() {
+        public async Task TestPay_Validate_Subject() {
             var param = new PayParam {
                 Money = 1,
                 OrderId = "a",
                 AuthCode = "1"
             };
-            _service.Pay( param );
+            await _service.PayAsync( param );
             Assert.Equal( "a", param.Subject );
         }
 
@@ -58,9 +58,9 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// 验证订单号为空
         /// </summary>
         [Fact]
-        public void TestPay_Validate_OrderId() {
-            AssertHelper.Throws<Warning>( () => {
-                _service.Pay( new PayParam {
+        public async Task TestPay_Validate_OrderId() {
+            await AssertHelper.ThrowsAsync<Warning>( async () => {
+                await _service.PayAsync( new PayParam {
                     Money = 1,
                     AuthCode = "1",
                     Subject = "a"
@@ -72,9 +72,9 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// 验证无效金额
         /// </summary>
         [Fact]
-        public void TestPay_Validate_Money() {
-            AssertHelper.Throws<Warning>( () => {
-                _service.Pay( new PayParam {
+        public async Task TestPay_Validate_Money() {
+            await AssertHelper.ThrowsAsync<Warning>( async () => {
+                await _service.PayAsync( new PayParam {
                     Money = 0,
                     OrderId = "a",
                     Subject = "a",
@@ -87,9 +87,9 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// 验证用户付款授权码为空
         /// </summary>
         [Fact]
-        public void TestPay_Validate_AuthCode() {
-            AssertHelper.Throws<Warning>( () => {
-                _service.Pay( new PayParam {
+        public async Task TestPay_Validate_AuthCode() {
+            await AssertHelper.ThrowsAsync<Warning>( async () => {
+                await _service.PayAsync( new PayParam {
                     Money = 10,
                     OrderId = "a",
                     Subject = "test"
@@ -101,11 +101,11 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// 测试支付
         /// </summary>
         [Fact]
-        public void TestPay_1() {
+        public async Task TestPay_1() {
             var result = "app_id=2016090800463464&biz_content={\"out_trade_no\":\"59f7caeeab89e009e4a4e1fb\",\"subject\":\"test\",\"total_amount\":\"10\",\"timeout_express\":\"90m\",\"auth_code\":\"281023564031402341\",\"scene\":\"bar_code\"}&charset=utf-8&format=json&method=alipay.trade.pay&sign=TrzaFo0mYi5ECKxQqwVj8WeNivimDYdeZfRF9bGV4Hq2rAoaZLshvV6C/1oeGJq/jsfiFFvxi6RNSlJuo2+erZq81FYALKltt+8gL6XwgCf8KL64+nC3zpE1dAmkKJA3ft4xKoEG5uUSMQBKqx59E3DNApAeibrFboF5vP1MB/Dru1pfS7mijixWhPd1LSDMdH0tUCyWlkh1W1MiWnrzBCNNEaNn2slHvYQjyUHZyR577yuCdcst5/MjCwY+0l0Rt0QYaCPizQEU1n6h65gifq/sSyOlkLnaMeX2JZpRSD7yCVzSyMHqsYRAr5vzSBztfYIrMVdb74JkQQKa27QVng==&sign_type=RSA2&timestamp=2017-10-31 08:59:26&version=1.0";
             Time.SetTime( "2017-10-31 08:59:26" );
             _service = new AlipayBarcodePayService( new TestConfigProvider() ) { IsSendRequest = false };
-            _service.Pay( new PayParam {
+            await _service.PayAsync( new PayParam {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",
                 Subject = "test",
@@ -119,8 +119,8 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// 测试支付
         /// </summary>
         [Fact( Skip = "请下载沙箱支付宝，填写正确的付款码" )]
-        public void TestPay_2() {
-            var result = _service.Pay( new PayParam {
+        public async Task TestPay_2() {
+            var result = await _service.PayAsync( new PayParam {
                 Money = 10,
                 OrderId = Id.Guid(),
                 AuthCode = "280299913207329986"

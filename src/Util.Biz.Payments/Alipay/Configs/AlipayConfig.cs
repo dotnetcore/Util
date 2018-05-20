@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Util.Exceptions;
 using Util.Validations;
 
 namespace Util.Biz.Payments.Alipay.Configs {
@@ -49,7 +50,7 @@ namespace Util.Biz.Payments.Alipay.Configs {
         public void Validate() {
             var result = DataAnnotationValidation.Validate( this );
             if( result.IsValid == false )
-                throw new ArgumentException( result.First().ErrorMessage );
+                throw new Warning( result.First().ErrorMessage );
         }
     }
 }

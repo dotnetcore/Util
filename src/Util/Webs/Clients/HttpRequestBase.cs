@@ -209,19 +209,6 @@ namespace Util.Webs.Clients {
         }
 
         /// <summary>
-        /// 获取结果
-        /// </summary>
-        public string Result() {
-            return Async.Run( async () => {
-                SendBefore();
-                var response = await SendAsync();
-                var result = await response.Content.ReadAsStringAsync();
-                SendAfter( result, response.StatusCode, GetContentType( response ) );
-                return result;
-            } );
-        }
-
-        /// <summary>
         /// 获取内容类型
         /// </summary>
         private string GetContentType( HttpResponseMessage response ) {

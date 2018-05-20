@@ -31,13 +31,17 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
-    <ProjectReference Include="..\Util\01-Util.csproj" />
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="WeChatPay\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="WeChatPay\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="WeChatPay\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="WeChatPay\" />
-    <Folder Include="Extensions\" />
+    <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
+    <ProjectReference Include="..\Util\01-Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>

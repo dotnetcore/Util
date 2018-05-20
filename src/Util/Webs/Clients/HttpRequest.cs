@@ -55,13 +55,6 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 获取Json结果
         /// </summary>
-        public T ResultFromJson<T>() {
-            return Util.Helpers.Json.ToObject<T>( Result() );
-        }
-
-        /// <summary>
-        /// 获取Json结果
-        /// </summary>
         public async Task<T> ResultFromJsonAsync<T>() {
             return Util.Helpers.Json.ToObject<T>( await ResultAsync() );
         }
@@ -134,13 +127,6 @@ namespace Util.Webs.Clients {
             if( contentType.SafeString().ToLower() == "application/json" )
                 return Json.ToObject<TResult>( result );
             return null;
-        }
-
-        /// <summary>
-        /// 获取Json结果
-        /// </summary>
-        public TResult ResultFromJson() {
-            return Util.Helpers.Json.ToObject<TResult>( Result() );
         }
 
         /// <summary>

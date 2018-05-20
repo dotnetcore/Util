@@ -43,14 +43,6 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// 支付
         /// </summary>
         /// <param name="param">支付参数</param>
-        public PayResult Pay( PayParam param ) {
-            return Async.Run( async () => await PayAsync( param ) );
-        }
-
-        /// <summary>
-        /// 支付
-        /// </summary>
-        /// <param name="param">支付参数</param>
         public async Task<PayResult> PayAsync( PayParam param ) {
             Validate( param );
             _payParam = param;
