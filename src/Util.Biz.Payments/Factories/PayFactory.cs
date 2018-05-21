@@ -1,5 +1,6 @@
 ﻿using System;
 using Util.Biz.Payments.Alipay;
+using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Services;
 using Util.Biz.Payments.Core;
@@ -32,6 +33,13 @@ namespace Util.Biz.Payments.Factories {
                     return new AlipayBarcodePayService( _alipayConfigProvider );
             }
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 创建支付宝条码支付服务
+        /// </summary>
+        public IAlipayBarcodePayService CreateAlipayBarcodePayService() {
+            return new AlipayBarcodePayService( _alipayConfigProvider );
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Util.Biz.Payments.Alipay.Configs {
+﻿using System.Threading.Tasks;
+
+namespace Util.Biz.Payments.Alipay.Configs {
     /// <summary>
     /// 支付宝配置提供器
     /// </summary>
@@ -6,6 +8,6 @@
         /// <summary>
         /// 获取配置
         /// </summary>
-        AlipayConfig GetConfig();
+        Task<AlipayConfig> GetConfigAsync();
     }
 }

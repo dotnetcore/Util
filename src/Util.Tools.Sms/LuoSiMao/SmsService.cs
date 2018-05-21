@@ -27,18 +27,19 @@ namespace Util.Tools.Sms.LuoSiMao {
         /// <param name="mobile">手机号</param>
         /// <param name="content">内容</param>
         public async Task<SmsResult> SendAsync( string mobile, string content ) {
-            return await Web.Client().Post( "https://sms-api.luosimao.com/v1/send.json" )
-                .Header( "Authorization", GetAuthorization() )
+            var result = await Web.Client().Post( "https://sms-api.luosimao.com/v1/send.json" )
+                .Header( "Authorization", await GetAuthorization() )
                 .Data( "mobile", mobile )
                 .Data( "message", content )
-                .ResultAsync().ContinueWith( ( task, state ) => CreateResult( task.Result ),null );
+                .ResultAsync();
+            return CreateResult( result );
         }
 
         /// <summary>
         /// 获取授权头信息
         /// </summary>
-        private string GetAuthorization() {
-            var config = _configProvider.GetConfig();
+        private async Task<string> GetAuthorization() {
+            var config = await _configProvider.GetConfigAsync();
             return $"Basic {System.Convert.ToBase64String( Encoding.UTF8.GetBytes( $"api:{config.Key}" ) )}";
         }
 

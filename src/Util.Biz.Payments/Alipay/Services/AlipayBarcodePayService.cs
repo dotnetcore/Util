@@ -1,5 +1,8 @@
-﻿using Util.Biz.Payments.Alipay.Configs;
+﻿using System.Threading.Tasks;
+using Util.Biz.Payments.Alipay.Abstractions;
+using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Parameters;
+using Util.Biz.Payments.Alipay.Parameters.Requests;
 using Util.Biz.Payments.Core;
 using Util.Exceptions;
 
@@ -7,12 +10,12 @@ namespace Util.Biz.Payments.Alipay.Services {
     /// <summary>
     /// 支付宝条码支付服务
     /// </summary>
-    public class AlipayBarcodePayService : AlipayServiceBase {
+    public class AlipayBarcodePayService : AlipayServiceBase, IAlipayBarcodePayService {
         /// <summary>
         /// 初始化支付宝条码支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        public AlipayBarcodePayService( IAlipayConfigProvider provider ) : base( provider ){
+        public AlipayBarcodePayService( IAlipayConfigProvider provider ) : base( provider ) {
         }
 
         /// <summary>
@@ -41,17 +44,25 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// </summary>
         /// <param name="param">支付参数</param>
         protected override void ValidateParam( PayParam param ) {
-            if ( param.AuthCode.IsEmpty() )
+            if( param.AuthCode.IsEmpty() )
                 throw new Warning( PayResource.AuthCodeIsEmpty );
         }
 
         /// <summary>
-        /// 获取内容参数生成器
+        /// 初始化内容
         /// </summary>
+        /// <param name="builder">内容参数生成器</param>
         /// <param name="param">支付参数</param>
-        protected override AlipayContentBuilder GetContentBuilder( PayParam param ) {
-            return base.GetContentBuilder( param )
-                .AuthCode( param.AuthCode );
+        protected override void InitContent( AlipayContentBuilder builder, PayParam param ) {
+            builder.AuthCode( param.AuthCode );
+        }
+
+        /// <summary>
+        /// 支付
+        /// </summary>
+        /// <param name="request">条码支付参数</param>
+        public async Task<PayResult> PayAsync( AlipayBarcodePayRequest request ) {
+            return await PayAsync( request.ToParam() );
         }
     }
 }
