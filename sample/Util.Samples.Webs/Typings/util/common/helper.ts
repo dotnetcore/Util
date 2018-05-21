@@ -89,8 +89,8 @@ export let toBool = (value): boolean => {
     if (strValue === "yes")
         return true;
     if (strValue === "ok")
-        return true;    
-    return false
+        return true;
+    return false;
 }
 
 /**

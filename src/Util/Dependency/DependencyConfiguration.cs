@@ -99,7 +99,6 @@ namespace Util.Dependency {
         /// </summary>
         private void RegistEventHandlers() {
             RegistEventHandlers( typeof( IEventHandler<> ) );
-            RegistEventHandlers( typeof( ISyncEventHandler<> ) );
         }
 
         /// <summary>

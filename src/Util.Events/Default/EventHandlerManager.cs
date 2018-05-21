@@ -14,13 +14,5 @@ namespace Util.Events.Default {
         public List<IEventHandler<TEvent>> GetHandlers<TEvent>() where TEvent : IEvent {
             return Ioc.CreateList<IEventHandler<TEvent>>();
         }
-
-        /// <summary>
-        /// 获取同步事件处理器列表
-        /// </summary>
-        /// <typeparam name="TEvent">事件类型</typeparam>
-        public List<ISyncEventHandler<TEvent>> GetSyncHandlers<TEvent>() where TEvent : IEvent {
-            return Ioc.CreateList<ISyncEventHandler<TEvent>>();
-        }
     }
 }

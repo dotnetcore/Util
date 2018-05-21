@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Util.Events.Handlers;
 using Util.Events.Messages;
-using Util.Logs.Aspects;
 
 namespace Util.Events.Default {
     /// <summary>
@@ -27,20 +26,6 @@ namespace Util.Events.Default {
         /// 消息事件总线
         /// </summary>
         public IMessageEventBus MessageEventBus { get; set; }
-
-        /// <summary>
-        /// 发布事件
-        /// </summary>
-        /// <typeparam name="TEvent">事件类型</typeparam>
-        /// <param name="event">事件</param>
-        [TraceLog]
-        public void Publish<TEvent>( TEvent @event ) where TEvent : IEvent {
-            var handlers = Manager.GetSyncHandlers<TEvent>();
-            if( handlers == null )
-                return;
-            foreach( var handler in handlers )
-                handler.Handle( @event );
-        }
 
         /// <summary>
         /// 发布事件
