@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Applications\06-Util.Applications.csproj" />
+    <ProjectReference Include="..\..\src\Util.Biz.Payments\02-Util.Biz.Payments.csproj" />
     <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
     <ProjectReference Include="..\..\src\Util.Datas\05-Util.Datas.csproj" />
     <ProjectReference Include="..\..\src\Util.Events\04-Util.Events.csproj" />

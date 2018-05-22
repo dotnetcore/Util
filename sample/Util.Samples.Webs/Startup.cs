@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using Util.Biz.Payments.Extensions;
 using Util.Datas.Ef;
 using Util.Events.Default;
 using Util.Logs.Extensions;

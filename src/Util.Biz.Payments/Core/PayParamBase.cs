@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Util.Exceptions;
+using Util.Maps;
 using Util.Validations;
 
 namespace Util.Biz.Payments.Core {
@@ -58,6 +59,13 @@ namespace Util.Biz.Payments.Core {
         private void ValidateMoney() {
             if( Money <= 0 )
                 throw new Warning( PayResource.InvalidMoney );
+        }
+
+        /// <summary>
+        /// 转换为支付参数
+        /// </summary>
+        public virtual PayParam ToParam() {
+            return this.MapTo<PayParam>();
         }
     }
 }

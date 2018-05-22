@@ -1,12 +1,11 @@
 ﻿using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Core;
-using Util.Dependency;
 
 namespace Util.Biz.Payments {
     /// <summary>
     /// 支付工厂
     /// </summary>
-    public interface IPayFactory : IScopeDependency{
+    public interface IPayFactory {
         /// <summary>
         /// 创建支付服务
         /// </summary>
@@ -16,5 +15,13 @@ namespace Util.Biz.Payments {
         /// 创建支付宝条码支付服务
         /// </summary>
         IAlipayBarcodePayService CreateAlipayBarcodePayService();
+        /// <summary>
+        /// 创建支付宝电脑网站支付服务
+        /// </summary>
+        IAlipayPagePayService CreateAlipayPagePayService();
+        /// <summary>
+        /// 创建支付宝手机网站支付服务
+        /// </summary>
+        IAlipayWapPayService CreateAlipayWapPayService();
     }
 }

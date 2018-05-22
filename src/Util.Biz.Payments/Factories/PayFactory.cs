@@ -31,6 +31,10 @@ namespace Util.Biz.Payments.Factories {
             switch( way ) {
                 case PayWay.AlipayBarcodePay:
                     return new AlipayBarcodePayService( _alipayConfigProvider );
+                case PayWay.AlipayPagePay:
+                    return new AlipayPagePayService( _alipayConfigProvider );
+                case PayWay.AlipayWapPay:
+                    return new AlipayWapPayService( _alipayConfigProvider );
             }
             throw new NotImplementedException();
         }
@@ -40,6 +44,20 @@ namespace Util.Biz.Payments.Factories {
         /// </summary>
         public IAlipayBarcodePayService CreateAlipayBarcodePayService() {
             return new AlipayBarcodePayService( _alipayConfigProvider );
+        }
+
+        /// <summary>
+        /// 创建支付宝电脑网站支付服务
+        /// </summary>
+        public IAlipayPagePayService CreateAlipayPagePayService() {
+            return new AlipayPagePayService( _alipayConfigProvider );
+        }
+
+        /// <summary>
+        /// 创建支付宝手机网站支付服务
+        /// </summary>
+        public IAlipayWapPayService CreateAlipayWapPayService() {
+            return new AlipayWapPayService( _alipayConfigProvider );
         }
     }
 }

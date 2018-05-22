@@ -97,8 +97,9 @@ namespace Util.Parameters {
         /// <summary>
         /// 转换为Json
         /// </summary>
-        public string ToJson() {
-            return Json.ToJson( _params );
+        /// <param name="isConvertToSingleQuotes">是否将双引号转成单引号</param>
+        public string ToJson( bool isConvertToSingleQuotes = false ) {
+            return Json.ToJson( _params, isConvertToSingleQuotes );
         }
 
         /// <summary>
@@ -122,6 +123,27 @@ namespace Util.Parameters {
             if( isSort == false )
                 return _params;
             return new SortedDictionary<string, string>( _params );
+        }
+
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public string GetValue( string name ) {
+            if( name.IsEmpty() )
+                return string.Empty;
+            if( _params.ContainsKey( name ) )
+                return _params[name];
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 索引器
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public string this[string name] {
+            get => GetValue( name );
+            set => Add( name, value );
         }
     }
 }

@@ -19,6 +19,14 @@ namespace Util.Biz.Payments.Alipay.Services {
         }
 
         /// <summary>
+        /// 支付
+        /// </summary>
+        /// <param name="request">条码支付参数</param>
+        public async Task<PayResult> PayAsync( AlipayBarcodePayRequest request ) {
+            return await PayAsync( request.ToParam() );
+        }
+
+        /// <summary>
         /// 获取场景
         /// </summary>
         protected override string GetScene() {
@@ -49,20 +57,12 @@ namespace Util.Biz.Payments.Alipay.Services {
         }
 
         /// <summary>
-        /// 初始化内容
+        /// 初始化内容生成器
         /// </summary>
         /// <param name="builder">内容参数生成器</param>
         /// <param name="param">支付参数</param>
-        protected override void InitContent( AlipayContentBuilder builder, PayParam param ) {
+        protected override void InitContentBuilder( AlipayContentBuilder builder, PayParam param ) {
             builder.AuthCode( param.AuthCode );
-        }
-
-        /// <summary>
-        /// 支付
-        /// </summary>
-        /// <param name="request">条码支付参数</param>
-        public async Task<PayResult> PayAsync( AlipayBarcodePayRequest request ) {
-            return await PayAsync( request.ToParam() );
         }
     }
 }

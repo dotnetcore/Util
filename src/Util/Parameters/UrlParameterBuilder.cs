@@ -60,6 +60,23 @@ namespace Util.Parameters {
         }
 
         /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public string GetValue( string name ) {
+            return ParameterBuilder.GetValue( name );
+        }
+
+        /// <summary>
+        /// 索引器
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public string this[string name] {
+            get => GetValue( name );
+            set => Add( name, value );
+        }
+
+        /// <summary>
         /// 获取字典
         /// </summary>
         public IDictionary<string, string> GetDictionary() {

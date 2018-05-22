@@ -67,6 +67,16 @@ namespace Util.Helpers {
         }
 
         /// <summary>
+        /// 当前Http请求
+        /// </summary>
+        public static HttpRequest Request => HttpContext?.Request;
+
+        /// <summary>
+        /// 当前Http响应
+        /// </summary>
+        public static HttpResponse Response => HttpContext?.Response;
+
+        /// <summary>
         /// 宿主环境
         /// </summary>
         public static IHostingEnvironment Environment { get; set; }

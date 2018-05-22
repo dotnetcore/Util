@@ -99,28 +99,29 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         }
 
         /// <summary>
-        /// 测试支付
+        /// 测试请求参数
         /// </summary>
         [Fact]
-        public async Task TestPayAsync_1() {
+        public async Task TestRequestParam() {
             var result = "app_id=2016090800463464&biz_content={\"out_trade_no\":\"59f7caeeab89e009e4a4e1fb\",\"subject\":\"test\",\"total_amount\":\"10\",\"timeout_express\":\"90m\",\"scene\":\"bar_code\",\"auth_code\":\"281023564031402341\"}&charset=utf-8&format=json&method=alipay.trade.pay&sign=dKRsgXoQnGHJ8jrS7ZYk5CCF7eGX7ZKxh2dcYJ5zMdjwMlSDPaAW86VKxcs6Aec28RWdaD+3DZLMJRZxJcBJ/SqfwU5N3dSOr3JU4zLjPXcRxuxmXmzGFiemoSva3WLX93uNngkJ7w/W2IX2ndwXT3Nxa6NeD91tL2gGGd63t3rjx6zgzSk7SSAvDQbUNMh9aNWQmw7eHtV3lRxxjXvlx6dzwKokcGG0p2O2eaihkmsiL/Y8ZDaDs6+eJ6S1PYaYidDxmyGsuz9w6bV+dbJj5g9P7/fp7MAVoL8AWmgB5FEb7ceYCa39wBSjLK8l38DTDBP/+pNodo7FU67HLal1pw==&sign_type=RSA2&timestamp=2017-10-31 08:59:26&version=1.0";
             Time.SetTime( "2017-10-31 08:59:26" );
-            _service = new AlipayBarcodePayService( new TestConfigProvider() ) { IsSendRequest = false };
-            await _service.PayAsync( new PayParam {
+            _service = new AlipayBarcodePayService( new TestConfigProvider() );
+            var param = new PayParam {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",
                 Subject = "test",
                 AuthCode = "281023564031402341"
-            } );
-            _output.WriteLine( _service.ToString() );
-            Assert.Equal( result, _service.ToString() );
+            };
+            var request = await _service.Debug( param );
+            _output.WriteLine( request );
+            Assert.Equal( result, request );
         }
 
         /// <summary>
         /// 测试支付
         /// </summary>
         [Fact( Skip = "请下载沙箱支付宝，填写正确的付款码" )]
-        public async Task TestPayAsync_2() {
+        public async Task TestPayAsync_1() {
             var result = await _service.PayAsync( new PayParam {
                 Money = 10,
                 OrderId = Id.Guid(),
@@ -135,7 +136,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// 测试支付
         /// </summary>
         [Fact( Skip = "请下载沙箱支付宝，填写正确的付款码" )]
-        public async Task TestPayAsync_3() {
+        public async Task TestPayAsync_2() {
             var result = await _service.PayAsync( new AlipayBarcodePayRequest {
                 Money = 10,
                 OrderId = Id.Guid(),

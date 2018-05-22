@@ -450,6 +450,8 @@ https://github.com/dotnetcore/util/
   - 地址 [已发布]
 - 支付操作
   - 支付宝条码支付 [已发布]
+  - 支付宝电脑网站支付 [已发布]
+  - 支付宝手机网站支付 [已发布]
 
 ## 更新列表
 
@@ -507,3 +509,4 @@ https://github.com/dotnetcore/util/
 - 2018年4月16日，更新了树型表格组件(Util.Ui.Angular/Prime/TreeTables)，树型控制器，树型服务。
 - 2018年4月20日，更新了颜色选择器组件(Util.Ui.Angular/Prime/ColorPickers)。
 - 2018年4月23日，更新了富文本框编辑器组件(Util.Ui.Angular/CkEditor)。
+- 2018年5月22日，更新了支付宝电脑网站支付和手机网站支付操作。
