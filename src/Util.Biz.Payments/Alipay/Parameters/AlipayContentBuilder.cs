@@ -9,10 +9,12 @@ namespace Util.Biz.Payments.Alipay.Parameters {
     /// </summary>
     public class AlipayContentBuilder : ParameterBuilder {
         /// <summary>
-        /// 加载支付参数
+        /// 初始化支付参数
         /// </summary>
         /// <param name="param">支付参数</param>
-        public AlipayContentBuilder Load( PayParam param ) {
+        public AlipayContentBuilder Init( PayParamBase param ) {
+            if( param == null )
+                return this;
             return OutTradeNo( param.OrderId )
                 .Subject( param.Subject )
                 .TotalAmount( param.Money )

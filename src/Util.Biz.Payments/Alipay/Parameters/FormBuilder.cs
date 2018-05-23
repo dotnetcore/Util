@@ -95,7 +95,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 添加input列表
         /// </summary>
         private void AddInputs( AlipayParameterBuilder builder ) {
-            foreach( var item in builder.GetDictionary() )
+            foreach( var item in builder.GetDictionary( true ) )
                 AddInput( item.Key, item.Value );
         }
 
@@ -123,7 +123,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         public string Result() {
             using( var writer = new StringWriter() ) {
                 _builder.WriteTo( writer, NullHtmlEncoder.Default );
-                if ( IsAutoSubmit ) {
+                if( IsAutoSubmit ) {
                     var scriptBuilder = CreateScript();
                     scriptBuilder.WriteTo( writer, NullHtmlEncoder.Default );
                 }

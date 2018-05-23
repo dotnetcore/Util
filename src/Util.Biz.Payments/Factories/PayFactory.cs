@@ -1,5 +1,4 @@
 ﻿using System;
-using Util.Biz.Payments.Alipay;
 using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Services;

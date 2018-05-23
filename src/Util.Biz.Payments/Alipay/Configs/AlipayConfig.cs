@@ -36,13 +36,7 @@ namespace Util.Biz.Payments.Alipay.Configs {
         /// <summary>
         /// 回调通知地址
         /// </summary>
-        [Required( ErrorMessage = "回调通知地址[NotifyUrl]不能为空" )]
         public string NotifyUrl { get; set; }
-
-        /// <summary>
-        /// 返回地址
-        /// </summary>
-        public string ReturnUrl { get; set; }
 
         /// <summary>
         /// 验证

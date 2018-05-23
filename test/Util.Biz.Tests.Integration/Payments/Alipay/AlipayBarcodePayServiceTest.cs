@@ -9,6 +9,7 @@ using Util.Biz.Tests.Integration.Payments.Alipay.Configs;
 using Util.Biz.Tests.Integration.XUnitHelpers;
 using Util.Exceptions;
 using Util.Helpers;
+using Util.Maps;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -51,6 +52,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
                 OrderId = "a",
                 AuthCode = "1"
             };
+            _service.IsSendRequest = false;
             await _service.PayAsync( param );
             Assert.Equal( "a", param.Subject );
         }
@@ -103,29 +105,42 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// </summary>
         [Fact]
         public async Task TestRequestParam() {
-            var result = "app_id=2016090800463464&biz_content={\"out_trade_no\":\"59f7caeeab89e009e4a4e1fb\",\"subject\":\"test\",\"total_amount\":\"10\",\"timeout_express\":\"90m\",\"scene\":\"bar_code\",\"auth_code\":\"281023564031402341\"}&charset=utf-8&format=json&method=alipay.trade.pay&sign=dKRsgXoQnGHJ8jrS7ZYk5CCF7eGX7ZKxh2dcYJ5zMdjwMlSDPaAW86VKxcs6Aec28RWdaD+3DZLMJRZxJcBJ/SqfwU5N3dSOr3JU4zLjPXcRxuxmXmzGFiemoSva3WLX93uNngkJ7w/W2IX2ndwXT3Nxa6NeD91tL2gGGd63t3rjx6zgzSk7SSAvDQbUNMh9aNWQmw7eHtV3lRxxjXvlx6dzwKokcGG0p2O2eaihkmsiL/Y8ZDaDs6+eJ6S1PYaYidDxmyGsuz9w6bV+dbJj5g9P7/fp7MAVoL8AWmgB5FEb7ceYCa39wBSjLK8l38DTDBP/+pNodo7FU67HLal1pw==&sign_type=RSA2&timestamp=2017-10-31 08:59:26&version=1.0";
             Time.SetTime( "2017-10-31 08:59:26" );
+            Util.Helpers.String result = new Util.Helpers.String();
+            result.Append( "app_id=2016090800463464&" );
+            result.Append( "biz_content={\"out_trade_no\":\"59f7caeeab89e009e4a4e1fb\",\"subject\":\"test\",\"total_amount\":\"10\",\"timeout_express\":\"90m\",\"scene\":\"bar_code\",\"auth_code\":\"281023564031402341\"}&" );
+            result.Append( "charset=utf-8&" );
+            result.Append( "format=json&" );
+            result.Append( "method=alipay.trade.pay&" );
+            result.Append( "notify_url=b&" );
+            result.Append( "return_url=a&" );
+            result.Append( "sign=aO+PHyeh0JRgOnfmor49aG8pIoP8SNhzmte9JFewFRURp1iSrVazHMdtTnf0wuiBOFKcUVDnoPuLIEKJRtopLk8cvXM0I6HScOVhim5ZtVw6Imkf7qGkjexpV749vlNAREV3k2FgYnrL6WGlsAmNOig/r/SIMaPjOQiLlJ7u5WS4I0SWeZNEf3LTi7nBhmJLw75suxJQJXd+4rDCwTdgH2NQVECxNhfGDBd9LEEqfhayAbi11SDMTWEi9q6uzgWeFNZQK3n19MY94neq4Kfet24WthRKnvKYOMDv9iLMOJ5LINz7omy6JYUxfpn015sGpJh13sO9KWwyUqo56iStvw==&" );
+            result.Append( "sign_type=RSA2&" );
+            result.Append( "timestamp=2017-10-31 08:59:26&" );
+            result.Append( "version=1.0" );
             _service = new AlipayBarcodePayService( new TestConfigProvider() );
             var param = new PayParam {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",
                 Subject = "test",
-                AuthCode = "281023564031402341"
+                AuthCode = "281023564031402341",
+                ReturnUrl = "a",
+                NotifyUrl = "b"
             };
             var request = await _service.Debug( param );
             _output.WriteLine( request );
-            Assert.Equal( result, request );
+            Assert.Equal( result.ToString(), request );
         }
 
         /// <summary>
         /// 测试支付
         /// </summary>
-        [Fact( Skip = "请下载沙箱支付宝，填写正确的付款码" )]
+        [Fact( Skip = "输入测试付款码" )]
         public async Task TestPayAsync_1() {
             var result = await _service.PayAsync( new PayParam {
                 Money = 10,
                 OrderId = Id.Guid(),
-                AuthCode = "287600620618060057"
+                AuthCode = "281702554710470240"
             } );
             _output.WriteLine( $"Message:{result.Message}" );
             _output.WriteLine( $"Raw:{result.Raw}" );
@@ -135,12 +150,12 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// <summary>
         /// 测试支付
         /// </summary>
-        [Fact( Skip = "请下载沙箱支付宝，填写正确的付款码" )]
+        [Fact( Skip = "输入测试付款码" )]
         public async Task TestPayAsync_2() {
             var result = await _service.PayAsync( new AlipayBarcodePayRequest {
                 Money = 10,
                 OrderId = Id.Guid(),
-                AuthCode = "285645448653864539"
+                AuthCode = "281946634954494658"
             } );
             _output.WriteLine( result.Message );
             Assert.True( result.Success );

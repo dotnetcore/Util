@@ -69,9 +69,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Parameters {
         /// </summary>
         [Fact]
         public void TestContent() {
-            var contentBuilder = new AlipayContentBuilder();
-            contentBuilder.OutTradeNo( "a" );
-            _builder.Content( contentBuilder );
+            _builder.Content.OutTradeNo( "a" );
             Assert.Equal( "biz_content={\"out_trade_no\":\"a\"}&charset=utf-8&format=json&sign_type=RSA2&timestamp=2000-10-10 10:10:10&version=1.0", _builder.ToString() );
         }
     }

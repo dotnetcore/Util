@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Util.Helpers;
 using Util.Parameters.Formats;
 
@@ -69,7 +70,7 @@ namespace Util.Parameters {
         /// 获取字典
         /// </summary>
         public IDictionary<string, string> GetDictionary() {
-            return _params;
+            return _params.OrderBy( t => t.Key ).ToDictionary( t => t.Key, t => t.Value );
         }
 
         /// <summary>
@@ -145,5 +146,10 @@ namespace Util.Parameters {
             get => GetValue( name );
             set => Add( name, value );
         }
+
+        /// <summary>
+        /// 是否空参数
+        /// </summary>
+        public bool IsEmpty => _params.Count == 0;
     }
 }

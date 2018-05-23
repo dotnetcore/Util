@@ -36,16 +36,16 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// <param name="param">支付参数</param>
         public virtual async Task<PayResult> PayAsync( PayParam param ) {
             var config = await ConfigProvider.GetConfigAsync();
-            Validate( param, config );
-            var builder = new AlipayParameterBuilder( config );
-            Config( param, builder );
+            Validate( config, param );
+            var builder = new AlipayParameterBuilder( config, param );
+            Config( builder, param );
             return await RequstResult( config, builder );
         }
 
         /// <summary>
         /// 验证
         /// </summary>
-        protected void Validate( PayParam param, AlipayConfig config ) {
+        protected void Validate( AlipayConfig config, PayParam param ) {
             param.CheckNull( nameof( param ) );
             config.CheckNull( nameof( config ) );
             param.Validate();
@@ -61,34 +61,20 @@ namespace Util.Biz.Payments.Alipay.Services {
         }
 
         /// <summary>
-        /// 参数配置
+        /// 配置
         /// </summary>
-        /// <param name="param">支付参数</param>
         /// <param name="builder">支付宝参数生成器</param>
-        /// <param name="isConvertToSingleQuotes">是否将双引号转成单引号</param>
-        protected void Config( PayParam param, AlipayParameterBuilder builder, bool isConvertToSingleQuotes = false ) {
-            param.Init();
-            var contentBuilder = CreateContentBuilder( param ).Scene( GetScene() );
-            InitContentBuilder( contentBuilder, param );
-            builder.Content( contentBuilder, isConvertToSingleQuotes ).Method( GetMethod() );
-        }
-
-        /// <summary>
-        /// 获取内容参数生成器
-        /// </summary>
-        protected AlipayContentBuilder CreateContentBuilder( PayParam param ) {
-            var builder = new AlipayContentBuilder();
-            builder.Load( param );
-            return builder;
-        }
-
-        /// <summary>
-        /// 初始化内容生成器
-        /// </summary>
-        /// <param name="builder">内容参数生成器</param>
         /// <param name="param">支付参数</param>
-        protected virtual void InitContentBuilder( AlipayContentBuilder builder, PayParam param ) {
+        protected void Config( AlipayParameterBuilder builder, PayParam param ) {
+            builder.Method( GetMethod() );
+            builder.Content.Scene( GetScene() );
+            InitContentBuilder( builder.Content, param );
         }
+
+        /// <summary>
+        /// 获取请求方法
+        /// </summary>
+        protected abstract string GetMethod();
 
         /// <summary>
         /// 获取场景
@@ -98,9 +84,12 @@ namespace Util.Biz.Payments.Alipay.Services {
         }
 
         /// <summary>
-        /// 获取请求方法
+        /// 初始化内容生成器
         /// </summary>
-        protected abstract string GetMethod();
+        /// <param name="builder">内容参数生成器</param>
+        /// <param name="param">支付参数</param>
+        protected virtual void InitContentBuilder( AlipayContentBuilder builder, PayParam param ) {
+        }
 
         /// <summary>
         /// 请求结果
@@ -139,7 +128,6 @@ namespace Util.Biz.Payments.Alipay.Services {
                 .Caption( "支付宝支付" )
                 .Content( $"支付方式 : {GetPayWay().Description()}" )
                 .Content( $"支付网关 : {config.GatewayUrl}" )
-                .Content()
                 .Content( "请求参数:" )
                 .Content( builder.GetDictionary() )
                 .Content()
@@ -157,7 +145,7 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// <summary>
         /// 写日志
         /// </summary>
-        protected void WriteLog( AlipayConfig config, AlipayParameterBuilder builder,string content ) {
+        protected void WriteLog( AlipayConfig config, AlipayParameterBuilder builder, string content ) {
             var log = GetLog();
             if( log.IsTraceEnabled == false )
                 return;
@@ -165,9 +153,9 @@ namespace Util.Biz.Payments.Alipay.Services {
                 .Caption( "支付宝支付" )
                 .Content( $"支付方式 : {GetPayWay().Description()}" )
                 .Content( $"支付网关 : {config.GatewayUrl}" )
-                .Content()
                 .Content( "请求参数:" )
                 .Content( builder.GetDictionary() )
+                .Content()
                 .Content( "原始请求:" )
                 .Content( builder.ToString() )
                 .Content()
@@ -208,9 +196,9 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// <param name="param">支付参数</param>
         public virtual async Task<string> Debug( PayParam param ) {
             var config = await ConfigProvider.GetConfigAsync();
-            Validate( param, config );
-            var builder = new AlipayParameterBuilder( config );
-            Config( param, builder );
+            Validate( config, param );
+            var builder = new AlipayParameterBuilder( config, param );
+            Config( builder, param );
             return builder.ToString();
         }
     }
