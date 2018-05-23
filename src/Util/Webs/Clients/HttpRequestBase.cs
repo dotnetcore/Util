@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Util.Helpers;
@@ -51,6 +53,11 @@ namespace Util.Webs.Clients {
         /// 执行失败的回调函数
         /// </summary>
         private Action<string, HttpStatusCode> _failStatusCodeAction;
+        /// <summary>
+        /// ssl证书验证委托
+        /// </summary>
+        private Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool> _ServerCertificateCustomValidationCallback;
+
 
         /// <summary>
         /// 初始化Http请求
@@ -207,6 +214,15 @@ namespace Util.Webs.Clients {
             _failStatusCodeAction = action;
             return This();
         }
+        /// <summary>
+        /// 忽略Ssl
+        /// </summary>
+        /// <returns></returns>
+        public TRequest IgnoreSsl()
+        {
+            _ServerCertificateCustomValidationCallback = (a, b, c, d) => true;
+            return This();
+        }
 
         /// <summary>
         /// 获取内容类型
@@ -279,7 +295,7 @@ namespace Util.Webs.Clients {
         /// 创建请求客户端
         /// </summary>
         private HttpClient CreateHttpClient() {
-            return new HttpClient( new HttpClientHandler { CookieContainer = _cookieContainer } ) { Timeout = _timeout };
+            return new HttpClient( new HttpClientHandler { CookieContainer = _cookieContainer, ServerCertificateCustomValidationCallback = _ServerCertificateCustomValidationCallback }) { Timeout = _timeout };
         }
 
         /// <summary>
