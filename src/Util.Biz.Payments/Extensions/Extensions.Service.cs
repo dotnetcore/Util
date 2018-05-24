@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
+using Util.Biz.Payments.Alipay.Services;
 using Util.Biz.Payments.Factories;
 
 namespace Util.Biz.Payments.Extensions {
@@ -19,6 +21,8 @@ namespace Util.Biz.Payments.Extensions {
             var options = new PayOptions();
             setupAction?.Invoke( options );
             services.TryAddSingleton<IAlipayConfigProvider>( new AlipayConfigProvider( options.AlipayOptions ) );
+            services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
+            services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
         }
     }
 }

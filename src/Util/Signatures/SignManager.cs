@@ -9,7 +9,7 @@ namespace Util.Signatures {
         /// <summary>
         /// 签名密钥
         /// </summary>
-        private readonly string _key;
+        private readonly ISignKey _key;
         /// <summary>
         /// Url参数生成器
         /// </summary>
@@ -22,7 +22,7 @@ namespace Util.Signatures {
         /// <param name="builder">Url参数生成器</param>
         public SignManager( ISignKey key, UrlParameterBuilder builder = null ) {
             key.CheckNull( nameof( key ) );
-            _key = key.GetKey();
+            _key = key;
             _builder = builder == null ? new UrlParameterBuilder() : new UrlParameterBuilder( builder );
         }
 
@@ -40,7 +40,15 @@ namespace Util.Signatures {
         /// 签名
         /// </summary>
         public string Sign() {
-            return Encrypt.Rsa2Sign( _builder.Result( true ), _key );
+            return Encrypt.Rsa2Sign( _builder.Result( true ), _key.GetKey() );
+        }
+
+        /// <summary>
+        /// 验签
+        /// </summary>
+        /// <param name="sign">签名</param>
+        public bool Verify( string sign ) {
+            return Encrypt.Rsa2Verify( _builder.Result( true ), _key.GetPublicKey(), sign );
         }
     }
 }

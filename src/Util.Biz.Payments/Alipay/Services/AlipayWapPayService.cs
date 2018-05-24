@@ -4,6 +4,7 @@ using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Parameters;
 using Util.Biz.Payments.Alipay.Parameters.Requests;
+using Util.Biz.Payments.Alipay.Services.Base;
 using Util.Biz.Payments.Core;
 using Util.Helpers;
 

@@ -162,10 +162,10 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         }
 
         /// <summary>
-        /// 测试Json转换
+        /// 测试Json结果
         /// </summary>
         [Fact]
-        public void TestJson() {
+        public void TestJsonResult() {
             const string json = "{\"alipay_trade_pay_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"buyer_logon_id\":\"jeu*** @sandbox.com\",\"buyer_pay_amount\":\"10.00\",\"buyer_user_id\":\"2088102174804335\",\"fund_bill_list\":[{\"amount\":\"10.00\",\"fund_channel\":\"ALIPAYACCOUNT\"}],\"gmt_payment\":\"2017-10-31 13:23:12\",\"invoice_amount\":\"10.00\",\"open_id\":\"20881058260191225496241750118233\",\"out_trade_no\":\"06bfa9807832438dac6a2b785ad7addc\",\"point_amount\":\"0.00\",\"receipt_amount\":\"10.00\",\"total_amount\":\"10.00\",\"trade_no\":\"2017103121001004330200344580\"},\"sign\":\"CkMKbLdFmlhIz0Ymob7IjnGdjBDfAt5/aAZ7l0jMvwFJyBRf0TaRJiHfXTCI7srL68RQ5DnR6N89XSr1+MiclVbpbNa3joi4XDd1sdEkTKMcEmp28tvL9q3UAbMtwKgiS93CWjmj/D5xK7K+ZxwVPwF3JlkeCd2Qg5GAtHmNjAAt3tlEKVn+SmRQ0yKyk2PpvVSSBBYbFo+VircmOxHo/m/ji3sK68y0ikhQYhHRuNQXXTp3KellpIESaIUGHi8KdQa7lV2acnDnSDChWy/4PxIrEmm8Ki8PMKsqS8WiIwKiUTldeWGZ0D749oP4iq6n18iDtjmSDeEgOTkhErVKLg==\"}";
             var result = new AlipayResult( json );
             Assert.Equal( "10000", result.GetCode() );

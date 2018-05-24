@@ -7,15 +7,11 @@ using Util.Helpers;
 using Util.Logs;
 using Util.Logs.Extensions;
 
-namespace Util.Biz.Payments.Alipay.Services {
+namespace Util.Biz.Payments.Alipay.Services.Base {
     /// <summary>
     /// 支付宝支付服务
     /// </summary>
     public abstract class AlipayServiceBase : IPayService {
-        /// <summary>
-        /// 支付宝跟踪日志名
-        /// </summary>
-        public const string TraceLogName = "AlipayTraceLog";
         /// <summary>
         /// 配置提供器
         /// </summary>
@@ -169,7 +165,7 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// </summary>
         private ILog GetLog() {
             try {
-                return Log.GetLog( TraceLogName );
+                return Log.GetLog( AlipayConst.TraceLogName );
             }
             catch {
                 return Log.Null;

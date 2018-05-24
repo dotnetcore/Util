@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using Util.Helpers;
 using Util.Parameters.Formats;
 
 namespace Util.Parameters {
@@ -47,6 +48,32 @@ namespace Util.Parameters {
             var parameters = HttpUtility.ParseQueryString( url );
             foreach( var key in parameters.AllKeys )
                 Add( key, parameters.Get( key ) );
+        }
+
+        /// <summary>
+        /// 从Request加载表单参数
+        /// </summary>
+        public void LoadForm() {
+            var form = Web.Request?.Form;
+            if( form == null )
+                return;
+            foreach ( var key in form.Keys ) {
+                if( form.ContainsKey( key ) )
+                    Add( key, form[key] );
+            }
+        }
+
+        /// <summary>
+        /// 从Request加载查询参数
+        /// </summary>
+        public void LoadQuery() {
+            var query = Web.Request?.Query;
+            if( query == null )
+                return;
+            foreach( var key in query.Keys ) {
+                if( query.ContainsKey( key ) )
+                    Add( key, query[key] );
+            }
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Util.Biz.Payments.Alipay.Configs;
 
 namespace Util.Biz.Payments.Alipay.Results {
     /// <summary>
@@ -104,7 +105,7 @@ namespace Util.Biz.Payments.Alipay.Results {
         /// 获取支付订单号
         /// </summary>
         public string GetTradeNo() {
-            return GetValue( "trade_no" );
+            return GetValue( AlipayConst.TradeNo );
         }
 
         /// <summary>

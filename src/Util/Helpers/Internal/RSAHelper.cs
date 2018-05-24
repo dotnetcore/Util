@@ -26,7 +26,7 @@ namespace Util.Helpers.Internal {
         /// <param name="encoding">编码类型</param>
         /// <param name="privateKey">私钥</param>
         /// <param name="publicKey">公钥</param>
-        public RsaHelper( RSAType rsaType, Encoding encoding, string privateKey, string publicKey = null ) {
+        public RsaHelper( RSAType rsaType, Encoding encoding, string privateKey = null, string publicKey = null ) {
             _encoding = encoding;
             if( !string.IsNullOrEmpty( privateKey ) ) {
                 _privateKeyRsaProvider = CreateRsaProviderFromPrivateKey( privateKey );

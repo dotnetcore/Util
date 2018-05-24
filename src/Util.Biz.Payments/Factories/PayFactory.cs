@@ -19,6 +19,7 @@ namespace Util.Biz.Payments.Factories {
         /// </summary>
         /// <param name="alipayConfigProvider">支付宝配置提供器</param>
         public PayFactory( IAlipayConfigProvider alipayConfigProvider ) {
+            alipayConfigProvider.CheckNull( nameof( alipayConfigProvider ) );
             _alipayConfigProvider = alipayConfigProvider;
         }
 
@@ -36,6 +37,20 @@ namespace Util.Biz.Payments.Factories {
                     return new AlipayWapPayService( _alipayConfigProvider );
             }
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 创建支付宝回调通知服务
+        /// </summary>
+        public IAlipayNotifyService CreateAlipayNotifyService() {
+            return new AlipayNotifyService( _alipayConfigProvider );
+        }
+
+        /// <summary>
+        /// 创建支付宝返回服务
+        /// </summary>
+        public IAlipayReturnService CreateAlipayReturnService() {
+            return new AlipayReturnService( _alipayConfigProvider );
         }
 
         /// <summary>

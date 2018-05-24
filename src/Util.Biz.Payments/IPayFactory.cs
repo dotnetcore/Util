@@ -12,6 +12,14 @@ namespace Util.Biz.Payments {
         /// <param name="way">支付方式</param>
         IPayService CreatePayService( PayWay way );
         /// <summary>
+        /// 创建支付宝回调通知服务
+        /// </summary>
+        IAlipayNotifyService CreateAlipayNotifyService();
+        /// <summary>
+        /// 创建支付宝返回服务
+        /// </summary>
+        IAlipayReturnService CreateAlipayReturnService();
+        /// <summary>
         /// 创建支付宝条码支付服务
         /// </summary>
         IAlipayBarcodePayService CreateAlipayBarcodePayService();

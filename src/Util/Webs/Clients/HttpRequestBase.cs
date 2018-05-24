@@ -56,8 +56,7 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// ssl证书验证委托
         /// </summary>
-        private Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool> _ServerCertificateCustomValidationCallback;
-
+        private Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool> _serverCertificateCustomValidationCallback;
 
         /// <summary>
         /// 初始化Http请求
@@ -167,7 +166,7 @@ namespace Util.Webs.Clients {
         /// 添加参数字典
         /// </summary>
         /// <param name="parameters">参数字典</param>
-        public TRequest Data( IDictionary<string,string> parameters ) {
+        public TRequest Data( IDictionary<string, string> parameters ) {
             _params = parameters ?? throw new ArgumentNullException( nameof( parameters ) );
             return This();
         }
@@ -217,10 +216,8 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 忽略Ssl
         /// </summary>
-        /// <returns></returns>
-        public TRequest IgnoreSsl()
-        {
-            _ServerCertificateCustomValidationCallback = (a, b, c, d) => true;
+        public TRequest IgnoreSsl() {
+            _serverCertificateCustomValidationCallback = ( a, b, c, d ) => true;
             return This();
         }
 
@@ -295,7 +292,8 @@ namespace Util.Webs.Clients {
         /// 创建请求客户端
         /// </summary>
         private HttpClient CreateHttpClient() {
-            return new HttpClient( new HttpClientHandler { CookieContainer = _cookieContainer, ServerCertificateCustomValidationCallback = _ServerCertificateCustomValidationCallback }) { Timeout = _timeout };
+            return new HttpClient( new HttpClientHandler { CookieContainer = _cookieContainer,
+                ServerCertificateCustomValidationCallback = _serverCertificateCustomValidationCallback } ) { Timeout = _timeout };
         }
 
         /// <summary>
