@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
   <variables>
-    <add key="UtilTest" value="Data Source=.\sql2014;Initial Catalog=UtilTest;Integrated Security=True" />
-    <add key="ConnectionString1" value="Data Source=.\sql2014;Initial Catalog=Donau;Integrated Security=True" />
-    <add key="ConnectionString2" value="Data Source=.\sql2014;Initial Catalog=GreatWall;Integrated Security=True" />
+    <add key="ConnectionString1" value="Data Source=.\sql2014;Initial Catalog=Sample;Integrated Security=True" />
   </variables>
   <propertySets>
     <propertySet name="Templates" template="01-Templates\Templates.cst">
@@ -23,10 +21,10 @@
     </stringList>
       </property>
       <property name="Database">
-        <connectionString>$(ConnectionString2)</connectionString>
+        <connectionString>$(ConnectionString1)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
-      <property name="Namespace">GreatWall</property>
+      <property name="Namespace">Sample</property>
       <property name="DbName">.</property>
     </propertySet>
   </propertySets>

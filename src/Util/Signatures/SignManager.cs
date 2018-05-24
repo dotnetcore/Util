@@ -44,7 +44,7 @@ namespace Util.Signatures {
         }
 
         /// <summary>
-        /// 验签
+        /// 验证签名
         /// </summary>
         /// <param name="sign">签名</param>
         public bool Verify( string sign ) {

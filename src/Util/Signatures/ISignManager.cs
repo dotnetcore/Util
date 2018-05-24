@@ -13,5 +13,10 @@
         /// 签名
         /// </summary>
         string Sign();
+        /// <summary>
+        /// 验证签名
+        /// </summary>
+        /// <param name="sign">签名</param>
+        bool Verify( string sign );
     }
 }
