@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Util.Logs;
 using Util.Logs.Extensions;
 
@@ -11,8 +12,15 @@ namespace Util.Webs.Filters {
         /// 异常处理
         /// </summary>
         public override void OnException( ExceptionContext context ) {
-            base.OnException( context );
             WriteLog( context );
+        }
+
+        /// <summary>
+        /// 异常处理
+        /// </summary>
+        public override Task OnExceptionAsync( ExceptionContext context ) {
+            WriteLog( context );
+            return Task.CompletedTask;
         }
 
         /// <summary>

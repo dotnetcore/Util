@@ -25,7 +25,7 @@
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
       <property name="Namespace">Sample</property>
-      <property name="DbName">.</property>
+      <property name="DbName">Sample</property>
     </propertySet>
   </propertySets>
 </codeSmith>

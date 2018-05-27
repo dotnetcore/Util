@@ -11,7 +11,7 @@ namespace Util.Webs.Controllers {
     /// </summary>
     [Route( "api/[controller]" )]
     [ExceptionHandler]
-    [ErrorLogAttribute]
+    [ErrorLog]
     public class WebApiControllerBase : Controller {
         /// <summary>
         /// 会话

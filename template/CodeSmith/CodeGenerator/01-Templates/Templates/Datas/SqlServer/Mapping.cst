@@ -47,21 +47,6 @@ namespace <%=Namespace%>.Data.Mappings.<%= Entity.TableSchema %>.SqlServer {
             builder.Property( t => t.Level ).HasColumnName( "Level" );
             <%}%>
         }
-        
-        /// <summary>
-        /// 映射导航属性
-        /// </summary>
-        protected override void MapAssociations( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
-            <%
-            foreach(var r in Entity.Relationships.Where(e => e.IsMapped))
-            {
-                if (r.IsManyToMany)
-                    Response.Write(ManyToManyExpression(r));
-                else
-                    Response.Write(RelationshipExpression(r));
-            }
-            %>
-        }
     }
 }
 <script runat="template">

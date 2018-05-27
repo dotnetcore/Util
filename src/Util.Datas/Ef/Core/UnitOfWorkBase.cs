@@ -152,7 +152,7 @@ namespace Util.Datas.Ef.Core {
         /// 获取定义映射配置的程序集列表
         /// </summary>
         protected virtual Assembly[] GetAssemblies() {
-            return new[] { GetType().GetTypeInfo().Assembly };
+            return new[] { GetType().Assembly };
         }
 
         /// <summary>

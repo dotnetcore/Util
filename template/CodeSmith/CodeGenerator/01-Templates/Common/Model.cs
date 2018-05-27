@@ -170,6 +170,14 @@ namespace SchemaMapper
         }
 
         /// <summary>
+        /// 获取导航属性标识列名
+        /// </summary>
+        public string GetOtherIdProperty(string name)
+        {
+            return Context.Entities.ByClass(name).GetId().ColumnName;
+        }
+
+        /// <summary>
         /// 获取属性集合,不包含Version属性
         /// </summary>
         public List<Property> GetProperties(bool isExcludeVersion = true)

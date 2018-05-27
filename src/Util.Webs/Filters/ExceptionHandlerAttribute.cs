@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Util.Logs.Extensions;
 using Util.Webs.Commons;
 
 namespace Util.Webs.Filters {

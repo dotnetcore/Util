@@ -20,11 +20,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using <%=Namespace%>.Data.Pos.<%=Entity.TableSchema%>;
 
-namespace <%=Namespace%>.Data.Mappings.<%=Entity.TableSchema%>.SqlServer {
+namespace <%=Namespace%>.Data.Mappings.<%=Entity.TableSchema%>.PgSql {
     /// <summary>
     /// <%= Description %>持久化对象映射配置
     /// </summary>
-    public class <%= SafeClassName %>PoMap : Util.Datas.Ef.SqlServer.AggregateRootMap<<%= SafeClassName %>Po> {
+    public class <%= SafeClassName %>PoMap : Util.Datas.Ef.PgSql.AggregateRootMap<<%= SafeClassName %>Po> {
         /// <summary>
         /// 映射表
         /// </summary>

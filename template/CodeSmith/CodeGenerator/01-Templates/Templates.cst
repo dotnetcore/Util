@@ -95,6 +95,9 @@
 <%@ Register Name="SqlServerPoMappingClass"
              Template="Templates\PersistObjects\Datas\SqlServer\PoMapping.cst"
              MergeProperties="False" %>
+<%@ Register Name="PgSqlPoMappingClass"
+             Template="Templates\PersistObjects\Datas\PgSql\PoMapping.cst"
+             MergeProperties="False" %>
 <%@ Register Name="PoIRepositoryClass"
              Template="Templates\PersistObjects\Domains\IRepository.cst"
              MergeProperties="False" %>
@@ -118,6 +121,12 @@
              MergeProperties="False" %>
 <%@ Register Name="SqlServerMappingClass"
              Template="Templates\Datas\SqlServer\Mapping.cst"
+             MergeProperties="False" %>
+<%@ Register Name="PgSqlUnitOfWorkClass"
+             Template="Templates\Datas\PgSql\UnitOfWork.cst"
+             MergeProperties="False" %>
+<%@ Register Name="PgSqlMappingClass"
+             Template="Templates\Datas\PgSql\Mapping.cst"
              MergeProperties="False" %>
 <%@ Register Name="IocConfigClass"
              Template="Templates\Services\IocConfig.cst"
@@ -232,6 +241,8 @@
         CreatePoExtension( context );
         //创建持久对象Sql Server映射
         CreateSqlServerPoMapping(context);
+        //创建持久对象PgSql映射
+        CreatePgSqlPoMapping(context);
         //创建持久化对象仓储接口
         CreatePoIRepository(context);
         //创建持久化对象仓储
@@ -248,6 +259,10 @@
         CreateSqlServerUnitOfWork(context);
         //创建Sql Server映射
         CreateSqlServerMapping(context);
+        //创建PgSql工作单元
+        CreatePgSqlUnitOfWork(context);
+        //创建PgSql映射
+        CreatePgSqlMapping(context);
         //创建Dto
         CreateDto( context );
         //创建Dto扩展
@@ -457,6 +472,20 @@
         }
     }
     
+    //创建持久对象PgSql映射
+    public void CreatePgSqlPoMapping(EntityContext entityContext)
+    {
+        PgSqlPoMappingClass result = this.Create<PgSqlPoMappingClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}PoMap", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,string.Format("Persists\\Datas\\Mappings\\{0}\\PgSql",GetSchema(entity)) ), true);
+        }
+    }
+    
     //创建创建持久化对象仓储接口
     public void CreatePoIRepository(EntityContext entityContext){
         PoIRepositoryClass result = this.Create<PoIRepositoryClass>();
@@ -571,6 +600,34 @@
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
             result.RenderToFile(GetPath(className,string.Format("Datas\\Mappings\\{0}\\SqlServer",GetSchema(entity)) ), true);
+        }
+    }
+    
+    //创建PgSql工作单元
+    public void CreatePgSqlUnitOfWork(EntityContext entityContext)
+    {
+        PgSqlUnitOfWorkClass context = this.Create<PgSqlUnitOfWorkClass>();
+        this.CopyPropertiesTo(context);
+        string className = GetUnitOfWork(entityContext);
+        context.UnitOfWork = className;
+        context.EntityContext = entityContext;
+        context.DbName = GetDbName( entityContext );
+        context.Namespace = GetNamespace( entityContext.Entities.FirstOrDefault() );
+        context.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
+        context.RenderToFile(GetPath(className,"Datas\\UnitOfWorks\\PgSql"), true);
+    }
+    
+    //创建PgSql映射
+    public void CreatePgSqlMapping(EntityContext entityContext)
+    {
+        PgSqlMappingClass result = this.Create<PgSqlMappingClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Map", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,string.Format("Datas\\Mappings\\{0}\\PgSql",GetSchema(entity)) ), true);
         }
     }
     

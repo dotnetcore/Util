@@ -1,7 +1,7 @@
 ﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
 
-<%@ Assembly Src="..\..\..\..\Common\Model.cs" %>
-<%@ Assembly Src="..\..\..\..\Common\Extensions.cs" %>
+<%@ Assembly Src="..\..\..\Common\Model.cs" %>
+<%@ Assembly Src="..\..\..\Common\Extensions.cs" %>
 
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Linq" %>
@@ -18,30 +18,34 @@
 <% string Description = Entity.Description; %>
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using <%=Namespace%>.Data.Pos.<%=Entity.TableSchema%>;
+using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
-namespace <%=Namespace%>.Data.Mappings.<%=Entity.TableSchema%>.SqlServer {
+namespace <%=Namespace%>.Data.Mappings.<%= Entity.TableSchema %>.PgSql {
     /// <summary>
-    /// <%= Description %>持久化对象映射配置
+    /// <%= Description %>映射配置
     /// </summary>
-    public class <%= SafeClassName %>PoMap : Util.Datas.Ef.SqlServer.AggregateRootMap<<%= SafeClassName %>Po> {
+    public class <%= SafeClassName %>Map : Util.Datas.Ef.PgSql.AggregateRootMap<<%= SafeClassName %>> {
         /// <summary>
         /// 映射表
         /// </summary>
-        protected override void MapTable( EntityTypeBuilder<<%= SafeClassName %>Po> builder ) {
+        protected override void MapTable( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
             builder.ToTable( "<%= Entity.TableName %>", "<%= Entity.TableSchema %>" );
         }
         
         /// <summary>
         /// 映射属性
         /// </summary>
-        protected override void MapProperties( EntityTypeBuilder<<%= SafeClassName %>Po> builder ) {
+        protected override void MapProperties( EntityTypeBuilder<<%= SafeClassName %>> builder ) {
             <%
             foreach(var p in Entity.Properties)
-            {                
+            {
                 Response.Write(PropertyExpression(p));
             }
             %>
+            <%if(Entity.IsTreeEntity()){%>
+            builder.Property( t => t.Path ).HasColumnName( "Path" );
+            builder.Property( t => t.Level ).HasColumnName( "Level" );
+            <%}%>
         }
     }
 }
@@ -56,7 +60,7 @@ public string PropertyExpression(Property property)
     if( property.ColumnName.ToLower() == "isdeleted" )
         return "            builder.HasQueryFilter( t => t.IsDeleted == false );\r\n";
     
-    if( property.IsKey == false )
+    if( property.IsKey == false  )
         return string.Empty;
     
     if( property.ColumnName.ToLower() == "version" && isByteArray )
@@ -78,7 +82,7 @@ public string PropertyExpression(Property property)
     sb.Append(".HasColumnName(\"");
     sb.Append(property.ColumnName);
     sb.Append("\")");
-
+    
     if (property.IsIdentity == true)
     {
       sb.AppendLine();
@@ -99,52 +103,52 @@ public string PropertyExpression(Property property)
 public string ManyToManyExpression(Relationship relationship)
 {
     StringBuilder sb = new StringBuilder();
-    sb.AppendLine("            //" + Entity.GetOtherDescription(relationship.OtherEntity ));
-    
-    sb.Append(' ', 3 * 4);
-    sb.Append("builder.HasMany(t => t.");
-    sb.Append(relationship.ThisPropertyName);
-    sb.Append(")");
-
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append(".WithMany(t => t.");
-    sb.Append(relationship.OtherPropertyName);
-    sb.Append(")");
-
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append(".Map(m =>");
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append("{");
-
-    sb.AppendLine();
-    sb.Append(' ', 5 * 4);
-    sb.Append("m.ToTable(\"");
-    sb.Append(relationship.JoinTable);
-    sb.Append("\", \"");
-    sb.Append(relationship.JoinSchema);
-    sb.Append("\");");
-
-    sb.AppendLine();
-    sb.Append(' ', 5 * 4);
-    sb.Append("m.MapLeftKey(");
-    sb.Append(relationship.JoinThisColumn.ToDelimitedString(", ", "\"{0}\""));
-    sb.Append(");");
-
-    sb.AppendLine();
-    sb.Append(' ', 5 * 4);
-    sb.Append("m.MapRightKey(");
-    sb.Append(relationship.JoinOtherColumn.ToDelimitedString(", ", "\"{0}\""));
-    sb.Append(");");
-
-    sb.AppendLine();
-    sb.Append(' ', 4 * 4);
-    sb.Append("})");
-
-    sb.Append(";");
-    sb.AppendLine();
+//    sb.AppendLine("            //" + Entity.GetOtherDescription(relationship.OtherEntity ));
+//    
+//    sb.Append(' ', 3 * 4);
+//    sb.Append("builder.HasMany(t => t.");
+//    sb.Append(relationship.ThisPropertyName);
+//    sb.Append(")");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append(".WithMany(t => t.");
+//    sb.Append(relationship.OtherPropertyName);
+//    sb.Append(")");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append(".Map(m =>");
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append("{");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 5 * 4);
+//    sb.Append("m.ToTable(\"");
+//    sb.Append(relationship.JoinTable);
+//    sb.Append("\", \"");
+//    sb.Append(relationship.JoinSchema);
+//    sb.Append("\");");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 5 * 4);
+//    sb.Append("m.MapLeftKey(");
+//    sb.Append(relationship.JoinThisColumn.ToDelimitedString(", ", "\"{0}\""));
+//    sb.Append(");");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 5 * 4);
+//    sb.Append("m.MapRightKey(");
+//    sb.Append(relationship.JoinOtherColumn.ToDelimitedString(", ", "\"{0}\""));
+//    sb.Append(");");
+//
+//    sb.AppendLine();
+//    sb.Append(' ', 4 * 4);
+//    sb.Append("})");
+//
+//    sb.Append(";");
+//    sb.AppendLine();
 
     return sb.ToString();
 }
