@@ -41,8 +41,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.3.1" />
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.3.1" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.5.0" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.5.0" />
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="AutoMapper" Version="7.0.0-alpha-0001" />
@@ -53,7 +53,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0-rc1" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.7" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.9" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0-rc1" />
   </ItemGroup>
