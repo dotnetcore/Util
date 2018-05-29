@@ -64,17 +64,12 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
         public <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> { get; set; }
         <% }%>
         <% foreach(var r in Entity.Relationships) { %>
-        
-        <% if(r.ThisCardinality == Cardinality.Many) { %>
-        /// <summary>
-        /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>列表
-        /// </summary>
-        public ICollection<<%= r.OtherEntity.ToSafeName() %>> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
-        <% } else { %>
+        <% if(r.ThisCardinality != Cardinality.Many) { %>
         /// <summary>
         /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>
         /// </summary>
-        public virtual <%= r.OtherEntity.ToSafeName() %> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
+        [ForeignKey( "<%=Entity.GetOtherIdProperty( r.OtherEntity )%>" )]
+        public <%= r.OtherEntity.ToSafeName() %> <%= r.ThisPropertyName.ToSafeName() %> { get; set; }
         <% } %>
         <% }%>
         

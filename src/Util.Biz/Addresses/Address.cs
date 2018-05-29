@@ -40,47 +40,47 @@ namespace Util.Biz.Addresses {
         /// 省份编号
         /// </summary>
         [Column( "ProvinceId" )]
-        public Guid? ProvinceId { get; }
+        public Guid? ProvinceId { get; private set; }
         /// <summary>
         /// 城市编号
         /// </summary>
         [Column( "CityId" )]
-        public Guid? CityId { get; }
+        public Guid? CityId { get; private set; }
         /// <summary>
         /// 区县编号
         /// </summary>
         [Column( "CountyId" )]
-        public Guid? CountyId { get; }
+        public Guid? CountyId { get; private set; }
         /// <summary>
         /// 省份
         /// </summary>
         [Column( "Province" )]
         [StringLength( 100, ErrorMessage = "省份输入过长，不能超过100位" )]
-        public string Province { get; }
+        public string Province { get; private set; }
         /// <summary>
         /// 城市
         /// </summary>
         [Column( "City" )]
         [StringLength( 100, ErrorMessage = "城市输入过长，不能超过100位" )]
-        public string City { get; }
+        public string City { get; private set; }
         /// <summary>
         /// 区县
         /// </summary>
         [Column( "County" )]
         [StringLength( 100, ErrorMessage = "区县输入过长，不能超过100位" )]
-        public string County { get; }
+        public string County { get; private set; }
         /// <summary>
         /// 街道
         /// </summary>
         [Column( "Street" )]
         [StringLength( 200, ErrorMessage = "街道输入过长，不能超过200位" )]
-        public string Street { get; }
+        public string Street { get; private set; }
         /// <summary>
         /// 邮政编码
         /// </summary>
         [Column( "Zip" )]
         [StringLength( 20, ErrorMessage = "邮政编码输入过长，不能超过20位" )]
-        public string Zip { get; }
+        public string Zip { get; private set; }
 
         /// <summary>
         /// 地址描述

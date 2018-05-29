@@ -11,6 +11,7 @@ import { PagerList } from '../core/pager-list';
 import { IKey, QueryParameter } from '../core/model';
 import { MessageConfig as config } from '../config/message-config';
 import { DicService } from '../services/dic.service';
+import { Util as util } from '../util';
 
 /**
  * Mat表格包装器
@@ -278,7 +279,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 延迟搜索
      * @param delay 查询延迟间隔，单位：毫秒，默认500
      */
-    search(delay?:number) {
+    search(delay?: number) {
         if (this.timeout)
             clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
@@ -296,6 +297,16 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         this.queryParam.order = this.initOrder;
         this.dic.remove(this.key);
         this.query();
+    }
+
+    /**
+     * 清空数据
+     */
+    clear() {
+        this.dataSource.data = new PagerList<T>().data;
+        this.paginator.pageIndex = 1;
+        this.totalCount = 0;
+        this.checkedSelection.clear();
     }
 
     /**
