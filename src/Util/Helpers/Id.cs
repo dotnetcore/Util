@@ -1,15 +1,17 @@
-﻿namespace Util.Helpers {
+﻿using System;
+
+namespace Util.Helpers {
     /// <summary>
-    /// Id生成器
+    /// 标识生成器
     /// </summary>
     public static class Id {
         /// <summary>
-        /// Id
+        /// 标识
         /// </summary>
         private static string _id;
 
         /// <summary>
-        /// 设置Id
+        /// 设置标识
         /// </summary>
         /// <param name="id">Id</param>
         public static void SetId( string id ) {
@@ -17,24 +19,31 @@
         }
 
         /// <summary>
-        /// 重置Id
+        /// 重置标识
         /// </summary>
         public static void Reset() {
             _id = null;
         }
 
         /// <summary>
-        /// 创建Id
+        /// 创建标识
         /// </summary>
         public static string ObjectId() {
             return string.IsNullOrWhiteSpace( _id ) ? Util.Helpers.Internal.ObjectId.GenerateNewStringId() : _id;
         }
 
         /// <summary>
-        /// 用Guid创建Id,去掉分隔符
+        /// 用Guid创建标识,去掉分隔符
         /// </summary>
         public static string Guid() {
             return string.IsNullOrWhiteSpace( _id ) ? System.Guid.NewGuid().ToString( "N" ) : _id;
+        }
+
+        /// <summary>
+        /// 获取Guid
+        /// </summary>
+        public static Guid GetGuid() {
+            return string.IsNullOrWhiteSpace( _id ) ? System.Guid.NewGuid() : _id.ToGuid();
         }
     }
 }

@@ -95,7 +95,7 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
     /**
      * 初始化Mat下拉列表包装器
      */
-    constructor( @Optional() @Host() form: NgForm) {
+    constructor(@Optional() @Host() form: NgForm) {
         super(form);
         this.enableResetOption = true;
         this.resetOptionText = MessageConfig.resetOptionText;
@@ -125,6 +125,7 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
             this.optionGroups = select.toGroups();
             return;
         }
+        this.isGroup = false;
         this.options = select.toOptions();
     }
 
