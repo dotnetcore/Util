@@ -4,6 +4,7 @@
 //================================================
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { IocHelper as ioc } from './ioc-helper';
+import { formatDate } from '../common/helper';
 import { uuid } from '../common/helper';
 
 /**
@@ -131,13 +132,25 @@ export class HttpRequest<T> {
         if (typeof data === "object") {
             for (let key in data) {
                 if (data.hasOwnProperty(key))
-                    this.parameters = this.parameters.append(key, data[key]);
+                    this.parameters = this.parameters.append(key, this.getValue(data[key]));
             }
             return this;
         }
         if (typeof data === "string" && value)
             this.parameters = this.parameters.append(data, value);
         return this;
+    }
+
+    /**
+     * 获取值
+     * @param data 数据
+     */
+    private getValue(data): string {
+        if (!data)
+            return data;
+        if (data.getYear)
+            return formatDate(data, "YYYY-MM-DD HH:mm:ss");
+        return data;
     }
 
     /**
