@@ -1,16 +1,10 @@
-﻿using System;
-using QRCoder;
-using Util.Files;
+﻿using QRCoder;
 
 namespace Util.Tools.QrCode.QrCoder {
     /// <summary>
     /// QRCoder二维码服务
     /// </summary>
     public class QrCoderService : IQrCodeService {
-        /// <summary>
-        /// 文件存储服务
-        /// </summary>
-        private readonly IFileStore _fileStore;
         /// <summary>
         /// 二维码尺寸
         /// </summary>
@@ -23,9 +17,7 @@ namespace Util.Tools.QrCode.QrCoder {
         /// <summary>
         /// 初始化QRCoder组件二维码服务
         /// </summary>
-        /// <param name="fileStore">文件存储服务</param>
-        public QrCoderService( IFileStore fileStore ) {
-            _fileStore = fileStore;
+        public QrCoderService() {
             _size = 10;
             _level = QRCodeGenerator.ECCLevel.L;
         }
@@ -70,18 +62,10 @@ namespace Util.Tools.QrCode.QrCoder {
         }
 
         /// <summary>
-        /// 生成二维码并保存到指定位置
-        /// </summary>
-        /// <param name="content">内容</param>
-        public string Save( string content ) {
-            var qrCode = CreateQrCode( content );
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// 创建二维码
         /// </summary>
-        private byte[] CreateQrCode( string content ) {
+        /// <param name="content">内容</param>
+        public byte[] CreateQrCode( string content ) {
             QRCodeGenerator generator = new QRCodeGenerator();
             QRCodeData data = generator.CreateQrCode( content, _level );
             BitmapByteQRCode qrCode = new BitmapByteQRCode( data );
