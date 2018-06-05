@@ -103,7 +103,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
             if( IsSendRequest == false )
                 return string.Empty;
             return await Web.Client()
-                .Post( config.GatewayUrl )
+                .Post( config.GetGatewayUrl() )
                 .Data( builder.GetDictionary() )
                 .ResultAsync();
         }
@@ -123,7 +123,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
             log.Class( GetType().FullName )
                 .Caption( "支付宝支付" )
                 .Content( $"支付方式 : {GetPayWay().Description()}" )
-                .Content( $"支付网关 : {config.GatewayUrl}" )
+                .Content( $"支付网关 : {config.GetGatewayUrl()}" )
                 .Content( "请求参数:" )
                 .Content( builder.GetDictionary() )
                 .Content()
@@ -148,7 +148,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
             log.Class( GetType().FullName )
                 .Caption( "支付宝支付" )
                 .Content( $"支付方式 : {GetPayWay().Description()}" )
-                .Content( $"支付网关 : {config.GatewayUrl}" )
+                .Content( $"支付网关 : {config.GetGatewayUrl()}" )
                 .Content( "请求参数:" )
                 .Content( builder.GetDictionary() )
                 .Content()

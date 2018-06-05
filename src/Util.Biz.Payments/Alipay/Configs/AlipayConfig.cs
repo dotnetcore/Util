@@ -39,6 +39,18 @@ namespace Util.Biz.Payments.Alipay.Configs {
         public string NotifyUrl { get; set; }
 
         /// <summary>
+        /// 字符编码
+        /// </summary>
+        public string Charset { get; set; } = "utf-8";
+
+        /// <summary>
+        /// 获取支付网关地址
+        /// </summary>
+        public string GetGatewayUrl() {
+            return $"{GatewayUrl}?charset={Charset}";
+        }
+
+        /// <summary>
         /// 验证
         /// </summary>
         public void Validate() {

@@ -86,7 +86,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         private void AddProperties( AlipayParameterBuilder builder ) {
             AddAttribute( "id", FormId );
             AddAttribute( "name", FormId );
-            AddAttribute( "action", builder.Config.GatewayUrl );
+            AddAttribute( "action", builder.Config.GetGatewayUrl() );
             AddAttribute( "charset", builder.GetValue( AlipayConst.Charset ) );
             AddAttribute( "method", "POST" );
         }

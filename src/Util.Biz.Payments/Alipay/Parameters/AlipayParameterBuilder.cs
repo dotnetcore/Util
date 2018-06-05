@@ -42,7 +42,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 初始化
         /// </summary>
         private void Init( PayParamBase param ) {
-            Format( "json" ).Charset( "utf-8" ).SignType( "RSA2" ).Timestamp().Version( "1.0" ).AppId( Config.AppId );
+            Format( "json" ).Charset( Config.Charset ).SignType( "RSA2" ).Timestamp().Version( "1.0" ).AppId( Config.AppId );
             if( param == null )
                 return;
             param.Init();
