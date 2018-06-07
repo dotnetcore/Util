@@ -12,6 +12,7 @@ using Util.Logs.Extensions;
 using Util.Samples.Webs.Datas;
 using Util.Samples.Webs.Datas.SqlServer;
 using Util.Webs.Extensions;
+using Util.Webs.Filters;
 
 namespace Util.Samples.Webs {
     /// <summary>
@@ -38,6 +39,7 @@ namespace Util.Samples.Webs {
             //添加Mvc服务
             services.AddMvc( options => {
                     //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
+                    options.Filters.Add( new ExceptionHandlerAttribute() );
                 }
             ).AddControllersAsServices();
 
