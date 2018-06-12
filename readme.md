@@ -274,7 +274,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 ## 核心开发团队
 
-[何镇汐](https://github.com/utilcore) [程序喵](https://github.com/program-meow "胡雲鹏") [Richfiter](https://github.com/xingwen1987 "邢文")
+[何镇汐](https://github.com/utilcore) [程序喵](https://github.com/program-meow "胡雲鹏") [玄冰](https://github.com/jianxuanbing "简楚恩") [Richfiter](https://github.com/xingwen1987 "邢文")
 
 应用框架的开发工作量很大，个人显得力不从心，我也迫切希望找到一些志同道合的同学共同完成，同时也欢迎你的加入。
 
@@ -364,6 +364,7 @@ https://github.com/dotnetcore/util/
 > 包括.net core版本的跳跃式升级等，比如从.net core1.x升级到2.0。
 
 - 2017年7月21日，将.net core升级到2.0 Preview 2。
+- 2018年6月12日，将angular和material升级到6.x。
 
 ## 更新计划
 
