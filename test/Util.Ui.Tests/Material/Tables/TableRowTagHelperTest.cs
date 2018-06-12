@@ -43,7 +43,7 @@ namespace Util.Ui.Tests.Material.Tables {
             var result = new String();
             result.Append( "<mat-header-row>" );
             result.Append( "</mat-header-row>" );
-            result.Append( "<mat-row class=\"mat-row-hover\" matRipple=\"\">" );
+            result.Append( "<mat-row class=\"mat-row-hover\">" );
             result.Append( "</mat-row>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -57,7 +57,7 @@ namespace Util.Ui.Tests.Material.Tables {
             var result = new String();
             result.Append( "<mat-header-row>" );
             result.Append( "</mat-header-row>" );
-            result.Append( "<mat-row #a=\"\" class=\"mat-row-hover\" matRipple=\"\">" );
+            result.Append( "<mat-row #a=\"\" class=\"mat-row-hover\">" );
             result.Append( "</mat-row>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -71,7 +71,7 @@ namespace Util.Ui.Tests.Material.Tables {
             var result = new String();
             result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b']\">" );
             result.Append( "</mat-header-row>" );
-            result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\" matRipple=\"\">" );
+            result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\">" );
             result.Append( "</mat-row>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -85,7 +85,7 @@ namespace Util.Ui.Tests.Material.Tables {
             var result = new String();
             result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b']\">" );
             result.Append( "</mat-header-row>" );
-            result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\" matRipple=\"\">" );
+            result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\">" );
             result.Append( "</mat-row>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

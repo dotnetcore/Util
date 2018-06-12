@@ -219,7 +219,9 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
 
     columnsSubscription;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2, private dic: DicService<TreeQueryParameter>) {
+    private dic: DicService<TreeQueryParameter>;
+
+    constructor(public el: ElementRef, public domHandler: DomHandler, public changeDetector: ChangeDetectorRef, public renderer: Renderer2) {
         this.pageSizeOptions = [10, 20, 50, 100];
         this.loading = false;
         this.autoLoad = true;
@@ -229,6 +231,7 @@ export class TreeTable<T extends TreeViewModel & TreeNode> implements AfterConte
     }
 
     ngAfterContentInit() {
+        this.dic = util.ioc.get<DicService<TreeQueryParameter>>(DicService);
         this.init();
     }
 

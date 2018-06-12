@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, ViewChild } from '@angular/core';
+import { Injector, ViewChild, forwardRef } from '@angular/core';
 import { util, ViewModel, QueryParameter, TableWrapperComponent } from '../index';
 
 /**
@@ -20,7 +20,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     /**
      * 表格组件
      */
-    @ViewChild(TableWrapperComponent) protected table: TableWrapperComponent<TViewModel>;
+    @ViewChild(forwardRef(() => TableWrapperComponent)) protected table: TableWrapperComponent<TViewModel>;
 
     /**
      * 初始化组件

@@ -9,7 +9,7 @@ namespace Util.Ui.Material.Tables.Builders {
         /// 初始化行生成器
         /// </summary>
         public RowBuilder() : base( "mat-row" ) {
-            AddAttribute( "matRipple" ).Class( "mat-row-hover" );
+            Class( "mat-row-hover" );
         }
 
         /// <summary>

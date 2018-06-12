@@ -2,9 +2,6 @@
 
 <util-toolbar>
     <util-layout>
-        <util-textbox model="queryParam.keyword" placeholder="搜索" on-change="search()"></util-textbox>
-    </util-layout>
-    <util-layout>
         <util-a styles="Icon" tooltip="添加角色" link="create">
             <util-icon font-awesome-icon="Plus"></util-icon>
         </util-a>
@@ -22,8 +19,10 @@
         </util-button>
     </util-layout>
 </util-toolbar>
-
-<util-tree-table id="treeTable_role" base-url="role" query-param="queryParam" selection-mode="Multiple">
+<util-layout flex="100%">
+    <util-textbox model="queryParam.keyword" placeholder="搜索" on-change="search()"></util-textbox>
+</util-layout>
+<util-tree-table id="treeTable_role" base-url="role" query-param="queryParam" selection-mode="Multiple" key="treeTable_role" >
     <util-tree-table-column for="Name"></util-tree-table-column>
     <util-tree-table-column for="Code"></util-tree-table-column>
     <util-tree-table-column for="Enabled"></util-tree-table-column>

@@ -5,7 +5,6 @@ using Util.Ui.Extensions;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tables.Configs;
 using Util.Ui.Material.Tables.Renders;
-using Util.Ui.Material.Tables.Temp;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 
@@ -70,8 +69,6 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
             var config = new TableConfig( context );
-            if( config.Contains( UiConst.MaxHeight ) )
-                return new TempTableRender( config );
             return new TableRender( config );
         }
 

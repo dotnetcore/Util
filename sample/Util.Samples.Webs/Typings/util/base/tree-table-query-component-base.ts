@@ -2,7 +2,7 @@
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, ViewChild, OnInit } from '@angular/core';
+import { Injector, ViewChild, OnInit,forwardRef } from '@angular/core';
 import { MessageConfig } from '../config/message-config';
 import { util, TreeViewModel, TreeQueryParameter, TreeTable, HttpMethod, PagerList } from '../index';
 
@@ -29,7 +29,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     /**
      * 表格组件
      */
-    @ViewChild(TreeTable) protected table: TreeTable<TViewModel>;
+    @ViewChild(forwardRef(() => TreeTable)) protected table: TreeTable<TViewModel>;
 
     /**
      * 初始化组件
