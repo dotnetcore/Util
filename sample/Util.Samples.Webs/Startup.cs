@@ -63,6 +63,9 @@ namespace Util.Samples.Webs {
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.Webs.xml" ) );
             } );
 
+            // 添加Razor静态Html生成器
+            services.AddRazorHtml();
+
             //添加Util基础设施服务
             return services.AddUtil();
         }
