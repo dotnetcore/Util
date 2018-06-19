@@ -31,5 +31,9 @@ namespace Util.Biz.Payments {
         /// 创建支付宝手机网站支付服务
         /// </summary>
         IAlipayWapPayService CreateAlipayWapPayService();
+        /// <summary>
+        /// 创建支付宝App支付服务
+        /// </summary>
+        IAlipayAppPayService CreateAlipayAppPayService();
     }
 }

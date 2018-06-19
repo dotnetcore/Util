@@ -19,6 +19,11 @@ namespace Util.Biz.Payments.Core {
         /// 支付宝手机网站支付
         /// </summary>
         [Description( "支付宝手机网站支付" )]
-        AlipayWapPay
+        AlipayWapPay,
+        /// <summary>
+        /// 支付宝App支付
+        /// </summary>
+        [Description( "支付宝App支付" )]
+        AlipayAppPay
     }
 }
