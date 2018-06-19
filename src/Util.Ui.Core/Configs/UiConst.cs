@@ -459,5 +459,9 @@
         /// 精确匹配
         /// </summary>
         public const string Exact = "exact";
+        /// <summary>
+        /// 冻结头部
+        /// </summary>
+        public const string StickyHeader = "sticky-header";
     }
 }

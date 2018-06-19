@@ -69,7 +69,7 @@ namespace Util.Ui.Tests.Material.Tables {
         public void TestColumns() {
             var attributes = new TagHelperAttributeList { { UiConst.Columns, "['a','b']" } };
             var result = new String();
-            result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b']\">" );
+            result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b'];sticky:true\">" );
             result.Append( "</mat-header-row>" );
             result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\">" );
             result.Append( "</mat-row>" );
@@ -82,6 +82,20 @@ namespace Util.Ui.Tests.Material.Tables {
         [Fact]
         public void TestColumns_2() {
             var attributes = new TagHelperAttributeList { { UiConst.Columns, "'a','b'" } };
+            var result = new String();
+            result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b'];sticky:true\">" );
+            result.Append( "</mat-header-row>" );
+            result.Append( "<mat-row *matRowDef=\"let row;columns:['a','b']\" class=\"mat-row-hover\">" );
+            result.Append( "</mat-row>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试取消冻结表头
+        /// </summary>
+        [Fact]
+        public void TestSticky_False() {
+            var attributes = new TagHelperAttributeList { { UiConst.Columns, "'a','b'" }, { UiConst.StickyHeader, false } };
             var result = new String();
             result.Append( "<mat-header-row *matHeaderRowDef=\"['a','b']\">" );
             result.Append( "</mat-header-row>" );

@@ -34,11 +34,11 @@ namespace Util.Ui.Material.Tables.Renders {
         }
 
         /// <summary>
-        /// 渲染行头
+        /// 渲染表头
         /// </summary>
         private void RenderHeaderRow( TextWriter writer, HtmlEncoder encoder ) {
             var headerRowBuilder = new HeaderRowBuilder();
-            headerRowBuilder.AddColumns( _config.GetValue( UiConst.Columns ) );
+            headerRowBuilder.AddColumns( _config.GetValue( UiConst.Columns ), _config.GetValue( UiConst.StickyHeader ).ToBoolOrNull() );
             headerRowBuilder.WriteTo( writer, encoder );
         }
 

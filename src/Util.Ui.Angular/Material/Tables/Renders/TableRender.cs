@@ -151,7 +151,7 @@ namespace Util.Ui.Material.Tables.Renders {
         /// </summary>
         protected virtual void AddHeaderRow( TagBuilder tableBuilder, string columns ) {
             var headerRowBuilder = new HeaderRowBuilder();
-            headerRowBuilder.AddColumns( columns );
+            headerRowBuilder.AddColumns( columns, _config.GetValue( UiConst.StickyHeader ).ToBoolOrNull() );
             tableBuilder.AppendContent( headerRowBuilder );
         }
 

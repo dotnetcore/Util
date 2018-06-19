@@ -62,6 +62,10 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// 分页长度列表，值通过逗号分隔，范例：10,20,50,100
         /// </summary>
         public string PageSizeOptions { get; set; }
+        /// <summary>
+        /// 冻结表头，默认为true
+        /// </summary>
+        public bool StickyHeader { get; set; }
 
         /// <summary>
         /// 获取渲染器

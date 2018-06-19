@@ -17,6 +17,10 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// 显示列的集合，范例：['selectCheckbox','lineNumber', 'name','nickname','mobile']
         /// </summary>
         public string Columns { get; set; }
+        /// <summary>
+        /// 冻结表头，默认为true
+        /// </summary>
+        public bool StickyHeader { get; set; }
 
         /// <summary>
         /// 获取渲染器
