@@ -56,6 +56,8 @@ namespace Util.Ui.Material.Internal {
         /// 初始化模型绑定
         /// </summary>
         private static void InitModel( IConfig config, Type modelType, MemberInfo member, string propertyName ) {
+            if( config.Contains( UiConst.Model ) )
+                return;
             var model = GetModel( GetModelName( modelType ), GetPropertyName( member, propertyName ) );
             if( string.IsNullOrWhiteSpace( model ) )
                 return;
