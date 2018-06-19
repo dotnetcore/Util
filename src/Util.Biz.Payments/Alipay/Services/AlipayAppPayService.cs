@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
+using Util.Biz.Payments.Alipay.Parameters;
 using Util.Biz.Payments.Alipay.Parameters.Requests;
 using Util.Biz.Payments.Alipay.Services.Base;
 using Util.Biz.Payments.Core;
@@ -21,8 +22,18 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// 支付
         /// </summary>
         /// <param name="request">支付参数</param>
-        public async Task<PayResult> PayAsync( AlipayAppPayRequest request ) {
-            return await PayAsync( request.ToParam() );
+        public async Task<string> PayAsync( AlipayAppPayRequest request ) {
+            var result = await PayAsync( request.ToParam() );
+            return result.Result;
+        }
+
+        /// <summary>
+        /// 请求结果
+        /// </summary>
+        protected override Task<PayResult> RequstResult( AlipayConfig config, AlipayParameterBuilder builder ) {
+            var result = builder.ToString();
+            WriteLog( config, builder, result );
+            return Task.FromResult( new PayResult { Result = result } );
         }
 
         /// <summary>
