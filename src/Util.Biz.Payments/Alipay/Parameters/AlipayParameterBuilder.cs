@@ -151,8 +151,9 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 获取参数字典
         /// </summary>
         /// <param name="isConvertToSingleQuotes">是否将双引号转成单引号</param>
-        public IDictionary<string, string> GetDictionary( bool isConvertToSingleQuotes = false ) {
-            return GetSignBuilder( isConvertToSingleQuotes ).GetDictionary();
+        /// <param name="isUrlEncode">是否Url编码</param>
+        public IDictionary<string, string> GetDictionary( bool isConvertToSingleQuotes = false, bool isUrlEncode = false ) {
+            return GetSignBuilder( isConvertToSingleQuotes ).GetDictionary( true, isUrlEncode, Config.Charset );
         }
 
         /// <summary>
@@ -172,6 +173,14 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         private string GetSign( UrlParameterBuilder builder ) {
             var signManager = new SignManager( new SignKey( Config.AppPrivateKey ), builder );
             return signManager.Sign();
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        /// <param name="isUrlEncode">是否Url编码</param>
+        public string Result( bool isUrlEncode = false ) {
+            return GetSignBuilder().Result( true, isUrlEncode, Config.Charset );
         }
 
         /// <summary>

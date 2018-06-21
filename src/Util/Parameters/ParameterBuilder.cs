@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Web;
 using Util.Helpers;
 using Util.Parameters.Formats;
 
@@ -69,8 +71,23 @@ namespace Util.Parameters {
         /// <summary>
         /// 获取字典
         /// </summary>
-        public IDictionary<string, string> GetDictionary() {
-            return _params.OrderBy( t => t.Key ).ToDictionary( t => t.Key, t => t.Value );
+        /// <param name="isSort">是否按参数名排序</param>
+        /// <param name="isUrlEncode">是否Url编码</param>
+        /// <param name="encoding">字符编码，默认值：UTF-8</param>
+        public IDictionary<string, string> GetDictionary( bool isSort = true, bool isUrlEncode = false, string encoding = "UTF-8" ) {
+            var result = _params.ToDictionary( t => t.Key, t => GetEncodeValue( t.Value, isUrlEncode, encoding ) );
+            if( isSort == false )
+                return result;
+            return new SortedDictionary<string, string>( result );
+        }
+
+        /// <summary>
+        /// 获取编码的值
+        /// </summary>
+        private string GetEncodeValue( string value, bool isUrlEncode, string encoding ) {
+            if( isUrlEncode )
+                return Web.UrlEncode( value, encoding );
+            return value;
         }
 
         /// <summary>
@@ -108,22 +125,15 @@ namespace Util.Parameters {
         /// </summary>
         /// <param name="format">参数格式化器</param>
         /// <param name="isSort">是否按参数名排序</param>
-        public string Result( IParameterFormat format, bool isSort = false ) {
+        /// <param name="isUrlEncode">是否Url编码</param>
+        /// <param name="encoding">字符编码，默认值：UTF-8</param>
+        public string Result( IParameterFormat format, bool isSort = false, bool isUrlEncode = false, string encoding = "UTF-8" ) {
             if( format == null )
                 throw new ArgumentNullException( nameof( format ) );
             var result = string.Empty;
-            foreach( var param in GetDictionary( isSort ) )
+            foreach( var param in GetDictionary( isSort, isUrlEncode, encoding ) )
                 result = format.Join( result, format.Format( param.Key, param.Value ) );
             return result;
-        }
-
-        /// <summary>
-        /// 获取字典
-        /// </summary>
-        private IDictionary<string, string> GetDictionary( bool isSort ) {
-            if( isSort == false )
-                return _params;
-            return new SortedDictionary<string, string>( _params );
         }
 
         /// <summary>

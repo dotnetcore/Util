@@ -42,7 +42,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// </summary>
         [Fact]
         public async Task TestPayAsync_1() {
-            Time.SetTime( "2017-10-31 08:59:26" );
+            Time.SetTime( "2018-5-22 11:11:11" );
             var result = await _service.PayAsync( new PayParam {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",
@@ -60,15 +60,15 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         private string GetResult() {
             Util.Helpers.String result = new Util.Helpers.String();
             result.Append( "app_id=2016090800463464&" );
-            result.Append( "biz_content={\"out_trade_no\":\"59f7caeeab89e009e4a4e1fb\",\"subject\":\"test\",\"total_amount\":\"10\",\"timeout_express\":\"90m\"}&" );
+            result.Append( "biz_content=%7b%22out_trade_no%22%3a%2259f7caeeab89e009e4a4e1fb%22%2c%22subject%22%3a%22test%22%2c%22total_amount%22%3a%2210%22%2c%22timeout_express%22%3a%2290m%22%7d&" );
             result.Append( "charset=utf-8&" );
             result.Append( "format=json&" );
             result.Append( "method=alipay.trade.app.pay&" );
             result.Append( "notify_url=b&" );
             result.Append( "return_url=a&" );
-            result.Append( "sign=ppnaNEdqch5JmMTWHgcThsXAMQ7qOFuMirAZhOBCjtvn8h3gcAd2HaGlV/5fL60X3ExWgmifeqbP2uOteIOG2+OZju3whhCkugk2IZZXQ82pf1ZMR1FnF660PyUPyvZdbQJ85wsNkWWnkWCIJlCXWblNlYrxSB5zitlVTWoUYwe98VI76/zGUTa/ZAaD2fXGNh8Ov4aZd2GRhzeTpfKrMWrp7GeGbQi5hzouhkqyi3kZQrNldc0O2HCWpKJq4gxL/aF+6KbUkvdHZzsvWlc35fLRv4P7TnQqxkVrV96+1U4b+0WtMrevSardJKG0hdo7A4IHJJdxxP9qdo2xxKcm7Q==&" );
+            result.Append( "sign=Qo2CG5r%2fz4h2vQySXP78ZsFMYZuogJ8RyzNPXwAu74TDcgZ9P27S37DAz2pgvTnE%2b%2bB6wESsUX8RYpyePTTO40fSDQzcTrfwoltImEFK7iVrY1OlmCRvoH6FVaZoXaypKH1ZOLMf0%2fSofzsI7OVrcdA58YcGvJbBLM8ppfzLDIKT10rwQa33D7WlSbHFb0iYJM7RPPhpY%2b5fkgFQo7CnknBPW9zOr7AoLTlAxJ%2fD5veYzjmaKMR5yaFAYvgBxMpJCeSlDMgiWMb7iNy5Ila7CvjG1A51eB5NAkhtodnajRsexMKyy5hG%2f3bU7efSJeDBQdehRkKIilZH5uNGivr5Ng%3d%3d&" );
             result.Append( "sign_type=RSA2&" );
-            result.Append( "timestamp=2017-10-31 08:59:26&" );
+            result.Append( "timestamp=2018-05-22+11%3a11%3a11&" );
             result.Append( "version=1.0" );
             return result.ToString();
         }
@@ -78,7 +78,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// </summary>
         [Fact]
         public async Task TestPayAsync_2() {
-            Time.SetTime( "2017-10-31 08:59:26" );
+            Time.SetTime( "2018-5-22 11:11:11" );
             var result = await _service.PayAsync( new AlipayAppPayRequest() {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",

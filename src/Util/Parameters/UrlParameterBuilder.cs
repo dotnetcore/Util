@@ -57,7 +57,7 @@ namespace Util.Parameters {
             var form = Web.Request?.Form;
             if( form == null )
                 return;
-            foreach ( var key in form.Keys ) {
+            foreach( var key in form.Keys ) {
                 if( form.ContainsKey( key ) )
                     Add( key, form[key] );
             }
@@ -106,8 +106,11 @@ namespace Util.Parameters {
         /// <summary>
         /// 获取字典
         /// </summary>
-        public IDictionary<string, string> GetDictionary() {
-            return ParameterBuilder.GetDictionary();
+        /// <param name="isSort">是否按参数名排序</param>
+        /// <param name="isUrlEncode">是否Url编码</param>
+        /// <param name="encoding">字符编码，默认值：UTF-8</param>
+        public IDictionary<string, string> GetDictionary( bool isSort = true, bool isUrlEncode = false, string encoding = "UTF-8" ) {
+            return ParameterBuilder.GetDictionary( isSort, isUrlEncode, encoding );
         }
 
         /// <summary>
@@ -121,8 +124,10 @@ namespace Util.Parameters {
         /// 获取结果，格式：参数名=参数值&amp;参数名=参数值
         /// </summary>
         /// <param name="isSort">是否按参数名排序</param>
-        public string Result( bool isSort = false ) {
-            return ParameterBuilder.Result( UrlParameterFormat.Instance, isSort );
+        /// <param name="isUrlEncode">是否Url编码</param>
+        /// <param name="encoding">字符编码，默认值：UTF-8</param>
+        public string Result( bool isSort = false, bool isUrlEncode = false, string encoding = "UTF-8" ) {
+            return ParameterBuilder.Result( UrlParameterFormat.Instance, isSort, isUrlEncode, encoding );
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Util.Exceptions;
 using Util.Validations;
@@ -39,7 +38,7 @@ namespace Util.Biz.Payments.Alipay.Configs {
         public string NotifyUrl { get; set; }
 
         /// <summary>
-        /// 字符编码
+        /// 字符编码，默认值：utf-8
         /// </summary>
         public string Charset { get; set; } = "utf-8";
 

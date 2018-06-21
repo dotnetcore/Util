@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Claims;
+using System.Text;
+using System.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -24,7 +26,7 @@ namespace Util.Helpers {
                 HttpContextAccessor = Ioc.Create<IHttpContextAccessor>();
                 Environment = Ioc.Create<IHostingEnvironment>();
             }
-            catch{
+            catch {
             }
         }
 
@@ -47,9 +49,9 @@ namespace Util.Helpers {
         /// </summary>
         public static ClaimsPrincipal User {
             get {
-                if ( HttpContext == null )
+                if( HttpContext == null )
                     return UnauthenticatedPrincipal.Instance;
-                if ( HttpContext.User is ClaimsPrincipal principal )
+                if( HttpContext.User is ClaimsPrincipal principal )
                     return principal;
                 return UnauthenticatedPrincipal.Instance;
             }
@@ -60,7 +62,7 @@ namespace Util.Helpers {
         /// </summary>
         public static ClaimsIdentity Identity {
             get {
-                if ( User.Identity is ClaimsIdentity identity )
+                if( User.Identity is ClaimsIdentity identity )
                     return identity;
                 return UnauthenticatedIdentity.Instance;
             }
@@ -219,6 +221,81 @@ namespace Util.Helpers {
         public static IFormFile GetFile() {
             var files = GetFiles();
             return files.Count == 0 ? null : files[0];
+        }
+
+        #endregion
+
+        #region UrlEncode(Url编码)
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, bool isUpper = false ) {
+            return UrlEncode( url, Encoding.UTF8, isUpper );
+        }
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, string encoding, bool isUpper = false ) {
+            encoding = string.IsNullOrWhiteSpace( encoding ) ? "UTF-8" : encoding;
+            return UrlEncode( url, Encoding.GetEncoding( encoding ), isUpper );
+        }
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, Encoding encoding, bool isUpper = false ) {
+            var result = HttpUtility.UrlEncode( url, encoding );
+            if( isUpper == false )
+                return result;
+            return GetUpperEncode( result );
+        }
+
+        /// <summary>
+        /// 获取大写编码字符串
+        /// </summary>
+        private static string GetUpperEncode( string encode ) {
+            var result = new StringBuilder();
+            int index = int.MinValue;
+            for( int i = 0; i < encode.Length; i++ ) {
+                string character = encode[i].ToString();
+                if( character == "%" )
+                    index = i;
+                if( i - index == 1 || i - index == 2 )
+                    character = character.ToUpper();
+                result.Append( character );
+            }
+            return result.ToString();
+        }
+
+        #endregion
+
+        #region UrlDecode(Url解码)
+
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="url">url</param>
+        public static string UrlDecode( string url ) {
+            return HttpUtility.UrlDecode( url );
+        }
+
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        public static string UrlDecode( string url, Encoding encoding ) {
+            return HttpUtility.UrlDecode( url, encoding );
         }
 
         #endregion
