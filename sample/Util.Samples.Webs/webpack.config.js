@@ -2,7 +2,6 @@
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env) => {
     //是否开发环境
@@ -34,6 +33,7 @@ module.exports = (env) => {
         module: {
             rules: [
                 { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular-router-loader'] : ['@ngtools/webpack'] },
+                { test: /\.js$/, loader: '@angular-devkit/build-optimizer/webpack-loader', options: { sourceMap: false } },
                 { test: /\.html$/, use: 'html-loader?minimize=false' }
             ]
         },
@@ -52,8 +52,7 @@ module.exports = (env) => {
                 new AngularCompilerPlugin({
                     tsConfigPath: 'tsconfig.json',
                     entryModule: "Typings/app/app.module#AppModule"
-                }),
-                new UglifyJsPlugin()
+                })
             ])
     }
 

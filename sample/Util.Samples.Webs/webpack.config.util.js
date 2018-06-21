@@ -38,10 +38,7 @@ module.exports = (env) => {
             new webpack.DllPlugin({
                 path: getPath("wwwroot/dist/[name]-manifest.json"),
                 name: "[name]"
-            }),
-            new webpack.optimize.ModuleConcatenationPlugin()
-        ].concat(isDev ? [] : [
-            new webpack.optimize.UglifyJsPlugin()
-        ])
+            })
+        ]
     }
 }
