@@ -47,6 +47,11 @@ namespace Util.Webs.Clients {
         /// <param name="cookie">cookie</param>
         TRequest Cookie( Cookie cookie );
         /// <summary>
+        /// 设置Bearer令牌
+        /// </summary>
+        /// <param name="token">令牌</param>
+        TRequest BearerToken( string token );
+        /// <summary>
         /// 超时时间
         /// </summary>
         /// <param name="timeout">超时时间,单位：秒</param>
@@ -86,7 +91,6 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 忽略Ssl
         /// </summary>
-        /// <returns></returns>
         TRequest IgnoreSsl();
         /// <summary>
         /// 获取结果

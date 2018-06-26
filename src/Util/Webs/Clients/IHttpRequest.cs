@@ -20,7 +20,8 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 获取Json结果
         /// </summary>
-        Task<T> ResultFromJsonAsync<T>();
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        Task<TResult> ResultFromJsonAsync<TResult>();
     }
 
     /// <summary>

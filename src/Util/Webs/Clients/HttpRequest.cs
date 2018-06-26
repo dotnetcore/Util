@@ -55,8 +55,8 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 获取Json结果
         /// </summary>
-        public async Task<T> ResultFromJsonAsync<T>() {
-            return Util.Helpers.Json.ToObject<T>( await ResultAsync() );
+        public async Task<TResult> ResultFromJsonAsync<TResult>() {
+            return Util.Helpers.Json.ToObject<TResult>( await ResultAsync() );
         }
     }
 
