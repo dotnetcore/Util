@@ -22,7 +22,7 @@
   <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2004" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>
