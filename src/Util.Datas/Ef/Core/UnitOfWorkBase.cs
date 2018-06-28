@@ -31,7 +31,7 @@ namespace Util.Datas.Ef.Core {
             : base( options ) {
             manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
-            Session = Util.Security.Sessions.Session.Null;
+            Session = Util.Security.Sessions.Session.Instance;
         }
 
         #endregion

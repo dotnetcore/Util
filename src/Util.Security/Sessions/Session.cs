@@ -13,6 +13,11 @@ namespace Util.Security.Sessions {
         public static readonly ISession Null = NullSession.Instance;
 
         /// <summary>
+        /// 用户会话
+        /// </summary>
+        public static readonly ISession Instance = new Session();
+
+        /// <summary>
         /// 是否认证
         /// </summary>
         public bool IsAuthenticated => Web.Identity.IsAuthenticated;
