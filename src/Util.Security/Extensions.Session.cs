@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using IdentityModel;
 using Util.Helpers;
-using Util.Security.Principals;
+using Util.Security.Claims;
 using Util.Sessions;
 using Convert = Util.Helpers.Convert;
 
@@ -15,7 +16,7 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static Guid GetUserId( this ISession session ) {
-            return Web.Identity.GetValue( ClaimTypes.UserId ).ToGuid();
+            return session.UserId.ToGuid();
         }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static T GetUserId<T>( this ISession session ) {
-            return Convert.To<T>( Web.Identity.GetValue( ClaimTypes.UserId ) );
+            return Convert.To<T>( session.UserId );
         }
 
         /// <summary>
@@ -31,7 +32,8 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetUserName( this ISession session ) {
-            return Web.Identity.GetValue( ClaimTypes.UserName );
+            var result = Web.Identity.GetValue( JwtClaimTypes.Name );
+            return string.IsNullOrWhiteSpace( result ) ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.Name ) : result;
         }
 
         /// <summary>
@@ -47,7 +49,8 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetEmail( this ISession session ) {
-            return Web.Identity.GetValue( ClaimTypes.Email );
+            var result = Web.Identity.GetValue( JwtClaimTypes.Email );
+            return string.IsNullOrWhiteSpace( result ) ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.Email ) : result;
         }
 
         /// <summary>
@@ -55,7 +58,8 @@ namespace Util.Security {
         /// </summary>
         /// <param name="session">用户会话</param>
         public static string GetMobile( this ISession session ) {
-            return Web.Identity.GetValue( ClaimTypes.Mobile );
+            var result = Web.Identity.GetValue( JwtClaimTypes.PhoneNumber );
+            return string.IsNullOrWhiteSpace( result ) ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.MobilePhone ) : result;
         }
 
         /// <summary>

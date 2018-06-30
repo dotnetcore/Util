@@ -1,5 +1,5 @@
 ﻿using Util.Helpers;
-using Util.Security.Principals;
+using IdentityModel;
 using Util.Sessions;
 
 namespace Util.Security.Sessions {
@@ -25,6 +25,11 @@ namespace Util.Security.Sessions {
         /// <summary>
         /// 用户标识
         /// </summary>
-        public string UserId => Web.Identity.GetValue( ClaimTypes.UserId );
+        public string UserId {
+            get {
+                var result = Web.Identity.GetValue( JwtClaimTypes.Subject );
+                return string.IsNullOrWhiteSpace( result ) ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.NameIdentifier ) : result;
+            }
+        }
     }
 }

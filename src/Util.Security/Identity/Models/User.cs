@@ -132,8 +132,8 @@ namespace Util.Security.Identity.Models {
         /// 添加用户声明
         /// </summary>
         public virtual void AddUserClaims() {
-            AddClaim( Util.Security.Principals.ClaimTypes.Mobile, PhoneNumber );
-            AddClaim( Util.Security.Principals.ClaimTypes.Email, Email );
+            AddClaim( Util.Security.Claims.ClaimTypes.Mobile, PhoneNumber );
+            AddClaim( Util.Security.Claims.ClaimTypes.Email, Email );
         }
     }
 }
