@@ -8,6 +8,8 @@ import { Dialog } from './dialog';
 import { Result, FailResult, StateCode } from '../core/result';
 import { HttpHelper, HttpRequest, HttpContentType, HttpMethod } from '../angular/http-helper';
 import { Message } from './message';
+import { IocHelper as ioc } from '../angular/ioc-helper';
+import { Session } from "../security/session";
 
 /**
  * WebApi操作,与服务端返回的标准result对象交互
@@ -264,9 +266,19 @@ export class WebApiRequest<T> {
         let result = options && options.beforeHandler && options.beforeHandler();
         if (result === false)
             return false;
+        this.setToken();
         this.disableButton();
         this.showLoading();
         return true;
+    }
+
+    /**
+     * 设置访问令牌
+     */
+    private setToken() {
+        var session = ioc.get(Session);
+        if (session && session.accessToken)
+            this.header("Authorization", `Bearer ${session.accessToken}`);
     }
 
     /**

@@ -58,6 +58,12 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 //Util服务
 import { DicService } from './services/dic.service';
+import { Session } from './security/session';
+
+//授权
+import { Authorize as OidcAuthorize } from './security/openid-connect/authorize';
+import { AuthorizeService as OidcAuthorizeService } from './security/openid-connect/authorize-service';
+import { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connect/authorize-config';
 
 /**
  * Util模块
@@ -100,12 +106,14 @@ import { DicService } from './services/dic.service';
         DialogWrapperComponent, ConfirmComponent, LoadingComponent
     ],
     providers: [
-        DicService,
         MessageService, MAT_DATE_LOCALE_PROVIDER,
         { provide: MatPaginatorIntl, useFactory: createMatPaginatorIntl },
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
         { provide: DateAdapter, useClass: UtilDateAdapter },
-        { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }
+        { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+        DicService, Session,
+        { provide: OidcAuthorizeService, useClass: OidcAuthorizeService, deps: [OidcAuthorizeConfig] },
+        { provide: OidcAuthorize, useClass: OidcAuthorize, deps: [Injector, Session, OidcAuthorizeService] }
     ]
 })
 export class UtilModule {

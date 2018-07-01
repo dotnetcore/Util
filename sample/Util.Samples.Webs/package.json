@@ -61,6 +61,7 @@
     "postcss-loader": "2.1.5",
     "url-loader": "1.0.1",
     "webpack-hot-middleware": "2.22.2",
-    "angular-router-loader": "0.8.5"
+    "angular-router-loader": "0.8.5",
+    "oidc-client": "1.5.1"
   }
 }

@@ -23,7 +23,7 @@ namespace Util.Security.Claims {
         /// <summary>
         /// 应用程序标识
         /// </summary>
-        public static string ApplicationId { get; set; } = JwtClaimTypes.ClientId;
+        public static string ApplicationId { get; set; } = "application_id";
 
         /// <summary>
         /// 应用程序编码

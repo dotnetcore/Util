@@ -1,30 +1,24 @@
-﻿//============== 授权 =============================
+﻿//============== OpenId Connect授权 ==============
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
 import { Injector, Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { util, Session } from '../index';
+import { util, Session } from '../../index';
+import { AuthorizeService } from "./authorize-service";
 
 /**
- * 授权
+ * OpenId Connect授权
  */
 @Injectable()
 export class Authorize implements CanActivate {
     /**
-     * 登录地址，默认值 "/login"
-     */
-    static loginUrl: string = "/login";
-    /**
-     * 获取用户会话地址，默认值 "/api/security/session"
-     */
-    static sessionUrl: string = "/api/security/session";
-
-    /**
      * 初始化
+     * @param injector 注入器
      * @param session 用户会话
+     * @param authService OpenId Connect授权服务
      */
-    constructor(injector: Injector, private session: Session) {
+    constructor(injector: Injector, private session: Session, private authService: AuthorizeService) {
         util.ioc.componentInjector = injector;
     }
 
@@ -37,7 +31,7 @@ export class Authorize implements CanActivate {
         await this.loadSessionAsync(state);
         if (this.session && this.session.isAuthenticated)
             return true;
-        util.router.navigateByQuery([Authorize.loginUrl], { returnUrl: state.url });
+        this.authService.login();
         return false;
     }
 
@@ -45,13 +39,12 @@ export class Authorize implements CanActivate {
      * 加载用户会话
      */
     private async loadSessionAsync(state: RouterStateSnapshot) {
-        await util.webapi.get(Authorize.sessionUrl).handleAsync({
-            handler: (result: any) => {
-                if (!result)
-                    return;
-                this.session.isAuthenticated = result.isAuthenticated;
-                this.session.userId = result.userId;
-            }
-        });
+        let user = await this.authService.getUser();
+        if (!this.authService.isAuthenticated(user))
+            return;
+        this.session.isAuthenticated = true;
+        this.session.accessToken = user.access_token;
+        this.session.userId = user.profile["sub"];
+        this.session.name = user.profile["name"];
     }
 }
