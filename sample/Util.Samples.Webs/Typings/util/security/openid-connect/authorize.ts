@@ -43,7 +43,6 @@ export class Authorize implements CanActivate {
         if (!this.authService.isAuthenticated(user))
             return;
         this.session.isAuthenticated = true;
-        this.session.accessToken = user.access_token;
         this.session.userId = user.profile["sub"];
         this.session.name = user.profile["name"];
     }

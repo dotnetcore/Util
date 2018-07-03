@@ -32,8 +32,4 @@ export class Session {
      * 用户名称
      */
     name;
-    /**
-     * 访问令牌
-     */
-    accessToken;
 }

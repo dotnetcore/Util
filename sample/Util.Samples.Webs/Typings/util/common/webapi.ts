@@ -266,19 +266,9 @@ export class WebApiRequest<T> {
         let result = options && options.beforeHandler && options.beforeHandler();
         if (result === false)
             return false;
-        this.setToken();
         this.disableButton();
         this.showLoading();
         return true;
-    }
-
-    /**
-     * 设置访问令牌
-     */
-    private setToken() {
-        var session = ioc.get(Session);
-        if (session && session.accessToken)
-            this.header("Authorization", `Bearer ${session.accessToken}`);
     }
 
     /**

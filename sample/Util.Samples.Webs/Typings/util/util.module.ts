@@ -7,7 +7,7 @@ import { NgModule, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 //flex布局模块
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -64,6 +64,7 @@ import { Session } from './security/session';
 import { Authorize as OidcAuthorize } from './security/openid-connect/authorize';
 import { AuthorizeService as OidcAuthorizeService } from './security/openid-connect/authorize-service';
 import { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connect/authorize-config';
+import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interceptor";
 
 /**
  * Util模块
@@ -113,7 +114,8 @@ import { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connec
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
         DicService, Session,
         { provide: OidcAuthorizeService, useClass: OidcAuthorizeService, deps: [OidcAuthorizeConfig] },
-        { provide: OidcAuthorize, useClass: OidcAuthorize, deps: [Injector, Session, OidcAuthorizeService] }
+        { provide: OidcAuthorize, useClass: OidcAuthorize, deps: [Injector, Session, OidcAuthorizeService] },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, deps: [OidcAuthorizeService], multi: true }
     ]
 })
 export class UtilModule {
