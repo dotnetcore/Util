@@ -82,8 +82,8 @@ namespace Util.Webs.Razors
         private void SetHtmlInfo(RouteInformation routeInformation,
             ControllerActionDescriptor controllerActionDescriptor)
         {
-            var htmlAttribute = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttribute<HtmlAttribute>() ??
-                                controllerActionDescriptor.MethodInfo.GetCustomAttribute<HtmlAttribute>();
+            var htmlAttribute = controllerActionDescriptor.MethodInfo.GetCustomAttribute<HtmlAttribute>() ??
+                                controllerActionDescriptor.ControllerTypeInfo.GetCustomAttribute<HtmlAttribute>();
             if (htmlAttribute == null)
                 return;
             routeInformation.FilePath = htmlAttribute.Path;
