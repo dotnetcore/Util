@@ -1,4 +1,4 @@
-﻿//============== 授权 =============================
+﻿//============== OpenId Connect授权服务 ==========
 //Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
@@ -6,9 +6,6 @@ import { Injectable } from '@angular/core';
 import { User, UserManager } from 'oidc-client';
 import { util } from '../../index';
 import { AuthorizeConfig } from './authorize-config';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/fromPromise';
-import "rxjs/add/operator/map";
 
 /**
  * OpenId Connect授权服务
@@ -95,13 +92,6 @@ export class AuthorizeService {
      */
     getUser() {
         return this.manager.getUser();
-    }
-
-    /**
-     * 获取令牌
-     */
-    getToken() {
-        return Observable.fromPromise(this.manager.getUser()).map(t => t.access_token);
     }
 
     /**

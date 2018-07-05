@@ -255,8 +255,10 @@ export class WebApiRequest<T> {
         if (!failResult.errorResponse)
             return "";
         let error = failResult.errorResponse;
+        if (!error)
+            return "";
         return `Http请求异常：\nUrl:${error.url}\n状态码:${error.status},${error.statusText}\n`
-            + `错误消息:${error.message}\n错误响应:\n ${error.error.text}\n`;
+            + `错误消息:${error.message}\n错误响应:\n ${error.error && error.error.text}\n`;
     }
 
     /**
