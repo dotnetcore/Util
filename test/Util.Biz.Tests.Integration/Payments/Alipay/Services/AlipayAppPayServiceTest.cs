@@ -8,7 +8,7 @@ using Util.Helpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Util.Biz.Tests.Integration.Payments.Alipay {
+namespace Util.Biz.Tests.Integration.Payments.Alipay.Services {
     /// <summary>
     /// 支付宝App支付服务测试
     /// </summary>
@@ -42,12 +42,11 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// </summary>
         [Fact]
         public async Task TestPayAsync_1() {
-            Time.SetTime( "2018-5-22 11:11:11" );
+            Time.SetTime( TestConst.Time );
             var result = await _service.PayAsync( new PayParam {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",
                 Subject = "test",
-                ReturnUrl = "a",
                 NotifyUrl = "b"
             } );
             _output.WriteLine( $"result:{result.Result}" );
@@ -65,10 +64,9 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
             result.Append( "format=json&" );
             result.Append( "method=alipay.trade.app.pay&" );
             result.Append( "notify_url=b&" );
-            result.Append( "return_url=a&" );
-            result.Append( "sign=Qo2CG5r%2fz4h2vQySXP78ZsFMYZuogJ8RyzNPXwAu74TDcgZ9P27S37DAz2pgvTnE%2b%2bB6wESsUX8RYpyePTTO40fSDQzcTrfwoltImEFK7iVrY1OlmCRvoH6FVaZoXaypKH1ZOLMf0%2fSofzsI7OVrcdA58YcGvJbBLM8ppfzLDIKT10rwQa33D7WlSbHFb0iYJM7RPPhpY%2b5fkgFQo7CnknBPW9zOr7AoLTlAxJ%2fD5veYzjmaKMR5yaFAYvgBxMpJCeSlDMgiWMb7iNy5Ila7CvjG1A51eB5NAkhtodnajRsexMKyy5hG%2f3bU7efSJeDBQdehRkKIilZH5uNGivr5Ng%3d%3d&" );
+            result.Append( "sign=mOSS0X%2bSCJwF8lTRyFjkb0539vPBdZljlvA2oOIAX7THS5RdLYGVPRA5y3vs%2froCalG8%2fJpGWgCbzYGMIRySWnwdLnNBY%2fXXS1x%2fM0hfRheOECxe%2bCppjhCHHbSp6Deavval7nsMSQ27HJSLtD5MbjXk6U49Pja4TyIWheXN6nF4Rv8T0fsuCAtxvcV%2fWxQMjAochsLO9YSj610aA%2f72qnHCqOOnV4zLT6xCR3LxcK6j4oJ%2f0SKITd5hvBuH29mLpoLUSl2QQ8XcabRCxxoZG5dbsAmvqxq3VFEk%2fU9Yc%2fCE%2bDpyBsDLF0d9Hi3I17EsLC5BIPxLLNKeJtcJL5DYoA%3d%3d&" );
             result.Append( "sign_type=RSA2&" );
-            result.Append( "timestamp=2018-05-22+11%3a11%3a11&" );
+            result.Append( "timestamp=2000-10-10+10%3a10%3a10&" );
             result.Append( "version=1.0" );
             return result.ToString();
         }
@@ -78,16 +76,21 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay {
         /// </summary>
         [Fact]
         public async Task TestPayAsync_2() {
-            Time.SetTime( "2018-5-22 11:11:11" );
-            var result = await _service.PayAsync( new AlipayAppPayRequest() {
+            _output.WriteLine( $"result:{await PayAsync()}" );
+            Assert.Equal( GetResult(), await PayAsync() );
+        }
+
+        /// <summary>
+        /// 支付
+        /// </summary>
+        private async Task<string> PayAsync() {
+            Time.SetTime( TestConst.Time );
+            return await _service.PayAsync( new AlipayAppPayRequest() {
                 Money = 10,
                 OrderId = "59f7caeeab89e009e4a4e1fb",
                 Subject = "test",
-                ReturnUrl = "a",
                 NotifyUrl = "b"
             } );
-            _output.WriteLine( $"result:{result}" );
-            Assert.Equal( GetResult(), result );
         }
     }
 }

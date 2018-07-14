@@ -1,5 +1,6 @@
 ﻿using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Core;
+using Util.Biz.Payments.Wechatpay.Abstractions;
 
 namespace Util.Biz.Payments {
     /// <summary>
@@ -35,5 +36,9 @@ namespace Util.Biz.Payments {
         /// 创建支付宝App支付服务
         /// </summary>
         IAlipayAppPayService CreateAlipayAppPayService();
+        /// <summary>
+        /// 创建微信App支付服务
+        /// </summary>
+        IWechatpayAppPayService CreateWechatpayAppPayService();
     }
 }

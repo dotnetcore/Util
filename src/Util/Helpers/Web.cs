@@ -116,10 +116,32 @@ namespace Util.Helpers {
         #region Ip(客户端Ip地址)
 
         /// <summary>
+        /// Ip地址
+        /// </summary>
+        private static string _ip;
+
+        /// <summary>
+        /// 设置Ip地址
+        /// </summary>
+        /// <param name="ip">Ip地址</param>
+        public static void SetIp( string ip ) {
+            _ip = ip;
+        }
+
+        /// <summary>
+        /// 重置Ip地址
+        /// </summary>
+        public static void ResetIp() {
+            _ip = null;
+        }
+
+        /// <summary>
         /// 客户端Ip地址
         /// </summary>
         public static string Ip {
             get {
+                if( string.IsNullOrWhiteSpace( _ip ) == false )
+                    return _ip;
                 var list = new[] { "127.0.0.1", "::1" };
                 var result = HttpContext?.Connection?.RemoteIpAddress.SafeString();
                 if( string.IsNullOrWhiteSpace( result ) || list.Contains( result ) )

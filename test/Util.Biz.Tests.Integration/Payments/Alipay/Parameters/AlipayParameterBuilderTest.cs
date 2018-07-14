@@ -25,7 +25,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Parameters {
         /// </summary>
         public AlipayParameterBuilderTest( ITestOutputHelper output ) {
             _output = output;
-            Time.SetTime( "2000-10-10 10:10:10" );
+            Time.SetTime( TestConst.Time );
             _builder = new AlipayParameterBuilder( new AlipayConfig() );
         }
 
@@ -37,22 +37,12 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Parameters {
         }
 
         /// <summary>
-        /// 添加设置配置
-        /// </summary>
-        [Fact]
-        public void TestConfig() {
-            _builder = new AlipayParameterBuilder( new AlipayConfig { AppId = "a" } );
-            _output.WriteLine( _builder.ToString() );
-            Assert.Equal( "app_id=a&charset=utf-8&format=json&sign_type=RSA2&timestamp=2000-10-10 10:10:10&version=1.0", _builder.ToString() );
-        }
-
-        /// <summary>
-        /// 添加应用Id
+        /// 添加应用标识
         /// </summary>
         [Fact]
         public void TestAppId() {
             _builder.AppId( "a" );
-            Assert.Equal( "app_id=a&charset=utf-8&format=json&sign_type=RSA2&timestamp=2000-10-10 10:10:10&version=1.0", _builder.ToString() );
+            Assert.Equal( "app_id=a", _builder.ToString() );
         }
 
         /// <summary>
@@ -61,7 +51,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Parameters {
         [Fact]
         public void TestMethod() {
             _builder.Method( "a" );
-            Assert.Equal( "charset=utf-8&format=json&method=a&sign_type=RSA2&timestamp=2000-10-10 10:10:10&version=1.0", _builder.ToString() );
+            Assert.Equal( "method=a", _builder.ToString() );
         }
 
         /// <summary>
@@ -70,7 +60,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Parameters {
         [Fact]
         public void TestContent() {
             _builder.Content.OutTradeNo( "a" );
-            Assert.Equal( "biz_content={\"out_trade_no\":\"a\"}&charset=utf-8&format=json&sign_type=RSA2&timestamp=2000-10-10 10:10:10&version=1.0", _builder.ToString() );
+            Assert.Equal( "biz_content={\"out_trade_no\":\"a\"}", _builder.ToString() );
         }
     }
 }

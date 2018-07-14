@@ -29,9 +29,13 @@ namespace Util.Webs.Clients {
         /// </summary>
         private IDictionary<string, string> _params;
         /// <summary>
-        /// Json参数
+        /// 参数
         /// </summary>
-        private string _json;
+        private string _data;
+        /// <summary>
+        /// 字符编码
+        /// </summary>
+        private Encoding _encoding;
         /// <summary>
         /// 内容类型
         /// </summary>
@@ -77,6 +81,7 @@ namespace Util.Webs.Clients {
         protected HttpRequestBase( HttpMethod httpMethod, string url ) {
             if( string.IsNullOrWhiteSpace( url ) )
                 throw new ArgumentNullException( nameof( url ) );
+            System.Text.Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
             _url = url;
             _httpMethod = httpMethod;
             _params = new Dictionary<string, string>();
@@ -84,12 +89,29 @@ namespace Util.Webs.Clients {
             _cookieContainer = new CookieContainer();
             _timeout = new TimeSpan( 0, 0, 30 );
             _headers = new Dictionary<string, string>();
-            Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
+            _encoding = System.Text.Encoding.UTF8;
         }
 
         #endregion
 
         #region 配置
+
+        /// <summary>
+        /// 设置字符编码
+        /// </summary>
+        /// <param name="encoding">字符编码</param>
+        public TRequest Encoding( Encoding encoding ) {
+            _encoding = encoding;
+            return This();
+        }
+
+        /// <summary>
+        /// 设置字符编码
+        /// </summary>
+        /// <param name="encoding">字符编码</param>
+        public TRequest Encoding( string encoding ) {
+            return Encoding( System.Text.Encoding.GetEncoding( encoding ) );
+        }
 
         /// <summary>
         /// 设置内容类型
@@ -207,7 +229,17 @@ namespace Util.Webs.Clients {
         /// <param name="value">值</param>
         public TRequest JsonData<T>( T value ) {
             ContentType( HttpContentType.Json );
-            _json = Json.ToJson( value );
+            _data = Json.ToJson( value );
+            return This();
+        }
+
+        /// <summary>
+        /// 添加Xml参数
+        /// </summary>
+        /// <param name="value">值</param>
+        public TRequest XmlData( string value ) {
+            ContentType( HttpContentType.Xml );
+            _data = value;
             return This();
         }
 
@@ -325,6 +357,8 @@ namespace Util.Webs.Clients {
                     return new FormUrlEncodedContent( _params );
                 case "application/json":
                     return CreateJsonContent();
+                case "text/xml":
+                    return CreateXmlContent();
             }
             throw new NotImplementedException( "未实现该ContentType" );
         }
@@ -333,9 +367,16 @@ namespace Util.Webs.Clients {
         /// 创建json内容
         /// </summary>
         private HttpContent CreateJsonContent() {
-            if( string.IsNullOrWhiteSpace( _json ) )
-                _json = Json.ToJson( _params );
-            return new StringContent( _json, Encoding.UTF8, "application/json" );
+            if( string.IsNullOrWhiteSpace( _data ) )
+                _data = Json.ToJson( _params );
+            return new StringContent( _data, _encoding, "application/json" );
+        }
+
+        /// <summary>
+        /// 创建xml内容
+        /// </summary>
+        private HttpContent CreateXmlContent() {
+            return new StringContent( _data, _encoding, "text/xml" );
         }
 
         #endregion

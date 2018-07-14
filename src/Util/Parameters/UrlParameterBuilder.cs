@@ -23,6 +23,14 @@ namespace Util.Parameters {
         /// <summary>
         /// 初始化Url参数生成器
         /// </summary>
+        /// <param name="builder">参数生成器</param>
+        public UrlParameterBuilder( ParameterBuilder builder ) {
+            ParameterBuilder = builder == null ? new ParameterBuilder() : new ParameterBuilder( builder );
+        }
+
+        /// <summary>
+        /// 初始化Url参数生成器
+        /// </summary>
         /// <param name="builder">Url参数生成器</param>
         public UrlParameterBuilder( UrlParameterBuilder builder ) : this( "", builder ) {
         }
@@ -135,20 +143,7 @@ namespace Util.Parameters {
         /// </summary>
         /// <param name="url">地址</param>
         public string JoinUrl( string url ) {
-            return $"{GetUrl( url )}{Result()}";
-        }
-
-        /// <summary>
-        /// 获取Url
-        /// </summary>
-        private string GetUrl( string url ) {
-            if( !url.Contains( "?" ) )
-                return $"{url}?";
-            if( url.EndsWith( "?" ) )
-                return url;
-            if( url.EndsWith( "&" ) )
-                return url;
-            return $"{url}&";
+            return Url.Join( url, Result() );
         }
 
         /// <summary>

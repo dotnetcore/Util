@@ -15,11 +15,11 @@ namespace Util.Biz.Payments.Alipay.Results {
         /// <summary>
         /// 初始化支付宝结果
         /// </summary>
-        /// <param name="json">json响应消息</param>
-        public AlipayResult( string json ) {
-            Raw = json;
+        /// <param name="response">json响应消息</param>
+        public AlipayResult( string response ) {
+            Raw = response;
             _result = new Dictionary<string, string>();
-            LoadJson( json );
+            LoadJson( response );
         }
 
         /// <summary>

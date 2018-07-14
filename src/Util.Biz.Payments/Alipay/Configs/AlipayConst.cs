@@ -12,7 +12,7 @@
         /// </summary>
         public const string Charset = "charset";
         /// <summary>
-        /// 应用Id
+        /// 应用标识
         /// </summary>
         public const string AppId = "app_id";
         /// <summary>

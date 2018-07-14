@@ -33,7 +33,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         public virtual async Task<PayResult> PayAsync( PayParam param ) {
             var config = await ConfigProvider.GetConfigAsync();
             Validate( config, param );
-            var builder = new AlipayParameterBuilder( config, param );
+            var builder = new AlipayParameterBuilder( config );
             Config( builder, param );
             return await RequstResult( config, builder );
         }
@@ -42,10 +42,10 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// 验证
         /// </summary>
         protected void Validate( AlipayConfig config, PayParam param ) {
-            param.CheckNull( nameof( param ) );
             config.CheckNull( nameof( config ) );
-            param.Validate();
+            param.CheckNull( nameof( param ) );
             config.Validate();
+            param.Validate();
             ValidateParam( param );
         }
 
@@ -62,6 +62,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// <param name="builder">支付宝参数生成器</param>
         /// <param name="param">支付参数</param>
         protected void Config( AlipayParameterBuilder builder, PayParam param ) {
+            builder.Init( param );
             builder.Method( GetMethod() );
             builder.Content.Scene( GetScene() );
             InitContentBuilder( builder.Content, param );
@@ -93,14 +94,14 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         protected virtual async Task<PayResult> RequstResult( AlipayConfig config, AlipayParameterBuilder builder ) {
             var result = new AlipayResult( await Request( config, builder ) );
             WriteLog( config, builder, result );
-            return CreateResult( result );
+            return CreateResult( builder, result );
         }
 
         /// <summary>
         /// 发送请求
         /// </summary>
         protected virtual async Task<string> Request( AlipayConfig config, AlipayParameterBuilder builder ) {
-            if( IsSendRequest == false )
+            if( IsSend == false )
                 return string.Empty;
             return await Web.Client()
                 .Post( config.GetGatewayUrl() )
@@ -111,7 +112,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// <summary>
         /// 是否发送请求
         /// </summary>
-        public bool IsSendRequest { get; set; } = true;
+        public bool IsSend { get; set; } = true;
 
         /// <summary>
         /// 写日志
@@ -180,22 +181,11 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// <summary>
         /// 创建结果
         /// </summary>
-        protected virtual PayResult CreateResult( AlipayResult result ) {
+        protected virtual PayResult CreateResult( AlipayParameterBuilder builder, AlipayResult result ) {
             return new PayResult( result.Success, result.GetTradeNo(), result.Raw ) {
+                Parameter = builder.ToString(),
                 Message = result.GetMessage()
             };
-        }
-
-        /// <summary>
-        /// 获取调试参数
-        /// </summary>
-        /// <param name="param">支付参数</param>
-        public virtual async Task<string> Debug( PayParam param ) {
-            var config = await ConfigProvider.GetConfigAsync();
-            Validate( config, param );
-            var builder = new AlipayParameterBuilder( config, param );
-            Config( builder, param );
-            return builder.ToString();
         }
     }
 }

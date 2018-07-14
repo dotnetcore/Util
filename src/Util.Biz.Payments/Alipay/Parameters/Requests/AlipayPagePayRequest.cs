@@ -1,9 +1,11 @@
-﻿using Util.Biz.Payments.Core;
-
-namespace Util.Biz.Payments.Alipay.Parameters.Requests {
+﻿namespace Util.Biz.Payments.Alipay.Parameters.Requests {
     /// <summary>
     /// 电脑网站支付参数
     /// </summary>
-    public class AlipayPagePayRequest : PayParamBase {
+    public class AlipayPagePayRequest : AlipayRequestBase {
+        /// <summary>
+        /// 返回地址
+        /// </summary>
+        public string ReturnUrl { get; set; }
     }
 }
