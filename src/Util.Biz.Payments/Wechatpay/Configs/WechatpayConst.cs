@@ -36,10 +36,6 @@
         /// </summary>
         public const string NotifyUrl = "notify_url";
         /// <summary>
-        /// 随机字符串
-        /// </summary>
-        public const string NonceStr = "nonce_str";
-        /// <summary>
         /// 终端IP
         /// </summary>
         public const string SpbillCreateIp = "spbill_create_ip";
@@ -71,10 +67,6 @@
         /// 返回消息
         /// </summary>
         public const string ReturnMessage = "return_msg";
-        /// <summary>
-        /// 预支付标识
-        /// </summary>
-        public const string PrepayId = "prepay_id";
         /// <summary>
         /// 伙伴标识
         /// </summary>

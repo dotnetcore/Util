@@ -38,7 +38,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
             param.CheckNull( nameof( param ) );
             param.Init();
             AppId( Config.AppId ).MerchantId( Config.MerchantId ).SignType( Config.SignType.Description() )
-                .NonceStr( Id.Guid() ).SpbillCreateIp( Web.Ip ).Body( param.Subject ).OutTradeNo( param.OrderId )
+                .Add( "nonce_str", Id.Guid() ).SpbillCreateIp( Web.Ip ).Body( param.Subject ).OutTradeNo( param.OrderId )
                 .TotalFee( param.Money ).NotifyUrl( param.NotifyUrl );
         }
 
@@ -125,15 +125,6 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         }
 
         /// <summary>
-        /// 设置随机字符串
-        /// </summary>
-        /// <param name="nonce">随机字符串</param>
-        public WechatpayParameterBuilder NonceStr( string nonce ) {
-            _builder.Add( WechatpayConst.NonceStr, nonce );
-            return this;
-        }
-
-        /// <summary>
         /// 设置终端IP
         /// </summary>
         /// <param name="ip">终端IP</param>
@@ -166,15 +157,6 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// <param name="partnerId">伙伴标识</param>
         public WechatpayParameterBuilder PartnerId( string partnerId ) {
             _builder.Add( WechatpayConst.PartnerId, partnerId );
-            return this;
-        }
-
-        /// <summary>
-        /// 设置预支付标识
-        /// </summary>
-        /// <param name="prepayId">预支付标识</param>
-        public WechatpayParameterBuilder PrepayId( string prepayId ) {
-            _builder.Add( WechatpayConst.PrepayId, prepayId );
             return this;
         }
 

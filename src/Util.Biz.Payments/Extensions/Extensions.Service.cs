@@ -33,7 +33,7 @@ namespace Util.Biz.Payments.Extensions {
         /// <typeparam name="TAlipayConfigProvider">支付宝配置提供器</typeparam>
         /// <typeparam name="TWechatpayConfigProvider">微信配置提供器</typeparam>
         /// <param name="services">服务集合</param>
-        public static void AddPay<TAlipayConfigProvider, TWechatpayConfigProvider>( this IServiceCollection services ) 
+        public static void AddPay<TAlipayConfigProvider, TWechatpayConfigProvider>( this IServiceCollection services )
             where TAlipayConfigProvider : class, IAlipayConfigProvider
             where TWechatpayConfigProvider : class, IWechatpayConfigProvider {
             services.TryAddScoped<IPayFactory, PayFactory>();

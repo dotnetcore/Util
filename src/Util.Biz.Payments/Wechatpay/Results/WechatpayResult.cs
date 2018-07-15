@@ -108,14 +108,14 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// 获取随机字符串
         /// </summary>
         public string GetNonce() {
-            return GetValue( WechatpayConst.NonceStr );
+            return GetValue( "nonce_str" );
         }
 
         /// <summary>
         /// 获取预支付标识
         /// </summary>
         public string GetPrepayId() {
-            return GetValue( WechatpayConst.PrepayId );
+            return GetValue( "prepay_id" );
         }
 
         /// <summary>

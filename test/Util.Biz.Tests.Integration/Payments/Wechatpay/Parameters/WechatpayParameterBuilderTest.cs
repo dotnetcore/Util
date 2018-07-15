@@ -184,27 +184,6 @@ namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Parameters {
         }
 
         /// <summary>
-        /// 设置随机字符串
-        /// </summary>
-        [Fact]
-        public void TestNonceStr() {
-            //结果
-            var result = new String();
-            result.Append( "<xml>" );
-            result.Append( "<nonce_str><![CDATA[a]]></nonce_str>" );
-            result.Append( "</xml>" );
-
-            //操作
-            _builder.NonceStr( "a" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToXmlNoContainsSign() );
-
-            //输出结果
-            _output.WriteLine( _builder.ToString() );
-        }
-
-        /// <summary>
         /// 设置终端IP
         /// </summary>
         [Fact]
