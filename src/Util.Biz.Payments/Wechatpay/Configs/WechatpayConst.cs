@@ -24,6 +24,10 @@
         /// </summary>
         public const string OutTradeNo = "out_trade_no";
         /// <summary>
+        /// 微信支付订单号
+        /// </summary>
+        public const string TransactionId = "transaction_id";
+        /// <summary>
         /// 货币类型
         /// </summary>
         public const string FeeType = "fee_type";
@@ -55,6 +59,14 @@
         /// 成功
         /// </summary>
         public const string Success = "SUCCESS";
+        /// <summary>
+        /// 失败
+        /// </summary>
+        public const string Fail = "FAIL";
+        /// <summary>
+        /// 成功
+        /// </summary>
+        public const string Ok = "OK";
         /// <summary>
         /// 返回状态码
         /// </summary>

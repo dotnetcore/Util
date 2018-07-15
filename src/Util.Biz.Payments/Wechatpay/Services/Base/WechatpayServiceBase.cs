@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Util.Biz.Payments.Core;
 using Util.Biz.Payments.Wechatpay.Configs;
 using Util.Biz.Payments.Wechatpay.Parameters;
@@ -21,10 +20,10 @@ namespace Util.Biz.Payments.Wechatpay.Services.Base {
         /// <summary>
         /// 初始化微信支付服务
         /// </summary>
-        /// <param name="provider">微信支付配置提供器</param>
-        protected WechatpayServiceBase( IWechatpayConfigProvider provider ) {
-            provider.CheckNull( nameof( provider ) );
-            ConfigProvider = provider;
+        /// <param name="configProvider">微信支付配置提供器</param>
+        protected WechatpayServiceBase( IWechatpayConfigProvider configProvider ) {
+            configProvider.CheckNull( nameof( configProvider ) );
+            ConfigProvider = configProvider;
         }
 
         /// <summary>
@@ -85,9 +84,9 @@ namespace Util.Biz.Payments.Wechatpay.Services.Base {
         /// 请求结果
         /// </summary>
         protected virtual async Task<PayResult> RequstResult( WechatpayConfig config, WechatpayParameterBuilder builder ) {
-            var result = new WechatpayResult( config, await Request( config, builder ) );
+            var result = new WechatpayResult( ConfigProvider, await Request( config, builder ) );
             WriteLog( config, builder, result );
-            return CreateResult( config, builder, result );
+            return await CreateResult( config, builder, result );
         }
 
         /// <summary>
@@ -122,7 +121,7 @@ namespace Util.Biz.Payments.Wechatpay.Services.Base {
                 .Content( builder.ToXml() )
                 .Content()
                 .Content( "返回结果:" )
-                .Content( result.GetDictionary() )
+                .Content( result.GetParams() )
                 .Content()
                 .Content( "原始响应: " )
                 .Content( result.Raw )
@@ -152,11 +151,12 @@ namespace Util.Biz.Payments.Wechatpay.Services.Base {
         /// <param name="config">支付配置</param>
         /// <param name="builder">参数生成器</param>
         /// <param name="result">支付结果</param>
-        protected virtual PayResult CreateResult( WechatpayConfig config, WechatpayParameterBuilder builder, WechatpayResult result ) {
-            return new PayResult( result.Success, result.GetPrepayId(), result.Raw ) {
+        protected virtual async Task<PayResult> CreateResult( WechatpayConfig config, WechatpayParameterBuilder builder, WechatpayResult result ) {
+            var success = ( await result.ValidateAsync() ).IsValid;
+            return new PayResult( success, result.GetPrepayId(), result.Raw ) {
                 Parameter = builder.ToString(),
                 Message = result.GetReturnMessage(),
-                Result = result.Success ? GetResult( config, builder, result ) : null
+                Result = success ? GetResult( config, builder, result ) : null
             };
         }
 

@@ -22,7 +22,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// </summary>
         private readonly IAlipayConfigProvider _configProvider;
         /// <summary>
-        /// 是否已加载参数
+        /// 是否已加载
         /// </summary>
         private bool _isLoad;
 
@@ -38,45 +38,12 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         }
 
         /// <summary>
-        /// 初始化
+        /// 获取参数
         /// </summary>
-        private void Init() {
-            if( _isLoad )
-                return;
-            Load( _builder );
-            _isLoad = true;
+        /// <param name="name">参数名</param>
+        public T GetParam<T>( string name ) {
+            return Util.Helpers.Convert.To<T>( GetParam( name ) );
         }
-
-        /// <summary>
-        /// 加载参数
-        /// </summary>
-        /// <param name="builder">参数生成器</param>
-        protected abstract void Load( UrlParameterBuilder builder );
-
-        /// <summary>
-        /// 商户订单号
-        /// </summary>
-        public string OrderId => GetParam( AlipayConst.OutTradeNo );
-
-        /// <summary>
-        /// 支付订单号
-        /// </summary>
-        public string TradeNo => GetParam( AlipayConst.TradeNo );
-
-        /// <summary>
-        /// 支付金额
-        /// </summary>
-        public decimal Money => GetParam( AlipayConst.TotalAmount ).ToDecimal();
-
-        /// <summary>
-        /// 买家支付宝用户号
-        /// </summary>
-        public string BuyerId => GetParam( AlipayConst.BuyerId );
-
-        /// <summary>
-        /// 签名
-        /// </summary>
-        public string Sign => GetParam( AlipayConst.Sign );
 
         /// <summary>
         /// 获取参数
@@ -88,11 +55,53 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         }
 
         /// <summary>
-        /// 获取参数
+        /// 初始化
         /// </summary>
-        /// <param name="name">参数名</param>
-        public T GetParam<T>( string name ) {
-            return Util.Helpers.Convert.To<T>( GetParam( name ) );
+        private void Init() {
+            if( _isLoad )
+                return;
+            Load( _builder );
+            _isLoad = true;
+            WriteLog();
+        }
+
+        /// <summary>
+        /// 加载参数
+        /// </summary>
+        /// <param name="builder">参数生成器</param>
+        protected abstract void Load( UrlParameterBuilder builder );
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        protected void WriteLog() {
+            var log = GetLog();
+            if( log.IsTraceEnabled == false )
+                return;
+            log.Class( GetType().FullName )
+                .Caption( GetCaption() )
+                .Content( "原始参数:" )
+                .Content( GetParams() )
+                .Trace();
+        }
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        private ILog GetLog() {
+            try {
+                return Log.GetLog( AlipayConst.TraceLogName );
+            }
+            catch {
+                return Log.Null;
+            }
+        }
+
+        /// <summary>
+        /// 获取日志标题
+        /// </summary>
+        protected virtual string GetCaption() {
+            return string.Empty;
         }
 
         /// <summary>
@@ -109,7 +118,6 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         public async Task<ValidationResultCollection> ValidateAsync() {
             Init();
             var isValid = await VerifySign();
-            WriteLog( isValid );
             if( isValid == false )
                 return new ValidationResultCollection( "签名失败" );
             return Validate();
@@ -142,37 +150,28 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         }
 
         /// <summary>
-        /// 写日志
+        /// 商户订单号
         /// </summary>
-        protected void WriteLog( bool isVerify ) {
-            var log = GetLog();
-            if( log.IsTraceEnabled == false )
-                return;
-            log.Class( GetType().FullName )
-                .Caption( GetCaption() )
-                .Content( $"验证签名:{( isVerify ? "成功" : "失败" )}" )
-                .Content( "原始参数:" )
-                .Content( GetParams() )
-                .Trace();
-        }
+        public string OrderId => GetParam( AlipayConst.OutTradeNo );
 
         /// <summary>
-        /// 获取日志操作
+        /// 支付订单号
         /// </summary>
-        private ILog GetLog() {
-            try {
-                return Log.GetLog( AlipayConst.TraceLogName );
-            }
-            catch {
-                return Log.Null;
-            }
-        }
+        public string TradeNo => GetParam( AlipayConst.TradeNo );
 
         /// <summary>
-        /// 获取日志标题
+        /// 支付金额
         /// </summary>
-        protected virtual string GetCaption() {
-            return string.Empty;
-        }
+        public decimal Money => GetParam( AlipayConst.TotalAmount ).ToDecimal();
+
+        /// <summary>
+        /// 买家支付宝用户号
+        /// </summary>
+        public string BuyerId => GetParam( AlipayConst.BuyerId );
+
+        /// <summary>
+        /// 签名
+        /// </summary>
+        public string Sign => GetParam( AlipayConst.Sign );
     }
 }

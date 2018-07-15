@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Util.Biz.Payments.Wechatpay.Configs;
-using Util.Biz.Payments.Wechatpay.Enums;
 
 namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Configs {
     /// <summary>
@@ -8,11 +7,10 @@ namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Configs {
     /// </summary>
     public class TestConfigProvider : IWechatpayConfigProvider {
         /// <summary>
-        /// 获取配置
+        /// 请填写正确的微信支付配置
         /// </summary>
         public Task<WechatpayConfig> GetConfigAsync() {
             var config = new WechatpayConfig {
-                GatewayUrl = "https://api.mch.weixin.qq.com/",
                 AppId = "",
                 MerchantId = "",
                 PrivateKey = "",

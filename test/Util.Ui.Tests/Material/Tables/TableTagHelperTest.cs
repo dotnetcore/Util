@@ -184,7 +184,7 @@ namespace Util.Ui.Tests.Material.Tables {
         /// <summary>
         /// 测试最大高度
         /// </summary>
-        [Fact(Skip = "表头冻结的临时处理导致失败")]
+        [Fact]
         public void TestMaxHeight() {
             var attributes = new TagHelperAttributeList { { UiConst.MaxHeight, 1 } };
             var result = new String();
