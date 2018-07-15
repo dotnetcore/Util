@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Util.Biz.Payments.Wechatpay.Configs;
 using Util.Biz.Payments.Wechatpay.Signatures;
 using Util.Helpers;
@@ -65,7 +66,7 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// </summary>
         /// <param name="name">xml节点名称</param>
         public string GetValue( string name ) {
-            return _builder.GetValue( name );
+            return _builder.GetValue( name ).SafeString();
         }
 
         /// <summary>
@@ -125,6 +126,20 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         }
 
         /// <summary>
+        /// 获取错误码
+        /// </summary>
+        public string GetErrorCode() {
+            return GetValue( WechatpayConst.ErrorCode );
+        }
+
+        /// <summary>
+        /// 获取错误码和描述
+        /// </summary>
+        public string GetErrorCodeDescription() {
+            return GetValue( WechatpayConst.ErrorCodeDescription );
+        }
+
+        /// <summary>
         /// 获取签名
         /// </summary>
         public string GetSign() {
@@ -144,7 +159,7 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         public IDictionary<string, string> GetDictionary() {
             var builder = new ParameterBuilder(_builder);
             builder.Add( WechatpayConst.Sign, _sign );
-            return builder.GetDictionary();
+            return builder.GetDictionary().ToDictionary( t => t.Key, t => t.Value.SafeString() );
         }
     }
 }

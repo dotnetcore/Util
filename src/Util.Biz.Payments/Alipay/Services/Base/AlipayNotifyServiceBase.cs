@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Logs;
@@ -83,7 +84,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// <param name="name">参数名</param>
         public string GetParam( string name ) {
             Init();
-            return _builder.GetValue( name );
+            return _builder.GetValue( name ).SafeString();
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// </summary>
         public IDictionary<string, string> GetParams() {
             Init();
-            return _builder.GetDictionary();
+            return _builder.GetDictionary().ToDictionary( t => t.Key, t => t.Value.SafeString() );
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
             Init();
             var isValid = await VerifySign();
             WriteLog( isValid );
-            if ( isValid == false )
+            if( isValid == false )
                 return new ValidationResultCollection( "签名失败" );
             return Validate();
         }

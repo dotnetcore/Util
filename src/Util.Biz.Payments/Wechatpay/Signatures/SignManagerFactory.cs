@@ -17,6 +17,8 @@ namespace Util.Biz.Payments.Wechatpay.Signatures {
         public static ISignManager Create( WechatpayConfig config, ParameterBuilder builder ) {
             if( config.SignType == WechatpaySignType.Md5 )
                 return new Md5SignManager( new SignKey( config.PrivateKey ), builder );
+            if( config.SignType == WechatpaySignType.HmacSha256 )
+                return new HmacSha256SignManager( new SignKey( config.PrivateKey ), builder );
             throw new NotImplementedException( $"未实现签名算法:{config.SignType.Description()}" );
         }
     }

@@ -49,14 +49,14 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <param name="builder">参数生成器</param>
         /// <param name="wechatpayResult">支付结果</param>
         protected override string GetResult( WechatpayConfig config, WechatpayParameterBuilder builder, WechatpayResult wechatpayResult ) {
-            var result = new WechatpayParameterBuilder( config );
-            result.AppId( config.AppId );
-            result.PartnerId( config.MerchantId );
-            result.PrepayId( wechatpayResult.GetPrepayId() );
-            result.NonceStr( Id.Guid() );
-            result.Timestamp( Time.GetUnixTimestamp().SafeString() );
-            result.Package();
-            return result.ToJson();
+            return new WechatpayParameterBuilder( config )
+                .AppId( config.AppId )
+                .PartnerId( config.MerchantId )
+                .Add( "prepayid", wechatpayResult.GetPrepayId() )
+                .Add( "noncestr", Id.Guid() )
+                .Timestamp()
+                .Package()
+                .ToJson();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
@@ -27,7 +28,7 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 参数集合
         /// </summary>
-        private IDictionary<string, string> _params;
+        private IDictionary<string, object> _params;
         /// <summary>
         /// 参数
         /// </summary>
@@ -84,7 +85,7 @@ namespace Util.Webs.Clients {
             System.Text.Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
             _url = url;
             _httpMethod = httpMethod;
-            _params = new Dictionary<string, string>();
+            _params = new Dictionary<string, object>();
             _contentType = HttpContentType.FormUrlEncoded.Description();
             _cookieContainer = new CookieContainer();
             _timeout = new TimeSpan( 0, 0, 30 );
@@ -203,7 +204,7 @@ namespace Util.Webs.Clients {
         /// 添加参数字典
         /// </summary>
         /// <param name="parameters">参数字典</param>
-        public TRequest Data( IDictionary<string, string> parameters ) {
+        public TRequest Data( IDictionary<string, object> parameters ) {
             _params = parameters ?? throw new ArgumentNullException( nameof( parameters ) );
             return This();
         }
@@ -213,13 +214,12 @@ namespace Util.Webs.Clients {
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        public TRequest Data<T>( string key, T value ) {
+        public TRequest Data( string key, object value ) {
             if( string.IsNullOrWhiteSpace( key ) )
                 throw new ArgumentNullException( nameof( key ) );
-            var data = value.SafeString();
-            if( string.IsNullOrWhiteSpace( data ) )
+            if( string.IsNullOrWhiteSpace( value.SafeString() ) )
                 return This();
-            _params.Add( key, data );
+            _params.Add( key, value );
             return This();
         }
 
@@ -354,7 +354,7 @@ namespace Util.Webs.Clients {
             var contentType = _contentType.SafeString().ToLower();
             switch( contentType ) {
                 case "application/x-www-form-urlencoded":
-                    return new FormUrlEncodedContent( _params );
+                    return new FormUrlEncodedContent( _params.ToDictionary( t => t.Key, t => t.Value.SafeString() ) );
                 case "application/json":
                     return CreateJsonContent();
                 case "text/xml":

@@ -88,7 +88,7 @@ namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Services {
         /// <summary>
         /// 测试支付
         /// </summary>
-        [Fact(Skip = "请填写正确的微信支付配置")]
+        [Fact(Skip = "请先配置微信支付")]
         public async Task TestPayAsync_2() {
             //执行
             var result = await _service.PayAsync( new PayParam {

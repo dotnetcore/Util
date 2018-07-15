@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        string Format( string key, string value );
+        string Format( string key, object value );
         /// <summary>
         /// 连接参数
         /// </summary>

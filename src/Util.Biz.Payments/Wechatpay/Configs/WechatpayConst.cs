@@ -87,5 +87,13 @@
         /// 包
         /// </summary>
         public const string Package = "package";
+        /// <summary>
+        /// 错误码
+        /// </summary>
+        public const string ErrorCode = "err_code";
+        /// <summary>
+        /// 错误码和描述
+        /// </summary>
+        public const string ErrorCodeDescription = "err_code_des";
     }
 }

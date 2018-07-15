@@ -37,7 +37,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// <param name="value">属性值</param>
         /// <param name="replaceExisting">是否替换已存在的属性</param>
         public FormBuilder Attribute( string name, string value, bool replaceExisting = false ) {
-            _builder.MergeAttribute( name, value, replaceExisting );
+            _builder.MergeAttribute( name, value.SafeString(), replaceExisting );
             return this;
         }
 
@@ -87,7 +87,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
             AddAttribute( "id", FormId );
             AddAttribute( "name", FormId );
             AddAttribute( "action", builder.Config.GetGatewayUrl() );
-            AddAttribute( "charset", builder.GetValue( AlipayConst.Charset ) );
+            AddAttribute( "charset", builder.GetValue( AlipayConst.Charset ).SafeString() );
             AddAttribute( "method", "POST" );
         }
 
@@ -96,7 +96,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// </summary>
         private void AddInputs( AlipayParameterBuilder builder ) {
             foreach( var item in builder.GetDictionary( true ) )
-                AddInput( item.Key, item.Value );
+                AddInput( item.Key, item.Value.SafeString() );
         }
 
         /// <summary>

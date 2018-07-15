@@ -77,13 +77,13 @@ namespace Util.Webs.Clients {
         /// 添加参数字典
         /// </summary>
         /// <param name="parameters">参数字典</param>
-        TRequest Data( IDictionary<string, string> parameters );
+        TRequest Data( IDictionary<string, object> parameters );
         /// <summary>
         /// 添加参数
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        TRequest Data<T>( string key, T value );
+        TRequest Data( string key, object value );
         /// <summary>
         /// 添加Json参数
         /// </summary>

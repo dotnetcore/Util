@@ -98,7 +98,7 @@ namespace Util.Parameters {
         /// 获取值
         /// </summary>
         /// <param name="name">参数名</param>
-        public string GetValue( string name ) {
+        public object GetValue( string name ) {
             return ParameterBuilder.GetValue( name );
         }
 
@@ -106,7 +106,7 @@ namespace Util.Parameters {
         /// 索引器
         /// </summary>
         /// <param name="name">参数名</param>
-        public string this[string name] {
+        public object this[string name] {
             get => GetValue( name );
             set => Add( name, value );
         }
@@ -117,14 +117,14 @@ namespace Util.Parameters {
         /// <param name="isSort">是否按参数名排序</param>
         /// <param name="isUrlEncode">是否Url编码</param>
         /// <param name="encoding">字符编码，默认值：UTF-8</param>
-        public IDictionary<string, string> GetDictionary( bool isSort = true, bool isUrlEncode = false, string encoding = "UTF-8" ) {
+        public IDictionary<string, object> GetDictionary( bool isSort = true, bool isUrlEncode = false, string encoding = "UTF-8" ) {
             return ParameterBuilder.GetDictionary( isSort, isUrlEncode, encoding );
         }
 
         /// <summary>
         /// 获取键值对集合
         /// </summary>
-        public IEnumerable<KeyValuePair<string, string>> GetKeyValuePairs() {
+        public IEnumerable<KeyValuePair<string, object>> GetKeyValuePairs() {
             return ParameterBuilder.GetKeyValuePairs();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Core;
 using Util.Helpers;
@@ -139,7 +140,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 获取值
         /// </summary>
         /// <param name="name">参数名</param>
-        public string GetValue( string name ) {
+        public object GetValue( string name ) {
             return _builder.GetValue( name );
         }
 
@@ -148,7 +149,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// </summary>
         /// <param name="isConvertToSingleQuotes">是否将双引号转成单引号</param>
         /// <param name="isUrlEncode">是否Url编码</param>
-        public IDictionary<string, string> GetDictionary( bool isConvertToSingleQuotes = false, bool isUrlEncode = false ) {
+        public IDictionary<string, object> GetDictionary( bool isConvertToSingleQuotes = false, bool isUrlEncode = false ) {
             return GetSignBuilder( isConvertToSingleQuotes ).GetDictionary( true, isUrlEncode, Config.Charset );
         }
 

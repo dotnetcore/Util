@@ -74,7 +74,7 @@ namespace Util.Biz.Payments.Alipay.Results {
         public string GetValue( string key ) {
             if( key.IsEmpty() )
                 return string.Empty;
-            return _result.ContainsKey( key ) ? _result[key] : string.Empty;
+            return _result.ContainsKey( key ) ? _result[key].SafeString() : string.Empty;
         }
 
         /// <summary>

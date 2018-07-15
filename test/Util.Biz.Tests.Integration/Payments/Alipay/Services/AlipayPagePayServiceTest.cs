@@ -40,7 +40,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Services {
         /// </summary>
         [Fact]
         public async Task TestPayAsync() {
-            Time.SetTime( TestConst.Time );
+            //结果
             String result = new String();
             result.Append( "<form action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8\" charset=\"utf-8\" id=\"formAlipay\" method=\"POST\" name=\"formAlipay\">" );
             result.Append( "<input name=\"app_id\" value=\"2016090800463464\"></input>" );
@@ -55,13 +55,27 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Services {
             result.Append( "<input style=\"display:none;\" type=\"submit\" value=\"提交\"></input>" );
             result.Append( "</form>" );
             result.Append( "<script>document.forms['formAlipay'].submit();</script>" );
-            var form = (await _service.PayAsync( new PayParam {
+
+            //操作
+            var form = await Pay();
+
+            //输出
+            _output.WriteLine( form );
+
+            //验证
+            Assert.Equal( result.ToString(),form );
+        }
+
+        /// <summary>
+        /// 支付
+        /// </summary>
+        private async Task<string> Pay() {
+            Time.SetTime( TestConst.Time );
+            return ( await _service.PayAsync( new PayParam {
                 OrderId = "59f7caeeab89e009e4a4e1fb",
                 Money = 10,
                 Subject = "test"
-            } )).Result;
-            _output.WriteLine( form );
-            Assert.Equal( result.ToString(),form );
+            } ) ).Result;
         }
     }
 }

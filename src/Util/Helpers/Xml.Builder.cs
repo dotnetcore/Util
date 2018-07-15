@@ -41,7 +41,7 @@ namespace Util.Helpers {
         /// <param name="name">节点名称</param>
         /// <param name="value">值</param>
         /// <param name="parent">父节点</param>
-        public XmlNode AddNode( string name, string value = null, XmlNode parent = null ) {
+        public XmlNode AddNode( string name, object value = null, XmlNode parent = null ) {
             var node = CreateNode( name, value, XmlNodeType.Element );
             GetParent( parent ).AppendChild( node );
             return node;
@@ -50,10 +50,10 @@ namespace Util.Helpers {
         /// <summary>
         /// 创建节点
         /// </summary>
-        private XmlNode CreateNode( string name, string value, XmlNodeType type ) {
+        private XmlNode CreateNode( string name, object value, XmlNodeType type ) {
             var node = Document.CreateNode( type, name, string.Empty );
-            if( string.IsNullOrWhiteSpace( value ) == false )
-                node.InnerText = value;
+            if( string.IsNullOrWhiteSpace( value.SafeString() ) == false )
+                node.InnerText = value.SafeString();
             return node;
         }
 
@@ -71,7 +71,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="value">值</param>
         /// <param name="parent">父节点</param>
-        public XmlNode AddCDataNode( string value, XmlNode parent = null ) {
+        public XmlNode AddCDataNode( object value, XmlNode parent = null ) {
             var node = CreateNode( Id.Guid(), value, XmlNodeType.CDATA );
             GetParent( parent ).AppendChild( node );
             return node;
@@ -82,7 +82,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="value">值</param>
         /// <param name="parentName">父节点名称</param>
-        public XmlNode AddCDataNode( string value, string parentName ) {
+        public XmlNode AddCDataNode( object value, string parentName ) {
             var parent = CreateNode( parentName, null, XmlNodeType.Element );
             Root.AppendChild( parent );
             return AddCDataNode( value, parent );

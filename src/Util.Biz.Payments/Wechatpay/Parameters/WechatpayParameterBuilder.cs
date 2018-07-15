@@ -43,6 +43,16 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         }
 
         /// <summary>
+        /// 添加参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数值</param>
+        public WechatpayParameterBuilder Add( string name, string value ) {
+            _builder.Add( name, value );
+            return this;
+        }
+
+        /// <summary>
         /// 设置应用标识
         /// </summary>
         /// <param name="appId">应用标识</param>
@@ -172,8 +182,8 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// 设置时间戳
         /// </summary>
         /// <param name="timestamp">时间戳</param>
-        public WechatpayParameterBuilder Timestamp( string timestamp ) {
-            _builder.Add( WechatpayConst.Timestamp, timestamp );
+        public WechatpayParameterBuilder Timestamp( long timestamp = 0 ) {
+            _builder.Add( WechatpayConst.Timestamp, timestamp == 0 ? Time.GetUnixTimestamp() : timestamp );
             return this;
         }
 
@@ -194,13 +204,6 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         }
 
         /// <summary>
-        /// 获取Xml结果，不包含签名
-        /// </summary>
-        public string ToXmlNoContainsSign() {
-            return ToXmlDocument( _builder ).OuterXml;
-        }
-
-        /// <summary>
         /// 获取Xml文档
         /// </summary>
         private XmlDocument ToXmlDocument( ParameterBuilder builder ) {
@@ -213,7 +216,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// <summary>
         /// 添加Xml节点
         /// </summary>
-        private void AddNode( Xml xml, string key, string value ) {
+        private void AddNode( Xml xml, string key, object value ) {
             if( key.SafeString().ToLower() == WechatpayConst.TotalFee ) {
                 xml.AddNode( key, value );
                 return;
@@ -235,6 +238,13 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// </summary>
         public string GetSign() {
             return SignManagerFactory.Create( Config, _builder ).Sign();
+        }
+
+        /// <summary>
+        /// 获取Xml结果，不包含签名
+        /// </summary>
+        public string ToXmlNoContainsSign() {
+            return ToXmlDocument( _builder ).OuterXml;
         }
 
         /// <summary>
