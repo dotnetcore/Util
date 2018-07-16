@@ -26,7 +26,7 @@ namespace Util.Biz.Payments.Factories {
         /// </summary>
         /// <param name="alipayConfigProvider">支付宝配置提供器</param>
         /// <param name="wechatpayConfigProvider">微信支付配置提供器</param>
-        public PayFactory( IAlipayConfigProvider alipayConfigProvider,IWechatpayConfigProvider wechatpayConfigProvider ) {
+        public PayFactory( IAlipayConfigProvider alipayConfigProvider, IWechatpayConfigProvider wechatpayConfigProvider ) {
             _alipayConfigProvider = alipayConfigProvider;
             _wechatpayConfigProvider = wechatpayConfigProvider;
         }
@@ -48,7 +48,7 @@ namespace Util.Biz.Payments.Factories {
                 case PayWay.WechatpayAppPay:
                     return new WechatpayAppPayService( _wechatpayConfigProvider );
             }
-            throw new NotImplementedException();
+            throw new NotImplementedException( way.Description() );
         }
 
         /// <summary>
@@ -91,6 +91,13 @@ namespace Util.Biz.Payments.Factories {
         /// </summary>
         public IAlipayAppPayService CreateAlipayAppPayService() {
             return new AlipayAppPayService( _alipayConfigProvider );
+        }
+
+        /// <summary>
+        /// 创建微信回调通知服务
+        /// </summary>
+        public IWechatpayNotifyService CreateWechatpayNotifyService() {
+            return new WechatpayNotifyService( _wechatpayConfigProvider );
         }
 
         /// <summary>

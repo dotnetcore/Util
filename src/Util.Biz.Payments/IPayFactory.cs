@@ -37,6 +37,10 @@ namespace Util.Biz.Payments {
         /// </summary>
         IAlipayAppPayService CreateAlipayAppPayService();
         /// <summary>
+        /// 创建微信回调通知服务
+        /// </summary>
+        IWechatpayNotifyService CreateWechatpayNotifyService();
+        /// <summary>
         /// 创建微信App支付服务
         /// </summary>
         IWechatpayAppPayService CreateWechatpayAppPayService();

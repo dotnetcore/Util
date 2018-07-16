@@ -5,7 +5,9 @@ using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Services;
 using Util.Biz.Payments.Factories;
+using Util.Biz.Payments.Wechatpay.Abstractions;
 using Util.Biz.Payments.Wechatpay.Configs;
+using Util.Biz.Payments.Wechatpay.Services;
 
 namespace Util.Biz.Payments.Extensions {
     /// <summary>
@@ -20,11 +22,12 @@ namespace Util.Biz.Payments.Extensions {
         public static void AddPay( this IServiceCollection services, Action<PayOptions> setupAction ) {
             var options = new PayOptions();
             setupAction?.Invoke( options );
-            services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddSingleton<IAlipayConfigProvider>( new AlipayConfigProvider( options.AlipayOptions ) );
             services.TryAddSingleton<IWechatpayConfigProvider>( new WechatpayConfigProvider( options.WechatpayOptions ) );
+            services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
             services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
+            services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
         }
 
         /// <summary>
@@ -36,11 +39,12 @@ namespace Util.Biz.Payments.Extensions {
         public static void AddPay<TAlipayConfigProvider, TWechatpayConfigProvider>( this IServiceCollection services )
             where TAlipayConfigProvider : class, IAlipayConfigProvider
             where TWechatpayConfigProvider : class, IWechatpayConfigProvider {
-            services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IAlipayConfigProvider, TAlipayConfigProvider>();
             services.TryAddScoped<IWechatpayConfigProvider, TWechatpayConfigProvider>();
+            services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
             services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
+            services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
         }
 
         /// <summary>
@@ -49,8 +53,8 @@ namespace Util.Biz.Payments.Extensions {
         /// <typeparam name="TAlipayConfigProvider">支付宝配置提供器</typeparam>
         /// <param name="services">服务集合</param>
         public static void AddAlipay<TAlipayConfigProvider>( this IServiceCollection services ) where TAlipayConfigProvider :class, IAlipayConfigProvider {
-            services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IAlipayConfigProvider,TAlipayConfigProvider>();
+            services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
             services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
         }
@@ -61,10 +65,9 @@ namespace Util.Biz.Payments.Extensions {
         /// <typeparam name="TWechatpayConfigProvider">微信配置提供器</typeparam>
         /// <param name="services">服务集合</param>
         public static void AddWechatpay<TWechatpayConfigProvider>( this IServiceCollection services ) where TWechatpayConfigProvider : class, IWechatpayConfigProvider {
-            services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IWechatpayConfigProvider, TWechatpayConfigProvider>();
-            services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
-            services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
+            services.TryAddScoped<IPayFactory, PayFactory>();
+            services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
         }
     }
 }
