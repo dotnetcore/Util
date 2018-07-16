@@ -4,9 +4,9 @@ using Util.Validations;
 
 namespace Util.Biz.Payments.Core {
     /// <summary>
-    /// 通知服务
+    /// 支付通知服务
     /// </summary>
-    public interface INotifyServiceBase {
+    public interface INotifyService {
         /// <summary>
         /// 商户订单号
         /// </summary>
