@@ -86,7 +86,7 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 转换为64位浮点型,并按指定小数位舍入，温馨提示：4舍6入5成双
+        /// 转换为64位浮点型,并按指定小数位舍入
         /// </summary>
         /// <param name="input">输入值</param>
         /// <param name="digits">小数位数</param>
@@ -95,7 +95,7 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 转换为64位可空浮点型,并按指定小数位舍入，温馨提示：4舍6入5成双
+        /// 转换为64位可空浮点型,并按指定小数位舍入
         /// </summary>
         /// <param name="input">输入值</param>
         /// <param name="digits">小数位数</param>
@@ -109,7 +109,7 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 转换为128位浮点型,并按指定小数位舍入，温馨提示：4舍6入5成双
+        /// 转换为128位浮点型,并按指定小数位舍入
         /// </summary>
         /// <param name="input">输入值</param>
         /// <param name="digits">小数位数</param>
@@ -118,7 +118,7 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 转换为128位可空浮点型,并按指定小数位舍入，温馨提示：4舍6入5成双
+        /// 转换为128位可空浮点型,并按指定小数位舍入
         /// </summary>
         /// <param name="input">输入值</param>
         /// <param name="digits">小数位数</param>

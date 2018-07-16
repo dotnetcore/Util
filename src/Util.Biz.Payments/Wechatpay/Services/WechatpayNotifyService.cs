@@ -36,6 +36,14 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         }
 
         /// <summary>
+        /// 获取参数集合
+        /// </summary>
+        public IDictionary<string, string> GetParams() {
+            Init();
+            return _result.GetParams();
+        }
+
+        /// <summary>
         /// 获取参数
         /// </summary>
         /// <param name="name">参数名</param>
@@ -79,14 +87,6 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         }
 
         /// <summary>
-        /// 获取参数集合
-        /// </summary>
-        public IDictionary<string, string> GetParams() {
-            Init();
-            return _result.GetParams();
-        }
-
-        /// <summary>
         /// 验证
         /// </summary>
         public async Task<ValidationResultCollection> ValidateAsync() {
@@ -121,16 +121,16 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <summary>
         /// 商户订单号
         /// </summary>
-        public string OrderId => _result.GetParam( WechatpayConst.OutTradeNo );
+        public string OrderId => GetParam( WechatpayConst.OutTradeNo );
 
         /// <summary>
         /// 支付订单号
         /// </summary>
-        public string TradeNo => _result.GetParam( WechatpayConst.TransactionId );
+        public string TradeNo => GetParam( WechatpayConst.TransactionId );
 
         /// <summary>
         /// 支付金额
         /// </summary>
-        public decimal Money => Convert.ToDecimal( _result.GetParam( WechatpayConst.TotalFee ).ToInt() / 100, 2 );
+        public decimal Money => Convert.ToDecimal( GetParam( WechatpayConst.TotalFee ).ToInt() / 100, 2 );
     }
 }
