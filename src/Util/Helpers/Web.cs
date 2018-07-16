@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -45,30 +46,6 @@ namespace Util.Helpers {
         public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
 
         /// <summary>
-        /// 当前用户安全主体
-        /// </summary>
-        public static ClaimsPrincipal User {
-            get {
-                if( HttpContext == null )
-                    return UnauthenticatedPrincipal.Instance;
-                if( HttpContext.User is ClaimsPrincipal principal )
-                    return principal;
-                return UnauthenticatedPrincipal.Instance;
-            }
-        }
-
-        /// <summary>
-        /// 当前用户身份
-        /// </summary>
-        public static ClaimsIdentity Identity {
-            get {
-                if( User.Identity is ClaimsIdentity identity )
-                    return identity;
-                return UnauthenticatedIdentity.Instance;
-            }
-        }
-
-        /// <summary>
         /// 当前Http请求
         /// </summary>
         public static HttpRequest Request => HttpContext?.Request;
@@ -82,6 +59,53 @@ namespace Util.Helpers {
         /// 宿主环境
         /// </summary>
         public static IHostingEnvironment Environment { get; set; }
+
+        #endregion
+
+        #region User(当前用户安全主体)
+
+        /// <summary>
+        /// 当前用户安全主体
+        /// </summary>
+        public static ClaimsPrincipal User {
+            get {
+                if( HttpContext == null )
+                    return UnauthenticatedPrincipal.Instance;
+                if( HttpContext.User is ClaimsPrincipal principal )
+                    return principal;
+                return UnauthenticatedPrincipal.Instance;
+            }
+        }
+
+        #endregion
+
+        #region Identity(当前用户身份)
+
+        /// <summary>
+        /// 当前用户身份
+        /// </summary>
+        public static ClaimsIdentity Identity {
+            get {
+                if( User.Identity is ClaimsIdentity identity )
+                    return identity;
+                return UnauthenticatedIdentity.Instance;
+            }
+        }
+
+        #endregion
+
+        #region Body(请求正文)
+
+        /// <summary>
+        /// 请求正文
+        /// </summary>
+        public static string Body {
+            get {
+                using( var reader = new StreamReader( Request.Body ) ) {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
 
         #endregion
 

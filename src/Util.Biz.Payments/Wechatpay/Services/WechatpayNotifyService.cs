@@ -74,16 +74,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// 初始化支付结果
         /// </summary>
         private void InitResult() {
-            _result = new WechatpayResult( _configProvider, GetRequest() );
-        }
-
-        /// <summary>
-        /// 获取微信回调Xml内容
-        /// </summary>
-        private string GetRequest() {
-            using( var reader = new StreamReader( Web.Request.Body ) ) {
-                return reader.ReadToEnd();
-            }
+            _result = new WechatpayResult( _configProvider, Web.Body );
         }
 
         /// <summary>
@@ -91,6 +82,8 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// </summary>
         public async Task<ValidationResultCollection> ValidateAsync() {
             Init();
+            if( Money <= 0 )
+                return new ValidationResultCollection( PayResource.InvalidMoney );
             return await _result.ValidateAsync();
         }
 
@@ -104,7 +97,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <summary>
         /// 返回消息
         /// </summary>
-        private string Return( string code,string message ) {
+        private string Return( string code, string message ) {
             var xml = new Xml();
             xml.AddCDataNode( code, WechatpayConst.ReturnCode );
             xml.AddCDataNode( message, WechatpayConst.ReturnMessage );
@@ -131,6 +124,6 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <summary>
         /// 支付金额
         /// </summary>
-        public decimal Money => Convert.ToDecimal( GetParam( WechatpayConst.TotalFee ).ToInt() / 100, 2 );
+        public decimal Money => GetParam( WechatpayConst.TotalFee ).ToDecimal() / 100M;
     }
 }
