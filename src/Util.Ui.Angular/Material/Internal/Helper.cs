@@ -174,6 +174,7 @@ namespace Util.Ui.Material.Internal {
         public static void InitValidation( TextBoxConfig config, MemberInfo member ) {
             InitLength( config, member );
             InitEmail( config, member );
+            InitRegex( config, member );
         }
 
         /// <summary>
@@ -183,7 +184,6 @@ namespace Util.Ui.Material.Internal {
             InitStringLength( config, member );
             InitMinLength( config, member );
             InitMaxLength( config, member );
-            InitRegex( config, member );
         }
 
         /// <summary>
