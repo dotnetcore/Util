@@ -183,6 +183,7 @@ namespace Util.Ui.Material.Internal {
             InitStringLength( config, member );
             InitMinLength( config, member );
             InitMaxLength( config, member );
+            InitRegex( config, member );
         }
 
         /// <summary>
@@ -230,6 +231,17 @@ namespace Util.Ui.Material.Internal {
             if( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) )
                 return;
             config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 初始化正则表达式验证
+        /// </summary>
+        private static void InitRegex( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<RegularExpressionAttribute>();
+            if( attribute == null )
+                return;
+            config.SetAttribute( UiConst.Regex, attribute.Pattern );
+            config.SetAttribute( UiConst.RegexMessage, attribute.ErrorMessage );
         }
     }
 }

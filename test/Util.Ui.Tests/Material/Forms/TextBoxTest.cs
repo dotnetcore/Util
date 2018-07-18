@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.Encodings.Web;
-using Util.Helpers;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Enums;
@@ -276,6 +274,16 @@ namespace Util.Ui.Tests.Material.Forms {
             var result = new String();
             result.Append( "<mat-textbox-wrapper requiredMessage=\"a\" [required]=\"true\"></mat-textbox-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( _component.Required( "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试正则表达式验证
+        /// </summary>
+        [Fact]
+        public void TestRegex() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper patterMessage=\"b\" pattern=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Regex( "a","b" ) ) );
         }
 
         /// <summary>

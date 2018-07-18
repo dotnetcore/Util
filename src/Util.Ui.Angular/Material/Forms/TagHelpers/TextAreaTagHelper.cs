@@ -19,6 +19,14 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public bool Readonly { get; set; }
         /// <summary>
+        /// 最小行数
+        /// </summary>
+        public string MinRows { get; set; }
+        /// <summary>
+        /// 最大行数
+        /// </summary>
+        public string MaxRows { get; set; }
+        /// <summary>
         /// 最小长度
         /// </summary>
         public string MinLength { get; set; }
@@ -31,13 +39,13 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string MaxLength { get; set; }
         /// <summary>
-        /// 最小行数
+        /// 正则表达式
         /// </summary>
-        public string MinRows { get; set; }
+        public string Regex { get; set; }
         /// <summary>
-        /// 最大行数
+        /// 正则表达式错误消息
         /// </summary>
-        public string MaxRows { get; set; }
+        public string RegexMessage { get; set; }
 
         /// <summary>
         /// 获取渲染器

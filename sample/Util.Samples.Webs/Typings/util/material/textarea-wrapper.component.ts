@@ -18,7 +18,7 @@ import { MessageConfig } from '../config/message-config';
 				matTextareaAutosize [matAutosizeMinRows]="minRows" [matAutosizeMaxRows]="maxRows"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                [required]="required" [minlength]="minLength" [maxlength]="maxLength" ></textarea>
+                [required]="required" [minlength]="minLength" [maxlength]="maxLength" [pattern]="pattern" ></textarea>
             <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
             <mat-hint *ngIf="endHint" align="end">{{endHint}}</mat-hint>
             <span *ngIf="prefixText" matPrefix>{{prefixText}}&nbsp;</span>
@@ -65,6 +65,14 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
      * 最大长度
      */
     @Input() maxLength: number;
+    /**
+     * 正则表达式
+     */
+    @Input() pattern: string;
+    /**
+     * 正则表达式验证消息
+     */
+    @Input() patterMessage: string;
 
     /**
      * 初始化Mat多行文本框包装器
@@ -88,6 +96,8 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
             return this.requiredMessage;
         if (this.controlModel.hasError('minlength'))
             return this.minLengthMessage || MessageConfig.minLengthMessage.replace(/\{0\}/, String(this.minLength));
+        if (this.controlModel.hasError('pattern'))
+            return this.patterMessage;
         return "";
     }
 }

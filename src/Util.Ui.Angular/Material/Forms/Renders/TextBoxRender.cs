@@ -120,6 +120,7 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigEmail( builder );
             ConfigMinLength( builder );
             ConfigMaxLength( builder );
+            ConfigRegex( builder );
         }
 
         /// <summary>
@@ -142,6 +143,14 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigMaxLength( TagBuilder builder ) {
             builder.AddAttribute( "[maxLength]", _config.GetValue( UiConst.MaxLength ) );
+        }
+
+        /// <summary>
+        /// 配置正则表达式验证
+        /// </summary>
+        private void ConfigRegex( TagBuilder builder ) {
+            builder.AddAttribute( "pattern", _config.GetValue( UiConst.Regex ) );
+            builder.AddAttribute( "patterMessage", _config.GetValue( UiConst.RegexMessage ) );
         }
 
         /// <summary>

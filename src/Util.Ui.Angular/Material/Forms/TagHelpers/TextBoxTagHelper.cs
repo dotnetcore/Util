@@ -40,6 +40,14 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// 最大长度
         /// </summary>
         public string MaxLength { get; set; }
+        /// <summary>
+        /// 正则表达式
+        /// </summary>
+        public string Regex { get; set; }
+        /// <summary>
+        /// 正则表达式错误消息
+        /// </summary>
+        public string RegexMessage { get; set; }
 
         /// <summary>
         /// 获取渲染器

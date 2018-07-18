@@ -17,7 +17,7 @@ import { MessageConfig } from '../config/message-config';
             <input matInput [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                [required]="required" [email]="type==='email'"
+                [required]="required" [email]="type==='email'" [pattern]="pattern"
                 [minlength]="minLength" [maxlength]="maxLength"
             />
             <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
@@ -74,6 +74,14 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
      * 电子邮件验证消息
      */
     @Input() emailMessage: string;
+    /**
+     * 正则表达式
+     */
+    @Input() pattern: string;
+    /**
+     * 正则表达式验证消息
+     */
+    @Input() patterMessage: string;
 
     /**
      * 初始化Mat文本框包装器
@@ -133,6 +141,8 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
             return this.minLengthMessage || MessageConfig.minLengthMessage.replace(/\{0\}/, String(this.minLength));
         if (this.controlModel.hasError('email'))
             return this.emailMessage || MessageConfig.emailMessage;
+        if (this.controlModel.hasError('pattern'))
+            return this.patterMessage;
         return "";
     }
 }
