@@ -407,6 +407,26 @@ namespace Util.Ui.Tests.Material.Forms {
         }
 
         /// <summary>
+        /// 测试最小值验证
+        /// </summary>
+        [Fact]
+        public void TestMin() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper minMessage=\"a\" [min]=\"3\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Min( 3, "a" ) ) );
+        }
+
+        /// <summary>
+        /// 测试最大值验证
+        /// </summary>
+        [Fact]
+        public void TestMax() {
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper maxMessage=\"a\" [max]=\"3\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( _component.Max( 3,"a" ) ) );
+        }
+
+        /// <summary>
         /// 测试独立
         /// </summary>
         [Fact]

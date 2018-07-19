@@ -349,6 +349,50 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         }
 
         /// <summary>
+        /// 测试最小值验证
+        /// </summary>
+        [Fact]
+        public void TestMin() {
+            var attributes = new TagHelperAttributeList { { UiConst.Min, 3 } };
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [min]=\"3\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试最小值,添加指定错误消息
+        /// </summary>
+        [Fact]
+        public void TestMin_Message() {
+            var attributes = new TagHelperAttributeList { { UiConst.MinMessage, "a" } };
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper minMessage=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试最大值验证
+        /// </summary>
+        [Fact]
+        public void TestMax() {
+            var attributes = new TagHelperAttributeList { { UiConst.Max, 3 } };
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper [max]=\"3\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试最大值,添加指定错误消息
+        /// </summary>
+        [Fact]
+        public void TestMax_Message() {
+            var attributes = new TagHelperAttributeList { { UiConst.MaxMessage, "a" } };
+            var result = new String();
+            result.Append( "<mat-textbox-wrapper maxMessage=\"a\"></mat-textbox-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试正则表达式验证
         /// </summary>
         [Fact]

@@ -53,6 +53,10 @@ import { LoadingComponent } from "./material/loading.component";
 //Util Prime组件
 import { TreeTableModule } from './prime/treetable.component';
 
+//Util指令
+import { MinValidator } from './directives/min-validator.directive';
+import { MaxValidator } from './directives/max-validator.directive';
+
 //Util管道
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
@@ -86,7 +90,7 @@ import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interc
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         DialogWrapperComponent, ConfirmComponent, LoadingComponent,
-        SafeUrlPipe
+        MinValidator,MaxValidator,SafeUrlPipe
     ],
     exports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule, FlexLayoutModule,
@@ -101,7 +105,7 @@ import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interc
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         TreeTableModule, CKEditorModule, EchartsNg2Module,
-        SafeUrlPipe
+        MinValidator, MaxValidator,SafeUrlPipe
     ],
     entryComponents: [
         DialogWrapperComponent, ConfirmComponent, LoadingComponent
@@ -112,10 +116,7 @@ import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interc
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
         { provide: DateAdapter, useClass: UtilDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
-        DicService, Session,
-        { provide: OidcAuthorizeService, useClass: OidcAuthorizeService, deps: [OidcAuthorizeConfig] },
-        { provide: OidcAuthorize, useClass: OidcAuthorize, deps: [Injector, Session, OidcAuthorizeService] },
-        { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, deps: [OidcAuthorizeService], multi: true }
+        DicService, Session
     ]
 })
 export class UtilModule {
@@ -137,4 +138,15 @@ export function createMatPaginatorIntl() {
         return `当前：${startIndex + 1} - ${endIndex}，共: ${length}`;
     };
     return result;
+}
+
+/**
+ * 创建OpenId Connect服务DI配置
+ */
+export function createOidcProviders() {
+    return [
+        { provide: OidcAuthorizeService, useClass: OidcAuthorizeService, deps: [OidcAuthorizeConfig] },
+        { provide: OidcAuthorize, useClass: OidcAuthorize, deps: [Injector, Session, OidcAuthorizeService] },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, deps: [OidcAuthorizeService], multi: true }
+    ];
 }

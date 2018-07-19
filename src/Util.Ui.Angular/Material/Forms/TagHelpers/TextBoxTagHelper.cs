@@ -41,6 +41,22 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string MaxLength { get; set; }
         /// <summary>
+        /// 最小值
+        /// </summary>
+        public string Min { get; set; }
+        /// <summary>
+        /// 最小值错误消息
+        /// </summary>
+        public string MinMessage { get; set; }
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        public string Max { get; set; }
+        /// <summary>
+        /// 最大值错误消息
+        /// </summary>
+        public string MaxMessage { get; set; }
+        /// <summary>
         /// 正则表达式
         /// </summary>
         public string Regex { get; set; }

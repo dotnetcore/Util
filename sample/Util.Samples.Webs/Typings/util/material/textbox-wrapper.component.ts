@@ -17,7 +17,7 @@ import { MessageConfig } from '../config/message-config';
             <input matInput [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                [required]="required" [email]="type==='email'" [pattern]="pattern"
+                [required]="required" [email]="type==='email'" [pattern]="pattern" [min]="min" [max]="max"
                 [minlength]="minLength" [maxlength]="maxLength"
             />
             <mat-hint *ngIf="startHint" align="start">{{startHint}}</mat-hint>
@@ -58,6 +58,22 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
      * 只读
      */
     @Input() readonly: boolean;
+    /**
+     * 最小值
+     */
+    @Input() min: number;
+    /**
+     * 最小值验证消息
+     */
+    @Input() minMessage: string;
+    /**
+     * 最大值
+     */
+    @Input() max: number;
+    /**
+     * 最大值验证消息
+     */
+    @Input() maxMessage: string;
     /**
      * 最小长度
      */
@@ -143,6 +159,10 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
             return this.emailMessage || MessageConfig.emailMessage;
         if (this.controlModel.hasError('pattern'))
             return this.patterMessage;
+        if (this.controlModel.hasError('min'))
+            return this.minMessage || MessageConfig.minMessage.replace(/\{0\}/, String(this.min));
+        if (this.controlModel.hasError('max'))
+            return this.maxMessage || MessageConfig.maxMessage.replace(/\{0\}/, String(this.max));
         return "";
     }
 }

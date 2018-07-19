@@ -172,9 +172,34 @@ namespace Util.Ui.Material.Internal {
         /// <param name="config">配置</param>
         /// <param name="member">成员</param>
         public static void InitValidation( TextBoxConfig config, MemberInfo member ) {
-            InitLength( config, member );
             InitEmail( config, member );
             InitRegex( config, member );
+            InitLength( config, member );
+            InitRange( config, member );
+        }
+
+        /// <summary>
+        /// 初始化电子邮件验证
+        /// </summary>
+        private static void InitEmail( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<EmailAddressAttribute>();
+            if( attribute == null )
+                return;
+            config.Email();
+            if( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) )
+                return;
+            config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 初始化正则表达式验证
+        /// </summary>
+        private static void InitRegex( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<RegularExpressionAttribute>();
+            if( attribute == null )
+                return;
+            config.SetAttribute( UiConst.Regex, attribute.Pattern );
+            config.SetAttribute( UiConst.RegexMessage, attribute.ErrorMessage );
         }
 
         /// <summary>
@@ -221,27 +246,16 @@ namespace Util.Ui.Material.Internal {
         }
 
         /// <summary>
-        /// 初始化电子邮件验证
+        /// 初始化数值范围验证
         /// </summary>
-        private static void InitEmail( TextBoxConfig config, MemberInfo member ) {
-            var attribute = member.GetCustomAttribute<EmailAddressAttribute>();
+        private static void InitRange( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<RangeAttribute>();
             if( attribute == null )
                 return;
-            config.Email();
-            if( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) )
-                return;
-            config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
-        }
-
-        /// <summary>
-        /// 初始化正则表达式验证
-        /// </summary>
-        private static void InitRegex( TextBoxConfig config, MemberInfo member ) {
-            var attribute = member.GetCustomAttribute<RegularExpressionAttribute>();
-            if( attribute == null )
-                return;
-            config.SetAttribute( UiConst.Regex, attribute.Pattern );
-            config.SetAttribute( UiConst.RegexMessage, attribute.ErrorMessage );
+            config.SetAttribute( UiConst.Min, attribute.Minimum );
+            config.SetAttribute( UiConst.Max, attribute.Maximum );
+            config.SetAttribute( UiConst.MinMessage, attribute.ErrorMessage );
+            config.SetAttribute( UiConst.MaxMessage, attribute.ErrorMessage );
         }
     }
 }

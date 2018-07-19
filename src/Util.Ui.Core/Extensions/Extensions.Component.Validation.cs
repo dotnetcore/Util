@@ -54,6 +54,38 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 最小值
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="min">最小值</param>
+        /// <param name="message">错误消息</param>
+        public static TComponent Min<TComponent>( this TComponent component, int min, string message = null ) where TComponent : IComponent, IMin {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Min, min );
+                config.SetAttribute( UiConst.MinMessage, message );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="max">最大值</param>
+        /// <param name="message">错误消息</param>
+        public static TComponent Max<TComponent>( this TComponent component, int max, string message = null ) where TComponent : IComponent, IMax {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Max, max );
+                config.SetAttribute( UiConst.MaxMessage, message );
+            } );
+            return component;
+        }
+
+        /// <summary>
         /// 正则表达式验证
         /// </summary>
         /// <typeparam name="TComponent">组件类型</typeparam>
