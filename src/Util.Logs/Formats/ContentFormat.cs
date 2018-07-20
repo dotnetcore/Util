@@ -2,6 +2,7 @@
 using System.Text;
 using Util.Logs.Abstractions;
 using Util.Logs.Contents;
+using Util.Logs.Properties;
 
 namespace Util.Logs.Formats {
     /// <summary>

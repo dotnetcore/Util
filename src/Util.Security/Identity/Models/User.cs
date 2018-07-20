@@ -48,7 +48,7 @@ namespace Util.Security.Identity.Models {
         /// </summary>
         public override ValidationResultCollection Validate() {
             if( UserName.IsEmpty() )
-                throw new Warning( Util.Security.SecurityResource.UserNameIsEmpty );
+                throw new Warning( Util.Security.Properties.SecurityResource.UserNameIsEmpty );
             return base.Validate();
         }
 

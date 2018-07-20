@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Util.Webs {
+namespace Util.Webs.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Util.Webs {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Webs.WebResource", typeof(WebResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Webs.Properties.WebResource", typeof(WebResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,6 +1,7 @@
 ﻿using System;
 using Util.Exceptions;
 using Util.Logs.Contents;
+using Util.Logs.Properties;
 
 namespace Util.Logs.Extensions {
     /// <summary>

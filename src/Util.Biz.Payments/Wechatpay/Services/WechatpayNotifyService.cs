@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Util.Biz.Payments.Properties;
 using Util.Biz.Payments.Wechatpay.Abstractions;
 using Util.Biz.Payments.Wechatpay.Configs;
 using Util.Biz.Payments.Wechatpay.Results;

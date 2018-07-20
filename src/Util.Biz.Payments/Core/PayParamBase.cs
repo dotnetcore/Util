@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Util.Biz.Payments.Properties;
 using Util.Exceptions;
 using Util.Maps;
 using Util.Validations;

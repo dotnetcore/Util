@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Util.Logs {
+namespace Util.Logs.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Util.Logs {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Logs.LogResource", typeof(LogResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Logs.Properties.LogResource", typeof(LogResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

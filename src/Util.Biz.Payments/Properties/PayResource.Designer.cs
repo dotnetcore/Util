@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Util.Biz.Payments {
+namespace Util.Biz.Payments.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Util.Biz.Payments {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Biz.Payments.PayResource", typeof(PayResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Biz.Payments.Properties.PayResource", typeof(PayResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

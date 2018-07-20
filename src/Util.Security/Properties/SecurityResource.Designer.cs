@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Util.Security {
+namespace Util.Security.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Util.Security {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Security.SecurityResource", typeof(SecurityResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Util.Security.Properties.SecurityResource", typeof(SecurityResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

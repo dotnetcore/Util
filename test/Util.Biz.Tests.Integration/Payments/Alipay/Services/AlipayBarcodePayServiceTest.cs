@@ -5,6 +5,7 @@ using Util.Biz.Payments.Alipay.Parameters.Requests;
 using Util.Biz.Payments.Alipay.Results;
 using Util.Biz.Payments.Alipay.Services;
 using Util.Biz.Payments.Core;
+using Util.Biz.Payments.Properties;
 using Util.Biz.Tests.Integration.Payments.Alipay.Configs;
 using Util.Biz.Tests.Integration.XUnitHelpers;
 using Util.Exceptions;
