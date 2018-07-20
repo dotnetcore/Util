@@ -179,6 +179,7 @@ namespace Util.Ui.Material.Internal {
             InitLength( config, member );
             InitRange( config, member );
             InitPhone( config, member );
+            InitIdCard( config, member );
         }
 
         /// <summary>
@@ -279,6 +280,19 @@ namespace Util.Ui.Material.Internal {
             if( message.IsEmpty() )
                 message = LibraryResource.InvalidMobilePhone;
             InitRegex( config, ValidatePattern.MobilePhonePattern, message );
+        }
+
+        /// <summary>
+        /// 初始化身份证验证
+        /// </summary>
+        private static void InitIdCard( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<IdCardAttribute>();
+            if( attribute == null )
+                return;
+            var message = attribute.ErrorMessage;
+            if( message.IsEmpty() )
+                message = LibraryResource.InvalidIdCard;
+            InitRegex( config, ValidatePattern.IdCardPattern, message );
         }
     }
 }

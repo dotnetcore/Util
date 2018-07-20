@@ -70,6 +70,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 身份证不正确 的本地化字符串。
+        /// </summary>
+        public static string InvalidIdCard {
+            get {
+                return ResourceManager.GetString("InvalidIdCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 手机号不正确 的本地化字符串。
         /// </summary>
         public static string InvalidMobilePhone {
