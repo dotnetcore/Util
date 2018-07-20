@@ -179,6 +179,28 @@ namespace Util.Ui.Tests.Material.Tables {
         }
 
         /// <summary>
+        /// 测试设置单选框类型
+        /// </summary>
+        [Fact]
+        public void TestType_Radio() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Radio }, { UiConst.Title, "a" } };
+            var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
+            var result = new String();
+            result.Append( "<ng-container matColumnDef=\"selectRadio\">" );
+            result.Append( "<mat-header-cell *matHeaderCellDef=\"\">" );
+            result.Append( "a" );
+            result.Append( "</mat-header-cell>" );
+            result.Append( "<mat-cell *matCellDef=\"let row\">" );
+            result.Append( "<mat-radio-button " );
+            result.Append( "(change)=\"$event?id.checkRow(row):null\" " );
+            result.Append( "(click)=\"$event.stopPropagation()\" " );
+            result.Append( "[checked]=\"id.checkedSelection.isSelected(row)\"></mat-radio-button>" );
+            result.Append( "</mat-cell>" );
+            result.Append( "</ng-container>" );
+            Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
+        }
+
+        /// <summary>
         /// 测试设置布尔类型
         /// </summary>
         [Fact]

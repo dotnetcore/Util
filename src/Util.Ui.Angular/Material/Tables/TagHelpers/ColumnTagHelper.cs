@@ -105,6 +105,8 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         private string GetColumn() {
             if( _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox )
                 return "selectCheckbox";
+            if( _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.Radio )
+                return "selectRadio";
             if( _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.LineNumber )
                 return "lineNumber";
             return _config.GetValue<string>( UiConst.Column );

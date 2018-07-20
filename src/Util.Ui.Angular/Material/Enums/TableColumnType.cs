@@ -12,6 +12,10 @@
         /// </summary>
         Checkbox,
         /// <summary>
+        /// 单选框
+        /// </summary>
+        Radio,
+        /// <summary>
         /// 布尔
         /// </summary>
         Bool,

@@ -46,6 +46,8 @@ namespace Util.Ui.Material.Tables.Configs {
                 return false;
             if( GetValue<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox )
                 return false;
+            if( GetValue<TableColumnType?>( UiConst.Type ) == TableColumnType.Radio )
+                return false;
             return true;
         }
 
@@ -56,6 +58,8 @@ namespace Util.Ui.Material.Tables.Configs {
             if( Context.GetValueFromItems<ColumnShareConfig>( ColumnShareKey )?.AutoCreateCell == false )
                 return false;
             if( GetValue<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox )
+                return false;
+            if( GetValue<TableColumnType?>( UiConst.Type ) == TableColumnType.Radio )
                 return false;
             return true;
         }
