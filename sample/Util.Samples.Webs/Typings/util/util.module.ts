@@ -62,6 +62,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 //Util服务
 import { DicService } from './services/dic.service';
+import { SaveGuard } from './services/save-guard';
 import { Session } from './security/session';
 
 //授权
@@ -90,7 +91,7 @@ import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interc
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         DialogWrapperComponent, ConfirmComponent, LoadingComponent,
-        MinValidator,MaxValidator,SafeUrlPipe
+        MinValidator, MaxValidator, SafeUrlPipe
     ],
     exports: [
         CommonModule, FormsModule, RouterModule, HttpClientModule, FlexLayoutModule,
@@ -105,7 +106,7 @@ import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interc
         TableWrapperComponent, SelectWrapperComponent, TextBoxWrapperComponent, TextareaWrapperComponent,
         DatePickerWrapperComponent, ButtonWrapperComponent, RadioWrapperComponent, SelectListWrapperComponent,
         TreeTableModule, CKEditorModule, EchartsNg2Module,
-        MinValidator, MaxValidator,SafeUrlPipe
+        MinValidator, MaxValidator, SafeUrlPipe
     ],
     entryComponents: [
         DialogWrapperComponent, ConfirmComponent, LoadingComponent
@@ -116,7 +117,7 @@ import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interc
         { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
         { provide: DateAdapter, useClass: UtilDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
-        DicService, Session
+        DicService, Session, SaveGuard
     ]
 })
 export class UtilModule {

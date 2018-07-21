@@ -217,6 +217,7 @@ export class WebApiRequest<T> {
      */
     private handleFail(options: WebApiHandleOptions<T>, result?: Result<T>, errorResponse?: HttpErrorResponse) {
         let failResult = new FailResult(result, errorResponse);
+        this.handleHttpException(options, failResult);
         if (options.failHandler) {
             options.failHandler(failResult);
             return;
@@ -224,17 +225,6 @@ export class WebApiRequest<T> {
         if (result) {
             this.handleBusinessException(result);
             return;
-        }
-        this.handleHttpException(options, failResult);
-    }
-
-    /**
-     * 处理业务异常
-     */
-    private handleBusinessException(result: Result<T>) {
-        if (result.code === StateCode.Fail) {
-            Message.error(result.message);
-            console.log(`业务异常:\n${result.message}`);
         }
     }
 
@@ -259,6 +249,16 @@ export class WebApiRequest<T> {
             return "";
         return `Http请求异常：\nUrl:${error.url}\n状态码:${error.status},${error.statusText}\n`
             + `错误消息:${error.message}\n错误响应:\n ${error.error && error.error.text}\n`;
+    }
+
+    /**
+     * 处理业务异常
+     */
+    private handleBusinessException(result: Result<T>) {
+        if (result.code === StateCode.Fail) {
+            Message.error(result.message);
+            console.log(`业务异常:\n${result.message}`);
+        }
     }
 
     /**

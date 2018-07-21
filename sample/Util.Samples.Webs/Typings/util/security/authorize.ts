@@ -34,7 +34,7 @@ export class Authorize implements CanActivate {
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
         if (this.session && this.session.isAuthenticated)
             return true;
-        await this.loadSessionAsync(state);
+        await this.loadSessionAsync();
         if (this.session && this.session.isAuthenticated)
             return true;
         util.router.navigateByQuery([Authorize.loginUrl], { returnUrl: state.url });
@@ -44,7 +44,7 @@ export class Authorize implements CanActivate {
     /**
      * 加载用户会话
      */
-    private async loadSessionAsync(state: RouterStateSnapshot) {
+    private async loadSessionAsync() {
         await util.webapi.get(Authorize.sessionUrl).handleAsync({
             handler: (result: any) => {
                 if (!result)

@@ -69,9 +69,11 @@ export class Form {
                     return options.beforeHandler && options.beforeHandler(options.data);
                 },
                 handler: result => {
-                    this.submitHandler(options, result);
+                    this.okHandler(options, result);
                 },
-                failHandler: options.failHandler,
+                failHandler: result => {
+                    this.failHandler(options, result);
+                },
                 completeHandler: options.completeHandler
             });
     }
@@ -87,9 +89,19 @@ export class Form {
     }
 
     /**
-     * 提交表单成功处理函数
+     * 失败处理函数
      */
-    private submitHandler(options: IFormSubmitOption, result) {
+    private failHandler(options: IFormSubmitOption, result) {
+        (options.form as { submitted: boolean }).submitted = false;
+        options.failHandler && options.failHandler(result);
+        if (options.showErrorMessage !== false)
+            Message.error(result.message);
+    }
+
+    /**
+     * 成功处理函数
+     */
+    private okHandler(options: IFormSubmitOption, result) {
         options.handler && options.handler(result);
         if (options.showMessage !== false)
             Message.snack(options.message || MessageConfig.successed);
@@ -140,6 +152,10 @@ export interface IFormSubmitOption {
      * 请求时显示进度条，默认为false
      */
     loading?: boolean,
+    /**
+     * 提交失败是否显示错误提示，默认为true
+     */
+    showErrorMessage?: boolean;
     /**
      * 提交成功后是否显示成功提示，默认为true
      */

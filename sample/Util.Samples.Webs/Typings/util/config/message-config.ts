@@ -82,4 +82,8 @@ export class MessageConfig {
      * 您确定禁用选中的记录吗?
      */
     static disableConfirm = "您确定禁用选中的记录吗?";
+    /**
+     * 存在未保存的修改，确定离开?
+     */
+    static saveGuardConfirm = "存在未保存的修改，确定离开此页面?";
 }
