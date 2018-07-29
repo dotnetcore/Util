@@ -2,15 +2,18 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Util.Aspects;
 using Util.Datas.Ef.Configs;
 using Util.Datas.UnitOfWorks;
 using Util.Domains.Auditing;
 using Util.Exceptions;
 using Util.Datas.Ef.Logs;
+using Util.Datas.Sql;
 using Util.Logs;
 using Util.Sessions;
 
@@ -18,7 +21,7 @@ namespace Util.Datas.Ef.Core {
     /// <summary>
     /// 工作单元
     /// </summary>
-    public abstract class UnitOfWorkBase : DbContext, IUnitOfWork {
+    public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IDatabase {
 
         #region 构造方法
 
@@ -64,7 +67,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         protected void EnableLog( DbContextOptionsBuilder builder ) {
             var log = GetLog();
-            if ( IsEnabled( log ) == false )
+            if( IsEnabled( log ) == false )
                 return;
             builder.EnableSensitiveDataLogging();
             builder.UseLoggerFactory( new LoggerFactory( new[] { GetLogProvider( log ) } ) );
@@ -246,6 +249,17 @@ namespace Util.Datas.Ef.Core {
             SaveChangesBefore();
             return base.SaveChangesAsync( cancellationToken );
         }
+        #endregion
+
+        #region GetConnection(获取数据库连接)
+
+        /// <summary>
+        /// 获取数据库连接
+        /// </summary>
+        public IDbConnection GetConnection() {
+            return Database.GetDbConnection();
+        }
+
         #endregion
     }
 }

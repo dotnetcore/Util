@@ -104,5 +104,14 @@ namespace Util.Properties {
                 return ResourceManager.GetString("OnlyOnePredicate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 必须设置表名 的本地化字符串。
+        /// </summary>
+        public static string TableIsEmpty {
+            get {
+                return ResourceManager.GetString("TableIsEmpty", resourceCulture);
+            }
+        }
     }
 }

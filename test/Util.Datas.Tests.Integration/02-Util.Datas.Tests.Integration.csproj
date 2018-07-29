@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="SqlServer\Scripts\Pd\Samples.pdb" />
+    <None Remove="Commons\Datas\SqlServer\Scripts\Pd\Samples.pdb" />
   </ItemGroup>
   
   <ItemGroup>
@@ -32,12 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PgSql\Scripts\Pd\" />
-    <Folder Include="SqlServer\Scripts\Pd\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="SqlServer\Scripts\database.sql">
+    <None Update="Commons\Datas\SqlServer\Scripts\database.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

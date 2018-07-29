@@ -132,4 +132,7 @@
   <data name="OnlyOnePredicate" xml:space="preserve">
     <value>仅允许添加一个条件,条件：{0}</value>
   </data>
+  <data name="TableIsEmpty" xml:space="preserve">
+    <value>必须设置表名</value>
+  </data>
 </root>
