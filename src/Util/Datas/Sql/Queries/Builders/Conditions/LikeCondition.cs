@@ -1,8 +1,8 @@
 ﻿namespace Util.Datas.Sql.Queries.Builders.Conditions {
     /// <summary>
-    /// Sql相等查询条件
+    /// Sql模糊查询条件
     /// </summary>
-    public class EqualCondition : ICondition {
+    public class LikeCondition : ICondition {
         /// <summary>
         /// 列名
         /// </summary>
@@ -13,11 +13,11 @@
         private readonly string _parameter;
 
         /// <summary>
-        /// 初始化Sql相等查询条件
+        /// 初始化Sql模糊查询条件
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="parameter">参数</param>
-        public EqualCondition( string column, string parameter ) {
+        public LikeCondition( string column, string parameter ) {
             _column = column;
             _parameter = parameter;
         }
@@ -26,7 +26,7 @@
         /// 获取查询条件
         /// </summary>
         public string GetCondition() {
-            return $"{_column}={_parameter}";
+            return $"{_column} Like {_parameter}";
         }
     }
 }

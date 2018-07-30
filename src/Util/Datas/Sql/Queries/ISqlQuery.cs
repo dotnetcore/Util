@@ -38,7 +38,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="columns">列名，范例：t => new object[] { t.A, t.B }</param>
         /// <param name="alias">别名</param>
-        ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string alias = null );
+        ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string alias = null ) where TEntity : class;
         /// <summary>
         /// 设置表名
         /// </summary>
@@ -47,17 +47,62 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="schema">架构名</param>
         ISqlQuery From( string table, string alias = null, string schema = null );
         /// <summary>
+        /// 设置表名
+        /// </summary>
+        /// <param name="alias">别名</param>
+        /// <param name="schema">架构名</param>
+        ISqlQuery From<TEntity>( string alias = null, string schema = null ) where TEntity : class;
+        /// <summary>
         /// And连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>
         ISqlQuery And( ICondition condition );
         /// <summary>
-        /// 设置条件
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">查询条件表达式</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery Where<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        /// <param name="operator">运算符</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery Where<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 设置查询条件
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
         /// <param name="tableAlias">表别名</param>
         ISqlQuery Where( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null );
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">查询条件表达式</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="operator">运算符</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery WhereIf<TEntity>( Expression<Func<TEntity, object>> expression, object value, bool condition, Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="operator">运算符</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal, string tableAlias = null );
     }
 }

@@ -16,22 +16,22 @@ namespace Util.Datas.Sql.Queries.Builders.Conditions {
             switch( @operator ) {
                 case Operator.Equal:
                     return new EqualCondition( name, parameter );
-                    //case Operator.NotEqual:
-                    //    return new NotEqualCondition( name, prefix );
-                    //case Operator.Greater:
-                    //    return new GreaterCondition( name, prefix );
-                    //case Operator.Less:
-                    //    return new LessCondition( name, prefix );
-                    //case Operator.GreaterEqual:
-                    //    return new GreaterEqualCondition( name, prefix );
-                    //case Operator.LessEqual:
-                    //    return new LessEqualCondition( name, prefix );
-                    //case Operator.Contains:
-                    //    return new LikeCondition( name, prefix );
-                    //case Operator.Starts:
-                    //    return new LikeCondition( name, prefix );
-                    //case Operator.Ends:
-                    //    return new LikeCondition( name, prefix );
+                case Operator.NotEqual:
+                    return new NotEqualCondition( name, parameter );
+                case Operator.Greater:
+                    return new GreaterCondition( name, parameter );
+                case Operator.Less:
+                    return new LessCondition( name, parameter );
+                case Operator.GreaterEqual:
+                    return new GreaterEqualCondition( name, parameter );
+                case Operator.LessEqual:
+                    return new LessEqualCondition( name, parameter );
+                case Operator.Contains:
+                    return new LikeCondition( name, parameter );
+                case Operator.Starts:
+                    return new LikeCondition( name, parameter );
+                case Operator.Ends:
+                    return new LikeCondition( name, parameter );
             }
             throw new NotImplementedException( $"运算符 {@operator.Description()} 未实现" );
         }

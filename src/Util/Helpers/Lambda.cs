@@ -36,8 +36,28 @@ namespace Util.Helpers {
                     return GetMemberExpression( ( (UnaryExpression)expression ).Operand );
                 case ExpressionType.MemberAccess:
                     return (MemberExpression)expression;
+                case ExpressionType.Equal:
+                case ExpressionType.NotEqual:
+                case ExpressionType.GreaterThan:
+                case ExpressionType.LessThan:
+                case ExpressionType.GreaterThanOrEqual:
+                case ExpressionType.LessThanOrEqual:
+                    return GetMemberExpression( ( (BinaryExpression)expression ).Left );
+                case ExpressionType.Call:
+                    return GetMethodCallExpressionName( expression );
             }
             return null;
+        }
+
+        /// <summary>
+        /// 获取方法调用表达式的成员名称
+        /// </summary>
+        private static MemberExpression GetMethodCallExpressionName( Expression expression ) {
+            var methodCallExpression = (MethodCallExpression)expression;
+            var argumentExpression = methodCallExpression.Arguments.FirstOrDefault();
+            if ( argumentExpression != null && argumentExpression.NodeType == ExpressionType.MemberAccess )
+                return (MemberExpression)argumentExpression;
+            return (MemberExpression)methodCallExpression.Object;
         }
 
         #endregion
@@ -45,7 +65,7 @@ namespace Util.Helpers {
         #region GetName(获取成员名称)
 
         /// <summary>
-        /// 获取成员名称，范例：t => t.Name,返回 Name
+        /// 获取成员名称，范例：t => t.A.Name,返回 A.Name
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name</param>
         public static string GetName( Expression expression ) {
@@ -92,6 +112,22 @@ namespace Util.Helpers {
             if( string.IsNullOrWhiteSpace( name ) )
                 return;
             result.Add( name );
+        }
+
+        #endregion
+
+        #region GetLastName(获取最后一级成员名称)
+
+        /// <summary>
+        /// 获取最后一级成员名称，范例：t => t.A.Name,返回 Name
+        /// </summary>
+        /// <param name="expression">表达式,范例：t => t.Name</param>
+        public static string GetLastName( Expression expression ) {
+            var memberExpression = GetMemberExpression( expression );
+            if( memberExpression == null )
+                return string.Empty;
+            string result = memberExpression.ToString();
+            return result.Substring( result.LastIndexOf( ".", StringComparison.Ordinal ) + 1 );
         }
 
         #endregion
@@ -166,6 +202,56 @@ namespace Util.Helpers {
         private static object GetConstantExpressionValue( Expression expression ) {
             var constantExpression = (ConstantExpression)expression;
             return constantExpression.Value;
+        }
+
+        #endregion
+
+        #region GetOperator(获取查询操作符)
+
+        /// <summary>
+        /// 获取查询操作符,范例：t => t.Name == "A",返回 Operator.Equal
+        /// </summary>
+        /// <param name="expression">表达式,范例：t => t.Name == "A"</param>
+        public static Operator? GetOperator( Expression expression ) {
+            if( expression == null )
+                return null;
+            switch( expression.NodeType ) {
+                case ExpressionType.Lambda:
+                    return GetOperator( ( (LambdaExpression)expression ).Body );
+                case ExpressionType.Convert:
+                    return GetOperator( ( (UnaryExpression)expression ).Operand );
+                case ExpressionType.Equal:
+                    return Operator.Equal;
+                case ExpressionType.NotEqual:
+                    return Operator.NotEqual;
+                case ExpressionType.GreaterThan:
+                    return Operator.Greater;
+                case ExpressionType.LessThan:
+                    return Operator.Less;
+                case ExpressionType.GreaterThanOrEqual:
+                    return Operator.GreaterEqual;
+                case ExpressionType.LessThanOrEqual:
+                    return Operator.LessEqual;
+                case ExpressionType.Call:
+                    return GetMethodCallExpressionOperator( expression );
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取方法调用表达式的值
+        /// </summary>
+        private static Operator? GetMethodCallExpressionOperator( Expression expression ) {
+            var methodCallExpression = (MethodCallExpression)expression;
+            switch ( methodCallExpression?.Method?.Name?.ToLower() ) {
+                case "contains":
+                    return Operator.Contains;
+                case "endswith":
+                    return Operator.Ends;
+                case "startswith":
+                    return Operator.Starts;
+            }
+            return null;
         }
 
         #endregion

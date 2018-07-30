@@ -75,6 +75,174 @@ namespace Util.Tests.Helpers {
 
         #endregion
 
+        #region GetLastName(获取最后一级成员名称)
+
+        /// <summary>
+        /// 测试获取成员名称 - 返回类型为Object
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Object() {
+            Expression<Func<Sample, object>> expression = t => t.StringValue == "A";
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 返回类型为bool
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Bool() {
+            Assert.Empty( Lambda.GetLastName( null ) );
+
+            Expression<Func<Sample, bool>> expression = t => t.StringValue == "A";
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            Expression<Func<Sample, bool>> expression2 = t => t.Test2.IntValue == 1;
+            Assert.Equal( "IntValue", Lambda.GetLastName( expression2 ) );
+
+            Expression<Func<Sample, bool>> expression3 = t => t.Test2.Test3.StringValue == "B";
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression3 ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 运算符
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Operation() {
+            Expression<Func<Sample, bool>> expression = t => t.Test2.IntValue != 1;
+            Assert.Equal( "IntValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.IntValue > 1;
+            Assert.Equal( "IntValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.IntValue < 1;
+            Assert.Equal( "IntValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.IntValue >= 1;
+            Assert.Equal( "IntValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.IntValue <= 1;
+            Assert.Equal( "IntValue", Lambda.GetLastName( expression ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 可空类型
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Nullable() {
+            Expression<Func<Sample, bool>> expression = t => t.NullableIntValue == 1;
+            Assert.Equal( "NullableIntValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.NullableDecimalValue == 1.5M;
+            Assert.Equal( "NullableDecimalValue", Lambda.GetLastName( expression ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 方法
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Method() {
+            Expression<Func<Sample, bool>> expression = t => t.StringValue.Contains( "A" );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.StringValue.Contains( "B" );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.Test3.StringValue.StartsWith( "C" );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 实例
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Instance() {
+            var test = new Sample() { StringValue = "a", Test2 = new Sample2() { StringValue = "b", Test3 = new Sample3() { StringValue = "c" } } };
+
+            Expression<Func<string>> expression = () => test.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            Expression<Func<string>> expression2 = () => test.Test2.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression2 ) );
+
+            Expression<Func<string>> expression3 = () => test.Test2.Test3.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression3 ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 复杂类型
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Complex() {
+            var test = new Sample() { StringValue = "a", Test2 = new Sample2() { StringValue = "b" } };
+
+            Expression<Func<Sample, bool>> expression = t => t.StringValue == test.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+            Expression<Func<Sample, bool>> expression2 = t => t.StringValue == test.Test2.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression2 ) );
+
+            Expression<Func<Sample, bool>> expression3 = t => t.StringValue.Contains( test.StringValue );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression3 ) );
+            Expression<Func<Sample, bool>> expression4 = t => t.StringValue.Contains( test.Test2.StringValue );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression4 ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 枚举
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Enum() {
+            var test1 = new Sample { NullableEnumValue = EnumSample.C };
+
+            Expression<Func<Sample, bool>> expression = test => test.EnumValue == EnumSample.D;
+            Assert.Equal( "EnumValue", Lambda.GetLastName( expression ) );
+
+            expression = test => test.EnumValue == test1.NullableEnumValue;
+            Assert.Equal( "EnumValue", Lambda.GetLastName( expression ) );
+
+            expression = test => test.NullableEnumValue == EnumSample.E;
+            Assert.Equal( "NullableEnumValue", Lambda.GetLastName( expression ) );
+
+            expression = test => test.NullableEnumValue == test1.NullableEnumValue;
+            Assert.Equal( "NullableEnumValue", Lambda.GetLastName( expression ) );
+
+            test1.NullableEnumValue = null;
+            expression = test => test.NullableEnumValue == test1.NullableEnumValue;
+            Assert.Equal( "NullableEnumValue", Lambda.GetLastName( expression ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 集合
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_List() {
+            var list = new List<string> { "a", "b" };
+            Expression<Func<Sample, bool>> expression = t => list.Contains( t.Test2.StringValue );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员名称 - 静态成员
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Static() {
+            Expression<Func<Sample, bool>> expression = t => t.StringValue == Sample.StaticString;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.StringValue == Sample.StaticSample.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.StringValue == Sample.StaticString;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.StringValue == Sample.StaticSample.StringValue;
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            expression = t => t.Test2.StringValue.Contains( Sample.StaticSample.StringValue );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+        }
+
+            #endregion
+
         #region GetValue(获取成员值)
 
         /// <summary>
@@ -239,6 +407,153 @@ namespace Util.Tests.Helpers {
 
             expression = t => t.Test2.StringValue.Contains( Sample.StaticSample.StringValue );
             Assert.Equal( "TestStaticSample", Lambda.GetValue( expression ) );
+        }
+
+        #endregion
+
+        #region GetOperator(获取查询操作符)
+
+        /// <summary>
+        /// 获取查询操作符 - 返回类型为Object
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_Object() {
+            Expression<Func<Sample, object>> expression = t => t.StringValue == "A";
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 返回类型为bool
+        /// </summary>
+        [Fact]
+        public void TestGetOperator() {
+            Assert.Null( Lambda.GetOperator( null ) );
+
+            Expression<Func<Sample, bool>> expression = t => t.StringValue == "A";
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            Expression<Func<Sample, bool>> expression2 = t => t.Test2.IntValue == 1;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression2 ) );
+
+            Expression<Func<Sample, bool>> expression3 = t => t.Test2.Test3.StringValue == "B";
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression3 ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 运算符
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_Operation() {
+            Expression<Func<Sample, bool>> expression = t => t.Test2.IntValue != 1;
+            Assert.Equal( Operator.NotEqual, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.IntValue > 1;
+            Assert.Equal( Operator.Greater, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.IntValue < 1;
+            Assert.Equal( Operator.Less, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.IntValue >= 1;
+            Assert.Equal( Operator.GreaterEqual, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.IntValue <= 1;
+            Assert.Equal( Operator.LessEqual, Lambda.GetOperator( expression ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 可空类型
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_Nullable() {
+            Expression<Func<Sample, bool>> expression = t => t.NullableIntValue == 1;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = t => t.NullableDecimalValue == 1.5M;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 方法
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_Method() {
+            Expression<Func<Sample, bool>> expression = t => t.StringValue.Contains( "A" );
+            Assert.Equal( Operator.Contains, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.StringValue.EndsWith( "B" );
+            Assert.Equal( Operator.Ends, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.Test3.StringValue.StartsWith( "C" );
+            Assert.Equal( Operator.Starts, Lambda.GetOperator( expression ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 复杂类型
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_Complex() {
+            var test = new Sample() { StringValue = "a", Test2 = new Sample2() { StringValue = "b" } };
+
+            Expression<Func<Sample, bool>> expression = t => t.StringValue == test.StringValue;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+            Expression<Func<Sample, bool>> expression2 = t => t.StringValue != test.Test2.StringValue;
+            Assert.Equal( Operator.NotEqual, Lambda.GetOperator( expression2 ) );
+
+            Expression<Func<Sample, bool>> expression3 = t => t.StringValue.Contains( test.StringValue );
+            Assert.Equal( Operator.Contains, Lambda.GetOperator( expression3 ) );
+            Expression<Func<Sample, bool>> expression4 = t => t.StringValue.EndsWith( test.Test2.StringValue );
+            Assert.Equal( Operator.Ends, Lambda.GetOperator( expression4 ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 枚举
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_Enum() {
+            var test1 = new Sample { NullableEnumValue = EnumSample.C };
+
+            Expression<Func<Sample, bool>> expression = test => test.EnumValue == EnumSample.D;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = test => test.EnumValue == test1.NullableEnumValue;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = test => test.NullableEnumValue == EnumSample.E;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = test => test.NullableEnumValue == test1.NullableEnumValue;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 集合
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_List() {
+            var list = new List<string> { "a", "b" };
+            Expression<Func<Sample, bool>> expression = t => list.Contains( t.StringValue );
+            Assert.Equal( Operator.Contains, Lambda.GetOperator( expression ) );
+        }
+
+        /// <summary>
+        /// 获取查询操作符 - 静态成员
+        /// </summary>
+        [Fact]
+        public void TestGetOperator_Static() {
+            Expression<Func<Sample, bool>> expression = t => t.StringValue == Sample.StaticString;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = t => t.StringValue == Sample.StaticSample.StringValue;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.StringValue == Sample.StaticString;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.StringValue == Sample.StaticSample.StringValue;
+            Assert.Equal( Operator.Equal, Lambda.GetOperator( expression ) );
+
+            expression = t => t.Test2.StringValue.Contains( Sample.StaticSample.StringValue );
+            Assert.Equal( Operator.Contains, Lambda.GetOperator( expression ) );
         }
 
         #endregion

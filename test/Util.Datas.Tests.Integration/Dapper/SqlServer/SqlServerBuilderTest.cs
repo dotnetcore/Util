@@ -157,8 +157,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestSelect_12() {
-            _builder.Select( "a As e,[b]" ).From( "c", "d" );
-            Assert.Equal( $"Select [d].[a] As [e],[d].[b] {Common.Line}From [c] As [d]", _builder.ToSql() );
+            _builder.Select( "t.a As e,[b],f.g", "k" ).Select( "n" ).From( "c", "d" );
+            Assert.Equal( $"Select [t].[a] As [e],[k].[b],[f].[g],[d].[n] {Common.Line}From [c] As [d]", _builder.ToSql() );
         }
 
         /// <summary>
@@ -233,8 +233,35 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestFrom_7() {
-            _builder.From( "a.b as t","e","f" );
+            _builder.From( "a.b as t", "e", "f" );
             Assert.Equal( $"Select * {Common.Line}From [a].[b] As [t]", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置表 - 泛型实体
+        /// </summary>
+        [Fact]
+        public void TestFrom_8() {
+            _builder.From<Sample>();
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t]", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置表 - 泛型实体 - 别名
+        /// </summary>
+        [Fact]
+        public void TestFrom_9() {
+            _builder.From<Sample>( "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [a]", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置表 - 泛型实体 - 别名 - 架构
+        /// </summary>
+        [Fact]
+        public void TestFrom_10() {
+            _builder.From<Sample>( "a", "b" );
+            Assert.Equal( $"Select * {Common.Line}From [b].[Sample] As [a]", _builder.ToSql() );
         }
 
         #endregion
@@ -275,8 +302,209 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestWhere_4() {
-            _builder.From( "Test" ).Where( "f.Name", "a", tableAlias: "d" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [f].[Name]=@_p__0", _builder.ToSql() );
+            _builder.From( "Test as test", "test1", "test2" ).Where( "f.Name", "a", tableAlias: "d" );
+            Assert.Equal( $"Select * {Common.Line}From [test2].[Test] As [test] {Common.Line}Where [f].[Name]=@_p__0", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名
+        /// </summary>
+        [Fact]
+        public void TestWhere_5() {
+            _builder.From<Sample>().Where<Sample>( t => t.Email, "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名 - 设置表别名
+        /// </summary>
+        [Fact]
+        public void TestWhere_6() {
+            _builder.From<Sample>().Where<Sample>( t => t.Email, "a", tableAlias: "d" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [d].[Email]=@_p__0", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名 - 通过From设置表别名
+        /// </summary>
+        [Fact]
+        public void TestWhere_7() {
+            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email, "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p__0", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - Where覆盖From设置的表别名
+        /// </summary>
+        [Fact]
+        public void TestWhere_8() {
+            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email, "a", tableAlias: "n" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [n].[Email]=@_p__0", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 相等
+        /// </summary>
+        [Fact]
+        public void TestWhere_9() {
+            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email == "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 不相等
+        /// </summary>
+        [Fact]
+        public void TestWhere_10() {
+            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email != "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]!=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 大于
+        /// </summary>
+        [Fact]
+        public void TestWhere_11() {
+            _builder.From<Sample>().Where<Sample>( t => t.IntValue > 1 );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]>@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 小于
+        /// </summary>
+        [Fact]
+        public void TestWhere_12() {
+            _builder.From<Sample>().Where<Sample>( t => t.IntValue < 1 );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]<@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 大于等于
+        /// </summary>
+        [Fact]
+        public void TestWhere_13() {
+            _builder.From<Sample>().Where<Sample>( t => t.IntValue >= 1 );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]>=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 小于等于
+        /// </summary>
+        [Fact]
+        public void TestWhere_14() {
+            _builder.From<Sample>().Where<Sample>( t => t.IntValue <= 1 );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]<=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - Contains
+        /// </summary>
+        [Fact]
+        public void TestWhere_15() {
+            _builder.From<Sample>().Where<Sample>( t => t.Email.Contains( "a" ) );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email] Like @_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "%a%", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - StartsWith
+        /// </summary>
+        [Fact]
+        public void TestWhere_16() {
+            _builder.From<Sample>().Where<Sample>( t => t.Email.StartsWith( "a" ) );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email] Like @_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a%", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - EndsWith
+        /// </summary>
+        [Fact]
+        public void TestWhere_17() {
+            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email.EndsWith( "a" ) );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email] Like @_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "%a", _builder.GetParams()["@_p__0"] );
+        }
+
+        #endregion
+
+        #region WhereIf(设置条件)
+
+        /// <summary>
+        /// 设置条件 - 添加条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIf_1() {
+            _builder.From( "Test" ).WhereIf( "Name", "a", true );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 忽略条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIf_2() {
+            _builder.From( "Test" ).WhereIf( "Name", "a", false );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t]", _builder.ToSql() );
+            Assert.Empty( _builder.GetParams() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名  - 添加条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIf_3() {
+            _builder.From<Sample>().WhereIf<Sample>( t => t.Email, "a", true );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名  - 忽略条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIf_4() {
+            _builder.From<Sample>().WhereIf<Sample>( t => t.Email, "a", false );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t]", _builder.ToSql() );
+            Assert.Empty( _builder.GetParams() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名 - 添加条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIf_5() {
+            _builder.From<Sample>( "k" ).WhereIf<Sample>( t => t.Email == "a", true );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p__0", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名 - 忽略条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIf_6() {
+            _builder.From<Sample>( "k" ).WhereIf<Sample>( t => t.Email == "a", false );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k]", _builder.ToSql() );
         }
 
             #endregion
