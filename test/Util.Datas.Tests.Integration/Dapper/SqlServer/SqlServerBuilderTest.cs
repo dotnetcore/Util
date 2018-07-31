@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer.Builders;
 using Util.Datas.Tests.Samples;
 using Util.Datas.Tests.XUnitHelpers;
 using Util.Helpers;
+using Util.Properties;
 using Xunit;
 using String = Util.Helpers.String;
 
@@ -264,6 +266,15 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( $"Select * {Common.Line}From [b].[Sample] As [a]", _builder.ToSql() );
         }
 
+        /// <summary>
+        /// 设置表 - 泛型实体 - 多次设置From
+        /// </summary>
+        [Fact]
+        public void TestFrom_11() {
+            _builder.From<Sample>( "a" ).From<Sample>( "b" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [b]", _builder.ToSql() );
+        }
+
         #endregion
 
         #region Where(设置条件)
@@ -443,6 +454,38 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( "%a", _builder.GetParams()["@_p__0"] );
         }
 
+        /// <summary>
+        /// 设置条件 - 多次设置From
+        /// </summary>
+        [Fact]
+        public void TestWhere_18() {
+            _builder.From( "Test" ).From<Sample>( "Test2" ).From<Sample>().Where( "Name", "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 设置多个条件 - 与连接
+        /// </summary>
+        [Fact]
+        public void TestWhere_19() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Sample] As [k] " );
+            result.AppendLine( "Where [k].[Email]=@_p__0 And [k].[StringValue]=@_p__1" );
+
+            //执行
+            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email == "a" && t.StringValue.Contains( "b" ) );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
+        }
+
         #endregion
 
         #region WhereIf(设置条件)
@@ -507,7 +550,82 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( $"Select * {Common.Line}From [Sample] As [k]", _builder.ToSql() );
         }
 
-            #endregion
+        #endregion
+
+        #region WhereIfNotEmpty(设置条件)
+
+        /// <summary>
+        /// 设置条件 - 添加条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty_1() {
+            _builder.From( "Test" ).WhereIfNotEmpty( "Name", "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 忽略条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty_2() {
+            _builder.From( "Test" ).WhereIfNotEmpty( "Name", "" );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t]", _builder.ToSql() );
+            Assert.Empty( _builder.GetParams() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名  - 添加条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty_3() {
+            _builder.From<Sample>().WhereIfNotEmpty<Sample>( t => t.Email, "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p__0", _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置列名  - 忽略条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty_4() {
+            _builder.From<Sample>().WhereIfNotEmpty<Sample>( t => t.Email, "" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t]", _builder.ToSql() );
+            Assert.Empty( _builder.GetParams() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 添加条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty_5() {
+            _builder.From<Sample>( "k" ).WhereIfNotEmpty<Sample>( t => t.Email.Contains( "a" ) );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email] Like @_p__0", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 忽略条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty_6() {
+            _builder.From<Sample>( "k" ).WhereIfNotEmpty<Sample>( t => t.Email == "" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k]", _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 通过lambda设置条件 - 仅允许设置一个条件
+        /// </summary>
+        [Fact]
+        public void TestWhereIfNotEmpty_7() {
+            Expression<Func<Sample, bool>> condition = t => t.Email.Contains( "a" ) && t.IntValue == 1;
+            AssertHelper.Throws<InvalidOperationException>( () => {
+                _builder.WhereIfNotEmpty<Sample>( condition );
+            }, string.Format( LibraryResource.OnlyOnePredicate, condition ) );
+        }
+
+        #endregion
 
         #region And(连接查询条件)
 

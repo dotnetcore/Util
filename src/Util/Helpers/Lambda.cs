@@ -55,7 +55,7 @@ namespace Util.Helpers {
         private static MemberExpression GetMethodCallExpressionName( Expression expression ) {
             var methodCallExpression = (MethodCallExpression)expression;
             var argumentExpression = methodCallExpression.Arguments.FirstOrDefault();
-            if ( argumentExpression != null && argumentExpression.NodeType == ExpressionType.MemberAccess )
+            if( argumentExpression != null && argumentExpression.NodeType == ExpressionType.MemberAccess )
                 return (MemberExpression)argumentExpression;
             return (MemberExpression)methodCallExpression.Object;
         }
@@ -243,7 +243,7 @@ namespace Util.Helpers {
         /// </summary>
         private static Operator? GetMethodCallExpressionOperator( Expression expression ) {
             var methodCallExpression = (MethodCallExpression)expression;
-            switch ( methodCallExpression?.Method?.Name?.ToLower() ) {
+            switch( methodCallExpression?.Method?.Name?.ToLower() ) {
                 case "contains":
                     return Operator.Contains;
                 case "endswith":
@@ -285,6 +285,53 @@ namespace Util.Helpers {
                     return (ParameterExpression)expression;
             }
             return null;
+        }
+
+        #endregion
+
+        #region GetGroupPredicates(获取分组的谓词表达式)
+
+        /// <summary>
+        /// 获取分组的谓词表达式，通过Or进行分组
+        /// </summary>
+        /// <param name="expression">谓词表达式</param>
+        public static List<List<Expression>> GetGroupPredicates( Expression expression ) {
+            var result = new List<List<Expression>>();
+            if( expression == null )
+                return result;
+            AddPredicates( expression, result, CreateGroup( result ) );
+            return result;
+        }
+
+        /// <summary>
+        /// 创建分组
+        /// </summary>
+        private static List<Expression> CreateGroup( List<List<Expression>> result ) {
+            var gourp = new List<Expression>();
+            result.Add( gourp );
+            return gourp;
+        }
+
+        /// <summary>
+        /// 添加通过Or分割的谓词表达式
+        /// </summary>
+        private static void AddPredicates( Expression expression, List<List<Expression>> result, List<Expression> group ) {
+            switch( expression.NodeType ) {
+                case ExpressionType.Lambda:
+                    AddPredicates( ( (LambdaExpression)expression ).Body, result, group );
+                    break;
+                case ExpressionType.OrElse:
+                    AddPredicates( ( (BinaryExpression)expression ).Left, result, group );
+                    AddPredicates( ( (BinaryExpression)expression ).Right, result, CreateGroup( result ) );
+                    break;
+                case ExpressionType.AndAlso:
+                    AddPredicates( ( (BinaryExpression)expression ).Left, result, group );
+                    AddPredicates( ( (BinaryExpression)expression ).Right, result, group );
+                    break;
+                default:
+                    group.Add( expression );
+                    break;
+            }
         }
 
         #endregion

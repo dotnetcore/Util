@@ -98,5 +98,27 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="operator">运算符</param>
         /// <param name="tableAlias">表别名</param>
         ISqlBuilder WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal, string tableAlias = null );
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
+        /// <param name="operator">运算符</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value,Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
+        /// <param name="operator">运算符</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlBuilder WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal,string tableAlias = null );
     }
 }
