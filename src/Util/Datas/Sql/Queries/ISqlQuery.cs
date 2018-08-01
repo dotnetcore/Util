@@ -44,19 +44,23 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        /// <param name="schema">架构名</param>
-        ISqlQuery From( string table, string alias = null, string schema = null );
+        ISqlQuery From( string table, string alias );
         /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        ISqlQuery From<TEntity>( string alias = null, string schema = null ) where TEntity : class;
+        ISqlQuery From<TEntity>( string alias, string schema = null ) where TEntity : class;
         /// <summary>
         /// And连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>
         ISqlQuery And( ICondition condition );
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        ISqlQuery Or( ICondition condition );
         /// <summary>
         /// 设置查询条件
         /// </summary>

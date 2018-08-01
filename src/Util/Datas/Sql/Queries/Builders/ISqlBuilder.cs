@@ -38,19 +38,23 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        /// <param name="schema">架构名</param>
-        ISqlBuilder From( string table, string alias = null, string schema = null );
+        ISqlBuilder From( string table, string alias );
         /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class;
+        ISqlBuilder From<TEntity>( string alias, string schema = null ) where TEntity : class;
         /// <summary>
         /// And连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>
         ISqlBuilder And( ICondition condition );
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        ISqlBuilder Or( ICondition condition );
         /// <summary>
         /// 设置查询条件
         /// </summary>

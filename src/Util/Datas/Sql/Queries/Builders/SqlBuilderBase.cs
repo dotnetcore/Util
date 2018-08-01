@@ -67,6 +67,10 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// </summary>
         protected string Alias { get; private set; }
         /// <summary>
+        /// 多表连接
+        /// </summary>
+        protected string JoinTables { get; private set; }
+        /// <summary>
         /// 列名集合
         /// </summary>
         protected List<SqlItem> Columns { get; private set; }
@@ -167,11 +171,9 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        /// <param name="schema">架构名</param>
-        public ISqlBuilder From( string table, string alias = null, string schema = null ) {
+        public ISqlBuilder From( string table, string alias ) {
             Table = table;
             Alias = alias;
-            Schema = schema;
             return this;
         }
 
@@ -180,24 +182,36 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        public ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+        public ISqlBuilder From<TEntity>( string alias, string schema = null ) where TEntity : class {
             var type = typeof( TEntity );
             UpdateAliasDic( type, alias );
-            return From( type.Name, alias, schema );
+            Schema = schema;
+            return From( type.Name, alias );
         }
 
         /// <summary>
         /// 更新表别名字典
         /// </summary>
         private void UpdateAliasDic( Type type, string alias ) {
-            if ( _tableAlias.ContainsKey( type ) )
+            if( _tableAlias.ContainsKey( type ) )
                 _tableAlias.Remove( type );
-            if ( string.IsNullOrWhiteSpace( alias ) )
+            if( string.IsNullOrWhiteSpace( alias ) )
                 return;
             _tableAlias.Add( type, alias );
         }
 
         #endregion
+
+        /// <summary>
+        /// 内连接
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="alias">别名</param>
+        /// <param name="on">架构名</param>
+        /// <param name="schema">架构名</param>
+        public ISqlBuilder Join( string table, string alias, string on, string schema = null ) {
+            return this;
+        }
 
         #region And(And连接条件)
 
@@ -212,6 +226,19 @@ namespace Util.Datas.Sql.Queries.Builders {
 
         #endregion
 
+        #region Or(Or连接条件)
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        public ISqlBuilder Or( ICondition condition ) {
+            Condition = new OrCondition( Condition, condition );
+            return this;
+        }
+
+        #endregion
+
         #region Where(设置查询条件)
 
         /// <summary>
@@ -220,89 +247,52 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="expression">查询条件表达式</param>
         /// <param name="tableAlias">表别名</param>
         public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class {
-            return Where( expression, tableAlias, false );
-        }
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
-        private ISqlBuilder Where<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias, bool conditionIfNotEmpty ) where TEntity : class {
-            ValidateExpression( expression, conditionIfNotEmpty );
-            var value = Lambda.GetValue( expression );
-            if( conditionIfNotEmpty && string.IsNullOrWhiteSpace( value.SafeString() ) )
-                return this;
-            return Where( Lambda.GetLastName( expression ), value, Lambda.GetOperator( expression ).SafeValue(), GetTableAlias<TEntity>( tableAlias ) );
-        }
-
-        /// <summary>
-        /// 验证表达式
-        /// </summary>
-        private void ValidateExpression<TEntity>( Expression<Func<TEntity, bool>> expression, bool conditionIfNotEmpty ) {
             if( expression == null )
                 throw new ArgumentNullException( nameof( expression ) );
-            var a = string.Format( LibraryResource.OnlyOnePredicate, expression );
-            if( conditionIfNotEmpty && Lambda.GetConditionCount( expression ) > 1 )
-                throw new InvalidOperationException(a );
+            ICondition result = null;
+            var expressions = Lambda.GetGroupPredicates( expression );
+            for ( int i = 0; i < expressions.Count; i++ ) {
+                if ( i == 0 ) {
+                    result = new AndCondition( result, GetCondition( expressions[i], GetTableAlias<TEntity>( tableAlias ) ) );
+                    continue;
+                }
+                result = new OrCondition( result, GetCondition( expressions[i], GetTableAlias<TEntity>( tableAlias ) ) );
+            }
+            return And( result );
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 获取查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
-        /// <param name="value">值</param>
-        /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value,
-            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            return Where( expression, value, @operator, tableAlias, false );
+        private ICondition GetCondition( List<Expression> group, string tableAlias ) {
+            ICondition condition = null;
+            group.ForEach( expression => {
+                condition = new AndCondition( condition, GetCondition(expression, tableAlias ) );
+            } );
+            return condition;
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 获取查询条件并添加参数
         /// </summary>
-        private ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value,
-            Operator @operator, string tableAlias, bool conditionIfNotEmpty ) where TEntity : class {
-            if( conditionIfNotEmpty && string.IsNullOrWhiteSpace( value.SafeString() ) )
-                return this;
-            return Where( Lambda.GetLastName( expression ), value, @operator, GetTableAlias<TEntity>( tableAlias ) );
+        private ICondition GetCondition( Expression expression, string tableAlias ) {
+            return GetCondition( Lambda.GetLastName( expression ), Lambda.GetValue( expression ), Lambda.GetOperator( expression ).SafeValue(), tableAlias );
         }
 
         /// <summary>
-        /// 获取表别名
-        /// </summary>
-        protected string GetTableAlias<TEntity>( string tableAlias ) {
-            if( string.IsNullOrWhiteSpace( tableAlias ) == false )
-                return tableAlias;
-            var type = typeof( TEntity );
-            if( _tableAlias.ContainsKey( type ) )
-                return _tableAlias[type];
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// 设置查询条件
+        /// 获取查询条件并添加参数
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
         /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder Where( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            return Where( column, value, @operator, tableAlias, false );
-        }
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
-        private ISqlBuilder Where( string column, object value, Operator @operator, string tableAlias, bool conditionIfNotEmpty ) {
+        public ICondition GetCondition( string column, object value, Operator @operator, string tableAlias ) {
             if( string.IsNullOrWhiteSpace( column ) )
                 throw new ArgumentNullException( nameof( column ) );
-            if( conditionIfNotEmpty && string.IsNullOrWhiteSpace( value.SafeString() ) )
-                return this;
             column = GetColumn( new SqlItem( column, tableAlias ) );
             var paramName = GetParamName();
-            And( SqlConditionFactory.Create( column, paramName, @operator ) );
             AddParam( paramName, value, @operator );
-            return this;
+            return SqlConditionFactory.Create( column, paramName, @operator );
         }
 
         /// <summary>
@@ -338,6 +328,41 @@ namespace Util.Datas.Sql.Queries.Builders {
                 default:
                     return value;
             }
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        /// <param name="operator">运算符</param>
+        /// <param name="tableAlias">表别名</param>
+        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value,
+            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
+            return Where( Lambda.GetLastName( expression ), value, @operator, GetTableAlias<TEntity>( tableAlias ) );
+        }
+
+        /// <summary>
+        /// 获取表别名
+        /// </summary>
+        protected string GetTableAlias<TEntity>( string tableAlias ) {
+            if( string.IsNullOrWhiteSpace( tableAlias ) == false )
+                return tableAlias;
+            var type = typeof( TEntity );
+            if( _tableAlias.ContainsKey( type ) )
+                return _tableAlias[type];
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        /// <param name="operator">运算符</param>
+        /// <param name="tableAlias">表别名</param>
+        public ISqlBuilder Where( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null ) {
+            return And( GetCondition( column, value, @operator, tableAlias ) );
         }
 
         #endregion
@@ -395,7 +420,13 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
         /// <param name="tableAlias">表别名</param>
         public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class {
-            return Where( expression, tableAlias, true );
+            if( expression == null )
+                throw new ArgumentNullException( nameof( expression ) );
+            if( Lambda.GetConditionCount( expression ) > 1 )
+                throw new InvalidOperationException( string.Format( LibraryResource.OnlyOnePredicate, expression ) );
+            if( string.IsNullOrWhiteSpace( Lambda.GetValue( expression ).SafeString() ) )
+                return this;
+            return Where( expression, tableAlias );
         }
 
         /// <summary>
@@ -407,7 +438,9 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="tableAlias">表别名</param>
         public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value,
             Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            return Where( expression, value, @operator, tableAlias, true );
+            if( expression == null )
+                throw new ArgumentNullException( nameof( expression ) );
+            return WhereIfNotEmpty( Lambda.GetLastName( expression ), value, @operator, tableAlias );
         }
 
         /// <summary>
@@ -418,7 +451,9 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="operator">运算符</param>
         /// <param name="tableAlias">表别名</param>
         public ISqlBuilder WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            return Where( column, value, @operator, tableAlias, true );
+            if( string.IsNullOrWhiteSpace( value.SafeString() ) )
+                return this;
+            return Where( column, value, @operator, tableAlias );
         }
 
         #endregion

@@ -99,9 +99,8 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        /// <param name="schema">架构名</param>
-        public ISqlQuery From( string table, string alias = null, string schema = null ) {
-            GetBuilder().From( table, alias, schema );
+        public ISqlQuery From( string table, string alias ) {
+            GetBuilder().From( table, alias );
             return this;
         }
 
@@ -110,7 +109,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        public ISqlQuery From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+        public ISqlQuery From<TEntity>( string alias, string schema = null ) where TEntity : class {
             GetBuilder().From<TEntity>( alias, schema );
             return this;
         }
@@ -121,6 +120,15 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="condition">查询条件</param>
         public ISqlQuery And( ICondition condition ) {
             GetBuilder().And( condition );
+            return this;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        public ISqlQuery Or( ICondition condition ) {
+            GetBuilder().Or( condition );
             return this;
         }
 
