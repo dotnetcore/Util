@@ -43,7 +43,7 @@ namespace Util.Samples.Webs.Apis.Systems {
         public override async Task<IActionResult> GetAsync( string id ) {
             var result = await SqlQuery
                 .Select<ApplicationDto>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled } )
-                .From( "Application", schema: "Systems" )
+                .From( "Systems.Application","t" )
                 .ToAsync<ApplicationDto>();
             return Success( result );
         }
