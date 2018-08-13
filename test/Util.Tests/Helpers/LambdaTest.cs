@@ -241,6 +241,31 @@ namespace Util.Tests.Helpers {
             Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
         }
 
+        /// <summary>
+        /// 测试获取成员名称 - 返回右侧表达式名称
+        /// </summary>
+        [Fact]
+        public void TestGetLastName_Right() {
+            Expression<Func<Sample, Sample2, bool>> expression = ( l, r ) => l.DisplayValue == r.Test3.StringValue;
+            Assert.Equal( "DisplayValue", Lambda.GetLastName( expression ) );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression, true ) );
+        }
+
+        #endregion
+
+        #region GetLastNames(获取最后一级成员名称列表)
+
+        /// <summary>
+        /// 获取最后一级成员名称列表
+        /// </summary>
+        [Fact]
+        public void TestGetLastNames() {
+            Expression<Func<Sample, object[]>> expression = ( t => new object[] { t.Test2.StringValue, t.IntValue } );
+            Assert.Equal( 2, Lambda.GetLastNames( expression ).Count );
+            Assert.Equal( "StringValue", Lambda.GetLastNames( expression )[0] );
+            Assert.Equal( "IntValue", Lambda.GetLastNames( expression )[1] );
+        }
+
         #endregion
 
         #region GetValue(获取成员值)
@@ -715,7 +740,7 @@ namespace Util.Tests.Helpers {
             Assert.Equal( "(t.Test2.StringValue == \"d2\")", result[3][3].ToString() );
         }
 
-            #endregion
+        #endregion
 
         #region GetCriteriaCount(获取查询条件个数)
 

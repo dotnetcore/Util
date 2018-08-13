@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Util.Datas.Dapper.SqlServer.Builders;
+using Util.Datas.Dapper.SqlServer;
+using Util.Datas.Sql.Queries.Builders.Core;
+using Util.Datas.Tests.Dapper.SqlServer.Samples;
 using Util.Datas.Tests.Samples;
 using Util.Datas.Tests.XUnitHelpers;
 using Util.Helpers;
@@ -19,7 +21,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// <summary>
         /// Sql Server Sql生成器
         /// </summary>
-        private readonly SqlServerBuilder _builder;
+        private SqlServerBuilder _builder;
 
         /// <summary>
         /// 测试初始化
@@ -54,122 +56,190 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         #region Select(设置列)
 
         /// <summary>
-        /// 设置列 - 设置为空会默认使用*
-        /// </summary>
-        [Fact]
-        public void TestSelect_1() {
-            _builder.Select( "" ).From( "b","" );
-            Assert.Equal( $"Select * {Common.Line}From [b] As [t]", _builder.ToSql() );
-        }
-
-        /// <summary>
         /// 设置列
         /// </summary>
         [Fact]
-        public void TestSelect_2() {
-            _builder.Select( "a" ).From( "b", "" );
-            Assert.Equal( $"Select [t].[a] {Common.Line}From [b] As [t]", _builder.ToSql() );
+        public void TestSelect_1() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a] " );
+            result.Append( "From [b]" );
+
+            //执行
+            _builder.Select( "a" ).From( "b" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置列 - 表设置了别名
         /// </summary>
         [Fact]
-        public void TestSelect_3() {
-            _builder.Select( "a" ).From( "b", "c" );
-            Assert.Equal( $"Select [c].[a] {Common.Line}From [b] As [c]", _builder.ToSql() );
-        }
+        public void TestSelect_2() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a] " );
+            result.Append( "From [b] As [c]" );
 
-        /// <summary>
-        /// 设置列 - 列具有中括号
-        /// </summary>
-        [Fact]
-        public void TestSelect_4() {
-            _builder.Select( "[a]" ).From( "b", "c" );
-            Assert.Equal( $"Select [c].[a] {Common.Line}From [b] As [c]", _builder.ToSql() );
+            //执行
+            _builder.Select( "a" ).From( "b", "c" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置列 - 多列
         /// </summary>
         [Fact]
-        public void TestSelect_5() {
-            _builder.Select( "a,[b]" ).From( "c", "" );
-            Assert.Equal( $"Select [t].[a],[t].[b] {Common.Line}From [c] As [t]", _builder.ToSql() );
-        }
+        public void TestSelect_3() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a],[b] " );
+            result.Append( "From [c]" );
 
-        /// <summary>
-        /// 设置列 - lambda表达式
-        /// </summary>
-        [Fact]
-        public void TestSelect_6() {
-            _builder.Select<Sample>( t => new object[] { t.Email, t.IntValue } ).From( "b", "" );
-            Assert.Equal( $"Select [t].[Email],[t].[IntValue] {Common.Line}From [b] As [t]", _builder.ToSql() );
+            //执行
+            _builder.Select( "a,[b]" ).From( "c" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置列 - 列具有表别名
         /// </summary>
         [Fact]
-        public void TestSelect_7() {
+        public void TestSelect_4() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [t].[a],[b] " );
+            result.Append( "From [c] As [d]" );
+
+            //执行
             _builder.Select( "t.a,[b]" ).From( "c", "d" );
-            Assert.Equal( $"Select [t].[a],[d].[b] {Common.Line}From [c] As [d]", _builder.ToSql() );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
-        /// 设置列 - 多个Select
+        /// 设置列 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestSelect_8() {
-            _builder.Select( "a" ).Select( "b" ).From( "c", "" );
-            Assert.Equal( $"Select [t].[a],[t].[b] {Common.Line}From [c] As [t]", _builder.ToSql() );
+        public void TestSelect_5() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [Email],[IntValue] " );
+            result.Append( "From [b]" );
+
+            //执行
+            _builder.Select<Sample>( t => new object[] { t.Email, t.IntValue } ).From( "b" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置列 - 每个Select使用不同的别名
         /// </summary>
         [Fact]
-        public void TestSelect_9() {
-            _builder.Select( "a,b", "j" ).Select( "c,d", "k" ).From( "e", "" );
-            Assert.Equal( $"Select [j].[a],[j].[b],[k].[c],[k].[d] {Common.Line}From [e] As [t]", _builder.ToSql() );
+        public void TestSelect_6() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [j].[a],[j].[b],[k].[c],[k].[d] " );
+            result.Append( "From [e]" );
+
+            //执行
+            _builder.Select( "a,b", "j" ).Select( "c,d", "k" ).From( "e" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置列 - 多个*
         /// </summary>
         [Fact]
-        public void TestSelect_10() {
-            _builder.Select( "a.*,b.*" ).From( "c", "" );
-            Assert.Equal( $"Select [a].*,[b].* {Common.Line}From [c] As [t]", _builder.ToSql() );
+        public void TestSelect_7() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].*,[b].* " );
+            result.Append( "From [c]" );
+
+            //执行
+            _builder.Select( "a.*,b.*" ).From( "c" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置列 - lambda表达式且设置别名
         /// </summary>
         [Fact]
-        public void TestSelect_11() {
+        public void TestSelect_8() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email],[a].[IntValue],[b].[Description],[b].[Display] " );
+            result.Append( "From [b]" );
+
+            //执行
             _builder.Select<Sample>( t => new object[] { t.Email, t.IntValue }, "a" )
                 .Select<Sample2>( t => new object[] { t.Description, t.Display }, "b" )
-                .From( "b", "" );
-            Assert.Equal( $"Select [a].[Email],[a].[IntValue],[b].[Description],[b].[Display] {Common.Line}From [b] As [t]", _builder.ToSql() );
+                .From( "b" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
-        /// 设置列 - 设置列别名
+        /// 设置列
         /// </summary>
         [Fact]
-        public void TestSelect_12() {
-            _builder.Select( "t.a As e,[b],f.g", "k" ).Select( "n" ).From( "c", "d" );
-            Assert.Equal( $"Select [t].[a] As [e],[k].[b],[f].[g],[d].[n] {Common.Line}From [c] As [d]", _builder.ToSql() );
+        public void TestSelect_9() {
+            //结果
+            var result = new String();
+            result.Append( "Select [a].[b] As [c],[a1],[b2]," );
+            result.Append( "d=(select a from t)," );
+            result.Append( "[a].[Email],[a].[IntValue]," );
+            result.Append( "e=(select b from t)," );
+            result.Append( "[b].[Description],[b].[Display]," );
+            result.AppendLine( "f=(select c from t) " );
+            result.Append( "From (select * from t1) as o" );
+
+            //执行
+            _builder.Select( "a.b as c,a1,b2" )
+                .AppendSelect( "d=(select a from t)" )
+                .Select<Sample>( t => new object[] { t.Email, t.IntValue }, "a" )
+                .AppendSelect( "e=(select b from t)" )
+                .Select<Sample2>( t => new object[] { t.Description, t.Display }, "b" )
+                .AppendSelect( "f=(select c from t)" )
+                .From( "b" )
+                .AppendFrom( "(select * from t1) " )
+                .AppendFrom( "as o" );
+
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
-        /// 设置列 - 设置列别名，增加了空格
+        /// 测试实体元数据解析
         /// </summary>
         [Fact]
-        public void TestSelect_13() {
-            _builder.Select( "t.[a]    As     [e]      ,        b aS          f " ).From( "c", "d" );
-            Assert.Equal( $"Select [t].[a] As [e],[d].[b] As [f] {Common.Line}From [c] As [d]", _builder.ToSql() );
+        public void TestSelect_10() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [Sample_Email],[Sample_IntValue] " );
+            result.Append( "From [b]" );
+
+            //执行
+            _builder = new SqlServerBuilder( new TestEntityMatedata() );
+            _builder.Select<Sample>( t => new object[] { t.Email, t.IntValue } ).From( "b" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         #endregion
@@ -177,12 +247,20 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         #region From(设置表)
 
         /// <summary>
-        /// 设置表 - 表的别名默认为t
+        /// 设置表
         /// </summary>
         [Fact]
         public void TestFrom_1() {
-            _builder.From( "a", "" );
-            Assert.Equal( $"Select * {Common.Line}From [a] As [t]", _builder.ToSql() );
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.Append( "From [a]" );
+
+            //执行
+            _builder.From( "a" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
@@ -190,8 +268,16 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestFrom_2() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.Append( "From [a] As [b]" );
+
+            //执行
             _builder.From( "a", "b" );
-            Assert.Equal( $"Select * {Common.Line}From [a] As [b]", _builder.ToSql() );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
@@ -199,62 +285,50 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestFrom_3() {
-            _builder.From( "c.a", "b" );
-            Assert.Equal( $"Select * {Common.Line}From [c].[a] As [b]", _builder.ToSql() );
-        }
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.Append( "From [c].[a] As [b]" );
 
-        /// <summary>
-        /// 设置表 - 带方括号
-        /// </summary>
-        [Fact]
-        public void TestFrom_4() {
-            _builder.From( "[c].[a]", "b" );
-            Assert.Equal( $"Select * {Common.Line}From [c].[a] As [b]", _builder.ToSql() );
+            //执行
+            _builder.From( "c.a", "b" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置表 - 表名包含别名
         /// </summary>
         [Fact]
-        public void TestFrom_5() {
-            _builder.From( "a.b as t", "" );
-            Assert.Equal( $"Select * {Common.Line}From [a].[b] As [t]", _builder.ToSql() );
+        public void TestFrom_4() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.Append( "From [a].[b] As [t]" );
+
+            //执行
+            _builder.From( "a.b as t" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置表 - 泛型实体
         /// </summary>
         [Fact]
-        public void TestFrom_6() {
-            _builder.From<Sample>( "" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t]", _builder.ToSql() );
-        }
+        public void TestFrom_5() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.Append( "From [b].[Sample] As [a]" );
 
-        /// <summary>
-        /// 设置表 - 泛型实体 - 别名
-        /// </summary>
-        [Fact]
-        public void TestFrom_7() {
-            _builder.From<Sample>( "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [a]", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置表 - 泛型实体 - 别名 - 架构
-        /// </summary>
-        [Fact]
-        public void TestFrom_8() {
+            //执行
             _builder.From<Sample>( "a", "b" );
-            Assert.Equal( $"Select * {Common.Line}From [b].[Sample] As [a]", _builder.ToSql() );
-        }
 
-        /// <summary>
-        /// 设置表 - 泛型实体 - 多次设置From
-        /// </summary>
-        [Fact]
-        public void TestFrom_9() {
-            _builder.From<Sample>( "a" ).From<Sample>( "b" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [b]", _builder.ToSql() );
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         #endregion

@@ -2,17 +2,32 @@
 using System.Threading.Tasks;
 using Dapper;
 using Util.Datas.Sql;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 
-namespace Util.Datas.Dapper.Core {
+namespace Util.Datas.Dapper {
     /// <summary>
     /// Dapper Sql查询对象
     /// </summary>
-    public abstract class SqlQueryBase : Util.Datas.Sql.Queries.SqlQueryBase {
+    public class SqlQuery : Util.Datas.Sql.Queries.SqlQueryBase {
+        /// <summary>
+        /// Sql生成器
+        /// </summary>
+        private readonly ISqlBuilder _sqlBuilder;
+
         /// <summary>
         /// 初始化Dapper Sql查询对象
         /// </summary>
+        /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="database">数据库</param>
-        protected SqlQueryBase( IDatabase database = null ) : base( database ) {
+        public SqlQuery( ISqlBuilder sqlBuilder, IDatabase database = null ) : base( database ) {
+            _sqlBuilder = sqlBuilder;
+        }
+
+        /// <summary>
+        /// 创建Sql生成器
+        /// </summary>
+        protected override ISqlBuilder CreateBuilder() {
+            return _sqlBuilder;
         }
 
         /// <summary>

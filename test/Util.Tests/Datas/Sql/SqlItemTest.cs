@@ -1,4 +1,4 @@
-﻿using Util.Datas.Sql.Queries.Builders;
+﻿using Util.Datas.Sql.Queries.Builders.Core;
 using Xunit;
 
 namespace Util.Tests.Datas.Sql {

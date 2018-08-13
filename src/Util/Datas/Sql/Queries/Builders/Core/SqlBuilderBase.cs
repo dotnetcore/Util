@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Util.Datas.Matedatas;
 using Util.Datas.Queries;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Builders.Clauses;
 using Util.Datas.Sql.Queries.Builders.Conditions;
 using Util.Helpers;
 using Util.Properties;
 
-namespace Util.Datas.Sql.Queries.Builders {
+namespace Util.Datas.Sql.Queries.Builders.Core {
     /// <summary>
     /// Sql生成器
     /// </summary>
@@ -16,10 +18,6 @@ namespace Util.Datas.Sql.Queries.Builders {
 
         #region 字段
 
-        /// <summary>
-        /// 表别名集合
-        /// </summary>
-        private readonly IDictionary<Type, string> _tableAlias;
         /// <summary>
         /// 参数集合
         /// </summary>
@@ -36,10 +34,12 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <summary>
         /// 初始化Sql生成器
         /// </summary>
-        protected SqlBuilderBase() {
-            _tableAlias = new Dictionary<Type, string>();
+        /// <param name="matedata">实体元数据解析器</param>
+        protected SqlBuilderBase( IEntityMatedata matedata = null ) {
             _params = new Dictionary<string, object>();
-            Columns = new List<SqlItem>();
+            EntityMatedata = matedata;
+            EntityResolver = new EntityResolver( matedata );
+            AliasRegister = new EntityAliasRegister();
         }
 
         #endregion
@@ -55,25 +55,21 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// </summary>
         protected int ChildBuilderCount { get; set; } = 0;
         /// <summary>
-        /// 架构
+        /// 实体元数据解析器
         /// </summary>
-        protected string Schema { get; private set; }
+        protected IEntityMatedata EntityMatedata { get; }
         /// <summary>
-        /// 表名
+        /// 实体解析器
         /// </summary>
-        protected string Table { get; private set; }
+        protected IEntityResolver EntityResolver { get; }
+        /// <summary>
+        /// 实体别名注册器
+        /// </summary>
+        protected IEntityAliasRegister AliasRegister { get; }
         /// <summary>
         /// 别名
         /// </summary>
         protected string Alias { get; private set; }
-        /// <summary>
-        /// 多表连接
-        /// </summary>
-        protected string JoinTables { get; private set; }
-        /// <summary>
-        /// 列名集合
-        /// </summary>
-        protected List<SqlItem> Columns { get; private set; }
         /// <summary>
         /// 查询条件
         /// </summary>
@@ -108,8 +104,7 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// 验证
         /// </summary>
         public void Validate() {
-            if( string.IsNullOrWhiteSpace( Table ) )
-                throw new InvalidOperationException( LibraryResource.TableIsEmpty );
+            FromClause.Validate();
         }
 
         /// <summary>
@@ -140,14 +135,29 @@ namespace Util.Datas.Sql.Queries.Builders {
         #region Select(设置列名)
 
         /// <summary>
+        /// Select子句
+        /// </summary>
+        private ISelectClause _selectClause;
+
+        /// <summary>
+        /// Select子句
+        /// </summary>
+        public ISelectClause SelectClause => _selectClause ?? ( _selectClause = CreateSelectClause() );
+
+        /// <summary>
+        /// 创建Select子句
+        /// </summary>
+        protected virtual ISelectClause CreateSelectClause() {
+            return new SelectClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
         /// <param name="tableAlias">表别名</param>
         public virtual ISqlBuilder Select( string columns, string tableAlias = null ) {
-            if( string.IsNullOrWhiteSpace( columns ) )
-                return this;
-            Columns.AddRange( columns.Split( ',' ).Select( column => new SqlItem( column, tableAlias ) ) );
+            SelectClause.Select( columns, tableAlias );
             return this;
         }
 
@@ -157,9 +167,28 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="columns">列名</param>
         /// <param name="tableAlias">表别名</param>
         public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string tableAlias = null ) where TEntity : class {
-            if( columns == null )
-                return this;
-            return Select( Lambda.GetNames( columns ).Join(), tableAlias );
+            SelectClause.Select( columns, tableAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置列名
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="columnAlias">列别名</param>
+        /// <param name="tableAlias">表别名</param>
+        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null, string tableAlias = null ) where TEntity : class {
+            SelectClause.Select( column, columnAlias, tableAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public virtual ISqlBuilder AppendSelect( string sql ) {
+            SelectClause.AppendSql( sql );
+            return this;
         }
 
         #endregion
@@ -167,13 +196,28 @@ namespace Util.Datas.Sql.Queries.Builders {
         #region From(设置表名)
 
         /// <summary>
+        /// From子句
+        /// </summary>
+        private IFromClause _fromClause;
+        /// <summary>
+        /// From子句
+        /// </summary>
+        public IFromClause FromClause => _fromClause ?? ( _fromClause = CreateFromClause() );
+
+        /// <summary>
+        /// 创建From子句
+        /// </summary>
+        protected virtual IFromClause CreateFromClause() {
+            return new FromClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        public ISqlBuilder From( string table, string alias ) {
-            Table = table;
-            Alias = alias;
+        public ISqlBuilder From( string table, string alias = null ) {
+            FromClause.From( table, alias );
             return this;
         }
 
@@ -182,22 +226,18 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        public ISqlBuilder From<TEntity>( string alias, string schema = null ) where TEntity : class {
-            var type = typeof( TEntity );
-            UpdateAliasDic( type, alias );
-            Schema = schema;
-            return From( type.Name, alias );
+        public ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+            FromClause.From<TEntity>( alias, schema );
+            return this;
         }
 
         /// <summary>
-        /// 更新表别名字典
+        /// 添加到From子句
         /// </summary>
-        private void UpdateAliasDic( Type type, string alias ) {
-            if( _tableAlias.ContainsKey( type ) )
-                _tableAlias.Remove( type );
-            if( string.IsNullOrWhiteSpace( alias ) )
-                return;
-            _tableAlias.Add( type, alias );
+        /// <param name="sql">Sql语句</param>
+        public ISqlBuilder AppendFrom( string sql ) {
+            FromClause.AppendSql( sql );
+            return this;
         }
 
         #endregion
@@ -251,8 +291,8 @@ namespace Util.Datas.Sql.Queries.Builders {
                 throw new ArgumentNullException( nameof( expression ) );
             ICondition result = null;
             var expressions = Lambda.GetGroupPredicates( expression );
-            for ( int i = 0; i < expressions.Count; i++ ) {
-                if ( i == 0 ) {
+            for( int i = 0; i < expressions.Count; i++ ) {
+                if( i == 0 ) {
                     result = new AndCondition( result, GetCondition( expressions[i], GetTableAlias<TEntity>( tableAlias ) ) );
                     continue;
                 }
@@ -267,7 +307,7 @@ namespace Util.Datas.Sql.Queries.Builders {
         private ICondition GetCondition( List<Expression> group, string tableAlias ) {
             ICondition condition = null;
             group.ForEach( expression => {
-                condition = new AndCondition( condition, GetCondition(expression, tableAlias ) );
+                condition = new AndCondition( condition, GetCondition( expression, tableAlias ) );
             } );
             return condition;
         }
@@ -349,8 +389,8 @@ namespace Util.Datas.Sql.Queries.Builders {
             if( string.IsNullOrWhiteSpace( tableAlias ) == false )
                 return tableAlias;
             var type = typeof( TEntity );
-            if( _tableAlias.ContainsKey( type ) )
-                return _tableAlias[type];
+            //if( _tableAlias.ContainsKey( type ) )
+            //    return _tableAlias[type];
             return string.Empty;
         }
 
@@ -464,17 +504,13 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// 获取Select子句
         /// </summary>
         protected virtual string GetSelect() {
-            return $"Select {GetColumns()} ";
+            return SelectClause.ToSql();
         }
 
         /// <summary>
-        /// 获取列名
+        /// 获取Sql方言
         /// </summary>
-        protected virtual string GetColumns() {
-            if( Columns.Count == 0 )
-                return "*";
-            return Columns.Select( GetColumn ).Join();
-        }
+        protected abstract IDialect GetDialect();
 
         /// <summary>
         /// 获取列名
@@ -508,17 +544,7 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// 获取From子句
         /// </summary>
         protected virtual string GetFrom() {
-            var item = new SqlItem( Table, Schema, Alias );
-            return $"From {GetTable( item )} As {GetAlias( item.Alias )} ";
-        }
-
-        /// <summary>
-        /// 获取表名
-        /// </summary>
-        private string GetTable( SqlItem item ) {
-            if( string.IsNullOrWhiteSpace( item.Prefix ) )
-                return SafeName( item.Name );
-            return $"{SafeName( item.Prefix )}.{SafeName( item.Name )}";
+            return FromClause.ToSql();
         }
 
         /// <summary>

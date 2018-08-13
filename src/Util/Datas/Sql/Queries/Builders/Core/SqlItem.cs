@@ -1,6 +1,7 @@
-﻿using Util.Helpers;
+﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Helpers;
 
-namespace Util.Datas.Sql.Queries.Builders {
+namespace Util.Datas.Sql.Queries.Builders.Core {
     /// <summary>
     /// Sql项
     /// </summary>
@@ -11,11 +12,17 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="name">名称</param>
         /// <param name="prefix">前缀</param>
         /// <param name="alias">别名</param>
-        public SqlItem( string name, string prefix = null, string alias = null ) {
-            if ( string.IsNullOrWhiteSpace( name ) )
-                return;
+        /// <param name="raw">使用原始值</param>
+        public SqlItem( string name, string prefix = null, string alias = null, bool raw = false ) {
             Prefix = prefix;
             Alias = alias;
+            Raw = raw;
+            if( string.IsNullOrWhiteSpace( name ) )
+                return;
+            if( raw ) {
+                Name = name;
+                return;
+            }
             Resolve( name );
         }
 
@@ -27,7 +34,7 @@ namespace Util.Datas.Sql.Queries.Builders {
             var list = Regex.Split( name, pattern );
             if( list == null || list.Length == 0 )
                 return;
-            if ( list.Length == 2 )
+            if( list.Length == 2 )
                 Alias = list[1];
             SetName( list[0] );
         }
@@ -36,24 +43,29 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// 设置名称
         /// </summary>
         private void SetName( string name ) {
-            if ( string.IsNullOrWhiteSpace( name ) )
+            if( string.IsNullOrWhiteSpace( name ) )
                 return;
-            if ( name.Contains( "." ) == false ) {
+            if( name.Contains( "." ) == false ) {
                 Name = name;
                 return;
             }
             var list = name.Split( '.' );
             if( list.Length == 0 )
                 return;
-            if ( list.Length == 1 ) {
+            if( list.Length == 1 ) {
                 Name = list[0];
                 return;
             }
-            if ( list.Length == 2 ) {
+            if( list.Length == 2 ) {
                 Prefix = list[0];
                 Name = list[1];
             }
         }
+
+        /// <summary>
+        /// 使用原始值
+        /// </summary>
+        public bool Raw { get; }
 
         /// <summary>
         /// 前缀
@@ -75,7 +87,7 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// 名称，范例:t.a As b，值为 a
         /// </summary>
         public string Name {
-            get => _name.SafeString().Trim();
+            get => Raw ? _name : _name.SafeString().Trim();
             set => _name = value;
         }
 
@@ -89,6 +101,39 @@ namespace Util.Datas.Sql.Queries.Builders {
         public string Alias {
             get => _alias.SafeString().Trim();
             set => _alias = value;
+        }
+
+        /// <summary>
+        /// 获取表
+        /// </summary>
+        /// <param name="dialect">Sql方言</param>
+        public string GetTable( IDialect dialect ) {
+            var table = GetTableName( dialect );
+            var alias = dialect.SafeName( Alias );
+            if( string.IsNullOrWhiteSpace( alias ) )
+                return $"{table}";
+            return $"{table} As {alias}";
+        }
+
+        /// <summary>
+        /// 获取表名
+        /// </summary>
+        private string GetTableName( IDialect dialect ) {
+            if( Raw )
+                return Name;
+            if( string.IsNullOrWhiteSpace( Prefix ) )
+                return dialect.SafeName( Name );
+            return $"{dialect.SafeName( Prefix )}.{dialect.SafeName( Name )}";
+        }
+
+        /// <summary>
+        /// 获取列名
+        /// </summary>
+        public string GetColumn( IDialect dialect ) {
+            if( Raw )
+                return Name;
+            var column = string.IsNullOrWhiteSpace( Prefix ) ? dialect.SafeName( Name ) : $"{dialect.SafeName( Prefix )}.{dialect.SafeName( Name )}";
+            return string.IsNullOrWhiteSpace( Alias ) ? column : $"{column} As {dialect.SafeName( Alias )}";
         }
     }
 }

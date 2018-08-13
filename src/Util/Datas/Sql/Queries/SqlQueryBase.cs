@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
-using Util.Datas.Sql.Queries.Builders;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Conditions;
 
 namespace Util.Datas.Sql.Queries {
@@ -95,11 +95,31 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 设置列名
+        /// </summary>
+        /// <param name="column">列名，范例：t => t.A</param>
+        /// <param name="columnAlias">列别名</param>
+        /// <param name="tableAlias">表别名</param>
+        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null, string tableAlias = null ) where TEntity : class {
+            GetBuilder().Select( column, columnAlias, tableAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlQuery AppendSelect( string sql ) {
+            GetBuilder().AppendSelect( sql );
+            return this;
+        }
+
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        public ISqlQuery From( string table, string alias ) {
+        public ISqlQuery From( string table, string alias = null ) {
             GetBuilder().From( table, alias );
             return this;
         }
@@ -109,8 +129,17 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        public ISqlQuery From<TEntity>( string alias, string schema = null ) where TEntity : class {
+        public ISqlQuery From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
             GetBuilder().From<TEntity>( alias, schema );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlQuery AppendFrom( string sql ) {
+            GetBuilder().AppendFrom( sql );
             return this;
         }
 

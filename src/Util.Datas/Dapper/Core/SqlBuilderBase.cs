@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Util.Datas.Matedatas;
 using Util.Logs;
 using Util.Logs.Extensions;
 
@@ -6,11 +7,18 @@ namespace Util.Datas.Dapper.Core {
     /// <summary>
     /// Sql生成器
     /// </summary>
-    public abstract class SqlBuilderBase : Util.Datas.Sql.Queries.Builders.SqlBuilderBase {
+    public abstract class SqlBuilderBase : Sql.Queries.Builders.Core.SqlBuilderBase {
         /// <summary>
         /// 跟踪日志名称
         /// </summary>
         public const string TraceLogName = "SqlQueryLog";
+
+        /// <summary>
+        /// 初始化Sql生成器
+        /// </summary>
+        /// <param name="matedata">实体元数据解析器</param>
+        protected SqlBuilderBase( IEntityMatedata matedata = null ) : base( matedata ) {
+        }
 
         /// <summary>
         /// 写日志

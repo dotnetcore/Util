@@ -26,14 +26,15 @@ namespace Util.Helpers {
         /// 获取成员表达式
         /// </summary>
         /// <param name="expression">表达式</param>
-        public static MemberExpression GetMemberExpression( Expression expression ) {
+        /// <param name="right">取表达式右侧,(l,r) => l.id == r.id，设置为true,返回r.id表达式</param>
+        public static MemberExpression GetMemberExpression( Expression expression,bool right = false ) {
             if( expression == null )
                 return null;
             switch( expression.NodeType ) {
                 case ExpressionType.Lambda:
-                    return GetMemberExpression( ( (LambdaExpression)expression ).Body );
+                    return GetMemberExpression( ( (LambdaExpression)expression ).Body, right );
                 case ExpressionType.Convert:
-                    return GetMemberExpression( ( (UnaryExpression)expression ).Operand );
+                    return GetMemberExpression( ( (UnaryExpression)expression ).Operand, right );
                 case ExpressionType.MemberAccess:
                     return (MemberExpression)expression;
                 case ExpressionType.Equal:
@@ -42,7 +43,7 @@ namespace Util.Helpers {
                 case ExpressionType.LessThan:
                 case ExpressionType.GreaterThanOrEqual:
                 case ExpressionType.LessThanOrEqual:
-                    return GetMemberExpression( ( (BinaryExpression)expression ).Left );
+                    return GetMemberExpression( right? (( BinaryExpression)expression).Right: ( (BinaryExpression)expression ).Left, right );
                 case ExpressionType.Call:
                     return GetMethodCallExpressionName( expression );
             }
@@ -88,7 +89,7 @@ namespace Util.Helpers {
         #region GetNames(获取名称列表)
 
         /// <summary>
-        /// 获取名称列表
+        /// 获取名称列表，范例：t => new object[] { t.A.B, t.C },返回A.B,C
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
@@ -96,22 +97,14 @@ namespace Util.Helpers {
             var result = new List<string>();
             if( expression == null )
                 return result;
-            var arrayExpression = expression.Body as NewArrayExpression;
-            if( arrayExpression == null )
+            if( !( expression.Body is NewArrayExpression arrayExpression ) )
                 return result;
-            foreach( var each in arrayExpression.Expressions )
-                AddName( result, each );
+            foreach ( var each in arrayExpression.Expressions ) {
+                var name = GetName( each );
+                if( string.IsNullOrWhiteSpace( name ) == false )
+                    result.Add( name );
+            }
             return result;
-        }
-
-        /// <summary>
-        /// 添加名称
-        /// </summary>
-        private static void AddName( List<string> result, Expression expression ) {
-            var name = GetName( expression );
-            if( string.IsNullOrWhiteSpace( name ) )
-                return;
-            result.Add( name );
         }
 
         #endregion
@@ -122,12 +115,36 @@ namespace Util.Helpers {
         /// 获取最后一级成员名称，范例：t => t.A.Name,返回 Name
         /// </summary>
         /// <param name="expression">表达式,范例：t => t.Name</param>
-        public static string GetLastName( Expression expression ) {
-            var memberExpression = GetMemberExpression( expression );
+        /// <param name="right">取表达式右侧,(l,r) => l.LId == r.RId，设置为true,返回RId</param>
+        public static string GetLastName( Expression expression, bool right = false ) {
+            var memberExpression = GetMemberExpression( expression, right );
             if( memberExpression == null )
                 return string.Empty;
             string result = memberExpression.ToString();
             return result.Substring( result.LastIndexOf( ".", StringComparison.Ordinal ) + 1 );
+        }
+
+        #endregion
+
+        #region GetLastNames(获取最后一级成员名称列表)
+
+        /// <summary>
+        /// 获取最后一级成员名称列表，范例：t => new object[] { t.A.B, t.C },返回B,C
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="expression">属性集合表达式,范例：t => new object[]{t.A,t.B}</param>
+        public static List<string> GetLastNames<T>( Expression<Func<T, object[]>> expression ) {
+            var result = new List<string>();
+            if( expression == null )
+                return result;
+            if( !( expression.Body is NewArrayExpression arrayExpression ) )
+                return result;
+            foreach ( var each in arrayExpression.Expressions ) {
+                var name = GetLastName( each );
+                if( string.IsNullOrWhiteSpace( name ) == false )
+                    result.Add( name );
+            }
+            return result;
         }
 
         #endregion

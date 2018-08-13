@@ -60,7 +60,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             await _unitOfWork.CommitAsync();
 
             var result = await _query.Select<Customer>( t => new object[] { t.Name } )
-                .From( "Customers.Customers","t" )
+                .From<Customer>( "Customers" )
                 .Where( "CustomerId",id )
                 .ToAsync<Customer>();
             Assert.Equal( name, result.Name );

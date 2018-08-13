@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Util.Datas.Dapper.SqlServer;
+using Util.Datas.Dapper;
 using Util.Datas.Sql;
 using Util.Datas.Sql.Queries;
 using Util.Datas.Tests.Commons.Domains.Repositories;
@@ -30,7 +30,7 @@ namespace Util.Datas.Tests.Commons.Datas.SqlServer.Configs {
             builder.AddSingleton<ISession>( new Session( AppConfig.UserId ) );
             builder.AddScoped<IUnitOfWorkManager, UnitOfWorkManager>();
             builder.RegisterType<SqlServerUnitOfWork>().As<ISqlServerUnitOfWork,IDatabase>().PropertiesAutowired();
-            builder.AddScoped<ISqlQuery, SqlServerQuery>();
+            builder.AddScoped<ISqlQuery, SqlQuery>();
             builder.AddScoped<IProductPoStore, ProductPoStore>();
         }
 

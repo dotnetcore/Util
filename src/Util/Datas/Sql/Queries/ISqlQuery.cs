@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
-using Util.Datas.Sql.Queries.Builders;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Conditions;
 
 namespace Util.Datas.Sql.Queries {
@@ -30,7 +30,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="columns">列名</param>
+        /// <param name="columns">列名，范例：a,b.c as d</param>
         /// <param name="alias">别名</param>
         ISqlQuery Select( string columns, string alias = null );
         /// <summary>
@@ -40,17 +40,34 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="alias">别名</param>
         ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string alias = null ) where TEntity : class;
         /// <summary>
+        /// 设置列名
+        /// </summary>
+        /// <param name="column">列名，范例：t => t.A</param>
+        /// <param name="columnAlias">列别名</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        ISqlQuery AppendSelect( string sql );
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        ISqlQuery From( string table, string alias );
+        ISqlQuery From( string table, string alias = null );
         /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        ISqlQuery From<TEntity>( string alias, string schema = null ) where TEntity : class;
+        ISqlQuery From<TEntity>( string alias = null, string schema = null ) where TEntity : class;
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        ISqlQuery AppendFrom( string sql );
         /// <summary>
         /// And连接条件
         /// </summary>

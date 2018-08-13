@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Conditions;
 
-namespace Util.Datas.Sql.Queries.Builders {
+namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// <summary>
     /// Sql生成器
     /// </summary>
@@ -34,17 +34,34 @@ namespace Util.Datas.Sql.Queries.Builders {
         /// <param name="tableAlias">表别名</param>
         ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string tableAlias = null ) where TEntity : class;
         /// <summary>
+        /// 设置列名
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="columnAlias">列别名</param>
+        /// <param name="tableAlias">表别名</param>
+        ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null, string tableAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        ISqlBuilder AppendSelect( string sql );
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        ISqlBuilder From( string table, string alias );
+        ISqlBuilder From( string table, string alias = null );
         /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        ISqlBuilder From<TEntity>( string alias, string schema = null ) where TEntity : class;
+        ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class;
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        ISqlBuilder AppendFrom( string sql );
         /// <summary>
         /// And连接条件
         /// </summary>

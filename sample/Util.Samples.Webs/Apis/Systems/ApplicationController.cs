@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Datas.Sql.Queries;
+using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
 using Util.Samples.Webs.Services.Queries.Systems;
@@ -42,8 +43,9 @@ namespace Util.Samples.Webs.Apis.Systems {
         [HttpGet( "{id}" )]
         public override async Task<IActionResult> GetAsync( string id ) {
             var result = await SqlQuery
-                .Select<ApplicationDto>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled } )
-                .From( "Systems.Application","t" )
+                .Select<Application>( t => t.Id,"Id" )
+                .Select<Application>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled } )
+                .From<Application>()
                 .ToAsync<ApplicationDto>();
             return Success( result );
         }
