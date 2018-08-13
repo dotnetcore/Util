@@ -4,29 +4,29 @@
     /// </summary>
     public class EqualCondition : ICondition {
         /// <summary>
-        /// 列名
+        /// 左操作数
         /// </summary>
-        private readonly string _column;
+        private readonly string _left;
         /// <summary>
-        /// 参数
+        /// 右操作数
         /// </summary>
-        private readonly string _parameter;
+        private readonly string _right;
 
         /// <summary>
         /// 初始化Sql相等查询条件
         /// </summary>
-        /// <param name="column">列名</param>
-        /// <param name="parameter">参数</param>
-        public EqualCondition( string column, string parameter ) {
-            _column = column;
-            _parameter = parameter;
+        /// <param name="left">左操作数</param>
+        /// <param name="right">右操作数</param>
+        public EqualCondition( string left, string right ) {
+            _left = left;
+            _right = right;
         }
 
         /// <summary>
         /// 获取查询条件
         /// </summary>
         public string GetCondition() {
-            return $"{_column}={_parameter}";
+            return $"{_left}={_right}";
         }
     }
 }

@@ -65,5 +65,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
                 return name;
             return _matedata.GetColumn( typeof( TEntity ), name );
         }
+
+        /// <summary>
+        /// 获取列名
+        /// </summary>
+        /// <param name="expression">表达式</param>
+        /// <param name="entity">实体类型</param>
+        /// <param name="right">是否取右侧操作数</param>
+        public string GetColumn( Expression expression, Type entity, bool right ) {
+            var column = Lambda.GetLastName( expression, right );
+            if( _matedata == null )
+                return column;
+            return _matedata.GetColumn( entity, column );
+        }
     }
 }

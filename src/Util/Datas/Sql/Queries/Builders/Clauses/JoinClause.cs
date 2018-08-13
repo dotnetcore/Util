@@ -178,22 +178,21 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void On<TLeft, TRight>( Expression<Func<TLeft, object>> left, Expression<Func<TRight, object>> right, Operator @operator = Operator.Equal )
             where TLeft : class
             where TRight : class {
-            On( GetColumn<TLeft>( left ), GetColumn<TRight>( right ), @operator );
+            On( GetColumn( left ), GetColumn( right ), @operator );
         }
 
         /// <summary>
         /// 获取列
         /// </summary>
-        private string GetColumn<TEntity>( Expression column ) {
-            return GetColumn( column, typeof( TEntity ) );
+        private string GetColumn<TEntity>( Expression<Func<TEntity, object>> column ) {
+            return GetColumn( typeof( TEntity ), _resolver.GetColumn( column ) );
         }
 
         /// <summary>
         /// 获取列
         /// </summary>
-        private string GetColumn( Expression column, Type entity, bool right = false ) {
-            var columnName = Lambda.GetLastName( column, right );
-            return $"{_register.GetAlias( entity )}.{columnName}";
+        private string GetColumn( Type entity, string column ) {
+            return $"{_register.GetAlias( entity )}.{column}";
         }
 
         /// <summary>
@@ -211,10 +210,18 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 设置连接条件组
         /// </summary>
         private void On( List<Expression> group, Type typeLeft, Type typeRight ) {
+            var items = group.Select( expression => new OnItem(
+                GetColumn( expression, typeLeft, false ), GetColumn( expression, typeRight, true ), Lambda.GetOperator( expression ).SafeValue()
+            ) ).ToList();
             var join = _params.LastOrDefault();
-            var items = group.Select( expression => new OnItem( GetColumn( expression, typeLeft ), GetColumn( expression, typeRight, true ),
-                Lambda.GetOperator( expression ).SafeValue() ) ).ToList();
             join?.On( items );
+        }
+
+        /// <summary>
+        /// 获取列
+        /// </summary>
+        private string GetColumn( Expression expression, Type entity, bool right ) {
+            return GetColumn( entity, _resolver.GetColumn( expression, entity, right ) );
         }
 
         /// <summary>

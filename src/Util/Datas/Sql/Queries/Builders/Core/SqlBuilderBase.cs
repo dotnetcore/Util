@@ -243,13 +243,137 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         #endregion
 
         /// <summary>
+        /// Join子句
+        /// </summary>
+        private IJoinClause _joinClause;
+        /// <summary>
+        /// Join子句
+        /// </summary>
+        public IJoinClause JoinClause => _joinClause ?? ( _joinClause = CreateJoinClause() );
+
+        /// <summary>
+        /// 创建Join子句
+        /// </summary>
+        protected virtual IJoinClause CreateJoinClause() {
+            return new JoinClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
         /// 内连接
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        /// <param name="on">架构名</param>
+        public virtual ISqlBuilder Join( string table, string alias = null ) {
+            JoinClause.Join( table, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 内连接
+        /// </summary>
+        /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        public ISqlBuilder Join( string table, string alias, string on, string schema = null ) {
+        public virtual ISqlBuilder Join<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+            JoinClause.Join<TEntity>( alias, schema );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public virtual ISqlBuilder AppendJoin( string sql ) {
+            JoinClause.AppendJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 左外连接
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="alias">别名</param>
+        public virtual ISqlBuilder LeftJoin( string table, string alias = null ) {
+            JoinClause.LeftJoin( table, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 左外连接
+        /// </summary>
+        /// <param name="alias">别名</param>
+        /// <param name="schema">架构名</param>
+        public virtual ISqlBuilder LeftJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+            JoinClause.LeftJoin<TEntity>( alias, schema );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public virtual ISqlBuilder AppendLeftJoin( string sql ) {
+            JoinClause.AppendLeftJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 右外连接
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="alias">别名</param>
+        public virtual ISqlBuilder RightJoin( string table, string alias = null ) {
+            JoinClause.RightJoin( table, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 右外连接
+        /// </summary>
+        /// <param name="alias">别名</param>
+        /// <param name="schema">架构名</param>
+        public virtual ISqlBuilder RightJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+            JoinClause.RightJoin<TEntity>( alias, schema );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public virtual ISqlBuilder AppendRightJoin( string sql ) {
+            JoinClause.AppendRightJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="left">左表列名</param>
+        /// <param name="right">右表列名</param>
+        /// <param name="operator">条件运算符</param>
+        public virtual ISqlBuilder On( string left, string right, Operator @operator = Operator.Equal ) {
+            JoinClause.On( left, right, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="left">左表列名</param>
+        /// <param name="right">右表列名</param>
+        /// <param name="operator">条件运算符</param>
+        public virtual ISqlBuilder On<TLeft, TRight>( Expression<Func<TLeft, object>> left, Expression<Func<TRight, object>> right, Operator @operator = Operator.Equal )
+            where TLeft : class where TRight : class {
+            JoinClause.On( left, right, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="expression">条件表达式</param>
+        public virtual ISqlBuilder On<TLeft, TRight>( Expression<Func<TLeft, TRight, bool>> expression ) where TLeft : class where TRight : class {
+            JoinClause.On( expression );
             return this;
         }
 

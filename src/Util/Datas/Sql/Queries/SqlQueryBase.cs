@@ -144,6 +144,125 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 内连接
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="alias">别名</param>
+        public ISqlQuery Join( string table, string alias = null ) {
+            GetBuilder().Join( table, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 内连接
+        /// </summary>
+        /// <param name="alias">别名</param>
+        /// <param name="schema">架构名</param>
+        public ISqlQuery Join<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+            GetBuilder().Join<TEntity>( alias, schema );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlQuery AppendJoin( string sql ) {
+            GetBuilder().AppendJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 左外连接
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="alias">别名</param>
+        public ISqlQuery LeftJoin( string table, string alias = null ) {
+            GetBuilder().LeftJoin( table, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 左外连接
+        /// </summary>
+        /// <param name="alias">别名</param>
+        /// <param name="schema">架构名</param>
+        public ISqlQuery LeftJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+            GetBuilder().LeftJoin<TEntity>( alias, schema );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlQuery AppendLeftJoin( string sql ) {
+            GetBuilder().AppendLeftJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 右外连接
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="alias">别名</param>
+        public ISqlQuery RightJoin( string table, string alias = null ) {
+            GetBuilder().RightJoin( table, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 右外连接
+        /// </summary>
+        /// <param name="alias">别名</param>
+        /// <param name="schema">架构名</param>
+        public ISqlQuery RightJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+            GetBuilder().RightJoin<TEntity>( alias, schema );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlQuery AppendRightJoin( string sql ) {
+            GetBuilder().AppendRightJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="left">左表列名</param>
+        /// <param name="right">右表列名</param>
+        /// <param name="operator">条件运算符</param>
+        public ISqlQuery On( string left, string right, Operator @operator = Operator.Equal ) {
+            GetBuilder().On( left, right, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="left">左表列名</param>
+        /// <param name="right">右表列名</param>
+        /// <param name="operator">条件运算符</param>
+        public ISqlQuery On<TLeft, TRight>( Expression<Func<TLeft, object>> left,Expression<Func<TRight, object>> right, Operator @operator = Operator.Equal )
+            where TLeft : class where TRight : class {
+            GetBuilder().On( left, right, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="expression">条件表达式</param>
+        public ISqlQuery On<TLeft, TRight>( Expression<Func<TLeft, TRight, bool>> expression ) where TLeft : class where TRight : class {
+            GetBuilder().On( expression );
+            return this;
+        }
+
+        /// <summary>
         /// And连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>

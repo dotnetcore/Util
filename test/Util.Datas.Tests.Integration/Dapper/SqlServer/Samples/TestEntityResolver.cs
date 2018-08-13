@@ -37,5 +37,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
         public string GetColumn<TEntity>( Expression<Func<TEntity, object>> column ) {
             return $"t_{Lambda.GetLastName( column )}";
         }
+
+        public string GetColumn( Expression expression, Type entity, bool right ) {
+            return $"t_{Lambda.GetLastName( expression, right )}";
+        }
     }
 }

@@ -4,43 +4,43 @@
     /// </summary>
     public class OrCondition : ICondition {
         /// <summary>
-        /// 查询条件1
+        /// 左操作数
         /// </summary>
-        private readonly string _condition1;
+        private readonly string _left;
         /// <summary>
-        /// 查询条件2
+        /// 右操作数
         /// </summary>
-        private readonly string _condition2;
+        private readonly string _right;
 
         /// <summary>
         /// 初始化Or连接条件
         /// </summary>
-        /// <param name="condition1">查询条件1</param>
-        /// <param name="condition2">查询条件2</param>
-        public OrCondition( string condition1, string condition2 ) {
-            _condition1 = condition1;
-            _condition2 = condition2;
+        /// <param name="left">左操作数</param>
+        /// <param name="right">右操作数</param>
+        public OrCondition( string left, string right ) {
+            _left = left;
+            _right = right;
         }
 
         /// <summary>
         /// 初始化Or连接条件
         /// </summary>
-        /// <param name="condition1">查询条件1</param>
-        /// <param name="condition2">查询条件2</param>
-        public OrCondition( ICondition condition1, ICondition condition2 ) {
-            _condition1 = condition1?.GetCondition();
-            _condition2 = condition2?.GetCondition();
+        /// <param name="left">左操作数</param>
+        /// <param name="right">右操作数</param>
+        public OrCondition( ICondition left, ICondition right ) {
+            _left = left?.GetCondition();
+            _right = right?.GetCondition();
         }
 
         /// <summary>
         /// 获取查询条件
         /// </summary>
         public string GetCondition() {
-            if( string.IsNullOrWhiteSpace( _condition1 ) )
-                return _condition2;
-            if( string.IsNullOrWhiteSpace( _condition2 ) )
-                return _condition1;
-            return $"({_condition1} Or {_condition2})";
+            if( string.IsNullOrWhiteSpace( _left ) )
+                return _right;
+            if( string.IsNullOrWhiteSpace( _right ) )
+                return _left;
+            return $"({_left} Or {_right})";
         }
     }
 }
