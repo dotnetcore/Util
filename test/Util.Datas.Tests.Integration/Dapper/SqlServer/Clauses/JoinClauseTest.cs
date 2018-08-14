@@ -333,7 +333,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             result.Append( "Join [Sample] As [t] " );
             result.AppendLine( "On [a].[id]=[b].[id] " );
             result.Append( "Join [Sample2] As [t2] " );
-            result.Append( "On [t].[ShortValue]>[t2].[IntValue]&&[t].[DisplayValue]=[t2].[StringValue]" );
+            result.Append( "On [t].[ShortValue]>[t2].[IntValue] And [t].[DisplayValue]=[t2].[StringValue]" );
 
             //操作
             _clause.Join<Sample>( "t" );
@@ -355,7 +355,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             result.Append( "Join [Sample] As [t] " );
             result.AppendLine( "On [a].[id]=[b].[id] " );
             result.Append( "Join [Sample2] As [t2] " );
-            result.Append( "On [t].[ShortValue]>[t2].[IntValue]||[t].[DisplayValue]=[t2].[StringValue]" );
+            result.Append( "On [t].[ShortValue]>[t2].[IntValue] Or [t].[DisplayValue]=[t2].[StringValue]" );
 
             //操作
             _clause.Join<Sample>( "t" );

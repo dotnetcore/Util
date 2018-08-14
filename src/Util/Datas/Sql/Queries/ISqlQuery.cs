@@ -31,14 +31,14 @@ namespace Util.Datas.Sql.Queries {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名，范例：a,b.c as d</param>
-        /// <param name="alias">别名</param>
-        ISqlQuery Select( string columns, string alias = null );
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery Select( string columns, string tableAlias = null );
         /// <summary>
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名，范例：t => new object[] { t.A, t.B }</param>
-        /// <param name="alias">别名</param>
-        ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string alias = null ) where TEntity : class;
+        /// <param name="tableAlias">表别名</param>
+        ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string tableAlias = null ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>

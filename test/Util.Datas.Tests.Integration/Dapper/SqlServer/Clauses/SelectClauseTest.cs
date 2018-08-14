@@ -223,8 +223,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_21() {
-            _clause.Select<Sample>( t => t.Email, "E" );
-            Assert.Equal( "Select [Email] As [E]", GetSql() );
+            _clause.Select<Sample>( t => t.Email, "e" );
+            Assert.Equal( "Select [Email] As [e]", GetSql() );
         }
     }
 }

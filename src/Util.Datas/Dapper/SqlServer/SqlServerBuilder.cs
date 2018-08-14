@@ -54,7 +54,8 @@ namespace Util.Datas.Dapper.SqlServer {
         /// </summary>
         protected override void CreateSql( StringBuilder result ) {
             result.AppendLine( $"{GetSelect()} " );
-            result.AppendLine( GetFrom() );
+            result.AppendLine( $"{GetFrom()} " );
+            result.AppendLine( $"{GetJoin()} " );
             result.AppendLine( GetWhere() );
         }
     }

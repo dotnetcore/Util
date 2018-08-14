@@ -43,8 +43,8 @@ namespace Util.Samples.Webs.Apis.Systems {
         [HttpGet( "{id}" )]
         public override async Task<IActionResult> GetAsync( string id ) {
             var result = await SqlQuery
-                .Select<Application>( t => t.Id,"Id" )
-                .Select<Application>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled } )
+                .Select<Application>( t => t.Id, "Id" )
+                .Select<Application>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled,t.Version } )
                 .From<Application>()
                 .ToAsync<ApplicationDto>();
             return Success( result );

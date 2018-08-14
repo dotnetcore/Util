@@ -43,23 +43,11 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置名称
         /// </summary>
         private void SetName( string name ) {
-            if( string.IsNullOrWhiteSpace( name ) )
-                return;
-            if( name.Contains( "." ) == false ) {
-                Name = name;
-                return;
-            }
-            var list = name.Split( '.' );
-            if( list.Length == 0 )
-                return;
-            if( list.Length == 1 ) {
-                Name = list[0];
-                return;
-            }
-            if( list.Length == 2 ) {
-                Prefix = list[0];
-                Name = list[1];
-            }
+            var result = new NameItem( name );
+            if( string.IsNullOrWhiteSpace(result.Prefix) == false )
+                Prefix = result.Prefix;
+            if( string.IsNullOrWhiteSpace( result.Name ) == false )
+                Name = result.Name;
         }
 
         /// <summary>
@@ -75,7 +63,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 前缀，范例:t.a As b，值为 t
         /// </summary>
         public string Prefix {
-            get => _prefix.SafeString().Trim();
+            get => _prefix.SafeString();
             set => _prefix = value;
         }
 
@@ -87,7 +75,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 名称，范例:t.a As b，值为 a
         /// </summary>
         public string Name {
-            get => Raw ? _name : _name.SafeString().Trim();
+            get => Raw ? _name : _name.SafeString();
             set => _name = value;
         }
 
@@ -99,7 +87,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 别名，范例:t.a As b，值为 b
         /// </summary>
         public string Alias {
-            get => _alias.SafeString().Trim();
+            get => _alias.SafeString();
             set => _alias = value;
         }
 

@@ -242,6 +242,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
+        #region Join(设置连接)
+
         /// <summary>
         /// Join子句
         /// </summary>
@@ -376,6 +378,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             JoinClause.On( expression );
             return this;
         }
+
+        #endregion
 
         #region And(And连接条件)
 
@@ -669,6 +673,13 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         protected virtual string GetFrom() {
             return FromClause.ToSql();
+        }
+
+        /// <summary>
+        /// 获取Join子句
+        /// </summary>
+        protected virtual string GetJoin() {
+            return JoinClause.ToSql();
         }
 
         /// <summary>

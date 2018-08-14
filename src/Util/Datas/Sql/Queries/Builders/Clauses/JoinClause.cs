@@ -165,8 +165,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="right">右表列名</param>
         /// <param name="operator">条件运算符</param>
         public void On( string left, string right, Operator @operator = Operator.Equal ) {
-            var join = _params.LastOrDefault();
-            join?.On( left, right, @operator );
+            _params.LastOrDefault()?.On( left, right, @operator );
         }
 
         /// <summary>
@@ -213,8 +212,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             var items = group.Select( expression => new OnItem(
                 GetColumn( expression, typeLeft, false ), GetColumn( expression, typeRight, true ), Lambda.GetOperator( expression ).SafeValue()
             ) ).ToList();
-            var join = _params.LastOrDefault();
-            join?.On( items );
+            _params.LastOrDefault()?.On( items );
         }
 
         /// <summary>

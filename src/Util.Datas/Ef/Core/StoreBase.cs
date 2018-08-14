@@ -112,6 +112,8 @@ namespace Util.Datas.Ef.Core {
         protected void ValidateVersion( TEntity newEntity, TEntity oldEntity ) {
             if( newEntity.Version == null )
                 throw new ConcurrencyException();
+            if( newEntity.Version.Length != oldEntity.Version.Length )
+                throw new ConcurrencyException();
             for( int i = 0; i < oldEntity.Version.Length; i++ ) {
                 if( newEntity.Version[i] != oldEntity.Version[i] )
                     throw new ConcurrencyException();

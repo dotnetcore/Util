@@ -91,17 +91,10 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             var result = new StringBuilder();
             Conditions.ForEach( items => {
                 On( items, result, dialect );
-                result.Append( "||" );
+                result.Append( " Or " );
             } );
-            RemoveEnd( result );
+            result.Remove( result.Length - 4, 4 );
             return $" On {result}";
-        }
-
-        /// <summary>
-        /// 移除结尾字符
-        /// </summary>
-        private void RemoveEnd( StringBuilder result ) {
-            result.Remove( result.Length - 2, 2 );
         }
 
         /// <summary>
@@ -110,9 +103,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         private void On( List<OnItem> items, StringBuilder result, IDialect dialect ) {
             items.ForEach( item => {
                 On( item, result, dialect );
-                result.Append( "&&" );
+                result.Append( " And " );
             } );
-            RemoveEnd( result );
+            result.Remove( result.Length - 5, 5 );
         }
 
         /// <summary>

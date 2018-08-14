@@ -12,7 +12,7 @@ namespace Util {
         /// </summary>
         /// <param name="input">输入值</param>
         public static string SafeString( this object input ) {
-            return input == null ? string.Empty : input.ToString().Trim();
+            return input?.ToString().Trim() ?? string.Empty;
         }
 
         /// <summary>
