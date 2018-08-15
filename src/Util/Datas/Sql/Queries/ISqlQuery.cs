@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Conditions;
+using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries {
     /// <summary>
@@ -16,17 +18,69 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         ISqlBuilder NewBuilder();
         /// <summary>
+        /// 获取整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        int ToInt( IDbConnection connection = null );
+        /// <summary>
+        /// 获取可空整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        int? ToIntOrNull( IDbConnection connection = null );
+        /// <summary>
         /// 获取单个实体
         /// </summary>
-        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="connection">数据库连接</param>
         TResult To<TResult>( IDbConnection connection = null );
         /// <summary>
         /// 获取单个实体
         /// </summary>
-        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="connection">数据库连接</param>
         Task<TResult> ToAsync<TResult>( IDbConnection connection = null );
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="connection">数据库连接</param>
+        List<TResult> ToList<TResult>( IDbConnection connection = null );
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="connection">数据库连接</param>
+        Task<List<TResult>> ToListAsync<TResult>( IDbConnection connection = null );
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        PagerList<TResult> ToPagerList<TResult>( IPager parameter, IDbConnection connection = null );
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="page">页数</param>
+        /// <param name="pageSize">每页显示行数</param>
+        /// <param name="connection">数据库连接</param>
+        PagerList<TResult> ToPagerList<TResult>( int page, int pageSize, IDbConnection connection = null );
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        Task<PagerList<TResult>> ToPagerListAsync<TResult>( IPager parameter, IDbConnection connection = null );
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="page">页数</param>
+        /// <param name="pageSize">每页显示行数</param>
+        /// <param name="connection">数据库连接</param>
+        Task<PagerList<TResult>> ToPagerListAsync<TResult>( int page, int pageSize, IDbConnection connection = null );
         /// <summary>
         /// 设置列名
         /// </summary>
@@ -217,5 +271,22 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="operator">运算符</param>
         /// <param name="tableAlias">表别名</param>
         ISqlQuery WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null );
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="order">排序列表</param>
+        ISqlQuery OrderBy( string order );
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="column">排序列</param>
+        /// <param name="desc">是否倒排</param>
+        ISqlQuery OrderBy<TEntity>( Expression<Func<TEntity, object>> column, bool desc = false );
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="order">排序列表</param>
+        ISqlQuery AppendOrderBy( string order );
     }
 }

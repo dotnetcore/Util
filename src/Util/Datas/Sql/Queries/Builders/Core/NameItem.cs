@@ -1,4 +1,6 @@
-﻿namespace Util.Datas.Sql.Queries.Builders.Core {
+﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
+
+namespace Util.Datas.Sql.Queries.Builders.Core {
     /// <summary>
     /// 名称项，处理名称中包含符号.
     /// </summary>
@@ -43,6 +45,27 @@
         public string Name {
             get => _name.SafeString();
             set => _name = value;
+        }
+
+        /// <summary>
+        /// 获取Sql
+        /// </summary>
+        /// <param name="dialect">Sql方言</param>
+        /// <param name="prefix">前缀</param>
+        public string ToSql( IDialect dialect,string prefix ) {
+            Prefix = GetPrefix( prefix );
+            if( string.IsNullOrWhiteSpace( Prefix ) )
+                return dialect.SafeName( Name );
+            return $"{dialect.SafeName( Prefix )}.{dialect.SafeName( Name )}";
+        }
+
+        /// <summary>
+        /// 获取前缀
+        /// </summary>
+        private string GetPrefix( string prefix ) {
+            if( string.IsNullOrWhiteSpace( Prefix ) )
+                return prefix;
+            return Prefix;
         }
     }
 }

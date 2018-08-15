@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Conditions;
+using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// <summary>
@@ -21,6 +22,22 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 获取参数
         /// </summary>
         IDictionary<string, object> GetParams();
+        /// <summary>
+        /// 获取Select语句
+        /// </summary>
+        string GetSelect();
+        /// <summary>
+        /// 获取From语句
+        /// </summary>
+        string GetFrom();
+        /// <summary>
+        /// 获取Join语句
+        /// </summary>
+        string GetJoin();
+        /// <summary>
+        /// 获取排序语句
+        /// </summary>
+        string GetOrderBy();
         /// <summary>
         /// 设置列名
         /// </summary>
@@ -211,5 +228,27 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="operator">运算符</param>
         /// <param name="tableAlias">表别名</param>
         ISqlBuilder WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal,string tableAlias = null );
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="order">排序列表</param>
+        ISqlBuilder OrderBy( string order );
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="column">排序列</param>
+        /// <param name="desc">是否倒排</param>
+        ISqlBuilder OrderBy<TEntity>( Expression<Func<TEntity, object>> column, bool desc = false );
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="order">排序列表</param>
+        ISqlBuilder AppendOrderBy( string order );
+        /// <summary>
+        /// 设置分页
+        /// </summary>
+        /// <param name="pager">分页参数</param>
+        ISqlBuilder Pager( IPager pager );
     }
 }

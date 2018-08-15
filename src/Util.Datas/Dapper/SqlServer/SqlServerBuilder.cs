@@ -50,13 +50,15 @@ namespace Util.Datas.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 创建Sql语句
+        /// 创建分页Sql
         /// </summary>
-        protected override void CreateSql( StringBuilder result ) {
-            result.AppendLine( $"{GetSelect()} " );
-            result.AppendLine( $"{GetFrom()} " );
-            result.AppendLine( $"{GetJoin()} " );
-            result.AppendLine( GetWhere() );
+        protected override void CreatePagerSql( StringBuilder result ) {
+            AppendSql( result, GetSelect() );
+            AppendSql( result, GetFrom() );
+            AppendSql( result, GetJoin() );
+            AppendSql( result, GetWhere() );
+            AppendSql( result, GetOrderBy() );
+            result.Append( $"Offset { GetPager().GetSkipCount() } Rows Fetch Next { GetPager().PageSize } Rows Only" );
         }
     }
 }

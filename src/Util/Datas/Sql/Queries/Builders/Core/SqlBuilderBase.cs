@@ -7,6 +7,7 @@ using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Clauses;
 using Util.Datas.Sql.Queries.Builders.Conditions;
+using Util.Domains.Repositories;
 using Util.Helpers;
 using Util.Properties;
 
@@ -110,7 +111,38 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 创建Sql语句
         /// </summary>
-        protected abstract void CreateSql( StringBuilder result );
+        protected virtual void CreateSql( StringBuilder result ) {
+            if ( _pager == null ) {
+                CreateNoPagerSql( result );
+                return;
+            }
+            CreatePagerSql( result );
+        }
+
+        /// <summary>
+        /// 创建不分页Sql
+        /// </summary>
+        protected virtual void CreateNoPagerSql( StringBuilder result ) {
+            AppendSql( result, GetSelect() );
+            AppendSql( result, GetFrom() );
+            AppendSql( result, GetJoin() );
+            AppendSql( result, GetWhere() );
+            AppendSql( result, GetOrderBy() );
+        }
+
+        /// <summary>
+        /// 添加Sql
+        /// </summary>
+        protected void AppendSql( StringBuilder result,string sql ) {
+            if ( string.IsNullOrWhiteSpace( sql ) )
+                return;
+            result.AppendLine( $"{sql} " );
+        }
+
+        /// <summary>
+        /// 创建分页Sql
+        /// </summary>
+        protected abstract void CreatePagerSql( StringBuilder result );
 
         /// <summary>
         /// 写日志
@@ -142,13 +174,20 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// Select子句
         /// </summary>
-        public ISelectClause SelectClause => _selectClause ?? ( _selectClause = CreateSelectClause() );
+        protected ISelectClause SelectClause => _selectClause ?? ( _selectClause = CreateSelectClause() );
 
         /// <summary>
         /// 创建Select子句
         /// </summary>
         protected virtual ISelectClause CreateSelectClause() {
             return new SelectClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
+        /// 获取Select语句
+        /// </summary>
+        public virtual string GetSelect() {
+            return SelectClause.ToSql();
         }
 
         /// <summary>
@@ -202,13 +241,20 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// From子句
         /// </summary>
-        public IFromClause FromClause => _fromClause ?? ( _fromClause = CreateFromClause() );
+        protected IFromClause FromClause => _fromClause ?? ( _fromClause = CreateFromClause() );
 
         /// <summary>
         /// 创建From子句
         /// </summary>
         protected virtual IFromClause CreateFromClause() {
             return new FromClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
+        /// 获取From语句
+        /// </summary>
+        public virtual string GetFrom() {
+            return FromClause.ToSql();
         }
 
         /// <summary>
@@ -251,13 +297,20 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// Join子句
         /// </summary>
-        public IJoinClause JoinClause => _joinClause ?? ( _joinClause = CreateJoinClause() );
+        protected IJoinClause JoinClause => _joinClause ?? ( _joinClause = CreateJoinClause() );
 
         /// <summary>
         /// 创建Join子句
         /// </summary>
         protected virtual IJoinClause CreateJoinClause() {
             return new JoinClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
+        /// 获取Join语句
+        /// </summary>
+        public virtual string GetJoin() {
+            return JoinClause.ToSql();
         }
 
         /// <summary>
@@ -626,14 +679,90 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
-        #region 获取子句
+        #region Pager(设置分页)
 
         /// <summary>
-        /// 获取Select子句
+        /// 分页
         /// </summary>
-        protected virtual string GetSelect() {
-            return SelectClause.ToSql();
+        private IPager _pager;
+
+        /// <summary>
+        /// 获取分页参数
+        /// </summary>
+        protected IPager GetPager() {
+            return _pager;
         }
+
+        /// <summary>
+        /// 设置分页
+        /// </summary>
+        /// <param name="pager">分页参数</param>
+        public ISqlBuilder Pager( IPager pager ) {
+            _pager = pager;
+            return this;
+        }
+
+        #endregion
+
+        #region OrderBy(设置排序)
+
+        /// <summary>
+        /// 排序子句
+        /// </summary>
+        private IOrderByClause _orderByClause;
+        /// <summary>
+        /// 排序子句
+        /// </summary>
+        protected IOrderByClause OrderByClause => _orderByClause ?? ( _orderByClause = CreateOrderByClause() );
+
+        /// <summary>
+        /// 创建排序子句
+        /// </summary>
+        protected virtual IOrderByClause CreateOrderByClause() {
+            return new OrderByClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
+        /// 获取排序语句
+        /// </summary>
+        public virtual string GetOrderBy() {
+            return OrderByClause.ToSql();
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="order">排序列表</param>
+        public virtual ISqlBuilder OrderBy( string order ) {
+            OrderByClause.OrderBy( order );
+            return this;
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="column">排序列</param>
+        /// <param name="desc">是否倒排</param>
+        public virtual ISqlBuilder OrderBy<TEntity>( Expression<Func<TEntity, object>> column, bool desc = false ) {
+            OrderByClause.OrderBy( column, desc );
+            return this;
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="order">排序列表</param>
+        public virtual ISqlBuilder AppendOrderBy( string order ) {
+            OrderByClause.AppendOrderBy( order );
+            return this;
+        }
+
+        #endregion
+
+        #region 获取子句
+
+        
 
         /// <summary>
         /// 获取Sql方言
@@ -669,20 +798,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
-        /// 获取From子句
-        /// </summary>
-        protected virtual string GetFrom() {
-            return FromClause.ToSql();
-        }
-
-        /// <summary>
-        /// 获取Join子句
-        /// </summary>
-        protected virtual string GetJoin() {
-            return JoinClause.ToSql();
-        }
-
-        /// <summary>
         /// 获取Where子句
         /// </summary>
         protected virtual string GetWhere() {
@@ -698,6 +813,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         public string GetCondition() {
             return Condition?.GetCondition();
         }
+
+        
 
         #endregion
     }

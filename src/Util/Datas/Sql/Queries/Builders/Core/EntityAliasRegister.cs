@@ -45,9 +45,11 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="entity">实体类型</param>
         public string GetAlias( Type entity ) {
+            if ( entity == null )
+                return null;
             if ( _data.ContainsKey( entity ) )
                 return _data[entity];
-            return string.Empty;
+            return null;
         }
     }
 }

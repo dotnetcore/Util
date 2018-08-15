@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Datas.Sql.Queries;
+using Util.Domains.Repositories;
 using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
@@ -47,6 +48,25 @@ namespace Util.Samples.Webs.Apis.Systems {
                 .Select<Application>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled,t.Version } )
                 .From<Application>()
                 .ToAsync<ApplicationDto>();
+            return Success( result );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <remarks> 
+        /// 调用范例: 
+        /// GET
+        /// /api/customer?name=a
+        /// </remarks>
+        /// <param name="query">查询参数</param>
+        [HttpGet]
+        public override async Task<IActionResult> PagerQueryAsync( ApplicationQuery query ) {
+            var result = await SqlQuery
+                .Select<Application>( t => t.Id, "Id" )
+                .Select<Application>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled, t.Version } )
+                .From<Application>()
+                .ToPagerListAsync<ApplicationDto>( query );
             return Success( result );
         }
     }

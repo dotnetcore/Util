@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer;
-using Util.Datas.Sql.Queries.Builders.Core;
 using Util.Datas.Tests.Dapper.SqlServer.Samples;
 using Util.Datas.Tests.Samples;
 using Util.Datas.Tests.XUnitHelpers;
@@ -332,24 +331,6 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         #endregion
-
-        /// <summary>
-        /// 内连接
-        /// </summary>
-        [Fact]
-        public void TestJoin_1() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select * " );
-            result.AppendLine( "From [a] As [a] " );
-            result.Append( "Join [b] As [b] On a.OrderId=b.OrderId" );
-
-            //执行
-            //_builder.From( "a", "a" ).Join( "b", "b", "a.OrderId=b.OrderId" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
 
         #region Where(设置条件)
 
