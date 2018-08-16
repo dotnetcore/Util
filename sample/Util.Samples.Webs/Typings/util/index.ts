@@ -3,9 +3,10 @@
 //Licensed under the MIT license
 //================================================
 export { Util as util } from './util';
-export { UtilModule } from './util.module';
+export { UtilModule, createOidcProviders } from './util.module';
 export { HttpContentType, HttpMethod } from "./angular/http-helper";
 export { ComponentBase } from './base/component-base';
+export { FormComponentBase } from './base/form-component-base';
 export { TableQueryComponentBase } from './base/table-query-component-base';
 export { TreeTableQueryComponentBase } from './base/tree-table-query-component-base';
 export { EditComponentBase } from './base/edit-component-base';
