@@ -14,11 +14,11 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="alias">别名</param>
         /// <param name="raw">使用原始值</param>
         public SqlItem( string name, string prefix = null, string alias = null, bool raw = false ) {
+            if( string.IsNullOrWhiteSpace( name ) )
+                return;
             Prefix = prefix;
             Alias = alias;
             Raw = raw;
-            if( string.IsNullOrWhiteSpace( name ) )
-                return;
             if( raw ) {
                 Name = name;
                 return;
@@ -30,7 +30,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置别名，返回前缀和名称
         /// </summary>
         private void Resolve( string name ) {
-            var pattern = @"\s*[aA][sS]\s*";
+            var pattern = @"\s+[aA][sS]\s+";
             var list = Regex.Split( name, pattern );
             if( list == null || list.Length == 0 )
                 return;
@@ -44,7 +44,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         private void SetName( string name ) {
             var result = new NameItem( name );
-            if( string.IsNullOrWhiteSpace(result.Prefix) == false )
+            if( string.IsNullOrWhiteSpace( result.Prefix ) == false )
                 Prefix = result.Prefix;
             if( string.IsNullOrWhiteSpace( result.Name ) == false )
                 Name = result.Name;
@@ -92,36 +92,24 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
-        /// 获取表
+        /// 获取Sql
         /// </summary>
-        /// <param name="dialect">Sql方言</param>
-        public string GetTable( IDialect dialect ) {
-            var table = GetTableName( dialect );
-            var alias = dialect.SafeName( Alias );
-            if( string.IsNullOrWhiteSpace( alias ) )
-                return $"{table}";
-            return $"{table} As {alias}";
+        public string ToSql( IDialect dialect = null ) {
+            if( string.IsNullOrWhiteSpace( Name ) )
+                return null;
+            if( Raw )
+                return Name;
+            var column = string.IsNullOrWhiteSpace( Prefix ) ? GetSafeName( dialect, Name ) : $"{GetSafeName( dialect, Prefix )}.{GetSafeName( dialect, Name )}";
+            return string.IsNullOrWhiteSpace( Alias ) ? column : $"{column} As {GetSafeName( dialect, Alias )}";
         }
 
         /// <summary>
-        /// 获取表名
+        /// 获取安全名称
         /// </summary>
-        private string GetTableName( IDialect dialect ) {
-            if( Raw )
-                return Name;
-            if( string.IsNullOrWhiteSpace( Prefix ) )
-                return dialect.SafeName( Name );
-            return $"{dialect.SafeName( Prefix )}.{dialect.SafeName( Name )}";
-        }
-
-        /// <summary>
-        /// 获取列名
-        /// </summary>
-        public string GetColumn( IDialect dialect ) {
-            if( Raw )
-                return Name;
-            var column = string.IsNullOrWhiteSpace( Prefix ) ? dialect.SafeName( Name ) : $"{dialect.SafeName( Prefix )}.{dialect.SafeName( Name )}";
-            return string.IsNullOrWhiteSpace( Alias ) ? column : $"{column} As {dialect.SafeName( Alias )}";
+        private string GetSafeName( IDialect dialect, string name ) {
+            if( dialect == null )
+                return name;
+            return dialect.SafeName( name );
         }
     }
 }

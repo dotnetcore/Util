@@ -55,11 +55,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        /// <param name="tableAlias">表别名</param>
-        public void Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string tableAlias = null ) where TEntity : class {
+        public void Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
             if( columns == null )
                 return;
-            _columns.Add( new ColumnCollection( _resolver.GetColumns( columns ), tableAlias, typeof( TEntity ) ) );
+            _columns.Add( new ColumnCollection( _resolver.GetColumns( columns ), table: typeof( TEntity ) ) );
         }
 
         /// <summary>
@@ -67,11 +66,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="columnAlias">列别名</param>
-        /// <param name="tableAlias">表别名</param>
-        public void Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null, string tableAlias = null ) where TEntity : class {
+        public void Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class {
             if( column == null )
                 return;
-            _columns.Add( new ColumnCollection( $"{_resolver.GetColumn( column )} As {columnAlias}", tableAlias, typeof( TEntity ) ) );
+            _columns.Add( new ColumnCollection( $"{_resolver.GetColumn( column )} As {columnAlias}", table: typeof( TEntity ) ) );
         }
 
         /// <summary>

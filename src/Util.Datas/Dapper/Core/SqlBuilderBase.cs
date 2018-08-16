@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Util.Datas.Matedatas;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Logs;
 using Util.Logs.Extensions;
 
@@ -17,7 +18,8 @@ namespace Util.Datas.Dapper.Core {
         /// 初始化Sql生成器
         /// </summary>
         /// <param name="matedata">实体元数据解析器</param>
-        protected SqlBuilderBase( IEntityMatedata matedata = null ) : base( matedata ) {
+        /// <param name="parameterManager">参数管理器</param>
+        protected SqlBuilderBase( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) : base( matedata, parameterManager ) {
         }
 
         /// <summary>

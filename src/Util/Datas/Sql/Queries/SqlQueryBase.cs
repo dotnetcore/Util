@@ -154,9 +154,8 @@ namespace Util.Datas.Sql.Queries {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        /// <param name="alias">别名</param>
-        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string alias = null ) where TEntity : class {
-            Builder.Select( columns, alias );
+        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
+            Builder.Select( columns );
             return this;
         }
 
@@ -165,9 +164,8 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="column">列名，范例：t => t.A</param>
         /// <param name="columnAlias">列别名</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null, string tableAlias = null ) where TEntity : class {
-            Builder.Select( column, columnAlias, tableAlias );
+        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class {
+            Builder.Select( column, columnAlias );
             return this;
         }
 
@@ -349,46 +347,11 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery Where<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class {
-            Builder.Where( expression, tableAlias );
-            return this;
-        }
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
-        /// <param name="expression">列名表达式</param>
-        /// <param name="value">值</param>
-        /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery Where<TEntity>( Expression<Func<TEntity, object>> expression, object value,
-            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            Builder.Where( expression, value, @operator, tableAlias );
-            return this;
-        }
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery Where( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            Builder.Where( column, value, @operator, tableAlias );
-            return this;
-        }
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
-        /// <param name="expression">查询条件表达式</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition, string tableAlias = null ) where TEntity : class {
-            Builder.WhereIf( expression, condition, tableAlias );
+        public ISqlQuery Where( string column, object value, Operator @operator = Operator.Equal ) {
+            Builder.Where( column, value, @operator );
             return this;
         }
 
@@ -397,12 +360,18 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
         /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery WhereIf<TEntity>( Expression<Func<TEntity, object>> expression, object value, bool condition,
-            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            Builder.WhereIf( expression, value, condition, @operator, tableAlias );
+        public ISqlQuery Where<TEntity>( Expression<Func<TEntity, object>> expression, object value,Operator @operator = Operator.Equal ) where TEntity : class {
+            Builder.Where( expression, value, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">查询条件表达式</param>
+        public ISqlQuery Where<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
+            Builder.Where( expression );
             return this;
         }
 
@@ -413,9 +382,52 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="value">值</param>
         /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
         /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            Builder.WhereIf( column, value, condition, @operator, tableAlias );
+        public ISqlQuery WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal ) {
+            Builder.WhereIf( column, value, condition, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="operator">运算符</param>
+        public ISqlQuery WhereIf<TEntity>( Expression<Func<TEntity, object>> expression, object value, bool condition, Operator @operator = Operator.Equal ) where TEntity : class {
+            Builder.WhereIf( expression, value, condition, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">查询条件表达式</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        public ISqlQuery WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition ) where TEntity : class {
+            Builder.WhereIf( expression, condition );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
+        /// <param name="operator">运算符</param>
+        public ISqlQuery WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal ) {
+            Builder.WhereIfNotEmpty( column, value, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
+        /// <param name="operator">运算符</param>
+        public ISqlQuery WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class {
+            Builder.WhereIfNotEmpty( expression, value, @operator );
             return this;
         }
 
@@ -423,34 +435,17 @@ namespace Util.Datas.Sql.Queries {
         /// 设置查询条件
         /// </summary>
         /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class {
-            Builder.WhereIfNotEmpty( expression, tableAlias );
+        public ISqlQuery WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
+            Builder.WhereIfNotEmpty( expression );
             return this;
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 添加到Where子句
         /// </summary>
-        /// <param name="expression">列名表达式</param>
-        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
-        /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value,
-            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            Builder.WhereIfNotEmpty( expression, value, @operator, tableAlias );
-            return this;
-        }
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
-        /// <param name="column">列名</param>
-        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
-        /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlQuery WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            Builder.WhereIfNotEmpty( column, value, @operator, tableAlias );
+        /// <param name="sql">Sql语句</param>
+        public ISqlQuery AppendWhere( string sql ) {
+            Builder.AppendWhere( sql );
             return this;
         }
 
@@ -496,9 +491,19 @@ namespace Util.Datas.Sql.Queries {
         protected virtual string GetCountSql() {
             var result = new StringBuilder();
             result.AppendLine( "Select Count(*) " );
-            result.AppendLine( $"{Builder.GetFrom()} " );
-            result.AppendLine( $"{Builder.GetJoin()} " );
-            return result.ToString();
+            AppendSql( result, Builder.GetFrom() );
+            AppendSql( result, Builder.GetJoin() );
+            AppendSql( result, Builder.GetWhere() );
+            return result.ToString().Trim();
+        }
+
+        /// <summary>
+        /// 添加Sql
+        /// </summary>
+        protected void AppendSql( StringBuilder result, string sql ) {
+            if( string.IsNullOrWhiteSpace( sql ) )
+                return;
+            result.AppendLine( $"{sql} " );
         }
     }
 }

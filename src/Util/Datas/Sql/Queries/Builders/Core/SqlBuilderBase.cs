@@ -8,8 +8,6 @@ using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Clauses;
 using Util.Datas.Sql.Queries.Builders.Conditions;
 using Util.Domains.Repositories;
-using Util.Helpers;
-using Util.Properties;
 
 namespace Util.Datas.Sql.Queries.Builders.Core {
     /// <summary>
@@ -17,30 +15,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
     /// </summary>
     public abstract class SqlBuilderBase : ISqlBuilder {
 
-        #region 字段
-
-        /// <summary>
-        /// 参数集合
-        /// </summary>
-        private readonly IDictionary<string, object> _params;
-        /// <summary>
-        /// 参数索引
-        /// </summary>
-        private int _paramIndex = 0;
-
-        #endregion
-
         #region 构造方法
 
         /// <summary>
         /// 初始化Sql生成器
         /// </summary>
         /// <param name="matedata">实体元数据解析器</param>
-        protected SqlBuilderBase( IEntityMatedata matedata = null ) {
-            _params = new Dictionary<string, object>();
+        /// <param name="parameterManager">参数管理器</param>
+        protected SqlBuilderBase( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) {
             EntityMatedata = matedata;
             EntityResolver = new EntityResolver( matedata );
             AliasRegister = new EntityAliasRegister();
+            ParameterManager = parameterManager ?? new ParameterManager();
         }
 
         #endregion
@@ -68,13 +54,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         protected IEntityAliasRegister AliasRegister { get; }
         /// <summary>
-        /// 别名
+        /// 参数管理器
         /// </summary>
-        protected string Alias { get; private set; }
-        /// <summary>
-        /// 查询条件
-        /// </summary>
-        protected ICondition Condition { get; private set; }
+        protected IParameterManager ParameterManager { get; }
 
         #endregion
 
@@ -112,7 +94,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建Sql语句
         /// </summary>
         protected virtual void CreateSql( StringBuilder result ) {
-            if ( _pager == null ) {
+            if( _pager == null ) {
                 CreateNoPagerSql( result );
                 return;
             }
@@ -133,8 +115,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 添加Sql
         /// </summary>
-        protected void AppendSql( StringBuilder result,string sql ) {
-            if ( string.IsNullOrWhiteSpace( sql ) )
+        protected void AppendSql( StringBuilder result, string sql ) {
+            if( string.IsNullOrWhiteSpace( sql ) )
                 return;
             result.AppendLine( $"{sql} " );
         }
@@ -150,17 +132,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="sql">Sql语句</param>
         /// <param name="parameters">参数</param>
         protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters );
-
-        #endregion
-
-        #region GetParams(获取参数)
-
-        /// <summary>
-        /// 获取参数
-        /// </summary>
-        public IDictionary<string, object> GetParams() {
-            return _params;
-        }
 
         #endregion
 
@@ -184,6 +155,11 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 获取Sql方言
+        /// </summary>
+        protected abstract IDialect GetDialect();
+
+        /// <summary>
         /// 获取Select语句
         /// </summary>
         public virtual string GetSelect() {
@@ -204,9 +180,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        /// <param name="tableAlias">表别名</param>
-        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns, string tableAlias = null ) where TEntity : class {
-            SelectClause.Select( columns, tableAlias );
+        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
+            SelectClause.Select( columns );
             return this;
         }
 
@@ -215,9 +190,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="columnAlias">列别名</param>
-        /// <param name="tableAlias">表别名</param>
-        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null, string tableAlias = null ) where TEntity : class {
-            SelectClause.Select( column, columnAlias, tableAlias );
+        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class {
+            SelectClause.Select( column, columnAlias );
             return this;
         }
 
@@ -434,121 +408,73 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
-        #region And(And连接条件)
+        #region Where(设置查询条件)
+
+        /// <summary>
+        /// Where子句
+        /// </summary>
+        private IWhereClause _whereClause;
+
+        /// <summary>
+        /// Where子句
+        /// </summary>
+        protected IWhereClause WhereClause => _whereClause ?? ( _whereClause = CreatewWhereClause() );
+
+        /// <summary>
+        /// 创建Where子句
+        /// </summary>
+        protected virtual IWhereClause CreatewWhereClause() {
+            return new WhereClause( GetDialect(), EntityResolver, AliasRegister, ParameterManager, Tag );
+        }
+
+        /// <summary>
+        /// 获取Where语句
+        /// </summary>
+        public virtual string GetWhere() {
+            return WhereClause.ToSql();
+        }
+
+        /// <summary>
+        /// 获取查询条件
+        /// </summary>
+        public string GetCondition() {
+            return WhereClause.GetCondition();
+        }
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        public IDictionary<string, object> GetParams() {
+            return ParameterManager.GetParams();
+        }
 
         /// <summary>
         /// And连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>
         public ISqlBuilder And( ICondition condition ) {
-            Condition = new AndCondition( Condition, condition );
+            WhereClause.And( condition );
             return this;
         }
-
-        #endregion
-
-        #region Or(Or连接条件)
 
         /// <summary>
         /// Or连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>
         public ISqlBuilder Or( ICondition condition ) {
-            Condition = new OrCondition( Condition, condition );
+            WhereClause.Or( condition );
             return this;
         }
-
-        #endregion
-
-        #region Where(设置查询条件)
 
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class {
-            if( expression == null )
-                throw new ArgumentNullException( nameof( expression ) );
-            ICondition result = null;
-            var expressions = Lambda.GetGroupPredicates( expression );
-            for( int i = 0; i < expressions.Count; i++ ) {
-                if( i == 0 ) {
-                    result = new AndCondition( result, GetCondition( expressions[i], GetTableAlias<TEntity>( tableAlias ) ) );
-                    continue;
-                }
-                result = new OrCondition( result, GetCondition( expressions[i], GetTableAlias<TEntity>( tableAlias ) ) );
-            }
-            return And( result );
-        }
-
-        /// <summary>
-        /// 获取查询条件
-        /// </summary>
-        private ICondition GetCondition( List<Expression> group, string tableAlias ) {
-            ICondition condition = null;
-            group.ForEach( expression => {
-                condition = new AndCondition( condition, GetCondition( expression, tableAlias ) );
-            } );
-            return condition;
-        }
-
-        /// <summary>
-        /// 获取查询条件并添加参数
-        /// </summary>
-        private ICondition GetCondition( Expression expression, string tableAlias ) {
-            return GetCondition( Lambda.GetLastName( expression ), Lambda.GetValue( expression ), Lambda.GetOperator( expression ).SafeValue(), tableAlias );
-        }
-
-        /// <summary>
-        /// 获取查询条件并添加参数
-        /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ICondition GetCondition( string column, object value, Operator @operator, string tableAlias ) {
-            if( string.IsNullOrWhiteSpace( column ) )
-                throw new ArgumentNullException( nameof( column ) );
-            column = GetColumn( new SqlItem( column, tableAlias ) );
-            var paramName = GetParamName();
-            AddParam( paramName, value, @operator );
-            return SqlConditionFactory.Create( column, paramName, @operator );
-        }
-
-        /// <summary>
-        /// 获取参数名
-        /// </summary>
-        protected virtual string GetParamName() {
-            return $"{GetPrefix()}_p_{Tag}_{_paramIndex++}";
-        }
-
-        /// <summary>
-        /// 获取参数前缀
-        /// </summary>
-        protected abstract string GetPrefix();
-
-        /// <summary>
-        /// 添加参数
-        /// </summary>
-        protected virtual void AddParam( string parameterName, object value, Operator @operator ) {
-            _params.Add( parameterName, GetValue( value, @operator ) );
-        }
-
-        /// <summary>
-        /// 获取值
-        /// </summary>
-        protected virtual object GetValue( object value, Operator @operator ) {
-            switch( @operator ) {
-                case Operator.Contains:
-                    return $"%{value}%";
-                case Operator.Starts:
-                    return $"{value}%";
-                case Operator.Ends:
-                    return $"%{value}";
-                default:
-                    return value;
-            }
+        public ISqlBuilder Where( string column, object value, Operator @operator = Operator.Equal ) {
+            WhereClause.Where( column, value, @operator );
+            return this;
         }
 
         /// <summary>
@@ -557,22 +483,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value,
-            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            return Where( Lambda.GetLastName( expression ), value, @operator, GetTableAlias<TEntity>( tableAlias ) );
+        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class {
+            WhereClause.Where( expression, value, @operator );
+            return this;
         }
 
         /// <summary>
-        /// 获取表别名
+        /// 设置查询条件
         /// </summary>
-        protected string GetTableAlias<TEntity>( string tableAlias ) {
-            if( string.IsNullOrWhiteSpace( tableAlias ) == false )
-                return tableAlias;
-            var type = typeof( TEntity );
-            //if( _tableAlias.ContainsKey( type ) )
-            //    return _tableAlias[type];
-            return string.Empty;
+        /// <param name="expression">查询条件表达式</param>
+        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
+            WhereClause.Where( expression );
+            return this;
         }
 
         /// <summary>
@@ -580,25 +502,10 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder Where( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            return And( GetCondition( column, value, @operator, tableAlias ) );
-        }
-
-        #endregion
-
-        #region WhereIf(设置查询条件)
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
-        /// <param name="expression">查询条件表达式</param>
         /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition, string tableAlias = null ) where TEntity : class {
-            if( condition )
-                return Where( expression, tableAlias );
+        /// <param name="operator">运算符</param>
+        public ISqlBuilder WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal ) {
+            WhereClause.WhereIf( column, value, condition, @operator );
             return this;
         }
 
@@ -609,11 +516,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="value">值</param>
         /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
         /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder WhereIf<TEntity>( Expression<Func<TEntity, object>> expression, object value, bool condition,
-            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            if( condition )
-                return Where( expression, value, @operator, tableAlias );
+        public ISqlBuilder WhereIf<TEntity>( Expression<Func<TEntity, object>> expression, object value, bool condition, Operator @operator = Operator.Equal ) where TEntity : class {
+            WhereClause.WhereIf( expression, value, condition, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">查询条件表达式</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        public ISqlBuilder WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition ) where TEntity : class {
+            WhereClause.WhereIf( expression, condition );
             return this;
         }
 
@@ -621,84 +535,39 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置查询条件
         /// </summary>
         /// <param name="column">列名</param>
-        /// <param name="value">值</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
         /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            if( condition )
-                return Where( column, value, @operator, tableAlias );
+        public ISqlBuilder WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal ) {
+            WhereClause.WhereIfNotEmpty( column, value, @operator );
             return this;
         }
 
-        #endregion
-
-        #region WhereIfNotEmpty(设置查询条件)
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
+        /// <param name="operator">运算符</param>
+        public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value,Operator @operator = Operator.Equal ) where TEntity : class {
+            WhereClause.WhereIfNotEmpty( expression, value, @operator );
+            return this;
+        }
 
         /// <summary>
         /// 设置查询条件
         /// </summary>
         /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression, string tableAlias = null ) where TEntity : class {
-            if( expression == null )
-                throw new ArgumentNullException( nameof( expression ) );
-            if( Lambda.GetConditionCount( expression ) > 1 )
-                throw new InvalidOperationException( string.Format( LibraryResource.OnlyOnePredicate, expression ) );
-            if( string.IsNullOrWhiteSpace( Lambda.GetValue( expression ).SafeString() ) )
-                return this;
-            return Where( expression, tableAlias );
+        public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
+            WhereClause.WhereIfNotEmpty( expression );
+            return this;
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 添加到Where子句
         /// </summary>
-        /// <param name="expression">列名表达式</param>
-        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
-        /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value,
-            Operator @operator = Operator.Equal, string tableAlias = null ) where TEntity : class {
-            if( expression == null )
-                throw new ArgumentNullException( nameof( expression ) );
-            return WhereIfNotEmpty( Lambda.GetLastName( expression ), value, @operator, tableAlias );
-        }
-
-        /// <summary>
-        /// 设置查询条件
-        /// </summary>
-        /// <param name="column">列名</param>
-        /// <param name="value">值,如果值为空，则忽略该查询条件</param>
-        /// <param name="operator">运算符</param>
-        /// <param name="tableAlias">表别名</param>
-        public ISqlBuilder WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal, string tableAlias = null ) {
-            if( string.IsNullOrWhiteSpace( value.SafeString() ) )
-                return this;
-            return Where( column, value, @operator, tableAlias );
-        }
-
-        #endregion
-
-        #region Pager(设置分页)
-
-        /// <summary>
-        /// 分页
-        /// </summary>
-        private IPager _pager;
-
-        /// <summary>
-        /// 获取分页参数
-        /// </summary>
-        protected IPager GetPager() {
-            return _pager;
-        }
-
-        /// <summary>
-        /// 设置分页
-        /// </summary>
-        /// <param name="pager">分页参数</param>
-        public ISqlBuilder Pager( IPager pager ) {
-            _pager = pager;
+        /// <param name="sql">Sql语句</param>
+        public ISqlBuilder AppendWhere( string sql ) {
+            WhereClause.AppendSql( sql );
             return this;
         }
 
@@ -760,61 +629,28 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
-        #region 获取子句
-
-        
+        #region Pager(设置分页)
 
         /// <summary>
-        /// 获取Sql方言
+        /// 分页
         /// </summary>
-        protected abstract IDialect GetDialect();
+        private IPager _pager;
 
         /// <summary>
-        /// 获取列名
+        /// 获取分页参数
         /// </summary>
-        protected virtual string GetColumn( SqlItem item ) {
-            if( item == null )
-                return string.Empty;
-            var column = $"{GetAlias( item.Prefix )}.{SafeName( item.Name )}";
-            if( string.IsNullOrWhiteSpace( item.Alias ) )
-                return column;
-            return $"{column} As {SafeName( item.Alias )}";
+        protected IPager GetPager() {
+            return _pager;
         }
 
         /// <summary>
-        /// 获取安全名称
+        /// 设置分页
         /// </summary>
-        protected abstract string SafeName( string name );
-
-        /// <summary>
-        /// 获取表别名
-        /// </summary>
-        protected string GetAlias( string alias = null ) {
-            if( string.IsNullOrWhiteSpace( alias ) == false )
-                return SafeName( alias );
-            if( string.IsNullOrWhiteSpace( Alias ) )
-                return SafeName( "t" );
-            return SafeName( Alias );
+        /// <param name="pager">分页参数</param>
+        public ISqlBuilder Pager( IPager pager ) {
+            _pager = pager;
+            return this;
         }
-
-        /// <summary>
-        /// 获取Where子句
-        /// </summary>
-        protected virtual string GetWhere() {
-            var condition = GetCondition();
-            if( string.IsNullOrWhiteSpace( condition ) )
-                return string.Empty;
-            return $"Where {condition} ";
-        }
-
-        /// <summary>
-        /// 获取查询条件
-        /// </summary>
-        public string GetCondition() {
-            return Condition?.GetCondition();
-        }
-
-        
 
         #endregion
     }

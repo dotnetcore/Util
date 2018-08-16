@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Util.Datas.Queries;
 using Util.Datas.Sql.Queries;
-using Util.Domains.Repositories;
 using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
@@ -66,6 +66,7 @@ namespace Util.Samples.Webs.Apis.Systems {
                 .Select<Application>( t => t.Id, "Id" )
                 .Select<Application>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled, t.Version } )
                 .From<Application>()
+                .WhereIfNotEmpty<Application>( t => t.Code, query.Keyword,Operator.Contains )
                 .ToPagerListAsync<ApplicationDto>( query );
             return Success( result );
         }

@@ -78,7 +78,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取Join语句
         /// </summary>
         public string ToSql( IDialect dialect ) {
-            var table = Table.GetTable( dialect );
+            var table = Table.ToSql( dialect );
             return $"{JoinType} {table}{GetOn( dialect )}";
         }
 
@@ -112,8 +112,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取单个连接条件
         /// </summary>
         private void On( OnItem item, StringBuilder result, IDialect dialect ) {
-            var left = item.Left.GetTable( dialect );
-            var right = item.Right.GetTable( dialect );
+            var left = item.Left.ToSql( dialect );
+            var right = item.Right.ToSql( dialect );
             result.Append( SqlConditionFactory.Create( left, right, item.Operator ).GetCondition() );
         }
     }

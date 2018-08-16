@@ -139,13 +139,13 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         }
 
         /// <summary>
-        /// 设置列 - lambda表达式且设置别名
+        /// 设置列 - lambda表达式
         /// </summary>
         [Fact]
         public void TestSelect_13() {
-            _clause.Select<Sample>( t => new object[] {t.Email, t.IntValue}, "a" );
-            _clause.Select<Sample2>( t => new object[] {t.Description, t.Display}, "b" );
-            Assert.Equal( "Select [a].[Email],[a].[IntValue],[b].[Description],[b].[Display]", GetSql() );
+            _clause.Select<Sample>( t => new object[] {t.Email, t.IntValue} );
+            _clause.Select<Sample2>( t => new object[] {t.Description, t.Display} );
+            Assert.Equal( "Select [Email],[IntValue],[Description],[Display]", GetSql() );
         }
 
         /// <summary>

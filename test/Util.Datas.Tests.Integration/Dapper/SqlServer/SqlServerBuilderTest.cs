@@ -339,8 +339,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestWhere_1() {
-            _builder.From( "Test", "" ).Where( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
+            _builder.From( "Test" ).Where( "Name", "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Test] {Common.Line}Where [Name]=@_p__0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
             Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
         }
@@ -351,25 +351,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhere_2() {
             _builder.From( "Test", "d" ).Where( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [d] {Common.Line}Where [d].[Name]=@_p__0", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 设置表别名
-        /// </summary>
-        [Fact]
-        public void TestWhere_3() {
-            _builder.From( "Test", "" ).Where( "Name", "a", tableAlias: "d" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [d].[Name]=@_p__0", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 设置表别名
-        /// </summary>
-        [Fact]
-        public void TestWhere_4() {
-            _builder.From( "test2.Test as test", "test1" ).Where( "f.Name", "a", tableAlias: "d" );
-            Assert.Equal( $"Select * {Common.Line}From [test2].[Test] As [test] {Common.Line}Where [f].[Name]=@_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [d] {Common.Line}Where [Name]=@_p__0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -377,19 +359,10 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestWhere_5() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.Email, "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p__0", _builder.ToSql() );
+            _builder.From<Sample>().Where<Sample>( t => t.Email, "a" );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] {Common.Line}Where [Email]=@_p__0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
             Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名 - 设置表别名
-        /// </summary>
-        [Fact]
-        public void TestWhere_6() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.Email, "a", tableAlias: "d" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [d].[Email]=@_p__0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -399,15 +372,6 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         public void TestWhere_7() {
             _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email, "a" );
             Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p__0", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - Where覆盖From设置的表别名
-        /// </summary>
-        [Fact]
-        public void TestWhere_8() {
-            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email, "a", tableAlias: "n" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [n].[Email]=@_p__0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -437,8 +401,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         [Fact]
         public void TestWhere_11() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.IntValue > 1 );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]>@_p__0", _builder.ToSql() );
+            _builder.From<Sample>().Where<Sample>( t => t.IntValue > 1 );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] {Common.Line}Where [Sample].[IntValue]>@_p__0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
             Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
         }
@@ -732,8 +696,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestAnd_1() {
             var newBuilder = _builder.New().Where( "Name", "a" );
-            _builder.From( "Test", "" ).Where( "Age", 1 ).And( newBuilder );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Age]=@_p__0 And [t].[Name]=@_p_1_0", _builder.ToSql() );
+            _builder.From( "Test" ).Where( "Age", 1 ).And( newBuilder );
+            Assert.Equal( $"Select * {Common.Line}From [Test] {Common.Line}Where [Age]=@_p__0 And [Name]=@_p_1_0", _builder.ToSql() );
         }
 
         /// <summary>

@@ -182,7 +182,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [t] " );
-            result.Append( "On [a].[id]=[b].[id]&&[c].[Aid]=[d].[Bid]" );
+            result.Append( "On [a].[id]=[b].[id] And [c].[Aid]=[d].[Bid]" );
 
             //操作
             _clause.Join( "t" );
@@ -201,9 +201,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id]&&[c].[Aid]=[d].[Bid] " );
+            result.AppendLine( "On [a].[id]=[b].[id] And [c].[Aid]=[d].[Bid] " );
             result.Append( "Join [n] " );
-            result.Append( "On [t].[id]=[n].[id]&&[t].[Aid]=[n].[Bid]" );
+            result.Append( "On [t].[id]=[n].[id] And [t].[Aid]=[n].[Bid]" );
 
             //操作
             _clause.Join( "t" );

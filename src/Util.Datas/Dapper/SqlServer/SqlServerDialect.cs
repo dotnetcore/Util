@@ -16,5 +16,12 @@ namespace Util.Datas.Dapper.SqlServer {
             name = name.Trim().TrimStart( '[' ).TrimEnd( ']' );
             return $"[{name}]";
         }
+
+        /// <summary>
+        /// 获取参数前缀
+        /// </summary>
+        public string GetPrefix() {
+            return "@";
+        }
     }
 }

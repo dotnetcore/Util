@@ -11,14 +11,8 @@ namespace Util.Datas.Dapper.SqlServer {
         /// 初始化Sql生成器
         /// </summary>
         /// <param name="matedata">实体元数据解析器</param>
-        public SqlServerBuilder( IEntityMatedata matedata = null ) : base( matedata ) {
-        }
-
-        /// <summary>
-        /// 获取参数前缀
-        /// </summary>
-        protected override string GetPrefix() {
-            return "@";
+        /// <param name="parameterManager">参数管理器</param>
+        public SqlServerBuilder( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) : base( matedata, parameterManager ) {
         }
 
         /// <summary>
@@ -32,21 +26,9 @@ namespace Util.Datas.Dapper.SqlServer {
         /// 创建Sql生成器
         /// </summary>
         public override ISqlBuilder New() {
-            return new SqlServerBuilder( EntityMatedata ) {
+            return new SqlServerBuilder( EntityMatedata, ParameterManager ) {
                 Tag = $"{Tag}{++ChildBuilderCount}"
             };
-        }
-
-        /// <summary>
-        /// 获取安全名称
-        /// </summary>
-        protected override string SafeName( string name ) {
-            if( string.IsNullOrWhiteSpace( name ) )
-                return string.Empty;
-            if( name == "*" )
-                return name;
-            name = name.Trim().TrimStart( '[' ).TrimEnd( ']' );
-            return $"[{name}]";
         }
 
         /// <summary>

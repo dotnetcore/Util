@@ -149,6 +149,10 @@ namespace Util.Tests.Helpers {
 
             expression = t => t.Test2.Test3.StringValue.StartsWith( "C" );
             Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+
+            var test = new Sample {Email = "a"};
+            expression = t => t.StringValue.Contains( test.Email );
+            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
         }
 
         /// <summary>
@@ -342,6 +346,10 @@ namespace Util.Tests.Helpers {
 
             expression = t => t.Test2.Test3.StringValue.StartsWith( "C" );
             Assert.Equal( "C", Lambda.GetValue( expression ) );
+
+            var test = new Sample { Email = "a" };
+            expression = t => t.StringValue.Contains( test.Email );
+            Assert.Equal( "a", Lambda.GetValue( expression ) );
         }
 
         /// <summary>

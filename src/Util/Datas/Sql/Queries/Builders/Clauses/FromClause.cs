@@ -31,7 +31,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
-        /// <param name="register">实体注册器</param>
+        /// <param name="register">实体别名注册器</param>
         public FromClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
             _dialect = dialect;
             _resolver = resolver;
@@ -83,7 +83,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 输出Sql
         /// </summary>
         public string ToSql() {
-            var table = _item?.GetTable( _dialect );
+            var table = _item?.ToSql( _dialect );
             if( string.IsNullOrWhiteSpace( table ) )
                 return null;
             return $"From {table}";

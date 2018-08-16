@@ -50,7 +50,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             if ( Raw )
                 return Columns;
             var columns = Columns.Split( ',' ).Select( column => new SqlItem( column,GetTableAlias( register ) ) ).ToList();
-            return columns.Select( item => item.GetColumn( dialect ) ).Join();
+            return columns.Select( item => item.ToSql( dialect ) ).Join();
         }
 
         /// <summary>
