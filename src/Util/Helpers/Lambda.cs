@@ -55,10 +55,13 @@ namespace Util.Helpers {
         /// </summary>
         private static MemberExpression GetMethodCallExpressionName( Expression expression ) {
             var methodCallExpression = (MethodCallExpression)expression;
-            var argumentExpression = methodCallExpression.Arguments.FirstOrDefault();
-            if( argumentExpression != null && argumentExpression.NodeType == ExpressionType.MemberAccess )
-                return (MemberExpression)argumentExpression;
-            return (MemberExpression)methodCallExpression.Object;
+            var left = (MemberExpression)methodCallExpression.Object;
+            if ( Reflection.IsGenericCollection( left?.Type ) ) {
+                var argumentExpression = methodCallExpression.Arguments.FirstOrDefault();
+                if( argumentExpression != null && argumentExpression.NodeType == ExpressionType.MemberAccess )
+                    return (MemberExpression)argumentExpression;
+            }
+            return left;
         }
 
         #endregion

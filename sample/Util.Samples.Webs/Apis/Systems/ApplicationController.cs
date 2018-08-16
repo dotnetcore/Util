@@ -66,7 +66,7 @@ namespace Util.Samples.Webs.Apis.Systems {
                 .Select<Application>( t => t.Id, "Id" )
                 .Select<Application>( t => new object[] { t.Code, t.Name, t.Comment, t.Enabled, t.RegisterEnabled, t.Version } )
                 .From<Application>()
-                .WhereIfNotEmpty<Application>( t => t.Code, query.Keyword,Operator.Contains )
+                .WhereIfNotEmpty<Application>( t => t.Code.Contains( query.Keyword ) )
                 .ToPagerListAsync<ApplicationDto>( query );
             return Success( result );
         }
