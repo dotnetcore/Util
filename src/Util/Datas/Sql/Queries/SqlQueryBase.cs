@@ -61,11 +61,27 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 获取整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<int> ToIntAsync( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, GetSql(), Params ) );
+        }
+
+        /// <summary>
         /// 获取可空整型
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public int? ToIntOrNull( IDbConnection connection = null ) {
             return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection, GetSql(), Params ) );
+        }
+
+        /// <summary>
+        /// 获取可空整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<int?> ToIntOrNullAsync( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToIntOrNull( await ToScalarAsync( connection, GetSql(), Params ) );
         }
 
         /// <summary>
@@ -75,6 +91,13 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句</param>
         /// <param name="parameters">参数</param>
         protected abstract object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters );
+        /// <summary>
+        /// 获取单值
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="parameters">参数</param>
+        protected abstract Task<object> ToScalarAsync( IDbConnection connection, string sql, IDictionary<string, object> parameters );
         /// <summary>
         /// 获取单个实体
         /// </summary>
@@ -486,6 +509,13 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         protected virtual int GetCount( IDbConnection connection ) {
             return Util.Helpers.Convert.ToInt( ToScalar( connection, GetCountSql(), Params ) );
+        }
+
+        /// <summary>
+        /// 获取行数
+        /// </summary>
+        protected virtual async Task<int> GetCountAsync( IDbConnection connection ) {
+            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, GetCountSql(), Params ) );
         }
 
         /// <summary>

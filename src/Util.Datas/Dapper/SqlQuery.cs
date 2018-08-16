@@ -31,7 +31,19 @@ namespace Util.Datas.Dapper {
         /// 获取单值
         /// </summary>
         protected override object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters ) {
+            WriteTraceLog( sql, parameters );
             return GetConnection( connection ).ExecuteScalar( sql, parameters );
+        }
+
+        /// <summary>
+        /// 获取单值
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="parameters">参数</param>
+        protected override async Task<object> ToScalarAsync( IDbConnection connection, string sql,IDictionary<string, object> parameters ) {
+            WriteTraceLog( sql, parameters );
+            return await GetConnection( connection ).ExecuteScalarAsync( sql, parameters );
         }
 
         /// <summary>
@@ -85,16 +97,16 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public override PagerList<TResult> ToPagerList<TResult>( IPager parameter, IDbConnection connection = null ) {
-            SetPager( parameter, connection );
+            if( parameter.TotalCount == 0 )
+                parameter.TotalCount = GetCount( connection );
+            SetPager( parameter );
             return new PagerList<TResult>( parameter, ToList<TResult>( connection ) );
         }
 
         /// <summary>
         /// 设置分页参数
         /// </summary>
-        private void SetPager( IPager parameter, IDbConnection connection ) {
-            if( parameter.TotalCount == 0 )
-                parameter.TotalCount = GetCount( connection );
+        private void SetPager( IPager parameter ) {
             Builder.OrderBy( parameter.Order );
             Builder.Pager( parameter );
         }
@@ -117,7 +129,9 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public override async Task<PagerList<TResult>> ToPagerListAsync<TResult>( IPager parameter, IDbConnection connection = null ) {
-            SetPager( parameter, connection );
+            if( parameter.TotalCount == 0 )
+                parameter.TotalCount = await GetCountAsync( connection );
+            SetPager( parameter );
             return new PagerList<TResult>( parameter, await ToListAsync<TResult>( connection ) );
         }
 

@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Datas.Dapper.Configs;
 using Util.Datas.Dapper.Handlers;
+using Util.Datas.Dapper.MySql;
+using Util.Datas.Dapper.PgSql;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Enums;
 using Util.Datas.Matedatas;
@@ -74,6 +76,12 @@ namespace Util.Datas.Dapper {
             switch( config.DatabaseType ) {
                 case DatabaseType.SqlServer:
                     services.TryAddScoped<ISqlBuilder, SqlServerBuilder>();
+                    return;
+                case DatabaseType.PgSql:
+                    services.TryAddScoped<ISqlBuilder, PgSqlBuilder>();
+                    return;
+                case DatabaseType.MySql:
+                    services.TryAddScoped<ISqlBuilder, MySqlBuilder>();
                     return;
                 default:
                     throw new NotImplementedException( $"Sql生成器未实现 {config.DatabaseType.Description()} 数据库" );

@@ -23,10 +23,20 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="connection">数据库连接</param>
         int ToInt( IDbConnection connection = null );
         /// <summary>
+        /// 获取整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        Task<int> ToIntAsync( IDbConnection connection = null );
+        /// <summary>
         /// 获取可空整型
         /// </summary>
         /// <param name="connection">数据库连接</param>
         int? ToIntOrNull( IDbConnection connection = null );
+        /// <summary>
+        /// 获取可空整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        Task<int?> ToIntOrNullAsync( IDbConnection connection = null );
         /// <summary>
         /// 获取单个实体
         /// </summary>
