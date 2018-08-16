@@ -78,9 +78,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             Validate();
             var result = new StringBuilder();
             CreateSql( result );
-            var sql = result.ToString().Trim();
-            WriteTraceLog( sql, GetParams() );
-            return sql;
+            return result.ToString().Trim();
         }
 
         /// <summary>
@@ -125,13 +123,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建分页Sql
         /// </summary>
         protected abstract void CreatePagerSql( StringBuilder result );
-
-        /// <summary>
-        /// 写日志
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="parameters">参数</param>
-        protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters );
 
         #endregion
 

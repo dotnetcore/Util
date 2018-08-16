@@ -40,6 +40,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取值
         /// </summary>
         private object GetValue( object value, Operator @operator ) {
+            if ( string.IsNullOrWhiteSpace( value.SafeString() ) )
+                return value;
             switch( @operator ) {
                 case Operator.Contains:
                     return $"%{value}%";

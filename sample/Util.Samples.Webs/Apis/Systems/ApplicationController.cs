@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Util.Datas.Queries;
 using Util.Datas.Sql.Queries;
+using Util.Domains.Repositories;
 using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;

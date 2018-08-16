@@ -6,12 +6,19 @@ using Dapper;
 using Util.Datas.Sql;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Domains.Repositories;
+using Util.Logs;
+using Util.Logs.Extensions;
 
 namespace Util.Datas.Dapper {
     /// <summary>
     /// Dapper Sql查询对象
     /// </summary>
     public class SqlQuery : Util.Datas.Sql.Queries.SqlQueryBase {
+        /// <summary>
+        /// 跟踪日志名称
+        /// </summary>
+        public const string TraceLogName = "SqlQueryLog";
+
         /// <summary>
         /// 初始化Dapper Sql查询对象
         /// </summary>
@@ -33,7 +40,9 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override TResult To<TResult>( IDbConnection connection = null ) {
-            return GetConnection( connection ).QueryFirstOrDefault<TResult>( Sql, Params );
+            var sql = GetSql();
+            WriteTraceLog( sql, Params );
+            return GetConnection( connection ).QueryFirstOrDefault<TResult>( sql, Params );
         }
 
         /// <summary>
@@ -42,7 +51,9 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override async Task<TResult> ToAsync<TResult>( IDbConnection connection = null ) {
-            return await GetConnection( connection ).QueryFirstOrDefaultAsync<TResult>( Sql, Params );
+            var sql = GetSql();
+            WriteTraceLog( sql, Params );
+            return await GetConnection( connection ).QueryFirstOrDefaultAsync<TResult>( sql, Params );
         }
 
         /// <summary>
@@ -51,7 +62,9 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override List<TResult> ToList<TResult>( IDbConnection connection = null ) {
-            return GetConnection( connection ).Query<TResult>( Sql, Params ).ToList();
+            var sql = GetSql();
+            WriteTraceLog( sql, Params );
+            return GetConnection( connection ).Query<TResult>( sql, Params ).ToList();
         }
 
         /// <summary>
@@ -60,7 +73,9 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override async Task<List<TResult>> ToListAsync<TResult>( IDbConnection connection = null ) {
-            return ( await GetConnection( connection ).QueryAsync<TResult>( Sql, Params ) ).ToList();
+            var sql = GetSql();
+            WriteTraceLog( sql, Params );
+            return ( await GetConnection( connection ).QueryAsync<TResult>( sql, Params ) ).ToList();
         }
 
         /// <summary>
@@ -115,6 +130,34 @@ namespace Util.Datas.Dapper {
         /// <param name="connection">数据库连接</param>
         public override async Task<PagerList<TResult>> ToPagerListAsync<TResult>( int page, int pageSize, IDbConnection connection = null ) {
             return await ToPagerListAsync<TResult>( new Pager( page, pageSize ), connection );
+        }
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="parameters">参数</param>
+        protected override void WriteTraceLog( string sql, IDictionary<string, object> parameters ) {
+            var log = GetLog();
+            if( log.IsTraceEnabled == false )
+                return;
+            log.Class( GetType().FullName )
+                .Caption( "SqlQuery查询调试:" )
+                .Sql( sql )
+                .SqlParams( parameters )
+                .Trace();
+        }
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        private ILog GetLog() {
+            try {
+                return Log.GetLog( TraceLogName );
+            }
+            catch {
+                return Log.Null;
+            }
         }
     }
 }

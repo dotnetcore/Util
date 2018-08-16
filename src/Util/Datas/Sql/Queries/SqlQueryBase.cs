@@ -34,13 +34,16 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         protected ISqlBuilder Builder { get; }
         /// <summary>
-        /// Sql语句
-        /// </summary>
-        protected string Sql => Builder.ToSql();
-        /// <summary>
         /// 参数列表
         /// </summary>
         protected IDictionary<string, object> Params => Builder.GetParams();
+
+        /// <summary>
+        /// Sql语句
+        /// </summary>
+        protected string GetSql() {
+            return Builder.ToSql();
+        }
 
         /// <summary>
         /// 创建Sql生成器
@@ -54,7 +57,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public int ToInt( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToInt( ToScalar( connection, Sql, Params ) );
+            return Util.Helpers.Convert.ToInt( ToScalar( connection, GetSql(), Params ) );
         }
 
         /// <summary>
@@ -62,7 +65,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public int? ToIntOrNull( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection, Sql, Params ) );
+            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection, GetSql(), Params ) );
         }
 
         /// <summary>
@@ -361,7 +364,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
-        public ISqlQuery Where<TEntity>( Expression<Func<TEntity, object>> expression, object value,Operator @operator = Operator.Equal ) where TEntity : class {
+        public ISqlQuery Where<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class {
             Builder.Where( expression, value, @operator );
             return this;
         }
@@ -505,5 +508,12 @@ namespace Util.Datas.Sql.Queries {
                 return;
             result.AppendLine( $"{sql} " );
         }
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="parameters">参数</param>
+        protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters );
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using Util.Datas.Matedatas;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Builders.Core;
 
 namespace Util.Datas.Dapper.SqlServer {
     /// <summary>
     /// Sql Server Sql生成器
     /// </summary>
-    public class SqlServerBuilder : Util.Datas.Dapper.Core.SqlBuilderBase {
+    public class SqlServerBuilder : SqlBuilderBase {
         /// <summary>
         /// 初始化Sql生成器
         /// </summary>
