@@ -84,6 +84,26 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="sql">Sql语句</param>
         void AppendSql( string sql );
         /// <summary>
+        /// 设置Is Null条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        void IsNull( string column );
+        /// <summary>
+        /// 设置Is Null条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        void IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
+        /// 设置Is Not Null条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        void IsNotNull( string column );
+        /// <summary>
+        /// 设置Is Not Null条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        void IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
         /// 输出Sql
         /// </summary>
         string ToSql();

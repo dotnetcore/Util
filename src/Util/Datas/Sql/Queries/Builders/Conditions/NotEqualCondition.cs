@@ -26,7 +26,7 @@
         /// 获取查询条件
         /// </summary>
         public string GetCondition() {
-            return $"{_left}!={_right}";
+            return $"{_left}<>{_right}";
         }
     }
 }

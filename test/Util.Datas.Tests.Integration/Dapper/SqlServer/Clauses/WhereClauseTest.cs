@@ -142,7 +142,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_8() {
             _clause.Where<Sample>( t => t.Email != "a" );
-            Assert.Equal( "Where [Email]!=@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]<>@_p__0", GetSql() );
         }
 
         /// <summary>
@@ -233,6 +233,42 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - Is Null
+        /// </summary>
+        [Fact]
+        public void TestWhere_18() {
+            _clause.Where<Sample>( t => t.Email == null );
+            Assert.Equal( "Where [Email] Is Null", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 空字符串使用=
+        /// </summary>
+        [Fact]
+        public void TestWhere_19() {
+            _clause.Where<Sample>( t => t.Email == "" );
+            Assert.Equal( "Where [Email]=@_p__0", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - Is Not Null
+        /// </summary>
+        [Fact]
+        public void TestWhere_20() {
+            _clause.Where<Sample>( t => t.Email != null );
+            Assert.Equal( "Where [Email] Is Not Null", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 空字符串使用不等号
+        /// </summary>
+        [Fact]
+        public void TestWhere_21() {
+            _clause.Where<Sample>( t => t.Email != "" );
+            Assert.Equal( "Where [Email]<>@_p__0", GetSql() );
         }
 
         #endregion
@@ -374,6 +410,50 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             _clause.AppendSql( "a");
             _clause.AppendSql( "b" );
             Assert.Equal( "Where a And b", GetSql() );
+        }
+
+        #endregion
+
+        #region IsNull
+
+        /// <summary>
+        /// 设置Is Null条件
+        /// </summary>
+        [Fact]
+        public void TestIsNull_1() {
+            _clause.IsNull( "Name" );
+            Assert.Equal( "Where [Name] Is Null", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置Is Null条件
+        /// </summary>
+        [Fact]
+        public void TestIsNull_2() {
+            _clause.IsNull<Sample>( t => t.Email );
+            Assert.Equal( "Where [Email] Is Null", GetSql() );
+        }
+
+        #endregion
+
+        #region IsNotNull
+
+        /// <summary>
+        /// 设置Is Not Null条件
+        /// </summary>
+        [Fact]
+        public void TestIsNotNull_1() {
+            _clause.IsNotNull( "Name" );
+            Assert.Equal( "Where [Name] Is Not Null", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置Is Not Null条件
+        /// </summary>
+        [Fact]
+        public void TestIsNotNull_2() {
+            _clause.IsNotNull<Sample>( t => t.Email );
+            Assert.Equal( "Where [Email] Is Not Null", GetSql() );
         }
 
         #endregion

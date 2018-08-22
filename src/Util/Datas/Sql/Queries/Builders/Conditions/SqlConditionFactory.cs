@@ -15,8 +15,12 @@ namespace Util.Datas.Sql.Queries.Builders.Conditions {
         public static ICondition Create( string left, string right, Operator @operator ) {
             switch( @operator ) {
                 case Operator.Equal:
+                    if( right == null )
+                        return new IsNullCondition( left );
                     return new EqualCondition( left, right );
                 case Operator.NotEqual:
+                    if( right == null )
+                        return new IsNotNullCondition( left );
                     return new NotEqualCondition( left, right );
                 case Operator.Greater:
                     return new GreaterCondition( left, right );

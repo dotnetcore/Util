@@ -12,7 +12,7 @@ namespace Util.Tests.Datas.Sql.Conditions {
         [Fact]
         public void Test() {
             var condition = new NotEqualCondition( "Name", "@Name" );
-            Assert.Equal( "Name!=@Name", condition.GetCondition() );
+            Assert.Equal( "Name<>@Name", condition.GetCondition() );
         }
     }
 }

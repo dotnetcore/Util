@@ -39,6 +39,13 @@ namespace Util.Datas.Sql.Queries {
         protected IDictionary<string, object> Params => Builder.GetParams();
 
         /// <summary>
+        /// 获取调试Sql语句
+        /// </summary>
+        public string GetDebugSql() {
+            return Builder.ToSql();
+        }
+
+        /// <summary>
         /// Sql语句
         /// </summary>
         protected string GetSql() {
@@ -50,6 +57,23 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         public virtual ISqlBuilder NewBuilder() {
             return Builder.New();
+        }
+
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public string ToString( IDbConnection connection = null ) {
+            return ToScalar( connection, GetSql(), Params ).SafeString();
+        }
+
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<string> ToStringAsync( IDbConnection connection = null ) {
+            var result = await ToScalarAsync( connection, GetSql(), Params );
+            return result.SafeString();
         }
 
         /// <summary>
@@ -472,6 +496,222 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句</param>
         public ISqlQuery AppendWhere( string sql ) {
             Builder.AppendWhere( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置相等查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Equal( string column, object value ) {
+            Builder.Equal( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置相等查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Equal<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.Equal( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置不相等查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery NotEqual( string column, object value ) {
+            Builder.NotEqual( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置不相等查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery NotEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.NotEqual( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置大于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Greater( string column, object value ) {
+            Builder.Greater( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置大于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Greater<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.Greater( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置小于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Less( string column, object value ) {
+            Builder.Less( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置小于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Less<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.Less( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置大于等于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery GreaterEqual( string column, object value ) {
+            Builder.GreaterEqual( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置大于等于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery GreaterEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.GreaterEqual( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置小于等于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery LessEqual( string column, object value ) {
+            Builder.LessEqual( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置小于等于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery LessEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.LessEqual( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置模糊匹配查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Contains( string column, object value ) {
+            Builder.Contains( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置模糊匹配查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Contains<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.Contains( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置头匹配查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Starts( string column, object value ) {
+            Builder.Starts( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置头匹配查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Starts<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.Starts( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置尾匹配查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Ends( string column, object value ) {
+            Builder.Ends( column, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置尾匹配查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        public ISqlQuery Ends<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+            Builder.Ends( expression, value );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Is Null查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public ISqlQuery IsNull( string column ) {
+            Builder.IsNull( column );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Is Null查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public ISqlQuery IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            Builder.IsNull( expression );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Is Not Null查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public ISqlQuery IsNotNull( string column ) {
+            Builder.IsNotNull( column );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Is Not Null查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public ISqlQuery IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            Builder.IsNotNull( expression );
             return this;
         }
 

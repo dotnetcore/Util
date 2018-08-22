@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer;
-using Util.Datas.Tests.Dapper.SqlServer.Samples;
 using Util.Datas.Tests.Samples;
 using Util.Datas.Tests.XUnitHelpers;
 using Util.Helpers;
@@ -14,13 +13,10 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
     /// Sql Server Sql生成器测试
     /// </summary>
     public class SqlServerBuilderTest {
-
-        #region 测试初始化
-
         /// <summary>
         /// Sql Server Sql生成器
         /// </summary>
-        private SqlServerBuilder _builder;
+        private readonly SqlServerBuilder _builder;
 
         /// <summary>
         /// 测试初始化
@@ -29,15 +25,11 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             _builder = new SqlServerBuilder();
         }
 
-        #endregion
-
-        #region 验证
-
         /// <summary>
         /// 验证表名为空
         /// </summary>
         [Fact]
-        public void TestValidate_TableIsEmpty() {
+        public void Test_Validate_1() {
             _builder.Select( "a" );
             AssertHelper.Throws<InvalidOperationException>( () => _builder.ToSql() );
         }
@@ -46,439 +38,585 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// 设置查询条件 - 验证列名为空
         /// </summary>
         [Fact]
-        public void TestValidate_Where_NameIsEmpty() {
+        public void Test_Validate_2() {
             AssertHelper.Throws<ArgumentNullException>( () => _builder.Where( "", "a" ) );
         }
 
-        #endregion
-
-        #region Select(设置列)
-
         /// <summary>
-        /// 设置列
+        /// 内连接
         /// </summary>
         [Fact]
-        public void TestSelect_1() {
+        public void Test_1() {
             //结果
             var result = new String();
-            result.AppendLine( "Select [a] " );
-            result.Append( "From [b]" );
+            result.AppendLine( "Select [a3].[a],[a1].[b1],[a2].[b2] " );
+            result.AppendLine( "From [b] As [a2] " );
+            result.Append( "Join [c] As [a3] On [a2].[d]=[a3].[e]" );
 
             //执行
-            _builder.Select( "a" ).From( "b" );
+            _builder.Select( "a,a1.b1,[a2].[b2]", "a3" )
+                .From( "b", "a2" )
+                .Join( "c", "a3" ).On( "a2.d", "a3.[e]" );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
-        /// 设置列 - 表设置了别名
+        /// 左连接 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestSelect_2() {
+        public void Test_2() {
             //结果
             var result = new String();
-            result.AppendLine( "Select [a] " );
-            result.Append( "From [b] As [c]" );
+            result.AppendLine( "Select [a].[Email],[a].[BoolValue],[b].[Description],[b].[IntValue] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Left Join [Sample2] As [b] On [a].[Email]=[b].[StringValue] And [a].[IntValue]<>[b].[IntValue]" );
 
             //执行
-            _builder.Select( "a" ).From( "b", "c" );
+            _builder.Select<Sample>( t => new object[] { t.Email, t.BoolValue } )
+                .Select<Sample2>( t => new object[] { t.Description, t.IntValue } )
+                .From<Sample>( "a" )
+                .LeftJoin<Sample2>( "b" ).On<Sample, Sample2>( ( l, r ) => l.Email == r.StringValue && l.IntValue != r.IntValue );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
         }
-
-        /// <summary>
-        /// 设置列 - 多列
-        /// </summary>
-        [Fact]
-        public void TestSelect_3() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select [a],[b] " );
-            result.Append( "From [c]" );
-
-            //执行
-            _builder.Select( "a,[b]" ).From( "c" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置列 - 列具有表别名
-        /// </summary>
-        [Fact]
-        public void TestSelect_4() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select [t].[a],[b] " );
-            result.Append( "From [c] As [d]" );
-
-            //执行
-            _builder.Select( "t.a,[b]" ).From( "c", "d" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置列 - lambda表达式
-        /// </summary>
-        [Fact]
-        public void TestSelect_5() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select [Email],[IntValue] " );
-            result.Append( "From [b]" );
-
-            //执行
-            _builder.Select<Sample>( t => new object[] { t.Email, t.IntValue } ).From( "b" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置列 - 每个Select使用不同的别名
-        /// </summary>
-        [Fact]
-        public void TestSelect_6() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select [j].[a],[j].[b],[k].[c],[k].[d] " );
-            result.Append( "From [e]" );
-
-            //执行
-            _builder.Select( "a,b", "j" ).Select( "c,d", "k" ).From( "e" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置列 - 多个*
-        /// </summary>
-        [Fact]
-        public void TestSelect_7() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select [a].*,[b].* " );
-            result.Append( "From [c]" );
-
-            //执行
-            _builder.Select( "a.*,b.*" ).From( "c" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置列 - lambda表达式且设置别名
-        /// </summary>
-        [Fact]
-        public void TestSelect_8() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select [a].[Email],[a].[IntValue],[b].[Description],[b].[Display] " );
-            result.Append( "From [b]" );
-
-            //执行
-            _builder.Select<Sample>( t => new object[] { t.Email, t.IntValue }, "a" )
-                .Select<Sample2>( t => new object[] { t.Description, t.Display }, "b" )
-                .From( "b" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置列
-        /// </summary>
-        [Fact]
-        public void TestSelect_9() {
-            //结果
-            var result = new String();
-            result.Append( "Select [a].[b] As [c],[a1],[b2]," );
-            result.Append( "d=(select a from t)," );
-            result.Append( "[a].[Email],[a].[IntValue]," );
-            result.Append( "e=(select b from t)," );
-            result.Append( "[b].[Description],[b].[Display]," );
-            result.AppendLine( "f=(select c from t) " );
-            result.Append( "From (select * from t1) as o" );
-
-            //执行
-            _builder.Select( "a.b as c,a1,b2" )
-                .AppendSelect( "d=(select a from t)" )
-                .Select<Sample>( t => new object[] { t.Email, t.IntValue }, "a" )
-                .AppendSelect( "e=(select b from t)" )
-                .Select<Sample2>( t => new object[] { t.Description, t.Display }, "b" )
-                .AppendSelect( "f=(select c from t)" )
-                .From( "b" )
-                .AppendFrom( "(select * from t1) " )
-                .AppendFrom( "as o" );
-
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 测试实体元数据解析
-        /// </summary>
-        [Fact]
-        public void TestSelect_10() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select [Sample_Email],[Sample_IntValue] " );
-            result.Append( "From [b]" );
-
-            //执行
-            _builder = new SqlServerBuilder( new TestEntityMatedata() );
-            _builder.Select<Sample>( t => new object[] { t.Email, t.IntValue } ).From( "b" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        #endregion
-
-        #region From(设置表)
-
-        /// <summary>
-        /// 设置表
-        /// </summary>
-        [Fact]
-        public void TestFrom_1() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select * " );
-            result.Append( "From [a]" );
-
-            //执行
-            _builder.From( "a" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置表 - 别名
-        /// </summary>
-        [Fact]
-        public void TestFrom_2() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select * " );
-            result.Append( "From [a] As [b]" );
-
-            //执行
-            _builder.From( "a", "b" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置表 - 别名 - 架构
-        /// </summary>
-        [Fact]
-        public void TestFrom_3() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select * " );
-            result.Append( "From [c].[a] As [b]" );
-
-            //执行
-            _builder.From( "c.a", "b" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置表 - 表名包含别名
-        /// </summary>
-        [Fact]
-        public void TestFrom_4() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select * " );
-            result.Append( "From [a].[b] As [t]" );
-
-            //执行
-            _builder.From( "a.b as t" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置表 - 泛型实体
-        /// </summary>
-        [Fact]
-        public void TestFrom_5() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select * " );
-            result.Append( "From [b].[Sample] As [a]" );
-
-            //执行
-            _builder.From<Sample>( "a", "b" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        #endregion
-
-        #region Where(设置条件)
 
         /// <summary>
         /// 设置条件
         /// </summary>
         [Fact]
-        public void TestWhere_1() {
-            _builder.From( "Test" ).Where( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] {Common.Line}Where [Name]=@_p__0", _builder.ToSql() );
+        public void Test_3() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a3].[a],[a1].[b1],[a2].[b2] " );
+            result.AppendLine( "From [b] As [a2] " );
+            result.AppendLine( "Join [c] As [a3] On [a2].[d]=[a3].[e] " );
+            result.Append( "Where [b].[Name]=@_p__0" );
+
+            //执行
+            _builder.Select( "a,a1.b1,[a2].[b2]", "a3" )
+                .From( "b", "a2" )
+                .Join( "c", "a3" ).On( "a2.d", "a3.[e]" )
+                .Where( "b.Name", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 设置表别名
+        /// 设置条件 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestWhere_2() {
-            _builder.From( "Test", "d" ).Where( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [d] {Common.Line}Where [Name]=@_p__0", _builder.ToSql() );
-        }
+        public void Test_4() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email],[a].[BoolValue],[b].[Description],[b].[IntValue] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.AppendLine( "Left Join [Sample2] As [b] On [a].[Email]=[b].[StringValue] And [a].[IntValue]<>[b].[IntValue] " );
+            result.Append( "Where [a].[Email]=@_p__0" );
 
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名
-        /// </summary>
-        [Fact]
-        public void TestWhere_5() {
-            _builder.From<Sample>().Where<Sample>( t => t.Email, "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] {Common.Line}Where [Email]=@_p__0", _builder.ToSql() );
+            //执行
+            _builder.Select<Sample>( t => new object[] { t.Email, t.BoolValue } )
+                .Select<Sample2>( t => new object[] { t.Description, t.IntValue } )
+                .From<Sample>( "a" )
+                .LeftJoin<Sample2>( "b" ).On<Sample, Sample2>( ( l, r ) => l.Email == r.StringValue && l.IntValue != r.IntValue )
+                .Where<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置列名 - 通过From设置表别名
+        /// 设置条件 - 相等
         /// </summary>
         [Fact]
-        public void TestWhere_7() {
-            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email, "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p__0", _builder.ToSql() );
-        }
+        public void Test_5() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email],[a].[BoolValue] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]=@_p__0" );
 
-        /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 相等
-        /// </summary>
-        [Fact]
-        public void TestWhere_9() {
-            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email == "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p__0", _builder.ToSql() );
+            //执行
+            _builder.Select<Sample>( t => new object[] { t.Email, t.BoolValue } )
+                .From<Sample>( "a" )
+                .Equal( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 不相等
+        /// 设置条件 - 相等 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestWhere_10() {
-            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email != "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]!=@_p__0", _builder.ToSql() );
+        public void Test_6() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email],[a].[BoolValue] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]=@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => new object[] { t.Email, t.BoolValue } )
+                .From<Sample>( "a" )
+                .Equal<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 大于
+        /// 设置条件 - 不相等
         /// </summary>
         [Fact]
-        public void TestWhere_11() {
-            _builder.From<Sample>().Where<Sample>( t => t.IntValue > 1 );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] {Common.Line}Where [Sample].[IntValue]>@_p__0", _builder.ToSql() );
+        public void Test_7() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]<>@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .NotEqual( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 小于
+        /// 设置条件 - 不相等 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestWhere_12() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.IntValue < 1 );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]<@_p__0", _builder.ToSql() );
+        public void Test_8() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]<>@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .NotEqual<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 大于等于
+        /// 设置条件 - 大于
         /// </summary>
         [Fact]
-        public void TestWhere_13() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.IntValue >= 1 );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]>=@_p__0", _builder.ToSql() );
+        public void Test_9() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]>@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Greater( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 小于等于
+        /// 设置条件 - 大于 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestWhere_14() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.IntValue <= 1 );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[IntValue]<=@_p__0", _builder.ToSql() );
+        public void Test_10() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]>@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Greater<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( 1, _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - Contains
+        /// 设置条件 - 小于
         /// </summary>
         [Fact]
-        public void TestWhere_15() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.Email.Contains( "a" ) );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email] Like @_p__0", _builder.ToSql() );
+        public void Test_11() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]<@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Less( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "%a%", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - StartsWith
+        /// 设置条件 - 小于 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestWhere_16() {
-            _builder.From<Sample>( "" ).Where<Sample>( t => t.Email.StartsWith( "a" ) );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email] Like @_p__0", _builder.ToSql() );
+        public void Test_12() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]<@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Less<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a%", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - EndsWith
+        /// 设置条件 - 大于等于
         /// </summary>
         [Fact]
-        public void TestWhere_17() {
-            _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email.EndsWith( "a" ) );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email] Like @_p__0", _builder.ToSql() );
+        public void Test_13() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]>=@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .GreaterEqual( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "%a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
         }
+
+        /// <summary>
+        /// 设置条件 - 大于等于 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_14() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]>=@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .GreaterEqual<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 小于等于
+        /// </summary>
+        [Fact]
+        public void Test_15() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]<=@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .LessEqual( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 小于等于 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_16() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email]<=@_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .LessEqual<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 模糊匹配
+        /// </summary>
+        [Fact]
+        public void Test_17() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Like @_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Contains( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "%abc%", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 模糊匹配 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_18() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Like @_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Contains<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "%abc%", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 头匹配
+        /// </summary>
+        [Fact]
+        public void Test_19() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Like @_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Starts( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "abc%", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 头匹配 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_20() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Like @_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Starts<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "abc%", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 尾匹配
+        /// </summary>
+        [Fact]
+        public void Test_21() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Like @_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Ends( "a.Email", "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "%abc", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 尾匹配 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_22() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Like @_p__0" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Ends<Sample>( t => t.Email, "abc" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Single( _builder.GetParams() );
+            Assert.Equal( "%abc", _builder.GetParams()["@_p__0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - Is Null
+        /// </summary>
+        [Fact]
+        public void Test_23() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Is Null" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsNull( "a.Email" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - Is Null - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_24() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Is Null" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsNull<Sample>( t => t.Email );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - Is Not Null
+        /// </summary>
+        [Fact]
+        public void Test_25() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Is Not Null" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsNotNull( "a.Email" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - Is Not Null - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_26() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Is Not Null" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsNotNull<Sample>( t => t.Email );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        #region Where(设置条件)
+
 
         /// <summary>
         /// 设置条件 - 多次设置From
         /// </summary>
         [Fact]
         public void TestWhere_18() {
-            _builder.From( "Test", "" ).From<Sample>( "Test2" ).From<Sample>("").Where( "Name", "a" );
+            _builder.From( "Test", "" ).From<Sample>( "Test2" ).From<Sample>( "" ).Where( "Name", "a" );
             Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
             Assert.Equal( "a", _builder.GetParams()["@_p__0"] );

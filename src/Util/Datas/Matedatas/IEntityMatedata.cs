@@ -1,9 +1,11 @@
 ﻿using System;
+using Util.Aspects;
 
 namespace Util.Datas.Matedatas {
     /// <summary>
     /// 实体元数据
     /// </summary>
+    [Ignore]
     public interface IEntityMatedata {
         /// <summary>
         /// 获取表名

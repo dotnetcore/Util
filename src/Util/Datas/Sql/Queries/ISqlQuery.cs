@@ -14,9 +14,23 @@ namespace Util.Datas.Sql.Queries {
     /// </summary>
     public interface ISqlQuery {
         /// <summary>
+        /// 获取调试Sql语句
+        /// </summary>
+        string GetDebugSql();
+        /// <summary>
         /// 创建Sql生成器
         /// </summary>
         ISqlBuilder NewBuilder();
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        string ToString( IDbConnection connection = null );
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        Task<string> ToStringAsync( IDbConnection connection = null );
         /// <summary>
         /// 获取整型
         /// </summary>
@@ -275,6 +289,134 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         ISqlQuery AppendWhere( string sql );
+        /// <summary>
+        /// 设置相等查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery Equal( string column, object value );
+        /// <summary>
+        /// 设置相等查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery Equal<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置不相等查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery NotEqual( string column, object value );
+        /// <summary>
+        /// 设置不相等查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery NotEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置大于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery Greater( string column, object value );
+        /// <summary>
+        /// 设置大于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery Greater<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置小于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery Less( string column, object value );
+        /// <summary>
+        /// 设置小于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery Less<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置大于等于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery GreaterEqual( string column, object value );
+        /// <summary>
+        /// 设置大于等于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery GreaterEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置小于等于查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery LessEqual( string column, object value );
+        /// <summary>
+        /// 设置小于等于查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery LessEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置模糊匹配查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery Contains( string column, object value );
+        /// <summary>
+        /// 设置模糊匹配查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery Contains<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置头匹配查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery Starts( string column, object value );
+        /// <summary>
+        /// 设置头匹配查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery Starts<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置尾匹配查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        ISqlQuery Ends( string column, object value );
+        /// <summary>
+        /// 设置尾匹配查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="value">值</param>
+        ISqlQuery Ends<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
+        /// <summary>
+        /// 设置Is Null查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        ISqlQuery IsNull( string column );
+        /// <summary>
+        /// 设置Is Null查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        ISqlQuery IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
+        /// 设置Is Not Null查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        ISqlQuery IsNotNull( string column );
+        /// <summary>
+        /// 设置Is Not Null查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        ISqlQuery IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
         /// 排序
         /// </summary>

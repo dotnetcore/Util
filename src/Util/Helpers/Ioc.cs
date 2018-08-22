@@ -36,30 +36,30 @@ namespace Util.Helpers {
         /// <summary>
         /// 创建集合
         /// </summary>
-        /// <typeparam name="TResult">返回类型</typeparam>
+        /// <typeparam name="T">对象类型</typeparam>
         /// <param name="type">对象类型</param>
         /// <param name="name">服务名称</param>
-        public static List<TResult> CreateList<TResult>( Type type, string name = null ) {
-            return ( (IEnumerable<TResult>)DefaultContainer.CreateList( type, name ) ).ToList();
+        public static List<T> CreateList<T>( Type type, string name = null ) {
+            return ( (IEnumerable<T>)DefaultContainer.CreateList( type, name ) ).ToList();
         }
 
         /// <summary>
         /// 创建实例
         /// </summary>
-        /// <typeparam name="T">实例类型</typeparam>
+        /// <typeparam name="T">对象类型</typeparam>
         /// <param name="name">服务名称</param>
         public static T Create<T>( string name = null ) {
             return DefaultContainer.Create<T>( name );
         }
 
         /// <summary>
-        /// 创建对象
+        /// 创建实例
         /// </summary>
-        /// <typeparam name="TResult">返回类型</typeparam>
+        /// <typeparam name="T">对象类型</typeparam>
         /// <param name="type">对象类型</param>
         /// <param name="name">服务名称</param>
-        public static TResult Create<TResult>( Type type, string name = null ) {
-            return (TResult)DefaultContainer.Create( type, name );
+        public static T Create<T>( Type type, string name = null ) {
+            return (T)DefaultContainer.Create( type, name );
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="configs">依赖配置</param>
         public static void Register( params IConfig[] configs ) {
-            DefaultContainer.Register( null, builder=> builder.EnableAop(), configs );
+            DefaultContainer.Register( null, builder => builder.EnableAop(), configs );
         }
 
         /// <summary>

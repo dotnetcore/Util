@@ -92,16 +92,21 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             if( string.IsNullOrWhiteSpace( column ) )
                 throw new ArgumentNullException( nameof( column ) );
             column = GetColumn( column );
-            var paramName = GetParamName();
-            _parameterManager.Add(  paramName, value, @operator );
+            var paramName = GetParamName( value, @operator );
+            _parameterManager.Add( paramName, value, @operator );
             return SqlConditionFactory.Create( column, paramName, @operator );
         }
 
         /// <summary>
         /// 获取参数名
         /// </summary>
-        private string GetParamName() {
-            return $"{_dialect.GetPrefix()}_p_{_tag}_{_paramIndex++}";
+        private string GetParamName( object value, Operator @operator ) {
+            var result = $"{_dialect.GetPrefix()}_p_{_tag}_{_paramIndex++}";
+            if( value != null )
+                return result;
+            if( @operator == Operator.Equal || @operator == Operator.NotEqual )
+                return null;
+            return result;
         }
 
         /// <summary>
@@ -246,6 +251,40 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="sql">Sql语句</param>
         public void AppendSql( string sql ) {
             And( new SqlCondition( sql ) );
+        }
+
+        /// <summary>
+        /// 设置Is Null条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public void IsNull( string column ) {
+            Where( column, null );
+        }
+
+        /// <summary>
+        /// 设置Is Null条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public void IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            Where( expression, null );
+        }
+
+        /// <summary>
+        /// 设置Is Not Null条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public void IsNotNull( string column ) {
+            column = GetColumn( column );
+            And( new IsNotNullCondition( column ) );
+        }
+
+        /// <summary>
+        /// 设置Is Not Null条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public void IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            var column = GetColumn( _resolver.GetColumn( expression ), typeof( TEntity ) );
+            IsNotNull( column );
         }
 
         /// <summary>

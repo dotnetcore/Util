@@ -1,7 +1,10 @@
 ﻿using Autofac;
 using Util.Datas.Dapper;
+using Util.Datas.Dapper.SqlServer;
+using Util.Datas.Matedatas;
 using Util.Datas.Sql;
 using Util.Datas.Sql.Queries;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Tests.Commons.Domains.Repositories;
 using Util.Datas.Tests.Ef.SqlServer.Repositories;
 using Util.Datas.Tests.Ef.SqlServer.Stores;
@@ -29,8 +32,12 @@ namespace Util.Datas.Tests.Commons.Datas.SqlServer.Configs {
         private void LoadInfrastructure( ContainerBuilder builder ) {
             builder.AddSingleton<ISession>( new Session( AppConfig.UserId ) );
             builder.AddScoped<IUnitOfWorkManager, UnitOfWorkManager>();
-            builder.RegisterType<SqlServerUnitOfWork>().As<ISqlServerUnitOfWork,IDatabase>().PropertiesAutowired();
+            builder.RegisterType<SqlServerUnitOfWork>().AsSelf().InstancePerLifetimeScope().PropertiesAutowired();
+            builder.Register( t => t.Resolve<SqlServerUnitOfWork>() ).As<ISqlServerUnitOfWork>().InstancePerLifetimeScope().PropertiesAutowired();
+            builder.Register( t => t.Resolve<SqlServerUnitOfWork>() ).As<IDatabase>().InstancePerLifetimeScope().PropertiesAutowired();
+            builder.Register( t => t.Resolve<SqlServerUnitOfWork>() ).As<IEntityMatedata>().InstancePerLifetimeScope().PropertiesAutowired();
             builder.AddScoped<ISqlQuery, SqlQuery>();
+            builder.AddScoped<ISqlBuilder, SqlServerBuilder>();
             builder.AddScoped<IProductPoStore, ProductPoStore>();
         }
 

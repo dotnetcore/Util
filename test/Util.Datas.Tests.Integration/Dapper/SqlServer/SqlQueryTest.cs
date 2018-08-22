@@ -7,6 +7,7 @@ using Util.Datas.Tests.Ef.SqlServer.UnitOfWorks;
 using Util.Dependency;
 using Util.Helpers;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Util.Datas.Tests.Dapper.SqlServer {
     /// <summary>
@@ -14,6 +15,10 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
     /// </summary>
     [Collection( "GlobalConfig" )]
     public class SqlQueryTest : IDisposable {
+        /// <summary>
+        /// 输出工具
+        /// </summary>
+        private readonly ITestOutputHelper _output;
         /// <summary>
         /// 容器作用域
         /// </summary>
@@ -34,7 +39,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public SqlQueryTest() {
+        public SqlQueryTest( ITestOutputHelper output ) {
+            _output = output;
             _scope = Ioc.BeginScope();
             _unitOfWork = _scope.Create<ISqlServerUnitOfWork>();
             _customerRepository = _scope.Create<ICustomerRepository>();
@@ -49,21 +55,22 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 获取单个对象
+        /// 获取字符串结果
         /// </summary>
         [Fact]
-        public async Task TestToAsync() {
+        public async Task TestToStringAsync() {
             string id = Id.ObjectId();
             string name = Id.Guid().Substring( 0, 10 );
             var customer = new Customer( id ) { Name = name };
             await _customerRepository.AddAsync( customer );
             await _unitOfWork.CommitAsync();
 
-            var result = await _query.Select<Customer>( t => new object[] { t.Name } )
-                .From<Customer>( "Customers" )
-                .Where( "CustomerId",id )
-                .ToAsync<Customer>();
-            Assert.Equal( name, result.Name );
+            var result = await _query.Select<Customer>( t => t.Name )
+                .From<Customer>( "c" )
+                .Where<Customer>( t => t.Id == id )
+                .ToStringAsync();
+            _output.WriteLine( _query.GetDebugSql() );
+            Assert.Equal( name, result );
         }
     }
 }

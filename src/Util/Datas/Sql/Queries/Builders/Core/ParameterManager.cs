@@ -33,6 +33,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="value">参数值</param>
         /// <param name="operator">运算符</param>
         public void Add( string name, object value, Operator @operator ) {
+            if ( string.IsNullOrWhiteSpace( name ) )
+                return;
             _params.Add( name, GetValue( value, @operator ) );
         }
 
