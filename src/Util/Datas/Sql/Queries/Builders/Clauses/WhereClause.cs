@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
@@ -92,16 +93,40 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             if( string.IsNullOrWhiteSpace( column ) )
                 throw new ArgumentNullException( nameof( column ) );
             column = GetColumn( column );
+            if( @operator == Operator.Contains && value != null && Reflection.IsGenericCollection( value.GetType() ) )
+                return GetInCondition( column, value as IEnumerable<object> );
             var paramName = GetParamName( value, @operator );
             _parameterManager.Add( paramName, value, @operator );
             return SqlConditionFactory.Create( column, paramName, @operator );
         }
 
         /// <summary>
+        /// 获取In条件
+        /// </summary>
+        private ICondition GetInCondition( string column, IEnumerable<object> values ) {
+            if( values == null )
+                return new NullCondition();
+            var paramNames = new List<string>();
+            values.ToList().ForEach( value => {
+                var name = GetParamName();
+                paramNames.Add( name );
+                _parameterManager.Add( name, value );
+            } );
+            return new InCondition( column, paramNames );
+        }
+
+        /// <summary>
+        /// 获取参数名
+        /// </summary>
+        private string GetParamName() {
+            return $"{_dialect.GetPrefix()}_p_{_tag}_{_paramIndex++}";
+        }
+
+        /// <summary>
         /// 获取参数名
         /// </summary>
         private string GetParamName( object value, Operator @operator ) {
-            var result = $"{_dialect.GetPrefix()}_p_{_tag}_{_paramIndex++}";
+            var result = GetParamName();
             if( value != null )
                 return result;
             if( @operator == Operator.Equal || @operator == Operator.NotEqual )
@@ -293,7 +318,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="column">列名</param>
         public void IsEmpty( string column ) {
             column = GetColumn( column );
-            And( new OrCondition( new IsNullCondition( column ),new EqualCondition( column,"''" )  ) );
+            And( new OrCondition( new IsNullCondition( column ), new EqualCondition( column, "''" ) ) );
         }
 
         /// <summary>
@@ -321,6 +346,24 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
             var column = GetColumn( _resolver.GetColumn( expression ), typeof( TEntity ) );
             IsNotEmpty( column );
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        public void In( string column, IEnumerable<object> values ) {
+            Where( column, values, Operator.Contains );
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        public void In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+            Where( expression, values, Operator.Contains );
         }
 
         /// <summary>

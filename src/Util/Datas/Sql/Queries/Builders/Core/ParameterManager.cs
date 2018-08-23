@@ -32,7 +32,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
         /// <param name="operator">运算符</param>
-        public void Add( string name, object value, Operator @operator ) {
+        public void Add( string name, object value, Operator? @operator = null ) {
             if ( string.IsNullOrWhiteSpace( name ) )
                 return;
             _params.Add( name, GetValue( value, @operator ) );
@@ -41,7 +41,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 获取值
         /// </summary>
-        private object GetValue( object value, Operator @operator ) {
+        private object GetValue( object value, Operator? @operator ) {
             if ( string.IsNullOrWhiteSpace( value.SafeString() ) )
                 return value;
             switch( @operator ) {

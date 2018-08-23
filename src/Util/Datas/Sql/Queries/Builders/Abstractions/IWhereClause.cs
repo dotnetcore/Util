@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Conditions;
@@ -123,6 +124,18 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         void IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        void In( string column, IEnumerable<object> values );
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        void In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
         /// <summary>
         /// 输出Sql
         /// </summary>

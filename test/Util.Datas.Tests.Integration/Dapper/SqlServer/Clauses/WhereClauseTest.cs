@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Sql.Queries.Builders.Clauses;
@@ -28,7 +29,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 测试初始化
         /// </summary>
         public WhereClauseTest() {
-            _clause = new WhereClause( new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(),new ParameterManager() );
+            _clause = new WhereClause( new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), new ParameterManager() );
         }
 
         /// <summary>
@@ -131,7 +132,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestWhere_7() {
-            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(),new ParameterManager() );
+            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager() );
             _clause.Where<Sample>( t => t.Email == "a" );
             Assert.Equal( "Where [as_Sample].[t_Email]=@_p__0", GetSql() );
         }
@@ -271,6 +272,23 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             Assert.Equal( "Where [Email]<>@_p__0", GetSql() );
         }
 
+        /// <summary>
+        /// 设置条件 - In
+        /// </summary>
+        [Fact]
+        public void TestWhere_22() {
+            //结果
+            var result = new String();
+            result.Append( "Where [Email] In (@_p__0,@_p__1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.Where<Sample>( t => list.Contains( t.Email ) );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
         #endregion
 
         #region WhereIf(设置条件)
@@ -407,7 +425,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestAppendSql() {
-            _clause.AppendSql( "a");
+            _clause.AppendSql( "a" );
             _clause.AppendSql( "b" );
             Assert.Equal( "Where a And b", GetSql() );
         }
@@ -498,6 +516,44 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestIsNotEmpty_2() {
             _clause.IsNotEmpty<Sample>( t => t.Email );
             Assert.Equal( "Where [Email] Is Not Null And [Email]<>''", GetSql() );
+        }
+
+        #endregion
+
+        #region In
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        [Fact]
+        public void TestIn_1() {
+            //结果
+            var result = new String();
+            result.Append( "Where [user].[Email] In (@_p__0,@_p__1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.In( "user.Email", list );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 设置In条件 - lambda列名表达式
+        /// </summary>
+        [Fact]
+        public void TestIn_2() {
+            //结果
+            var result = new String();
+            result.Append( "Where [Email] In (@_p__0,@_p__1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.In<Sample>( t => t.Email, list );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
         }
 
         #endregion
