@@ -457,5 +457,49 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         }
 
         #endregion
+
+        #region IsEmpty
+
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        [Fact]
+        public void TestIsEmpty_1() {
+            _clause.IsEmpty( "Name" );
+            Assert.Equal( "Where ([Name] Is Null Or [Name]='')", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        [Fact]
+        public void TestIsEmpty_2() {
+            _clause.IsEmpty<Sample>( t => t.Email );
+            Assert.Equal( "Where ([Email] Is Null Or [Email]='')", GetSql() );
+        }
+
+        #endregion
+
+        #region IsNotEmpty
+
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        [Fact]
+        public void TestIsNotEmpty_1() {
+            _clause.IsNotEmpty( "Name" );
+            Assert.Equal( "Where [Name] Is Not Null And [Name]<>''", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        [Fact]
+        public void TestIsNotEmpty_2() {
+            _clause.IsNotEmpty<Sample>( t => t.Email );
+            Assert.Equal( "Where [Email] Is Not Null And [Email]<>''", GetSql() );
+        }
+
+        #endregion
     }
 }

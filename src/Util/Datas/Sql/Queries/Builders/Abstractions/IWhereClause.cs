@@ -104,6 +104,26 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="expression">列名表达式</param>
         void IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        void IsEmpty( string column );
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        void IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        void IsNotEmpty( string column );
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        void IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
         /// 输出Sql
         /// </summary>
         string ToSql();

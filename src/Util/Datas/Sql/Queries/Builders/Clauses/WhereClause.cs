@@ -288,6 +288,42 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public void IsEmpty( string column ) {
+            column = GetColumn( column );
+            And( new OrCondition( new IsNullCondition( column ),new EqualCondition( column,"''" )  ) );
+        }
+
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public void IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            var column = GetColumn( _resolver.GetColumn( expression ), typeof( TEntity ) );
+            IsEmpty( column );
+        }
+
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public void IsNotEmpty( string column ) {
+            column = GetColumn( column );
+            And( new AndCondition( new IsNotNullCondition( column ), new NotEqualCondition( column, "''" ) ) );
+        }
+
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public void IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            var column = GetColumn( _resolver.GetColumn( expression ), typeof( TEntity ) );
+            IsNotEmpty( column );
+        }
+
+        /// <summary>
         /// 输出Sql
         /// </summary>
         public string ToSql() {

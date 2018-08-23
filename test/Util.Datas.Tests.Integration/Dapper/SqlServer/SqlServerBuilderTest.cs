@@ -608,6 +608,86 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
+        /// <summary>
+        /// 设置条件 - 空条件
+        /// </summary>
+        [Fact]
+        public void Test_27() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where ([a].[Email] Is Null Or [a].[Email]='')" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsEmpty( "a.Email" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 空条件 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_28() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where ([a].[Email] Is Null Or [a].[Email]='')" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsEmpty<Sample>( t => t.Email );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 非空条件
+        /// </summary>
+        [Fact]
+        public void Test_29() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Is Not Null And [a].[Email]<>''" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsNotEmpty( "a.Email" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 非空条件 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void Test_30() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] Is Not Null And [a].[Email]<>''" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .IsNotEmpty<Sample>( t => t.Email );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
         #region Where(设置条件)
 
 

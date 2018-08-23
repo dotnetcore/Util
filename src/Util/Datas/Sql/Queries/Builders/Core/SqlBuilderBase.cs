@@ -760,6 +760,42 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             return this;
         }
 
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public ISqlBuilder IsEmpty( string column ) {
+            WhereClause.IsEmpty( column );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public ISqlBuilder IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            WhereClause.IsEmpty( expression );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public ISqlBuilder IsNotEmpty( string column ) {
+            WhereClause.IsNotEmpty( column );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public ISqlBuilder IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            WhereClause.IsNotEmpty( expression );
+            return this;
+        }
+
         #endregion
 
         #region OrderBy(设置排序)

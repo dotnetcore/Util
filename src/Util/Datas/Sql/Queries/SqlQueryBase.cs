@@ -716,6 +716,42 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public ISqlQuery IsEmpty( string column ) {
+            Builder.IsEmpty( column );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public ISqlQuery IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            Builder.IsEmpty( expression );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        public ISqlQuery IsNotEmpty( string column ) {
+            Builder.IsNotEmpty( column );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        public ISqlQuery IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+            Builder.IsNotEmpty( expression );
+            return this;
+        }
+
+        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>

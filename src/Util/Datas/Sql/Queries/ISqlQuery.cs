@@ -418,6 +418,26 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="expression">列名表达式</param>
         ISqlQuery IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        ISqlQuery IsEmpty( string column );
+        /// <summary>
+        /// 设置空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        ISqlQuery IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        ISqlQuery IsNotEmpty( string column );
+        /// <summary>
+        /// 设置非空条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        ISqlQuery IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
+        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>
