@@ -39,6 +39,10 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         string GetWhere();
         /// <summary>
+        /// 获取分组语句
+        /// </summary>
+        string GetGroupBy();
+        /// <summary>
         /// 获取排序语句
         /// </summary>
         string GetOrderBy();
@@ -386,6 +390,24 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="expression">列名表达式</param>
         /// <param name="values">值集合</param>
         ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <param name="group">分组字段</param>
+        /// <param name="having">分组条件</param>
+        ISqlBuilder GroupBy( string group, string having = null );
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="column">分组字段</param>
+        /// <param name="having">分组条件</param>
+        ISqlBuilder GroupBy<TEntity>( Expression<Func<TEntity, object>> column, string having = null );
+        /// <summary>
+        /// 添加到GroupBy子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        ISqlBuilder AppendGroupBy( string sql );
         /// <summary>
         /// 排序
         /// </summary>

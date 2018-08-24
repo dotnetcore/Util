@@ -450,6 +450,24 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="values">值集合</param>
         ISqlQuery In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
         /// <summary>
+        /// 分组
+        /// </summary>
+        /// <param name="group">分组字段</param>
+        /// <param name="having">分组条件</param>
+        ISqlQuery GroupBy( string group, string having = null );
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="column">分组字段</param>
+        /// <param name="having">分组条件</param>
+        ISqlQuery GroupBy<TEntity>( Expression<Func<TEntity, object>> column, string having = null );
+        /// <summary>
+        /// 添加到GroupBy子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        ISqlQuery AppendGroupBy( string sql );
+        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>

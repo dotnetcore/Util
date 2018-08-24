@@ -772,6 +772,36 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 分组
+        /// </summary>
+        /// <param name="group">分组字段</param>
+        /// <param name="having">分组条件</param>
+        public ISqlQuery GroupBy( string group, string having = null ) {
+            Builder.GroupBy( group, having );
+            return this;
+        }
+
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="column">分组字段</param>
+        /// <param name="having">分组条件</param>
+        public ISqlQuery GroupBy<TEntity>( Expression<Func<TEntity, object>> column, string having = null ) {
+            Builder.GroupBy( column, having );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到GroupBy子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlQuery AppendGroupBy( string sql ) {
+            Builder.AppendGroupBy( sql );
+            return this;
+        }
+
+        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>
@@ -823,6 +853,7 @@ namespace Util.Datas.Sql.Queries {
             AppendSql( result, Builder.GetFrom() );
             AppendSql( result, Builder.GetJoin() );
             AppendSql( result, Builder.GetWhere() );
+            AppendSql( result, Builder.GetGroupBy() );
             return result.ToString().Trim();
         }
 

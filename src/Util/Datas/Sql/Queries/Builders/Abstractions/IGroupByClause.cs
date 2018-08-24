@@ -3,23 +3,24 @@ using System.Linq.Expressions;
 
 namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// <summary>
-    /// 排序子句
+    /// Group By子句
     /// </summary>
-    public interface IOrderByClause {
+    public interface IGroupByClause {
         /// <summary>
-        /// 排序
+        /// 分组
         /// </summary>
-        /// <param name="order">排序列表</param>
-        void OrderBy( string order );
+        /// <param name="group">分组字段</param>
+        /// <param name="having">分组条件</param>
+        void GroupBy( string group, string having = null );
         /// <summary>
-        /// 排序
+        /// 分组
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
-        /// <param name="column">排序列</param>
-        /// <param name="desc">是否倒排</param>
-        void OrderBy<TEntity>( Expression<Func<TEntity, object>> column, bool desc = false );
+        /// <param name="column">分组字段</param>
+        /// <param name="having">分组条件</param>
+        void GroupBy<TEntity>( Expression<Func<TEntity, object>> column, string having = null );
         /// <summary>
-        /// 添加到OrderBy子句
+        /// 添加到GroupBy子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
         void AppendSql( string sql );

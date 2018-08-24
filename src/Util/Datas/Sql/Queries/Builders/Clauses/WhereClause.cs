@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -94,7 +95,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
                 throw new ArgumentNullException( nameof( column ) );
             column = GetColumn( column );
             if( @operator == Operator.Contains && value != null && Reflection.IsCollection( value.GetType() ) )
-                return GetInCondition( column, value as IEnumerable<object> );
+                return GetInCondition( column, value as IEnumerable );
             var paramName = GetParamName( value, @operator );
             _parameterManager.Add( paramName, value, @operator );
             return SqlConditionFactory.Create( column, paramName, @operator );
@@ -103,15 +104,15 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 获取In条件
         /// </summary>
-        private ICondition GetInCondition( string column, IEnumerable<object> values ) {
+        private ICondition GetInCondition( string column, IEnumerable values ) {
             if( values == null )
                 return new NullCondition();
             var paramNames = new List<string>();
-            values.ToList().ForEach( value => {
+            foreach ( var value in values ) {
                 var name = GetParamName();
                 paramNames.Add( name );
                 _parameterManager.Add( name, value );
-            } );
+            }
             return new InCondition( column, paramNames );
         }
 

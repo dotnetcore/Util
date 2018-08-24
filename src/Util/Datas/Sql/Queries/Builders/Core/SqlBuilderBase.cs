@@ -107,6 +107,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             AppendSql( result, GetFrom() );
             AppendSql( result, GetJoin() );
             AppendSql( result, GetWhere() );
+            AppendSql( result, GetGroupBy() );
             AppendSql( result, GetOrderBy() );
         }
 
@@ -818,6 +819,63 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
+        #region GroupBy(分组)
+
+        /// <summary>
+        /// 分组子句
+        /// </summary>
+        private IGroupByClause _groupByClause;
+        /// <summary>
+        /// 分组子句
+        /// </summary>
+        protected IGroupByClause GroupByClause => _groupByClause ?? ( _groupByClause = CreateGroupByClause() );
+
+        /// <summary>
+        /// 创建分组子句
+        /// </summary>
+        protected virtual IGroupByClause CreateGroupByClause() {
+            return new GroupByClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
+        /// 获取分组语句
+        /// </summary>
+        public virtual string GetGroupBy() {
+            return GroupByClause.ToSql();
+        }
+
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <param name="group">分组字段</param>
+        /// <param name="having">分组条件</param>
+        public ISqlBuilder GroupBy( string group, string having = null ) {
+            GroupByClause.GroupBy( group, having );
+            return this;
+        }
+
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="column">分组字段</param>
+        /// <param name="having">分组条件</param>
+        public ISqlBuilder GroupBy<TEntity>( Expression<Func<TEntity, object>> column, string having = null ) {
+            GroupByClause.GroupBy( column, having );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到GroupBy子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlBuilder AppendGroupBy( string sql ) {
+            GroupByClause.AppendSql( sql );
+            return this;
+        }
+
+        #endregion
+
         #region OrderBy(设置排序)
 
         /// <summary>
@@ -868,7 +926,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="order">排序列表</param>
         public virtual ISqlBuilder AppendOrderBy( string order ) {
-            OrderByClause.AppendOrderBy( order );
+            OrderByClause.AppendSql( order );
             return this;
         }
 

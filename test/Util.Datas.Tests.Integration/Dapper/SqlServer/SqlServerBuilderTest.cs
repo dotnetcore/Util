@@ -761,6 +761,26 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
         }
 
+        /// <summary>
+        /// 测试分组
+        /// </summary>
+        [Fact]
+        public void Test_34() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Group By [a].[B],[c].[D]" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .GroupBy( "a.B,c.[D]" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
         #region Where(设置条件)
 
 
