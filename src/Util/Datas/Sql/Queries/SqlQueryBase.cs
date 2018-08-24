@@ -752,6 +752,26 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        public ISqlQuery In( string column, IEnumerable<object> values ) {
+            Builder.In( column, values );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        public ISqlQuery In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+            Builder.In( expression, values );
+            return this;
+        }
+
+        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>

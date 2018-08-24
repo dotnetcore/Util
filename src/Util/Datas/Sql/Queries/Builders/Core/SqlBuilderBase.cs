@@ -796,6 +796,26 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             return this;
         }
 
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        public ISqlBuilder In( string column, IEnumerable<object> values ) {
+            WhereClause.In( column, values );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        public ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+            WhereClause.In( expression, values );
+            return this;
+        }
+
         #endregion
 
         #region OrderBy(设置排序)

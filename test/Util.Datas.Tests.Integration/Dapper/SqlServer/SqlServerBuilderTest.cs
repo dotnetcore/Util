@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Tests.Samples;
@@ -686,6 +687,78 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - In
+        /// </summary>
+        [Fact]
+        public void Test_31() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] In (@_p__0,@_p__1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Where<Sample>( t => list.Contains( t.Email ) );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - In
+        /// </summary>
+        [Fact]
+        public void Test_32() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] In (@_p__0,@_p__1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .In( "a.Email", list );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - In
+        /// </summary>
+        [Fact]
+        public void Test_33() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Email] In (@_p__0,@_p__1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .In<Sample>( t => t.Email, list );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
         }
 
         #region Where(设置条件)

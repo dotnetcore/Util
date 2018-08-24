@@ -375,6 +375,18 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="expression">列名表达式</param>
         ISqlBuilder IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        ISqlBuilder In( string column, IEnumerable<object> values );
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
+        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>
