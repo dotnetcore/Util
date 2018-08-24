@@ -556,6 +556,23 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             Assert.Equal( result.ToString(), GetSql() );
         }
 
+        /// <summary>
+        /// 设置In条件 - 数组
+        /// </summary>
+        [Fact]
+        public void TestIn_3() {
+            //结果
+            var result = new String();
+            result.Append( "Where [user].[Email] In (@_p__0,@_p__1)" );
+
+            //执行
+            var list = new [] { "a", "b" };
+            _clause.In( "user.Email", list );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
         #endregion
     }
 }

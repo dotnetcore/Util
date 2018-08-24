@@ -93,7 +93,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             if( string.IsNullOrWhiteSpace( column ) )
                 throw new ArgumentNullException( nameof( column ) );
             column = GetColumn( column );
-            if( @operator == Operator.Contains && value != null && Reflection.IsGenericCollection( value.GetType() ) )
+            if( @operator == Operator.Contains && value != null && Reflection.IsCollection( value.GetType() ) )
                 return GetInCondition( column, value as IEnumerable<object> );
             var paramName = GetParamName( value, @operator );
             _parameterManager.Add( paramName, value, @operator );

@@ -17,6 +17,7 @@ namespace Util.Tests.Samples {
         /// </summary>
         public Sample() {
             StringList = new List<string>();
+            StringArray = StringList.ToArray();
         }
 
         /// <summary>
@@ -142,6 +143,10 @@ namespace Util.Tests.Samples {
         /// 字符串列表
         /// </summary>
         public List<string> StringList { get; set; }
+        /// <summary>
+        /// 字符串数据
+        /// </summary>
+        public string[] StringArray { get; set; }
 
         /// <summary>
         /// 测试2

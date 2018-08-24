@@ -133,6 +133,14 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
+        /// 测试是否集合
+        /// </summary>
+        [Fact]
+        public void TestIsCollection() {
+            Assert.True( Util.Helpers.Reflection.IsCollection( _sample.StringArray.GetType() ) );
+        }
+
+        /// <summary>
         /// 测试是否泛型集合
         /// </summary>
         [Fact]

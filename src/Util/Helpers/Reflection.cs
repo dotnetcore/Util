@@ -269,6 +269,16 @@ namespace Util.Helpers {
         }
 
         /// <summary>
+        /// 是否集合
+        /// </summary>
+        /// <param name="type">类型</param>
+        public static bool IsCollection( Type type ) {
+            if ( type.IsArray )
+                return true;
+            return IsGenericCollection( type );
+        }
+
+        /// <summary>
         /// 是否泛型集合
         /// </summary>
         /// <param name="type">类型</param>
