@@ -11,12 +11,30 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 参数集合
         /// </summary>
         private readonly IDictionary<string, object> _params;
+        /// <summary>
+        /// 参数索引
+        /// </summary>
+        private int _paramIndex;
+        /// <summary>
+        /// Sql方言
+        /// </summary>
+        private readonly IDialect _dialect;
 
         /// <summary>
         /// 初始化参数管理器
         /// </summary>
-        public ParameterManager() {
+        /// <param name="dialect">Sql方言</param>
+        public ParameterManager( IDialect dialect ) {
             _params = new Dictionary<string, object>();
+            _paramIndex = 0;
+            _dialect = dialect;
+        }
+
+        /// <summary>
+        /// 创建参数名
+        /// </summary>
+        public string GenerateName() {
+            return $"{_dialect.GetPrefix()}_p_{_paramIndex++}";
         }
 
         /// <summary>

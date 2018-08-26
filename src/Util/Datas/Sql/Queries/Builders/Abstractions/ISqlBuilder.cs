@@ -429,6 +429,6 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 设置分页
         /// </summary>
         /// <param name="pager">分页参数</param>
-        ISqlBuilder Pager( IPager pager );
+        ISqlBuilder Page( IPager pager );
     }
 }

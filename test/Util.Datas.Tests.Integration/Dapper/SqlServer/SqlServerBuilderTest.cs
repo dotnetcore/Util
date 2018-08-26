@@ -94,7 +94,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.AppendLine( "Select [a3].[a],[a1].[b1],[a2].[b2] " );
             result.AppendLine( "From [b] As [a2] " );
             result.AppendLine( "Join [c] As [a3] On [a2].[d]=[a3].[e] " );
-            result.Append( "Where [b].[Name]=@_p__0" );
+            result.Append( "Where [b].[Name]=@_p_0" );
 
             //执行
             _builder.Select( "a,a1.b1,[a2].[b2]", "a3" )
@@ -105,7 +105,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.AppendLine( "Select [a].[Email],[a].[BoolValue],[b].[Description],[b].[IntValue] " );
             result.AppendLine( "From [Sample] As [a] " );
             result.AppendLine( "Left Join [Sample2] As [b] On [a].[Email]=[b].[StringValue] And [a].[IntValue]<>[b].[IntValue] " );
-            result.Append( "Where [a].[Email]=@_p__0" );
+            result.Append( "Where [a].[Email]=@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => new object[] { t.Email, t.BoolValue } )
@@ -130,7 +130,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email],[a].[BoolValue] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]=@_p__0" );
+            result.Append( "Where [a].[Email]=@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => new object[] { t.Email, t.BoolValue } )
@@ -152,7 +152,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email],[a].[BoolValue] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]=@_p__0" );
+            result.Append( "Where [a].[Email]=@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => new object[] { t.Email, t.BoolValue } )
@@ -174,7 +174,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]<>@_p__0" );
+            result.Append( "Where [a].[Email]<>@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -196,7 +196,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]<>@_p__0" );
+            result.Append( "Where [a].[Email]<>@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -218,7 +218,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]>@_p__0" );
+            result.Append( "Where [a].[Email]>@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -240,7 +240,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]>@_p__0" );
+            result.Append( "Where [a].[Email]>@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -262,7 +262,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -274,7 +274,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]<@_p__0" );
+            result.Append( "Where [a].[Email]<@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -284,7 +284,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]<@_p__0" );
+            result.Append( "Where [a].[Email]<@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -306,7 +306,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]>=@_p__0" );
+            result.Append( "Where [a].[Email]>=@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -328,7 +328,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -340,7 +340,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]>=@_p__0" );
+            result.Append( "Where [a].[Email]>=@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -350,7 +350,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]<=@_p__0" );
+            result.Append( "Where [a].[Email]<=@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -372,7 +372,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -384,7 +384,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email]<=@_p__0" );
+            result.Append( "Where [a].[Email]<=@_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -394,7 +394,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -406,7 +406,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] Like @_p__0" );
+            result.Append( "Where [a].[Email] Like @_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -416,7 +416,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "%abc%", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "%abc%", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] Like @_p__0" );
+            result.Append( "Where [a].[Email] Like @_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -438,7 +438,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "%abc%", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "%abc%", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] Like @_p__0" );
+            result.Append( "Where [a].[Email] Like @_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -460,7 +460,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc%", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc%", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -472,7 +472,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] Like @_p__0" );
+            result.Append( "Where [a].[Email] Like @_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -482,7 +482,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "abc%", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "abc%", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -494,7 +494,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] Like @_p__0" );
+            result.Append( "Where [a].[Email] Like @_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -504,7 +504,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "%abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "%abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -516,7 +516,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] Like @_p__0" );
+            result.Append( "Where [a].[Email] Like @_p_0" );
 
             //执行
             _builder.Select<Sample>( t => t.Email )
@@ -526,7 +526,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "%abc", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "%abc", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -698,7 +698,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] In (@_p__0,@_p__1)" );
+            result.Append( "Where [a].[Email] In (@_p_0,@_p_1)" );
 
             //执行
             var list = new List<string> { "a", "b" };
@@ -709,8 +709,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Equal( 2, _builder.GetParams().Count );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
-            Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
         }
 
         /// <summary>
@@ -722,7 +722,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] In (@_p__0,@_p__1)" );
+            result.Append( "Where [a].[Email] In (@_p_0,@_p_1)" );
 
             //执行
             var list = new List<string> { "a", "b" };
@@ -733,8 +733,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Equal( 2, _builder.GetParams().Count );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
-            Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
         }
 
         /// <summary>
@@ -746,7 +746,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a].[Email] " );
             result.AppendLine( "From [Sample] As [a] " );
-            result.Append( "Where [a].[Email] In (@_p__0,@_p__1)" );
+            result.Append( "Where [a].[Email] In (@_p_0,@_p_1)" );
 
             //执行
             var list = new List<string> { "a", "b" };
@@ -757,8 +757,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Equal( 2, _builder.GetParams().Count );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
-            Assert.Equal( "b", _builder.GetParams()["@_p__1"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
         }
 
         /// <summary>
@@ -790,9 +790,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhere_18() {
             _builder.From( "Test", "" ).From<Sample>( "Test2" ).From<Sample>( "" ).Where( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Name]=@_p_0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -804,7 +804,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select * " );
             result.AppendLine( "From [Sample] As [k] " );
-            result.Append( "Where [k].[Email]=@_p__0 And [k].[StringValue] Like @_p__1" );
+            result.Append( "Where [k].[Email]=@_p_0 And [k].[StringValue] Like @_p_1" );
 
             //执行
             _builder.From<Sample>( "k" ).Where<Sample>( t => t.Email == "a" && t.StringValue.Contains( "b" ) );
@@ -812,8 +812,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Equal( 2, _builder.GetParams().Count );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
-            Assert.Equal( "%b%", _builder.GetParams()["@_p__1"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "%b%", _builder.GetParams()["@_p_1"] );
         }
 
         /// <summary>
@@ -825,8 +825,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select * " );
             result.AppendLine( "From [Sample] As [k] " );
-            result.Append( "Where ([k].[Email]=@_p__0 And [k].[StringValue] Like @_p__1 Or [k].[IntValue]=@_p__2) " );
-            result.Append( "And ([k].[Email]=@_p__3 Or [k].[IntValue]=@_p__4)" );
+            result.Append( "Where ([k].[Email]=@_p_0 And [k].[StringValue] Like @_p_1 Or [k].[IntValue]=@_p_2) " );
+            result.Append( "And ([k].[Email]=@_p_3 Or [k].[IntValue]=@_p_4)" );
 
             //执行
             _builder.From<Sample>( "k" )
@@ -846,8 +846,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select * " );
             result.AppendLine( "From [Sample] As [k] " );
-            result.Append( "Where ([o].[Email]=@_p__0 And [o].[StringValue] Like @_p__1 Or [o].[IntValue]=@_p__2) " );
-            result.Append( "And ([p].[Email]=@_p__3 Or [p].[IntValue]=@_p__4)" );
+            result.Append( "Where ([o].[Email]=@_p_0 And [o].[StringValue] Like @_p_1 Or [o].[IntValue]=@_p_2) " );
+            result.Append( "And ([p].[Email]=@_p_3 Or [p].[IntValue]=@_p_4)" );
 
             //执行
             _builder.From<Sample>( "k" )
@@ -868,9 +868,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhereIf_1() {
             _builder.From( "Test", "" ).WhereIf( "Name", "a", true );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p_0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -889,9 +889,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhereIf_3() {
             _builder.From<Sample>( "" ).WhereIf<Sample>( t => t.Email, "a", true );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p_0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -910,7 +910,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhereIf_5() {
             _builder.From<Sample>( "k" ).WhereIf<Sample>( t => t.Email == "a", true );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p_0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -932,9 +932,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhereIfNotEmpty_1() {
             _builder.From( "Test", "" ).WhereIfNotEmpty( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p_0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -953,9 +953,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhereIfNotEmpty_3() {
             _builder.From<Sample>( "" ).WhereIfNotEmpty<Sample>( t => t.Email, "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p_0", _builder.ToSql() );
             Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p__0"] );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
         }
 
         /// <summary>
@@ -974,7 +974,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         [Fact]
         public void TestWhereIfNotEmpty_5() {
             _builder.From<Sample>( "k" ).WhereIfNotEmpty<Sample>( t => t.Email.Contains( "a" ) );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email] Like @_p__0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email] Like @_p_0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -1008,7 +1008,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         public void TestAnd_1() {
             var newBuilder = _builder.New().Where( "Name", "a" );
             _builder.From( "Test" ).Where( "Age", 1 ).And( newBuilder );
-            Assert.Equal( $"Select * {Common.Line}From [Test] {Common.Line}Where [Age]=@_p__0 And [Name]=@_p_1_0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] {Common.Line}Where [Age]=@_p_0 And [Name]=@_p_1_0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -1019,7 +1019,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var builder1 = _builder.New().Where( "Name", "a" );
             var builder2 = _builder.New().Where( "Code", "b" );
             _builder.From( "Test", "" ).Where( "Age", 1 ).And( builder1 ).And( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Age]=@_p__0 And [t].[Name]=@_p_1_0 And [t].[Code]=@_p_2_0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Age]=@_p_0 And [t].[Name]=@_p_1_0 And [t].[Code]=@_p_2_0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -1030,7 +1030,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var builder1 = _builder.New().Where( "Name", "a" );
             var builder2 = builder1.New().Where( "Code", "b" );
             _builder.From( "Test", "" ).Where( "Age", 1 ).And( builder1 ).And( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Age]=@_p__0 And [t].[Name]=@_p_1_0 And [t].[Code]=@_p_11_0", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Age]=@_p_0 And [t].[Name]=@_p_1_0 And [t].[Code]=@_p_11_0", _builder.ToSql() );
         }
 
         /// <summary>
@@ -1042,7 +1042,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select * " );
             result.AppendLine( "From [Test] As [t] " );
-            result.Append( "Where [t].[a]=@_p__0 And [t].[b]=@_p__1 " );
+            result.Append( "Where [t].[a]=@_p_0 And [t].[b]=@_p_1 " );
             result.Append( "And [t].[c]=@_p_1_0 And [t].[d]=@_p_1_1 " );
             result.Append( "And [t].[e]=@_p_2_0 And [t].[f]=@_p_2_1 " );
             result.Append( "And [t].[c1]=@_p_11_0 And [t].[d1]=@_p_11_1 " );
@@ -1070,7 +1070,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         public void TestOr_1() {
             var newBuilder = _builder.New().Where( "Name", "a" );
             _builder.From( "Test", "" ).Where( "Age", 1 ).Or( newBuilder );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where ([t].[Age]=@_p__0 Or [t].[Name]=@_p_1_0)", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where ([t].[Age]=@_p_0 Or [t].[Name]=@_p_1_0)", _builder.ToSql() );
         }
 
         /// <summary>
@@ -1081,7 +1081,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var builder1 = _builder.New().Where( "Name", "a" );
             var builder2 = _builder.New().Where( "Code", "b" );
             _builder.From( "Test", "" ).Where( "Age", 1 ).Or( builder1 ).Or( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where (([t].[Age]=@_p__0 Or [t].[Name]=@_p_1_0) Or [t].[Code]=@_p_2_0)", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where (([t].[Age]=@_p_0 Or [t].[Name]=@_p_1_0) Or [t].[Code]=@_p_2_0)", _builder.ToSql() );
         }
 
         /// <summary>
@@ -1092,7 +1092,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var builder1 = _builder.New().Where( "Name", "a" );
             var builder2 = builder1.New().Where( "Code", "b" );
             _builder.From( "Test", "" ).Where( "Age", 1 ).Or( builder1 ).Or( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where (([t].[Age]=@_p__0 Or [t].[Name]=@_p_1_0) Or [t].[Code]=@_p_11_0)", _builder.ToSql() );
+            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where (([t].[Age]=@_p_0 Or [t].[Name]=@_p_1_0) Or [t].[Code]=@_p_11_0)", _builder.ToSql() );
         }
 
         /// <summary>
@@ -1104,7 +1104,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select * " );
             result.AppendLine( "From [Test] As [t] " );
-            result.Append( "Where (((([t].[a]=@_p__0 And [t].[b]=@_p__1 " );
+            result.Append( "Where (((([t].[a]=@_p_0 And [t].[b]=@_p_1 " );
             result.Append( "Or [t].[c]=@_p_1_0 And [t].[d]=@_p_1_1) " );
             result.Append( "Or [t].[e]=@_p_2_0 And [t].[f]=@_p_2_1) " );
             result.Append( "Or [t].[c1]=@_p_11_0 And [t].[d1]=@_p_11_1) " );

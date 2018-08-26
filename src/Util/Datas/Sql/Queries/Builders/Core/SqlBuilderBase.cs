@@ -21,26 +21,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 初始化Sql生成器
         /// </summary>
         /// <param name="matedata">实体元数据解析器</param>
-        /// <param name="parameterManager">参数管理器</param>
-        protected SqlBuilderBase( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) {
+        protected SqlBuilderBase( IEntityMatedata matedata = null ) {
             EntityMatedata = matedata;
             EntityResolver = new EntityResolver( matedata );
             AliasRegister = new EntityAliasRegister();
-            ParameterManager = parameterManager ?? new ParameterManager();
         }
 
         #endregion
 
-        #region 属性
+        #region 辅助成员
 
-        /// <summary>
-        /// 参数标识，用于防止多个Sql生成器生成的参数重复
-        /// </summary>
-        public string Tag { get; set; }
-        /// <summary>
-        /// 子生成器数量,用于生成子生成器的Tag
-        /// </summary>
-        protected int ChildBuilderCount { get; set; } = 0;
         /// <summary>
         /// 实体元数据解析器
         /// </summary>
@@ -56,7 +46,23 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 参数管理器
         /// </summary>
-        protected IParameterManager ParameterManager { get; }
+        private IParameterManager _parameterManager;
+        /// <summary>
+        /// 参数管理器
+        /// </summary>
+        protected IParameterManager ParameterManager => _parameterManager ?? ( _parameterManager = CreatepParameterManager() );
+
+        /// <summary>
+        /// 创建参数管理器
+        /// </summary>
+        protected virtual IParameterManager CreatepParameterManager() {
+            return new ParameterManager( GetDialect() );
+        }
+
+        /// <summary>
+        /// 获取Sql方言
+        /// </summary>
+        protected abstract IDialect GetDialect();
 
         #endregion
 
@@ -145,11 +151,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         protected virtual ISelectClause CreateSelectClause() {
             return new SelectClause( GetDialect(), EntityResolver, AliasRegister );
         }
-
-        /// <summary>
-        /// 获取Sql方言
-        /// </summary>
-        protected abstract IDialect GetDialect();
 
         /// <summary>
         /// 获取Select语句
@@ -416,7 +417,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建Where子句
         /// </summary>
         protected virtual IWhereClause CreatewWhereClause() {
-            return new WhereClause( GetDialect(), EntityResolver, AliasRegister, ParameterManager, Tag );
+            return new WhereClause( GetDialect(), EntityResolver, AliasRegister, ParameterManager );
         }
 
         /// <summary>
@@ -932,7 +933,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
-        #region Pager(设置分页)
+        #region Page(设置分页)
 
         /// <summary>
         /// 分页
@@ -950,7 +951,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置分页
         /// </summary>
         /// <param name="pager">分页参数</param>
-        public ISqlBuilder Pager( IPager pager ) {
+        public ISqlBuilder Page( IPager pager ) {
             _pager = pager;
             return this;
         }

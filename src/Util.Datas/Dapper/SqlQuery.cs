@@ -108,7 +108,7 @@ namespace Util.Datas.Dapper {
         /// </summary>
         private void SetPager( IPager parameter ) {
             Builder.OrderBy( parameter.Order );
-            Builder.Pager( parameter );
+            Builder.Page( parameter );
         }
 
         /// <summary>

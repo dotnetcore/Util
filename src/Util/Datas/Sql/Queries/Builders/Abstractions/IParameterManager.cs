@@ -7,6 +7,10 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// </summary>
     public interface IParameterManager {
         /// <summary>
+        /// 创建参数名
+        /// </summary>
+        string GenerateName();
+        /// <summary>
         /// 获取参数列表
         /// </summary>
         IDictionary<string, object> GetParams();

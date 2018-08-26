@@ -29,7 +29,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 测试初始化
         /// </summary>
         public WhereClauseTest() {
-            _clause = new WhereClause( new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), new ParameterManager() );
+            _clause = new WhereClause( new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestAnd() {
             _clause.Where( "Age", 1 );
             _clause.And( new LessCondition( "a", "@a" ) );
-            Assert.Equal( "Where [Age]=@_p__0 And a<@a", GetSql() );
+            Assert.Equal( "Where [Age]=@_p_0 And a<@a", GetSql() );
         }
 
         #endregion
@@ -64,7 +64,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestOr() {
             _clause.Where( "Age", 1 );
             _clause.Or( new LessCondition( "a", "@a" ) );
-            Assert.Equal( "Where ([Age]=@_p__0 Or a<@a)", GetSql() );
+            Assert.Equal( "Where ([Age]=@_p_0 Or a<@a)", GetSql() );
         }
 
         #endregion
@@ -77,7 +77,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_1() {
             _clause.Where( "Name", "a" );
-            Assert.Equal( "Where [Name]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Name]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_2() {
             _clause.Where( "f.Name", "a" );
-            Assert.Equal( "Where [f].[Name]=@_p__0", GetSql() );
+            Assert.Equal( "Where [f].[Name]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestWhere_3() {
             _clause.Where( "f.Name", "a" );
             _clause.Where( "s.Age", "a" );
-            Assert.Equal( "Where [f].[Name]=@_p__0 And [s].[Age]=@_p__1", GetSql() );
+            Assert.Equal( "Where [f].[Name]=@_p_0 And [s].[Age]=@_p_1", GetSql() );
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_4() {
             _clause.Where<Sample>( t => t.Email, "a" );
-            Assert.Equal( "Where [Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -113,9 +113,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestWhere_5() {
-            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager() );
+            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
             _clause.Where<Sample>( t => t.Email, "a" );
-            Assert.Equal( "Where [as_Sample].[t_Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [as_Sample].[t_Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_6() {
             _clause.Where<Sample>( t => t.Email == "a" );
-            Assert.Equal( "Where [Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -132,9 +132,9 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestWhere_7() {
-            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager() );
+            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
             _clause.Where<Sample>( t => t.Email == "a" );
-            Assert.Equal( "Where [as_Sample].[t_Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [as_Sample].[t_Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_8() {
             _clause.Where<Sample>( t => t.Email != "a" );
-            Assert.Equal( "Where [Email]<>@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]<>@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_9() {
             _clause.Where<Sample>( t => t.IntValue > 1 );
-            Assert.Equal( "Where [IntValue]>@_p__0", GetSql() );
+            Assert.Equal( "Where [IntValue]>@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_10() {
             _clause.Where<Sample>( t => t.IntValue < 1 );
-            Assert.Equal( "Where [IntValue]<@_p__0", GetSql() );
+            Assert.Equal( "Where [IntValue]<@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_11() {
             _clause.Where<Sample>( t => t.IntValue >= 1 );
-            Assert.Equal( "Where [IntValue]>=@_p__0", GetSql() );
+            Assert.Equal( "Where [IntValue]>=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_12() {
             _clause.Where<Sample>( t => t.IntValue <= 1 );
-            Assert.Equal( "Where [IntValue]<=@_p__0", GetSql() );
+            Assert.Equal( "Where [IntValue]<=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_13() {
             _clause.Where<Sample>( t => t.Email.Contains( "a" ) );
-            Assert.Equal( "Where [Email] Like @_p__0", GetSql() );
+            Assert.Equal( "Where [Email] Like @_p_0", GetSql() );
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_14() {
             _clause.Where<Sample>( t => t.Email.StartsWith( "a" ) );
-            Assert.Equal( "Where [Email] Like @_p__0", GetSql() );
+            Assert.Equal( "Where [Email] Like @_p_0", GetSql() );
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_15() {
             _clause.Where<Sample>( t => t.Email.EndsWith( "a" ) );
-            Assert.Equal( "Where [Email] Like @_p__0", GetSql() );
+            Assert.Equal( "Where [Email] Like @_p_0", GetSql() );
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_16() {
             _clause.Where<Sample>( t => t.Email == "a" && t.StringValue.Contains( "b" ) );
-            Assert.Equal( "Where [Email]=@_p__0 And [StringValue] Like @_p__1", GetSql() );
+            Assert.Equal( "Where [Email]=@_p_0 And [StringValue] Like @_p_1", GetSql() );
         }
 
         /// <summary>
@@ -225,8 +225,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestWhere_17() {
             //结果
             var result = new String();
-            result.Append( "Where ([Email]=@_p__0 And [StringValue] Like @_p__1 Or [IntValue]=@_p__2) " );
-            result.Append( "And ([Email]=@_p__3 Or [IntValue]=@_p__4)" );
+            result.Append( "Where ([Email]=@_p_0 And [StringValue] Like @_p_1 Or [IntValue]=@_p_2) " );
+            result.Append( "And ([Email]=@_p_3 Or [IntValue]=@_p_4)" );
 
             //执行
             _clause.Where<Sample>( t => t.Email == "a" && t.StringValue.Contains( "b" ) || t.IntValue == 1 );
@@ -251,7 +251,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_19() {
             _clause.Where<Sample>( t => t.Email == "" );
-            Assert.Equal( "Where [Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhere_21() {
             _clause.Where<Sample>( t => t.Email != "" );
-            Assert.Equal( "Where [Email]<>@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]<>@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestWhere_22() {
             //结果
             var result = new String();
-            result.Append( "Where [Email] In (@_p__0,@_p__1)" );
+            result.Append( "Where [Email] In (@_p_0,@_p_1)" );
 
             //执行
             var list = new List<string> { "a", "b" };
@@ -299,7 +299,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhereIf_1() {
             _clause.WhereIf( "Name", "a", true );
-            Assert.Equal( "Where [Name]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Name]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhereIf_3() {
             _clause.WhereIf<Sample>( t => t.Email, "a", true );
-            Assert.Equal( "Where [Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -335,7 +335,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhereIf_5() {
             _clause.WhereIf<Sample>( t => t.Email == "a", true );
-            Assert.Equal( "Where [Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhereIfNotEmpty_1() {
             _clause.WhereIfNotEmpty( "Name", "a" );
-            Assert.Equal( "Where [Name]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Name]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -375,7 +375,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhereIfNotEmpty_3() {
             _clause.WhereIfNotEmpty<Sample>( t => t.Email, "a" );
-            Assert.Equal( "Where [Email]=@_p__0", GetSql() );
+            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
         }
 
         /// <summary>
@@ -393,7 +393,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestWhereIfNotEmpty_5() {
             _clause.WhereIfNotEmpty<Sample>( t => t.Email.Contains( "a" ) );
-            Assert.Equal( "Where [Email] Like @_p__0", GetSql() );
+            Assert.Equal( "Where [Email] Like @_p_0", GetSql() );
         }
 
         /// <summary>
@@ -529,7 +529,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestIn_1() {
             //结果
             var result = new String();
-            result.Append( "Where [user].[Email] In (@_p__0,@_p__1)" );
+            result.Append( "Where [user].[Email] In (@_p_0,@_p_1)" );
 
             //执行
             var list = new List<string> { "a", "b" };
@@ -546,7 +546,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestIn_2() {
             //结果
             var result = new String();
-            result.Append( "Where [Email] In (@_p__0,@_p__1)" );
+            result.Append( "Where [Email] In (@_p_0,@_p_1)" );
 
             //执行
             var list = new List<string> { "a", "b" };
@@ -563,7 +563,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestIn_3() {
             //结果
             var result = new String();
-            result.Append( "Where [user].[Email] In (@_p__0,@_p__1)" );
+            result.Append( "Where [user].[Email] In (@_p_0,@_p_1)" );
 
             //执行
             var list = new [] { "a", "b" };
