@@ -1,4 +1,6 @@
-﻿namespace Util.Datas.Sql.Queries.Builders.Conditions {
+﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
+
+namespace Util.Datas.Sql.Queries.Builders.Conditions {
     /// <summary>
     /// 空查询条件
     /// </summary>

@@ -1,4 +1,6 @@
-﻿namespace Util.Datas.Sql.Queries.Builders.Conditions {
+﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
+
+namespace Util.Datas.Sql.Queries.Builders.Conditions {
     /// <summary>
     /// And连接条件
     /// </summary>

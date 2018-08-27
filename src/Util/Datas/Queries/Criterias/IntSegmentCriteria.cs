@@ -15,7 +15,7 @@ namespace Util.Datas.Queries.Criterias {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public IntSegmentCriteria( Expression<Func<TEntity, TProperty>> propertyExpression, int? min, int? max, Boundary boundary = Boundary.Both ) 
+        public IntSegmentCriteria( Expression<Func<TEntity, TProperty>> propertyExpression, int? min, int? max, Boundary boundary = Boundary.Both )
             : base( propertyExpression,min,max, boundary ) {
         }
 

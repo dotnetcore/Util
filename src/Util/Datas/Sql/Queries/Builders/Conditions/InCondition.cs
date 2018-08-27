@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 
 namespace Util.Datas.Sql.Queries.Builders.Conditions {
     /// <summary>
