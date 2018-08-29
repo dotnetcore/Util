@@ -25,7 +25,6 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// </summary>
         private readonly PredicateExpressionResolver _resolver;
 
-
         /// <summary>
         /// 测试初始化
         /// </summary>

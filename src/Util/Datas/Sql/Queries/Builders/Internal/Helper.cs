@@ -132,5 +132,27 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
                 return null;
             return result;
         }
+
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        public ICondition Between( string column, object min, object max, Boundary boundary ) {
+            column = GetColumn( column );
+            string minParamName = null;
+            string maxParamName = null;
+            if( string.IsNullOrWhiteSpace( min.SafeString() ) == false ) {
+                minParamName = _parameterManager.GenerateName();
+                _parameterManager.Add( minParamName, min );
+            }
+            if( string.IsNullOrWhiteSpace( max.SafeString() ) == false ) {
+                maxParamName = _parameterManager.GenerateName();
+                _parameterManager.Add( maxParamName, max );
+            }
+            return new SegmentCondition( column, minParamName, maxParamName, boundary );
+        }
     }
 }

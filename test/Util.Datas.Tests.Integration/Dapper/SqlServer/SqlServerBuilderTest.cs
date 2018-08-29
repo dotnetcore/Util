@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Tests.Samples;
 using Util.Datas.Tests.XUnitHelpers;
-using Util.Helpers;
-using Util.Properties;
 using Xunit;
 using String = Util.Helpers.String;
 
@@ -781,25 +778,33 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
-        #region Where(设置条件)
-
-
         /// <summary>
-        /// 设置条件 - 多次设置From
+        /// 测试范围查询
         /// </summary>
         [Fact]
-        public void TestWhere_18() {
-            _builder.From( "Test", "" ).From<Sample>( "Test2" ).From<Sample>( "" ).Where( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Name]=@_p_0", _builder.ToSql() );
-            Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+        public void Test_35() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<=@_p_1" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Between( "a.B",1,2 );
+
+            //验证
+            Assert.Equal( 1, _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _builder.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
         /// 设置条件 - 通过lambda设置条件 - 设置多个条件 - 与连接
         /// </summary>
         [Fact]
-        public void TestWhere_19() {
+        public void Test_36() {
             //结果
             var result = new String();
             result.AppendLine( "Select * " );
@@ -820,7 +825,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// 设置条件 - 通过lambda设置条件 - 设置多个条件 - 或连接
         /// </summary>
         [Fact]
-        public void TestWhere_20() {
+        public void Test_37() {
             //结果
             var result = new String();
             result.AppendLine( "Select * " );
@@ -838,289 +843,95 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 设置多个条件 - 或连接 - 设置表别名
+        /// 连接查询条件 - 创建1个子生成器
         /// </summary>
         [Fact]
-        public void TestWhere_21() {
+        public void Test_38() {
             //结果
             var result = new String();
             result.AppendLine( "Select * " );
-            result.AppendLine( "From [Sample] As [k] " );
-            result.Append( "Where ([o].[Email]=@_p_0 And [o].[StringValue] Like @_p_1 Or [o].[IntValue]=@_p_2) " );
-            result.Append( "And ([p].[Email]=@_p_3 Or [p].[IntValue]=@_p_4)" );
+            result.AppendLine( "From [Test] " );
+            result.Append( "Where [Age]=@_p_1 And [Name]=@_p_0" );
 
             //执行
-            _builder.From<Sample>( "k" )
-                .Where<Sample>( t => t.Email == "a" && t.StringValue.Contains( "b" ) || t.IntValue == 1, "o" )
-                .Where<Sample>( t => t.Email == "c" || t.IntValue == 2, "p" );
-
-            //验证
-            Assert.Equal( result.ToString(), _builder.ToSql() );
-        }
-
-        #endregion
-
-        #region WhereIf(设置条件)
-
-        /// <summary>
-        /// 设置条件 - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_1() {
-            _builder.From( "Test", "" ).WhereIf( "Name", "a", true );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p_0", _builder.ToSql() );
-            Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
-        }
-
-        /// <summary>
-        /// 设置条件 - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_2() {
-            _builder.From( "Test", "" ).WhereIf( "Name", "a", false );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t]", _builder.ToSql() );
-            Assert.Empty( _builder.GetParams() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名  - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_3() {
-            _builder.From<Sample>( "" ).WhereIf<Sample>( t => t.Email, "a", true );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p_0", _builder.ToSql() );
-            Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名  - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_4() {
-            _builder.From<Sample>( "" ).WhereIf<Sample>( t => t.Email, "a", false );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t]", _builder.ToSql() );
-            Assert.Empty( _builder.GetParams() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名 - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_5() {
-            _builder.From<Sample>( "k" ).WhereIf<Sample>( t => t.Email == "a", true );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email]=@_p_0", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名 - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_6() {
-            _builder.From<Sample>( "k" ).WhereIf<Sample>( t => t.Email == "a", false );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k]", _builder.ToSql() );
-        }
-
-        #endregion
-
-        #region WhereIfNotEmpty(设置条件)
-
-        /// <summary>
-        /// 设置条件 - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_1() {
-            _builder.From( "Test", "" ).WhereIfNotEmpty( "Name", "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Name]=@_p_0", _builder.ToSql() );
-            Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
-        }
-
-        /// <summary>
-        /// 设置条件 - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_2() {
-            _builder.From( "Test", "" ).WhereIfNotEmpty( "Name", "" );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t]", _builder.ToSql() );
-            Assert.Empty( _builder.GetParams() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名  - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_3() {
-            _builder.From<Sample>( "" ).WhereIfNotEmpty<Sample>( t => t.Email, "a" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t] {Common.Line}Where [t].[Email]=@_p_0", _builder.ToSql() );
-            Assert.Single( _builder.GetParams() );
-            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名  - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_4() {
-            _builder.From<Sample>( "" ).WhereIfNotEmpty<Sample>( t => t.Email, "" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [t]", _builder.ToSql() );
-            Assert.Empty( _builder.GetParams() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_5() {
-            _builder.From<Sample>( "k" ).WhereIfNotEmpty<Sample>( t => t.Email.Contains( "a" ) );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k] {Common.Line}Where [k].[Email] Like @_p_0", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_6() {
-            _builder.From<Sample>( "k" ).WhereIfNotEmpty<Sample>( t => t.Email == "" );
-            Assert.Equal( $"Select * {Common.Line}From [Sample] As [k]", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置条件 - 仅允许设置一个条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIfNotEmpty_7() {
-            Expression<Func<Sample, bool>> condition = t => t.Email.Contains( "a" ) && t.IntValue == 1;
-            AssertHelper.Throws<InvalidOperationException>( () => {
-                _builder.WhereIfNotEmpty<Sample>( condition );
-            }, string.Format( LibraryResource.OnlyOnePredicate, condition ) );
-        }
-
-        #endregion
-
-        #region And(连接查询条件)
-
-        /// <summary>
-        /// 连接查询条件 - 创建1个子生成器
-        /// </summary>
-        [Fact]
-        public void TestAnd_1() {
             var newBuilder = _builder.New().Where( "Name", "a" );
             _builder.From( "Test" ).Where( "Age", 1 ).And( newBuilder );
-            Assert.Equal( $"Select * {Common.Line}From [Test] {Common.Line}Where [Age]=@_p_0 And [Name]=@_p_1_0", _builder.ToSql() );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
 
         /// <summary>
         /// 连接查询条件 - 创建2个子生成器
         /// </summary>
         [Fact]
-        public void TestAnd_2() {
-            var builder1 = _builder.New().Where( "Name", "a" );
-            var builder2 = _builder.New().Where( "Code", "b" );
-            _builder.From( "Test", "" ).Where( "Age", 1 ).And( builder1 ).And( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Age]=@_p_0 And [t].[Name]=@_p_1_0 And [t].[Code]=@_p_2_0", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 连接查询条件 - 创建两级生成器
-        /// </summary>
-        [Fact]
-        public void TestAnd_3() {
-            var builder1 = _builder.New().Where( "Name", "a" );
-            var builder2 = builder1.New().Where( "Code", "b" );
-            _builder.From( "Test", "" ).Where( "Age", 1 ).And( builder1 ).And( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where [t].[Age]=@_p_0 And [t].[Name]=@_p_1_0 And [t].[Code]=@_p_11_0", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 连接查询条件 - 多级生成器，多条件
-        /// </summary>
-        [Fact]
-        public void TestAnd_4() {
+        public void Test_39() {
             //结果
             var result = new String();
             result.AppendLine( "Select * " );
-            result.AppendLine( "From [Test] As [t] " );
-            result.Append( "Where [t].[a]=@_p_0 And [t].[b]=@_p_1 " );
-            result.Append( "And [t].[c]=@_p_1_0 And [t].[d]=@_p_1_1 " );
-            result.Append( "And [t].[e]=@_p_2_0 And [t].[f]=@_p_2_1 " );
-            result.Append( "And [t].[c1]=@_p_11_0 And [t].[d1]=@_p_11_1 " );
-            result.Append( "And [t].[e1]=@_p_21_0 And [t].[f1]=@_p_21_1" );
+            result.AppendLine( "From [Test] " );
+            result.Append( "Where [Age]=@_p_2 And [Name]=@_p_0 And [Code]=@_p_1" );
 
-            //操作
-            var builder1 = _builder.New().Where( "c", 3 ).Where( "d", 4 );
-            var builder11 = builder1.New().Where( "c1", 31 ).Where( "d1", 41 );
-            var builder2 = _builder.New().Where( "e", 5 ).Where( "f", 6 );
-            var builder21 = builder2.New().Where( "e1", 51 ).Where( "f1", 61 );
-            _builder.From( "Test", "" ).Where( "a", 1 ).Where( "b", 2 ).And( builder1 ).And( builder2 ).And( builder11 ).And( builder21 );
+            //执行
+            var builder1 = _builder.New().Where( "Name", "a" );
+            var builder2 = _builder.New().Where( "Code", "b" );
+            _builder.From( "Test" ).Where( "Age", 1 ).And( builder1 ).And( builder2 );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 3, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_2"] );
         }
 
-        #endregion
-
-        #region Or(连接查询条件)
-
         /// <summary>
-        /// 连接查询条件 - 创建1个子生成器
+        /// 连接查询条件 - 创建1个子生成器 - Or
         /// </summary>
         [Fact]
-        public void TestOr_1() {
+        public void Test_40() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Test] " );
+            result.Append( "Where ([Age]=@_p_1 Or [Name]=@_p_0)" );
+
+            //执行
             var newBuilder = _builder.New().Where( "Name", "a" );
-            _builder.From( "Test", "" ).Where( "Age", 1 ).Or( newBuilder );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where ([t].[Age]=@_p_0 Or [t].[Name]=@_p_1_0)", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 连接查询条件 - 创建2个子生成器
-        /// </summary>
-        [Fact]
-        public void TestOr_2() {
-            var builder1 = _builder.New().Where( "Name", "a" );
-            var builder2 = _builder.New().Where( "Code", "b" );
-            _builder.From( "Test", "" ).Where( "Age", 1 ).Or( builder1 ).Or( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where (([t].[Age]=@_p_0 Or [t].[Name]=@_p_1_0) Or [t].[Code]=@_p_2_0)", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 连接查询条件 - 创建两级生成器
-        /// </summary>
-        [Fact]
-        public void TestOr_3() {
-            var builder1 = _builder.New().Where( "Name", "a" );
-            var builder2 = builder1.New().Where( "Code", "b" );
-            _builder.From( "Test", "" ).Where( "Age", 1 ).Or( builder1 ).Or( builder2 );
-            Assert.Equal( $"Select * {Common.Line}From [Test] As [t] {Common.Line}Where (([t].[Age]=@_p_0 Or [t].[Name]=@_p_1_0) Or [t].[Code]=@_p_11_0)", _builder.ToSql() );
-        }
-
-        /// <summary>
-        /// 连接查询条件 - 多级生成器，多条件
-        /// </summary>
-        [Fact]
-        public void TestOr_4() {
-            //结果
-            var result = new String();
-            result.AppendLine( "Select * " );
-            result.AppendLine( "From [Test] As [t] " );
-            result.Append( "Where (((([t].[a]=@_p_0 And [t].[b]=@_p_1 " );
-            result.Append( "Or [t].[c]=@_p_1_0 And [t].[d]=@_p_1_1) " );
-            result.Append( "Or [t].[e]=@_p_2_0 And [t].[f]=@_p_2_1) " );
-            result.Append( "Or [t].[c1]=@_p_11_0 And [t].[d1]=@_p_11_1) " );
-            result.Append( "Or [t].[e1]=@_p_21_0 And [t].[f1]=@_p_21_1)" );
-
-            //操作
-            var builder1 = _builder.New().Where( "c", 3 ).Where( "d", 4 );
-            var builder11 = builder1.New().Where( "c1", 31 ).Where( "d1", 41 );
-            var builder2 = _builder.New().Where( "e", 5 ).Where( "f", 6 );
-            var builder21 = builder2.New().Where( "e1", 51 ).Where( "f1", 61 );
-            _builder.From( "Test", "" ).Where( "a", 1 ).Where( "b", 2 ).Or( builder1 ).Or( builder2 ).Or( builder11 ).Or( builder21 );
+            _builder.From( "Test" ).Where( "Age", 1 ).Or( newBuilder );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
 
-        #endregion
+        /// <summary>
+        /// 连接查询条件 - 创建2个子生成器 - Or
+        /// </summary>
+        [Fact]
+        public void Test_41() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Test] " );
+            result.Append( "Where (([Age]=@_p_2 Or [Name]=@_p_0) Or [Code]=@_p_1)" );
+
+            //执行
+            var builder1 = _builder.New().Where( "Name", "a" );
+            var builder2 = _builder.New().Where( "Code", "b" );
+            _builder.From( "Test" ).Where( "Age", 1 ).Or( builder1 ).Or( builder2 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 3, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_2"] );
+        }
     }
 }

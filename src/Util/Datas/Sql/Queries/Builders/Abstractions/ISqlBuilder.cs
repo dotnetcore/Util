@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Queries;
-using Util.Datas.Sql.Queries.Builders.Conditions;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries.Builders.Abstractions {
@@ -168,6 +167,11 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置查询条件
         /// </summary>
+        /// <param name="condition">查询条件</param>
+        ISqlBuilder Where( ICondition condition );
+        /// <summary>
+        /// 设置查询条件
+        /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
@@ -219,7 +223,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值,如果值为空，则忽略该查询条件</param>
         /// <param name="operator">运算符</param>
-        ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value,Operator @operator = Operator.Equal ) where TEntity : class;
+        ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class;
         /// <summary>
         /// 设置查询条件
         /// </summary>
@@ -390,6 +394,72 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="expression">列名表达式</param>
         /// <param name="values">值集合</param>
         ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, int? min, int? max, Boundary boundary = Boundary.Both ) where TEntity : class;
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, double? min, double? max, Boundary boundary = Boundary.Both ) where TEntity : class;
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, decimal? min, decimal? max, Boundary boundary = Boundary.Both ) where TEntity : class;
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="includeTime">是否包含时间</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null ) where TEntity : class;
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between( string column, int? min, int? max, Boundary boundary = Boundary.Both );
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between( string column, double? min, double? max, Boundary boundary = Boundary.Both );
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between( string column, decimal? min, decimal? max, Boundary boundary = Boundary.Both );
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="includeTime">是否包含时间</param>
+        /// <param name="boundary">包含边界</param>
+        ISqlBuilder Between( string column, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null );
         /// <summary>
         /// 分组
         /// </summary>

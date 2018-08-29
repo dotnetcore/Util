@@ -12,7 +12,8 @@ namespace Util.Datas.Dapper.PgSql {
         /// 初始化Sql生成器
         /// </summary>
         /// <param name="matedata">实体元数据解析器</param>
-        public PgSqlBuilder( IEntityMatedata matedata = null ) : base( matedata ) {
+        /// <param name="parameterManager">参数管理器</param>
+        public PgSqlBuilder( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) : base( matedata, parameterManager ) {
         }
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace Util.Datas.Dapper.PgSql {
         /// 创建Sql生成器
         /// </summary>
         public override ISqlBuilder New() {
-            return new PgSqlBuilder( EntityMatedata );
+            return new PgSqlBuilder( EntityMatedata, ParameterManager );
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer;
+using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Clauses;
 using Util.Datas.Sql.Queries.Builders.Conditions;
 using Util.Datas.Sql.Queries.Builders.Core;
@@ -21,6 +22,10 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         #region 测试初始化
 
         /// <summary>
+        /// 参数管理器
+        /// </summary>
+        private readonly ParameterManager _parameterManager;
+        /// <summary>
         /// Where子句
         /// </summary>
         private WhereClause _clause;
@@ -29,7 +34,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 测试初始化
         /// </summary>
         public WhereClauseTest() {
-            _clause = new WhereClause( new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
+            _parameterManager = new ParameterManager( new SqlServerDialect() );
+            _clause = new WhereClause( new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
         }
 
         /// <summary>
@@ -570,6 +576,225 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             _clause.In( "user.Email", list );
 
             //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        #endregion
+
+        #region Between(范围查询)
+
+        /// <summary>
+        /// 测试范围查询 - 整型
+        /// </summary>
+        [Fact]
+        public void TestBetween_1() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<=@_p_1" );
+
+            //执行
+            _clause.Between( "a.B", 1, 2,Boundary.Both );
+
+            //验证
+            Assert.Equal( 1, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 整型 - 不包含边界
+        /// </summary>
+        [Fact]
+        public void TestBetween_2() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>@_p_0 And [a].[B]<@_p_1" );
+
+            //执行
+            _clause.Between( "a.B", 1, 2, Boundary.Neither );
+
+            //验证
+            Assert.Equal( 1, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 整型 - 最小值大于最大值，则交换大小值的位置
+        /// </summary>
+        [Fact]
+        public void TestBetween_3() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>@_p_0 And [a].[B]<@_p_1" );
+
+            //执行
+            _clause.Between( "a.B", 2, 1, Boundary.Neither );
+
+            //验证
+            Assert.Equal( 1, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 整型 - 最小值为空，忽略最小值条件
+        /// </summary>
+        [Fact]
+        public void TestBetween_4() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]<=@_p_0" );
+
+            //执行
+            _clause.Between( "a.B", null, 2, Boundary.Both );
+
+            //验证
+            Assert.Equal( 2, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 整型 - 最大值为空，忽略最大值条件
+        /// </summary>
+        [Fact]
+        public void TestBetween_5() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0" );
+
+            //执行
+            _clause.Between( "a.B", 1, null, Boundary.Both );
+
+            //验证
+            Assert.Equal( 1, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 整型 - 最大值和最小值均为null,忽略所有条件
+        /// </summary>
+        [Fact]
+        public void TestBetween_6() {
+            //执行
+            _clause.Between( "a.B", null, null, Boundary.Both );
+
+            //验证
+            Assert.Empty( _parameterManager.GetParams() );
+            Assert.Null( GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - double
+        /// </summary>
+        [Fact]
+        public void TestBetween_7() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<=@_p_1" );
+
+            //执行
+            _clause.Between( "a.B", 1.2, 3.4, Boundary.Both );
+
+            //验证
+            Assert.Equal( 1.2, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( 3.4, _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - decimal
+        /// </summary>
+        [Fact]
+        public void TestBetween_8() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<=@_p_1" );
+
+            //执行
+            _clause.Between( "a.B", 1.2M, 3.4M, Boundary.Both );
+
+            //验证
+            Assert.Equal( 1.2M, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( 3.4M, _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 日期 - 包含时间
+        /// </summary>
+        [Fact]
+        public void TestBetween_9() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<=@_p_1" );
+
+            //执行
+            var min = DateTime.Parse( "2000-1-1 10:10:10" );
+            var max = DateTime.Parse( "2000-1-2 10:10:10" );
+            _clause.Between( "a.B", min, max,true,null );
+
+            //验证
+            Assert.Equal( min, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( max, _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 日期 - 不包含时间
+        /// </summary>
+        [Fact]
+        public void TestBetween_10() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<@_p_1" );
+
+            //执行
+            var min = DateTime.Parse( "2000-1-1 10:10:10" );
+            var max = DateTime.Parse( "2000-1-2 10:10:10" );
+            _clause.Between( "a.B", min, max, false, null );
+
+            //验证
+            Assert.Equal( DateTime.Parse( "2000-1-1" ), _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( DateTime.Parse( "2000-1-3" ), _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 日期 - 设置边界
+        /// </summary>
+        [Fact]
+        public void TestBetween_11() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>@_p_0 And [a].[B]<@_p_1" );
+
+            //执行
+            var min = DateTime.Parse( "2000-1-1 10:10:10" );
+            var max = DateTime.Parse( "2000-1-2 10:10:10" );
+            _clause.Between( "a.B", min, max, true, Boundary.Neither );
+
+            //验证
+            Assert.Equal( min, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( max, _parameterManager.GetParams()["@_p_1"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 整型 - lambda
+        /// </summary>
+        [Fact]
+        public void TestBetween_12() {
+            //结果
+            var result = new String();
+            result.Append( "Where [IntValue]>=@_p_0 And [IntValue]<=@_p_1" );
+
+            //执行
+            _clause.Between<Sample>( t => t.IntValue, 1, 2, Boundary.Both );
+
+            //验证
+            Assert.Equal( 1, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _parameterManager.GetParams()["@_p_1"] );
             Assert.Equal( result.ToString(), GetSql() );
         }
 
