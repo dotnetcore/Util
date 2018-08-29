@@ -150,7 +150,7 @@ namespace Util.Tests.Helpers {
             expression = t => t.Test2.Test3.StringValue.StartsWith( "C" );
             Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
 
-            var test = new Sample {Email = "a"};
+            var test = new Sample { Email = "a" };
             expression = t => t.StringValue.Contains( test.Email );
             Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
         }
@@ -298,6 +298,30 @@ namespace Util.Tests.Helpers {
 
             Expression<Func<Sample, bool>> expression3 = t => t.Test2.Test3.StringValue == "B";
             Assert.Equal( "B", Lambda.GetValue( expression3 ) );
+
+            var value = Guid.NewGuid();
+            Expression<Func<Sample, bool>> expression4 = t => t.GuidValue == value;
+            Assert.Equal( value, Lambda.GetValue( expression4 ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员值 - Guid.NewGuid
+        /// </summary>
+        [Fact]
+        public void TestGetValue_NewGuid() {
+            Expression<Func<Sample, bool>> expression = t => t.GuidValue == Guid.NewGuid();
+            var value = Lambda.GetValue( expression );
+            Assert.NotEqual( Guid.Empty, Util.Helpers.Convert.ToGuid( value ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员值 - DateTime.Now
+        /// </summary>
+        [Fact]
+        public void TestGetValue_DateTimeNow() {
+            Expression<Func<Sample, bool>> expression = t => t.DateValue == DateTime.Now;
+            var value = Lambda.GetValue( expression );
+            Assert.NotNull( Util.Helpers.Convert.ToDateOrNull( value ) );
         }
 
         /// <summary>

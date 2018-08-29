@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
-using Util.Datas.Sql.Queries.Builders.Conditions;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries {

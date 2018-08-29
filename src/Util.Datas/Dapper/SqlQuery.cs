@@ -6,6 +6,7 @@ using Dapper;
 using Util.Datas.Sql;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Domains.Repositories;
+using Util.Helpers;
 using Util.Logs;
 using Util.Logs.Extensions;
 
@@ -155,9 +156,15 @@ namespace Util.Datas.Dapper {
             var log = GetLog();
             if( log.IsTraceEnabled == false )
                 return;
+            var debugSql = sql;
+            foreach( var parameter in parameters )
+                debugSql = debugSql.Replace( parameter.Key, SqlHelper.GetParamLiterals( parameter.Value ) );
             log.Class( GetType().FullName )
                 .Caption( "SqlQuery查询调试:" )
-                .Sql( sql )
+                .Sql( "原始Sql:" )
+                .Sql( $"{sql}{Common.Line}" )
+                .Sql( "调试Sql:" )
+                .Sql( debugSql )
                 .SqlParams( parameters )
                 .Trace();
         }

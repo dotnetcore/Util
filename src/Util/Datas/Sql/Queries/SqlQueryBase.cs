@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
-using Util.Datas.Sql.Queries.Builders.Conditions;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries {
@@ -42,7 +41,7 @@ namespace Util.Datas.Sql.Queries {
         /// 获取调试Sql语句
         /// </summary>
         public string GetDebugSql() {
-            return Builder.ToSql();
+            return Builder.ToDebugSql();
         }
 
         /// <summary>

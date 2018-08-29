@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Util.Datas.Sql;
 using Util.Exceptions;
 using Util.Logs.Contents;
 using Util.Logs.Properties;
@@ -95,9 +96,9 @@ namespace Util.Logs.Extensions {
         /// <param name="log">日志操作</param>
         /// <param name="dictionary">字典</param>
         public static ILog SqlParams( this ILog log, IDictionary<string, object> dictionary ) {
-            if ( dictionary == null || dictionary.Count == 0 )
+            if( dictionary == null || dictionary.Count == 0 )
                 return log;
-            return SqlParams( log, dictionary.Select( t => $"{t.Key} : {t.Value}" ).Join() );
+            return SqlParams( log, dictionary.Select( t => $"{t.Key} : {SqlHelper.GetParamLiterals( t.Value )}" ).Join() );
         }
 
         /// <summary>

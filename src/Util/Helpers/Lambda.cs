@@ -191,6 +191,8 @@ namespace Util.Helpers {
             var value = GetValue( methodCallExpression.Arguments.FirstOrDefault() );
             if( value != null )
                 return value;
+            if( methodCallExpression.Object == null )
+                return methodCallExpression.Type.InvokeMember( methodCallExpression.Method.Name, BindingFlags.InvokeMethod, null, null, null );
             return GetValue( methodCallExpression.Object );
         }
 

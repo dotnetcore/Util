@@ -6,6 +6,7 @@ using Util.Datas.Matedatas;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Clauses;
+using Util.Datas.Sql.Queries.Builders.Internal;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries.Builders.Core {
@@ -76,6 +77,21 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
+        #region ToDebugSql(生成调试Sql语句)
+
+        /// <summary>
+        /// 生成调试Sql语句
+        /// </summary>
+        public string ToDebugSql() {
+            var result = ToSql();
+            var parameters = GetParams();
+            foreach ( var parameter in parameters )
+                result = result.Replace( parameter.Key, SqlHelper.GetParamLiterals( parameter.Value ) );
+            return result;
+        }
+
+        #endregion
+
         #region ToSql(生成Sql语句)
 
         /// <summary>
@@ -131,6 +147,17 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建分页Sql
         /// </summary>
         protected abstract void CreatePagerSql( StringBuilder result );
+
+        #endregion
+
+        #region GetParams(获取参数)
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        public IDictionary<string, object> GetParams() {
+            return ParameterManager.GetParams();
+        }
 
         #endregion
 
@@ -433,13 +460,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         public string GetCondition() {
             return WhereClause.GetCondition();
-        }
-
-        /// <summary>
-        /// 获取参数
-        /// </summary>
-        public IDictionary<string, object> GetParams() {
-            return ParameterManager.GetParams();
         }
 
         /// <summary>

@@ -14,6 +14,10 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         ISqlBuilder New();
         /// <summary>
+        /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
+        /// </summary>
+        string ToDebugSql();
+        /// <summary>
         /// 生成Sql语句
         /// </summary>
         string ToSql();
