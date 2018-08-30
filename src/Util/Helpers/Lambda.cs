@@ -34,6 +34,7 @@ namespace Util.Helpers {
                 case ExpressionType.Lambda:
                     return GetMemberExpression( ( (LambdaExpression)expression ).Body, right );
                 case ExpressionType.Convert:
+                case ExpressionType.Not:
                     return GetMemberExpression( ( (UnaryExpression)expression ).Operand, right );
                 case ExpressionType.MemberAccess:
                     return (MemberExpression)expression;
@@ -179,6 +180,10 @@ namespace Util.Helpers {
                     return GetMemberValue( (MemberExpression)expression );
                 case ExpressionType.Constant:
                     return GetConstantExpressionValue( expression );
+                case ExpressionType.Not:
+                    if ( expression.Type == typeof( bool ) )
+                        return false;
+                    return null;
             }
             return null;
         }
@@ -213,8 +218,11 @@ namespace Util.Helpers {
             if( expression.Expression == null )
                 return property.GetValue( null );
             var value = GetMemberValue( expression.Expression as MemberExpression );
-            if( value == null )
+            if ( value == null ) {
+                if ( property.PropertyType == typeof( bool ) )
+                    return true;
                 return null;
+            }
             return property.GetValue( value );
         }
 

@@ -31,5 +31,6 @@ namespace Util.Samples.Webs.Apis.Systems {
         /// Sql查询对象
         /// </summary>
         public ISqlQuery SqlQuery { get; }
+
     }
 }

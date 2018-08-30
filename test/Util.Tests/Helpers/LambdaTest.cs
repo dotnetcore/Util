@@ -56,6 +56,15 @@ namespace Util.Tests.Helpers {
 
             Expression<Func<Sample, int?>> expression5 = t => t.IntValue;
             Assert.Equal( "IntValue", Lambda.GetName( expression5 ) );
+
+            Expression<Func<Sample, bool>> expression6 = t => t.BoolValue;
+            Assert.Equal( "BoolValue", Lambda.GetName( expression6 ) );
+
+            expression6 = t => !t.BoolValue;
+            Assert.Equal( "BoolValue", Lambda.GetName( expression6 ) );
+
+            expression6 = t => !t.Test2.BoolValue;
+            Assert.Equal( "Test2.BoolValue", Lambda.GetName( expression6 ) );
         }
 
         #endregion
@@ -101,6 +110,9 @@ namespace Util.Tests.Helpers {
 
             Expression<Func<Sample, bool>> expression3 = t => t.Test2.Test3.StringValue == "B";
             Assert.Equal( "StringValue", Lambda.GetLastName( expression3 ) );
+
+            expression3 = t => !t.Test2.BoolValue;
+            Assert.Equal( "BoolValue", Lambda.GetLastName( expression3 ) );
         }
 
         /// <summary>
@@ -284,7 +296,7 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
-        /// 测试获取成员值 - 返回类型为bool
+        /// 测试获取成员值
         /// </summary>
         [Fact]
         public void TestGetValue() {
@@ -302,6 +314,30 @@ namespace Util.Tests.Helpers {
             var value = Guid.NewGuid();
             Expression<Func<Sample, bool>> expression4 = t => t.GuidValue == value;
             Assert.Equal( value, Lambda.GetValue( expression4 ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员值 - 布尔属性
+        /// </summary>
+        [Fact]
+        public void TestGetValue_Bool() {
+            Expression<Func<Sample, bool>> expression = t => t.BoolValue;
+            Assert.Equal( "True", Lambda.GetValue( expression ).ToString() );
+
+            expression = t => !t.BoolValue;
+            Assert.Equal( "False", Lambda.GetValue( expression ).ToString() );
+
+            expression = t => t.Test2.BoolValue;
+            Assert.Equal( "True", Lambda.GetValue( expression ).ToString() );
+
+            expression = t => !t.Test2.BoolValue;
+            Assert.Equal( "False", Lambda.GetValue( expression ).ToString() );
+
+            expression = t => t.BoolValue == true;
+            Assert.Equal( "True", Lambda.GetValue( expression ).ToString() );
+
+            expression = t => t.BoolValue == false;
+            Assert.Equal( "False", Lambda.GetValue( expression ).ToString() );
         }
 
         /// <summary>
@@ -381,7 +417,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetValue_Instance() {
-            var test = new Sample() { StringValue = "a", Test2 = new Sample2() { StringValue = "b", Test3 = new Sample3() { StringValue = "c" } } };
+            var test = new Sample() { StringValue = "a", BoolValue = true, Test2 = new Sample2() { StringValue = "b", Test3 = new Sample3() { StringValue = "c" } } };
 
             Expression<Func<string>> expression = () => test.StringValue;
             Assert.Equal( "a", Lambda.GetValue( expression ) );
@@ -391,6 +427,9 @@ namespace Util.Tests.Helpers {
 
             Expression<Func<string>> expression3 = () => test.Test2.Test3.StringValue;
             Assert.Equal( "c", Lambda.GetValue( expression3 ) );
+
+            Expression<Func<bool>> expression4 = () => test.BoolValue;
+            Assert.True( Util.Helpers.Convert.ToBool( Lambda.GetValue( expression4 ) ) );
         }
 
         /// <summary>
