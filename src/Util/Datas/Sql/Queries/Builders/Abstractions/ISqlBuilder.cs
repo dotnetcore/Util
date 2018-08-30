@@ -52,24 +52,24 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="columns">列名</param>
+        /// <param name="columns">列名,范例：a.AppId As Id,a.Name</param>
         /// <param name="tableAlias">表别名</param>
         ISqlBuilder Select( string columns, string tableAlias = null );
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="columns">列名</param>
+        /// <param name="columns">列名,范例：t => new object[] { t.Id, t.Name }</param>
         ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="column">列名</param>
+        /// <param name="column">列名,范例：t => t.Name</param>
         /// <param name="columnAlias">列别名</param>
         ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class;
         /// <summary>
         /// 添加到Select子句
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendSelect( string sql );
         /// <summary>
         /// 设置表名
@@ -86,7 +86,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 添加到From子句
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendFrom( string sql );
         /// <summary>
         /// 内连接
@@ -103,7 +103,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 添加到内连接子句
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendJoin( string sql );
         /// <summary>
         /// 左外连接
@@ -120,7 +120,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 添加到左外连接子句
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendLeftJoin( string sql );
         /// <summary>
         /// 右外连接
@@ -137,7 +137,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 添加到右外连接子句
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendRightJoin( string sql );
         /// <summary>
         /// 设置连接条件
@@ -149,14 +149,14 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置连接条件
         /// </summary>
-        /// <param name="left">左表列名</param>
-        /// <param name="right">右表列名</param>
+        /// <param name="left">左表列名,范例：t => t.Name</param>
+        /// <param name="right">右表列名,范例：t => t.Name</param>
         /// <param name="operator">条件运算符</param>
         ISqlBuilder On<TLeft, TRight>( Expression<Func<TLeft, object>> left, Expression<Func<TRight, object>> right, Operator @operator = Operator.Equal ) where TLeft : class where TRight : class;
         /// <summary>
         /// 设置连接条件
         /// </summary>
-        /// <param name="expression">条件表达式</param>
+        /// <param name="expression">条件表达式,范例：(l,r) => l.Id == r.OrderId</param>
         ISqlBuilder On<TLeft, TRight>( Expression<Func<TLeft, TRight, bool>> expression ) where TLeft : class where TRight : class;
         /// <summary>
         /// And连接条件
@@ -183,14 +183,14 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
         ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class;
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式</param>
+        /// <param name="expression">查询条件表达式,范例：t => t.Name.Contains("a") &amp;&amp; ( t.Code == "b" || t.Age > 1 )</param>
         ISqlBuilder Where<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class;
         /// <summary>
         /// 设置查询条件
@@ -203,7 +203,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
         /// <param name="operator">运算符</param>
@@ -211,7 +211,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式</param>
+        /// <param name="expression">查询条件表达式,范例：t => t.Name.Contains("a") &amp;&amp; ( t.Code == "b" || t.Age > 1 )</param>
         /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
         ISqlBuilder WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition ) where TEntity : class;
         /// <summary>
@@ -224,19 +224,19 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值,如果值为空，则忽略该查询条件</param>
         /// <param name="operator">运算符</param>
         ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class;
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
+        /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件,范例：t => t.Name.Contains("a") &amp;&amp; ( t.Code == "b" || t.Age > 1 )</param>
         ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class;
         /// <summary>
         /// 添加到Where子句
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendWhere( string sql );
         /// <summary>
         /// 设置相等查询条件
@@ -247,7 +247,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置相等查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder Equal<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -259,7 +259,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置不相等查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder NotEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -271,7 +271,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置大于查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder Greater<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -283,7 +283,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置小于查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder Less<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -295,7 +295,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置大于等于查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder GreaterEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -307,7 +307,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置小于等于查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder LessEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -319,7 +319,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置模糊匹配查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder Contains<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -331,7 +331,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置头匹配查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder Starts<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -343,7 +343,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置尾匹配查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值</param>
         ISqlBuilder Ends<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class;
         /// <summary>
@@ -354,7 +354,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置Is Null查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         ISqlBuilder IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
         /// 设置Is Not Null查询条件
@@ -364,27 +364,27 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置Is Not Null查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         ISqlBuilder IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
-        /// 设置空条件
+        /// 设置空条件，范例：[Name] Is Null Or [Name]=''
         /// </summary>
         /// <param name="column">列名</param>
         ISqlBuilder IsEmpty( string column );
         /// <summary>
-        /// 设置空条件
+        /// 设置空条件，范例：[Name] Is Null Or [Name]=''
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         ISqlBuilder IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
-        /// 设置非空条件
+        /// 设置非空条件，范例：[Name] Is Not Null And [Name]&lt;&gt;''
         /// </summary>
         /// <param name="column">列名</param>
         ISqlBuilder IsNotEmpty( string column );
         /// <summary>
-        /// 设置非空条件
+        /// 设置非空条件，范例：[Name] Is Not Null And [Name]&lt;&gt;''
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         ISqlBuilder IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class;
         /// <summary>
         /// 设置In条件
@@ -395,13 +395,13 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置In条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="values">值集合</param>
         ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
         /// <summary>
         /// 添加范围查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
@@ -409,7 +409,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 添加范围查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
@@ -417,7 +417,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 添加范围查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
@@ -425,7 +425,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 添加范围查询条件
         /// </summary>
-        /// <param name="expression">列名表达式</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="includeTime">是否包含时间</param>
@@ -467,38 +467,38 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 分组
         /// </summary>
-        /// <param name="group">分组字段</param>
-        /// <param name="having">分组条件</param>
+        /// <param name="group">分组字段,范例：a.Id,b.Name</param>
+        /// <param name="having">分组条件,范例：Count(*) > 1</param>
         ISqlBuilder GroupBy( string group, string having = null );
         /// <summary>
         /// 分组
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
-        /// <param name="column">分组字段</param>
-        /// <param name="having">分组条件</param>
+        /// <param name="column">分组字段,范例：t => t.Name</param>
+        /// <param name="having">分组条件,范例：Count(*) > 1</param>
         ISqlBuilder GroupBy<TEntity>( Expression<Func<TEntity, object>> column, string having = null );
         /// <summary>
         /// 添加到GroupBy子句
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendGroupBy( string sql );
         /// <summary>
         /// 排序
         /// </summary>
-        /// <param name="order">排序列表</param>
+        /// <param name="order">排序列表,范例：a.Id,b.Name desc</param>
         ISqlBuilder OrderBy( string order );
         /// <summary>
         /// 排序
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
-        /// <param name="column">排序列</param>
+        /// <param name="column">排序列,范例：t => t.Name</param>
         /// <param name="desc">是否倒排</param>
         ISqlBuilder OrderBy<TEntity>( Expression<Func<TEntity, object>> column, bool desc = false );
         /// <summary>
         /// 排序
         /// </summary>
-        /// <param name="order">排序列表</param>
-        ISqlBuilder AppendOrderBy( string order );
+        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        ISqlBuilder AppendOrderBy( string sql );
         /// <summary>
         /// 设置分页
         /// </summary>

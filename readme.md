@@ -417,6 +417,8 @@ https://github.com/dotnetcore/util/
   - 事件总线 [已发布]
   - Crud控制器基类 [已发布]
   - 树型控制器基类 [已发布]
+  - Sql生成器 [已发布]
+  - Sql查询对象 [已发布]
 - UI组件 - 支持HtmlHelper和TagHelper两种方式
   - 组件基类  [已发布]
   - TagHelper基类  [已发布]
@@ -519,3 +521,4 @@ https://github.com/dotnetcore/util/
 - 2018年6月19日，更新了支付宝APP支付。
 - 2018年7月15日，更新了微信APP支付。
 - 2018年7月16日，更新了微信支付回调。
+- 2018年8月30日，更新了Sql生成器和SqlQuery查询对象。
