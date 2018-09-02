@@ -6,7 +6,6 @@ using Util.Datas.Matedatas;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Clauses;
-using Util.Datas.Sql.Queries.Builders.Internal;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries.Builders.Core {
@@ -44,7 +43,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 实体别名注册器
         /// </summary>
-        protected IEntityAliasRegister AliasRegister { get; }
+        protected IEntityAliasRegister AliasRegister { get; private set; }
         /// <summary>
         /// 参数管理器
         /// </summary>
@@ -65,6 +64,24 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取Sql方言
         /// </summary>
         protected abstract IDialect GetDialect();
+
+        #endregion
+
+        #region Clear(清空初始化)
+
+        /// <summary>
+        /// 清空初始化
+        /// </summary>
+        public void Clear() {
+            AliasRegister = new EntityAliasRegister();
+            _parameterManager = CreatepParameterManager();
+            _selectClause = CreateSelectClause();
+            _fromClause = CreateFromClause();
+            _joinClause = CreateJoinClause();
+            _whereClause = CreatewWhereClause();
+            _groupByClause = CreateGroupByClause();
+            _orderByClause = CreateOrderByClause();
+        }
 
         #endregion
 

@@ -13,6 +13,10 @@ namespace Util.Datas.Sql.Queries {
     /// </summary>
     public interface ISqlQuery {
         /// <summary>
+        /// 清空并初始化，用于多次执行不同Sql语句，当执行完一个Sql语句后，清空即可继续使用
+        /// </summary>
+        void Clear();
+        /// <summary>
         /// 获取调试Sql语句
         /// </summary>
         string GetDebugSql();

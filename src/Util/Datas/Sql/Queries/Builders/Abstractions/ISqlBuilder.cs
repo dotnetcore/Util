@@ -10,6 +10,10 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// </summary>
     public interface ISqlBuilder : ICondition {
         /// <summary>
+        /// 清空并初始化
+        /// </summary>
+        void Clear();
+        /// <summary>
         /// 创建Sql生成器
         /// </summary>
         ISqlBuilder New();
