@@ -140,11 +140,9 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - XUnit
   - NSubstitute
 
-8. ORM
-  - EntityFrameworkCore
-  - Microsoft.EntityFrameworkCore.SqlServer
-  - Npgsql.EntityFrameworkCore.PostgreSQL
-  - Pomelo.EntityFrameworkCore.MySql
+8. 数据访问框架
+  - [EntityFrameworkCore](https://docs.microsoft.com/zh-cn/ef/core/)
+  - [Dapper](https://github.com/StackExchange/Dapper)
 
 9. Ioc框架
   - Autofac
