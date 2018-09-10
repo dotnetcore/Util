@@ -32,9 +32,9 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <DocumentationFile>..\..\output\release\netstandard2.0\Util.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.7.0" />
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.7.0" />
-    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.7.0" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="1.0.0" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="1.0.0" />
+    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="1.0.0" />
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
     <PackageReference Include="AutoMapper" Version="7.0.1" />
