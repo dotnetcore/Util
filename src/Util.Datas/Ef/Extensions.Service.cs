@@ -24,7 +24,7 @@ namespace Util.Datas.Ef {
         public static IServiceCollection AddUnitOfWork<TService, TImplementation>( this IServiceCollection services, Action<DbContextOptionsBuilder> configAction )
             where TService : class, IUnitOfWork
             where TImplementation : UnitOfWorkBase, TService {
-            services.AddDynamicProxy(
+            services.ConfigureDynamicProxy(
                 config => { config.NonAspectPredicates.Add( t => t.DeclaringType?.BaseType == typeof( DbContext ) ); }
             );
             services.AddDbContext<TImplementation>( configAction );
