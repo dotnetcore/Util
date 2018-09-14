@@ -60,7 +60,7 @@ namespace Util.Webs.Filters {
                     return;
                 if( Directory.Exists( directory ) == false )
                     Directory.CreateDirectory( directory );
-                File.WriteAllText( path, html );
+                System.IO.File.WriteAllText( path, html );
             }
             catch( Exception ex ) {
                 ex.Log( Log.GetLog().Caption( "生成html静态文件失败" ) );
