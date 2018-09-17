@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Util.Datas.Sql.Queries;
-using Util.Samples.Webs.Domains.Models;
+﻿using Util.Datas.Sql.Queries;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
 using Util.Samples.Webs.Services.Queries.Systems;
@@ -31,6 +27,5 @@ namespace Util.Samples.Webs.Apis.Systems {
         /// Sql查询对象
         /// </summary>
         public ISqlQuery SqlQuery { get; }
-
     }
 }

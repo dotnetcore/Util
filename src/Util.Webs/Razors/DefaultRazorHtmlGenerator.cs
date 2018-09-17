@@ -95,7 +95,7 @@ namespace Util.Webs.Razors
                     return;
                 if (Directory.Exists(directory) == false)
                     Directory.CreateDirectory(directory);
-                File.WriteAllText(path, html);
+                System.IO.File.WriteAllText(path, html);
             }
             catch (Exception ex)
             {
