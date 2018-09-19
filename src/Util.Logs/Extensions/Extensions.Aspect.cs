@@ -21,10 +21,17 @@ namespace Util.Logs.Extensions {
         /// 获取参数值
         /// </summary>
         private static string GetParameterValue( Parameter parameter ) {
+
+            string aa = "test";
+
+            System.Console.WriteLine(aa);
+
             if( Reflection.IsGenericCollection( parameter.RawType ) == false )
                 return parameter.Value.SafeString();
+
             if ( !( parameter.Value is IEnumerable<object> list ) )
                 return parameter.Value.SafeString();
+
             return list.Select( t => t.SafeString() ).Join();
         }
     }
