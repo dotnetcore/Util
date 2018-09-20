@@ -36,7 +36,6 @@ const cssModules = [
     'primeng/resources/primeng.min.css'
 ];
 
-//env代表环境变量，如果传入env.production表示正式生产环境
 module.exports = (env) => {
     //是否开发环境
     const isDev = !(env && env.prod);
