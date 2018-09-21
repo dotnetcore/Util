@@ -44,6 +44,9 @@ namespace <%= string.Format("{0}.Service.Dtos.{1}.Extensions",Namespace,Entity.T
             return new <%= SafeClassName %>( dto.Id<%=Entity.GetToEntityConvert() %> ) {
                 <% foreach(Property p in Entity.Properties) { %>
                 <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+                <% if( p.DataType == DbType.Boolean ){ %>
+                    <%= p.PropertyName.ToSafeName() %> = dto.<%= p.PropertyName.ToSafeName() %>.SafeValue(),
+                <%continue;} %>
                 <%= p.PropertyName.ToSafeName() %> = dto.<%= p.PropertyName.ToSafeName() %>,
                 <%}%>
             };

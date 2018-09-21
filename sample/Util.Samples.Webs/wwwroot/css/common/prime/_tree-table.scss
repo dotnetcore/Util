@@ -8,6 +8,10 @@ $stateHoverTextColor: #212121;
         background: $stateHoverBgColor;
         color: $stateHoverTextColor;
     }
+
+    .ui-state-highlight {
+        background-color: #fafafa;
+    }
 }
 
 .ui-treetable {
