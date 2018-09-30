@@ -18,7 +18,7 @@ export class IocHelper {
     static componentInjector: Injector;
 
     /**
-     * 获取实例，从全局注入器中获取
+     * 获取实例
      * @param token 实例标记，一般为类或接口名称,范例：util.ioc.get(Http)
      */
     static get<T>(token: Type<T> | InjectionToken<T>): T;
