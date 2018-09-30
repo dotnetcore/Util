@@ -5,7 +5,6 @@
 import { Injector, ViewChild, forwardRef, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-import "rxjs-compat/add/operator/delay";
 import { util } from '../index';
 import { IFormChange } from '../services/save-guard';
 

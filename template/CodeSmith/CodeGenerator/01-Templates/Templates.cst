@@ -128,6 +128,12 @@
 <%@ Register Name="PgSqlMappingClass"
              Template="Templates\Datas\PgSql\Mapping.cst"
              MergeProperties="False" %>
+<%@ Register Name="MySqlUnitOfWorkClass"
+             Template="Templates\Datas\MySql\UnitOfWork.cst"
+             MergeProperties="False" %>
+<%@ Register Name="MySqlMappingClass"
+             Template="Templates\Datas\MySql\Mapping.cst"
+             MergeProperties="False" %>
 <%@ Register Name="IocConfigClass"
              Template="Templates\Services\IocConfig.cst"
              MergeProperties="False" %>
@@ -263,6 +269,10 @@
         CreatePgSqlUnitOfWork(context);
         //创建PgSql映射
         CreatePgSqlMapping(context);
+        //创建MySql工作单元
+        CreateMySqlUnitOfWork(context);
+        //创建MySql映射
+        CreateMySqlMapping(context);
         //创建Dto
         CreateDto( context );
         //创建Dto扩展
@@ -628,6 +638,34 @@
             result.Entity = entity;
             result.Namespace = GetNamespace(entity);
             result.RenderToFile(GetPath(className,string.Format("Datas\\Mappings\\{0}\\PgSql",GetSchema(entity)) ), true);
+        }
+    }
+    
+    //创建MySql工作单元
+    public void CreateMySqlUnitOfWork(EntityContext entityContext)
+    {
+        MySqlUnitOfWorkClass context = this.Create<MySqlUnitOfWorkClass>();
+        this.CopyPropertiesTo(context);
+        string className = GetUnitOfWork(entityContext);
+        context.UnitOfWork = className;
+        context.EntityContext = entityContext;
+        context.DbName = GetDbName( entityContext );
+        context.Namespace = GetNamespace( entityContext.Entities.FirstOrDefault() );
+        context.IUnitOfWorkNamespace = GetIUnitOfWorkNamespace(entityContext);
+        context.RenderToFile(GetPath(className,"Datas\\UnitOfWorks\\MySql"), true);
+    }
+    
+    //创建MySql映射
+    public void CreateMySqlMapping(EntityContext entityContext)
+    {
+        MySqlMappingClass result = this.Create<MySqlMappingClass>();
+        this.CopyPropertiesTo(result);
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = string.Format( "{0}Map", entity.ClassName );
+            result.Entity = entity;
+            result.Namespace = GetNamespace(entity);
+            result.RenderToFile(GetPath(className,string.Format("Datas\\Mappings\\{0}\\MySql",GetSchema(entity)) ), true);
         }
     }
     
