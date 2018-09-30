@@ -76,6 +76,8 @@
   <ItemGroup>
     <None Include="01-Templates\Templates\Datas\PgSql\Mapping.cst" />
     <None Include="01-Templates\Templates\Datas\PgSql\UnitOfWork.cst" />
+    <None Include="01-Templates\Templates\Datas\MySql\Mapping.cst" />
+    <None Include="01-Templates\Templates\Datas\MySql\UnitOfWork.cst" />
     <None Include="01-Templates\Templates\Domains\Factory.cst" />
     <None Include="01-Templates\Templates\Domains\ItemGroup.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Datas\PgSql\PoMapping.cst" />

@@ -61,6 +61,8 @@ namespace Util.Samples.Webs {
             //} );
             //======= 支持PgSql =======
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
+            //======= 支持MySql =======
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
 
             //添加Swagger
             services.AddSwaggerGen( options => {
