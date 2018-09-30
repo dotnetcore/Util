@@ -1,11 +1,21 @@
-﻿namespace Util.Domains.Tenants {
+﻿using System;
+
+namespace Util.Domains.Tenants
+{
     /// <summary>
     /// 租户
     /// </summary>
-    public interface ITenant {
+    public interface ITenant : ITenant<Guid>
+    {
+    }
+    /// <summary>
+    /// 租户
+    /// </summary>
+    public interface ITenant<TKey>
+    {
         /// <summary>
         /// 租户编号
         /// </summary>
-        string TenantId { get; set; }
+        TKey TenantId { get; set; }
     }
 }
