@@ -137,7 +137,7 @@ namespace Util.Logs.Exceptionless {
         /// 设置跟踪号
         /// </summary>
         private void SetReferenceId( EventBuilder builder, ILogContent content ) {
-            builder.SetReferenceId( content.TraceId );
+            builder.SetReferenceId( $"{content.TraceId}-{content.Order}" );
         }
 
         /// <summary>
