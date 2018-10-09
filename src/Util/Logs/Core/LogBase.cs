@@ -78,7 +78,6 @@ namespace Util.Logs.Core {
             content.Browser = Context.Browser;
             content.Url = Context.Url;
             content.UserId = Session.UserId;
-            content.Order = Context.Order;
         }
 
         /// <summary>
@@ -113,7 +112,6 @@ namespace Util.Logs.Core {
                 Provider.WriteLog( level, content );
             }
             finally {
-                Context.UpdateContext();
                 content = null;
             }
         }

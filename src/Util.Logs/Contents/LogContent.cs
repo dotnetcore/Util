@@ -121,9 +121,5 @@ namespace Util.Logs.Contents {
         /// 异常
         /// </summary>
         public Warning Exception { get; set; }
-        /// <summary>
-        /// 排序
-        /// </summary>
-        public int Order { get; set; }
     }
 }

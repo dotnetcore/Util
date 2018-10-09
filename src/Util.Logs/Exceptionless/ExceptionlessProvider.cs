@@ -85,8 +85,7 @@ namespace Util.Logs.Exceptionless {
         /// </summary>
         /// <param name="content">日志内容</param>
         private string GetMessage( ILogContent content ) {
-            var caption = content as ICaption;
-            if ( caption != null && string.IsNullOrWhiteSpace( caption.Caption ) == false )
+            if ( content is ICaption caption && string.IsNullOrWhiteSpace( caption.Caption ) == false )
                 return caption.Caption;
             if( content.Content.Length > 0 )
                 return content.Content.ToString();
@@ -137,7 +136,7 @@ namespace Util.Logs.Exceptionless {
         /// 设置跟踪号
         /// </summary>
         private void SetReferenceId( EventBuilder builder, ILogContent content ) {
-            builder.SetReferenceId( $"{content.TraceId}-{content.Order}" );
+            builder.SetReferenceId( content.TraceId );
         }
 
         /// <summary>
