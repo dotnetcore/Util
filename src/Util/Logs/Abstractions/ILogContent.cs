@@ -58,5 +58,9 @@ namespace Util.Logs.Abstractions {
         /// 异常消息
         /// </summary>
         Warning Exception { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        int Order { get; set; }
     }
 }

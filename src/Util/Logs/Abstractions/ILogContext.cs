@@ -29,5 +29,13 @@ namespace Util.Logs.Abstractions {
         /// 请求地址
         /// </summary>
         string Url { get; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        int Order { get; }
+        /// <summary>
+        /// 更新上下文
+        /// </summary>
+        void UpdateContext();
     }
 }

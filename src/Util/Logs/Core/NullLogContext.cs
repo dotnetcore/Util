@@ -34,5 +34,16 @@ namespace Util.Logs.Core {
         /// 请求地址
         /// </summary>
         public string Url => string.Empty;
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Order => 0;
+
+        /// <summary>
+        /// 更新上下文
+        /// </summary>
+        public void UpdateContext()
+        {
+        }
     }
 }

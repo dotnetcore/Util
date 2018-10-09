@@ -54,6 +54,21 @@ namespace Util.Logs.Core {
         /// 请求地址
         /// </summary>
         public string Url => GetInfo().Url;
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Order => GetInfo().Order;
+
+        /// <summary>
+        /// 更新上下文
+        /// </summary>
+        public void UpdateContext()
+        {
+            if (_info != null)
+            {
+                _info.Order += 1;
+            }
+        }
 
         /// <summary>
         /// 获取日志上下文信息
