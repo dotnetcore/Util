@@ -14,6 +14,10 @@ namespace Util.Logs {
         /// 类名
         /// </summary>
         private readonly string _class;
+        /// <summary>
+        /// 空日志操作
+        /// </summary>
+        public static readonly ILog Null = NullLog.Instance;
 
         /// <summary>
         /// 初始化日志操作
@@ -138,10 +142,5 @@ namespace Util.Logs {
                 return Util.Security.Sessions.Session.Null;
             }
         }
-
-        /// <summary>
-        /// 空日志操作
-        /// </summary>
-        public static readonly ILog Null = NullLog.Instance;
     }
 }
