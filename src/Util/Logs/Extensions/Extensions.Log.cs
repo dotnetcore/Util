@@ -30,6 +30,8 @@ namespace Util.Logs.Extensions {
         /// <param name="log">日志操作</param>
         /// <param name="dictionary">字典</param>
         public static ILog Content( this ILog log, IDictionary<string, object> dictionary ) {
+            if( dictionary == null )
+                return log;
             return Content( log, dictionary.ToDictionary( t => t.Key, t => t.Value.SafeString() ) );
         }
 

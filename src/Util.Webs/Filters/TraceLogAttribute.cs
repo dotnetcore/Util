@@ -78,10 +78,22 @@ namespace Util.Webs.Filters {
         /// 添加表单参数
         /// </summary>
         private void AddFormParams( Microsoft.AspNetCore.Http.HttpRequest request ) {
+            if( IsMultipart( request.ContentType ) )
+                return;
             var result = Util.Helpers.File.ToString( request.Body );
             if( string.IsNullOrWhiteSpace( result ) )
                 return;
             Logger.Params( "表单参数:" ).Params( result );
+        }
+
+        /// <summary>
+        /// 是否multipart内容类型
+        /// </summary>
+        /// <param name="contentType">内容类型</param>
+        private static bool IsMultipart( string contentType ) {
+            if( string.IsNullOrWhiteSpace( contentType ) )
+                return false;
+            return contentType.IndexOf( "multipart/", StringComparison.OrdinalIgnoreCase ) >= 0;
         }
 
         /// <summary>
@@ -92,8 +104,6 @@ namespace Util.Webs.Filters {
             foreach( var key in request.Cookies.Keys )
                 Logger.Params( key, request.Cookies[key] );
         }
-
-
 
         /// <summary>
         /// 执行后
