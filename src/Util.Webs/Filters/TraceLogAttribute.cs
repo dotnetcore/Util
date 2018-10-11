@@ -31,8 +31,6 @@ namespace Util.Webs.Filters {
         /// </summary>
         public override void OnActionExecuting( ActionExecutingContext context ) {
             base.OnActionExecuting( context );
-            if(IsMultipartContentType(context.HttpContext.Request.ContentType))
-                return;
             if( Ignore )
                 return;
             Logger = GetLog();
@@ -80,10 +78,22 @@ namespace Util.Webs.Filters {
         /// 添加表单参数
         /// </summary>
         private void AddFormParams( Microsoft.AspNetCore.Http.HttpRequest request ) {
+            if( IsMultipart( request.ContentType ) )
+                return;
             var result = Util.Helpers.File.ToString( request.Body );
             if( string.IsNullOrWhiteSpace( result ) )
                 return;
             Logger.Params( "表单参数:" ).Params( result );
+        }
+
+        /// <summary>
+        /// 是否multipart内容类型
+        /// </summary>
+        /// <param name="contentType">内容类型</param>
+        private static bool IsMultipart( string contentType ) {
+            if( string.IsNullOrWhiteSpace( contentType ) )
+                return false;
+            return contentType.IndexOf( "multipart/", StringComparison.OrdinalIgnoreCase ) >= 0;
         }
 
         /// <summary>
@@ -95,16 +105,12 @@ namespace Util.Webs.Filters {
                 Logger.Params( key, request.Cookies[key] );
         }
 
-
-
         /// <summary>
         /// 执行后
         /// </summary>
         public override void OnResultExecuted( ResultExecutedContext context ) {
             base.OnResultExecuted( context );
-            if (IsMultipartContentType(context.HttpContext.Request.ContentType))
-                return;
-            if ( Ignore )
+            if( Ignore )
                 return;
             if( Logger.IsTraceEnabled == false )
                 return;
@@ -142,16 +148,6 @@ namespace Util.Webs.Filters {
             Logger.Content( $"响应消息: { result.Message}" )
                 .Content( "响应结果:" )
                 .Content( $"{Json.ToJson( result.Data )}" );
-        }
-
-        /// <summary>
-        /// 是否多部分内容类型。例如:multipart/form
-        /// </summary>
-        /// <param name="contentType">内容类型</param>
-        /// <returns></returns>
-        private static bool IsMultipartContentType(string contentType)
-        {
-            return !string.IsNullOrEmpty(contentType) && contentType.IndexOf("multipart/", StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }
