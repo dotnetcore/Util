@@ -31,6 +31,8 @@ namespace Util.Webs.Filters {
         /// </summary>
         public override void OnActionExecuting( ActionExecutingContext context ) {
             base.OnActionExecuting( context );
+            if(IsMultipartContentType(context.HttpContext.Request.ContentType))
+                return;
             if( Ignore )
                 return;
             Logger = GetLog();
@@ -100,7 +102,9 @@ namespace Util.Webs.Filters {
         /// </summary>
         public override void OnResultExecuted( ResultExecutedContext context ) {
             base.OnResultExecuted( context );
-            if( Ignore )
+            if (IsMultipartContentType(context.HttpContext.Request.ContentType))
+                return;
+            if ( Ignore )
                 return;
             if( Logger.IsTraceEnabled == false )
                 return;
@@ -138,6 +142,16 @@ namespace Util.Webs.Filters {
             Logger.Content( $"响应消息: { result.Message}" )
                 .Content( "响应结果:" )
                 .Content( $"{Json.ToJson( result.Data )}" );
+        }
+
+        /// <summary>
+        /// 是否多部分内容类型。例如:multipart/form
+        /// </summary>
+        /// <param name="contentType">内容类型</param>
+        /// <returns></returns>
+        private static bool IsMultipartContentType(string contentType)
+        {
+            return !string.IsNullOrEmpty(contentType) && contentType.IndexOf("multipart/", StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }
