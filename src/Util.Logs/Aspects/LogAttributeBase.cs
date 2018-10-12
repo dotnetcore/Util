@@ -26,7 +26,7 @@ namespace Util.Logs.Aspects {
         /// 获取方法名
         /// </summary>
         private string GetMethodName( AspectContext context ) {
-            return $"{context.ServiceMethod.DeclaringType.FullName}.{context.ServiceMethod.Name}";
+            return $"{context.ServiceMethod.DeclaringType?.FullName}.{context.ServiceMethod?.Name}";
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Util.Logs.Aspects {
         /// </summary>
         private void ExecuteBefore( ILog log, AspectContext context, string methodName ) {
             log.Caption( $"{context.ServiceMethod.Name}方法执行前" )
-                .Class( context.ServiceMethod.DeclaringType.FullName )
+                .Class( context.ServiceMethod.DeclaringType?.FullName )
                 .Method( methodName );
             foreach( var parameter in context.GetParameters() )
                 parameter.AppendTo( log );
