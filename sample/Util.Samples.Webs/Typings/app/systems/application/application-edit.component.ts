@@ -65,7 +65,6 @@ export class ApplicationEditComponent extends EditComponentBase<ApplicationViewM
             data: this.model,
             form: form,
             button: button,
-            confirm: "哈楼",
             handler: () => {
                 this.util.router.navigate(['systems','application']);
             }
