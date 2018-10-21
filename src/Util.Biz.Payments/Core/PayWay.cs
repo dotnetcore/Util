@@ -11,6 +11,11 @@ namespace Util.Biz.Payments.Core {
         [Description( "支付宝条码支付" )]
         AlipayBarcodePay,
         /// <summary>
+        /// 支付宝二维码支付
+        /// </summary>
+        [Description( "支付宝二维码支付" )]
+        AlipayQrCodePay,
+        /// <summary>
         /// 支付宝电脑网站支付
         /// </summary>
         [Description( "支付宝电脑网站支付" )]

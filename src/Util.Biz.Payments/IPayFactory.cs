@@ -25,6 +25,10 @@ namespace Util.Biz.Payments {
         /// </summary>
         IAlipayBarcodePayService CreateAlipayBarcodePayService();
         /// <summary>
+        /// 创建支付宝二维码支付服务
+        /// </summary>
+        IAlipayQrCodePayService CreateAlipayQrCodePayService();
+        /// <summary>
         /// 创建支付宝电脑网站支付服务
         /// </summary>
         IAlipayPagePayService CreateAlipayPagePayService();
