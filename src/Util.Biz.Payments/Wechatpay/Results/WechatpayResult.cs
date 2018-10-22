@@ -200,7 +200,7 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// 验证签名
         /// </summary>
         public async Task<bool> VerifySign() {
-            var config = await _configProvider.GetConfigAsync();
+            var config = await _configProvider.GetConfigAsync( _builder );
             return SignManagerFactory.Create( config, _builder ).Verify( GetSign() );
         }
     }
