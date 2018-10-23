@@ -2,6 +2,7 @@
 using Util.Biz.Payments.Wechatpay.Configs;
 using Util.Biz.Payments.Wechatpay.Enums;
 using Util.Biz.Payments.Wechatpay.Results;
+using Util.Parameters;
 using Xunit;
 
 namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Results {
@@ -52,7 +53,7 @@ namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Results {
         /// <summary>
         /// 获取配置
         /// </summary>
-        public Task<WechatpayConfig> GetConfigAsync() {
+        public Task<WechatpayConfig> GetConfigAsync( IParameterManager parameters = null ) {
             var config = new WechatpayConfig {
                 SignType = WechatpaySignType.Md5,
                 PrivateKey = "VVHZOaJEj44WbX0f3Lj7DHkfwEqvlURA",

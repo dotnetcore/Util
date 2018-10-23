@@ -15,5 +15,9 @@
         /// 用户付款授权码
         /// </summary>
         public string AuthCode { get; set; }
+        /// <summary>
+        /// 附加数据，通知时原样返回
+        /// </summary>
+        public string Attach { get; set; }
     }
 }
