@@ -60,10 +60,11 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <param name="result">支付结果</param>
         protected override string GetResult( WechatpayConfig config, WechatpayParameterBuilder builder, WechatpayResult result ) {
             return new WechatpayParameterBuilder( config )
-                .AppId( config.AppId )
-                .Add( "noncestr", Id.Guid() )
-                .Timestamp()
+                .Add( "appId", config.AppId )
+                .Add( "timeStamp", Time.GetUnixTimestamp().SafeString() )
+                .Add( "nonceStr", Id.Guid() )
                 .Package( $"prepay_id={result.GetPrepayId()}" )
+                .Add( "signType", config.SignType.Description() )
                 .ToJson();
         }
     }
