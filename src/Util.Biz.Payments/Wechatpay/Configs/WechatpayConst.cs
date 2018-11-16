@@ -103,5 +103,9 @@
         /// 附加数据
         /// </summary>
         public const string Attach = "attach";
+        /// <summary>
+        /// 用户标识
+        /// </summary>
+        public const string OpenId = "openid";
     }
 }

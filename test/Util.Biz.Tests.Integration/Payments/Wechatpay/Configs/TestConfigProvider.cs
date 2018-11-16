@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Util.Biz.Payments.Wechatpay.Configs;
+using Util.Parameters;
 
 namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Configs {
     /// <summary>
@@ -9,7 +10,7 @@ namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Configs {
         /// <summary>
         /// 请填写正确的微信支付配置
         /// </summary>
-        public Task<WechatpayConfig> GetConfigAsync() {
+        public Task<WechatpayConfig> GetConfigAsync( IParameterManager parameters = null ) {
             var config = new WechatpayConfig {
                 AppId = "",
                 MerchantId = "",

@@ -19,5 +19,9 @@
         /// 附加数据，通知时原样返回
         /// </summary>
         public string Attach { get; set; }
+        /// <summary>
+        /// 用户标识
+        /// </summary>
+        public string OpenId { get; set; }
     }
 }

@@ -34,6 +34,11 @@ namespace Util.Biz.Payments.Core {
         /// 微信App支付
         /// </summary>
         [Description( "微信App支付" )]
-        WechatpayAppPay
+        WechatpayAppPay,
+        /// <summary>
+        /// 微信小程序支付
+        /// </summary>
+        [Description( "微信小程序支付" )]
+        WechatpayMiniProgramPay
     }
 }

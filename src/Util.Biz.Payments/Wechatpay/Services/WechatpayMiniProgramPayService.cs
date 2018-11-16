@@ -6,25 +6,26 @@ using Util.Biz.Payments.Wechatpay.Parameters;
 using Util.Biz.Payments.Wechatpay.Parameters.Requests;
 using Util.Biz.Payments.Wechatpay.Results;
 using Util.Biz.Payments.Wechatpay.Services.Base;
+using Util.Exceptions;
 using Util.Helpers;
 
 namespace Util.Biz.Payments.Wechatpay.Services {
     /// <summary>
-    /// 微信App支付服务
+    /// 微信小程序支付服务
     /// </summary>
-    public class WechatpayAppPayService : WechatpayServiceBase, IWechatpayAppPayService {
+    public class WechatpayMiniProgramPayService : WechatpayServiceBase, IWechatpayMiniProgramPayService {
         /// <summary>
-        /// 初始化微信App支付服务
+        /// 初始化微信小程序支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatpayAppPayService( IWechatpayConfigProvider provider ) : base( provider ) {
+        public WechatpayMiniProgramPayService( IWechatpayConfigProvider provider ) : base( provider ) {
         }
 
         /// <summary>
         /// 支付
         /// </summary>
         /// <param name="request">支付参数</param>
-        public async Task<PayResult> PayAsync( WechatpayAppPayRequest request ) {
+        public async Task<PayResult> PayAsync( WechatpayMiniProgramPayRequest request ) {
             return await PayAsync( request.ToParam() );
         }
 
@@ -32,14 +33,23 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// 获取支付方式
         /// </summary>
         protected override PayWay GetPayWay() {
-            return PayWay.WechatpayAppPay;
+            return PayWay.WechatpayMiniProgramPay;
         }
 
         /// <summary>
         /// 获取交易类型
         /// </summary>
         protected override string GetTradeType() {
-            return "APP";
+            return "JSAPI";
+        }
+
+        /// <summary>
+        /// 验证参数
+        /// </summary>
+        /// <param name="param">支付参数</param>
+        protected override void ValidateParam( PayParam param ) {
+            if( param.OpenId.IsEmpty() )
+                throw new Warning( "小程序支付必须未设置OpenId" );
         }
 
         /// <summary>
@@ -51,11 +61,9 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         protected override string GetResult( WechatpayConfig config, WechatpayParameterBuilder builder, WechatpayResult result ) {
             return new WechatpayParameterBuilder( config )
                 .AppId( config.AppId )
-                .PartnerId( config.MerchantId )
-                .Add( "prepayid", result.GetPrepayId() )
                 .Add( "noncestr", Id.Guid() )
                 .Timestamp()
-                .Package()
+                .Package( $"prepay_id={result.GetPrepayId()}" )
                 .ToJson();
         }
     }
