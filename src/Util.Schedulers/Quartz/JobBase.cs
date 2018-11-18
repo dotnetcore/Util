@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Util.Helpers;
+using Quartz;
+using Util.Dependency;
 using Qz = Quartz;
 
 namespace Util.Schedulers.Quartz {
@@ -111,6 +113,17 @@ namespace Util.Schedulers.Quartz {
         /// 执行
         /// </summary>
         /// <param name="context">执行上下文</param>
-        public abstract Task Execute( Qz.IJobExecutionContext context );
+        public async Task Execute( IJobExecutionContext context ) {
+            using ( var scope = Ioc.BeginScope() ) {
+                await Execute( context, scope );
+            }
+        }
+
+        /// <summary>
+        /// 执行
+        /// </summary>
+        /// <param name="context">上下文</param>
+        /// <param name="scope">作用域</param>
+        protected abstract Task Execute( IJobExecutionContext context, IScope scope );
     }
 }

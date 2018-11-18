@@ -121,8 +121,10 @@ namespace Util.Dependency {
         public ContainerBuilder CreateBuilder( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = new ContainerBuilder();
             actionBefore?.Invoke( builder );
-            foreach( var config in configs )
-                builder.RegisterModule( config );
+            if ( configs != null ) {
+                foreach ( var config in configs )
+                    builder.RegisterModule( config );
+            }
             if( services != null )
                 builder.Populate( services );
             return builder;

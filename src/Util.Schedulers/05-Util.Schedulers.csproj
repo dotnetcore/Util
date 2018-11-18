@@ -19,12 +19,12 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\Util.Schedulers.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Schedulers.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\Util.Schedulers.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Schedulers.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
