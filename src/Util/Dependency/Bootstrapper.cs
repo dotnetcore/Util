@@ -15,14 +15,6 @@ namespace Util.Dependency {
     /// </summary>
     public class Bootstrapper {
         /// <summary>
-        /// 类型查找器
-        /// </summary>
-        private readonly IFind _finder;
-        /// <summary>
-        /// 上下文
-        /// </summary>
-        private readonly IContext _context;
-        /// <summary>
         /// 服务集合
         /// </summary>
         private readonly IServiceCollection _services;
@@ -30,6 +22,14 @@ namespace Util.Dependency {
         /// 依赖配置
         /// </summary>
         private readonly IConfig[] _configs;
+        /// <summary>
+        /// 上下文
+        /// </summary>
+        private readonly IContext _context;
+        /// <summary>
+        /// 类型查找器
+        /// </summary>
+        private readonly IFind _finder;
         /// <summary>
         /// 程序集列表
         /// </summary>
@@ -46,23 +46,32 @@ namespace Util.Dependency {
         /// <param name="context">上下文</param>
         /// <param name="services">服务集合</param>
         /// <param name="configs">依赖配置</param>
-        public Bootstrapper( IFind finder, IContext context, IServiceCollection services, IConfig[] configs ) {
-            _finder = finder;
+        public Bootstrapper( IServiceCollection services, IContext context, IConfig[] configs, IFind finder ) {
+            _services = services ?? new ServiceCollection();
             _context = context;
-            _services = services;
             _configs = configs;
+            _finder = finder ?? new Finder();
         }
 
         /// <summary>
         /// 启动引导
         /// </summary>
-        /// <param name="finder">类型查找器</param>
-        /// <param name="context">上下文</param>
         /// <param name="services">服务集合</param>
         /// <param name="configs">依赖配置</param>
-        public static IServiceProvider Run( IFind finder = null, IContext context = null, IServiceCollection services = null, IConfig[] configs = null ) {
-            finder = finder ?? new Finder();
-            return new Bootstrapper( finder, context, services, configs ).Bootstrap();
+        /// <param name="finder">类型查找器</param>
+        /// <param name="context">上下文</param>
+        public static IServiceProvider Run( IServiceCollection services = null, IContext context = null, IConfig[] configs = null, IFind finder = null ) {
+            return new Bootstrapper( services, context, configs, finder ).Bootstrap();
+        }
+
+        /// <summary>
+        /// 启动引导
+        /// </summary>
+        /// <param name="services">服务集合</param>
+        /// <param name="context">上下文</param>
+        /// <param name="configs">依赖配置</param>
+        public static IServiceProvider Run( IServiceCollection services, IContext context, params IConfig[] configs ) {
+            return Run( services, context, configs, null );
         }
 
         /// <summary>
@@ -110,7 +119,7 @@ namespace Util.Dependency {
         /// 注册上下文
         /// </summary>
         private void RegisterContext() {
-            if ( _context != null )
+            if( _context != null )
                 _builder.AddSingleton( _context );
         }
 
@@ -124,7 +133,7 @@ namespace Util.Dependency {
         /// <summary>
         /// 注册事件处理器
         /// </summary>
-        private void RegisterEventHandlers(Type handlerType ) {
+        private void RegisterEventHandlers( Type handlerType ) {
             var handlerTypes = GetTypes( handlerType );
             foreach( var handler in handlerTypes ) {
                 _builder.RegisterType( handler ).As( handler.FindInterfaces(

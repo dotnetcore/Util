@@ -3,7 +3,6 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Contexts;
 using Util.Dependency;
-using Util.Reflections;
 
 namespace Util {
     /// <summary>
@@ -18,7 +17,7 @@ namespace Util {
         public static IServiceProvider AddUtil( this IServiceCollection services, params IConfig[] configs ) {
             services.AddHttpContextAccessor();
             Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
-            return Bootstrapper.Run( new Finder(),new WebContext(), services, configs );
+            return Bootstrapper.Run( services, new WebContext(), configs );
         }
     }
 }
