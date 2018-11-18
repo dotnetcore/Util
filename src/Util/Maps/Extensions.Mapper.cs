@@ -98,16 +98,12 @@ namespace Util.Maps {
             try {
                 var maps = Mapper.Configuration.GetAllTypeMaps();
                 ClearConfig();
-                Mapper.Initialize( config => {
-                    config.CreateMap( sourceType, destinationType );
-                } );
+                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
                 foreach( var map in maps )
                     Mapper.Configuration.RegisterTypeMap( map );
             }
             catch( InvalidOperationException ) {
-                Mapper.Initialize( config => {
-                    config.CreateMap( sourceType, destinationType );
-                } );
+                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
             }
         }
 

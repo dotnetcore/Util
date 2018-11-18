@@ -178,7 +178,10 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 19. Web框架
   - [Asp.Net Core](https://docs.microsoft.com/zh-cn/aspnet/core/)
 
-20. UI
+20. 定时任务调度框架
+  - [Quartz.Net](https://www.quartz-scheduler.net/)
+
+21. UI
   - 脚本语言
     - [TypeScript](https://www.tslang.cn)
   - 脚本框架
@@ -216,14 +219,14 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - Karma
     - Jasmine
 
-21. 权限
+22. 权限
     - [Asp Net Core Identity](https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?tabs=visual-studio%2Caspnetcore2x)
     - [Identity Server](https://identityserver4.readthedocs.io/en/release/)
 
-22. 代码生成器
+23. 代码生成器
   - CodeSmith 6.5
 
-23. 参考应用框架
+24. 参考应用框架
   - [ABP](http://aspnetboilerplate.com/)
   - [Nop](https://www.nopcommerce.com) 
     - Nop是一个开源商城，封装了大量实用的基础代码。
@@ -391,6 +394,7 @@ https://github.com/dotnetcore/util/
   - 短信操作 -基于LuoSiMao [已发布]
   - 加密操作 [已发布]
   - Url参数生成器 [已发布]
+  - 调度器 - 基于Quartz.Net [已发布]
 - 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
@@ -525,3 +529,4 @@ https://github.com/dotnetcore/util/
 - 2018年9月14日，更新了WebApi跟踪日志过滤器。
 - 2018年10月19日，更新了支付宝二维码支付。
 - 2018年11月16日，更新了微信小程序支付。
+- 2018年11月18日，更新了基于Quartz.Net的调度器(Util.Schedulers/Quartz)及控制台示例。

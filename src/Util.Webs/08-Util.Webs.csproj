@@ -45,7 +45,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Util.Applications\06-Util.Applications.csproj" />
+    <ProjectReference Include="..\Util.Applications\07-Util.Applications.csproj" />
     <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
   </ItemGroup>
 

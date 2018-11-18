@@ -2,12 +2,12 @@
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Util.Ui.Core</AssemblyName>
-    <RootNamespace>Util.Ui</RootNamespace>
+    <AssemblyName>Util.Applications</AssemblyName>
+    <RootNamespace>Util.Applications</RootNamespace>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
     <Copyright>何镇汐</Copyright>
-    <Description>Util.Ui.Core是Util应用框架的Ui核心类库。
+    <Description>Util.Applications是Util应用框架的应用层基类库。
 Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。</Description>
     <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
@@ -21,26 +21,23 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Core.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Applications.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Core.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Applications.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Extensions\Extensions.TagBuilder.cs" />
+    <None Include="CrudServiceBase.BatchSave.cs" />
+    <None Include="CrudServiceBase.Save.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.2" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Util.Datas\06-Util.Datas.csproj" />
     <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
-    <ProjectReference Include="..\Util.Ui.Abstractions\01-Util.Ui.Abstractions.csproj" />
-    <ProjectReference Include="..\Util.Webs\08-Util.Webs.csproj" />
+    <ProjectReference Include="..\Util.Security\02-Util.Security.csproj" />
     <ProjectReference Include="..\Util\01-Util.csproj" />
   </ItemGroup>
 
