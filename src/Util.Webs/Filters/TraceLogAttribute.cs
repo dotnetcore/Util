@@ -80,7 +80,7 @@ namespace Util.Webs.Filters {
         private void AddFormParams( Microsoft.AspNetCore.Http.HttpRequest request ) {
             if( IsMultipart( request.ContentType ) )
                 return;
-            var result = Util.Helpers.File.ToString( request.Body );
+            var result = File.CopyToString( request.Body );
             if( string.IsNullOrWhiteSpace( result ) )
                 return;
             Logger.Params( "表单参数:" ).Params( result );

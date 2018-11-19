@@ -22,15 +22,43 @@ namespace Util.Helpers {
         public static string ToString( Stream stream, Encoding encoding ) {
             if( stream == null )
                 return string.Empty;
-            if ( stream.CanRead == false )
+            if( stream.CanRead == false )
                 return string.Empty;
-            string result;
             using( var reader = new StreamReader( stream, encoding ) ) {
-                if( reader.BaseStream.CanSeek )
-                    reader.BaseStream.Position = 0;
-                result = reader.ReadToEnd();
+                if( stream.CanSeek )
+                    stream.Seek( 0, SeekOrigin.Begin );
+                return reader.ReadToEnd();
             }
-            return result;
+        }
+
+        /// <summary>
+        /// 复制流并转换成字符串
+        /// </summary>
+        /// <param name="stream">流</param>
+        public static string CopyToString( Stream stream ) {
+            return CopyToString( stream, Encoding.UTF8 );
+        }
+
+        /// <summary>
+        /// 复制流并转换成字符串
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <param name="encoding">字符编码</param>
+        public static string CopyToString( Stream stream, Encoding encoding ) {
+            if( stream == null )
+                return string.Empty;
+            if( stream.CanRead == false )
+                return string.Empty;
+            using ( var memoryStream = new MemoryStream() ) {
+                using( var reader = new StreamReader( memoryStream, encoding ) ) {
+                    if( stream.CanSeek )
+                        stream.Seek( 0, SeekOrigin.Begin );
+                    stream.CopyTo( memoryStream );
+                    if( memoryStream.CanSeek )
+                        memoryStream.Seek( 0, SeekOrigin.Begin );
+                    return reader.ReadToEnd();
+                }
+            }
         }
     }
 }

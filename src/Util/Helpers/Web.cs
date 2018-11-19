@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -99,13 +98,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 请求正文
         /// </summary>
-        public static string Body {
-            get {
-                using( var reader = new StreamReader( Request.Body ) ) {
-                    return reader.ReadToEnd();
-                }
-            }
-        }
+        public static string Body => File.CopyToString( Request.Body );
 
         #endregion
 
