@@ -8,6 +8,7 @@ using System.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http.Internal;
 using Util.Security.Principals;
 
 namespace Util.Helpers {
@@ -98,7 +99,12 @@ namespace Util.Helpers {
         /// <summary>
         /// 请求正文
         /// </summary>
-        public static string Body => File.CopyToString( Request.Body );
+        public static string Body {
+            get {
+                Request.EnableRewind();
+                return File.CopyToString( Request.Body );
+            }
+        }
 
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Util.Helpers;
 using Util.Logs;
@@ -80,6 +81,7 @@ namespace Util.Webs.Filters {
         private void AddFormParams( Microsoft.AspNetCore.Http.HttpRequest request ) {
             if( IsMultipart( request.ContentType ) )
                 return;
+            request.EnableRewind();
             var result = File.CopyToString( request.Body );
             if( string.IsNullOrWhiteSpace( result ) )
                 return;
