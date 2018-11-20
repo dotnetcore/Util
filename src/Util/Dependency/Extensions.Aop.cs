@@ -1,4 +1,6 @@
-﻿using AspectCore.DynamicProxy;
+﻿using System;
+using AspectCore.Configuration;
+using AspectCore.DynamicProxy;
 using AspectCore.DynamicProxy.Parameters;
 using AspectCore.Extensions.AspectScope;
 using AspectCore.Extensions.Autofac;
@@ -13,10 +15,13 @@ namespace Util.Dependency {
         /// <summary>
         /// 启用Aop
         /// </summary>
-        public static void EnableAop( this ContainerBuilder builder ) {
+        /// <param name="builder">容器生成器</param>
+        /// <param name="configAction">Aop配置</param>
+        public static void EnableAop( this ContainerBuilder builder,Action<IAspectConfiguration> configAction = null ) {
             builder.RegisterDynamicProxy( config => {
-                config.NonAspectPredicates.Add( t => Reflection.GetTopBaseType( t.DeclaringType ).SafeString() == "Microsoft.EntityFrameworkCore.DbContext" );
                 config.EnableParameterAspect();
+                config.NonAspectPredicates.Add( t => Reflection.GetTopBaseType( t.DeclaringType ).SafeString() == "Microsoft.EntityFrameworkCore.DbContext" );
+                configAction?.Invoke( config );
             } );
             builder.EnableAspectScoped();
         }
