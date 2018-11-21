@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ShowAllFiles>false</ShowAllFiles>
     <ToolsVersionPromptShown>0.0</ToolsVersionPromptShown>
-    <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
+    <ActiveDebugProfile>Util.Samples.Webs</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
   </PropertyGroup>
