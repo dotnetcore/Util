@@ -132,7 +132,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 请求地址
         /// </summary>
-        public static string Url => HttpContext?.Request?.GetDisplayUrl();
+        public static string Url => Request?.GetDisplayUrl();
 
         #endregion
 
@@ -210,7 +210,7 @@ namespace Util.Helpers {
         /// 获取远程地址
         /// </summary>
         private static string GetRemoteAddress() {
-            return HttpContext?.Request?.Headers["HTTP_X_FORWARDED_FOR"] ?? HttpContext?.Request?.Headers["REMOTE_ADDR"];
+            return Request?.Headers["HTTP_X_FORWARDED_FOR"] ?? Request?.Headers["REMOTE_ADDR"];
         }
 
         #endregion
@@ -220,7 +220,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 浏览器
         /// </summary>
-        public static string Browser => HttpContext?.Request?.Headers["User-Agent"];
+        public static string Browser => Request?.Headers["User-Agent"];
 
         #endregion
 
@@ -249,7 +249,7 @@ namespace Util.Helpers {
         /// </summary>
         public static List<IFormFile> GetFiles() {
             var result = new List<IFormFile>();
-            var files = HttpContext.Request.Form.Files;
+            var files = Request.Form.Files;
             if( files == null || files.Count == 0 )
                 return result;
             result.AddRange( files.Where( file => file?.Length > 0 ) );

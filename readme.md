@@ -133,8 +133,9 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Ubuntu Server
   - Docker
 
-6. 开发平台
-  - .Net Core 2.1 preview2
+6. SDK及Runtime
+  - 当前SDK 64位版本：[Sdk v2.1.500](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.500-windows-x64-installer)，开发机器安装
+  - 当前Runtime 64位版本：[Runtime v2.1.6](https://www.microsoft.com/net/download/thank-you/dotnet-runtime-2.1.6-windows-x64-installer)，服务器安装
 
 7. 单元测试及模拟框架
   - XUnit
