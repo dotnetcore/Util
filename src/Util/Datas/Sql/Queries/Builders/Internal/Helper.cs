@@ -97,17 +97,39 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
             if( string.IsNullOrWhiteSpace( column ) )
                 throw new ArgumentNullException( nameof( column ) );
             column = GetColumn( column );
-            if( @operator == Operator.Contains && value != null && Reflection.IsCollection( value.GetType() ) )
+            if( IsInCondition( @operator, value ) )
                 return CreateInCondition( column, value as IEnumerable );
+            if( IsNotInCondition( @operator, value ) )
+                return CreateInCondition( column, value as IEnumerable, true );
             var paramName = GenerateParamName( value, @operator );
             _parameterManager.Add( paramName, value, @operator );
             return SqlConditionFactory.Create( column, paramName, @operator );
         }
 
         /// <summary>
+        /// 是否In条件
+        /// </summary>
+        private bool IsInCondition( Operator @operator, object value ) {
+            if( @operator == Operator.In )
+                return true;
+            if( @operator == Operator.Contains && value != null && Reflection.IsCollection( value.GetType() ) )
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// 是否Not In条件
+        /// </summary>
+        private bool IsNotInCondition( Operator @operator, object value ) {
+            if( @operator == Operator.NotIn )
+                return true;
+            return false;
+        }
+
+        /// <summary>
         /// 创建In条件
         /// </summary>
-        private ICondition CreateInCondition( string column, IEnumerable values ) {
+        private ICondition CreateInCondition( string column, IEnumerable values, bool notIn = false ) {
             if( values == null )
                 return NullCondition.Instance;
             var paramNames = new List<string>();
@@ -116,6 +138,8 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
                 paramNames.Add( name );
                 _parameterManager.Add( name, value );
             }
+            if( notIn )
+                return new NotInCondition( column, paramNames );
             return new InCondition( column, paramNames );
         }
 

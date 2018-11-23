@@ -572,8 +572,63 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             result.Append( "Where [user].[Email] In (@_p_0,@_p_1)" );
 
             //执行
-            var list = new [] { "a", "b" };
+            var list = new[] { "a", "b" };
             _clause.In( "user.Email", list );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        #endregion
+
+        #region NotIn
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        [Fact]
+        public void TestNotIn_1() {
+            //结果
+            var result = new String();
+            result.Append( "Where [user].[Email] Not In (@_p_0,@_p_1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.NotIn( "user.Email", list );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 设置Not In条件 - lambda列名表达式
+        /// </summary>
+        [Fact]
+        public void TestNotIn_2() {
+            //结果
+            var result = new String();
+            result.Append( "Where [Email] Not In (@_p_0,@_p_1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.NotIn<Sample>( t => t.Email, list );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 设置Not In条件 - 数组
+        /// </summary>
+        [Fact]
+        public void TestNotIn_3() {
+            //结果
+            var result = new String();
+            result.Append( "Where [user].[Email] Not In (@_p_0,@_p_1)" );
+
+            //执行
+            var list = new[] { "a", "b" };
+            _clause.NotIn( "user.Email", list );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
@@ -593,7 +648,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<=@_p_1" );
 
             //执行
-            _clause.Between( "a.B", 1, 2,Boundary.Both );
+            _clause.Between( "a.B", 1, 2, Boundary.Both );
 
             //验证
             Assert.Equal( 1, _parameterManager.GetParams()["@_p_0"] );
@@ -732,7 +787,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             //执行
             var min = DateTime.Parse( "2000-1-1 10:10:10" );
             var max = DateTime.Parse( "2000-1-2 10:10:10" );
-            _clause.Between( "a.B", min, max,true,null );
+            _clause.Between( "a.B", min, max, true, null );
 
             //验证
             Assert.Equal( min, _parameterManager.GetParams()["@_p_0"] );

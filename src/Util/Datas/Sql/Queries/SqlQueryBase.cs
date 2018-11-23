@@ -787,6 +787,26 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        public ISqlQuery NotIn( string column, IEnumerable<object> values ) {
+            Builder.NotIn( column, values );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        public ISqlQuery NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+            Builder.NotIn( expression, values );
+            return this;
+        }
+
+        /// <summary>
         /// 添加范围查询条件
         /// </summary>
         /// <param name="expression">列名表达式</param>
@@ -963,7 +983,7 @@ namespace Util.Datas.Sql.Queries {
         protected virtual string GetCountSql() {
             var result = new StringBuilder();
             result.AppendLine( "Select Count(*) " );
-            AppendSql( result, Builder.GetFrom() );
+            AppendFrom( result );
             AppendSql( result, Builder.GetJoin() );
             AppendSql( result, Builder.GetWhere() );
             AppendSql( result, Builder.GetGroupBy() );
@@ -977,6 +997,16 @@ namespace Util.Datas.Sql.Queries {
             if( string.IsNullOrWhiteSpace( sql ) )
                 return;
             result.AppendLine( $"{sql} " );
+        }
+
+        /// <summary>
+        /// 添加From子句
+        /// </summary>
+        protected virtual void AppendFrom( StringBuilder result ) {
+            var sql = Builder.GetFrom();
+            if( string.IsNullOrWhiteSpace( sql ) )
+                throw new InvalidOperationException( "必须设置From子句" );
+            AppendSql( result, sql );
         }
 
         /// <summary>

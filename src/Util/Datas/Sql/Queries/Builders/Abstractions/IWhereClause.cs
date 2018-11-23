@@ -207,6 +207,18 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="values">值集合</param>
         void In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
         /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        void NotIn( string column, IEnumerable<object> values );
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
+        /// <summary>
         /// 输出Sql
         /// </summary>
         string ToSql();

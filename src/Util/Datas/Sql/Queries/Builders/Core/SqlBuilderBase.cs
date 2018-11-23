@@ -143,8 +143,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建不分页Sql
         /// </summary>
         protected virtual void CreateNoPagerSql( StringBuilder result ) {
-            AppendSql( result, GetSelect() );
-            AppendSql( result, GetFrom() );
+            AppendSelect( result );
+            AppendFrom( result );
             AppendSql( result, GetJoin() );
             AppendSql( result, GetWhere() );
             AppendSql( result, GetGroupBy() );
@@ -158,6 +158,26 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             if( string.IsNullOrWhiteSpace( sql ) )
                 return;
             result.AppendLine( $"{sql} " );
+        }
+
+        /// <summary>
+        /// 添加Select子句
+        /// </summary>
+        protected virtual void AppendSelect( StringBuilder result ) {
+            var sql = GetSelect();
+            if( string.IsNullOrWhiteSpace( sql ) )
+                throw new InvalidOperationException( "必须设置Select子句" );
+            AppendSql( result, sql );
+        }
+
+        /// <summary>
+        /// 添加From子句
+        /// </summary>
+        protected virtual void AppendFrom( StringBuilder result ) {
+            var sql = GetFrom();
+            if( string.IsNullOrWhiteSpace( sql ) )
+                throw new InvalidOperationException( "必须设置From子句" );
+            AppendSql( result, sql );
         }
 
         /// <summary>
@@ -862,6 +882,26 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="values">值集合</param>
         public ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
             WhereClause.In( expression, values );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        public ISqlBuilder NotIn( string column, IEnumerable<object> values ) {
+            WhereClause.NotIn( column, values );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        public ISqlBuilder NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+            WhereClause.NotIn( expression, values );
             return this;
         }
 

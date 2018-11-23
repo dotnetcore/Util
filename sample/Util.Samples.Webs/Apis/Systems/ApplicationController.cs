@@ -1,4 +1,7 @@
-﻿using Util.Datas.Sql.Queries;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Util.Datas.Sql.Queries;
+using Util.Samples.Webs.Domains.Models;
 using Util.Samples.Webs.Services.Abstractions.Systems;
 using Util.Samples.Webs.Services.Dtos.Systems;
 using Util.Samples.Webs.Services.Queries.Systems;
@@ -27,5 +30,18 @@ namespace Util.Samples.Webs.Apis.Systems {
         /// Sql查询对象
         /// </summary>
         public ISqlQuery SqlQuery { get; }
+
+        /// <summary>
+        /// 测试Sql查询对象
+        /// </summary>
+        [HttpGet]
+        public override async Task<IActionResult> PagerQueryAsync( ApplicationQuery query ) {
+            var result = await SqlQuery.Select<Application>( t => t.Id, "Id" )
+                .Select<Application>( t => new object[] { t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled } )
+                .From<Application>( "a" )
+                .NotIn<Application>( t => t.Code, new object[] { 'a', 'b' } )
+                .ToPagerListAsync<ApplicationDto>( query );
+            return Success( result );
+        }
     }
 }

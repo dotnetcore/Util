@@ -257,7 +257,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="column">列名</param>
         /// <param name="values">值集合</param>
         public void In( string column, IEnumerable<object> values ) {
-            Where( column, values, Operator.Contains );
+            Where( column, values, Operator.In );
         }
 
         /// <summary>
@@ -266,7 +266,25 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="expression">列名表达式</param>
         /// <param name="values">值集合</param>
         public void In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
-            Where( expression, values, Operator.Contains );
+            Where( expression, values, Operator.In );
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        public void NotIn( string column, IEnumerable<object> values ) {
+            Where( column, values, Operator.NotIn );
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        public void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+            Where( expression, values, Operator.NotIn );
         }
 
         /// <summary>

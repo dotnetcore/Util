@@ -34,8 +34,8 @@ namespace Util.Datas.Dapper.MySql {
         /// 创建分页Sql
         /// </summary>
         protected override void CreatePagerSql( StringBuilder result ) {
-            AppendSql( result, GetSelect() );
-            AppendSql( result, GetFrom() );
+            AppendSelect( result );
+            AppendFrom( result );
             AppendSql( result, GetJoin() );
             AppendSql( result, GetWhere() );
             AppendSql( result, GetGroupBy() );

@@ -458,6 +458,18 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="values">值集合</param>
         ISqlQuery In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
         /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="values">值集合</param>
+        ISqlQuery NotIn( string column, IEnumerable<object> values );
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="values">值集合</param>
+        ISqlQuery NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
+        /// <summary>
         /// 添加范围查询条件
         /// </summary>
         /// <param name="expression">列名表达式,范例：t => t.Name</param>
