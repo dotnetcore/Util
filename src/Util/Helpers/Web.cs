@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -102,8 +104,20 @@ namespace Util.Helpers {
         public static string Body {
             get {
                 Request.EnableRewind();
-                return File.CopyToString( Request.Body );
+                return File.ToString( Request.Body, isCloseStream: false );
             }
+        }
+
+        #endregion
+
+        #region GetBodyAsync(获取请求正文)
+
+        /// <summary>
+        /// 获取请求正文
+        /// </summary>
+        public static async Task<string> GetBodyAsync() {
+            Request.EnableRewind();
+            return await File.ToStringAsync( Request.Body, isCloseStream: false );
         }
 
         #endregion

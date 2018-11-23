@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Util.Helpers;
@@ -28,16 +29,32 @@ namespace Util.Webs.Filters {
         private ILog Logger { get; set; }
 
         /// <summary>
+        /// 执行
+        /// </summary>
+        public override async Task OnActionExecutionAsync( ActionExecutingContext context, ActionExecutionDelegate next ) {
+            if( context == null )
+                throw new ArgumentNullException( nameof( context ) );
+            if( next == null )
+                throw new ArgumentNullException( nameof( next ) );
+            ActionFilterAttribute actionFilterAttribute = this;
+            actionFilterAttribute.OnActionExecuting( context );
+            await OnActionExecutingAsync( context );
+            if( context.Result != null )
+                return;
+            var executedContext = await next();
+            actionFilterAttribute.OnActionExecuted( executedContext );
+        }
+
+        /// <summary>
         /// 执行前
         /// </summary>
-        public override void OnActionExecuting( ActionExecutingContext context ) {
-            base.OnActionExecuting( context );
+        protected async Task OnActionExecutingAsync( ActionExecutingContext context ) {
             if( Ignore )
                 return;
             Logger = GetLog();
             if( Logger.IsTraceEnabled == false )
                 return;
-            WriteLog( context );
+            await WriteLog( context );
         }
 
         /// <summary>
@@ -55,34 +72,34 @@ namespace Util.Webs.Filters {
         /// <summary>
         /// 执行前日志
         /// </summary>
-        private void WriteLog( ActionExecutingContext context ) {
+        private async Task WriteLog( ActionExecutingContext context ) {
             Logger.Caption( "WebApi跟踪-准备执行操作" )
                 .Class( context.Controller.SafeString() )
                 .Method( context.ActionDescriptor.DisplayName );
-            AddRequestInfo( context );
+            await AddRequestInfo( context );
             Logger.Trace();
         }
 
         /// <summary>
         /// 添加请求信息参数
         /// </summary>
-        private void AddRequestInfo( ActionExecutingContext context ) {
+        private async Task AddRequestInfo( ActionExecutingContext context ) {
             var request = context.HttpContext.Request;
             Logger.Params( "Http请求方式", request.Method );
             if( string.IsNullOrWhiteSpace( request.ContentType ) == false )
                 Logger.Params( "ContentType", request.ContentType );
-            AddFormParams( request );
+            await AddFormParams( request );
             AddCookie( request );
         }
 
         /// <summary>
         /// 添加表单参数
         /// </summary>
-        private void AddFormParams( Microsoft.AspNetCore.Http.HttpRequest request ) {
+        private async Task AddFormParams( Microsoft.AspNetCore.Http.HttpRequest request ) {
             if( IsMultipart( request.ContentType ) )
                 return;
             request.EnableRewind();
-            var result = File.CopyToString( request.Body );
+            var result = await File.ToStringAsync( request.Body, isCloseStream: false );
             if( string.IsNullOrWhiteSpace( result ) )
                 return;
             Logger.Params( "表单参数:" ).Params( result );
@@ -110,8 +127,7 @@ namespace Util.Webs.Filters {
         /// <summary>
         /// 执行后
         /// </summary>
-        public override void OnResultExecuted( ResultExecutedContext context ) {
-            base.OnResultExecuted( context );
+        public override void OnActionExecuted( ActionExecutedContext context ) {
             if( Ignore )
                 return;
             if( Logger.IsTraceEnabled == false )
@@ -122,7 +138,7 @@ namespace Util.Webs.Filters {
         /// <summary>
         /// 执行后日志
         /// </summary>
-        private void WriteLog( ResultExecutedContext context ) {
+        private void WriteLog( ActionExecutedContext context ) {
             Logger.Caption( "WebApi跟踪-执行操作完成" )
                 .Class( context.Controller.SafeString() )
                 .Method( context.ActionDescriptor.DisplayName );
@@ -134,7 +150,7 @@ namespace Util.Webs.Filters {
         /// <summary>
         /// 添加响应信息参数
         /// </summary>
-        private void AddResponseInfo( ResultExecutedContext context ) {
+        private void AddResponseInfo( ActionExecutedContext context ) {
             var response = context.HttpContext.Response;
             if( string.IsNullOrWhiteSpace( response.ContentType ) == false )
                 Logger.Content( $"ContentType: {response.ContentType}" );
@@ -144,7 +160,7 @@ namespace Util.Webs.Filters {
         /// <summary>
         /// 记录响应结果
         /// </summary>
-        private void AddResult( ResultExecutedContext context ) {
+        private void AddResult( ActionExecutedContext context ) {
             if( !( context.Result is Result result ) )
                 return;
             Logger.Content( $"响应消息: { result.Message}" )
