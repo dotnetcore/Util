@@ -39,7 +39,6 @@ namespace Util.Samples.Webs.Apis.Systems {
             var result = await SqlQuery.Select<Application>( t => t.Id, "Id" )
                 .Select<Application>( t => new object[] { t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled } )
                 .From<Application>( "a" )
-                .NotIn<Application>( t => t.Code, new object[] { 'a', 'b' } )
                 .ToPagerListAsync<ApplicationDto>( query );
             return Success( result );
         }

@@ -186,7 +186,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - 脚本语言
     - [TypeScript](https://www.tslang.cn)
   - 脚本框架
-    - [Angular 6](https://angular.cn/)
+    - [Angular 7](https://angular.cn/)
   - Css预处理器
     - [Sass](http://www.sass-lang.com) 
   - 组件库

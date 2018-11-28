@@ -128,7 +128,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 添加到Select子句
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendSelect( string sql );
         /// <summary>
         /// 设置表名
@@ -145,7 +145,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 添加到From子句
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendFrom( string sql );
         /// <summary>
         /// 内连接
@@ -162,7 +162,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 添加到内连接子句
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendJoin( string sql );
         /// <summary>
         /// 左外连接
@@ -179,7 +179,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 添加到左外连接子句
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendLeftJoin( string sql );
         /// <summary>
         /// 右外连接
@@ -196,7 +196,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 添加到右外连接子句
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendRightJoin( string sql );
         /// <summary>
         /// 设置连接条件
@@ -295,7 +295,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 添加到Where子句
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendWhere( string sql );
         /// <summary>
         /// 设置相等查询条件
@@ -551,7 +551,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 添加到GroupBy子句
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendGroupBy( string sql );
         /// <summary>
         /// 排序
@@ -568,7 +568,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 排序
         /// </summary>
-        /// <param name="sql">Sql语句，说明：将会原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendOrderBy( string sql );
     }
 }
