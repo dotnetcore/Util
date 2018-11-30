@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
@@ -813,19 +812,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, int? min, int? max,Boundary boundary = Boundary.Both ) where TEntity : class {
-            Builder.Between( expression, min , max, boundary );
-            return this;
-        }
-
-        /// <summary>
-        /// 添加范围查询条件
-        /// </summary>
-        /// <param name="expression">列名表达式</param>
-        /// <param name="min">最小值</param>
-        /// <param name="max">最大值</param>
-        /// <param name="boundary">包含边界</param>
-        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, double? min, double? max,Boundary boundary = Boundary.Both ) where TEntity : class {
+        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, int? min, int? max, Boundary boundary = Boundary.Both ) where TEntity : class {
             Builder.Between( expression, min, max, boundary );
             return this;
         }
@@ -837,7 +824,19 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, decimal? min, decimal? max,Boundary boundary = Boundary.Both ) where TEntity : class {
+        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, double? min, double? max, Boundary boundary = Boundary.Both ) where TEntity : class {
+            Builder.Between( expression, min, max, boundary );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加范围查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        /// <param name="boundary">包含边界</param>
+        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, decimal? min, decimal? max, Boundary boundary = Boundary.Both ) where TEntity : class {
             Builder.Between( expression, min, max, boundary );
             return this;
         }
@@ -850,7 +849,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="max">最大值</param>
         /// <param name="includeTime">是否包含时间</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, DateTime? min, DateTime? max,bool includeTime = true, Boundary? boundary = null ) where TEntity : class {
+        public ISqlQuery Between<TEntity>( Expression<Func<TEntity, object>> expression, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null ) where TEntity : class {
             Builder.Between( expression, min, max, includeTime, boundary );
             return this;
         }
@@ -967,46 +966,14 @@ namespace Util.Datas.Sql.Queries {
         /// 获取行数
         /// </summary>
         protected virtual int GetCount( IDbConnection connection ) {
-            return Util.Helpers.Convert.ToInt( ToScalar( connection, GetCountSql(), Params ) );
+            return Util.Helpers.Convert.ToInt( ToScalar( connection, Builder.ToCountSql(), Params ) );
         }
 
         /// <summary>
         /// 获取行数
         /// </summary>
         protected virtual async Task<int> GetCountAsync( IDbConnection connection ) {
-            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, GetCountSql(), Params ) );
-        }
-
-        /// <summary>
-        /// 获取行数Sql
-        /// </summary>
-        protected virtual string GetCountSql() {
-            var result = new StringBuilder();
-            result.AppendLine( "Select Count(*) " );
-            AppendFrom( result );
-            AppendSql( result, Builder.GetJoin() );
-            AppendSql( result, Builder.GetWhere() );
-            AppendSql( result, Builder.GetGroupBy() );
-            return result.ToString().Trim();
-        }
-
-        /// <summary>
-        /// 添加Sql
-        /// </summary>
-        protected void AppendSql( StringBuilder result, string sql ) {
-            if( string.IsNullOrWhiteSpace( sql ) )
-                return;
-            result.AppendLine( $"{sql} " );
-        }
-
-        /// <summary>
-        /// 添加From子句
-        /// </summary>
-        protected virtual void AppendFrom( StringBuilder result ) {
-            var sql = Builder.GetFrom();
-            if( string.IsNullOrWhiteSpace( sql ) )
-                throw new InvalidOperationException( "必须设置From子句" );
-            AppendSql( result, sql );
+            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, Builder.ToCountSql(), Params ) );
         }
 
         /// <summary>

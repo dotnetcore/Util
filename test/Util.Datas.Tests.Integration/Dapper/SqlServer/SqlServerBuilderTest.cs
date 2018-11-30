@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Util.Datas.Dapper.SqlServer;
+using Util.Datas.Queries;
 using Util.Datas.Tests.Samples;
 using Util.Datas.Tests.XUnitHelpers;
+using Util.Properties;
 using Xunit;
+using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
 namespace Util.Datas.Tests.Dapper.SqlServer {
@@ -12,6 +15,10 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
     /// </summary>
     public class SqlServerBuilderTest {
         /// <summary>
+        /// 输出工具
+        /// </summary>
+        private readonly ITestOutputHelper _output;
+        /// <summary>
         /// Sql Server Sql生成器
         /// </summary>
         private readonly SqlServerBuilder _builder;
@@ -19,7 +26,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public SqlServerBuilderTest() {
+        public SqlServerBuilderTest( ITestOutputHelper output ) {
+            _output = output;
             _builder = new SqlServerBuilder();
         }
 
@@ -792,7 +800,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //执行
             _builder.Select<Sample>( t => t.Email )
                 .From<Sample>( "a" )
-                .Between( "a.B",1,2 );
+                .Between( "a.B", 1, 2 );
 
             //验证
             Assert.Equal( 1, _builder.GetParams()["@_p_0"] );
@@ -932,6 +940,37 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
             Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
             Assert.Equal( 1, _builder.GetParams()["@_p_2"] );
+        }
+
+        /// <summary>
+        /// 验证分页时未设置排序字段，抛出异常
+        /// </summary>
+        [Fact]
+        public void Test_42() {
+            var pager = new QueryParameter();
+            _builder.From( "a" ).Page( pager );
+            AssertHelper.Throws<ArgumentException>( () => _builder.ToSql(), LibraryResource.OrderIsEmptyForPage );
+        }
+
+        /// <summary>
+        /// 分页时设置了排序字段
+        /// </summary>
+        [Fact]
+        public void Test_43() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Test] " );
+            result.AppendLine( "Order By [a] " );
+            result.Append( "Offset 0 Rows Fetch Next 20 Rows Only" );
+
+            //执行
+            var pager = new QueryParameter { Order = "a" };
+            _builder.From( "Test" ).Page( pager );
+
+            //验证
+            _output.WriteLine( _builder.ToSql() );
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
     }
 }

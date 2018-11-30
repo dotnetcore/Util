@@ -99,7 +99,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 生成调试Sql语句
         /// </summary>
-        public string ToDebugSql() {
+        public virtual string ToDebugSql() {
             var result = ToSql();
             var parameters = GetParams();
             foreach ( var parameter in parameters )
@@ -114,7 +114,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 生成Sql语句
         /// </summary>
-        public string ToSql() {
+        public virtual string ToSql() {
+            Init();
             Validate();
             var result = new StringBuilder();
             CreateSql( result );
@@ -122,10 +123,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 初始化
+        /// </summary>
+        public virtual void Init() {
+            OrderByClause.OrderBy( _pager?.Order );
+        }
+
+        /// <summary>
         /// 验证
         /// </summary>
-        public void Validate() {
+        public virtual void Validate() {
             FromClause.Validate();
+            OrderByClause.Validate( _pager );
         }
 
         /// <summary>
@@ -184,6 +193,25 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建分页Sql
         /// </summary>
         protected abstract void CreatePagerSql( StringBuilder result );
+
+        #endregion
+
+        #region ToCountSql(生成获取行数Sql)
+
+        /// <summary>
+        /// 生成获取行数Sql
+        /// </summary>
+        public virtual string ToCountSql() {
+            Init();
+            Validate();
+            var result = new StringBuilder();
+            result.AppendLine( "Select Count(*) " );
+            AppendFrom( result );
+            AppendSql( result, GetJoin() );
+            AppendSql( result, GetWhere() );
+            AppendSql( result, GetGroupBy() );
+            return result.ToString().Trim();
+        }
 
         #endregion
 

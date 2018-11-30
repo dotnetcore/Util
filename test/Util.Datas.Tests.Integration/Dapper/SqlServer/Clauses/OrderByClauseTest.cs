@@ -149,5 +149,17 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             _clause.AppendSql( "f" );
             Assert.Equal( "Order By [a].[b] Desc,[Email] Desc,[c],[D].[e] Desc,f", GetSql() );
         }
+
+        /// <summary>
+        /// 测试排序 - 过滤列名相同的排序字段
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_13() {
+            _clause.OrderBy( "Email" );
+            _clause.OrderBy<Sample>( t => t.Email,true );
+            _clause.OrderBy( "email" );
+            _clause.OrderBy( "Email desc" );
+            Assert.Equal( "Order By [Email]", GetSql() );
+        }
     }
 }
