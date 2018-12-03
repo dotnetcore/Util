@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,9 +36,9 @@ namespace Util.Samples.Webs {
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
             //添加Mvc服务
             services.AddMvc( options => {
-                    //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
-                    options.Filters.Add( new ExceptionHandlerAttribute() );
-                }
+                //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
+                options.Filters.Add( new ExceptionHandlerAttribute() );
+            }
             ).AddControllersAsServices();
 
             //添加NLog日志操作
@@ -79,20 +78,9 @@ namespace Util.Samples.Webs {
         }
 
         /// <summary>
-        /// 配置请求管道
+        /// 配置开发环境请求管道
         /// </summary>
-        public void Configure( IApplicationBuilder app, IHostingEnvironment env ) {
-            if( env.IsDevelopment() ) {
-                DevelopmentConfig( app );
-                return;
-            }
-            ProductionConfig( app );
-        }
-
-        /// <summary>
-        /// 开发环境配置
-        /// </summary>
-        private void DevelopmentConfig( IApplicationBuilder app ) {
+        public void ConfigureDevelopment( IApplicationBuilder app ) {
             app.UseBrowserLink();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
@@ -100,6 +88,14 @@ namespace Util.Samples.Webs {
                 HotModuleReplacement = true
             } );
             app.UseSwaggerX();
+            CommonConfig( app );
+        }
+
+        /// <summary>
+        /// 配置生产环境请求管道
+        /// </summary>
+        public void ConfigureProduction( IApplicationBuilder app ) {
+            app.UseExceptionHandler( "/Home/Error" );
             CommonConfig( app );
         }
 
@@ -123,14 +119,6 @@ namespace Util.Samples.Webs {
                 routes.MapRoute( "default", "{controller=Home}/{action=Index}/{id?}" );
                 routes.MapSpaFallbackRoute( "spa-fallback", new { controller = "Home", action = "Index" } );
             } );
-        }
-
-        /// <summary>
-        /// 生产环境配置
-        /// </summary>
-        private void ProductionConfig( IApplicationBuilder app ) {
-            app.UseExceptionHandler( "/Home/Error" );
-            CommonConfig( app );
         }
     }
 }
