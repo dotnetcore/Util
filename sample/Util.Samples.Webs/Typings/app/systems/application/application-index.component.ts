@@ -11,7 +11,7 @@ import { env } from '../../env';
     selector: 'application-index',
     templateUrl: env.prod() ? './html/application-index.component.html' : '/view/systems/application'
 })
-export class ApplicationIndexComponent extends TableQueryComponentBase<ApplicationViewModel, ApplicationQuery> {
+export class ApplicationIndexComponent extends TableQueryComponentBase<ApplicationViewModel, ApplicationQuery>{
     /**
      * 初始化应用程序首页
      * @param injector 注入器

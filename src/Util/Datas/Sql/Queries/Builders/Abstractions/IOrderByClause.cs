@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// <summary>
@@ -23,6 +24,11 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         void AppendSql( string sql );
+        /// <summary>
+        /// 验证
+        /// </summary>
+        /// <param name="pager">分页</param>
+        void Validate( IPager pager );
         /// <summary>
         /// 获取Sql
         /// </summary>

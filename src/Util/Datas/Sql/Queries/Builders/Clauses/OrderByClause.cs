@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
+using Util.Domains.Repositories;
+using Util.Properties;
 
 namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// <summary>
@@ -47,7 +49,27 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void OrderBy( string order ) {
             if( string.IsNullOrWhiteSpace( order ) )
                 return;
-            _items.AddRange( order.Split( ',' ).Select( column => new OrderByItem( column ) ) );
+            order.Split( ',' ).ToList().ForEach( column => AddItem( column ) );
+        }
+
+        /// <summary>
+        /// 添加排序项
+        /// </summary>
+        protected void AddItem( string column, bool desc = false, Type type = null ) {
+            if ( column.IsEmpty() )
+                return;
+            if ( Exists( column ) )
+                return;
+            _items.Add( new OrderByItem( column , desc , type ) );
+        }
+
+        /// <summary>
+        /// 是否已存在
+        /// </summary>
+        /// <param name="column">排序列</param>
+        protected bool Exists( string column ) {
+            var item = new OrderByItem( column );
+            return _items.Exists( t => t.Column.ToLower() == item.Column.ToLower() );
         }
 
         /// <summary>
@@ -59,7 +81,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void OrderBy<TEntity>( Expression<Func<TEntity, object>> column, bool desc = false ) {
             if( column == null )
                 return;
-            _items.Add( new OrderByItem( _resolver.GetColumn( column ), desc, typeof( TEntity ) ) );
+            AddItem( _resolver.GetColumn( column ), desc, typeof( TEntity ) );
         }
 
         /// <summary>
@@ -68,6 +90,17 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="sql">Sql语句</param>
         public void AppendSql( string sql ) {
             _items.Add( new OrderByItem( sql, raw: true ) );
+        }
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        /// <param name="pager">分页</param>
+        public void Validate( IPager pager ) {
+            if( pager == null )
+                return;
+            if( _items.Count == 0 )
+                throw new ArgumentException( LibraryResource.OrderIsEmptyForPage );
         }
 
         /// <summary>

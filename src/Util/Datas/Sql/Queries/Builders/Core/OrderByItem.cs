@@ -22,7 +22,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
                 return;
             if( Column.ToLower().EndsWith( "desc" ) ) {
                 Desc = true;
-                Column = Column.Remove( Column.Length - 4, 4 );
+                Column = Column.Remove( Column.Length - 4, 4 ).Trim();
             }
         }
 
