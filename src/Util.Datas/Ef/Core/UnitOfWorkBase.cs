@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Util.Datas.Ef.Configs;
 using Util.Datas.UnitOfWorks;
 using Util.Domains.Auditing;
@@ -15,6 +16,7 @@ using Util.Exceptions;
 using Util.Datas.Ef.Logs;
 using Util.Datas.Matedatas;
 using Util.Datas.Sql;
+using Util.Helpers;
 using Util.Logs;
 using Util.Sessions;
 
@@ -36,12 +38,25 @@ namespace Util.Datas.Ef.Core {
             manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
             Session = Util.Security.Sessions.Session.Instance;
+            Config = GetConfig();
+        }
+
+        /// <summary>
+        /// 获取配置
+        /// </summary>
+        private EfConfig GetConfig() {
+            var options = Ioc.Create<IOptionsSnapshot<EfConfig>>();
+            return options.Value;
         }
 
         #endregion
 
         #region 属性
 
+        /// <summary>
+        /// Ef配置
+        /// </summary>
+        protected EfConfig Config { get; }
         /// <summary>
         /// 跟踪号
         /// </summary>
@@ -90,14 +105,18 @@ namespace Util.Datas.Ef.Core {
         /// 是否启用Ef日志
         /// </summary>
         private bool IsEnabled( ILog log ) {
-            return EfConfig.LogLevel != EfLogLevel.Off && log.IsTraceEnabled;
+            if ( Config.EfLogLevel == EfLogLevel.Off )
+                return false;
+            if( log.IsTraceEnabled == false )
+                return false;
+            return true;
         }
 
         /// <summary>
         /// 获取日志提供器
         /// </summary>
         protected virtual ILoggerProvider GetLogProvider( ILog log ) {
-            return new EfLogProvider( log, this );
+            return new EfLogProvider( log, this,Config );
         }
 
         #endregion
@@ -270,7 +289,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="entity">实体类型</param>
         public string GetTable( Type entity ) {
-            if ( entity == null )
+            if( entity == null )
                 return null;
             var entityType = Model.FindEntityType( entity );
             return entityType?.FindAnnotation( "Relational:TableName" )?.Value.SafeString();

@@ -30,6 +30,10 @@ namespace Util.Datas.Ef.Logs {
         /// 日志分类
         /// </summary>
         private readonly string _category;
+        /// <summary>
+        /// Ef配置
+        /// </summary>
+        private readonly EfConfig _config;
 
         /// <summary>
         /// 初始化Ef日志记录器
@@ -37,10 +41,12 @@ namespace Util.Datas.Ef.Logs {
         /// <param name="log">日志操作</param>
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="category">日志分类</param>
-        public EfLog( ILog log, UnitOfWorkBase unitOfWork, string category ) {
+        /// <param name="config">Ef配置</param>
+        public EfLog( ILog log, UnitOfWorkBase unitOfWork, string category, EfConfig config ) {
             _log = log ?? throw new ArgumentNullException( nameof( log ) );
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException( nameof( unitOfWork ) );
             _category = category;
+            _config = config;
         }
 
         /// <summary>
@@ -67,9 +73,9 @@ namespace Util.Datas.Ef.Logs {
         /// 是否启用Ef日志
         /// </summary>
         private bool IsEnabled( EventId eventId ) {
-            if( EfConfig.LogLevel == EfLogLevel.Off )
+            if( _config.EfLogLevel == EfLogLevel.Off )
                 return false;
-            if( EfConfig.LogLevel == EfLogLevel.All )
+            if( _config.EfLogLevel == EfLogLevel.All )
                 return true;
             if( eventId.Name == "Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted" )
                 return true;
@@ -80,7 +86,7 @@ namespace Util.Datas.Ef.Logs {
         /// 添加日志内容
         /// </summary>
         private void AddContent<TState>( TState state ) {
-            if( EfConfig.LogLevel == EfLogLevel.All )
+            if( _config.EfLogLevel == EfLogLevel.All )
                 _log.Content( "事件内容：" ).Content( state.SafeString() );
             if( !( state is IEnumerable list ) )
                 return;
