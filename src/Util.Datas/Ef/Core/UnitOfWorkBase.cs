@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
@@ -25,6 +26,26 @@ namespace Util.Datas.Ef.Core {
     /// 工作单元
     /// </summary>
     public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IDatabase, IEntityMatedata {
+
+        #region 字段
+
+        /// <summary>
+        /// 映射字典
+        /// </summary>
+        private static readonly ConcurrentDictionary<Type, IEnumerable<IMap>> Maps;
+
+        #endregion
+
+        #region 静态构造方法
+
+        /// <summary>
+        /// 初始化Entity Framework工作单元
+        /// </summary>
+        static UnitOfWorkBase() {
+            Maps = new ConcurrentDictionary<Type, IEnumerable<IMap>>();
+        }
+
+        #endregion
 
         #region 构造方法
 
@@ -52,7 +73,7 @@ namespace Util.Datas.Ef.Core {
         #endregion
 
         #region 属性
-
+        
         /// <summary>
         /// Ef配置
         /// </summary>
@@ -105,7 +126,7 @@ namespace Util.Datas.Ef.Core {
         /// 是否启用Ef日志
         /// </summary>
         private bool IsEnabled( ILog log ) {
-            if ( Config.EfLogLevel == EfLogLevel.Off )
+            if( Config.EfLogLevel == EfLogLevel.Off )
                 return false;
             if( log.IsTraceEnabled == false )
                 return false;
@@ -116,7 +137,56 @@ namespace Util.Datas.Ef.Core {
         /// 获取日志提供器
         /// </summary>
         protected virtual ILoggerProvider GetLogProvider( ILog log ) {
-            return new EfLogProvider( log, this,Config );
+            return new EfLogProvider( log, this, Config );
+        }
+
+        #endregion
+
+        #region OnModelCreating(配置映射)
+
+        /// <summary>
+        /// 配置映射
+        /// </summary>
+        protected override void OnModelCreating( ModelBuilder modelBuilder ) {
+            foreach( IMap mapper in GetMaps() )
+                mapper.Map( modelBuilder );
+        }
+
+        /// <summary>
+        /// 获取映射配置列表
+        /// </summary>
+        private IEnumerable<IMap> GetMaps() {
+            return Maps.GetOrAdd( GetMapType(), GetMapsFromAssemblies() );
+        }
+
+        /// <summary>
+        /// 从程序集获取映射配置列表
+        /// </summary>
+        private IEnumerable<IMap> GetMapsFromAssemblies() {
+            var result = new List<IMap>();
+            foreach( var assembly in GetAssemblies() )
+                result.AddRange( GetMapInstances( assembly ) );
+            return result;
+        }
+
+        /// <summary>
+        /// 获取映射接口类型
+        /// </summary>
+        protected abstract Type GetMapType();
+
+        /// <summary>
+        /// 获取定义映射配置的程序集列表
+        /// </summary>
+        protected virtual Assembly[] GetAssemblies() {
+            return new[] { GetType().Assembly };
+        }
+
+        /// <summary>
+        /// 获取映射实例列表
+        /// </summary>
+        /// <param name="assembly">程序集</param>
+        protected virtual IEnumerable<IMap> GetMapInstances( Assembly assembly ) {
+            return Util.Helpers.Reflection.GetInstancesByInterface<IMap>( assembly );
         }
 
         #endregion
@@ -149,43 +219,6 @@ namespace Util.Datas.Ef.Core {
                 throw new ConcurrencyException( ex );
             }
         }
-        #endregion
-
-        #region OnModelCreating(配置映射)
-
-        /// <summary>
-        /// 配置映射
-        /// </summary>
-        protected override void OnModelCreating( ModelBuilder modelBuilder ) {
-            foreach( IMap mapper in GetMaps() )
-                mapper.Map( modelBuilder );
-        }
-
-        /// <summary>
-        /// 获取映射配置列表
-        /// </summary>
-        private IEnumerable<IMap> GetMaps() {
-            var result = new List<IMap>();
-            foreach( var assembly in GetAssemblies() )
-                result.AddRange( GetMapTypes( assembly ) );
-            return result;
-        }
-
-        /// <summary>
-        /// 获取定义映射配置的程序集列表
-        /// </summary>
-        protected virtual Assembly[] GetAssemblies() {
-            return new[] { GetType().Assembly };
-        }
-
-        /// <summary>
-        /// 获取映射类型列表
-        /// </summary>
-        /// <param name="assembly">程序集</param>
-        protected virtual IEnumerable<IMap> GetMapTypes( Assembly assembly ) {
-            return Util.Helpers.Reflection.GetInstancesByInterface<IMap>( assembly );
-        }
-
         #endregion
 
         #region SaveChanges(保存更改)
