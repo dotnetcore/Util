@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using Util.Aspects;
 
 namespace Util.Logs.Abstractions {
     /// <summary>
     /// 日志上下文
     /// </summary>
+    [Ignore]
     public interface ILogContext {
         /// <summary>
         /// 跟踪号

@@ -5,7 +5,6 @@ using System.Reflection;
 using AspectCore.Configuration;
 using Autofac;
 using Microsoft.Extensions.DependencyInjection;
-using Util.Contexts;
 using Util.Events.Handlers;
 using Util.Helpers;
 using Util.Reflections;
@@ -23,10 +22,6 @@ namespace Util.Dependency {
         /// 依赖配置
         /// </summary>
         private readonly IConfig[] _configs;
-        /// <summary>
-        /// 上下文
-        /// </summary>
-        private readonly IContext _context;
         /// <summary>
         /// 类型查找器
         /// </summary>
@@ -48,13 +43,11 @@ namespace Util.Dependency {
         /// 初始化依赖引导器
         /// </summary>
         /// <param name="services">服务集合</param>
-        /// <param name="context">上下文</param>
         /// <param name="configs">依赖配置</param>
         /// <param name="aopConfigAction">Aop配置操作</param>
         /// <param name="finder">类型查找器</param>
-        public Bootstrapper( IServiceCollection services, IContext context, IConfig[] configs, Action<IAspectConfiguration> aopConfigAction, IFind finder ) {
+        public Bootstrapper( IServiceCollection services, IConfig[] configs, Action<IAspectConfiguration> aopConfigAction, IFind finder ) {
             _services = services ?? new ServiceCollection();
-            _context = context;
             _configs = configs;
             _aopConfigAction = aopConfigAction;
             _finder = finder ?? new Finder();
@@ -64,23 +57,21 @@ namespace Util.Dependency {
         /// 启动引导
         /// </summary>
         /// <param name="services">服务集合</param>
-        /// <param name="context">上下文</param>
         /// <param name="configs">依赖配置</param>
         /// <param name="aopConfigAction">Aop配置操作</param>
         /// <param name="finder">类型查找器</param>
-        public static IServiceProvider Run( IServiceCollection services = null, IContext context = null, IConfig[] configs = null, 
+        public static IServiceProvider Run( IServiceCollection services = null, IConfig[] configs = null, 
                 Action<IAspectConfiguration> aopConfigAction=null, IFind finder = null ) {
-            return new Bootstrapper( services, context, configs, aopConfigAction, finder ).Bootstrap();
+            return new Bootstrapper( services, configs, aopConfigAction, finder ).Bootstrap();
         }
 
         /// <summary>
         /// 启动引导
         /// </summary>
         /// <param name="services">服务集合</param>
-        /// <param name="context">上下文</param>
         /// <param name="configs">依赖配置</param>
-        public static IServiceProvider Run( IServiceCollection services, IContext context, params IConfig[] configs ) {
-            return Run( services, context, configs, null );
+        public static IServiceProvider Run( IServiceCollection services, params IConfig[] configs ) {
+            return Run( services, configs, null );
         }
 
         /// <summary>
@@ -107,7 +98,6 @@ namespace Util.Dependency {
         private void RegisterInfrastracture() {
             EnableAop();
             RegisterFinder();
-            RegisterContext();
         }
 
         /// <summary>
@@ -122,14 +112,6 @@ namespace Util.Dependency {
         /// </summary>
         private void RegisterFinder() {
             _builder.AddSingleton( _finder );
-        }
-
-        /// <summary>
-        /// 注册上下文
-        /// </summary>
-        private void RegisterContext() {
-            if( _context != null )
-                _builder.AddSingleton( _context );
         }
 
         /// <summary>

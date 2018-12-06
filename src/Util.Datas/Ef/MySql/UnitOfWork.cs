@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -21,10 +22,17 @@ namespace Util.Datas.Ef.MySql {
         }
 
         /// <summary>
-        /// 获取映射类型列表
+        /// 获取映射接口类型
+        /// </summary>
+        protected override Type GetMapType() {
+            return typeof( IMap );
+        }
+
+        /// <summary>
+        /// 获取映射实例列表
         /// </summary>
         /// <param name="assembly">程序集</param>
-        protected override IEnumerable<Util.Datas.Ef.Core.IMap> GetMapTypes( Assembly assembly ) {
+        protected override IEnumerable<Util.Datas.Ef.Core.IMap> GetMapInstances( Assembly assembly ) {
             return Util.Helpers.Reflection.GetInstancesByInterface<IMap>( assembly );
         }
 
