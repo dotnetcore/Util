@@ -3,9 +3,10 @@
 //Licensed under the MIT license
 //================================================
 export { Util as util } from './util';
-export { UtilModule } from './util.module';
+export { UtilModule, createOidcProviders } from './util.module';
 export { HttpContentType, HttpMethod } from "./angular/http-helper";
 export { ComponentBase } from './base/component-base';
+export { FormComponentBase } from './base/form-component-base';
 export { TableQueryComponentBase } from './base/table-query-component-base';
 export { TreeTableQueryComponentBase } from './base/tree-table-query-component-base';
 export { EditComponentBase } from './base/edit-component-base';
@@ -16,8 +17,12 @@ export { PagerList } from './core/pager-list';
 export { Result, FailResult, StateCode } from './core/result';
 export { SelectItem } from './core/select';
 export { DicService } from './services/dic.service';
-export { Authorize } from './security/authorize';
+export { SaveGuard } from './services/save-guard';
 export { Session } from './security/session';
+export { Authorize } from './security/authorize';
+export { Authorize as OidcAuthorize } from './security/openid-connect/authorize';
+export { AuthorizeService as OidcAuthorizeService } from './security/openid-connect/authorize-service';
+export { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connect/authorize-config';
 export { TableWrapperComponent } from './material/table-wrapper.component';
 export { SelectWrapperComponent } from './material/select-wrapper.component';
 export { TextBoxWrapperComponent } from './material/textbox-wrapper.component';

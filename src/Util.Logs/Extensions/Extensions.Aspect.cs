@@ -14,7 +14,7 @@ namespace Util.Logs.Extensions {
         /// <param name="parameter">参数</param>
         /// <param name="log">参数</param>
         public static void AppendTo( this Parameter parameter, ILog log ) {
-            log.Params( parameter.ParameterInfo.ParameterType.FullName, parameter.Name, GetParameterValue( parameter ) );
+            log.Params( parameter.Name, GetParameterValue( parameter ), parameter.ParameterInfo.ParameterType.FullName );
         }
 
         /// <summary>

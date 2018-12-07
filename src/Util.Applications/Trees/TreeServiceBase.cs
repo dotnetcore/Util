@@ -117,14 +117,14 @@ namespace Util.Applications.Trees {
             var entities = await _store.FindByIdsAsync( ids );
             if( entities == null )
                 return;
-            entities.ForEach( async entity => {
-                if ( enabled && await AllowEnable( entity ) == false )
+            foreach ( var entity in entities ) {
+                if( enabled && await AllowEnable( entity ) == false )
                     return;
                 if( enabled == false && await AllowDisable( entity ) == false )
                     return;
                 entity.Enabled = enabled;
                 await _store.UpdateAsync( entity );
-            } );
+            }
             _unitOfWork.Commit();
             WriteLog( entities, enabled );
         }

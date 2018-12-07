@@ -29,6 +29,16 @@ namespace Util.Webs.Filters {
         public string Template { get; set; }
 
         /// <summary>
+        /// 视图名称，范例：/Home/Index
+        /// </summary>
+        public string ViewName { get; set; }
+
+        /// <summary>
+        /// 是否部分视图，默认：true
+        /// </summary>
+        public bool IsPartialView { get; set; } = false;
+
+        /// <summary>
         /// 执行生成
         /// </summary>
         public override async Task OnResultExecutionAsync( ResultExecutingContext context, ResultExecutionDelegate next ) {
@@ -50,7 +60,7 @@ namespace Util.Webs.Filters {
                     return;
                 if( Directory.Exists( directory ) == false )
                     Directory.CreateDirectory( directory );
-                File.WriteAllText( path, html );
+                System.IO.File.WriteAllText( path, html );
             }
             catch( Exception ex ) {
                 ex.Log( Log.GetLog().Caption( "生成html静态文件失败" ) );

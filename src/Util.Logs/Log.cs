@@ -14,6 +14,10 @@ namespace Util.Logs {
         /// 类名
         /// </summary>
         private readonly string _class;
+        /// <summary>
+        /// 空日志操作
+        /// </summary>
+        public static readonly ILog Null = NullLog.Instance;
 
         /// <summary>
         /// 初始化日志操作
@@ -135,13 +139,8 @@ namespace Util.Logs {
                 return Ioc.Create<ISession>();
             }
             catch {
-                return Util.Security.Sessions.Session.Null;
+                return Util.Security.Sessions.Session.Instance;
             }
         }
-
-        /// <summary>
-        /// 空日志操作
-        /// </summary>
-        public static readonly ILog Null = NullLog.Instance;
     }
 }

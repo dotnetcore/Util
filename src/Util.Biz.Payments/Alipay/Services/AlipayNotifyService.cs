@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Util.Biz.Payments.Alipay.Abstractions;
+﻿using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Alipay.Enums;
 using Util.Biz.Payments.Alipay.Services.Base;

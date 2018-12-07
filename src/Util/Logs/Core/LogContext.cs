@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Util.Contexts;
 using Util.Helpers;
 using Util.Logs.Abstractions;
@@ -14,24 +13,31 @@ namespace Util.Logs.Core {
         /// 日志上下文信息
         /// </summary>
         private LogContextInfo _info;
+        /// <summary>
+        /// 序号
+        /// </summary>
+        private int _orderId;
+        /// <summary>
+        /// 上下文
+        /// </summary>
+        private IContext _context;
 
         /// <summary>
         /// 初始化日志上下文
         /// </summary>
-        /// <param name="context">上下文</param>
-        public LogContext( IContext context ) {
-            Context = context;
+        public LogContext() {
+            _orderId = 0;
         }
 
         /// <summary>
         /// 上下文
         /// </summary>
-        public IContext Context { get; set; }
+        public virtual IContext Context => _context ?? ( _context = ContextFactory.Create() );
 
         /// <summary>
         /// 跟踪号
         /// </summary>
-        public string TraceId => GetInfo().TraceId;
+        public string TraceId => $"{GetInfo().TraceId}-{++_orderId}";
 
         /// <summary>
         /// 计时器
@@ -89,7 +95,7 @@ namespace Util.Logs.Core {
         /// </summary>
         protected string GetTraceId() {
             var traceId = Context.TraceId;
-            return string.IsNullOrWhiteSpace( traceId ) ? Guid.NewGuid().ToString() : traceId;
+            return string.IsNullOrWhiteSpace( traceId ) ? Id.Guid() : traceId;
         }
 
         /// <summary>

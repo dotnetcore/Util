@@ -2,6 +2,7 @@
 using System.Text;
 using Util.Logs.Abstractions;
 using Util.Logs.Contents;
+using Util.Logs.Properties;
 
 namespace Util.Logs.Formats {
     /// <summary>
@@ -28,7 +29,7 @@ namespace Util.Logs.Formats {
         /// </summary>
         protected virtual string Format( LogContent content ) {
             int line = 1;
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             Line1( result, content,ref line );
             Line2( result, content, ref line );
             Line3( result, content, ref line );

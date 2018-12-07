@@ -73,7 +73,7 @@ namespace Util.Applications {
         /// <summary>
         /// 获取全部
         /// </summary>
-        public async Task<List<TDto>> GetAllAsync() {
+        public virtual async Task<List<TDto>> GetAllAsync() {
             var entities = await _store.FindAllAsync();
             return entities.Select( ToDto ).ToList();
         }
@@ -82,7 +82,7 @@ namespace Util.Applications {
         /// 通过编号获取
         /// </summary>
         /// <param name="id">实体编号</param>
-        public TDto GetById( object id ) {
+        public virtual TDto GetById( object id ) {
             var key = Util.Helpers.Convert.To<TKey>( id );
             return ToDto( _store.Find( key ) );
         }
@@ -91,7 +91,7 @@ namespace Util.Applications {
         /// 通过编号获取
         /// </summary>
         /// <param name="id">实体编号</param>
-        public async Task<TDto> GetByIdAsync( object id ) {
+        public virtual async Task<TDto> GetByIdAsync( object id ) {
             var key = Util.Helpers.Convert.To<TKey>( id );
             return ToDto( await _store.FindAsync( key ) );
         }
@@ -100,7 +100,7 @@ namespace Util.Applications {
         /// 通过编号列表获取
         /// </summary>
         /// <param name="ids">用逗号分隔的Id列表，范例："1,2"</param>
-        public List<TDto> GetByIds( string ids ) {
+        public virtual List<TDto> GetByIds( string ids ) {
             return _store.FindByIds( ids ).Select( ToDto ).ToList();
         }
 
@@ -108,7 +108,7 @@ namespace Util.Applications {
         /// 通过编号列表获取
         /// </summary>
         /// <param name="ids">用逗号分隔的Id列表，范例："1,2"</param>
-        public async Task<List<TDto>> GetByIdsAsync( string ids ) {
+        public virtual async Task<List<TDto>> GetByIdsAsync( string ids ) {
             var entities = await _store.FindByIdsAsync( ids );
             return entities.Select( ToDto ).ToList();
         }

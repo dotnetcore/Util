@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -35,7 +35,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Exceptionless" Version="4.3.2004" />
+    <PackageReference Include="Exceptionless" Version="4.3.2012" />
     <PackageReference Include="NLog" Version="5.0.0-beta11" />
   </ItemGroup>
 
@@ -45,7 +45,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="LogResource.Designer.cs">
+    <Compile Update="Properties\LogResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>LogResource.resx</DependentUpon>
@@ -53,7 +53,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="LogResource.resx">
+    <EmbeddedResource Update="Properties\LogResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

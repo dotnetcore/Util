@@ -120,10 +120,22 @@
   <data name="ConcurrencyExceptionMessage" xml:space="preserve">
     <value>当前操作的数据已被其他人修改，请刷新后重试</value>
   </data>
+  <data name="InvalidIdCard" xml:space="preserve">
+    <value>身份证不正确</value>
+  </data>
+  <data name="InvalidMobilePhone" xml:space="preserve">
+    <value>手机号不正确</value>
+  </data>
   <data name="NotSupportMoveToChildren" xml:space="preserve">
     <value>不允许将节点移动到自己或子节点下</value>
   </data>
   <data name="OnlyOnePredicate" xml:space="preserve">
     <value>仅允许添加一个条件,条件：{0}</value>
+  </data>
+  <data name="OrderIsEmptyForPage" xml:space="preserve">
+    <value>分页必须设置排序字段</value>
+  </data>
+  <data name="TableIsEmpty" xml:space="preserve">
+    <value>必须设置表名</value>
   </data>
 </root>

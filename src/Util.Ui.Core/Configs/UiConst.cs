@@ -463,5 +463,33 @@
         /// 冻结头部
         /// </summary>
         public const string StickyHeader = "sticky-header";
+        /// <summary>
+        /// 模式
+        /// </summary>
+        public const string Pattern = "pattern";
+        /// <summary>
+        /// 正则表达式
+        /// </summary>
+        public const string Regex = "regex";
+        /// <summary>
+        /// 正则表达式错误消息
+        /// </summary>
+        public const string RegexMessage = "regex-message";
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        public const string Min = "min";
+        /// <summary>
+        /// 最小值错误消息
+        /// </summary>
+        public const string MinMessage = "min-message";
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        public const string Max = "max";
+        /// <summary>
+        /// 最大值错误消息
+        /// </summary>
+        public const string MaxMessage = "max-message";
     }
 }

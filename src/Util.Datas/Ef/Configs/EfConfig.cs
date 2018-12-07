@@ -4,8 +4,8 @@
     /// </summary>
     public class EfConfig {
         /// <summary>
-        /// Ef日志级别
+        /// Ef日志级别，默认值：EfLogLevel.Sql，表示仅输出Sql
         /// </summary>
-        public static EfLogLevel LogLevel = EfLogLevel.Sql;
+        public EfLogLevel EfLogLevel { get; set; } = EfLogLevel.Sql;
     }
 }

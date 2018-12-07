@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Util.Webs.Clients {
@@ -8,6 +9,16 @@ namespace Util.Webs.Clients {
     /// Http请求
     /// </summary>
     public interface IRequest<out TRequest> where TRequest : IRequest<TRequest> {
+        /// <summary>
+        /// 设置字符编码
+        /// </summary>
+        /// <param name="encoding">字符编码</param>
+        TRequest Encoding( Encoding encoding );
+        /// <summary>
+        /// 设置字符编码
+        /// </summary>
+        /// <param name="encoding">字符编码,范例：gb2312</param>
+        TRequest Encoding( string encoding );
         /// <summary>
         /// 设置内容类型
         /// </summary>
@@ -47,6 +58,11 @@ namespace Util.Webs.Clients {
         /// <param name="cookie">cookie</param>
         TRequest Cookie( Cookie cookie );
         /// <summary>
+        /// 设置Bearer令牌
+        /// </summary>
+        /// <param name="token">令牌</param>
+        TRequest BearerToken( string token );
+        /// <summary>
         /// 超时时间
         /// </summary>
         /// <param name="timeout">超时时间,单位：秒</param>
@@ -61,18 +77,23 @@ namespace Util.Webs.Clients {
         /// 添加参数字典
         /// </summary>
         /// <param name="parameters">参数字典</param>
-        TRequest Data( IDictionary<string, string> parameters );
+        TRequest Data( IDictionary<string, object> parameters );
         /// <summary>
         /// 添加参数
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        TRequest Data<T>( string key, T value );
+        TRequest Data( string key, object value );
         /// <summary>
         /// 添加Json参数
         /// </summary>
         /// <param name="value">值</param>
         TRequest JsonData<T>( T value );
+        /// <summary>
+        /// 添加Xml参数
+        /// </summary>
+        /// <param name="value">值</param>
+        TRequest XmlData( string value );
         /// <summary>
         /// 请求失败回调函数
         /// </summary>
@@ -86,7 +107,6 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 忽略Ssl
         /// </summary>
-        /// <returns></returns>
         TRequest IgnoreSsl();
         /// <summary>
         /// 获取结果

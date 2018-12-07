@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
@@ -138,11 +139,33 @@ namespace Util {
                 throw new ArgumentNullException( nameof( source ) );
             if( pager == null )
                 throw new ArgumentNullException( nameof( pager ) );
-            if( string.IsNullOrWhiteSpace( pager.Order ) )
-                pager.Order = "Id";
+            InitOrder( source, pager );
             if( pager.TotalCount <= 0 )
                 pager.TotalCount = source.Count();
-            return source.OrderBy( pager.Order ).Skip( pager.GetSkipCount() ).Take( pager.PageSize );
+            var orderedQueryable = GetOrderedQueryable( source, pager );
+            if( orderedQueryable == null )
+                throw new ArgumentException("必须设置排序字段");
+            return orderedQueryable.Skip( pager.GetSkipCount() ).Take( pager.PageSize );
+        }
+
+        /// <summary>
+        /// 初始化排序
+        /// </summary>
+        private static void InitOrder<TEntity>( this IQueryable<TEntity> source, IPager pager ) {
+            if ( string.IsNullOrWhiteSpace( pager.Order ) == false )
+                return;
+            if ( source.Expression.SafeString().Contains( ".OrderBy(" ) )
+                return;
+            pager.Order = "Id";
+        }
+
+        /// <summary>
+        /// 获取排序查询对象
+        /// </summary>
+        private static IOrderedQueryable<TEntity> GetOrderedQueryable<TEntity>( this IQueryable<TEntity> source, IPager pager ) {
+            if( string.IsNullOrWhiteSpace( pager.Order ) )
+                return source as IOrderedQueryable<TEntity>;
+            return source.OrderBy( pager.Order );
         }
 
         /// <summary>

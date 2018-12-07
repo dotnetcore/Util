@@ -39,62 +39,57 @@ namespace Util.Webs.Razors
             var actionDescriptors = this._actionDescriptorCollectionProvider.ActionDescriptors.Items;
             foreach (var actionDescriptor in actionDescriptors)
             {
-                RouteInformation info=new RouteInformation();
-
+                RouteInformation info = new RouteInformation();
                 if (actionDescriptor.RouteValues.ContainsKey("area"))
                 {
                     info.AreaName = actionDescriptor.RouteValues["area"];
                 }
-
                 // Razor页面路径以及调用
                 if (actionDescriptor is PageActionDescriptor pageActionDescriptor)
                 {
                     info.Path = pageActionDescriptor.ViewEnginePath;
                     info.Invocation = pageActionDescriptor.RelativePath;
                 }
-
                 // 路由属性路径
                 if (actionDescriptor.AttributeRouteInfo != null)
                 {
                     info.Path = $"/{actionDescriptor.AttributeRouteInfo.Template}";
                 }
-
                 // Controller/Action 的路径以及调用
                 if (actionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
                 {
                     if (info.Path.IsEmpty())
                     {
-                        info.Path =
-                            $"/{controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName}";
+                        info.Path = $"/{controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName}";
                     }
-
-                    var controllerHtmlAttribute = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttribute<HtmlAttribute>();
-
-                    if (controllerHtmlAttribute != null)
-                    {
-                        info.FilePath = controllerHtmlAttribute.Path;
-                        info.TemplatePath = controllerHtmlAttribute.Template;
-                    }
-
-                    var htmlAttribute = controllerActionDescriptor.MethodInfo.GetCustomAttribute<HtmlAttribute>();
-
-                    if (htmlAttribute != null)
-                    {
-                        info.FilePath = htmlAttribute.Path;
-                        info.TemplatePath = htmlAttribute.Template;
-                    }
-
+                    SetHtmlInfo(info, controllerActionDescriptor);
                     info.ControllerName = controllerActionDescriptor.ControllerName;
                     info.ActionName = controllerActionDescriptor.ActionName;
                     info.Invocation = $"{controllerActionDescriptor.ControllerName}Controller.{controllerActionDescriptor.ActionName}";
                 }
-
                 info.Invocation += $"({actionDescriptor.DisplayName})";
-
                 list.Add(info);
             }
 
             return list;
+        }
+
+        /// <summary>
+        /// 设置Html信息
+        /// </summary>
+        /// <param name="routeInformation">路由信息</param>
+        /// <param name="controllerActionDescriptor">控制器</param>
+        private void SetHtmlInfo(RouteInformation routeInformation,
+            ControllerActionDescriptor controllerActionDescriptor)
+        {
+            var htmlAttribute = controllerActionDescriptor.MethodInfo.GetCustomAttribute<HtmlAttribute>() ??
+                                controllerActionDescriptor.ControllerTypeInfo.GetCustomAttribute<HtmlAttribute>();
+            if (htmlAttribute == null)
+                return;
+            routeInformation.FilePath = htmlAttribute.Path;
+            routeInformation.TemplatePath = htmlAttribute.Template;
+            routeInformation.IsPartialView = htmlAttribute.IsPartialView;
+            routeInformation.ViewName = htmlAttribute.ViewName;            
         }
     }
 }

@@ -43,5 +43,15 @@ namespace Util.Webs.Razors
         /// 模板路径
         /// </summary>
         public string TemplatePath { get; set; }
+
+        /// <summary>
+        /// 视图名称
+        /// </summary>
+        public string ViewName { get; set; }
+
+        /// <summary>
+        /// 是否部分视图
+        /// </summary>
+        public bool IsPartialView { get; set; } = false;
     }
 }

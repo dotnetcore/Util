@@ -120,6 +120,9 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigEmail( builder );
             ConfigMinLength( builder );
             ConfigMaxLength( builder );
+            ConfigMin( builder );
+            ConfigMax( builder );
+            ConfigRegex( builder );
         }
 
         /// <summary>
@@ -142,6 +145,30 @@ namespace Util.Ui.Material.Forms.Renders {
         /// </summary>
         private void ConfigMaxLength( TagBuilder builder ) {
             builder.AddAttribute( "[maxLength]", _config.GetValue( UiConst.MaxLength ) );
+        }
+
+        /// <summary>
+        /// 配置最小值验证
+        /// </summary>
+        private void ConfigMin( TagBuilder builder ) {
+            builder.AddAttribute( "[min]", _config.GetValue( UiConst.Min ) );
+            builder.AddAttribute( "minMessage", _config.GetValue( UiConst.MinMessage ) );
+        }
+
+        /// <summary>
+        /// 配置最大值验证
+        /// </summary>
+        private void ConfigMax( TagBuilder builder ) {
+            builder.AddAttribute( "[max]", _config.GetValue( UiConst.Max ) );
+            builder.AddAttribute( "maxMessage", _config.GetValue( UiConst.MaxMessage ) );
+        }
+
+        /// <summary>
+        /// 配置正则表达式验证
+        /// </summary>
+        private void ConfigRegex( TagBuilder builder ) {
+            builder.AddAttribute( "pattern", _config.GetValue( UiConst.Regex ) );
+            builder.AddAttribute( "patterMessage", _config.GetValue( UiConst.RegexMessage ) );
         }
 
         /// <summary>

@@ -7,7 +7,6 @@ using Util.Randoms;
 using Util.Samples.Webs.Datas.Repositories.Systems;
 using Util.Samples.Webs.Domains.Models;
 using Util.Security.Identity.Describers;
-using Util.Sessions;
 
 namespace Util.Samples.Webs.Configs {
     /// <summary>
@@ -17,7 +16,7 @@ namespace Util.Samples.Webs.Configs {
         /// <summary>
         /// 注册依赖
         /// </summary>
-        public void Regist( IServiceCollection services ) {
+        public void Register( IServiceCollection services ) {
             services.AddIdentity<IdentityUser, Role>()
                 .AddRoleStore<RoleRepository>();
             services.AddScoped<IdentityErrorDescriber, IdentityErrorChineseDescriber>();

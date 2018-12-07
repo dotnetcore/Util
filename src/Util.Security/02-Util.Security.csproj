@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -31,12 +31,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Extensions.Session.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,15 +40,15 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="SecurityResource.Designer.cs">
+    <Compile Update="Properties\SecurityResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SecurityResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
+  
   <ItemGroup>
-    <EmbeddedResource Update="SecurityResource.resx">
+    <EmbeddedResource Update="Properties\SecurityResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SecurityResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

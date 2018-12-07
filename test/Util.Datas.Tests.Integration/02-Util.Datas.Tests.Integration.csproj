@@ -17,27 +17,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="SqlServer\Scripts\Pd\Samples.pdb" />
+    <None Remove="Commons\Datas\SqlServer\Scripts\Pd\Samples.pdb" />
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0-preview-20180510-03" />
-    <PackageReference Include="xunit" Version="2.4.0-beta.2.build4010" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0-beta.2.build4010" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Datas\05-Util.Datas.csproj" />
+    <ProjectReference Include="..\..\src\Util.Datas\06-Util.Datas.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PgSql\Scripts\Pd\" />
-    <Folder Include="SqlServer\Scripts\Pd\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="SqlServer\Scripts\database.sql">
+    <None Update="Commons\Datas\SqlServer\Scripts\database.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

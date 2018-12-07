@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Util.Logs.Properties;
 
 namespace Util.Logs.Exceptionless {
     /// <summary>

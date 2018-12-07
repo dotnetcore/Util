@@ -116,7 +116,7 @@ namespace Util.Tests.Parameters {
         }
 
         /// <summary>
-        /// 连接URL
+        /// 连接Url
         /// </summary>
         [Theory]
         [InlineData( "http://test.com", "http://test.com?a=1&b=2" )]

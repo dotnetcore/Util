@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Core;
 using Util.Helpers;
@@ -16,19 +17,6 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         private readonly UrlParameterBuilder _builder;
 
         /// <summary>
-        /// 初始化支付宝参数生成器
-        /// </summary>
-        /// <param name="config">配置</param>
-        /// <param name="param">参数</param>
-        public AlipayParameterBuilder( AlipayConfig config, PayParamBase param = null ) {
-            config.CheckNull( nameof( config ) );
-            Config = config;
-            _builder = new UrlParameterBuilder();
-            Content = new AlipayContentBuilder();
-            Init( param );
-        }
-
-        /// <summary>
         /// 配置
         /// </summary>
         public AlipayConfig Config { get; }
@@ -39,15 +27,24 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         public AlipayContentBuilder Content { get; }
 
         /// <summary>
+        /// 初始化支付宝参数生成器
+        /// </summary>
+        /// <param name="config">配置</param>
+        public AlipayParameterBuilder( AlipayConfig config ) {
+            config.CheckNull( nameof( config ) );
+            Config = config;
+            _builder = new UrlParameterBuilder();
+            Content = new AlipayContentBuilder();
+        }
+
+        /// <summary>
         /// 初始化
         /// </summary>
-        private void Init( PayParamBase param ) {
-            Format( "json" ).Charset( Config.Charset ).SignType( "RSA2" ).Timestamp().Version( "1.0" ).AppId( Config.AppId );
-            if( param == null )
-                return;
+        public void Init( PayParam param ) {
             param.Init();
             Content.Init( param );
-            ReturnUrl( param.ReturnUrl ).NotifyUrl( param.NotifyUrl );
+            Format( "json" ).Charset( Config.Charset ).SignType( "RSA2" ).Timestamp().Version( "1.0" ).AppId( Config.AppId )
+                .ReturnUrl( param.ReturnUrl ).NotifyUrl( param.NotifyUrl );
         }
 
         /// <summary>
@@ -143,7 +140,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 获取值
         /// </summary>
         /// <param name="name">参数名</param>
-        public string GetValue( string name ) {
+        public object GetValue( string name ) {
             return _builder.GetValue( name );
         }
 
@@ -151,8 +148,9 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 获取参数字典
         /// </summary>
         /// <param name="isConvertToSingleQuotes">是否将双引号转成单引号</param>
-        public IDictionary<string, string> GetDictionary( bool isConvertToSingleQuotes = false ) {
-            return GetSignBuilder( isConvertToSingleQuotes ).GetDictionary();
+        /// <param name="isUrlEncode">是否Url编码</param>
+        public IDictionary<string, object> GetDictionary( bool isConvertToSingleQuotes = false, bool isUrlEncode = false ) {
+            return GetSignBuilder( isConvertToSingleQuotes ).GetDictionary( true, isUrlEncode, Config.Charset );
         }
 
         /// <summary>
@@ -170,8 +168,16 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 获取签名
         /// </summary>
         private string GetSign( UrlParameterBuilder builder ) {
-            var signManager = new SignManager( new SignKey( Config.AppPrivateKey ), builder );
+            var signManager = new SignManager( new SignKey( Config.PrivateKey ), builder );
             return signManager.Sign();
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        /// <param name="isUrlEncode">是否Url编码</param>
+        public string Result( bool isUrlEncode = false ) {
+            return GetSignBuilder().Result( true, isUrlEncode, Config.Charset );
         }
 
         /// <summary>

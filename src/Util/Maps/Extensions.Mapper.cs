@@ -97,17 +97,13 @@ namespace Util.Maps {
         private static void InitMaps( Type sourceType, Type destinationType ) {
             try {
                 var maps = Mapper.Configuration.GetAllTypeMaps();
-                Mapper.Initialize( config => {
-                    ClearConfig();
-                    foreach( var item in maps )
-                        config.CreateMap( item.SourceType, item.DestinationType );
-                    config.CreateMap( sourceType, destinationType );
-                } );
+                ClearConfig();
+                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
+                foreach( var map in maps )
+                    Mapper.Configuration.RegisterTypeMap( map );
             }
             catch( InvalidOperationException ) {
-                Mapper.Initialize( config => {
-                    config.CreateMap( sourceType, destinationType );
-                } );
+                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
             }
         }
 

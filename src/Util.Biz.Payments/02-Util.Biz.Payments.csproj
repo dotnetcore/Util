@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -31,14 +31,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="WeChatPay\**" />
-    <EmbeddedResource Remove="WeChatPay\**" />
-    <None Remove="WeChatPay\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,7 +47,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="PayResource.Designer.cs">
+    <Compile Update="Properties\PayResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>PayResource.resx</DependentUpon>
@@ -61,7 +55,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="PayResource.resx">
+    <EmbeddedResource Update="Properties\PayResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PayResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

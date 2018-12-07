@@ -1,7 +1,16 @@
+//Hover State
+$stateHoverBgColor: #eeeeee;
+$stateHoverTextColor: #212121;
+
+
 .ui-treetable {
     .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
         background: $stateHoverBgColor;
         color: $stateHoverTextColor;
+    }
+
+    .ui-state-highlight {
+        background-color: #fafafa;
     }
 }
 

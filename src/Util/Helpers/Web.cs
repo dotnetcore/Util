@@ -3,9 +3,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http.Internal;
 using Util.Security.Principals;
 
 namespace Util.Helpers {
@@ -24,7 +28,7 @@ namespace Util.Helpers {
                 HttpContextAccessor = Ioc.Create<IHttpContextAccessor>();
                 Environment = Ioc.Create<IHostingEnvironment>();
             }
-            catch{
+            catch {
             }
         }
 
@@ -43,30 +47,6 @@ namespace Util.Helpers {
         public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
 
         /// <summary>
-        /// 当前用户安全主体
-        /// </summary>
-        public static ClaimsPrincipal User {
-            get {
-                if ( HttpContext == null )
-                    return UnauthenticatedPrincipal.Instance;
-                if ( HttpContext.User is ClaimsPrincipal principal )
-                    return principal;
-                return UnauthenticatedPrincipal.Instance;
-            }
-        }
-
-        /// <summary>
-        /// 当前用户身份
-        /// </summary>
-        public static ClaimsIdentity Identity {
-            get {
-                if ( User.Identity is ClaimsIdentity identity )
-                    return identity;
-                return UnauthenticatedIdentity.Instance;
-            }
-        }
-
-        /// <summary>
         /// 当前Http请求
         /// </summary>
         public static HttpRequest Request => HttpContext?.Request;
@@ -80,6 +60,64 @@ namespace Util.Helpers {
         /// 宿主环境
         /// </summary>
         public static IHostingEnvironment Environment { get; set; }
+
+        #endregion
+
+        #region User(当前用户安全主体)
+
+        /// <summary>
+        /// 当前用户安全主体
+        /// </summary>
+        public static ClaimsPrincipal User {
+            get {
+                if( HttpContext == null )
+                    return UnauthenticatedPrincipal.Instance;
+                if( HttpContext.User is ClaimsPrincipal principal )
+                    return principal;
+                return UnauthenticatedPrincipal.Instance;
+            }
+        }
+
+        #endregion
+
+        #region Identity(当前用户身份)
+
+        /// <summary>
+        /// 当前用户身份
+        /// </summary>
+        public static ClaimsIdentity Identity {
+            get {
+                if( User.Identity is ClaimsIdentity identity )
+                    return identity;
+                return UnauthenticatedIdentity.Instance;
+            }
+        }
+
+        #endregion
+
+        #region Body(请求正文)
+
+        /// <summary>
+        /// 请求正文
+        /// </summary>
+        public static string Body {
+            get {
+                Request.EnableRewind();
+                return File.ToString( Request.Body, isCloseStream: false );
+            }
+        }
+
+        #endregion
+
+        #region GetBodyAsync(获取请求正文)
+
+        /// <summary>
+        /// 获取请求正文
+        /// </summary>
+        public static async Task<string> GetBodyAsync() {
+            Request.EnableRewind();
+            return await File.ToStringAsync( Request.Body, isCloseStream: false );
+        }
 
         #endregion
 
@@ -107,17 +145,39 @@ namespace Util.Helpers {
         /// <summary>
         /// 请求地址
         /// </summary>
-        public static string Url => HttpContext?.Request?.GetDisplayUrl();
+        public static string Url => Request?.GetDisplayUrl();
 
         #endregion
 
         #region Ip(客户端Ip地址)
 
         /// <summary>
+        /// Ip地址
+        /// </summary>
+        private static string _ip;
+
+        /// <summary>
+        /// 设置Ip地址
+        /// </summary>
+        /// <param name="ip">Ip地址</param>
+        public static void SetIp( string ip ) {
+            _ip = ip;
+        }
+
+        /// <summary>
+        /// 重置Ip地址
+        /// </summary>
+        public static void ResetIp() {
+            _ip = null;
+        }
+
+        /// <summary>
         /// 客户端Ip地址
         /// </summary>
         public static string Ip {
             get {
+                if( string.IsNullOrWhiteSpace( _ip ) == false )
+                    return _ip;
                 var list = new[] { "127.0.0.1", "::1" };
                 var result = HttpContext?.Connection?.RemoteIpAddress.SafeString();
                 if( string.IsNullOrWhiteSpace( result ) || list.Contains( result ) )
@@ -163,7 +223,7 @@ namespace Util.Helpers {
         /// 获取远程地址
         /// </summary>
         private static string GetRemoteAddress() {
-            return HttpContext?.Request?.Headers["HTTP_X_FORWARDED_FOR"] ?? HttpContext?.Request?.Headers["REMOTE_ADDR"];
+            return Request?.Headers["HTTP_X_FORWARDED_FOR"] ?? Request?.Headers["REMOTE_ADDR"];
         }
 
         #endregion
@@ -173,7 +233,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 浏览器
         /// </summary>
-        public static string Browser => HttpContext?.Request?.Headers["User-Agent"];
+        public static string Browser => Request?.Headers["User-Agent"];
 
         #endregion
 
@@ -202,7 +262,7 @@ namespace Util.Helpers {
         /// </summary>
         public static List<IFormFile> GetFiles() {
             var result = new List<IFormFile>();
-            var files = HttpContext.Request.Form.Files;
+            var files = Request.Form.Files;
             if( files == null || files.Count == 0 )
                 return result;
             result.AddRange( files.Where( file => file?.Length > 0 ) );
@@ -219,6 +279,81 @@ namespace Util.Helpers {
         public static IFormFile GetFile() {
             var files = GetFiles();
             return files.Count == 0 ? null : files[0];
+        }
+
+        #endregion
+
+        #region UrlEncode(Url编码)
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, bool isUpper = false ) {
+            return UrlEncode( url, Encoding.UTF8, isUpper );
+        }
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, string encoding, bool isUpper = false ) {
+            encoding = string.IsNullOrWhiteSpace( encoding ) ? "UTF-8" : encoding;
+            return UrlEncode( url, Encoding.GetEncoding( encoding ), isUpper );
+        }
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, Encoding encoding, bool isUpper = false ) {
+            var result = HttpUtility.UrlEncode( url, encoding );
+            if( isUpper == false )
+                return result;
+            return GetUpperEncode( result );
+        }
+
+        /// <summary>
+        /// 获取大写编码字符串
+        /// </summary>
+        private static string GetUpperEncode( string encode ) {
+            var result = new StringBuilder();
+            int index = int.MinValue;
+            for( int i = 0; i < encode.Length; i++ ) {
+                string character = encode[i].ToString();
+                if( character == "%" )
+                    index = i;
+                if( i - index == 1 || i - index == 2 )
+                    character = character.ToUpper();
+                result.Append( character );
+            }
+            return result.ToString();
+        }
+
+        #endregion
+
+        #region UrlDecode(Url解码)
+
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="url">url</param>
+        public static string UrlDecode( string url ) {
+            return HttpUtility.UrlDecode( url );
+        }
+
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        public static string UrlDecode( string url, Encoding encoding ) {
+            return HttpUtility.UrlDecode( url, encoding );
         }
 
         #endregion

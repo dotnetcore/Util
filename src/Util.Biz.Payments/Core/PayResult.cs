@@ -45,5 +45,10 @@
         /// 消息
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// 请求参数
+        /// </summary>
+        public string Parameter { get; set; }
     }
 }

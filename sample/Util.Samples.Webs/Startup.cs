@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +9,6 @@ using Util.Datas.Ef;
 using Util.Events.Default;
 using Util.Logs.Extensions;
 using Util.Samples.Webs.Datas;
-using Util.Samples.Webs.Datas.SqlServer;
 using Util.Webs.Extensions;
 using Util.Webs.Filters;
 
@@ -38,9 +36,9 @@ namespace Util.Samples.Webs {
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
             //添加Mvc服务
             services.AddMvc( options => {
-                    //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
-                    options.Filters.Add( new ExceptionHandlerAttribute() );
-                }
+                //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
+                options.Filters.Add( new ExceptionHandlerAttribute() );
+            }
             ).AddControllersAsServices();
 
             //添加NLog日志操作
@@ -53,7 +51,16 @@ namespace Util.Samples.Webs {
             services.AddXsrfToken();
 
             //添加工作单元
-            services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
+            //====== 支持Sql Server 2012+ ==========
+            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ), Configuration );
+            //======= 支持Sql Server 2005+ ==========
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( builder => {
+            //    builder.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ), option => option.UseRowNumberForPaging() );
+            //} );
+            //======= 支持PgSql =======
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ),Configuration );
+            //======= 支持MySql =======
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ),Configuration );
 
             //添加Swagger
             services.AddSwaggerGen( options => {
@@ -71,20 +78,9 @@ namespace Util.Samples.Webs {
         }
 
         /// <summary>
-        /// 配置请求管道
+        /// 配置开发环境请求管道
         /// </summary>
-        public void Configure( IApplicationBuilder app, IHostingEnvironment env ) {
-            if( env.IsDevelopment() ) {
-                DevelopmentConfig( app );
-                return;
-            }
-            ProductionConfig( app );
-        }
-
-        /// <summary>
-        /// 开发环境配置
-        /// </summary>
-        private void DevelopmentConfig( IApplicationBuilder app ) {
+        public void ConfigureDevelopment( IApplicationBuilder app ) {
             app.UseBrowserLink();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
@@ -92,6 +88,14 @@ namespace Util.Samples.Webs {
                 HotModuleReplacement = true
             } );
             app.UseSwaggerX();
+            CommonConfig( app );
+        }
+
+        /// <summary>
+        /// 配置生产环境请求管道
+        /// </summary>
+        public void ConfigureProduction( IApplicationBuilder app ) {
+            app.UseExceptionHandler( "/Home/Error" );
             CommonConfig( app );
         }
 
@@ -115,14 +119,6 @@ namespace Util.Samples.Webs {
                 routes.MapRoute( "default", "{controller=Home}/{action=Index}/{id?}" );
                 routes.MapSpaFallbackRoute( "spa-fallback", new { controller = "Home", action = "Index" } );
             } );
-        }
-
-        /// <summary>
-        /// 生产环境配置
-        /// </summary>
-        private void ProductionConfig( IApplicationBuilder app ) {
-            app.UseExceptionHandler( "/Home/Error" );
-            CommonConfig( app );
         }
     }
 }

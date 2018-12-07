@@ -5,9 +5,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
+using Util.Properties;
 using Util.Ui.Attributes;
 using Util.Ui.Configs;
 using Util.Ui.Material.Forms.Configs;
+using Util.Validations.Validators;
 
 namespace Util.Ui.Material.Internal {
     /// <summary>
@@ -172,8 +174,43 @@ namespace Util.Ui.Material.Internal {
         /// <param name="config">配置</param>
         /// <param name="member">成员</param>
         public static void InitValidation( TextBoxConfig config, MemberInfo member ) {
-            InitLength( config, member );
             InitEmail( config, member );
+            InitRegex( config, member );
+            InitLength( config, member );
+            InitRange( config, member );
+            InitPhone( config, member );
+            InitIdCard( config, member );
+        }
+
+        /// <summary>
+        /// 初始化电子邮件验证
+        /// </summary>
+        private static void InitEmail( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<EmailAddressAttribute>();
+            if( attribute == null )
+                return;
+            config.Email();
+            if( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) )
+                return;
+            config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 初始化正则表达式验证
+        /// </summary>
+        private static void InitRegex( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<RegularExpressionAttribute>();
+            if( attribute == null )
+                return;
+            InitRegex( config, attribute.Pattern, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 初始化正则表达式验证
+        /// </summary>
+        private static void InitRegex( TextBoxConfig config, string pattern, string errorMessage ) {
+            config.SetAttribute( UiConst.Regex, pattern );
+            config.SetAttribute( UiConst.RegexMessage, errorMessage );
         }
 
         /// <summary>
@@ -220,16 +257,42 @@ namespace Util.Ui.Material.Internal {
         }
 
         /// <summary>
-        /// 初始化电子邮件验证
+        /// 初始化数值范围验证
         /// </summary>
-        private static void InitEmail( TextBoxConfig config, MemberInfo member ) {
-            var attribute = member.GetCustomAttribute<EmailAddressAttribute>();
+        private static void InitRange( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<RangeAttribute>();
             if( attribute == null )
                 return;
-            config.Email();
-            if( attribute.ErrorMessage.Contains( "field is not a valid e-mail address" ) )
+            config.SetAttribute( UiConst.Min, attribute.Minimum );
+            config.SetAttribute( UiConst.Max, attribute.Maximum );
+            config.SetAttribute( UiConst.MinMessage, attribute.ErrorMessage );
+            config.SetAttribute( UiConst.MaxMessage, attribute.ErrorMessage );
+        }
+
+        /// <summary>
+        /// 初始化手机号验证
+        /// </summary>
+        private static void InitPhone( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<PhoneAttribute>();
+            if( attribute == null )
                 return;
-            config.SetAttribute( UiConst.EmailMessage, attribute.ErrorMessage );
+            var message = attribute.ErrorMessage;
+            if( message.IsEmpty() )
+                message = LibraryResource.InvalidMobilePhone;
+            InitRegex( config, ValidatePattern.MobilePhonePattern, message );
+        }
+
+        /// <summary>
+        /// 初始化身份证验证
+        /// </summary>
+        private static void InitIdCard( TextBoxConfig config, MemberInfo member ) {
+            var attribute = member.GetCustomAttribute<IdCardAttribute>();
+            if( attribute == null )
+                return;
+            var message = attribute.ErrorMessage;
+            if( message.IsEmpty() )
+                message = LibraryResource.InvalidIdCard;
+            InitRegex( config, ValidatePattern.IdCardPattern, message );
         }
     }
 }

@@ -6,10 +6,12 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Util.Datas.Sql.Queries;
 using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
 using Util.Domains.Repositories;
+using Util.Helpers;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>
@@ -32,6 +34,11 @@ namespace Util.Datas.Ef.Core {
     /// <typeparam name="TKey">对象标识类型</typeparam>
     public abstract class QueryStoreBase<TEntity, TKey> : IQueryStore<TEntity, TKey> where TEntity : class, IKey<TKey> {
         /// <summary>
+        /// Sql查询对象
+        /// </summary>
+        private ISqlQuery _sqlQuery;
+
+        /// <summary>
         /// 初始化查询存储器
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
@@ -48,6 +55,11 @@ namespace Util.Datas.Ef.Core {
         /// 实体集
         /// </summary>
         protected DbSet<TEntity> Set => UnitOfWork.Set<TEntity>();
+
+        /// <summary>
+        /// Sql查询对象
+        /// </summary>
+        protected virtual ISqlQuery Sql => _sqlQuery ?? ( _sqlQuery = Ioc.Create<ISqlQuery>() );
 
         /// <summary>
         /// 获取未跟踪查询对象

@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        public string Format( string key, string value ) {
+        public string Format( string key, object value ) {
             return $"{key}{FormatSeparator}{value}";
         }
 

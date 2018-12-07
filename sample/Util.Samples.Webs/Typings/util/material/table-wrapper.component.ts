@@ -394,4 +394,13 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
             }
         });
     }
+
+    /**
+     * 选中一行
+     * @param row 行
+     */
+    checkRow(row) {
+        this.checkedSelection.clear();
+        this.checkedSelection.select(row);
+    }
 }

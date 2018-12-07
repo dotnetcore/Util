@@ -9,15 +9,15 @@ namespace Util.Webs.Commons {
         /// <summary>
         /// 状态码
         /// </summary>
-        private readonly StateCode _code;
+        public StateCode Code { get; }
         /// <summary>
         /// 消息
         /// </summary>
-        private readonly string _message;
+        public string Message { get; }
         /// <summary>
         /// 数据
         /// </summary>
-        private readonly dynamic _data;
+        public dynamic Data { get; }
 
         /// <summary>
         /// 初始化返回结果
@@ -26,9 +26,9 @@ namespace Util.Webs.Commons {
         /// <param name="message">消息</param>
         /// <param name="data">数据</param>
         public Result( StateCode code, string message, dynamic data = null ) : base( null ) {
-            _code = code;
-            _message = message;
-            _data = data;
+            Code = code;
+            Message = message;
+            Data = data;
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace Util.Webs.Commons {
         /// </summary>
         public override Task ExecuteResultAsync( ActionContext context ) {
             this.Value = new {
-                Code = _code.Value(),
-                Message = _message,
-                Data = _data
+                Code = Code.Value(),
+                Message = Message,
+                Data = Data
             };
             return base.ExecuteResultAsync( context );
         }

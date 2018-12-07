@@ -1,4 +1,7 @@
 ﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Util.Domains;
+using Util.Helpers;
 using Util.Tests.Samples;
 using Xunit;
 
@@ -133,6 +136,14 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
+        /// 测试是否集合
+        /// </summary>
+        [Fact]
+        public void TestIsCollection() {
+            Assert.True( Util.Helpers.Reflection.IsCollection( _sample.StringArray.GetType() ) );
+        }
+
+        /// <summary>
         /// 测试是否泛型集合
         /// </summary>
         [Fact]
@@ -150,11 +161,22 @@ namespace Util.Tests.Helpers {
                 B = "2"
             };
             var items = Util.Helpers.Reflection.GetPublicProperties( sample );
-            Assert.Equal( 2,items.Count );
+            Assert.Equal( 2, items.Count );
             Assert.Equal( "A", items[0].Text );
             Assert.Equal( "1", items[0].Value );
             Assert.Equal( "B", items[1].Text );
             Assert.Equal( "2", items[1].Value );
+        }
+
+        /// <summary>
+        /// 获取顶级基类
+        /// </summary>
+        [Fact]
+        public void TestGetTopBaseType() {
+            Assert.Null( Reflection.GetTopBaseType( null ) );
+            Assert.Contains( "Util.Domains.DomainBase", Reflection.GetTopBaseType<User>().FullName );
+            Assert.Contains( "Util.Domains.DomainBase", Reflection.GetTopBaseType<Util.Domains.DomainBase<User>>().FullName );
+            Assert.Contains( "Util.Domains.IEntity", Reflection.GetTopBaseType<IEntity>().FullName );
         }
     }
 }

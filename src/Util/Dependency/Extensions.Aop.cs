@@ -1,20 +1,29 @@
-﻿using AspectCore.DynamicProxy;
+﻿using System;
+using AspectCore.Configuration;
+using AspectCore.DynamicProxy;
 using AspectCore.DynamicProxy.Parameters;
 using AspectCore.Extensions.AspectScope;
 using AspectCore.Extensions.Autofac;
 using Autofac;
+using Util.Helpers;
 
 namespace Util.Dependency {
-	/// <summary>
+    /// <summary>
     /// AspectCore扩展
     /// </summary>
     public static partial class Extensions {
-	    /// <summary>
-	    /// 启用Aop
-	    /// </summary>
-	    public static void EnableAop( this ContainerBuilder builder ) {
-	        builder.RegisterDynamicProxy( config => config.EnableParameterAspect() );
-	        builder.EnableAspectScoped();
+        /// <summary>
+        /// 启用Aop
+        /// </summary>
+        /// <param name="builder">容器生成器</param>
+        /// <param name="configAction">Aop配置</param>
+        public static void EnableAop( this ContainerBuilder builder,Action<IAspectConfiguration> configAction = null ) {
+            builder.RegisterDynamicProxy( config => {
+                config.EnableParameterAspect();
+                config.NonAspectPredicates.Add( t => Reflection.GetTopBaseType( t.DeclaringType ).SafeString() == "Microsoft.EntityFrameworkCore.DbContext" );
+                configAction?.Invoke( config );
+            } );
+            builder.EnableAspectScoped();
         }
 
         /// <summary>
@@ -25,5 +34,5 @@ namespace Util.Dependency {
             builder.AddScoped<IAspectBuilderFactory, ScopeAspectBuilderFactory>();
             builder.AddScoped<IAspectContextFactory, ScopeAspectContextFactory>();
         }
-	}
+    }
 }

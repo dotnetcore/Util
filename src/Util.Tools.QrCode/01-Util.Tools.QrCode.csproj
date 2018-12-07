@@ -30,7 +30,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="QRCoder" Version="1.3.3" />
+    <PackageReference Include="QRCoder" Version="1.3.5" />
   </ItemGroup>
 
   <ItemGroup>

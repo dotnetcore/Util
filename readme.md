@@ -133,18 +133,17 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Ubuntu Server
   - Docker
 
-6. 开发平台
-  - .Net Core 2.1 preview2
+6. SDK及Runtime
+  - 当前SDK 64位版本：[Sdk v2.1.500](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.500-windows-x64-installer)，开发机器安装
+  - 当前Runtime 64位版本：[Runtime v2.1.6](https://www.microsoft.com/net/download/thank-you/dotnet-runtime-2.1.6-windows-x64-installer)，服务器安装
 
 7. 单元测试及模拟框架
   - XUnit
   - NSubstitute
 
-8. ORM
-  - EntityFrameworkCore
-  - Microsoft.EntityFrameworkCore.SqlServer
-  - Npgsql.EntityFrameworkCore.PostgreSQL
-  - Pomelo.EntityFrameworkCore.MySql
+8. 数据访问框架
+  - [EntityFrameworkCore](https://docs.microsoft.com/zh-cn/ef/core/)
+  - [Dapper](https://github.com/StackExchange/Dapper)
 
 9. Ioc框架
   - Autofac
@@ -180,11 +179,14 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 19. Web框架
   - [Asp.Net Core](https://docs.microsoft.com/zh-cn/aspnet/core/)
 
-20. UI
+20. 定时任务调度框架
+  - [Quartz.Net](https://www.quartz-scheduler.net/)
+
+21. UI
   - 脚本语言
     - [TypeScript](https://www.tslang.cn)
   - 脚本框架
-    - [Angular 6](https://angular.cn/)
+    - [Angular 7](https://angular.cn/)
   - Css预处理器
     - [Sass](http://www.sass-lang.com) 
   - 组件库
@@ -218,14 +220,14 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - Karma
     - Jasmine
 
-21. 权限
+22. 权限
     - [Asp Net Core Identity](https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?tabs=visual-studio%2Caspnetcore2x)
     - [Identity Server](https://identityserver4.readthedocs.io/en/release/)
 
-22. 代码生成器
+23. 代码生成器
   - CodeSmith 6.5
 
-23. 参考应用框架
+24. 参考应用框架
   - [ABP](http://aspnetboilerplate.com/)
   - [Nop](https://www.nopcommerce.com) 
     - Nop是一个开源商城，封装了大量实用的基础代码。
@@ -393,6 +395,7 @@ https://github.com/dotnetcore/util/
   - 短信操作 -基于LuoSiMao [已发布]
   - 加密操作 [已发布]
   - Url参数生成器 [已发布]
+  - 调度器 - 基于Quartz.Net [已发布]
 - 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
@@ -417,6 +420,8 @@ https://github.com/dotnetcore/util/
   - 事件总线 [已发布]
   - Crud控制器基类 [已发布]
   - 树型控制器基类 [已发布]
+  - Sql生成器 [已发布]
+  - Sql查询对象 [已发布]
 - UI组件 - 支持HtmlHelper和TagHelper两种方式
   - 组件基类  [已发布]
   - TagHelper基类  [已发布]
@@ -451,10 +456,14 @@ https://github.com/dotnetcore/util/
   - 地址 [已发布]
 - 支付操作
   - 支付宝条码支付 [已发布]
+  - 支付宝二维码支付 [已发布]
   - 支付宝电脑网站支付 [已发布]
   - 支付宝手机网站支付 [已发布]
   - 支付宝回调 [已发布]
   - 支付宝APP支付 [已发布]
+  - 微信支付回调 [已发布]
+  - 微信APP支付 [已发布]
+  - 微信小程序支付 [已发布]
 
 ## 更新列表
 
@@ -515,3 +524,10 @@ https://github.com/dotnetcore/util/
 - 2018年5月22日，更新了支付宝电脑网站支付和手机网站支付操作。
 - 2018年5月24日，更新了支付宝回调操作。
 - 2018年6月19日，更新了支付宝APP支付。
+- 2018年7月15日，更新了微信APP支付。
+- 2018年7月16日，更新了微信支付回调。
+- 2018年8月30日，更新了Sql生成器和SqlQuery查询对象。
+- 2018年9月14日，更新了WebApi跟踪日志过滤器。
+- 2018年10月19日，更新了支付宝二维码支付。
+- 2018年11月16日，更新了微信小程序支付。
+- 2018年11月18日，更新了基于Quartz.Net的调度器(Util.Schedulers/Quartz)及控制台示例。

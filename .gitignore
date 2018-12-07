@@ -16,3 +16,5 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Webs/wwwroot/upload
 /sample/Util.Samples.Webs/Typings/**/*.html
 /sample/Util.Samples.Webs/yarn-error.log
+/sample/Util.Samples.Webs/package-lock.json
+/sample/Util.Samples.Webs/Properties/PublishProfiles/FolderProfile.pubxml.user

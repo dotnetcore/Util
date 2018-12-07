@@ -30,10 +30,12 @@ const jsModules = [
 const cssModules = [
     '@angular/material/prebuilt-themes/indigo-pink.css',
     'material-design-icons/iconfont/material-icons.css',
-    'font-awesome/css/font-awesome.css'
+    'font-awesome/css/font-awesome.css',
+    'primeicons/primeicons.css',
+    'primeng/resources/themes/omega/theme.css',
+    'primeng/resources/primeng.min.css'
 ];
 
-//env代表环境变量，如果传入env.production表示正式生产环境
 module.exports = (env) => {
     //是否开发环境
     const isDev = !(env && env.prod);

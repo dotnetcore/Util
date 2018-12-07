@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
@@ -13,6 +14,9 @@ namespace Util.Webs.Clients {
     /// Http请求
     /// </summary>
     public abstract class HttpRequestBase<TRequest> where TRequest : IRequest<TRequest> {
+
+        #region 字段
+
         /// <summary>
         /// 地址
         /// </summary>
@@ -24,11 +28,15 @@ namespace Util.Webs.Clients {
         /// <summary>
         /// 参数集合
         /// </summary>
-        private IDictionary<string, string> _params;
+        private IDictionary<string, object> _params;
         /// <summary>
-        /// Json参数
+        /// 参数
         /// </summary>
-        private string _json;
+        private string _data;
+        /// <summary>
+        /// 字符编码
+        /// </summary>
+        private Encoding _encoding;
         /// <summary>
         /// 内容类型
         /// </summary>
@@ -57,6 +65,14 @@ namespace Util.Webs.Clients {
         /// ssl证书验证委托
         /// </summary>
         private Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool> _serverCertificateCustomValidationCallback;
+        /// <summary>
+        /// 令牌
+        /// </summary>
+        private string _token;
+
+        #endregion
+
+        #region 构造方法
 
         /// <summary>
         /// 初始化Http请求
@@ -66,14 +82,36 @@ namespace Util.Webs.Clients {
         protected HttpRequestBase( HttpMethod httpMethod, string url ) {
             if( string.IsNullOrWhiteSpace( url ) )
                 throw new ArgumentNullException( nameof( url ) );
+            System.Text.Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
             _url = url;
             _httpMethod = httpMethod;
-            _params = new Dictionary<string, string>();
+            _params = new Dictionary<string, object>();
             _contentType = HttpContentType.FormUrlEncoded.Description();
             _cookieContainer = new CookieContainer();
             _timeout = new TimeSpan( 0, 0, 30 );
             _headers = new Dictionary<string, string>();
-            Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
+            _encoding = System.Text.Encoding.UTF8;
+        }
+
+        #endregion
+
+        #region 配置
+
+        /// <summary>
+        /// 设置字符编码
+        /// </summary>
+        /// <param name="encoding">字符编码</param>
+        public TRequest Encoding( Encoding encoding ) {
+            _encoding = encoding;
+            return This();
+        }
+
+        /// <summary>
+        /// 设置字符编码
+        /// </summary>
+        /// <param name="encoding">字符编码</param>
+        public TRequest Encoding( string encoding ) {
+            return Encoding( System.Text.Encoding.GetEncoding( encoding ) );
         }
 
         /// <summary>
@@ -166,7 +204,7 @@ namespace Util.Webs.Clients {
         /// 添加参数字典
         /// </summary>
         /// <param name="parameters">参数字典</param>
-        public TRequest Data( IDictionary<string, string> parameters ) {
+        public TRequest Data( IDictionary<string, object> parameters ) {
             _params = parameters ?? throw new ArgumentNullException( nameof( parameters ) );
             return This();
         }
@@ -176,13 +214,12 @@ namespace Util.Webs.Clients {
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        public TRequest Data<T>( string key, T value ) {
+        public TRequest Data( string key, object value ) {
             if( string.IsNullOrWhiteSpace( key ) )
                 throw new ArgumentNullException( nameof( key ) );
-            var data = value.SafeString();
-            if( string.IsNullOrWhiteSpace( data ) )
+            if( string.IsNullOrWhiteSpace( value.SafeString() ) )
                 return This();
-            _params.Add( key, data );
+            _params.Add( key, value );
             return This();
         }
 
@@ -192,7 +229,17 @@ namespace Util.Webs.Clients {
         /// <param name="value">值</param>
         public TRequest JsonData<T>( T value ) {
             ContentType( HttpContentType.Json );
-            _json = Util.Helpers.Json.ToJson( value );
+            _data = Json.ToJson( value );
+            return This();
+        }
+
+        /// <summary>
+        /// 添加Xml参数
+        /// </summary>
+        /// <param name="value">值</param>
+        public TRequest XmlData( string value ) {
+            ContentType( HttpContentType.Xml );
+            _data = value;
             return This();
         }
 
@@ -222,58 +269,17 @@ namespace Util.Webs.Clients {
         }
 
         /// <summary>
-        /// 获取内容类型
+        /// 设置Bearer令牌
         /// </summary>
-        private string GetContentType( HttpResponseMessage response ) {
-            return response?.Content?.Headers?.ContentType == null ? string.Empty : response.Content.Headers.ContentType.MediaType;
+        /// <param name="token">令牌</param>
+        public TRequest BearerToken( string token ) {
+            _token = token;
+            return This();
         }
 
-        /// <summary>
-        /// 发送前操作
-        /// </summary>
-        protected virtual void SendBefore() {
-        }
+        #endregion
 
-        /// <summary>
-        /// 发送请求
-        /// </summary>
-        private async Task<HttpResponseMessage> SendAsync() {
-            HttpClient client = CreateHttpClient();
-            return await client.SendAsync( CreateRequestMessage() );
-        }
-
-        /// <summary>
-        /// 发送后操作
-        /// </summary>
-        protected virtual void SendAfter( string result, HttpStatusCode statusCode, string contentType ) {
-            if( IsSuccess( statusCode ) ) {
-                SuccessHandler( result, statusCode, contentType );
-                return;
-            }
-            FailHandler( result, statusCode, contentType );
-        }
-
-        /// <summary>
-        /// 发送请求是否成功
-        /// </summary>
-        /// <param name="statusCode">状态码</param>
-        protected virtual bool IsSuccess( HttpStatusCode statusCode ) {
-            return statusCode.Value() < 400;
-        }
-
-        /// <summary>
-        /// 成功处理操作
-        /// </summary>
-        protected virtual void SuccessHandler( string result, HttpStatusCode statusCode, string contentType ) {
-        }
-
-        /// <summary>
-        /// 失败处理操作
-        /// </summary>
-        protected virtual void FailHandler( string result, HttpStatusCode statusCode, string contentType ) {
-            _failAction?.Invoke( result );
-            _failStatusCodeAction?.Invoke( result, statusCode );
-        }
+        #region ResultAsync(获取结果)
 
         /// <summary>
         /// 获取结果
@@ -281,25 +287,56 @@ namespace Util.Webs.Clients {
         public async Task<string> ResultAsync() {
             SendBefore();
             var response = await SendAsync();
-            return await response.Content.ReadAsStringAsync().ContinueWith( ( task, state ) => {
-                var result = task.Result;
-                SendAfter( result, response.StatusCode, state.SafeString() );
-                return result;
-            }, GetContentType( response ) );
+            var result = await response.Content.ReadAsStringAsync();
+            SendAfter( result, response );
+            return result;
+        }
+
+        #endregion
+
+        #region SendBefore(发送前操作)
+
+        /// <summary>
+        /// 发送前操作
+        /// </summary>
+        protected virtual void SendBefore() {
+        }
+
+        #endregion
+
+        #region SendAsync(发送请求)
+
+        /// <summary>
+        /// 发送请求
+        /// </summary>
+        protected async Task<HttpResponseMessage> SendAsync() {
+            var client = CreateHttpClient();
+            InitHttpClient( client );
+            return await client.SendAsync( CreateRequestMessage() );
         }
 
         /// <summary>
-        /// 创建请求客户端
+        /// 创建Http客户端
         /// </summary>
-        private HttpClient CreateHttpClient() {
-            return new HttpClient( new HttpClientHandler { CookieContainer = _cookieContainer,
-                ServerCertificateCustomValidationCallback = _serverCertificateCustomValidationCallback } ) { Timeout = _timeout };
+        protected virtual HttpClient CreateHttpClient() {
+            return new HttpClient( new HttpClientHandler {
+                CookieContainer = _cookieContainer,
+                ServerCertificateCustomValidationCallback = _serverCertificateCustomValidationCallback
+            } ) { Timeout = _timeout };
+        }
+
+        /// <summary>
+        /// 初始化Http客户端
+        /// </summary>
+        /// <param name="client">Http客户端</param>
+        protected virtual void InitHttpClient( HttpClient client ) {
+            client.SetBearerToken( _token );
         }
 
         /// <summary>
         /// 创建请求消息
         /// </summary>
-        private HttpRequestMessage CreateRequestMessage() {
+        protected virtual HttpRequestMessage CreateRequestMessage() {
             var message = new HttpRequestMessage {
                 Method = _httpMethod,
                 RequestUri = new Uri( _url ),
@@ -317,20 +354,68 @@ namespace Util.Webs.Clients {
             var contentType = _contentType.SafeString().ToLower();
             switch( contentType ) {
                 case "application/x-www-form-urlencoded":
-                    return new FormUrlEncodedContent( _params );
+                    return new FormUrlEncodedContent( _params.ToDictionary( t => t.Key, t => t.Value.SafeString() ) );
                 case "application/json":
                     return CreateJsonContent();
+                case "text/xml":
+                    return CreateXmlContent();
             }
             throw new NotImplementedException( "未实现该ContentType" );
         }
 
         /// <summary>
-        /// 创建json内容类型
+        /// 创建json内容
         /// </summary>
         private HttpContent CreateJsonContent() {
-            if( string.IsNullOrWhiteSpace( _json ) )
-                _json = Util.Helpers.Json.ToJson( _params );
-            return new StringContent( _json, Encoding.UTF8, "application/json" );
+            if( string.IsNullOrWhiteSpace( _data ) )
+                _data = Json.ToJson( _params );
+            return new StringContent( _data, _encoding, "application/json" );
         }
+
+        /// <summary>
+        /// 创建xml内容
+        /// </summary>
+        private HttpContent CreateXmlContent() {
+            return new StringContent( _data, _encoding, "text/xml" );
+        }
+
+        #endregion
+
+        #region SendAfter(发送后操作)
+
+        /// <summary>
+        /// 发送后操作
+        /// </summary>
+        protected virtual void SendAfter( string result, HttpResponseMessage response ) {
+            var contentType = GetContentType( response );
+            if( response.IsSuccessStatusCode ) {
+                SuccessHandler( result, response.StatusCode, contentType );
+                return;
+            }
+            FailHandler( result, response.StatusCode, contentType );
+        }
+
+        /// <summary>
+        /// 获取内容类型
+        /// </summary>
+        private string GetContentType( HttpResponseMessage response ) {
+            return response?.Content?.Headers?.ContentType == null ? string.Empty : response.Content.Headers.ContentType.MediaType;
+        }
+
+        /// <summary>
+        /// 成功处理操作
+        /// </summary>
+        protected virtual void SuccessHandler( string result, HttpStatusCode statusCode, string contentType ) {
+        }
+
+        /// <summary>
+        /// 失败处理操作
+        /// </summary>
+        protected virtual void FailHandler( string result, HttpStatusCode statusCode, string contentType ) {
+            _failAction?.Invoke( result );
+            _failStatusCodeAction?.Invoke( result, statusCode );
+        }
+
+        #endregion
     }
 }

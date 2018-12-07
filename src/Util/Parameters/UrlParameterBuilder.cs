@@ -23,6 +23,14 @@ namespace Util.Parameters {
         /// <summary>
         /// 初始化Url参数生成器
         /// </summary>
+        /// <param name="builder">参数生成器</param>
+        public UrlParameterBuilder( ParameterBuilder builder ) {
+            ParameterBuilder = builder == null ? new ParameterBuilder() : new ParameterBuilder( builder );
+        }
+
+        /// <summary>
+        /// 初始化Url参数生成器
+        /// </summary>
         /// <param name="builder">Url参数生成器</param>
         public UrlParameterBuilder( UrlParameterBuilder builder ) : this( "", builder ) {
         }
@@ -57,7 +65,7 @@ namespace Util.Parameters {
             var form = Web.Request?.Form;
             if( form == null )
                 return;
-            foreach ( var key in form.Keys ) {
+            foreach( var key in form.Keys ) {
                 if( form.ContainsKey( key ) )
                     Add( key, form[key] );
             }
@@ -90,7 +98,7 @@ namespace Util.Parameters {
         /// 获取值
         /// </summary>
         /// <param name="name">参数名</param>
-        public string GetValue( string name ) {
+        public object GetValue( string name ) {
             return ParameterBuilder.GetValue( name );
         }
 
@@ -98,7 +106,7 @@ namespace Util.Parameters {
         /// 索引器
         /// </summary>
         /// <param name="name">参数名</param>
-        public string this[string name] {
+        public object this[string name] {
             get => GetValue( name );
             set => Add( name, value );
         }
@@ -106,14 +114,17 @@ namespace Util.Parameters {
         /// <summary>
         /// 获取字典
         /// </summary>
-        public IDictionary<string, string> GetDictionary() {
-            return ParameterBuilder.GetDictionary();
+        /// <param name="isSort">是否按参数名排序</param>
+        /// <param name="isUrlEncode">是否Url编码</param>
+        /// <param name="encoding">字符编码，默认值：UTF-8</param>
+        public IDictionary<string, object> GetDictionary( bool isSort = true, bool isUrlEncode = false, string encoding = "UTF-8" ) {
+            return ParameterBuilder.GetDictionary( isSort, isUrlEncode, encoding );
         }
 
         /// <summary>
         /// 获取键值对集合
         /// </summary>
-        public IEnumerable<KeyValuePair<string, string>> GetKeyValuePairs() {
+        public IEnumerable<KeyValuePair<string, object>> GetKeyValuePairs() {
             return ParameterBuilder.GetKeyValuePairs();
         }
 
@@ -121,8 +132,10 @@ namespace Util.Parameters {
         /// 获取结果，格式：参数名=参数值&amp;参数名=参数值
         /// </summary>
         /// <param name="isSort">是否按参数名排序</param>
-        public string Result( bool isSort = false ) {
-            return ParameterBuilder.Result( UrlParameterFormat.Instance, isSort );
+        /// <param name="isUrlEncode">是否Url编码</param>
+        /// <param name="encoding">字符编码，默认值：UTF-8</param>
+        public string Result( bool isSort = false, bool isUrlEncode = false, string encoding = "UTF-8" ) {
+            return ParameterBuilder.Result( UrlParameterFormat.Instance, isSort, isUrlEncode, encoding );
         }
 
         /// <summary>
@@ -130,20 +143,7 @@ namespace Util.Parameters {
         /// </summary>
         /// <param name="url">地址</param>
         public string JoinUrl( string url ) {
-            return $"{GetUrl( url )}{Result()}";
-        }
-
-        /// <summary>
-        /// 获取Url
-        /// </summary>
-        private string GetUrl( string url ) {
-            if( !url.Contains( "?" ) )
-                return $"{url}?";
-            if( url.EndsWith( "?" ) )
-                return url;
-            if( url.EndsWith( "&" ) )
-                return url;
-            return $"{url}&";
+            return Url.Join( url, Result() );
         }
 
         /// <summary>

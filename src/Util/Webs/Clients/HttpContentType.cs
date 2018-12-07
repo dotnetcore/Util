@@ -14,6 +14,11 @@ namespace Util.Webs.Clients {
         /// application/json
         /// </summary>
         [Description( "application/json" )]
-        Json
+        Json,
+        /// <summary>
+        /// text/xml
+        /// </summary>
+        [Description( "text/xml" )]
+        Xml
     }
 }

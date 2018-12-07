@@ -11,7 +11,7 @@ namespace Util.Applications {
         /// </summary>
         protected ServiceBase() {
             Log = Util.Logs.Log.Null;
-            Session = Util.Security.Sessions.Session.Null;
+            Session = Util.Security.Sessions.Session.Instance;
         }
 
         /// <summary>

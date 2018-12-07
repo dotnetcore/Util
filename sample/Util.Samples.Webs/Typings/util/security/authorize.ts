@@ -14,11 +14,11 @@ export class Authorize implements CanActivate {
     /**
      * 登录地址，默认值 "/login"
      */
-    static loginUrl: string;
+    static loginUrl: string = "/login";
     /**
      * 获取用户会话地址，默认值 "/api/security/session"
      */
-    static sessionUrl: string;
+    static sessionUrl: string = "/api/security/session";
 
     /**
      * 初始化
@@ -26,8 +26,6 @@ export class Authorize implements CanActivate {
      */
     constructor(injector: Injector, private session: Session) {
         util.ioc.componentInjector = injector;
-        Authorize.loginUrl = "/login";
-        Authorize.sessionUrl = "/api/security/session";
     }
 
     /**
@@ -36,7 +34,7 @@ export class Authorize implements CanActivate {
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
         if (this.session && this.session.isAuthenticated)
             return true;
-        await this.loadSessionAsync(state);
+        await this.loadSessionAsync();
         if (this.session && this.session.isAuthenticated)
             return true;
         util.router.navigateByQuery([Authorize.loginUrl], { returnUrl: state.url });
@@ -46,7 +44,7 @@ export class Authorize implements CanActivate {
     /**
      * 加载用户会话
      */
-    private async loadSessionAsync(state: RouterStateSnapshot) {
+    private async loadSessionAsync() {
         await util.webapi.get(Authorize.sessionUrl).handleAsync({
             handler: (result: any) => {
                 if (!result)

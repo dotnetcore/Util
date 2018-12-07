@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Util.Biz.Payments.Properties;
 using Util.Exceptions;
 using Util.Maps;
 using Util.Validations;
@@ -10,26 +11,18 @@ namespace Util.Biz.Payments.Core {
     /// </summary>
     public class PayParamBase : IValidation {
         /// <summary>
+        /// 订单标题
+        /// </summary>
+        public string Subject { get; set; }
+        /// <summary>
         /// 商户订单号
         /// </summary>
         [Required( ErrorMessageResourceType = typeof( PayResource ), ErrorMessageResourceName = "OrderIdIsEmpty" )]
         public string OrderId { get; set; }
         /// <summary>
-        /// 支付金额
+        /// 支付金额，单位：元
         /// </summary>
         public decimal Money { get; set; }
-        /// <summary>
-        /// 订单标题
-        /// </summary>
-        public string Subject { get; set; }
-        /// <summary>
-        /// 支付订单付款超时时间，单位：分钟，默认为90分钟
-        /// </summary>
-        public int Timeout { get; set; } = 90;
-        /// <summary>
-        /// 返回地址
-        /// </summary>
-        public string ReturnUrl { get; set; }
         /// <summary>
         /// 回调通知地址
         /// </summary>

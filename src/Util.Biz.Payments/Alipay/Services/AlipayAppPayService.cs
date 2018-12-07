@@ -31,7 +31,7 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// 请求结果
         /// </summary>
         protected override Task<PayResult> RequstResult( AlipayConfig config, AlipayParameterBuilder builder ) {
-            var result = builder.ToString();
+            var result = builder.Result( true );
             WriteLog( config, builder, result );
             return Task.FromResult( new PayResult { Result = result } );
         }

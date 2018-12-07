@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Util.Helpers;
+using Util.Logs;
 using Util.Properties;
 using Util.Sessions;
 using Util.Webs.Commons;
@@ -11,23 +11,34 @@ namespace Util.Webs.Controllers {
     /// </summary>
     [Route( "api/[controller]" )]
     [ErrorLog]
-    public class WebApiControllerBase : Controller {
+    [TraceLog]
+    public abstract class WebApiControllerBase : Controller {
         /// <summary>
-        /// 会话
+        /// 日志
         /// </summary>
-        private readonly ISession _session;
+        private ILog _log;
 
         /// <summary>
-        /// 初始化
+        /// 日志
         /// </summary>
-        public WebApiControllerBase() {
-            _session = Ioc.Create<ISession>();
+        public virtual ILog Log => _log ?? ( _log = GetLog() );
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        private ILog GetLog() {
+            try {
+                return Util.Logs.Log.GetLog( this );
+            }
+            catch {
+                return Util.Logs.Log.Null;
+            }
         }
 
         /// <summary>
         /// 会话
         /// </summary>
-        public virtual ISession Session => _session ?? NullSession.Instance;
+        public virtual ISession Session => Security.Sessions.Session.Instance;
 
         /// <summary>
         /// 返回成功消息
@@ -35,7 +46,7 @@ namespace Util.Webs.Controllers {
         /// <param name="data">数据</param>
         /// <param name="message">消息</param>
         protected virtual IActionResult Success( dynamic data = null, string message = null ) {
-            if ( message == null )
+            if( message == null )
                 message = R.Success;
             return new Result( StateCode.Ok, message, data );
         }

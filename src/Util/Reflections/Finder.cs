@@ -20,6 +20,7 @@ namespace Util.Reflections {
         /// 获取程序集列表
         /// </summary>
         public virtual List<Assembly> GetAssemblies() {
+            LoadAssemblies( PlatformServices.Default.Application.ApplicationBasePath );
             return GetAssembliesFromCurrentAppDomain();
         }
 

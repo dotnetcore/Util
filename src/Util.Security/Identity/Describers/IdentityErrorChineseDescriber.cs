@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Util.Security.Properties;
 
 namespace Util.Security.Identity.Describers {
     /// <summary>

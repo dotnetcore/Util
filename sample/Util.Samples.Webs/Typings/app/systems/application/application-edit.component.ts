@@ -37,6 +37,24 @@ export class ApplicationEditComponent extends EditComponentBase<ApplicationViewM
     }
 
     /**
+     * 通过标识加载
+     */
+    protected loadById(id = null) {
+        id = id || this.util.router.getParam("id");
+        if (!id)
+            return;
+        this.util.webapi.get<ApplicationViewModel>(this.getByIdUrl(id)).handle({
+            handler: result => {
+                setTimeout(() => {
+                    this.model = result;
+                    this.registerValueChanges();
+                    this.loadAfter(result);
+                }, 100);
+            }
+        });
+    }
+
+    /**
      * 提交表单
      * @param form 表单
      * @param button 按钮

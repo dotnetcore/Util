@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Logs;
@@ -21,7 +22,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// </summary>
         private readonly IAlipayConfigProvider _configProvider;
         /// <summary>
-        /// 是否已加载参数
+        /// 是否已加载
         /// </summary>
         private bool _isLoad;
 
@@ -37,6 +38,23 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         }
 
         /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public T GetParam<T>( string name ) {
+            return Util.Helpers.Convert.To<T>( GetParam( name ) );
+        }
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public string GetParam( string name ) {
+            Init();
+            return _builder.GetValue( name ).SafeString();
+        }
+
+        /// <summary>
         /// 初始化
         /// </summary>
         private void Init() {
@@ -44,6 +62,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
                 return;
             Load( _builder );
             _isLoad = true;
+            WriteLog();
         }
 
         /// <summary>
@@ -51,6 +70,84 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// </summary>
         /// <param name="builder">参数生成器</param>
         protected abstract void Load( UrlParameterBuilder builder );
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        protected void WriteLog() {
+            var log = GetLog();
+            if( log.IsTraceEnabled == false )
+                return;
+            log.Class( GetType().FullName )
+                .Caption( GetCaption() )
+                .Content( "原始参数:" )
+                .Content( GetParams() )
+                .Trace();
+        }
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        private ILog GetLog() {
+            try {
+                return Log.GetLog( AlipayConst.TraceLogName );
+            }
+            catch {
+                return Log.Null;
+            }
+        }
+
+        /// <summary>
+        /// 获取日志标题
+        /// </summary>
+        protected virtual string GetCaption() {
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 获取参数集合
+        /// </summary>
+        public IDictionary<string, string> GetParams() {
+            Init();
+            return _builder.GetDictionary().ToDictionary( t => t.Key, t => t.Value.SafeString() );
+        }
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        public async Task<ValidationResultCollection> ValidateAsync() {
+            Init();
+            var isValid = await VerifySign();
+            if( isValid == false )
+                return new ValidationResultCollection( "签名失败" );
+            return Validate();
+        }
+
+        /// <summary>
+        /// 验证签名
+        /// </summary>
+        private async Task<bool> VerifySign() {
+            var config = await _configProvider.GetConfigAsync();
+            var signManager = new SignManager( new SignKey( config.PrivateKey, config.PublicKey ), CreateVerifyBuilder() );
+            return signManager.Verify( Sign );
+        }
+
+        /// <summary>
+        /// 创建验签生成器
+        /// </summary>
+        private UrlParameterBuilder CreateVerifyBuilder() {
+            var builder = new UrlParameterBuilder( _builder );
+            builder.Remove( AlipayConst.Sign );
+            builder.Remove( AlipayConst.SignType );
+            return builder;
+        }
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        protected virtual ValidationResultCollection Validate() {
+            return ValidationResultCollection.Success;
+        }
 
         /// <summary>
         /// 商户订单号
@@ -76,102 +173,5 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// 签名
         /// </summary>
         public string Sign => GetParam( AlipayConst.Sign );
-
-        /// <summary>
-        /// 获取参数
-        /// </summary>
-        /// <param name="name">参数名</param>
-        public string GetParam( string name ) {
-            Init();
-            return _builder.GetValue( name );
-        }
-
-        /// <summary>
-        /// 获取参数
-        /// </summary>
-        /// <param name="name">参数名</param>
-        public T GetParam<T>( string name ) {
-            return Util.Helpers.Convert.To<T>( GetParam( name ) );
-        }
-
-        /// <summary>
-        /// 获取参数集合
-        /// </summary>
-        public IDictionary<string, string> GetParams() {
-            Init();
-            return _builder.GetDictionary();
-        }
-
-        /// <summary>
-        /// 验证
-        /// </summary>
-        public async Task<ValidationResultCollection> ValidateAsync() {
-            Init();
-            var isValid = await VerifySign();
-            WriteLog( isValid );
-            if ( isValid == false )
-                return new ValidationResultCollection( "签名失败" );
-            return Validate();
-        }
-
-        /// <summary>
-        /// 验证签名
-        /// </summary>
-        private async Task<bool> VerifySign() {
-            var config = await _configProvider.GetConfigAsync();
-            var signManager = new SignManager( new SignKey( config.AppPrivateKey, config.AlipayPublicKey ), CreateVerifyBuilder() );
-            return signManager.Verify( Sign );
-        }
-
-        /// <summary>
-        /// 创建验签生成器
-        /// </summary>
-        private UrlParameterBuilder CreateVerifyBuilder() {
-            var builder = new UrlParameterBuilder( _builder );
-            builder.Remove( AlipayConst.Sign );
-            builder.Remove( AlipayConst.SignType );
-            return builder;
-        }
-
-        /// <summary>
-        /// 验证
-        /// </summary>
-        protected virtual ValidationResultCollection Validate() {
-            return ValidationResultCollection.Success;
-        }
-
-        /// <summary>
-        /// 写日志
-        /// </summary>
-        protected void WriteLog( bool isVerify ) {
-            var log = GetLog();
-            if( log.IsTraceEnabled == false )
-                return;
-            log.Class( GetType().FullName )
-                .Caption( GetCaption() )
-                .Content( $"验证签名:{( isVerify ? "成功" : "失败" )}" )
-                .Content( "原始参数:" )
-                .Content( GetParams() )
-                .Trace();
-        }
-
-        /// <summary>
-        /// 获取日志操作
-        /// </summary>
-        private ILog GetLog() {
-            try {
-                return Log.GetLog( AlipayConst.TraceLogName );
-            }
-            catch {
-                return Log.Null;
-            }
-        }
-
-        /// <summary>
-        /// 获取日志标题
-        /// </summary>
-        protected virtual string GetCaption() {
-            return string.Empty;
-        }
     }
 }

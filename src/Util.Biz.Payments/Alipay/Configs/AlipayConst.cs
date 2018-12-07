@@ -12,7 +12,7 @@
         /// </summary>
         public const string Charset = "charset";
         /// <summary>
-        /// 应用Id
+        /// 应用标识
         /// </summary>
         public const string AppId = "app_id";
         /// <summary>
@@ -95,5 +95,9 @@
         /// 回调通知标识
         /// </summary>
         public const string NotifyId = "notify_id";
+        /// <summary>
+        /// 二维码
+        /// </summary>
+        public const string QrCode = "qr_code";
     }
 }

@@ -43,6 +43,14 @@ export class MessageConfig {
      */
     static minLengthMessage = "输入内容的长度必须大于{0}位";
     /**
+     * 最小值默认验证消息
+     */
+    static minMessage = "输入值必须大于{0}";
+    /**
+     * 最大值默认验证消息
+     */
+    static maxMessage = "输入值必须小于{0}";
+    /**
      * 电子邮件默认验证消息
      */
     static emailMessage = "请输入有效的电子邮件";
@@ -74,4 +82,8 @@ export class MessageConfig {
      * 您确定禁用选中的记录吗?
      */
     static disableConfirm = "您确定禁用选中的记录吗?";
+    /**
+     * 存在未保存的修改，确定离开?
+     */
+    static saveGuardConfirm = "存在未保存的修改，确定离开此页面?";
 }

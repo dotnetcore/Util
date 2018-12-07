@@ -52,7 +52,7 @@ namespace Util.Domains.Repositories {
         /// <param name="order">排序条件</param>
         /// <param name="data">内容</param>
         public PagerList( int page, int pageSize, int totalCount, string order, IEnumerable<T> data = null ) {
-            Data = data == null ? new List<T>() : data.ToList();
+            Data = data?.ToList() ?? new List<T>();
             var pager = new Pager( page, pageSize, totalCount );
             TotalCount = pager.TotalCount;
             PageCount = pager.GetPageCount();

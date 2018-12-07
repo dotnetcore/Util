@@ -15,6 +15,23 @@ export class Dialog {
      * 打开弹出层
      * @param dialogOptions 弹出层配置
      */
+    static openAsync(dialogOptions?: IDialogOption) {
+        let options: IDialogOption = dialogOptions || {};
+        if (options.beforeOpen && !options.beforeOpen())
+            return null;
+        Dialog.initOptions(options);
+        let dialog = ioc.get(MatDialog);
+        let dialogRef = dialog.open(options.dialogComponent, options);
+        dialogRef.afterOpen().subscribe(() => options.afterOpen && options.afterOpen());
+        dialogRef.beforeClose().subscribe((result) => options.beforeClose && options.beforeClose(result));
+        dialogRef.backdropClick().subscribe(event => options.backdropClick && options.backdropClick(event));
+        return dialogRef.afterClosed().map((result) => options.afterClosed && options.afterClosed(result));
+    }
+
+    /**
+     * 打开弹出层
+     * @param dialogOptions 弹出层配置
+     */
     static open(dialogOptions?: IDialogOption) {
         let options: IDialogOption = dialogOptions || {};
         if (options.beforeOpen && !options.beforeOpen())
@@ -226,7 +243,7 @@ export interface IDialogOption {
      * 关闭后操作
      * @param result 返回结果
      */
-    afterClosed?: (result) => void,
+    afterClosed?: (result) => boolean,
     /**
      * 点击遮罩背景操作
      */

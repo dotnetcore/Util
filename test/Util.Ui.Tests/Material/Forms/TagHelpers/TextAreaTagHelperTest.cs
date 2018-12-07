@@ -283,6 +283,28 @@ namespace Util.Ui.Tests.Material.Forms.TagHelpers {
         }
 
         /// <summary>
+        /// 测试正则表达式验证
+        /// </summary>
+        [Fact]
+        public void TestRegex() {
+            var attributes = new TagHelperAttributeList { { UiConst.Regex, "a" } };
+            var result = new String();
+            result.Append( "<mat-textarea-wrapper pattern=\"a\"></mat-textarea-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试正则表达式验证消息
+        /// </summary>
+        [Fact]
+        public void TestRegexMessage() {
+            var attributes = new TagHelperAttributeList { { UiConst.RegexMessage, "a" } };
+            var result = new String();
+            result.Append( "<mat-textarea-wrapper patterMessage=\"a\"></mat-textarea-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试变更事件
         /// </summary>
         [Fact]

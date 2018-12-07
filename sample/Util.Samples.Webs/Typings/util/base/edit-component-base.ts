@@ -5,11 +5,12 @@
 import { Injector, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { util, ViewModel } from '../index';
+import { FormComponentBase } from './form-component-base';
 
 /**
  * Crud编辑组件基类
  */
-export abstract class EditComponentBase<TViewModel extends ViewModel> implements OnInit {
+export abstract class EditComponentBase<TViewModel extends ViewModel> extends FormComponentBase implements OnInit {
     /**
      * 操作库
      */
@@ -24,7 +25,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> implements
      * @param injector 注入器
      */
     constructor(injector: Injector) {
-        util.ioc.componentInjector = injector;
+        super(injector);
         this.model = this.createModel();
     }
 
@@ -43,13 +44,14 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> implements
     /**
      * 通过标识加载
      */
-    private loadById() {
-        let id = this.util.router.getParam("id");
+    protected loadById( id = null ) {
+        id = id || this.util.router.getParam("id");
         if (!id)
             return;
         this.util.webapi.get<TViewModel>(this.getByIdUrl(id)).handle({
             handler: result => {
                 this.model = result;
+                this.registerValueChanges();
                 this.loadAfter(result);
             }
         });

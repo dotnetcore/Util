@@ -52,5 +52,53 @@ namespace Util.Ui.Extensions {
             } );
             return component;
         }
+
+        /// <summary>
+        /// 最小值
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="min">最小值</param>
+        /// <param name="message">错误消息</param>
+        public static TComponent Min<TComponent>( this TComponent component, int min, string message = null ) where TComponent : IComponent, IMin {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Min, min );
+                config.SetAttribute( UiConst.MinMessage, message );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="max">最大值</param>
+        /// <param name="message">错误消息</param>
+        public static TComponent Max<TComponent>( this TComponent component, int max, string message = null ) where TComponent : IComponent, IMax {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Max, max );
+                config.SetAttribute( UiConst.MaxMessage, message );
+            } );
+            return component;
+        }
+
+        /// <summary>
+        /// 正则表达式验证
+        /// </summary>
+        /// <typeparam name="TComponent">组件类型</typeparam>
+        /// <param name="component">组件实例</param>
+        /// <param name="pattern">正则表达式</param>
+        /// <param name="message">验证失败消息</param>
+        public static TComponent Regex<TComponent>( this TComponent component, string pattern,string message ) where TComponent : IComponent, IRegex {
+            var option = component as IOptionConfig;
+            option?.Config<Config>( config => {
+                config.SetAttribute( UiConst.Regex, pattern );
+                config.SetAttribute( UiConst.RegexMessage, message );
+            } );
+            return component;
+        }
     }
 }
