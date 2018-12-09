@@ -153,8 +153,8 @@ namespace Util.Tests.Datas.Queries {
             var min = DateTime.Parse( "2000-1-1 10:10:10" );
             var max = DateTime.Parse( "2000-1-2 10:10:10" );
             var result = new StringBuilder();
-            result.AppendFormat( "t => ((t.DateValue >= {0})", DateTime.Parse( "2000/1/1 0:00:00" ) );
-            result.AppendFormat( " AndAlso (t.DateValue < {0}))", DateTime.Parse( "2000/1/3 0:00:00" ) );
+            result.Append( "t => ((t.DateValue >= Convert(Parse(\"2000/1/1 0:00:00\"), DateTime))" );
+            result.Append( " AndAlso (t.DateValue < Convert(Parse(\"2000/1/3 0:00:00\"), DateTime)))" );
 
             _query.Between( t => t.DateValue, min, max, false );
             Assert.Equal( result.ToString(), _query.GetPredicate().ToString() );
@@ -168,8 +168,8 @@ namespace Util.Tests.Datas.Queries {
             var min = DateTime.Parse( "2000-1-1 10:10:10" );
             var max = DateTime.Parse( "2000-1-2 10:10:10" );
             var result = new StringBuilder();
-            result.AppendFormat( "t => ((t.DateValue >= {0})", DateTime.Parse( "2000/1/1 10:10:10" ) );
-            result.AppendFormat( " AndAlso (t.DateValue <= {0}))", DateTime.Parse( "2000/1/2 10:10:10" ) );
+            result.Append( "t => ((t.DateValue >= Convert(Parse(\"2000/1/1 10:10:10\"), DateTime))" );
+            result.Append( " AndAlso (t.DateValue <= Convert(Parse(\"2000/1/2 10:10:10\"), DateTime)))" );
 
             _query.Between( t => t.DateValue, min, max );
             Assert.Equal( result.ToString(), _query.GetPredicate().ToString() );

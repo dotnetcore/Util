@@ -53,6 +53,7 @@ namespace Util.Datas.Queries.Criterias {
         /// 获取查询条件
         /// </summary>
         public Expression<Func<TEntity, bool>> GetPredicate() {
+            _builder.Clear();
             Adjust( _min, _max );
             CreateLeftExpression();
             CreateRightExpression();

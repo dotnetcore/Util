@@ -751,7 +751,7 @@ namespace Util.Tests.Helpers {
         [Fact]
         public void TestConstant() {
             Expression<Func<Sample, int?>> property = t => t.NullableIntValue;
-            ConstantExpression constantExpression = Lambda.Constant( property, 1 );
+            var constantExpression = Lambda.Constant( property, 1 );
             Assert.Equal( typeof( int ), constantExpression.Type );
         }
 

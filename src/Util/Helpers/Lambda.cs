@@ -440,9 +440,30 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="expression">表达式</param>
         /// <param name="value">值</param>
-        public static ConstantExpression Constant( Expression expression, object value ) {
-            var memberExpression = expression as MemberExpression;
-            if( memberExpression == null )
+        public static Expression Constant( Expression expression, object value ) {
+            if ( value is DateTime )
+                return GetDateTimeConstantExpression( expression, value );
+            return GetConstantExpression( expression, value );
+        }
+
+        /// <summary>
+        /// 获取日期常量表达式
+        /// </summary>
+        private static Expression GetDateTimeConstantExpression( Expression expression, object value ) {
+            var parse = typeof( DateTime ).GetMethod( "Parse", new[] { typeof( string ) } );
+            if ( parse == null )
+                return null;
+            var parseExpression = Expression.Call( parse, Expression.Constant( value.SafeString() ) );
+            if( !( expression is MemberExpression memberExpression ) )
+                return parseExpression;
+            return Expression.Convert( parseExpression, memberExpression.Type );
+        }
+
+        /// <summary>
+        /// 获取常量表达式
+        /// </summary>
+        private static Expression GetConstantExpression( Expression expression, object value ) {
+            if( !( expression is MemberExpression memberExpression ) )
                 return Expression.Constant( value );
             return Expression.Constant( value, memberExpression.Type );
         }

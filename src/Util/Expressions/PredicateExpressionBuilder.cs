@@ -52,6 +52,13 @@ namespace Util.Expressions {
         }
 
         /// <summary>
+        /// 清空
+        /// </summary>
+        public void Clear() {
+            _result = null;
+        }
+
+        /// <summary>
         /// 转换为Lambda表达式
         /// </summary>
         public Expression<Func<TEntity, bool>> ToLambda() {
