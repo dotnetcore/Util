@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Util.Domains.Repositories;
 using Util.Expressions;
+using Util.Helpers;
 
 namespace Util.Datas.Queries.Criterias {
     /// <summary>
@@ -50,6 +51,13 @@ namespace Util.Datas.Queries.Criterias {
         }
 
         /// <summary>
+        /// 获取属性类型
+        /// </summary>
+        protected Type GetPropertyType() {
+            return Lambda.GetType( _propertyExpression );
+        }
+
+        /// <summary>
         /// 获取查询条件
         /// </summary>
         public Expression<Func<TEntity, bool>> GetPredicate() {
@@ -83,7 +91,7 @@ namespace Util.Datas.Queries.Criterias {
         private void CreateLeftExpression() {
             if( _min == null )
                 return;
-            _builder.Append( _propertyExpression, CreateLeftOperator( _boundary ), GetMinValue() );
+            _builder.Append( _propertyExpression, CreateLeftOperator( _boundary ), GetMinValueExpression() );
         }
 
         /// <summary>
@@ -103,8 +111,15 @@ namespace Util.Datas.Queries.Criterias {
         /// <summary>
         /// 获取最小值
         /// </summary>
-        protected virtual TValue? GetMinValue() {
+        protected TValue? GetMinValue() {
             return _min;
+        }
+
+        /// <summary>
+        /// 获取最小值表达式
+        /// </summary>
+        protected virtual Expression GetMinValueExpression() {
+            return Lambda.Constant( _min, _propertyExpression );
         }
 
         /// <summary>
@@ -113,7 +128,7 @@ namespace Util.Datas.Queries.Criterias {
         private void CreateRightExpression() {
             if( _max == null )
                 return;
-            _builder.Append( _propertyExpression, CreateRightOperator( _boundary ), GetMaxValue() );
+            _builder.Append( _propertyExpression, CreateRightOperator( _boundary ), GetMaxValueExpression() );
         }
 
         /// <summary>
@@ -133,8 +148,15 @@ namespace Util.Datas.Queries.Criterias {
         /// <summary>
         /// 获取最大值
         /// </summary>
-        protected virtual TValue? GetMaxValue() {
+        protected TValue? GetMaxValue() {
             return _max;
+        }
+
+        /// <summary>
+        /// 获取最大值表达式
+        /// </summary>
+        protected virtual Expression GetMaxValueExpression() {
+            return Lambda.Constant( _max, _propertyExpression );
         }
     }
 }

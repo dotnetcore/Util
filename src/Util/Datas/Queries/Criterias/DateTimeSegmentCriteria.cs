@@ -25,5 +25,19 @@ namespace Util.Datas.Queries.Criterias {
         protected override bool IsMinGreaterMax( DateTime? min, DateTime? max ) {
             return min > max;
         }
+
+        /// <summary>
+        /// 获取最小值
+        /// </summary>
+        protected override Expression GetMinValueExpression() {
+            return ValueExpressionHelper.CreateDateTimeExpression( GetMinValue(), GetPropertyType() );
+        }
+
+        /// <summary>
+        /// 获取最大值
+        /// </summary>
+        protected override Expression GetMaxValueExpression() {
+            return ValueExpressionHelper.CreateDateTimeExpression( GetMaxValue(), GetPropertyType() );
+        }
     }
 }

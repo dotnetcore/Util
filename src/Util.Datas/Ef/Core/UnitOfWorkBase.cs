@@ -66,14 +66,19 @@ namespace Util.Datas.Ef.Core {
         /// 获取配置
         /// </summary>
         private EfConfig GetConfig() {
-            var options = Ioc.Create<IOptionsSnapshot<EfConfig>>();
-            return options.Value;
+            try {
+                var options = Ioc.Create<IOptionsSnapshot<EfConfig>>();
+                return options.Value;
+            }
+            catch {
+                return new EfConfig { EfLogLevel = EfLogLevel.Sql };
+            }
         }
 
         #endregion
 
         #region 属性
-        
+
         /// <summary>
         /// Ef配置
         /// </summary>
