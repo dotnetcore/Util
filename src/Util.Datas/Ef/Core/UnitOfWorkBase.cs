@@ -165,6 +165,11 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 获取映射接口类型
+        /// </summary>
+        protected abstract Type GetMapType();
+
+        /// <summary>
         /// 从程序集获取映射配置列表
         /// </summary>
         private IEnumerable<IMap> GetMapsFromAssemblies() {
@@ -173,11 +178,6 @@ namespace Util.Datas.Ef.Core {
                 result.AddRange( GetMapInstances( assembly ) );
             return result;
         }
-
-        /// <summary>
-        /// 获取映射接口类型
-        /// </summary>
-        protected abstract Type GetMapType();
 
         /// <summary>
         /// 获取定义映射配置的程序集列表
