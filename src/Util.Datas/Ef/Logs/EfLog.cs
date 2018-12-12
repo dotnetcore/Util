@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Logging;
 using Util.Datas.Ef.Configs;
 using Util.Datas.Ef.Core;
@@ -102,7 +101,7 @@ namespace Util.Datas.Ef.Logs {
         private void AddDictionary( IDictionary<string, string> dictionary ) {
             AddElapsed( GetValue( dictionary, "elapsed" ) );
             var sqlParams = GetValue( dictionary, "parameters" );
-            AddSql( GetValue( dictionary, "commandText" ), sqlParams );
+            AddSql( GetValue( dictionary, "commandText" ) );
             AddSqlParams( sqlParams );
         }
 
@@ -127,12 +126,10 @@ namespace Util.Datas.Ef.Logs {
         /// <summary>
         /// 添加Sql
         /// </summary>
-        private void AddSql( string sql, string sqlParams ) {
+        private void AddSql( string sql ) {
             if( string.IsNullOrWhiteSpace( sql ) )
                 return;
-            _log.Sql( "原始Sql: " ).Sql( $"{sql}{Common.Line}" );
-            sql = sql.Replace( "SET NOCOUNT ON;", "" );
-            _log.Sql( $"调试Sql: {Common.Line}{GetSql( sql, sqlParams )}{Common.Line}" );
+            _log.Sql( $"{sql}{Common.Line}" );
         }
 
         /// <summary>
@@ -157,62 +154,6 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         public IDisposable BeginScope<TState>( TState state ) {
             return null;
-        }
-
-        /// <summary>
-        /// 获取Sql
-        /// </summary>
-        public static string GetSql( string sql, string sqlParams ) {
-            var parameters = GetSqlParameters( sqlParams );
-            foreach ( var parameter in parameters )
-                sql = Util.Helpers.Regex.Replace( sql, $@"{parameter.Key}\b", parameter.Value );
-            return sql;
-        }
-
-        /// <summary>
-        /// 获取Sql参数字典
-        /// </summary>
-        /// <param name="sqlParams">Sql参数</param>
-        public static IDictionary<string, string> GetSqlParameters( string sqlParams ) {
-            var result = new Dictionary<string, string>();
-            var paramName = GetParamName( sqlParams );
-            if( string.IsNullOrWhiteSpace( paramName ) )
-                return result;
-            string pattern = $@",\s*?{paramName}";
-            var parameters = Util.Helpers.Regex.Split( sqlParams, pattern );
-            foreach( var parameter in parameters )
-                AddParameter( result, parameter, paramName );
-            return result;
-        }
-
-        /// <summary>
-        /// 获取参数名
-        /// </summary>
-        private static string GetParamName( string sqlParams ) {
-            string pattern = $@"([@].*?)\d+=";
-            return Util.Helpers.Regex.GetValue( sqlParams, pattern, "$1" );
-        }
-
-        /// <summary>
-        /// 添加参数
-        /// </summary>
-        private static void AddParameter( Dictionary<string, string> result, string parameter, string paramName ) {
-            string pattern = $@"(?:{paramName})?(\d+)='(.*)'(.*)";
-            var values = Util.Helpers.Regex.GetValues( parameter, pattern, new[] { "$1", "$2", "$3" } ).Select( t => t.Value ).ToList();
-            if ( values.Count != 3 )
-                return;
-            result.Add( $"{paramName}{values[0]}", GetValue( values[1], values[2] ) );
-        }
-
-        /// <summary>
-        /// 获取值
-        /// </summary>
-        private static string GetValue( string value, string parameter ) {
-            value = value.SafeString();
-            parameter = parameter.SafeString();
-            if( string.IsNullOrWhiteSpace( value ) && parameter.Contains( "DbType = Guid" ) )
-                return "null";
-            return $"'{value}'";
         }
     }
 }
