@@ -37,7 +37,6 @@ namespace Util.Samples.Webs {
             //添加Mvc服务
             services.AddMvc( options => {
                 //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
-                options.Filters.Add( new ExceptionHandlerAttribute() );
             }
             ).AddControllersAsServices();
 
