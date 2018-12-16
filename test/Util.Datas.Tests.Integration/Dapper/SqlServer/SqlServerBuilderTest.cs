@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Queries;
 using Util.Datas.Tests.Samples;
@@ -971,6 +972,84 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             //验证
             _output.WriteLine( _builder.ToSql() );
             Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置条件 - 枚举
+        /// </summary>
+        [Fact]
+        public void Test_44() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Sample] As [s] " );
+            result.Append( "Where [s].[LogLevel]=@_p_0" );
+
+            //执行
+            _builder.From<Sample>( "s" ).Where<Sample>( t => t.LogLevel == LogLevel.Error );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 4, _builder.GetParams()["@_p_0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 枚举 - 可空
+        /// </summary>
+        [Fact]
+        public void Test_45() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Sample] As [s] " );
+            result.Append( "Where [s].[NullableLogLevel]=@_p_0" );
+
+            //执行
+            _builder.From<Sample>( "s" ).Where<Sample>( t => t.NullableLogLevel == LogLevel.Error );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 4, _builder.GetParams()["@_p_0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 枚举 - 参数对象属性为枚举
+        /// </summary>
+        [Fact]
+        public void Test_46() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Sample] As [s] " );
+            result.Append( "Where [s].[LogLevel]=@_p_0" );
+
+            //执行
+            var sample = new Sample { LogLevel = LogLevel.Error };
+            _builder.From<Sample>( "s" ).Where<Sample>( t => t.LogLevel == sample.LogLevel );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 4, _builder.GetParams()["@_p_0"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - 枚举 - 参数对象属性为枚举 - 可空
+        /// </summary>
+        [Fact]
+        public void Test_47() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Sample] As [s] " );
+            result.Append( "Where [s].[NullableLogLevel]=@_p_0" );
+
+            //执行
+            var sample = new Sample { NullableLogLevel = LogLevel.Error };
+            _builder.From<Sample>( "s" ).Where<Sample>( t => t.NullableLogLevel == sample.NullableLogLevel );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 4, _builder.GetParams()["@_p_0"] );
         }
     }
 }

@@ -325,36 +325,52 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 获取表名
         /// </summary>
-        /// <param name="entity">实体类型</param>
-        public string GetTable( Type entity ) {
-            if( entity == null )
+        /// <param name="type">实体类型</param>
+        public string GetTable( Type type ) {
+            if( type == null )
                 return null;
-            var entityType = Model.FindEntityType( entity );
-            return entityType?.FindAnnotation( "Relational:TableName" )?.Value.SafeString();
+            try {
+                var entityType = Model.FindEntityType( type );
+                return entityType?.FindAnnotation( "Relational:TableName" )?.Value.SafeString();
+            }
+            catch {
+                return type.Name;
+            }
         }
 
         /// <summary>
         /// 获取架构
         /// </summary>
-        /// <param name="entity">实体类型</param>
-        public string GetSchema( Type entity ) {
-            if( entity == null )
+        /// <param name="type">实体类型</param>
+        public string GetSchema( Type type ) {
+            if( type == null )
                 return null;
-            var entityType = Model.FindEntityType( entity );
-            return entityType?.FindAnnotation( "Relational:Schema" )?.Value.SafeString();
+            try {
+                var entityType = Model.FindEntityType( type );
+                return entityType?.FindAnnotation( "Relational:Schema" )?.Value.SafeString();
+            }
+            catch {
+                return null;
+            }
         }
 
         /// <summary>
         /// 获取列名
         /// </summary>
-        /// <param name="entity">实体类型</param>
+        /// <param name="type">实体类型</param>
         /// <param name="property">属性名</param>
-        public string GetColumn( Type entity, string property ) {
-            if( entity == null || string.IsNullOrWhiteSpace( property ) )
+        public string GetColumn( Type type, string property ) {
+            if( type == null || string.IsNullOrWhiteSpace( property ) )
                 return null;
-            var entityType = Model.FindEntityType( entity );
-            var result = entityType?.GetProperty( property )?.FindAnnotation( "Relational:ColumnName" )?.Value.SafeString();
-            return string.IsNullOrWhiteSpace( result ) ? property : result;
+            try {
+                var entityType = Model.FindEntityType( type );
+                var result = entityType?.GetProperty( property )?.FindAnnotation( "Relational:ColumnName" )?.Value
+                    .SafeString();
+                return string.IsNullOrWhiteSpace( result ) ? property : result;
+            }
+            catch {
+                return property;
+            }
         }
 
         #endregion

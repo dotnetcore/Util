@@ -397,7 +397,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 获取最小日期
         /// </summary>
         private DateTime? GetMin( DateTime? min, DateTime? max, bool includeTime ) {
-            if( min == null && max == null )
+            if( min == null )
                 return null;
             DateTime? result = min;
             if( min > max )
@@ -411,7 +411,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 获取最大日期
         /// </summary>
         private DateTime? GetMax( DateTime? min, DateTime? max, bool includeTime ) {
-            if( min == null && max == null )
+            if( max == null )
                 return null;
             DateTime? result = max;
             if( min > max )

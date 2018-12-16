@@ -79,12 +79,24 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
         }
 
         /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <returns>表达式</returns>
+        public object GetValue( Expression expression ) {
+            var result = Lambda.GetValue( expression );
+            var type = result.GetType();
+            if( type.IsEnum )
+                return Util.Helpers.Enum.GetValue( type, result );
+            return result;
+        }
+
+        /// <summary>
         /// 创建查询条件并添加参数
         /// </summary>
-        /// <param name="expression">列名</param>
+        /// <param name="expression">表达式</param>
         /// <param name="type">实体类型</param>
         public ICondition CreateCondition( Expression expression, Type type ) {
-            return CreateCondition( GetColumn( expression, type ), Lambda.GetValue( expression ), Lambda.GetOperator( expression ).SafeValue() );
+            return CreateCondition( GetColumn( expression, type ), GetValue( expression ), Lambda.GetOperator( expression ).SafeValue() );
         }
 
         /// <summary>

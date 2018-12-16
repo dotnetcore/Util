@@ -14,22 +14,35 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="entity">实体类型</param>
         /// <param name="raw">使用原始值</param>
         public OrderByItem( string order,bool desc = false,Type entity = null,bool raw = false ) {
-            Column = order.SafeString();
+            Order = order.SafeString();
             Desc = desc;
             Entity = entity;
             Raw = raw;
             if ( raw )
                 return;
-            if( Column.ToLower().EndsWith( "desc" ) ) {
+            if( Order.ToLower().EndsWith( "desc" ) ) {
                 Desc = true;
-                Column = Column.Remove( Column.Length - 4, 4 ).Trim();
+                Order = Order.Remove( Order.Length - 4, 4 ).Trim();
             }
+            var item = new NameItem( Order );
+            Column = item.Name;
+            Prefix = item.Prefix;
         }
 
         /// <summary>
         /// 排序列
         /// </summary>
+        public string Order { get; }
+
+        /// <summary>
+        /// 排序列,不带前缀
+        /// </summary>
         public string Column { get; }
+
+        /// <summary>
+        /// 前缀
+        /// </summary>
+        public string Prefix { get; }
 
         /// <summary>
         /// 是否倒排
@@ -53,8 +66,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="register">实体别名注册器</param>
         public string ToSql( IDialect dialect, IEntityAliasRegister register ) {
             if ( Raw )
-                return Column;
-            var name = new NameItem( Column );
+                return Order;
+            var name = new NameItem( Order );
             var tableAlias = register.GetAlias( Entity );
             return $"{name.ToSql( dialect, tableAlias )} {( Desc ? "Desc" : null )}".TrimEnd();
         }

@@ -56,11 +56,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 添加排序项
         /// </summary>
         protected void AddItem( string column, bool desc = false, Type type = null ) {
-            if ( column.IsEmpty() )
+            if( column.IsEmpty() )
                 return;
-            if ( Exists( column ) )
+            if( Exists( column ) )
                 return;
-            _items.Add( new OrderByItem( column , desc , type ) );
+            _items.Add( new OrderByItem( column, desc, type ) );
         }
 
         /// <summary>
@@ -69,7 +69,9 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="column">排序列</param>
         protected bool Exists( string column ) {
             var item = new OrderByItem( column );
-            return _items.Exists( t => t.Column.ToLower() == item.Column.ToLower() );
+            return _items.Exists( t => t.Column.ToLower() == item.Column.ToLower()
+                                       && ( item.Prefix.IsEmpty() 
+                                            || t.Prefix.ToLower() == item.Prefix.ToLower() ) );
         }
 
         /// <summary>
