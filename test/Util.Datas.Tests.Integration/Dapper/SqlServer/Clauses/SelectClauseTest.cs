@@ -182,10 +182,11 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestSelect_17() {
             _clause.Select( "a.[b],c,[d]","o" );
-            _clause.AppendSql( "e=1" );
+            _clause.AppendSql( "e=1," );
             _clause.Select( "f" );
             _clause.AppendSql( "g" );
-            Assert.Equal( "Select [a].[b],[o].[c],[o].[d],e=1,[f],g", GetSql() );
+            _clause.Select( "h" );
+            Assert.Equal( "Select [a].[b],[o].[c],[o].[d],e=1,[f],g[h]", GetSql() );
         }
 
         /// <summary>

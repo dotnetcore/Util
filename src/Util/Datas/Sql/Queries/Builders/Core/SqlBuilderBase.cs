@@ -290,6 +290,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             return this;
         }
 
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder AppendSelect( ISqlBuilder builder, string columnAlias = null ) {
+            SelectClause.AppendSql( builder, columnAlias );
+            return this;
+        }
+
         #endregion
 
         #region From(设置表名)

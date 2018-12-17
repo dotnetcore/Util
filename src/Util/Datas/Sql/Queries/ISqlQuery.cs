@@ -131,6 +131,12 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendSelect( string sql );
         /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlQuery AppendSelect( ISqlBuilder builder, string columnAlias = null );
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="table">表名</param>

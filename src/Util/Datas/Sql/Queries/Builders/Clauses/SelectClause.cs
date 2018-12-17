@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
@@ -77,7 +76,23 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         public void AppendSql( string sql ) {
+            if( string.IsNullOrWhiteSpace( sql ) )
+                return;
             _columns.Add( new ColumnCollection( sql, raw: true ) );
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        public void AppendSql( ISqlBuilder builder, string columnAlias = null ) {
+            if( builder == null )
+                return;
+            var result = builder.ToSql();
+            if( string.IsNullOrWhiteSpace( columnAlias ) == false )
+                result = $"({result}) As {_dialect.SafeName( columnAlias )}";
+            AppendSql( result );
         }
 
         /// <summary>
@@ -93,7 +108,13 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         protected virtual string GetColumns() {
             if( _columns.Count == 0 )
                 return "*";
-            return _columns.Select( item => item.ToSql( _dialect, _register ) ).Join();
+            var result = string.Empty;
+            foreach( var item in _columns ) {
+                result += item.ToSql( _dialect, _register );
+                if( item.Raw == false )
+                    result += ",";
+            }
+            return result.TrimEnd( ',' );
         }
     }
 }

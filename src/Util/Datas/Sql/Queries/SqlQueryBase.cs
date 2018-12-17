@@ -234,6 +234,16 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        public ISqlQuery AppendSelect( ISqlBuilder builder, string columnAlias = null ) {
+            Builder.AppendSelect( builder, columnAlias );
+            return this;
+        }
+
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="table">表名</param>

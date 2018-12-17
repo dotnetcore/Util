@@ -29,6 +29,12 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="sql">Sql语句</param>
         void AppendSql( string sql );
         /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        void AppendSql( ISqlBuilder builder, string columnAlias = null );
+        /// <summary>
         /// 输出Sql
         /// </summary>
         string ToSql();

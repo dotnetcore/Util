@@ -3,7 +3,7 @@
 		<VersionMajor>1</VersionMajor>
 		<VersionMinor>0</VersionMinor>
 		<VersionPatch>11</VersionPatch>
-		<VersionQuality>20181214-1</VersionQuality>
+		<VersionQuality>20181217-1</VersionQuality>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
 		<VersionSuffix>preview-$(VersionQuality)</VersionSuffix>
 	</PropertyGroup>

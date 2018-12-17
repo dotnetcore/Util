@@ -84,6 +84,8 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
         /// <returns>表达式</returns>
         public object GetValue( Expression expression ) {
             var result = Lambda.GetValue( expression );
+            if ( result == null )
+                return null;
             var type = result.GetType();
             if( type.IsEnum )
                 return Util.Helpers.Enum.GetValue( type, result );
