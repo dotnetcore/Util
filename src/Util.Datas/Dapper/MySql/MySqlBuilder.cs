@@ -40,7 +40,7 @@ namespace Util.Datas.Dapper.MySql {
             AppendSql( result, GetWhere() );
             AppendSql( result, GetGroupBy() );
             AppendSql( result, GetOrderBy() );
-            result.Append( $"Limit {GetPager().GetSkipCount()}, {GetPager().PageSize}" );
+            result.Append( $"Limit {GetSkipCountParam()}, {GetPageSizeParam()}" );
         }
     }
 }

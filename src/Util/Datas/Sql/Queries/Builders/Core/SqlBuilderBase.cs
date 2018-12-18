@@ -1164,10 +1164,28 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         private IPager _pager;
 
         /// <summary>
-        /// 获取分页参数
+        /// 获取分页
         /// </summary>
         protected IPager GetPager() {
             return _pager;
+        }
+
+        /// <summary>
+        /// 获取分页跳过行数的参数
+        /// </summary>
+        protected string GetSkipCountParam() {
+            var paramName = ParameterManager.GenerateName();
+            ParameterManager.Add( paramName, GetPager().GetSkipCount() );
+            return paramName;
+        }
+
+        /// <summary>
+        /// 获取分页大小的参数
+        /// </summary>
+        protected string GetPageSizeParam() {
+            var paramName = ParameterManager.GenerateName();
+            ParameterManager.Add( paramName, GetPager().PageSize );
+            return paramName;
         }
 
         /// <summary>
