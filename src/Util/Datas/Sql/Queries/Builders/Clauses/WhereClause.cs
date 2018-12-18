@@ -15,9 +15,21 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// </summary>
     public class WhereClause : IWhereClause {
         /// <summary>
+        /// 方言
+        /// </summary>
+        private readonly IDialect _dialect;
+        /// <summary>
         /// 实体解析器
         /// </summary>
         private readonly IEntityResolver _resolver;
+        /// <summary>
+        /// 实体别名注册器
+        /// </summary>
+        private readonly IEntityAliasRegister _register;
+        /// <summary>
+        /// 参数管理器
+        /// </summary>
+        private readonly IParameterManager _parameterManager;
         /// <summary>
         /// 辅助操作
         /// </summary>
@@ -38,10 +50,22 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
         /// <param name="parameterManager">参数管理器</param>
-        public WhereClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, IParameterManager parameterManager ) {
+        /// <param name="condition">查询条件</param>
+        public WhereClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, IParameterManager parameterManager, ICondition condition = null ) {
+            _dialect = dialect;
             _resolver = resolver;
+            _register = register;
+            _parameterManager = parameterManager;
+            _condition = condition;
             _helper = new Helper( dialect, resolver, register, parameterManager );
             _expressionResolver = new PredicateExpressionResolver( dialect, resolver, register, parameterManager );
+        }
+
+        /// <summary>
+        /// 复制Where子句
+        /// </summary>
+        public IWhereClause Clone() {
+            return new WhereClause( _dialect, _resolver, _register, _parameterManager, new SqlCondition( _condition?.GetCondition() ) );
         }
 
         /// <summary>
@@ -424,8 +448,8 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 获取日期范围查询条件边界
         /// </summary>
-        private Boundary GetBoundary( Boundary? boundary,bool includeTime ) {
-            if ( boundary != null )
+        private Boundary GetBoundary( Boundary? boundary, bool includeTime ) {
+            if( boundary != null )
                 return boundary.SafeValue();
             if( includeTime )
                 return Boundary.Both;

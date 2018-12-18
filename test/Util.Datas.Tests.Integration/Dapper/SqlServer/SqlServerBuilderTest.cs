@@ -963,15 +963,16 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.AppendLine( "Select * " );
             result.AppendLine( "From [Test] " );
             result.AppendLine( "Order By [a] " );
-            result.Append( "Offset 0 Rows Fetch Next 20 Rows Only" );
+            result.Append( "Offset @_p_0 Rows Fetch Next @_p_1 Rows Only" );
 
             //执行
             var pager = new QueryParameter { Order = "a" };
             _builder.From( "Test" ).Page( pager );
 
             //验证
-            _output.WriteLine( _builder.ToSql() );
             Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 0, _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 20, _builder.GetParams()["@_p_1"] );
         }
 
         /// <summary>

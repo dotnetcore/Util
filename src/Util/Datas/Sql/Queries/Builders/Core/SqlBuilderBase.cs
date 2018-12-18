@@ -6,6 +6,7 @@ using Util.Datas.Matedatas;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Clauses;
+using Util.Datas.Sql.Queries.Builders.Filters;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries.Builders.Core {
@@ -102,7 +103,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         public virtual string ToDebugSql() {
             var result = ToSql();
             var parameters = GetParams();
-            foreach ( var parameter in parameters )
+            foreach( var parameter in parameters )
                 result = result.Replace( parameter.Key, SqlHelper.GetParamLiterals( parameter.Value ) );
             return result;
         }
@@ -527,7 +528,17 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取Where语句
         /// </summary>
         public virtual string GetWhere() {
-            return WhereClause.ToSql();
+            var whereClause = WhereClause.Clone();
+            AddFilters( whereClause );
+            return whereClause.ToSql();
+        }
+
+        /// <summary>
+        /// 添加过滤器列表
+        /// </summary>
+        private void AddFilters( IWhereClause whereClause ) {
+            var context = new SqlQueryContext( AliasRegister, whereClause );
+            SqlFilterCollection.Filters.ForEach( filter => filter.Filter( context ) );
         }
 
         /// <summary>
@@ -962,7 +973,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, double? min, double? max,Boundary boundary = Boundary.Both ) where TEntity : class {
+        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, double? min, double? max, Boundary boundary = Boundary.Both ) where TEntity : class {
             WhereClause.Between( expression, min, max, boundary );
             return this;
         }
@@ -974,7 +985,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, decimal? min, decimal? max,Boundary boundary = Boundary.Both ) where TEntity : class {
+        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, decimal? min, decimal? max, Boundary boundary = Boundary.Both ) where TEntity : class {
             WhereClause.Between( expression, min, max, boundary );
             return this;
         }
