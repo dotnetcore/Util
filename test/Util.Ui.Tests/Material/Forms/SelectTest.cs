@@ -378,8 +378,8 @@ namespace Util.Ui.Tests.Material.Forms {
         public void TestEnum() {
             var result = new String();
             result.Append( "<mat-select-wrapper [dataSource]=\"[" );
-            result.Append( "{'text':'女士','value':1,'sortId':1}," );
-            result.Append( "{'text':'先生','value':2,'sortId':2}" );
+            result.Append( "{'text':'女','value':1,'sortId':1}," );
+            result.Append( "{'text':'男','value':2,'sortId':2}" );
             result.Append( "]\"></mat-select-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( (Select)_component.Enum<Gender>() ) );
         }

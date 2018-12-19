@@ -161,6 +161,7 @@ namespace Util.Ui.Material.Tables.Renders {
         protected void AddRow( TagBuilder tableBuilder, string columns ) {
             var rowBuilder = new RowBuilder();
             rowBuilder.AddColumns( columns );
+            rowBuilder.OnClick( _config.GetValue( UiConst.OnClickRow ) );
             rowBuilder.AddSelected( _config.Id );
             tableBuilder.AppendContent( rowBuilder );
         }

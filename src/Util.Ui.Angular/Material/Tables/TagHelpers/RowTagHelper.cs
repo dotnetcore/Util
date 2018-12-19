@@ -14,6 +14,10 @@ namespace Util.Ui.Material.Tables.TagHelpers {
     [HtmlTargetElement( "util-table-row", ParentTag = "util-table" )]
     public class RowTagHelper : AngularTagHelperBase {
         /// <summary>
+        /// 表格标识
+        /// </summary>
+        private string _tableId;
+        /// <summary>
         /// 显示列的集合，范例：['selectCheckbox','lineNumber', 'name','nickname','mobile']
         /// </summary>
         public string Columns { get; set; }
@@ -21,13 +25,17 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// 冻结表头，默认为true
         /// </summary>
         public bool StickyHeader { get; set; }
+        /// <summary>
+        /// 行单击事件，使用row访问行对象，范例：on-click="click(row)"
+        /// </summary>
+        public string OnClick { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new RowRender( new Config( context ) );
+            return new RowRender( new Config( context ), _tableId );
         }
 
         /// <summary>
@@ -37,8 +45,10 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// <param name="output">TagHelper输出</param>
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
             var shareConfig = context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
-            if( shareConfig != null )
-                shareConfig.AutoCreateRow = false;
+            if ( shareConfig == null )
+                return;
+            _tableId = shareConfig.TableId;
+            shareConfig.AutoCreateRow = false;
         }
     }
 }
