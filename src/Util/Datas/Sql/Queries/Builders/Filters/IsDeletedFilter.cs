@@ -26,7 +26,7 @@ namespace Util.Datas.Sql.Queries.Builders.Filters {
             if( string.IsNullOrWhiteSpace( alias ) )
                 return;
             if( typeof( IDelete ).IsAssignableFrom( type ) )
-                whereClause.Where( $"{alias}.IsDeleted", 0 );
+                whereClause.Where( $"{alias}.IsDeleted", false );
         }
     }
 }

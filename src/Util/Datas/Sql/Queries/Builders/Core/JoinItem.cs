@@ -18,9 +18,10 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="schema">架构</param>
         /// <param name="alias">别名</param>
         /// <param name="raw">使用原始值</param>
-        public JoinItem( string joinType, string table, string schema = null, string alias = null, bool raw = false ) {
+        /// <param name="isSplit">是否用句点分割表名</param>
+        public JoinItem( string joinType, string table, string schema = null, string alias = null, bool raw = false, bool isSplit = true ) {
             JoinType = joinType;
-            Table = new SqlItem( table, schema, alias, raw );
+            Table = new SqlItem( table, schema, alias, raw, isSplit );
             Conditions = new List<List<OnItem>>();
         }
 

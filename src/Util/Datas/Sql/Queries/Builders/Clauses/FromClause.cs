@@ -44,7 +44,17 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
         public void From( string table, string alias = null ) {
-            _item = new SqlItem( table, alias: alias );
+            _item = CreateSqlItem( table, null, alias );
+        }
+
+        /// <summary>
+        /// 创建Sql项
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="schema">架构名</param>
+        /// <param name="alias">别名</param>
+        protected virtual SqlItem CreateSqlItem( string table, string schema,string alias ) {
+            return new SqlItem( table, schema, alias );
         }
 
         /// <summary>
@@ -55,7 +65,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
             var entity = typeof( TEntity );
             var table = _resolver.GetTableAndSchema( entity );
-            _item = new SqlItem( table, schema, alias );
+            _item = CreateSqlItem( table, schema, alias );
             _register.Register( entity, _resolver.GetAlias( entity, alias ) );
         }
 

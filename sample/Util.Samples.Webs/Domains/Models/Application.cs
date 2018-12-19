@@ -9,7 +9,7 @@ namespace Util.Samples.Webs.Domains.Models {
     /// 应用程序
     /// </summary>
     [DisplayName( "应用程序" )]
-    public class Application : AggregateRoot<Application>,  IAudited {
+    public class Application : AggregateRoot<Application>, IDelete, IAudited {
         /// <summary>
         /// 初始化应用程序
         /// </summary>

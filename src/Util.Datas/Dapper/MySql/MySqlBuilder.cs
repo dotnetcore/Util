@@ -31,6 +31,20 @@ namespace Util.Datas.Dapper.MySql {
         }
 
         /// <summary>
+        /// 创建From子句
+        /// </summary>
+        protected override IFromClause CreateFromClause() {
+            return new MySqlFromClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
+        /// 创建Join子句
+        /// </summary>
+        protected override IJoinClause CreateJoinClause() {
+            return new MySqlJoinClause( GetDialect(), EntityResolver, AliasRegister );
+        }
+
+        /// <summary>
         /// 创建分页Sql
         /// </summary>
         protected override void CreatePagerSql( StringBuilder result ) {
