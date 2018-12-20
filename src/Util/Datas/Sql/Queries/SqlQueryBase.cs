@@ -947,8 +947,9 @@ namespace Util.Datas.Sql.Queries {
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>
-        public ISqlQuery OrderBy( string order ) {
-            Builder.OrderBy( order );
+        /// <param name="tableAlias">表别名</param>
+        public ISqlQuery OrderBy( string order, string tableAlias = null ) {
+            Builder.OrderBy( order, tableAlias );
             return this;
         }
 

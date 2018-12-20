@@ -46,32 +46,34 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>
-        public void OrderBy( string order ) {
+        /// <param name="tableAlias">表别名</param>
+        public void OrderBy( string order, string tableAlias = null ) {
             if( string.IsNullOrWhiteSpace( order ) )
                 return;
-            order.Split( ',' ).ToList().ForEach( column => AddItem( column ) );
+            order.Split( ',' ).ToList().ForEach( column => AddItem( column, tableAlias: tableAlias ) );
         }
 
         /// <summary>
         /// 添加排序项
         /// </summary>
-        protected void AddItem( string column, bool desc = false, Type type = null ) {
+        protected void AddItem( string column, bool desc = false, Type type = null, string tableAlias = null ) {
             if( column.IsEmpty() )
                 return;
-            if( Exists( column ) )
+            if( Exists( column, tableAlias ) )
                 return;
-            _items.Add( new OrderByItem( column, desc, type ) );
+            _items.Add( new OrderByItem( column, desc, type, prefix: tableAlias ) );
         }
 
         /// <summary>
         /// 是否已存在
         /// </summary>
         /// <param name="column">排序列</param>
-        protected bool Exists( string column ) {
-            var item = new OrderByItem( column );
+        /// <param name="tableAlias">表别名</param>
+        protected bool Exists( string column, string tableAlias ) {
+            var item = new OrderByItem( column,prefix:tableAlias );
             return _items.Exists( t => t.Column.ToLower() == item.Column.ToLower()
-                                       && ( item.Prefix.IsEmpty() 
-                                            || t.Prefix.ToLower() == item.Prefix.ToLower() ) );
+                                       && ( item.Prefix.IsEmpty()
+                                            || t.Prefix?.ToLower() == item.Prefix?.ToLower() ) );
         }
 
         /// <summary>

@@ -193,5 +193,32 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             _clause.OrderBy( "a.Email" );
             Assert.Equal( "Order By [Email],[a].[Email]", GetSql() );
         }
+
+        /// <summary>
+        /// 测试排序 - 设置表别名
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_17() {
+            _clause.OrderBy( "a","b" );
+            Assert.Equal( "Order By [b].[a]", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 设置表别名 - 倒排序
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_18() {
+            _clause.OrderBy( "a desc", "b" );
+            Assert.Equal( "Order By [b].[a] Desc", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 设置表别名 - 多列排序
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_19() {
+            _clause.OrderBy( "a desc,c.D desc,e", "b" );
+            Assert.Equal( "Order By [b].[a] Desc,[c].[D] Desc,[b].[e]", GetSql() );
+        }
     }
 }

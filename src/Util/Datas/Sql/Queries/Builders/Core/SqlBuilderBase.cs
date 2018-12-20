@@ -1140,8 +1140,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 排序
         /// </summary>
         /// <param name="order">排序列表</param>
-        public virtual ISqlBuilder OrderBy( string order ) {
-            OrderByClause.OrderBy( order );
+        /// <param name="tableAlias">表别名</param>
+        public virtual ISqlBuilder OrderBy( string order, string tableAlias = null ) {
+            OrderByClause.OrderBy( order, tableAlias );
             return this;
         }
 

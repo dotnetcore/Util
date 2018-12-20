@@ -512,7 +512,8 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 排序
         /// </summary>
         /// <param name="order">排序列表,范例：a.Id,b.Name desc</param>
-        ISqlBuilder OrderBy( string order );
+        /// <param name="tableAlias">表别名</param>
+        ISqlBuilder OrderBy( string order, string tableAlias = null );
         /// <summary>
         /// 排序
         /// </summary>
