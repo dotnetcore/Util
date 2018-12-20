@@ -4,8 +4,7 @@
 //================================================
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { IocHelper as ioc } from './ioc-helper';
-import { formatDate } from '../common/helper';
-import { uuid } from '../common/helper';
+import { formatDate, uuid } from '../common/helper';
 
 /**
  * Http操作
@@ -118,9 +117,9 @@ export class HttpRequest<T> {
     }
 
     /**
-     * 添加Http参数,添加到url查询字符串
-     * @param data 参数对象
-     */
+    * 添加Http参数,添加到url查询字符串
+    * @param data 参数对象
+    */
     param(data): HttpRequest<T>;
     /**
      * 添加Http参数,添加到url查询字符串
@@ -130,15 +129,26 @@ export class HttpRequest<T> {
     param(name: string, value: string): HttpRequest<T>;
     param(data, value?: string): HttpRequest<T> {
         if (typeof data === "object") {
-            for (let key in data) {
-                if (data.hasOwnProperty(key))
-                    this.parameters = this.parameters.append(key, this.getValue(data[key]));
-            }
+            this.paramByObject(data);
             return this;
         }
         if (typeof data === "string" && value)
             this.parameters = this.parameters.append(data, value);
         return this;
+    }
+
+    /**
+     * 添加Http参数
+     */
+    private paramByObject(data) {
+        for (let key in data) {
+            if (data.hasOwnProperty(key)) {
+                let value = this.getValue(data[key]);
+                if (value == null)
+                    value = "";
+                this.parameters = this.parameters.append(key, value);
+            }
+        }
     }
 
     /**

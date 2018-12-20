@@ -241,17 +241,19 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
 
     /**
      * 发送查询请求
+     * @param queryUrl 查询请求地址
+     * @param param 查询参数
      */
-    query() {
-        let url = this.url || (this.baseUrl && `/api/${this.baseUrl}`);
+    query(queryUrl: string = null, param = null) {
+        let url = queryUrl || this.url || (this.baseUrl && `/api/${this.baseUrl}`);
         if (!url) {
             console.log("表格url未设置");
             return;
         }
-        this.filterParam();
+        param = param || this.queryParam;
         if (this.key)
-            this.dic.add(this.key, this.queryParam);
-        webapi.get<PagerList<T>>(url).param(this.queryParam).handle({
+            this.dic.add(this.key, param);
+        webapi.get<PagerList<T>>(url).param(param).handle({
             beforeHandler: () => { this.loading = true; return true; },
             handler: result => {
                 result = new PagerList<T>(result);
@@ -263,16 +265,6 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
             },
             completeHandler: () => this.loading = false
         });
-    }
-
-    /**
-     * 过滤参数
-     */
-    private filterParam() {
-        if (this.queryParam.keyword === null)
-            this.queryParam.keyword = "";
-        if (!this.queryParam.order)
-            this.queryParam.order = "";
     }
 
     /**
