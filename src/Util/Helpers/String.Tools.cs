@@ -137,5 +137,26 @@ namespace Util.Helpers {
         }
 
         #endregion
+
+        #region RemoveEnd(移除末尾字符串)
+
+        /// <summary>
+        /// 移除末尾字符串
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="removeValue">要移除的值</param>
+        public static string RemoveEnd( string value, string removeValue ) {
+            if( string.IsNullOrWhiteSpace( value ) )
+                return string.Empty;
+            if( string.IsNullOrWhiteSpace( removeValue ) )
+                return value.SafeString();
+            value = value.Trim();
+            removeValue = removeValue.Trim();
+            if( value.ToLower().EndsWith( removeValue.ToLower() ) )
+                return value.Remove( value.Length - removeValue.Length, removeValue.Length );
+            return value;
+        }
+
+        #endregion
     }
 }

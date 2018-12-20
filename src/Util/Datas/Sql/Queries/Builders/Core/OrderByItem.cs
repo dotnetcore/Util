@@ -21,9 +21,10 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             Raw = raw;
             if( raw )
                 return;
+            Order = Order.RemoveEnd( "asc" );
             if( Order.ToLower().EndsWith( "desc" ) ) {
                 Desc = true;
-                Order = Order.Remove( Order.Length - 4, 4 ).Trim();
+                Order = Order.RemoveEnd( "desc" );
             }
             var item = new NameItem( Order );
             Column = item.Name;

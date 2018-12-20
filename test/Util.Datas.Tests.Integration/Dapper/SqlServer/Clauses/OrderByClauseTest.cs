@@ -217,8 +217,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestOrderBy_19() {
-            _clause.OrderBy( "a desc,c.D desc,e", "b" );
-            Assert.Equal( "Order By [b].[a] Desc,[c].[D] Desc,[b].[e]", GetSql() );
+            _clause.OrderBy( "a desc,c.D DESC,e,f asc,G Asc", "b" );
+            Assert.Equal( "Order By [b].[a] Desc,[c].[D] Desc,[b].[e],[b].[f],[b].[G]", GetSql() );
         }
     }
 }
