@@ -138,6 +138,20 @@ namespace Util.Helpers {
 
         #endregion
 
+        #region FirstUpperCase(首字母大写)
+
+        /// <summary>
+        /// 首字母大写
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string FirstUpperCase( string value ) {
+            if( string.IsNullOrWhiteSpace( value ) )
+                return string.Empty;
+            return $"{value.Substring( 0, 1 ).ToUpper()}{value.Substring( 1 )}";
+        }
+
+        #endregion
+
         #region RemoveEnd(移除末尾字符串)
 
         /// <summary>
