@@ -58,5 +58,21 @@ namespace Util.Tests.Helpers {
         public void TestFirstLowerCase( string value, string result ) {
             Assert.Equal( result, Util.Helpers.String.FirstLowerCase( value ) );
         }
+
+        /// <summary>
+        /// 首字母大写
+        /// </summary>
+        [Theory]
+        [InlineData( null, "" )]
+        [InlineData( "", "" )]
+        [InlineData( " ", "" )]
+        [InlineData( "a", "A" )]
+        [InlineData( "A", "A" )]
+        [InlineData( "ab", "Ab" )]
+        [InlineData( "AB", "AB" )]
+        [InlineData( "abC", "AbC" )]
+        public void TestFirstUpperCase( string value, string result ) {
+            Assert.Equal( result, Util.Helpers.String.FirstUpperCase( value ) );
+        }
     }
 }

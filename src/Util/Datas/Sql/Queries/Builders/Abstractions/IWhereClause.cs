@@ -219,6 +219,10 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="values">值集合</param>
         void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
         /// <summary>
+        /// 复制Where子句
+        /// </summary>
+        IWhereClause Clone();
+        /// <summary>
         /// 输出Sql
         /// </summary>
         string ToSql();

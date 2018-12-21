@@ -13,7 +13,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="prefix">前缀</param>
         /// <param name="alias">别名</param>
         /// <param name="raw">使用原始值</param>
-        public SqlItem( string name, string prefix = null, string alias = null, bool raw = false ) {
+        /// <param name="isSplit">是否用句点分割名称</param>
+        public SqlItem( string name, string prefix = null, string alias = null, bool raw = false,bool isSplit = true ) {
             if( string.IsNullOrWhiteSpace( name ) )
                 return;
             Prefix = prefix;
@@ -23,26 +24,30 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
                 Name = name;
                 return;
             }
-            Resolve( name );
+            Resolve( name, isSplit );
         }
 
         /// <summary>
         /// 设置别名，返回前缀和名称
         /// </summary>
-        private void Resolve( string name ) {
+        private void Resolve( string name, bool isSplit ) {
             var pattern = @"\s+[aA][sS]\s+";
             var list = Regex.Split( name, pattern );
             if( list == null || list.Length == 0 )
                 return;
             if( list.Length == 2 )
                 Alias = list[1];
-            SetName( list[0] );
+            if ( isSplit ) {
+                SplitName( list[0] );
+                return;
+            }
+            Name = name;
         }
 
         /// <summary>
-        /// 设置名称
+        /// 分割名称
         /// </summary>
-        private void SetName( string name ) {
+        private void SplitName( string name ) {
             var result = new NameItem( name );
             if( string.IsNullOrWhiteSpace( result.Prefix ) == false )
                 Prefix = result.Prefix;

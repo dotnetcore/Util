@@ -14,13 +14,19 @@ namespace Util.Ui.Material.Tables.Renders {
         /// 配置
         /// </summary>
         private readonly IConfig _config;
+        /// <summary>
+        /// 表格标识
+        /// </summary>
+        private readonly string _tableId;
 
         /// <summary>
         /// 初始化行渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public RowRender( IConfig config ) : base( config ) {
+        /// <param name="tableId">表格标识</param>
+        public RowRender( IConfig config, string tableId ) : base( config ) {
             _config = config;
+            _tableId = tableId;
         }
 
         /// <summary>
@@ -64,6 +70,8 @@ namespace Util.Ui.Material.Tables.Renders {
         private void Config( RowBuilder builder ) {
             ConfigId( builder );
             ConfigColumns( builder );
+            ConfigEvents( builder );
+            builder.AddSelected( _tableId );
         }
 
         /// <summary>
@@ -72,6 +80,13 @@ namespace Util.Ui.Material.Tables.Renders {
         private void ConfigColumns( RowBuilder builder ) {
             if( _config.Contains( UiConst.Columns ) )
                 builder.AddColumns( _config.GetValue( UiConst.Columns ) );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( RowBuilder builder ) {
+            builder.OnClick( _config.GetValue( UiConst.OnClick ) );
         }
     }
 }

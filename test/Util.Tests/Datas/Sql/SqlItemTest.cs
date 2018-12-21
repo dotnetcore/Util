@@ -82,5 +82,27 @@ namespace Util.Tests.Datas.Sql {
             Assert.Equal( "d", item.Prefix );
             Assert.Equal( "c", item.Alias );
         }
+
+        /// <summary>
+        /// 只设置名称 - 不分割名称
+        /// </summary>
+        [Fact]
+        public void Test_8() {
+            var item = new SqlItem( "a",isSplit:false );
+            Assert.Equal( "a", item.Name );
+            Assert.True( item.Prefix.IsEmpty() );
+            Assert.True( item.Alias.IsEmpty() );
+        }
+
+        /// <summary>
+        /// 只设置名称 - 不分割名称 - 名称带句点
+        /// </summary>
+        [Fact]
+        public void Test_9() {
+            var item = new SqlItem( "a.b", isSplit: false );
+            Assert.Equal( "a.b", item.Name );
+            Assert.True( item.Prefix.IsEmpty() );
+            Assert.True( item.Alias.IsEmpty() );
+        }
     }
 }

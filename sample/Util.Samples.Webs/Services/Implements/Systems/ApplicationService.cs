@@ -1,4 +1,5 @@
-﻿using Util.Domains.Repositories;
+﻿using System;
+using Util.Domains.Repositories;
 using Util.Datas.Queries;
 using Util.Applications;
 using Util.Exceptions;

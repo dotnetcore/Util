@@ -40,7 +40,7 @@ namespace Util.Datas.Dapper.PgSql {
             AppendSql( result, GetWhere() );
             AppendSql( result, GetGroupBy() );
             AppendSql( result, GetOrderBy() );
-            result.Append( $"Limit {GetPager().PageSize} OFFSET {GetPager().GetSkipCount()}" );
+            result.Append( $"Limit {GetPageSizeParam()} OFFSET {GetSkipCountParam()}" );
         }
     }
 }

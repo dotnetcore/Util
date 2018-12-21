@@ -10,6 +10,7 @@ namespace Util.Webs.Controllers {
     /// WebApi控制器
     /// </summary>
     [Route( "api/[controller]" )]
+    [ExceptionHandler]
     [ErrorLog]
     [TraceLog]
     public abstract class WebApiControllerBase : Controller {

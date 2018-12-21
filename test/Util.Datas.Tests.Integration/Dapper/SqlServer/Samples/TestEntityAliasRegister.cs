@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 
 namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
@@ -6,6 +7,11 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
     /// 实体别名注册器
     /// </summary>
     public class TestEntityAliasRegister : IEntityAliasRegister {
+        /// <summary>
+        /// 实体别名
+        /// </summary>
+        public Dictionary<Type, string> Data { get; }
+
         /// <summary>
         /// 注册实体别名
         /// </summary>

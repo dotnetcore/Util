@@ -29,15 +29,15 @@ namespace Util.Datas.Queries.Criterias {
         /// <summary>
         /// 获取最小值
         /// </summary>
-        protected override DateTime? GetMinValue() {
-            return base.GetMinValue().SafeValue().Date;
+        protected override Expression GetMinValueExpression() {
+            return ValueExpressionHelper.CreateDateTimeExpression( GetMinValue().SafeValue().Date, GetPropertyType() );
         }
 
         /// <summary>
         /// 获取最大值
         /// </summary>
-        protected override DateTime? GetMaxValue() {
-            return base.GetMaxValue().SafeValue().Date.AddDays( 1 );
+        protected override Expression GetMaxValueExpression() {
+            return ValueExpressionHelper.CreateDateTimeExpression( GetMaxValue().SafeValue().Date.AddDays( 1 ), GetPropertyType() );
         }
     }
 }

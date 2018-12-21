@@ -66,6 +66,10 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// 冻结表头，默认为true
         /// </summary>
         public bool StickyHeader { get; set; }
+        /// <summary>
+        /// 行单击事件，使用row访问行对象，范例：on-click-row="click(row)"
+        /// </summary>
+        public string OnClickRow { get; set; }
 
         /// <summary>
         /// 获取渲染器

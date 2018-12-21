@@ -69,7 +69,18 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 表连接
         /// </summary>
         private void Join( string joinType, string table, string alias ) {
-            _params.Add( new JoinItem( joinType, table, alias: alias ) );
+            _params.Add( CreateJoinItem( joinType, table, null, alias ) );
+        }
+
+        /// <summary>
+        /// 创建连接项
+        /// </summary>
+        /// <param name="joinType">连接类型</param>
+        /// <param name="table">表名</param>
+        /// <param name="schema">架构名</param>
+        /// <param name="alias">别名</param>
+        protected virtual JoinItem CreateJoinItem( string joinType, string table, string schema, string alias ) {
+            return new JoinItem( joinType, table, schema, alias );
         }
 
         /// <summary>
@@ -87,7 +98,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         private void Join<TEntity>( string joinType, string alias, string schema ) {
             var entity = typeof( TEntity );
             var table = _resolver.GetTableAndSchema( entity );
-            _params.Add( new JoinItem( joinType, table, schema, alias ) );
+            _params.Add( CreateJoinItem( joinType, table, schema, alias ) );
             _register.Register( entity, _resolver.GetAlias( entity, alias ) );
         }
 

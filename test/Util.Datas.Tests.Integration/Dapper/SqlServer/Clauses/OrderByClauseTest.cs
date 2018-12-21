@@ -159,7 +159,66 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             _clause.OrderBy<Sample>( t => t.Email,true );
             _clause.OrderBy( "email" );
             _clause.OrderBy( "Email desc" );
-            Assert.Equal( "Order By [Email]", GetSql() );
+            _clause.OrderBy( "a.Tel" );
+            _clause.OrderBy( "A.Tel" );
+            Assert.Equal( "Order By [Email],[a].[Tel]", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 过滤列名相同的排序字段 - 1个带别名，1个不带别名
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_14() {
+            _clause.OrderBy( "a.Email" );
+            _clause.OrderBy( "Email" );
+            Assert.Equal( "Order By [a].[Email]", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 过滤列名相同的排序字段 - 2个带别名，都保留
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_15() {
+            _clause.OrderBy( "a.Email" );
+            _clause.OrderBy( "b.Email" );
+            Assert.Equal( "Order By [a].[Email],[b].[Email]", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 过滤列名相同的排序字段 - 带别名并在后面添加，保留
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_16() {
+            _clause.OrderBy( "Email" );
+            _clause.OrderBy( "a.Email" );
+            Assert.Equal( "Order By [Email],[a].[Email]", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 设置表别名
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_17() {
+            _clause.OrderBy( "a","b" );
+            Assert.Equal( "Order By [b].[a]", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 设置表别名 - 倒排序
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_18() {
+            _clause.OrderBy( "a desc", "b" );
+            Assert.Equal( "Order By [b].[a] Desc", GetSql() );
+        }
+
+        /// <summary>
+        /// 测试排序 - 设置表别名 - 多列排序
+        /// </summary>
+        [Fact]
+        public void TestOrderBy_19() {
+            _clause.OrderBy( "a desc,c.D DESC,e,f asc,G Asc", "b" );
+            Assert.Equal( "Order By [b].[a] Desc,[c].[D] Desc,[b].[e],[b].[f],[b].[G]", GetSql() );
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 using Util.Helpers;
 using Util.Properties;
 
@@ -12,6 +13,11 @@ namespace Util.Exceptions.Prompts {
         /// 异常提示组件集合
         /// </summary>
         private static readonly List<IExceptionPrompt> Prompts = new List<IExceptionPrompt>();
+
+        /// <summary>
+        /// 是否显示系统异常消息
+        /// </summary>
+        public static bool IsShowSystemException { get; set; }
 
         /// <summary>
         /// 添加异常提示
@@ -33,9 +39,11 @@ namespace Util.Exceptions.Prompts {
             exception = exception.GetRawException();
             var prompt = GetExceptionPrompt( exception );
             if( string.IsNullOrWhiteSpace( prompt ) == false )
-                return prompt;
+                return Filter( prompt );
             if( exception is Warning warning )
                 return Filter( warning.Message );
+            if( Web.Environment.IsDevelopment() || IsShowSystemException )
+                return new Warning( exception ).Message;
             return R.SystemError;
         }
 

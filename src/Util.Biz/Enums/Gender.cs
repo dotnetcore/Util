@@ -8,12 +8,12 @@ namespace Util.Biz.Enums {
         /// <summary>
         /// 女
         /// </summary>        
-        [Description( "女士" )]
+        [Description( "女" )]
         Female = 1,
         /// <summary>
         /// 男
         /// </summary>
-        [Description( "先生" )]
+        [Description( "男" )]
         Male = 2
     }
 

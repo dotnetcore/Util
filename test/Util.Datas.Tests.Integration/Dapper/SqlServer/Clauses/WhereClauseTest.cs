@@ -853,6 +853,78 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             Assert.Equal( result.ToString(), GetSql() );
         }
 
+        /// <summary>
+        /// 测试范围查询 - 日期 - 不包含时间 - 最大值为空
+        /// </summary>
+        [Fact]
+        public void TestBetween_13() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0" );
+
+            //执行
+            var min = DateTime.Parse( "2000-1-1 10:10:10" );
+            _clause.Between( "a.B", min, null, false, null );
+
+            //验证
+            Assert.Equal( DateTime.Parse( "2000-1-1" ), _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 日期 - 包含时间  - 最大值为空
+        /// </summary>
+        [Fact]
+        public void TestBetween_14() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]>=@_p_0" );
+
+            //执行
+            var min = DateTime.Parse( "2000-1-1 10:10:10" );
+            _clause.Between( "a.B", min, null, true, null );
+
+            //验证
+            Assert.Equal( min, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 日期 - 不包含时间 - 最小值为空
+        /// </summary>
+        [Fact]
+        public void TestBetween_15() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]<@_p_0" );
+
+            //执行
+            var max = DateTime.Parse( "2000-1-2 10:10:10" );
+            _clause.Between( "a.B", null, max, false, null );
+
+            //验证
+            Assert.Equal( DateTime.Parse( "2000-1-3" ), _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 测试范围查询 - 日期 - 包含时间 - 最小值为空
+        /// </summary>
+        [Fact]
+        public void TestBetween_16() {
+            //结果
+            var result = new String();
+            result.Append( "Where [a].[B]<=@_p_0" );
+
+            //执行
+            var max = DateTime.Parse( "2000-1-2 10:10:10" );
+            _clause.Between( "a.B", null, max, true, null );
+
+            //验证
+            Assert.Equal( max, _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
         #endregion
     }
 }
