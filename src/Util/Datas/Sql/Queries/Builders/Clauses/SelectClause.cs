@@ -53,22 +53,25 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="columns">列名</param>
-        public void Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
-            if( columns == null )
+        /// <param name="expression">列名表达式</param>
+        public void Select<TEntity>( Expression<Func<TEntity, object[]>> expression ) where TEntity : class {
+            if( expression == null )
                 return;
-            _columns.Add( new ColumnCollection( _resolver.GetColumns( columns ), table: typeof( TEntity ) ) );
+            _columns.Add( new ColumnCollection( _resolver.GetColumns( expression ), table: typeof( TEntity ) ) );
         }
 
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="column">列名</param>
+        /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        public void Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class {
-            if( column == null )
+        public void Select<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            if( expression == null )
                 return;
-            _columns.Add( new ColumnCollection( $"{_resolver.GetColumn( column )} As {columnAlias}", table: typeof( TEntity ) ) );
+            var column =_resolver.GetColumn( expression );
+            if ( column.Contains( "As" ) == false && string.IsNullOrWhiteSpace( columnAlias ) == false )
+                column += $" As {columnAlias}";
+            _columns.Add( new ColumnCollection( column, table: typeof( TEntity ) ) );
         }
 
         /// <summary>

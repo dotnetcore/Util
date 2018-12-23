@@ -1,4 +1,5 @@
-﻿using Util.Datas.Dapper.SqlServer;
+﻿using System.Collections.Generic;
+using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Sql.Queries.Builders.Clauses;
 using Util.Datas.Sql.Queries.Builders.Core;
 using Util.Datas.Tests.Dapper.SqlServer.Samples;
@@ -51,7 +52,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_3() {
-            _clause.Select( "a","b" );
+            _clause.Select( "a", "b" );
             Assert.Equal( "Select [b].[a]", _clause.ToSql() );
         }
 
@@ -87,7 +88,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_7() {
-            _clause.Select( "a,[b]","c" );
+            _clause.Select( "a,[b]", "c" );
             Assert.Equal( "Select [c].[a],[c].[b]", GetSql() );
         }
 
@@ -143,8 +144,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_13() {
-            _clause.Select<Sample>( t => new object[] {t.Email, t.IntValue} );
-            _clause.Select<Sample2>( t => new object[] {t.Description, t.Display} );
+            _clause.Select<Sample>( t => new object[] { t.Email, t.IntValue } );
+            _clause.Select<Sample2>( t => new object[] { t.Description, t.Display } );
             Assert.Equal( "Select [Email],[IntValue],[Description],[Display]", GetSql() );
         }
 
@@ -163,7 +164,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_15() {
-            _clause.Select( "t.[a]    As     [e]      ,        b aS          f ","d" );
+            _clause.Select( "t.[a]    As     [e]      ,        b aS          f ", "d" );
             Assert.Equal( "Select [t].[a] As [e],[d].[b] As [f]", GetSql() );
         }
 
@@ -181,7 +182,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_17() {
-            _clause.Select( "a.[b],c,[d]","o" );
+            _clause.Select( "a.[b],c,[d]", "o" );
             _clause.AppendSql( "e=1," );
             _clause.Select( "f" );
             _clause.AppendSql( "g" );
@@ -226,6 +227,35 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         public void TestSelect_21() {
             _clause.Select<Sample>( t => t.Email, "e" );
             Assert.Equal( "Select [Email] As [e]", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置列 - lambda表达式 - 以字典方式设置单个列名和列别名
+        /// </summary>
+        [Fact]
+        public void TestSelect_22() {
+            _clause.Select<Sample>( t => new Dictionary<object, string> { { t.Email, "e" } } );
+            Assert.Equal( "Select [Email] As [e]", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置列 - lambda表达式 - 以字典方式设置多个列名和列别名
+        /// </summary>
+        [Fact]
+        public void TestSelect_23() {
+            _clause.Select<Sample>( t => new Dictionary<object, string> { { t.Email, "e" }, { t.Url, "u" } } );
+            Assert.Equal( "Select [Email] As [e],[Url] As [u]", GetSql() );
+        }
+
+        /// <summary>
+        /// 设置列 - lambda表达式 - 以字典方式设置多个列名和列别名 - 元数据解析
+        /// </summary>
+        [Fact]
+        public void TestSelect_24() {
+            _clause = new SelectClause( new SqlServerDialect(), new EntityResolver(new TestEntityMatedata()), new TestEntityAliasRegister() );
+            _clause.Select<Sample>( t => new Dictionary<object, string> { { t.Email, "e" }, { t.Url, "u" } } );
+            var result = _clause.ToSql();
+            Assert.Equal( "Select [as_Sample].[t_Email] As [e],[as_Sample].[t_Url] As [u]", result );
         }
     }
 }

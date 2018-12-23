@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Matedatas;
@@ -58,12 +59,95 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取列名
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
-        /// <param name="column">列名表达式</param>
-        public string GetColumn<TEntity>( Expression<Func<TEntity, object>> column ) {
-            var name = Lambda.GetLastName( column );
+        /// <param name="expression">列名表达式</param>
+        public string GetColumn<TEntity>( Expression<Func<TEntity, object>> expression ) {
+            return GetExpressionColumn<TEntity>( expression );
+        }
+
+        /// <summary>
+        /// 获取表达式列名
+        /// </summary>
+        private string GetExpressionColumn<TEntity>( Expression expression ) {
+            if( expression == null )
+                return null;
+            switch( expression.NodeType ) {
+                case ExpressionType.Lambda:
+                    return GetExpressionColumn<TEntity>( ( (LambdaExpression)expression ).Body );
+                case ExpressionType.Convert:
+                case ExpressionType.MemberAccess:
+                    return GetSingleColumn<TEntity>( expression );
+                case ExpressionType.ListInit:
+                    var isDictionary = typeof( Dictionary<object, string> ).GetGenericTypeDefinition().IsAssignableFrom( expression.Type.GetGenericTypeDefinition() );
+                    return isDictionary ? GetDictionaryColumns<TEntity>( (ListInitExpression)expression ) : null;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取单列
+        /// </summary>
+        private string GetSingleColumn<TEntity>( Expression expression ) {
+            var name = Lambda.GetLastName( expression );
             if( _matedata == null )
                 return name;
             return _matedata.GetColumn( typeof( TEntity ), name );
+        }
+
+        /// <summary>
+        /// 获取字典多列
+        /// </summary>
+        private string GetDictionaryColumns<TEntity>( ListInitExpression expression ) {
+            var dictionary = GetDictionaryByListInitExpression( expression );
+            if ( _matedata == null )
+                return GetColumns( dictionary );
+            return GetColumnsByMatedata<TEntity>( dictionary );
+        }
+
+        /// <summary>
+        /// 获取字典
+        /// </summary>
+        private IDictionary<object, string> GetDictionaryByListInitExpression( ListInitExpression expression ) {
+            var result = new Dictionary<object, string>();
+            foreach( var elementInit in expression.Initializers ) {
+                var keyValue = GetKeyValue( elementInit.Arguments );
+                if( keyValue == null )
+                    continue;
+                var item = keyValue.SafeValue();
+                result.Add( item.Key, item.Value );
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取键值对
+        /// </summary>
+        private KeyValuePair<object, string>? GetKeyValue( IEnumerable<Expression> arguments ) {
+            if( arguments == null )
+                return null;
+            var list = arguments.ToList();
+            if( list.Count < 2 )
+                return null;
+            return new KeyValuePair<object, string>( Lambda.GetName( list[0] ), Lambda.GetValue( list[1] ).SafeString() );
+        }
+
+        /// <summary>
+        /// 通过元数据解析创建列
+        /// </summary>
+        private string GetColumnsByMatedata<TEntity>( IDictionary<object, string> dictionary ) {
+            string result = null;
+            foreach( var item in dictionary )
+                result += $"{_matedata.GetColumn( typeof( TEntity ), item.Key.SafeString() )} As {item.Value},";
+            return result?.TrimEnd( ',' );
+        }
+
+        /// <summary>
+        /// 通过字典创建列
+        /// </summary>
+        private string GetColumns( IDictionary<object,string> dictionary ) {
+            string result = null;
+            foreach( var item in dictionary )
+                result += $"{item.Key} As {item.Value},";
+            return result?.TrimEnd( ',' );
         }
 
         /// <summary>
