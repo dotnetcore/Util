@@ -209,8 +209,9 @@ namespace Util.Datas.Sql.Queries {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
-            Builder.Select( columns );
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class {
+            Builder.Select( columns, propertyAsAlias );
             return this;
         }
 

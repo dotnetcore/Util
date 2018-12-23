@@ -48,11 +48,24 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="columns">列名表达式</param>
-        public string GetColumns<TEntity>( Expression<Func<TEntity, object[]>> columns ) {
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public string GetColumns<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias ) {
             var names = Lambda.GetLastNames( columns );
-            if ( _matedata == null )
+            if( _matedata == null )
                 return names.Join();
-            return names.Select( name => _matedata.GetColumn( typeof( TEntity ), name ) ).Join();
+            return GetColumns<TEntity>( names, propertyAsAlias );
+        }
+
+        /// <summary>
+        /// 获取列名
+        /// </summary>
+        private string GetColumns<TEntity>( List<string> names, bool propertyAsAlias ) {
+            if( propertyAsAlias == false )
+                return names.Select( name => _matedata.GetColumn( typeof( TEntity ), name ) ).Join();
+            return names.Select( name => {
+                var column = _matedata.GetColumn( typeof( TEntity ), name );
+                return column == name ? column : $"{column} As {name}";
+            } ).Join();
         }
 
         /// <summary>
@@ -98,7 +111,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         private string GetDictionaryColumns<TEntity>( ListInitExpression expression ) {
             var dictionary = GetDictionaryByListInitExpression( expression );
-            if ( _matedata == null )
+            if( _matedata == null )
                 return GetColumns( dictionary );
             return GetColumnsByMatedata<TEntity>( dictionary );
         }
@@ -143,7 +156,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 通过字典创建列
         /// </summary>
-        private string GetColumns( IDictionary<object,string> dictionary ) {
+        private string GetColumns( IDictionary<object, string> dictionary ) {
             string result = null;
             foreach( var item in dictionary )
                 result += $"{item.Key} As {item.Value},";

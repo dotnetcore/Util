@@ -257,5 +257,27 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             var result = _clause.ToSql();
             Assert.Equal( "Select [as_Sample].[t_Email] As [e],[as_Sample].[t_Url] As [u]", result );
         }
+
+        /// <summary>
+        /// 设置列 - lambda表达式 - 将属性名映射为列别名
+        /// </summary>
+        [Fact]
+        public void TestSelect_25() {
+            _clause = new SelectClause( new SqlServerDialect(), new EntityResolver( new TestEntityMatedata() ), new TestEntityAliasRegister() );
+            _clause.Select<Sample>( t => new object[] { t.Email, t.IntValue },true );
+            var result = _clause.ToSql();
+            Assert.Equal( "Select [as_Sample].[t_Email] As [Email],[as_Sample].[t_IntValue] As [IntValue]", result );
+        }
+
+        /// <summary>
+        /// 设置列 - lambda表达式 - 将属性名映射为列别名 - 如果属性名和列名相同，不会生成As
+        /// </summary>
+        [Fact]
+        public void TestSelect_26() {
+            _clause = new SelectClause( new SqlServerDialect(), new EntityResolver( new TestEntityMatedata() ), new TestEntityAliasRegister() );
+            _clause.Select<Sample>( t => new object[] { t.Email, t.DecimalValue }, true );
+            var result = _clause.ToSql();
+            Assert.Equal( "Select [as_Sample].[t_Email] As [Email],[as_Sample].[DecimalValue]", result );
+        }
     }
 }

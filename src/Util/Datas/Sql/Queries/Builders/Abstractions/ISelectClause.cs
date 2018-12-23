@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Util.Datas.Sql.Queries.Builders.Abstractions {
@@ -17,7 +16,8 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        void Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class;
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        void Select<TEntity>( Expression<Func<TEntity, object[]>> columns,bool propertyAsAlias = false ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>

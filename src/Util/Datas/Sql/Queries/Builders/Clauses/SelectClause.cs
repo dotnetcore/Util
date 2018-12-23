@@ -54,10 +54,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 设置列名
         /// </summary>
         /// <param name="expression">列名表达式</param>
-        public void Select<TEntity>( Expression<Func<TEntity, object[]>> expression ) where TEntity : class {
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public void Select<TEntity>( Expression<Func<TEntity, object[]>> expression, bool propertyAsAlias = false ) where TEntity : class {
             if( expression == null )
                 return;
-            _columns.Add( new ColumnCollection( _resolver.GetColumns( expression ), table: typeof( TEntity ) ) );
+            _columns.Add( new ColumnCollection( _resolver.GetColumns( expression, propertyAsAlias ), table: typeof( TEntity ) ) );
         }
 
         /// <summary>

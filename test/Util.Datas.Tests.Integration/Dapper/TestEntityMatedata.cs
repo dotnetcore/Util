@@ -28,6 +28,8 @@ namespace Util.Datas.Tests.Dapper {
         /// <param name="entity">实体类型</param>
         /// <param name="property">属性名</param>
         public string GetColumn( Type entity, string property ) {
+            if ( property == "DecimalValue" )
+                return property;
             return $"t_{property}";
         }
     }

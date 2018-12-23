@@ -267,8 +267,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
-            SelectClause.Select( columns );
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class {
+            SelectClause.Select( columns, propertyAsAlias );
             return this;
         }
 

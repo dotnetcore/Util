@@ -67,11 +67,13 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名,范例：t => new object[] { t.Id, t.Name }</param>
-        ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class;
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="column">列名,范例：t => t.Name</param>
+        /// <param name="column">列名,范例：t => t.Name，支持字典批量设置列和列别名，
+        /// 范例：Select&lt;Sample&gt;( t => new Dictionary&lt;object, string&gt; { { t.Email, "e" }, { t.Url, "u" } } );</param>
         /// <param name="columnAlias">列别名</param>
         ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class;
         /// <summary>
