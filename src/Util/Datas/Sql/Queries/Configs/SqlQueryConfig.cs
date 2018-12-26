@@ -10,8 +10,8 @@ namespace Util.Datas.Sql.Queries.Configs {
         /// </summary>
         public DatabaseType DatabaseType { get; set; } = DatabaseType.SqlServer;
         /// <summary>
-        /// 是否在执行之后清空Sql和参数，默认为false
+        /// 是否在执行之后清空Sql和参数，默认为 true
         /// </summary>
-        public bool IsClearAfterExecution { get; set; }
+        public bool IsClearAfterExecution { get; set; } = true;
     }
 }
