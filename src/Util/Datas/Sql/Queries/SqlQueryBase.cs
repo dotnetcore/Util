@@ -975,20 +975,6 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
-        /// 获取行数
-        /// </summary>
-        protected virtual int GetCount( IDbConnection connection ) {
-            return Util.Helpers.Convert.ToInt( ToScalar( connection, Builder.ToCountSql(), Params ) );
-        }
-
-        /// <summary>
-        /// 获取行数
-        /// </summary>
-        protected virtual async Task<int> GetCountAsync( IDbConnection connection ) {
-            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, Builder.ToCountSql(), Params ) );
-        }
-
-        /// <summary>
         /// 写日志
         /// </summary>
         /// <param name="sql">Sql语句</param>

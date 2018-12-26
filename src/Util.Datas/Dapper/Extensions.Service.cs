@@ -2,7 +2,6 @@
 using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Util.Datas.Dapper.Configs;
 using Util.Datas.Dapper.Handlers;
 using Util.Datas.Dapper.MySql;
 using Util.Datas.Dapper.PgSql;
@@ -12,6 +11,7 @@ using Util.Datas.Matedatas;
 using Util.Datas.Sql;
 using Util.Datas.Sql.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Configs;
 
 namespace Util.Datas.Dapper {
     /// <summary>
@@ -44,17 +44,17 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TDatabase">IDatabase实现类型，提供数据库连接</typeparam>
         /// <typeparam name="TEntityMatedata">IEntityMatedata实现类型,提供实体元数据解析</typeparam>
         /// <param name="services">服务集合</param>
-        /// <param name="action">Sql查询配置</param>
-        public static IServiceCollection AddSqlQuery<TDatabase, TEntityMatedata>( this IServiceCollection services, Action<SqlQueryConfig> action = null )
+        /// <param name="configAction">Sql查询配置</param>
+        public static IServiceCollection AddSqlQuery<TDatabase, TEntityMatedata>( this IServiceCollection services, Action<SqlQueryConfig> configAction = null )
             where TDatabase : class, IDatabase
             where TEntityMatedata : class, IEntityMatedata {
-            return AddSqlQuery( services, action, typeof( TDatabase ), typeof( TEntityMatedata ) );
+            return AddSqlQuery( services, configAction, typeof( TDatabase ), typeof( TEntityMatedata ) );
         }
 
         /// <summary>
         /// 注册Sql查询服务
         /// </summary>
-        private static IServiceCollection AddSqlQuery( IServiceCollection services, Action<SqlQueryConfig> action, Type database, Type entityMatedata ) {
+        private static IServiceCollection AddSqlQuery( IServiceCollection services, Action<SqlQueryConfig> configAction, Type database, Type entityMatedata ) {
             if( database != null ) {
                 services.TryAddScoped( database );
                 services.TryAddScoped( typeof( IDatabase ), t => t.GetService( database ) );
@@ -63,7 +63,10 @@ namespace Util.Datas.Dapper {
             if( entityMatedata != null )
                 services.TryAddScoped( typeof( IEntityMatedata ), t => t.GetService( entityMatedata ) );
             var config = new SqlQueryConfig();
-            action?.Invoke( config );
+            if ( configAction != null ) {
+                configAction.Invoke( config );
+                services.Configure( configAction );
+            }
             AddSqlBuilder( services, config );
             RegisterTypeHandlers();
             return services;
