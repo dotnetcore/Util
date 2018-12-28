@@ -1,18 +1,20 @@
-﻿namespace Util.Datas.Sql {
+﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
+
+namespace Util.Datas.Dapper.PgSql {
     /// <summary>
-    /// Sql辅助操作
+    /// PgSql参数字面值解析器
     /// </summary>
-    public class SqlHelper {
+    public class PgSqlParamLiteralsResolver : IParamLiteralsResolver {
         /// <summary>
         /// 获取参数字面值
         /// </summary>
         /// <param name="value">参数值</param>
-        public static string GetParamLiterals( object value ) {
+        public string GetParamLiterals( object value ) {
             if( value == null )
                 return "''";
             switch( value.GetType().Name.ToLower() ) {
                 case "boolean":
-                    return Util.Helpers.Convert.ToBool( value ) ? "1" : "0";
+                    return Helpers.Convert.ToBool( value ) ? "true" : "false";
                 case "int16":
                 case "int32":
                 case "int64":

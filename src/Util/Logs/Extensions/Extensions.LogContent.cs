@@ -12,7 +12,6 @@ namespace Util.Logs.Extensions {
         public static void Append( this ILogContent content, StringBuilder result, string value ) {
             if( string.IsNullOrWhiteSpace( value ) )
                 return;
-            result.Append( "   " );
             result.Append( value );
         }
 

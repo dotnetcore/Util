@@ -69,7 +69,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public string ToString( IDbConnection connection = null ) {
-            return ToScalar( connection, GetSql(), Params ).SafeString();
+            return ToScalar( connection, GetSql(), Params, GetDebugSql() ).SafeString();
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public async Task<string> ToStringAsync( IDbConnection connection = null ) {
-            var result = await ToScalarAsync( connection, GetSql(), Params );
+            var result = await ToScalarAsync( connection, GetSql(), Params, GetDebugSql() );
             return result.SafeString();
         }
 
@@ -86,7 +86,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public int ToInt( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToInt( ToScalar( connection, GetSql(), Params ) );
+            return Util.Helpers.Convert.ToInt( ToScalar( connection, GetSql(), Params, GetDebugSql() ) );
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public async Task<int> ToIntAsync( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, GetSql(), Params ) );
+            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, GetSql(), Params, GetDebugSql() ) );
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public int? ToIntOrNull( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection, GetSql(), Params ) );
+            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection, GetSql(), Params, GetDebugSql() ) );
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="connection">数据库连接</param>
         public async Task<int?> ToIntOrNullAsync( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToIntOrNull( await ToScalarAsync( connection, GetSql(), Params ) );
+            return Util.Helpers.Convert.ToIntOrNull( await ToScalarAsync( connection, GetSql(), Params,GetDebugSql() ) );
         }
 
         /// <summary>
@@ -119,14 +119,16 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="connection">数据库连接</param>
         /// <param name="sql">Sql语句</param>
         /// <param name="parameters">参数</param>
-        protected abstract object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters );
+        /// <param name="debugSql">调试Sql语句</param>
+        protected abstract object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters, string debugSql );
         /// <summary>
         /// 获取单值
         /// </summary>
         /// <param name="connection">数据库连接</param>
         /// <param name="sql">Sql语句</param>
         /// <param name="parameters">参数</param>
-        protected abstract Task<object> ToScalarAsync( IDbConnection connection, string sql, IDictionary<string, object> parameters );
+        /// <param name="debugSql">调试Sql语句</param>
+        protected abstract Task<object> ToScalarAsync( IDbConnection connection, string sql, IDictionary<string, object> parameters, string debugSql );
         /// <summary>
         /// 获取单个实体
         /// </summary>
@@ -979,6 +981,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         /// <param name="parameters">参数</param>
-        protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters );
+        /// <param name="debugSql">调试Sql语句</param>
+        protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters, string debugSql );
     }
 }

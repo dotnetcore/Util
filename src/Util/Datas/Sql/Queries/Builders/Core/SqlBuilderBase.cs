@@ -8,6 +8,7 @@ using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Clauses;
 using Util.Datas.Sql.Queries.Builders.Filters;
 using Util.Domains.Repositories;
+using Util.Helpers;
 
 namespace Util.Datas.Sql.Queries.Builders.Core {
     /// <summary>
@@ -82,6 +83,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             _whereClause = CreatewWhereClause();
             _groupByClause = CreateGroupByClause();
             _orderByClause = CreateOrderByClause();
+            _pager = null;
         }
 
         #endregion
@@ -101,11 +103,34 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 生成调试Sql语句
         /// </summary>
         public virtual string ToDebugSql() {
-            var result = ToSql();
+            return GetDebugSql( ToSql() );
+        }
+
+        /// <summary>
+        /// 获取调试Sql
+        /// </summary>
+        private string GetDebugSql( string sql ) {
             var parameters = GetParams();
             foreach( var parameter in parameters )
-                result = result.Replace( parameter.Key, SqlHelper.GetParamLiterals( parameter.Value ) );
-            return result;
+                sql = Regex.Replace( sql, $@"{parameter.Key}\b", ParamLiteralsResolver.GetParamLiterals( parameter.Value ) );
+            return sql;
+        }
+
+        /// <summary>
+        /// 参数字面值解析器
+        /// </summary>
+        private IParamLiteralsResolver _paramLiteralsResolver;
+
+        /// <summary>
+        /// 参数字面值解析器
+        /// </summary>
+        protected IParamLiteralsResolver ParamLiteralsResolver => _paramLiteralsResolver ?? ( _paramLiteralsResolver = GetParamLiteralsResolver() );
+
+        /// <summary>
+        /// 获取参数字面值解析器
+        /// </summary>
+        protected virtual IParamLiteralsResolver GetParamLiteralsResolver() {
+            return new ParamLiteralsResolver();
         }
 
         #endregion
@@ -194,6 +219,17 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建分页Sql
         /// </summary>
         protected abstract void CreatePagerSql( StringBuilder result );
+
+        #endregion
+
+        #region ToCountDebugSql(生成获取行数调试Sql语句)
+
+        /// <summary>
+        /// 生成获取行数调试Sql语句
+        /// </summary>
+        public virtual string ToCountDebugSql() {
+            return GetDebugSql( ToCountSql() );
+        }
 
         #endregion
 

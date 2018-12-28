@@ -26,6 +26,10 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         string ToSql();
         /// <summary>
+        /// 生成获取行数调试Sql语句
+        /// </summary>
+        string ToCountDebugSql();
+        /// <summary>
         /// 生成获取行数Sql
         /// </summary>
         string ToCountSql();

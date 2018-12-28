@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Util.Datas.Sql;
+using System.Text;
 using Util.Exceptions;
+using Util.Helpers;
 using Util.Logs.Contents;
 using Util.Logs.Properties;
 
@@ -85,7 +85,7 @@ namespace Util.Logs.Extensions {
         public static ILog Params( this ILog log, IDictionary<string, object> dictionary ) {
             if( dictionary == null || dictionary.Count == 0 )
                 return log;
-            foreach ( var item in dictionary )
+            foreach( var item in dictionary )
                 Params( log, item.Key, item.Value.SafeString() );
             return log;
         }
@@ -125,7 +125,10 @@ namespace Util.Logs.Extensions {
         public static ILog SqlParams( this ILog log, IDictionary<string, object> dictionary ) {
             if( dictionary == null || dictionary.Count == 0 )
                 return log;
-            return SqlParams( log, dictionary.Select( t => $"{t.Key} : {SqlHelper.GetParamLiterals( t.Value )}" ).Join() );
+            var result = new StringBuilder();
+            foreach ( var item in dictionary )
+                result.AppendLine( $"   {item.Key} : {item.Value.SafeString()} : {item.Value?.GetType()}," );
+            return SqlParams( log, result.ToString().RemoveEnd( $",{Common.Line}" ) );
         }
 
         /// <summary>

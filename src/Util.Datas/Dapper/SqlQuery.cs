@@ -33,8 +33,8 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 获取单值
         /// </summary>
-        protected override object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters ) {
-            WriteTraceLog( sql, parameters );
+        protected override object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters, string debugSql ) {
+            WriteTraceLog( sql, parameters, debugSql );
             var result = GetConnection( connection ).ExecuteScalar( sql, parameters );
             ClearAfterExecution();
             return result;
@@ -66,11 +66,8 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 获取单值
         /// </summary>
-        /// <param name="connection">数据库连接</param>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="parameters">参数</param>
-        protected override async Task<object> ToScalarAsync( IDbConnection connection, string sql,IDictionary<string, object> parameters ) {
-            WriteTraceLog( sql, parameters );
+        protected override async Task<object> ToScalarAsync( IDbConnection connection, string sql,IDictionary<string, object> parameters, string debugSql ) {
+            WriteTraceLog( sql, parameters, debugSql );
             var result =  await GetConnection( connection ).ExecuteScalarAsync( sql, parameters );
             ClearAfterExecution();
             return result;
@@ -83,7 +80,7 @@ namespace Util.Datas.Dapper {
         /// <param name="connection">数据库连接</param>
         public override TResult To<TResult>( IDbConnection connection = null ) {
             var sql = GetSql();
-            WriteTraceLog( sql, Params );
+            WriteTraceLog( sql, Params,GetDebugSql() );
             var result = GetConnection( connection ).QueryFirstOrDefault<TResult>( sql, Params );
             ClearAfterExecution();
             return result;
@@ -96,7 +93,7 @@ namespace Util.Datas.Dapper {
         /// <param name="connection">数据库连接</param>
         public override async Task<TResult> ToAsync<TResult>( IDbConnection connection = null ) {
             var sql = GetSql();
-            WriteTraceLog( sql, Params );
+            WriteTraceLog( sql, Params,GetDebugSql() );
             var result = await GetConnection( connection ).QueryFirstOrDefaultAsync<TResult>( sql, Params );
             ClearAfterExecution();
             return result;
@@ -109,7 +106,7 @@ namespace Util.Datas.Dapper {
         /// <param name="connection">数据库连接</param>
         public override List<TResult> ToList<TResult>( IDbConnection connection = null ) {
             var sql = GetSql();
-            WriteTraceLog( sql, Params );
+            WriteTraceLog( sql, Params,GetDebugSql() );
             var result = GetConnection( connection ).Query<TResult>( sql, Params ).ToList();
             ClearAfterExecution();
             return result;
@@ -122,7 +119,7 @@ namespace Util.Datas.Dapper {
         /// <param name="connection">数据库连接</param>
         public override async Task<List<TResult>> ToListAsync<TResult>( IDbConnection connection = null ) {
             var sql = GetSql();
-            WriteTraceLog( sql, Params );
+            WriteTraceLog( sql, Params,GetDebugSql() );
             var result = ( await GetConnection( connection ).QueryAsync<TResult>( sql, Params ) ).ToList();
             ClearAfterExecution();
             return result;
@@ -146,7 +143,7 @@ namespace Util.Datas.Dapper {
         /// </summary>
         protected int GetCount( IDbConnection connection ) {
             var sql = Builder.ToCountSql();
-            WriteTraceLog( sql, Params );
+            WriteTraceLog( sql, Params, Builder.ToCountDebugSql() );
             var result = GetConnection( connection ).ExecuteScalar( sql, Params );
             return Util.Helpers.Convert.ToInt( result );
         }
@@ -188,7 +185,7 @@ namespace Util.Datas.Dapper {
         /// </summary>
         protected async Task<int> GetCountAsync( IDbConnection connection ) {
             var sql = Builder.ToCountSql();
-            WriteTraceLog( sql, Params );
+            WriteTraceLog( sql, Params, Builder.ToCountDebugSql() );
             var result = await GetConnection( connection ).ExecuteScalarAsync( sql, Params );
             return Util.Helpers.Convert.ToInt( result );
         }
@@ -207,15 +204,13 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 写日志
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句</param> 
         /// <param name="parameters">参数</param>
-        protected override void WriteTraceLog( string sql, IDictionary<string, object> parameters ) {
+        /// <param name="debugSql">调试Sql语句</param>
+        protected override void WriteTraceLog( string sql,IDictionary<string, object> parameters, string debugSql ) {
             var log = GetLog();
             if( log.IsTraceEnabled == false )
                 return;
-            var debugSql = sql;
-            foreach( var parameter in parameters )
-                debugSql = debugSql.Replace( parameter.Key, SqlHelper.GetParamLiterals( parameter.Value ) );
             log.Class( GetType().FullName )
                 .Caption( "SqlQuery查询调试:" )
                 .Sql( "原始Sql:" )

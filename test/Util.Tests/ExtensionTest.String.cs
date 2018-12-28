@@ -17,8 +17,12 @@ namespace Util.Tests {
         [InlineData( "aabbcc", "ab", "aabbcc" )]
         [InlineData( "abc", "b", "abc" )]
         [InlineData( "abcb", "bc", "abcb" )]
-        [InlineData( " abc ", "bc ", "a" )]
-        [InlineData( " abc ", " Bc", "a" )]
+        [InlineData( "abc", "bc", "a" )]
+        [InlineData( "abc ", "bc ", "a" )]
+        [InlineData( "abc ", "bc", "abc " )]
+        [InlineData( "abc", "bc ", "abc" )]
+        [InlineData( "abc ", "Bc", "abc " )]
+        [InlineData( "abc ", "Bc ", "a" )]
         public void TestRemoveEnd( string input,string remove,string result ) {
             Assert.Equal( result, input.RemoveEnd( remove ) );
         }

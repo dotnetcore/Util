@@ -1102,5 +1102,37 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
             Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
+
+        /// <summary>
+        /// 测试输出的调试SQL
+        /// </summary>
+        [Fact]
+        public void Test_50() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Test] " );
+            result.Append( "Where [A]=1 And [B]=2 And [C]=3 And [D]=4 And [E]=5 And [F]=6 And " );
+            result.Append( "[G]=7 And [H]=8 And [I]=9 And [J]=10 And [K]=11 And [L]=12" );
+
+            //执行
+            _builder.Select( "*" )
+                .From( "Test" )
+                .Where( "A", 1 )
+                .Where( "B", 2 )
+                .Where( "C", 3 )
+                .Where( "D", 4 )
+                .Where( "E", 5 )
+                .Where( "F", 6 )
+                .Where( "G", 7 )
+                .Where( "H", 8 )
+                .Where( "I", 9 )
+                .Where( "J", 10 )
+                .Where( "K", 11 )
+                .Where( "L", 12 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToDebugSql() );
+        }
     }
 }
