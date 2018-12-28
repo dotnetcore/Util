@@ -50,13 +50,13 @@ namespace Util.Samples.Webs {
 
             //添加工作单元
             //====== 支持Sql Server 2012+ ==========
-            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
             //======= 支持Sql Server 2005+ ==========
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( builder => {
             //    builder.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ), option => option.UseRowNumberForPaging() );
             //} );
             //======= 支持PgSql =======
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
+            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
             //======= 支持MySql =======
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
 

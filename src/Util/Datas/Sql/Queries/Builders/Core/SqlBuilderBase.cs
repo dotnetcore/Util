@@ -84,6 +84,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             _groupByClause = CreateGroupByClause();
             _orderByClause = CreateOrderByClause();
             _pager = null;
+            _skipCountParam = null;
+            _pageSizeParam = null;
         }
 
         #endregion
@@ -562,12 +564,19 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// Where语句
+        /// </summary>
+        private string _where;
+        /// <summary>
         /// 获取Where语句
         /// </summary>
         public virtual string GetWhere() {
+            if ( string.IsNullOrWhiteSpace( _where ) == false )
+                return _where;
             var whereClause = WhereClause.Clone();
             AddFilters( whereClause );
-            return whereClause.ToSql();
+            _where = whereClause.ToSql();
+            return _where;
         }
 
         /// <summary>
@@ -1220,21 +1229,33 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 分页跳过行数参数名
+        /// </summary>
+        private string _skipCountParam;
+        /// <summary>
         /// 获取分页跳过行数的参数
         /// </summary>
         protected string GetSkipCountParam() {
-            var paramName = ParameterManager.GenerateName();
-            ParameterManager.Add( paramName, GetPager().GetSkipCount() );
-            return paramName;
+            if ( string.IsNullOrWhiteSpace( _skipCountParam ) == false )
+                return _skipCountParam;
+            _skipCountParam = ParameterManager.GenerateName();
+            ParameterManager.Add( _skipCountParam, GetPager().GetSkipCount() );
+            return _skipCountParam;
         }
 
+        /// <summary>
+        /// 分页大小参数名
+        /// </summary>
+        private string _pageSizeParam;
         /// <summary>
         /// 获取分页大小的参数
         /// </summary>
         protected string GetPageSizeParam() {
-            var paramName = ParameterManager.GenerateName();
-            ParameterManager.Add( paramName, GetPager().PageSize );
-            return paramName;
+            if( string.IsNullOrWhiteSpace( _pageSizeParam ) == false )
+                return _pageSizeParam;
+            _pageSizeParam = ParameterManager.GenerateName();
+            ParameterManager.Add( _pageSizeParam, GetPager().PageSize );
+            return _pageSizeParam;
         }
 
         /// <summary>
