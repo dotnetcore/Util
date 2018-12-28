@@ -86,6 +86,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             _pager = null;
             _skipCountParam = null;
             _pageSizeParam = null;
+            _where = null;
         }
 
         #endregion

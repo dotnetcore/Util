@@ -37,9 +37,9 @@ namespace Util.Samples.Webs.Apis.Systems {
         [HttpGet]
         public override async Task<IActionResult> PagerQueryAsync( ApplicationQuery query ) {
             var result = await SqlQuery
-                .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled },true )
+                .Select<Application>( t => new object[] {t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled},true )
                 .From<Application>( "a" )
-                .Or<Application>( t => t.Code.Contains( query.Keyword ), t => t.Name.Contains( query.Keyword ), t => t.Comment.Contains( query.Keyword ) )
+                .Or<Application>( t => t.Code.Contains( query.Keyword ), t => t.Name.Contains( query.Keyword ),t => t.Comment.Contains( query.Keyword ) )
                 .ToPagerListAsync<ApplicationDto>( query );
             return Success( result );
         }

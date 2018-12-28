@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
+using Util.Helpers;
 
 namespace Util.Datas.Sql.Queries {
     /// <summary>
@@ -58,6 +60,30 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 在执行之后清空Sql和参数
+        /// </summary>
+        protected void ClearAfterExecution() {
+            if( SqlQueryConfig == null )
+                SqlQueryConfig = GetConfig();
+            if( SqlQueryConfig.IsClearAfterExecution == false )
+                return;
+            Clear();
+        }
+
+        /// <summary>
+        /// 获取配置
+        /// </summary>
+        private SqlQueryConfig GetConfig() {
+            try {
+                var options = Ioc.Create<IOptionsSnapshot<SqlQueryConfig>>();
+                return options.Value;
+            }
+            catch {
+                return new SqlQueryConfig();
+            }
+        }
+
+        /// <summary>
         /// 获取调试Sql语句
         /// </summary>
         public string GetDebugSql() {
@@ -79,70 +105,15 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
-        /// 获取字符串
+        /// 获取单值
         /// </summary>
         /// <param name="connection">数据库连接</param>
-        public string ToString( IDbConnection connection = null ) {
-            return ToScalar( connection, GetSql(), Params, GetDebugSql() ).SafeString();
-        }
-
-        /// <summary>
-        /// 获取字符串
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public async Task<string> ToStringAsync( IDbConnection connection = null ) {
-            var result = await ToScalarAsync( connection, GetSql(), Params, GetDebugSql() );
-            return result.SafeString();
-        }
-
-        /// <summary>
-        /// 获取整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public int ToInt( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToInt( ToScalar( connection, GetSql(), Params, GetDebugSql() ) );
-        }
-
-        /// <summary>
-        /// 获取整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public async Task<int> ToIntAsync( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, GetSql(), Params, GetDebugSql() ) );
-        }
-
-        /// <summary>
-        /// 获取可空整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public int? ToIntOrNull( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection, GetSql(), Params, GetDebugSql() ) );
-        }
-
-        /// <summary>
-        /// 获取可空整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public async Task<int?> ToIntOrNullAsync( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToIntOrNull( await ToScalarAsync( connection, GetSql(), Params,GetDebugSql() ) );
-        }
-
+        protected abstract object ToScalar( IDbConnection connection );
         /// <summary>
         /// 获取单值
         /// </summary>
         /// <param name="connection">数据库连接</param>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="parameters">参数</param>
-        /// <param name="debugSql">调试Sql语句</param>
-        protected abstract object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters, string debugSql );
-        /// <summary>
-        /// 获取单值
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="parameters">参数</param>
-        /// <param name="debugSql">调试Sql语句</param>
-        protected abstract Task<object> ToScalarAsync( IDbConnection connection, string sql, IDictionary<string, object> parameters, string debugSql );
+        protected abstract Task<object> ToScalarAsync( IDbConnection connection );
         /// <summary>
         /// 获取单个实体
         /// </summary>
@@ -197,6 +168,100 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="pageSize">每页显示行数</param>
         /// <param name="connection">数据库连接</param>
         public abstract Task<PagerList<TResult>> ToPagerListAsync<TResult>( int page, int pageSize, IDbConnection connection = null );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract PagerList<TResult> PagerQuery<TResult>( Func<List<TResult>> func, IPager parameter, IDbConnection connection = null );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func,IPager parameter, IDbConnection connection = null );
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <param name="func">查询操作</param>
+        /// <param name="connection">数据库连接</param>
+        public TResult Query<TResult>( Func<IDbConnection, string, IDictionary<string, object>, TResult> func, IDbConnection connection = null ) {
+            var sql = GetSql();
+            WriteTraceLog( sql, Params, GetDebugSql() );
+            var result = func( GetConnection( connection ), sql, Params );
+            ClearAfterExecution();
+            return result;
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <param name="func">查询操作</param>
+        /// <param name="connection">数据库连接</param>
+        public async Task<TResult> QueryAsync<TResult>( Func<IDbConnection, string, IDictionary<string, object>, Task<TResult>> func, IDbConnection connection = null ) {
+            var sql = GetSql();
+            WriteTraceLog( sql, Params, GetDebugSql() );
+            var result = await func( GetConnection( connection ), sql, Params );
+            ClearAfterExecution();
+            return result;
+        }
+
+
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public string ToString( IDbConnection connection = null ) {
+            return ToScalar( connection ).SafeString();
+        }
+
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<string> ToStringAsync( IDbConnection connection = null ) {
+            var result = await ToScalarAsync( connection );
+            return result.SafeString();
+        }
+
+        /// <summary>
+        /// 获取整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public int ToInt( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToInt( ToScalar( connection ) );
+        }
+
+        /// <summary>
+        /// 获取整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<int> ToIntAsync( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection ) );
+        }
+
+        /// <summary>
+        /// 获取可空整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public int? ToIntOrNull( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection ) );
+        }
+
+        /// <summary>
+        /// 获取可空整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<int?> ToIntOrNullAsync( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToIntOrNull( await ToScalarAsync( connection ) );
+        }
 
         /// <summary>
         /// 获取数据库连接

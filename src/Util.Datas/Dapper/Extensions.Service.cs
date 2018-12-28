@@ -17,7 +17,7 @@ namespace Util.Datas.Dapper {
     /// <summary>
     /// 服务扩展
     /// </summary>
-    public static class Extensions {
+    public static partial class Extensions {
         /// <summary>
         /// 注册Sql查询服务
         /// </summary>
