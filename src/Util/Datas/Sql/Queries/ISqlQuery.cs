@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries {
@@ -12,6 +13,11 @@ namespace Util.Datas.Sql.Queries {
     /// Sql查询对象
     /// </summary>
     public interface ISqlQuery {
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="configAction">配置操作</param>
+        void Config( Action<SqlQueryConfig> configAction );
         /// <summary>
         /// 清空并初始化，用于多次执行不同Sql语句，当执行完一个Sql语句后，清空即可继续使用
         /// </summary>
@@ -173,6 +179,12 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendJoin( string sql );
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendJoin( ISqlBuilder builder, string alias );
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -190,6 +202,12 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendLeftJoin( string sql );
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendLeftJoin( ISqlBuilder builder, string alias );
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -206,6 +224,12 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendRightJoin( string sql );
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendRightJoin( ISqlBuilder builder, string alias );
         /// <summary>
         /// 设置连接条件
         /// </summary>

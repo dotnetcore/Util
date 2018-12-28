@@ -126,6 +126,12 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendJoin( string sql );
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder AppendJoin( ISqlBuilder builder, string alias );
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -143,6 +149,12 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendLeftJoin( string sql );
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder AppendLeftJoin( ISqlBuilder builder, string alias );
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -159,6 +171,12 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendRightJoin( string sql );
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder AppendRightJoin( ISqlBuilder builder, string alias );
         /// <summary>
         /// 设置连接条件
         /// </summary>

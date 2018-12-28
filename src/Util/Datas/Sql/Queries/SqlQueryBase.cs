@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries {
@@ -28,6 +29,10 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// Sql查询配置
+        /// </summary>
+        protected SqlQueryConfig SqlQueryConfig { get; set; }
+        /// <summary>
         /// Sql生成器
         /// </summary>
         protected ISqlBuilder Builder { get; }
@@ -35,6 +40,15 @@ namespace Util.Datas.Sql.Queries {
         /// 参数列表
         /// </summary>
         protected IDictionary<string, object> Params => Builder.GetParams();
+
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="configAction">配置操作</param>
+        public void Config( Action<SqlQueryConfig> configAction ) {
+            SqlQueryConfig = new SqlQueryConfig();
+            configAction?.Invoke( SqlQueryConfig );
+        }
 
         /// <summary>
         /// 清空并初始化
@@ -305,6 +319,16 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendJoin( ISqlBuilder builder, string alias ) {
+            Builder.AppendJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -334,6 +358,16 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendLeftJoin( ISqlBuilder builder, string alias ) {
+            Builder.AppendLeftJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -359,6 +393,16 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句</param>
         public ISqlQuery AppendRightJoin( string sql ) {
             Builder.AppendRightJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendRightJoin( ISqlBuilder builder, string alias ) {
+            Builder.AppendRightJoin( builder, alias );
             return this;
         }
 

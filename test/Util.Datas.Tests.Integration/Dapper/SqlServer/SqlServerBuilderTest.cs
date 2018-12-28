@@ -1104,7 +1104,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 测试输出的调试SQL
+        /// 添加Join子句 - Sql生成器
         /// </summary>
         [Fact]
         public void Test_50() {
@@ -1112,27 +1112,20 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             var result = new String();
             result.AppendLine( "Select * " );
             result.AppendLine( "From [Test] " );
-            result.Append( "Where [A]=1 And [B]=2 And [C]=3 And [D]=4 And [E]=5 And [F]=6 And " );
-            result.Append( "[G]=7 And [H]=8 And [I]=9 And [J]=10 And [K]=11 And [L]=12" );
+            result.AppendLine( "Join (Select * " );
+            result.AppendLine( "From [Test2] " );
+            result.AppendLine( "Where [Name]=@_p_0) As [t] " );
+            result.Append( "Where [Age]=@_p_1" );
 
             //执行
-            _builder.Select( "*" )
-                .From( "Test" )
-                .Where( "A", 1 )
-                .Where( "B", 2 )
-                .Where( "C", 3 )
-                .Where( "D", 4 )
-                .Where( "E", 5 )
-                .Where( "F", 6 )
-                .Where( "G", 7 )
-                .Where( "H", 8 )
-                .Where( "I", 9 )
-                .Where( "J", 10 )
-                .Where( "K", 11 )
-                .Where( "L", 12 );
+            var builder2 = _builder.New().From( "Test2" ).Where( "Name", "a" );
+            _builder.Select( "*" ).From( "Test" ).AppendJoin( builder2, "t" ).Where( "Age", 1 );
 
             //验证
-            Assert.Equal( result.ToString(), _builder.ToDebugSql() );
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
     }
 }

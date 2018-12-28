@@ -453,6 +453,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendJoin( ISqlBuilder builder, string alias ) {
+            JoinClause.AppendJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -482,6 +492,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendLeftJoin( ISqlBuilder builder, string alias ) {
+            JoinClause.AppendLeftJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -507,6 +527,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="sql">Sql语句</param>
         public virtual ISqlBuilder AppendRightJoin( string sql ) {
             JoinClause.AppendRightJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendRightJoin( ISqlBuilder builder, string alias ) {
+            JoinClause.AppendRightJoin( builder, alias );
             return this;
         }
 

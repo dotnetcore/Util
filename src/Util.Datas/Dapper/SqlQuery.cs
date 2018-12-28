@@ -44,8 +44,9 @@ namespace Util.Datas.Dapper {
         /// 在执行之后清空Sql和参数
         /// </summary>
         protected void ClearAfterExecution() {
-            var config = GetConfig();
-            if( config.IsClearAfterExecution == false )
+            if( SqlQueryConfig == null )
+                SqlQueryConfig = GetConfig();
+            if( SqlQueryConfig.IsClearAfterExecution == false )
                 return;
             Clear();
         }
