@@ -12,7 +12,7 @@ namespace Util.Applications {
         /// 创建
         /// </summary>
         /// <param name="request">创建参数</param>
-        public string Create( TCreateRequest request ) {
+        public virtual string Create( TCreateRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
             var entity = ToEntityFromCreateRequest( request );
@@ -89,7 +89,7 @@ namespace Util.Applications {
         /// 修改
         /// </summary>
         /// <param name="request">修改参数</param>
-        public void Update( TUpdateRequest request ) {
+        public virtual void Update( TUpdateRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
             var entity = ToEntityFromUpdateRequest( request );
@@ -192,7 +192,7 @@ namespace Util.Applications {
         /// 保存
         /// </summary>
         /// <param name="request">参数</param>
-        public void Save( TRequest request ) {
+        public virtual void Save( TRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
             SaveBefore( request );
