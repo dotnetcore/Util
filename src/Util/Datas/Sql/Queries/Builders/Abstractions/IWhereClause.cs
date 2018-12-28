@@ -19,6 +19,11 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="condition">查询条件</param>
         void Or( ICondition condition );
         /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件</param>
+        void Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions );
+        /// <summary>
         /// 设置查询条件
         /// </summary>
         /// <param name="condition">查询条件</param>

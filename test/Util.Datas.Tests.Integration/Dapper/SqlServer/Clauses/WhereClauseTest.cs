@@ -64,13 +64,85 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         #region Or(连接查询条件)
 
         /// <summary>
-        /// 连接查询条件
+        /// Or查询条件
         /// </summary>
         [Fact]
         public void TestOr() {
             _clause.Where( "Age", 1 );
             _clause.Or( new LessCondition( "a", "@a" ) );
             Assert.Equal( "Where ([Age]=@_p_0 Or a<@a)", GetSql() );
+        }
+
+        /// <summary>
+        /// Or查询条件 - lambda - 一个条件
+        /// </summary>
+        [Fact]
+        public void TestOr_2() {
+            //结果
+            var result = new String();
+            result.Append( "Where [Email] In (@_p_0,@_p_1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.Or<Sample>( t => list.Contains( t.Email ) );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// Or查询条件 - lambda - 2个条件
+        /// </summary>
+        [Fact]
+        public void TestOr_3() {
+            //结果
+            var result = new String();
+            result.Append( "Where ([Email] In (@_p_0,@_p_1) Or [Url]=@_p_2)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.Or<Sample>( t => list.Contains( t.Email ), t => t.Url == "a" );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// Or查询条件 - lambda - 2个条件 - 参数值为空时不添加条件
+        /// </summary>
+        [Fact]
+        public void TestOr_4() {
+            //结果
+            var result = new String();
+            result.Append( "Where [Email] In (@_p_0,@_p_1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.Or<Sample>( t => list.Contains( t.Email ), t => t.Url == "" );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// Or查询条件 - lambda - And和Or混合添加条件
+        /// </summary>
+        [Fact]
+        public void TestOr_5() {
+            //结果
+            var result = new String();
+            result.Append( "Where (([Email]=@_p_0 Or " );
+            result.Append( "[Email] In (@_p_1,@_p_2)) Or [Url]=@_p_3) " );
+            result.Append( "And [Url]=@_p_4" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _clause.Where<Sample>( t => t.Email == "b" );
+            _clause.Or<Sample>( t => list.Contains( t.Email ), t => t.Url == "a" );
+            _clause.Where<Sample>( t => t.Url == "c" );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
         }
 
         #endregion

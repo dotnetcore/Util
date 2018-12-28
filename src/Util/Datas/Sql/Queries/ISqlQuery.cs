@@ -260,6 +260,11 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="condition">查询条件</param>
         ISqlQuery Or( ICondition condition );
         /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件</param>
+        ISqlQuery Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions );
+        /// <summary>
         /// 设置查询条件
         /// </summary>
         /// <param name="condition">查询条件</param>

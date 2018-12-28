@@ -30,18 +30,5 @@ namespace Util.Samples.Webs.Apis.Systems {
         /// Sql查询对象
         /// </summary>
         public ISqlQuery SqlQuery { get; }
-
-        /// <summary>
-        /// 测试Sql查询对象
-        /// </summary>
-        [HttpGet]
-        public override async Task<IActionResult> PagerQueryAsync( ApplicationQuery query ) {
-            var result = await SqlQuery
-                .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled },true )
-                .From<Application>( "a" )
-                .WhereIfNotEmpty<Application>( t => t.Code.Contains( query.Keyword ) )
-                .ToPagerListAsync<ApplicationDto>( query );
-            return Success( result );
-        }
     }
 }

@@ -457,6 +457,15 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件</param>
+        public ISqlQuery Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            Builder.Or( conditions );
+            return this;
+        }
+
+        /// <summary>
         /// 设置查询条件
         /// </summary>
         /// <param name="condition">查询条件</param>

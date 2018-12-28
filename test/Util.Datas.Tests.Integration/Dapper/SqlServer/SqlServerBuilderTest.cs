@@ -1127,5 +1127,26 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
             Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
+
+        /// <summary>
+        /// 设置Or条件 - lambda
+        /// </summary>
+        [Fact]
+        public void Test_51() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Sample] As [s] " );
+            result.Append( "Where [s].[Email] In (@_p_0,@_p_1)" );
+
+            //执行
+            var list = new List<string> { "a", "b" };
+            _builder.From<Sample>( "s" ).Or<Sample>( t => list.Contains( t.Email ) );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
+        }
     }
 }
