@@ -126,9 +126,31 @@ namespace Util.Logs.Extensions {
             if( dictionary == null || dictionary.Count == 0 )
                 return log;
             var result = new StringBuilder();
-            foreach ( var item in dictionary )
-                result.AppendLine( $"   {item.Key} : {item.Value.SafeString()} : {item.Value?.GetType()}," );
+            foreach( var item in dictionary )
+                result.AppendLine( $"   {item.Key} : {GetParamLiterals( item.Value )} : {item.Value?.GetType()}," );
             return SqlParams( log, result.ToString().RemoveEnd( $",{Common.Line}" ) );
+        }
+
+        /// <summary>
+        /// 获取参数字面值
+        /// </summary>
+        /// <param name="value">参数值</param>
+        private static string GetParamLiterals( object value ) {
+            if( value == null )
+                return "''";
+            switch( value.GetType().Name.ToLower() ) {
+                case "boolean":
+                    return Helpers.Convert.ToBool( value ) ? "1" : "0";
+                case "int16":
+                case "int32":
+                case "int64":
+                case "single":
+                case "double":
+                case "decimal":
+                    return value.SafeString();
+                default:
+                    return $"'{value}'";
+            }
         }
 
         /// <summary>

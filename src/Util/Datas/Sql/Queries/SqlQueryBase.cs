@@ -531,6 +531,15 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件,如果表达式中的值为空，则忽略该查询条件</param>
+        public ISqlQuery OrIfNotEmpty<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            Builder.OrIfNotEmpty( conditions );
+            return this;
+        }
+
+        /// <summary>
         /// 设置查询条件
         /// </summary>
         /// <param name="condition">查询条件</param>
