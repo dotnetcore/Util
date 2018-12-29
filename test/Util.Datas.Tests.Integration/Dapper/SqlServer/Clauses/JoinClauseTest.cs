@@ -20,7 +20,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 测试初始化
         /// </summary>
         public JoinClauseTest() {
-            _clause = new JoinClause( new SqlServerDialect(), new EntityResolver(),new EntityAliasRegister() );
+            _clause = new JoinClause( new SqlServerBuilder(),  new SqlServerDialect(), new EntityResolver(),new EntityAliasRegister() );
         }
 
         /// <summary>

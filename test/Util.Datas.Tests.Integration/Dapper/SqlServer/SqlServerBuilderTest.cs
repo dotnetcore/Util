@@ -1054,7 +1054,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 添加Select子句 - 添加Sql生成器 - 不带别名
+        /// 添加Select子句 - 添加Sql生成器 - 别名为空
         /// </summary>
         [Fact]
         public void Test_48() {
@@ -1069,7 +1069,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
 
             //执行
             var builder2 = _builder.New().AppendSelect( "Count(*)" ).From( "Test2" ).Where( "Name", "a" );
-            _builder.Select( "*" ).AppendSelect("(").AppendSelect( builder2 ).AppendSelect( ") As testCount" ).From( "Test" ).Where( "Age", 1 );
+            _builder.Select( "*" ).AppendSelect("(").AppendSelect( builder2,"" ).AppendSelect( ") As testCount" ).From( "Test" ).Where( "Age", 1 );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
@@ -1147,6 +1147,59 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( result.ToString(), _builder.ToSql() );
             Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
             Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 添加Select子句 - 委托
+        /// </summary>
+        [Fact]
+        public void Test_52() {
+            //结果
+            var result = new String();
+            result.Append( "Select *," );
+            result.AppendLine( "(Select Count(*) " );
+            result.AppendLine( "From [Test2] " );
+            result.AppendLine( "Where [Name]=@_p_0) As [testCount] " );
+            result.AppendLine( "From [Test] " );
+            result.Append( "Where [Age]=@_p_1" );
+
+            //执行
+            _builder.Select( "*" ).AppendSelect( builder => {
+                    builder.AppendSelect( "Count(*)" ).From( "Test2" ).Where( "Name", "a" );
+                }, "testCount" )
+            .From( "Test" ).Where( "Age", 1 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 添加Join子句 - 委托
+        /// </summary>
+        [Fact]
+        public void Test_53() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [Test] " );
+            result.AppendLine( "Join (Select * " );
+            result.AppendLine( "From [Test2] " );
+            result.AppendLine( "Where [Name]=@_p_0) As [t] " );
+            result.Append( "Where [Age]=@_p_1" );
+
+            //执行
+            _builder.Select( "*" ).From( "Test" ).AppendJoin( builder => {
+                builder.From( "Test2" ).Where( "Name", "a" );
+            }, "t" ).Where( "Age", 1 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
     }
 }

@@ -282,7 +282,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建Select子句
         /// </summary>
         protected virtual ISelectClause CreateSelectClause() {
-            return new SelectClause( GetDialect(), EntityResolver, AliasRegister );
+            return new SelectClause( this, GetDialect(), EntityResolver, AliasRegister );
         }
 
         /// <summary>
@@ -336,8 +336,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="columnAlias">列别名</param>
-        public virtual ISqlBuilder AppendSelect( ISqlBuilder builder, string columnAlias = null ) {
+        public virtual ISqlBuilder AppendSelect( ISqlBuilder builder, string columnAlias ) {
             SelectClause.AppendSql( builder, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder AppendSelect( Action<ISqlBuilder> action, string columnAlias ) {
+            SelectClause.AppendSql( action, columnAlias );
             return this;
         }
 
@@ -414,7 +424,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建Join子句
         /// </summary>
         protected virtual IJoinClause CreateJoinClause() {
-            return new JoinClause( GetDialect(), EntityResolver, AliasRegister );
+            return new JoinClause( this, GetDialect(), EntityResolver, AliasRegister );
         }
 
         /// <summary>
@@ -464,6 +474,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendJoin( Action<ISqlBuilder> action, string alias ) {
+            JoinClause.AppendJoin( action, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -503,6 +523,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendLeftJoin( Action<ISqlBuilder> action, string alias ) {
+            JoinClause.AppendLeftJoin( action, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -538,6 +568,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="alias">表别名</param>
         public virtual ISqlBuilder AppendRightJoin( ISqlBuilder builder, string alias ) {
             JoinClause.AppendRightJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public ISqlBuilder AppendRightJoin( Action<ISqlBuilder> action, string alias ) {
+            JoinClause.AppendRightJoin( action, alias );
             return this;
         }
 
@@ -602,7 +642,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取Where语句
         /// </summary>
         public virtual string GetWhere() {
-            if ( string.IsNullOrWhiteSpace( _where ) == false )
+            if( string.IsNullOrWhiteSpace( _where ) == false )
                 return _where;
             var whereClause = WhereClause.Clone();
             AddFilters( whereClause );
@@ -1285,7 +1325,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取分页跳过行数的参数
         /// </summary>
         protected string GetSkipCountParam() {
-            if ( string.IsNullOrWhiteSpace( _skipCountParam ) == false )
+            if( string.IsNullOrWhiteSpace( _skipCountParam ) == false )
                 return _skipCountParam;
             _skipCountParam = ParameterManager.GenerateName();
             ParameterManager.Add( _skipCountParam, GetPager().GetSkipCount() );
