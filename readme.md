@@ -134,8 +134,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Docker
 
 6. SDK及Runtime
-  - 当前SDK 64位版本：[Sdk v2.1.500](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.500-windows-x64-installer)，开发机器安装
-  - 当前Runtime 64位版本：[Runtime v2.1.6](https://www.microsoft.com/net/download/thank-you/dotnet-runtime-2.1.6-windows-x64-installer)，服务器安装
+  - 当前SDK 64位版本：[Sdk v2.2.101](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.101-windows-x64-installer)，开发机器安装
+  - 当前Runtime 64位版本：[Runtime v2.2.0](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.0-windows-x64-installer)，服务器安装
 
 7. 单元测试及模拟框架
   - XUnit
@@ -367,6 +367,7 @@ https://github.com/dotnetcore/util/
 
 - 2017年7月21日，将.net core升级到2.0 Preview 2。
 - 2018年6月12日，将angular和material升级到6.x。
+- 2018年12月30日，将.net core升级到2.2。
 
 ## 更新计划
 
