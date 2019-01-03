@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Biz.Payments\02-Util.Biz.Payments.csproj" />
+    <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
   </ItemGroup>
 
 </Project>
