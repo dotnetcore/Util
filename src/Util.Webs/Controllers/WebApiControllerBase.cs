@@ -56,7 +56,7 @@ namespace Util.Webs.Controllers {
         /// 返回失败消息
         /// </summary>
         /// <param name="message">消息</param>
-        protected IActionResult Fail( string message ) {
+        protected virtual IActionResult Fail( string message ) {
             return new Result( StateCode.Fail, message );
         }
     }

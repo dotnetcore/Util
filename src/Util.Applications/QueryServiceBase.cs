@@ -66,7 +66,7 @@ namespace Util.Applications {
         /// <summary>
         /// 获取全部
         /// </summary>
-        public List<TDto> GetAll() {
+        public virtual List<TDto> GetAll() {
             return _store.FindAll().Select( ToDto ).ToList();
         }
 
@@ -117,7 +117,7 @@ namespace Util.Applications {
         /// 查询
         /// </summary>
         /// <param name="parameter">查询参数</param>
-        public async Task<List<TDto>> QueryAsync( TQueryParameter parameter ) {
+        public virtual async Task<List<TDto>> QueryAsync( TQueryParameter parameter ) {
             if( parameter == null )
                 return new List<TDto>();
             return ( await ExecuteQuery( parameter ).ToListAsync() ).Select( ToDto ).ToList();
@@ -127,7 +127,7 @@ namespace Util.Applications {
         /// 查询
         /// </summary>
         /// <param name="parameter">查询参数</param>
-        public List<TDto> Query( TQueryParameter parameter ) {
+        public virtual List<TDto> Query( TQueryParameter parameter ) {
             if( parameter == null )
                 return new List<TDto>();
             return ExecuteQuery( parameter ).ToList().Select( ToDto ).ToList();
@@ -148,7 +148,9 @@ namespace Util.Applications {
         /// 创建查询对象
         /// </summary>
         /// <param name="parameter">查询参数</param>
-        protected abstract IQueryBase<TEntity> CreateQuery( TQueryParameter parameter );
+        protected virtual IQueryBase<TEntity> CreateQuery( TQueryParameter parameter ) {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 过滤
@@ -173,7 +175,7 @@ namespace Util.Applications {
         /// 分页查询
         /// </summary>
         /// <param name="parameter">查询参数</param>
-        public PagerList<TDto> PagerQuery( TQueryParameter parameter ) {
+        public virtual PagerList<TDto> PagerQuery( TQueryParameter parameter ) {
             if( parameter == null )
                 return new PagerList<TDto>();
             var query = CreateQuery( parameter );
@@ -186,7 +188,7 @@ namespace Util.Applications {
         /// 分页查询
         /// </summary>
         /// <param name="parameter">查询参数</param>
-        public async Task<PagerList<TDto>> PagerQueryAsync( TQueryParameter parameter ) {
+        public virtual async Task<PagerList<TDto>> PagerQueryAsync( TQueryParameter parameter ) {
             if( parameter == null )
                 return new PagerList<TDto>();
             var query = CreateQuery( parameter );

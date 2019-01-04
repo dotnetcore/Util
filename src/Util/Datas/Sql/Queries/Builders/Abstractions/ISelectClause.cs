@@ -16,7 +16,8 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        void Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class;
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        void Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>
@@ -33,7 +34,13 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="columnAlias">列别名</param>
-        void AppendSql( ISqlBuilder builder, string columnAlias = null );
+        void AppendSql( ISqlBuilder builder, string columnAlias );
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        void AppendSql( Action<ISqlBuilder> action, string columnAlias );
         /// <summary>
         /// 输出Sql
         /// </summary>

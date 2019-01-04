@@ -8,7 +8,7 @@ namespace Util.Helpers {
     /// </summary>
     public static class Thread {
         /// <summary>
-        /// 执行多个操作，多个操作将同时执行
+        /// 执行多个操作，等待所有操作完成
         /// </summary>
         /// <param name="actions">操作集合</param>
         public static void WaitAll( params Action[] actions ) {
@@ -18,6 +18,14 @@ namespace Util.Helpers {
             foreach ( var action in actions )
                 tasks.Add( Task.Factory.StartNew( action, TaskCreationOptions.None ) );
             Task.WaitAll( tasks.ToArray() );
+        }
+
+        /// <summary>
+        /// 并发执行多个操作
+        /// </summary>
+        /// <param name="actions">操作集合</param>
+        public static void ParallelExecute( params Action[] actions ) {
+            Parallel.Invoke( actions );
         }
     }
 }

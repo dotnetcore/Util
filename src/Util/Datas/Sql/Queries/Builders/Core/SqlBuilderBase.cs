@@ -8,6 +8,7 @@ using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Clauses;
 using Util.Datas.Sql.Queries.Builders.Filters;
 using Util.Domains.Repositories;
+using Util.Helpers;
 
 namespace Util.Datas.Sql.Queries.Builders.Core {
     /// <summary>
@@ -82,6 +83,10 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             _whereClause = CreatewWhereClause();
             _groupByClause = CreateGroupByClause();
             _orderByClause = CreateOrderByClause();
+            _pager = null;
+            _skipCountParam = null;
+            _pageSizeParam = null;
+            _where = null;
         }
 
         #endregion
@@ -101,11 +106,34 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 生成调试Sql语句
         /// </summary>
         public virtual string ToDebugSql() {
-            var result = ToSql();
+            return GetDebugSql( ToSql() );
+        }
+
+        /// <summary>
+        /// 获取调试Sql
+        /// </summary>
+        private string GetDebugSql( string sql ) {
             var parameters = GetParams();
             foreach( var parameter in parameters )
-                result = result.Replace( parameter.Key, SqlHelper.GetParamLiterals( parameter.Value ) );
-            return result;
+                sql = Regex.Replace( sql, $@"{parameter.Key}\b", ParamLiteralsResolver.GetParamLiterals( parameter.Value ) );
+            return sql;
+        }
+
+        /// <summary>
+        /// 参数字面值解析器
+        /// </summary>
+        private IParamLiteralsResolver _paramLiteralsResolver;
+
+        /// <summary>
+        /// 参数字面值解析器
+        /// </summary>
+        protected IParamLiteralsResolver ParamLiteralsResolver => _paramLiteralsResolver ?? ( _paramLiteralsResolver = GetParamLiteralsResolver() );
+
+        /// <summary>
+        /// 获取参数字面值解析器
+        /// </summary>
+        protected virtual IParamLiteralsResolver GetParamLiteralsResolver() {
+            return new ParamLiteralsResolver();
         }
 
         #endregion
@@ -197,6 +225,17 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
+        #region ToCountDebugSql(生成获取行数调试Sql语句)
+
+        /// <summary>
+        /// 生成获取行数调试Sql语句
+        /// </summary>
+        public virtual string ToCountDebugSql() {
+            return GetDebugSql( ToCountSql() );
+        }
+
+        #endregion
+
         #region ToCountSql(生成获取行数Sql)
 
         /// <summary>
@@ -243,7 +282,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建Select子句
         /// </summary>
         protected virtual ISelectClause CreateSelectClause() {
-            return new SelectClause( GetDialect(), EntityResolver, AliasRegister );
+            return new SelectClause( this, GetDialect(), EntityResolver, AliasRegister );
         }
 
         /// <summary>
@@ -267,8 +306,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
-            SelectClause.Select( columns );
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public virtual ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class {
+            SelectClause.Select( columns, propertyAsAlias );
             return this;
         }
 
@@ -296,8 +336,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="columnAlias">列别名</param>
-        public virtual ISqlBuilder AppendSelect( ISqlBuilder builder, string columnAlias = null ) {
+        public virtual ISqlBuilder AppendSelect( ISqlBuilder builder, string columnAlias ) {
             SelectClause.AppendSql( builder, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder AppendSelect( Action<ISqlBuilder> action, string columnAlias ) {
+            SelectClause.AppendSql( action, columnAlias );
             return this;
         }
 
@@ -374,7 +424,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建Join子句
         /// </summary>
         protected virtual IJoinClause CreateJoinClause() {
-            return new JoinClause( GetDialect(), EntityResolver, AliasRegister );
+            return new JoinClause( this, GetDialect(), EntityResolver, AliasRegister );
         }
 
         /// <summary>
@@ -414,6 +464,26 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendJoin( ISqlBuilder builder, string alias ) {
+            JoinClause.AppendJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendJoin( Action<ISqlBuilder> action, string alias ) {
+            JoinClause.AppendJoin( action, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -443,6 +513,26 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendLeftJoin( ISqlBuilder builder, string alias ) {
+            JoinClause.AppendLeftJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendLeftJoin( Action<ISqlBuilder> action, string alias ) {
+            JoinClause.AppendLeftJoin( action, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -468,6 +558,26 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="sql">Sql语句</param>
         public virtual ISqlBuilder AppendRightJoin( string sql ) {
             JoinClause.AppendRightJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendRightJoin( ISqlBuilder builder, string alias ) {
+            JoinClause.AppendRightJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public ISqlBuilder AppendRightJoin( Action<ISqlBuilder> action, string alias ) {
+            JoinClause.AppendRightJoin( action, alias );
             return this;
         }
 
@@ -525,12 +635,19 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// Where语句
+        /// </summary>
+        private string _where;
+        /// <summary>
         /// 获取Where语句
         /// </summary>
         public virtual string GetWhere() {
+            if( string.IsNullOrWhiteSpace( _where ) == false )
+                return _where;
             var whereClause = WhereClause.Clone();
             AddFilters( whereClause );
-            return whereClause.ToSql();
+            _where = whereClause.ToSql();
+            return _where;
         }
 
         /// <summary>
@@ -563,6 +680,24 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="condition">查询条件</param>
         public ISqlBuilder Or( ICondition condition ) {
             WhereClause.Or( condition );
+            return this;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件</param>
+        public ISqlBuilder Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            WhereClause.Or( conditions );
+            return this;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件,如果表达式中的值为空，则忽略该查询条件</param>
+        public ISqlBuilder OrIfNotEmpty<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            WhereClause.OrIfNotEmpty( conditions );
             return this;
         }
 
@@ -1183,21 +1318,33 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 分页跳过行数参数名
+        /// </summary>
+        private string _skipCountParam;
+        /// <summary>
         /// 获取分页跳过行数的参数
         /// </summary>
         protected string GetSkipCountParam() {
-            var paramName = ParameterManager.GenerateName();
-            ParameterManager.Add( paramName, GetPager().GetSkipCount() );
-            return paramName;
+            if( string.IsNullOrWhiteSpace( _skipCountParam ) == false )
+                return _skipCountParam;
+            _skipCountParam = ParameterManager.GenerateName();
+            ParameterManager.Add( _skipCountParam, GetPager().GetSkipCount() );
+            return _skipCountParam;
         }
 
+        /// <summary>
+        /// 分页大小参数名
+        /// </summary>
+        private string _pageSizeParam;
         /// <summary>
         /// 获取分页大小的参数
         /// </summary>
         protected string GetPageSizeParam() {
-            var paramName = ParameterManager.GenerateName();
-            ParameterManager.Add( paramName, GetPager().PageSize );
-            return paramName;
+            if( string.IsNullOrWhiteSpace( _pageSizeParam ) == false )
+                return _pageSizeParam;
+            _pageSizeParam = ParameterManager.GenerateName();
+            ParameterManager.Add( _pageSizeParam, GetPager().PageSize );
+            return _pageSizeParam;
         }
 
         /// <summary>

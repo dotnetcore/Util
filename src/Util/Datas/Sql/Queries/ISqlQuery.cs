@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries {
@@ -12,6 +13,11 @@ namespace Util.Datas.Sql.Queries {
     /// Sql查询对象
     /// </summary>
     public interface ISqlQuery {
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="configAction">配置操作</param>
+        void Config( Action<SqlQueryConfig> configAction );
         /// <summary>
         /// 清空并初始化，用于多次执行不同Sql语句，当执行完一个Sql语句后，清空即可继续使用
         /// </summary>
@@ -24,6 +30,36 @@ namespace Util.Datas.Sql.Queries {
         /// 创建Sql生成器
         /// </summary>
         ISqlBuilder NewBuilder();
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <param name="func">查询操作</param>
+        /// <param name="connection">数据库连接</param>
+        TResult Query<TResult>( Func<IDbConnection, string, IDictionary<string, object>, TResult> func, IDbConnection connection = null );
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <param name="func">查询操作</param>
+        /// <param name="connection">数据库连接</param>
+        Task<TResult> QueryAsync<TResult>( Func<IDbConnection, string, IDictionary<string, object>, Task<TResult>> func, IDbConnection connection = null );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        PagerList<TResult> PagerQuery<TResult>( Func<List<TResult>> func, IPager parameter, IDbConnection connection = null );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func, IPager parameter, IDbConnection connection = null );
         /// <summary>
         /// 获取字符串
         /// </summary>
@@ -118,11 +154,13 @@ namespace Util.Datas.Sql.Queries {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名,范例：t => new object[] { t.Id, t.Name }</param>
-        ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class;
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="column">列名,范例：t => t.Name</param>
+        /// <param name="column">列名,范例：t => t.Name，支持字典批量设置列和列别名，
+        /// 范例：Select&lt;Sample&gt;( t => new Dictionary&lt;object, string&gt; { { t.Email, "e" }, { t.Url, "u" } } );</param>
         /// <param name="columnAlias">列别名</param>
         ISqlQuery Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class;
         /// <summary>
@@ -135,7 +173,13 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="columnAlias">列别名</param>
-        ISqlQuery AppendSelect( ISqlBuilder builder, string columnAlias = null );
+        ISqlQuery AppendSelect( ISqlBuilder builder, string columnAlias );
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlQuery AppendSelect( Action<ISqlBuilder> action, string columnAlias );
         /// <summary>
         /// 设置表名
         /// </summary>
@@ -171,6 +215,18 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendJoin( string sql );
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendJoin( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendJoin( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -188,6 +244,18 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendLeftJoin( string sql );
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendLeftJoin( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendLeftJoin( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -204,6 +272,18 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlQuery AppendRightJoin( string sql );
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendRightJoin( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlQuery AppendRightJoin( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 设置连接条件
         /// </summary>
@@ -233,6 +313,16 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="condition">查询条件</param>
         ISqlQuery Or( ICondition condition );
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件</param>
+        ISqlQuery Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions );
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件,如果表达式中的值为空，则忽略该查询条件</param>
+        ISqlQuery OrIfNotEmpty<TEntity>( params Expression<Func<TEntity, bool>>[] conditions );
         /// <summary>
         /// 设置查询条件
         /// </summary>

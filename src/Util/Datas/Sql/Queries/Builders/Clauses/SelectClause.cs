@@ -10,6 +10,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// </summary>
     public class SelectClause : ISelectClause {
         /// <summary>
+        /// Sql生成器
+        /// </summary>
+        private readonly ISqlBuilder _sqlBuilder;
+        /// <summary>
         /// 方言
         /// </summary>
         private readonly IDialect _dialect;
@@ -29,10 +33,12 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 初始化Select子句
         /// </summary>
+        /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体注册器</param>
-        public SelectClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
+        public SelectClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
+            _sqlBuilder = sqlBuilder;
             _columns = new List<ColumnCollection>();
             _dialect = dialect;
             _resolver = resolver;
@@ -53,22 +59,26 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="columns">列名</param>
-        public void Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
-            if( columns == null )
+        /// <param name="expression">列名表达式</param>
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public void Select<TEntity>( Expression<Func<TEntity, object[]>> expression, bool propertyAsAlias = false ) where TEntity : class {
+            if( expression == null )
                 return;
-            _columns.Add( new ColumnCollection( _resolver.GetColumns( columns ), table: typeof( TEntity ) ) );
+            _columns.Add( new ColumnCollection( _resolver.GetColumns( expression, propertyAsAlias ), table: typeof( TEntity ) ) );
         }
 
         /// <summary>
         /// 设置列名
         /// </summary>
-        /// <param name="column">列名</param>
+        /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        public void Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class {
-            if( column == null )
+        public void Select<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            if( expression == null )
                 return;
-            _columns.Add( new ColumnCollection( $"{_resolver.GetColumn( column )} As {columnAlias}", table: typeof( TEntity ) ) );
+            var column = _resolver.GetColumn( expression );
+            if( column.Contains( "As" ) == false && string.IsNullOrWhiteSpace( columnAlias ) == false )
+                column += $" As {columnAlias}";
+            _columns.Add( new ColumnCollection( column, table: typeof( TEntity ) ) );
         }
 
         /// <summary>
@@ -86,13 +96,26 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="columnAlias">列别名</param>
-        public void AppendSql( ISqlBuilder builder, string columnAlias = null ) {
+        public void AppendSql( ISqlBuilder builder, string columnAlias ) {
             if( builder == null )
                 return;
             var result = builder.ToSql();
             if( string.IsNullOrWhiteSpace( columnAlias ) == false )
                 result = $"({result}) As {_dialect.SafeName( columnAlias )}";
             AppendSql( result );
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        public void AppendSql( Action<ISqlBuilder> action, string columnAlias ) {
+            if ( action == null )
+                return;
+            var builder = _sqlBuilder.New();
+            action( builder );
+            AppendSql( builder, columnAlias );
         }
 
         /// <summary>

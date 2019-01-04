@@ -1,7 +1,7 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Util.Domains.Repositories;
-using Util.Datas.Queries;
 using Util.Applications;
+using Util.Datas.Sql.Queries;
 using Util.Exceptions;
 using Util.Maps;
 using Util.Samples.Webs.Datas;
@@ -22,15 +22,21 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="applicationRepository">应用程序仓储</param>
-        public ApplicationService( ISampleUnitOfWork unitOfWork, IApplicationRepository applicationRepository )
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public ApplicationService( ISampleUnitOfWork unitOfWork, IApplicationRepository applicationRepository, ISqlQuery sqlQuery )
             : base( unitOfWork, applicationRepository ) {
             ApplicationRepository = applicationRepository;
+            SqlQuery = sqlQuery;
         }
 
         /// <summary>
         /// 应用程序仓储
         /// </summary>
         public IApplicationRepository ApplicationRepository { get; set; }
+        /// <summary>
+        /// Sql查询对象
+        /// </summary>
+        public ISqlQuery SqlQuery { get; }
 
         /// <summary>
         /// 转换为数据传输对象
@@ -53,12 +59,15 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         }
 
         /// <summary>
-        /// 创建查询对象
+        /// 分页查询
         /// </summary>
-        /// <param name="param">应用程序查询实体</param>
-        protected override IQueryBase<Application> CreateQuery( ApplicationQuery param ) {
-            return new Query<Application>( param )
-                .Or( t => t.Code.Contains( param.Keyword ), t => t.Name.Contains( param.Keyword ), t => t.Comment.Contains( param.Keyword ) );
+        /// <param name="query">查询参数</param>
+        public override async Task<PagerList<ApplicationDto>> PagerQueryAsync( ApplicationQuery query ) {
+            return await SqlQuery
+                .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled,t.CreationTime }, true )
+                .From<Application>( "a" )
+                .OrIfNotEmpty<Application>( t => t.Code.Contains( query.Keyword ), t => t.Name.Contains( query.Keyword ), t => t.Comment.Contains( query.Keyword ) )
+                .ToPagerListAsync<ApplicationDto>( query );
         }
 
         /// <summary>

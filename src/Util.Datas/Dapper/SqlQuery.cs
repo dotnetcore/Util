@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,20 +32,15 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 获取单值
         /// </summary>
-        protected override object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters ) {
-            WriteTraceLog( sql, parameters );
-            return GetConnection( connection ).ExecuteScalar( sql, parameters );
+        protected override object ToScalar( IDbConnection connection ) {
+            return Query( ( con, sql, sqlParmas ) => con.ExecuteScalar( sql, sqlParmas ), connection );
         }
 
         /// <summary>
         /// 获取单值
         /// </summary>
-        /// <param name="connection">数据库连接</param>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="parameters">参数</param>
-        protected override async Task<object> ToScalarAsync( IDbConnection connection, string sql,IDictionary<string, object> parameters ) {
-            WriteTraceLog( sql, parameters );
-            return await GetConnection( connection ).ExecuteScalarAsync( sql, parameters );
+        protected override async Task<object> ToScalarAsync( IDbConnection connection ) {
+            return await QueryAsync( async ( con, sql, sqlParmas ) => await con.ExecuteScalarAsync( sql, sqlParmas ), connection );
         }
 
         /// <summary>
@@ -53,9 +49,7 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override TResult To<TResult>( IDbConnection connection = null ) {
-            var sql = GetSql();
-            WriteTraceLog( sql, Params );
-            return GetConnection( connection ).QueryFirstOrDefault<TResult>( sql, Params );
+            return Query( ( con, sql, sqlParmas ) => con.QueryFirstOrDefault<TResult>( sql, sqlParmas ), connection );
         }
 
         /// <summary>
@@ -64,9 +58,7 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override async Task<TResult> ToAsync<TResult>( IDbConnection connection = null ) {
-            var sql = GetSql();
-            WriteTraceLog( sql, Params );
-            return await GetConnection( connection ).QueryFirstOrDefaultAsync<TResult>( sql, Params );
+            return await QueryAsync( async ( con, sql, sqlParmas ) => await con.QueryFirstOrDefaultAsync<TResult>( sql, sqlParmas ), connection );
         }
 
         /// <summary>
@@ -75,9 +67,7 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override List<TResult> ToList<TResult>( IDbConnection connection = null ) {
-            var sql = GetSql();
-            WriteTraceLog( sql, Params );
-            return GetConnection( connection ).Query<TResult>( sql, Params ).ToList();
+            return Query( ( con, sql, sqlParmas ) => con.Query<TResult>( sql, sqlParmas ).ToList(), connection );
         }
 
         /// <summary>
@@ -86,9 +76,7 @@ namespace Util.Datas.Dapper {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="connection">数据库连接</param>
         public override async Task<List<TResult>> ToListAsync<TResult>( IDbConnection connection = null ) {
-            var sql = GetSql();
-            WriteTraceLog( sql, Params );
-            return ( await GetConnection( connection ).QueryAsync<TResult>( sql, Params ) ).ToList();
+            return await QueryAsync( async ( con, sql, sqlParmas ) => (await con.QueryAsync<TResult>( sql, sqlParmas )).ToList(), connection );
         }
 
         /// <summary>
@@ -98,10 +86,31 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public override PagerList<TResult> ToPagerList<TResult>( IPager parameter, IDbConnection connection = null ) {
+            return PagerQuery( () => ToList<TResult>( connection ), parameter, connection );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        public override PagerList<TResult> PagerQuery<TResult>( Func<List<TResult>> func, IPager parameter, IDbConnection connection = null ) {
             if( parameter.TotalCount == 0 )
                 parameter.TotalCount = GetCount( connection );
             SetPager( parameter );
-            return new PagerList<TResult>( parameter, ToList<TResult>( connection ) );
+            return new PagerList<TResult>( parameter, func() );
+        }
+
+        /// <summary>
+        /// 获取行数
+        /// </summary>
+        protected int GetCount( IDbConnection connection ) {
+            var sql = Builder.ToCountSql();
+            WriteTraceLog( sql, Params, Builder.ToCountDebugSql() );
+            var result = GetConnection( connection ).ExecuteScalar( sql, Params );
+            return Util.Helpers.Convert.ToInt( result );
         }
 
         /// <summary>
@@ -130,10 +139,31 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public override async Task<PagerList<TResult>> ToPagerListAsync<TResult>( IPager parameter, IDbConnection connection = null ) {
+            return await PagerQueryAsync( async () => await ToListAsync<TResult>( connection ), parameter, connection );
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        public override async Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func, IPager parameter, IDbConnection connection = null ) {
             if( parameter.TotalCount == 0 )
                 parameter.TotalCount = await GetCountAsync( connection );
             SetPager( parameter );
-            return new PagerList<TResult>( parameter, await ToListAsync<TResult>( connection ) );
+            return new PagerList<TResult>( parameter, await func() );
+        }
+
+        /// <summary>
+        /// 获取行数
+        /// </summary>
+        protected async Task<int> GetCountAsync( IDbConnection connection ) {
+            var sql = Builder.ToCountSql();
+            WriteTraceLog( sql, Params, Builder.ToCountDebugSql() );
+            var result = await GetConnection( connection ).ExecuteScalarAsync( sql, Params );
+            return Util.Helpers.Convert.ToInt( result );
         }
 
         /// <summary>
@@ -150,15 +180,13 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 写日志
         /// </summary>
-        /// <param name="sql">Sql语句</param>
+        /// <param name="sql">Sql语句</param> 
         /// <param name="parameters">参数</param>
-        protected override void WriteTraceLog( string sql, IDictionary<string, object> parameters ) {
+        /// <param name="debugSql">调试Sql语句</param>
+        protected override void WriteTraceLog( string sql, IDictionary<string, object> parameters, string debugSql ) {
             var log = GetLog();
             if( log.IsTraceEnabled == false )
                 return;
-            var debugSql = sql;
-            foreach( var parameter in parameters )
-                debugSql = debugSql.Replace( parameter.Key, SqlHelper.GetParamLiterals( parameter.Value ) );
             log.Class( GetType().FullName )
                 .Caption( "SqlQuery查询调试:" )
                 .Sql( "原始Sql:" )

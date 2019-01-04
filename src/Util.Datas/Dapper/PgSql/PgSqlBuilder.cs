@@ -24,6 +24,13 @@ namespace Util.Datas.Dapper.PgSql {
         }
 
         /// <summary>
+        /// 获取参数字面值解析器
+        /// </summary>
+        protected override IParamLiteralsResolver GetParamLiteralsResolver() {
+            return new PgSqlParamLiteralsResolver();
+        }
+
+        /// <summary>
         /// 创建Sql生成器
         /// </summary>
         public override ISqlBuilder New() {

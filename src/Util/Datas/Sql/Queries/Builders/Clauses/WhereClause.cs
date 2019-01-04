@@ -85,6 +85,44 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件</param>
+        public void Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            if( conditions == null )
+                return;
+            foreach( var condition in conditions ) {
+                if( condition == null )
+                    continue;
+                var predicate = _expressionResolver.Resolve( condition );
+                if( predicate == null )
+                    continue;
+                Or( predicate );
+            }
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件,如果表达式中的值为空，则忽略该查询条件</param>
+        public void OrIfNotEmpty<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            if( conditions == null )
+                return;
+            foreach( var condition in conditions ) {
+                if( condition == null )
+                    continue;
+                if( Lambda.GetConditionCount( condition ) > 1 )
+                    throw new InvalidOperationException( string.Format( LibraryResource.OnlyOnePredicate, condition ) );
+                if( string.IsNullOrWhiteSpace( Lambda.GetValue( condition ).SafeString() ) )
+                    continue;
+                var predicate = _expressionResolver.Resolve( condition );
+                if( predicate == null )
+                    continue;
+                Or( predicate );
+            }
+        }
+
+        /// <summary>
         /// 设置查询条件
         /// </summary>
         /// <param name="condition">查询条件</param>

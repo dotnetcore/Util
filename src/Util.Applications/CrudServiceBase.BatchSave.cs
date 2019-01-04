@@ -14,7 +14,7 @@ namespace Util.Applications {
         /// <param name="addList">新增列表</param>
         /// <param name="updateList">修改列表</param>
         /// <param name="deleteList">删除列表</param>
-        public List<TDto> Save( List<TRequest> addList, List<TRequest> updateList, List<TRequest> deleteList ) {
+        public virtual List<TDto> Save( List<TRequest> addList, List<TRequest> updateList, List<TRequest> deleteList ) {
             if( addList == null && updateList == null && deleteList == null )
                 return new List<TDto>();
             addList = addList ?? new List<TRequest>();
@@ -140,7 +140,7 @@ namespace Util.Applications {
         /// <param name="addList">新增列表</param>
         /// <param name="updateList">修改列表</param>
         /// <param name="deleteList">删除列表</param>
-        public async Task<List<TDto>> SaveAsync( List<TRequest> addList, List<TRequest> updateList,List<TRequest> deleteList ) {
+        public virtual async Task<List<TDto>> SaveAsync( List<TRequest> addList, List<TRequest> updateList,List<TRequest> deleteList ) {
             if( addList == null && updateList == null && deleteList == null )
                 return new List<TDto>();
             addList = addList ?? new List<TRequest>();

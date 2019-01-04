@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
+using Util.Helpers;
 
 namespace Util.Datas.Sql.Queries {
     /// <summary>
@@ -28,6 +31,10 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// Sql查询配置
+        /// </summary>
+        protected SqlQueryConfig SqlQueryConfig { get; set; }
+        /// <summary>
         /// Sql生成器
         /// </summary>
         protected ISqlBuilder Builder { get; }
@@ -37,10 +44,43 @@ namespace Util.Datas.Sql.Queries {
         protected IDictionary<string, object> Params => Builder.GetParams();
 
         /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="configAction">配置操作</param>
+        public void Config( Action<SqlQueryConfig> configAction ) {
+            SqlQueryConfig = new SqlQueryConfig();
+            configAction?.Invoke( SqlQueryConfig );
+        }
+
+        /// <summary>
         /// 清空并初始化
         /// </summary>
         public void Clear() {
             Builder.Clear();
+        }
+
+        /// <summary>
+        /// 在执行之后清空Sql和参数
+        /// </summary>
+        protected void ClearAfterExecution() {
+            if( SqlQueryConfig == null )
+                SqlQueryConfig = GetConfig();
+            if( SqlQueryConfig.IsClearAfterExecution == false )
+                return;
+            Clear();
+        }
+
+        /// <summary>
+        /// 获取配置
+        /// </summary>
+        private SqlQueryConfig GetConfig() {
+            try {
+                var options = Ioc.Create<IOptionsSnapshot<SqlQueryConfig>>();
+                return options.Value;
+            }
+            catch {
+                return new SqlQueryConfig();
+            }
         }
 
         /// <summary>
@@ -65,68 +105,15 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
-        /// 获取字符串
+        /// 获取单值
         /// </summary>
         /// <param name="connection">数据库连接</param>
-        public string ToString( IDbConnection connection = null ) {
-            return ToScalar( connection, GetSql(), Params ).SafeString();
-        }
-
-        /// <summary>
-        /// 获取字符串
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public async Task<string> ToStringAsync( IDbConnection connection = null ) {
-            var result = await ToScalarAsync( connection, GetSql(), Params );
-            return result.SafeString();
-        }
-
-        /// <summary>
-        /// 获取整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public int ToInt( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToInt( ToScalar( connection, GetSql(), Params ) );
-        }
-
-        /// <summary>
-        /// 获取整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public async Task<int> ToIntAsync( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, GetSql(), Params ) );
-        }
-
-        /// <summary>
-        /// 获取可空整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public int? ToIntOrNull( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection, GetSql(), Params ) );
-        }
-
-        /// <summary>
-        /// 获取可空整型
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        public async Task<int?> ToIntOrNullAsync( IDbConnection connection = null ) {
-            return Util.Helpers.Convert.ToIntOrNull( await ToScalarAsync( connection, GetSql(), Params ) );
-        }
-
+        protected abstract object ToScalar( IDbConnection connection );
         /// <summary>
         /// 获取单值
         /// </summary>
         /// <param name="connection">数据库连接</param>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="parameters">参数</param>
-        protected abstract object ToScalar( IDbConnection connection, string sql, IDictionary<string, object> parameters );
-        /// <summary>
-        /// 获取单值
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="parameters">参数</param>
-        protected abstract Task<object> ToScalarAsync( IDbConnection connection, string sql, IDictionary<string, object> parameters );
+        protected abstract Task<object> ToScalarAsync( IDbConnection connection );
         /// <summary>
         /// 获取单个实体
         /// </summary>
@@ -181,6 +168,100 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="pageSize">每页显示行数</param>
         /// <param name="connection">数据库连接</param>
         public abstract Task<PagerList<TResult>> ToPagerListAsync<TResult>( int page, int pageSize, IDbConnection connection = null );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract PagerList<TResult> PagerQuery<TResult>( Func<List<TResult>> func, IPager parameter, IDbConnection connection = null );
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="func">获取列表操作</param>
+        /// <param name="parameter">分页参数</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func,IPager parameter, IDbConnection connection = null );
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <param name="func">查询操作</param>
+        /// <param name="connection">数据库连接</param>
+        public TResult Query<TResult>( Func<IDbConnection, string, IDictionary<string, object>, TResult> func, IDbConnection connection = null ) {
+            var sql = GetSql();
+            WriteTraceLog( sql, Params, GetDebugSql() );
+            var result = func( GetConnection( connection ), sql, Params );
+            ClearAfterExecution();
+            return result;
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <typeparam name="TResult">实体类型</typeparam>
+        /// <param name="func">查询操作</param>
+        /// <param name="connection">数据库连接</param>
+        public async Task<TResult> QueryAsync<TResult>( Func<IDbConnection, string, IDictionary<string, object>, Task<TResult>> func, IDbConnection connection = null ) {
+            var sql = GetSql();
+            WriteTraceLog( sql, Params, GetDebugSql() );
+            var result = await func( GetConnection( connection ), sql, Params );
+            ClearAfterExecution();
+            return result;
+        }
+
+
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public string ToString( IDbConnection connection = null ) {
+            return ToScalar( connection ).SafeString();
+        }
+
+        /// <summary>
+        /// 获取字符串
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<string> ToStringAsync( IDbConnection connection = null ) {
+            var result = await ToScalarAsync( connection );
+            return result.SafeString();
+        }
+
+        /// <summary>
+        /// 获取整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public int ToInt( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToInt( ToScalar( connection ) );
+        }
+
+        /// <summary>
+        /// 获取整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<int> ToIntAsync( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection ) );
+        }
+
+        /// <summary>
+        /// 获取可空整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public int? ToIntOrNull( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToIntOrNull( ToScalar( connection ) );
+        }
+
+        /// <summary>
+        /// 获取可空整型
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public async Task<int?> ToIntOrNullAsync( IDbConnection connection = null ) {
+            return Util.Helpers.Convert.ToIntOrNull( await ToScalarAsync( connection ) );
+        }
 
         /// <summary>
         /// 获取数据库连接
@@ -209,8 +290,9 @@ namespace Util.Datas.Sql.Queries {
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
-        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
-            Builder.Select( columns );
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public ISqlQuery Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class {
+            Builder.Select( columns, propertyAsAlias );
             return this;
         }
 
@@ -238,8 +320,18 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="columnAlias">列别名</param>
-        public ISqlQuery AppendSelect( ISqlBuilder builder, string columnAlias = null ) {
+        public ISqlQuery AppendSelect( ISqlBuilder builder, string columnAlias ) {
             Builder.AppendSelect( builder, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        public ISqlQuery AppendSelect( Action<ISqlBuilder> action, string columnAlias ) {
+            Builder.AppendSelect( action, columnAlias );
             return this;
         }
 
@@ -302,6 +394,26 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendJoin( ISqlBuilder builder, string alias ) {
+            Builder.AppendJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendJoin( Action<ISqlBuilder> action, string alias ) {
+            Builder.AppendJoin( action, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 左外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -331,6 +443,26 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendLeftJoin( ISqlBuilder builder, string alias ) {
+            Builder.AppendLeftJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendLeftJoin( Action<ISqlBuilder> action, string alias ) {
+            Builder.AppendLeftJoin( action, alias );
+            return this;
+        }
+
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="table">表名</param>
@@ -356,6 +488,26 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句</param>
         public ISqlQuery AppendRightJoin( string sql ) {
             Builder.AppendRightJoin( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendRightJoin( ISqlBuilder builder, string alias ) {
+            Builder.AppendRightJoin( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public ISqlQuery AppendRightJoin( Action<ISqlBuilder> action, string alias ) {
+            Builder.AppendRightJoin( action, alias );
             return this;
         }
 
@@ -406,6 +558,24 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="condition">查询条件</param>
         public ISqlQuery Or( ICondition condition ) {
             Builder.Or( condition );
+            return this;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件</param>
+        public ISqlQuery Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            Builder.Or( conditions );
+            return this;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="conditions">查询条件,如果表达式中的值为空，则忽略该查询条件</param>
+        public ISqlQuery OrIfNotEmpty<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+            Builder.OrIfNotEmpty( conditions );
             return this;
         }
 
@@ -974,24 +1144,11 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
-        /// 获取行数
-        /// </summary>
-        protected virtual int GetCount( IDbConnection connection ) {
-            return Util.Helpers.Convert.ToInt( ToScalar( connection, Builder.ToCountSql(), Params ) );
-        }
-
-        /// <summary>
-        /// 获取行数
-        /// </summary>
-        protected virtual async Task<int> GetCountAsync( IDbConnection connection ) {
-            return Util.Helpers.Convert.ToInt( await ToScalarAsync( connection, Builder.ToCountSql(), Params ) );
-        }
-
-        /// <summary>
         /// 写日志
         /// </summary>
         /// <param name="sql">Sql语句</param>
         /// <param name="parameters">参数</param>
-        protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters );
+        /// <param name="debugSql">调试Sql语句</param>
+        protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters, string debugSql );
     }
 }

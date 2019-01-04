@@ -28,12 +28,18 @@ namespace Util.Datas.Ef {
             where TService : class, IUnitOfWork
             where TImplementation : UnitOfWorkBase, TService {
             services.AddDbContext<TImplementation>( configAction );
-            if( efConfigAction != null )
+            var efConfig = new EfConfig();
+            if ( efConfigAction != null ) {
                 services.Configure( efConfigAction );
+                efConfigAction.Invoke( efConfig );
+            }
             if( configuration != null )
                 services.Configure<EfConfig>( configuration );
             services.TryAddScoped<TService>( t => t.GetService<TImplementation>() );
-            services.AddSqlQuery<TImplementation, TImplementation>( config => config.DatabaseType = GetDbType<TImplementation>() );
+            services.AddSqlQuery<TImplementation, TImplementation>( config => {
+                config.DatabaseType = GetDbType<TImplementation>();
+                config.IsClearAfterExecution = efConfig.SqlQuery.IsClearAfterExecution;
+            } );
             return services;
         }
 
@@ -82,6 +88,22 @@ namespace Util.Datas.Ef {
                     builder.UseNpgsql( connection );
                     return;
             }
+        }
+
+        /// <summary>
+        /// 注册工作单元服务
+        /// </summary>
+        /// <typeparam name="TService">工作单元接口类型</typeparam>
+        /// <typeparam name="TImplementation">工作单元实现类型</typeparam>
+        /// <param name="services">服务集合</param>
+        /// <param name="connection">连接字符串</param>
+        /// <param name="efConfigAction">Ef配置操作</param>
+        public static IServiceCollection AddUnitOfWork<TService, TImplementation>( this IServiceCollection services, string connection, Action<EfConfig> efConfigAction )
+            where TService : class, IUnitOfWork
+            where TImplementation : UnitOfWorkBase, TService {
+            return AddUnitOfWork<TService, TImplementation>( services, builder => {
+                ConfigConnection<TImplementation>( builder, connection );
+            }, efConfigAction );
         }
 
         /// <summary>

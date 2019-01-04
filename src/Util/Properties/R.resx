@@ -120,11 +120,17 @@
   <data name="DeleteSuccess" xml:space="preserve">
     <value>删除成功</value>
   </data>
+  <data name="GlobalDuplicateRequest" xml:space="preserve">
+    <value>其他用户正在执行该操作,请稍后再试</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>操作成功</value>
   </data>
   <data name="SystemError" xml:space="preserve">
     <value>系统忙，请稍后再试</value>
     <comment>抛出系统异常时显示该消息</comment>
+  </data>
+  <data name="UserDuplicateRequest" xml:space="preserve">
+    <value>请不要重复提交</value>
   </data>
 </root>

@@ -30,7 +30,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="columns">列名表达式</param>
-        public string GetColumns<TEntity>( Expression<Func<TEntity, object[]>> columns ) {
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public string GetColumns<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias ) {
             return Lambda.GetLastNames( columns ).Select( column => $"t_{column}" ).Join();
         }
 

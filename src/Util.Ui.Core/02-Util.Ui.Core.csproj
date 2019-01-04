@@ -34,13 +34,13 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
     <ProjectReference Include="..\Util.Ui.Abstractions\01-Util.Ui.Abstractions.csproj" />
-    <ProjectReference Include="..\Util.Webs\08-Util.Webs.csproj" />
+    <ProjectReference Include="..\Util.Webs\09-Util.Webs.csproj" />
     <ProjectReference Include="..\Util\01-Util.csproj" />
   </ItemGroup>
 

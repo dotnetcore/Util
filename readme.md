@@ -134,8 +134,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Docker
 
 6. SDK及Runtime
-  - 当前SDK 64位版本：[Sdk v2.1.500](https://www.microsoft.com/net/download/thank-you/dotnet-sdk-2.1.500-windows-x64-installer)，开发机器安装
-  - 当前Runtime 64位版本：[Runtime v2.1.6](https://www.microsoft.com/net/download/thank-you/dotnet-runtime-2.1.6-windows-x64-installer)，服务器安装
+  - 当前SDK 64位版本：[Sdk v2.2.101](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.101-windows-x64-installer)，开发机器安装
+  - 当前Runtime 64位版本：[Runtime v2.2.0](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.0-windows-x64-installer)，服务器安装
 
 7. 单元测试及模拟框架
   - XUnit
@@ -161,28 +161,31 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - [NLog](http://nlog-project.org/)
   - [Exceptionless](https://github.com/exceptionless)
 
-14. Id生成器
+14. 缓存框架
+  - [EasyCaching](https://github.com/dotnetcore/EasyCaching)
+
+15. Id生成器
   - [ECommon.Utilities.ObjectId](https://github.com/tangxuehua/ecommon/blob/master/src/ECommon/Utilities/ObjectId.cs)
 
-15. RSA加密算法
+16. RSA加密算法
   - [DotnetCore.RSA](https://github.com/stulzq/DotnetCore.RSA/blob/master/DotnetCore.RSA/RSAHelper.cs)
 
-16. 二维码操作
+17. 二维码操作
   - [QRCoder](https://github.com/codebude/QRCoder/)
 
-17. 短信操作
+18. 短信操作
   - [Luosimao](https://luosimao.com/)
 
-18. Queryable动态扩展
+19. Queryable动态扩展
   - [System.Linq.Dynamic.Core](https://github.com/StefH/System.Linq.Dynamic.Core)
 
-19. Web框架
+20. Web框架
   - [Asp.Net Core](https://docs.microsoft.com/zh-cn/aspnet/core/)
 
-20. 定时任务调度框架
+21. 定时任务调度框架
   - [Quartz.Net](https://www.quartz-scheduler.net/)
 
-21. UI
+22. UI
   - 脚本语言
     - [TypeScript](https://www.tslang.cn)
   - 脚本框架
@@ -220,14 +223,14 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - Karma
     - Jasmine
 
-22. 权限
+23. 权限
     - [Asp Net Core Identity](https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?tabs=visual-studio%2Caspnetcore2x)
     - [Identity Server](https://identityserver4.readthedocs.io/en/release/)
 
-23. 代码生成器
+24. 代码生成器
   - CodeSmith 6.5
 
-24. 参考应用框架
+25. 参考应用框架
   - [ABP](http://aspnetboilerplate.com/)
   - [Nop](https://www.nopcommerce.com) 
     - Nop是一个开源商城，封装了大量实用的基础代码。
@@ -367,6 +370,7 @@ https://github.com/dotnetcore/util/
 
 - 2017年7月21日，将.net core升级到2.0 Preview 2。
 - 2018年6月12日，将angular和material升级到6.x。
+- 2018年12月30日，将.net core升级到2.2。
 
 ## 更新计划
 
