@@ -1,21 +1,19 @@
-﻿namespace Util.Biz.Locks {
+﻿using System;
+
+namespace Util.Locks {
     /// <summary>
-    /// 空业务锁
+    /// 业务锁
     /// </summary>
-    public class NullBusinessLock : IBusinessLock {
+    public interface ILock {
         /// <summary>
         /// 锁定，成功锁定返回true，false代表之前已被锁定
         /// </summary>
         /// <param name="key">锁定标识</param>
-        public bool Lock( string key ) {
-            return true;
-        }
-
+        /// <param name="expiration">锁定时间间隔</param>
+        bool Lock( string key, TimeSpan? expiration = null );
         /// <summary>
         /// 解除锁定
         /// </summary>
-        /// <param name="key">锁定标识</param>
-        public void UnLock( string key ) {
-        }
+        void UnLock();
     }
 }

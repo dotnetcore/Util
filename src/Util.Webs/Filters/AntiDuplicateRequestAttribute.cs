@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Util.Biz.Locks;
 using Util.Helpers;
+using Util.Locks;
 using Util.Properties;
 using Util.Security.Sessions;
 using Util.Webs.Commons;
@@ -30,11 +30,11 @@ namespace Util.Webs.Filters {
                 throw new ArgumentNullException( nameof( context ) );
             if( next == null )
                 throw new ArgumentNullException( nameof( next ) );
-            var businessLock = Ioc.Create<IBusinessLock>();
-            businessLock = businessLock ?? BusinessLock.Null;
+            var @lock = Ioc.Create<ILock>();
+            @lock = @lock ?? NullLock.Instance;
             var key = GetKey( context );
             try {
-                var isSuccess = businessLock.Lock( key );
+                var isSuccess = @lock.Lock( key );
                 if ( isSuccess == false ) {
                     context.Result = new Result( StateCode.Fail, GetFailMessage() );
                     return;
@@ -46,7 +46,7 @@ namespace Util.Webs.Filters {
                 OnActionExecuted( executedContext );
             }
             finally {
-                businessLock.UnLock( key );
+                @lock.UnLock();
             }
         }
 

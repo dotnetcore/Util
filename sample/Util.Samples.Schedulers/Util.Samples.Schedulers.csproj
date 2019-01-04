@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Applications\07-Util.Applications.csproj" />
-    <ProjectReference Include="..\..\src\Util.Schedulers\05-Util.Schedulers.csproj" />
+    <ProjectReference Include="..\..\src\Util.Applications\08-Util.Applications.csproj" />
+    <ProjectReference Include="..\..\src\Util.Schedulers\06-Util.Schedulers.csproj" />
   </ItemGroup>
 
 </Project>

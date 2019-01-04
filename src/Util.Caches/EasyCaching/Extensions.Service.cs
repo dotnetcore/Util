@@ -1,17 +1,17 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Util.Biz.Locks.Extensions {
+namespace Util.Caches.EasyCaching {
     /// <summary>
-    /// 业务锁扩展
+    /// EasyCaching缓存扩展
     /// </summary>
     public static class Extensions {
         /// <summary>
-        /// 注册业务锁
+        /// 注册EasyCaching缓存提供器
         /// </summary>
         /// <param name="services">服务集合</param>
-        public static void AddBusinessLock( this IServiceCollection services ) {
-            services.TryAddScoped<IBusinessLock, BusinessLock>();
+        public static void AddEasyCaching( this IServiceCollection services ) {
+            services.TryAddScoped<ICache, CacheManager>();
         }
     }
 }

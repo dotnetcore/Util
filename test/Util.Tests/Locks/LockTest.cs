@@ -1,21 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Util.Helpers;
 using Xunit;
 
-namespace Util.Biz.Tests.Integration.Locks {
+namespace Util.Tests.Locks {
     /// <summary>
     /// 业务锁测试
     /// </summary>
-    public class BusinessLockTest {
+    public class LockTest : IDisposable {
         /// <summary>
         /// 业务锁测试服务
         /// </summary>
-        private readonly BusinessLockTestService _service;
+        private readonly LockTestService _service;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public BusinessLockTest() {
-            _service = new BusinessLockTestService();
+        public LockTest() {
+            _service = new LockTestService();
+        }
+
+        /// <summary>
+        /// 测试清理
+        /// </summary>
+        public void Dispose() {
+            Time.Reset();
         }
 
         /// <summary>
@@ -49,7 +58,7 @@ namespace Util.Biz.Tests.Integration.Locks {
         [Fact]
         public void Test_3() {
             var key = "Test_3";
-            
+
             //先锁定
             Util.Helpers.Thread.ParallelExecute( () => _service.Execute( key ), () => _service.Execute( key ) );
 
@@ -59,19 +68,46 @@ namespace Util.Biz.Tests.Integration.Locks {
                 result.Add( _service.Execute( key ) );
             }, () => {
                 result.Add( _service.Execute( key ) );
+            }, () => {
+                result.Add( _service.Execute( key ) );
+            }, () => {
+                result.Add( _service.Execute( key ) );
+            }, () => {
+                result.Add( _service.Execute( key ) );
             } );
             Assert.Empty( result.FindAll( t => t == "ok" ) );
 
             //解锁
-            _service.UnLock( key );
+            _service.UnLock();
 
             //再次执行
             Util.Helpers.Thread.ParallelExecute( () => {
                 result.Add( _service.Execute( key ) );
             }, () => {
                 result.Add( _service.Execute( key ) );
+            }, () => {
+                result.Add( _service.Execute( key ) );
+            }, () => {
+                result.Add( _service.Execute( key ) );
+            }, () => {
+                result.Add( _service.Execute( key ) );
+            }, () => {
+                result.Add( _service.Execute( key ) );
             } );
             Assert.Single( result.FindAll( t => t == "ok" ) );
+        }
+
+        /// <summary>
+        /// 延迟10秒才允许执行
+        /// </summary>
+        [Fact]
+        public void Test_4() {
+            var key = "Test_4";
+            Assert.Equal( "ok", _service.Execute( key, TimeSpan.FromSeconds( 1 ) ) );
+            _service.UnLock();
+            Assert.Equal( "fail", _service.Execute( key ) );
+            System.Threading.Thread.Sleep( 1100 );
+            Assert.Equal( "ok", _service.Execute( key ) );
         }
     }
 }
