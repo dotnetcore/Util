@@ -48,13 +48,25 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 分组
         /// </summary>
-        /// <param name="group">分组字段</param>
+        /// <param name="columns">分组字段</param>
         /// <param name="having">分组条件</param>
-        public void GroupBy( string group, string having = null ) {
-            if( string.IsNullOrWhiteSpace( group ) )
+        public void GroupBy( string columns, string having = null ) {
+            if( string.IsNullOrWhiteSpace( columns ) )
                 return;
-            _group.AddRange( group.Split( ',' ).Select( item => new SqlItem( item ) ) );
+            _group.AddRange( columns.Split( ',' ).Select( item => new SqlItem( item ) ) );
             _having = having;
+        }
+
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="columns">分组字段</param>
+        public void GroupBy<TEntity>( params Expression<Func<TEntity, object>>[] columns ) {
+            if( columns == null )
+                return;
+            foreach ( var column in columns )
+                GroupBy( column );
         }
 
         /// <summary>
@@ -81,13 +93,23 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// 是否存在分组
+        /// </summary>
+        public bool IsGroupBy => _group.Count > 0;
+
+        /// <summary>
+        /// 分组列表
+        /// </summary>
+        public string GroupByColumns => _group.Select( t => t.ToSql( _dialect ) ).Join();
+
+        /// <summary>
         /// 获取Sql
         /// </summary>
         public string ToSql() {
-            if( _group.Count == 0 )
+            if( IsGroupBy == false )
                 return null;
             var result = new StringBuilder();
-            result.Append( $"Group By {_group.Select( t => t.ToSql( _dialect ) ).Join()}" );
+            result.Append( $"Group By {GroupByColumns}" );
             if( string.IsNullOrWhiteSpace( _having ) )
                 return result.ToString();
             result.Append( $" Having {_having}" );

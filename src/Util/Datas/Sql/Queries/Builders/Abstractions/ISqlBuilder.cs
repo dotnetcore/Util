@@ -551,9 +551,15 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 分组
         /// </summary>
-        /// <param name="group">分组字段,范例：a.Id,b.Name</param>
+        /// <param name="columns">分组字段,范例：a.Id,b.Name</param>
         /// <param name="having">分组条件,范例：Count(*) > 1</param>
-        ISqlBuilder GroupBy( string group, string having = null );
+        ISqlBuilder GroupBy( string columns, string having = null );
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="columns">分组字段</param>
+        ISqlBuilder GroupBy<TEntity>( params Expression<Func<TEntity, object>>[] columns );
         /// <summary>
         /// 分组
         /// </summary>
