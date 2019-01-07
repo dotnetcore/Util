@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
-using Util.Exceptions;
 
 namespace Util.Datas.Ef.Core {
     /// <summary>
@@ -85,38 +85,21 @@ namespace Util.Datas.Ef.Core {
         public virtual void Update( TEntity entity ) {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            var oldEntity = FindByIdNoTracking( entity.Id );
-            Update( entity, oldEntity );
+            Detach( entity );
+            UnitOfWork.Entry( entity ).State = EntityState.Modified;
         }
 
         /// <summary>
-        /// 修改实体
+        /// 取消实体跟踪
         /// </summary>
-        /// <param name="newEntity">新实体</param>
-        /// <param name="oldEntity">旧实体</param>
-        protected void Update( TEntity newEntity, TEntity oldEntity ) {
-            if( newEntity == null )
-                throw new ArgumentNullException( nameof( newEntity ) );
-            if( oldEntity == null )
-                throw new ArgumentNullException( nameof( oldEntity ) );
-            ValidateVersion( newEntity, oldEntity );
-            var entity = Find( newEntity.Id );
-            UnitOfWork.Entry( entity ).CurrentValues.SetValues( newEntity );
-        }
-
-        /// <summary>
-        /// 验证版本号
-        /// </summary>
-        /// <param name="newEntity">新实体</param>
-        /// <param name="oldEntity">旧实体</param>
-        protected void ValidateVersion( TEntity newEntity, TEntity oldEntity ) {
-            if( newEntity.Version == null )
-                throw new ConcurrencyException();
-            if( newEntity.Version.Length != oldEntity.Version.Length )
-                throw new ConcurrencyException();
-            for( int i = 0; i < oldEntity.Version.Length; i++ ) {
-                if( newEntity.Version[i] != oldEntity.Version[i] )
-                    throw new ConcurrencyException();
+        private void Detach( TEntity entity ) {
+            foreach ( var entry in UnitOfWork.ChangeTracker.Entries().ToList() ) {
+                if ( !( entry.Entity is IEntity<TKey> entryEntity ) )
+                    continue;
+                if ( entryEntity.Id.Equals( entity.Id ) ) {
+                    entry.State = EntityState.Detached;
+                    return;
+                }
             }
         }
 
@@ -124,11 +107,12 @@ namespace Util.Datas.Ef.Core {
         /// 修改实体
         /// </summary>
         /// <param name="entity">实体</param>
-        public virtual async Task UpdateAsync( TEntity entity ) {
+        public virtual Task UpdateAsync( TEntity entity ) {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            var oldEntity = await FindByIdNoTrackingAsync( entity.Id );
-            Update( entity, oldEntity );
+            Detach( entity );
+            UnitOfWork.Entry( entity ).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -138,28 +122,8 @@ namespace Util.Datas.Ef.Core {
         public virtual void Update( IEnumerable<TEntity> entities ) {
             if( entities == null )
                 throw new ArgumentNullException( nameof( entities ) );
-            var newEntities = entities.ToList();
-            var oldEntities = FindByIdsNoTracking( newEntities.Select( t => t.Id ) );
-            ValidateVersion( newEntities, oldEntities );
-            UnitOfWork.UpdateRange( newEntities );
-        }
-
-        /// <summary>
-        /// 验证版本号
-        /// </summary>
-        /// <param name="newEntities">新实体集合</param>
-        /// <param name="oldEntities">旧实体集合</param>
-        protected void ValidateVersion( List<TEntity> newEntities, List<TEntity> oldEntities ) {
-            if( oldEntities == null )
-                throw new ArgumentNullException( nameof( oldEntities ) );
-            if( newEntities.Count != oldEntities.Count )
-                throw new ConcurrencyException();
-            foreach( var entity in newEntities ) {
-                var old = oldEntities.Find( t => t.Id.Equals( entity.Id ) );
-                if( old == null )
-                    throw new ConcurrencyException();
-                ValidateVersion( entity, old );
-            }
+            foreach ( var entity in entities )
+                Update( entity );
         }
 
         /// <summary>
@@ -169,10 +133,8 @@ namespace Util.Datas.Ef.Core {
         public virtual async Task UpdateAsync( IEnumerable<TEntity> entities ) {
             if( entities == null )
                 throw new ArgumentNullException( nameof( entities ) );
-            var newEntities = entities.ToList();
-            var oldEntities = await FindByIdsNoTrackingAsync( newEntities.Select( t => t.Id ) );
-            ValidateVersion( newEntities, oldEntities );
-            UnitOfWork.UpdateRange( newEntities );
+            foreach( var entity in entities )
+                await UpdateAsync( entity );
         }
 
         /// <summary>

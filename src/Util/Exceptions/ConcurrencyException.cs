@@ -7,6 +7,11 @@ namespace Util.Exceptions {
     /// </summary>
     public class ConcurrencyException : Warning {
         /// <summary>
+        /// 消息
+        /// </summary>
+        private readonly string _message;
+
+        /// <summary>
         /// 初始化并发异常
         /// </summary>
         public ConcurrencyException()
@@ -45,7 +50,13 @@ namespace Util.Exceptions {
         /// <param name="exception">异常</param>
         /// <param name="code">错误码</param>
         public ConcurrencyException( string message, Exception exception, string code )
-            : base( $"并发异常:{LibraryResource.ConcurrencyExceptionMessage}.{message}", code, exception ) {
+            : base( message, code, exception ) {
+            _message = message;
         }
+
+        /// <summary>
+        /// 错误消息
+        /// </summary>
+        public override string Message => $"{LibraryResource.ConcurrencyExceptionMessage}.{_message}";
     }
 }
