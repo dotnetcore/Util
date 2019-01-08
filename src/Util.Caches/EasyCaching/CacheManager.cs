@@ -35,13 +35,8 @@ namespace Util.Caches.EasyCaching {
         /// <param name="func">获取数据操作</param>
         /// <param name="expiration">过期时间间隔</param>
         public T Get<T>( string key, Func<T> func, TimeSpan? expiration = null ) {
-            if ( _provider.Exists( key ) )
-                return _provider.Get<T>( key ).Value;
-            var value = func();
-            if ( value == null )
-                return default(T);
-            _provider.Set( key, value, GetExpiration( expiration ) );
-            return value;
+            var result = _provider.Get( key, func, GetExpiration( expiration ) );
+            return result.Value;
         }
 
         /// <summary>
@@ -62,8 +57,7 @@ namespace Util.Caches.EasyCaching {
         public bool TryAdd<T>( string key, T value, TimeSpan? expiration = null ) {
             if( _provider.Exists( key ) )
                 return false;
-            _provider.Set( key, value, GetExpiration( expiration ) );
-            return true;
+            return _provider.TrySet( key, value, GetExpiration( expiration ) );
         }
 
         /// <summary>

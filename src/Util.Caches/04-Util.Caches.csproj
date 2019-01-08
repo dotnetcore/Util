@@ -33,7 +33,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyCaching.InMemory" Version="0.4.0" />
+    <PackageReference Include="EasyCaching.InMemory" Version="0.4.2" />
   </ItemGroup>
 
 </Project>

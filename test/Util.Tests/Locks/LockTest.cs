@@ -98,7 +98,7 @@ namespace Util.Tests.Locks {
         }
 
         /// <summary>
-        /// 延迟10秒才允许执行
+        /// 延迟1秒才允许执行
         /// </summary>
         [Fact]
         public void Test_4() {

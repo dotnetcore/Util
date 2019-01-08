@@ -85,22 +85,13 @@ namespace Util.Datas.Ef.Core {
         public virtual void Update( TEntity entity ) {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
-            Detach( entity );
-            UnitOfWork.Entry( entity ).State = EntityState.Modified;
-        }
-
-        /// <summary>
-        /// 取消实体跟踪
-        /// </summary>
-        private void Detach( TEntity entity ) {
-            foreach ( var entry in UnitOfWork.ChangeTracker.Entries().ToList() ) {
-                if ( !( entry.Entity is TEntity entryEntity ) )
-                    continue;
-                if ( entryEntity.Id.Equals( entity.Id ) ) {
-                    entry.State = EntityState.Detached;
-                    return;
-                }
-            }
+            UnitOfWork.Entry( entity ).State = EntityState.Detached;
+            var old = Find( entity.Id );
+            var oldEntry = UnitOfWork.Entry( old );
+            oldEntry.State = EntityState.Detached;
+            oldEntry.CurrentValues[nameof( entity.Version )] = entity.Version;
+            oldEntry = UnitOfWork.Attach( old );
+            oldEntry.CurrentValues.SetValues( entity );
         }
 
         /// <summary>
@@ -108,10 +99,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="entity">实体</param>
         public virtual Task UpdateAsync( TEntity entity ) {
-            if( entity == null )
-                throw new ArgumentNullException( nameof( entity ) );
-            Detach( entity );
-            UnitOfWork.Entry( entity ).State = EntityState.Modified;
+            Update( entity );
             return Task.CompletedTask;
         }
 
@@ -122,7 +110,7 @@ namespace Util.Datas.Ef.Core {
         public virtual void Update( IEnumerable<TEntity> entities ) {
             if( entities == null )
                 throw new ArgumentNullException( nameof( entities ) );
-            foreach ( var entity in entities )
+            foreach( var entity in entities )
                 Update( entity );
         }
 
