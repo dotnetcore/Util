@@ -94,7 +94,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         private void Detach( TEntity entity ) {
             foreach ( var entry in UnitOfWork.ChangeTracker.Entries().ToList() ) {
-                if ( !( entry.Entity is IEntity<TKey> entryEntity ) )
+                if ( !( entry.Entity is TEntity entryEntity ) )
                     continue;
                 if ( entryEntity.Id.Equals( entity.Id ) ) {
                     entry.State = EntityState.Detached;
