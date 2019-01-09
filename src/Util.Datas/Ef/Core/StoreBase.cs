@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
@@ -28,7 +29,7 @@ namespace Util.Datas.Ef.Core {
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
     /// <typeparam name="TKey">对象标识类型</typeparam>
-    public abstract class StoreBase<TEntity, TKey> : QueryStoreBase<TEntity, TKey>, IStore<TEntity, TKey> where TEntity : class, IKey<TKey>, IVersion {
+    public abstract class StoreBase<TEntity, TKey> : QueryStoreBase<TEntity, TKey>, IStore<TEntity, TKey> where TEntity : class, IKey<TKey> {
         /// <summary>
         /// 初始化存储器
         /// </summary>
@@ -88,8 +89,12 @@ namespace Util.Datas.Ef.Core {
             UnitOfWork.Entry( entity ).State = EntityState.Detached;
             var old = Find( entity.Id );
             var oldEntry = UnitOfWork.Entry( old );
+            if ( !( entity is IVersion version ) ) {
+                oldEntry.CurrentValues.SetValues( entity );
+                return;
+            }
             oldEntry.State = EntityState.Detached;
-            oldEntry.CurrentValues[nameof( entity.Version )] = entity.Version;
+            oldEntry.CurrentValues[nameof( version.Version )] = version.Version;
             oldEntry = UnitOfWork.Attach( old );
             oldEntry.CurrentValues.SetValues( entity );
         }

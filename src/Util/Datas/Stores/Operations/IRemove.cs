@@ -7,7 +7,7 @@ namespace Util.Datas.Stores.Operations {
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
     /// <typeparam name="TKey">对象标识类型</typeparam>
-    public interface IRemove<in TEntity, in TKey> where TEntity : class, IKey<TKey>, IVersion {
+    public interface IRemove<in TEntity, in TKey> where TEntity : class, IKey<TKey> {
         /// <summary>
         /// 移除实体
         /// </summary>

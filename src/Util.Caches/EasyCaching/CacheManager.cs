@@ -55,8 +55,6 @@ namespace Util.Caches.EasyCaching {
         /// <param name="value">值</param>
         /// <param name="expiration">过期时间间隔</param>
         public bool TryAdd<T>( string key, T value, TimeSpan? expiration = null ) {
-            if( _provider.Exists( key ) )
-                return false;
             return _provider.TrySet( key, value, GetExpiration( expiration ) );
         }
 
