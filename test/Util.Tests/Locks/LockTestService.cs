@@ -13,25 +13,25 @@ namespace Util.Tests.Locks {
         /// <summary>
         /// 业务锁
         /// </summary>
-        private readonly DefaultLock _lock;
+        private static readonly DefaultLock Lock;
 
         /// <summary>
         /// 初始化业务锁测试服务
         /// </summary>
-        public LockTestService() {
+        static LockTestService() {
             var services = new ServiceCollection();
             services.AddEasyCaching();
             services.AddDefaultInMemoryCache();
             var serviceProvider = services.BuildServiceProvider();
             var cache = serviceProvider.GetService<ICache>();
-            _lock = new DefaultLock( cache );
+            Lock = new DefaultLock( cache );
         }
 
         /// <summary>
         /// 执行
         /// </summary>
         public string Execute( string key, TimeSpan? expiration = null ) {
-            var result = _lock.Lock( key, expiration );
+            var result = Lock.Lock( key, expiration );
             return result ? "ok" : "fail";
         }
 
@@ -39,7 +39,7 @@ namespace Util.Tests.Locks {
         /// 解锁
         /// </summary>
         public void UnLock() {
-            _lock.UnLock();
+            Lock.UnLock();
         }
     }
 }

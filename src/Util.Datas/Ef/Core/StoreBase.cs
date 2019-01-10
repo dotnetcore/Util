@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
@@ -41,7 +40,7 @@ namespace Util.Datas.Ef.Core {
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
-        public void Add( TEntity entity ) {
+        public virtual void Add( TEntity entity ) {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             Set.Add( entity );
@@ -51,7 +50,7 @@ namespace Util.Datas.Ef.Core {
         /// 添加实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        public void Add( IEnumerable<TEntity> entities ) {
+        public virtual void Add( IEnumerable<TEntity> entities ) {
             if( entities == null )
                 throw new ArgumentNullException( nameof( entities ) );
             Set.AddRange( entities );
@@ -62,7 +61,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="entity">实体</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public async Task AddAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public virtual async Task AddAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             await Set.AddAsync( entity, cancellationToken );
@@ -73,7 +72,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="entities">实体集合</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public async Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public virtual async Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entities == null )
                 throw new ArgumentNullException( nameof( entities ) );
             await Set.AddRangeAsync( entities, cancellationToken );
@@ -134,7 +133,7 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体
         /// </summary>
         /// <param name="id">实体标识</param>
-        public void Remove( object id ) {
+        public virtual void Remove( object id ) {
             var entity = Find( id );
             Delete( entity );
         }
@@ -157,7 +156,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="id">标识</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public async Task RemoveAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public virtual async Task RemoveAsync( object id, CancellationToken cancellationToken = default( CancellationToken ) ) {
             var entity = await FindAsync( id, cancellationToken );
             Delete( entity );
         }
@@ -166,7 +165,7 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体
         /// </summary>
         /// <param name="entity">实体</param>
-        public void Remove( TEntity entity ) {
+        public virtual void Remove( TEntity entity ) {
             if( entity == null )
                 return;
             Remove( entity.Id );
@@ -177,7 +176,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="entity">实体</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public async Task RemoveAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public virtual async Task RemoveAsync( TEntity entity, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entity == null )
                 return;
             await RemoveAsync( entity.Id, cancellationToken );
@@ -187,7 +186,7 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体集合
         /// </summary>
         /// <param name="ids">标识集合</param>
-        public void Remove( IEnumerable<TKey> ids ) {
+        public virtual void Remove( IEnumerable<TKey> ids ) {
             if( ids == null )
                 return;
             var list = FindByIds( ids );
@@ -215,7 +214,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="ids">标识集合</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public async Task RemoveAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public virtual async Task RemoveAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( ids == null )
                 return;
             var entities = await FindByIdsAsync( ids, cancellationToken );
@@ -226,7 +225,7 @@ namespace Util.Datas.Ef.Core {
         /// 移除实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        public void Remove( IEnumerable<TEntity> entities ) {
+        public virtual void Remove( IEnumerable<TEntity> entities ) {
             if( entities == null )
                 return;
             Remove( entities.Select( t => t.Id ) );
@@ -237,7 +236,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="entities">实体集合</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public async Task RemoveAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public virtual async Task RemoveAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default( CancellationToken ) ) {
             if( entities == null )
                 return;
             await RemoveAsync( entities.Select( t => t.Id ), cancellationToken );

@@ -30,8 +30,7 @@ namespace Util.Webs.Filters {
                 throw new ArgumentNullException( nameof( context ) );
             if( next == null )
                 throw new ArgumentNullException( nameof( next ) );
-            var @lock = Ioc.Create<ILock>();
-            @lock = @lock ?? NullLock.Instance;
+            var @lock = CreateLock();
             var key = GetKey( context );
             try {
                 var isSuccess = @lock.Lock( key );
@@ -48,6 +47,13 @@ namespace Util.Webs.Filters {
             finally {
                 @lock.UnLock();
             }
+        }
+
+        /// <summary>
+        /// 创建业务锁
+        /// </summary>
+        private ILock CreateLock() {
+            return Ioc.Create<ILock>() ?? NullLock.Instance;
         }
 
         /// <summary>
