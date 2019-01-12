@@ -10,7 +10,7 @@ namespace Util.Events {
         /// 初始化事件
         /// </summary>
         public Event() {
-            Id = Guid.NewGuid().ToString();
+            Id = Util.Helpers.Id.Guid();
             Time = DateTime.Now;
         }
 
@@ -18,7 +18,6 @@ namespace Util.Events {
         /// 事件标识
         /// </summary>
         public string Id { get; set; }
-
         /// <summary>
         /// 事件时间
         /// </summary>
@@ -28,10 +27,10 @@ namespace Util.Events {
         /// 输出日志
         /// </summary>
         public override string ToString() {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.AppendLine( $"事件标识: {Id}" );
-            result.AppendLine( $"事件时间: {Time.ToMillisecondString()}" );
-            result.Append( $"事件数据：{Util.Helpers.Json.ToJson( this )}" );
+            result.AppendLine( $"事件时间:{Time.ToMillisecondString()}" );
+            result.Append( $"事件数据：{this}" );
             return result.ToString();
         }
     }

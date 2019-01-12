@@ -149,7 +149,7 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="parameter">查询参数</param>
         protected virtual IQueryBase<TEntity> CreateQuery( TQueryParameter parameter ) {
-            throw new NotImplementedException();
+            return new Query<TEntity,TKey>( parameter );
         }
 
         /// <summary>

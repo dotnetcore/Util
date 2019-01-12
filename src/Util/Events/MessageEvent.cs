@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Util.Events.Messages {
+namespace Util.Events {
     /// <summary>
     /// 消息事件
     /// </summary>
@@ -9,12 +9,10 @@ namespace Util.Events.Messages {
         /// 事件数据
         /// </summary>
         public object Data { get; set; }
-
         /// <summary>
         /// 发送目标
         /// </summary>
         public string Target { get; set; }
-
         /// <summary>
         /// 回调
         /// </summary>
@@ -24,7 +22,7 @@ namespace Util.Events.Messages {
         /// 输出日志
         /// </summary>
         public override string ToString() {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.AppendLine( $"事件标识: {Id}" );
             result.AppendLine( $"事件时间:{Time.ToMillisecondString()}" );
             if( string.IsNullOrWhiteSpace( Target ) == false )

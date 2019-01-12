@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
@@ -50,6 +51,11 @@ namespace Util.Datas.Ef.Core {
         /// 工作单元
         /// </summary>
         protected UnitOfWorkBase UnitOfWork { get; }
+
+        /// <summary>
+        /// 数据库连接
+        /// </summary>
+        protected IDbConnection Connection => UnitOfWork.Database.GetDbConnection();
 
         /// <summary>
         /// 实体集

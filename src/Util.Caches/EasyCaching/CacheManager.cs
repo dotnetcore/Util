@@ -3,7 +3,7 @@ using EasyCaching.Core;
 
 namespace Util.Caches.EasyCaching {
     /// <summary>
-    /// 缓存
+    /// EasyCaching缓存服务
     /// </summary>
     public class CacheManager : ICache {
         /// <summary>
@@ -64,6 +64,13 @@ namespace Util.Caches.EasyCaching {
         /// <param name="key">缓存键</param>
         public void Remove( string key ) {
             _provider.Remove( key );
+        }
+
+        /// <summary>
+        /// 清空缓存
+        /// </summary>
+        public void Clear() {
+            _provider.Flush();
         }
     }
 }

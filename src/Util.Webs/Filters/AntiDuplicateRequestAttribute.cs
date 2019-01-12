@@ -32,8 +32,9 @@ namespace Util.Webs.Filters {
                 throw new ArgumentNullException( nameof( next ) );
             var @lock = CreateLock();
             var key = GetKey( context );
+            var isSuccess = false;
             try {
-                var isSuccess = @lock.Lock( key );
+                isSuccess = @lock.Lock( key );
                 if ( isSuccess == false ) {
                     context.Result = new Result( StateCode.Fail, GetFailMessage() );
                     return;
@@ -45,7 +46,8 @@ namespace Util.Webs.Filters {
                 OnActionExecuted( executedContext );
             }
             finally {
-                @lock.UnLock();
+                if( isSuccess )
+                    @lock.UnLock();
             }
         }
 
