@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Tests.Samples;
 using Util.Helpers;
 
 namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
@@ -41,6 +42,15 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
 
         public string GetColumn( Expression expression, Type entity, bool right ) {
             return $"t_{Lambda.GetLastName( expression, right )}";
+        }
+
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        /// <param name="expression">表达式</param>
+        /// <param name="right">是否取右侧操作数</param>
+        public Type GetType( Expression expression, bool right = false ) {
+            return typeof( Sample );
         }
     }
 }

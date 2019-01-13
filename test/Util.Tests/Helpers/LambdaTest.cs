@@ -314,6 +314,9 @@ namespace Util.Tests.Helpers {
             var value = Guid.NewGuid();
             Expression<Func<Sample, bool>> expression4 = t => t.GuidValue == value;
             Assert.Equal( value, Lambda.GetValue( expression4 ) );
+
+            Expression<Func<Sample, bool>> expression5 = t => 1 == t.Test2.IntValue;
+            Assert.Equal( 1, Lambda.GetValue( expression5 ) );
         }
 
         /// <summary>

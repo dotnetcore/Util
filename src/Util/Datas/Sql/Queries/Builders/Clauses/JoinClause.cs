@@ -291,15 +291,15 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             if( expression == null )
                 throw new ArgumentNullException( nameof( expression ) );
             var expressions = Lambda.GetGroupPredicates( expression );
-            expressions.ForEach( group => On( group, typeof( TLeft ), typeof( TRight ) ) );
+            expressions.ForEach( group => On( group ) );
         }
 
         /// <summary>
         /// 设置连接条件组
         /// </summary>
-        private void On( List<Expression> group, Type typeLeft, Type typeRight ) {
+        private void On( List<Expression> group ) {
             var items = group.Select( expression => new OnItem(
-                GetColumn( expression, typeLeft, false ), GetColumn( expression, typeRight, true ), Lambda.GetOperator( expression ).SafeValue()
+                GetColumn( expression, false ), GetColumn( expression, true ), Lambda.GetOperator( expression ).SafeValue()
             ) ).ToList();
             _params.LastOrDefault()?.On( items );
         }
@@ -307,8 +307,12 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 获取列
         /// </summary>
-        private string GetColumn( Expression expression, Type entity, bool right ) {
-            return GetColumn( entity, _resolver.GetColumn( expression, entity, right ) );
+        private SqlItem GetColumn( Expression expression, bool right ) {
+            var type = _resolver.GetType( expression, right );
+            var column = _resolver.GetColumn( expression, type, right );
+            if( string.IsNullOrWhiteSpace( column ) )
+                return new SqlItem( Lambda.GetValue( expression ).SafeString(), raw: true );
+            return new SqlItem( GetColumn( type, column ) );
         }
 
         /// <summary>
