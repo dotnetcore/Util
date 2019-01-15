@@ -13,6 +13,7 @@ namespace Util.Events.Default {
         /// <param name="services">服务集合</param>
         public static IServiceCollection AddEventBus( this IServiceCollection services ) {
             services.TryAddSingleton<IEventHandlerManager, EventHandlerManager>();
+            services.TryAddSingleton<ISimpleEventBus, EventBus>();
             services.TryAddSingleton<IEventBus, EventBus>();
             return services;
         }

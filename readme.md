@@ -403,6 +403,9 @@ https://github.com/dotnetcore/util/
   - 加密操作 [已发布]
   - Url参数生成器 [已发布]
   - 调度器 - 基于Quartz.Net [已发布]
+  - 缓存 - 基于EasyCaching [已发布]
+  - 消息事件总线 - 基于Cap [已发布]
+  - 防重复提交过滤器
 - 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
@@ -538,3 +541,4 @@ https://github.com/dotnetcore/util/
 - 2018年10月19日，更新了支付宝二维码支付。
 - 2018年11月16日，更新了微信小程序支付。
 - 2018年11月18日，更新了基于Quartz.Net的调度器(Util.Schedulers/Quartz)及控制台示例。
+- 2019年1月15日，更新了基于EasyCaching的缓存操作(Util.Caches/EasyCaching)，更新了基于Cap的消息事件总线(Util.Events/Cap)，更新了防重复提交过滤器(Util.Webs/Filters/AntiDuplicateRequestAttribute)。

@@ -3,7 +3,7 @@ using Util.Dependency;
 
 namespace Util.Datas.UnitOfWorks {
     /// <summary>
-    /// 工作单元服务
+    /// 工作单元管理器
     /// </summary>
     public interface IUnitOfWorkManager : IScopeDependency {
         /// <summary>

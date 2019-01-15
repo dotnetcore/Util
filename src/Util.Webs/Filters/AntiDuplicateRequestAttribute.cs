@@ -21,6 +21,10 @@ namespace Util.Webs.Filters {
         /// 锁类型
         /// </summary>
         public LockType Type { get; set; } = LockType.User;
+        /// <summary>
+        /// 再次提交时间间隔，单位：秒
+        /// </summary>
+        public int Interval { get; set; }
 
         /// <summary>
         /// 执行
@@ -34,7 +38,7 @@ namespace Util.Webs.Filters {
             var key = GetKey( context );
             var isSuccess = false;
             try {
-                isSuccess = @lock.Lock( key );
+                isSuccess = @lock.Lock( key, GetExpiration() );
                 if ( isSuccess == false ) {
                     context.Result = new Result( StateCode.Fail, GetFailMessage() );
                     return;
@@ -66,6 +70,15 @@ namespace Util.Webs.Filters {
             if( Type == LockType.User )
                 userId = $"{Session.Instance.UserId}_";
             return string.IsNullOrWhiteSpace( Key ) ? $"{userId}{Web.Request.Path}" : $"{userId}{Key}";
+        }
+
+        /// <summary>
+        /// 获取到期时间间隔
+        /// </summary>
+        private TimeSpan? GetExpiration() {
+            if ( Interval == 0 )
+                return null;
+            return TimeSpan.FromSeconds( Interval );
         }
 
         /// <summary>

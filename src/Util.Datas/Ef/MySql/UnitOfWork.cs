@@ -16,7 +16,7 @@ namespace Util.Datas.Ef.MySql {
         /// 初始化MySql工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        /// <param name="manager">工作单元服务</param>
+        /// <param name="manager">工作单元管理器</param>
         protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager )
             : base( options, manager ) {
         }

@@ -4,9 +4,9 @@ using Util.Events.Handlers;
 
 namespace Util.Events.Default {
     /// <summary>
-    /// 事件总线
+    /// 基于内存的简单事件总线
     /// </summary>
-    public class EventBus : IEventBus {
+    public class EventBus : ISimpleEventBus {
         /// <summary>
         /// 初始化事件总线
         /// </summary>

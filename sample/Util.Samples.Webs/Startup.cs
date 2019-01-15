@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Util.Datas.Ef;
+using Util.Datas.Ef.Configs;
+using Util.Events.Cap;
 using Util.Events.Default;
 using Util.Logs.Extensions;
 using Util.Samples.Webs.Datas;
@@ -42,15 +44,12 @@ namespace Util.Samples.Webs {
             //添加NLog日志操作
             services.AddNLog();
 
-            //添加事件总线服务
-            services.AddEventBus();
-
             //注册XSRF令牌服务
             services.AddXsrfToken();
 
             //添加工作单元
             //====== 支持Sql Server 2012+ ==========
-            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
+            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ),EfLogLevel.All );
             //======= 支持Sql Server 2005+ ==========
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( builder => {
             //    builder.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ), option => option.UseRowNumberForPaging() );
@@ -70,6 +69,16 @@ namespace Util.Samples.Webs {
 
             // 添加Razor静态Html生成器
             services.AddRazorHtml();
+
+            //添加事件总线
+            services.AddEventBus();
+
+            //添加Cap事件总线
+            //services.AddEventBus( options => {
+            //    options.UseDashboard();
+            //    options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) );
+            //    options.UseRabbitMQ( "192.168.244.138" );
+            //} );
 
             //添加Util基础设施服务
             return services.AddUtil();
