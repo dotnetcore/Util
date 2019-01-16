@@ -24,7 +24,7 @@ namespace Util.Tests.Caches {
         /// </summary>
         public EasyCachingCacheTest() {
             var services = new ServiceCollection();
-            services.AddEasyCachingForUtil( options => options.UseInMemory() );
+            services.AddCache( options => options.UseInMemory() );
             var serviceProvider = services.BuildServiceProvider();
             _cache = serviceProvider.GetService<ICache>();
             _service = Substitute.For<IEasyCachingTestService>();

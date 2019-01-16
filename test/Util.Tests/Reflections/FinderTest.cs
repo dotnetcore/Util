@@ -76,7 +76,7 @@ namespace Util.Tests.Reflections {
         /// </summary>
         [Fact]
         public void TestFind_6() {
-            Util.Helpers.Thread.WaitAll( () => {
+            Util.Helpers.Thread.ParallelExecute( () => {
                 var types = _finder.Find<IA>();
                 Assert.Single( types );
                 Assert.Equal( typeof( A ), types[0] );

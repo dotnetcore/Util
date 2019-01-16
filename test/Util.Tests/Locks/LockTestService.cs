@@ -24,7 +24,7 @@ namespace Util.Tests.Locks {
         /// </summary>
         static LockTestService() {
             var services = new ServiceCollection();
-            services.AddEasyCachingForUtil( options => options.UseInMemory() );
+            services.AddCache( options => options.UseInMemory() );
             var serviceProvider = services.BuildServiceProvider();
             Cache = serviceProvider.GetService<ICache>();
         }

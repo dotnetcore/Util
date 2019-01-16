@@ -13,7 +13,7 @@ namespace Util.Caches.EasyCaching {
         /// </summary>
         /// <param name="services">服务集合</param>
         /// <param name="configAction">配置操作</param>
-        public static void AddEasyCachingForUtil( this IServiceCollection services, Action<EasyCachingOptions> configAction ) {
+        public static void AddCache( this IServiceCollection services, Action<EasyCachingOptions> configAction ) {
             services.TryAddScoped<ICache, CacheManager>();
             services.AddEasyCaching( configAction );
         }

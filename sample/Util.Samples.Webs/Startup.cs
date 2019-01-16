@@ -1,14 +1,15 @@
 ﻿using System;
 using System.IO;
+using EasyCaching.InMemory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using Util.Caches.EasyCaching;
 using Util.Datas.Ef;
-using Util.Datas.Ef.Configs;
-using Util.Events.Cap;
 using Util.Events.Default;
+using Util.Locks.Default;
 using Util.Logs.Extensions;
 using Util.Samples.Webs.Datas;
 using Util.Webs.Extensions;
@@ -44,12 +45,18 @@ namespace Util.Samples.Webs {
             //添加NLog日志操作
             services.AddNLog();
 
+            //添加EasyCaching缓存
+            services.AddCache( options => options.UseInMemory() );
+
+            //添加业务锁
+            services.AddLock();
+
             //注册XSRF令牌服务
             services.AddXsrfToken();
 
-            //添加工作单元
+            //添加EF工作单元
             //====== 支持Sql Server 2012+ ==========
-            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ),EfLogLevel.All );
+            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
             //======= 支持Sql Server 2005+ ==========
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Datas.SqlServer.SampleUnitOfWork>( builder => {
             //    builder.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ), option => option.UseRowNumberForPaging() );
