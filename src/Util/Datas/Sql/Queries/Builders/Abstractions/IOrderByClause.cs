@@ -4,9 +4,14 @@ using Util.Domains.Repositories;
 
 namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// <summary>
-    /// 排序子句
+    /// Order By子句
     /// </summary>
     public interface IOrderByClause {
+        /// <summary>
+        /// 复制Order By子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        IOrderByClause Clone( IEntityAliasRegister register );
         /// <summary>
         /// 排序
         /// </summary>

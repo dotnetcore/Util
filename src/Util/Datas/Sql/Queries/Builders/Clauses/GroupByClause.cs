@@ -38,11 +38,22 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="dialect">Sql方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
-        public GroupByClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
+        /// <param name="group">分组字段</param>
+        /// <param name="having">分组条件</param>
+        public GroupByClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, List<SqlItem> group = null, string having = null ) {
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
-            _group = new List<SqlItem>();
+            _group = group ?? new List<SqlItem>();
+            _having = having;
+        }
+
+        /// <summary>
+        /// 复制Group By子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        public virtual IGroupByClause Clone( IEntityAliasRegister register ) {
+            return new GroupByClause( _dialect, _resolver, _register, new List<SqlItem>( _group ), _having );
         }
 
         /// <summary>
@@ -65,7 +76,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void GroupBy<TEntity>( params Expression<Func<TEntity, object>>[] columns ) {
             if( columns == null )
                 return;
-            foreach ( var column in columns )
+            foreach( var column in columns )
                 GroupBy( column );
         }
 

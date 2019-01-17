@@ -1070,5 +1070,32 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         }
 
         #endregion
+
+        #region Clone(复制副本)
+
+        /// <summary>
+        /// 复制副本
+        /// </summary>
+        [Fact]
+        public void TestClone_1() {
+            _clause.Where( "Name", "a" );
+
+            //复制副本
+            var copy = _clause.Clone( null, _parameterManager.Clone() );
+            Assert.Equal( "Where [Name]=@_p_0", GetSql() );
+            Assert.Equal( "Where [Name]=@_p_0", copy.ToSql() );
+
+            //修改副本
+            copy.Where( "Code",1 );
+            Assert.Equal( "Where [Name]=@_p_0", GetSql() );
+            Assert.Equal( "Where [Name]=@_p_0 And [Code]=@_p_1", copy.ToSql() );
+
+            //修改原对象
+            _clause.Where( "Age", 1 );
+            Assert.Equal( "Where [Name]=@_p_0 And [Age]=@_p_1", GetSql() );
+            Assert.Equal( "Where [Name]=@_p_0 And [Code]=@_p_1", copy.ToSql() );
+        }
+
+        #endregion
     }
 }

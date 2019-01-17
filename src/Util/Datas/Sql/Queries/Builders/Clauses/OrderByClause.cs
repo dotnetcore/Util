@@ -9,13 +9,9 @@ using Util.Properties;
 
 namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// <summary>
-    /// 排序子句
+    /// Order By子句
     /// </summary>
     public class OrderByClause : IOrderByClause {
-        /// <summary>
-        /// 排序项列表
-        /// </summary>
-        private readonly List<OrderByItem> _items;
         /// <summary>
         /// Sql方言
         /// </summary>
@@ -28,6 +24,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 实体注册器
         /// </summary>
         private readonly IEntityAliasRegister _register;
+        /// <summary>
+        /// 排序项列表
+        /// </summary>
+        private readonly List<OrderByItem> _items;
 
         /// <summary>
         /// 初始化排序子句
@@ -35,11 +35,20 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="dialect">Sql方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
-        public OrderByClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
-            _items = new List<OrderByItem>();
+        /// <param name="items">排序项列表</param>
+        public OrderByClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, List<OrderByItem> items = null ) {
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
+            _items = items ?? new List<OrderByItem>();
+        }
+
+        /// <summary>
+        /// 复制Order By子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        public virtual IOrderByClause Clone( IEntityAliasRegister register ) {
+            return new OrderByClause( _dialect, _resolver, _register,new List<OrderByItem>( _items ) );
         }
 
         /// <summary>

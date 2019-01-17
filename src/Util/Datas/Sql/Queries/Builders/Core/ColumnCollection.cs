@@ -57,7 +57,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取表别名
         /// </summary>
         private string GetTableAlias( IEntityAliasRegister register ) {
-            if ( register.Contains( Table ) )
+            if ( register != null && register.Contains( Table ) )
                 return register.GetAlias( Table );
             return TableAlias;
         }

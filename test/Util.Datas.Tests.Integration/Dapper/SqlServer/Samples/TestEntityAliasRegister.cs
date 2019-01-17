@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries.Builders.Core;
 
 namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
     /// <summary>
@@ -10,7 +11,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
         /// <summary>
         /// 实体别名
         /// </summary>
-        public Dictionary<Type, string> Data { get; }
+        public IDictionary<Type, string> Data { get; }
 
         /// <summary>
         /// 注册实体别名
@@ -34,6 +35,13 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Samples {
         /// <param name="entity">实体类型</param>
         public string GetAlias( Type entity ) {
             return $"as_{entity.Name}";
+        }
+
+        /// <summary>
+        /// 复制实体别名注册器
+        /// </summary>
+        public IEntityAliasRegister Clone() {
+            return new EntityAliasRegister( Data );
         }
     }
 }

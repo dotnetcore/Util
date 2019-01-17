@@ -22,7 +22,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         private readonly IEntityResolver _resolver;
         /// <summary>
-        /// 实体注册器
+        /// 实体别名注册器
         /// </summary>
         private readonly IEntityAliasRegister _register;
         /// <summary>
@@ -37,12 +37,22 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体注册器</param>
-        public SelectClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
+        /// <param name="columns">列名集合</param>
+        public SelectClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, List<ColumnCollection> columns = null ) {
             _sqlBuilder = sqlBuilder;
-            _columns = new List<ColumnCollection>();
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
+            _columns = columns ?? new List<ColumnCollection>();
+        }
+
+        /// <summary>
+        /// 复制Select子句
+        /// </summary>
+        /// <param name="sqlBuilder">Sql生成器</param>
+        /// <param name="register">实体别名注册器</param>
+        public virtual ISelectClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register ) {
+            return new SelectClause( sqlBuilder, _dialect, _resolver, register, new List<ColumnCollection>( _columns ) );
         }
 
         /// <summary>
@@ -111,7 +121,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="action">子查询操作</param>
         /// <param name="columnAlias">列别名</param>
         public void AppendSql( Action<ISqlBuilder> action, string columnAlias ) {
-            if ( action == null )
+            if( action == null )
                 return;
             var builder = _sqlBuilder.New();
             action( builder );

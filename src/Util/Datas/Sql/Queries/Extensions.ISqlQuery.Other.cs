@@ -6,6 +6,24 @@ namespace Util.Datas.Sql.Queries {
     /// </summary>
     public static partial class Extensions {
         /// <summary>
+        /// 复制Sql生成器
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlBuilder CloneBuilder( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            return builder.Clone();
+        }
+
+        /// <summary>
+        /// 创建一个新的Sql生成器
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlBuilder NewBuilder( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            return builder.New();
+        }
+
+        /// <summary>
         /// 获取调试Sql语句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -22,15 +40,6 @@ namespace Util.Datas.Sql.Queries {
             var builder = sqlQuery.GetBuilder();
             builder.Clear();
             return sqlQuery;
-        }
-
-        /// <summary>
-        /// 创建一个新的Sql生成器
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        public static ISqlBuilder NewBuilder( this ISqlQuery sqlQuery ) {
-            var builder = sqlQuery.GetBuilder();
-            return builder.New();
         }
     }
 }

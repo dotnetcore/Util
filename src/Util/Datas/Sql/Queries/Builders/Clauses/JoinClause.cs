@@ -15,10 +15,6 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// </summary>
     public class JoinClause : IJoinClause {
         /// <summary>
-        /// Sql生成器
-        /// </summary>
-        private readonly ISqlBuilder _sqlBuilder;
-        /// <summary>
         /// Join关键字
         /// </summary>
         private const string JoinKey = "Join";
@@ -31,11 +27,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         private const string RightJoinKey = "Right Join";
         /// <summary>
-        /// 连接参数
+        /// Sql生成器
         /// </summary>
-        private readonly List<JoinItem> _params;
+        private readonly ISqlBuilder _sqlBuilder;
         /// <summary>
-        /// 方言
+        /// Sql方言
         /// </summary>
         private readonly IDialect _dialect;
         /// <summary>
@@ -43,9 +39,13 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         private readonly IEntityResolver _resolver;
         /// <summary>
-        /// 实体注册器
+        /// 实体别名注册器
         /// </summary>
         private readonly IEntityAliasRegister _register;
+        /// <summary>
+        /// 连接参数列表
+        /// </summary>
+        private readonly List<JoinItem> _params;
 
         /// <summary>
         /// 初始化表连接子句
@@ -54,12 +54,22 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体注册器</param>
-        public JoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
-            _params = new List<JoinItem>();
+        /// <param name="joinItems">连接参数列表</param>
+        public JoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, List<JoinItem> joinItems = null ) {
             _sqlBuilder = sqlBuilder;
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
+            _params = joinItems ?? new List<JoinItem>();
+        }
+
+        /// <summary>
+        /// 复制Join子句
+        /// </summary>
+        /// <param name="sqlBuilder">Sql生成器</param>
+        /// <param name="register">实体别名注册器</param>
+        public virtual IJoinClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register ) {
+            return new JoinClause( sqlBuilder, _dialect, _resolver, register, _params.Select( t => t.Clone() ).ToList() );
         }
 
         /// <summary>

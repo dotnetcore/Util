@@ -4,6 +4,11 @@
     /// </summary>
     public interface IFromClause {
         /// <summary>
+        /// 复制From子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        IFromClause Clone( IEntityAliasRegister register );
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="table">表名</param>

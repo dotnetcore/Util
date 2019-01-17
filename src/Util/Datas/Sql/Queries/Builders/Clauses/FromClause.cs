@@ -10,21 +10,21 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// </summary>
     public class FromClause : IFromClause {
         /// <summary>
-        /// Sql项
-        /// </summary>
-        private SqlItem _item;
-        /// <summary>
         /// 方言
         /// </summary>
-        private readonly IDialect _dialect;
+        protected readonly IDialect Dialect;
         /// <summary>
         /// 实体解析器
         /// </summary>
-        private readonly IEntityResolver _resolver;
+        protected readonly IEntityResolver Resolver;
         /// <summary>
         /// 实体注册器
         /// </summary>
-        private readonly IEntityAliasRegister _register;
+        protected readonly IEntityAliasRegister Register;
+        /// <summary>
+        /// Sql项
+        /// </summary>
+        protected SqlItem Table;
 
         /// <summary>
         /// 初始化From子句
@@ -32,10 +32,20 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
-        public FromClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
-            _dialect = dialect;
-            _resolver = resolver;
-            _register = register;
+        /// <param name="table">表</param>
+        public FromClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, SqlItem table = null ) {
+            Dialect = dialect;
+            Resolver = resolver;
+            Register = register;
+            Table = table;
+        }
+
+        /// <summary>
+        /// 复制From子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        public virtual IFromClause Clone( IEntityAliasRegister register ) {
+            return new FromClause( Dialect, Resolver, register, Table );
         }
 
         /// <summary>
@@ -44,7 +54,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
         public void From( string table, string alias = null ) {
-            _item = CreateSqlItem( table, null, alias );
+            Table = CreateSqlItem( table, null, alias );
         }
 
         /// <summary>
@@ -53,7 +63,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="table">表名</param>
         /// <param name="schema">架构名</param>
         /// <param name="alias">别名</param>
-        protected virtual SqlItem CreateSqlItem( string table, string schema,string alias ) {
+        protected virtual SqlItem CreateSqlItem( string table, string schema, string alias ) {
             return new SqlItem( table, schema, alias );
         }
 
@@ -64,9 +74,9 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="schema">架构名</param>
         public void From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
             var entity = typeof( TEntity );
-            var table = _resolver.GetTableAndSchema( entity );
-            _item = CreateSqlItem( table, schema, alias );
-            _register.Register( entity, _resolver.GetAlias( entity, alias ) );
+            var table = Resolver.GetTableAndSchema( entity );
+            Table = CreateSqlItem( table, schema, alias );
+            Register.Register( entity, Resolver.GetAlias( entity, alias ) );
         }
 
         /// <summary>
@@ -74,18 +84,18 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         public void AppendSql( string sql ) {
-            if( _item != null && _item.Raw ) {
-                _item.Name += sql;
+            if( Table != null && Table.Raw ) {
+                Table = new SqlItem( $"{Table.Name}{sql}", raw: true );
                 return;
             }
-            _item = new SqlItem( sql, raw: true );
+            Table = new SqlItem( sql, raw: true );
         }
 
         /// <summary>
         /// 验证
         /// </summary>
         public void Validate() {
-            if( string.IsNullOrWhiteSpace( _item?.Name ) )
+            if( string.IsNullOrWhiteSpace( Table?.Name ) )
                 throw new InvalidOperationException( LibraryResource.TableIsEmpty );
         }
 
@@ -93,7 +103,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 输出Sql
         /// </summary>
         public string ToSql() {
-            var table = _item?.ToSql( _dialect );
+            var table = Table?.ToSql( Dialect );
             if( string.IsNullOrWhiteSpace( table ) )
                 return null;
             return $"From {table}";

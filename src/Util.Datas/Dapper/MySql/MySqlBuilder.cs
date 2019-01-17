@@ -17,6 +17,15 @@ namespace Util.Datas.Dapper.MySql {
         }
 
         /// <summary>
+        /// 复制Sql生成器
+        /// </summary>
+        public override ISqlBuilder Clone() {
+            var sqlBuilder = new MySqlBuilder();
+            sqlBuilder.Clone( this );
+            return sqlBuilder;
+        }
+
+        /// <summary>
         /// 获取Sql方言
         /// </summary>
         protected override IDialect GetDialect() {

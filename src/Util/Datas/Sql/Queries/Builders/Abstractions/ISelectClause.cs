@@ -7,6 +7,12 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// </summary>
     public interface ISelectClause {
         /// <summary>
+        /// 复制Select子句
+        /// </summary>
+        /// <param name="sqlBuilder">Sql生成器</param>
+        /// <param name="register">实体别名注册器</param>
+        ISelectClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register );
+        /// <summary>
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>
@@ -45,5 +51,6 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 输出Sql
         /// </summary>
         string ToSql();
+        
     }
 }

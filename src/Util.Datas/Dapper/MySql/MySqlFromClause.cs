@@ -13,8 +13,9 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
-        public MySqlFromClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register )
-            : base( dialect, resolver, register ) {
+        /// <param name="table">表</param>
+        public MySqlFromClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, SqlItem table = null )
+            : base( dialect, resolver, register, table ) {
         }
 
         /// <summary>
@@ -25,6 +26,14 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="alias">别名</param>
         protected override SqlItem CreateSqlItem( string table, string schema, string alias ) {
             return new SqlItem( table, schema, alias, false, false );
+        }
+
+        /// <summary>
+        /// 复制From子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        public override IFromClause Clone( IEntityAliasRegister register ) {
+            return new MySqlFromClause( Dialect, Resolver, register, Table.Clone() );
         }
     }
 }

@@ -10,13 +10,17 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// </summary>
     public interface ISqlBuilder : ICondition {
         /// <summary>
-        /// 清空并初始化
+        /// 复制Sql生成器
         /// </summary>
-        void Clear();
+        ISqlBuilder Clone();
         /// <summary>
         /// 创建Sql生成器
         /// </summary>
         ISqlBuilder New();
+        /// <summary>
+        /// 清空并初始化
+        /// </summary>
+        void Clear();
         /// <summary>
         /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
         /// </summary>

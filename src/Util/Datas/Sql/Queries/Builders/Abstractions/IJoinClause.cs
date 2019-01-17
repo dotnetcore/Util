@@ -8,6 +8,12 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// </summary>
     public interface IJoinClause {
         /// <summary>
+        /// 复制Join子句
+        /// </summary>
+        /// <param name="sqlBuilder">Sql生成器</param>
+        /// <param name="register">实体别名注册器</param>
+        IJoinClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register );
+        /// <summary>
         /// 内连接
         /// </summary>
         /// <param name="table">表名</param>
