@@ -89,14 +89,79 @@ namespace Util.Helpers {
         }
 
         /// <summary>
+        /// 查找类型列表
+        /// </summary>
+        /// <typeparam name="TFind">查找类型</typeparam>
+        /// <param name="assemblies">待查找的程序集列表</param>
+        public static List<Type> FindTypes<TFind>( params Assembly[] assemblies ) {
+            var findType = typeof( TFind );
+            return FindTypes( findType, assemblies );
+        }
+
+        /// <summary>
+        /// 查找类型列表
+        /// </summary>
+        /// <param name="findType">查找类型</param>
+        /// <param name="assemblies">待查找的程序集列表</param>
+        public static List<Type> FindTypes( Type findType, params Assembly[] assemblies ) {
+            var result = new List<Type>();
+            foreach ( var assembly in assemblies )
+                result.AddRange( GetTypes( findType, assembly ) );
+            return result.Distinct().ToList();
+        }
+
+        /// <summary>
+        /// 获取类型列表
+        /// </summary>
+        private static List<Type> GetTypes( Type findType, Assembly assembly ) {
+            var result = new List<Type>();
+            if ( assembly == null )
+                return result;
+            Type[] types;
+            try {
+                types = assembly.GetTypes();
+            }
+            catch( ReflectionTypeLoadException ) {
+                return result;
+            }
+            foreach( var type in types )
+                AddType( result, findType, type );
+            return result;
+        }
+
+        /// <summary>
+        /// 添加类型
+        /// </summary>
+        private static void AddType( List<Type> result, Type findType, Type type ) {
+            if( type.IsInterface || type.IsAbstract )
+                return;
+            if( findType.IsAssignableFrom( type ) == false && MatchGeneric( findType, type ) == false )
+                return;
+            result.Add( type );
+        }
+
+        /// <summary>
+        /// 泛型匹配
+        /// </summary>
+        private static bool MatchGeneric( Type findType, Type type ) {
+            if( findType.IsGenericTypeDefinition == false )
+                return false;
+            var definition = findType.GetGenericTypeDefinition();
+            foreach( var implementedInterface in type.FindInterfaces( ( filter, criteria ) => true, null ) ) {
+                if( implementedInterface.IsGenericType == false )
+                    continue;
+                return definition.IsAssignableFrom( implementedInterface.GetGenericTypeDefinition() );
+            }
+            return false;
+        }
+
+        /// <summary>
         /// 获取实现了接口的所有实例
         /// </summary>
         /// <typeparam name="TInterface">接口类型</typeparam>
-        /// <param name="assembly">在该程序集中查找</param>
-        public static List<TInterface> GetInstancesByInterface<TInterface>( Assembly assembly ) {
-            var typeInterface = typeof( TInterface );
-            return assembly.GetTypes()
-                .Where( t => typeInterface.GetTypeInfo().IsAssignableFrom( t ) && t != typeInterface && t.GetTypeInfo().IsAbstract == false )
+        /// <param name="assemblies">待查找的程序集列表</param>
+        public static List<TInterface> GetInstancesByInterface<TInterface>( params Assembly[] assemblies ) {
+            return FindTypes<TInterface>( assemblies )
                 .Select( t => CreateInstance<TInterface>( t ) ).ToList();
         }
 

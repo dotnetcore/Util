@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Util.Datas.UnitOfWorks {
     /// <summary>
-    /// 工作单元服务
+    /// 工作单元管理器
     /// </summary>
     public class UnitOfWorkManager : IUnitOfWorkManager {
         /// <summary>
@@ -13,7 +13,7 @@ namespace Util.Datas.UnitOfWorks {
         private readonly List<IUnitOfWork> _unitOfWorks;
 
         /// <summary>
-        /// 初始化工作单元服务
+        /// 初始化工作单元管理器
         /// </summary>
         public UnitOfWorkManager() {
             _unitOfWorks = new List<IUnitOfWork>();

@@ -31,5 +31,9 @@ namespace Util.Caches {
         /// </summary>
         /// <param name="key">缓存键</param>
         void Remove( string key );
+        /// <summary>
+        /// 清空缓存
+        /// </summary>
+        void Clear();
     }
 }

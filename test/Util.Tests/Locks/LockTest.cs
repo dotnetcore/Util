@@ -25,6 +25,7 @@ namespace Util.Tests.Locks {
         /// </summary>
         public void Dispose() {
             Time.Reset();
+            _service.UnLock();
         }
 
         /// <summary>
@@ -36,20 +37,14 @@ namespace Util.Tests.Locks {
         }
 
         /// <summary>
-        /// 并发执行2个服务
+        /// 并发执行服务
         /// </summary>
         [Fact]
         public void Test_2() {
             var key = "Test_2";
             var result = new List<string>();
-            Util.Helpers.Thread.ParallelExecute( () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            } );
-            Assert.Single( result.FindAll( t => t == "ok" ) );
-            Assert.Equal( "ok", result[0] );
-            Assert.Equal( "fail", result[1] );
+            Util.Helpers.Thread.ParallelExecute( () => result.Add( _service.Execute( key ) ), 20 );
+            Assert.Single( result.FindAll( t => t == "ok" ));
         }
 
         /// <summary>
@@ -59,46 +54,24 @@ namespace Util.Tests.Locks {
         public void Test_3() {
             var key = "Test_3";
 
-            //先锁定
-            Util.Helpers.Thread.ParallelExecute( () => _service.Execute( key ), () => _service.Execute( key ) );
+            //执行，被锁定
+            _service.Execute( key );
 
             //未解锁，无法执行
             var result = new List<string>();
-            Util.Helpers.Thread.ParallelExecute( () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            } );
+            Util.Helpers.Thread.ParallelExecute( () => result.Add( _service.Execute( key ) ), 20 );
             Assert.Empty( result.FindAll( t => t == "ok" ) );
 
             //解锁
             _service.UnLock();
 
             //再次执行
-            Util.Helpers.Thread.ParallelExecute( () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            }, () => {
-                result.Add( _service.Execute( key ) );
-            } );
-            Assert.Single( result.FindAll( t => t == "ok" ) );
+            Util.Helpers.Thread.ParallelExecute( () => result.Add( _service.Execute( key ) ), 20 );
+            Assert.Single( result.FindAll( t => t == "ok" ));
         }
 
         /// <summary>
-        /// 延迟10秒才允许执行
+        /// 延迟1秒才允许执行 - 设置延迟时间后，UnLock无效
         /// </summary>
         [Fact]
         public void Test_4() {

@@ -175,5 +175,15 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
                 return column;
             return _matedata.GetColumn( entity, column );
         }
+
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        /// <param name="expression">表达式</param>
+        /// <param name="right">是否取右侧操作数</param>
+        public Type GetType( Expression expression, bool right = false ) {
+            var memberExpression = Lambda.GetMemberExpression( expression, right );
+            return memberExpression?.Expression?.Type;
+        }
     }
 }

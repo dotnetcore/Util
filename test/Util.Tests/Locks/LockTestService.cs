@@ -11,6 +11,10 @@ namespace Util.Tests.Locks {
     /// </summary>
     public class LockTestService {
         /// <summary>
+        /// 缓存
+        /// </summary>
+        private static readonly ICache Cache;
+        /// <summary>
         /// 业务锁
         /// </summary>
         private readonly DefaultLock _lock;
@@ -18,13 +22,18 @@ namespace Util.Tests.Locks {
         /// <summary>
         /// 初始化业务锁测试服务
         /// </summary>
-        public LockTestService() {
+        static LockTestService() {
             var services = new ServiceCollection();
-            services.AddEasyCaching();
-            services.AddDefaultInMemoryCache();
+            services.AddCache( options => options.UseInMemory() );
             var serviceProvider = services.BuildServiceProvider();
-            var cache = serviceProvider.GetService<ICache>();
-            _lock = new DefaultLock( cache );
+            Cache = serviceProvider.GetService<ICache>();
+        }
+
+        /// <summary>
+        /// 初始化业务锁测试服务
+        /// </summary>
+        public LockTestService() {
+            _lock = new DefaultLock( Cache );
         }
 
         /// <summary>

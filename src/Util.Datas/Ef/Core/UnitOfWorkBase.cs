@@ -17,6 +17,7 @@ using Util.Exceptions;
 using Util.Datas.Ef.Logs;
 using Util.Datas.Matedatas;
 using Util.Datas.Sql;
+using Util.Datas.Transactions;
 using Util.Helpers;
 using Util.Logs;
 using Util.Sessions;
@@ -53,7 +54,7 @@ namespace Util.Datas.Ef.Core {
         /// 初始化Entity Framework工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        /// <param name="manager">工作单元服务</param>
+        /// <param name="manager">工作单元管理器</param>
         protected UnitOfWorkBase( DbContextOptions options, IUnitOfWorkManager manager )
             : base( options ) {
             manager?.Register( this );
@@ -210,11 +211,19 @@ namespace Util.Datas.Ef.Core {
             }
         }
 
+        /// <summary>
+        /// 保存更改
+        /// </summary>
+        public override int SaveChanges() {
+            return SaveChangesAsync().GetAwaiter().GetResult();
+        }
+
         #endregion
 
-        #region CommitAsync(异步提交)
+        #region CommitAsync(提交)
+
         /// <summary>
-        /// 异步提交,返回影响的行数
+        /// 提交,返回影响的行数
         /// </summary>
         public async Task<int> CommitAsync() {
             try {
@@ -224,16 +233,16 @@ namespace Util.Datas.Ef.Core {
                 throw new ConcurrencyException( ex );
             }
         }
-        #endregion
-
-        #region SaveChanges(保存更改)
 
         /// <summary>
-        /// 保存更改
+        /// 异步保存更改
         /// </summary>
-        public override int SaveChanges() {
+        public override async Task<int> SaveChangesAsync( CancellationToken cancellationToken = default( CancellationToken ) ) {
             SaveChangesBefore();
-            return base.SaveChanges();
+            var transactionActionManager = Ioc.Create<ITransactionActionManager>();
+            if ( transactionActionManager.Count == 0 )
+                return await base.SaveChangesAsync( cancellationToken );
+            return await TransactionCommit( transactionActionManager, cancellationToken );
         }
 
         /// <summary>
@@ -297,16 +306,29 @@ namespace Util.Datas.Ef.Core {
         protected virtual void InterceptDeletedOperation( EntityEntry entry ) {
         }
 
-        #endregion
-
-        #region SaveChangesAsync(异步保存更改)
         /// <summary>
-        /// 异步保存更改
+        /// 手工创建事务提交
         /// </summary>
-        public override Task<int> SaveChangesAsync( CancellationToken cancellationToken = default( CancellationToken ) ) {
-            SaveChangesBefore();
-            return base.SaveChangesAsync( cancellationToken );
+        private async Task<int> TransactionCommit( ITransactionActionManager transactionActionManager, CancellationToken cancellationToken ) {
+            using( var connection = Database.GetDbConnection() ) {
+                if ( connection.State == ConnectionState.Closed )
+                    await connection.OpenAsync( cancellationToken );
+                using( var transaction = connection.BeginTransaction() ) {
+                    try {
+                        await transactionActionManager.CommitAsync( transaction );
+                        Database.UseTransaction( transaction );
+                        var result = await base.SaveChangesAsync( cancellationToken );
+                        transaction.Commit();
+                        return result;
+                    }
+                    catch {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
+
         #endregion
 
         #region GetConnection(获取数据库连接)

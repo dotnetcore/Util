@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Util.Dependency;
+using Util.Samples.Schedulers.Services;
 
 namespace Util.Samples.Schedulers.Configs {
     /// <summary>

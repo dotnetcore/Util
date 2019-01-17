@@ -11,7 +11,7 @@ namespace Util.Tests.Events {
     /// </summary>
     public class EventBusTest {
         /// <summary>
-        /// 事件处理器2
+        /// 事件处理器
         /// </summary>
         private readonly IEventHandler<EventSample> _handler;
 

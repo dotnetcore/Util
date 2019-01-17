@@ -2,6 +2,7 @@
 using Util.Domains.Repositories;
 using Util.Applications;
 using Util.Datas.Sql.Queries;
+using Util.Events;
 using Util.Exceptions;
 using Util.Maps;
 using Util.Samples.Webs.Datas;
@@ -23,10 +24,12 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="applicationRepository">应用程序仓储</param>
         /// <param name="sqlQuery">Sql查询对象</param>
-        public ApplicationService( ISampleUnitOfWork unitOfWork, IApplicationRepository applicationRepository, ISqlQuery sqlQuery )
+        /// <param name="eventBus">Sql查询对象</param>
+        public ApplicationService( ISampleUnitOfWork unitOfWork, IApplicationRepository applicationRepository, ISqlQuery sqlQuery, IEventBus eventBus )
             : base( unitOfWork, applicationRepository ) {
             ApplicationRepository = applicationRepository;
             SqlQuery = sqlQuery;
+            EventBus = eventBus;
         }
 
         /// <summary>
@@ -37,6 +40,10 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// Sql查询对象
         /// </summary>
         public ISqlQuery SqlQuery { get; }
+        /// <summary>
+        /// 事件总线
+        /// </summary>
+        public IEventBus EventBus { get; }
 
         /// <summary>
         /// 转换为数据传输对象
@@ -73,11 +80,11 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// <summary>
         /// 创建前操作
         /// </summary>
-        protected override void CreateBefore( Application entity ) {
-            base.CreateBefore( entity );
-            if( ApplicationRepository.Exists( t => t.Code == entity.Code ) )
+        protected override async Task CreateBeforeAsync( Application entity ) {
+            await base.CreateBeforeAsync( entity );
+            if( await ApplicationRepository.ExistsAsync( t => t.Code == entity.Code ) )
                 ThrowCodeRepeatException( entity.Code );
-            if( ApplicationRepository.Exists( t => t.Name == entity.Name ) )
+            if( await ApplicationRepository.ExistsAsync( t => t.Name == entity.Name ) )
                 ThrowNameRepeatException( entity.Name );
         }
 
@@ -98,11 +105,11 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// <summary>
         /// 修改前操作
         /// </summary>
-        protected override void UpdateBefore( Application entity ) {
-            base.UpdateBefore( entity );
-            if( ApplicationRepository.Exists( t => t.Id != entity.Id && t.Code == entity.Code ) )
+        protected override async Task UpdateBeforeAsync( Application entity ) {
+            await base.UpdateBeforeAsync( entity );
+            if( await ApplicationRepository.ExistsAsync( t => t.Id != entity.Id && t.Code == entity.Code ) )
                 ThrowCodeRepeatException( entity.Code );
-            if( ApplicationRepository.Exists( t => t.Id != entity.Id && t.Name == entity.Name ) )
+            if( await ApplicationRepository.ExistsAsync( t => t.Id != entity.Id && t.Name == entity.Name ) )
                 ThrowNameRepeatException( entity.Name );
         }
     }

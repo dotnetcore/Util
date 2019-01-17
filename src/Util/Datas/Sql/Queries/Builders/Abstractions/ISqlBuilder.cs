@@ -303,7 +303,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 设置查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件,范例：t => t.Name.Contains("a") &amp;&amp; ( t.Code == "b" || t.Age > 1 )</param>
+        /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
         ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class;
         /// <summary>
         /// 添加到Where子句
@@ -551,9 +551,15 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 分组
         /// </summary>
-        /// <param name="group">分组字段,范例：a.Id,b.Name</param>
+        /// <param name="columns">分组字段,范例：a.Id,b.Name</param>
         /// <param name="having">分组条件,范例：Count(*) > 1</param>
-        ISqlBuilder GroupBy( string group, string having = null );
+        ISqlBuilder GroupBy( string columns, string having = null );
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="columns">分组字段</param>
+        ISqlBuilder GroupBy<TEntity>( params Expression<Func<TEntity, object>>[] columns );
         /// <summary>
         /// 分组
         /// </summary>
@@ -580,7 +586,7 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="desc">是否倒排</param>
         ISqlBuilder OrderBy<TEntity>( Expression<Func<TEntity, object>> column, bool desc = false );
         /// <summary>
-        /// 排序
+        /// 添加到Order By子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendOrderBy( string sql );

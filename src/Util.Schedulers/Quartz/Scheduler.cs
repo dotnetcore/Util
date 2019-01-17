@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
+using Util.Helpers;
+using Util.Reflections;
 using Qz = Quartz;
 
 namespace Util.Schedulers.Quartz {
@@ -61,6 +64,29 @@ namespace Util.Schedulers.Quartz {
             if( _scheduler.IsShutdown )
                 return;
             await _scheduler.Shutdown( true );
+        }
+
+        /// <summary>
+        /// 扫描并添加作业
+        /// </summary>
+        /// <param name="assemblies">程序集列表</param>
+        public async Task ScanJobsAsync( params Assembly[] assemblies ) {
+            assemblies = GetAssemblies( assemblies );
+            var jobs = Reflection.GetInstancesByInterface<IJob>( assemblies );
+            if ( jobs == null )
+                return;
+            foreach ( var job in jobs )
+                await AddJobAsync( job );
+        }
+
+        /// <summary>
+        /// 获取程序集列表
+        /// </summary>
+        private Assembly[] GetAssemblies( Assembly[] assemblies ) {
+            if ( assemblies != null && assemblies.Length > 0 )
+                return assemblies;
+            var finder = Ioc.Create<IFind>();
+            return finder?.GetAssemblies().ToArray();
         }
 
         /// <summary>

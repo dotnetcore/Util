@@ -161,31 +161,34 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - [NLog](http://nlog-project.org/)
   - [Exceptionless](https://github.com/exceptionless)
 
-14. 缓存框架
+14. 缓存
   - [EasyCaching](https://github.com/dotnetcore/EasyCaching)
 
-15. Id生成器
+15. 事件总线
+  - [CAP](https://github.com/dotnetcore/CAP)
+
+16. Id生成器
   - [ECommon.Utilities.ObjectId](https://github.com/tangxuehua/ecommon/blob/master/src/ECommon/Utilities/ObjectId.cs)
 
-16. RSA加密算法
+17. RSA加密算法
   - [DotnetCore.RSA](https://github.com/stulzq/DotnetCore.RSA/blob/master/DotnetCore.RSA/RSAHelper.cs)
 
-17. 二维码操作
+18. 二维码操作
   - [QRCoder](https://github.com/codebude/QRCoder/)
 
-18. 短信操作
+19. 短信操作
   - [Luosimao](https://luosimao.com/)
 
-19. Queryable动态扩展
+20. Queryable动态扩展
   - [System.Linq.Dynamic.Core](https://github.com/StefH/System.Linq.Dynamic.Core)
 
-20. Web框架
+21. Web框架
   - [Asp.Net Core](https://docs.microsoft.com/zh-cn/aspnet/core/)
 
-21. 定时任务调度框架
+22. 定时任务调度框架
   - [Quartz.Net](https://www.quartz-scheduler.net/)
 
-22. UI
+23. UI
   - 脚本语言
     - [TypeScript](https://www.tslang.cn)
   - 脚本框架
@@ -223,14 +226,14 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - Karma
     - Jasmine
 
-23. 权限
+24. 权限
     - [Asp Net Core Identity](https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?tabs=visual-studio%2Caspnetcore2x)
     - [Identity Server](https://identityserver4.readthedocs.io/en/release/)
 
-24. 代码生成器
+25. 代码生成器
   - CodeSmith 6.5
 
-25. 参考应用框架
+26. 参考应用框架
   - [ABP](http://aspnetboilerplate.com/)
   - [Nop](https://www.nopcommerce.com) 
     - Nop是一个开源商城，封装了大量实用的基础代码。
@@ -400,6 +403,9 @@ https://github.com/dotnetcore/util/
   - 加密操作 [已发布]
   - Url参数生成器 [已发布]
   - 调度器 - 基于Quartz.Net [已发布]
+  - 缓存 - 基于EasyCaching [已发布]
+  - 消息事件总线 - 基于Cap [已发布]
+  - 防重复提交过滤器
 - 分层架构基类及组件
   - 实体基类 [已发布]
   - 聚合根基类 [已发布]
@@ -535,3 +541,4 @@ https://github.com/dotnetcore/util/
 - 2018年10月19日，更新了支付宝二维码支付。
 - 2018年11月16日，更新了微信小程序支付。
 - 2018年11月18日，更新了基于Quartz.Net的调度器(Util.Schedulers/Quartz)及控制台示例。
+- 2019年1月15日，更新了基于EasyCaching的缓存操作(Util.Caches/EasyCaching)，更新了基于Cap的消息事件总线(Util.Events/Cap)，更新了防重复提交过滤器(Util.Webs/Filters/AntiDuplicateRequestAttribute)。

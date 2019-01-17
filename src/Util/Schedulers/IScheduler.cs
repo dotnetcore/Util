@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Util.Schedulers {
     /// <summary>
@@ -26,5 +27,10 @@ namespace Util.Schedulers {
         /// </summary>
         /// <typeparam name="TJob">作业类型</typeparam>
         Task AddJobAsync<TJob>() where TJob : IJob, new();
+        /// <summary>
+        /// 扫描并添加作业
+        /// </summary>
+        /// <param name="assemblies">程序集列表</param>
+        Task ScanJobsAsync( params Assembly[] assemblies );
     }
 }

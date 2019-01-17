@@ -9,7 +9,6 @@ namespace Util.Events {
         /// 事件标识
         /// </summary>
         string Id { get; set; }
-
         /// <summary>
         /// 事件时间
         /// </summary>

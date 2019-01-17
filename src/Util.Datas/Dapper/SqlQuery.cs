@@ -32,14 +32,14 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 获取单值
         /// </summary>
-        protected override object ToScalar( IDbConnection connection ) {
+        public override object ToScalar( IDbConnection connection ) {
             return Query( ( con, sql, sqlParmas ) => con.ExecuteScalar( sql, sqlParmas ), connection );
         }
 
         /// <summary>
         /// 获取单值
         /// </summary>
-        protected override async Task<object> ToScalarAsync( IDbConnection connection ) {
+        public override async Task<object> ToScalarAsync( IDbConnection connection ) {
             return await QueryAsync( async ( con, sql, sqlParmas ) => await con.ExecuteScalarAsync( sql, sqlParmas ), connection );
         }
 

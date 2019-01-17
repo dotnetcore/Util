@@ -36,5 +36,11 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="entity">实体类型</param>
         /// <param name="right">是否取右侧操作数</param>
         string GetColumn( Expression expression, Type entity, bool right = false );
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        /// <param name="expression">表达式</param>
+        /// <param name="right">是否取右侧操作数</param>
+        Type GetType( Expression expression, bool right = false );
     }
 }

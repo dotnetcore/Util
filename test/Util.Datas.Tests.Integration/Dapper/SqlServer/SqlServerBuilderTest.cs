@@ -1201,5 +1201,45 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
             Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
+
+        /// <summary>
+        /// 测试生成获取行数Sql
+        /// </summary>
+        [Fact]
+        public void Test_54() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select Count(*) " );
+            result.AppendLine( "From [Test] " );
+            result.Append( "Where [Age]=@_p_0" );
+
+            //执行
+            _builder.From( "Test" ).Where( "Age", 1 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToCountSql() );
+        }
+
+        /// <summary>
+        /// 测试生成获取行数Sql - 带分组
+        /// </summary>
+        [Fact]
+        public void Test_55() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select Count(*) " );
+            result.AppendLine( "From (" );
+            result.AppendLine( "Select [Age] " );
+            result.AppendLine( "From [Test] " );
+            result.AppendLine( "Where [Age]=@_p_0 " );
+            result.AppendLine( "Group By [Age]" );
+            result.Append( ") As t" );
+
+            //执行
+            _builder.From( "Test" ).Where( "Age", 1 ).GroupBy( "Age" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToCountSql() );
+        }
     }
 }

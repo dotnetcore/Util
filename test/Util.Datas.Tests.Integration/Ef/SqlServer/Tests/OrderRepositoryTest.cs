@@ -199,23 +199,6 @@ namespace Util.Datas.Tests.Ef.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试并发
-        /// </summary>
-        [Fact]
-        public void TestUpdate_Concurrency_Sync() {
-            Guid id = Guid.NewGuid();
-            var order = new Order( id ) { Name = "Name", Code = "Code" };
-            _orderRepository.Add( order );
-            _unitOfWork.Commit();
-
-            var order2 = _orderRepository.Find( id );
-            order2.Version = Guid.NewGuid().ToByteArray();
-            AssertHelper.Throws<ConcurrencyException>( () => {
-                _orderRepository.Update( order2 );
-            } );
-        }
-
-        /// <summary>
         /// 批量修改
         /// </summary>
         [Fact]
@@ -343,18 +326,38 @@ namespace Util.Datas.Tests.Ef.SqlServer.Tests {
         }
 
         /// <summary>
-        /// 测试更新并发 - Version属性设置为无效
+        /// 测试更新并发
         /// </summary>
         [Fact]
-        public void TestUpdate_Concurrency() {
+        public void TestConcurrency() {
             Guid id = Guid.NewGuid();
             var order = new Order( id ) { Name = "Name", Code = "Code" };
             _orderRepository.Add( order );
             _unitOfWork.Commit();
             _unitOfWork.ClearCache();
 
-            AssertHelper.Throws<ConcurrencyException>( () => {
+            Assert.Throws<ConcurrencyException>( () => {
                 var order2 = new Order( id ) { Name = "Name", Code = "B", Version = Guid.NewGuid().ToByteArray() };
+                _orderRepository.Update( order2 );
+                _unitOfWork.Commit();
+            } );
+        }
+
+        /// <summary>
+        /// 测试更新并发 - 在Find出来的对象触发乐观锁
+        /// </summary>
+        [Fact]
+        public void TestConcurrency_2() {
+            Guid id = Guid.NewGuid();
+            var order = new Order( id ) { Name = "Name", Code = "Code" };
+            _orderRepository.Add( order );
+            _unitOfWork.Commit();
+            _unitOfWork.ClearCache();
+
+            Assert.Throws<ConcurrencyException>( () => {
+                var order2 = _orderRepository.Find( id );
+                order2.Code = "a";
+                order2.Version = Guid.NewGuid().ToByteArray();
                 _orderRepository.Update( order2 );
                 _unitOfWork.Commit();
             } );

@@ -245,12 +245,35 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             Init();
             Validate();
             var result = new StringBuilder();
+            if ( GroupByClause.IsGroupBy )
+                AppendGroupCountSql( result );
+            else
+                AppendNoGroupCountSql( result );
+            return result.ToString().Trim();
+        }
+
+        /// <summary>
+        /// 添加未分组的获取行数Sql
+        /// </summary>
+        private void AppendNoGroupCountSql( StringBuilder result ) {
             result.AppendLine( "Select Count(*) " );
             AppendFrom( result );
             AppendSql( result, GetJoin() );
             AppendSql( result, GetWhere() );
-            AppendSql( result, GetGroupBy() );
-            return result.ToString().Trim();
+        }
+
+        /// <summary>
+        /// 添加分组的获取行数Sql
+        /// </summary>
+        private void AppendGroupCountSql( StringBuilder result ) {
+            result.AppendLine( "Select Count(*) " );
+            result.AppendLine( "From (" );
+            result.AppendLine( $"Select {GroupByClause.GroupByColumns} " );
+            AppendFrom( result );
+            AppendSql( result, GetJoin() );
+            AppendSql( result, GetWhere() );
+            result.AppendLine( GetGroupBy() );
+            result.Append( ") As t" );
         }
 
         #endregion
@@ -654,7 +677,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 添加过滤器列表
         /// </summary>
         private void AddFilters( IWhereClause whereClause ) {
-            var context = new SqlQueryContext( AliasRegister, whereClause );
+            var context = new SqlQueryContext( AliasRegister, whereClause,EntityMatedata );
             SqlFilterCollection.Filters.ForEach( filter => filter.Filter( context ) );
         }
 
@@ -1217,10 +1240,20 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 分组
         /// </summary>
-        /// <param name="group">分组字段</param>
+        /// <param name="columns">分组字段</param>
         /// <param name="having">分组条件</param>
-        public ISqlBuilder GroupBy( string group, string having = null ) {
-            GroupByClause.GroupBy( group, having );
+        public ISqlBuilder GroupBy( string columns, string having = null ) {
+            GroupByClause.GroupBy( columns, having );
+            return this;
+        }
+
+        /// <summary>
+        /// 分组
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="columns">分组字段</param>
+        public ISqlBuilder GroupBy<TEntity>( params Expression<Func<TEntity, object>>[] columns ) {
+            GroupByClause.GroupBy( columns );
             return this;
         }
 

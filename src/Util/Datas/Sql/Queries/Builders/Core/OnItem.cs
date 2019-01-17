@@ -18,6 +18,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 初始化连接条件项
+        /// </summary>
+        /// <param name="left">左表列名</param>
+        /// <param name="right">右表列名</param>
+        /// <param name="operator">条件运算符</param>
+        public OnItem( SqlItem left, SqlItem right, Operator @operator ) {
+            Left = left;
+            Right = right;
+            Operator = @operator;
+        }
+
+        /// <summary>
         /// 左表列名
         /// </summary>
         public SqlItem Left { get; }
