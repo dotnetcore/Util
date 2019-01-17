@@ -48,7 +48,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="register">实体别名注册器</param>
         public virtual IOrderByClause Clone( IEntityAliasRegister register ) {
-            return new OrderByClause( _dialect, _resolver, _register,new List<OrderByItem>( _items ) );
+            return new OrderByClause( _dialect, _resolver, register, new List<OrderByItem>( _items ) );
         }
 
         /// <summary>

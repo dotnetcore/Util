@@ -7,21 +7,30 @@ namespace Util.Applications {
     /// </summary>
     public abstract class ServiceBase : IService {
         /// <summary>
-        /// 初始化应用服务
+        /// 日志
         /// </summary>
-        protected ServiceBase() {
-            Log = Util.Logs.Log.Null;
-            Session = Util.Security.Sessions.Session.Instance;
-        }
+        private ILog _log;
 
         /// <summary>
         /// 日志
         /// </summary>
-        public ILog Log { get; set; }
+        public ILog Log => _log ?? (_log = GetLog() );
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        protected virtual ILog GetLog() {
+            try {
+                return Util.Logs.Log.GetLog( this );
+            }
+            catch {
+                return Util.Logs.Log.Null;
+            }
+        }
 
         /// <summary>
         /// 用户会话
         /// </summary>
-        public ISession Session { get; set; }
+        public virtual ISession Session => Util.Security.Sessions.Session.Instance;
     }
 }

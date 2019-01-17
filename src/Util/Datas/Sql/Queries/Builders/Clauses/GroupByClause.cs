@@ -53,7 +53,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="register">实体别名注册器</param>
         public virtual IGroupByClause Clone( IEntityAliasRegister register ) {
-            return new GroupByClause( _dialect, _resolver, _register, new List<SqlItem>( _group ), _having );
+            return new GroupByClause( _dialect, _resolver, register, new List<SqlItem>( _group ), _having );
         }
 
         /// <summary>
