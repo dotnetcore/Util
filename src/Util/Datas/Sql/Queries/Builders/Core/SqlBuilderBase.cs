@@ -902,15 +902,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
-        /// 添加到Where子句
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        public ISqlBuilder AppendWhere( string sql ) {
-            WhereClause.AppendSql( sql );
-            return this;
-        }
-
-        /// <summary>
         /// 设置相等查询条件
         /// </summary>
         /// <param name="column">列名</param>
@@ -1282,6 +1273,15 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             return this;
         }
 
+        /// <summary>
+        /// 添加到Where子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public ISqlBuilder AppendWhere( string sql ) {
+            WhereClause.AppendSql( sql );
+            return this;
+        }
+
         #endregion
 
         #region GroupBy(分组)
@@ -1368,9 +1368,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 排序
         /// </summary>
-        /// <param name="order">排序列表</param>
-        public virtual ISqlBuilder AppendOrderBy( string order ) {
-            OrderByClause.AppendSql( order );
+        /// <param name="sql">Sql语句</param>
+        public virtual ISqlBuilder AppendOrderBy( string sql ) {
+            OrderByClause.AppendSql( sql );
             return this;
         }
 

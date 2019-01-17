@@ -33,7 +33,7 @@ namespace Util.Datas.Dapper.MySql {
         /// </summary>
         /// <param name="register">实体别名注册器</param>
         public override IFromClause Clone( IEntityAliasRegister register ) {
-            return new MySqlFromClause( Dialect, Resolver, register, Table.Clone() );
+            return new MySqlFromClause( Dialect, Resolver, register, Table );
         }
     }
 }

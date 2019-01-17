@@ -9,6 +9,9 @@ namespace Util.Datas.Sql.Queries {
     /// Sql查询对象扩展 - 拼接Sql相关
     /// </summary>
     public static partial class Extensions {
+
+        #region Select子句
+
         /// <summary>
         /// 设置列名
         /// </summary>
@@ -82,6 +85,22 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendSelect( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendSelect( sql, condition );
+            return sqlQuery;
+        }
+
+        #endregion
+
+        #region From子句
+
+        /// <summary>
         /// 设置表名
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -115,6 +134,22 @@ namespace Util.Datas.Sql.Queries {
             builder.AppendFrom( sql );
             return sqlQuery;
         }
+
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendFrom( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendFrom( sql, condition );
+            return sqlQuery;
+        }
+
+        #endregion
+
+        #region Join子句
 
         /// <summary>
         /// 内连接
@@ -172,6 +207,18 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery AppendJoin( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
             var builder = sqlQuery.GetBuilder();
             builder.AppendJoin( action, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendJoin( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendJoin( sql, condition );
             return sqlQuery;
         }
 
@@ -235,6 +282,18 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到左外连接子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendLeftJoin( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendLeftJoin( sql, condition );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 右外连接
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -294,6 +353,18 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到右外连接子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendRightJoin( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendRightJoin( sql, condition );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 设置连接条件
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -313,7 +384,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="left">左表列名,范例：t => t.Name</param>
         /// <param name="right">右表列名,范例：t => t.Name</param>
         /// <param name="operator">条件运算符</param>
-        public static ISqlQuery On<TLeft, TRight>( this ISqlQuery sqlQuery, Expression<Func<TLeft, object>> left, Expression<Func<TRight, object>> right, 
+        public static ISqlQuery On<TLeft, TRight>( this ISqlQuery sqlQuery, Expression<Func<TLeft, object>> left, Expression<Func<TRight, object>> right,
             Operator @operator = Operator.Equal ) where TLeft : class where TRight : class {
             var builder = sqlQuery.GetBuilder();
             builder.On( left, right, @operator );
@@ -330,6 +401,10 @@ namespace Util.Datas.Sql.Queries {
             builder.On( expression );
             return sqlQuery;
         }
+
+        #endregion
+
+        #region Where子句
 
         /// <summary>
         /// And连接条件
@@ -445,7 +520,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="value">值</param>
         /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
         /// <param name="operator">运算符</param>
-        public static ISqlQuery WhereIf<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, object value, 
+        public static ISqlQuery WhereIf<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, object value,
             bool condition, Operator @operator = Operator.Equal ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.WhereIf( expression, value, condition, @operator );
@@ -484,7 +559,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="expression">列名表达式,范例：t => t.Name</param>
         /// <param name="value">值,如果值为空，则忽略该查询条件</param>
         /// <param name="operator">运算符</param>
-        public static ISqlQuery WhereIfNotEmpty<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, 
+        public static ISqlQuery WhereIfNotEmpty<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression,
             object value, Operator @operator = Operator.Equal ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.WhereIfNotEmpty( expression, value, @operator );
@@ -499,17 +574,6 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery WhereIfNotEmpty<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, bool>> expression ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.WhereIfNotEmpty( expression );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到Where子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
-        public static ISqlQuery AppendWhere( this ISqlQuery sqlQuery, string sql ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendWhere( sql );
             return sqlQuery;
         }
 
@@ -873,7 +937,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public static ISqlQuery Between<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, int? min, int? max, 
+        public static ISqlQuery Between<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, int? min, int? max,
             Boundary boundary = Boundary.Both ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.Between( expression, min, max, boundary );
@@ -888,7 +952,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public static ISqlQuery Between<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, double? min, double? max, 
+        public static ISqlQuery Between<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, double? min, double? max,
             Boundary boundary = Boundary.Both ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.Between( expression, min, max, boundary );
@@ -903,7 +967,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public static ISqlQuery Between<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, decimal? min, decimal? max, 
+        public static ISqlQuery Between<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, decimal? min, decimal? max,
             Boundary boundary = Boundary.Both ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.Between( expression, min, max, boundary );
@@ -983,6 +1047,33 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到Where子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        public static ISqlQuery AppendWhere( this ISqlQuery sqlQuery, string sql ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendWhere( sql );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 添加到Where子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendWhere( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendWhere( sql, condition );
+            return sqlQuery;
+        }
+
+        #endregion
+
+        #region GroupBy子句
+
+        /// <summary>
         /// 分组
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -1031,6 +1122,22 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 添加到GroupBy子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendGroupBy( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendGroupBy( sql, condition );
+            return sqlQuery;
+        }
+
+        #endregion
+
+        #region OrderBy子句
+
+        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -1056,7 +1163,7 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
-        /// 添加到Order By子句
+        /// 添加到OrderBy子句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
@@ -1065,5 +1172,19 @@ namespace Util.Datas.Sql.Queries {
             builder.AppendOrderBy( sql );
             return sqlQuery;
         }
+
+        /// <summary>
+        /// 添加到OrderBy子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
+        public static ISqlQuery AppendOrderBy( this ISqlQuery sqlQuery, string sql, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.AppendOrderBy( sql, condition );
+            return sqlQuery;
+        }
+
+        #endregion
     }
 }
