@@ -98,7 +98,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 参数管理器
         /// </summary>
-        protected IParameterManager ParameterManager => _parameterManager ?? ( _parameterManager = CreatepParameterManager() );
+        protected IParameterManager ParameterManager => _parameterManager ?? ( _parameterManager = CreateParameterManager() );
         /// <summary>
         /// Sql方言
         /// </summary>
@@ -135,7 +135,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 创建参数管理器
         /// </summary>
-        protected virtual IParameterManager CreatepParameterManager() {
+        protected virtual IParameterManager CreateParameterManager() {
             return new ParameterManager( Dialect );
         }
 
@@ -227,8 +227,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             ClearWhere();
             ClearGroupBy();
             ClearOrderBy();
+            ClearParams();
             AliasRegister = new EntityAliasRegister();
-            _parameterManager = CreatepParameterManager();
             _pager = null;
             _skipCountParam = null;
             _pageSizeParam = null;
@@ -274,6 +274,13 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         public void ClearOrderBy() {
             _orderByClause = CreateOrderByClause();
+        }
+
+        /// <summary>
+        /// 清空Sql参数
+        /// </summary>
+        public void ClearParams() {
+            _parameterManager = CreateParameterManager();
         }
 
         #endregion
@@ -461,6 +468,19 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             AppendSql( result, GetWhere() );
             result.AppendLine( GetGroupBy() );
             result.Append( ") As t" );
+        }
+
+        #endregion
+
+        #region AddParam(添加参数)
+
+        /// <summary>
+        /// 添加参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数值</param>
+        public void AddParam(string name,object value ) {
+            ParameterManager.Add( name, value );
         }
 
         #endregion

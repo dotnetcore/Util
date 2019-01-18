@@ -15,7 +15,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         ISqlBuilder Clone();
         /// <summary>
-        /// 创建Sql生成器
+        /// 创建一个新的Sql生成器
         /// </summary>
         ISqlBuilder New();
         /// <summary>
@@ -47,25 +47,9 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         void ClearOrderBy();
         /// <summary>
-        /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
+        /// 清空Sql参数
         /// </summary>
-        string ToDebugSql();
-        /// <summary>
-        /// 生成Sql语句
-        /// </summary>
-        string ToSql();
-        /// <summary>
-        /// 生成获取行数调试Sql语句
-        /// </summary>
-        string ToCountDebugSql();
-        /// <summary>
-        /// 生成获取行数Sql
-        /// </summary>
-        string ToCountSql();
-        /// <summary>
-        /// 获取参数列表
-        /// </summary>
-        IDictionary<string, object> GetParams();
+        void ClearParams();
         /// <summary>
         /// 获取Select语句
         /// </summary>
@@ -90,6 +74,32 @@ namespace Util.Datas.Sql.Queries {
         /// 获取排序语句
         /// </summary>
         string GetOrderBy();
+        /// <summary>
+        /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
+        /// </summary>
+        string ToDebugSql();
+        /// <summary>
+        /// 生成Sql语句
+        /// </summary>
+        string ToSql();
+        /// <summary>
+        /// 生成获取行数调试Sql语句
+        /// </summary>
+        string ToCountDebugSql();
+        /// <summary>
+        /// 生成获取行数Sql
+        /// </summary>
+        string ToCountSql();
+        /// <summary>
+        /// 添加Sql参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数值</param>
+        void AddParam( string name, object value );
+        /// <summary>
+        /// 获取Sql参数列表
+        /// </summary>
+        IDictionary<string, object> GetParams();
         /// <summary>
         /// 设置列名
         /// </summary>
