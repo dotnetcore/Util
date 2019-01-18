@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
 using Util.Helpers;
@@ -14,40 +13,46 @@ namespace Util.Datas.Sql.Queries {
     /// </summary>
     public abstract class SqlQueryBase : ISqlQuery {
         /// <summary>
-        /// 数据库
-        /// </summary>
-        private readonly IDatabase _database;
-
-        /// <summary>
         /// 初始化Sql查询对象
         /// </summary>
         /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="database">数据库</param>
-        protected SqlQueryBase( ISqlBuilder sqlBuilder, IDatabase database = null ) {
+        /// <param name="sqlQueryOptions">Sql查询配置</param>
+        protected SqlQueryBase( ISqlBuilder sqlBuilder, IDatabase database = null, SqlQueryOptions sqlQueryOptions = null ) {
             Builder = sqlBuilder ?? throw new ArgumentNullException( nameof( sqlBuilder ) );
-            _database = database;
+            Database = database;
+            SqlQueryOptions = sqlQueryOptions;
         }
-
-        /// <summary>
-        /// Sql查询配置
-        /// </summary>
-        protected SqlQueryConfig SqlQueryConfig { get; set; }
+        
         /// <summary>
         /// Sql生成器
         /// </summary>
         protected ISqlBuilder Builder { get; }
+        /// <summary>
+        /// 数据库
+        /// </summary>
+        protected IDatabase Database { get; }
+        /// <summary>
+        /// Sql查询配置
+        /// </summary>
+        protected SqlQueryOptions SqlQueryOptions { get; set; }
         /// <summary>
         /// 参数列表
         /// </summary>
         protected IDictionary<string, object> Params => Builder.GetParams();
 
         /// <summary>
+        /// 复制Sql查询对象
+        /// </summary>
+        public abstract ISqlQuery Clone();
+
+        /// <summary>
         /// 配置
         /// </summary>
         /// <param name="configAction">配置操作</param>
-        public void Config( Action<SqlQueryConfig> configAction ) {
-            SqlQueryConfig = new SqlQueryConfig();
-            configAction?.Invoke( SqlQueryConfig );
+        public void Config( Action<SqlQueryOptions> configAction ) {
+            SqlQueryOptions = new SqlQueryOptions();
+            configAction?.Invoke( SqlQueryOptions );
         }
 
         /// <summary>
@@ -61,9 +66,9 @@ namespace Util.Datas.Sql.Queries {
         /// 在执行之后清空Sql和参数
         /// </summary>
         protected void ClearAfterExecution() {
-            if( SqlQueryConfig == null )
-                SqlQueryConfig = GetConfig();
-            if( SqlQueryConfig.IsClearAfterExecution == false )
+            if( SqlQueryOptions == null )
+                SqlQueryOptions = GetConfig();
+            if( SqlQueryOptions.IsClearAfterExecution == false )
                 return;
             Clear();
         }
@@ -71,13 +76,13 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 获取配置
         /// </summary>
-        private SqlQueryConfig GetConfig() {
+        private SqlQueryOptions GetConfig() {
             try {
-                var options = Ioc.Create<IOptionsSnapshot<SqlQueryConfig>>();
+                var options = Ioc.Create<IOptionsSnapshot<SqlQueryOptions>>();
                 return options.Value;
             }
             catch {
-                return new SqlQueryConfig();
+                return new SqlQueryOptions();
             }
         }
 
@@ -106,12 +111,12 @@ namespace Util.Datas.Sql.Queries {
         /// 获取单值
         /// </summary>
         /// <param name="connection">数据库连接</param>
-        public abstract object ToScalar( IDbConnection connection );
+        public abstract object ToScalar( IDbConnection connection = null );
         /// <summary>
         /// 获取单值
         /// </summary>
         /// <param name="connection">数据库连接</param>
-        public abstract Task<object> ToScalarAsync( IDbConnection connection );
+        public abstract Task<object> ToScalarAsync( IDbConnection connection = null );
         /// <summary>
         /// 获取单个实体
         /// </summary>
@@ -218,7 +223,7 @@ namespace Util.Datas.Sql.Queries {
         protected IDbConnection GetConnection( IDbConnection connection ) {
             if( connection != null )
                 return connection;
-            connection = _database?.GetConnection();
+            connection = Database?.GetConnection();
             if( connection == null )
                 throw new ArgumentNullException( nameof( connection ) );
             return connection;

@@ -12,15 +12,6 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
         /// <param name="connection">数据库连接</param>
-        public static string ToString( this ISqlQuery sqlQuery, IDbConnection connection = null ) {
-            return sqlQuery.ToScalar( connection ).SafeString();
-        }
-
-        /// <summary>
-        /// 获取字符串值
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="connection">数据库连接</param>
         public static async Task<string> ToStringAsync( this ISqlQuery sqlQuery, IDbConnection connection = null ) {
             return ( await sqlQuery.ToScalarAsync( connection ) ).SafeString();
         }

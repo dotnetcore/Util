@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Util.Datas.Matedatas;
+using Util.Datas.Sql.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
 

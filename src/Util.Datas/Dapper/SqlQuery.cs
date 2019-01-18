@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Util.Datas.Sql;
-using Util.Datas.Sql.Queries.Builders.Abstractions;
+using Util.Datas.Sql.Queries;
+using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
 using Util.Helpers;
 using Util.Logs;
@@ -30,16 +31,32 @@ namespace Util.Datas.Dapper {
         }
 
         /// <summary>
+        /// 初始化Dapper Sql查询对象
+        /// </summary>
+        /// <param name="sqlBuilder">Sql生成器</param>
+        /// <param name="database">数据库</param>
+        /// <param name="sqlQueryOptions">Sql查询配置</param>
+        protected SqlQuery( ISqlBuilder sqlBuilder, IDatabase database, SqlQueryOptions sqlQueryOptions ) : base( sqlBuilder, database, sqlQueryOptions ) {
+        }
+
+        /// <summary>
+        /// 复制Sql查询对象
+        /// </summary>
+        public override ISqlQuery Clone() {
+            return new SqlQuery( Builder.Clone(),Database, SqlQueryOptions );
+        }
+
+        /// <summary>
         /// 获取单值
         /// </summary>
-        public override object ToScalar( IDbConnection connection ) {
+        public override object ToScalar( IDbConnection connection = null ) {
             return Query( ( con, sql, sqlParmas ) => con.ExecuteScalar( sql, sqlParmas ), connection );
         }
 
         /// <summary>
         /// 获取单值
         /// </summary>
-        public override async Task<object> ToScalarAsync( IDbConnection connection ) {
+        public override async Task<object> ToScalarAsync( IDbConnection connection = null ) {
             return await QueryAsync( async ( con, sql, sqlParmas ) => await con.ExecuteScalarAsync( sql, sqlParmas ), connection );
         }
 

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Queries;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Domains.Repositories;
 
-namespace Util.Datas.Sql.Queries.Builders.Abstractions {
+namespace Util.Datas.Sql.Queries {
     /// <summary>
     /// Sql生成器
     /// </summary>
@@ -21,6 +22,30 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 清空并初始化
         /// </summary>
         void Clear();
+        /// <summary>
+        /// 清空Select子句
+        /// </summary>
+        void ClearSelect();
+        /// <summary>
+        /// 清空From子句
+        /// </summary>
+        void ClearFrom();
+        /// <summary>
+        /// 清空Join子句
+        /// </summary>
+        void ClearJoin();
+        /// <summary>
+        /// 清空Where子句
+        /// </summary>
+        void ClearWhere();
+        /// <summary>
+        /// 清空GroupBy子句
+        /// </summary>
+        void ClearGroupBy();
+        /// <summary>
+        /// 清空OrderBy子句
+        /// </summary>
+        void ClearOrderBy();
         /// <summary>
         /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
         /// </summary>

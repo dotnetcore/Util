@@ -74,5 +74,26 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             _output.WriteLine( _query.GetDebugSql() );
             Assert.Equal( name, result );
         }
+
+        /// <summary>
+        /// 获取分页结果
+        /// </summary>
+        [Fact]
+        public async Task TestToPagerListAsync() {
+            string id = Id.ObjectId();
+            string name = Id.Guid().Substring( 0, 10 );
+            var customer = new Customer( id ) { Name = name };
+            await _customerRepository.AddAsync( customer );
+            await _unitOfWork.CommitAsync();
+
+            var result = await _query.Select<Customer>( t => t.Name )
+                .Select<Customer>( t => new object[] { t.Id, t.Name } )
+                .From<Customer>( "c" )
+                .Where<Customer>( t => t.Id == id )
+                .OrderBy<Customer>( t => t.Name )
+                .ToPagerListAsync<Customer>(1,20);
+            _output.WriteLine( _query.GetDebugSql() );
+            Assert.Equal( 1, result.PageCount );
+        }
     }
 }

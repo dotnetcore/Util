@@ -215,23 +215,65 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
 
         #endregion
 
-        #region Clear(清空初始化)
+        #region Clear(清空)
 
         /// <summary>
-        /// 清空初始化
+        /// 清空
         /// </summary>
         public void Clear() {
+            ClearSelect();
+            ClearFrom();
+            ClearJoin();
+            ClearWhere();
+            ClearGroupBy();
+            ClearOrderBy();
             AliasRegister = new EntityAliasRegister();
             _parameterManager = CreatepParameterManager();
-            _selectClause = CreateSelectClause();
-            _fromClause = CreateFromClause();
-            _joinClause = CreateJoinClause();
-            _whereClause = CreatewWhereClause();
-            _groupByClause = CreateGroupByClause();
-            _orderByClause = CreateOrderByClause();
             _pager = null;
             _skipCountParam = null;
             _pageSizeParam = null;
+        }
+
+        /// <summary>
+        /// 清空Select子句
+        /// </summary>
+        public void ClearSelect() {
+            _selectClause = CreateSelectClause();
+        }
+
+        /// <summary>
+        /// 清空From子句
+        /// </summary>
+        public void ClearFrom() {
+            _fromClause = CreateFromClause();
+        }
+
+        /// <summary>
+        /// 清空Join子句
+        /// </summary>
+        public void ClearJoin() {
+            _joinClause = CreateJoinClause();
+        }
+
+        /// <summary>
+        /// 清空Where子句
+        /// </summary>
+        public void ClearWhere() {
+            _whereClause = CreatewWhereClause();
+        }
+
+        /// <summary>
+        /// 清空GroupBy子句
+        /// </summary>
+        public void ClearGroupBy() {
+            _groupByClause = CreateGroupByClause();
+        }
+
+        /// <summary>
+        /// 清空OrderBy子句
+        /// </summary>
+        public void ClearOrderBy() {
+            _orderByClause = CreateOrderByClause();
         }
 
         #endregion
@@ -740,7 +782,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取Where语句
         /// </summary>
         public virtual string GetWhere() {
-            var copyWhere = WhereClause.Clone( AliasRegister, ParameterManager.Clone() );
+            var copyWhere = WhereClause.Clone( AliasRegister, ParameterManager );
             AddFilters( copyWhere );
             return copyWhere.ToSql();
         }

@@ -1,6 +1,4 @@
-﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
-
-namespace Util.Datas.Sql.Queries {
+﻿namespace Util.Datas.Sql.Queries {
     /// <summary>
     /// Sql生成器扩展
     /// </summary>

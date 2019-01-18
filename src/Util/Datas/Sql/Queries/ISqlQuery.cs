@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
 
@@ -12,10 +11,14 @@ namespace Util.Datas.Sql.Queries {
     /// </summary>
     public interface ISqlQuery {
         /// <summary>
+        /// 复制Sql查询对象
+        /// </summary>
+        ISqlQuery Clone();
+        /// <summary>
         /// 配置
         /// </summary>
         /// <param name="configAction">配置操作</param>
-        void Config( Action<SqlQueryConfig> configAction );
+        void Config( Action<SqlQueryOptions> configAction );
         /// <summary>
         /// 获取Sql生成器
         /// </summary>

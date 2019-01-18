@@ -1,6 +1,4 @@
-﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
-
-namespace Util.Datas.Sql.Queries {
+﻿namespace Util.Datas.Sql.Queries {
     /// <summary>
     /// Sql查询对象扩展 - 杂项
     /// </summary>
@@ -39,6 +37,66 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery Clear( this ISqlQuery sqlQuery ) {
             var builder = sqlQuery.GetBuilder();
             builder.Clear();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 清空Select子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery ClearSelect( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.ClearSelect();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 清空From子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery ClearFrom( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.ClearFrom();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 清空Join子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery ClearJoin( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.ClearJoin();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 清空Where子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery ClearWhere( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.ClearWhere();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 清空GroupBy子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery ClearGroupBy( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.ClearGroupBy();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 清空OrderBy子句
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery ClearOrderBy( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.ClearOrderBy();
             return sqlQuery;
         }
     }
