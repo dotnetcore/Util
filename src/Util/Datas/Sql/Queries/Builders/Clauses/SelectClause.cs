@@ -29,6 +29,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 列名集合
         /// </summary>
         private readonly List<ColumnCollection> _columns;
+        /// <summary>
+        /// 是否排除重复记录
+        /// </summary>
+        private bool _distinct;
 
         /// <summary>
         /// 初始化Select子句
@@ -53,6 +57,13 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="register">实体别名注册器</param>
         public virtual ISelectClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register ) {
             return new SelectClause( sqlBuilder, _dialect, _resolver, register, new List<ColumnCollection>( _columns ) );
+        }
+
+        /// <summary>
+        /// 过滤重复记录
+        /// </summary>
+        public void Distinct() {
+            _distinct = true;
         }
 
         /// <summary>
@@ -132,7 +143,16 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 输出Sql
         /// </summary>
         public string ToSql() {
-            return $"Select {GetColumns()}";
+            return $"Select {GetDistinct()}{GetColumns()}";
+        }
+
+        /// <summary>
+        /// 获取Distinct
+        /// </summary>
+        private string GetDistinct() {
+            if ( _distinct )
+                return "Distinct ";
+            return null;
         }
 
         /// <summary>

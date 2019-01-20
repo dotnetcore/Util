@@ -101,6 +101,10 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         IDictionary<string, object> GetParams();
         /// <summary>
+        /// 过滤重复记录
+        /// </summary>
+        ISqlBuilder Distinct();
+        /// <summary>
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名,范例：a.AppId As Id,a.Name</param>

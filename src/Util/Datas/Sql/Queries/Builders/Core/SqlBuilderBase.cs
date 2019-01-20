@@ -506,6 +506,14 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 过滤重复记录
+        /// </summary>
+        public virtual ISqlBuilder Distinct() {
+            SelectClause.Distinct();
+            return this;
+        }
+
+        /// <summary>
         /// 设置列名
         /// </summary>
         /// <param name="columns">列名</param>

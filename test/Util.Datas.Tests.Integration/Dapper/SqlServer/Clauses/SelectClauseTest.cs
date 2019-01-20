@@ -291,5 +291,15 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             Assert.Equal( "Select [a]", GetSql() );
             Assert.Equal( "Select [a],[b]", copy.ToSql() );
         }
+
+        /// <summary>
+        /// 设置Distinct
+        /// </summary>
+        [Fact]
+        public void TestSelect_28() {
+            _clause.Distinct();
+            _clause.Select( "a" );
+            Assert.Equal( "Select Distinct [a]", GetSql() );
+        }
     }
 }

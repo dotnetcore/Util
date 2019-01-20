@@ -35,7 +35,7 @@ namespace Util.Tests.Caches {
         /// </summary>
         [Fact]
         public void Test_1() {
-            var key = "Test_1";
+            var key = "Test_Parallel_1";
             Util.Helpers.Thread.ParallelExecute( () => {
                 _cache.Get( key, () => _service.Get() );
             },20 );

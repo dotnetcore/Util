@@ -24,7 +24,7 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="applicationRepository">应用程序仓储</param>
         /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="eventBus">Sql查询对象</param>
+        /// <param name="eventBus">事件总线</param>
         public ApplicationService( ISampleUnitOfWork unitOfWork, IApplicationRepository applicationRepository, ISqlQuery sqlQuery, IEventBus eventBus )
             : base( unitOfWork, applicationRepository ) {
             ApplicationRepository = applicationRepository;

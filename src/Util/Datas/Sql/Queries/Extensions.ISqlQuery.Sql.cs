@@ -13,6 +13,16 @@ namespace Util.Datas.Sql.Queries {
         #region Select子句
 
         /// <summary>
+        /// 过滤重复记录
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery Distinct( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Distinct();
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 设置列名
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>

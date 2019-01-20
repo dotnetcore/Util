@@ -301,7 +301,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             if( expression == null )
                 throw new ArgumentNullException( nameof( expression ) );
             var expressions = Lambda.GetGroupPredicates( expression );
-            expressions.ForEach( group => On( group ) );
+            expressions.ForEach( On );
         }
 
         /// <summary>
