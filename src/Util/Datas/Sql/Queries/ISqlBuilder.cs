@@ -49,7 +49,11 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 清空Sql参数
         /// </summary>
-        void ClearParams();
+        void ClearSqlParams();
+        /// <summary>
+        /// 清空分页参数
+        /// </summary>
+        void ClearPageParams();
         /// <summary>
         /// 获取Select语句
         /// </summary>
@@ -104,6 +108,59 @@ namespace Util.Datas.Sql.Queries {
         /// 过滤重复记录
         /// </summary>
         ISqlBuilder Distinct();
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Count( string columnAlias = null );
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Sum( string column, string columnAlias = null );
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Sum<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Average( string column, string columnAlias = null );
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Average<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Max( string column, string columnAlias = null );
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Max<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Min( string column, string columnAlias = null );
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Min<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>

@@ -4,11 +4,11 @@
     /// </summary>
     public static partial class Extensions {
         /// <summary>
-        /// 是否在执行之后清空Sql和参数，默认为 true
+        /// 在执行之后清空Sql和参数，默认为 true
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
         /// <param name="value">是否在执行之后清空Sql和参数，默认为 true</param>
-        public static ISqlQuery IsClearAfterExecution( this ISqlQuery sqlQuery, bool value = true ) {
+        public static ISqlQuery ClearAfterExecution( this ISqlQuery sqlQuery, bool value = true ) {
             sqlQuery.Config( t => t.IsClearAfterExecution = value );
             return sqlQuery;
         }
@@ -126,9 +126,19 @@
         /// 清空Sql参数
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
-        public static ISqlQuery ClearParams( this ISqlQuery sqlQuery ) {
+        public static ISqlQuery ClearSqlParams( this ISqlQuery sqlQuery ) {
             var builder = sqlQuery.GetBuilder();
-            builder.ClearParams();
+            builder.ClearSqlParams();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 清空分页参数
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery ClearPageParams( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.ClearPageParams();
             return sqlQuery;
         }
     }

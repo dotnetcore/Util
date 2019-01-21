@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
@@ -51,6 +52,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// 是否聚合操作
+        /// </summary>
+        public bool IsAggregation => _columns.Any( t => t.IsAggregation );
+
+        /// <summary>
         /// 复制Select子句
         /// </summary>
         /// <param name="sqlBuilder">Sql生成器</param>
@@ -64,6 +70,113 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         public void Distinct() {
             _distinct = true;
+        }
+
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="columnAlias">列别名</param>
+        public void Count( string columnAlias = null ) {
+            if( string.IsNullOrWhiteSpace( columnAlias ) ) {
+                Aggregate( "Count(*)" );
+                return;
+            }
+            Aggregate( $"Count(*) As {_dialect.SafeName( columnAlias )}" );
+        }
+
+        /// <summary>
+        /// 聚合
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        private void Aggregate( string sql ) {
+            _columns.Add( new ColumnCollection( sql, isAggregation:true ) );
+        }
+
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Sum( string column, string columnAlias = null ) {
+            Aggregate( "Sum", column, columnAlias );
+        }
+
+        /// <summary>
+        /// 聚合
+        /// </summary>
+        private void Aggregate( string fun, string column, string columnAlias ) {
+            if( string.IsNullOrWhiteSpace( columnAlias ) ) {
+                Aggregate( $"{fun}({_dialect.SafeName( column )})" );
+                return;
+            }
+            Aggregate( $"{fun}({_dialect.SafeName( column )}) As {_dialect.SafeName( columnAlias )}" );
+        }
+
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Sum<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var column = _resolver.GetColumn( expression );
+            Sum( column, columnAlias );
+        }
+
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Average( string column, string columnAlias = null ) {
+            Aggregate( "Avg", column, columnAlias );
+        }
+
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Average<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var column = _resolver.GetColumn( expression );
+            Average( column, columnAlias );
+        }
+
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Max( string column, string columnAlias = null ) {
+            Aggregate( "Max", column, columnAlias );
+        }
+
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Max<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var column = _resolver.GetColumn( expression );
+            Max( column, columnAlias );
+        }
+
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Min( string column, string columnAlias = null ) {
+            Aggregate( "Min", column, columnAlias );
+        }
+
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Min<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var column = _resolver.GetColumn( expression );
+            Min( column, columnAlias );
         }
 
         /// <summary>
@@ -85,7 +198,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void Select<TEntity>( Expression<Func<TEntity, object[]>> expression, bool propertyAsAlias = false ) where TEntity : class {
             if( expression == null )
                 return;
-            _columns.Add( new ColumnCollection( _resolver.GetColumns( expression, propertyAsAlias ), table: typeof( TEntity ) ) );
+            _columns.Add( new ColumnCollection( _resolver.GetColumns( expression, propertyAsAlias ), tableType: typeof( TEntity ) ) );
         }
 
         /// <summary>
@@ -99,7 +212,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             var column = _resolver.GetColumn( expression );
             if( column.Contains( "As" ) == false && string.IsNullOrWhiteSpace( columnAlias ) == false )
                 column += $" As {columnAlias}";
-            _columns.Add( new ColumnCollection( column, table: typeof( TEntity ) ) );
+            _columns.Add( new ColumnCollection( column, tableType: typeof( TEntity ) ) );
         }
 
         /// <summary>
@@ -150,7 +263,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 获取Distinct
         /// </summary>
         private string GetDistinct() {
-            if ( _distinct )
+            if( _distinct )
                 return "Distinct ";
             return null;
         }

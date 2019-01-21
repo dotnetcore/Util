@@ -227,11 +227,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             ClearWhere();
             ClearGroupBy();
             ClearOrderBy();
-            ClearParams();
+            ClearSqlParams();
+            ClearPageParams();
             AliasRegister = new EntityAliasRegister();
-            _pager = null;
-            _skipCountParam = null;
-            _pageSizeParam = null;
         }
 
         /// <summary>
@@ -279,8 +277,17 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 清空Sql参数
         /// </summary>
-        public void ClearParams() {
+        public void ClearSqlParams() {
             _parameterManager = CreateParameterManager();
+        }
+
+        /// <summary>
+        /// 清空分页参数
+        /// </summary>
+        public void ClearPageParams() {
+            _pager = null;
+            _skipCountParam = null;
+            _pageSizeParam = null;
         }
 
         #endregion
@@ -479,7 +486,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
-        public void AddParam(string name,object value ) {
+        public void AddParam( string name, object value ) {
             ParameterManager.Add( name, value );
         }
 
@@ -510,6 +517,95 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         public virtual ISqlBuilder Distinct() {
             SelectClause.Distinct();
+            return this;
+        }
+
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Count( string columnAlias = null ) {
+            SelectClause.Count( columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Sum( string column, string columnAlias = null ) {
+            SelectClause.Sum( column, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Sum<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            SelectClause.Sum( expression, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Average( string column, string columnAlias = null ) {
+            SelectClause.Average( column, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Average<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            SelectClause.Average( expression, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Max( string column, string columnAlias = null ) {
+            SelectClause.Max( column, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Max<TEntity>( Expression<Func<TEntity, object>> expression,string columnAlias = null ) where TEntity : class {
+            SelectClause.Max( expression, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Min( string column, string columnAlias = null ) {
+            SelectClause.Min( column, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Min<TEntity>( Expression<Func<TEntity, object>> expression,string columnAlias = null ) where TEntity : class {
+            SelectClause.Min( expression, columnAlias );
             return this;
         }
 

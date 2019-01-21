@@ -23,6 +23,113 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Count( this ISqlQuery sqlQuery, string columnAlias = null ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Count( columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Sum( this ISqlQuery sqlQuery, string column, string columnAlias = null ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Sum( column,columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Sum<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.Sum( expression, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Average( this ISqlQuery sqlQuery, string column, string columnAlias = null ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Average( column, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Average<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.Average( expression, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Max( this ISqlQuery sqlQuery, string column, string columnAlias = null ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Max( column, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Max<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.Max( expression, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Min( this ISqlQuery sqlQuery, string column, string columnAlias = null ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Min( column, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Min<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.Min( expression, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 设置列名
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>

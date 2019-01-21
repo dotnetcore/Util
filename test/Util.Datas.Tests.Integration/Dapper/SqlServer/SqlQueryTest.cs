@@ -45,7 +45,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             _unitOfWork = _scope.Create<ISqlServerUnitOfWork>();
             _customerRepository = _scope.Create<ICustomerRepository>();
             _query = _scope.Create<ISqlQuery>();
-            _query.IsClearAfterExecution( false );
+            _query.ClearAfterExecution( false );
         }
 
         /// <summary>
