@@ -221,15 +221,22 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 清空
         /// </summary>
         public void Clear() {
+            AliasRegister = new EntityAliasRegister();
+            ClearSqlParams();
             ClearSelect();
             ClearFrom();
             ClearJoin();
             ClearWhere();
             ClearGroupBy();
             ClearOrderBy();
-            ClearSqlParams();
             ClearPageParams();
-            AliasRegister = new EntityAliasRegister();
+        }
+
+        /// <summary>
+        /// 清空Sql参数
+        /// </summary>
+        public void ClearSqlParams() {
+            _parameterManager = CreateParameterManager();
         }
 
         /// <summary>
@@ -272,13 +279,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         public void ClearOrderBy() {
             _orderByClause = CreateOrderByClause();
-        }
-
-        /// <summary>
-        /// 清空Sql参数
-        /// </summary>
-        public void ClearSqlParams() {
-            _parameterManager = CreateParameterManager();
         }
 
         /// <summary>
