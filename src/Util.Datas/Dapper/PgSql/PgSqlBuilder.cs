@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Util.Datas.Matedatas;
+﻿using Util.Datas.Matedatas;
 using Util.Datas.Sql.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
@@ -50,14 +49,8 @@ namespace Util.Datas.Dapper.PgSql {
         /// <summary>
         /// 创建分页Sql
         /// </summary>
-        protected override void CreatePagerSql( StringBuilder result ) {
-            AppendSelect( result );
-            AppendFrom( result );
-            AppendSql( result, GetJoin() );
-            AppendSql( result, GetWhere() );
-            AppendSql( result, GetGroupBy() );
-            AppendSql( result, GetOrderBy() );
-            result.Append( $"Limit {GetPageSizeParam()} OFFSET {GetSkipCountParam()}" );
+        protected override string CreateLimitSql() {
+            return $"Limit {GetLimitParam()} OFFSET {GetOffsetParam()}";
         }
     }
 }

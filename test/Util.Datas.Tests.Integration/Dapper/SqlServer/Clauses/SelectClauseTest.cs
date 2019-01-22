@@ -323,6 +323,24 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         }
 
         /// <summary>
+        /// 求总行数 - 加列别名 - 加列名
+        /// </summary>
+        [Fact]
+        public void TestCount_3() {
+            _clause.Count( "a","b" );
+            Assert.Equal( "Select Count([a]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求总行数 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void TestCount_4() {
+            _clause.Count<Sample>( t => t.DoubleValue, "b" );
+            Assert.Equal( "Select Count([DoubleValue]) As [b]", GetSql() );
+        }
+
+        /// <summary>
         /// 求和
         /// </summary>
         [Fact]
@@ -363,8 +381,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 求平均值
         /// </summary>
         [Fact]
-        public void TestAverage_1() {
-            _clause.Average( "a" );
+        public void TestAvg_1() {
+            _clause.Avg( "a" );
             Assert.Equal( "Select Avg([a])", GetSql() );
         }
 
@@ -372,8 +390,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 求平均值 - 加列别名
         /// </summary>
         [Fact]
-        public void TestAverage_2() {
-            _clause.Average( "a", "b" );
+        public void TestAvg_2() {
+            _clause.Avg( "a", "b" );
             Assert.Equal( "Select Avg([a]) As [b]", GetSql() );
         }
 
@@ -381,8 +399,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 求平均值 - lambda表达式
         /// </summary>
         [Fact]
-        public void TestAverage_3() {
-            _clause.Average<Sample>( t => t.DoubleValue, "b" );
+        public void TestAvg_3() {
+            _clause.Avg<Sample>( t => t.DoubleValue, "b" );
             Assert.Equal( "Select Avg([DoubleValue]) As [b]", GetSql() );
         }
 

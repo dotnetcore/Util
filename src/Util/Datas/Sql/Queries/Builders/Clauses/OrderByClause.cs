@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
-using Util.Domains.Repositories;
 using Util.Properties;
 
 namespace Util.Datas.Sql.Queries.Builders.Clauses {
@@ -79,7 +78,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="column">排序列</param>
         /// <param name="tableAlias">表别名</param>
         protected bool Exists( string column, string tableAlias ) {
-            var item = new OrderByItem( column,prefix:tableAlias );
+            var item = new OrderByItem( column, prefix: tableAlias );
             return _items.Exists( t => t.Column.ToLower() == item.Column.ToLower()
                                        && ( item.Prefix.IsEmpty()
                                             || t.Prefix?.ToLower() == item.Prefix?.ToLower() ) );
@@ -108,9 +107,9 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 验证
         /// </summary>
-        /// <param name="pager">分页</param>
-        public void Validate( IPager pager ) {
-            if( pager == null )
+        /// <param name="isPage">是否分页</param>
+        public void Validate( bool isPage ) {
+            if( isPage == false )
                 return;
             if( _items.Count == 0 )
                 throw new ArgumentException( LibraryResource.OrderIsEmptyForPage );

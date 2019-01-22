@@ -26,6 +26,18 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="columnAlias">列别名</param>
         void Count( string columnAlias = null );
         /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        void Count( string column, string columnAlias );
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        void Count<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
         /// 求和
         /// </summary>
         /// <param name="column">列</param>
@@ -42,13 +54,13 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="column">列</param>
         /// <param name="columnAlias">列别名</param>
-        void Average( string column, string columnAlias = null );
+        void Avg( string column, string columnAlias = null );
         /// <summary>
         /// 求平均值
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        void Average<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        void Avg<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
         /// <summary>
         /// 求最大值
         /// </summary>

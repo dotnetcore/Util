@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 
@@ -42,12 +43,12 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 获取参数列表
         /// </summary>
-        public IDictionary<string, object> GetParams() {
-            return _params;
+        public IReadOnlyDictionary<string, object> GetParams() {
+            return new ReadOnlyDictionary<string, object>( _params );
         }
 
         /// <summary>
-        /// 添加参数
+        /// 添加参数,如果参数已存在则替换
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
@@ -55,6 +56,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         public void Add( string name, object value, Operator? @operator = null ) {
             if( string.IsNullOrWhiteSpace( name ) )
                 return;
+            if ( _params.ContainsKey( name ) )
+                _params.Remove( name );
             _params.Add( name, GetValue( value, @operator ) );
         }
 
@@ -81,6 +84,14 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         public IParameterManager Clone() {
             return new ParameterManager( _dialect, new Dictionary<string, object>( _params ), _paramIndex );
+        }
+
+        /// <summary>
+        /// 清空参数
+        /// </summary>
+        public void Clear() {
+            _paramIndex = 0;
+            _params.Clear();
         }
     }
 }

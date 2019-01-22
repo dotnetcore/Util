@@ -51,17 +51,13 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         private IOrderByClause _orderByClause;
         /// <summary>
-        /// 分页
+        /// 参数字面值解析器
         /// </summary>
-        private IPager _pager;
+        private IParamLiteralsResolver _paramLiteralsResolver;
         /// <summary>
-        /// 分页跳过行数参数名
+        /// 是否已添加过滤器
         /// </summary>
-        private string _skipCountParam;
-        /// <summary>
-        /// 分页大小参数名
-        /// </summary>
-        private string _pageSizeParam;
+        private bool _isAddFilters;
 
         #endregion
 
@@ -77,6 +73,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             _parameterManager = parameterManager;
             EntityResolver = new EntityResolver( matedata );
             AliasRegister = new EntityAliasRegister();
+            Pager = new Pager();
         }
 
         #endregion
@@ -127,6 +124,30 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// OrderBy子句
         /// </summary>
         protected IOrderByClause OrderByClause => _orderByClause ?? ( _orderByClause = CreateOrderByClause() );
+        /// <summary>
+        /// 参数字面值解析器
+        /// </summary>
+        protected IParamLiteralsResolver ParamLiteralsResolver => _paramLiteralsResolver ?? ( _paramLiteralsResolver = GetParamLiteralsResolver() );
+        /// <summary>
+        /// 跳过行数参数名
+        /// </summary>
+        protected string OffsetParam { get; private set; }
+        /// <summary>
+        /// 限制行数参数名
+        /// </summary>
+        protected string LimitParam { get; private set; }
+        /// <summary>
+        /// 分页
+        /// </summary>
+        public IPager Pager { get; private set; }
+        /// <summary>
+        /// 是否分组
+        /// </summary>
+        public bool IsGroup => GroupByClause.IsGroup;
+        /// <summary>
+        /// 分组列表
+        /// </summary>
+        public string GroupColumns => GroupByClause.GroupColumns;
 
         #endregion
 
@@ -155,7 +176,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建From子句
         /// </summary>
         protected virtual IFromClause CreateFromClause() {
-            return new FromClause( Dialect, EntityResolver, AliasRegister );
+            return new FromClause( this, Dialect, EntityResolver, AliasRegister );
         }
 
         /// <summary>
@@ -186,6 +207,13 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             return new OrderByClause( Dialect, EntityResolver, AliasRegister );
         }
 
+        /// <summary>
+        /// 获取参数字面值解析器
+        /// </summary>
+        protected virtual IParamLiteralsResolver GetParamLiteralsResolver() {
+            return new ParamLiteralsResolver();
+        }
+
         #endregion
 
         #region Clone(复制Sql生成器)
@@ -210,7 +238,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             _whereClause = sqlBuilder._whereClause?.Clone( AliasRegister, _parameterManager );
             _groupByClause = sqlBuilder._groupByClause?.Clone( AliasRegister );
             _orderByClause = sqlBuilder._orderByClause?.Clone( AliasRegister );
-            _pager = sqlBuilder._pager;
+            Pager = sqlBuilder.Pager;
+            OffsetParam = sqlBuilder.OffsetParam;
+            LimitParam = sqlBuilder.LimitParam;
         }
 
         #endregion
@@ -222,21 +252,14 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         public void Clear() {
             AliasRegister = new EntityAliasRegister();
-            ClearSqlParams();
             ClearSelect();
             ClearFrom();
             ClearJoin();
             ClearWhere();
             ClearGroupBy();
             ClearOrderBy();
+            ClearSqlParams();
             ClearPageParams();
-        }
-
-        /// <summary>
-        /// 清空Sql参数
-        /// </summary>
-        public void ClearSqlParams() {
-            _parameterManager = CreateParameterManager();
         }
 
         /// <summary>
@@ -264,6 +287,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 清空Where子句
         /// </summary>
         public void ClearWhere() {
+            _isAddFilters = false;
             _whereClause = CreatewWhereClause();
         }
 
@@ -282,12 +306,19 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 清空Sql参数
+        /// </summary>
+        public void ClearSqlParams() {
+            _parameterManager.Clear();
+        }
+
+        /// <summary>
         /// 清空分页参数
         /// </summary>
         public void ClearPageParams() {
-            _pager = null;
-            _skipCountParam = null;
-            _pageSizeParam = null;
+            Pager = null;
+            OffsetParam = null;
+            LimitParam = null;
         }
 
         #endregion
@@ -320,23 +351,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             return sql;
         }
 
-        /// <summary>
-        /// 参数字面值解析器
-        /// </summary>
-        private IParamLiteralsResolver _paramLiteralsResolver;
-
-        /// <summary>
-        /// 参数字面值解析器
-        /// </summary>
-        protected IParamLiteralsResolver ParamLiteralsResolver => _paramLiteralsResolver ?? ( _paramLiteralsResolver = GetParamLiteralsResolver() );
-
-        /// <summary>
-        /// 获取参数字面值解析器
-        /// </summary>
-        protected virtual IParamLiteralsResolver GetParamLiteralsResolver() {
-            return new ParamLiteralsResolver();
-        }
-
         #endregion
 
         #region ToSql(生成Sql语句)
@@ -356,7 +370,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 初始化
         /// </summary>
         public virtual void Init() {
-            OrderByClause.OrderBy( _pager?.Order );
+            OrderByClause.OrderBy( Pager?.Order );
         }
 
         /// <summary>
@@ -364,30 +378,25 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         public virtual void Validate() {
             FromClause.Validate();
-            OrderByClause.Validate( _pager );
+            OrderByClause.Validate( IsLimit );
         }
+
+        /// <summary>
+        /// 是否限制行数
+        /// </summary>
+        protected bool IsLimit => string.IsNullOrWhiteSpace( LimitParam ) == false;
 
         /// <summary>
         /// 创建Sql语句
         /// </summary>
         protected virtual void CreateSql( StringBuilder result ) {
-            if( _pager == null ) {
-                CreateNoPagerSql( result );
-                return;
-            }
-            CreatePagerSql( result );
-        }
-
-        /// <summary>
-        /// 创建不分页Sql
-        /// </summary>
-        protected virtual void CreateNoPagerSql( StringBuilder result ) {
             AppendSelect( result );
             AppendFrom( result );
             AppendSql( result, GetJoin() );
             AppendSql( result, GetWhere() );
             AppendSql( result, GetGroupBy() );
             AppendSql( result, GetOrderBy() );
+            AppendLimit( result );
         }
 
         /// <summary>
@@ -420,62 +429,17 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 添加分页Sql
+        /// </summary>
+        private void AppendLimit( StringBuilder result ) {
+            if( IsLimit )
+                AppendSql( result, CreateLimitSql() );
+        }
+
+        /// <summary>
         /// 创建分页Sql
         /// </summary>
-        protected abstract void CreatePagerSql( StringBuilder result );
-
-        #endregion
-
-        #region ToCountDebugSql(生成获取行数调试Sql语句)
-
-        /// <summary>
-        /// 生成获取行数调试Sql语句
-        /// </summary>
-        public virtual string ToCountDebugSql() {
-            return GetDebugSql( ToCountSql() );
-        }
-
-        #endregion
-
-        #region ToCountSql(生成获取行数Sql)
-
-        /// <summary>
-        /// 生成获取行数Sql
-        /// </summary>
-        public virtual string ToCountSql() {
-            Init();
-            Validate();
-            var result = new StringBuilder();
-            if( GroupByClause.IsGroupBy )
-                AppendGroupCountSql( result );
-            else
-                AppendNoGroupCountSql( result );
-            return result.ToString().Trim();
-        }
-
-        /// <summary>
-        /// 添加未分组的获取行数Sql
-        /// </summary>
-        private void AppendNoGroupCountSql( StringBuilder result ) {
-            result.AppendLine( "Select Count(*) " );
-            AppendFrom( result );
-            AppendSql( result, GetJoin() );
-            AppendSql( result, GetWhere() );
-        }
-
-        /// <summary>
-        /// 添加分组的获取行数Sql
-        /// </summary>
-        private void AppendGroupCountSql( StringBuilder result ) {
-            result.AppendLine( "Select Count(*) " );
-            result.AppendLine( "From (" );
-            result.AppendLine( $"Select {GroupByClause.GroupByColumns} " );
-            AppendFrom( result );
-            AppendSql( result, GetJoin() );
-            AppendSql( result, GetWhere() );
-            result.AppendLine( GetGroupBy() );
-            result.Append( ") As t" );
-        }
+        protected abstract string CreateLimitSql();
 
         #endregion
 
@@ -497,7 +461,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 获取参数
         /// </summary>
-        public IDictionary<string, object> GetParams() {
+        public IReadOnlyDictionary<string, object> GetParams() {
             return ParameterManager.GetParams();
         }
 
@@ -530,6 +494,26 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Count( string column, string columnAlias ) {
+            SelectClause.Count( column, columnAlias );
+            return this;
+        }
+
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public virtual ISqlBuilder Count<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            SelectClause.Count( expression, columnAlias );
+            return this;
+        }
+
+        /// <summary>
         /// 求和
         /// </summary>
         /// <param name="column">列</param>
@@ -554,8 +538,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列</param>
         /// <param name="columnAlias">列别名</param>
-        public virtual ISqlBuilder Average( string column, string columnAlias = null ) {
-            SelectClause.Average( column, columnAlias );
+        public virtual ISqlBuilder Avg( string column, string columnAlias = null ) {
+            SelectClause.Avg( column, columnAlias );
             return this;
         }
 
@@ -564,8 +548,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        public virtual ISqlBuilder Average<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
-            SelectClause.Average( expression, columnAlias );
+        public virtual ISqlBuilder Avg<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            SelectClause.Avg( expression, columnAlias );
             return this;
         }
 
@@ -584,7 +568,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        public virtual ISqlBuilder Max<TEntity>( Expression<Func<TEntity, object>> expression,string columnAlias = null ) where TEntity : class {
+        public virtual ISqlBuilder Max<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
             SelectClause.Max( expression, columnAlias );
             return this;
         }
@@ -604,7 +588,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        public virtual ISqlBuilder Min<TEntity>( Expression<Func<TEntity, object>> expression,string columnAlias = null ) where TEntity : class {
+        public virtual ISqlBuilder Min<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
             SelectClause.Min( expression, columnAlias );
             return this;
         }
@@ -684,7 +668,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="table">表名</param>
         /// <param name="alias">别名</param>
-        public ISqlBuilder From( string table, string alias = null ) {
+        public virtual ISqlBuilder From( string table, string alias = null ) {
             FromClause.From( table, alias );
             return this;
         }
@@ -694,7 +678,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
-        public ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
+        public virtual ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
             FromClause.From<TEntity>( alias, schema );
             return this;
         }
@@ -703,8 +687,28 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 添加到From子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
-        public ISqlBuilder AppendFrom( string sql ) {
+        public virtual ISqlBuilder AppendFrom( string sql ) {
             FromClause.AppendSql( sql );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendFrom( ISqlBuilder builder, string alias ) {
+            FromClause.AppendSql( builder, alias );
+            return this;
+        }
+
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public virtual ISqlBuilder AppendFrom( Action<ISqlBuilder> action, string alias ) {
+            FromClause.AppendSql( action, alias );
             return this;
         }
 
@@ -906,16 +910,17 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取Where语句
         /// </summary>
         public virtual string GetWhere() {
-            var copyWhere = WhereClause.Clone( AliasRegister, ParameterManager );
-            AddFilters( copyWhere );
-            return copyWhere.ToSql();
+            if( _isAddFilters == false )
+                AddFilters();
+            return WhereClause.ToSql();
         }
 
         /// <summary>
         /// 添加过滤器列表
         /// </summary>
-        private void AddFilters( IWhereClause whereClause ) {
-            var context = new SqlQueryContext( AliasRegister, whereClause, EntityMatedata );
+        private void AddFilters() {
+            _isAddFilters = true;
+            var context = new SqlQueryContext( AliasRegister, WhereClause, EntityMatedata );
             SqlFilterCollection.Filters.ForEach( filter => filter.Filter( context ) );
         }
 
@@ -1545,32 +1550,45 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         #region Page(设置分页)
 
         /// <summary>
-        /// 获取分页
+        /// 设置跳过行数
         /// </summary>
-        protected IPager GetPager() {
-            return _pager;
+        /// <param name="count">跳过的行数</param>
+        public ISqlBuilder Skip( int count ) {
+            var param = GetOffsetParam();
+            ParameterManager.Add( param, count );
+            return this;
         }
 
         /// <summary>
-        /// 获取分页跳过行数的参数
+        /// 获取跳过行数的参数名
         /// </summary>
-        protected string GetSkipCountParam() {
-            if( string.IsNullOrWhiteSpace( _skipCountParam ) == false )
-                return _skipCountParam;
-            _skipCountParam = ParameterManager.GenerateName();
-            ParameterManager.Add( _skipCountParam, GetPager().GetSkipCount() );
-            return _skipCountParam;
+        protected string GetOffsetParam() {
+            if( string.IsNullOrWhiteSpace( OffsetParam ) == false )
+                return OffsetParam;
+            OffsetParam = ParameterManager.GenerateName();
+            ParameterManager.Add( OffsetParam, 0 );
+            return OffsetParam;
         }
 
         /// <summary>
-        /// 获取分页大小的参数
+        /// 设置获取行数
         /// </summary>
-        protected string GetPageSizeParam() {
-            if( string.IsNullOrWhiteSpace( _pageSizeParam ) == false )
-                return _pageSizeParam;
-            _pageSizeParam = ParameterManager.GenerateName();
-            ParameterManager.Add( _pageSizeParam, GetPager().PageSize );
-            return _pageSizeParam;
+        /// <param name="count">获取的行数</param>
+        public ISqlBuilder Take( int count ) {
+            var param = GetLimitParam();
+            ParameterManager.Add( param, count );
+            Pager.PageSize = count;
+            return this;
+        }
+
+        /// <summary>
+        /// 获取限制行数的参数名
+        /// </summary>
+        protected string GetLimitParam() {
+            if( string.IsNullOrWhiteSpace( LimitParam ) == false )
+                return LimitParam;
+            LimitParam = ParameterManager.GenerateName();
+            return LimitParam;
         }
 
         /// <summary>
@@ -1578,7 +1596,10 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="pager">分页参数</param>
         public ISqlBuilder Page( IPager pager ) {
-            _pager = pager;
+            if ( pager == null )
+                return this;
+            Pager = pager;
+            Skip( pager.GetSkipCount() ).Take( pager.PageSize );
             return this;
         }
 

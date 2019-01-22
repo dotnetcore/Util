@@ -1,4 +1,6 @@
-﻿namespace Util.Datas.Sql.Queries.Builders.Abstractions {
+﻿using System;
+
+namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// <summary>
     /// From子句
     /// </summary>
@@ -25,6 +27,18 @@
         /// </summary>
         /// <param name="sql">Sql语句</param>
         void AppendSql( string sql );
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        void AppendSql( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        void AppendSql( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 验证
         /// </summary>

@@ -43,14 +43,8 @@ namespace Util.Datas.Dapper.SqlServer {
         /// <summary>
         /// 创建分页Sql
         /// </summary>
-        protected override void CreatePagerSql( StringBuilder result ) {
-            AppendSelect( result );
-            AppendFrom( result );
-            AppendSql( result, GetJoin() );
-            AppendSql( result, GetWhere() );
-            AppendSql( result, GetGroupBy() );
-            AppendSql( result, GetOrderBy() );
-            result.Append( $"Offset { GetSkipCountParam() } Rows Fetch Next { GetPageSizeParam() } Rows Only" );
+        protected override string CreateLimitSql() {
+            return $"Offset {GetOffsetParam()} Rows Fetch Next {GetLimitParam()} Rows Only";
         }
     }
 }

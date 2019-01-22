@@ -10,6 +10,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// </summary>
     public class FromClause : IFromClause {
         /// <summary>
+        /// Sql生成器
+        /// </summary>
+        protected readonly ISqlBuilder Builder;
+        /// <summary>
         /// 方言
         /// </summary>
         protected readonly IDialect Dialect;
@@ -29,11 +33,13 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 初始化From子句
         /// </summary>
+        /// <param name="builder">Sql生成器</param>
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
         /// <param name="table">表</param>
-        public FromClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, SqlItem table = null ) {
+        public FromClause( ISqlBuilder builder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, SqlItem table = null ) {
+            Builder = builder;
             Dialect = dialect;
             Resolver = resolver;
             Register = register;
@@ -45,7 +51,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="register">实体别名注册器</param>
         public virtual IFromClause Clone( IEntityAliasRegister register ) {
-            return new FromClause( Dialect, Resolver, register, Table );
+            return new FromClause( Builder, Dialect, Resolver, register, Table );
         }
 
         /// <summary>
@@ -89,6 +95,33 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
                 return;
             }
             Table = new SqlItem( sql, raw: true );
+        }
+
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public void AppendSql( ISqlBuilder builder, string alias ) {
+            if( builder == null )
+                return;
+            var result = builder.ToSql();
+            if( string.IsNullOrWhiteSpace( alias ) == false )
+                result = $"({result}) As {Dialect.SafeName( alias )}";
+            AppendSql( result );
+        }
+
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public void AppendSql( Action<ISqlBuilder> action, string alias ) {
+            if( action == null )
+                return;
+            var builder = Builder.New();
+            action( builder );
+            AppendSql( builder, alias );
         }
 
         /// <summary>

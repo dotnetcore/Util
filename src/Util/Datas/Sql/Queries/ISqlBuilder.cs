@@ -87,14 +87,6 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         string ToSql();
         /// <summary>
-        /// 生成获取行数调试Sql语句
-        /// </summary>
-        string ToCountDebugSql();
-        /// <summary>
-        /// 生成获取行数Sql
-        /// </summary>
-        string ToCountSql();
-        /// <summary>
         /// 添加Sql参数
         /// </summary>
         /// <param name="name">参数名</param>
@@ -103,7 +95,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 获取Sql参数列表
         /// </summary>
-        IDictionary<string, object> GetParams();
+        IReadOnlyDictionary<string, object> GetParams();
         /// <summary>
         /// 过滤重复记录
         /// </summary>
@@ -113,6 +105,18 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="columnAlias">列别名</param>
         ISqlBuilder Count( string columnAlias = null );
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Count( string column, string columnAlias );
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Count<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
         /// <summary>
         /// 求和
         /// </summary>
@@ -130,13 +134,13 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="column">列</param>
         /// <param name="columnAlias">列别名</param>
-        ISqlBuilder Average( string column, string columnAlias = null );
+        ISqlBuilder Avg( string column, string columnAlias = null );
         /// <summary>
         /// 求平均值
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        ISqlBuilder Average<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        ISqlBuilder Avg<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
         /// <summary>
         /// 求最大值
         /// </summary>
@@ -214,6 +218,18 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendFrom( string sql );
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder AppendFrom( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder AppendFrom( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 内连接
         /// </summary>
@@ -649,6 +665,14 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="boundary">包含边界</param>
         ISqlBuilder Between( string column, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null );
         /// <summary>
+        /// 是否分组
+        /// </summary>
+        bool IsGroup { get; }
+        /// <summary>
+        /// 分组列表
+        /// </summary>
+        string GroupColumns { get; }
+        /// <summary>
         /// 分组
         /// </summary>
         /// <param name="columns">分组字段,范例：a.Id,b.Name</param>
@@ -695,5 +719,19 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="pager">分页参数</param>
         ISqlBuilder Page( IPager pager );
+        /// <summary>
+        /// 设置跳过行数
+        /// </summary>
+        /// <param name="count">跳过的行数</param>
+        ISqlBuilder Skip( int count );
+        /// <summary>
+        /// 设置获取行数
+        /// </summary>
+        /// <param name="count">获取的行数</param>
+        ISqlBuilder Take( int count );
+        /// <summary>
+        /// 分页
+        /// </summary>
+        IPager Pager { get; }
     }
 }

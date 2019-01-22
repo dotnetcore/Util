@@ -19,7 +19,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 测试初始化
         /// </summary>
         public FromClauseTest() {
-            _clause = new FromClause( new SqlServerDialect(), new EntityResolver(),new EntityAliasRegister() );
+            _clause = new FromClause( null, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister() );
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestFrom_13() {
-            _clause = new FromClause( new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister() );
+            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister() );
             _clause.From<Sample>();
             var result = _clause.ToSql();
             Assert.Equal( "From [s].[t_Sample]", result );
@@ -166,7 +166,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestFrom_14() {
-            _clause = new FromClause( new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister() );
+            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister() );
             _clause.From<Sample>( "a" );
             var result = _clause.ToSql();
             Assert.Equal( "From [s].[t_Sample] As [a]", result );
@@ -177,12 +177,12 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestFrom_15() {
-            _clause.From( "a","b" );
+            _clause.From( "a", "b" );
             var copy = _clause.Clone( null );
             Assert.Equal( "From [a] As [b]", GetSql() );
             Assert.Equal( "From [a] As [b]", copy.ToSql() );
 
-            copy.From( "c","d" );
+            copy.From( "c", "d" );
             Assert.Equal( "From [a] As [b]", GetSql() );
             Assert.Equal( "From [c] As [d]", copy.ToSql() );
         }

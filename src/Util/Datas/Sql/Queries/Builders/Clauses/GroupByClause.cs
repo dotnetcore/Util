@@ -49,6 +49,16 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// 是否存在分组
+        /// </summary>
+        public bool IsGroup => _group.Count > 0;
+
+        /// <summary>
+        /// 分组列表
+        /// </summary>
+        public string GroupColumns => _group.Select( t => t.ToSql( _dialect ) ).Join();
+
+        /// <summary>
         /// 复制Group By子句
         /// </summary>
         /// <param name="register">实体别名注册器</param>
@@ -104,23 +114,13 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 是否存在分组
-        /// </summary>
-        public bool IsGroupBy => _group.Count > 0;
-
-        /// <summary>
-        /// 分组列表
-        /// </summary>
-        public string GroupByColumns => _group.Select( t => t.ToSql( _dialect ) ).Join();
-
-        /// <summary>
         /// 获取Sql
         /// </summary>
         public string ToSql() {
-            if( IsGroupBy == false )
+            if( IsGroup == false )
                 return null;
             var result = new StringBuilder();
-            result.Append( $"Group By {GroupByColumns}" );
+            result.Append( $"Group By {GroupColumns}" );
             if( string.IsNullOrWhiteSpace( _having ) )
                 return result.ToString();
             result.Append( $" Having {_having}" );

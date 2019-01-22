@@ -85,6 +85,25 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Count( string column, string columnAlias ) {
+            Aggregate( "Count", column, columnAlias );
+        }
+
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        public void Count<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+            var column = _resolver.GetColumn( expression );
+            Count( column, columnAlias );
+        }
+
+        /// <summary>
         /// 聚合
         /// </summary>
         /// <param name="sql">Sql语句</param>
@@ -127,7 +146,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="column">列</param>
         /// <param name="columnAlias">列别名</param>
-        public void Average( string column, string columnAlias = null ) {
+        public void Avg( string column, string columnAlias = null ) {
             Aggregate( "Avg", column, columnAlias );
         }
 
@@ -136,9 +155,9 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="columnAlias">列别名</param>
-        public void Average<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
+        public void Avg<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
             var column = _resolver.GetColumn( expression );
-            Average( column, columnAlias );
+            Avg( column, columnAlias );
         }
 
         /// <summary>

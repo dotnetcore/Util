@@ -23,7 +23,7 @@ namespace Util.Datas.Sql.Queries {
             Database = database;
             SqlQueryOptions = sqlQueryOptions;
         }
-        
+
         /// <summary>
         /// Sql生成器
         /// </summary>
@@ -39,7 +39,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 参数列表
         /// </summary>
-        protected IDictionary<string, object> Params => Builder.GetParams();
+        protected IReadOnlyDictionary<string, object> Params => Builder.GetParams();
 
         /// <summary>
         /// 复制Sql查询对象
@@ -58,8 +58,9 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 清空并初始化
         /// </summary>
-        public void Clear() {
+        public ISqlQuery Clear() {
             Builder.Clear();
+            return this;
         }
 
         /// <summary>
@@ -147,7 +148,7 @@ namespace Util.Datas.Sql.Queries {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
-        public abstract PagerList<TResult> ToPagerList<TResult>( IPager parameter, IDbConnection connection = null );
+        public abstract PagerList<TResult> ToPagerList<TResult>( IPager parameter = null, IDbConnection connection = null );
         /// <summary>
         /// 获取分页列表
         /// </summary>
@@ -162,7 +163,7 @@ namespace Util.Datas.Sql.Queries {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
-        public abstract Task<PagerList<TResult>> ToPagerListAsync<TResult>( IPager parameter, IDbConnection connection = null );
+        public abstract Task<PagerList<TResult>> ToPagerListAsync<TResult>( IPager parameter = null, IDbConnection connection = null );
         /// <summary>
         /// 获取分页列表
         /// </summary>
@@ -186,7 +187,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="func">获取列表操作</param>
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
-        public abstract Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func,IPager parameter, IDbConnection connection = null );
+        public abstract Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func, IPager parameter, IDbConnection connection = null );
 
         /// <summary>
         /// 查询
@@ -194,7 +195,7 @@ namespace Util.Datas.Sql.Queries {
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="func">查询操作</param>
         /// <param name="connection">数据库连接</param>
-        public TResult Query<TResult>( Func<IDbConnection, string, IDictionary<string, object>, TResult> func, IDbConnection connection = null ) {
+        public TResult Query<TResult>( Func<IDbConnection, string, IReadOnlyDictionary<string, object>, TResult> func, IDbConnection connection = null ) {
             var sql = GetSql();
             WriteTraceLog( sql, Params, GetDebugSql() );
             var result = func( GetConnection( connection ), sql, Params );
@@ -208,7 +209,7 @@ namespace Util.Datas.Sql.Queries {
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="func">查询操作</param>
         /// <param name="connection">数据库连接</param>
-        public async Task<TResult> QueryAsync<TResult>( Func<IDbConnection, string, IDictionary<string, object>, Task<TResult>> func, IDbConnection connection = null ) {
+        public async Task<TResult> QueryAsync<TResult>( Func<IDbConnection, string, IReadOnlyDictionary<string, object>, Task<TResult>> func, IDbConnection connection = null ) {
             var sql = GetSql();
             WriteTraceLog( sql, Params, GetDebugSql() );
             var result = await func( GetConnection( connection ), sql, Params );
@@ -235,6 +236,51 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="sql">Sql语句</param>
         /// <param name="parameters">参数</param>
         /// <param name="debugSql">调试Sql语句</param>
-        protected abstract void WriteTraceLog( string sql, IDictionary<string, object> parameters, string debugSql );
+        protected abstract void WriteTraceLog( string sql, IReadOnlyDictionary<string, object> parameters, string debugSql );
+
+        /// <summary>
+        /// 获取分页参数
+        /// </summary>
+        /// <param name="parameter">分页参数</param>
+        protected IPager GetPage( IPager parameter ) {
+            if( parameter != null )
+                return parameter;
+            return Builder.Pager;
+        }
+
+        /// <summary>
+        /// 获取行数Sql生成器
+        /// </summary>
+        protected ISqlBuilder GetCountBuilder() {
+            var builder = Builder.Clone();
+            ClearCountBuilder( builder );
+            if( builder.IsGroup )
+                return GetCountBuilderByGroup( builder );
+            return GetCountBuilderByNoGroup( builder );
+        }
+
+        /// <summary>
+        /// 清理行数Sql生成器
+        /// </summary>
+        private void ClearCountBuilder( ISqlBuilder builder ) {
+            builder.ClearSelect();
+            builder.ClearOrderBy();
+            builder.ClearPageParams();
+        }
+
+        /// <summary>
+        /// 获取行数Sql生成器 - 分组
+        /// </summary>
+        private ISqlBuilder GetCountBuilderByGroup( ISqlBuilder countBuilder ) {
+            return countBuilder.New().Count()
+                .AppendFrom( countBuilder.AppendSelect( countBuilder.GroupColumns ), "t" );
+        }
+
+        /// <summary>
+        /// 获取行数Sql生成器 - 未分组
+        /// </summary>
+        private ISqlBuilder GetCountBuilderByNoGroup( ISqlBuilder countBuilder ) {
+            return countBuilder.Count();
+        }
     }
 }
