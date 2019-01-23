@@ -144,10 +144,6 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 是否分组
         /// </summary>
         public bool IsGroup => GroupByClause.IsGroup;
-        /// <summary>
-        /// 分组列表
-        /// </summary>
-        public string GroupColumns => GroupByClause.GroupColumns;
 
         #endregion
 

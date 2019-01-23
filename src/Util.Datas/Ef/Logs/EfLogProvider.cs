@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 using Util.Datas.Ef.Configs;
-using Util.Datas.Ef.Core;
 using Util.Logs;
 
 namespace Util.Datas.Ef.Logs {
@@ -14,9 +13,9 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         private readonly ILog _log;
         /// <summary>
-        /// 工作单元
+        /// 工作单元跟踪号
         /// </summary>
-        private readonly UnitOfWorkBase _unitOfWork;
+        private readonly string _traceId;
         /// <summary>
         /// Ef配置
         /// </summary>
@@ -26,11 +25,11 @@ namespace Util.Datas.Ef.Logs {
         /// 初始化Ef日志提供器
         /// </summary>
         /// <param name="log">日志操作</param>
-        /// <param name="unitOfWork">工作单元</param>
+        /// <param name="traceId">工作单元跟踪号</param>
         /// <param name="config">Ef配置</param>
-        public EfLogProvider( ILog log, UnitOfWorkBase unitOfWork,EfConfig config ) {
+        public EfLogProvider( ILog log, string traceId, EfConfig config ) {
             _log = log ?? throw new ArgumentNullException( nameof( log ) );
-            _unitOfWork = unitOfWork ?? throw new ArgumentNullException( nameof( unitOfWork ) );
+            _traceId = traceId;
             _config = config;
         }
 
@@ -39,7 +38,7 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         /// <param name="category">日志分类</param>
         public ILogger CreateLogger( string category ) {
-            return category.StartsWith( "Microsoft.EntityFrameworkCore" ) ? new EfLog( _log, _unitOfWork, category, _config ) : NullLogger.Instance;
+            return category.StartsWith( "Microsoft.EntityFrameworkCore" ) ? new EfLog( _log, _traceId, category, _config ) : NullLogger.Instance;
         }
 
         /// <summary>

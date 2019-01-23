@@ -669,10 +669,6 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         bool IsGroup { get; }
         /// <summary>
-        /// 分组列表
-        /// </summary>
-        string GroupColumns { get; }
-        /// <summary>
         /// 分组
         /// </summary>
         /// <param name="columns">分组字段,范例：a.Id,b.Name</param>

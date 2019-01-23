@@ -273,7 +273,7 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         private ISqlBuilder GetCountBuilderByGroup( ISqlBuilder countBuilder ) {
             return countBuilder.New().Count()
-                .AppendFrom( countBuilder.AppendSelect( countBuilder.GroupColumns ), "t" );
+                .AppendFrom( countBuilder.AppendSelect( "1 As c" ), "t" );
         }
 
         /// <summary>

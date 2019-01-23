@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Util.Datas.Ef.Configs;
-using Util.Datas.Ef.Core;
 using Util.Helpers;
 using Util.Logs;
 using Util.Logs.Extensions;
@@ -22,9 +21,9 @@ namespace Util.Datas.Ef.Logs {
         /// </summary>
         private readonly ILog _log;
         /// <summary>
-        /// 工作单元
+        /// 工作单元跟踪号
         /// </summary>
-        private readonly UnitOfWorkBase _unitOfWork;
+        private readonly string _traceId;
         /// <summary>
         /// 日志分类
         /// </summary>
@@ -38,12 +37,12 @@ namespace Util.Datas.Ef.Logs {
         /// 初始化Ef日志记录器
         /// </summary>
         /// <param name="log">日志操作</param>
-        /// <param name="unitOfWork">工作单元</param>
+        /// <param name="traceId">工作单元跟踪号</param>
         /// <param name="category">日志分类</param>
         /// <param name="config">Ef配置</param>
-        public EfLog( ILog log, UnitOfWorkBase unitOfWork, string category, EfConfig config ) {
+        public EfLog( ILog log, string traceId, string category, EfConfig config ) {
             _log = log ?? throw new ArgumentNullException( nameof( log ) );
-            _unitOfWork = unitOfWork ?? throw new ArgumentNullException( nameof( unitOfWork ) );
+            _traceId = traceId;
             _category = category;
             _config = config;
         }
@@ -61,7 +60,7 @@ namespace Util.Datas.Ef.Logs {
             if( IsEnabled( eventId ) == false )
                 return;
             _log.Caption( $"执行Ef操作：{_category}" )
-                .Content( $"工作单元跟踪号: {_unitOfWork.TraceId}" )
+                .Content( $"工作单元跟踪号: {_traceId}" )
                 .Content( $"事件Id: {eventId.Id}" )
                 .Content( $"事件名称: {eventId.Name}" );
             AddContent( state );
