@@ -10,6 +10,9 @@ namespace Util.Datas.Sql.Queries {
     /// Sql生成器
     /// </summary>
     public interface ISqlBuilder : ICondition {
+
+        #region 基础操作
+
         /// <summary>
         /// 复制Sql生成器
         /// </summary>
@@ -18,6 +21,19 @@ namespace Util.Datas.Sql.Queries {
         /// 创建一个新的Sql生成器
         /// </summary>
         ISqlBuilder New();
+        /// <summary>
+        /// 生成Sql语句
+        /// </summary>
+        string ToSql();
+        /// <summary>
+        /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
+        /// </summary>
+        string ToDebugSql();
+
+        #endregion
+
+        #region 清理
+
         /// <summary>
         /// 清空并初始化
         /// </summary>
@@ -54,6 +70,11 @@ namespace Util.Datas.Sql.Queries {
         /// 清空分页参数
         /// </summary>
         void ClearPageParams();
+
+        #endregion
+
+        #region 获取子句
+
         /// <summary>
         /// 获取Select语句
         /// </summary>
@@ -78,14 +99,11 @@ namespace Util.Datas.Sql.Queries {
         /// 获取排序语句
         /// </summary>
         string GetOrderBy();
-        /// <summary>
-        /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
-        /// </summary>
-        string ToDebugSql();
-        /// <summary>
-        /// 生成Sql语句
-        /// </summary>
-        string ToSql();
+
+        #endregion
+
+        #region Sql参数
+
         /// <summary>
         /// 添加Sql参数
         /// </summary>
@@ -96,6 +114,11 @@ namespace Util.Datas.Sql.Queries {
         /// 获取Sql参数列表
         /// </summary>
         IReadOnlyDictionary<string, object> GetParams();
+
+        #endregion
+
+        #region Select子句
+
         /// <summary>
         /// 过滤重复记录
         /// </summary>
@@ -185,22 +208,27 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="columnAlias">列别名</param>
         ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class;
         /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Select( ISqlBuilder builder, string columnAlias );
+        /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Select( Action<ISqlBuilder> action, string columnAlias );
+        /// <summary>
         /// 添加到Select子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendSelect( string sql );
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="columnAlias">列别名</param>
-        ISqlBuilder AppendSelect( ISqlBuilder builder, string columnAlias );
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="columnAlias">列别名</param>
-        ISqlBuilder AppendSelect( Action<ISqlBuilder> action, string columnAlias );
+
+        #endregion
+
+        #region From子句
+
         /// <summary>
         /// 设置表名
         /// </summary>
@@ -214,22 +242,27 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="schema">架构名</param>
         ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 设置子查询表
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder From( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 设置子查询表
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder From( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到From子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendFrom( string sql );
-        /// <summary>
-        /// 添加到From子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendFrom( ISqlBuilder builder, string alias );
-        /// <summary>
-        /// 添加到From子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendFrom( Action<ISqlBuilder> action, string alias );
+
+        #endregion
+
+        #region Join子句
+
         /// <summary>
         /// 内连接
         /// </summary>
@@ -243,22 +276,22 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="schema">架构名</param>
         ISqlBuilder Join<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 内连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder Join( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 内连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder Join( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到内连接子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendJoin( string sql );
-        /// <summary>
-        /// 添加到内连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendJoin( ISqlBuilder builder, string alias );
-        /// <summary>
-        /// 添加到内连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendJoin( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 左外连接
         /// </summary>
@@ -272,22 +305,22 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="schema">架构名</param>
         ISqlBuilder LeftJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder LeftJoin( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder LeftJoin( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到左外连接子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendLeftJoin( string sql );
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendLeftJoin( ISqlBuilder builder, string alias );
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendLeftJoin( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 右外连接
         /// </summary>
@@ -301,22 +334,22 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="schema">架构名</param>
         ISqlBuilder RightJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder RightJoin( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder RightJoin( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到右外连接子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendRightJoin( string sql );
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendRightJoin( ISqlBuilder builder, string alias );
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendRightJoin( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 设置连接条件
         /// </summary>
@@ -336,6 +369,11 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="expression">条件表达式,范例：(l,r) => l.Id == r.OrderId</param>
         ISqlBuilder On<TLeft, TRight>( Expression<Func<TLeft, TRight, bool>> expression ) where TLeft : class where TRight : class;
+
+        #endregion
+
+        #region Where子句
+
         /// <summary>
         /// And连接条件
         /// </summary>
@@ -421,11 +459,6 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
         ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class;
-        /// <summary>
-        /// 添加到Where子句
-        /// </summary>
-        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
-        ISqlBuilder AppendWhere( string sql );
         /// <summary>
         /// 设置相等查询条件
         /// </summary>
@@ -665,6 +698,16 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="boundary">包含边界</param>
         ISqlBuilder Between( string column, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null );
         /// <summary>
+        /// 添加到Where子句
+        /// </summary>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        ISqlBuilder AppendWhere( string sql );
+
+        #endregion
+
+        #region GroupBy子句
+
+        /// <summary>
         /// 是否分组
         /// </summary>
         bool IsGroup { get; }
@@ -692,6 +735,11 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendGroupBy( string sql );
+
+        #endregion
+
+        #region OrderBy子句
+
         /// <summary>
         /// 排序
         /// </summary>
@@ -710,6 +758,11 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendOrderBy( string sql );
+
+        #endregion
+
+        #region 分页
+
         /// <summary>
         /// 设置分页
         /// </summary>
@@ -729,5 +782,7 @@ namespace Util.Datas.Sql.Queries {
         /// 分页
         /// </summary>
         IPager Pager { get; }
+
+        #endregion
     }
 }

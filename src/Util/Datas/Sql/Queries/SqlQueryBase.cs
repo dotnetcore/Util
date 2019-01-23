@@ -272,8 +272,7 @@ namespace Util.Datas.Sql.Queries {
         /// 获取行数Sql生成器 - 分组
         /// </summary>
         private ISqlBuilder GetCountBuilderByGroup( ISqlBuilder countBuilder ) {
-            return countBuilder.New().Count()
-                .AppendFrom( countBuilder.AppendSelect( "1 As c" ), "t" );
+            return countBuilder.New().Count().From( countBuilder.AppendSelect( "1 As c" ), "t" );
         }
 
         /// <summary>

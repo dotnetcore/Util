@@ -104,22 +104,22 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="columnAlias">列别名</param>
         void Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class;
         /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        void Select( ISqlBuilder builder, string columnAlias );
+        /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        void Select( Action<ISqlBuilder> action, string columnAlias );
+        /// <summary>
         /// 添加到Select子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
         void AppendSql( string sql );
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="columnAlias">列别名</param>
-        void AppendSql( ISqlBuilder builder, string columnAlias );
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="columnAlias">列别名</param>
-        void AppendSql( Action<ISqlBuilder> action, string columnAlias );
         /// <summary>
         /// 输出Sql
         /// </summary>

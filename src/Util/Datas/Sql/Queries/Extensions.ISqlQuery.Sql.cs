@@ -191,6 +191,30 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Select( this ISqlQuery sqlQuery, ISqlBuilder builder, string columnAlias ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.Select( builder, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        public static ISqlQuery Select( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string columnAlias ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Select( action, columnAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 添加到Select子句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -198,30 +222,6 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery AppendSelect( this ISqlQuery sqlQuery, string sql ) {
             var builder = sqlQuery.GetBuilder();
             builder.AppendSelect( sql );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="columnAlias">列别名</param>
-        public static ISqlQuery AppendSelect( this ISqlQuery sqlQuery, ISqlBuilder builder, string columnAlias ) {
-            var sqlBuilder = sqlQuery.GetBuilder();
-            sqlBuilder.AppendSelect( builder, columnAlias );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="action">子查询操作</param>
-        /// <param name="columnAlias">列别名</param>
-        public static ISqlQuery AppendSelect( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string columnAlias ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendSelect( action, columnAlias );
             return sqlQuery;
         }
 
@@ -266,6 +266,30 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 设置子查询表
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery From( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.From( builder, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询表
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery From( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.From( action, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 添加到From子句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -285,30 +309,6 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery AppendFrom( this ISqlQuery sqlQuery, string sql, bool condition ) {
             var builder = sqlQuery.GetBuilder();
             builder.AppendFrom( sql, condition );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到From子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendFrom( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
-            var sqlBuilder = sqlQuery.GetBuilder();
-            sqlBuilder.AppendFrom( builder, alias );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到From子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendFrom( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendFrom( action, alias );
             return sqlQuery;
         }
 
@@ -341,6 +341,30 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 内连接子查询
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery Join( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.Join( builder, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 内连接子查询
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery Join( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Join( action, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 添加到内连接子句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -348,30 +372,6 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery AppendJoin( this ISqlQuery sqlQuery, string sql ) {
             var builder = sqlQuery.GetBuilder();
             builder.AppendJoin( sql );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到内连接子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendJoin( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
-            var sqlBuilder = sqlQuery.GetBuilder();
-            sqlBuilder.AppendJoin( builder, alias );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到内连接子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendJoin( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendJoin( action, alias );
             return sqlQuery;
         }
 
@@ -412,6 +412,30 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery LeftJoin( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.LeftJoin( builder, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery LeftJoin( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.LeftJoin( action, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 添加到左外连接子句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -419,30 +443,6 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery AppendLeftJoin( this ISqlQuery sqlQuery, string sql ) {
             var builder = sqlQuery.GetBuilder();
             builder.AppendLeftJoin( sql );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendLeftJoin( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
-            var sqlBuilder = sqlQuery.GetBuilder();
-            sqlBuilder.AppendLeftJoin( builder, alias );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendLeftJoin( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendLeftJoin( action, alias );
             return sqlQuery;
         }
 
@@ -483,6 +483,30 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery RightJoin( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.RightJoin( builder, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public static ISqlQuery RightJoin( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.RightJoin( action, alias );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 添加到右外连接子句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -490,30 +514,6 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery AppendRightJoin( this ISqlQuery sqlQuery, string sql ) {
             var builder = sqlQuery.GetBuilder();
             builder.AppendRightJoin( sql );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendRightJoin( this ISqlQuery sqlQuery, ISqlBuilder builder, string alias ) {
-            var sqlBuilder = sqlQuery.GetBuilder();
-            sqlBuilder.AppendRightJoin( builder, alias );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        public static ISqlQuery AppendRightJoin( this ISqlQuery sqlQuery, Action<ISqlBuilder> action, string alias ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendRightJoin( action, alias );
             return sqlQuery;
         }
 

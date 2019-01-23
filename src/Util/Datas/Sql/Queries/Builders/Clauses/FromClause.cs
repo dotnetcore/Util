@@ -86,23 +86,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 添加到From子句
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        public void AppendSql( string sql ) {
-            if( Table != null && Table.Raw ) {
-                Table = new SqlItem( $"{Table.Name}{sql}", raw: true );
-                return;
-            }
-            Table = new SqlItem( sql, raw: true );
-        }
-
-        /// <summary>
-        /// 添加到From子句
+        /// 设置子查询表
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="alias">表别名</param>
-        public void AppendSql( ISqlBuilder builder, string alias ) {
+        public void From( ISqlBuilder builder, string alias ) {
             if( builder == null )
                 return;
             var result = builder.ToSql();
@@ -112,16 +100,28 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 添加到From子句
+        /// 设置子查询表
         /// </summary>
         /// <param name="action">子查询操作</param>
         /// <param name="alias">表别名</param>
-        public void AppendSql( Action<ISqlBuilder> action, string alias ) {
+        public void From( Action<ISqlBuilder> action, string alias ) {
             if( action == null )
                 return;
             var builder = Builder.New();
             action( builder );
-            AppendSql( builder, alias );
+            From( builder, alias );
+        }
+
+        /// <summary>
+        /// 添加到From子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public void AppendSql( string sql ) {
+            if( Table != null && Table.Raw ) {
+                Table = new SqlItem( $"{Table.Name}{sql}", raw: true );
+                return;
+            }
+            Table = new SqlItem( sql, raw: true );
         }
 
         /// <summary>

@@ -73,7 +73,7 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
             return await SqlQuery
                 .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled,t.CreationTime }, true )
                 .From<Application>( "a" )
-                .OrIfNotEmpty<Application>( t => t.Code.Contains( query.Keyword ), t => t.Name.Contains( query.Keyword ), t => t.Comment.Contains( query.Keyword ) )
+                .Where<Application>( t => t.Code.Contains( query.Keyword ) )
                 .ToPagerListAsync<ApplicationDto>( query );
         }
 

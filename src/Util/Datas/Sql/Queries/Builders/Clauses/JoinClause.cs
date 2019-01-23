@@ -119,26 +119,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 添加到内连接子句
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        public void AppendJoin( string sql ) {
-            AppendJoin( JoinKey, sql );
-        }
-
-        /// <summary>
-        /// 添加到连接子句
-        /// </summary>
-        private void AppendJoin( string joinType, string sql ) {
-            _params.Add( new JoinItem( joinType, sql, raw: true ) );
-        }
-
-        /// <summary>
-        /// 添加到内连接子句
+        /// 内连接子查询
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="alias">表别名</param>
-        public void AppendJoin( ISqlBuilder builder, string alias ) {
+        public void Join( ISqlBuilder builder, string alias ) {
             AppendJoin( JoinKey, builder, alias );
         }
 
@@ -150,11 +135,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 添加到内连接子句
+        /// 内连接子查询
         /// </summary>
         /// <param name="action">子查询操作</param>
         /// <param name="alias">表别名</param>
-        public void AppendJoin( Action<ISqlBuilder> action, string alias ) {
+        public void Join( Action<ISqlBuilder> action, string alias ) {
             AppendJoin( JoinKey, action, alias );
         }
 
@@ -167,6 +152,21 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             var builder = _sqlBuilder.New();
             action( builder );
             AppendJoin( joinType, builder, alias );
+        }
+
+        /// <summary>
+        /// 添加到内连接子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public void AppendJoin( string sql ) {
+            AppendJoin( JoinKey, sql );
+        }
+
+        /// <summary>
+        /// 添加到连接子句
+        /// </summary>
+        private void AppendJoin( string joinType, string sql ) {
+            _params.Add( new JoinItem( joinType, sql, raw: true ) );
         }
 
         /// <summary>
@@ -188,29 +188,29 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public void LeftJoin( ISqlBuilder builder, string alias ) {
+            AppendJoin( LeftJoinKey, builder, alias );
+        }
+
+        /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public void LeftJoin( Action<ISqlBuilder> action, string alias ) {
+            AppendJoin( LeftJoinKey, action, alias );
+        }
+
+        /// <summary>
         /// 添加到左外连接子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
         public void AppendLeftJoin( string sql ) {
             AppendJoin( LeftJoinKey, sql );
-        }
-
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        public void AppendLeftJoin( ISqlBuilder builder, string alias ) {
-            AppendJoin( LeftJoinKey, builder, alias );
-        }
-
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        public void AppendLeftJoin( Action<ISqlBuilder> action, string alias ) {
-            AppendJoin( LeftJoinKey, action, alias );
         }
 
         /// <summary>
@@ -232,29 +232,29 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        public void RightJoin( ISqlBuilder builder, string alias ) {
+            AppendJoin( RightJoinKey, builder, alias );
+        }
+
+        /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        public void RightJoin( Action<ISqlBuilder> action, string alias ) {
+            AppendJoin( RightJoinKey, action, alias );
+        }
+
+        /// <summary>
         /// 添加到右外连接子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
         public void AppendRightJoin( string sql ) {
             AppendJoin( RightJoinKey, sql );
-        }
-
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        public void AppendRightJoin( ISqlBuilder builder, string alias ) {
-            AppendJoin( RightJoinKey, builder, alias );
-        }
-
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        public void AppendRightJoin( Action<ISqlBuilder> action, string alias ) {
-            AppendJoin( RightJoinKey, action, alias );
         }
 
         /// <summary>

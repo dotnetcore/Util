@@ -235,21 +235,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        public void AppendSql( string sql ) {
-            if( string.IsNullOrWhiteSpace( sql ) )
-                return;
-            _columns.Add( new ColumnCollection( sql, raw: true ) );
-        }
-
-        /// <summary>
-        /// 添加到Select子句
+        /// 设置子查询列
         /// </summary>
         /// <param name="builder">Sql生成器</param>
         /// <param name="columnAlias">列别名</param>
-        public void AppendSql( ISqlBuilder builder, string columnAlias ) {
+        public void Select( ISqlBuilder builder, string columnAlias ) {
             if( builder == null )
                 return;
             var result = builder.ToSql();
@@ -259,16 +249,26 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 添加到Select子句
+        /// 设置子查询列
         /// </summary>
         /// <param name="action">子查询操作</param>
         /// <param name="columnAlias">列别名</param>
-        public void AppendSql( Action<ISqlBuilder> action, string columnAlias ) {
+        public void Select( Action<ISqlBuilder> action, string columnAlias ) {
             if( action == null )
                 return;
             var builder = _sqlBuilder.New();
             action( builder );
-            AppendSql( builder, columnAlias );
+            Select( builder, columnAlias );
+        }
+
+        /// <summary>
+        /// 添加到Select子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public void AppendSql( string sql ) {
+            if( string.IsNullOrWhiteSpace( sql ) )
+                return;
+            _columns.Add( new ColumnCollection( sql, raw: true ) );
         }
 
         /// <summary>
