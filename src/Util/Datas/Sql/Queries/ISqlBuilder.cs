@@ -2,41 +2,79 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Queries;
+using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Domains.Repositories;
 
-namespace Util.Datas.Sql.Queries.Builders.Abstractions {
+namespace Util.Datas.Sql.Queries {
     /// <summary>
     /// Sql生成器
     /// </summary>
     public interface ISqlBuilder : ICondition {
+
+        #region 基础操作
+
         /// <summary>
-        /// 清空并初始化
+        /// 复制Sql生成器
         /// </summary>
-        void Clear();
+        ISqlBuilder Clone();
         /// <summary>
-        /// 创建Sql生成器
+        /// 创建一个新的Sql生成器
         /// </summary>
         ISqlBuilder New();
-        /// <summary>
-        /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
-        /// </summary>
-        string ToDebugSql();
         /// <summary>
         /// 生成Sql语句
         /// </summary>
         string ToSql();
         /// <summary>
-        /// 生成获取行数调试Sql语句
+        /// 生成调试Sql语句，Sql语句中的参数被替换为参数值
         /// </summary>
-        string ToCountDebugSql();
+        string ToDebugSql();
+
+        #endregion
+
+        #region 清理
+
         /// <summary>
-        /// 生成获取行数Sql
+        /// 清空并初始化
         /// </summary>
-        string ToCountSql();
+        void Clear();
         /// <summary>
-        /// 获取参数列表
+        /// 清空Select子句
         /// </summary>
-        IDictionary<string, object> GetParams();
+        void ClearSelect();
+        /// <summary>
+        /// 清空From子句
+        /// </summary>
+        void ClearFrom();
+        /// <summary>
+        /// 清空Join子句
+        /// </summary>
+        void ClearJoin();
+        /// <summary>
+        /// 清空Where子句
+        /// </summary>
+        void ClearWhere();
+        /// <summary>
+        /// 清空GroupBy子句
+        /// </summary>
+        void ClearGroupBy();
+        /// <summary>
+        /// 清空OrderBy子句
+        /// </summary>
+        void ClearOrderBy();
+        /// <summary>
+        /// 清空Sql参数
+        /// </summary>
+        void ClearSqlParams();
+        /// <summary>
+        /// 清空分页参数
+        /// </summary>
+        void ClearPageParams();
+
+        #endregion
+
+        #region 获取子句
+
         /// <summary>
         /// 获取Select语句
         /// </summary>
@@ -61,6 +99,95 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// 获取排序语句
         /// </summary>
         string GetOrderBy();
+
+        #endregion
+
+        #region Sql参数
+
+        /// <summary>
+        /// 添加Sql参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数值</param>
+        void AddParam( string name, object value );
+        /// <summary>
+        /// 获取Sql参数列表
+        /// </summary>
+        IReadOnlyDictionary<string, object> GetParams();
+
+        #endregion
+
+        #region Select子句
+
+        /// <summary>
+        /// 过滤重复记录
+        /// </summary>
+        ISqlBuilder Distinct();
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Count( string columnAlias = null );
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Count( string column, string columnAlias );
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Count<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Sum( string column, string columnAlias = null );
+        /// <summary>
+        /// 求和
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Sum<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Avg( string column, string columnAlias = null );
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Avg<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Max( string column, string columnAlias = null );
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Max<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="column">列</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Min( string column, string columnAlias = null );
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Min<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class;
         /// <summary>
         /// 设置列名
         /// </summary>
@@ -81,22 +208,27 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="columnAlias">列别名</param>
         ISqlBuilder Select<TEntity>( Expression<Func<TEntity, object>> column, string columnAlias = null ) where TEntity : class;
         /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Select( ISqlBuilder builder, string columnAlias );
+        /// <summary>
+        /// 设置子查询列
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="columnAlias">列别名</param>
+        ISqlBuilder Select( Action<ISqlBuilder> action, string columnAlias );
+        /// <summary>
         /// 添加到Select子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendSelect( string sql );
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="columnAlias">列别名</param>
-        ISqlBuilder AppendSelect( ISqlBuilder builder, string columnAlias );
-        /// <summary>
-        /// 添加到Select子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="columnAlias">列别名</param>
-        ISqlBuilder AppendSelect( Action<ISqlBuilder> action, string columnAlias );
+
+        #endregion
+
+        #region From子句
+
         /// <summary>
         /// 设置表名
         /// </summary>
@@ -110,10 +242,27 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="schema">架构名</param>
         ISqlBuilder From<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 设置子查询表
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder From( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 设置子查询表
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder From( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到From子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendFrom( string sql );
+
+        #endregion
+
+        #region Join子句
+
         /// <summary>
         /// 内连接
         /// </summary>
@@ -127,22 +276,22 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="schema">架构名</param>
         ISqlBuilder Join<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 内连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder Join( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 内连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder Join( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到内连接子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendJoin( string sql );
-        /// <summary>
-        /// 添加到内连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendJoin( ISqlBuilder builder, string alias );
-        /// <summary>
-        /// 添加到内连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendJoin( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 左外连接
         /// </summary>
@@ -156,22 +305,22 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="schema">架构名</param>
         ISqlBuilder LeftJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder LeftJoin( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 左外连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder LeftJoin( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到左外连接子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendLeftJoin( string sql );
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendLeftJoin( ISqlBuilder builder, string alias );
-        /// <summary>
-        /// 添加到左外连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendLeftJoin( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 右外连接
         /// </summary>
@@ -185,22 +334,22 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="schema">架构名</param>
         ISqlBuilder RightJoin<TEntity>( string alias = null, string schema = null ) where TEntity : class;
         /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder RightJoin( ISqlBuilder builder, string alias );
+        /// <summary>
+        /// 右外连接子查询
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        /// <param name="alias">表别名</param>
+        ISqlBuilder RightJoin( Action<ISqlBuilder> action, string alias );
+        /// <summary>
         /// 添加到右外连接子句
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendRightJoin( string sql );
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="builder">Sql生成器</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendRightJoin( ISqlBuilder builder, string alias );
-        /// <summary>
-        /// 添加到右外连接子句
-        /// </summary>
-        /// <param name="action">子查询操作</param>
-        /// <param name="alias">表别名</param>
-        ISqlBuilder AppendRightJoin( Action<ISqlBuilder> action, string alias );
         /// <summary>
         /// 设置连接条件
         /// </summary>
@@ -220,6 +369,11 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="expression">条件表达式,范例：(l,r) => l.Id == r.OrderId</param>
         ISqlBuilder On<TLeft, TRight>( Expression<Func<TLeft, TRight, bool>> expression ) where TLeft : class where TRight : class;
+
+        #endregion
+
+        #region Where子句
+
         /// <summary>
         /// And连接条件
         /// </summary>
@@ -305,11 +459,6 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
         ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class;
-        /// <summary>
-        /// 添加到Where子句
-        /// </summary>
-        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
-        ISqlBuilder AppendWhere( string sql );
         /// <summary>
         /// 设置相等查询条件
         /// </summary>
@@ -549,6 +698,20 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="boundary">包含边界</param>
         ISqlBuilder Between( string column, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null );
         /// <summary>
+        /// 添加到Where子句
+        /// </summary>
+        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
+        ISqlBuilder AppendWhere( string sql );
+
+        #endregion
+
+        #region GroupBy子句
+
+        /// <summary>
+        /// 是否分组
+        /// </summary>
+        bool IsGroup { get; }
+        /// <summary>
         /// 分组
         /// </summary>
         /// <param name="columns">分组字段,范例：a.Id,b.Name</param>
@@ -572,6 +735,11 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendGroupBy( string sql );
+
+        #endregion
+
+        #region OrderBy子句
+
         /// <summary>
         /// 排序
         /// </summary>
@@ -590,10 +758,31 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// </summary>
         /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
         ISqlBuilder AppendOrderBy( string sql );
+
+        #endregion
+
+        #region 分页
+
         /// <summary>
         /// 设置分页
         /// </summary>
         /// <param name="pager">分页参数</param>
         ISqlBuilder Page( IPager pager );
+        /// <summary>
+        /// 设置跳过行数
+        /// </summary>
+        /// <param name="count">跳过的行数</param>
+        ISqlBuilder Skip( int count );
+        /// <summary>
+        /// 设置获取行数
+        /// </summary>
+        /// <param name="count">获取的行数</param>
+        ISqlBuilder Take( int count );
+        /// <summary>
+        /// 分页
+        /// </summary>
+        IPager Pager { get; }
+
+        #endregion
     }
 }

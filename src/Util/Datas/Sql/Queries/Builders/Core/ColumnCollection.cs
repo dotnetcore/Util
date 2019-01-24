@@ -12,34 +12,37 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="columns">列集合</param>
         /// <param name="tableAlias">表别名</param>
-        /// <param name="table">表实体类型</param>
+        /// <param name="tableType">表实体类型</param>
         /// <param name="raw">使用原始值</param>
-        public ColumnCollection( string columns, string tableAlias = null, Type table = null, bool raw = false ) {
+        /// <param name="isAggregation">是否聚合函数</param>
+        public ColumnCollection( string columns, string tableAlias = null, Type tableType = null, bool raw = false, bool isAggregation = false ) {
             Columns = columns;
             TableAlias = tableAlias;
-            Table = table;
+            TableType = tableType;
             Raw = raw;
+            IsAggregation = isAggregation;
         }
 
         /// <summary>
         /// 列集合
         /// </summary>
         public string Columns { get; }
-
         /// <summary>
         /// 表别名
         /// </summary>
         public string TableAlias { get; }
-
         /// <summary>
         /// 表实体类型
         /// </summary>
-        public Type Table { get; }
-
+        public Type TableType { get; }
         /// <summary>
         /// 使用原始值
         /// </summary>
         public bool Raw { get; }
+        /// <summary>
+        /// 是否聚合函数
+        /// </summary>
+        public bool IsAggregation { get; }
 
         /// <summary>
         /// 获取列名列表
@@ -49,6 +52,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         public string ToSql( IDialect dialect,IEntityAliasRegister register ) {
             if ( Raw )
                 return Columns;
+            if( IsAggregation )
+                return Columns;
             var columns = Columns.Split( ',' ).Select( column => new SqlItem( column,GetTableAlias( register ) ) ).ToList();
             return columns.Select( item => item.ToSql( dialect ) ).Join();
         }
@@ -57,8 +62,8 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 获取表别名
         /// </summary>
         private string GetTableAlias( IEntityAliasRegister register ) {
-            if ( register.Contains( Table ) )
-                return register.GetAlias( Table );
+            if ( register != null && register.Contains( TableType ) )
+                return register.GetAlias( TableType );
             return TableAlias;
         }
     }

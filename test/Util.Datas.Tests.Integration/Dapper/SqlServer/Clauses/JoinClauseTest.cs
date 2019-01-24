@@ -524,5 +524,24 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             //验证
             Assert.Equal( result.ToString(), GetSql() );
         }
+
+        /// <summary>
+        /// 复制
+        /// </summary>
+        [Fact]
+        public void TestClone_1() {
+            _clause.Join( "b" );
+            _clause.On( "a.A","b.B" );
+
+            //复制副本
+            var copy = _clause.Clone( null, null );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", copy.ToSql() );
+
+            //修改副本
+            copy.On( "a.C","b.D" );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B] And [a].[C]=[b].[D]", copy.ToSql() );
+        }
     }
 }

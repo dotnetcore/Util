@@ -1054,7 +1054,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 添加Select子句 - 添加Sql生成器 - 别名为空
+        /// 设置子查询列 - 别名为空
         /// </summary>
         [Fact]
         public void Test_48() {
@@ -1068,8 +1068,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.Append( "Where [Age]=@_p_1" );
 
             //执行
-            var builder2 = _builder.New().AppendSelect( "Count(*)" ).From( "Test2" ).Where( "Name", "a" );
-            _builder.Select( "*" ).AppendSelect("(").AppendSelect( builder2,"" ).AppendSelect( ") As testCount" ).From( "Test" ).Where( "Age", 1 );
+            var builder2 = _builder.New().Count().From( "Test2" ).Where( "Name", "a" );
+            _builder.Select( "*" ).AppendSelect("(").Select( builder2,"" ).AppendSelect( ") As testCount" ).From( "Test" ).Where( "Age", 1 );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
@@ -1079,7 +1079,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 添加Select子句 - 添加Sql生成器 - 带别名
+        /// 设置子查询列 - 带别名
         /// </summary>
         [Fact]
         public void Test_49() {
@@ -1093,8 +1093,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.Append( "Where [Age]=@_p_1" );
 
             //执行
-            var builder2 = _builder.New().AppendSelect( "Count(*)" ).From( "Test2" ).Where( "Name", "a" );
-            _builder.Select( "*" ).AppendSelect( builder2, "testCount" ).From( "Test" ).Where( "Age", 1 );
+            var builder2 = _builder.New().Count().From( "Test2" ).Where( "Name", "a" );
+            _builder.Select( "*" ).Select( builder2, "testCount" ).From( "Test" ).Where( "Age", 1 );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
@@ -1104,7 +1104,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 添加Join子句 - Sql生成器
+        /// 添加Join子查询
         /// </summary>
         [Fact]
         public void Test_50() {
@@ -1119,7 +1119,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
 
             //执行
             var builder2 = _builder.New().From( "Test2" ).Where( "Name", "a" );
-            _builder.Select( "*" ).From( "Test" ).AppendJoin( builder2, "t" ).Where( "Age", 1 );
+            _builder.From( "Test" ).Join( builder2, "t" ).Where( "Age", 1 );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
@@ -1150,7 +1150,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 添加Select子句 - 委托
+        /// 设置子查询列 - 委托
         /// </summary>
         [Fact]
         public void Test_52() {
@@ -1164,8 +1164,8 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.Append( "Where [Age]=@_p_1" );
 
             //执行
-            _builder.Select( "*" ).AppendSelect( builder => {
-                    builder.AppendSelect( "Count(*)" ).From( "Test2" ).Where( "Name", "a" );
+            _builder.Select( "*" ).Select( builder => {
+                    builder.Count().From( "Test2" ).Where( "Name", "a" );
                 }, "testCount" )
             .From( "Test" ).Where( "Age", 1 );
 
@@ -1177,7 +1177,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 添加Join子句 - 委托
+        /// 添加Join子查询 - 委托
         /// </summary>
         [Fact]
         public void Test_53() {
@@ -1191,7 +1191,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.Append( "Where [Age]=@_p_1" );
 
             //执行
-            _builder.Select( "*" ).From( "Test" ).AppendJoin( builder => {
+            _builder.From( "Test" ).Join( builder => {
                 builder.From( "Test2" ).Where( "Name", "a" );
             }, "t" ).Where( "Age", 1 );
 
@@ -1203,7 +1203,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
         }
 
         /// <summary>
-        /// 测试生成获取行数Sql
+        /// 测试聚合函数 - 求行数
         /// </summary>
         [Fact]
         public void Test_54() {
@@ -1214,32 +1214,36 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             result.Append( "Where [Age]=@_p_0" );
 
             //执行
-            _builder.From( "Test" ).Where( "Age", 1 );
+            _builder.Count().From( "Test" ).Where( "Age", 1 );
 
             //验证
-            Assert.Equal( result.ToString(), _builder.ToCountSql() );
+            Assert.Equal( result.ToString(), _builder.ToSql() );
         }
 
         /// <summary>
-        /// 测试生成获取行数Sql - 带分组
+        /// 添加From子查询
         /// </summary>
         [Fact]
         public void Test_55() {
             //结果
             var result = new String();
-            result.AppendLine( "Select Count(*) " );
-            result.AppendLine( "From (" );
-            result.AppendLine( "Select [Age] " );
-            result.AppendLine( "From [Test] " );
-            result.AppendLine( "Where [Age]=@_p_0 " );
-            result.AppendLine( "Group By [Age]" );
-            result.Append( ") As t" );
+            result.AppendLine( "Select * " );
+            result.Append( "From " );
+            result.AppendLine( "(Select Count(*) " );
+            result.AppendLine( "From [Test2] " );
+            result.AppendLine( "Where [Name]=@_p_0) As [test] " );
+            result.Append( "Where [Age]=@_p_1" );
 
             //执行
-            _builder.From( "Test" ).Where( "Age", 1 ).GroupBy( "Age" );
+            var builder2 = _builder.New().Count().From( "Test2" ).Where( "Name", "a" );
+            _builder.From( builder2, "test" ).Where( "Age", 1 );
+            _output.WriteLine( _builder.ToSql() );
 
             //验证
-            Assert.Equal( result.ToString(), _builder.ToCountSql() );
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
     }
 }

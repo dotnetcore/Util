@@ -15,22 +15,6 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// </summary>
     public class WhereClause : IWhereClause {
         /// <summary>
-        /// 方言
-        /// </summary>
-        private readonly IDialect _dialect;
-        /// <summary>
-        /// 实体解析器
-        /// </summary>
-        private readonly IEntityResolver _resolver;
-        /// <summary>
-        /// 实体别名注册器
-        /// </summary>
-        private readonly IEntityAliasRegister _register;
-        /// <summary>
-        /// 参数管理器
-        /// </summary>
-        private readonly IParameterManager _parameterManager;
-        /// <summary>
         /// 辅助操作
         /// </summary>
         private readonly Helper _helper;
@@ -38,6 +22,14 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// 谓词表达式解析器
         /// </summary>
         private readonly PredicateExpressionResolver _expressionResolver;
+        /// <summary>
+        /// 方言
+        /// </summary>
+        private readonly IDialect _dialect;
+        /// <summary>
+        /// 实体解析器
+        /// </summary>
+        private readonly IEntityResolver _resolver;
         /// <summary>
         /// 查询条件
         /// </summary>
@@ -54,8 +46,6 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public WhereClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, IParameterManager parameterManager, ICondition condition = null ) {
             _dialect = dialect;
             _resolver = resolver;
-            _register = register;
-            _parameterManager = parameterManager;
             _condition = condition;
             _helper = new Helper( dialect, resolver, register, parameterManager );
             _expressionResolver = new PredicateExpressionResolver( dialect, resolver, register, parameterManager );
@@ -64,8 +54,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 复制Where子句
         /// </summary>
-        public IWhereClause Clone() {
-            return new WhereClause( _dialect, _resolver, _register, _parameterManager, new SqlCondition( _condition?.GetCondition() ) );
+        /// <param name="register">实体别名注册器</param>
+        /// <param name="parameterManager">参数管理器</param>
+        public virtual IWhereClause Clone( IEntityAliasRegister register, IParameterManager parameterManager ) {
+            return new WhereClause( _dialect, _resolver, register, parameterManager, new SqlCondition( _condition?.GetCondition() ) );
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Util.Datas.Matedatas;
+﻿using Util.Datas.Matedatas;
+using Util.Datas.Sql.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
 
@@ -14,6 +14,15 @@ namespace Util.Datas.Dapper.PgSql {
         /// <param name="matedata">实体元数据解析器</param>
         /// <param name="parameterManager">参数管理器</param>
         public PgSqlBuilder( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) : base( matedata, parameterManager ) {
+        }
+
+        /// <summary>
+        /// 复制Sql生成器
+        /// </summary>
+        public override ISqlBuilder Clone() {
+            var sqlBuilder = new PgSqlBuilder();
+            sqlBuilder.Clone( this );
+            return sqlBuilder;
         }
 
         /// <summary>
@@ -40,14 +49,8 @@ namespace Util.Datas.Dapper.PgSql {
         /// <summary>
         /// 创建分页Sql
         /// </summary>
-        protected override void CreatePagerSql( StringBuilder result ) {
-            AppendSelect( result );
-            AppendFrom( result );
-            AppendSql( result, GetJoin() );
-            AppendSql( result, GetWhere() );
-            AppendSql( result, GetGroupBy() );
-            AppendSql( result, GetOrderBy() );
-            result.Append( $"Limit {GetPageSizeParam()} OFFSET {GetSkipCountParam()}" );
+        protected override string CreateLimitSql() {
+            return $"Limit {GetLimitParam()} OFFSET {GetOffsetParam()}";
         }
     }
 }

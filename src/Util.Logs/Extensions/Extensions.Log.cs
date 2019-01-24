@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Util.Exceptions;
 using Util.Helpers;
@@ -121,9 +122,12 @@ namespace Util.Logs.Extensions {
         /// 设置Sql参数
         /// </summary>
         /// <param name="log">日志操作</param>
-        /// <param name="dictionary">字典</param>
-        public static ILog SqlParams( this ILog log, IDictionary<string, object> dictionary ) {
-            if( dictionary == null || dictionary.Count == 0 )
+        /// <param name="list">键值对列表</param>
+        public static ILog SqlParams( this ILog log, IEnumerable<KeyValuePair<string, object>> list ) {
+            if ( list == null )
+                return log;
+            var dictionary = list.ToList();
+            if( dictionary.Count == 0 )
                 return log;
             var result = new StringBuilder();
             foreach( var item in dictionary )

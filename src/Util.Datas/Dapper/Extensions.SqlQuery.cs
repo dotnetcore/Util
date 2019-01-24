@@ -217,7 +217,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static PagerList<TReturn> ToPagerList<T1, T2, TReturn>( this ISqlQuery sqlQuery, 
-            Func<T1, T2, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return sqlQuery.PagerQuery( () => sqlQuery.ToList( map, connection ), parameter, connection );
         }
 
@@ -233,7 +233,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static PagerList<TReturn> ToPagerList<T1, T2, T3, TReturn>( this ISqlQuery sqlQuery, 
-            Func<T1, T2, T3, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return sqlQuery.PagerQuery( () => sqlQuery.ToList( map, connection ), parameter, connection );
         }
 
@@ -250,7 +250,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static PagerList<TReturn> ToPagerList<T1, T2, T3, T4, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return sqlQuery.PagerQuery( () => sqlQuery.ToList( map, connection ), parameter, connection );
         }
 
@@ -268,7 +268,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static PagerList<TReturn> ToPagerList<T1, T2, T3, T4, T5, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, T5, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, T5, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return sqlQuery.PagerQuery( () => sqlQuery.ToList( map, connection ), parameter, connection );
         }
 
@@ -287,7 +287,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static PagerList<TReturn> ToPagerList<T1, T2, T3, T4, T5, T6, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, T5, T6, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, T5, T6, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return sqlQuery.PagerQuery( () => sqlQuery.ToList( map, connection ), parameter, connection );
         }
 
@@ -307,7 +307,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static PagerList<TReturn> ToPagerList<T1, T2, T3, T4, T5, T6, T7, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, T5, T6, T7, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, T5, T6, T7, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return sqlQuery.PagerQuery( () => sqlQuery.ToList( map, connection ), parameter, connection );
         }
 
@@ -321,7 +321,7 @@ namespace Util.Datas.Dapper {
         /// <param name="map">映射操作</param>
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
-        public static async Task<PagerList<TReturn>> ToPagerListAsync<T1, T2, TReturn>( this ISqlQuery sqlQuery, Func<T1, T2, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+        public static async Task<PagerList<TReturn>> ToPagerListAsync<T1, T2, TReturn>( this ISqlQuery sqlQuery, Func<T1, T2, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return await sqlQuery.PagerQueryAsync( async () => await sqlQuery.ToListAsync( map, connection ), parameter, connection );
         }
 
@@ -337,7 +337,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static async Task<PagerList<TReturn>> ToPagerListAsync<T1, T2, T3, TReturn>( this ISqlQuery sqlQuery, 
-            Func<T1, T2, T3, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return await sqlQuery.PagerQueryAsync( async () => await sqlQuery.ToListAsync( map, connection ), parameter, connection );
         }
 
@@ -354,7 +354,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static async Task<PagerList<TReturn>> ToPagerListAsync<T1, T2, T3, T4, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return await sqlQuery.PagerQueryAsync( async () => await sqlQuery.ToListAsync( map, connection ), parameter, connection );
         }
 
@@ -372,7 +372,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static async Task<PagerList<TReturn>> ToPagerListAsync<T1, T2, T3, T4, T5, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, T5, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, T5, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return await sqlQuery.PagerQueryAsync( async () => await sqlQuery.ToListAsync( map, connection ), parameter, connection );
         }
 
@@ -391,7 +391,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static async Task<PagerList<TReturn>> ToPagerListAsync<T1, T2, T3, T4, T5, T6, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, T5, T6, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, T5, T6, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return await sqlQuery.PagerQueryAsync( async () => await sqlQuery.ToListAsync( map, connection ), parameter, connection );
         }
 
@@ -411,7 +411,7 @@ namespace Util.Datas.Dapper {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public static async Task<PagerList<TReturn>> ToPagerListAsync<T1, T2, T3, T4, T5, T6, T7, TReturn>( this ISqlQuery sqlQuery,
-            Func<T1, T2, T3, T4, T5, T6, T7, TReturn> map, IPager parameter, IDbConnection connection = null ) {
+            Func<T1, T2, T3, T4, T5, T6, T7, TReturn> map, IPager parameter = null, IDbConnection connection = null ) {
             return await sqlQuery.PagerQueryAsync( async () => await sqlQuery.ToListAsync( map, connection ), parameter, connection );
         }
     }

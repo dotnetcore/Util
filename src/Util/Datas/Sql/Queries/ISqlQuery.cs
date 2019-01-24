@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Configs;
 using Util.Domains.Repositories;
 
@@ -12,10 +11,18 @@ namespace Util.Datas.Sql.Queries {
     /// </summary>
     public interface ISqlQuery {
         /// <summary>
+        /// 复制Sql查询对象
+        /// </summary>
+        ISqlQuery Clone();
+        /// <summary>
+        /// 清空并初始化
+        /// </summary>
+        ISqlQuery Clear();
+        /// <summary>
         /// 配置
         /// </summary>
         /// <param name="configAction">配置操作</param>
-        void Config( Action<SqlQueryConfig> configAction );
+        void Config( Action<SqlQueryOptions> configAction );
         /// <summary>
         /// 获取Sql生成器
         /// </summary>
@@ -26,14 +33,14 @@ namespace Util.Datas.Sql.Queries {
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="func">查询操作</param>
         /// <param name="connection">数据库连接</param>
-        TResult Query<TResult>( Func<IDbConnection, string, IDictionary<string, object>, TResult> func, IDbConnection connection = null );
+        TResult Query<TResult>( Func<IDbConnection, string, IReadOnlyDictionary<string, object>, TResult> func, IDbConnection connection = null );
         /// <summary>
         /// 查询
         /// </summary>
         /// <typeparam name="TResult">实体类型</typeparam>
         /// <param name="func">查询操作</param>
         /// <param name="connection">数据库连接</param>
-        Task<TResult> QueryAsync<TResult>( Func<IDbConnection, string, IDictionary<string, object>, Task<TResult>> func, IDbConnection connection = null );
+        Task<TResult> QueryAsync<TResult>( Func<IDbConnection, string, IReadOnlyDictionary<string, object>, Task<TResult>> func, IDbConnection connection = null );
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -90,7 +97,7 @@ namespace Util.Datas.Sql.Queries {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
-        PagerList<TResult> ToPagerList<TResult>( IPager parameter, IDbConnection connection = null );
+        PagerList<TResult> ToPagerList<TResult>( IPager parameter = null, IDbConnection connection = null );
         /// <summary>
         /// 获取分页列表
         /// </summary>
@@ -105,7 +112,7 @@ namespace Util.Datas.Sql.Queries {
         /// <typeparam name="TResult">返回结果类型</typeparam>
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
-        Task<PagerList<TResult>> ToPagerListAsync<TResult>( IPager parameter, IDbConnection connection = null );
+        Task<PagerList<TResult>> ToPagerListAsync<TResult>( IPager parameter = null, IDbConnection connection = null );
         /// <summary>
         /// 获取分页列表
         /// </summary>

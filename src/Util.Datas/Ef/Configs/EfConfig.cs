@@ -9,7 +9,7 @@ namespace Util.Datas.Ef.Configs {
         /// 初始化Ef配置
         /// </summary>
         public EfConfig() {
-            SqlQuery = new SqlQueryConfig();
+            SqlQuery = new SqlQueryOptions();
         }
 
         /// <summary>
@@ -20,6 +20,6 @@ namespace Util.Datas.Ef.Configs {
         /// <summary>
         /// Sql查询配置
         /// </summary>
-        public SqlQueryConfig SqlQuery { get; set; }
+        public SqlQueryOptions SqlQuery { get; set; }
     }
 }

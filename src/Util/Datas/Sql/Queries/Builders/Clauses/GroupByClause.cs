@@ -38,11 +38,32 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <param name="dialect">Sql方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
-        public GroupByClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register ) {
+        /// <param name="group">分组字段</param>
+        /// <param name="having">分组条件</param>
+        public GroupByClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, List<SqlItem> group = null, string having = null ) {
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
-            _group = new List<SqlItem>();
+            _group = group ?? new List<SqlItem>();
+            _having = having;
+        }
+
+        /// <summary>
+        /// 是否存在分组
+        /// </summary>
+        public bool IsGroup => _group.Count > 0;
+
+        /// <summary>
+        /// 分组列表
+        /// </summary>
+        public string GroupColumns => _group.Select( t => t.ToSql( _dialect ) ).Join();
+
+        /// <summary>
+        /// 复制Group By子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        public virtual IGroupByClause Clone( IEntityAliasRegister register ) {
+            return new GroupByClause( _dialect, _resolver, register, new List<SqlItem>( _group ), _having );
         }
 
         /// <summary>
@@ -65,7 +86,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         public void GroupBy<TEntity>( params Expression<Func<TEntity, object>>[] columns ) {
             if( columns == null )
                 return;
-            foreach ( var column in columns )
+            foreach( var column in columns )
                 GroupBy( column );
         }
 
@@ -93,23 +114,13 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 是否存在分组
-        /// </summary>
-        public bool IsGroupBy => _group.Count > 0;
-
-        /// <summary>
-        /// 分组列表
-        /// </summary>
-        public string GroupByColumns => _group.Select( t => t.ToSql( _dialect ) ).Join();
-
-        /// <summary>
         /// 获取Sql
         /// </summary>
         public string ToSql() {
-            if( IsGroupBy == false )
+            if( IsGroup == false )
                 return null;
             var result = new StringBuilder();
-            result.Append( $"Group By {GroupByColumns}" );
+            result.Append( $"Group By {GroupColumns}" );
             if( string.IsNullOrWhiteSpace( _having ) )
                 return result.ToString();
             result.Append( $" Having {_having}" );

@@ -20,7 +20,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// 测试初始化
         /// </summary>
         public SelectClauseTest() {
-            _clause = new SelectClause( new SqlServerBuilder(),  new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister() );
+            _clause = new SelectClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister() );
         }
 
         /// <summary>
@@ -36,6 +36,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestSelect_1() {
             Assert.Equal( "Select *", GetSql() );
+            Assert.False( _clause.IsAggregation );
         }
 
         /// <summary>
@@ -252,7 +253,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_24() {
-            _clause = new SelectClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(new TestEntityMatedata()), new TestEntityAliasRegister() );
+            _clause = new SelectClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver( new TestEntityMatedata() ), new TestEntityAliasRegister() );
             _clause.Select<Sample>( t => new Dictionary<object, string> { { t.Email, "e" }, { t.Url, "u" } } );
             var result = _clause.ToSql();
             Assert.Equal( "Select [as_Sample].[t_Email] As [e],[as_Sample].[t_Url] As [u]", result );
@@ -264,7 +265,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestSelect_25() {
             _clause = new SelectClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver( new TestEntityMatedata() ), new TestEntityAliasRegister() );
-            _clause.Select<Sample>( t => new object[] { t.Email, t.IntValue },true );
+            _clause.Select<Sample>( t => new object[] { t.Email, t.IntValue }, true );
             var result = _clause.ToSql();
             Assert.Equal( "Select [as_Sample].[t_Email] As [Email],[as_Sample].[t_IntValue] As [IntValue]", result );
         }
@@ -278,6 +279,183 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             _clause.Select<Sample>( t => new object[] { t.Email, t.DecimalValue }, true );
             var result = _clause.ToSql();
             Assert.Equal( "Select [as_Sample].[t_Email] As [Email],[as_Sample].[DecimalValue]", result );
+        }
+
+        /// <summary>
+        /// 复制副本
+        /// </summary>
+        [Fact]
+        public void TestClone_1() {
+            _clause.Select( "a" );
+            var copy = _clause.Clone( null, null );
+            copy.Select( "b" );
+            Assert.Equal( "Select [a]", GetSql() );
+            Assert.Equal( "Select [a],[b]", copy.ToSql() );
+        }
+
+        /// <summary>
+        /// 设置Distinct
+        /// </summary>
+        [Fact]
+        public void TestDistinct_1() {
+            _clause.Distinct();
+            _clause.Select( "a" );
+            Assert.Equal( "Select Distinct [a]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求总行数
+        /// </summary>
+        [Fact]
+        public void TestCount_1() {
+            _clause.Count();
+            Assert.Equal( "Select Count(*)", GetSql() );
+            Assert.True( _clause.IsAggregation );
+        }
+
+        /// <summary>
+        /// 求总行数 - 加列别名
+        /// </summary>
+        [Fact]
+        public void TestCount_2() {
+            _clause.Count( "a" );
+            Assert.Equal( "Select Count(*) As [a]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求总行数 - 加列别名 - 加列名
+        /// </summary>
+        [Fact]
+        public void TestCount_3() {
+            _clause.Count( "a","b" );
+            Assert.Equal( "Select Count([a]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求总行数 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void TestCount_4() {
+            _clause.Count<Sample>( t => t.DoubleValue, "b" );
+            Assert.Equal( "Select Count([DoubleValue]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求和
+        /// </summary>
+        [Fact]
+        public void TestSum_1() {
+            _clause.Sum("a");
+            Assert.Equal( "Select Sum([a])", GetSql() );
+        }
+
+        /// <summary>
+        /// 求和 - 加列别名
+        /// </summary>
+        [Fact]
+        public void TestSum_2() {
+            _clause.Sum( "a","b" );
+            Assert.Equal( "Select Sum([a]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求和 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void TestSum_3() {
+            _clause.Sum<Sample>( t=> t.DoubleValue, "b" );
+            Assert.Equal( "Select Sum([DoubleValue]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求和 - 同时求行数
+        /// </summary>
+        [Fact]
+        public void TestSum_4() {
+            _clause.Sum( "a","b" );
+            _clause.Count("c");
+            Assert.Equal( "Select Sum([a]) As [b],Count(*) As [c]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求平均值
+        /// </summary>
+        [Fact]
+        public void TestAvg_1() {
+            _clause.Avg( "a" );
+            Assert.Equal( "Select Avg([a])", GetSql() );
+        }
+
+        /// <summary>
+        /// 求平均值 - 加列别名
+        /// </summary>
+        [Fact]
+        public void TestAvg_2() {
+            _clause.Avg( "a", "b" );
+            Assert.Equal( "Select Avg([a]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求平均值 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void TestAvg_3() {
+            _clause.Avg<Sample>( t => t.DoubleValue, "b" );
+            Assert.Equal( "Select Avg([DoubleValue]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求最大值
+        /// </summary>
+        [Fact]
+        public void TestMax_1() {
+            _clause.Max( "a" );
+            Assert.Equal( "Select Max([a])", GetSql() );
+        }
+
+        /// <summary>
+        /// 求最大值 - 加列别名
+        /// </summary>
+        [Fact]
+        public void TestMax_2() {
+            _clause.Max( "a", "b" );
+            Assert.Equal( "Select Max([a]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求最大值 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void TestMax_3() {
+            _clause.Max<Sample>( t => t.DoubleValue, "b" );
+            Assert.Equal( "Select Max([DoubleValue]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求最小值
+        /// </summary>
+        [Fact]
+        public void TestMin_1() {
+            _clause.Min( "a" );
+            Assert.Equal( "Select Min([a])", GetSql() );
+        }
+
+        /// <summary>
+        /// 求最小值 - 加列别名
+        /// </summary>
+        [Fact]
+        public void TestMin_2() {
+            _clause.Min( "a", "b" );
+            Assert.Equal( "Select Min([a]) As [b]", GetSql() );
+        }
+
+        /// <summary>
+        /// 求最小值 - lambda表达式
+        /// </summary>
+        [Fact]
+        public void TestMin_3() {
+            _clause.Min<Sample>( t => t.DoubleValue, "b" );
+            Assert.Equal( "Select Min([DoubleValue]) As [b]", GetSql() );
         }
     }
 }

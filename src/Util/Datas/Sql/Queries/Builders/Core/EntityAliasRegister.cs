@@ -10,14 +10,15 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 初始化实体别名注册器
         /// </summary>
-        public EntityAliasRegister() {
-            Data = new Dictionary<Type, string>();
+        /// <param name="data">实体别名列表</param>
+        public EntityAliasRegister( IDictionary<Type, string> data = null ) {
+            Data = data ?? new Dictionary<Type, string>();
         }
 
         /// <summary>
-        /// 实体别名
+        /// 实体别名列表
         /// </summary>
-        public Dictionary<Type, string> Data { get; }
+        public IDictionary<Type, string> Data { get; }
 
         /// <summary>
         /// 注册实体别名
@@ -50,6 +51,13 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             if ( Data.ContainsKey( entity ) )
                 return Data[entity];
             return null;
+        }
+
+        /// <summary>
+        /// 复制实体别名注册器
+        /// </summary>
+        public IEntityAliasRegister Clone() {
+            return new EntityAliasRegister( new Dictionary<Type, string>( Data ) );
         }
     }
 }

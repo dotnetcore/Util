@@ -7,6 +7,11 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
     /// </summary>
     public interface IGroupByClause {
         /// <summary>
+        /// 复制Group By子句
+        /// </summary>
+        /// <param name="register">实体别名注册器</param>
+        IGroupByClause Clone( IEntityAliasRegister register );
+        /// <summary>
         /// 分组
         /// </summary>
         /// <param name="columns">分组字段</param>
@@ -31,13 +36,13 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <param name="sql">Sql语句</param>
         void AppendSql( string sql );
         /// <summary>
-        /// 是否存在分组
+        /// 是否分组
         /// </summary>
-        bool IsGroupBy { get; }
+        bool IsGroup { get; }
         /// <summary>
         /// 分组列表
         /// </summary>
-        string GroupByColumns { get; }
+        string GroupColumns { get; }
         /// <summary>
         /// 获取Sql
         /// </summary>

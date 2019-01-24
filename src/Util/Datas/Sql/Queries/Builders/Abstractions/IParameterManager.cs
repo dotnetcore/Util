@@ -13,13 +13,21 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 获取参数列表
         /// </summary>
-        IDictionary<string, object> GetParams();
+        IReadOnlyDictionary<string, object> GetParams();
         /// <summary>
-        /// 添加参数
+        /// 添加参数,如果参数已存在则替换
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
         /// <param name="operator">运算符</param>
         void Add( string name, object value, Operator? @operator = null );
+        /// <summary>
+        /// 复制副本
+        /// </summary>
+        IParameterManager Clone();
+        /// <summary>
+        /// 清空参数
+        /// </summary>
+        void Clear();
     }
 }

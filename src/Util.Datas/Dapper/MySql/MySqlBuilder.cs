@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Util.Datas.Matedatas;
+﻿using Util.Datas.Matedatas;
+using Util.Datas.Sql.Queries;
 using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Sql.Queries.Builders.Core;
 
@@ -14,6 +14,15 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="matedata">实体元数据解析器</param>
         /// <param name="parameterManager">参数管理器</param>
         public MySqlBuilder( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) : base( matedata, parameterManager ) {
+        }
+
+        /// <summary>
+        /// 复制Sql生成器
+        /// </summary>
+        public override ISqlBuilder Clone() {
+            var sqlBuilder = new MySqlBuilder();
+            sqlBuilder.Clone( this );
+            return sqlBuilder;
         }
 
         /// <summary>
@@ -34,7 +43,7 @@ namespace Util.Datas.Dapper.MySql {
         /// 创建From子句
         /// </summary>
         protected override IFromClause CreateFromClause() {
-            return new MySqlFromClause( GetDialect(), EntityResolver, AliasRegister );
+            return new MySqlFromClause( this, GetDialect(), EntityResolver, AliasRegister );
         }
 
         /// <summary>
@@ -47,14 +56,8 @@ namespace Util.Datas.Dapper.MySql {
         /// <summary>
         /// 创建分页Sql
         /// </summary>
-        protected override void CreatePagerSql( StringBuilder result ) {
-            AppendSelect( result );
-            AppendFrom( result );
-            AppendSql( result, GetJoin() );
-            AppendSql( result, GetWhere() );
-            AppendSql( result, GetGroupBy() );
-            AppendSql( result, GetOrderBy() );
-            result.Append( $"Limit {GetSkipCountParam()}, {GetPageSizeParam()}" );
+        protected override string CreateLimitSql() {
+            return $"Limit {GetOffsetParam()}, {GetLimitParam()}";
         }
     }
 }

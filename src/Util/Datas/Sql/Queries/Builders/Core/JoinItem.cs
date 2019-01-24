@@ -26,6 +26,18 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 初始化表连接项
+        /// </summary>
+        /// <param name="joinType">连接类型</param>
+        /// <param name="table">表</param>
+        /// <param name="conditions">连接条件列表</param>
+        public JoinItem( string joinType, SqlItem table, List<List<OnItem>> conditions ) {
+            JoinType = joinType;
+            Table = table;
+            Conditions = conditions;
+        }
+
+        /// <summary>
         /// 连接类型
         /// </summary>
         public string JoinType { get; }
@@ -76,9 +88,16 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         }
 
         /// <summary>
+        /// 复制副本
+        /// </summary>
+        public JoinItem Clone() {
+            return new JoinItem( JoinType, Table, Conditions.Select( t => new List<OnItem>( t ) ).ToList() );
+        }
+
+        /// <summary>
         /// 获取Join语句
         /// </summary>
-        public string ToSql( IDialect dialect ) {
+        public string ToSql( IDialect dialect = null ) {
             var table = Table.ToSql( dialect );
             return $"{JoinType} {table}{GetOn( dialect )}";
         }
