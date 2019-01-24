@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using Util.Domains.Repositories;
 using Util.Helpers;
 using Util.Properties;
 
@@ -7,7 +10,7 @@ namespace Util.Datas.Queries.Internal {
     /// <summary>
     /// 查询工具类
     /// </summary>
-    internal static class Helper {
+    public static class Helper {
         /// <summary>
         /// 获取查询条件表达式
         /// </summary>
@@ -22,6 +25,26 @@ namespace Util.Datas.Queries.Internal {
             if( string.IsNullOrWhiteSpace( value.SafeString() ) )
                 return null;
             return predicate;
+        }
+
+        /// <summary>
+        /// 初始化排序
+        /// </summary>
+        public static void InitOrder<TEntity>( IQueryable<TEntity> source, IPager pager ) {
+            if( string.IsNullOrWhiteSpace( pager.Order ) == false )
+                return;
+            if( source.Expression.SafeString().Contains( ".OrderBy(" ) )
+                return;
+            pager.Order = "Id";
+        }
+
+        /// <summary>
+        /// 获取排序查询对象
+        /// </summary>
+        public static IOrderedQueryable<TEntity> GetOrderedQueryable<TEntity>( IQueryable<TEntity> source, IPager pager ) {
+            if( string.IsNullOrWhiteSpace( pager.Order ) )
+                return source as IOrderedQueryable<TEntity>;
+            return source.OrderBy( pager.Order );
         }
     }
 }

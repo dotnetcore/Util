@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Util.Exceptions;
+﻿using System;
+using System.Text;
 
 namespace Util.Logs.Abstractions {
     /// <summary>
@@ -57,6 +57,6 @@ namespace Util.Logs.Abstractions {
         /// <summary>
         /// 异常消息
         /// </summary>
-        Warning Exception { get; set; }
+        Exception Exception { get; set; }
     }
 }

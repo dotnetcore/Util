@@ -65,7 +65,7 @@
   <!-- 发布阶段打包 -->
   <Target Name="Publish_RunWebpack" AfterTargets="ComputeFilesToPublish">
     <Message Importance="high" Text="Webpack开始打包..." />
-    <Exec Command="npm run prod" />
+    <!--<Exec Command="npm run prod" />-->
   </Target>
   
 </Project>

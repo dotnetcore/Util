@@ -36,14 +36,16 @@ namespace Util.Exceptions.Prompts {
         /// </summary>
         /// <param name="exception">异常</param>
         public static string GetPrompt( Exception exception ) {
+            if ( exception == null )
+                return null;
             exception = exception.GetRawException();
             var prompt = GetExceptionPrompt( exception );
             if( string.IsNullOrWhiteSpace( prompt ) == false )
-                return Filter( prompt );
+                return prompt;
             if( exception is Warning warning )
-                return Filter( warning.Message );
+                return warning.Message;
             if( Web.Environment.IsDevelopment() || IsShowSystemException )
-                return new Warning( exception ).Message;
+                return exception.Message;
             return R.SystemError;
         }
 
@@ -57,13 +59,6 @@ namespace Util.Exceptions.Prompts {
                     return result;
             }
             return string.Empty;
-        }
-
-        /// <summary>
-        /// 过滤无用消息
-        /// </summary>
-        private static string Filter( string message ) {
-            return message.Replace( $"{Common.Line}@exceptionless:{Common.Line}", "" );
         }
     }
 }

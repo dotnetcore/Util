@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
 using Util.Exceptions;
 using Xunit;
 
@@ -41,7 +40,8 @@ namespace Util.Tests.Exceptions {
         [Fact]
         public void TestException() {
             Warning warning = new Warning( new Exception( "A" ) );
-            Assert.Equal( "A", warning.Message );
+            Assert.Empty( warning.Message );
+            Assert.Equal( "A", warning.GetMessage() );
         }
 
         /// <summary>
@@ -50,7 +50,8 @@ namespace Util.Tests.Exceptions {
         [Fact]
         public void TestMessageAndException() {
             Warning warning = new Warning( "A", "", new Exception( "C" ) );
-            Assert.Equal( $"A{Environment.NewLine}C", warning.Message );
+            Assert.Equal( "A", warning.Message );
+            Assert.Equal( $"A{Environment.NewLine}C", warning.GetMessage() );
         }
 
         /// <summary>
@@ -58,60 +59,39 @@ namespace Util.Tests.Exceptions {
         /// </summary>
         [Fact]
         public void TestException_2Layer() {
-            Warning warning = new Warning( "A", "",new Exception( "C", new Exception( "D" ) ) );
-            Assert.Equal( $"A{Environment.NewLine}C{Environment.NewLine}D", warning.Message );
+            Warning warning = new Warning( "A", "",new Exception( "C", new NotImplementedException( "D" ) ) );
+            Assert.Equal( 3, warning.GetExceptions().Count );
+            Assert.Equal( typeof( Warning ), warning.GetExceptions()[0].GetType() );
+            Assert.Equal( typeof( Exception ), warning.GetExceptions()[1].GetType() );
+            Assert.Equal( typeof( NotImplementedException ), warning.GetExceptions()[2].GetType() );
+            Assert.Equal( "A", warning.GetExceptions()[0].Message );
+            Assert.Equal( "C", warning.GetExceptions()[1].Message );
+            Assert.Equal( "D", warning.GetExceptions()[2].Message );
+            Assert.Equal( $"A{Environment.NewLine}C{Environment.NewLine}D", warning.GetMessage() );
         }
 
         /// <summary>
-        /// 测试设置Warning
+        /// 测试获取异常列表
         /// </summary>
         [Fact]
-        public void TestWarning() {
-            Warning warning = new Warning( new Warning( "A" ) );
-            Assert.Equal( "A", warning.Message );
+        public void TestGetExceptions_1() {
+            var exception = new Exception( "A" );
+            var list = Warning.GetExceptions( exception );
+            Assert.Single( list );
+            Assert.Equal( "A", list[0].Message );
         }
 
         /// <summary>
-        /// 测试设置2层Warning
+        /// 测试获取异常列表
         /// </summary>
         [Fact]
-        public void TestWarning_2Layer() {
-            Warning warning = new Warning( "A", "", new Warning( "B", "", new Warning( "C" ) ) );
-            Assert.Equal( $"A{Environment.NewLine}B{Environment.NewLine}C", warning.Message );
-        }
-
-        /// <summary>
-        /// 测试设置3层Warning
-        /// </summary>
-        [Fact]
-        public void TestWarning_3Layer() {
-            Warning warning = new Warning( "A", "", new Warning( "B", "", new Exception( "C", new Warning( "D" ) ) ) );
-            Assert.Equal( $"A{Environment.NewLine}B{Environment.NewLine}C{Environment.NewLine}D", warning.Message );
-        }
-
-        /// <summary>
-        /// 添加异常数据
-        /// </summary>
-        [Fact]
-        public void TestAddData_1Layer() {
-            Warning warning = new Warning( "A" );
-            warning.Data.Add( "key1", "value1" );
-            warning.Data.Add( "key2", "value2" );
-            Assert.Equal( $"A{Environment.NewLine}key1:value1{Environment.NewLine}key2:value2{Environment.NewLine}", warning.Message );
-        }
-
-        /// <summary>
-        /// 添加2级异常数据
-        /// </summary>
-        [Fact]
-        public void TestAdd_2Layer() {
-            Exception exception = new Exception( "A" );
-            exception.Data.Add( "a", "a1" );
-            exception.Data.Add( "b", "b1" );
-            Warning warning = new Warning( exception );
-            warning.Data.Add( "key1", "value1" );
-            warning.Data.Add( "key2", "value2" );
-            Assert.Equal( $"A{Environment.NewLine}a:a1{Environment.NewLine}b:b1{Environment.NewLine}key1:value1{Environment.NewLine}key2:value2{Environment.NewLine}", warning.Message );
+        public void TestGetExceptions_2() {
+            var exceptionB = new Exception( "B" );
+            var exceptionA = new Exception( "A", exceptionB );
+            var list = Warning.GetExceptions( exceptionA );
+            Assert.Equal( 2, list.Count );
+            Assert.Equal( "A", list[0].Message );
+            Assert.Equal( "B", list[1].Message );
         }
     }
 }
