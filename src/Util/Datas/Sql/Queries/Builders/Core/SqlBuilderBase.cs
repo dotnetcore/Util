@@ -186,7 +186,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 创建Where子句
         /// </summary>
         protected virtual IWhereClause CreatewWhereClause() {
-            return new WhereClause( Dialect, EntityResolver, AliasRegister, ParameterManager );
+            return new WhereClause( this, Dialect, EntityResolver, AliasRegister, ParameterManager );
         }
 
         /// <summary>
@@ -229,9 +229,9 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
             EntityResolver = sqlBuilder.EntityResolver ?? new EntityResolver( EntityMatedata );
             AliasRegister = sqlBuilder.AliasRegister?.Clone() ?? new EntityAliasRegister();
             _selectClause = sqlBuilder._selectClause?.Clone( this, AliasRegister );
-            _fromClause = sqlBuilder._fromClause?.Clone( AliasRegister );
+            _fromClause = sqlBuilder._fromClause?.Clone( this, AliasRegister );
             _joinClause = sqlBuilder._joinClause?.Clone( this, AliasRegister );
-            _whereClause = sqlBuilder._whereClause?.Clone( AliasRegister, _parameterManager );
+            _whereClause = sqlBuilder._whereClause?.Clone( this, AliasRegister, _parameterManager );
             _groupByClause = sqlBuilder._groupByClause?.Clone( AliasRegister );
             _orderByClause = sqlBuilder._orderByClause?.Clone( AliasRegister );
             Pager = sqlBuilder.Pager;
@@ -923,7 +923,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <summary>
         /// 获取查询条件
         /// </summary>
-        public string GetCondition() {
+        public virtual string GetCondition() {
             return WhereClause.GetCondition();
         }
 
@@ -931,7 +931,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// And连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>
-        public ISqlBuilder And( ICondition condition ) {
+        public virtual ISqlBuilder And( ICondition condition ) {
             WhereClause.And( condition );
             return this;
         }
@@ -940,7 +940,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// Or连接条件
         /// </summary>
         /// <param name="condition">查询条件</param>
-        public ISqlBuilder Or( ICondition condition ) {
+        public virtual ISqlBuilder Or( ICondition condition ) {
             WhereClause.Or( condition );
             return this;
         }
@@ -949,7 +949,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// Or连接条件
         /// </summary>
         /// <param name="conditions">查询条件</param>
-        public ISqlBuilder Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+        public virtual ISqlBuilder Or<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) where TEntity : class {
             WhereClause.Or( conditions );
             return this;
         }
@@ -958,7 +958,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// Or连接条件
         /// </summary>
         /// <param name="conditions">查询条件,如果表达式中的值为空，则忽略该查询条件</param>
-        public ISqlBuilder OrIfNotEmpty<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) {
+        public virtual ISqlBuilder OrIfNotEmpty<TEntity>( params Expression<Func<TEntity, bool>>[] conditions ) where TEntity : class {
             WhereClause.OrIfNotEmpty( conditions );
             return this;
         }
@@ -967,7 +967,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置查询条件
         /// </summary>
         /// <param name="condition">查询条件</param>
-        public ISqlBuilder Where( ICondition condition ) {
+        public virtual ISqlBuilder Where( ICondition condition ) {
             WhereClause.Where( condition );
             return this;
         }
@@ -978,7 +978,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
-        public ISqlBuilder Where( string column, object value, Operator @operator = Operator.Equal ) {
+        public virtual ISqlBuilder Where( string column, object value, Operator @operator = Operator.Equal ) {
             WhereClause.Where( column, value, @operator );
             return this;
         }
@@ -989,7 +989,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
-        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class {
+        public virtual ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class {
             WhereClause.Where( expression, value, @operator );
             return this;
         }
@@ -998,42 +998,52 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置查询条件
         /// </summary>
         /// <param name="expression">查询条件表达式</param>
-        public ISqlBuilder Where<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
+        public virtual ISqlBuilder Where<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
             WhereClause.Where( expression );
             return this;
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 设置子查询条件
         /// </summary>
         /// <param name="column">列名</param>
-        /// <param name="value">值</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="builder">子查询Sql生成器</param>
         /// <param name="operator">运算符</param>
-        public ISqlBuilder WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal ) {
-            WhereClause.WhereIf( column, value, condition, @operator );
+        public virtual ISqlBuilder Where( string column, ISqlBuilder builder, Operator @operator = Operator.Equal ) {
+            WhereClause.Where( column, builder, @operator );
             return this;
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 设置子查询条件
         /// </summary>
         /// <param name="expression">列名表达式</param>
-        /// <param name="value">值</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="builder">子查询Sql生成器</param>
         /// <param name="operator">运算符</param>
-        public ISqlBuilder WhereIf<TEntity>( Expression<Func<TEntity, object>> expression, object value, bool condition, Operator @operator = Operator.Equal ) where TEntity : class {
-            WhereClause.WhereIf( expression, value, condition, @operator );
+        public virtual ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression, ISqlBuilder builder, Operator @operator = Operator.Equal ) where TEntity : class {
+            WhereClause.Where( expression, builder, @operator );
             return this;
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 设置子查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
-        public ISqlBuilder WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition ) where TEntity : class {
-            WhereClause.WhereIf( expression, condition );
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="operator">运算符</param>
+        public virtual ISqlBuilder Where( string column, Action<ISqlBuilder> action,Operator @operator = Operator.Equal ) {
+            WhereClause.Where( column, action, @operator );
+            return this;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="operator">运算符</param>
+        public virtual ISqlBuilder Where<TEntity>( Expression<Func<TEntity, object>> expression,Action<ISqlBuilder> action, Operator @operator = Operator.Equal ) where TEntity : class {
+            WhereClause.Where( expression, action, @operator );
             return this;
         }
 
@@ -1043,7 +1053,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="column">列名</param>
         /// <param name="value">值,如果值为空，则忽略该查询条件</param>
         /// <param name="operator">运算符</param>
-        public ISqlBuilder WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal ) {
+        public virtual ISqlBuilder WhereIfNotEmpty( string column, object value, Operator @operator = Operator.Equal ) {
             WhereClause.WhereIfNotEmpty( column, value, @operator );
             return this;
         }
@@ -1054,7 +1064,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值,如果值为空，则忽略该查询条件</param>
         /// <param name="operator">运算符</param>
-        public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class {
+        public virtual ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression, object value, Operator @operator = Operator.Equal ) where TEntity : class {
             WhereClause.WhereIfNotEmpty( expression, value, @operator );
             return this;
         }
@@ -1063,7 +1073,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置查询条件
         /// </summary>
         /// <param name="expression">查询条件表达式,如果参数值为空，则忽略该查询条件</param>
-        public ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
+        public virtual ISqlBuilder WhereIfNotEmpty<TEntity>( Expression<Func<TEntity, bool>> expression ) where TEntity : class {
             WhereClause.WhereIfNotEmpty( expression );
             return this;
         }
@@ -1073,7 +1083,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Equal( string column, object value ) {
+        public virtual ISqlBuilder Equal( string column, object value ) {
             return Where( column, value );
         }
 
@@ -1082,7 +1092,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Equal<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder Equal<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value );
         }
 
@@ -1091,7 +1101,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder NotEqual( string column, object value ) {
+        public virtual ISqlBuilder NotEqual( string column, object value ) {
             return Where( column, value, Operator.NotEqual );
         }
 
@@ -1100,7 +1110,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder NotEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder NotEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.NotEqual );
         }
 
@@ -1109,7 +1119,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Greater( string column, object value ) {
+        public virtual ISqlBuilder Greater( string column, object value ) {
             return Where( column, value, Operator.Greater );
         }
 
@@ -1118,7 +1128,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Greater<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder Greater<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.Greater );
         }
 
@@ -1127,7 +1137,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Less( string column, object value ) {
+        public virtual ISqlBuilder Less( string column, object value ) {
             return Where( column, value, Operator.Less );
         }
 
@@ -1136,7 +1146,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Less<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder Less<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.Less );
         }
 
@@ -1145,7 +1155,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder GreaterEqual( string column, object value ) {
+        public virtual ISqlBuilder GreaterEqual( string column, object value ) {
             return Where( column, value, Operator.GreaterEqual );
         }
 
@@ -1154,7 +1164,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder GreaterEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder GreaterEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.GreaterEqual );
         }
 
@@ -1163,7 +1173,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder LessEqual( string column, object value ) {
+        public virtual ISqlBuilder LessEqual( string column, object value ) {
             return Where( column, value, Operator.LessEqual );
         }
 
@@ -1172,7 +1182,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder LessEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder LessEqual<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.LessEqual );
         }
 
@@ -1181,7 +1191,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Contains( string column, object value ) {
+        public virtual ISqlBuilder Contains( string column, object value ) {
             return Where( column, value, Operator.Contains );
         }
 
@@ -1190,7 +1200,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Contains<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder Contains<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.Contains );
         }
 
@@ -1199,7 +1209,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Starts( string column, object value ) {
+        public virtual ISqlBuilder Starts( string column, object value ) {
             return Where( column, value, Operator.Starts );
         }
 
@@ -1208,7 +1218,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Starts<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder Starts<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.Starts );
         }
 
@@ -1217,7 +1227,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Ends( string column, object value ) {
+        public virtual ISqlBuilder Ends( string column, object value ) {
             return Where( column, value, Operator.Ends );
         }
 
@@ -1226,7 +1236,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="value">值</param>
-        public ISqlBuilder Ends<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
+        public virtual ISqlBuilder Ends<TEntity>( Expression<Func<TEntity, object>> expression, object value ) where TEntity : class {
             return Where( expression, value, Operator.Ends );
         }
 
@@ -1234,7 +1244,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置Is Null查询条件
         /// </summary>
         /// <param name="column">列名</param>
-        public ISqlBuilder IsNull( string column ) {
+        public virtual ISqlBuilder IsNull( string column ) {
             WhereClause.IsNull( column );
             return this;
         }
@@ -1243,7 +1253,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置Is Null查询条件
         /// </summary>
         /// <param name="expression">列名表达式</param>
-        public ISqlBuilder IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+        public virtual ISqlBuilder IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
             WhereClause.IsNull( expression );
             return this;
         }
@@ -1252,7 +1262,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置Is Not Null查询条件
         /// </summary>
         /// <param name="column">列名</param>
-        public ISqlBuilder IsNotNull( string column ) {
+        public virtual ISqlBuilder IsNotNull( string column ) {
             WhereClause.IsNotNull( column );
             return this;
         }
@@ -1261,7 +1271,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置Is Not Null查询条件
         /// </summary>
         /// <param name="expression">列名表达式</param>
-        public ISqlBuilder IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+        public virtual ISqlBuilder IsNotNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
             WhereClause.IsNotNull( expression );
             return this;
         }
@@ -1270,7 +1280,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置空条件
         /// </summary>
         /// <param name="column">列名</param>
-        public ISqlBuilder IsEmpty( string column ) {
+        public virtual ISqlBuilder IsEmpty( string column ) {
             WhereClause.IsEmpty( column );
             return this;
         }
@@ -1279,7 +1289,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置空条件
         /// </summary>
         /// <param name="expression">列名表达式</param>
-        public ISqlBuilder IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+        public virtual ISqlBuilder IsEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
             WhereClause.IsEmpty( expression );
             return this;
         }
@@ -1288,7 +1298,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置非空条件
         /// </summary>
         /// <param name="column">列名</param>
-        public ISqlBuilder IsNotEmpty( string column ) {
+        public virtual ISqlBuilder IsNotEmpty( string column ) {
             WhereClause.IsNotEmpty( column );
             return this;
         }
@@ -1297,7 +1307,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 设置非空条件
         /// </summary>
         /// <param name="expression">列名表达式</param>
-        public ISqlBuilder IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
+        public virtual ISqlBuilder IsNotEmpty<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
             WhereClause.IsNotEmpty( expression );
             return this;
         }
@@ -1307,7 +1317,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="values">值集合</param>
-        public ISqlBuilder In( string column, IEnumerable<object> values ) {
+        public virtual ISqlBuilder In( string column, IEnumerable<object> values ) {
             WhereClause.In( column, values );
             return this;
         }
@@ -1317,7 +1327,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="values">值集合</param>
-        public ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+        public virtual ISqlBuilder In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
             WhereClause.In( expression, values );
             return this;
         }
@@ -1327,7 +1337,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="column">列名</param>
         /// <param name="values">值集合</param>
-        public ISqlBuilder NotIn( string column, IEnumerable<object> values ) {
+        public virtual ISqlBuilder NotIn( string column, IEnumerable<object> values ) {
             WhereClause.NotIn( column, values );
             return this;
         }
@@ -1337,7 +1347,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="values">值集合</param>
-        public ISqlBuilder NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
+        public virtual ISqlBuilder NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
             WhereClause.NotIn( expression, values );
             return this;
         }
@@ -1349,7 +1359,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, int? min, int? max, Boundary boundary = Boundary.Both ) where TEntity : class {
+        public virtual ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, int? min, int? max, Boundary boundary = Boundary.Both ) where TEntity : class {
             WhereClause.Between( expression, min, max, boundary );
             return this;
         }
@@ -1361,7 +1371,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, double? min, double? max, Boundary boundary = Boundary.Both ) where TEntity : class {
+        public virtual ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, double? min, double? max, Boundary boundary = Boundary.Both ) where TEntity : class {
             WhereClause.Between( expression, min, max, boundary );
             return this;
         }
@@ -1373,7 +1383,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, decimal? min, decimal? max, Boundary boundary = Boundary.Both ) where TEntity : class {
+        public virtual ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, decimal? min, decimal? max, Boundary boundary = Boundary.Both ) where TEntity : class {
             WhereClause.Between( expression, min, max, boundary );
             return this;
         }
@@ -1386,7 +1396,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="max">最大值</param>
         /// <param name="includeTime">是否包含时间</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null ) where TEntity : class {
+        public virtual ISqlBuilder Between<TEntity>( Expression<Func<TEntity, object>> expression, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null ) where TEntity : class {
             WhereClause.Between( expression, min, max, includeTime, boundary );
             return this;
         }
@@ -1398,7 +1408,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between( string column, int? min, int? max, Boundary boundary = Boundary.Both ) {
+        public virtual ISqlBuilder Between( string column, int? min, int? max, Boundary boundary = Boundary.Both ) {
             WhereClause.Between( column, min, max, boundary );
             return this;
         }
@@ -1410,7 +1420,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between( string column, double? min, double? max, Boundary boundary = Boundary.Both ) {
+        public virtual ISqlBuilder Between( string column, double? min, double? max, Boundary boundary = Boundary.Both ) {
             WhereClause.Between( column, min, max, boundary );
             return this;
         }
@@ -1422,7 +1432,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="min">最小值</param>
         /// <param name="max">最大值</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between( string column, decimal? min, decimal? max, Boundary boundary = Boundary.Both ) {
+        public virtual ISqlBuilder Between( string column, decimal? min, decimal? max, Boundary boundary = Boundary.Both ) {
             WhereClause.Between( column, min, max, boundary );
             return this;
         }
@@ -1435,7 +1445,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// <param name="max">最大值</param>
         /// <param name="includeTime">是否包含时间</param>
         /// <param name="boundary">包含边界</param>
-        public ISqlBuilder Between( string column, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null ) {
+        public virtual ISqlBuilder Between( string column, DateTime? min, DateTime? max, bool includeTime = true, Boundary? boundary = null ) {
             WhereClause.Between( column, min, max, includeTime, boundary );
             return this;
         }
@@ -1444,7 +1454,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// 添加到Where子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
-        public ISqlBuilder AppendWhere( string sql ) {
+        public virtual ISqlBuilder AppendWhere( string sql ) {
             WhereClause.AppendSql( sql );
             return this;
         }
@@ -1592,7 +1602,7 @@ namespace Util.Datas.Sql.Queries.Builders.Core {
         /// </summary>
         /// <param name="pager">分页参数</param>
         public ISqlBuilder Page( IPager pager ) {
-            if ( pager == null )
+            if( pager == null )
                 return this;
             Pager = pager;
             Skip( pager.GetSkipCount() ).Take( pager.PageSize );

@@ -8,8 +8,9 @@ namespace Util.Datas.Sql.Queries.Builders.Abstractions {
         /// <summary>
         /// 复制From子句
         /// </summary>
+        /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
-        IFromClause Clone( IEntityAliasRegister register );
+        IFromClause Clone( ISqlBuilder builder, IEntityAliasRegister register );
         /// <summary>
         /// 设置表名
         /// </summary>

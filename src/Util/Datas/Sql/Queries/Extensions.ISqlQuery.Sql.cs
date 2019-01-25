@@ -65,7 +65,7 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="columnAlias">列别名</param>
         public static ISqlQuery Sum( this ISqlQuery sqlQuery, string column, string columnAlias = null ) {
             var builder = sqlQuery.GetBuilder();
-            builder.Sum( column,columnAlias );
+            builder.Sum( column, columnAlias );
             return sqlQuery;
         }
 
@@ -608,6 +608,42 @@ namespace Util.Datas.Sql.Queries {
         /// Or连接条件
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="predicate">查询条件</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        public static ISqlQuery OrIf( this ISqlQuery sqlQuery, ICondition predicate, bool condition ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.OrIf( predicate, condition );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="predicate">查询条件</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        public static ISqlQuery OrIf<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, bool>> predicate, bool condition ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.OrIf( predicate, condition );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="predicates">查询条件</param>
+        public static ISqlQuery OrIf<TEntity>( this ISqlQuery sqlQuery, bool condition, params Expression<Func<TEntity, bool>>[] predicates ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.OrIf( condition, predicates );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// Or连接条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
         /// <param name="conditions">查询条件,如果表达式中的值为空，则忽略该查询条件</param>
         public static ISqlQuery OrIfNotEmpty<TEntity>( this ISqlQuery sqlQuery, params Expression<Func<TEntity, bool>>[] conditions ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
@@ -664,6 +700,60 @@ namespace Util.Datas.Sql.Queries {
         }
 
         /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列名</param>
+        /// <param name="builder">子查询Sql生成器</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery Where( this ISqlQuery sqlQuery, string column, ISqlBuilder builder, Operator @operator = Operator.Equal ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.Where( column, builder, @operator );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="builder">子查询Sql生成器</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery Where<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression,
+            ISqlBuilder builder, Operator @operator = Operator.Equal ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.Where( expression, builder, @operator );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery Where( this ISqlQuery sqlQuery, string column, Action<ISqlBuilder> action, Operator @operator = Operator.Equal ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.Where( column, action, @operator );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery Where<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression,
+            Action<ISqlBuilder> action, Operator @operator = Operator.Equal ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.Where( expression, action, @operator );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 设置查询条件
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -701,6 +791,64 @@ namespace Util.Datas.Sql.Queries {
         public static ISqlQuery WhereIf<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, bool>> expression, bool condition ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.WhereIf( expression, condition );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列名</param>
+        /// <param name="builder">子查询Sql生成器</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery WhereIf( this ISqlQuery sqlQuery, string column, ISqlBuilder builder, bool condition, Operator @operator = Operator.Equal ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.WhereIf( column, builder, condition, @operator );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
+        /// <param name="builder">子查询Sql生成器</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery WhereIf<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, ISqlBuilder builder,
+            bool condition, Operator @operator = Operator.Equal ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.WhereIf( expression, builder, condition, @operator );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery WhereIf( this ISqlQuery sqlQuery, string column, Action<ISqlBuilder> action, bool condition, Operator @operator = Operator.Equal ) {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.WhereIf( column, action, condition, @operator );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="operator">运算符</param>
+        public static ISqlQuery WhereIf<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action,
+            bool condition, Operator @operator = Operator.Equal ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.WhereIf( expression, action, condition, @operator );
             return sqlQuery;
         }
 

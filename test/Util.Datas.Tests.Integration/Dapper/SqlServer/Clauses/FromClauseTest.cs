@@ -178,7 +178,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         [Fact]
         public void TestFrom_15() {
             _clause.From( "a", "b" );
-            var copy = _clause.Clone( null );
+            var copy = _clause.Clone( null, null );
             Assert.Equal( "From [a] As [b]", GetSql() );
             Assert.Equal( "From [a] As [b]", copy.ToSql() );
 

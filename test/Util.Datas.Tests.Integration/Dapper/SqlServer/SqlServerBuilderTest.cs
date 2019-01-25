@@ -1245,5 +1245,60 @@ namespace Util.Datas.Tests.Dapper.SqlServer {
             Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
             Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
         }
+
+        /// <summary>
+        /// 添加Where子查询
+        /// </summary>
+        [Fact]
+        public void Test_56() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [abc].[Test] " );
+            result.Append( "Where [b2]<>" );
+            result.AppendLine( "(Select Count(*) " );
+            result.AppendLine( "From [Test2] " );
+            result.Append( "Where [Name]=@_p_0) " );
+            result.Append( "And [Age]=@_p_1" );
+
+            //执行
+            var builder2 = _builder.New().Count().From( "Test2" ).Where( "Name", "a" );
+            _builder.From( "abc.Test" ).Where( "b2", builder2,Operator.NotEqual ).Where( "Age", 1 );
+            _output.WriteLine( _builder.ToSql() );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 添加Where子查询 - 委托
+        /// </summary>
+        [Fact]
+        public void Test_57() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select * " );
+            result.AppendLine( "From [abc].[Test] " );
+            result.Append( "Where [b2]=" );
+            result.AppendLine( "(Select Count(*) " );
+            result.AppendLine( "From [Test2] " );
+            result.Append( "Where [Name]=@_p_0) " );
+            result.Append( "And [Age]=@_p_1" );
+
+            //执行
+            _builder.From( "abc.Test" ).Where( "b2", builder => {
+                builder.Count().From( "Test2" ).Where( "Name", "a" );
+            } ).Where( "Age", 1 );
+            _output.WriteLine( _builder.ToSql() );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _builder.GetParams()["@_p_1"] );
+        }
     }
 }

@@ -59,10 +59,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 复制Select子句
         /// </summary>
-        /// <param name="sqlBuilder">Sql生成器</param>
+        /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
-        public virtual ISelectClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register ) {
-            return new SelectClause( sqlBuilder, _dialect, _resolver, register, new List<ColumnCollection>( _columns ) );
+        public virtual ISelectClause Clone( ISqlBuilder builder, IEntityAliasRegister register ) {
+            return new SelectClause( builder, _dialect, _resolver, register, new List<ColumnCollection>( _columns ) );
         }
 
         /// <summary>

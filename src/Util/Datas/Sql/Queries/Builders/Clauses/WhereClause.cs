@@ -15,6 +15,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
     /// </summary>
     public class WhereClause : IWhereClause {
         /// <summary>
+        /// Sql生成器
+        /// </summary>
+        protected readonly ISqlBuilder Builder;
+        /// <summary>
         /// 辅助操作
         /// </summary>
         private readonly Helper _helper;
@@ -38,12 +42,14 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 初始化Where子句
         /// </summary>
+        /// <param name="builder">Sql生成器</param>
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
         /// <param name="parameterManager">参数管理器</param>
         /// <param name="condition">查询条件</param>
-        public WhereClause( IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, IParameterManager parameterManager, ICondition condition = null ) {
+        public WhereClause( ISqlBuilder builder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, IParameterManager parameterManager, ICondition condition = null ) {
+            Builder = builder;
             _dialect = dialect;
             _resolver = resolver;
             _condition = condition;
@@ -54,10 +60,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 复制Where子句
         /// </summary>
+        /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
         /// <param name="parameterManager">参数管理器</param>
-        public virtual IWhereClause Clone( IEntityAliasRegister register, IParameterManager parameterManager ) {
-            return new WhereClause( _dialect, _resolver, register, parameterManager, new SqlCondition( _condition?.GetCondition() ) );
+        public virtual IWhereClause Clone( ISqlBuilder builder, IEntityAliasRegister register, IParameterManager parameterManager ) {
+            return new WhereClause( builder, _dialect, _resolver, register, parameterManager, new SqlCondition( _condition?.GetCondition() ) );
         }
 
         /// <summary>
@@ -154,37 +161,51 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 设置子查询条件
         /// </summary>
         /// <param name="column">列名</param>
-        /// <param name="value">值</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="builder">子查询Sql生成器</param>
         /// <param name="operator">运算符</param>
-        public void WhereIf( string column, object value, bool condition, Operator @operator = Operator.Equal ) {
-            if( condition )
-                Where( column, value, @operator );
+        public void Where( string column, ISqlBuilder builder, Operator @operator = Operator.Equal ) {
+            if( builder == null )
+                return;
+            column = _helper.GetColumn( column );
+            var sql = $"({builder.ToSql()})";
+            And( SqlConditionFactory.Create( column, sql, @operator ) );
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 设置子查询条件
         /// </summary>
         /// <param name="expression">列名表达式</param>
-        /// <param name="value">值</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
+        /// <param name="builder">子查询Sql生成器</param>
         /// <param name="operator">运算符</param>
-        public void WhereIf<TEntity>( Expression<Func<TEntity, object>> expression, object value, bool condition, Operator @operator = Operator.Equal ) where TEntity : class {
-            if( condition )
-                Where( expression, value, @operator );
+        public void Where<TEntity>( Expression<Func<TEntity, object>> expression, ISqlBuilder builder, Operator @operator = Operator.Equal ) where TEntity : class {
+            Where( _helper.GetColumn( expression ), builder, @operator );
         }
 
         /// <summary>
-        /// 设置查询条件
+        /// 设置子查询条件
         /// </summary>
-        /// <param name="expression">查询条件表达式</param>
-        /// <param name="condition">该值为true时添加查询条件，否则忽略</param>
-        public void WhereIf<TEntity>( Expression<Func<TEntity, bool>> expression, bool condition ) where TEntity : class {
-            if( condition )
-                Where( expression );
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="operator">运算符</param>
+        public void Where( string column, Action<ISqlBuilder> action, Operator @operator = Operator.Equal ) {
+            if( action == null )
+                return;
+            var builder = Builder.New();
+            action( builder );
+            Where( column, builder, @operator );
+        }
+
+        /// <summary>
+        /// 设置子查询条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        /// <param name="operator">运算符</param>
+        public void Where<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action, Operator @operator = Operator.Equal ) where TEntity : class {
+            Where( _helper.GetColumn( expression ), action, @operator );
         }
 
         /// <summary>
@@ -228,19 +249,11 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         }
 
         /// <summary>
-        /// 添加到Where子句
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        public void AppendSql( string sql ) {
-            And( new SqlCondition( sql ) );
-        }
-
-        /// <summary>
         /// 设置Is Null条件
         /// </summary>
         /// <param name="column">列名</param>
         public void IsNull( string column ) {
-            Where( column, null );
+            And( _helper.CreateCondition( column, null,Operator.Equal ) );
         }
 
         /// <summary>
@@ -248,7 +261,7 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         public void IsNull<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
-            Where( expression, null );
+            IsNull( _helper.GetColumn( expression ) );
         }
 
         /// <summary>
@@ -484,6 +497,14 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
             if( includeTime )
                 return Boundary.Both;
             return Boundary.Left;
+        }
+
+        /// <summary>
+        /// 添加到Where子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public void AppendSql( string sql ) {
+            And( new SqlCondition( sql ) );
         }
 
         /// <summary>

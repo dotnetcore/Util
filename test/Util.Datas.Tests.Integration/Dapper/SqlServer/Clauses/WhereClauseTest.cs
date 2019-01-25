@@ -35,7 +35,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         public WhereClauseTest() {
             _parameterManager = new ParameterManager( new SqlServerDialect() );
-            _clause = new WhereClause( new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
+            _clause = new WhereClause( null, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestWhere_5() {
-            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
+            _clause = new WhereClause(null, new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
             _clause.Where<Sample>( t => t.Email, "a" );
             Assert.Equal( "Where [as_Sample].[t_Email]=@_p_0", GetSql() );
         }
@@ -282,7 +282,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestWhere_7() {
-            _clause = new WhereClause( new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
+            _clause = new WhereClause(null, new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
             _clause.Where<Sample>( t => t.Email == "a" );
             Assert.Equal( "Where [as_Sample].[t_Email]=@_p_0", GetSql() );
         }
@@ -437,64 +437,6 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
-        }
-
-        #endregion
-
-        #region WhereIf(设置条件)
-
-        /// <summary>
-        /// 设置条件 - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_1() {
-            _clause.WhereIf( "Name", "a", true );
-            Assert.Equal( "Where [Name]=@_p_0", GetSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_2() {
-            _clause.WhereIf( "Name", "a", false );
-            Assert.Null( GetSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名  - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_3() {
-            _clause.WhereIf<Sample>( t => t.Email, "a", true );
-            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名  - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_4() {
-            _clause.WhereIf<Sample>( t => t.Email, "a", false );
-            Assert.Null( GetSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名 - 添加条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_5() {
-            _clause.WhereIf<Sample>( t => t.Email == "a", true );
-            Assert.Equal( "Where [Email]=@_p_0", GetSql() );
-        }
-
-        /// <summary>
-        /// 设置条件 - 通过lambda设置列名 - 忽略条件
-        /// </summary>
-        [Fact]
-        public void TestWhereIf_6() {
-            _clause.WhereIf<Sample>( t => t.Email == "a", false );
-            Assert.Null( GetSql() );
         }
 
         #endregion
@@ -1081,7 +1023,7 @@ namespace Util.Datas.Tests.Dapper.SqlServer.Clauses {
             _clause.Where( "Name", "a" );
 
             //复制副本
-            var copy = _clause.Clone( null, _parameterManager.Clone() );
+            var copy = _clause.Clone( null, null, _parameterManager.Clone() );
             Assert.Equal( "Where [Name]=@_p_0", GetSql() );
             Assert.Equal( "Where [Name]=@_p_0", copy.ToSql() );
 

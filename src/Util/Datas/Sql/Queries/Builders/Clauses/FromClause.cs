@@ -49,9 +49,10 @@ namespace Util.Datas.Sql.Queries.Builders.Clauses {
         /// <summary>
         /// 复制From子句
         /// </summary>
+        /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
-        public virtual IFromClause Clone( IEntityAliasRegister register ) {
-            return new FromClause( Builder, Dialect, Resolver, register, Table );
+        public virtual IFromClause Clone( ISqlBuilder builder, IEntityAliasRegister register ) {
+            return new FromClause( builder, Dialect, Resolver, register, Table );
         }
 
         /// <summary>

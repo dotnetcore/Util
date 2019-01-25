@@ -50,6 +50,8 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
         /// <param name="expression">表达式</param>
         /// <param name="type">实体类型</param>
         public string GetColumn( Expression expression, Type type ) {
+            if ( expression == null )
+                return null;
             return GetColumn( _resolver.GetColumn( expression, type ), type );
         }
 
@@ -58,6 +60,8 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
         /// </summary>
         /// <param name="expression">列名表达式</param>
         public string GetColumn<TEntity>( Expression<Func<TEntity, object>> expression ) {
+            if ( expression == null )
+                return null;
             return GetColumn( _resolver.GetColumn( expression ), typeof( TEntity ) );
         }
 
@@ -67,6 +71,8 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
         /// <param name="column">列名</param>
         /// <param name="type">实体类型</param>
         public string GetColumn( string column, Type type ) {
+            if ( string.IsNullOrWhiteSpace( column ) )
+                return column;
             return new SqlItem( column, _register.GetAlias( type ) ).ToSql( _dialect );
         }
 
@@ -75,6 +81,8 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
         /// </summary>
         /// <param name="column">列名</param>
         public string GetColumn( string column ) {
+            if( string.IsNullOrWhiteSpace( column ) )
+                return column;
             return new SqlItem( column ).ToSql( _dialect );
         }
 
@@ -83,6 +91,8 @@ namespace Util.Datas.Sql.Queries.Builders.Internal {
         /// </summary>
         /// <returns>表达式</returns>
         public object GetValue( Expression expression ) {
+            if ( expression == null )
+                return null;
             var result = Lambda.GetValue( expression );
             if ( result == null )
                 return null;
