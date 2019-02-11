@@ -1,4 +1,4 @@
-﻿using Util.Datas.Sql.Queries.Configs;
+﻿using Util.Datas.Sql.Configs;
 
 namespace Util.Datas.Ef.Configs {
     /// <summary>

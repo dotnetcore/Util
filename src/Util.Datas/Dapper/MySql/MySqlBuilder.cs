@@ -1,7 +1,7 @@
-﻿using Util.Datas.Matedatas;
-using Util.Datas.Sql.Queries;
-using Util.Datas.Sql.Queries.Builders.Abstractions;
-using Util.Datas.Sql.Queries.Builders.Core;
+﻿using Util.Datas.Sql;
+using Util.Datas.Sql.Builders;
+using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Matedatas;
 
 namespace Util.Datas.Dapper.MySql {
     /// <summary>

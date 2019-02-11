@@ -1,4 +1,4 @@
-﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
+﻿using Util.Datas.Sql.Builders;
 
 namespace Util.Datas.Dapper.SqlServer {
     /// <summary>

@@ -7,10 +7,9 @@ using Util.Datas.Dapper.MySql;
 using Util.Datas.Dapper.PgSql;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Enums;
-using Util.Datas.Matedatas;
 using Util.Datas.Sql;
-using Util.Datas.Sql.Queries;
-using Util.Datas.Sql.Queries.Configs;
+using Util.Datas.Sql.Configs;
+using Util.Datas.Sql.Matedatas;
 
 namespace Util.Datas.Dapper {
     /// <summary>

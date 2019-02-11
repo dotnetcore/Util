@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Util.Domains.Repositories;
 using Util.Applications;
-using Util.Datas.Sql.Queries;
+using Util.Datas.Sql;
 using Util.Events;
 using Util.Exceptions;
 using Util.Maps;
