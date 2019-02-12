@@ -653,18 +653,6 @@ namespace Util.Datas.Sql {
         /// 分组
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="columns">分组字段,范例：a.Id,b.Name</param>
-        /// <param name="having">分组条件,范例：Count(*) > 1</param>
-        public static ISqlQuery GroupBy( this ISqlQuery sqlQuery, string columns, string having = null ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.GroupBy( columns, having );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 分组
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="columns">分组字段</param>
         public static ISqlQuery GroupBy<TEntity>( this ISqlQuery sqlQuery, params Expression<Func<TEntity, object>>[] columns ) where TEntity : class {
@@ -683,29 +671,6 @@ namespace Util.Datas.Sql {
         public static ISqlQuery GroupBy<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> column, string having = null ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.GroupBy( column, having );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到GroupBy子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
-        public static ISqlQuery AppendGroupBy( this ISqlQuery sqlQuery, string sql ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendGroupBy( sql );
-            return sqlQuery;
-        }
-
-        /// <summary>
-        /// 添加到GroupBy子句
-        /// </summary>
-        /// <param name="sqlQuery">Sql查询对象</param>
-        /// <param name="sql">Sql语句，说明：原样添加到Sql中，不会进行任何处理</param>
-        /// <param name="condition">该值为true时添加Sql，否则忽略</param>
-        public static ISqlQuery AppendGroupBy( this ISqlQuery sqlQuery, string sql, bool condition ) {
-            var builder = sqlQuery.GetBuilder();
-            builder.AppendGroupBy( sql, condition );
             return sqlQuery;
         }
 
