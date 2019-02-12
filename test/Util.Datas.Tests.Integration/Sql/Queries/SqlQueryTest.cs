@@ -66,8 +66,8 @@ namespace Util.Datas.Tests.Sql.Queries {
             await _customerRepository.AddAsync( customer );
             await _unitOfWork.CommitAsync();
 
-            var result = await _query.Select<Customer>( t => t.Name )
-                .Select<Customer>( t => new object[] { t.Id, t.Name } )
+            var result = await _query
+                .Select<Customer>( t => t.Name )
                 .From<Customer>( "c" )
                 .Where<Customer>( t => t.Id == id )
                 .ToStringAsync();
@@ -86,7 +86,7 @@ namespace Util.Datas.Tests.Sql.Queries {
             await _customerRepository.AddAsync( customer );
             await _unitOfWork.CommitAsync();
 
-            var result = await _query.Select<Customer>( t => t.Name )
+            var result = await _query
                 .Select<Customer>( t => new object[] { t.Id, t.Name } )
                 .From<Customer>( "c" )
                 .Where<Customer>( t => t.Id == id )

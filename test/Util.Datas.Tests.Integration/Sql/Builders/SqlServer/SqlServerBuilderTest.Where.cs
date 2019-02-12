@@ -145,7 +145,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
                 .From( "b" )
                 .Where( "Age", 1 )
                 .OrIf( new EqualCondition( "b", "@b" ), false )
-                .OrIf( new LessCondition( "a", "@a" ),true );
+                .OrIf( new LessCondition( "a", "@a" ), true );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
@@ -581,7 +581,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             _builder.Select<Sample>( t => new object[] { t.Email } )
                 .From<Sample>( "a" )
                 .WhereIf<Sample>( t => t.Email == "a", false )
-                .WhereIf<Sample>( t => t.Email != "abc",true );
+                .WhereIf<Sample>( t => t.Email != "abc", true );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
@@ -606,7 +606,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
 
             //执行
             var builder2 = _builder.New().Count().From( "Test2" ).Where( "Name", "a" );
-            _builder.From( "abc.Test" ).WhereIf( "a", builder2, false ).WhereIf( "b2", builder2,true, Operator.NotEqual ).Where( "Age", 1 );
+            _builder.From( "abc.Test" ).WhereIf( "a", builder2, false ).WhereIf( "b2", builder2, true, Operator.NotEqual ).Where( "Age", 1 );
             _output.WriteLine( _builder.ToSql() );
 
             //验证
@@ -635,7 +635,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             var builder2 = _builder.New().Count().From( "Test2" ).Where( "Name", "a" );
             _builder.From<Sample>( "s" )
                 .WhereIf<Sample>( t => t.Url, builder2, false )
-                .WhereIf<Sample>( t => t.Email, builder2,true, Operator.NotEqual )
+                .WhereIf<Sample>( t => t.Email, builder2, true, Operator.NotEqual )
                 .Where( "Age", 1 );
             _output.WriteLine( _builder.ToSql() );
 
@@ -668,7 +668,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
                 }, false )
                 .WhereIf( "b2", builder => {
                     builder.Count().From( "Test2" ).Where( "Name", "a" );
-                },true, Operator.NotEqual )
+                }, true, Operator.NotEqual )
                 .Where( "Age", 1 );
             _output.WriteLine( _builder.ToSql() );
 
@@ -698,7 +698,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             _builder.From<Sample>( "s" )
                 .WhereIf<Sample>( t => t.Email, builder => {
                     builder.Count().From( "a" ).Where( "Name", "b" );
-                },false )
+                }, false )
                 .WhereIf<Sample>( t => t.Email, builder => {
                     builder.Count().From( "Test2" ).Where( "Name", "a" );
                 }, true, Operator.NotEqual )
@@ -1422,7 +1422,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
         }
 
         /// <summary>
-        /// 设置条件 - In
+        /// 设置条件 - In - 属性表达式
         /// </summary>
         [Fact]
         public void TestIn_2() {
@@ -1443,6 +1443,124 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             Assert.Equal( 2, _builder.GetParams().Count );
             Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
             Assert.Equal( "b", _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - In - 子查询
+        /// </summary>
+        [Fact]
+        public void TestIn_3() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Name]=@_p_1 And " );
+            result.Append( "[a].[Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.AppendLine( "From [b] " );
+            result.Append( "Where [b].[Url]=@_p_0" );
+            result.Append( ")" );
+
+            //执行
+            var builder = _builder.New().Select( "a" ).From( "b" ).Where( "b.Url", "u" );
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Where( "a.Name", "n" )
+                .In( "a.Email", builder );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "u", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "n", _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - In - 子查询 - 属性表达式
+        /// </summary>
+        [Fact]
+        public void TestIn_4() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Name]=@_p_1 And " );
+            result.Append( "[a].[Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.AppendLine( "From [b] " );
+            result.Append( "Where [b].[Url]=@_p_0" );
+            result.Append( ")" );
+
+            //执行
+            var builder = _builder.New().Select( "a" ).From( "b" ).Where( "b.Url", "u" );
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Where( "a.Name", "n" )
+                .In<Sample>( t => t.Email, builder );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "u", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "n", _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - In - 子查询 - 委托
+        /// </summary>
+        [Fact]
+        public void TestIn_5() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Name]=@_p_0 And " );
+            result.Append( "[a].[Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.AppendLine( "From [b] " );
+            result.Append( "Where [b].[Url]=@_p_1" );
+            result.Append( ")" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Where( "a.Name", "n" )
+                .In( "a.Email", builder=>builder.Select( "a" ).From( "b" ).Where( "b.Url", "u" ) );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "n", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "u", _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 设置条件 - In - 子查询 - 委托 - 属性表达式
+        /// </summary>
+        [Fact]
+        public void TestIn_6() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a].[Email] " );
+            result.AppendLine( "From [Sample] As [a] " );
+            result.Append( "Where [a].[Name]=@_p_0 And " );
+            result.Append( "[a].[Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.AppendLine( "From [b] " );
+            result.Append( "Where [b].[Url]=@_p_1" );
+            result.Append( ")" );
+
+            //执行
+            _builder.Select<Sample>( t => t.Email )
+                .From<Sample>( "a" )
+                .Where( "a.Name", "n" )
+                .In<Sample>( t => t.Email, builder => builder.Select( "a" ).From( "b" ).Where( "b.Url", "u" ) );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 2, _builder.GetParams().Count );
+            Assert.Equal( "n", _builder.GetParams()["@_p_0"] );
+            Assert.Equal( "u", _builder.GetParams()["@_p_1"] );
         }
 
         #endregion

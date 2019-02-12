@@ -526,6 +526,30 @@ namespace Util.Datas.Sql {
         }
 
         /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
+        /// <param name="builder">Sql生成器</param>
+        public static ISqlQuery In<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, ISqlBuilder builder ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.In( expression, builder );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
+        /// <param name="action">子查询操作</param>
+        public static ISqlQuery In<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.In( expression, action );
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 设置Not In条件
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
@@ -534,6 +558,30 @@ namespace Util.Datas.Sql {
         public static ISqlQuery NotIn<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
             var builder = sqlQuery.GetBuilder();
             builder.NotIn( expression, values );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
+        /// <param name="builder">Sql生成器</param>
+        public static ISqlQuery NotIn<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, ISqlBuilder builder ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.NotIn( expression, builder );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="expression">列名表达式,范例：t => t.Name</param>
+        /// <param name="action">子查询操作</param>
+        public static ISqlQuery NotIn<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action ) where TEntity : class {
+            var sqlBuilder = sqlQuery.GetBuilder();
+            sqlBuilder.NotIn( expression, action );
             return sqlQuery;
         }
 

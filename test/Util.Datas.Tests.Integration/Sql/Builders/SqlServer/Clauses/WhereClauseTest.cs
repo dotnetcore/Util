@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Queries;
+using Util.Datas.Sql;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Conditions;
 using Util.Datas.Sql.Builders.Core;
@@ -26,6 +27,10 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         private readonly ParameterManager _parameterManager;
         /// <summary>
+        /// Sql生成器
+        /// </summary>
+        private readonly SqlServerBuilder _builder;
+        /// <summary>
         /// Where子句
         /// </summary>
         private WhereClause _clause;
@@ -35,7 +40,8 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         public WhereClauseTest() {
             _parameterManager = new ParameterManager( new SqlServerDialect() );
-            _clause = new WhereClause( null, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
+            _builder = new SqlServerBuilder( new TestEntityMatedata(), _parameterManager );
+            _clause = new WhereClause( _builder, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
         }
 
         /// <summary>
@@ -263,7 +269,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestWhere_5() {
-            _clause = new WhereClause(null, new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
+            _clause = new WhereClause( null, new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
             _clause.Where<Sample>( t => t.Email, "a" );
             Assert.Equal( "Where [as_Sample].[t_Email]=@_p_0", GetSql() );
         }
@@ -282,7 +288,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestWhere_7() {
-            _clause = new WhereClause(null, new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
+            _clause = new WhereClause( null, new SqlServerDialect(), new TestEntityResolver(), new TestEntityAliasRegister(), new ParameterManager( new SqlServerDialect() ) );
             _clause.Where<Sample>( t => t.Email == "a" );
             Assert.Equal( "Where [as_Sample].[t_Email]=@_p_0", GetSql() );
         }
@@ -665,6 +671,84 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             Assert.Equal( result.ToString(), GetSql() );
         }
 
+        /// <summary>
+        /// 设置In条件 - 子查询
+        /// </summary>
+        [Fact]
+        public void TestIn_4() {
+            //结果
+            var result = new String();
+            result.Append( "Where [user].[Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.Append( "From [b]" );
+            result.Append( ")" );
+
+            //执行
+            var builder = _builder.New().Select( "a" ).From( "b" );
+            _clause.In( "user.Email", builder );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 设置In条件 - 子查询 - 属性表达式
+        /// </summary>
+        [Fact]
+        public void TestIn_5() {
+            //结果
+            var result = new String();
+            result.Append( "Where [Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.Append( "From [b]" );
+            result.Append( ")" );
+
+            //执行
+            var builder = _builder.New().Select( "a" ).From( "b" );
+            _clause.In<Sample>( t => t.Email, builder );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 设置In条件 - 子查询 - 委托
+        /// </summary>
+        [Fact]
+        public void TestIn_6() {
+            //结果
+            var result = new String();
+            result.Append( "Where [user].[Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.Append( "From [b]" );
+            result.Append( ")" );
+
+            //执行
+            _clause.In( "user.Email", builder => builder.Select( "a" ).From( "b" ) );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 设置In条件 - 子查询 - 委托 - 属性表达式
+        /// </summary>
+        [Fact]
+        public void TestIn_7() {
+            //结果
+            var result = new String();
+            result.Append( "Where [Email] In (" );
+            result.AppendLine( "Select [a] " );
+            result.Append( "From [b]" );
+            result.Append( ")" );
+
+            //执行
+            _clause.In<Sample>( t => t.Email, builder => builder.Select( "a" ).From( "b" ) );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
         #endregion
 
         #region NotIn
@@ -1028,7 +1112,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             Assert.Equal( "Where [Name]=@_p_0", copy.ToSql() );
 
             //修改副本
-            copy.Where( "Code",1 );
+            copy.Where( "Code", 1 );
             Assert.Equal( "Where [Name]=@_p_0", GetSql() );
             Assert.Equal( "Where [Name]=@_p_0 And [Code]=@_p_1", copy.ToSql() );
 

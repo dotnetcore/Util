@@ -252,7 +252,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         /// <param name="column">列名</param>
         public void IsNull( string column ) {
-            And( _helper.CreateCondition( column, null,Operator.Equal ) );
+            And( _helper.CreateCondition( column, null, Operator.Equal ) );
         }
 
         /// <summary>
@@ -336,6 +336,51 @@ namespace Util.Datas.Sql.Builders.Clauses {
         }
 
         /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="builder">Sql生成器</param>
+        public void In( string column, ISqlBuilder builder ) {
+            if( string.IsNullOrWhiteSpace( column ) )
+                return;
+            if( builder == null )
+                return;
+            var result = $"{_helper.GetColumn( column )} In ({builder.ToSql()})";
+            AppendSql( result );
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="builder">Sql生成器</param>
+        public void In<TEntity>( Expression<Func<TEntity, object>> expression, ISqlBuilder builder ) {
+            In( _helper.GetColumn(expression), builder );
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        public void In( string column, Action<ISqlBuilder> action ) {
+            if( action == null )
+                return;
+            var builder = Builder.New();
+            action( builder );
+            In( column, builder );
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        public void In<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action ) {
+            In( _helper.GetColumn( expression ), action );
+        }
+
+        /// <summary>
         /// 设置Not In条件
         /// </summary>
         /// <param name="column">列名</param>
@@ -351,6 +396,51 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="values">值集合</param>
         public void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class {
             Where( expression, values, Operator.NotIn );
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="builder">Sql生成器</param>
+        public void NotIn( string column, ISqlBuilder builder ) {
+            if( string.IsNullOrWhiteSpace( column ) )
+                return;
+            if( builder == null )
+                return;
+            var result = $"{_helper.GetColumn( column )} Not In ({builder.ToSql()})";
+            AppendSql( result );
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="builder">Sql生成器</param>
+        public void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, ISqlBuilder builder ) {
+            NotIn( _helper.GetColumn( expression ), builder );
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        public void NotIn( string column, Action<ISqlBuilder> action ) {
+            if( action == null )
+                return;
+            var builder = Builder.New();
+            action( builder );
+            NotIn( column, builder );
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        public void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action ) {
+            NotIn( _helper.GetColumn( expression ), action );
         }
 
         /// <summary>

@@ -566,6 +566,34 @@ namespace Util.Datas.Sql {
         }
 
         /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="builder">Sql生成器</param>
+        public static ISqlBuilder In<TEntity>( this ISqlBuilder source, Expression<Func<TEntity, object>> expression, ISqlBuilder builder ) where TEntity : class {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.In( expression, builder );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        public static ISqlBuilder In<TEntity>( this ISqlBuilder source, Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action ) where TEntity : class {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.In( expression, action );
+            return source;
+        }
+
+        /// <summary>
         /// 设置Not In条件
         /// </summary>
         /// <param name="source">源</param>
@@ -576,6 +604,34 @@ namespace Util.Datas.Sql {
                 throw new ArgumentNullException( nameof( source ) );
             if( source is IClauseAccessor accessor )
                 accessor.WhereClause.NotIn( expression, values );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="builder">Sql生成器</param>
+        public static ISqlBuilder NotIn<TEntity>( this ISqlBuilder source, Expression<Func<TEntity, object>> expression, ISqlBuilder builder ) where TEntity : class {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.NotIn( expression, builder );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        public static ISqlBuilder NotIn<TEntity>( this ISqlBuilder source, Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action ) where TEntity : class {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.NotIn( expression, action );
             return source;
         }
 

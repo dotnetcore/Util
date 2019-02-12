@@ -328,6 +328,34 @@ namespace Util.Datas.Sql {
         }
 
         /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="column">列名</param>
+        /// <param name="builder">Sql生成器</param>
+        public static T In<T>( this T source, string column, ISqlBuilder builder ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.In( column, builder );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        public static T In<T>( this T source, string column, Action<ISqlBuilder> action ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.In( column, action );
+            return source;
+        }
+
+        /// <summary>
         /// 设置Not In条件
         /// </summary>
         /// <param name="source">源</param>
@@ -338,6 +366,34 @@ namespace Util.Datas.Sql {
                 throw new ArgumentNullException( nameof( source ) );
             if( source is IClauseAccessor accessor )
                 accessor.WhereClause.NotIn( column, values );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="column">列名</param>
+        /// <param name="builder">Sql生成器</param>
+        public static T NotIn<T>( this T source, string column, ISqlBuilder builder ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.NotIn( column, builder );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        public static T NotIn<T>( this T source, string column, Action<ISqlBuilder> action ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.NotIn( column, action );
             return source;
         }
 

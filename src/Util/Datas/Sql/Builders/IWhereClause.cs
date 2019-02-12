@@ -86,7 +86,7 @@ namespace Util.Datas.Sql.Builders {
         /// <param name="expression">列名表达式</param>
         /// <param name="action">子查询操作</param>
         /// <param name="operator">运算符</param>
-        void Where<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action,Operator @operator = Operator.Equal ) where TEntity : class;
+        void Where<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action, Operator @operator = Operator.Equal ) where TEntity : class;
         /// <summary>
         /// 设置查询条件
         /// </summary>
@@ -225,6 +225,30 @@ namespace Util.Datas.Sql.Builders {
         /// <param name="values">值集合</param>
         void In<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
         /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="builder">Sql生成器</param>
+        void In( string column, ISqlBuilder builder );
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="builder">Sql生成器</param>
+        void In<TEntity>( Expression<Func<TEntity, object>> expression, ISqlBuilder builder );
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        void In( string column, Action<ISqlBuilder> action );
+        /// <summary>
+        /// 设置In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        void In<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action );
+        /// <summary>
         /// 设置Not In条件
         /// </summary>
         /// <param name="column">列名</param>
@@ -236,6 +260,30 @@ namespace Util.Datas.Sql.Builders {
         /// <param name="expression">列名表达式</param>
         /// <param name="values">值集合</param>
         void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, IEnumerable<object> values ) where TEntity : class;
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="builder">Sql生成器</param>
+        void NotIn( string column, ISqlBuilder builder );
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="builder">Sql生成器</param>
+        void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, ISqlBuilder builder );
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="action">子查询操作</param>
+        void NotIn( string column, Action<ISqlBuilder> action );
+        /// <summary>
+        /// 设置Not In条件
+        /// </summary>
+        /// <param name="expression">列名表达式</param>
+        /// <param name="action">子查询操作</param>
+        void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action );
         /// <summary>
         /// 添加到Where子句
         /// </summary>
