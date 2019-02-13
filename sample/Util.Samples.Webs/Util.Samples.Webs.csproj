@@ -24,8 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2012" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
+    <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2022" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
   </ItemGroup>
 
   <ItemGroup>
