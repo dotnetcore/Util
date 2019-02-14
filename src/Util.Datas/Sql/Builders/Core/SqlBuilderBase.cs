@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Filters;
@@ -11,7 +12,7 @@ namespace Util.Datas.Sql.Builders.Core {
     /// <summary>
     /// Sql生成器
     /// </summary>
-    public abstract class SqlBuilderBase : ISqlBuilder, IClauseAccessor {
+    public abstract class SqlBuilderBase : ISqlBuilder, IClauseAccessor, IUnionAccessor {
 
         #region 字段
 
@@ -71,6 +72,7 @@ namespace Util.Datas.Sql.Builders.Core {
             EntityResolver = new EntityResolver( matedata );
             AliasRegister = new EntityAliasRegister();
             Pager = new Pager();
+            UnionItems = new List<UnionItem>();
         }
 
         #endregion
@@ -134,11 +136,19 @@ namespace Util.Datas.Sql.Builders.Core {
         /// </summary>
         protected string LimitParam { get; private set; }
         /// <summary>
+        /// 联合操作项集合
+        /// </summary>
+        public List<UnionItem> UnionItems { get; private set; }
+        /// <summary>
         /// 分页
         /// </summary>
         public IPager Pager { get; private set; }
         /// <summary>
-        /// 是否分组
+        /// 是否包含联合操作
+        /// </summary>
+        public bool IsUnion => UnionItems.Count > 0;
+        /// <summary>
+        /// 是否包含分组操作
         /// </summary>
         public bool IsGroup => GroupByClause.IsGroup;
 
@@ -234,6 +244,7 @@ namespace Util.Datas.Sql.Builders.Core {
             Pager = sqlBuilder.Pager;
             OffsetParam = sqlBuilder.OffsetParam;
             LimitParam = sqlBuilder.LimitParam;
+            UnionItems = sqlBuilder.UnionItems.Select( t => new UnionItem( t.Operation, t.Builder.Clone() ) ).ToList();
         }
 
         #endregion
@@ -253,6 +264,7 @@ namespace Util.Datas.Sql.Builders.Core {
             ClearOrderBy();
             ClearSqlParams();
             ClearPageParams();
+            ClearUnionBuilders();
         }
 
         /// <summary>
@@ -312,6 +324,13 @@ namespace Util.Datas.Sql.Builders.Core {
             Pager = null;
             OffsetParam = null;
             LimitParam = null;
+        }
+
+        /// <summary>
+        /// 清空联合操作项
+        /// </summary>
+        public void ClearUnionBuilders() {
+            UnionItems = new List<UnionItem>();
         }
 
         #endregion
@@ -383,6 +402,37 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 创建Sql语句
         /// </summary>
         protected virtual void CreateSql( StringBuilder result ) {
+            if( IsUnion ) {
+                CreateSqlByUnion( result );
+                return;
+            }
+            CreateSqlByNoUnion( result );
+        }
+
+        /// <summary>
+        /// 创建Sql语句 - 联合
+        /// </summary>
+        protected void CreateSqlByUnion( StringBuilder result ) {
+            result.Append( "(" );
+            AppendSelect( result );
+            AppendFrom( result );
+            AppendSql( result, JoinClause.ToSql() );
+            AppendSql( result, GetWhere() );
+            AppendSql( result, GroupByClause.ToSql() );
+            AppendSql( result, ")" );
+            foreach( var operation in UnionItems ) {
+                AppendSql( result, operation.Operation );
+                AppendSql( result, $"({operation.Builder.ToSql()}" );
+                AppendSql( result, ")" );
+            }
+            AppendSql( result, OrderByClause.ToSql() );
+            AppendLimit( result );
+        }
+
+        /// <summary>
+        /// 创建Sql语句
+        /// </summary>
+        protected void CreateSqlByNoUnion( StringBuilder result ) {
             AppendSelect( result );
             AppendFrom( result );
             AppendSql( result, JoinClause.ToSql() );

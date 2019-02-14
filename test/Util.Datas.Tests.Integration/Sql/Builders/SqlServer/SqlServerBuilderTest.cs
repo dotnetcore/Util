@@ -78,5 +78,88 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             Assert.Equal( 0, _builder.GetParams()["@_p_0"] );
             Assert.Equal( 20, _builder.GetParams()["@_p_1"] );
         }
+
+        /// <summary>
+        /// 测试联合操作
+        /// </summary>
+        [Fact]
+        public void TestUnion_1() {
+            //结果
+            var result = new String();
+            result.AppendLine( "(Select [a],[b] " );
+            result.AppendLine( "From [Test] " );
+            result.AppendLine( "Where [c]=@_p_1 " );
+            result.AppendLine( ") " );
+            result.AppendLine( "Union " );
+            result.AppendLine( "(Select [a],[b] " );
+            result.AppendLine( "From [Test2] " );
+            result.AppendLine( "Where [c]=@_p_0 " );
+            result.Append( ")" );
+
+            //执行
+            var builder2 = _builder.New().Select( "a,b" ).From( "Test2" ).Where( "c", 1 );
+            _builder.Select( "a,b" ).From( "Test" ).Where( "c", 2 ).Union( builder2 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 1, _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 测试联合操作 - 排序
+        /// </summary>
+        [Fact]
+        public void TestUnion_2() {
+            //结果
+            var result = new String();
+            result.AppendLine( "(Select [a],[b] " );
+            result.AppendLine( "From [Test] " );
+            result.AppendLine( "Where [c]=@_p_1 " );
+            result.AppendLine( ") " );
+            result.AppendLine( "Union " );
+            result.AppendLine( "(Select [a],[b] " );
+            result.AppendLine( "From [Test2] " );
+            result.AppendLine( "Where [c]=@_p_0 " );
+            result.AppendLine( ") " );
+            result.Append( "Order By [a]" );
+
+            //执行
+            var builder2 = _builder.New().Select( "a,b" ).From( "Test2" ).Where( "c", 1 );
+            _builder.Select( "a,b" ).From( "Test" ).Where( "c", 2 ).OrderBy( "a" ).Union( builder2 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 1, _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _builder.GetParams()["@_p_1"] );
+        }
+
+        /// <summary>
+        /// 测试联合操作 - 排序 - 联合查询中带排序被过滤
+        /// </summary>
+        [Fact]
+        public void TestUnion_3() {
+            //结果
+            var result = new String();
+            result.AppendLine( "(Select [a],[b] " );
+            result.AppendLine( "From [Test] " );
+            result.AppendLine( "Where [c]=@_p_1 " );
+            result.AppendLine( ") " );
+            result.AppendLine( "Union " );
+            result.AppendLine( "(Select [a],[b] " );
+            result.AppendLine( "From [Test2] " );
+            result.AppendLine( "Where [c]=@_p_0 " );
+            result.AppendLine( ") " );
+            result.Append( "Order By [a]" );
+
+            //执行
+            var builder2 = _builder.New().Select( "a,b" ).From( "Test2" ).Where( "c", 1 ).OrderBy( "b" );
+            _builder.Select( "a,b" ).From( "Test" ).Where( "c", 2 ).OrderBy( "a" ).Union( builder2 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            Assert.Equal( 1, _builder.GetParams()["@_p_0"] );
+            Assert.Equal( 2, _builder.GetParams()["@_p_1"] );
+        }
     }
 }

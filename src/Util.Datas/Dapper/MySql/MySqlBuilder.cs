@@ -57,7 +57,7 @@ namespace Util.Datas.Dapper.MySql {
         /// 创建分页Sql
         /// </summary>
         protected override string CreateLimitSql() {
-            return $"Limit {GetOffsetParam()}, {GetLimitParam()}";
+            return $"Limit {GetLimitParam()} OFFSET {GetOffsetParam()}";
         }
     }
 }

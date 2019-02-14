@@ -6,7 +6,7 @@ namespace Util.Datas.Sql {
     /// <summary>
     /// Sql生成器
     /// </summary>
-    public interface ISqlBuilder : ICondition, ISelect,IFrom,IJoin,IWhere,IGroupBy,IOrderBy {
+    public interface ISqlBuilder : ICondition, ISelect,IFrom,IJoin,IWhere,IGroupBy,IOrderBy, IUnion {
         /// <summary>
         /// 复制Sql生成器
         /// </summary>
@@ -60,6 +60,10 @@ namespace Util.Datas.Sql {
         /// </summary>
         void ClearPageParams();
         /// <summary>
+        /// 清空联合操作项
+        /// </summary>
+        void ClearUnionBuilders();
+        /// <summary>
         /// 添加Sql参数
         /// </summary>
         /// <param name="name">参数名</param>
@@ -69,6 +73,10 @@ namespace Util.Datas.Sql {
         /// 获取Sql参数列表
         /// </summary>
         IReadOnlyDictionary<string, object> GetParams();
+        /// <summary>
+        /// 分页参数
+        /// </summary>
+        IPager Pager { get; }
         /// <summary>
         /// 设置分页
         /// </summary>
@@ -84,9 +92,5 @@ namespace Util.Datas.Sql {
         /// </summary>
         /// <param name="count">获取的行数</param>
         ISqlBuilder Take( int count );
-        /// <summary>
-        /// 分页参数
-        /// </summary>
-        IPager Pager { get; }
     }
 }

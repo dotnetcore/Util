@@ -4,6 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Util.Datas.Sql.Builders;
+using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Sql.Configs;
 using Util.Domains.Repositories;
 using Util.Helpers;
@@ -12,7 +13,7 @@ namespace Util.Datas.Sql.Queries {
     /// <summary>
     /// Sql查询对象
     /// </summary>
-    public abstract class SqlQueryBase : ISqlQuery, IClauseAccessor {
+    public abstract class SqlQueryBase : ISqlQuery, IClauseAccessor, IUnionAccessor {
         /// <summary>
         /// 初始化Sql查询对象
         /// </summary>
@@ -44,7 +45,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// Select子句
         /// </summary>
-        public ISelectClause SelectClause => ((IClauseAccessor)Builder).SelectClause;
+        public ISelectClause SelectClause => ( (IClauseAccessor)Builder ).SelectClause;
         /// <summary>
         /// From子句
         /// </summary>
@@ -65,6 +66,14 @@ namespace Util.Datas.Sql.Queries {
         /// OrderBy子句
         /// </summary>
         public IOrderByClause OrderByClause => ( (IClauseAccessor)Builder ).OrderByClause;
+        /// <summary>
+        /// 是否包含联合操作
+        /// </summary>
+        public bool IsUnion => ( (IUnionAccessor)Builder ).IsUnion;
+        /// <summary>
+        /// 联合操作项集合
+        /// </summary>
+        public List<UnionItem> UnionItems => ( (IUnionAccessor)Builder ).UnionItems;
 
         /// <summary>
         /// 复制Sql查询对象
@@ -279,25 +288,33 @@ namespace Util.Datas.Sql.Queries {
         protected ISqlBuilder GetCountBuilder() {
             var builder = Builder.Clone();
             ClearCountBuilder( builder );
+            if( IsUnion )
+                return GetCountBuilderByUnion( builder );
             if( IsGroup( builder ) )
                 return GetCountBuilderByGroup( builder );
-            return GetCountBuilderByNoGroup( builder );
+            return GetCountBuilder( builder );
         }
 
         /// <summary>
         /// 清理行数Sql生成器
         /// </summary>
         private void ClearCountBuilder( ISqlBuilder builder ) {
-            builder.ClearSelect();
             builder.ClearOrderBy();
             builder.ClearPageParams();
         }
 
         /// <summary>
+        /// 获取行数Sql生成器 - 联合
+        /// </summary>
+        private ISqlBuilder GetCountBuilderByUnion( ISqlBuilder countBuilder ) {
+            return countBuilder.New().Count().From( countBuilder, "t" );
+        }
+
+        /// <summary>
         /// 是否分组
         /// </summary>
-        private bool IsGroup(ISqlBuilder builder ) {
-            if ( builder is IClauseAccessor accessor )
+        private bool IsGroup( ISqlBuilder builder ) {
+            if( builder is IClauseAccessor accessor )
                 return accessor.GroupByClause.IsGroup;
             return false;
         }
@@ -306,13 +323,15 @@ namespace Util.Datas.Sql.Queries {
         /// 获取行数Sql生成器 - 分组
         /// </summary>
         private ISqlBuilder GetCountBuilderByGroup( ISqlBuilder countBuilder ) {
+            countBuilder.ClearSelect();
             return countBuilder.New().Count().From( countBuilder.AppendSelect( "1 As c" ), "t" );
         }
 
         /// <summary>
-        /// 获取行数Sql生成器 - 未分组
+        /// 获取行数Sql生成器
         /// </summary>
-        private ISqlBuilder GetCountBuilderByNoGroup( ISqlBuilder countBuilder ) {
+        private ISqlBuilder GetCountBuilder( ISqlBuilder countBuilder ) {
+            countBuilder.ClearSelect();
             return countBuilder.Count();
         }
     }
