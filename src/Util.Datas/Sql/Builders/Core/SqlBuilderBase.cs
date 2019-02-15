@@ -12,7 +12,7 @@ namespace Util.Datas.Sql.Builders.Core {
     /// <summary>
     /// Sql生成器
     /// </summary>
-    public abstract class SqlBuilderBase : ISqlBuilder, IClauseAccessor, IUnionAccessor {
+    public abstract class SqlBuilderBase : ISqlBuilder, IClauseAccessor, IUnionAccessor, ICteAccessor {
 
         #region 字段
 
@@ -72,7 +72,8 @@ namespace Util.Datas.Sql.Builders.Core {
             EntityResolver = new EntityResolver( matedata );
             AliasRegister = new EntityAliasRegister();
             Pager = new Pager();
-            UnionItems = new List<UnionItem>();
+            UnionItems = new List<BuilderItem>();
+            CteItems = new List<BuilderItem>();
         }
 
         #endregion
@@ -138,7 +139,11 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 联合操作项集合
         /// </summary>
-        public List<UnionItem> UnionItems { get; private set; }
+        public List<BuilderItem> UnionItems { get; private set; }
+        /// <summary>
+        /// 公用表表达式CTE集合
+        /// </summary>
+        public List<BuilderItem> CteItems { get; private set; }
         /// <summary>
         /// 分页
         /// </summary>
@@ -244,7 +249,8 @@ namespace Util.Datas.Sql.Builders.Core {
             Pager = sqlBuilder.Pager;
             OffsetParam = sqlBuilder.OffsetParam;
             LimitParam = sqlBuilder.LimitParam;
-            UnionItems = sqlBuilder.UnionItems.Select( t => new UnionItem( t.Operation, t.Builder.Clone() ) ).ToList();
+            UnionItems = sqlBuilder.UnionItems.Select( t => new BuilderItem( t.Name, t.Builder.Clone() ) ).ToList();
+            CteItems = sqlBuilder.CteItems.Select( t => new BuilderItem( t.Name, t.Builder.Clone() ) ).ToList();
         }
 
         #endregion
@@ -265,6 +271,7 @@ namespace Util.Datas.Sql.Builders.Core {
             ClearSqlParams();
             ClearPageParams();
             ClearUnionBuilders();
+            ClearCte();
         }
 
         /// <summary>
@@ -330,7 +337,14 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 清空联合操作项
         /// </summary>
         public void ClearUnionBuilders() {
-            UnionItems = new List<UnionItem>();
+            UnionItems = new List<BuilderItem>();
+        }
+
+        /// <summary>
+        /// 清空公用表表达式
+        /// </summary>
+        public void ClearCte() {
+            CteItems = new List<BuilderItem>();
         }
 
         #endregion
@@ -402,11 +416,27 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 创建Sql语句
         /// </summary>
         protected virtual void CreateSql( StringBuilder result ) {
+            CreateCte( result );
             if( IsUnion ) {
                 CreateSqlByUnion( result );
                 return;
             }
             CreateSqlByNoUnion( result );
+        }
+
+        /// <summary>
+        /// 创建CTE
+        /// </summary>
+        protected void CreateCte( StringBuilder result ) {
+            if( CteItems.Count == 0 )
+                return;
+            var cte = new StringBuilder();
+            cte.Append( "With " );
+            foreach( var item in CteItems ) {
+                cte.AppendLine( $"{Dialect.SafeName( item.Name )} " );
+                cte.AppendLine( $"As ({item.Builder.ToSql()})," );
+            }
+            result.AppendLine( cte.ToString().RemoveEnd( $",{Common.Line}" ) );
         }
 
         /// <summary>
@@ -421,7 +451,7 @@ namespace Util.Datas.Sql.Builders.Core {
             AppendSql( result, GroupByClause.ToSql() );
             AppendSql( result, ")" );
             foreach( var operation in UnionItems ) {
-                AppendSql( result, operation.Operation );
+                AppendSql( result, operation.Name );
                 AppendSql( result, $"({operation.Builder.ToSql()}" );
                 AppendSql( result, ")" );
             }

@@ -1,22 +1,22 @@
 ﻿namespace Util.Datas.Sql.Builders.Core {
     /// <summary>
-    /// 联合操作项
+    /// Sql生成器操作项
     /// </summary>
-    public class UnionItem {
+    public class BuilderItem {
         /// <summary>
-        /// 初始化联合操作项
+        /// 初始化Sql生成器操作项
         /// </summary>
-        /// <param name="operation">操作</param>
+        /// <param name="name">操作名称</param>
         /// <param name="builder">Sql生成器</param>
-        public UnionItem( string operation, ISqlBuilder builder ) {
-            Operation = operation;
+        public BuilderItem( string name, ISqlBuilder builder ) {
+            Name = name;
             Builder = builder;
         }
 
         /// <summary>
-        /// 操作
+        /// 操作名称
         /// </summary>
-        public string Operation { get; }
+        public string Name { get; }
 
         /// <summary>
         /// Sql生成器

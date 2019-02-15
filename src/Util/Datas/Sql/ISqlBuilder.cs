@@ -6,7 +6,7 @@ namespace Util.Datas.Sql {
     /// <summary>
     /// Sql生成器
     /// </summary>
-    public interface ISqlBuilder : ICondition, ISelect,IFrom,IJoin,IWhere,IGroupBy,IOrderBy, IUnion {
+    public interface ISqlBuilder : ICondition, ISelect,IFrom,IJoin,IWhere,IGroupBy,IOrderBy, IUnion, ICte {
         /// <summary>
         /// 复制Sql生成器
         /// </summary>
@@ -63,6 +63,10 @@ namespace Util.Datas.Sql {
         /// 清空联合操作项
         /// </summary>
         void ClearUnionBuilders();
+        /// <summary>
+        /// 清空公用表表达式
+        /// </summary>
+        void ClearCte();
         /// <summary>
         /// 添加Sql参数
         /// </summary>

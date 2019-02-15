@@ -31,7 +31,7 @@ namespace Util.Datas.Sql {
             foreach( var builder in builders ) {
                 builder.ClearOrderBy();
                 builder.ClearPageParams();
-                accessor.UnionItems.Add( new UnionItem( operation, builder ) );
+                accessor.UnionItems.Add( new BuilderItem( operation, builder ) );
             }
         }
 

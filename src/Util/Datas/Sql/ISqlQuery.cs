@@ -10,7 +10,7 @@ namespace Util.Datas.Sql {
     /// <summary>
     /// Sql查询对象
     /// </summary>
-    public interface ISqlQuery : ISelect, IFrom, IJoin, IWhere, IGroupBy, IOrderBy, IUnion {
+    public interface ISqlQuery : ISelect, IFrom, IJoin, IWhere, IGroupBy, IOrderBy, IUnion, ICte {
         /// <summary>
         /// 复制Sql查询对象
         /// </summary>

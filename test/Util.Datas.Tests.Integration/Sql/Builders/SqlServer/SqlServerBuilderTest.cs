@@ -161,5 +161,51 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             Assert.Equal( 1, _builder.GetParams()["@_p_0"] );
             Assert.Equal( 2, _builder.GetParams()["@_p_1"] );
         }
+
+        /// <summary>
+        /// 测试CTE
+        /// </summary>
+        [Fact]
+        public void TestWith_1() {
+            //结果
+            var result = new String();
+            result.AppendLine( "With [Test] " );
+            result.AppendLine( "As (Select [a],[b] " );
+            result.AppendLine( "From [Test2])" );
+            result.AppendLine( "Select [a],[b] " );
+            result.Append( "From [Test]" );
+
+            //执行
+            var builder2 = _builder.New().Select( "a,b" ).From( "Test2" );
+            _builder.Select( "a,b" ).From( "Test" ).With( "Test", builder2 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 测试CTE - 两个CTE
+        /// </summary>
+        [Fact]
+        public void TestWith_2() {
+            //结果
+            var result = new String();
+            result.AppendLine( "With [Test] " );
+            result.AppendLine( "As (Select [a],[b] " );
+            result.AppendLine( "From [Test2])," );
+            result.AppendLine( "[Test3] " );
+            result.AppendLine( "As (Select [a],[b] " );
+            result.AppendLine( "From [Test3])" );
+            result.AppendLine( "Select [a],[b] " );
+            result.Append( "From [Test]" );
+
+            //执行
+            var builder2 = _builder.New().Select( "a,b" ).From( "Test2" );
+            var builder3 = _builder.New().Select( "a,b" ).From( "Test3" );
+            _builder.Select( "a,b" ).From( "Test" ).With( "Test", builder2 ).With( "Test3", builder3 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
     }
 }

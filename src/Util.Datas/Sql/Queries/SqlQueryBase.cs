@@ -13,7 +13,7 @@ namespace Util.Datas.Sql.Queries {
     /// <summary>
     /// Sql查询对象
     /// </summary>
-    public abstract class SqlQueryBase : ISqlQuery, IClauseAccessor, IUnionAccessor {
+    public abstract class SqlQueryBase : ISqlQuery, IClauseAccessor, IUnionAccessor, ICteAccessor {
         /// <summary>
         /// 初始化Sql查询对象
         /// </summary>
@@ -73,7 +73,11 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 联合操作项集合
         /// </summary>
-        public List<UnionItem> UnionItems => ( (IUnionAccessor)Builder ).UnionItems;
+        public List<BuilderItem> UnionItems => ( (IUnionAccessor)Builder ).UnionItems;
+        /// <summary>
+        /// 公用表表达式CTE集合
+        /// </summary>
+        public List<BuilderItem> CteItems => ( (ICteAccessor)Builder ).CteItems;
 
         /// <summary>
         /// 复制Sql查询对象
