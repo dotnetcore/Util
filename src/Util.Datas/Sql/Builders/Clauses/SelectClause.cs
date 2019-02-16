@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Builders.Internal;
 
 namespace Util.Datas.Sql.Builders.Clauses {
     /// <summary>
@@ -101,7 +102,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         private void Aggregate( string sql ) {
-            _columns.Add( new ColumnCollection( sql, isAggregation:true ) );
+            _columns.Add( new ColumnCollection( sql, isAggregation: true ) );
         }
 
         /// <summary>
@@ -222,7 +223,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
             if( expression == null )
                 return;
             var column = _resolver.GetColumn( expression );
-            if ( string.IsNullOrWhiteSpace( column ) )
+            if( string.IsNullOrWhiteSpace( column ) )
                 return;
             if( column.Contains( "As" ) == false && string.IsNullOrWhiteSpace( columnAlias ) == false )
                 column += $" As {columnAlias}";
@@ -263,6 +264,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public void AppendSql( string sql ) {
             if( string.IsNullOrWhiteSpace( sql ) )
                 return;
+            sql = Helper.ResolveSql( sql, _dialect );
             _columns.Add( new ColumnCollection( sql, raw: true ) );
         }
 

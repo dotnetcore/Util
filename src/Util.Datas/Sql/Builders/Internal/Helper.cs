@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Builders.Conditions;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Configs;
 using Util.Helpers;
 
 namespace Util.Datas.Sql.Builders.Internal {
@@ -200,6 +201,15 @@ namespace Util.Datas.Sql.Builders.Internal {
                 _parameterManager.Add( maxParamName, max );
             }
             return new SegmentCondition( column, minParamName, maxParamName, boundary );
+        }
+
+        /// <summary>
+        /// 解析Sql
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="dialect">Sql方言</param>
+        public static string ResolveSql( string sql, IDialect dialect ) {
+            return sql?.Replace( "[",dialect.OpeningIdentifier ).Replace( "]", dialect.ClosingIdentifier );
         }
     }
 }

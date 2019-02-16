@@ -41,6 +41,16 @@
         }
 
         /// <summary>
+        /// 清空
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery Clear( this ISqlQuery sqlQuery ) {
+            var builder = sqlQuery.GetBuilder();
+            builder.Clear();
+            return sqlQuery;
+        }
+
+        /// <summary>
         /// 清空Select子句
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>

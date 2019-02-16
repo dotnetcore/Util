@@ -4,6 +4,16 @@
     /// </summary>
     public class DialectBase : IDialect {
         /// <summary>
+        /// 起始转义标识符
+        /// </summary>
+        public virtual string OpeningIdentifier { get; } = "[";
+
+        /// <summary>
+        /// 结束转义标识符
+        /// </summary>
+        public virtual string ClosingIdentifier { get; } = "]";
+
+        /// <summary>
         /// 获取安全名称
         /// </summary>
         public virtual string SafeName( string name ) {

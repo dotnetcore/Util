@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Builders.Internal;
 
 namespace Util.Datas.Sql.Builders.Clauses {
     /// <summary>
@@ -109,6 +110,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public void AppendSql( string sql ) {
             if( string.IsNullOrWhiteSpace( sql ) )
                 return;
+            sql = Helper.ResolveSql( sql, _dialect );
             _group.Add( new SqlItem( sql, raw: true ) );
         }
 

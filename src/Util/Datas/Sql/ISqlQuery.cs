@@ -16,14 +16,10 @@ namespace Util.Datas.Sql {
         /// </summary>
         ISqlQuery Clone();
         /// <summary>
-        /// 清空并初始化
-        /// </summary>
-        ISqlQuery Clear();
-        /// <summary>
         /// 配置
         /// </summary>
         /// <param name="configAction">配置操作</param>
-        void Config( Action<SqlQueryOptions> configAction );
+        void Config( Action<SqlOptions> configAction );
         /// <summary>
         /// 获取Sql生成器
         /// </summary>

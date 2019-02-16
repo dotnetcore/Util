@@ -34,15 +34,15 @@ namespace Util.Datas.Dapper {
         /// </summary>
         /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="database">数据库</param>
-        /// <param name="sqlQueryOptions">Sql查询配置</param>
-        protected SqlQuery( ISqlBuilder sqlBuilder, IDatabase database, SqlQueryOptions sqlQueryOptions ) : base( sqlBuilder, database, sqlQueryOptions ) {
+        /// <param name="sqlOptions">Sql配置</param>
+        protected SqlQuery( ISqlBuilder sqlBuilder, IDatabase database, SqlOptions sqlOptions ) : base( sqlBuilder, database, sqlOptions ) {
         }
 
         /// <summary>
         /// 复制Sql查询对象
         /// </summary>
         public override ISqlQuery Clone() {
-            return new SqlQuery( Builder.Clone(),Database, SqlQueryOptions );
+            return new SqlQuery( Builder.Clone(),Database, SqlOptions );
         }
 
         /// <summary>

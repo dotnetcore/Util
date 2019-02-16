@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Builders.Internal;
 using Util.Properties;
 
 namespace Util.Datas.Sql.Builders.Clauses {
@@ -100,6 +101,9 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         public void AppendSql( string sql ) {
+            if( string.IsNullOrWhiteSpace( sql ) )
+                return;
+            sql = Helper.ResolveSql( sql, _dialect );
             _items.Add( new OrderByItem( sql, raw: true ) );
         }
 

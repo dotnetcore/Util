@@ -6,6 +6,7 @@ using System.Text;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Sql.Builders.Extensions;
+using Util.Datas.Sql.Builders.Internal;
 using Util.Helpers;
 
 namespace Util.Datas.Sql.Builders.Clauses {
@@ -165,6 +166,9 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// 添加到连接子句
         /// </summary>
         private void AppendJoin( string joinType, string sql ) {
+            if( string.IsNullOrWhiteSpace( sql ) )
+                return;
+            sql = Helper.ResolveSql( sql, _dialect );
             _params.Add( new JoinItem( joinType, sql, raw: true ) );
         }
 

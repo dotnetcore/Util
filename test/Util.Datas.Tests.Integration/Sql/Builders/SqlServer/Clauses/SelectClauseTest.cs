@@ -31,6 +31,18 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         }
 
         /// <summary>
+        /// 复制副本
+        /// </summary>
+        [Fact]
+        public void TestClone() {
+            _clause.Select( "a" );
+            var copy = _clause.Clone( null, null );
+            copy.Select( "b" );
+            Assert.Equal( "Select [a]", GetSql() );
+            Assert.Equal( "Select [a],[b]", copy.ToSql() );
+        }
+
+        /// <summary>
         /// 设置Distinct
         /// </summary>
         [Fact]
@@ -333,15 +345,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         }
 
         /// <summary>
-        /// 设置列 - 添加select子句，不进行修改
-        /// </summary>
-        [Fact]
-        public void TestSelect_16() {
-            _clause.AppendSql( "a" );
-            Assert.Equal( "Select a", GetSql() );
-        }
-
-        /// <summary>
         /// 设置列
         /// </summary>
         [Fact]
@@ -445,15 +448,21 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         }
 
         /// <summary>
-        /// 复制副本
+        /// 添加select子句
         /// </summary>
         [Fact]
-        public void TestClone_1() {
-            _clause.Select( "a" );
-            var copy = _clause.Clone( null, null );
-            copy.Select( "b" );
-            Assert.Equal( "Select [a]", GetSql() );
-            Assert.Equal( "Select [a],[b]", copy.ToSql() );
+        public void TestAppendSql_1() {
+            _clause.AppendSql( "a" );
+            Assert.Equal( "Select a", GetSql() );
+        }
+
+        /// <summary>
+        /// 添加select子句 - 带方括号
+        /// </summary>
+        [Fact]
+        public void TestAppendSql_2() {
+            _clause.AppendSql( "[a].[b]" );
+            Assert.Equal( "Select [a].[b]", GetSql() );
         }
     }
 }

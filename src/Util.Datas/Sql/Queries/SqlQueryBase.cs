@@ -19,11 +19,24 @@ namespace Util.Datas.Sql.Queries {
         /// </summary>
         /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="database">数据库</param>
-        /// <param name="sqlQueryOptions">Sql查询配置</param>
-        protected SqlQueryBase( ISqlBuilder sqlBuilder, IDatabase database = null, SqlQueryOptions sqlQueryOptions = null ) {
+        /// <param name="sqlOptions">Sql配置</param>
+        protected SqlQueryBase( ISqlBuilder sqlBuilder, IDatabase database = null, SqlOptions sqlOptions = null ) {
             Builder = sqlBuilder ?? throw new ArgumentNullException( nameof( sqlBuilder ) );
             Database = database;
-            SqlQueryOptions = sqlQueryOptions;
+            SqlOptions = sqlOptions ?? GetOptions();
+        }
+
+        /// <summary>
+        /// 获取配置
+        /// </summary>
+        private SqlOptions GetOptions() {
+            try {
+                var options = Ioc.Create<IOptionsSnapshot<SqlOptions>>();
+                return options == null ? new SqlOptions() : options.Value;
+            }
+            catch {
+                return new SqlOptions();
+            }
         }
 
         /// <summary>
@@ -37,7 +50,7 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// Sql查询配置
         /// </summary>
-        protected SqlQueryOptions SqlQueryOptions { get; set; }
+        protected SqlOptions SqlOptions { get; set; }
         /// <summary>
         /// 参数列表
         /// </summary>
@@ -88,41 +101,17 @@ namespace Util.Datas.Sql.Queries {
         /// 配置
         /// </summary>
         /// <param name="configAction">配置操作</param>
-        public void Config( Action<SqlQueryOptions> configAction ) {
-            SqlQueryOptions = new SqlQueryOptions();
-            configAction?.Invoke( SqlQueryOptions );
-        }
-
-        /// <summary>
-        /// 清空并初始化
-        /// </summary>
-        public ISqlQuery Clear() {
-            Builder.Clear();
-            return this;
+        public void Config( Action<SqlOptions> configAction ) {
+            configAction?.Invoke( SqlOptions );
         }
 
         /// <summary>
         /// 在执行之后清空Sql和参数
         /// </summary>
         protected void ClearAfterExecution() {
-            if( SqlQueryOptions == null )
-                SqlQueryOptions = GetConfig();
-            if( SqlQueryOptions.IsClearAfterExecution == false )
+            if( SqlOptions.IsClearAfterExecution == false )
                 return;
-            Clear();
-        }
-
-        /// <summary>
-        /// 获取配置
-        /// </summary>
-        private SqlQueryOptions GetConfig() {
-            try {
-                var options = Ioc.Create<IOptionsSnapshot<SqlQueryOptions>>();
-                return options.Value;
-            }
-            catch {
-                return new SqlQueryOptions();
-            }
+            Builder.Clear();
         }
 
         /// <summary>

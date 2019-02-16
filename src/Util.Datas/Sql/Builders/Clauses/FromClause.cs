@@ -1,6 +1,7 @@
 ﻿using System;
 using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Sql.Builders.Extensions;
+using Util.Datas.Sql.Builders.Internal;
 using Util.Properties;
 
 namespace Util.Datas.Sql.Builders.Clauses {
@@ -117,6 +118,9 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         /// <param name="sql">Sql语句</param>
         public void AppendSql( string sql ) {
+            if( string.IsNullOrWhiteSpace( sql ) )
+                return;
+            sql = Helper.ResolveSql( sql, Dialect );
             if( Table != null && Table.Raw ) {
                 Table = new SqlItem( $"{Table.Name}{sql}", raw: true );
                 return;

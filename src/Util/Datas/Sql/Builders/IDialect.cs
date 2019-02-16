@@ -4,6 +4,14 @@
     /// </summary>
     public interface IDialect {
         /// <summary>
+        /// 起始转义标识符
+        /// </summary>
+        string OpeningIdentifier { get; }
+        /// <summary>
+        /// 结束转义标识符
+        /// </summary>
+        string ClosingIdentifier { get; }
+        /// <summary>
         /// 安全名称
         /// </summary>
         /// <param name="name">名称</param>
