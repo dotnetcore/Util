@@ -1,4 +1,9 @@
-﻿namespace Util.Datas.Sql.Builders.Core {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Util.Helpers;
+
+namespace Util.Datas.Sql.Builders.Core {
     /// <summary>
     /// 名称项，处理名称中包含符号.
     /// </summary>
@@ -10,15 +15,37 @@
         public NameItem( string name ) {
             if( string.IsNullOrWhiteSpace( name ) )
                 return;
-            var list = name.Split( '.' );
-            if( list.Length == 1 ) {
+            var list = IsComplex( name ) ? ResolveByPattern( name ) : ResolveBySplit( name );
+            if( list.Count == 1 ) {
                 Name = list[0];
                 return;
             }
-            if( list.Length == 2 ) {
+            if( list.Count == 2 ) {
                 Prefix = list[0];
                 Name = list[1];
             }
+        }
+
+        /// <summary>
+        /// 是否复杂名称，包含多个句点的名称为复杂名称
+        /// </summary>
+        private bool IsComplex( string name ) {
+            return name.IndexOf( ".",StringComparison.CurrentCulture ) != name.LastIndexOf( ".",StringComparison.CurrentCulture );
+        }
+
+        /// <summary>
+        /// 分割句点
+        /// </summary>
+        private List<string> ResolveBySplit( string name ) {
+            return name.Split( '.' ).ToList();
+        }
+
+        /// <summary>
+        /// 通过正则进行解析
+        /// </summary>
+        private List<string> ResolveByPattern( string name ) {
+            var pattern = "^([\\[`\"]\\S+[\\]`\"]).([\\[`\"]\\S+[\\]`\"])$";
+            return Regex.GetValues( name, pattern, new[] { "$1", "$2" } ).Select( t => t.Value ).ToList();
         }
 
         /// <summary>

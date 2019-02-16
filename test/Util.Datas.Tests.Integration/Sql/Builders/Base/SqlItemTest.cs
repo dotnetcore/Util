@@ -1,7 +1,10 @@
-﻿using Util.Datas.Sql.Builders.Core;
+﻿using Util.Datas.Dapper.MySql;
+using Util.Datas.Dapper.PgSql;
+using Util.Datas.Dapper.SqlServer;
+using Util.Datas.Sql.Builders.Core;
 using Xunit;
 
-namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
+namespace Util.Datas.Tests.Sql.Builders.Base {
     /// <summary>
     /// Sql项测试
     /// </summary>
@@ -32,12 +35,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a", item.Name );
             Assert.Equal( "t", item.Prefix );
             Assert.True( item.Alias.IsEmpty() );
-
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a", copy.Name );
-            Assert.Equal( "t", copy.Prefix );
-            Assert.True( copy.Alias.IsEmpty() );
         }
 
         /// <summary>
@@ -49,12 +46,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a", item.Name );
             Assert.Equal( "t", item.Prefix );
             Assert.True( item.Alias.IsEmpty() );
-
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a", copy.Name );
-            Assert.Equal( "t", copy.Prefix );
-            Assert.True( copy.Alias.IsEmpty() );
         }
 
         /// <summary>
@@ -66,12 +57,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a", item.Name );
             Assert.Equal( "t", item.Prefix );
             Assert.Equal( "b",item.Alias );
-
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a", copy.Name );
-            Assert.Equal( "t", copy.Prefix );
-            Assert.Equal( "b", copy.Alias );
         }
 
         /// <summary>
@@ -83,12 +68,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a", item.Name );
             Assert.True( item.Prefix.IsEmpty() );
             Assert.Equal( "b", item.Alias );
-
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a", copy.Name );
-            Assert.True( copy.Prefix.IsEmpty() );
-            Assert.Equal( "b", copy.Alias );
         }
 
         /// <summary>
@@ -100,12 +79,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a", item.Name );
             Assert.True( item.Prefix.IsEmpty() );
             Assert.Equal( "c", item.Alias );
-
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a", copy.Name );
-            Assert.True( copy.Prefix.IsEmpty() );
-            Assert.Equal( "c", copy.Alias );
         }
 
         /// <summary>
@@ -117,12 +90,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a", item.Name );
             Assert.Equal( "d", item.Prefix );
             Assert.Equal( "c", item.Alias );
-
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a", copy.Name );
-            Assert.Equal( "d", copy.Prefix );
-            Assert.Equal( "c", copy.Alias );
         }
 
         /// <summary>
@@ -134,12 +101,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a", item.Name );
             Assert.True( item.Prefix.IsEmpty() );
             Assert.True( item.Alias.IsEmpty() );
-
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a", copy.Name );
-            Assert.True( copy.Prefix.IsEmpty() );
-            Assert.True( copy.Alias.IsEmpty() );
         }
 
         /// <summary>
@@ -151,12 +112,84 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
             Assert.Equal( "a.b", item.Name );
             Assert.True( item.Prefix.IsEmpty() );
             Assert.True( item.Alias.IsEmpty() );
+        }
 
-            //测试复制副本
-            var copy = item.Clone();
-            Assert.Equal( "a.b", copy.Name );
-            Assert.True( copy.Prefix.IsEmpty() );
-            Assert.True( copy.Alias.IsEmpty() );
+        /// <summary>
+        /// 带双引号
+        /// </summary>
+        [Fact]
+        public void Test_10() {
+            var item = new SqlItem( "\"a\".\"b\"" );
+            Assert.Equal( "\"b\"", item.Name );
+            Assert.Equal( "\"a\"",item.Prefix );
+            Assert.Equal( "[a].[b]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "\"a\".\"b\"", item.ToSql( new PgSqlDialect() ) );
+            Assert.Equal( "`a`.`b`", item.ToSql( new MySqlDialect() ) );
+        }
+
+        /// <summary>
+        /// 带`符号
+        /// </summary>
+        [Fact]
+        public void Test_11() {
+            var item = new SqlItem( "`a`.`b`" );
+            Assert.Equal( "`b`", item.Name );
+            Assert.Equal( "`a`", item.Prefix );
+            Assert.Equal( "[a].[b]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "\"a\".\"b\"", item.ToSql( new PgSqlDialect() ) );
+            Assert.Equal( "`a`.`b`", item.ToSql( new MySqlDialect() ) );
+        }
+
+        /// <summary>
+        /// 带[]符号
+        /// </summary>
+        [Fact]
+        public void Test_12() {
+            var item = new SqlItem( "[a].[b]" );
+            Assert.Equal( "[b]", item.Name );
+            Assert.Equal( "[a]", item.Prefix );
+            Assert.Equal( "[a].[b]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "\"a\".\"b\"", item.ToSql( new PgSqlDialect() ) );
+            Assert.Equal( "`a`.`b`", item.ToSql( new MySqlDialect() ) );
+        }
+
+        /// <summary>
+        /// 带双引号 - 前缀带句点
+        /// </summary>
+        [Fact]
+        public void Test_13() {
+            var item = new SqlItem( "\"a.b\".\"c\"" );
+            Assert.Equal( "\"c\"", item.Name );
+            Assert.Equal( "\"a.b\"", item.Prefix );
+            Assert.Equal( "[a.b].[c]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "\"a.b\".\"c\"", item.ToSql( new PgSqlDialect() ) );
+            Assert.Equal( "`a.b`.`c`", item.ToSql( new MySqlDialect() ) );
+        }
+
+        /// <summary>
+        /// 带`符号 - 前缀带句点
+        /// </summary>
+        [Fact]
+        public void Test_14() {
+            var item = new SqlItem( "`a.b`.`c`" );
+            Assert.Equal( "`c`", item.Name );
+            Assert.Equal( "`a.b`", item.Prefix );
+            Assert.Equal( "[a.b].[c]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "\"a.b\".\"c\"", item.ToSql( new PgSqlDialect() ) );
+            Assert.Equal( "`a.b`.`c`", item.ToSql( new MySqlDialect() ) );
+        }
+
+        /// <summary>
+        /// 带[]符号 - 前缀带句点
+        /// </summary>
+        [Fact]
+        public void Test_15() {
+            var item = new SqlItem( "[a.b].[c]" );
+            Assert.Equal( "[c]", item.Name );
+            Assert.Equal( "[a.b]", item.Prefix );
+            Assert.Equal( "[a.b].[c]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "\"a.b\".\"c\"", item.ToSql( new PgSqlDialect() ) );
+            Assert.Equal( "`a.b`.`c`", item.ToSql( new MySqlDialect() ) );
         }
     }
 }

@@ -398,6 +398,58 @@ namespace Util.Datas.Sql {
         }
 
         /// <summary>
+        /// 设置Exists条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="builder">Sql生成器</param>
+        public static T Exists<T>( this T source, ISqlBuilder builder ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.Exists( builder );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置Exists条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="action">子查询操作</param>
+        public static T Exists<T>( this T source, Action<ISqlBuilder> action ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.Exists( action );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置Not Exists条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="builder">Sql生成器</param>
+        public static T NotExists<T>( this T source, ISqlBuilder builder ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.NotExists( builder );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置Not Exists条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="action">子查询操作</param>
+        public static T NotExists<T>( this T source, Action<ISqlBuilder> action ) where T : IWhere {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.WhereClause.NotExists( action );
+            return source;
+        }
+
+        /// <summary>
         /// 添加范围查询条件
         /// </summary>
         /// <param name="source">源</param>

@@ -12,10 +12,12 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <param name="entityAliasRegister">实体别名注册器</param>
         /// <param name="whereClause">实体别名注册器</param>
         /// <param name="matedata">实体元数据解析器</param>
-        public SqlContext( IEntityAliasRegister entityAliasRegister, IWhereClause whereClause, IEntityMatedata matedata ) {
+        /// <param name="dialect">Sql方言</param>
+        public SqlContext( IEntityAliasRegister entityAliasRegister, IWhereClause whereClause, IEntityMatedata matedata, IDialect dialect ) {
             EntityAliasRegister = entityAliasRegister ?? new EntityAliasRegister();
             Where = whereClause ?? throw new ArgumentNullException( nameof(whereClause) );
             Matedata = matedata;
+            Dialect = dialect;
         }
 
         /// <summary>
@@ -32,5 +34,10 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 实体元数据解析器
         /// </summary>
         public IEntityMatedata Matedata { get; }
+
+        /// <summary>
+        /// Sql方言
+        /// </summary>
+        public IDialect Dialect { get; }
     }
 }

@@ -2,7 +2,7 @@
 using Util.Datas.Sql.Builders.Core;
 using Xunit;
 
-namespace Util.Datas.Tests.Sql.Builders.SqlServer.Base {
+namespace Util.Datas.Tests.Sql.Builders.Base {
     /// <summary>
     /// 表连接项测试
     /// </summary>

@@ -515,7 +515,7 @@ namespace Util.Datas.Sql.Builders.Core {
         /// </summary>
         protected void AddFilters() {
             _isAddFilters = true;
-            var context = new SqlContext( AliasRegister, WhereClause, EntityMatedata );
+            var context = new SqlContext( AliasRegister, WhereClause, EntityMatedata,Dialect );
             SqlFilterCollection.Filters.ForEach( filter => filter.Filter( context ) );
         }
 

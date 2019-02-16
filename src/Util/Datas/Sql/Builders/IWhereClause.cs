@@ -285,6 +285,26 @@ namespace Util.Datas.Sql.Builders {
         /// <param name="action">子查询操作</param>
         void NotIn<TEntity>( Expression<Func<TEntity, object>> expression, Action<ISqlBuilder> action );
         /// <summary>
+        /// 设置Exists条件
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        void Exists( ISqlBuilder builder );
+        /// <summary>
+        /// 设置Exists条件
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        void Exists( Action<ISqlBuilder> action );
+        /// <summary>
+        /// 设置Not Exists条件
+        /// </summary>
+        /// <param name="builder">Sql生成器</param>
+        void NotExists( ISqlBuilder builder );
+        /// <summary>
+        /// 设置Not Exists条件
+        /// </summary>
+        /// <param name="action">子查询操作</param>
+        void NotExists( Action<ISqlBuilder> action );
+        /// <summary>
         /// 添加到Where子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
