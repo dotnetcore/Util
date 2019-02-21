@@ -474,6 +474,7 @@ https://github.com/dotnetcore/util/
   - 微信支付回调 [已发布]
   - 微信APP支付 [已发布]
   - 微信小程序支付 [已发布]
+  - 微信JsApi支付 [已发布]
 
 ## 更新列表
 
@@ -542,3 +543,4 @@ https://github.com/dotnetcore/util/
 - 2018年11月16日，更新了微信小程序支付。
 - 2018年11月18日，更新了基于Quartz.Net的调度器(Util.Schedulers/Quartz)及控制台示例。
 - 2019年1月15日，更新了基于EasyCaching的缓存操作(Util.Caches/EasyCaching)，更新了基于Cap的消息事件总线(Util.Events/Cap)，更新了防重复提交过滤器(Util.Webs/Filters/AntiDuplicateRequestAttribute)。
+- 2019年2月21日，更新微信JsApi支付。

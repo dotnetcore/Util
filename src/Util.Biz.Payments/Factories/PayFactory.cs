@@ -51,6 +51,8 @@ namespace Util.Biz.Payments.Factories {
                     return new WechatpayAppPayService( _wechatpayConfigProvider );
                 case PayWay.WechatpayMiniProgramPay:
                     return new WechatpayMiniProgramPayService( _wechatpayConfigProvider );
+                case PayWay.WechatpayJsApiPay:
+                    return new WechatpayJsApiPayService( _wechatpayConfigProvider );
             }
             throw new NotImplementedException( way.Description() );
         }
@@ -123,6 +125,13 @@ namespace Util.Biz.Payments.Factories {
         /// </summary>
         public IWechatpayMiniProgramPayService CreateWechatpayMiniProgramPayService() {
             return new WechatpayMiniProgramPayService( _wechatpayConfigProvider );
+        }
+
+        /// <summary>
+        /// 创建微信JsApi支付服务
+        /// </summary>
+        public IWechatpayJsApiPayService CreateWechatpayJsApiPayService() {
+            return new WechatpayJsApiPayService( _wechatpayConfigProvider );
         }
     }
 }
