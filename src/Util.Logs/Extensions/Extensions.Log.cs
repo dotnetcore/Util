@@ -124,7 +124,7 @@ namespace Util.Logs.Extensions {
         /// <param name="log">日志操作</param>
         /// <param name="list">键值对列表</param>
         public static ILog SqlParams( this ILog log, IEnumerable<KeyValuePair<string, object>> list ) {
-            if ( list == null )
+            if( list == null )
                 return log;
             var dictionary = list.ToList();
             if( dictionary.Count == 0 )
@@ -163,10 +163,13 @@ namespace Util.Logs.Extensions {
         /// <param name="log">日志操作</param>
         /// <param name="exception">异常</param>
         /// <param name="errorCode">错误码</param>
-        public static ILog Exception( this ILog log, Exception exception, string errorCode = "" ) {
+        public static ILog Exception( this ILog log, Exception exception, string errorCode = null ) {
             if( exception == null )
                 return log;
-            return Exception( log, new Warning( "", errorCode, exception ) );
+            return log.Set<LogContent>( content => {
+                content.Exception = exception;
+                content.ErrorCode = errorCode;
+            } );
         }
 
         /// <summary>
@@ -177,10 +180,7 @@ namespace Util.Logs.Extensions {
         public static ILog Exception( this ILog log, Warning exception ) {
             if( exception == null )
                 return log;
-            return log.Set<LogContent>( content => {
-                content.ErrorCode = exception.Code;
-                content.Exception = exception;
-            } );
+            return Exception( log, exception, exception.Code );
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
+using Exceptionless.Extensions;
+using Util.Exceptions;
 using Util.Logs.Abstractions;
 using Util.Logs.Contents;
 using Util.Logs.Properties;
@@ -30,7 +33,7 @@ namespace Util.Logs.Formats {
         protected virtual string Format( LogContent content ) {
             int line = 1;
             var result = new StringBuilder();
-            Line1( result, content,ref line );
+            Line1( result, content, ref line );
             Line2( result, content, ref line );
             Line3( result, content, ref line );
             Line4( result, content, ref line );
@@ -59,7 +62,7 @@ namespace Util.Logs.Formats {
         /// <summary>
         /// 添加行
         /// </summary>
-        protected void Append( StringBuilder result, LogContent content, Action<StringBuilder, LogContent> action,ref int line ) {
+        protected void Append( StringBuilder result, LogContent content, Action<StringBuilder, LogContent> action, ref int line ) {
             result.AppendFormat( "{0}. ", line++ );
             action( result, content );
         }
@@ -76,7 +79,7 @@ namespace Util.Logs.Formats {
         /// <summary>
         /// 第1行
         /// </summary>
-        protected void Line1( StringBuilder result, LogContent content,ref int line ) {
+        protected void Line1( StringBuilder result, LogContent content, ref int line ) {
             AppendLine( result, content, ( r, c ) => {
                 r.AppendFormat( "{0}: {1} >> ", c.Level, c.LogName );
                 r.AppendFormat( "{0}: {1}   ", LogResource.TraceId, c.TraceId );
@@ -84,7 +87,7 @@ namespace Util.Logs.Formats {
                 if( string.IsNullOrWhiteSpace( c.Duration ) )
                     return;
                 r.AppendFormat( "{0}: {1} ", LogResource.Duration, c.Duration );
-            },ref line );
+            }, ref line );
         }
 
         /// <summary>
@@ -223,9 +226,16 @@ namespace Util.Logs.Formats {
             if( content.Exception == null )
                 return;
             AppendLine( result, content, ( r, c ) => {
-                r.AppendLine( $"{LogResource.Exception}: { GetErrorCode( content.ErrorCode ) }" );
-                r.Append( $"   { c.Exception.Message }" );
+                r.AppendLine( $"{LogResource.Exception}: {GetExceptionTypes( c.Exception )} { GetErrorCode( c.ErrorCode ) }" );
+                r.Append( $"   { Warning.GetMessage( c.Exception ) }" );
             }, ref line );
+        }
+
+        /// <summary>
+        /// 获取异常类型列表
+        /// </summary>
+        private string GetExceptionTypes( Exception exception ) {
+            return Warning.GetExceptions( exception ).Select( t => t.GetType() ).Join();
         }
 
         /// <summary>

@@ -52,5 +52,9 @@ namespace Util.Biz.Payments {
         /// 创建微信小程序支付服务
         /// </summary>
         IWechatpayMiniProgramPayService CreateWechatpayMiniProgramPayService();
+        /// <summary>
+        /// 创建微信JsApi支付服务
+        /// </summary>
+        IWechatpayJsApiPayService CreateWechatpayJsApiPayService();
     }
 }

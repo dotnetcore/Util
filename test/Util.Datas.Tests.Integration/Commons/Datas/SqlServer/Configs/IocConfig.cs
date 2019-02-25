@@ -1,10 +1,9 @@
 ﻿using Autofac;
 using Util.Datas.Dapper;
 using Util.Datas.Dapper.SqlServer;
-using Util.Datas.Matedatas;
 using Util.Datas.Sql;
+using Util.Datas.Sql.Matedatas;
 using Util.Datas.Sql.Queries;
-using Util.Datas.Sql.Queries.Builders.Abstractions;
 using Util.Datas.Tests.Commons.Domains.Repositories;
 using Util.Datas.Tests.Ef.SqlServer.Repositories;
 using Util.Datas.Tests.Ef.SqlServer.Stores;

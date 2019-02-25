@@ -134,8 +134,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Docker
 
 6. SDK及Runtime
-  - 当前SDK 64位版本：[Sdk v2.2.101](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.101-windows-x64-installer)，开发机器安装
-  - 当前Runtime 64位版本：[Runtime v2.2.0](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.0-windows-x64-installer)，服务器安装
+  - 当前SDK 64位版本：[Sdk v2.2.104](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.104-windows-x64-installer)，开发机器安装
+  - 当前Runtime 64位版本：[Runtime v2.2.2](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.2-windows-hosting-bundle-installer)，服务器安装
 
 7. 单元测试及模拟框架
   - XUnit
@@ -474,6 +474,7 @@ https://github.com/dotnetcore/util/
   - 微信支付回调 [已发布]
   - 微信APP支付 [已发布]
   - 微信小程序支付 [已发布]
+  - 微信JsApi支付 [已发布]
 
 ## 更新列表
 
@@ -542,3 +543,4 @@ https://github.com/dotnetcore/util/
 - 2018年11月16日，更新了微信小程序支付。
 - 2018年11月18日，更新了基于Quartz.Net的调度器(Util.Schedulers/Quartz)及控制台示例。
 - 2019年1月15日，更新了基于EasyCaching的缓存操作(Util.Caches/EasyCaching)，更新了基于Cap的消息事件总线(Util.Events/Cap)，更新了防重复提交过滤器(Util.Webs/Filters/AntiDuplicateRequestAttribute)。
+- 2019年2月21日，更新微信JsApi支付。

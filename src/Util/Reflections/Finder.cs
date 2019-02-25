@@ -16,7 +16,7 @@ namespace Util.Reflections {
         /// <summary>
         /// 跳过的程序集
         /// </summary>
-        private const string SkipAssemblies = "^System|^Mscorlib|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Xunit|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted|^libuv|^api-ms|^clrcompression|^clretwrc|^clrjit|^coreclr|^dbgshim|^e_sqlite3|^hostfxr|^hostpolicy|^MessagePack|^mscordaccore|^mscordbi|^mscorrc|sni|sos|SOS.NETCore|^sos_amd64|^SQLitePCLRaw|^StackExchange|^Swashbuckle|WindowsBase|ucrtbase|^DotNetCore.CAP|^MongoDB|^Confluent.Kafka|^EasyCaching|^RabbitMQ|^Consul|^Dapper|^EnyimMemcachedCore|^Pipelines|^DnsClient|^IdentityModel";
+        private const string SkipAssemblies = "^System|^Mscorlib|^msvcr120|^Netstandard|^Microsoft|^Autofac|^AutoMapper|^EntityFramework|^Newtonsoft|^Castle|^NLog|^Pomelo|^AspectCore|^Xunit|^Nito|^Npgsql|^Exceptionless|^MySqlConnector|^Anonymously Hosted|^libuv|^api-ms|^clrcompression|^clretwrc|^clrjit|^coreclr|^dbgshim|^e_sqlite3|^hostfxr|^hostpolicy|^MessagePack|^mscordaccore|^mscordbi|^mscorrc|sni|sos|SOS.NETCore|^sos_amd64|^SQLitePCLRaw|^StackExchange|^Swashbuckle|WindowsBase|ucrtbase|^DotNetCore.CAP|^MongoDB|^Confluent.Kafka|^librdkafka|^EasyCaching|^RabbitMQ|^Consul|^Dapper|^EnyimMemcachedCore|^Pipelines|^DnsClient|^IdentityModel|^zlib";
 
         /// <summary>
         /// 获取程序集列表
@@ -34,8 +34,7 @@ namespace Util.Reflections {
             foreach( string file in Directory.GetFiles( path, "*.dll" ) ) {
                 if( Match( Path.GetFileName( file ) ) == false )
                     continue;
-                var assemblyName = AssemblyName.GetAssemblyName( file );
-                AppDomain.CurrentDomain.Load( assemblyName );
+                LoadAssemblyToAppDomain( file );
             }
         }
 
@@ -47,7 +46,19 @@ namespace Util.Reflections {
                 return false;
             if( assemblyName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.PrecompiledViews" ) )
                 return false;
-            return !Regex.IsMatch( assemblyName, SkipAssemblies, RegexOptions.IgnoreCase | RegexOptions.Compiled );
+            return Regex.IsMatch( assemblyName, SkipAssemblies, RegexOptions.IgnoreCase | RegexOptions.Compiled ) == false;
+        }
+
+        /// <summary>
+        /// 将程序集添加当前应用程序域
+        /// </summary>
+        private void LoadAssemblyToAppDomain( string file ) {
+            try {
+                var assemblyName = AssemblyName.GetAssemblyName( file );
+                AppDomain.CurrentDomain.Load( assemblyName );
+            }
+            catch ( BadImageFormatException ) {
+            }
         }
 
         /// <summary>

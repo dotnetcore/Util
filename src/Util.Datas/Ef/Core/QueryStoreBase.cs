@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Util.Datas.Sql.Queries;
 using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
 using Util.Domains;
@@ -37,7 +36,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// Sql查询对象
         /// </summary>
-        private ISqlQuery _sqlQuery;
+        private Util.Datas.Sql.ISqlQuery _sqlQuery;
 
         /// <summary>
         /// 初始化查询存储器
@@ -65,7 +64,7 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// Sql查询对象
         /// </summary>
-        protected virtual ISqlQuery Sql => _sqlQuery ?? ( _sqlQuery = Ioc.Create<ISqlQuery>() );
+        protected virtual Util.Datas.Sql.ISqlQuery Sql => _sqlQuery ?? ( _sqlQuery = Ioc.Create<Util.Datas.Sql.ISqlQuery>() );
 
         /// <summary>
         /// 获取未跟踪查询对象

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Util.Domains.Repositories;
 using Util.Applications;
-using Util.Datas.Sql.Queries;
+using Util.Datas.Sql;
 using Util.Events;
 using Util.Exceptions;
 using Util.Maps;
@@ -71,9 +71,9 @@ namespace Util.Samples.Webs.Services.Implements.Systems {
         /// <param name="query">查询参数</param>
         public override async Task<PagerList<ApplicationDto>> PagerQueryAsync( ApplicationQuery query ) {
             return await SqlQuery
-                .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled,t.CreationTime }, true )
+                .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled, t.CreationTime }, true )
                 .From<Application>( "a" )
-                .Where<Application>( t => t.Code.Contains( query.Keyword ) )
+                .OrIfNotEmpty<Application>( t => t.Code.Contains( query.Keyword ), t => t.Name.Contains( query.Keyword ) )
                 .ToPagerListAsync<ApplicationDto>( query );
         }
 

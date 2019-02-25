@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Util.Exceptions;
+﻿using System;
+using System.Text;
 using Util.Logs.Abstractions;
 
 namespace Util.Logs.Contents {
@@ -120,6 +120,6 @@ namespace Util.Logs.Contents {
         /// <summary>
         /// 异常
         /// </summary>
-        public Warning Exception { get; set; }
+        public Exception Exception { get; set; }
     }
 }

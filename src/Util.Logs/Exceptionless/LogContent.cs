@@ -31,7 +31,7 @@ namespace Util.Logs.Exceptionless {
                 { new Item(LogResource.Content,Content.ToString(),18) },
                 { new Item(LogResource.Sql,Sql.ToString(),19)  },
                 { new Item(LogResource.SqlParams,SqlParams.ToString(),20) },
-                { new Item(LogResource.ErrorCode,Exception?.Code,21) }
+                { new Item(LogResource.ErrorCode,ErrorCode,21) }
             };
         }
     }

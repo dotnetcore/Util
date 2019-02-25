@@ -24,8 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2012" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
+    <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2022" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,7 +65,7 @@
   <!-- 发布阶段打包 -->
   <Target Name="Publish_RunWebpack" AfterTargets="ComputeFilesToPublish">
     <Message Importance="high" Text="Webpack开始打包..." />
-    <Exec Command="npm run prod" />
+    <!--<Exec Command="npm run prod" />-->
   </Target>
   
 </Project>

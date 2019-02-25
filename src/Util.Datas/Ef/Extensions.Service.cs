@@ -36,6 +36,7 @@ namespace Util.Datas.Ef {
             if( configuration != null )
                 services.Configure<EfConfig>( configuration );
             services.TryAddScoped<TService>( t => t.GetService<TImplementation>() );
+            services.TryAddScoped<IUnitOfWork>( t => t.GetService<TImplementation>() );
             services.AddSqlQuery<TImplementation, TImplementation>( config => {
                 config.DatabaseType = GetDbType<TImplementation>();
                 config.IsClearAfterExecution = efConfig.SqlQuery.IsClearAfterExecution;

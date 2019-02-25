@@ -15,6 +15,10 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// 参数生成器
         /// </summary>
         private readonly ParameterBuilder _builder;
+        /// <summary>
+        /// 签名参数名称
+        /// </summary>
+        private string _signName;
 
         /// <summary>
         /// 配置
@@ -197,6 +201,15 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         }
 
         /// <summary>
+        /// 设置签名参数名称
+        /// </summary>
+        /// <param name="name">参数名称</param>
+        public WechatpayParameterBuilder SignParamName( string name ) {
+            _signName = name;
+            return this;
+        }
+
+        /// <summary>
         /// 获取Xml结果，包含签名
         /// </summary>
         public string ToXml() {
@@ -229,8 +242,17 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// </summary>
         private ParameterBuilder GetSignBuilder() {
             var builder = new ParameterBuilder( _builder );
-            builder.Add( WechatpayConst.Sign, GetSign() );
+            builder.Add( GetSignName(), GetSign() );
             return builder;
+        }
+
+        /// <summary>
+        /// 获取签名参数名称
+        /// </summary>
+        private string GetSignName() {
+            if ( _signName.IsEmpty() )
+                return WechatpayConst.Sign;
+            return _signName;
         }
 
         /// <summary>

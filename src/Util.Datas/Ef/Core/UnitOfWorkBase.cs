@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,16 +10,13 @@ using System.Data;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Util.Datas.Ef.Configs;
 using Util.Datas.UnitOfWorks;
 using Util.Domains.Auditing;
 using Util.Exceptions;
 using Util.Datas.Ef.Logs;
-using Util.Datas.Matedatas;
 using Util.Datas.Sql;
+using Util.Datas.Sql.Matedatas;
 using Util.Datas.Transactions;
 using Util.Helpers;
 using Util.Logs;
@@ -34,6 +34,10 @@ namespace Util.Datas.Ef.Core {
         /// 映射字典
         /// </summary>
         private static readonly ConcurrentDictionary<Type, IEnumerable<IMap>> Maps;
+        /// <summary>
+        /// 日志工厂
+        /// </summary>
+        private static readonly ILoggerFactory LoggerFactory;
 
         #endregion
 
@@ -44,6 +48,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         static UnitOfWorkBase() {
             Maps = new ConcurrentDictionary<Type, IEnumerable<IMap>>();
+            LoggerFactory = new LoggerFactory( new[] { new EfLogProvider() } );
         }
 
         #endregion
@@ -60,30 +65,12 @@ namespace Util.Datas.Ef.Core {
             manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
             Session = Util.Security.Sessions.Session.Instance;
-            Config = GetConfig();
-        }
-
-        /// <summary>
-        /// 获取配置
-        /// </summary>
-        private EfConfig GetConfig() {
-            try {
-                var options = Ioc.Create<IOptionsSnapshot<EfConfig>>();
-                return options.Value;
-            }
-            catch {
-                return new EfConfig { EfLogLevel = EfLogLevel.Sql };
-            }
         }
 
         #endregion
 
         #region 属性
 
-        /// <summary>
-        /// Ef配置
-        /// </summary>
-        protected EfConfig Config { get; }
         /// <summary>
         /// 跟踪号
         /// </summary>
@@ -113,7 +100,8 @@ namespace Util.Datas.Ef.Core {
             if( IsEnabled( log ) == false )
                 return;
             builder.EnableSensitiveDataLogging();
-            builder.UseLoggerFactory( new LoggerFactory( new[] { GetLogProvider( log ) } ) );
+            builder.EnableDetailedErrors();
+            builder.UseLoggerFactory( LoggerFactory );
         }
 
         /// <summary>
@@ -132,7 +120,8 @@ namespace Util.Datas.Ef.Core {
         /// 是否启用Ef日志
         /// </summary>
         private bool IsEnabled( ILog log ) {
-            if( Config.EfLogLevel == EfLogLevel.Off )
+            var config = GetConfig();
+            if( config.EfLogLevel == EfLogLevel.Off )
                 return false;
             if( log.IsTraceEnabled == false )
                 return false;
@@ -140,10 +129,16 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
-        /// 获取日志提供器
+        /// 获取配置
         /// </summary>
-        protected virtual ILoggerProvider GetLogProvider( ILog log ) {
-            return new EfLogProvider( log, TraceId, Config );
+        private EfConfig GetConfig() {
+            try {
+                var options = Ioc.Create<IOptionsSnapshot<EfConfig>>();
+                return options.Value;
+            }
+            catch {
+                return new EfConfig { EfLogLevel = EfLogLevel.Sql };
+            }
         }
 
         #endregion
@@ -240,7 +235,7 @@ namespace Util.Datas.Ef.Core {
         public override async Task<int> SaveChangesAsync( CancellationToken cancellationToken = default( CancellationToken ) ) {
             SaveChangesBefore();
             var transactionActionManager = Ioc.Create<ITransactionActionManager>();
-            if ( transactionActionManager.Count == 0 )
+            if( transactionActionManager.Count == 0 )
                 return await base.SaveChangesAsync( cancellationToken );
             return await TransactionCommit( transactionActionManager, cancellationToken );
         }
@@ -311,7 +306,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         private async Task<int> TransactionCommit( ITransactionActionManager transactionActionManager, CancellationToken cancellationToken ) {
             using( var connection = Database.GetDbConnection() ) {
-                if ( connection.State == ConnectionState.Closed )
+                if( connection.State == ConnectionState.Closed )
                     await connection.OpenAsync( cancellationToken );
                 using( var transaction = connection.BeginTransaction() ) {
                     try {

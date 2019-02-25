@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Util.Datas.Sql.Queries;
+using Util.Datas.Sql;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Dapper {

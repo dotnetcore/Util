@@ -1,27 +1,16 @@
-﻿using Util.Datas.Sql.Queries.Builders.Abstractions;
+﻿using Util.Datas.Sql.Builders.Core;
 
 namespace Util.Datas.Dapper.SqlServer {
     /// <summary>
     /// Sql Server方言
     /// </summary>
-    public class SqlServerDialect : IDialect {
+    public class SqlServerDialect : DialectBase {
         /// <summary>
         /// 获取安全名称
         /// </summary>
-        public string SafeName( string name ) {
-            if( string.IsNullOrWhiteSpace( name ) )
-                return string.Empty;
-            if( name == "*" )
-                return name;
-            name = name.Trim().TrimStart( '[' ).TrimEnd( ']' );
+        /// <param name="name">名称</param>
+        protected override string GetSafeName( string name ) {
             return $"[{name}]";
-        }
-
-        /// <summary>
-        /// 获取参数前缀
-        /// </summary>
-        public string GetPrefix() {
-            return "@";
         }
     }
 }

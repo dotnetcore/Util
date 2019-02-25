@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Util.Datas.Queries.Internal;
 using Util.Domains.Repositories;
 
 namespace Util.Datas.Ef {
@@ -20,7 +21,28 @@ namespace Util.Datas.Ef {
                 throw new ArgumentNullException( nameof( source ) );
             if( pager == null )
                 throw new ArgumentNullException( nameof( pager ) );
-            return new PagerList<TEntity>( pager, await source.Page( pager ).ToListAsync() );
+            source = await source.PageAsync( pager );
+            return new PagerList<TEntity>( pager, await source.ToListAsync() );
+        }
+
+        /// <summary>
+        /// 分页，包含排序
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="source">数据源</param>
+        /// <param name="pager">分页对象</param>
+        public static async Task<IQueryable<TEntity>> PageAsync<TEntity>( this IQueryable<TEntity> source, IPager pager ) {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( pager == null )
+                throw new ArgumentNullException( nameof( pager ) );
+            Helper.InitOrder( source, pager );
+            if( pager.TotalCount <= 0 )
+                pager.TotalCount = await source.CountAsync();
+            var orderedQueryable = Helper.GetOrderedQueryable( source, pager );
+            if( orderedQueryable == null )
+                throw new ArgumentException( "必须设置排序字段" );
+            return orderedQueryable.Skip( pager.GetSkipCount() ).Take( pager.PageSize );
         }
     }
 }

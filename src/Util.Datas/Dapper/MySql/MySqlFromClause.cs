@@ -1,7 +1,7 @@
-﻿using Util.Datas.Sql.Queries;
-using Util.Datas.Sql.Queries.Builders.Abstractions;
-using Util.Datas.Sql.Queries.Builders.Clauses;
-using Util.Datas.Sql.Queries.Builders.Core;
+﻿using Util.Datas.Sql;
+using Util.Datas.Sql.Builders;
+using Util.Datas.Sql.Builders.Clauses;
+using Util.Datas.Sql.Builders.Core;
 
 namespace Util.Datas.Dapper.MySql {
     /// <summary>
@@ -33,9 +33,10 @@ namespace Util.Datas.Dapper.MySql {
         /// <summary>
         /// 复制From子句
         /// </summary>
+        /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
-        public override IFromClause Clone( IEntityAliasRegister register ) {
-            return new MySqlFromClause( Builder, Dialect, Resolver, register, Table );
+        public override IFromClause Clone( ISqlBuilder builder, IEntityAliasRegister register ) {
+            return new MySqlFromClause( builder, Dialect, Resolver, register, Table );
         }
     }
 }
