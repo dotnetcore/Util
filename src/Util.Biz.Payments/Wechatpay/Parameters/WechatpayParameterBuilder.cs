@@ -43,7 +43,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
             param.Init();
             AppId( Config.AppId ).MerchantId( Config.MerchantId ).SignType( Config.SignType.Description() )
                 .Add( "nonce_str", Id.Guid() ).SpbillCreateIp( Web.Ip ).Body( param.Subject ).OutTradeNo( param.OrderId )
-                .TotalFee( param.Money ).NotifyUrl( param.NotifyUrl ).Attach( param.Attach ).OpenId( param.OpenId );
+                .TotalFee( param.Money ).NotifyUrl( param.NotifyUrl ).Attach( param.Attach );
         }
 
         /// <summary>

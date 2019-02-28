@@ -31,6 +31,25 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         }
 
         /// <summary>
+        /// 复制
+        /// </summary>
+        [Fact]
+        public void TestClone() {
+            _clause.Join( "b" );
+            _clause.On( "a.A", "b.B" );
+
+            //复制副本
+            var copy = _clause.Clone( null, null );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", copy.ToSql() );
+
+            //修改副本
+            copy.On( "a.C", "b.D" );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
+            Assert.Equal( "Join [b] On [a].[A]=[b].[B] And [a].[C]=[b].[D]", copy.ToSql() );
+        }
+
+        /// <summary>
         /// 表连接
         /// </summary>
         [Fact]
@@ -525,23 +544,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             Assert.Equal( result.ToString(), GetSql() );
         }
 
-        /// <summary>
-        /// 复制
-        /// </summary>
-        [Fact]
-        public void TestClone_1() {
-            _clause.Join( "b" );
-            _clause.On( "a.A","b.B" );
-
-            //复制副本
-            var copy = _clause.Clone( null, null );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", copy.ToSql() );
-
-            //修改副本
-            copy.On( "a.C","b.D" );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B] And [a].[C]=[b].[D]", copy.ToSql() );
-        }
+        
     }
 }

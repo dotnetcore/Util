@@ -80,10 +80,11 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="alias">别名</param>
         /// <param name="schema">架构名</param>
         public void From<TEntity>( string alias = null, string schema = null ) where TEntity : class {
-            var entity = typeof( TEntity );
-            var table = Resolver.GetTableAndSchema( entity );
+            var type = typeof( TEntity );
+            var table = Resolver.GetTableAndSchema( type );
             Table = CreateSqlItem( table, schema, alias );
-            Register.Register( entity, Resolver.GetAlias( entity, alias ) );
+            Register.Register( type, Resolver.GetAlias( type, alias ) );
+            Register.FromType = type;
         }
 
         /// <summary>

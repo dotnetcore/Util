@@ -191,8 +191,8 @@ namespace Util.Security.Identity.Services.Implements {
         /// 生成电子邮件确认令牌
         /// </summary>
         /// <param name="user">用户</param>
-        public Task<string> GenerateEmailConfirmationTokenAsync( TUser user ) {
-            return Manager.GenerateEmailConfirmationTokenAsync( user );
+        public async Task<string> GenerateEmailConfirmationTokenAsync( TUser user ) {
+            return await Manager.GenerateEmailConfirmationTokenAsync( user );
         }
 
         /// <summary>
@@ -213,8 +213,8 @@ namespace Util.Security.Identity.Services.Implements {
         /// 生成电子邮件重置密码令牌
         /// </summary>
         /// <param name="user">用户</param>
-        public Task<string> GenerateEmailPasswordResetTokenAsync( TUser user ) {
-            return Manager.GenerateUserTokenAsync( user, TokenOptions.DefaultProvider, UserManager<TUser>.ResetPasswordTokenPurpose );
+        public async Task<string> GenerateEmailPasswordResetTokenAsync( TUser user ) {
+            return await Manager.GenerateUserTokenAsync( user, TokenOptions.DefaultProvider, UserManager<TUser>.ResetPasswordTokenPurpose );
         }
 
         /// <summary>
@@ -236,8 +236,8 @@ namespace Util.Security.Identity.Services.Implements {
         /// 生成手机号重置密码令牌
         /// </summary>
         /// <param name="user">用户</param>
-        public Task<string> GeneratePhonePasswordResetTokenAsync( TUser user ) {
-            return Manager.GenerateUserTokenAsync( user, TokenOptions.DefaultPhoneProvider, UserManager<TUser>.ResetPasswordTokenPurpose );
+        public async Task<string> GeneratePhonePasswordResetTokenAsync( TUser user ) {
+            return await Manager.GenerateUserTokenAsync( user, TokenOptions.DefaultPhoneProvider, UserManager<TUser>.ResetPasswordTokenPurpose );
         }
 
         /// <summary>
@@ -274,24 +274,24 @@ namespace Util.Security.Identity.Services.Implements {
         /// 通过用户名查找
         /// </summary>
         /// <param name="userName">用户名</param>
-        public Task<TUser> FindByNameAsync( string userName ) {
-            return Manager.FindByNameAsync( userName );
+        public async Task<TUser> FindByNameAsync( string userName ) {
+            return await Manager.FindByNameAsync( userName );
         }
 
         /// <summary>
         /// 通过电子邮件查找
         /// </summary>
         /// <param name="email">电子邮件</param>
-        public Task<TUser> FindByEmailAsync( string email ) {
-            return Manager.FindByEmailAsync( email );
+        public async Task<TUser> FindByEmailAsync( string email ) {
+            return await Manager.FindByEmailAsync( email );
         }
 
         /// <summary>
         /// 通过手机号查找
         /// </summary>
         /// <param name="phoneNumber">手机号</param>
-        public Task<TUser> FindByPhoneAsync( string phoneNumber ) {
-            return UserRepository.SingleAsync( t => t.PhoneNumber == phoneNumber );
+        public async Task<TUser> FindByPhoneAsync( string phoneNumber ) {
+            return await UserRepository.SingleAsync( t => t.PhoneNumber == phoneNumber );
         }
 
         #endregion

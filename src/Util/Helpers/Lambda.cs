@@ -186,9 +186,9 @@ namespace Util.Helpers {
                 case ExpressionType.LessThan:
                 case ExpressionType.GreaterThanOrEqual:
                 case ExpressionType.LessThanOrEqual:
-                    var result = GetValue( ( (BinaryExpression)expression ).Right );
-                    if ( result != null )
-                        return result;
+                    var hasParameter = HasParameter( ( (BinaryExpression)expression ).Left );
+                    if( hasParameter )
+                        return GetValue( ( (BinaryExpression)expression ).Right );
                     return GetValue( ( (BinaryExpression)expression ).Left );
                 case ExpressionType.Call:
                     return GetMethodCallExpressionValue( expression );
@@ -202,6 +202,23 @@ namespace Util.Helpers {
                     return null;
             }
             return null;
+        }
+
+        /// <summary>
+        /// 是否包含参数，用于检测是属性，而不是值
+        /// </summary>
+        private static bool HasParameter( Expression expression ) {
+            if( expression == null )
+                return false;
+            switch( expression.NodeType ) {
+                case ExpressionType.Convert:
+                    return HasParameter( ( (UnaryExpression)expression ).Operand );
+                case ExpressionType.MemberAccess:
+                    return HasParameter( ( (MemberExpression)expression ).Expression );
+                case ExpressionType.Parameter:
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>

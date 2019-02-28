@@ -394,6 +394,10 @@ namespace Util.Tests.Helpers {
 
             expression = t => t.NullableDecimalValue == 1.5M;
             Assert.Equal( 1.5M, Lambda.GetValue( expression ) );
+
+            var sample = new Sample();
+            expression = t => t.BoolValue == sample.NullableBoolValue;
+            Assert.Null( Lambda.GetValue( expression ) );
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Extensions.Options;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Filters;
 using Util.Datas.Sql.Matedatas;
@@ -418,6 +417,8 @@ namespace Util.Datas.Sql.Builders.Core {
         /// </summary>
         protected virtual void CreateSql( StringBuilder result ) {
             CreateCte( result );
+            if( _isAddFilters == false )
+                AddFilters();
             if( IsUnion ) {
                 CreateSqlByUnion( result );
                 return;
@@ -448,7 +449,7 @@ namespace Util.Datas.Sql.Builders.Core {
             AppendSelect( result );
             AppendFrom( result );
             AppendSql( result, JoinClause.ToSql() );
-            AppendSql( result, GetWhere() );
+            AppendSql( result, WhereClause.ToSql() );
             AppendSql( result, GroupByClause.ToSql() );
             AppendSql( result, ")" );
             foreach( var operation in UnionItems ) {
@@ -467,7 +468,7 @@ namespace Util.Datas.Sql.Builders.Core {
             AppendSelect( result );
             AppendFrom( result );
             AppendSql( result, JoinClause.ToSql() );
-            AppendSql( result, GetWhere() );
+            AppendSql( result, WhereClause.ToSql() );
             AppendSql( result, GroupByClause.ToSql() );
             AppendSql( result, OrderByClause.ToSql() );
             AppendLimit( result );
@@ -503,20 +504,11 @@ namespace Util.Datas.Sql.Builders.Core {
         }
 
         /// <summary>
-        /// 获取Where语句
-        /// </summary>
-        public virtual string GetWhere() {
-            if( _isAddFilters == false )
-                AddFilters();
-            return WhereClause.ToSql();
-        }
-
-        /// <summary>
         /// 添加过滤器列表
         /// </summary>
         protected void AddFilters() {
             _isAddFilters = true;
-            var context = new SqlContext( AliasRegister, WhereClause, EntityMatedata,Dialect );
+            var context = new SqlContext( Dialect, AliasRegister, EntityMatedata, ParameterManager, this );
             SqlFilterCollection.Filters.ForEach( filter => filter.Filter( context ) );
         }
 

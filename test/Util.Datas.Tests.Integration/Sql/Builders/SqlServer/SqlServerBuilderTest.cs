@@ -2,6 +2,7 @@
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Queries;
 using Util.Datas.Sql;
+using Util.Datas.Tests.Samples;
 using Util.Datas.Tests.XUnitHelpers;
 using Util.Properties;
 using Xunit;
@@ -205,6 +206,26 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             _builder.Select( "a,b" ).From( "Test" ).With( "Test", builder2 ).With( "Test3", builder3 );
 
             //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 测试逻辑删除过滤器 - 内连接
+        /// </summary>
+        [Fact]
+        public void TestIsDeletedFilter_1() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [s].[StringValue] " );
+            result.AppendLine( "From [Sample5] As [s] " );
+            result.AppendLine( "Join [Sample2] As [s2] On [s].[IntValue]=[s2].[IntValue] " );
+            result.Append( "Where [s].[IsDeleted]=@_p_0" );
+
+            //执行
+            _builder.Select<Sample5>( t => t.StringValue ).From<Sample5>( "s" ).Join<Sample2>( "s2" ).On<Sample5, Sample2>( ( l, r ) => l.IntValue == r.IntValue );
+
+            //验证
+            _output.WriteLine( _builder.ToSql() );
             Assert.Equal( result.ToString(), _builder.ToSql() );
         }
     }

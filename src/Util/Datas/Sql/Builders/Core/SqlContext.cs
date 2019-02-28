@@ -9,16 +9,23 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 初始化Sql执行上下文
         /// </summary>
-        /// <param name="entityAliasRegister">实体别名注册器</param>
-        /// <param name="whereClause">实体别名注册器</param>
-        /// <param name="matedata">实体元数据解析器</param>
         /// <param name="dialect">Sql方言</param>
-        public SqlContext( IEntityAliasRegister entityAliasRegister, IWhereClause whereClause, IEntityMatedata matedata, IDialect dialect ) {
+        /// <param name="entityAliasRegister">实体别名注册器</param>
+        /// <param name="matedata">实体元数据解析器</param>
+        /// <param name="parameterManager">参数管理器</param>
+        /// <param name="clause">Sql子句访问器</param>
+        public SqlContext( IDialect dialect, IEntityAliasRegister entityAliasRegister, IEntityMatedata matedata, IParameterManager parameterManager, IClauseAccessor clause ) {
             EntityAliasRegister = entityAliasRegister ?? new EntityAliasRegister();
-            Where = whereClause ?? throw new ArgumentNullException( nameof(whereClause) );
-            Matedata = matedata;
+            Matedata = matedata ?? new DefaultEntityMatedata();
             Dialect = dialect;
+            ParameterManager = parameterManager;
+            ClauseAccessor = clause ?? throw new ArgumentNullException( nameof( clause ) );
         }
+
+        /// <summary>
+        /// Sql方言
+        /// </summary>
+        public IDialect Dialect { get; }
 
         /// <summary>
         /// 实体别名注册器
@@ -26,18 +33,18 @@ namespace Util.Datas.Sql.Builders.Core {
         public IEntityAliasRegister EntityAliasRegister { get; }
 
         /// <summary>
-        /// Where子句
-        /// </summary>
-        public IWhereClause Where { get; }
-
-        /// <summary>
         /// 实体元数据解析器
         /// </summary>
         public IEntityMatedata Matedata { get; }
 
         /// <summary>
-        /// Sql方言
+        /// 参数管理器
         /// </summary>
-        public IDialect Dialect { get; }
+        public IParameterManager ParameterManager { get; }
+
+        /// <summary>
+        /// Sql子句访问器
+        /// </summary>
+        public IClauseAccessor ClauseAccessor { get; }
     }
 }

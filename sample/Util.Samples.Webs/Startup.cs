@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Util.Caches.EasyCaching;
 using Util.Datas.Ef;
+using Util.Events.Cap;
 using Util.Events.Default;
 using Util.Locks.Default;
 using Util.Logs.Extensions;

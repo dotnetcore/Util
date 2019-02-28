@@ -112,10 +112,10 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// 表连接
         /// </summary>
         private void Join<TEntity>( string joinType, string alias, string schema ) {
-            var entity = typeof( TEntity );
-            var table = _resolver.GetTableAndSchema( entity );
+            var type = typeof( TEntity );
+            var table = _resolver.GetTableAndSchema( type );
             _params.Add( CreateJoinItem( joinType, table, schema, alias ) );
-            _register.Register( entity, _resolver.GetAlias( entity, alias ) );
+            _register.Register( type, _resolver.GetAlias( type, alias ) );
         }
 
         /// <summary>

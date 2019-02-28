@@ -9,6 +9,11 @@ namespace Util.Datas.Tests.Sql.Builders.Samples {
     /// </summary>
     public class TestEntityAliasRegister : IEntityAliasRegister {
         /// <summary>
+        /// From子句设置的实体类型
+        /// </summary>
+        public Type FromType { get; set; }
+
+        /// <summary>
         /// 实体别名
         /// </summary>
         public IDictionary<Type, string> Data { get; }

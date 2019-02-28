@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Util.Helpers;
+using Util.Sessions;
 using Util.Validations;
 
 namespace Util.Domains {
@@ -87,6 +89,11 @@ namespace Util.Domains {
         protected virtual TKey CreateId() {
             return Util.Helpers.Convert.To<TKey>( Guid.NewGuid() );
         }
+
+        /// <summary>
+        /// 用户会话
+        /// </summary>
+        protected virtual ISession Session => Ioc.Create<ISession>();
 
         /// <summary>
         /// 验证
