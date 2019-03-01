@@ -26,53 +26,53 @@ namespace Util.Datas.Sql {
         /// <summary>
         /// 清空并初始化
         /// </summary>
-        void Clear();
+        ISqlBuilder Clear();
         /// <summary>
         /// 清空Select子句
         /// </summary>
-        void ClearSelect();
+        ISqlBuilder ClearSelect();
         /// <summary>
         /// 清空From子句
         /// </summary>
-        void ClearFrom();
+        ISqlBuilder ClearFrom();
         /// <summary>
         /// 清空Join子句
         /// </summary>
-        void ClearJoin();
+        ISqlBuilder ClearJoin();
         /// <summary>
         /// 清空Where子句
         /// </summary>
-        void ClearWhere();
+        ISqlBuilder ClearWhere();
         /// <summary>
         /// 清空GroupBy子句
         /// </summary>
-        void ClearGroupBy();
+        ISqlBuilder ClearGroupBy();
         /// <summary>
         /// 清空OrderBy子句
         /// </summary>
-        void ClearOrderBy();
+        ISqlBuilder ClearOrderBy();
         /// <summary>
         /// 清空Sql参数
         /// </summary>
-        void ClearSqlParams();
+        ISqlBuilder ClearSqlParams();
         /// <summary>
         /// 清空分页参数
         /// </summary>
-        void ClearPageParams();
+        ISqlBuilder ClearPageParams();
         /// <summary>
         /// 清空联合操作项
         /// </summary>
-        void ClearUnionBuilders();
+        ISqlBuilder ClearUnionBuilders();
         /// <summary>
         /// 清空公用表表达式
         /// </summary>
-        void ClearCte();
+        ISqlBuilder ClearCte();
         /// <summary>
         /// 添加Sql参数
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
-        void AddParam( string name, object value );
+        ISqlBuilder AddParam( string name, object value );
         /// <summary>
         /// 获取Sql参数列表
         /// </summary>

@@ -357,7 +357,12 @@ namespace Util {
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
         public static Expression Call( this Expression instance, string methodName, params Expression[] values ) {
-            return Expression.Call( instance, instance.Type.GetTypeInfo().GetMethod( methodName ), values );
+            if( instance == null )
+                throw new ArgumentNullException( nameof( instance ) );
+            var methodInfo = instance.Type.GetMethod( methodName );
+            if ( methodInfo == null )
+                return null;
+            return Expression.Call( instance, methodInfo, values );
         }
 
         /// <summary>
@@ -367,9 +372,14 @@ namespace Util {
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
         public static Expression Call( this Expression instance, string methodName, params object[] values ) {
+            if( instance == null )
+                throw new ArgumentNullException( nameof( instance ) );
+            var methodInfo = instance.Type.GetMethod( methodName );
+            if( methodInfo == null )
+                return null;
             if( values == null || values.Length == 0 )
-                return Expression.Call( instance, instance.Type.GetTypeInfo().GetMethod( methodName ) );
-            return Expression.Call( instance, instance.Type.GetTypeInfo().GetMethod( methodName ), values.Select( Expression.Constant ) );
+                return Expression.Call( instance, methodInfo );
+            return Expression.Call( instance, methodInfo, values.Select( Expression.Constant ) );
         }
 
         /// <summary>
@@ -380,9 +390,14 @@ namespace Util {
         /// <param name="paramTypes">参数类型列表</param>
         /// <param name="values">参数值列表</param>
         public static Expression Call( this Expression instance, string methodName, Type[] paramTypes, params object[] values ) {
+            if( instance == null )
+                throw new ArgumentNullException( nameof( instance ) );
+            var methodInfo = instance.Type.GetMethod( methodName, paramTypes );
+            if( methodInfo == null )
+                return null;
             if( values == null || values.Length == 0 )
-                return Expression.Call( instance, instance.Type.GetTypeInfo().GetMethod( methodName, paramTypes ) );
-            return Expression.Call( instance, instance.Type.GetTypeInfo().GetMethod( methodName, paramTypes ), values.Select( Expression.Constant ) );
+                return Expression.Call( instance, methodInfo );
+            return Expression.Call( instance, methodInfo, values.Select( Expression.Constant ) );
         }
 
         #endregion
@@ -414,7 +429,7 @@ namespace Util {
         /// <param name="body">表达式</param>
         /// <param name="parameters">参数列表</param>
         public static Expression<TDelegate> ToLambda<TDelegate>( this Expression body, params ParameterExpression[] parameters ) {
-            if ( body == null )
+            if( body == null )
                 return null;
             return Expression.Lambda<TDelegate>( body, parameters );
         }

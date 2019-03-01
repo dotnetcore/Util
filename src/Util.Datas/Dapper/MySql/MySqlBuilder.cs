@@ -50,7 +50,7 @@ namespace Util.Datas.Dapper.MySql {
         /// 创建Join子句
         /// </summary>
         protected override IJoinClause CreateJoinClause() {
-            return new MySqlJoinClause( this, GetDialect(), EntityResolver, AliasRegister );
+            return new MySqlJoinClause( this, GetDialect(), EntityResolver, AliasRegister, ParameterManager );
         }
 
         /// <summary>

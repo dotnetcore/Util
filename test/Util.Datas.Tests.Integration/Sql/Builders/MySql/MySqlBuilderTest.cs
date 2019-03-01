@@ -69,12 +69,12 @@ namespace Util.Datas.Tests.Sql.Builders.MySql {
             var result = new String();
             result.AppendLine( "Select `a3`.`a`,`a1`.`b1`,`a2`.`b2` " );
             result.AppendLine( "From `b` As `a2` " );
-            result.Append( "Join `t.c` As `a3` On `a2`.`d`=`a3`.`e`" );
+            result.Append( "Join `t.c` As `a3` On `a2`.`d`=@_p_0" );
 
             //执行
             _builder.Select( "a,a1.b1,`a2.b2`", "a3" )
                 .From( "b", "a2" )
-                .Join( "t.c", "a3" ).On( "a2.d", "a3.e" );
+                .Join( "t.c", "a3" ).On( "a2.d", "e" );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );

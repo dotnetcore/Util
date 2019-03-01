@@ -191,7 +191,7 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 创建Join子句
         /// </summary>
         protected virtual IJoinClause CreateJoinClause() {
-            return new JoinClause( this, Dialect, EntityResolver, AliasRegister );
+            return new JoinClause( this, Dialect, EntityResolver, AliasRegister, ParameterManager );
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace Util.Datas.Sql.Builders.Core {
             AliasRegister = sqlBuilder.AliasRegister?.Clone() ?? new EntityAliasRegister();
             _selectClause = sqlBuilder._selectClause?.Clone( this, AliasRegister );
             _fromClause = sqlBuilder._fromClause?.Clone( this, AliasRegister );
-            _joinClause = sqlBuilder._joinClause?.Clone( this, AliasRegister );
+            _joinClause = sqlBuilder._joinClause?.Clone( this, AliasRegister, _parameterManager );
             _whereClause = sqlBuilder._whereClause?.Clone( this, AliasRegister, _parameterManager );
             _groupByClause = sqlBuilder._groupByClause?.Clone( AliasRegister );
             _orderByClause = sqlBuilder._orderByClause?.Clone( AliasRegister );
@@ -260,7 +260,7 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 清空
         /// </summary>
-        public void Clear() {
+        public ISqlBuilder Clear() {
             AliasRegister = new EntityAliasRegister();
             ClearSelect();
             ClearFrom();
@@ -272,79 +272,90 @@ namespace Util.Datas.Sql.Builders.Core {
             ClearPageParams();
             ClearUnionBuilders();
             ClearCte();
+            return this;
         }
 
         /// <summary>
         /// 清空Select子句
         /// </summary>
-        public void ClearSelect() {
+        public ISqlBuilder ClearSelect() {
             _selectClause = CreateSelectClause();
+            return this;
         }
 
         /// <summary>
         /// 清空From子句
         /// </summary>
-        public void ClearFrom() {
+        public ISqlBuilder ClearFrom() {
             _fromClause = CreateFromClause();
+            return this;
         }
 
         /// <summary>
         /// 清空Join子句
         /// </summary>
-        public void ClearJoin() {
+        public ISqlBuilder ClearJoin() {
             _joinClause = CreateJoinClause();
+            return this;
         }
 
         /// <summary>
         /// 清空Where子句
         /// </summary>
-        public void ClearWhere() {
+        public ISqlBuilder ClearWhere() {
             _isAddFilters = false;
             _whereClause = CreatewWhereClause();
+            return this;
         }
 
         /// <summary>
         /// 清空GroupBy子句
         /// </summary>
-        public void ClearGroupBy() {
+        public ISqlBuilder ClearGroupBy() {
             _groupByClause = CreateGroupByClause();
+            return this;
         }
 
         /// <summary>
         /// 清空OrderBy子句
         /// </summary>
-        public void ClearOrderBy() {
+        public ISqlBuilder ClearOrderBy() {
             _orderByClause = CreateOrderByClause();
+            return this;
         }
 
         /// <summary>
         /// 清空Sql参数
         /// </summary>
-        public void ClearSqlParams() {
+        public ISqlBuilder ClearSqlParams() {
             _parameterManager.Clear();
+            return this;
         }
 
         /// <summary>
         /// 清空分页参数
         /// </summary>
-        public void ClearPageParams() {
+        public ISqlBuilder ClearPageParams() {
             Pager = null;
             OffsetParam = null;
             LimitParam = null;
+            return this;
         }
 
         /// <summary>
         /// 清空联合操作项
         /// </summary>
-        public void ClearUnionBuilders() {
+        public ISqlBuilder ClearUnionBuilders() {
             UnionItems = new List<BuilderItem>();
+            return this;
         }
 
         /// <summary>
         /// 清空公用表表达式
         /// </summary>
-        public void ClearCte() {
+        public ISqlBuilder ClearCte() {
             CteItems = new List<BuilderItem>();
+            return this;
         }
 
         #endregion
@@ -534,8 +545,9 @@ namespace Util.Datas.Sql.Builders.Core {
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
-        public void AddParam( string name, object value ) {
+        public ISqlBuilder AddParam( string name, object value ) {
             ParameterManager.Add( name, value );
+            return this;
         }
 
         #endregion

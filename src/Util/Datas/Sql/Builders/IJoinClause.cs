@@ -12,7 +12,13 @@ namespace Util.Datas.Sql.Builders {
         /// </summary>
         /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
-        IJoinClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register );
+        /// <param name="parameterManager">参数管理器</param>
+        IJoinClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register, IParameterManager parameterManager );
+        /// <summary>
+        /// 查找连接项
+        /// </summary>
+        /// <param name="type">表实体类型</param>
+        IJoinOn Find( Type type );
         /// <summary>
         /// 内连接
         /// </summary>
@@ -103,10 +109,15 @@ namespace Util.Datas.Sql.Builders {
         /// <summary>
         /// 设置连接条件
         /// </summary>
-        /// <param name="left">左表列名</param>
-        /// <param name="right">右表列名</param>
-        /// <param name="operator">条件运算符</param>
-        void On( string left, string right, Operator @operator = Operator.Equal );
+        /// <param name="condition">连接条件</param>
+        void On( ICondition condition );
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        /// <param name="operator">运算符</param>
+        void On( string column, object value, Operator @operator = Operator.Equal );
         /// <summary>
         /// 设置连接条件
         /// </summary>
@@ -119,6 +130,11 @@ namespace Util.Datas.Sql.Builders {
         /// </summary>
         /// <param name="expression">条件表达式</param>
         void On<TLeft, TRight>( Expression<Func<TLeft, TRight, bool>> expression ) where TLeft : class where TRight : class;
+        /// <summary>
+        /// 添加到On子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        void AppendOn( string sql );
         /// <summary>
         /// 输出Sql
         /// </summary>

@@ -429,12 +429,12 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a] " );
             result.AppendLine( "From [b] " );
-            result.Append( "Join [c] As [d] On [b].[Id]<>[c].[Id]" );
+            result.Append( "Join [c] As [d] On [b].[Id]<>@_p_0" );
 
             //执行
             _builder.Select( "a" )
                 .From( "b" )
-                .Join( "c", "d" ).On( "b.Id", "c.Id", Operator.NotEqual );
+                .Join( "c", "d" ).On( "b.Id", "c", Operator.NotEqual );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );

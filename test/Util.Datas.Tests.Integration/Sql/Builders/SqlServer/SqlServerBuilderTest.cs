@@ -210,7 +210,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
         }
 
         /// <summary>
-        /// 测试逻辑删除过滤器 - 内连接
+        /// 测试逻辑删除过滤器 - From子句的逻辑删除添加到Where中
         /// </summary>
         [Fact]
         public void TestIsDeletedFilter_1() {
@@ -223,6 +223,54 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
 
             //执行
             _builder.Select<Sample5>( t => t.StringValue ).From<Sample5>( "s" ).Join<Sample2>( "s2" ).On<Sample5, Sample2>( ( l, r ) => l.IntValue == r.IntValue );
+
+            //验证
+            _output.WriteLine( _builder.ToSql() );
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 测试逻辑删除过滤器 - Join子句的逻辑删除添加到Join中
+        /// </summary>
+        [Fact]
+        public void TestIsDeletedFilter_2() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [s].[StringValue] " );
+            result.AppendLine( "From [Sample5] As [s] " );
+            result.AppendLine( "Join [Sample6] As [s2] On [s].[IntValue]=[s2].[IntValue] And [s2].[IsDeleted]=@_p_1 " );
+            result.Append( "Where [s].[IsDeleted]=@_p_0" );
+
+            //执行
+            _builder.Select<Sample5>( t => t.StringValue )
+                .From<Sample5>( "s" )
+                .Join<Sample6>( "s2" ).On<Sample5, Sample6>( ( l, r ) => l.IntValue == r.IntValue );
+
+            //验证
+            _output.WriteLine( _builder.ToSql() );
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 测试逻辑删除过滤器 - Join子句的逻辑删除添加到Join中 - 多个Join
+        /// </summary>
+        [Fact]
+        public void TestIsDeletedFilter_3() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [s5].[StringValue] " );
+            result.AppendLine( "From [Sample5] As [s5] " );
+            result.AppendLine( "Join [Sample6] As [s6] On [s5].[IntValue]=[s6].[IntValue] And [s6].[IsDeleted]=@_p_1 " );
+            result.AppendLine( "Left Join [Sample7] As [s7] On [s6].[IntValue]=[s7].[IntValue] And [s7].[IsDeleted]=@_p_2 " );
+            result.AppendLine( "Right Join [Sample8] As [s8] On [s7].[IntValue]=[s8].[IntValue] And [s8].[IsDeleted]=@_p_3 " );
+            result.Append( "Where [s5].[IsDeleted]=@_p_0" );
+
+            //执行
+            _builder.Select<Sample5>( t => t.StringValue )
+                .From<Sample5>( "s5" )
+                .Join<Sample6>( "s6" ).On<Sample5, Sample6>( ( l, r ) => l.IntValue == r.IntValue )
+                .LeftJoin<Sample7>( "s7" ).On<Sample6, Sample7>( ( l, r ) => l.IntValue == r.IntValue )
+                .RightJoin<Sample8>( "s8" ).On<Sample7, Sample8>( ( l, r ) => l.IntValue == r.IntValue );
 
             //验证
             _output.WriteLine( _builder.ToSql() );
