@@ -59,7 +59,8 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
         public virtual IFromClause Clone( ISqlBuilder builder, IEntityAliasRegister register ) {
-            register.FromType = Register.FromType;
+            if( register != null )
+                register.FromType = Register.FromType;
             return new FromClause( builder, Dialect, Resolver, register, TableDatabase, Table );
         }
 

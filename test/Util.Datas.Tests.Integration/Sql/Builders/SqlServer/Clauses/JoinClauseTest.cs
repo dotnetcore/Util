@@ -31,7 +31,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         public JoinClauseTest() {
             _parameterManager = new ParameterManager( new SqlServerDialect() );
             _database = new TestTableDatabase();
-            _clause = new JoinClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager, _database );
+            _clause = new JoinClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager, null );
         }
 
         /// <summary>

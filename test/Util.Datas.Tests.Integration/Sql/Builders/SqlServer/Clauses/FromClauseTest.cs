@@ -24,7 +24,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         public FromClauseTest() {
             _database = new TestTableDatabase();
-            _clause = new FromClause( null, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _database );
+            _clause = new FromClause( null, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), null );
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestFrom_13() {
-            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister(), _database );
+            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister(), null );
             _clause.From<Sample>();
             var result = _clause.ToSql();
             Assert.Equal( "From [s].[t_Sample]", result );
@@ -171,7 +171,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestFrom_14() {
-            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister(), _database );
+            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister(), null );
             _clause.From<Sample>( "a" );
             var result = _clause.ToSql();
             Assert.Equal( "From [s].[t_Sample] As [a]", result );

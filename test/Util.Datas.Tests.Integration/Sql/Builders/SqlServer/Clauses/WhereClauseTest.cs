@@ -45,7 +45,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         public WhereClauseTest() {
             _parameterManager = new ParameterManager( new SqlServerDialect() );
             _database = new TestTableDatabase();
-            _builder = new SqlServerBuilder( new TestEntityMatedata(), _database, _parameterManager );
+            _builder = new SqlServerBuilder( new TestEntityMatedata(), null, _parameterManager );
             _clause = new WhereClause( _builder, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
         }
 
