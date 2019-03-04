@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Builders.Conditions;
 using Util.Datas.Sql.Builders.Internal;
+using Util.Datas.Sql.Matedatas;
 
 namespace Util.Datas.Sql.Builders.Core {
     /// <summary>
@@ -133,8 +134,8 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 获取Join语句
         /// </summary>
-        public string ToSql( IDialect dialect = null ) {
-            var table = Table.ToSql( dialect );
+        public string ToSql( IDialect dialect = null, ITableDatabase tableDatabase=null ) {
+            var table = Table.ToSql( dialect, tableDatabase );
             return $"{JoinType} {table}{GetOn()}";
         }
 

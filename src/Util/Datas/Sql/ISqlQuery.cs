@@ -12,6 +12,11 @@ namespace Util.Datas.Sql {
     /// </summary>
     public interface ISqlQuery : ISelect, IFrom, IJoin, IWhere, IGroupBy, IOrderBy, IUnion, ICte {
         /// <summary>
+        /// 设置数据库连接
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        ISqlQuery SetConnection( IDbConnection connection );
+        /// <summary>
         /// 复制Sql查询对象
         /// </summary>
         ISqlQuery Clone();

@@ -3,6 +3,7 @@ using Util.Datas.Sql;
 using Util.Datas.Sql.Builders;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Matedatas;
 
 namespace Util.Datas.Dapper.MySql {
     /// <summary>
@@ -17,8 +18,10 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体注册器</param>
         /// <param name="parameterManager">参数管理器</param>
-        public MySqlJoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, IParameterManager parameterManager )
-            : base( sqlBuilder, dialect, resolver, register, parameterManager ) {
+        /// <param name="tableDatabase">表数据库</param>
+        public MySqlJoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, 
+            IParameterManager parameterManager, ITableDatabase tableDatabase )
+            : base( sqlBuilder, dialect, resolver, register, parameterManager, tableDatabase ) {
         }
 
         /// <summary>

@@ -64,7 +64,16 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// Sql查询对象
         /// </summary>
-        protected virtual Util.Datas.Sql.ISqlQuery Sql => _sqlQuery ?? ( _sqlQuery = Ioc.Create<Util.Datas.Sql.ISqlQuery>() );
+        protected Util.Datas.Sql.ISqlQuery Sql => _sqlQuery ?? ( _sqlQuery = CreateSqlQuery() );
+
+        /// <summary>
+        /// 创建Sql查询对象
+        /// </summary>
+        protected virtual Util.Datas.Sql.ISqlQuery CreateSqlQuery() {
+            var result = Ioc.Create<Util.Datas.Sql.ISqlQuery>();
+            result.SetConnection( Connection );
+            return result;
+        }
 
         /// <summary>
         /// 获取未跟踪查询对象

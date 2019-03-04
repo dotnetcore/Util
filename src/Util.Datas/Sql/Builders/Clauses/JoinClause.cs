@@ -8,6 +8,7 @@ using Util.Datas.Sql.Builders.Conditions;
 using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Sql.Builders.Extensions;
 using Util.Datas.Sql.Builders.Internal;
+using Util.Datas.Sql.Matedatas;
 using Util.Helpers;
 
 namespace Util.Datas.Sql.Builders.Clauses {
@@ -48,6 +49,10 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         private readonly IParameterManager _parameterManager;
         /// <summary>
+        /// 表数据库
+        /// </summary>
+        protected ITableDatabase TableDatabase;
+        /// <summary>
         /// 辅助操作
         /// </summary>
         private readonly Helper _helper;
@@ -64,13 +69,16 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
         /// <param name="parameterManager">参数管理器</param>
+        /// <param name="tableDatabase">表数据库</param>
         /// <param name="joinItems">连接参数列表</param>
-        public JoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, IParameterManager parameterManager, List<JoinItem> joinItems = null ) {
+        public JoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, 
+            IParameterManager parameterManager, ITableDatabase tableDatabase, List<JoinItem> joinItems = null ) {
             _sqlBuilder = sqlBuilder;
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
             _parameterManager = parameterManager;
+            TableDatabase = tableDatabase;
             _helper = new Helper( dialect, resolver, register, parameterManager );
             _params = joinItems ?? new List<JoinItem>();
         }
@@ -83,7 +91,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="parameterManager">参数管理器</param>
         public virtual IJoinClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register, IParameterManager parameterManager ) {
             var helper = new Helper( _dialect, _resolver, register, parameterManager );
-            return new JoinClause( sqlBuilder, _dialect, _resolver, register, parameterManager, _params.Select( t => t.Clone( helper ) ).ToList() );
+            return new JoinClause( sqlBuilder, _dialect, _resolver, register, parameterManager, TableDatabase, _params.Select( t => t.Clone( helper ) ).ToList() );
         }
 
         /// <summary>
@@ -390,7 +398,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public string ToSql() {
             var result = new StringBuilder();
             _params.ForEach( item => {
-                result.AppendLine( $"{item.ToSql( _dialect )} " );
+                result.AppendLine( $"{item.ToSql( _dialect, TableDatabase )} " );
             } );
             return result.ToString().Trim();
         }

@@ -143,7 +143,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestOrderBy_12() {
-            _clause.OrderBy( "a.[b] DESC" );
+            _clause.OrderBy( "a.b DESC" );
             _clause.OrderBy<Sample>( t => t.Email,true );
             _clause.OrderBy( "c,D.e desc" );
             _clause.AppendSql( "f" );

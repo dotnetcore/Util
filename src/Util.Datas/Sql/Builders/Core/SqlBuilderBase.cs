@@ -65,9 +65,11 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 初始化Sql生成器
         /// </summary>
         /// <param name="matedata">实体元数据解析器</param>
+        /// <param name="tableDatabase">表数据库</param>
         /// <param name="parameterManager">参数管理器</param>
-        protected SqlBuilderBase( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) {
+        protected SqlBuilderBase( IEntityMatedata matedata = null,ITableDatabase tableDatabase = null, IParameterManager parameterManager = null ) {
             EntityMatedata = matedata;
+            TableDatabase = tableDatabase;
             _parameterManager = parameterManager;
             EntityResolver = new EntityResolver( matedata );
             AliasRegister = new EntityAliasRegister();
@@ -84,6 +86,10 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 实体元数据解析器
         /// </summary>
         protected IEntityMatedata EntityMatedata { get; private set; }
+        /// <summary>
+        /// 表数据库
+        /// </summary>
+        protected ITableDatabase TableDatabase { get; private set; }
         /// <summary>
         /// 实体解析器
         /// </summary>
@@ -184,14 +190,14 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 创建From子句
         /// </summary>
         protected virtual IFromClause CreateFromClause() {
-            return new FromClause( this, Dialect, EntityResolver, AliasRegister );
+            return new FromClause( this, Dialect, EntityResolver, AliasRegister, TableDatabase );
         }
 
         /// <summary>
         /// 创建Join子句
         /// </summary>
         protected virtual IJoinClause CreateJoinClause() {
-            return new JoinClause( this, Dialect, EntityResolver, AliasRegister, ParameterManager );
+            return new JoinClause( this, Dialect, EntityResolver, AliasRegister, ParameterManager,TableDatabase );
         }
 
         /// <summary>

@@ -42,7 +42,9 @@ namespace Util.Datas.Dapper {
         /// 复制Sql查询对象
         /// </summary>
         public override ISqlQuery Clone() {
-            return new SqlQuery( Builder.Clone(),Database, SqlOptions );
+            var result = new SqlQuery( Builder.Clone(),Database, SqlOptions );
+            result.SetConnection( Connection );
+            return result;
         }
 
         /// <summary>

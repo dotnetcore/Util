@@ -340,7 +340,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_15() {
-            _clause.Select( "t.[a]    As     [e]      ,        b aS          f ", "d" );
+            _clause.Select( "t.a    As     [e]      ,        b aS          f ", "d" );
             Assert.Equal( "Select [t].[a] As [e],[d].[b] As [f]", GetSql() );
         }
 
@@ -349,7 +349,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestSelect_17() {
-            _clause.Select( "a.[b],c,[d]", "o" );
+            _clause.Select( "a.b,c,d", "o" );
             _clause.AppendSql( "e=1," );
             _clause.Select( "f" );
             _clause.AppendSql( "g" );

@@ -27,6 +27,10 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         private readonly ParameterManager _parameterManager;
         /// <summary>
+        /// 表数据库
+        /// </summary>
+        private readonly TestTableDatabase _database;
+        /// <summary>
         /// Sql生成器
         /// </summary>
         private readonly SqlServerBuilder _builder;
@@ -40,7 +44,8 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         public WhereClauseTest() {
             _parameterManager = new ParameterManager( new SqlServerDialect() );
-            _builder = new SqlServerBuilder( new TestEntityMatedata(), _parameterManager );
+            _database = new TestTableDatabase();
+            _builder = new SqlServerBuilder( new TestEntityMatedata(), _database, _parameterManager );
             _clause = new WhereClause( _builder, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
         }
 

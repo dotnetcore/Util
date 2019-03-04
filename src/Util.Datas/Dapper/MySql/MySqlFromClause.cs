@@ -2,6 +2,7 @@
 using Util.Datas.Sql.Builders;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Matedatas;
 
 namespace Util.Datas.Dapper.MySql {
     /// <summary>
@@ -15,9 +16,10 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体别名注册器</param>
+        /// <param name="tableDatabase">表数据库</param>
         /// <param name="table">表</param>
-        public MySqlFromClause( ISqlBuilder builder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, SqlItem table = null )
-            : base( builder, dialect, resolver, register, table ) {
+        public MySqlFromClause( ISqlBuilder builder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, ITableDatabase tableDatabase, SqlItem table = null )
+            : base( builder, dialect, resolver, register, tableDatabase, table ) {
         }
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
         public override IFromClause Clone( ISqlBuilder builder, IEntityAliasRegister register ) {
-            return new MySqlFromClause( builder, Dialect, Resolver, register, Table );
+            return new MySqlFromClause( builder, Dialect, Resolver, register, TableDatabase, Table );
         }
     }
 }

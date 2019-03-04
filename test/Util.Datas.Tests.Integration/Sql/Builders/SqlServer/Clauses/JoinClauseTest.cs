@@ -3,6 +3,7 @@ using Util.Datas.Queries;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Tests.Samples;
+using Util.Datas.Tests.Sql.Builders.Samples;
 using Util.Helpers;
 using Xunit;
 
@@ -16,6 +17,10 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         private readonly ParameterManager _parameterManager;
         /// <summary>
+        /// 表数据库
+        /// </summary>
+        private readonly TestTableDatabase _database;
+        /// <summary>
         /// Join子句
         /// </summary>
         private readonly JoinClause _clause;
@@ -25,7 +30,8 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         public JoinClauseTest() {
             _parameterManager = new ParameterManager( new SqlServerDialect() );
-            _clause = new JoinClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager );
+            _database = new TestTableDatabase();
+            _clause = new JoinClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager, _database );
         }
 
         /// <summary>

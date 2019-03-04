@@ -72,7 +72,7 @@ namespace Util.Datas.Tests.Sql.Builders.MySql {
             result.Append( "Join `t.c` As `a3` On `a2`.`d`=@_p_0" );
 
             //执行
-            _builder.Select( "a,a1.b1,`a2.b2`", "a3" )
+            _builder.Select( "a,a1.b1,a2.b2", "a3" )
                 .From( "b", "a2" )
                 .Join( "t.c", "a3" ).On( "a2.d", "e" );
 
