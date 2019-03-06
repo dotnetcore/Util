@@ -42,7 +42,7 @@ namespace Util.Events.Cap {
         /// <param name="name">消息名称</param>
         /// <param name="data">事件数据</param>
         /// <param name="callback">回调名称</param>
-        public Task PublishAsync( string name, object data, string callback ) {
+        public Task PublishAsync( string name, object data, string callback = null ) {
             TransactionActionManager.Register( async transaction => {
                 Publisher.Transaction.DbTransaction = transaction;
                 Publisher.Transaction.AutoCommit = false;

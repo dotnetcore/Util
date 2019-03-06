@@ -241,6 +241,22 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public abstract Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func, IPager parameter, IDbConnection connection = null );
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract Task<List<TResult>> ToListAsync<TResult>( string sql, IDbConnection connection = null );
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="page">页数</param>
+        /// <param name="pageSize">每页显示行数</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract Task<PagerList<TResult>> ToPagerListAsync<TResult>( string sql, int page, int pageSize, IDbConnection connection = null );
 
         /// <summary>
         /// 查询

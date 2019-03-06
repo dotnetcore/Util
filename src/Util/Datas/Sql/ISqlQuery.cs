@@ -94,6 +94,13 @@ namespace Util.Datas.Sql {
         /// <param name="connection">数据库连接</param>
         Task<List<TResult>> ToListAsync<TResult>( IDbConnection connection = null );
         /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="connection">数据库连接</param>
+        Task<List<TResult>> ToListAsync<TResult>( string sql, IDbConnection connection = null );
+        /// <summary>
         /// 获取分页列表
         /// </summary>
         /// <typeparam name="TResult">返回结果类型</typeparam>
@@ -123,5 +130,14 @@ namespace Util.Datas.Sql {
         /// <param name="pageSize">每页显示行数</param>
         /// <param name="connection">数据库连接</param>
         Task<PagerList<TResult>> ToPagerListAsync<TResult>( int page, int pageSize, IDbConnection connection = null );
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="page">页数</param>
+        /// <param name="pageSize">每页显示行数</param>
+        /// <param name="connection">数据库连接</param>
+        Task<PagerList<TResult>> ToPagerListAsync<TResult>( string sql, int page, int pageSize, IDbConnection connection = null );
     }
 }

@@ -18,3 +18,6 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Webs/yarn-error.log
 /sample/Util.Samples.Webs/package-lock.json
 /sample/Util.Samples.Webs/Properties/PublishProfiles/FolderProfile.pubxml.user
+/sample/Util.Samples.Webs.AntDesign.Angular/node_modules
+/sample/Util.Samples.Webs.AntDesign.Angular/wwwroot/dist
+/sample/Util.Samples.Webs.AntDesign.Angular/yarn.lock
