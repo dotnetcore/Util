@@ -4,7 +4,6 @@ import { NotFoundComponent } from './home/not-found.component';
 
 //路由配置
 const routes: Routes = [
-    { path: '', redirectTo: '/systems/application', pathMatch: 'full' },
     { path: '**', component: NotFoundComponent }
 ];
 

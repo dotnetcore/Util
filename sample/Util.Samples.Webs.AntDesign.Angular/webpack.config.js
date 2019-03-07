@@ -27,7 +27,8 @@ module.exports = (env) => {
         devtool: "source-map",
         module: {
             rules: [
-                { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular-router-loader'] : [] }
+                { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular-router-loader'] : [] },
+                { test: /\.html$/, use: 'html-loader?minimize=false' }
             ]
         },
         plugins: [
