@@ -68,7 +68,7 @@ namespace Util.Samples {
 
             //添加Swagger
             services.AddSwaggerGen( options => {
-                options.SwaggerDoc( "v1", new Info { Title = "Util Web Api Demo", Version = "v1" } );
+                options.SwaggerDoc( "v1", new Info { Title = "Util Api Demo", Version = "v1" } );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.xml" ) );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Webs.xml" ) );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.Webs.xml" ) );
@@ -101,7 +101,7 @@ namespace Util.Samples {
             app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
                 HotModuleReplacement = true
             } );
-            app.UseSwaggerX();
+            //app.UseSwaggerX();
             CommonConfig( app );
         }
 
@@ -130,8 +130,6 @@ namespace Util.Samples {
         /// </summary>
         private void ConfigRoute( IApplicationBuilder app ) {
             app.UseMvc( routes => {
-                routes.MapRoute( "areaRoute", "view/{area:exists}/{controller}/{action=Index}/{id?}" );
-                routes.MapRoute( "default", "{controller=Home}/{action=Index}/{id?}" );
                 routes.MapSpaFallbackRoute( "spa-fallback", new { controller = "Home", action = "Index" } );
             } );
         }

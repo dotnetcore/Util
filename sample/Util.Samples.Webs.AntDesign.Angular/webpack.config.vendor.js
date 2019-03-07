@@ -4,6 +4,7 @@ var Extract = require("extract-text-webpack-plugin");
 
 //第三方Js库
 const jsModules = [
+    'reflect-metadata',
     'zone.js',
     '@angular/animations',
     '@angular/common',
@@ -42,8 +43,10 @@ module.exports = (env) => {
         mode: mode,
         entry: { vendor: jsModules },
         output: {
+            publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
-            filename: "vendor.js"
+            filename: "[name].js",
+            library: '[name]'
         },
         resolve: {
             extensions: ['.js']
@@ -62,6 +65,7 @@ module.exports = (env) => {
         mode: mode,
         entry: { vendor: cssModules },
         output: {
+            publicPath: './',
             path: getPath("wwwroot/dist"),
             filename: "[name].css"
         },

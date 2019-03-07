@@ -9,6 +9,13 @@
     <RootNamespace>Util.Samples</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Areas\**" />
+    <Content Remove="Areas\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <None Remove="Areas\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
@@ -33,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Apis\" />
-    <Folder Include="Areas\" />
   </ItemGroup>
 
 
