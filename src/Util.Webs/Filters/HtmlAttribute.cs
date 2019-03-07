@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -135,7 +136,13 @@ namespace Util.Webs.Filters {
         /// </summary>
         protected virtual string GetPath( ResultExecutingContext context ) {
             if (context.ActionDescriptor is PageActionDescriptor pageActionDescriptor) {
-                return Template.Replace("{action}", pageActionDescriptor.ViewEnginePath.TrimStart('/')).ToLower();
+                var paths = pageActionDescriptor.ViewEnginePath.TrimStart('/').Split('/');
+                if (paths.Length >= 3) {
+                    return Template.Replace("{area}", paths[0])
+                        .Replace("{controller}", paths[1])
+                        .Replace("{action}", JoinActionUrl(paths));
+                }
+                return string.Empty;
             }
             var area = context.RouteData.Values["area"].SafeString();
             var controller = context.RouteData.Values["controller"].SafeString();
@@ -144,6 +151,18 @@ namespace Util.Webs.Filters {
             return path.ToLower();
         }
 
-        
+        /// <summary>
+        /// 拼接Action地址
+        /// </summary>
+        /// <param name="paths">路径</param>
+        /// <returns></returns>
+        private string JoinActionUrl(string[] paths) {
+            var result = new StringBuilder();
+            for (var i = 2; i < paths.Length; i++) {
+                result.Append(paths[i]);
+                result.Append("/");
+            }
+            return result.ToString().TrimEnd('/');
+        }
     }
 }

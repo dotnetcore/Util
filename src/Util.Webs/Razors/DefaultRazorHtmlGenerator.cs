@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -122,8 +123,7 @@ namespace Util.Webs.Razors {
         /// <param name="info">路由信息</param>
         /// <returns></returns>
         protected virtual string GetPath( RouteInformation info ) {
-            if (!info.IsPageRoute)
-            {
+            if (!info.IsPageRoute) {
                 var area = info.AreaName.SafeString();
                 var controller = info.ControllerName.SafeString();
                 var action = info.ActionName.SafeString();
@@ -131,9 +131,32 @@ namespace Util.Webs.Razors {
                 return path.ToLower();
             }
 
-            return string.IsNullOrWhiteSpace(info.Path)
-                ? info.TemplatePath.Replace("{action}", info.Path).ToLower()
-                : info.FilePath.ToLower();
+            if (!string.IsNullOrWhiteSpace(info.FilePath)) {
+                return info.FilePath.ToLower();
+            }
+            var paths = info.Path.TrimStart('/').Split('/');
+            if (paths.Length >= 3) {
+                return info.TemplatePath.Replace("{area}", paths[0])
+                    .Replace("{controller}", paths[1])
+                    .Replace("{action}", JoinActionUrl(paths));
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 拼接Action地址
+        /// </summary>
+        /// <param name="paths">路径</param>
+        /// <returns></returns>
+        private string JoinActionUrl(string[] paths)
+        {
+            var result = new StringBuilder();
+            for (var i = 2; i < paths.Length; i++)
+            {
+                result.Append(paths[i]);
+                result.Append("/");
+            }
+            return result.ToString().TrimEnd('/');
         }
 
         /// <summary>
