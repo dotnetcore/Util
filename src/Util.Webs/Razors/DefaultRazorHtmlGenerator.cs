@@ -44,25 +44,49 @@ namespace Util.Webs.Razors {
         }
 
         /// <summary>
-        /// 渲染视图为字符串
+        /// 渲染Action视图为字符串
         /// </summary>
         /// <param name="info">路由信息</param>
         /// <returns></returns>
-        public async Task<string> RenderToStringAsync( RouteInformation info ) {
+        private async Task<string> RenderActionViewToStringAsync(RouteInformation info) {
             var razorViewEngine = Ioc.Create<IRazorViewEngine>();
             var tempDataProvider = Ioc.Create<ITempDataProvider>();
             var serviceProvider = Ioc.Create<IServiceProvider>();
             var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
-            var actionContext = new ActionContext( httpContext, GetRouteData( info ), new ActionDescriptor() );
-            var viewResult = GetView( razorViewEngine, actionContext, info );
-            if( !viewResult.Success ) {
-                throw new InvalidOperationException( $"找不到视图模板 {info.ActionName}" );
+            var actionContext = new ActionContext(httpContext, GetRouteData(info), new ActionDescriptor());
+            var viewResult = GetView(razorViewEngine, actionContext, info);
+            if (!viewResult.Success) {
+                throw new InvalidOperationException($"找不到视图模板 {info.ActionName}");
             }
-            using( var stringWriter = new StringWriter() ) {
-                var viewDictionary = new ViewDataDictionary( new EmptyModelMetadataProvider(), new ModelStateDictionary() );
-                var viewContext = new ViewContext( actionContext, viewResult.View, viewDictionary, new TempDataDictionary( actionContext.HttpContext, tempDataProvider ), stringWriter, new HtmlHelperOptions() );
-                await viewResult.View.RenderAsync( viewContext );
+            using (var stringWriter = new StringWriter()) {
+                var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
+                var viewContext = new ViewContext(actionContext, viewResult.View, viewDictionary, new TempDataDictionary(actionContext.HttpContext, tempDataProvider), stringWriter, new HtmlHelperOptions());
+                await viewResult.View.RenderAsync(viewContext);
                 return stringWriter.ToString();
+            }
+        }
+
+        /// <summary>
+        /// 渲染页面视图为字符串
+        /// </summary>
+        /// <param name="info">路由信息</param>
+        /// <returns></returns>
+        private async Task<string> RenderPageViewToStringAsync(RouteInformation info) {
+            var engine = Ioc.Create<ICompositeViewEngine>();
+            var serviceProvider = Ioc.Create<IServiceProvider>();
+            var tempDataProvider = Ioc.Create<ITempDataProvider>();
+            var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
+            var viewResult = GetView(engine, info);
+            if (!viewResult.Success) {
+                throw new InvalidOperationException($"找不到视图模板 {info.Invocation}");
+            }
+
+            using (var output = new StringWriter()) {
+                var actionContext = new ActionContext(httpContext, GetRouteData(info), new ActionDescriptor());
+                var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
+                var viewContext = new ViewContext(actionContext, viewResult.View, viewDictionary, new TempDataDictionary(actionContext.HttpContext, tempDataProvider), output, new HtmlHelperOptions());
+                await viewResult.View.RenderAsync(viewContext);
+                return output.ToString();
             }
         }
 
@@ -72,8 +96,11 @@ namespace Util.Webs.Razors {
         /// <param name="info">路由信息</param>
         /// <returns></returns>
         public async Task WriteViewToFileAsync( RouteInformation info ) {
-            try {
-                var html = await RenderToStringAsync( info );
+            try
+            {
+                var html = info.IsPageRoute
+                    ? await RenderPageViewToStringAsync(info)
+                    : await RenderActionViewToStringAsync(info);
                 if( string.IsNullOrWhiteSpace( html ) )
                     return;
                 var path = Util.Helpers.Common.GetPhysicalPath( string.IsNullOrWhiteSpace( info.FilePath ) ? GetPath( info ) : info.FilePath );
@@ -95,11 +122,18 @@ namespace Util.Webs.Razors {
         /// <param name="info">路由信息</param>
         /// <returns></returns>
         protected virtual string GetPath( RouteInformation info ) {
-            var area = info.AreaName.SafeString();
-            var controller = info.ControllerName.SafeString();
-            var action = info.ActionName.SafeString();
-            var path = info.TemplatePath.Replace( "{area}", area ).Replace( "{controller}", controller ).Replace( "{action}", action );
-            return path.ToLower();
+            if (!info.IsPageRoute)
+            {
+                var area = info.AreaName.SafeString();
+                var controller = info.ControllerName.SafeString();
+                var action = info.ActionName.SafeString();
+                var path = info.TemplatePath.Replace("{area}", area).Replace("{controller}", controller).Replace("{action}", action);
+                return path.ToLower();
+            }
+
+            return string.IsNullOrWhiteSpace(info.Path)
+                ? info.TemplatePath.Replace("{action}", info.Path).ToLower()
+                : info.FilePath.ToLower();
         }
 
         /// <summary>
@@ -112,6 +146,16 @@ namespace Util.Webs.Razors {
         protected virtual ViewEngineResult GetView( IRazorViewEngine razorViewEngine, ActionContext actionContext, RouteInformation info ) {
             return razorViewEngine.FindView( actionContext, info.ViewName.IsEmpty() ? info.ActionName : info.ViewName,
                 !info.IsPartialView );
+        }
+
+        /// <summary>
+        /// 获取Razor视图
+        /// </summary>
+        /// <param name="engine">复合视图引擎</param>
+        /// <param name="info">路由信息</param>
+        /// <returns></returns>
+        protected virtual ViewEngineResult GetView(ICompositeViewEngine engine, RouteInformation info) {
+            return engine.GetView("~/", $"~{info.Invocation}", !info.IsPartialView);
         }
 
         /// <summary>
@@ -129,6 +173,11 @@ namespace Util.Webs.Razors {
             }
             if( !info.ActionName.IsEmpty() ) {
                 routeData.Values.Add( "action", info.ActionName );
+            }
+
+            if (info.IsPageRoute)
+            {
+                routeData.Values.Add("page", info.Path);
             }
             return routeData;
         }

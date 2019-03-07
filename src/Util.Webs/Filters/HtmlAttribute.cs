@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
 using Util.Logs;
@@ -73,18 +75,31 @@ namespace Util.Webs.Filters {
         protected async Task<string> RenderToStringAsync( ResultExecutingContext context ) {
             string viewName = "";
             object model = null;
+            bool isPage = false;
             if( context.Result is ViewResult result ) {
                 viewName = result.ViewName;
                 viewName = string.IsNullOrWhiteSpace( viewName ) ? context.RouteData.Values["action"].SafeString() : viewName;
                 model = result.Model;
             }
+
+            if (context.Result is PageResult pageResult) {
+                if (context.ActionDescriptor is PageActionDescriptor pageActionDescriptor) {
+                    isPage = true;
+                    model = pageResult.Model;
+                    viewName = pageActionDescriptor.RelativePath;
+                }
+            }
             var razorViewEngine = Ioc.Create<IRazorViewEngine>();
+            var compositeViewEngine = Ioc.Create<ICompositeViewEngine>();
             var tempDataProvider = Ioc.Create<ITempDataProvider>();
             var serviceProvider = Ioc.Create<IServiceProvider>();
             var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
             var actionContext = new ActionContext( httpContext, context.RouteData, new ActionDescriptor() );
-            using( var stringWriter = new StringWriter() ) {
-                var viewResult = razorViewEngine.FindView( actionContext, viewName, true );
+            using( var stringWriter = new StringWriter() )
+            {
+                var viewResult = isPage
+                    ? GetView(compositeViewEngine, viewName)
+                    : GetView(razorViewEngine, actionContext, viewName);
                 if( viewResult.View == null )
                     throw new ArgumentNullException( $"未找到视图： {viewName}" );
                 var viewDictionary = new ViewDataDictionary( new EmptyModelMetadataProvider(), new ModelStateDictionary() ) { Model = model };
@@ -95,14 +110,40 @@ namespace Util.Webs.Filters {
         }
 
         /// <summary>
+        /// 获取视图
+        /// </summary>
+        /// <param name="razorViewEngine">Razor视图引擎</param>
+        /// <param name="actionContext">操作上下文</param>
+        /// <param name="viewName">视图名</param>
+        /// <returns></returns>
+        private ViewEngineResult GetView(IRazorViewEngine razorViewEngine,ActionContext actionContext,string viewName) {
+            return razorViewEngine.FindView(actionContext, viewName, true);
+        }
+
+        /// <summary>
+        /// 获取视图
+        /// </summary>
+        /// <param name="compositeViewEngine">复合视图引擎</param>
+        /// <param name="path">路径</param>
+        /// <returns></returns>
+        private ViewEngineResult GetView(ICompositeViewEngine compositeViewEngine, string path) {
+            return compositeViewEngine.GetView("~/", $"~{path}", true);
+        }
+
+        /// <summary>
         /// 获取Html默认生成路径
         /// </summary>
         protected virtual string GetPath( ResultExecutingContext context ) {
+            if (context.ActionDescriptor is PageActionDescriptor pageActionDescriptor) {
+                return Template.Replace("{action}", pageActionDescriptor.ViewEnginePath.TrimStart('/')).ToLower();
+            }
             var area = context.RouteData.Values["area"].SafeString();
             var controller = context.RouteData.Values["controller"].SafeString();
             var action = context.RouteData.Values["action"].SafeString();
             var path = Template.Replace( "{area}", area ).Replace( "{controller}", controller ).Replace( "{action}", action );
             return path.ToLower();
         }
+
+        
     }
 }

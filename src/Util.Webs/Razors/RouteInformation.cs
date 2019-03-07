@@ -47,5 +47,10 @@
         /// 是否部分视图
         /// </summary>
         public bool IsPartialView { get; set; } = false;
+
+        /// <summary>
+        /// 是否页面路由
+        /// </summary>
+        public bool IsPageRoute { get; set; } = false;
     }
 }

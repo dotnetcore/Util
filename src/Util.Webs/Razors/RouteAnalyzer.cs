@@ -3,6 +3,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 using Util.Webs.Filters;
 
 namespace Util.Webs.Razors {
@@ -16,11 +17,18 @@ namespace Util.Webs.Razors {
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
 
         /// <summary>
+        /// 页面加载器
+        /// </summary>
+        private readonly IPageLoader _pageLoader;
+
+        /// <summary>
         /// 初始化一个<see cref="RouteAnalyzer"/>类型的实例
         /// </summary>
         /// <param name="actionDescriptorCollectionProvider">操作描述集合提供程序</param>
-        public RouteAnalyzer( IActionDescriptorCollectionProvider actionDescriptorCollectionProvider ) {
+        /// <param name="pageLoader">页面加载器</param>
+        public RouteAnalyzer( IActionDescriptorCollectionProvider actionDescriptorCollectionProvider , IPageLoader pageLoader ) {
             _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
+            _pageLoader = pageLoader;
         }
 
         /// <summary>
@@ -36,9 +44,17 @@ namespace Util.Webs.Razors {
                     info.AreaName = actionDescriptor.RouteValues["area"];
                 }
                 // Razor页面路径以及调用
-                if( actionDescriptor is PageActionDescriptor pageActionDescriptor ) {
+                if( actionDescriptor is PageActionDescriptor pageActionDescriptor )
+                {
+                    var compiledPage = _pageLoader.Load(pageActionDescriptor);
                     info.Path = pageActionDescriptor.ViewEnginePath;
                     info.Invocation = pageActionDescriptor.RelativePath;
+                    SetHtmlInfo(info, compiledPage);
+                    if (!list.Exists(x => x.Invocation == info.Invocation))
+                    {
+                        list.Add(info);
+                    }
+                    continue;
                 }
                 // 路由属性路径
                 if( actionDescriptor.AttributeRouteInfo != null ) {
@@ -71,6 +87,25 @@ namespace Util.Webs.Razors {
             var htmlAttribute = controllerActionDescriptor.MethodInfo.GetCustomAttribute<HtmlAttribute>() ??
                                 controllerActionDescriptor.ControllerTypeInfo.GetCustomAttribute<HtmlAttribute>();
             if( htmlAttribute == null )
+                return;
+            routeInformation.FilePath = htmlAttribute.Path;
+            routeInformation.TemplatePath = htmlAttribute.Template;
+            routeInformation.IsPartialView = htmlAttribute.IsPartialView;
+            routeInformation.ViewName = htmlAttribute.ViewName;
+        }
+
+        /// <summary>
+        /// 设置Html信息
+        /// </summary>
+        /// <param name="routeInformation">路由信息</param>
+        /// <param name="compiledPageActionDescriptor">编译后的页面</param>
+        private void SetHtmlInfo(RouteInformation routeInformation,
+            CompiledPageActionDescriptor compiledPageActionDescriptor)
+        {
+            routeInformation.IsPageRoute = true;
+            var htmlAttribute = compiledPageActionDescriptor.PageTypeInfo.GetCustomAttribute<HtmlAttribute>() ??
+                                compiledPageActionDescriptor.DeclaredModelTypeInfo.GetCustomAttribute<HtmlAttribute>();
+            if (htmlAttribute == null)
                 return;
             routeInformation.FilePath = htmlAttribute.Path;
             routeInformation.TemplatePath = htmlAttribute.Template;
