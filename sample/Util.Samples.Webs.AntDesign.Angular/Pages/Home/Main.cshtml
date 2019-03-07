@@ -1,5 +1,10 @@
 ﻿@page
-@model Util.Samples.Pages.Home.MainModel
-@{
+@model MainModel
+@functions {
+    /// <summary>
+    /// 根组件视图
+    /// </summary>
+    [Html(Path = "Typings/app/app.component.html")]
+    public class MainModel : PageModel {}
 }
-Hello World
+<div id="c1"></div>

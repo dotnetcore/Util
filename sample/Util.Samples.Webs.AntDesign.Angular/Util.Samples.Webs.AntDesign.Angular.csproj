@@ -9,6 +9,16 @@
     <RootNamespace>Util.Samples</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>bin\Release\netcoreapp2.2\Util.Samples.Webs.AntDesign.Angular.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>bin\Debug\netcoreapp2.2\Util.Samples.Webs.AntDesign.Angular.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Areas\**" />
     <Content Remove="Areas\**" />
@@ -27,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Caches\04-Util.Caches.csproj" />
     <ProjectReference Include="..\..\src\Util.Events\05-Util.Events.csproj" />
+    <ProjectReference Include="..\..\src\Util.Ui.Core\02-Util.Ui.Core.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\09-Util.Webs.csproj" />
   </ItemGroup>
 

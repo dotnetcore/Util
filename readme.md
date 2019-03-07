@@ -199,18 +199,11 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Angular Material](https://material.angular.io/)
     - [Angular Flex-Layout](https://github.com/angular/flex-layout)
     - [PrimeNg](https://www.primefaces.org/primeng)
-    - [Ngx-Admin](http://akveo.com/ngx-admin)
-    - [Vmware-Clarity](http://clarity.design)
-    - [阿里-Ng-Zorro](https://ng.ant.design)
+    - [Ng-Zorro](https://ng.ant.design)
     - [Ng-Alain](http://ng-alain.com/)
-    - [饿了么-Element](https://element-angular.faas.ele.me/)
-    - [中兴-Jigsaw](https://github.com/rdkmaster/jigsaw)
-    - [Angular-Material-App](https://github.com/stbui/angular-material-app)
   - 编辑器
     - [CKEditor](https://ckeditor.com/ckeditor-4/)
     - [Ng2-CKEditor](https://github.com/chymz/ng2-ckeditor)    
-    - [TinyMce](https://www.tinymce.com/)
-    - [TinyMce-Angular](https://github.com/tinymce/tinymce-angular)
   - 脚本库
     - [Lodash](https://lodash.com/)
     - [Moment](http://momentjs.cn/)
@@ -218,8 +211,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)
   - 图表
-    - [Echarts](http://echarts.baidu.com/examples/)
-    - [Echarts-Ng2](https://github.com/twp0217/echarts-ng2)
+    - [Viser](https://viserjs.github.io/)
+    - [Antv-G2](https://antv.alipay.com/zh-cn/g2/3.x/index.html)
   - 打包
     - Webpack
   - 测试
@@ -432,7 +425,7 @@ https://github.com/dotnetcore/util/
   - 树型控制器基类 [已发布]
   - Sql生成器 [已发布]
   - Sql查询对象 [已发布]
-- UI组件 - 支持HtmlHelper和TagHelper两种方式
+- Material UI组件 - 支持HtmlHelper和TagHelper两种方式
   - 组件基类  [已发布]
   - TagHelper基类  [已发布]
   - 图标 - 集成了Material Design和Font Awesome图标集 [已发布]
@@ -458,10 +451,9 @@ https://github.com/dotnetcore/util/
   - 树型表格 - 基于PrimeNg TreeTable组件改造 [已发布]
   - 颜色选择器 - 基于PrimeNg ColorPicker组件 [已发布]
   - 富文本框编辑器 - 基于CKEditor组件 [已发布]
-  - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
   
 - 权限 [开发中]
-  - Identity集成 [开发中]
+  - Identity集成 [待启动]
 - 公共业务基类
   - 地址 [已发布]
 - 支付操作

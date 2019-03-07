@@ -40,7 +40,7 @@ namespace Util.Samples {
             services.AddMvc( options => {
                 //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
             }
-            ).SetCompatibilityVersion( CompatibilityVersion.Version_2_2 ).AddControllersAsServices();
+            ).SetCompatibilityVersion( CompatibilityVersion.Version_2_2 );
 
             //添加NLog日志操作
             services.AddNLog();
@@ -71,11 +71,8 @@ namespace Util.Samples {
                 options.SwaggerDoc( "v1", new Info { Title = "Util Api Demo", Version = "v1" } );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.xml" ) );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Webs.xml" ) );
-                options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.Webs.xml" ) );
+                options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.Webs.AntDesign.Angular.xml" ) );
             } );
-
-            // 添加Razor静态Html生成器
-            services.AddRazorHtml();
 
             //添加事件总线
             services.AddEventBus();
@@ -101,7 +98,7 @@ namespace Util.Samples {
             app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
                 HotModuleReplacement = true
             } );
-            //app.UseSwaggerX();
+            app.UseSwaggerX();
             CommonConfig( app );
         }
 

@@ -16,7 +16,9 @@ const jsModules = [
     '@angular/platform-browser',
     '@angular/platform-browser/animations',
     '@angular/platform-browser-dynamic',
-    '@angular/router'
+    '@angular/router',
+    'viser-ng',
+    '@antv/data-set'
 ];
 
 //第三方Css库
