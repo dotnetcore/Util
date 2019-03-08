@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <Folder Include="Apis\" />
+    <Folder Include="Typing\app\g2\column\" />
   </ItemGroup>
 
 

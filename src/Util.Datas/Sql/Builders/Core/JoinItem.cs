@@ -126,7 +126,7 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 复制副本
         /// </summary>
         public JoinItem Clone( Helper helper ) {
-            var result = new JoinItem( JoinType, Table, Type, new SqlCondition( Condition.GetCondition() ) );
+            var result = new JoinItem( JoinType, Table, Type, new SqlCondition( Condition?.GetCondition() ) );
             result.SetDependency( helper );
             return result;
         }

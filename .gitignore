@@ -36,3 +36,5 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Angular.Material/wwwroot/upload
 /sample/Util.Samples.Angular.Material/wwwroot/dist
 /sample/Util.Samples.Angular.Material/yarn.lock
+/sample/Util.Samples.Angular.Material/package-lock.json
+/sample/Util.Samples.Angular.AntDesign/Typing/app/app.component.html

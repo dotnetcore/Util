@@ -60,7 +60,7 @@
   <Target Name="Debug_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- 打包 -->
     <Message Importance="high" Text="Webpack开始打包..." />
-    <Exec Command="npm run dev" />
+    <!--<Exec Command="npm run dev" />-->
   </Target>
 
   <!-- 发布阶段打包 -->
