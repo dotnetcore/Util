@@ -24,3 +24,15 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Webs.AntDesign.Angular/package-lock.json
 *.user
 *.log
+/sample/Util.Samples.Angular.AntDesign/node_modules
+/sample/Util.Samples.Angular.AntDesign/wwwroot/dist
+/sample/Util.Samples.Angular.AntDesign/yarn.lock
+/sample/Util.Samples.Angular.Material/.vs
+/sample/Util.Samples.Angular.Material/node_modules
+/sample/Util.Samples.Angular.Material/Typings/app/*.html
+/sample/Util.Samples.Angular.Material/Typings/app/base/*.html
+/sample/Util.Samples.Angular.Material/Typings/app/systems/application/html
+/sample/Util.Samples.Angular.Material/Typings/app/systems/role/html
+/sample/Util.Samples.Angular.Material/wwwroot/upload
+/sample/Util.Samples.Angular.Material/wwwroot/dist
+/sample/Util.Samples.Angular.Material/yarn.lock
