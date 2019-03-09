@@ -1,0 +1,212 @@
+<div nz-row [nzGutter]="24" class="pt-lg">
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="'app.analysis.total-sales' | translate" total="¥ 126,560" contentHeight="44px" [action]="action1"
+      [footer]="footer1">
+      <ng-template #action1>
+        <nz-tooltip [nzTitle]="'app.analysis.introduce' | translate">
+          <i nz-tooltip nz-icon type="info-circle"></i>
+        </nz-tooltip>
+      </ng-template>
+      <trend flag="up" style="display:block; margin-top:2px;">
+        {{'app.analysis.week' | translate}}
+        <span class="pl-sm">12%</span>
+      </trend>
+      <trend flag="down">
+        {{'app.analysis.day' | translate}}
+        <span class="pl-sm">11%</span>
+      </trend>
+      <ng-template #footer1>
+        <p class="text-truncate mb0">
+          {{'app.analysis.day-sales' | translate}}
+          <span class="ml-sm">￥12,423</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="'app.analysis.visits' | translate" total="8,848" contentHeight="46px" [action]="action2" [footer]="footer2">
+      <ng-template #action2>
+        <nz-tooltip [nzTitle]="'app.analysis.introduce' | translate">
+          <i nz-tooltip nz-icon type="info-circle"></i>
+        </nz-tooltip>
+      </ng-template>
+      <g2-mini-area *ngIf="data.visitData" color="#975FE4" height="46" [data]="data.visitData"></g2-mini-area>
+      <ng-template #footer2>
+        <p class="text-truncate mb0">
+          {{'app.analysis.day-visits' | translate}}
+          <span class="ml-sm">1,234</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="'app.analysis.payments' | translate" total="6,560" contentHeight="46px" [action]="action3"
+      [footer]="footer3">
+      <ng-template #action3>
+        <nz-tooltip [nzTitle]="'app.analysis.introduce' | translate">
+          <i nz-tooltip nz-icon type="info-circle"></i>
+        </nz-tooltip>
+      </ng-template>
+      <g2-mini-bar *ngIf="data.visitData" height="46" [data]="data.visitData"></g2-mini-bar>
+      <ng-template #footer3>
+        <p class="text-truncate mb0">
+          {{'app.analysis.conversion-rate' | translate}}
+          <span class="ml-sm">60%</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="'app.analysis.operational-effect' | translate" total="78%" contentHeight="46px" [action]="action4"
+      [footer]="footer4">
+      <ng-template #action4>
+        <nz-tooltip [nzTitle]="'app.analysis.introduce' | translate">
+          <i nz-tooltip nz-icon type="info-circle"></i>
+        </nz-tooltip>
+      </ng-template>
+      <g2-mini-progress height="46" percent="78" strokeWidth="8" target="80" color="#13C2C2"></g2-mini-progress>
+      <ng-template #footer4>
+        <div class="d-flex justify-content-between text-truncate">
+          <trend flag="up">
+            {{'app.analysis.week' | translate}}
+            <span class="pl-sm">12%</span>
+          </trend>
+          <trend flag="down">
+            {{'app.analysis.day' | translate}}
+            <span class="pl-sm">11%</span>
+          </trend>
+        </div>
+      </ng-template>
+    </g2-card>
+  </div>
+</div>
+<nz-card [nzLoading]="loading" [nzBordered]="false" class="ant-card__body-nopadding sales-card">
+  <nz-tabset [nzTabBarExtraContent]="extraTemplate" *ngIf="data.salesData" (nzSelectedIndexChange)="salesChange($event)">
+    <nz-tab *ngFor="let tab of saleTabs" [nzTitle]="('app.analysis.' + tab.key) | translate">
+      <div nz-row>
+        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="16">
+          <div class="bar">
+            <g2-bar *ngIf="tab.show" height="295" style="width: 100%" [title]="('app.analysis.' + tab.key + '-trend') | translate" [data]="data.salesData"></g2-bar>
+          </div>
+        </div>
+        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8">
+          <div class="rank">
+            <h4 class="ranking-title">{{ ('app.analysis.' + tab.key + '-ranking') | translate}}</h4>
+            <ul class="rank-list">
+              <li *ngFor="let i of rankingListData; let idx = index">
+                <span class="number" [ngClass]="{'active': idx < 3}">{{idx+1}}</span>
+                <span class="title">{{i.title}}</span>
+                <span class="value">{{i.total | number: '3.0'}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nz-tab>
+    <ng-template #extraTemplate>
+      <div class="sales-extra-wrap">
+        <div class="sales-extra">
+          <a (click)="setDate('today')">{{'app.analysis.all-day' | translate}}</a>
+          <a (click)="setDate('week')">{{'app.analysis.all-week' | translate}}</a>
+          <a (click)="setDate('month')">{{'app.analysis.all-month' | translate}}</a>
+          <a (click)="setDate('year')">{{'app.analysis.all-year' | translate}}</a>
+        </div>
+        <nz-range-picker [(ngModel)]="date_range" style="display:inline-block; width: 256px;"></nz-range-picker>
+      </div>
+    </ng-template>
+  </nz-tabset>
+</nz-card>
+<div nz-row [nzGutter]="24">
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
+    <nz-card [nzLoading]="loading" [nzBordered]="false" [nzTitle]="'app.analysis.online-top-search' | translate" [nzExtra]="extraOp" class="mb-0">
+      <ng-template #extraOp>
+        <nz-dropdown class="icon-group">
+          <i nz-dropdown nz-icon type="ellipsis"></i>
+          <ul nz-menu>
+            <li nz-menu-item>操作一</li>
+            <li nz-menu-item>操作二</li>
+          </ul>
+        </nz-dropdown>
+      </ng-template>
+      <div nz-row [nzGutter]="64">
+        <div nz-col nzXs="24" nzSm="12" class="mb-md">
+          <number-info total="12,321" subTotal="17.1" status="up" [subTitle]="subTitle">
+            <ng-template #subTitle>
+              {{'app.analysis.search-users' | translate}}
+              <nz-tooltip [nzTitle]="'app.analysis.introduce' | translate">
+                <i nz-tooltip nz-icon type="info-circle" class="ml-sm"></i>
+              </nz-tooltip>
+            </ng-template>
+          </number-info>
+          <g2-mini-area *ngIf="data.visitData2" [line]="true" height="45" [data]="data.visitData2"></g2-mini-area>
+        </div>
+        <div nz-col nzXs="24" nzSm="12" class="mb-md">
+          <number-info [subTitle]="'app.analysis.per-capita-search' | translate" total="2.7" subTotal="26.2" status="down"></number-info>
+          <g2-mini-area *ngIf="data.visitData2" [line]="true" height="45" [data]="data.visitData2"></g2-mini-area>
+        </div>
+      </div>
+      <st [data]="data.searchData" [columns]="searchColumn" size="small" ps="5" [page]="{toTopInChange:false}">
+        <ng-template st-row="range" let-i>
+          <trend [flag]="i.status === 1 ? 'down' : 'up'">
+            <span>{{i.range}}%</span>
+          </trend>
+        </ng-template>
+      </st>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
+    <nz-card [nzLoading]="loading" [nzBordered]="false" [nzTitle]="'app.analysis.the-proportion-of-sales' | translate" [nzBodyStyle]="{'padding.px': 24}" [nzExtra]="extra"
+      class="sales-card mb-0" style="min-height: 502.5px">
+      <ng-template #extra>
+        <div class="sales-card-extra">
+          <nz-dropdown class="icon-group" nzPlacement="bottomLeft">
+            <i nz-dropdown nz-icon type="ellipsis"></i>
+            <ul nz-menu>
+              <li nz-menu-item>操作一</li>
+              <li nz-menu-item>操作二</li>
+            </ul>
+          </nz-dropdown>
+          <div class="sales-type-radio">
+            <nz-radio-group [(ngModel)]="salesType" (ngModelChange)="changeSaleType()">
+              <label nz-radio-button [nzValue]="'all'">
+                {{ 'app.analysis.channel.all' | translate }}
+              </label>
+              <label nz-radio-button [nzValue]="'online'">
+                {{ 'app.analysis.channel.online' | translate }}
+              </label>
+              <label nz-radio-button [nzValue]="'offline'">
+                {{ 'app.analysis.channel.stores' | translate }}
+              </label>
+            </nz-radio-group>
+          </div>
+        </div>
+      </ng-template>
+      <h4 class="margin:8px 0 32px 0;">{{'app.analysis.sales' | translate}}</h4>
+      <g2-pie *ngIf="salesPieData" [data]="salesPieData" [hasLegend]="true" [subTitle]="'app.analysis.sales' | translate" [height]="248" [lineWidth]="4" [total]="salesTotal"
+        [valueFormat]="handlePieValueFormat">
+      </g2-pie>
+    </nz-card>
+  </div>
+</div>
+<nz-card [nzLoading]="loading" [nzBordered]="false" [nzBodyStyle]="{'padding': '0 0 32px'}" class="offline-card mt-lg">
+  <nz-tabset *ngIf="data.offlineData" [(nzSelectedIndex)]="offlineIdx" (nzSelectedIndexChange)="offlineChange($event)">
+    <nz-tab *ngFor="let tab of data.offlineData; let i = index;" [nzTitle]="nzTabHeading">
+      <ng-template #nzTabHeading>
+        <div nz-row [nzGutter]="8" style="width: 138px; margin: 8px 0;">
+          <div nz-col [nzSpan]="12">
+            <number-info [title]="tab.name" [subTitle]="'app.analysis.conversion-rate' | translate" gap="2" [total]="(tab.cvr * 100) + '%'" [theme]="i !== offlineIdx && 'light'"></number-info>
+          </div>
+          <div nz-col [nzSpan]="12" style="padding-top: 36px;">
+            <g2-pie [animate]="false" [color]="i !== offlineIdx && '#BDE4FF'"
+              [inner]="0.55" [tooltip]="false"
+              [padding]="[0, 0, 0, 0]" [percent]="tab.cvr * 100" [height]="64">
+            </g2-pie>
+          </div>
+        </div>
+      </ng-template>
+      <div class="px-lg">
+        <g2-timeline *ngIf="tab.show" [data]="tab.chart" [titleMap]="titleMap"></g2-timeline>
+      </div>
+    </nz-tab>
+  </nz-tabset>
+</nz-card>

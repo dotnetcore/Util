@@ -1,0 +1,100 @@
+<h3>{{ 'app.register.register' | translate }}</h3>
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+  <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzSize="large" nzAddonBeforeIcon="anticon anticon-user">
+        <input nz-input formControlName="mail" placeholder="Email">
+      </nz-input-group>
+      <ng-container *ngIf="mail.dirty && mail.errors">
+        <nz-form-explain *ngIf="mail.errors?.required">{{ 'validation.email.required' | translate }}</nz-form-explain>
+        <nz-form-explain *ngIf="mail.errors?.email">{{ 'validation.email.wrong-format' | translate }}</nz-form-explain>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-popover [nzPlacement]="'right'" [nzTrigger]="'focus'" [(nzVisible)]="visible" nzOverlayClassName="register-password-cdk"
+        [nzOverlayStyle]="{'width.px': 240}">
+        <nz-input-group nzSize="large" nz-popover nzAddonBeforeIcon="anticon anticon-lock">
+          <input nz-input type="password" formControlName="password" placeholder="Password">
+        </nz-input-group>
+        <nz-form-explain *ngIf="password.dirty && password.errors">{{ 'validation.password.required' | translate }}</nz-form-explain>
+        <ng-template #nzTemplate>
+          <div style="padding: 4px 0;">
+            <ng-container [ngSwitch]="status">
+              <div *ngSwitchCase="'ok'" class="success">{{ 'validation.password.strength.strong' | translate }}</div>
+              <div *ngSwitchCase="'pass'" class="warning">{{ 'validation.password.strength.medium' | translate }}</div>
+              <div *ngSwitchDefault class="error">{{ 'validation.password.strength.short' | translate }}</div>
+            </ng-container>
+            <div class="progress-{{status}}">
+              <nz-progress [nzPercent]="progress" [nzStatus]="passwordProgressMap[status]" [nzStrokeWidth]="6"
+                [nzShowInfo]="false"></nz-progress>
+            </div>
+            <p class="mt-sm">{{ 'validation.password.strength.msg' | translate }}</p>
+          </div>
+        </ng-template>
+      </nz-popover>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzSize="large" nzAddonBeforeIcon="anticon anticon-lock">
+        <input nz-input type="password" formControlName="confirm" placeholder="Confirm Password">
+      </nz-input-group>
+      <nz-form-explain *ngIf="confirm.dirty && confirm.errors">
+        <ng-container *ngIf="confirm.errors.required">
+          {{ 'validation.confirm-password.required' | translate }}
+        </ng-container>
+        <ng-container *ngIf="confirm.errors.equar">
+          {{ 'validation.password.twice' | translate }}
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzSize="large" [nzAddOnBefore]="addOnBeforeTemplate">
+        <ng-template #addOnBeforeTemplate>
+          <nz-select formControlName="mobilePrefix" style="width: 100px;">
+            <nz-option [nzLabel]="'+86'" [nzValue]="'+86'"></nz-option>
+            <nz-option [nzLabel]="'+87'" [nzValue]="'+87'"></nz-option>
+          </nz-select>
+        </ng-template>
+        <input formControlName="mobile" nz-input placeholder="Phone number">
+      </nz-input-group>
+      <nz-form-explain *ngIf="mobile.dirty && mobile.errors">
+        <ng-container *ngIf="mobile.errors.required">
+          {{ 'validation.phone-number.required' | translate }}
+        </ng-container>
+        <ng-container *ngIf="mobile.errors.pattern">
+          {{ 'validation.phone-number.wrong-format' | translate }}
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-row [nzGutter]="8">
+        <nz-col [nzSpan]="16">
+          <nz-input-group nzSize="large" nzAddonBeforeIcon="anticon anticon-mail">
+            <input nz-input formControlName="captcha" placeholder="Captcha">
+          </nz-input-group>
+          <nz-form-explain *ngIf="captcha.dirty && captcha.errors">
+            {{ 'validation.verification-code.required' | translate }}
+          </nz-form-explain>
+        </nz-col>
+        <nz-col [nzSpan]="8">
+          <button type="button" nz-button nzSize="large" (click)="getCaptcha()" [disabled]="count" nzBlock [nzLoading]="http.loading">
+            {{ count ? count + 's' : 'app.register.get-verification-code' | translate }}</button>
+        </nz-col>
+      </nz-row>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <button nz-button nzType="primary" nzSize="large" type="submit" [nzLoading]="http.loading" class="submit">
+      {{ 'app.register.register' | translate }}
+    </button>
+    <a class="login" routerLink="/passport/login">{{ 'app.register.sign-in' | translate }}</a>
+  </nz-form-item>
+</form>

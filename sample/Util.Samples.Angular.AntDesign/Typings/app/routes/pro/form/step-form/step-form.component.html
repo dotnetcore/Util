@@ -1,0 +1,13 @@
+<page-header [title]="'分步表单'">
+  将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
+</page-header>
+<nz-card [nzBordered]="false">
+  <nz-steps [(nzCurrent)]="item.step">
+    <nz-step nzTitle="填写转账信息"></nz-step>
+    <nz-step nzTitle="确认转账信息"></nz-step>
+    <nz-step nzTitle="完成"></nz-step>
+  </nz-steps>
+  <app-step1 *ngIf="item.step==0"></app-step1>
+  <app-step2 *ngIf="item.step==1"></app-step2>
+  <app-step3 *ngIf="item.step==2"></app-step3>
+</nz-card>

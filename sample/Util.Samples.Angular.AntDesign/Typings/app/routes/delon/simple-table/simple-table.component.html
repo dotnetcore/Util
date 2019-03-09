@@ -1,0 +1,52 @@
+<div class="alain-default__content-title">
+  <h1>
+    Fullscreen Table
+    <small>使用
+      <a href="//ng-alain.com/components/table" target="_blank">simple-table</a>、
+      <a href="//ng-alain.com/components/full-content" target="_blank">full-content</a> 组合，由于 nz-table 固定表头暂不支持自适应，因此表格的展示的效果在响应式里面效果并不是特别好。</small>
+  </h1>
+</div>
+<full-content (fullscreenChange)="fullChange($event)">
+  <nz-card>
+    <div nz-row class="mb-md">
+      <div nz-col nzSpan="12">
+        <form nz-form [nzLayout]="'inline'">
+          <nz-form-item>
+            <nz-form-label nzFor="userid">User ID</nz-form-label>
+            <nz-form-control>
+              <input nz-input [(ngModel)]="args.userid" name="userid" id="userid">
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button [nzType]="'primary'" (click)="st.load()" [nzLoading]="http.loading">Search</button>
+              <button nz-button (click)="st.load({_allow_anonymous: true})" [disabled]="http.loading">Clear</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+      <div nz-col nzSpan="12">
+        <div class="text-right">
+          <nz-dropdown>
+            <button nz-button nz-dropdown>
+              <span>Export</span>
+              <i nz-icon type="down"></i>
+            </button>
+            <ul nz-menu>
+              <li nz-menu-item>Excel</li>
+              <li nz-menu-item>JSON</li>
+              <li nz-menu-item>PNG</li>
+            </ul>
+          </nz-dropdown>
+          <button nz-button [nzType]="'default'" full-toggle class="ml-sm">Full</button>
+        </div>
+      </div>
+    </div>
+    <st #st [data]="url" [req]="{params: args}" [res]="{ reName: {list: 'results' } }" [total]="total" [ps]="ps" [columns]="columns"
+      [scroll]="scroll">
+      <ng-template st-row="events" let-item let-index="index">
+        <g2-mini-bar height="15" theme="mini" color="#999" borderWidth="3" [padding]="[0, 0, 0, 0]" [data]="events"></g2-mini-bar>
+      </ng-template>
+    </st>
+  </nz-card>
+</full-content>

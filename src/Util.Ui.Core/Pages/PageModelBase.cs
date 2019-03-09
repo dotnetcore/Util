@@ -5,7 +5,7 @@ namespace Util.Ui.Pages {
     /// <summary>
     /// 页面模型
     /// </summary>
-    [Html( Template = "Typing/app/{area}/{controller}/{action}.component.html" )]
+    [Html( Template = "Typings/app/{area}/{controller}/{action}.component.html" )]
     public class PageModelBase : PageModel {
     }
 }

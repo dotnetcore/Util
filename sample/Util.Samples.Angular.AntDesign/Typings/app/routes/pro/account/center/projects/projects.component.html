@@ -1,0 +1,23 @@
+<nz-list [nzLoading]="listLoading" [nzRenderItem]="item" [nzDataSource]="list"
+[nzGrid]="{gutter: 24, xxl: 8, xl: 12, lg: 12, md: 12, sm: 12, xs: 24 }">
+  <ng-template #item let-item>
+    <nz-list-item>
+      <nz-card nzHoverable [nzCover]="cover">
+        <ng-template #cover>
+          <img alt="{{item.title}}" src="{{item.cover}}">
+        </ng-template>
+        <nz-card-meta [nzTitle]="nzTitle" [nzDescription]="item.subDescription">
+          <ng-template #nzTitle>
+            <a (click)="msg.success('标题：' + item.id);">{{item.title}}</a>
+          </ng-template>
+        </nz-card-meta>
+        <div class="card-item-content">
+          <span class="text-grey">{{item.updatedAt | _date:'fn'}}</span>
+          <avatar-list size="mini">
+            <avatar-list-item *ngFor="let m of item.members" [src]="m.avatar" [tips]="m.name"></avatar-list-item>
+          </avatar-list>
+        </div>
+      </nz-card>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

@@ -1,0 +1,94 @@
+<div class="text-center pb-lg">
+  <h1 class="py-md mt-sm">帮助中心</h1>
+  <div>帮助用户快速找到问题答案</div>
+</div>
+<div class="text-center">
+  <nz-input-group nzCompact nzSize="large">
+    <input [(ngModel)]="q" placeholder="请用关键词进行搜索，例如“服务器密码重置”" style="width: 50%;" nz-input>
+    <nz-select [(ngModel)]="type" nzSize="large" style="width:20%;">
+      <nz-option [nzLabel]="'不限'" [nzValue]="''"></nz-option>
+      <nz-option [nzLabel]="'弹性计算'" [nzValue]="'弹性计算'"></nz-option>
+      <nz-option [nzLabel]="'存储与CDN'" [nzValue]="'存储与CDN'"></nz-option>
+      <nz-option [nzLabel]="'会员服务'" [nzValue]="'会员服务'"></nz-option>
+      <nz-option [nzLabel]="'数据库'" [nzValue]="'数据库'"></nz-option>
+    </nz-select>
+    <button nz-button [nzType]="'primary'" (click)="search()" nzSize="large">
+      <span>搜索</span>
+    </button>
+  </nz-input-group>
+  <div class="py-sm text-grey-dark">
+    搜索热词：
+    <a class="ml-sm" (click)="quick('远程连接服务器')">远程连接服务器</a>
+    <a class="ml-sm" (click)="quick('挂载数据盘')">挂载数据盘</a>
+    <a class="ml-sm" (click)="quick('域名解析')">域名解析</a>
+    <a class="ml-sm" (click)="quick('域名实名认证')">域名实名认证</a>
+    <a class="ml-sm" (click)="quick('账号实名认证')">账号实名认证</a>
+    <a class="ml-sm" (click)="quick('忘记密码')">忘记密码</a>
+  </div>
+</div>
+<nz-row [nzGutter]="16" class="py-lg">
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('弹性计算')" class="d-block text-center text-primary">
+        <i nz-icon type="rocket" class="display-1 mb-md"></i>
+        <h2 class="mb0">弹性计算</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('存储与CDN')" class="d-block text-center text-red">
+        <i nz-icon type="hdd" class="display-1 mb-md"></i>
+        <h2 class="mb0">存储与CDN</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('会员服务')" class="d-block text-center text-orange">
+        <i nz-icon type="user" class="display-1 mb-md"></i>
+        <h2 class="mb0">会员服务</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('数据库')" class="d-block text-center text-purple">
+        <i nz-icon type="database" class="display-1 mb-md"></i>
+        <h2 class="mb0">数据库</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('域名与网站')" class="d-block text-center text-cyan">
+        <i nz-icon type="api" class="display-1 mb-md"></i>
+        <h2 class="mb0">域名与网站</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('网络')" class="d-block text-center text-teal">
+        <i nz-icon type="global" class="display-1 mb-md"></i>
+        <h2 class="mb0">网络</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('应用服务')" class="d-block text-center text-pink">
+        <i nz-icon type="appstore" class="display-1 mb-md"></i>
+        <h2 class="mb0">应用服务</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXs]="12" [nzMd]="8">
+    <nz-card>
+      <a (click)="msg.info('开发者工具')" class="d-block text-center text-success">
+        <i nz-icon type="tool" class="display-1 mb-md"></i>
+        <h2 class="mb0">开发者工具</h2>
+      </a>
+    </nz-card>
+  </nz-col>
+</nz-row>

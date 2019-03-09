@@ -1,0 +1,30 @@
+<nz-list nzItemLayout="vertical" [nzLoading]="!list">
+  <nz-list-item *ngFor="let item of list" [nzContent]="nzContent" [nzActions]="[op1,op2,op3]">
+    <ng-template #op1>
+      <i nz-icon type="star" class="mr-sm"></i>{{item.star}}</ng-template>
+    <ng-template #op2>
+      <i nz-icon type="like" class="mr-sm"></i>{{item.like}}</ng-template>
+    <ng-template #op3>
+      <i nz-icon type="message" class="mr-sm"></i>{{item.message}}</ng-template>
+    <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+      <ng-template #nzTitle>
+        <a href="{{item.href}}" target="_blank">{{item.title}}</a>
+      </ng-template>
+      <ng-template #nzDescription>
+        <nz-tag>Alain</nz-tag>
+        <nz-tag>ng-zorro-antd</nz-tag>
+        <nz-tag>Ant Design</nz-tag>
+      </ng-template>
+    </nz-list-item-meta>
+    <ng-template #nzContent>
+      <p>{{item.content}}</p>
+      <div class="mt-md d-flex">
+        <nz-avatar [nzSrc]="item.avatar" [nzSize]="'small'" class="mr-sm"></nz-avatar>
+        <a href="{{item.href}}" target="_blank">{{item.owner}}</a>
+        <span class="px-sm">发布在</span>
+        <a href="{{item.href}}" target="_blank">{{item.href}}</a>
+        <time class="pl-md text-grey" title="{{item.updatedAt}}">{{item.updatedAt | _date}}</time>
+      </div>
+    </ng-template>
+  </nz-list-item>
+</nz-list>

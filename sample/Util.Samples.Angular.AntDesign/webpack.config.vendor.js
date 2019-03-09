@@ -24,7 +24,9 @@ const jsModules = [
 //第三方Css库
 const cssModules = [
     'material-design-icons/iconfont/material-icons.css',
-    'font-awesome/css/font-awesome.css'
+    'font-awesome/css/font-awesome.css',
+    'ng-zorro-antd/ng-zorro-antd.css',
+    '@delon/theme/styles/ng-alain.css'
 ];
 
 module.exports = (env) => {

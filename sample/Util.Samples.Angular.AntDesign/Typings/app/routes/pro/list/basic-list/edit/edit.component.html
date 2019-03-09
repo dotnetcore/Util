@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <div class="modal-title">任务编辑</div>
+</div>
+<sf #sf mode="edit" [schema]="schema" [formData]="record" button="none">
+  <div class="modal-footer">
+    <button nz-button type="button" (click)="close()">关闭</button>
+    <button nz-button type="submit" [nzType]="'primary'" (click)="save(sf.value)" [disabled]="!sf.valid">保存</button>
+  </div>
+</sf>

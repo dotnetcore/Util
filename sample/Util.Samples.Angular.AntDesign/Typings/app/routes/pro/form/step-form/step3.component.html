@@ -1,0 +1,18 @@
+<div class="icon pt-md">
+  <i nz-icon type="check-circle" class="text-success icon-lg"></i>
+</div>
+<h1 class="h2 pt-md">操作成功</h1>
+<p class="pt-md text-grey">预计两小时内到账</p>
+<div sv-container col="1" labelWidth="150" class="extra">
+  <sv label="付款账户">{{item.pay_account}}</sv>
+  <sv label="账户类型">{{item.receiver_type_str}}</sv>
+  <sv label="收款账户">{{item.receiver_account}}</sv>
+  <sv label="收款人姓名">{{item.receiver_name}}</sv>
+  <sv label="转账金额"><strong class="text-lg pr-sm">{{item.amount}}</strong>元</sv>
+</div>
+<div nz-row class="my-md py-md">
+  <div nz-col>
+    <button nz-button (click)="item.again()" [nzType]="'primary'">再转一笔</button>
+    <button nz-button class="ml-sm">查看账单</button>
+  </div>
+</div>

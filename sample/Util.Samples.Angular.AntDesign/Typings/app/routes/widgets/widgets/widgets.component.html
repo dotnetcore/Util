@@ -1,0 +1,797 @@
+<div class="alain-default__content-title">
+  <h1>Widgets</h1>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzXs]="24" [nzSm]="8">
+    <nz-card>
+      <div class="text-right text-grey">
+        <i nz-icon type="pay-circle" class="display-2"></i>
+      </div>
+      <h3 class="h3">99.999</h3>
+      <div class="text-grey">Games played last month</div>
+      <nz-progress [nzStatus]="'active'" [nzPercent]="60" [nzShowInfo]="false" [nzStrokeWidth]="5"></nz-progress>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzSm]="8">
+    <nz-card>
+      <div class="text-right text-grey">
+        <i nz-icon type="pie-chart" class="display-2"></i>
+      </div>
+      <h3 class="h3">300</h3>
+      <div class="text-grey">Coffee cups per day</div>
+      <nz-progress [nzStatus]="'success'" [nzPercent]="30" [nzShowInfo]="false" [nzStrokeWidth]="5"></nz-progress>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzSm]="8">
+    <nz-card>
+      <div class="text-right text-grey">
+        <i nz-icon type="cloud" class="display-2"></i>
+      </div>
+      <h3 class="h3">1000 Gb</h3>
+      <div class="text-grey">Average Monthly Uploads</div>
+      <nz-progress [nzStatus]="'exception'" [nzPercent]="10" [nzShowInfo]="false" [nzStrokeWidth]="5"></nz-progress>
+    </nz-card>
+  </div>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzXs]="24" [nzSm]="8">
+    <nz-card class="ant-card__body-nopadding">
+      <div nz-row>
+        <div nz-col [nzSpan]="12" class="border-right-1 border-bottom-1">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center text-red">
+              <i nz-icon type="user" class="display-2"></i>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">10k</h4>
+              <div class="text-grey">VISITORS</div>
+            </div>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="12" class="border-bottom-1">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center text-pink">
+              <i nz-icon type="sound" class="display-2"></i>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">100%</h4>
+              <div class="text-grey">VOLUME</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col [nzSpan]="12" class="border-right-1">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center text-grey">
+              <i nz-icon type="fork" class="display-2"></i>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">150</h4>
+              <div class="text-grey">FORKS</div>
+            </div>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center text-green">
+              <i nz-icon type="message" class="display-2"></i>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">10</h4>
+              <div class="text-grey">MESSAGES</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+    <nz-card class="ant-card__body-nopadding">
+      <div nz-row>
+        <div nz-col [nzSpan]="12" class="border-right-1 border-bottom-1">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center">
+              <g2-mini-bar height="35" color="#999" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="smallData"></g2-mini-bar>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">10k</h4>
+              <div class="text-grey">VISITORS</div>
+            </div>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="12" class="border-bottom-1">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center">
+              <g2-mini-bar height="35" color="#999" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="smallData"></g2-mini-bar>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">100%</h4>
+              <div class="text-grey">VOLUME</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col [nzSpan]="12" class="border-right-1">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center">
+              <g2-mini-bar height="35" color="#999" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="smallData"></g2-mini-bar>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">150</h4>
+              <div class="text-grey">FORKS</div>
+            </div>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+            <div nz-col [nzSpan]="12" class="text-center">
+              <g2-mini-bar height="35" color="#999" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="smallData"></g2-mini-bar>
+            </div>
+            <div nz-col [nzSpan]="12" class="py-md">
+              <h4 class="h4">10</h4>
+              <div class="text-grey">MESSAGES</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzSm]="8">
+    <nz-card class="ant-card__body-nopadding">
+      <div class="half-float half-float-md">
+        <img src="/typings/assets/tmp/img/half-float-bg-1.jpg">
+        <div class="half-float-bottom rounded-circle bg-grey-lighter">
+          <img class="p-sm" src="/typings/assets/tmp/img/1.png">
+        </div>
+      </div>
+      <div class="text-center">
+        <h3 class="h3">cipchk</h3>
+        <div class="text-grey">Lead director</div>
+        <div class="p-sm">Voluptate velit id mollit ex. Anim labore non dolore ad cupidatat aute reprehenderit ullamco culpa esse. Esse exercitation
+          laboris culpa ipsum pariatur mollit minim culpa magna.</div>
+      </div>
+      <div class="text-center bg-grey-darker text-white">
+        <div nz-row>
+          <div nz-col [nzSpan]="8" class="py-sm">
+            <h3 class="text-white mb0">400</h3>
+            <div>Photos</div>
+          </div>
+          <div nz-col [nzSpan]="8" class="py-sm">
+            <h3 class="text-white mb0">2000</h3>
+            <div>Likes</div>
+          </div>
+          <div nz-col [nzSpan]="8" class="py-sm">
+            <h3 class="text-white mb0">500</h3>
+            <div>Following</div>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzSm]="8">
+    <nz-card class="ant-card__body-nopadding">
+      <div class="text-center bg-center py-lg text-white" style="background-image: url('./assets/tmp/img/bg9.jpg');">
+        <nz-avatar [nzSrc]="'./assets/tmp/img/1.png'"></nz-avatar>
+        <h3 class="text-white">cipchk</h3>
+        <div>
+          <i class="fa fa-github fa-fw"></i>
+          @cipchk
+        </div>
+      </div>
+      <div class="text-center bg-grey-darker text-white">
+        <div nz-row>
+          <div nz-col [nzSpan]="8" class="py-md">
+            <a (click)="msg.success('to twitter')">
+              <i class="fa fa-twitter fa-2x"></i>
+            </a>
+          </div>
+          <div nz-col [nzSpan]="8" class="py-md">
+            <a (click)="msg.success('to facebook')">
+              <i class="fa fa-facebook fa-2x"></i>
+            </a>
+          </div>
+          <div nz-col [nzSpan]="8" class="py-md">
+            <a (click)="msg.success('comment')">
+              <i class="fa fa-comments fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <i class="fa fa-fw fa-clock-o text-grey"></i>
+        </div>
+        <div nz-col [nzSpan]="17">Recent Activity</div>
+        <div nz-col [nzSpan]="3">
+          <nz-tag [nzColor]="'blue'">350</nz-tag>
+        </div>
+      </div>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <i class="fa fa-fw fa-user text-grey"></i>
+        </div>
+        <div nz-col [nzSpan]="17">Following</div>
+        <div nz-col [nzSpan]="3">
+          <nz-tag [nzColor]="'pink'">150</nz-tag>
+        </div>
+      </div>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <i class="fa fa-fw fa-folder-open-o text-grey"></i>
+        </div>
+        <div nz-col [nzSpan]="17">Photos</div>
+        <div nz-col [nzSpan]="3">
+          <nz-tag [nzColor]="'green'">100</nz-tag>
+        </div>
+      </div>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <i class="fa fa-fw fa-folder-open-o text-grey"></i>
+        </div>
+        <div nz-col [nzSpan]="17">Article</div>
+        <div nz-col [nzSpan]="3">
+          <nz-tag [nzColor]="'purple'">100</nz-tag>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-primary rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">123,456</div>
+        <div class="text-nowrap">Website Traffics</div>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="data"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-success rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">234,567K</div>
+        <div class="text-nowrap">Website Impressions</div>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="data"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-orange rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">$458,778</div>
+        <div class="text-nowrap">Total Sales</div>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="data"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-magenta rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">456</div>
+        <div class="text-nowrap">Support Tickets</div>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="data"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+</div>
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-primary text-center rounded-md">
+      <div nz-col nzSpan="8" class="p-md text-white">
+        <i nz-icon type="user" class="display-2"></i>
+      </div>
+      <div nz-col nzSpan="16" class="bg-white py-md">
+        <h3 class="h3 mb0">10k</h3>
+        <div class="text-grey-dark">VISITORS</div>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-magenta text-center rounded-md">
+      <div nz-col nzSpan="8" class="p-md text-white">
+        <i nz-icon type="sound" class="display-2"></i>
+      </div>
+      <div nz-col nzSpan="16" class="bg-white py-md">
+        <h3 class="h3 mb0">100%</h3>
+        <div class="text-grey-dark">VOLUME</div>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-grey-darker text-center rounded-md">
+      <div nz-col nzSpan="8" class="p-md text-white">
+        <i nz-icon type="fork" class="display-2"></i>
+      </div>
+      <div nz-col nzSpan="16" class="bg-white py-md">
+        <h3 class="h3 mb0">150</h3>
+        <div class="text-grey-dark">FORKS</div>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-green text-center rounded-md">
+      <div nz-col nzSpan="8" class="p-md text-white">
+        <i nz-icon type="message" class="display-2"></i>
+      </div>
+      <div nz-col nzSpan="16" class="bg-white py-md">
+        <h3 class="h3 mb0">10</h3>
+        <div class="text-grey-dark">NEW MESSAGES</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col nzXs="24" nzSm="12" nzMd="8" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-green-dark text-white rounded-md">
+      <div nz-col nzSpan="8" class="p-md text-center">
+        <i nz-icon type="share-alt" class="display-1"></i>
+      </div>
+      <div nz-col nzSpan="16" class="bg-green-light p-md">
+        <h2 class="h2 text-white mb0">150</h2>
+        <div class="text-lg text-uppercase">New connections</div>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="8" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-red-dark text-white rounded-md">
+      <div nz-col nzSpan="8" class="p-md text-center">
+        <i nz-icon type="star" class="display-1"></i>
+      </div>
+      <div nz-col nzSpan="16" class="bg-red-light p-md">
+        <h2 class="h2 text-white mb0">7000</h2>
+        <div class="text-lg text-uppercase">RATINGS RECEIVED</div>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="8" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-warning-dark text-white rounded-md">
+      <div nz-col nzSpan="8" class="p-md text-center">
+        <i nz-icon type="trophy" class="display-1"></i>
+      </div>
+      <div nz-col nzSpan="16" class="bg-warning-light p-md">
+        <h2 class="h2 text-white mb0">15</h2>
+        <div class="text-lg text-uppercase">ACHIEVEMENTS</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-green text-white text-center rounded-md">
+      <div nz-col nzSpan="10" class="p-md">
+        <i nz-icon type="book" class="display-1"></i>
+      </div>
+      <div nz-col nzSpan="14" class="py-md">
+        <h1 class="text-white mb0">120</h1>
+        <div>New Tasks!</div>
+      </div>
+      <a nz-col nzSpan="24" (click)="msg.info('view')" class="d-block p-sm bg-grey-darker text-white">
+        <div class="float-left">View Details</div>
+        <div class="float-right">
+          <i class="fa fa-chevron-circle-right"></i>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-primary text-white text-center rounded-md">
+      <div nz-col nzSpan="10" class="p-md">
+        <i nz-icon type="message" class="display-1"></i>
+      </div>
+      <div nz-col nzSpan="14" class="py-md">
+        <h1 class="text-white mb0">36</h1>
+        <div>New Comments!</div>
+      </div>
+      <a nz-col nzSpan="24" (click)="msg.info('view')" class="d-block p-sm bg-grey-darker text-white">
+        <div class="float-left">View Details</div>
+        <div class="float-right">
+          <i class="fa fa-chevron-circle-right"></i>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-warning text-white text-center rounded-md">
+      <div nz-col nzSpan="10" class="p-md">
+        <i nz-icon type="shopping-cart" class="display-1"></i>
+      </div>
+      <div nz-col nzSpan="14" class="py-md">
+        <h1 class="text-white mb0">110</h1>
+        <div>New Orders!</div>
+      </div>
+      <a nz-col nzSpan="24" (click)="msg.info('view')" class="d-block p-sm bg-grey-darker text-white">
+        <div class="float-left">View Details</div>
+        <div class="float-right">
+          <i class="fa fa-chevron-circle-right"></i>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-red text-white text-center rounded-md">
+      <div nz-col nzSpan="10" class="p-md">
+        <i nz-icon type="customer-service" class="display-1"></i>
+      </div>
+      <div nz-col nzSpan="14" class="py-md">
+        <h1 class="text-white mb0">19</h1>
+        <div>Support Tickets!</div>
+      </div>
+      <a nz-col nzSpan="24" (click)="msg.info('view')" class="d-block p-sm bg-grey-darker text-white">
+        <div class="float-left">View Details</div>
+        <div class="float-right">
+          <i class="fa fa-chevron-circle-right"></i>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+    <nz-card nzTitle="服务" [nzExtra]="extra">
+      <ng-template #extra>
+        <a (click)="msg.info('更多服务')">更多服务</a>
+      </ng-template>
+      <div class="pb-md">
+        <i nz-icon type="check-circle" class="text-green"></i> 已开通 16 个
+        <i nz-icon type="check-circle" class="pl-md"></i> 未开通 4 个
+      </div>
+      <nz-carousel style="overflow: initial;">
+        <div nz-carousel-content>
+          <div nz-row [nzGutter]="24" class="mb-md">
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="laptop" class="display-2 text-blue"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue mb0">服务注册中心</h4>
+                  <div class="text-grey">Register Server</div>
+                </div>
+              </div>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="rocket" class="display-2 text-red"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue mb0">可靠消息</h4>
+                  <div class="text-grey">Msg Broker</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="usb" class="display-2 text-purple"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue mb0">分布式资源管理</h4>
+                  <div class="text-grey">DRM</div>
+                </div>
+              </div>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="fork" class="display-2 text-pink"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue mb0">分布式数据管理</h4>
+                  <div class="text-grey">ZDC</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div nz-carousel-content>
+          <div nz-row [nzGutter]="24" class="mb-md">
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="laptop" class="display-2 text-blue"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue mb0">服务注册中心</h4>
+                  <div class="text-grey">Register Server</div>
+                </div>
+              </div>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="rocket" class="display-2 text-red"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue mb0">可靠消息</h4>
+                  <div class="text-grey">Msg Broker</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="usb" class="display-2 text-purple"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue">分布式资源管理</h4>
+                  <div class="text-grey">DRM</div>
+                </div>
+              </div>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+                <div nz-col [nzSpan]="8">
+                  <i nz-icon type="fork" class="display-2 text-pink"></i>
+                </div>
+                <div nz-col [nzSpan]="16">
+                  <h4 class="fs-md text-blue">分布式数据管理</h4>
+                  <div class="text-grey">ZDC</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nz-carousel>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+    <nz-card nzTitle="开发服务器">
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+        <div nz-col [nzSpan]="4">
+          <i nz-icon type="database" class="display-1"></i>
+        </div>
+        <div nz-col [nzSpan]="15">
+          <h3 class="font-weight-bold mb0">暂无服务器</h3>
+          <div class="pt-sm text-grey-dark d-flex align-items-center">
+            <nz-badge [nzStatus]="'error'"></nz-badge>
+            服务器申请失败
+          </div>
+        </div>
+        <div nz-col [nzSpan]="5" class="text-right">
+          <button nz-button (click)="msg.info('Apply')" [nzType]="'default'">
+            <span>申请</span>
+          </button>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+    <nz-card nzTitle="华东 1" class="ant-card__body-nopadding" [nzExtra]="extra">
+      <ng-template #extra>
+        <nz-tooltip [nzTitle]="'购买实例'">
+          <span nz-tooltip>
+            <i nz-icon type="shopping-cart" class="display-3"></i>
+          </span>
+        </nz-tooltip>
+      </ng-template>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" [nzGutter]="8">
+        <div nz-col [nzSpan]="12" class="text-center">
+          云服务器
+          <strong class="display-1 text-blur">12</strong>
+        </div>
+        <div nz-col [nzSpan]="12" class="my-md pl-md border-left-1">
+          <div class="pb-sm">
+            <nz-badge [nzStatus]="'success'"></nz-badge>
+            运行中
+            <strong class="text-green">2</strong>
+          </div>
+          <div class="pb-sm">
+            <nz-badge [nzStatus]="'default'"></nz-badge>
+            近期创建
+            <strong class="text-grey">0</strong>
+          </div>
+          <div class="pb-sm">
+            <nz-badge [nzStatus]="'error'"></nz-badge>
+            即将过期
+            <strong class="text-red">0</strong>
+          </div>
+          <div class="pb-sm">
+            <nz-badge [nzStatus]="'error'"></nz-badge>
+            已过期
+            <strong class="text-red">1</strong>
+          </div>
+        </div>
+      </div>
+      <div nz-row class="text-center border-top-1">
+        <div nz-col [nzSpan]="8" class="bg-grey-lighter-h py-sm point">
+          磁盘
+          <strong class="text-blue">18</strong>
+        </div>
+        <div nz-col [nzSpan]="8" class="bg-grey-lighter-h py-sm point">
+          快照
+          <strong>0</strong>
+        </div>
+        <div nz-col [nzSpan]="8" class="bg-grey-lighter-h py-sm point">
+          镜像
+          <strong class="text-blue">2</strong>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzXs]="24" [nzMd]="12" class="mb-md">
+    <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="bg-white py-md rounded-md">
+      <div nz-col [nzSpan]="3" class="text-center">
+        <span class="ant-avatar ant-avatar-lg ant-avatar-circle ant-avatar-icon bg-primary">
+          <i nz-icon type="dashboard"></i>
+        </span>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <strong class="display-2">10</strong> 个
+        <div class="text-grey">运行测压任务</div>
+      </div>
+      <div nz-col [nzSpan]="5" class="d-flex align-items-center">
+        <nz-badge [nzStatus]="'success'"></nz-badge>
+        已完成
+        <span class="display-3 text-grey-dark pl-sm">3</span>
+      </div>
+      <div nz-col [nzSpan]="5" class="d-flex align-items-center">
+        <nz-badge [nzStatus]="'processing'"></nz-badge>
+        正在进行
+        <span class="display-3 text-grey-dark pl-sm">5</span>
+      </div>
+      <div nz-col [nzSpan]="5" class="d-flex align-items-center">
+        <nz-badge [nzStatus]="'error'"></nz-badge>
+        已失败
+        <span class="display-3 text-grey-dark pl-sm">2</span>
+      </div>
+    </div>
+  </div>
+  <div nz-col [nzXs]="24" [nzMd]="12" class="mb-md">
+    <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="bg-white rounded-md border p-md">
+      <div nz-col [nzSpan]="16">
+        你觉得这篇文章如何：
+      </div>
+      <div nz-col [nzSpan]="8" class="text-right">
+        <nz-popconfirm [(nzVisible)]="like" [nzPlacement]="'top'" [nzTitle]="'喜欢就开启此内容提醒吧！'" [nzOkText]="'立即开启'" [nzCancelText]="'下次再说'"
+          (nzOnConfirm)="msg.success('开启提醒')" (nzOnCancel)="msg.error('取消提醒')" style="display:inline-block; padding-top:15px;">
+          <span nz-popconfirm></span>
+        </nz-popconfirm>
+        <span class="pr-lg">
+          <i nz-icon type="like" class="display-3 point" [class.text-primary]="like" (click)="like=!like"></i> 赞
+        </span>
+        <i nz-icon type="dislike" class="display-3 point" [class.text-primary]="dislike" (click)="dislike=!dislike"></i> 踩
+      </div>
+    </div>
+  </div>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col nzXs="24" nzSm="12" nzMd="8" class="mb-md">
+    <nz-card class="ant-card__body-nopadding bg-green rounded-md">
+      <div class="p-md">
+        <div class="h5 pb-sm text-white">Received all time</div>
+        <g2-mini-area color="#fff" height="46" [data]="data"></g2-mini-area>
+      </div>
+      <div class="text-center bg-grey-darker text-white">
+        <div nz-row>
+          <div nz-col [nzSpan]="8" class="py-sm">
+            <h3 class="text-white mb0">400</h3>
+            <div>Photos</div>
+          </div>
+          <div nz-col [nzSpan]="8" class="py-sm">
+            <h3 class="text-white mb0">2000</h3>
+            <div>Likes</div>
+          </div>
+          <div nz-col [nzSpan]="8" class="py-sm">
+            <h3 class="text-white mb0">500</h3>
+            <div>Following</div>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="8" class="mb-md">
+    <nz-card class="ant-card__body-nopadding bg-green rounded-md">
+      <div class="p-md">
+        <div class="h5 pb-sm text-white">Monthly incomes</div>
+        <g2-mini-area color="#fff" height="46" [data]="data"></g2-mini-area>
+      </div>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="bg-grey-darker py-sm text-center">
+        <div nz-col [nzSpan]="16">
+          <g2-mini-bar height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="data"></g2-mini-bar>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <div class="text-white">+150</div>
+          <div class="text-grey">From last month</div>
+        </div>
+      </div>
+      <div class="py-sm text-center bg-white text-grey">
+        <div nz-row>
+          <div nz-col [nzSpan]="12">
+            <div class="text-grey-dark">Gross income</div>
+            <h4 class="h4 mb0">12000</h4>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <div class="text-grey-dark">Net income</div>
+            <h4 class="h4 mb0">5100</h4>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="8" class="mb-md">
+    <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="rounded-md bg-blue">
+      <div nz-col nzSpan="16">
+        <img class="img-fluid align-middle" src="/typings/assets/tmp/img/bg1.jpg" alt="" />
+      </div>
+      <div nz-col nzSpan="8" class="text-white text-center">
+        <h2 class="h1 text-white mb0">11°</h2>
+        <div class="py-sm">Cold</div>
+        <i class="fa fa-sun-o fa-2x"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzBordered]="false" [nzCover]="coverTpl">
+      <ng-template #coverTpl>
+        <img class="img" src="//os.alipayobjects.com/rmsportal/GhjqstwSgxBXrZS.png">
+      </ng-template>
+      <h3>ANT DESIGN</h3>
+      <p class="text-grey">A UI Design Language</p>
+      <ol class="list-styled text-lg pt-md">
+        <li>Designed by experienced team, and showcase dozens of inspiring projects.</li>
+        <li>Provide solutions for usual problems that may be encountered while developing enterprise-like complex UIs.</li>
+        <li>Dozens of flexible and practical reusable components that increase your productivity.</li>
+      </ol>
+      <p class="pt-md mb0">
+        <a class="text-grey" href="//ng.ant.design" target="_blank">View Site...</a>
+      </p>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzTitle]="nzTitle" class="ant-card__body-nopadding" [nzTitle]="nzTitle">
+      <ng-template #nzTitle>
+        Recent Posts
+        <small class="text-sm font-weight-normal">Venenatis portauam Inceptos ameteiam</small>
+      </ng-template>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point" *ngFor="let item of todoData">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <nz-avatar [nzSrc]="'./assets/tmp/img/' + item.avatar + '.png'"></nz-avatar>
+        </div>
+        <div nz-col [nzSpan]="20">
+          <strong>{{item.name}}</strong>
+          <div>{{item.content}}</div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card nzTitle="Todo lists" class="ant-card__body-nopadding">
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point" *ngFor="let item of todoData">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <nz-avatar [nzSrc]="'./assets/tmp/img/' + item.avatar + '.png'"></nz-avatar>
+        </div>
+        <div nz-col [nzSpan]="18">
+          <strong>{{item.name}}</strong>
+          <div [class.text-deleted]="item.completed">{{item.content}}</div>
+        </div>
+        <div nz-col [nzSpan]="2" class="text-right pr-md">
+          <nz-dropdown [nzPlacement]="'topRight'">
+            <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
+            <ul nz-menu>
+              <li nz-menu-item *ngIf="item.completed" (click)="item.completed=false">Active</li>
+              <li nz-menu-item *ngIf="!item.completed" (click)="item.completed=true">Completed</li>
+              <li nz-menu-item (click)="todoData.splice(todoData.indexOf(item), 1)">Delted</li>
+            </ul>
+          </nz-dropdown>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

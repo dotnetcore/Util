@@ -1,0 +1,150 @@
+<div class="alain-default__content-title">
+  <h1>
+    Dashboard
+    <small>Welcome !</small>
+  </h1>
+</div>
+<quick-menu>
+  <nz-list [nzBordered]="false" [nzSplit]="false">
+    <nz-list-item>
+      <a routerLink="/">Home</a>
+    </nz-list-item>
+    <nz-list-item>
+      <a routerLink="/widgets">Widgets</a>
+    </nz-list-item>
+    <nz-list-item>
+      <a routerLink="/style/typography">typography</a>
+    </nz-list-item>
+    <nz-list-item>
+      <a routerLink="/style/gridmasonry">gridmasonry</a>
+    </nz-list-item>
+    <nz-list-item>
+      <a routerLink="/pro/result/success">success result</a>
+    </nz-list-item>
+  </nz-list>
+</quick-menu>
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-primary rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">123,456</div>
+        <p class="text-nowrap mb0">Website Traffics</p>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar *ngIf="webSite" height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="webSite" tooltipType="mini"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-success rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">234,567K</div>
+        <p class="text-nowrap mb0">Website Impressions</p>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar *ngIf="webSite" height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="webSite" tooltipType="mini"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-orange rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">$458,778</div>
+        <p class="text-nowrap mb0">Total Sales</p>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar *ngIf="webSite" height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="webSite" tooltipType="mini"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="6" class="mb-md">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-magenta rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">456</div>
+        <p class="text-nowrap mb0">Support Tickets</p>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar *ngIf="webSite" height="35" color="#fff" borderWidth="3" [padding]="[36, 30, 30, 30]" [data]="webSite" tooltipType="mini"></g2-mini-bar>
+      </div>
+    </div>
+  </div>
+</div>
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzBordered]="false" [nzTitle]="salesTitle">
+      <ng-template #salesTitle>
+        Sales Statistics
+        <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
+      </ng-template>
+      <g2-bar *ngIf="salesData" height="275" [data]="salesData"></g2-bar>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzTitle]="growthTitle" [nzBordered]="false">
+      <ng-template #growthTitle>
+        Growth Rate
+        <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
+      </ng-template>
+      <g2-timeline *ngIf="offlineChartData" [data]="offlineChartData" [height]="239" [padding]="[0, 0, 0, 0]" [titleMap]="{ y1: '客流量', y2: '支付笔数' }"></g2-timeline>
+    </nz-card>
+  </div>
+</div>
+<div nz-row nzGutter="16">
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzBordered]="false" [nzCover]="coverTpl">
+      <ng-template #coverTpl>
+        <img class="img" src="//os.alipayobjects.com/rmsportal/GhjqstwSgxBXrZS.png">
+      </ng-template>
+      <h3>ANT DESIGN</h3>
+      <p class="text-grey">A UI Design Language</p>
+      <ol class="list-styled text-lg pt-md">
+        <li>Designed by experienced team, and showcase dozens of inspiring projects.</li>
+        <li>Provide solutions for usual problems that may be encountered while developing enterprise-like complex UIs.</li>
+        <li>Dozens of flexible and practical reusable components that increase your productivity.</li>
+      </ol>
+      <p class="pt-md mb0">
+        <a class="text-grey" href="//ng.ant.design" target="_blank">View Site...</a>
+      </p>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card [nzTitle]="recentTitle" [nzBordered]="false" class="ant-card__body-nopadding">
+      <ng-template #recentTitle>
+        Recent Posts
+        <small class="text-sm font-weight-normal">Venenatis portauam Inceptos ameteiam</small>
+      </ng-template>
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point" *ngFor="let item of todoData">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <nz-avatar [nzSrc]="'./assets/tmp/img/' + item.avatar + '.png'"></nz-avatar>
+        </div>
+        <div nz-col [nzSpan]="20">
+          <strong>{{item.name}}</strong>
+          <p class="mb0">{{item.content}}</p>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzMd="12">
+    <nz-card nzTitle="Todo lists" [nzBordered]="false" class="ant-card__body-nopadding">
+      <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point" *ngFor="let item of todoData">
+        <div nz-col [nzSpan]="4" class="text-center">
+          <nz-avatar [nzSrc]="'./assets/tmp/img/' + item.avatar + '.png'"></nz-avatar>
+        </div>
+        <div nz-col [nzSpan]="18">
+          <strong>{{item.name}}</strong>
+          <p [class.text-deleted]="item.completed" class="mb0">{{item.content}}</p>
+        </div>
+        <div nz-col [nzSpan]="2" class="text-right pr-md">
+          <nz-dropdown [nzPlacement]="'topRight'">
+            <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
+            <ul nz-menu>
+              <li nz-menu-item *ngIf="item.completed" (click)="item.completed=false">Active</li>
+              <li nz-menu-item *ngIf="!item.completed" (click)="item.completed=true">Completed</li>
+              <li nz-menu-item (click)="todoData.splice(todoData.indexOf(item), 1)">Delted</li>
+            </ul>
+          </nz-dropdown>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

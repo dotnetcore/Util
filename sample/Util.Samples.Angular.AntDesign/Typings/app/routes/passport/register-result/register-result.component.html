@@ -1,0 +1,13 @@
+<result type="success" [title]="title" description="{{ 'app.register-result.activation-email' | translate }}">
+  <ng-template #title>
+    <div class="title" style="font-size: 20px;">
+      {{ 'app.register-result.msg' | translate:params }}
+    </div>
+  </ng-template>
+  <button (click)="msg.success('email')" nz-button nzSize="large" [nzType]="'primary'">
+    {{ 'app.register-result.view-mailbox' | translate }}
+  </button>
+  <button routerLink="/" nz-button nzSize="large">
+    {{ 'app.register-result.back-home' | translate }}
+  </button>
+</result>

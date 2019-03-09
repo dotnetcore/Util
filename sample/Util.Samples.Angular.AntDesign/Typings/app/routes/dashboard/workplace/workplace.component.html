@@ -1,0 +1,111 @@
+<page-header [breadcrumb]="breadcrumb" [content]="content" [extra]="extra">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/']">首页</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a [routerLink]="['/']">Dashboard</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>工作台</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+  <ng-template #content>
+    <div class="content">
+      <div class="avatar">
+        <nz-avatar nzSrc="https://gw.alipayobjects.com/zos/rmsportal/lctvVCLfRpYCkYxAsiVQ.png"></nz-avatar>
+      </div>
+      <div class="desc">
+        <div class="desc-title">早安，山治，我要吃肉！</div>
+        <div>假砖家 | 地球－伟大航道－黄金梅丽号－厨房－小强部门</div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #extra>
+    <div class="page-extra">
+      <div>
+        <p>项目数</p>
+        <p>56</p>
+      </div>
+      <div>
+        <p>团队内排名</p>
+        <p>8
+          <span> / 24</span>
+        </p>
+      </div>
+      <div>
+        <p>项目访问</p>
+        <p>2,223</p>
+      </div>
+    </div>
+  </ng-template>
+</page-header>
+<div nz-row [nzGutter]="24">
+  <div nz-col nzXs="24" nzSm="24" nzMd="16">
+    <nz-card nzTitle="进行中的项目" [nzExtra]="ingExtra" [nzBordered]="false" [nzLoading]="loading" class="ant-card__body-nopadding mb-lg project-list">
+      <ng-template #ingExtra>
+        <a (click)="msg.success('to')">全部项目</a>
+      </ng-template>
+      <div *ngFor="let item of notice" nz-card-grid class="project-grid">
+        <nz-card [nzBordered]="false" class="ant-card__body-nopadding mb0">
+          <nz-card-meta [nzTitle]="noticeTitle" [nzDescription]="item.description">
+            <ng-template #noticeTitle>
+              <div class="card-title">
+                <nz-avatar [nzSrc]="item.logo" [nzSize]="'small'"></nz-avatar>
+                <a (click)="msg.info('to' + item.href)">{{item.title}}</a>
+              </div>
+            </ng-template>
+          </nz-card-meta>
+          <div class="project-item">
+            <a (click)="msg.info('show user: ' + item.member)">{{item.member}}</a>
+            <span *ngIf="item.updatedAt" class="datetime" title="{{item.updatedAt}}">
+              {{item.updatedAt | _date: 'fn' }}
+            </span>
+          </div>
+        </nz-card>
+      </div>
+    </nz-card>
+    <nz-card nzTitle="动态" [nzBordered]="false" [nzLoading]="loading" class="ant-card__body-nopadding mb-lg active-card">
+      <nz-list nzSize="large" class="activities">
+        <nz-list-item *ngFor="let item of activities">
+          <nz-list-item-meta [nzAvatar]="item.user.avatar" [nzTitle]="activeTitle" [nzDescription]="activeDescription">
+            <ng-template #activeTitle>
+              <a (click)="msg.success(item.user.name)" class="username">{{item.user.name}}</a>
+              &nbsp;
+              <span class="event" [innerHTML]="item.template"></span>
+            </ng-template>
+            <ng-template #activeDescription>
+              <span class="datetime" title="{{item.updatedAt}}">{{item.updatedAt | _date: 'fn'}}</span>
+            </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </nz-list>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="8">
+    <nz-card nzTitle="快速开始 / 便捷导航" [nzBordered]="false" class="ant-card__body-nopadding mb-lg">
+      <div class="links">
+        <a *ngFor="let item of links" (click)="msg.success(item.title)">{{item.title}}</a>
+        <button nz-button (click)="links.push({title: 'new titel', href: 'href'})" [nzType]="'dashed'" [nzSize]="'small'">
+          <i nz-icon type="plus"></i>
+          <span>添加</span>
+        </button>
+      </div>
+    </nz-card>
+    <nz-card nzTitle="XX 指数" [nzBordered]="false" [nzLoading]="loading" class="mb-lg">
+      <g2-radar *ngIf="radarData" [data]="radarData" [height]="343" [hasLegend]="true"></g2-radar>
+    </nz-card>
+    <nz-card nzTitle="团队" [nzBordered]="false" [nzBodyStyle]="{'padding-top.px': 12, 'padding-bottom.px': 12 }" class="mb-lg">
+      <div class="members">
+        <div nz-row [nzGutter]="48">
+          <div nz-col [nzSpan]="12" *ngFor="let i of members">
+            <a (click)="msg.success(i.title)">
+              <nz-avatar [nzSrc]="i.logo" [nzSize]="'small'"></nz-avatar>
+              <span class="member">{{i.title}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

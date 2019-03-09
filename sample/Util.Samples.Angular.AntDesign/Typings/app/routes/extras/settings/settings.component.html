@@ -1,0 +1,204 @@
+<nz-row [nzGutter]="24" class="py-lg">
+  <nz-col [nzSpan]="6">
+    <nz-card nzTitle="Personal settings" class="ant-card__body-nopadding">
+      <a (click)="active=1" class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':active===1}">Profile</a>
+      <a (click)="active=2" class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':active===2}">Account</a>
+      <a (click)="active=3" class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':active===3}">Emails</a>
+      <a (click)="active=4" class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':active===4}">Notifications</a>
+    </nz-card>
+    <nz-card nzTitle="Developer settings" class="ant-card__body-nopadding">
+      <a (click)="active=5" class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':active===5}">OAuth applications</a>
+      <a (click)="active=6" class="d-block py-sm px-md" [ngClass]="{'bg-primary-light text-white':active===6}">Personal access tokens</a>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="18">
+    <nz-card nzTitle="Public profile" *ngIf="active===1">
+      <nz-row [nzGutter]="64">
+        <nz-col [nzSpan]="16">
+          <form nz-form [formGroup]="profileForm" (ngSubmit)="profileSave($event, profileForm.value)" [nzLayout]="'vertical'">
+            <nz-form-item>
+              <nz-form-label nzFor="name" nzRequired>name</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="name" id="name">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                  <nz-form-explain *ngIf="name.errors.required">required</nz-form-explain>
+                  <nz-form-explain *ngIf="name.errors.pattern">must match pattern [-_a-zA-Z0-9]</nz-form-explain>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="email">email</nz-form-label>
+              <nz-form-control>
+                <nz-select formControlName="email">
+                  <nz-option [nzLabel]="'Select a verified email to display'" [nzValue]="''"></nz-option>
+                  <nz-option [nzLabel]="'cipchk@qq.com'" [nzValue]="'cipchk@qq.com'"></nz-option>
+                </nz-select>
+                <nz-form-explain>You can manage verified email addresses in your
+                  <a (click)="active=3">email settings</a>.</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="bio">Bio</nz-form-label>
+              <nz-form-control>
+                <textarea nz-input formControlName="bio" id="bio" placeholder="Tell us a little bit about yourself"></textarea>
+                <nz-form-explain>You can
+                  <strong>@mention</strong> other users and organizations to link to them.</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="url">URL</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="url" id="url">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="company">Company</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="company" id="company">
+                <nz-form-explain>You can
+                  <strong>@mention</strong> your company's GitHub organization to link it.</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="border-top-1 mt-md pt-md">
+              <nz-form-label nzFor="location">Location</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="location" id="location">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button [nzType]="'primary'" [disabled]="profileForm.invalid">Update profile</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-col>
+        <nz-col [nzSpan]="8">
+          <h4>Profile picture</h4>
+          <img src="/typings/assets/tmp/img/avatar.jpg" style="width: 100%;">
+          <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" class="d-block mt-md text-center">
+            <button nz-button>Upload new picture</button>
+          </nz-upload>
+        </nz-col>
+      </nz-row>
+    </nz-card>
+    <nz-card nzTitle="Change password" *ngIf="active===2">
+      <nz-row [nzGutter]="64">
+        <nz-col [nzSpan]="16">
+          <form nz-form [nzLayout]="'vertical'">
+            <nz-form-item>
+              <nz-form-label nzFor="old_password" nzRequired>Old password</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="pwd.old_password" name="old_password" id="old_password" type="password" required>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="new_password" nzRequired>New password</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="pwd.new_password" name="new_password" id="new_password" type="password" required>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="confirm_new_password">Confirm new password</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="pwd.confirm_new_password" name="confirm_new_password" id="confirm_new_password" type="password"
+                  required>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button (click)="pwdSave()" [nzType]="'primary'">Update profile</button>
+                <a class="pl-sm" [routerLink]="['/forget']">I forgot my password</a>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-col>
+      </nz-row>
+      <h2 class="py-md mt-lg border-bottom-1">Change username</h2>
+      <p class="py-sm">Changing your username can have unintended side effects.</p>
+      <button nz-button (click)="msg.info('to change username page')">
+        <span>Change username</span>
+      </button>
+    </nz-card>
+    <nz-card nzTitle="Email" *ngIf="active===3">
+      <nz-row class="border-1 p-md rounded-sm" [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+        <nz-col [nzSpan]="12">
+          cipchk@qq.com
+          <nz-tooltip [nzTitle]="'This email will be used for account-related notifications (e.g. account changes, password resets, billing receipts) as well as any web-based GitHub operations (e.g. edits and merges).'">
+            <span nz-tooltip>
+              <nz-tag [nzColor]="'#28a745'">Primary</nz-tag>
+            </span>
+          </nz-tooltip>
+          <nz-tooltip [nzTitle]="'This email will be used as the \'from\' address for web-based GitHub operations.'">
+            <span nz-tooltip>
+              <nz-tag [nzColor]="'#959da5'">Public</nz-tag>
+            </span>
+          </nz-tooltip>
+        </nz-col>
+        <nz-col [nzSpan]="12" class="text-right">
+          <i nz-icon type="delete" class="text-lg"></i>
+        </nz-col>
+      </nz-row>
+      <h4 class="pt-md mb-sm">Add email address</h4>
+      <input nz-input style="width: 200px;" class="mr-sm">
+      <button nz-button (click)="msg.info('add')">Add</button>
+      <h4 class="border-top-1 py-md mt-md">Primary email address</h4>
+      <p class="mb-md">cipchk@qq.com will be used for account-related notifications and for web-based GitHub operations (e.g. edits and merges).</p>
+      <nz-select [(ngModel)]="primary_email" class="mr-sm">
+        <nz-option [nzLabel]="'cipchk@qq.com'" [nzValue]="'cipchk@qq.com'"></nz-option>
+      </nz-select>
+      <button nz-button (click)="msg.info('save')">Save</button>
+    </nz-card>
+    <nz-card nzTitle="Notifications" *ngIf="active===4">
+      <p class="pb-md">Choose how you receive notifications. These notification settings apply to the repositories you’re watching.</p>
+      <nz-list nzBordered>
+        <nz-list-item class="d-block">
+          <h4>Automatically watch repositories</h4>
+          <p class="py-sm">When you’re given push access to a repository, automatically receive notifications for it.</p>
+          <label nz-checkbox [ngModel]="true">Automatically watch</label>
+        </nz-list-item>
+        <nz-list-item class="d-block">
+          <h4>Participating</h4>
+          <p class="py-sm">Notifications for the conversations you are participating in, or if someone cites you with an @mention.</p>
+          <label nz-checkbox [ngModel]="true">Email</label>
+          <label nz-checkbox [ngModel]="true">Web</label>
+        </nz-list-item>
+        <nz-list-item class="d-block">
+          <h4>Watching</h4>
+          <p class="py-sm">Notifications for all repositories or conversations you’re watching.</p>
+          <label nz-checkbox [ngModel]="true">Email</label>
+          <label nz-checkbox [ngModel]="true">Web</label>
+        </nz-list-item>
+      </nz-list>
+    </nz-card>
+    <nz-card class="ant-card__body-nopadding" *ngIf="active===5" [nzBordered]="false">
+      <div class="border rounded-md text-center p-lg bg-grey-lighter">
+        <h3>No OAuth applications</h3>
+        <p class="py-md">OAuth applications are used to access the GitHub API. Read the docs to find out more.</p>
+        <button nz-button (click)="msg.info('Register a new application')" [nzType]="'primary'">
+          Register a new application
+        </button>
+      </div>
+    </nz-card>
+    <nz-card nzTitle="Personal access tokens" [nzExtra]="extra" *ngIf="active===6">
+      <ng-template #extra>
+        <button nz-button (click)="msg.info('Generate new token')" [nzSize]="'small'">Generate new token</button>
+        <button nz-button (click)="msg.info('Revoke all')" [nzSize]="'small'" [nzType]="'danger'" class="ml-sm">Revoke all</button>
+      </ng-template>
+      <p>Tokens you have generated that can be used to access the GitHub API.</p>
+      <nz-list nzBordered class="mt-sm">
+        <nz-list-item>
+          <nz-col [nzSpan]="12">
+            <strong>octotree</strong> — repo
+          </nz-col>
+          <nz-col [nzSpan]="12" class="text-right">
+            Last used within the last day
+            <nz-button-group>
+              <button nz-button>Edit</button>
+              <button nz-button [nzType]="'danger'">Delete</button>
+            </nz-button-group>
+          </nz-col>
+        </nz-list-item>
+      </nz-list>
+    </nz-card>
+  </nz-col>
+</nz-row>

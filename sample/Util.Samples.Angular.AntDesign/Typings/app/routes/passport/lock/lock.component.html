@@ -1,0 +1,28 @@
+<div class="ant-card width-lg" style="margin: 0 auto;">
+  <div class="ant-card-body">
+    <div class="avatar">
+      <nz-avatar
+        [nzSrc]="settings.user.avatar"
+        nzIcon="anticon anticon-user"
+        nzSize="large"
+      ></nz-avatar>
+    </div>
+    <form nz-form [formGroup]="f" (ngSubmit)="submit()" role="form" class="mt-md">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSuffixIcon="anticon anticon-lock">
+            <input type="password" nz-input formControlName="password" />
+          </nz-input-group>
+          <nz-form-explain *ngIf="f.get('password').dirty && f.get('password').errors">
+            {{ 'validation.password.required' | translate }}
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-row nzType="flex" nzAlign="middle">
+        <nz-col [nzOffset]="12" [nzSpan]="12" style="text-align:right;">
+          <button nz-button [disabled]="!f.valid" nzType="primary">{{ 'app.lock' | translate }}</button>
+        </nz-col>
+      </nz-row>
+    </form>
+  </div>
+</div>

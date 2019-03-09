@@ -1,0 +1,19 @@
+<span>{{i.label}}<span class="pl-sm text-grey">{{i.tip}}</span></span>
+<div [ngSwitch]="i.type">
+  <ng-container *ngSwitchCase="'color'">
+    <input nz-input type="color" style="min-width: 88px" [(ngModel)]="i.value" [ngModelOptions]="{standalone: true}">
+  </ng-container>
+  <ng-container *ngSwitchCase="'input'">
+    <input nz-input style="min-width: 88px" [(ngModel)]="i.value" [ngModelOptions]="{standalone: true}">
+  </ng-container>
+  <ng-container *ngSwitchCase="'px'">
+    <nz-input-number [(ngModel)]="pxVal" (ngModelChange)="pxChange($event)" [nzMin]="i.min" [nzMax]="i.max"
+                     [nzStep]="i.step || 2" [nzFormatter]="format"></nz-input-number>
+  </ng-container>
+  <ng-container *ngSwitchCase="'switch'">
+    <nz-switch nzSize="small" [(ngModel)]="i.value" [ngModelOptions]="{standalone: true}"></nz-switch>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    <ng-content></ng-content>
+  </ng-container>
+</div>

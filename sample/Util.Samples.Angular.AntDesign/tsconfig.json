@@ -16,11 +16,12 @@
     "strictNullChecks": false,
     "strict": true,
     "lib": [ "es6", "dom" ],
-    "types": [ "webpack-env" ],
+    "types": [ "node", "webpack-env" ],
+    "typeRoots": [ "node_modules/@types" ],
     "baseUrl": "."
   },
   "angularCompilerOptions": {
-    "debug": true    
+    "debug": true
   },
   "exclude": [ "bin", "node_modules" ]
 }

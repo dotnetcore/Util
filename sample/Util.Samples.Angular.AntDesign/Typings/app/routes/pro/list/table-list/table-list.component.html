@@ -1,0 +1,108 @@
+<page-header [title]="'查询表格'"></page-header>
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" (ngSubmit)="getData()" class="search__form">
+    <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+      <nz-col nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label nzFor="no">规则编号</nz-form-label>
+          <nz-form-control>
+            <input nz-input [(ngModel)]="q.no" name="no" placeholder="请输入" id="no">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label nzFor="status">使用状态</nz-form-label>
+          <nz-form-control>
+            <nz-select [(ngModel)]="q.status" name="status" id="status" [nzPlaceHolder]="'请选择'" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+        <nz-form-item>
+          <nz-form-label nzFor="callNo">调用次数</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="callNo">
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+        <nz-form-item>
+          <nz-form-label nzFor="updatedAt">更新日期</nz-form-label>
+          <nz-form-control>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+        <nz-form-item>
+          <nz-form-label nzFor="status2">使用状态</nz-form-label>
+          <nz-form-control>
+            <nz-select [nzPlaceHolder]="'请选择'" nzId="status2" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+        <nz-form-item>
+          <nz-form-label nzFor="status3">使用状态</nz-form-label>
+          <nz-form-control>
+            <nz-select [nzPlaceHolder]="'请选择'" nzId="status3" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">查询</button>
+        <button nz-button type="reset" (click)="reset()" class="mx-sm">重置</button>
+        <a (click)="expandForm=!expandForm">
+          {{expandForm ? '收起' : '展开'}}
+          <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+        </a>
+      </nz-col>
+    </nz-row>
+  </form>
+  <button nz-button (click)="add(modalContent)" [nzType]="'primary'">
+    <i nz-icon type="plus"></i>
+    <span>新建</span>
+  </button>
+  <ng-container *ngIf="selectedRows.length > 0">
+    <button nz-button>批量操作</button>
+    <nz-dropdown [nzPlacement]="'bottomLeft'">
+      <button nz-button nz-dropdown>
+        更多操作
+        <i nz-icon type="down"></i>
+      </button>
+      <ul nz-menu>
+        <li nz-menu-item (click)="remove()">删除</li>
+        <li nz-menu-item (click)="approval()">批量审批</li>
+      </ul>
+    </nz-dropdown>
+  </ng-container>
+  <div class="my-md">
+    <nz-alert [nzType]="'info'" [nzShowIcon]="true" [nzMessage]="message">
+      <ng-template #message>
+        已选择
+        <strong class="text-primary">{{selectedRows.length}}</strong> 项&nbsp;&nbsp; 服务调用总计
+        <strong>{{totalCallNo}}</strong> 万
+        <a *ngIf="totalCallNo > 0" (click)="st.clearCheck()" class="ml-lg">清空</a>
+      </ng-template>
+    </nz-alert>
+  </div>
+  <st #st [columns]="columns" [data]="data" [loading]="loading" (change)="stChange($event)">
+    <ng-template st-row="status" let-i>
+      <nz-badge [nzStatus]="i.statusType" [nzText]="i.statusText"></nz-badge>
+    </ng-template>
+  </st>
+</nz-card>
+<ng-template #modalContent>
+  <nz-form-item>
+    <nz-form-label nzFor="no">描述</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="description" name="description" placeholder="请输入" id="no">
+    </nz-form-control>
+  </nz-form-item>
+</ng-template>

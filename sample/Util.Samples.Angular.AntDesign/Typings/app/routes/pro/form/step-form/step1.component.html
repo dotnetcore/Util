@@ -1,0 +1,32 @@
+<form nz-form [formGroup]="form" (ngSubmit)="_submitForm()" se-container="1" labelWidth="100">
+  <se label="付款账户" required>
+    <nz-select formControlName="pay_account">
+      <nz-option [nzLabel]="item.pay_account" [nzValue]="item.pay_account"></nz-option>
+    </nz-select>
+  </se>
+  <se label="收款账户" error="请输入收款账户" required>
+    <nz-input-group nzCompact>
+      <nz-select formControlName="receiver_type" style="width: 100px;">
+        <nz-option [nzLabel]="'支付宝'" [nzValue]="'alipay'"></nz-option>
+        <nz-option [nzLabel]="'银行账号'" [nzValue]="'bank'"></nz-option>
+      </nz-select>
+      <input formControlName="receiver_account" nz-input style="width: calc(100% - 100px);">
+    </nz-input-group>
+  </se>
+  <se label="收款姓名" error="请输入收款姓名，至少2个字符以上" required>
+    <input nz-input formControlName="receiver_name">
+  </se>
+  <se label="转账金额" error="请输入转账金额，且1至100万以内" required>
+    <input nz-input formControlName="amount" id="amount" nzAddonAfter="￥">
+  </se>
+  <se>
+    <button nz-button nzType="primary" [disabled]="form.invalid">下一步</button>
+  </se>
+</form>
+<div class="border-top-1 mt-lg px-lg text-grey-dark">
+  <h3 class="h3 my-md">说明</h3>
+  <h4 class="h4 mb-sm">转账到支付宝账户</h4>
+  <p class="mb-sm">如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>
+  <h4 class="h4 mb-sm">转账到银行卡</h4>
+  <p>如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>
+</div>

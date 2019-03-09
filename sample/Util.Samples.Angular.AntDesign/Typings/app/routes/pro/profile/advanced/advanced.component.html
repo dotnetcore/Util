@@ -1,0 +1,146 @@
+<page-header [title]="'单号：234231029431'" [logo]="logo" [action]="action" [extra]="extra" [tab]="tab">
+  <ng-template #logo>
+    <img src="https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png">
+  </ng-template>
+  <ng-template #action>
+    <nz-button-group>
+      <button nz-button>操作</button>
+      <button nz-button>操作</button>
+    </nz-button-group>
+    <nz-dropdown class="mx-sm">
+      <button nz-button nz-dropdown>
+        <i nz-icon type="ellipsis"></i>
+      </button>
+      <ul nz-menu>
+        <li nz-menu-item>选项一</li>
+        <li nz-menu-item>选项二</li>
+        <li nz-menu-item>选项三</li>
+      </ul>
+    </nz-dropdown>
+    <button nz-button [nzType]="'primary'">主操作</button>
+  </ng-template>
+  <ng-template #extra>
+    <div nz-row>
+      <div nz-col nzXs="24" nzSm="12">
+        <p class="text-grey">状态</p>
+        <p class="text-lg">待审批</p>
+      </div>
+      <div nz-col nzXs="24" nzSm="12">
+        <p class="text-grey">订单金额</p>
+        <p class="text-lg">¥ 568.08</p>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #tab>
+    <nz-tabset>
+      <nz-tab nzTitle="详情"></nz-tab>
+      <nz-tab nzTitle="规则"></nz-tab>
+    </nz-tabset>
+  </ng-template>
+  <sv-container size="small" col="2">
+    <sv label="创建人">曲丽丽</sv>
+    <sv label="订购产品">XX 服务</sv>
+    <sv label="创建时间">2017-07-07</sv>
+    <sv label="关联单据">
+      <a (click)="msg.success('yes')">12421</a>
+    </sv>
+    <sv label="生效日期">2017-07-07 ~ 2017-08-08</sv>
+    <sv label="备注">请于两个工作日内确认</sv>
+  </sv-container>
+</page-header>
+<nz-card [nzBordered]="false" class="mb-lg" nzTitle="流程进度">
+  <nz-steps [nzCurrent]="1" nzProgressDot>
+    <nz-step [nzTitle]="'创建项目'" [nzDescription]="createDesc">
+      <ng-template #createDesc>
+        <div class="desc">
+          <div class="my-sm">
+            曲丽丽
+            <i nz-icon type="dingding" class="ml-sm"></i>
+          </div>
+          <div>2016-12-12 12:32</div>
+        </div>
+      </ng-template>
+    </nz-step>
+    <nz-step [nzTitle]="'部门初审'" [nzDescription]="checkedDesc">
+      <ng-template #checkedDesc>
+        <div class="desc">
+          <div class="my-sm">
+            周毛毛
+            <i nz-icon type="dingding" class="ml-sm" style="color: #00a0e9;"></i>
+          </div>
+          <a (click)="msg.success('click')">催一下</a>
+        </div>
+      </ng-template>
+    </nz-step>
+    <nz-step [nzTitle]="'财务复核'"></nz-step>
+    <nz-step [nzTitle]="'完成'"></nz-step>
+  </nz-steps>
+  <div class="steps-content"></div>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="用户信息" class="mb-lg">
+  <sv-container class="mb-lg">
+    <sv label="用户姓名">付小小</sv>
+    <sv label="会员卡号">32943898021309809423</sv>
+    <sv label="身份证">3321944288191034921</sv>
+    <sv label="联系方式">18112345678</sv>
+    <sv label="联系地址">曲丽丽 18100000000 浙江省杭州市西湖区黄姑山路工专路交叉路口</sv>
+  </sv-container>
+  <sv-container class="mb-lg" title="信息组">
+    <sv label="某某数据">725</sv>
+    <sv label="该数据更新时间">2017-08-08</sv>
+    <sv>&nbsp;</sv>
+    <sv [label]="label">
+      <ng-template #label>
+        某某数据
+        <nz-tooltip [nzTitle]="'数据说明'">
+          <span nz-tooltip>
+            <i nz-icon type="info-circle"></i>
+          </span>
+        </nz-tooltip>
+      </ng-template>
+      725
+    </sv>
+    <sv label="该数据更新时间">2017-08-08</sv>
+  </sv-container>
+  <h4 class="mb-md">信息组</h4>
+  <nz-card nzType="inner" nzTitle="多层级信息组">
+    <sv-container size="small" title="组名称">
+      <sv label="负责人">林东东</sv>
+      <sv label="角色码">1234567</sv>
+      <sv label="所属部门">XX公司 - YY部</sv>
+      <sv label="过期时间">2017-08-08</sv>
+      <sv label="描述">这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...</sv>
+    </sv-container>
+    <nz-divider></nz-divider>
+    <sv-container size="small" title="组名称" col="1">
+      <sv label="学名">
+        Citrullus lanatus (Thunb.) Matsum. et Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..
+      </sv>
+    </sv-container>
+    <nz-divider></nz-divider>
+    <sv-container size="small" title="组名称">
+      <sv label="负责人">付小小</sv>
+      <sv label="角色码">1234568</sv>
+    </sv-container>
+  </nz-card>
+</nz-card>
+<nz-card [nzBordered]="false" nzTitle="用户近半年来电记录" class="mb-lg">
+  <div class="no-data">
+    <i nz-icon type="frown"></i>暂无数据
+  </div>
+</nz-card>
+<nz-card [nzBordered]="false">
+  <nz-card-tab>
+    <nz-tabset nzSize="large" (nzSelectChange)="change($event)">
+      <nz-tab nzTitle="操作日志一"></nz-tab>
+      <nz-tab nzTitle="操作日志二"></nz-tab>
+      <nz-tab nzTitle="操作日志三"></nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+  <st [columns]="opColumns" [data]="list">
+    <ng-template st-row="status" let-i>
+      <nz-badge *ngIf="i.status === 'success'" [nzStatus]="'success'" [nzText]="'成功'"></nz-badge>
+      <nz-badge *ngIf="i.status !== 'success'" [nzStatus]="'processing'" [nzText]="'进行中'"></nz-badge>
+    </ng-template>
+  </st>
+</nz-card>

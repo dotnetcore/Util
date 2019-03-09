@@ -1,10 +1,14 @@
 ﻿const pathPlugin = require('path');
 const webpack = require('webpack');
+var Extract = require("extract-text-webpack-plugin");
 
 module.exports = (env) => {
     //环境
     const isDev = !(env && env.prod);
     const mode = isDev ? "development" : "production";
+
+    //将css提取到单独文件中
+    const extractCss = new Extract("app.css");
 
     //获取路径
     function getPath(path) {
@@ -14,7 +18,7 @@ module.exports = (env) => {
     //打包js
     let jsConfig = {
         mode: mode,
-        entry: { app: getPath("Typing/main.ts") },
+        entry: { app: getPath("Typings/main.ts") },
         output: {
             publicPath: 'dist/',
             path: getPath("wwwroot/dist"),
@@ -22,16 +26,41 @@ module.exports = (env) => {
             chunkFilename: '[id].chunk.js'
         },
         resolve: {
-            extensions: ['.js', '.ts']
+            extensions: ['.js', '.ts','.less','.css']
         },
         devtool: "source-map",
         module: {
             rules: [
-                { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular-router-loader'] : [] },
-                { test: /\.html$/, use: 'html-loader?minimize=false' }
+                { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular-router-loader'] : [] },
+                { test: /\.html$/, use: 'html-loader?minimize=false' },
+                {
+                    test: /\.less$/,
+                    use: [{
+                        loader: 'to-string-loader'
+                    }, {
+                        loader: "css-loader"
+                    }, {
+                        loader: "less-loader",
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }]
+                },
+                { test: /\.css$/, use: extractCss.extract({ use: isDev ? 'css-loader' : 'css-loader?minimize' }) },
+                {
+                    test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 20000,
+                            name: "[name].[ext]",
+                            outputPath: "images/"
+                        }
+                    }
+                }
             ]
         },
         plugins: [
+            extractCss,
             new webpack.DefinePlugin({
                 'process.env': { NODE_ENV: isDev ? JSON.stringify("dev") : JSON.stringify("prod") }
             })
@@ -40,7 +69,7 @@ module.exports = (env) => {
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             })
         ] : [
-        ])
+            ])
     }
     return [jsConfig];
 }

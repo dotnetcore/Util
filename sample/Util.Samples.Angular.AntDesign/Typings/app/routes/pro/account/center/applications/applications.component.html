@@ -1,0 +1,50 @@
+<nz-list [nzLoading]="listLoading" [nzDataSource]="list" [nzRenderItem]="item" [nzGrid]="{ gutter: 24, xxl: 8, xl: 12, lg: 12, md: 12, sm: 12, xs: 24 }">
+  <ng-template #item let-item>
+    <nz-list-item>
+      <nz-card nzHoverable [nzActions]="[op1,op2,op3,op4]">
+        <ng-template #op1>
+          <nz-tooltip [nzTitle]="'下载'">
+            <i nz-tooltip nz-icon type="download"></i>
+          </nz-tooltip>
+        </ng-template>
+        <ng-template #op2>
+          <nz-tooltip [nzTitle]="'编辑'">
+            <i nz-tooltip nz-icon type="edit"></i>
+          </nz-tooltip>
+        </ng-template>
+        <ng-template #op3>
+          <nz-tooltip [nzTitle]="'分享'">
+            <i nz-tooltip nz-icon type="share-alt"></i>
+          </nz-tooltip>
+        </ng-template>
+        <ng-template #op4>
+          <nz-dropdown [nzPlacement]="'bottomLeft'">
+            <i nz-dropdown nz-icon type="ellipsis"></i>
+            <ul nz-menu>
+              <li nz-menu-item>1st menu item</li>
+              <li nz-menu-item>2st menu item</li>
+              <li nz-menu-item>3st menu item</li>
+            </ul>
+          </nz-dropdown>
+        </ng-template>
+        <nz-card-meta [nzTitle]="item.title" [nzAvatar]="nzAvatar">
+          <ng-template #nzAvatar>
+            <nz-avatar nzSize="small" [nzSrc]="item.avatar"></nz-avatar>
+          </ng-template>
+        </nz-card-meta>
+        <div class="card-info d-flex">
+          <div>
+            <p>活跃用户</p>
+            <p>{{item.activeUser}}
+              <em class="wan">万</em>
+            </p>
+          </div>
+          <div>
+            <p>新增用户</p>
+            <p>{{item.newUser | number: '3.'}}</p>
+          </div>
+        </div>
+      </nz-card>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

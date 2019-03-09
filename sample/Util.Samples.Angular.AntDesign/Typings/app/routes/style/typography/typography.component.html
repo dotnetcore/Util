@@ -1,0 +1,130 @@
+<div class="alain-default__content-title">
+  <h1>
+    Typography
+  </h1>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Headings">
+      <h1 class="h1">
+        class="h1"
+        <small>Sub-heading</small>
+      </h1>
+      <h2 class="h2">
+        class="h2"
+        <small>Sub-heading</small>
+      </h2>
+      <h3 class="h3">
+        class="h3"
+        <small>Sub-heading</small>
+      </h3>
+      <h4 class="h4">
+        class="h4"
+        <small>Sub-heading</small>
+      </h4>
+      <h5 class="h5">
+        class="h5"
+        <small>Sub-heading</small>
+      </h5>
+      <h6 class="h6">
+        class="h6"
+        <small>Sub-heading</small>
+      </h6>
+    </nz-card>
+  </div>
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Paragraphs">
+      <p>
+        <small>This is an example of small, fine print text.</small>
+      </p>
+      <p class="mt-sm">
+        <strong>This is an example of strong, bold text.</strong>
+      </p>
+      <p class="mt-sm">
+        <em>This is an example of emphasized, italic text.</em>
+      </p>
+      <h4 class="mt-sm">Alignment & Sizing Helpers</h4>
+      <p class="mt-sm text-left text-sm">class="text-left text-sm"</p>
+      <p class="mt-sm text-center text-md">class="text-center text-md"</p>
+      <p class="text-right text-lg">class="text-right text-lg"</p>
+    </nz-card>
+  </div>
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Text Colors">
+      <p *ngFor="let color of c.names" class="pb-0 text-{{color}}">class="text-{{color}} bg-{{color}}"</p>
+    </nz-card>
+  </div>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Formatting">
+      <h4>text-nowrap</h4>
+      <p class="pt-sm text-nowrap">[class="text-nowrap"].Ad eiusmod eu velit veniam laborum voluptate duis aliqua esse eiusmod.</p>
+      <h4 class="pt-sm">text-truncate</h4>
+      <p class="pt-sm text-truncate">[class="text-truncate"].Officia nulla velit minim mollit laborum et irure ullamco nisi dolore qui. Sint aute aliqua
+        tempor commodo officia sunt non do id laborum mollit ex ea cupidatat. Amet ad non fugiat magna. Ut cupidatat labore
+        pariatur esse reprehenderit esse sint in proident elit minim sunt enim sit. Enim sint deserunt exercitation duis.
+        Aliquip cillum irure do incididunt do eu eiusmod excepteur culpa ex consectetur nulla duis sit. Ex officia excepteur
+        officia ea ea cupidatat veniam officia officia est.</p>
+      <h4 class="pt-sm">Transformation</h4>
+      <p class="pt-sm text-lowercase">class="text-lowercase"</p>
+      <p class="pt-sm text-uppercase">class="text-uppercase"</p>
+      <p class="pt-sm text-capitalize">class="text-capitalize"</p>
+      <p class="pt-sm text-deleted">class="text-deleted"</p>
+    </nz-card>
+  </div>
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Border">
+      <div class="p-sm m-sm text-center width-sm d-inline-block border border-primary">class="border border-primary"</div>
+      <div class="p-sm m-sm text-center width-sm d-inline-block border-top-1 border-success rounded-circle">class="border-top-1 border-success rounded-circle"</div>
+      <div class="p-sm m-sm text-center width-sm d-inline-block border-bottom-1 border-error">class="border-bottom-1 border-error"</div>
+      <div class="p-sm m-sm text-center width-md d-inline-block border-right-1 border-warning">class="border-right-1 border-warning"</div>
+    </nz-card>
+  </div>
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Padding & Margin">
+      <strong>清除间距</strong>
+      <p>
+        <code>[<类型>p|m][<方向>t|r|b|l|x|y]?0</code>
+      </p>
+      <p>eg: p0, pt0, mb0, mt0</p>
+      <strong>间距</strong>
+      <p>
+        <code>[<类型>p|m][<方向>t|r|b|l|x|y]?-[<尺寸>sm|md|lg]</code>
+      </p>
+      <p>eg: p-sm, pb-sm, mt-md, mr-md</p>
+    </nz-card>
+  </div>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Display">
+      <p class="display-1">class="display-1"</p>
+      <p class="display-2">class="display-2"</p>
+      <p class="display-3">class="display-3"</p>
+    </nz-card>
+  </div>
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Code">
+      <p>This is an example of an inline code element within body copy. Wrap inline code within a
+        <code>...</code>tag.</p>
+      <pre class="mt-sm"><code>This is an example of preformatted text.</code></pre>
+    </nz-card>
+  </div>
+  <div nz-col [nzMd]="8">
+    <nz-card nzTitle="Lists">
+      <h4>list styled</h4>
+      <ol class="mt-sm list-styled">
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+      </ol>
+      <h4 class="mt-sm">Unstyled List</h4>
+      <ul class="mt-sm list-unstyled">
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+      </ul>
+    </nz-card>
+  </div>
+</div>

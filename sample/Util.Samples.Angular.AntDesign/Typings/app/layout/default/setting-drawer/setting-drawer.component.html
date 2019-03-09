@@ -1,0 +1,62 @@
+<nz-drawer [(nzVisible)]="collapse" [nzWidth]="500" (nzOnClose)="toggle()">
+  <div class="setting-drawer__content">
+    <div class="setting-drawer__body setting-drawer__theme">
+      <h3 class="setting-drawer__title">主题色</h3>
+      <span *ngFor="let c of colors" nz-tooltip [ngStyle]="{ 'background-color': c.color }" (click)="changeColor(c.color)"
+            nz-tooltip [nzTitle]="c.key" class="setting-drawer__theme-tag"><i *ngIf="color === c.color"
+           class="anticon anticon-check"></i></span>
+    </div>
+    <nz-divider></nz-divider>
+    <div class="setting-drawer__body">
+      <h3 class="setting-drawer__title">设置</h3>
+      <nz-tabset>
+        <nz-tab nzTitle="顶部">
+          <div class="setting-drawer__body">
+            <setting-drawer-item [data]="data['alain-default-header-hg']"></setting-drawer-item>
+            <setting-drawer-item [data]="data['alain-default-header-bg']"></setting-drawer-item>
+            <setting-drawer-item [data]="data['alain-default-header-padding']"></setting-drawer-item>
+          </div>
+        </nz-tab>
+        <nz-tab nzTitle="侧边栏">
+          <setting-drawer-item [data]="data['alain-default-aside-wd']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['alain-default-aside-bg']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['alain-default-aside-collapsed-wd']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['alain-default-aside-nav-padding-top-bottom']"></setting-drawer-item>
+        </nz-tab>
+        <nz-tab nzTitle="内容">
+          <setting-drawer-item [data]="data['alain-default-content-bg']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['alain-default-content-heading-bg']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['alain-default-content-heading-border']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['alain-default-content-padding']"></setting-drawer-item>
+        </nz-tab>
+        <nz-tab nzTitle="其它">
+          <setting-drawer-item [data]="data['form-state-visual-feedback-enabled']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['preserve-white-spaces-enabled']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['nz-table-img-radius']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['nz-table-img-margin-right']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['nz-table-img-max-width']"></setting-drawer-item>
+          <setting-drawer-item [data]="data['nz-table-img-max-height']"></setting-drawer-item>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+    <nz-divider></nz-divider>
+    <div class="setting-drawer__body">
+      <div class="setting-drawer__body-item">
+        固定头和侧边栏
+        <nz-switch nzSize="small" [(ngModel)]="layout.fixed" (ngModelChange)="setLayout('fixed', layout.fixed)"></nz-switch>
+      </div>
+      <div class="setting-drawer__body-item">
+        色弱模式
+        <nz-switch nzSize="small" [(ngModel)]="layout.colorWeak" (ngModelChange)="setLayout('colorWeak', layout.colorWeak)"></nz-switch>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+    <button (click)="apply()" type="button" nz-button nzType="primary">预览</button>
+    <button (click)="reset()" type="button" nz-button>重置</button>
+    <button (click)="copyVar()" type="button" nz-button>拷贝</button>
+    <nz-alert class="mt-md" nzType="warning" nzMessage="配置栏只在开发环境用于预览，生产环境不会展现，请拷贝后手动修改参数配置文件 src/styles/theme.less"></nz-alert>
+  </div>
+</nz-drawer>
+<div class="setting-drawer__handle" [ngClass]="{'setting-drawer__handle-opened': collapse}" (click)="toggle()">
+  <i nz-icon [type]="!collapse ? 'setting' : 'close'" class="setting-drawer__handle-icon"></i>
+</div>
