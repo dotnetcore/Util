@@ -6,7 +6,7 @@ import { env } from '../env';
  */
 @Component({
     selector: 'not-found',
-    templateUrl: env.prod() ? './not-found.component.html' : '/Home/NotFound'
+    templateUrl: env.prod() ? './not-found.component.html' : '/View/Home/NotFound'
 })
 export class NotFoundComponent {
 }

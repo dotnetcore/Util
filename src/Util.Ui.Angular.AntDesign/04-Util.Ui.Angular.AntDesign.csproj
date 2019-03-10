@@ -29,4 +29,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Angular.AntDesign.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Zorro\" />
+  </ItemGroup>
+
 </Project>

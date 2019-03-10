@@ -6,15 +6,12 @@ import {
   MenuService,
   SettingsService,
   TitleService,
-  ALAIN_I18N_TOKEN,
 } from '@delon/theme';
 import { ACLService } from '@delon/acl';
-import { TranslateService } from '@ngx-translate/core';
-import { I18NService } from '../i18n/i18n.service';
 
 import { NzIconService } from 'ng-zorro-antd';
-import { ICONS_AUTO } from '../../style-icons-auto';
-import { ICONS } from '../../style-icons';
+import { ICONS_AUTO } from '../style-icons-auto';
+import { ICONS } from '../style-icons';
 
 /**
  * 用于应用启动时
@@ -25,8 +22,6 @@ export class StartupService {
   constructor(
     iconSrv: NzIconService,
     private menuService: MenuService,
-    private translate: TranslateService,
-    @Inject(ALAIN_I18N_TOKEN) private i18n: I18NService,
     private settingService: SettingsService,
     private aclService: ACLService,
     private titleService: TitleService,
@@ -36,25 +31,20 @@ export class StartupService {
   }
 
   load(): Promise<any> {
-    // only works with promises
-    // https://github.com/angular/angular/issues/15088
     return new Promise((resolve) => {
       zip(
-        this.httpClient.get(`assets/tmp/i18n/${this.i18n.defaultLang}.json`),
         this.httpClient.get('assets/tmp/app-data.json'),
       )
         .pipe(
           // 接收其他拦截器后产生的异常消息
-          catchError(([langData, appData]) => {
+          catchError(([appData]) => {
             resolve(null);
-            return [langData, appData];
+            return [appData];
           }),
         )
         .subscribe(
-          ([langData, appData]) => {
+          ([appData]) => {
             // setting language data
-            this.translate.setTranslation(this.i18n.defaultLang, langData);
-            this.translate.setDefaultLang(this.i18n.defaultLang);
 
             // application data
             const res: any = appData;

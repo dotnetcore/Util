@@ -1,11 +1,14 @@
 ﻿const pathPlugin = require('path');
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
+const OptimizeCssnano = require('@intervolga/optimize-cssnano-plugin');
 
 //第三方Js库
 const jsModules = [
     'reflect-metadata',
     'zone.js',
+    'rxjs',
+    'rxjs-compat',
     '@angular/animations',
     '@angular/common',
     '@angular/common/http',
@@ -17,14 +20,22 @@ const jsModules = [
     '@angular/platform-browser/animations',
     '@angular/platform-browser-dynamic',
     '@angular/router',
+    '@antv/data-set',
+    '@antv/g2',
     'viser-ng',
-    '@antv/data-set'
+    '@delon/theme',
+    '@delon/abc',
+    '@delon/acl',
+    '@delon/auth',
+    '@delon/form',
+    '@delon/util'
 ];
 
 //第三方Css库
 const cssModules = [
     'material-design-icons/iconfont/material-icons.css',
     'font-awesome/css/font-awesome.css',
+    '@ant-design/icons-angular/icons',
     'ng-zorro-antd/ng-zorro-antd.css',
     '@delon/theme/styles/ng-alain.css'
 ];
@@ -76,7 +87,7 @@ module.exports = (env) => {
         devtool: "source-map",
         module: {
             rules: [
-                { test: /\.css$/, use: extractCss.extract({ use: isDev ? 'css-loader' : 'css-loader?minimize' }) },
+                { test: /\.css$/, use: extractCss.extract({ use: 'css-loader' }) },
                 {
                     test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
                         loader: 'url-loader',
@@ -91,7 +102,9 @@ module.exports = (env) => {
         },
         plugins: [
             extractCss
-        ]
+        ].concat(isDev ? [] : new OptimizeCssnano({
+            cssnanoOptions: { preset: ['default', { discardComments: { removeAll: true } }] }
+        }))
     }
     return isDev ? [vendorJs, vendorCss] : [vendorCss];
 }

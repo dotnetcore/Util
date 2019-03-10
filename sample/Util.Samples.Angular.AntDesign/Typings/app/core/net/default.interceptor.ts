@@ -5,7 +5,6 @@ import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
 import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
-import { environment } from '../../../environments/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 const CODEMESSAGE = {
@@ -104,7 +103,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     // 统一加上服务端前缀
     let url = req.url;
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
-      url = environment.SERVER_URL + url;
+      //url = environment.SERVER_URL + url;
     }
 
     const newReq = req.clone({ url });

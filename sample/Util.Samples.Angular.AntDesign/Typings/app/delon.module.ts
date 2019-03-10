@@ -7,14 +7,6 @@ import { throwIfAlreadyLoaded } from './core/index';
 
 import { AlainThemeModule } from '@delon/theme';
 
-// #region mock
-import { DelonMockModule } from '@delon/mock';
-import * as MOCKDATA from '../mock';
-import { environment } from '../environments/environment';
-const MOCK_MODULES = !environment.production
-  ? [DelonMockModule.forRoot({ data: MOCKDATA })]
-  : [];
-// #endregion
 
 // #region reuse-tab
 /**
@@ -78,8 +70,7 @@ const GLOBAL_CONFIG_PROVIDES = [
 
 @NgModule({
   imports: [
-    AlainThemeModule.forRoot(),
-    ...MOCK_MODULES,
+    AlainThemeModule.forRoot()
   ],
 })
 export class DelonModule {

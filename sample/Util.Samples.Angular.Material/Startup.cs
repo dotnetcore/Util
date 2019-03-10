@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using EasyCaching.InMemory;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,9 +42,8 @@ namespace Util.Samples {
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
             //添加Mvc服务
             services.AddMvc( options => {
-                //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
-            }
-            ).AddControllersAsServices();
+                    //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
+                } ).SetCompatibilityVersion( CompatibilityVersion.Version_2_2 );
 
             //添加NLog日志操作
             services.AddNLog();

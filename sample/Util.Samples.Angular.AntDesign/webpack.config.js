@@ -1,6 +1,7 @@
 ﻿const pathPlugin = require('path');
 const webpack = require('webpack');
 var Extract = require("extract-text-webpack-plugin");
+const AngularCompiler = require('@ngtools/webpack').AngularCompilerPlugin;
 
 module.exports = (env) => {
     //环境
@@ -31,7 +32,7 @@ module.exports = (env) => {
         devtool: "source-map",
         module: {
             rules: [
-                { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular-router-loader'] : [] },
+                { test: /\.ts$/, use: isDev ? ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular-router-loader'] : ['@ngtools/webpack'] },
                 { test: /\.html$/, use: 'html-loader?minimize=false' },
                 {
                     test: /\.less$/,
@@ -46,7 +47,7 @@ module.exports = (env) => {
                         }
                     }]
                 },
-                { test: /\.css$/, use: extractCss.extract({ use: isDev ? 'css-loader' : 'css-loader?minimize' }) },
+                { test: /\.css$/, use: extractCss.extract({ use: 'css-loader' }) },
                 {
                     test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
                         loader: 'url-loader',
@@ -68,8 +69,10 @@ module.exports = (env) => {
             new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             })
-        ] : [
-            ])
+        ] : new AngularCompiler({
+            tsConfigPath: 'tsconfig.json',
+            entryModule: "Typings/app/app.module#AppModule"
+        }))
     }
     return [jsConfig];
 }

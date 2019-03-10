@@ -12,6 +12,7 @@ using Util.Events.Cap;
 using Util.Events.Default;
 using Util.Locks.Default;
 using Util.Logs.Extensions;
+using Util.Ui.Pages;
 using Util.Webs.Extensions;
 
 namespace Util.Samples {
@@ -39,8 +40,10 @@ namespace Util.Samples {
             //添加Mvc服务
             services.AddMvc( options => {
                 //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
-            }
-            ).SetCompatibilityVersion( CompatibilityVersion.Version_2_2 );
+            } ).SetCompatibilityVersion( CompatibilityVersion.Version_2_2 )
+                .AddRazorPagesOptions( options => {
+                    options.Conventions.Add( new ViewPageRouteConvention() );
+                } );
 
             //添加NLog日志操作
             services.AddNLog();
@@ -118,7 +121,6 @@ namespace Util.Samples {
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseXsrfToken();
-            app.UseCookiePolicy();
             ConfigRoute( app );
         }
 

@@ -21,10 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
-
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Caches\04-Util.Caches.csproj" />
@@ -33,20 +30,23 @@
     <ProjectReference Include="..\..\src\Util.Webs\09-Util.Webs.csproj" />
   </ItemGroup>
 
-
   <ItemGroup>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
+  <!-- Debug调试模式打包第三方框架 -->
+  <Target Name="Debug_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- 打包 -->
+    <Message Importance="high" Text="Webpack开始打包..." />
+    <!--<Exec Command="npm run dev" />-->
+  </Target>
 
-  <ItemGroup>
-    <Folder Include="Apis\" />
-  </ItemGroup>
-
-
-
-  <ProjectExtensions><VisualStudio><UserProperties package_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+  <!-- 发布阶段打包 -->
+  <Target Name="Publish_RunWebpack" AfterTargets="ComputeFilesToPublish">
+    <Message Importance="high" Text="Webpack开始打包..." />
+    <!--<Exec Command="npm run prod" />-->
+  </Target>
 
 </Project>

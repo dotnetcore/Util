@@ -68,7 +68,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Angular.Materi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Angular.AntDesign", "sample\Util.Samples.Angular.AntDesign\Util.Samples.Angular.AntDesign.csproj", "{E4C15F45-CBB9-4240-B0CD-45E6A2A34629}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Util.Ui.Angular.AntDesign", "src\Util.Ui.Angular.AntDesign\04-Util.Ui.Angular.AntDesign.csproj", "{5D30B981-7319-4181-9E0A-DDE1ECCC691D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Ui.Angular.AntDesign", "src\Util.Ui.Angular.AntDesign\04-Util.Ui.Angular.AntDesign.csproj", "{5D30B981-7319-4181-9E0A-DDE1ECCC691D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
