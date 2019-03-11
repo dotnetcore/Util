@@ -113,6 +113,17 @@ namespace Util.Tests.Helpers {
 
             expression3 = t => !t.Test2.BoolValue;
             Assert.Equal( "BoolValue", Lambda.GetLastName( expression3 ) );
+
+            expression = t => t.StringValue == "A";
+            Assert.Empty( Lambda.GetLastName( expression, true ) );
+
+            var value = "a";
+            expression = t => t.StringValue == value;
+            Assert.Empty( Lambda.GetLastName( expression, true ) );
+
+            var sample = new Sample();
+            expression = t => t.StringValue == sample.StringValue;
+            Assert.Empty( Lambda.GetLastName( expression, true ) );
         }
 
         /// <summary>
@@ -175,13 +186,13 @@ namespace Util.Tests.Helpers {
             var test = new Sample() { StringValue = "a", Test2 = new Sample2() { StringValue = "b", Test3 = new Sample3() { StringValue = "c" } } };
 
             Expression<Func<string>> expression = () => test.StringValue;
-            Assert.Equal( "StringValue", Lambda.GetLastName( expression ) );
+            Assert.Empty( Lambda.GetLastName( expression ) );
 
             Expression<Func<string>> expression2 = () => test.Test2.StringValue;
-            Assert.Equal( "StringValue", Lambda.GetLastName( expression2 ) );
+            Assert.Empty( Lambda.GetLastName( expression2 ) );
 
             Expression<Func<string>> expression3 = () => test.Test2.Test3.StringValue;
-            Assert.Equal( "StringValue", Lambda.GetLastName( expression3 ) );
+            Assert.Empty( Lambda.GetLastName( expression3 ) );
         }
 
         /// <summary>

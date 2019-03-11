@@ -48,7 +48,6 @@
     "@types/node": "11.10.5",
     "@types/webpack-env": "1.13.8",
     "@types/jszip": "3.1.5",
-    "@types/mockjs": "1.0.2",
     "@angular/compiler-cli": "7.2.7",
     "@ngtools/webpack": "7.3.5",
     "aspnet-webpack": "3.0.0",
