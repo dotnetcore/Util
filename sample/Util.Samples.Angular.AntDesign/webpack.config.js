@@ -68,6 +68,9 @@ module.exports = (env) => {
         ].concat(isDev ? [
             new webpack.DllReferencePlugin({
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
+            }),
+            new webpack.DllReferencePlugin({
+                manifest: require('./wwwroot/dist/util-manifest.json')
             })
         ] : new AngularCompiler({
             tsConfigPath: 'tsconfig.json',

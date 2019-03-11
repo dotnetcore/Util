@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
+import { FrameworkModule } from '../../framework.module';
 
 import { LayoutDefaultComponent } from './default/default.component';
 import { LayoutFullScreenComponent } from './fullscreen/fullscreen.component';
@@ -18,21 +18,21 @@ import { SettingDrawerItemComponent } from './default/setting-drawer/setting-dra
 
 const SETTINGDRAWER = [SettingDrawerComponent, SettingDrawerItemComponent];
 const COMPONENTS = [
-  LayoutDefaultComponent,
-  LayoutFullScreenComponent,
-  HeaderComponent,
-  SidebarComponent,
-  ...SETTINGDRAWER,
+    LayoutDefaultComponent,
+    LayoutFullScreenComponent,
+    HeaderComponent,
+    SidebarComponent,
+    ...SETTINGDRAWER,
 ];
 
 const HEADERCOMPONENTS = [
-  HeaderSearchComponent,
-  HeaderNotifyComponent,
-  HeaderTaskComponent,
-  HeaderIconComponent,
-  HeaderFullScreenComponent,
-  HeaderStorageComponent,
-  HeaderUserComponent,
+    HeaderSearchComponent,
+    HeaderNotifyComponent,
+    HeaderTaskComponent,
+    HeaderIconComponent,
+    HeaderFullScreenComponent,
+    HeaderStorageComponent,
+    HeaderUserComponent,
 ];
 
 // passport
@@ -40,9 +40,9 @@ import { LayoutPassportComponent } from './passport/passport.component';
 const PASSPORT = [LayoutPassportComponent];
 
 @NgModule({
-  imports: [SharedModule],
-  entryComponents: SETTINGDRAWER,
-  declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
-  exports: [...COMPONENTS, ...PASSPORT],
+    imports: [FrameworkModule],
+    entryComponents: SETTINGDRAWER,
+    declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
+    exports: [...COMPONENTS, ...PASSPORT],
 })
-export class LayoutModule {}
+export class LayoutModule { }
