@@ -6,35 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FrameworkModule } from './framework.module';
 import { util } from '../util';
 
-import { default as ngLang } from '@angular/common/locales/zh';
-import { NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd';
-import { DELON_LOCALE, zh_CN as delonLang } from '@delon/theme';
-const LANG = {
-  abbr: 'zh',
-  ng: ngLang,
-  zorro: zorroLang,
-  delon: delonLang,
-};
-// register angular
-import { registerLocaleData } from '@angular/common';
-registerLocaleData(LANG.ng, LANG.abbr);
-const LANG_PROVIDES = [
-  { provide: LOCALE_ID, useValue: LANG.abbr },
-  { provide: NZ_I18N, useValue: LANG.zorro },
-  { provide: DELON_LOCALE, useValue: LANG.delon },
-];
-// #endregion
-
-// #region Http Interceptors
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SimpleInterceptor } from '@delon/auth';
-import { DefaultInterceptor } from './core/index';
-const INTERCEPTOR_PROVIDES = [
-  { provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
-];
-// #endregion
-
 // #region Startup Service
 import { StartupService } from './core/index';
 export function StartupServiceFactory(
@@ -76,8 +47,6 @@ import { DashboardV1Component } from './home/dashboard/v1/v1.component';
     AppRoutingModule
   ],
   providers: [
-    ...LANG_PROVIDES,
-    ...INTERCEPTOR_PROVIDES,
     ...APPINIT_PROVIDES
   ],
   bootstrap: [AppComponent],

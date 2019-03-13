@@ -20,3 +20,4 @@ export { Authorize } from './security/authorize';
 export { Authorize as OidcAuthorize } from './security/openid-connect/authorize';
 export { AuthorizeService as OidcAuthorizeService } from './security/openid-connect/authorize-service';
 export { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connect/authorize-config';
+export { LineWrapperComponent } from "./viser/line-wrapper.component";

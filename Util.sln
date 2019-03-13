@@ -40,7 +40,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Ui.Core", "src\Util
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Ui", "02-Ui", "{0629A068-957D-4920-9290-0B9288341E0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Ui.Tests", "test\Util.Ui.Tests\Util.Ui.Tests.csproj", "{91F99541-D37F-46D5-8026-AD57C3F75B52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Ui.Tests", "test\Util.Ui.Tests\01-Util.Ui.Tests.csproj", "{91F99541-D37F-46D5-8026-AD57C3F75B52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Tools", "04-Tools", "{1907A873-8368-4CFF-B5B3-98F04CD2E3A7}"
 EndProject
@@ -69,6 +69,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Angular.AntDesign", "sample\Util.Samples.Angular.AntDesign\Util.Samples.Angular.AntDesign.csproj", "{E4C15F45-CBB9-4240-B0CD-45E6A2A34629}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Ui.Angular.AntDesign", "src\Util.Ui.Angular.AntDesign\04-Util.Ui.Angular.AntDesign.csproj", "{5D30B981-7319-4181-9E0A-DDE1ECCC691D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Util.Ui.Angular.AntDesign.Tests", "test\Util.Ui.Angular.AntDesign.Tests\02-Util.Ui.Angular.AntDesign.Tests.csproj", "{4939123A-D223-4F20-9911-6C30F2EECF2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -172,6 +174,10 @@ Global
 		{5D30B981-7319-4181-9E0A-DDE1ECCC691D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D30B981-7319-4181-9E0A-DDE1ECCC691D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D30B981-7319-4181-9E0A-DDE1ECCC691D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4939123A-D223-4F20-9911-6C30F2EECF2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4939123A-D223-4F20-9911-6C30F2EECF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4939123A-D223-4F20-9911-6C30F2EECF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4939123A-D223-4F20-9911-6C30F2EECF2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,6 +214,7 @@ Global
 		{41F2DA18-8295-4003-99D3-4237B90D7BAE} = {F1B4AAEF-9162-4DFA-8B62-4069FC914839}
 		{E4C15F45-CBB9-4240-B0CD-45E6A2A34629} = {F1B4AAEF-9162-4DFA-8B62-4069FC914839}
 		{5D30B981-7319-4181-9E0A-DDE1ECCC691D} = {78CC88DA-0B25-45BC-86A8-FFE9628B34A6}
+		{4939123A-D223-4F20-9911-6C30F2EECF2B} = {0629A068-957D-4920-9290-0B9288341E0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA6E8E23-8AB6-4AB6-9B31-494CB7CE5E63}

@@ -30,7 +30,7 @@ export class Form {
             title: options.confirmTitle,
             message: options.confirm,
             ok: () => this.submitForm(options),
-            cancel: options.completeHandler
+            cancel: options.complete
         });
     }
 
@@ -65,16 +65,16 @@ export class Form {
             .button(options.button)
             .loading(options.loading || false)
             .handle({
-                beforeHandler: () => {
-                    return options.beforeHandler && options.beforeHandler(options.data);
+                before: () => {
+                    return options.before && options.before(options.data);
                 },
-                handler: result => {
+                ok: result => {
                     this.okHandler(options, result);
                 },
-                failHandler: result => {
+                fail: result => {
                     this.failHandler(options, result);
                 },
-                completeHandler: options.completeHandler
+                complete: options.complete
             });
     }
 
@@ -93,7 +93,7 @@ export class Form {
      */
     private failHandler(options: IFormSubmitOption, result) {
         (options.form as { submitted: boolean }).submitted = false;
-        options.failHandler && options.failHandler(result);
+        options.fail && options.fail(result);
         if (options.showErrorMessage !== false)
             Message.error(result.message);
     }
@@ -102,7 +102,7 @@ export class Form {
      * 成功处理函数
      */
     private okHandler(options: IFormSubmitOption, result) {
-        options.handler && options.handler(result);
+        options.ok && options.ok(result);
         if (options.showMessage !== false)
             Message.snack(options.message || MessageConfig.successed);
         if (options.back)
@@ -176,18 +176,18 @@ export interface IFormSubmitOption {
      * 提交前处理函数，返回false则取消提交
      * @param data 数据
      */
-    beforeHandler?: (data) => boolean;
+    before?: (data) => boolean;
     /**
      * 提交成功处理函数
      * @param result 结果
      */
-    handler?: (result) => void;
+    ok?: (result) => void;
     /**
      * 提交失败处理函数
      */
-    failHandler?: (result: FailResult) => void;
+    fail?: (result: FailResult) => void;
     /**
      * 操作完成处理函数，注意：该函数在任意情况下都会执行
      */
-    completeHandler?: () => void;
+    complete?: () => void;
 }

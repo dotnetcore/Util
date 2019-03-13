@@ -33,4 +33,8 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <Folder Include="Zorro\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Ui.Core\02-Util.Ui.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -86,13 +86,7 @@
                 Sales Statistics
                 <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
             </ng-template>
-            <v-chart [forceFit]="forceFit" [height]="height" [data]="data" [scale]="scale"
-                     renderer="svg" [filter]="filter">
-                <v-tooltip></v-tooltip>
-                <v-axis></v-axis>
-                <v-stack-bar position='year*percent' color='country' [style]="{ stroke: '#fff', lineWidth: 1 }"></v-stack-bar>
-            </v-chart>
-            @*<g2-bar *ngIf="salesData" height="275" [data]="salesData"></g2-bar>*@
+            <x-line url="/api/line"></x-line>
         </nz-card>
     </div>
     <div nz-col nzXs="24" nzMd="12">
@@ -101,12 +95,6 @@
                 Growth Rate
                 <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
             </ng-template>
-            <v-chart [forceFit]="forceFit" [height]="height" [data]="data" [scale]="scale" renderer="svg" [filter]="filter">
-                <v-tooltip></v-tooltip>
-                <v-axis></v-axis>
-                <v-stack-bar position='year*percent' color='country' [style]="{ stroke: '#fff', lineWidth: 1 }"></v-stack-bar>
-            </v-chart>
-            @*<g2-timeline *ngIf="offlineChartData" [data]="offlineChartData" [height]="239" [padding]="[0, 0, 0, 0]" [titleMap]="{ y1: '客流量', y2: '支付笔数' }"></g2-timeline>*@
         </nz-card>
     </div>
 </div>

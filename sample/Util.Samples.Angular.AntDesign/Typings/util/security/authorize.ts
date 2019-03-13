@@ -46,7 +46,7 @@ export class Authorize implements CanActivate {
      */
     private async loadSessionAsync() {
         await util.webapi.get(Authorize.sessionUrl).handleAsync({
-            handler: (result: any) => {
+            ok: (result: any) => {
                 if (!result)
                     return;
                 this.session.isAuthenticated = result.isAuthenticated;

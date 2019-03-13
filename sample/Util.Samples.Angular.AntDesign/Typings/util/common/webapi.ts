@@ -203,7 +203,7 @@ export class WebApiRequest<T> {
         if (!result)
             return;
         if (result.code === StateCode.Ok) {
-            options.handler && options.handler(result.data);
+            options.ok && options.ok(result.data);
             return;
         }
         this.handleFail(options, result);
@@ -215,8 +215,8 @@ export class WebApiRequest<T> {
     private handleFail(options: WebApiHandleOptions<T>, result?: Result<T>, errorResponse?: HttpErrorResponse) {
         let failResult = new FailResult(result, errorResponse);
         this.handleHttpException(options, failResult);
-        if (options.failHandler) {
-            options.failHandler(failResult);
+        if (options.fail) {
+            options.fail(failResult);
             return;
         }
         if (result) {
@@ -231,8 +231,8 @@ export class WebApiRequest<T> {
     private handleHttpException(options: WebApiHandleOptions<T>, failResult: FailResult) {
         if (failResult.errorResponse)
             console.log(this.getHttpExceptionMessage(failResult));
-        if (options.completeHandler)
-            options.completeHandler();
+        if (options.complete)
+            options.complete();
     }
 
     /**
@@ -262,7 +262,7 @@ export class WebApiRequest<T> {
      * 发送前操作
      */
     private handleBefore(options: WebApiHandleOptions<T>): boolean {
-        let result = options && options.beforeHandler && options.beforeHandler();
+        let result = options && options.before && options.before();
         if (result === false)
             return false;
         this.disableButton();
@@ -295,7 +295,7 @@ export class WebApiRequest<T> {
      * 完成操作
      */
     private handleComplete(options: WebApiHandleOptions<T>) {
-        options && options.completeHandler && options.completeHandler();
+        options && options.complete && options.complete();
         this.enableButton();
         this.closeLoading();
     }
@@ -326,17 +326,17 @@ export class WebApiHandleOptions<T> {
     /**
      * 发送前处理函数，返回false则取消发送
      */
-    beforeHandler?: () => boolean;
+    before?: () => boolean;
     /**
      * 成功处理函数
      */
-    handler: (value: T) => void;
+    ok: (value: T) => void;
     /**
      * 失败处理函数
      */
-    failHandler?: (result: FailResult) => void;
+    fail?: (result: FailResult) => void;
     /**
      * 请求完成处理函数
      */
-    completeHandler?: () => void;
+    complete?: () => void;
 }

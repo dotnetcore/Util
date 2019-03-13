@@ -13,9 +13,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ViserModule } from 'viser-ng';
 
-//Util组件
-
-
 //Util指令
 import { MinValidator } from './directives/min-validator.directive';
 import { MaxValidator } from './directives/max-validator.directive';
@@ -34,6 +31,12 @@ import { AuthorizeService as OidcAuthorizeService } from './security/openid-conn
 import { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connect/authorize-config';
 import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interceptor";
 
+//Util图表组件
+import { ChartWrapperComponent } from "./viser/chart-wrapper.component";
+import { LineWrapperComponent } from "./viser/line-wrapper.component";
+
+//Util表单组件
+
 //导入导出模块
 const modules = [
     CommonModule, FormsModule, RouterModule, HttpClientModule,
@@ -48,11 +51,13 @@ const modules = [
         modules
     ],
     declarations: [
-        MinValidator, MaxValidator, SafeUrlPipe
+        MinValidator, MaxValidator, SafeUrlPipe,
+        ChartWrapperComponent,LineWrapperComponent
     ],
     exports: [
         modules,
-        MinValidator, MaxValidator, SafeUrlPipe
+        MinValidator, MaxValidator, SafeUrlPipe,
+        ChartWrapperComponent,LineWrapperComponent
     ],
     providers: [
         DicService, Session, SaveGuard
