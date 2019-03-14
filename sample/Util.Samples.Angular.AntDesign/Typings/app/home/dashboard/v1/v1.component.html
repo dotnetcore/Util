@@ -70,18 +70,55 @@
     <div nz-col nzXs="24" nzMd="12">
         <nz-card [nzBordered]="false" [nzTitle]="salesTitle">
             <ng-template #salesTitle>
-                Sales Statistics
-                <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
+                折线图
+                <small class="text-sm font-weight-normal">简单折线图</small>
             </ng-template>
-            <x-line url="/api/line"></x-line>
+            <v-chart [forceFit]="true" [height]="400">
+                <v-tooltip></v-tooltip>
+                <v-axis></v-axis>
+                <x-line url="/api/line"></x-line>
+            </v-chart>
         </nz-card>
     </div>
     <div nz-col nzXs="24" nzMd="12">
         <nz-card [nzTitle]="growthTitle" [nzBordered]="false">
             <ng-template #growthTitle>
-                Growth Rate
-                <small class="text-sm font-weight-normal">Business Expectations & Retail Sales Statistics</small>
+                折线图
+                <small class="text-sm font-weight-normal">多条折线图</small>
             </ng-template>
+            <v-chart [forceFit]="true" [height]="400">
+                <v-tooltip></v-tooltip>
+                <v-axis></v-axis>
+                <x-line url="/api/line/multi"></x-line>
+            </v-chart>
+        </nz-card>
+    </div>
+</div>
+<div nz-row nzGutter="16">
+    <div nz-col nzXs="24" nzMd="12">
+        <nz-card [nzBordered]="false" [nzTitle]="basicBar">
+            <ng-template #basicBar>
+                柱状图
+                <small class="text-sm font-weight-normal">简单柱状图</small>
+            </ng-template>
+            <v-chart [forceFit]="true" [height]="400">
+                <v-tooltip></v-tooltip>
+                <v-axis></v-axis>
+                <x-line url="/api/line"></x-line>
+            </v-chart>
+        </nz-card>
+    </div>
+    <div nz-col nzXs="24" nzMd="12">
+        <nz-card [nzBordered]="false" [nzTitle]="groupBar">
+            <ng-template #groupBar>
+                柱状图
+                <small class="text-sm font-weight-normal">分组柱状图</small>
+            </ng-template>
+            <v-chart [forceFit]="true" [height]="400">
+                <v-tooltip></v-tooltip>
+                <v-axis></v-axis>
+                <x-line url="/api/line/multi"></x-line>
+            </v-chart>
         </nz-card>
     </div>
 </div>

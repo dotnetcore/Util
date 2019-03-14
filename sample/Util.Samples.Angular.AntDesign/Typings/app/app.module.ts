@@ -1,6 +1,9 @@
 import { NgModule, Injector, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
+
+//Angular模块
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 //框架模块
 import { FrameworkModule } from './framework.module';
@@ -40,6 +43,7 @@ import { DashboardV1Component } from './home/dashboard/v1/v1.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     DelonModule.forRoot(),
     CoreModule,
     FrameworkModule,

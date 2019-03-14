@@ -3,11 +3,12 @@
 //Licensed under the MIT license
 //================================================
 import { NgModule, Injector } from '@angular/core';
+
 //Angular模块
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 //Ant Design模块
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -37,10 +38,15 @@ import { LineWrapperComponent } from "./viser/line-wrapper.component";
 
 //Util表单组件
 
-//导入导出模块
+//导入导出模块集合
 const modules = [
-    CommonModule, FormsModule, RouterModule, HttpClientModule,
     NgZorroAntdModule, ViserModule
+];
+
+//组件集合
+const components = [
+    MinValidator, MaxValidator, SafeUrlPipe,
+    ChartWrapperComponent, LineWrapperComponent
 ];
 
 /**
@@ -48,16 +54,14 @@ const modules = [
  */
 @NgModule({
     imports: [
+        CommonModule, FormsModule, RouterModule, 
         modules
     ],
     declarations: [
-        MinValidator, MaxValidator, SafeUrlPipe,
-        ChartWrapperComponent,LineWrapperComponent
+        components
     ],
     exports: [
-        modules,
-        MinValidator, MaxValidator, SafeUrlPipe,
-        ChartWrapperComponent,LineWrapperComponent
+        modules, components
     ],
     providers: [
         DicService, Session, SaveGuard

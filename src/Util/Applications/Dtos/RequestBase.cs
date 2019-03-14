@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Runtime.Serialization;
 using Util.Exceptions;
 using Util.Validations;
 
@@ -7,7 +6,6 @@ namespace Util.Applications.Dtos {
     /// <summary>
     /// 请求参数
     /// </summary>
-    [DataContract]
     public abstract class RequestBase : IRequest {
         /// <summary>
         /// 验证

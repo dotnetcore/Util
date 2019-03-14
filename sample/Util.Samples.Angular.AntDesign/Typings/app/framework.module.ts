@@ -1,5 +1,8 @@
 ﻿import { NgModule } from '@angular/core';
 //Angular模块
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 //Util模块
@@ -13,8 +16,11 @@ import { DelonFormModule } from '@delon/form';
 
 @NgModule({
     exports: [
-        UtilModule,
+        CommonModule,
+        FormsModule,
+        RouterModule, 
         ReactiveFormsModule,
+        UtilModule,
         AlainThemeModule,
         DelonABCModule,
         DelonACLModule,
