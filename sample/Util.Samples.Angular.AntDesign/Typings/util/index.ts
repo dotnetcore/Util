@@ -21,3 +21,7 @@ export { Authorize as OidcAuthorize } from './security/openid-connect/authorize'
 export { AuthorizeService as OidcAuthorizeService } from './security/openid-connect/authorize-service';
 export { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connect/authorize-config';
 export { LineWrapperComponent } from "./viser/line-wrapper.component";
+export { ColumnWrapperComponent } from "./viser/column-wrapper.component";
+export { BarWrapperComponent } from "./viser/bar-wrapper.component";
+export { AreaWrapperComponent } from "./viser/area-wrapper.component";
+export { PieWrapperComponent } from "./viser/pie-wrapper.component";

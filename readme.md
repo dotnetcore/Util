@@ -3,6 +3,10 @@
 [![Member project of .NET Core Community](https://img.shields.io/badge/member%20project%20of-NCC-9e20c9.svg)](https://github.com/dotnetcore)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://mit-license.org/)
 
+<a href="https://www.jetbrains.com/?from=Util" target="_blank">
+    <img src="./img/jetbrains.svg" title="JetBrains" />
+</a>
+
 Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。
 
 ## 引子
@@ -115,7 +119,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 1. 开发工具： 
   - Visual Studio 2017
-  - Resharper
+  - [Resharper](https://www.jetbrains.com/resharper/)
 
 2. 数据库
   - Sql Server
@@ -200,7 +204,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Angular Flex-Layout](https://github.com/angular/flex-layout)
     - [PrimeNg](https://www.primefaces.org/primeng)
     - [Ng-Zorro](https://ng.ant.design)
-    - [Ng-Alain](http://ng-alain.com/)
+    - [Ng-Alain](https://ng-alain.github.io/ng-alain/)
   - 编辑器
     - [CKEditor](https://ckeditor.com/ckeditor-4/)
     - [Ng2-CKEditor](https://github.com/chymz/ng2-ckeditor)    

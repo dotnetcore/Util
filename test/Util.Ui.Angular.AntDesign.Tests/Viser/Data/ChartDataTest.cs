@@ -22,44 +22,106 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         /// <summary>
         /// 获取Json结果
         /// </summary>
-        private string ToJson() {
-            return _data.ToResult().ToString().Replace( Common.Line, "" ).Replace( " ", "" );
+        private string ToResultJson() {
+            return FilterJson( _data.ToResult().ToString() );
         }
 
         /// <summary>
-        /// 添加图表项
+        /// 获取柱状图Json结果
+        /// </summary>
+        private string ToColumnResultJson() {
+            return FilterJson( _data.ToColumnResult().ToString() );
+        }
+
+        /// <summary>
+        /// 过滤Json结果
+        /// </summary>
+        private string FilterJson( string json ) {
+            return json.Replace( Common.Line, "" ).Replace( " ", "" );
+        }
+
+        /// <summary>
+        /// 获取结果
         /// </summary>
         [Fact]
-        public void TestAdd_1() {
+        public void TestToResult_1() {
             _data.Add( "a", 1 );
-            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1}]}", ToJson() );
+            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1}]}", ToResultJson() );
         }
 
         /// <summary>
-        /// 添加图表项 - 2个图表项
+        /// 获取结果 - 2个图表项
         /// </summary>
         [Fact]
-        public void TestAdd_2() {
+        public void TestToResult_2() {
             _data.Add( "a", 1 ).Add( "b", 2 );
-            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1},{\"name\":\"b\",\"value\":2}]}", ToJson() );
+            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1},{\"name\":\"b\",\"value\":2}]}", ToResultJson() );
         }
 
         /// <summary>
-        /// 添加图表项 - 添加一个点
+        /// 获取结果 - 添加一个点
         /// </summary>
         [Fact]
-        public void TestAdd_3() {
+        public void TestToResult_3() {
             _data.Add( "a", new Point( "b", 1 ) );
-            Assert.Equal( "{\"columns\":[\"b\"],\"data\":[{\"name\":\"a\",\"b\":1}]}", ToJson() );
+            Assert.Equal( "{\"columns\":[\"b\"],\"data\":[{\"name\":\"a\",\"b\":1}]}", ToResultJson() );
         }
 
         /// <summary>
-        /// 添加图表项 - 添加2个点
+        /// 获取结果 - 添加2个点
         /// </summary>
         [Fact]
-        public void TestAdd_4() {
+        public void TestToResult_4() {
             _data.Add( "a", new Point( "b", 1 ), new Point( "c", 2 ) );
-            Assert.Equal( "{\"columns\":[\"b\",\"c\"],\"data\":[{\"name\":\"a\",\"b\":1,\"c\":2}]}", ToJson() );
+            Assert.Equal( "{\"columns\":[\"b\",\"c\"],\"data\":[{\"name\":\"a\",\"b\":1,\"c\":2}]}", ToResultJson() );
+        }
+
+        /// <summary>
+        /// 获取结果 - 添加2个项4个点
+        /// </summary>
+        [Fact]
+        public void TestToResult_5() {
+            _data.Add( "a", new Point( "b", 1 ), new Point( "c", 2 ) );
+            _data.Add( "d", new Point( "b", 3 ), new Point( "c", 4 ) );
+            Assert.Equal( "{\"columns\":[\"b\",\"c\"],\"data\":[{\"name\":\"a\",\"b\":1,\"c\":2},{\"name\":\"d\",\"b\":3,\"c\":4}]}", ToResultJson() );
+        }
+
+        /// <summary>
+        /// 获取柱状图结果
+        /// </summary>
+        [Fact]
+        public void TestToColumnResult_1() {
+            _data.Add( "a", 1 );
+            Assert.Equal( "{\"columns\":[\"a\"],\"data\":[{\"name\":\"value\",\"a\":1}]}", ToColumnResultJson() );
+        }
+
+        /// <summary>
+        /// 获取柱状图结果 - 2个图表项
+        /// </summary>
+        [Fact]
+        public void TestToColumnResult_2() {
+            _data.Add( "a", 1 ).Add( "b", 2 );
+            Assert.Equal( "{\"columns\":[\"a\",\"b\"],\"data\":[{\"name\":\"value\",\"a\":1,\"b\":2}]}", ToColumnResultJson() );
+        }
+
+        /// <summary>
+        /// 获取柱状图结果 - 添加一个点
+        /// </summary>
+        [Fact]
+        public void TestToColumnResult_3() {
+            _data.Add( "a", new Point( "b", 1 ) );
+            Assert.Equal( "{\"columns\":[\"a\"],\"data\":[{\"name\":\"b\",\"a\":1}]}", ToColumnResultJson() );
+        }
+
+        /// <summary>
+        /// 获取柱状图结果 - 添加3个项，每项2个点
+        /// </summary>
+        [Fact]
+        public void TestToColumnResult_4() {
+            _data.Add( "a1", new Point( "b", 1 ), new Point( "c", 2 ) );
+            _data.Add( "a2", new Point( "b", 3 ), new Point( "c", 4 ) );
+            _data.Add( "a3", new Point( "b", 5 ), new Point( "c", 6 ) );
+            Assert.Equal( "{\"columns\":[\"a1\",\"a2\",\"a3\"],\"data\":[{\"name\":\"b\",\"a1\":1,\"a2\":3,\"a3\":5},{\"name\":\"c\",\"a1\":2,\"a2\":4,\"a3\":6}]}", ToColumnResultJson() );
         }
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Host,AfterContentInit } from '@angular/core';
 import { env } from '../../../env';
 import { util } from '../../../../util';
+import { DataSet } from '@antv/data-set';
 
 @Component({
     selector: 'app-dashboard-v1',

@@ -91,5 +91,36 @@ namespace Util.Ui.Viser.Data {
             _items.ForEach( item => jArray.Add( item.ToJObject() ) );
             return new JProperty( "data", jArray );
         }
+
+        /// <summary>
+        /// 获取柱状图结果
+        /// </summary>
+        public JObject ToColumnResult() {
+            return new JObject {
+                CreateColumnColumns(),
+                CreateColumnData()
+            };
+        }
+
+        /// <summary>
+        /// 创建柱状图列集合属性
+        /// </summary>
+        private JProperty CreateColumnColumns() {
+            return new JProperty( "columns", _items.Select( t => t.Name ).Distinct().ToList() );
+        }
+
+        /// <summary>
+        /// 创建柱状图数据属性
+        /// </summary>
+        private JProperty CreateColumnData() {
+            var jArray = new JArray();
+            var groups = _items.SelectMany( t => t.Points ).GroupBy( t => t.Name ).ToList();
+            foreach( var @group in groups ) {
+                var jObject = new JObject { { "name", @group.Key } };
+                @group.ToList().ForEach( t => jObject.Add( t.ToColumnJProperty() ) );
+                jArray.Add( jObject );
+            }
+            return new JProperty( "data", jArray );
+        }
     }
 }

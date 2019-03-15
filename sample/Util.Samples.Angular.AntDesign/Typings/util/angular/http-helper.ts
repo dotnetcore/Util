@@ -4,7 +4,7 @@
 //================================================
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { IocHelper as ioc } from './ioc-helper';
-import { formatDate, uuid } from '../common/helper';
+import { formatDate } from '../common/helper';
 
 /**
  * Http操作
@@ -195,7 +195,6 @@ export class HttpRequest<T> {
     private request() {
         this.setContentType();
         let httpClient = ioc.get<HttpClient>(HttpClient);
-        this.initParameters();
         let options = { headers: this.headers, params: this.parameters };
         switch (this.httpMethod) {
             case HttpMethod.Get:
@@ -209,14 +208,6 @@ export class HttpRequest<T> {
             default:
                 return httpClient.get<T>(this.url, options);
         }
-    }
-
-    /**
-     * 初始化请求参数
-     */
-    private initParameters() {
-        if (this.httpMethod === HttpMethod.Get)
-            this.param("no-cache-tag", uuid());
     }
 
     /**

@@ -30,7 +30,8 @@ namespace Util.Ui.Viser.Data {
         /// <param name="points">点列表</param>
         public ChartItem( string name, params Point[] points ) {
             Name = name;
-            _points = points?.ToList() ?? new List<Point>();
+            _points = new List<Point>();
+            AddPoint( points );
         }
 
         /// <summary>
@@ -61,6 +62,7 @@ namespace Util.Ui.Viser.Data {
         public ChartItem AddPoint( Point point ) {
             if( point == null )
                 return this;
+            point.SetChartItem( this );
             _points.Add( point );
             return this;
         }
@@ -72,7 +74,8 @@ namespace Util.Ui.Viser.Data {
         public ChartItem AddPoint( IEnumerable<Point> points ) {
             if( points == null )
                 return this;
-            _points.AddRange( points );
+            foreach ( var point in points )
+                AddPoint( point );
             return this;
         }
 

@@ -33,8 +33,11 @@ import { AuthorizeConfig as OidcAuthorizeConfig } from './security/openid-connec
 import { AuthorizeInterceptor } from "./security/openid-connect/authorize-interceptor";
 
 //Util图表组件
-import { ChartWrapperComponent } from "./viser/chart-wrapper.component";
 import { LineWrapperComponent } from "./viser/line-wrapper.component";
+import { ColumnWrapperComponent } from "./viser/column-wrapper.component";
+import { BarWrapperComponent } from "./viser/bar-wrapper.component";
+import { AreaWrapperComponent } from "./viser/area-wrapper.component";
+import { PieWrapperComponent } from "./viser/pie-wrapper.component";
 
 //Util表单组件
 
@@ -46,7 +49,8 @@ const modules = [
 //组件集合
 const components = [
     MinValidator, MaxValidator, SafeUrlPipe,
-    ChartWrapperComponent, LineWrapperComponent
+    LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
+    PieWrapperComponent
 ];
 
 /**
