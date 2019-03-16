@@ -38,6 +38,7 @@ import { ColumnWrapperComponent } from "./viser/column-wrapper.component";
 import { BarWrapperComponent } from "./viser/bar-wrapper.component";
 import { AreaWrapperComponent } from "./viser/area-wrapper.component";
 import { PieWrapperComponent } from "./viser/pie-wrapper.component";
+import { RosePieWrapperComponent } from "./viser/rose-pie-wrapper.component";
 
 //Util表单组件
 
@@ -50,7 +51,7 @@ const modules = [
 const components = [
     MinValidator, MaxValidator, SafeUrlPipe,
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
-    PieWrapperComponent
+    PieWrapperComponent, RosePieWrapperComponent
 ];
 
 /**

@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=====================================================
-import { Component, Input } from '@angular/core';
+import { Component, Input,OnInit } from '@angular/core';
 import { ComponentBase } from "./base/component-base";
 import { DataSet } from '@antv/data-set';
 import { Model } from "./data/model";
@@ -14,12 +14,21 @@ import { Model } from "./data/model";
     selector: 'x-pie',
     template: `
         <v-view [data]="data" [scale]="scale">
-            <v-pie position="percent" color="name" [style]="style" [label]="labelConfig"></v-pie>            
+            <v-pie position="percent" color="name" [style]="style" [label]="labelConfig"></v-pie>
+            <v-coord type="theta" [radius]="radius" [innerRadius]="innerRadius"></v-coord>
         </v-view>
         <v-legend dataKey="name"></v-legend>
     `
 } )
-export class PieWrapperComponent extends ComponentBase {
+export class PieWrapperComponent extends ComponentBase implements OnInit {
+    /**
+     * 是否环状图，默认为 false
+     */
+    @Input() isDonut?: boolean;
+    /**
+     * 数据比例尺
+     */
+    @Input() scale?;
     /**
      * 饼图样式
      */
@@ -27,20 +36,47 @@ export class PieWrapperComponent extends ComponentBase {
     /**
      * 标签配置
      */
-    @Input() labelConfig;
+    @Input() labelConfig?;
     /**
-     * 数据比例尺
+     * 是否在内部显示标签,默认值为 false
      */
-    @Input() scale;
-    
+    @Input() isInnerLabel?:boolean;
+    /**
+     * 设置坐标系半径，值范围为 0 至 1
+     */
+    @Input() radius?: number;
+    /**
+     * 设置坐标系空心圆的半径，值范围为 0 至 1
+     */
+    @Input() innerRadius?: number;
+
     /**
      * 初始化饼图包装器
      */
     constructor() {
         super();
-        this.initStyle();
-        this.initLabelConfig();
         this.initScale();
+        this.initStyle();
+    }
+
+    /**
+     * 初始化
+     */
+    ngOnInit() {
+        this.initCoord();
+        this.initLabelConfig();
+        super.ngOnInit();
+    }
+
+    /**
+     * 初始化数据比例尺
+     */
+    private initScale() {
+        this.scale = [{
+            dataKey: 'percent',
+            min: 0,
+            formatter: '.0%',
+        }];
     }
 
     /**
@@ -54,7 +90,31 @@ export class PieWrapperComponent extends ComponentBase {
      * 初始化标签配置
      */
     private initLabelConfig() {
-        this.labelConfig = ['percent', {
+        if ( this.labelConfig )
+            return;
+        if ( this.isInnerLabel ) {
+            this.labelConfig = this.getInnerLabelConfig();
+            return;
+        }
+        this.labelConfig = this.getOutLabelConfig();
+    }
+
+    /**
+     * 获取外部标签配置
+     */
+    private getOutLabelConfig() {
+        return ['percent', {
+            formatter: ( value, item ) => {
+                return item.point.name + ': ' + value;
+            },
+        }];
+    }
+
+    /**
+     * 获取内部标签配置
+     */
+    private getInnerLabelConfig() {
+        return ['percent', {
             offset: -40,
             textStyle: {
                 rotate: 0,
@@ -66,14 +126,15 @@ export class PieWrapperComponent extends ComponentBase {
     }
 
     /**
-     * 初始化数据比例尺
+     * 初始化坐标系
      */
-    private initScale() {
-        this.scale = [{
-            dataKey: 'percent',
-            min: 0,
-            formatter: '.0%',
-        }];
+    private initCoord() {
+        if ( !this.isDonut )
+            return;
+        if ( !this.radius )
+            this.radius = 0.75;
+        if ( !this.innerRadius )
+            this.innerRadius = 0.6;
     }
 
     /**
