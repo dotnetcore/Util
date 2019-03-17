@@ -1,66 +1,70 @@
-import { NgModule, Injector, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
+import { NgModule, Injector, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 
 //Angular模块
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
+
+//Ant Design模块
+import { AlainThemeModule } from '@delon/theme';
+
+//语言设置
+import { default as ngLang } from '@angular/common/locales/zh';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData( ngLang, "zh" );
 
 //框架模块
 import { FrameworkModule } from './framework.module';
 import { util } from '../util';
 
-// #region Startup Service
-import { StartupService } from './core/index';
-export function StartupServiceFactory(
-  startupService: StartupService,
-): Function {
-  return () => startupService.load();
-}
-const APPINIT_PROVIDES = [
-  StartupService,
-  {
-    provide: APP_INITIALIZER,
-    useFactory: StartupServiceFactory,
-    deps: [StartupService],
-    multi: true,
-  }
-];
-
-import { DelonModule } from './delon.module';
-import { CoreModule } from './core/core.module';
-import { AppComponent } from './app.component';
-import { LayoutModule } from './home/layout/layout.module';
-
+//路由模块
 import { AppRoutingModule } from './app-routing.module';
-import { NotFoundComponent } from './home/not-found.component';
-import { DashboardV1Component } from './home/dashboard/v1/v1.component';
+
+//主界面模块
+import { HomeModule } from "./home/home.module";
+
+//根组件
+import { AppComponent } from './app.component';
+
+//启动服务
+import { StartupService } from "./home/startup/startup.service";
+
+//启动服务工厂
+export function startupServiceFactory( startupService: StartupService ) {
+    return () => startupService.load();
+}
 
 /**
  * 应用根模块
  */
-@NgModule({
-    declarations: [AppComponent, DashboardV1Component, NotFoundComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    DelonModule.forRoot(),
-    CoreModule,
-    FrameworkModule,
-    LayoutModule,
-    AppRoutingModule
-  ],
-  providers: [
-    ...APPINIT_PROVIDES
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule( {
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AlainThemeModule.forRoot(),
+        FrameworkModule,
+        HomeModule,
+        AppRoutingModule
+    ],
+    providers: [
+        StartupService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: startupServiceFactory,
+            deps: [StartupService],
+            multi: true,
+        }
+    ],
+    bootstrap: [AppComponent],
+} )
 export class AppModule {
     /**
      * 初始化应用根模块
      * @param injector 注入器
      */
-    constructor(injector: Injector) {
+    constructor( injector: Injector ) {
         util.ioc.injector = injector;
     }
 }

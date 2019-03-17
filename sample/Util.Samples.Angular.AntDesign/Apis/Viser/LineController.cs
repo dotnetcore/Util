@@ -4,7 +4,7 @@ using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Viser {
     /// <summary>
-    /// 折线图Api控制器
+    /// 折线图控制器
     /// </summary>
     public class LineController : WebApiControllerBase {
         /// <summary>

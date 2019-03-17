@@ -4,7 +4,7 @@ using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Viser {
     /// <summary>
-    /// 条形图Api控制器
+    /// 条形图控制器
     /// </summary>
     public class BarController : WebApiControllerBase {
         /// <summary>

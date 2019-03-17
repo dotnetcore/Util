@@ -27,7 +27,6 @@ const jsModules = [
     '@delon/abc',
     '@delon/acl',
     '@delon/auth',
-    '@delon/form',
     '@delon/util'
 ];
 

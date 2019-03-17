@@ -4,7 +4,7 @@ using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Viser {
     /// <summary>
-    /// 柱状图Api控制器
+    /// 柱状图控制器
     /// </summary>
     public class ColumnController : WebApiControllerBase {
         /// <summary>

@@ -42,8 +42,8 @@ import { RosePieWrapperComponent } from "./viser/rose-pie-wrapper.component";
 
 //Util表单组件
 
-//导入导出模块集合
-const modules = [
+//导入模块集合
+const importModules = [
     NgZorroAntdModule, ViserModule
 ];
 
@@ -60,13 +60,13 @@ const components = [
 @NgModule({
     imports: [
         CommonModule, FormsModule, RouterModule, 
-        modules
+        importModules
     ],
     declarations: [
         components
     ],
     exports: [
-        modules, components
+        components
     ],
     providers: [
         DicService, Session, SaveGuard

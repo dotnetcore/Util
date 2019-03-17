@@ -5,14 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
-//Util模块
-import { UtilModule } from '../util';
+//Ant Design模块
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { ViserModule } from 'viser-ng';
 
 //ng-alain模块
 import { AlainThemeModule } from '@delon/theme';
 import { DelonABCModule } from '@delon/abc';
-import { DelonACLModule } from '@delon/acl';
-import { DelonFormModule } from '@delon/form';
+
+//Util模块
+import { UtilModule } from '../util';
 
 @NgModule({
     exports: [
@@ -20,11 +22,11 @@ import { DelonFormModule } from '@delon/form';
         FormsModule,
         RouterModule, 
         ReactiveFormsModule,
-        UtilModule,
+        NgZorroAntdModule,
+        ViserModule,
         AlainThemeModule,
         DelonABCModule,
-        DelonACLModule,
-        DelonFormModule
+        UtilModule
     ]
 })
 export class FrameworkModule {

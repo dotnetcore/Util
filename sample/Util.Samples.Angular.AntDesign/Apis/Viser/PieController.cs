@@ -4,7 +4,7 @@ using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Viser {
     /// <summary>
-    /// 饼图Api控制器
+    /// 饼图控制器
     /// </summary>
     public class PieController : WebApiControllerBase {
         /// <summary>

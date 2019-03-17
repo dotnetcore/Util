@@ -37,6 +37,10 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Typings\app\components\" />
+  </ItemGroup>
+
   <!-- Debug调试模式打包第三方框架 -->
   <Target Name="Debug_RunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- 打包 -->

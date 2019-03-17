@@ -25,7 +25,6 @@ import { updateHostClass } from '@delon/util';
 import { SettingsService } from '@delon/theme';
 
 import { env } from '../../../env';
-import { SettingDrawerComponent } from './setting-drawer/setting-drawer.component';
 
 @Component({
   selector: 'layout-default',
@@ -83,13 +82,7 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
     doc.body.classList[layout.colorWeak ? 'add' : 'remove']('color-weak');
   }
 
-  ngAfterViewInit(): void {
-      if (!env.prod()) {
-      setTimeout(() => {
-        const settingFactory = this.resolver.resolveComponentFactory(SettingDrawerComponent);
-        this.settingHost.createComponent(settingFactory);
-      }, 22);
-    }
+  ngAfterViewInit() {
   }
 
   ngOnInit() {

@@ -4,7 +4,7 @@ using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Viser {
     /// <summary>
-    /// 面积图Api控制器
+    /// 面积图控制器
     /// </summary>
     public class AreaController : WebApiControllerBase {
         /// <summary>
