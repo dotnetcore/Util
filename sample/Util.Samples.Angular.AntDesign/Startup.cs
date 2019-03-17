@@ -38,6 +38,9 @@ namespace Util.Samples {
         /// 配置服务
         /// </summary>
         public IServiceProvider ConfigureServices( IServiceCollection services ) {
+            //注册Razor视图解析路径
+            services.AddRazorViewLocationExpander();
+
             //添加Mvc服务
             services.AddMvc( options => {
                 //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
@@ -87,9 +90,6 @@ namespace Util.Samples {
             //    options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) );
             //    options.UseRabbitMQ( "192.168.244.138" );
             //} );
-
-            //添加UI
-            services.AddUi();
 
             //添加Util基础设施服务
             return services.AddUtil();

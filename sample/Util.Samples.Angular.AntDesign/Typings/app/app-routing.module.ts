@@ -1,7 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutDefaultComponent } from './home/layout/default/default.component';
-import { DashboardV1Component } from './home/dashboard/v1/v1.component';
+import { DashboardV1Component } from './home/dashboard/v1.component';
 
 //路由配置
 const routes: Routes = [

@@ -68,8 +68,8 @@ namespace Util.Ui.Pages {
                 model = result.Model;
             }
 
-            if (context.Result is PageResult pageResult) {
-                if (context.ActionDescriptor is PageActionDescriptor pageActionDescriptor) {
+            if( context.Result is PageResult pageResult ) {
+                if( context.ActionDescriptor is PageActionDescriptor pageActionDescriptor ) {
                     isPage = true;
                     model = pageResult.Model;
                     viewName = pageActionDescriptor.RelativePath;
@@ -81,11 +81,10 @@ namespace Util.Ui.Pages {
             var serviceProvider = Ioc.Create<IServiceProvider>();
             var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
             var actionContext = new ActionContext( httpContext, context.RouteData, new ActionDescriptor() );
-            using( var stringWriter = new StringWriter() )
-            {
+            using( var stringWriter = new StringWriter() ) {
                 var viewResult = isPage
-                    ? GetView(compositeViewEngine, viewName)
-                    : GetView(razorViewEngine, actionContext, viewName);
+                    ? GetView( compositeViewEngine, viewName )
+                    : GetView( razorViewEngine, actionContext, viewName );
                 if( viewResult.View == null )
                     throw new ArgumentNullException( $"未找到视图： {viewName}" );
                 var viewDictionary = new ViewDataDictionary( new EmptyModelMetadataProvider(), new ModelStateDictionary() ) { Model = model };
@@ -101,9 +100,8 @@ namespace Util.Ui.Pages {
         /// <param name="razorViewEngine">Razor视图引擎</param>
         /// <param name="actionContext">操作上下文</param>
         /// <param name="viewName">视图名</param>
-        /// <returns></returns>
-        private ViewEngineResult GetView(IRazorViewEngine razorViewEngine,ActionContext actionContext,string viewName) {
-            return razorViewEngine.FindView(actionContext, viewName, true);
+        private ViewEngineResult GetView( IRazorViewEngine razorViewEngine, ActionContext actionContext, string viewName ) {
+            return razorViewEngine.FindView( actionContext, viewName, true );
         }
 
         /// <summary>
@@ -111,31 +109,32 @@ namespace Util.Ui.Pages {
         /// </summary>
         /// <param name="compositeViewEngine">复合视图引擎</param>
         /// <param name="path">路径</param>
-        /// <returns></returns>
-        private ViewEngineResult GetView(ICompositeViewEngine compositeViewEngine, string path) {
-            return compositeViewEngine.GetView("~/", $"~{path}", true);
+        private ViewEngineResult GetView( ICompositeViewEngine compositeViewEngine, string path ) {
+            return compositeViewEngine.GetView( "~/", $"~{path}", true );
         }
 
         /// <summary>
         /// 获取Html默认生成路径
         /// </summary>
         protected virtual string GetPath( ResultExecutingContext context ) {
-            if (context.ActionDescriptor is PageActionDescriptor pageActionDescriptor) {
-                var paths = pageActionDescriptor.RelativePath.Replace("/Pages","/typings/app").TrimStart('/').Split('/');
-                StringBuilder result = new StringBuilder();
-                for (int i = 0; i < paths.Length; i++)
-                {
-                    if (i == paths.Length - 1)
-                    {
-                        var componentName = Util.Helpers.String.SplitWordGroup(paths[i].RemoveEnd(".cshtml"));
-                        result.Append($"{componentName}/html/{componentName}.component.html");
+            if( context.ActionDescriptor is PageActionDescriptor pageActionDescriptor ) {
+                var paths = pageActionDescriptor.RelativePath.Replace( "/Pages", "/typings/app" ).TrimStart( '/' ).Split( '/' );
+                var result = new StringBuilder();
+                for( int i = 0; i < paths.Length; i++ ) {
+                    var path = paths[i];
+                    var name = Util.Helpers.String.SplitWordGroup( path );
+                    if( i == paths.Length - 2 ) {
+                        result.Append( $"{name}/html/" );
+                        continue;
+                    }
+                    if( i == paths.Length - 1 ) {
+                        name = Util.Helpers.String.SplitWordGroup( path.RemoveEnd( ".cshtml" ) );
+                        result.Append( $"{name}.component.html" );
                         break;
                     }
-
-                    result.Append(Util.Helpers.String.SplitWordGroup(paths[i]));
-                    result.Append("/");
+                    result.Append( $"{name}/" );
                 }
-                return $"/{result.ToString()}";
+                return $"/{result}";
             }
             return string.Empty;
         }

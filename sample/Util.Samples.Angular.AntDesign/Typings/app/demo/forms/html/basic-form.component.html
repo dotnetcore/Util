@@ -1,12 +1,3 @@
-﻿@page
-@model BasicFormModel
-@functions {
-    /// <summary>
-    /// 基础表单
-    /// </summary>
-    [Html]
-    public class BasicFormModel : PageModel { }
-}
 <page-header title="基础表单">
     将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
 </page-header>
@@ -25,10 +16,10 @@
             <textarea nz-input name="standard" [nzAutosize]="{minRows: 4}" placeholder="请输入衡量标准"></textarea>
         </se>
         <se label="客户" optionalHelp="目标的服务对象" error="请输入衡量标准">
-            <input nz-input name="client" placeholder="请描述你服务的客户，内部客户直接 @@姓名／工号">
+            <input nz-input name="client" placeholder="请描述你服务的客户，内部客户直接 @姓名／工号">
         </se>
         <se label="邀评人">
-            <input nz-input name="invites" placeholder="请直接 @@姓名／工号，最多可邀请 5 人">
+            <input nz-input name="invites" placeholder="请直接 @姓名／工号，最多可邀请 5 人">
         </se>
         <se label="权重">
             <nz-input-number name="weight" placeholder="请输入"></nz-input-number>

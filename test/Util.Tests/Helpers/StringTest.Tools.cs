@@ -79,15 +79,15 @@ namespace Util.Tests.Helpers {
         /// 分隔词组
         /// </summary>
         [Theory]
-        [InlineData(null, "")]
-        [InlineData("", "")]
-        [InlineData(" ", "")]
-        [InlineData("AaA","aa-a")]
-        [InlineData("AA", "aa")]
-        [InlineData("ABC","abc")]
-        public void TestSplitWordGroup(string value, string result)
-        {
-            Assert.Equal(result, Util.Helpers.String.SplitWordGroup(value));
+        [InlineData( null, "" )]
+        [InlineData( "", "" )]
+        [InlineData( " ", "" )]
+        [InlineData( "AaA", "aa-a" )]
+        [InlineData( "AA", "aa" )]
+        [InlineData( "ABC", "abc" )]
+        [InlineData( "NetCore", "net-core" )]
+        public void TestSplitWordGroup( string value, string result ) {
+            Assert.Equal( result, Util.Helpers.String.SplitWordGroup( value ) );
         }
     }
 }

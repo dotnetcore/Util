@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Util.Helpers {
     /// <summary>
@@ -132,7 +131,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="value">值</param>
         public static string FirstLowerCase( string value ) {
-            if ( string.IsNullOrWhiteSpace( value ) )
+            if( string.IsNullOrWhiteSpace( value ) )
                 return string.Empty;
             return $"{value.Substring( 0, 1 ).ToLower()}{value.Substring( 1 )}";
         }
@@ -179,14 +178,9 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="value">值</param>
         /// <param name="separator">分隔符，默认使用"-"分隔</param>
-        /// <returns></returns>
-        public static string SplitWordGroup(string value, char separator = '-')
-        {
-            return string.IsNullOrWhiteSpace(value)
-                ? string.Empty
-                : System.Text.RegularExpressions.Regex
-                    .Replace(value, @"([A-Z])(?=[a-z])|(?<=[a-z])([A-Z]|[0-9]+)", $"{separator}$1$2")
-                    .TrimStart(separator).ToLower();
+        public static string SplitWordGroup( string value, char separator = '-' ) {
+            var pattern = @"([A-Z])(?=[a-z])|(?<=[a-z])([A-Z]|[0-9]+)";
+            return string.IsNullOrWhiteSpace( value ) ? string.Empty : System.Text.RegularExpressions.Regex.Replace( value, pattern, $"{separator}$1$2" ).TrimStart( separator ).ToLower();
         }
 
         #endregion
