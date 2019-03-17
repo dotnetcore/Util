@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Util.Helpers {
     /// <summary>
@@ -167,6 +168,25 @@ namespace Util.Helpers {
             if( value.ToLower().EndsWith( removeValue.ToLower() ) )
                 return value.Remove( value.Length - removeValue.Length, removeValue.Length );
             return value;
+        }
+
+        #endregion
+
+        #region SplitWordGroup(分隔词组)
+
+        /// <summary>
+        /// 分隔词组
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="separator">分隔符，默认使用"-"分隔</param>
+        /// <returns></returns>
+        public static string SplitWordGroup(string value, char separator = '-')
+        {
+            return string.IsNullOrWhiteSpace(value)
+                ? string.Empty
+                : System.Text.RegularExpressions.Regex
+                    .Replace(value, @"([A-Z])(?=[a-z])|(?<=[a-z])([A-Z]|[0-9]+)", $"{separator}$1$2")
+                    .TrimStart(separator).ToLower();
         }
 
         #endregion
