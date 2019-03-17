@@ -74,5 +74,20 @@ namespace Util.Tests.Helpers {
         public void TestFirstUpperCase( string value, string result ) {
             Assert.Equal( result, Util.Helpers.String.FirstUpperCase( value ) );
         }
+
+        /// <summary>
+        /// 分隔词组
+        /// </summary>
+        [Theory]
+        [InlineData(null, "")]
+        [InlineData("", "")]
+        [InlineData(" ", "")]
+        [InlineData("AaA","aa-a")]
+        [InlineData("AA", "aa")]
+        [InlineData("ABC","abc")]
+        public void TestSplitWordGroup(string value, string result)
+        {
+            Assert.Equal(result, Util.Helpers.String.SplitWordGroup(value));
+        }
     }
 }

@@ -12,6 +12,7 @@ using Util.Events.Cap;
 using Util.Events.Default;
 using Util.Locks.Default;
 using Util.Logs.Extensions;
+using Util.Ui.Extensions;
 using Util.Ui.Pages;
 using Util.Webs.Extensions;
 
@@ -86,6 +87,9 @@ namespace Util.Samples {
             //    options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) );
             //    options.UseRabbitMQ( "192.168.244.138" );
             //} );
+
+            //添加UI
+            services.AddUi();
 
             //添加Util基础设施服务
             return services.AddUtil();
