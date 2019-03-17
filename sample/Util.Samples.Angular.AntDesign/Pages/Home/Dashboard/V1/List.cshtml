@@ -16,44 +16,4 @@
             </p>
         </nz-card>
     </div>
-    <div nz-col nzXs="24" nzMd="12">
-        <nz-card [nzTitle]="recentTitle" [nzBordered]="false" class="ant-card__body-nopadding">
-            <ng-template #recentTitle>
-                Recent Posts
-                <small class="text-sm font-weight-normal">Venenatis portauam Inceptos ameteiam</small>
-            </ng-template>
-            <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point" *ngFor="let item of todoData">
-                <div nz-col [nzSpan]="4" class="text-center">
-                    <nz-avatar [nzSrc]="'/assets/tmp/img/' + item.avatar + '.png'"></nz-avatar>
-                </div>
-                <div nz-col [nzSpan]="20">
-                    <strong>{{item.name}}</strong>
-                    <p class="mb0">{{item.content}}</p>
-                </div>
-            </div>
-        </nz-card>
-    </div>
-    <div nz-col nzXs="24" nzMd="12">
-        <nz-card nzTitle="Todo lists" [nzBordered]="false" class="ant-card__body-nopadding">
-            <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point" *ngFor="let item of todoData">
-                <div nz-col [nzSpan]="4" class="text-center">
-                    <nz-avatar [nzSrc]="'/assets/tmp/img/' + item.avatar + '.png'"></nz-avatar>
-                </div>
-                <div nz-col [nzSpan]="18">
-                    <strong>{{item.name}}</strong>
-                    <p [class.text-deleted]="item.completed" class="mb0">{{item.content}}</p>
-                </div>
-                <div nz-col [nzSpan]="2" class="text-right pr-md">
-                    <nz-dropdown [nzPlacement]="'topRight'">
-                        <i nz-dropdown nz-icon type="ellipsis" class="rotate-90"></i>
-                        <ul nz-menu>
-                            <li nz-menu-item *ngIf="item.completed" (click)="item.completed=false">Active</li>
-                            <li nz-menu-item *ngIf="!item.completed" (click)="item.completed=true">Completed</li>
-                            <li nz-menu-item (click)="todoData.splice(todoData.indexOf(item), 1)">Delted</li>
-                        </ul>
-                    </nz-dropdown>
-                </div>
-            </div>
-        </nz-card>
-    </div>
 </div>

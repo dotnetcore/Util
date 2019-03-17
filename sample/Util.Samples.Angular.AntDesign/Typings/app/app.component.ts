@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+ï»¿import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TitleService } from '@delon/theme';
 import { NzModalService } from 'ng-zorro-antd';
 
 /**
- * Ó¦ÓÃ¸ù×é¼ş
+ * åº”ç”¨æ ¹ç»„ä»¶
  */
 @Component( {
     selector: 'app',
@@ -13,13 +13,13 @@ import { NzModalService } from 'ng-zorro-antd';
 } )
 export class AppComponent implements OnInit {
     /**
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      */
     constructor( private router: Router, private titleSrv: TitleService, private modalSrv: NzModalService ) {
     }
 
     /**
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      */
     ngOnInit() {
         this.router.events

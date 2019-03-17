@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
+锘縤mport { NgModule } from '@angular/core';
 
-//框架模块
+//妗嗘灦妯″潡
 import { FrameworkModule } from '../framework.module';
 
-//路由模块
+//璺敱妯″潡
 import { DemoRoutingModule } from './demo-routing.module';
 
-//表单组件
+//琛ㄥ崟缁勪欢
 import { BasicFormComponent } from "./forms/basic-form.component";
 
 /**
- * Demo模块
+ * Demo妯″潡
  */
 @NgModule( {
     imports: [FrameworkModule, DemoRoutingModule],

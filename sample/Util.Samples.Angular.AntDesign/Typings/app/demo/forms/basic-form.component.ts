@@ -1,11 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { env } from '../../env';
 
 @Component( {
     selector: 'app-basic-form',
-    templateUrl: env.dev() ? '/View/Demo/Forms/BasicForm' : './html/basic-form.component.html',
+    templateUrl: !env.dev() ? './html/basic-form.component.html' : '/View/Demo/Forms/BasicForm',
     changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class BasicFormComponent implements OnInit {

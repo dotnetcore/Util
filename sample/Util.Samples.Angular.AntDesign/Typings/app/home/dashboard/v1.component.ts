@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+ï»¿import { Component, OnInit } from '@angular/core';
 import { env } from '../../env';
 
 /**
- * Dashboard Ä¬ÈÏÒ³×é¼ş
+ * Dashboard é»˜è®¤é¡µç»„ä»¶
  */
 @Component({
     selector: 'app-dashboard-v1',
-    templateUrl: env.dev() ? '/View/Home/Dashboard/V1' : './html/v1.component.html',
+    templateUrl: !env.dev() ? './html/v1.component.html' : '/View/Home/Dashboard/V1',
 })
 export class DashboardV1Component implements OnInit {
     /**
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      */
     ngOnInit() {
     }

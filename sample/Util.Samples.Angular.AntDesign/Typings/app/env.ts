@@ -8,7 +8,6 @@ export let env = {
     prod() {
         return process.env.NODE_ENV === "prod";
     },
-
     /**
      * 是否开发环境
      */

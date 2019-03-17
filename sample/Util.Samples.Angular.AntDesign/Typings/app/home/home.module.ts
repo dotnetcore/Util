@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+ï»¿import { NgModule } from '@angular/core';
 
-//¿ò¼ÜÄ£¿é
+//æ¡†æ¶æ¨¡å—
 import { FrameworkModule } from '../framework.module';
 
-//²¼¾Ö×é¼ş
+//å¸ƒå±€ç»„ä»¶
 import { LayoutDefaultComponent } from './layout/default/default.component';
 import { LayoutFullScreenComponent } from './layout/fullscreen/fullscreen.component';
 import { HeaderComponent } from './layout/default/header/header.component';
@@ -17,10 +17,10 @@ import { HeaderStorageComponent } from './layout/default/header/components/stora
 import { HeaderUserComponent } from './layout/default/header/components/user.component';
 import { LayoutPassportComponent } from './layout/passport/passport.component';
 
-//ÒÇ±íÅÌ
+//ä»ªè¡¨ç›˜
 import { DashboardV1Component } from './dashboard/v1.component';
 
-//×é¼şÁĞ±í
+//ç»„ä»¶åˆ—è¡¨
 const components = [
     HeaderSearchComponent,
     HeaderNotifyComponent,
@@ -38,7 +38,7 @@ const components = [
 ];
 
 /**
- * Ö÷½çÃæÄ£¿é
+ * ä¸»ç•Œé¢æ¨¡å—
  */
 @NgModule({
     imports: [FrameworkModule],
