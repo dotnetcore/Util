@@ -121,28 +121,23 @@ namespace Util.Ui.Pages {
         /// </summary>
         protected virtual string GetPath( ResultExecutingContext context ) {
             if (context.ActionDescriptor is PageActionDescriptor pageActionDescriptor) {
-                var paths = pageActionDescriptor.ViewEnginePath.TrimStart('/').Split('/');
-                return string.Empty;
-            }
-            var area = context.RouteData.Values["area"].SafeString();
-            var controller = context.RouteData.Values["controller"].SafeString();
-            var action = context.RouteData.Values["action"].SafeString();
-            var path = "";
-            return path.ToLower();
-        }
+                var paths = pageActionDescriptor.RelativePath.Replace("/Pages","/typings/app").TrimStart('/').Split('/');
+                StringBuilder result = new StringBuilder();
+                for (int i = 0; i < paths.Length; i++)
+                {
+                    if (i == paths.Length - 1)
+                    {
+                        var componentName = Util.Helpers.String.SplitWordGroup(paths[i].RemoveEnd(".cshtml"));
+                        result.Append($"{componentName}/html/{componentName}.component.html");
+                        break;
+                    }
 
-        /// <summary>
-        /// 拼接Action地址
-        /// </summary>
-        /// <param name="paths">路径</param>
-        /// <returns></returns>
-        private string JoinActionUrl(string[] paths) {
-            var result = new StringBuilder();
-            for (var i = 2; i < paths.Length; i++) {
-                result.Append(paths[i]);
-                result.Append("/");
+                    result.Append(Util.Helpers.String.SplitWordGroup(paths[i]));
+                    result.Append("/");
+                }
+                return $"/{result.ToString()}";
             }
-            return result.ToString().TrimEnd('/');
+            return string.Empty;
         }
     }
 }
