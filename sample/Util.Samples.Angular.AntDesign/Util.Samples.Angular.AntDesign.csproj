@@ -26,7 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Caches\04-Util.Caches.csproj" />
     <ProjectReference Include="..\..\src\Util.Events\05-Util.Events.csproj" />
-    <ProjectReference Include="..\..\src\Util.Ui.Angular.AntDesign\04-Util.Ui.Angular.AntDesign.csproj" />
+    <ProjectReference Include="..\..\src\Util.Ui.Angular.AntDesign\05-Util.Ui.Angular.AntDesign.csproj" />
     <ProjectReference Include="..\..\src\Util.Ui.Core\02-Util.Ui.Core.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\09-Util.Webs.csproj" />
   </ItemGroup>
@@ -35,10 +35,6 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Typings\app\components\" />
   </ItemGroup>
 
   <!-- Debug调试模式打包第三方框架 -->

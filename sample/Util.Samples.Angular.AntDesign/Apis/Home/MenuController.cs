@@ -18,7 +18,8 @@ namespace Util.Samples.Apis.Home {
                 User = { Name = "何镇汐", Avatar = "/assets/img/avatar.jpg", Email = "xiadao521@qq.com" },
                 Menu = new List<MenuInfo> {
                     GetMainMenu(),
-                    GetDemoMenu()
+                    GetDemoMenu(),
+                    GetComponentMenu()
                 }
             };
             return Success( data );
@@ -63,6 +64,32 @@ namespace Util.Samples.Apis.Home {
                             new MenuInfo {
                                 Text = "基础表单",
                                 Link = "/demo/form/basic-form"
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        /// <summary>
+        /// 获取组件菜单
+        /// </summary>
+        private MenuInfo GetComponentMenu() {
+            return new MenuInfo {
+                Text = "Ng-Zorro组件库",
+                Group = true,
+                Children = {
+                    new MenuInfo {
+                        Text = "表单组件",
+                        Icon = "anticon anticon-edit",
+                        Children = {
+                            new MenuInfo {
+                                Text = "表单",
+                                Link = "/component/forms/form"
+                            },
+                            new MenuInfo {
+                                Text = "文本框",
+                                Link = "/component/forms/textbox"
                             }
                         }
                     }

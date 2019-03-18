@@ -26,3 +26,4 @@ export { BarWrapperComponent } from "./viser/bar-wrapper.component";
 export { AreaWrapperComponent } from "./viser/area-wrapper.component";
 export { PieWrapperComponent } from "./viser/pie-wrapper.component";
 export { RosePieWrapperComponent } from "./viser/rose-pie-wrapper.component";
+export { TextBoxWrapperComponent } from "./zorro/textbox-wrapper.component";

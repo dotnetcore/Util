@@ -3,10 +3,10 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { env } from '../../env';
 
 @Component( {
-    selector: 'app-basic-form',
-    templateUrl: !env.dev() ? './html/basic-form.component.html' : '/View/Demo/Forms/BasicForm',
+    selector: 'app-components-form',
+    templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form',
 } )
-export class BasicFormComponent implements OnInit {
+export class FormComponent implements OnInit {
 
     model;
 

@@ -2,12 +2,13 @@
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Util.Ui.Angular</AssemblyName>
+    <AssemblyName>Util.Ui.Angular.Material</AssemblyName>
     <RootNamespace>Util.Ui</RootNamespace>
     <Authors>何镇汐</Authors>
     <Company>何镇汐</Company>
-    <Description>Util.Ui.Angular是Util应用框架的Angular组件基类库。
-Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。</Description>
+    <Description>Util.Ui.Angular.Material是Util应用框架的Angular Material组件封装类库。
+Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。
+</Description>
     <Copyright>何镇汐</Copyright>
     <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
@@ -19,23 +20,21 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Util.Ui</RootNamespace>
+    
+    <OutputPath>..\..\output\release</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Angular.Material.xml</DocumentationFile>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Angular.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Angular.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Ui.Angular.Material.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Util.Ui.Core\02-Util.Ui.Core.csproj" />
-    <ProjectReference Include="..\Util.Webs\09-Util.Webs.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Angular\" />
+    <ProjectReference Include="..\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
   </ItemGroup>
 
 </Project>

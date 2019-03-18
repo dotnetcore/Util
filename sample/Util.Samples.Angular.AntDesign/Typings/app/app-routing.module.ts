@@ -12,7 +12,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
             { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
             { path: 'dashboard/v1', component: DashboardV1Component },
-            { path: 'demo', loadChildren: "./demo/demo.module#DemoModule" }
+            { path: 'demo', loadChildren: "./demo/demo.module#DemoModule" },
+            { path: 'component', loadChildren: "./components/component.module#ComponentModule" }
         ]
     }
 ];
