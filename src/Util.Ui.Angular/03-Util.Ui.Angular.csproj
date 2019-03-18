@@ -34,8 +34,4 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <ProjectReference Include="..\Util.Webs\09-Util.Webs.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Angular\Forms\" />
-  </ItemGroup>
-
 </Project>

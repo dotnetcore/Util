@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Zorro\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Ui.Angular.AntDesign\05-Util.Ui.Angular.AntDesign.csproj" />
   </ItemGroup>
 

@@ -16,6 +16,10 @@
         /// </summary>
         public const string NgClass = "ng-class";
         /// <summary>
+        /// ngModel指令
+        /// </summary>
+        public const string NgModel = "ng-model";
+        /// <summary>
         /// 路由链接属性绑定
         /// </summary>
         public const string BindLink = "bind-link";
@@ -51,5 +55,9 @@
         /// Material图标绑定
         /// </summary>
         public const string BindMaterialIcon = "bind-material-icon";
+        /// <summary>
+        /// 是否提交
+        /// </summary>
+        public const string IsSubmit = "is-submit";
     }
 }

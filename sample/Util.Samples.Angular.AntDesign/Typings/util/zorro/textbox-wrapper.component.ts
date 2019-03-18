@@ -13,7 +13,7 @@ import { MessageConfig } from '../config/message-config';
 @Component({
     selector: 'x-textbox',
     template: `
-        <nz-form-control [nzValidateStatus]="controlModel?.invalid?'error':'success'">
+        <nz-form-control [nzValidateStatus]="(controlModel?.invalid && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <input nz-input [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"                 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
@@ -91,7 +91,7 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
     @Input() patterMessage: string;
 
     /**
-     * 初始化Mat文本框包装器
+     * 初始化文本框包装器
      * @param form 表单
      */
     constructor(@Optional() @Host() form: NgForm) {
@@ -144,15 +144,22 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
         if (this.controlModel.hasError('required'))
             return this.requiredMessage;
         if (this.controlModel.hasError('minlength'))
-            return this.minLengthMessage || MessageConfig.minLengthMessage.replace(/\{0\}/, String(this.minLength));
+            return this.replace( this.minLengthMessage || MessageConfig.minLengthMessage, this.minLength );
         if (this.controlModel.hasError('email'))
             return this.emailMessage || MessageConfig.emailMessage;
         if (this.controlModel.hasError('pattern'))
             return this.patterMessage;
-        if (this.controlModel.hasError('min'))
-            return this.minMessage || MessageConfig.minMessage.replace(/\{0\}/, String(this.min));
-        if (this.controlModel.hasError('max'))
-            return this.maxMessage || MessageConfig.maxMessage.replace(/\{0\}/, String(this.max));
+        if ( this.controlModel.hasError( 'min' ) )
+            return this.replace( this.minMessage || MessageConfig.minMessage, this.min );
+        if ( this.controlModel.hasError( 'max' ) )
+            return this.replace( this.maxMessage || MessageConfig.maxMessage, this.max );
         return "";
+    }
+
+    /**
+     * 替换{0}
+     */
+    private replace( message, value ) {
+        return message.replace( /\{0\}/, String( value ) );
     }
 }

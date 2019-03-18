@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Util.Helpers;
-using Util.Ui.Material.Internal;
+using Util.Ui.Angular.Internal;
 
 namespace Util.Ui.Material.Forms.Models {
     /// <summary>

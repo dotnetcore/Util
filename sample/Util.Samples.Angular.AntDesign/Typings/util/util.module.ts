@@ -40,7 +40,8 @@ import { AreaWrapperComponent } from "./viser/area-wrapper.component";
 import { PieWrapperComponent } from "./viser/pie-wrapper.component";
 import { RosePieWrapperComponent } from "./viser/rose-pie-wrapper.component";
 
-//Util表单组件
+//Util组件
+import { ButtonWrapperComponent } from "./zorro/button-wrapper.component";
 import { TextBoxWrapperComponent } from "./zorro/textbox-wrapper.component";
 
 //导入模块集合
@@ -53,7 +54,7 @@ const components = [
     MinValidator, MaxValidator, SafeUrlPipe,
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
-    TextBoxWrapperComponent
+    ButtonWrapperComponent,TextBoxWrapperComponent
 ];
 
 /**

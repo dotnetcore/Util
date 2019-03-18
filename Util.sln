@@ -72,7 +72,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Ui.Angular.AntDesig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Ui.Angular.AntDesign.Tests", "test\Util.Ui.Angular.AntDesign.Tests\02-Util.Ui.Angular.AntDesign.Tests.csproj", "{4939123A-D223-4F20-9911-6C30F2EECF2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Util.Ui.Angular.Material", "src\Util.Ui.Angular.Material\04-Util.Ui.Angular.Material.csproj", "{9A38AC58-8559-4895-A09E-2A924FD9763A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Ui.Angular.Material", "src\Util.Ui.Angular.Material\04-Util.Ui.Angular.Material.csproj", "{9A38AC58-8559-4895-A09E-2A924FD9763A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,8 @@
-﻿using Util.Ui.Components;
+﻿using Util.Ui.Angular.Forms.Configs;
+using Util.Ui.Components;
 using Util.Ui.Components.Internal;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;
-using Util.Ui.Material.Forms.Configs;
 
 namespace Util.Ui.Material.Extensions {
     /// <summary>

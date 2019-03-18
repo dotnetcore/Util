@@ -3,7 +3,7 @@ using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Renders;
 
-namespace Util.Ui.Angular.Renders {
+namespace Util.Ui.Angular.Base {
     /// <summary>
     /// angular渲染器基类
     /// </summary>

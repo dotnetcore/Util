@@ -1,8 +1,7 @@
-﻿using Util.Ui.Angular.Renders;
+﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Panels.Builders;
-using Util.Ui.Renders;
 
 namespace Util.Ui.Material.Panels.Renders {
     /// <summary>

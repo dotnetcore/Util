@@ -1,7 +1,7 @@
 ﻿using Util.Ui.Configs;
 using Util.Ui.TagHelpers;
 
-namespace Util.Ui.Material.Forms.Configs {
+namespace Util.Ui.Angular.Forms.Configs {
     /// <summary>
     /// 文本框配置
     /// </summary>

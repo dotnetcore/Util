@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
-using Util.Ui.Angular.Renders;
+using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.CkEditor.Builders;
 using Util.Ui.CkEditor.Configs;

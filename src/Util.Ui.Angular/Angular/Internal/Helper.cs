@@ -6,16 +6,16 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
 using Util.Properties;
+using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Attributes;
 using Util.Ui.Configs;
-using Util.Ui.Material.Forms.Configs;
 using Util.Validations.Validators;
 
-namespace Util.Ui.Material.Internal {
+namespace Util.Ui.Angular.Internal {
     /// <summary>
     /// 辅助操作
     /// </summary>
-    internal static class Helper {
+    public static class Helper {
         /// <summary>
         /// 初始化基础配置
         /// </summary>

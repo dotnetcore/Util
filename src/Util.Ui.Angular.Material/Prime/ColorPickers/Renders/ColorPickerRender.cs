@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
-using Util.Ui.Angular.Renders;
+using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Prime.ColorPickers.Builders;

@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using Util.Ui.Angular;
-using Util.Ui.Angular.Renders;
+using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Buttons.Configs;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Extensions;

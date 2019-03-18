@@ -34,7 +34,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Zorro\Forms\Builders\" />
+    <Folder Include="Zorro\Forms\Resolvers\" />
   </ItemGroup>
 
 </Project>

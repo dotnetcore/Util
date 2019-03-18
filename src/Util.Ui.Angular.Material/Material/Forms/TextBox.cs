@@ -1,6 +1,6 @@
-﻿using Util.Ui.Components;
+﻿using Util.Ui.Angular.Forms.Configs;
+using Util.Ui.Components;
 using Util.Ui.Configs;
-using Util.Ui.Material.Forms.Configs;
 using Util.Ui.Material.Forms.Renders;
 using Util.Ui.Renders;
 

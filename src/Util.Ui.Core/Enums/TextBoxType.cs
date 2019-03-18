@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Util.Ui.Material.Enums {
+namespace Util.Ui.Enums {
     /// <summary>
     /// 文本框类型
     /// </summary>
