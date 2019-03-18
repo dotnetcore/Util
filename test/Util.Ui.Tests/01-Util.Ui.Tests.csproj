@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
-    <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
+    <ProjectReference Include="..\..\src\Util.Ui.Angular.Material\04-Util.Ui.Angular.Material.csproj" />
   </ItemGroup>
 
 </Project>

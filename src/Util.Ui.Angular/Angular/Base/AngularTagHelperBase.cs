@@ -1,6 +1,6 @@
 ﻿using Util.Ui.TagHelpers;
 
-namespace Util.Ui.Angular.TagHelpers {
+namespace Util.Ui.Angular.Base {
     /// <summary>
     /// angular TagHelper基类
     /// </summary>

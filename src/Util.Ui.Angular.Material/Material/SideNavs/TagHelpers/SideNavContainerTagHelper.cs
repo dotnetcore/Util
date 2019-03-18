@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
 using Util.Ui.Material.SideNavs.Renders;
 using Util.Ui.Renders;

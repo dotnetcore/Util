@@ -30,11 +30,11 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Zorro\Forms\" />
+    <ProjectReference Include="..\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Util.Ui.Core\02-Util.Ui.Core.csproj" />
+    <Folder Include="Zorro\Forms\Builders\" />
   </ItemGroup>
 
 </Project>

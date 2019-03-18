@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.Angular.Base;
 using Util.Ui.Material.Enums;
 using Util.Ui.Material.Menus.Configs;
 using Util.Ui.Material.Menus.Renders;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.Angular.Base;
 using Util.Ui.Enums;
 using Util.Ui.Material.Enums;
 

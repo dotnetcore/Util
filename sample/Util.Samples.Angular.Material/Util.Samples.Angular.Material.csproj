@@ -45,7 +45,7 @@
     <ProjectReference Include="..\..\src\Util.Logs\03-Util.Logs.csproj" />
     <ProjectReference Include="..\..\src\Util.Security\02-Util.Security.csproj" />
     <ProjectReference Include="..\..\src\Util.Tools.QrCode\01-Util.Tools.QrCode.csproj" />
-    <ProjectReference Include="..\..\src\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
+    <ProjectReference Include="..\..\src\Util.Ui.Angular.Material\04-Util.Ui.Angular.Material.csproj" />
     <ProjectReference Include="..\..\src\Util.Webs\09-Util.Webs.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
   </ItemGroup>
