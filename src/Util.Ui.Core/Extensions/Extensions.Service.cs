@@ -16,5 +16,16 @@ namespace Util.Ui.Extensions {
                 options.ViewLocationExpanders.Add( new RelativePathViewLocationExpander() );
             } );
         }
+
+        /// <summary>
+        /// 添加Razor页面约定
+        /// </summary>
+        /// <param name="builder">Mvc生成器</param>
+        public static void AddRazorPageConventions( this IMvcBuilder builder ) {
+            builder.AddRazorPagesOptions( options => {
+                options.Conventions.Add( new ViewPageRouteConvention() );
+                options.Conventions.AddFolderApplicationModelConvention( "/", model => model.Filters.Add( new GeneratePageFilter() ) );
+            } );
+        }
     }
 }

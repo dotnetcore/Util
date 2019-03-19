@@ -15,91 +15,81 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
 using Util.Logs;
 using Util.Logs.Extensions;
-using Convert = System.Convert;
 
-namespace Util.Ui.Pages
-{
+namespace Util.Ui.Pages {
     /// <summary>
     /// 生成页面过滤器
     /// </summary>
-    public class GeneratePageFilter : IAsyncPageFilter
-    {
+    public class GeneratePageFilter : IAsyncPageFilter {
         /// <summary>
         /// 选择页面
         /// </summary>
-        public async Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)
-        {
-            if (context.ActionDescriptor != null)
-            {
-                await WriteViewToFileAsync(context);
-            }
+        public async Task OnPageHandlerSelectionAsync( PageHandlerSelectedContext context ) {
+            if ( context.ActionDescriptor == null )
+                return;
+            await WriteViewToFileAsync( context );
         }
 
         /// <summary>
         /// 执行方法
         /// </summary>
-        public async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
-        {
+        public async Task OnPageHandlerExecutionAsync( PageHandlerExecutingContext context, PageHandlerExecutionDelegate next ) {
             await next();
         }
 
         /// <summary>
         /// 将视图写入html文件
         /// </summary>
-        private async Task WriteViewToFileAsync(PageHandlerSelectedContext context)
-        {
-            try
-            {
-                var html = await RenderToStringAsync(context);
-                if (string.IsNullOrWhiteSpace(html))
+        private async Task WriteViewToFileAsync( PageHandlerSelectedContext context ) {
+            try {
+                var html = await RenderToStringAsync( context );
+                if( string.IsNullOrWhiteSpace( html ) )
                     return;
-                var path = Util.Helpers.Common.GetPhysicalPath(GetPath(context));
-                var directory = System.IO.Path.GetDirectoryName(path);
-                if (string.IsNullOrWhiteSpace(directory))
+                var relativePath = GetPath( context );
+                if ( string.IsNullOrWhiteSpace( relativePath ) )
                     return;
-                if (Directory.Exists(directory) == false)
-                    Directory.CreateDirectory(directory);
-                System.IO.File.WriteAllText(path, html);
+                var path = Util.Helpers.Common.GetPhysicalPath( relativePath );
+                var directory = System.IO.Path.GetDirectoryName( path );
+                if( string.IsNullOrWhiteSpace( directory ) )
+                    return;
+                if( Directory.Exists( directory ) == false )
+                    Directory.CreateDirectory( directory );
+                System.IO.File.WriteAllText( path, html );
             }
-            catch (Exception ex)
-            {
-                ex.Log(Log.GetLog().Caption("生成html静态文件失败"));
+            catch( Exception ex ) {
+                ex.Log( Log.GetLog().Caption( "生成html静态文件失败" ) );
             }
         }
 
         /// <summary>
         /// 渲染视图
         /// </summary>
-        protected async Task<string> RenderToStringAsync(PageHandlerSelectedContext context)
-        {
+        protected async Task<string> RenderToStringAsync( PageHandlerSelectedContext context ) {
             var relativePath = "";
-            var viewEnginePath = "";
-            dynamic pageModel = Convert.ChangeType(context.HandlerInstance, context.HandlerInstance.GetType());
-            if (context.ActionDescriptor is CompiledPageActionDescriptor pageActionDescriptor)
-            {
+            dynamic pageModel = System.Convert.ChangeType( context.HandlerInstance, context.HandlerInstance.GetType() );
+            if( context.ActionDescriptor is CompiledPageActionDescriptor pageActionDescriptor ) {
                 relativePath = pageActionDescriptor.RelativePath;
-                viewEnginePath = pageActionDescriptor.ViewEnginePath;
             }
-            if (pageModel == null)
-                throw new ArgumentException(nameof(pageModel));
+            if ( relativePath == "/Pages/Index.cshtml" )
+                return string.Empty;
+            if( pageModel == null )
+                throw new ArgumentException( nameof( pageModel ) );
             var razorViewEngine = Ioc.Create<IRazorViewEngine>();
             var activator = Ioc.Create<IRazorPageActivator>();
-            var actionContext = new ActionContext(context.HttpContext, pageModel.RouteData,
-                context.ActionDescriptor);
-            var razorPage = FindPage(razorViewEngine, actionContext, relativePath);
-            using (var stringWriter = new StringWriter())
-            {
-                var view = new RazorView(razorViewEngine, activator, new List<IRazorPage>(), razorPage, HtmlEncoder.Default,
-                    new DiagnosticListener("ViewRenderService"));
-                var viewContext = new ViewContext(actionContext, view, pageModel?.ViewData, pageModel?.TempData,
-                    stringWriter, new HtmlHelperOptions())
-                {
+            var actionContext = new ActionContext( context.HttpContext, pageModel.RouteData,
+                context.ActionDescriptor );
+            var razorPage = FindPage( razorViewEngine, actionContext, relativePath );
+            using( var stringWriter = new StringWriter() ) {
+                var view = new RazorView( razorViewEngine, activator, new List<IRazorPage>(), razorPage, HtmlEncoder.Default,
+                    new DiagnosticListener( "ViewRenderService" ) );
+                var viewContext = new ViewContext( actionContext, view, pageModel?.ViewData, pageModel?.TempData,
+                    stringWriter, new HtmlHelperOptions() ) {
                     ExecutingFilePath = relativePath
                 };
-                var pageNormal = ((Page)razorPage);
+                var pageNormal = ( (Page)razorPage );
                 pageNormal.PageContext = pageModel.PageContext;
                 pageNormal.ViewContext = viewContext;
-                activator.Activate(pageNormal, viewContext);
+                activator.Activate( pageNormal, viewContext );
                 await razorPage.ExecuteAsync();
                 return stringWriter.ToString();
             }
@@ -108,34 +98,31 @@ namespace Util.Ui.Pages
         /// <summary>
         /// 获取Html默认生成路径
         /// </summary>
-        protected virtual string GetPath(PageHandlerSelectedContext context)
-        {
+        protected virtual string GetPath( PageHandlerSelectedContext context ) {
             var htmlPath = context.ActionDescriptor.ModelTypeInfo.GetCustomAttribute<HtmlPathAttribute>();
-            if (htmlPath != null &&!string.IsNullOrWhiteSpace(htmlPath.Path))
-            {
-                return htmlPath.Path;
+            if( htmlPath != null ) {
+                if ( htmlPath.Ignore )
+                    return string.Empty;
+                if( !string.IsNullOrWhiteSpace( htmlPath.Path ) )
+                    return htmlPath.Path;
             }
 
-            if (context.ActionDescriptor is CompiledPageActionDescriptor pageActionDescriptor)
-            {                
-                var paths = pageActionDescriptor.RelativePath.Replace("/Pages", "/typings/app").TrimStart('/').Split('/');
+            if( context.ActionDescriptor is CompiledPageActionDescriptor pageActionDescriptor ) {
+                var paths = pageActionDescriptor.RelativePath.Replace( "/Pages", "/typings/app" ).TrimStart( '/' ).Split( '/' );
                 var result = new StringBuilder();
-                for (int i = 0; i < paths.Length; i++)
-                {
+                for( int i = 0; i < paths.Length; i++ ) {
                     var path = paths[i];
-                    var name = Util.Helpers.String.SplitWordGroup(path);
-                    if (i == paths.Length - 2)
-                    {
-                        result.Append($"{name}/html/");
+                    var name = Util.Helpers.String.SplitWordGroup( path );
+                    if( i == paths.Length - 2 ) {
+                        result.Append( $"{name}/html/" );
                         continue;
                     }
-                    if (i == paths.Length - 1)
-                    {
-                        name = Util.Helpers.String.SplitWordGroup(path.RemoveEnd(".cshtml"));
-                        result.Append($"{name}.component.html");
+                    if( i == paths.Length - 1 ) {
+                        name = Util.Helpers.String.SplitWordGroup( path.RemoveEnd( ".cshtml" ) );
+                        result.Append( $"{name}.component.html" );
                         break;
                     }
-                    result.Append($"{name}/");
+                    result.Append( $"{name}/" );
                 }
                 return $"/{result}";
             }
@@ -148,15 +135,14 @@ namespace Util.Ui.Pages
         /// <param name="razorViewEngine">Razor视图引擎</param>
         /// <param name="actionContext">操作上下文</param>
         /// <param name="pageName">页面名称。执行文件路径：/Pages/Components/Forms/Form.cshtml</param>
-        private IRazorPage FindPage(IRazorViewEngine razorViewEngine, ActionContext actionContext, string pageName)
-        {
-            var getPageResult = razorViewEngine.GetPage(null, pageName);
-            if (getPageResult.Page != null)
+        private IRazorPage FindPage( IRazorViewEngine razorViewEngine, ActionContext actionContext, string pageName ) {
+            var getPageResult = razorViewEngine.GetPage( null, pageName );
+            if( getPageResult.Page != null )
                 return getPageResult.Page;
-            var findPageResult = razorViewEngine.FindPage(actionContext, pageName);
-            if (findPageResult.Page != null)
+            var findPageResult = razorViewEngine.FindPage( actionContext, pageName );
+            if( findPageResult.Page != null )
                 return findPageResult.Page;
-            throw new ArgumentNullException($"未找到视图： {pageName}");
+            throw new ArgumentNullException( $"未找到视图： {pageName}" );
         }
     }
 }

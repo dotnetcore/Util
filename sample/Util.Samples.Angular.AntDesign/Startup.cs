@@ -13,7 +13,6 @@ using Util.Events.Default;
 using Util.Locks.Default;
 using Util.Logs.Extensions;
 using Util.Ui.Extensions;
-using Util.Ui.Pages;
 using Util.Webs.Extensions;
 
 namespace Util.Samples {
@@ -45,11 +44,7 @@ namespace Util.Samples {
             services.AddMvc( options => {
                 //options.Filters.Add( new AutoValidateAntiforgeryTokenAttribute() );
             } ).SetCompatibilityVersion( CompatibilityVersion.Version_2_2 )
-                .AddRazorPagesOptions( options => {
-                    options.Conventions.Add( new ViewPageRouteConvention() );
-                    options.Conventions.AddFolderApplicationModelConvention("/",
-                        model => model.Filters.Add(new GeneratePageFilter()));
-                } );
+               .AddRazorPageConventions();
 
             //添加NLog日志操作
             services.AddNLog();
