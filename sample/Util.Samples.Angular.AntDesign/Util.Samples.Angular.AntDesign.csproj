@@ -20,6 +20,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Typings\app\demo\forms\html\**" />
+    <Content Remove="Typings\app\demo\forms\html\**" />
+    <EmbeddedResource Remove="Typings\app\demo\forms\html\**" />
+    <None Remove="Typings\app\demo\forms\html\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
   </ItemGroup>
 
@@ -38,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Typings\app\demo\forms\html\" />
+    <Folder Include="Typings\app\components\forms\html\" />
   </ItemGroup>
 
   <!-- Debug调试模式打包第三方框架 -->
