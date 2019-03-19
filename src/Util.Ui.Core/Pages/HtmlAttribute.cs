@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
 using Util.Logs;
@@ -30,7 +29,8 @@ namespace Util.Ui.Pages {
         /// 执行生成
         /// </summary>
         public override async Task OnResultExecutionAsync( ResultExecutingContext context, ResultExecutionDelegate next ) {
-            await WriteViewToFileAsync( context );
+            if (context.Result is PageResult)
+                await WriteViewToFileAsync(context);
             await base.OnResultExecutionAsync( context, next );
         }
 
@@ -59,58 +59,60 @@ namespace Util.Ui.Pages {
         /// 渲染视图
         /// </summary>
         protected async Task<string> RenderToStringAsync( ResultExecutingContext context ) {
-            string viewName = "";
-            object model = null;
-            bool isPage = false;
-            if( context.Result is ViewResult result ) {
-                viewName = result.ViewName;
-                viewName = string.IsNullOrWhiteSpace( viewName ) ? context.RouteData.Values["action"].SafeString() : viewName;
-                model = result.Model;
+            var relativePath = "";
+            var viewEnginePath = "";
+            PageModel pageModel = null;
+            if (context.Result is PageResult pageResult &&context.ActionDescriptor is PageActionDescriptor pageActionDescriptor) {
+                pageModel = pageResult.Model as PageModel;
+                relativePath = pageActionDescriptor.RelativePath;
+                viewEnginePath = pageActionDescriptor.ViewEnginePath;
             }
-
-            if( context.Result is PageResult pageResult ) {
-                if( context.ActionDescriptor is PageActionDescriptor pageActionDescriptor ) {
-                    isPage = true;
-                    model = pageResult.Model;
-                    viewName = pageActionDescriptor.RelativePath;
-                }
-            }
+            if (pageModel == null)
+                throw new ArgumentException(nameof(pageModel));
             var razorViewEngine = Ioc.Create<IRazorViewEngine>();
-            var compositeViewEngine = Ioc.Create<ICompositeViewEngine>();
-            var tempDataProvider = Ioc.Create<ITempDataProvider>();
-            var serviceProvider = Ioc.Create<IServiceProvider>();
-            var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
-            var actionContext = new ActionContext( httpContext, context.RouteData, new ActionDescriptor() );
+            var activator = Ioc.Create<IRazorPageActivator>();
+            var actionContext = GetActionContext(pageModel);
+            var razorPage = FindPage(razorViewEngine, actionContext, relativePath);
             using( var stringWriter = new StringWriter() ) {
-                var viewResult = isPage
-                    ? GetView( compositeViewEngine, viewName )
-                    : GetView( razorViewEngine, actionContext, viewName );
-                if( viewResult.View == null )
-                    throw new ArgumentNullException( $"未找到视图： {viewName}" );
-                var viewDictionary = new ViewDataDictionary( new EmptyModelMetadataProvider(), new ModelStateDictionary() ) { Model = model };
-                var viewContext = new ViewContext( actionContext, viewResult.View, viewDictionary, new TempDataDictionary( actionContext.HttpContext, tempDataProvider ), stringWriter, new HtmlHelperOptions() );
-                await viewResult.View.RenderAsync( viewContext );
+                var view = new RazorView(razorViewEngine, activator, new List<IRazorPage>(), razorPage, HtmlEncoder.Default,
+                    new DiagnosticListener("ViewRenderService"));
+                var viewContext = new ViewContext(actionContext, view, pageModel?.ViewData, pageModel?.TempData,
+                    stringWriter, new HtmlHelperOptions())
+                {
+                    ExecutingFilePath = relativePath
+                };
+                var pageNormal = ((Page)razorPage);
+                pageNormal.PageContext = pageModel.PageContext;
+                pageNormal.ViewContext = viewContext;
+                activator.Activate(pageNormal, viewContext);
+                await razorPage.ExecuteAsync();
                 return stringWriter.ToString();
             }
         }
 
         /// <summary>
-        /// 获取视图
+        /// 获取操作上下文
         /// </summary>
-        /// <param name="razorViewEngine">Razor视图引擎</param>
-        /// <param name="actionContext">操作上下文</param>
-        /// <param name="viewName">视图名</param>
-        private ViewEngineResult GetView( IRazorViewEngine razorViewEngine, ActionContext actionContext, string viewName ) {
-            return razorViewEngine.FindView( actionContext, viewName, true );
+        /// <param name="pageModel">页面实体</param>
+        private ActionContext GetActionContext(PageModel pageModel) {
+            return new ActionContext(pageModel.HttpContext, pageModel.RouteData,
+                pageModel.PageContext.ActionDescriptor);
         }
 
         /// <summary>
-        /// 获取视图
+        /// 查找Razor页面
         /// </summary>
-        /// <param name="compositeViewEngine">复合视图引擎</param>
-        /// <param name="path">路径</param>
-        private ViewEngineResult GetView( ICompositeViewEngine compositeViewEngine, string path ) {
-            return compositeViewEngine.GetView( "~/", $"~{path}", true );
+        /// <param name="razorViewEngine">Razor视图引擎</param>
+        /// <param name="actionContext">操作上下文</param>
+        /// <param name="pageName">页面名称。执行文件路径：/Pages/Components/Forms/Form.cshtml</param>
+        private IRazorPage FindPage(IRazorViewEngine razorViewEngine, ActionContext actionContext, string pageName) {
+            var getPageResult = razorViewEngine.GetPage(null, pageName);
+            if (getPageResult.Page != null)
+                return getPageResult.Page;
+            var findPageResult = razorViewEngine.FindPage(actionContext, pageName);
+            if (findPageResult.Page != null)
+                return findPageResult.Page;
+            throw new ArgumentNullException($"未找到视图： {pageName}");
         }
 
         /// <summary>
