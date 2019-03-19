@@ -47,6 +47,8 @@ namespace Util.Samples {
             } ).SetCompatibilityVersion( CompatibilityVersion.Version_2_2 )
                 .AddRazorPagesOptions( options => {
                     options.Conventions.Add( new ViewPageRouteConvention() );
+                    options.Conventions.AddFolderApplicationModelConvention("/",
+                        model => model.Filters.Add(new GeneratePageFilter()));
                 } );
 
             //添加NLog日志操作
