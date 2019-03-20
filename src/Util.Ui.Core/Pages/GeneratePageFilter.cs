@@ -108,11 +108,16 @@ namespace Util.Ui.Pages {
             }
 
             if( context.ActionDescriptor is CompiledPageActionDescriptor pageActionDescriptor ) {
-                var paths = pageActionDescriptor.RelativePath.Replace( "/Pages", "/typings/app" ).TrimStart( '/' ).Split( '/' );
+                var paths = pageActionDescriptor.RelativePath.TrimStart( '/' ).Split( '/' );
                 var result = new StringBuilder();
-                for( int i = 0; i < paths.Length; i++ ) {
-                    var path = paths[i];
+                for( var i = 0; i < paths.Length; i++ ) {
+                    var path = paths[i];                    
                     var name = Util.Helpers.String.SplitWordGroup( path );
+                    if (name == "pages" && i == 0)
+                    {
+                        result.Append("typings/app/");
+                        continue;
+                    }
                     if( i == paths.Length - 2 ) {
                         result.Append( $"{name}/html/" );
                         continue;
