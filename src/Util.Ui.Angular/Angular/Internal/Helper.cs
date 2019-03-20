@@ -64,6 +64,7 @@ namespace Util.Ui.Angular.Internal {
             if( string.IsNullOrWhiteSpace( model ) )
                 return;
             config.SetAttribute( UiConst.Model, model );
+            config.SetAttribute( AngularConst.NgModel, model );
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Util.Ui.Angular.Internal {
             propertyName = GetFirstLowerCasePropertyName( propertyName );
             if( string.IsNullOrWhiteSpace( modelName ) || string.IsNullOrWhiteSpace( propertyName ) )
                 return string.Empty;
-            return $"{modelName}&&{modelName}.{propertyName}";
+            return $"{modelName}.{propertyName}";
         }
 
         /// <summary>

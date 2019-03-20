@@ -10,7 +10,7 @@ namespace Util.Ui.Attributes {
         /// 初始化模型绑定
         /// </summary>
         /// <param name="model">模型</param>
-        public ModelAttribute( string model = "" ) {
+        public ModelAttribute( string model = "model" ) {
             Model = model;
         }
 

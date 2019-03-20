@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injector } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
 import { env } from '../../env';
-import { util } from '../../../util';
+import { FormComponentBase } from '../../../util';
 
 /**
  * 表单组件
@@ -11,7 +10,7 @@ import { util } from '../../../util';
     selector: 'app-components-form',
     templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form',
 } )
-export class FormComponent implements OnInit {
+export class FormComponent extends FormComponentBase implements OnInit {
     /**
      * 视图模型
      */
@@ -20,7 +19,9 @@ export class FormComponent implements OnInit {
     /**
      * 初始化
      */
-    constructor( private msg: NzMessageService ) { }
+    constructor( public injector: Injector ) {
+        super( injector );
+    }
 
     /**
      * 初始化
@@ -34,13 +35,11 @@ export class FormComponent implements OnInit {
      * @param form
      */
     submit( form: NgForm ) {
-        util.form.submit( {
+        this.util.form.submit( {
             form: form,
             url: "/api/form",
             data: this.model,
-            ok: (data) => {
-                this.msg.success( `提交成功,${data.value}` );
-            }
+            confirm: "你确定？"
         } );
     }
 }

@@ -104,7 +104,7 @@ export class Form {
     private okHandler(options: IFormSubmitOption, result) {
         options.ok && options.ok(result);
         if (options.showMessage !== false)
-            Message.snack(options.message || MessageConfig.successed);
+            Message.success(options.message || MessageConfig.successed);
         if (options.back)
             RouterHelper.back();
         if (options.closeDialog)

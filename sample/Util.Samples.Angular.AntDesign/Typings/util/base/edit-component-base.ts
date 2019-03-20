@@ -51,7 +51,6 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
         this.util.webapi.get<TViewModel>(this.getByIdUrl(id)).handle({
             ok: result => {
                 this.model = result;
-                this.registerValueChanges();
                 this.loadAfter(result);
             }
         });

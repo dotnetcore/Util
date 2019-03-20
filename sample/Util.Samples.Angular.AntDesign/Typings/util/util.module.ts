@@ -14,17 +14,16 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ViserModule } from 'viser-ng';
 
+//Util服务
+import { DicService } from './services/dic.service';
+import { Session } from './security/session';
+
 //Util指令
 import { MinValidator } from './directives/min-validator.directive';
 import { MaxValidator } from './directives/max-validator.directive';
 
 //Util管道
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
-
-//Util服务
-import { DicService } from './services/dic.service';
-import { SaveGuard } from './services/save-guard';
-import { Session } from './security/session';
 
 //授权
 import { Authorize as OidcAuthorize } from './security/openid-connect/authorize';
@@ -54,15 +53,15 @@ const components = [
     MinValidator, MaxValidator, SafeUrlPipe,
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
-    ButtonWrapperComponent,TextBoxWrapperComponent
+    ButtonWrapperComponent, TextBoxWrapperComponent
 ];
 
 /**
  * Util模块
  */
-@NgModule({
+@NgModule( {
     imports: [
-        CommonModule, FormsModule, RouterModule, 
+        CommonModule, FormsModule, RouterModule,
         importModules
     ],
     declarations: [
@@ -72,9 +71,9 @@ const components = [
         components
     ],
     providers: [
-        DicService, Session, SaveGuard
+        DicService, Session
     ]
-})
+} )
 export class UtilModule {
 }
 

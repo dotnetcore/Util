@@ -14,7 +14,6 @@ export { PagerList } from './core/pager-list';
 export { Result, FailResult, StateCode } from './core/result';
 export { SelectItem } from './core/select';
 export { DicService } from './services/dic.service';
-export { SaveGuard } from './services/save-guard';
 export { Session } from './security/session';
 export { Authorize } from './security/authorize';
 export { Authorize as OidcAuthorize } from './security/openid-connect/authorize';
