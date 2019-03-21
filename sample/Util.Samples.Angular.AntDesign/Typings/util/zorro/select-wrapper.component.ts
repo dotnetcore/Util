@@ -93,7 +93,7 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
     @Input() template: string;
 
     /**
-     * 初始化Mat下拉列表包装器
+     * 初始化下拉列表包装器
      */
     constructor(@Optional() @Host() form: NgForm) {
         super(form);

@@ -20,14 +20,9 @@ namespace Util.Ui.Viser.Data {
         }
 
         /// <summary>
-        /// 是否排序
+        /// 集合数目限制
         /// </summary>
-        public bool IsOrder { get; set; } = true;
-
-        /// <summary>
-        /// 集合数目限制，默认值： 100
-        /// </summary>
-        public int Limit { get; set; } = 100;
+        public int? Limit { get; set; }
 
         /// <summary>
         /// 添加图表项
@@ -106,10 +101,9 @@ namespace Util.Ui.Viser.Data {
         /// 获取项列表
         /// </summary>
         protected virtual List<ChartItem> GetItems() {
-            var list = _items.Where( t => t.Points.Any() );
-            if( IsOrder )
-                return list.OrderBy( t => t.Points[0].Value.SafeString().ToDecimal() ).Take( Limit ).ToList();
-            return list.Take( Limit ).ToList();
+            if( Limit == null )
+                return _items.ToList();
+            return _items.Take( Limit.SafeValue() ).ToList();
         }
 
         /// <summary>
@@ -147,10 +141,9 @@ namespace Util.Ui.Viser.Data {
         /// 获取点列表
         /// </summary>
         protected virtual List<Point> GetPoints( IGrouping<string, Point> grouping ) {
-            var list = grouping.ToList();
-            if( IsOrder )
-                return list.OrderBy( t => t.Value.SafeString().ToDecimal() ).Take( Limit ).ToList();
-            return list.Take( Limit ).ToList();
+            if( Limit == null )
+                return grouping.ToList();
+            return grouping.Take( Limit.SafeValue() ).ToList();
         }
     }
 }

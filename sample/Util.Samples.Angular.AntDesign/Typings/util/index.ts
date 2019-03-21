@@ -27,4 +27,5 @@ export { PieWrapperComponent } from "./viser/pie-wrapper.component";
 export { RosePieWrapperComponent } from "./viser/rose-pie-wrapper.component";
 export { ButtonWrapperComponent } from "./zorro/button-wrapper.component";
 export { TextBoxWrapperComponent } from "./zorro/textbox-wrapper.component";
+export { DatePickerWrapperComponent } from "./zorro/datepicker-wrapper.component";
 export { SelectWrapperComponent } from "./zorro/select-wrapper.component";
