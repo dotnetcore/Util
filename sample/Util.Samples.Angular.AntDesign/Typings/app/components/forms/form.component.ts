@@ -39,7 +39,7 @@ export class FormComponent extends FormComponentBase implements OnInit {
             form: form,
             url: "/api/form",
             data: this.model,
-            confirm: "你确定？"
+            confirm: "Hello World"
         } );
     }
 }

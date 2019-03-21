@@ -6,14 +6,19 @@
 <nz-card>
     <util-form id="form" on-submit="submit(form)">
         <nz-form-item>
-            <nz-form-label  nzFor="name">姓名</nz-form-label>
+            <nz-form-label nzFor="name">姓名</nz-form-label>
             <util-textbox for="Name"></util-textbox>
-        </nz-form-item >
+        </nz-form-item>
+        <nz-form-item>
+            <util-select url="/api/form/groupItems" multiple="true" for="Name" width="500"></util-select>
+        </nz-form-item>
+        <nz-form-item>
+            <util-select for="Nation"></util-select>
+        </nz-form-item>
         <nz-form-item>
             <nz-form-control>
                 <util-button is-submit="true" color="Primary"></util-button>
             </nz-form-control>
-        </nz-form-item >
+        </nz-form-item>
     </util-form>
 </nz-card>
-

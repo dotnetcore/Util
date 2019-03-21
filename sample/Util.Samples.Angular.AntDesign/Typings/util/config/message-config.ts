@@ -31,9 +31,13 @@ export class MessageConfig {
      */
     static loading = "loading...";
     /**
-     * 重置项默认文本
+     * 默认项文本
      */
-    static resetOptionText = "-- 请选择 --";
+    static defaultOptionText = "-- 请选择 --";
+    /**
+     * 下拉框宽度
+     */
+    static selectWidth = 150;
     /**
      * 必填项默认验证消息
      */

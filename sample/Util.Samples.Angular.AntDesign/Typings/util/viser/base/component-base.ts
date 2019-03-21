@@ -34,14 +34,12 @@ export class ComponentBase implements OnInit {
     /**
      * 加载图表数据
      * @param url 数据源地址
-     * @param param 数据源地址
+     * @param param 查询参数
      */
     load( url?: string, param = null ) {
         url = url || this.url;
-        if ( !url ) {
-            console.log( "图表url未设置" );
+        if ( !url )
             return;
-        }
         param = param || this.queryParam;
         this.sendRequest( url, param );
     }

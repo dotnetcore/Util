@@ -3,9 +3,10 @@ using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Forms.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Material.Forms.Builders;
+using Util.Ui.Zorro.Forms.Base;
+using Util.Ui.Zorro.Forms.Builders;
 
-namespace Util.Ui.Material.Forms.Renders {
+namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
     /// 下拉列表渲染器
     /// </summary>
@@ -48,12 +49,20 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置
         /// </summary>
         private void ConfigSelect( SelectWrapperBuilder builder ) {
+            ConfigWidth( builder );
             ConfigUrl( builder );
             ConfigDataSource( builder );
-            ConfigResetOption( builder );
+            ConfigDefaultOption( builder );
             ConfigMultiple( builder );
             ConfigTemplate( builder );
             ConfigStandalone( builder );
+        }
+
+        /// <summary>
+        /// 配置宽度
+        /// </summary>
+        private void ConfigWidth( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( UiConst.Width, _config.GetValue( UiConst.Width ) );
         }
 
         /// <summary>
@@ -81,11 +90,10 @@ namespace Util.Ui.Material.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置重置项
+        /// 配置默认项
         /// </summary>
-        private void ConfigResetOption( SelectWrapperBuilder builder ) {
-            builder.AddAttribute( "[enableResetOption]", _config.GetBoolValue( MaterialConst.EnableResetOption ) );
-            builder.AddAttribute( "resetOptionText", _config.GetValue( MaterialConst.ResetOptionText ) );
+        private void ConfigDefaultOption( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "defaultOptionText", _config.GetValue( UiConst.DefaultOptionText ) );
         }
 
         /// <summary>

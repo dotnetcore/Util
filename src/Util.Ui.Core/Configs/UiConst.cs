@@ -491,5 +491,9 @@
         /// 最大值错误消息
         /// </summary>
         public const string MaxMessage = "max-message";
+        /// <summary>
+        /// 默认项文本
+        /// </summary>
+        public const string DefaultOptionText = "default-option-text";
     }
 }

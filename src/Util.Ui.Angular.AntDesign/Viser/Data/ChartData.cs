@@ -20,6 +20,16 @@ namespace Util.Ui.Viser.Data {
         }
 
         /// <summary>
+        /// 是否排序
+        /// </summary>
+        public bool IsOrder { get; set; } = true;
+
+        /// <summary>
+        /// 集合数目限制，默认值： 100
+        /// </summary>
+        public int Limit { get; set; } = 100;
+
+        /// <summary>
         /// 添加图表项
         /// </summary>
         /// <param name="name">名称</param>
@@ -86,10 +96,20 @@ namespace Util.Ui.Viser.Data {
         /// <summary>
         /// 创建数据属性
         /// </summary>
-        private JProperty CreateData() {
+        protected virtual JProperty CreateData() {
             var jArray = new JArray();
-            _items.ForEach( item => jArray.Add( item.ToJObject() ) );
+            GetItems().ForEach( item => jArray.Add( item.ToJObject() ) );
             return new JProperty( "data", jArray );
+        }
+
+        /// <summary>
+        /// 获取项列表
+        /// </summary>
+        protected virtual List<ChartItem> GetItems() {
+            var list = _items.Where( t => t.Points.Any() );
+            if( IsOrder )
+                return list.OrderBy( t => t.Points[0].Value.SafeString().ToDecimal() ).Take( Limit ).ToList();
+            return list.Take( Limit ).ToList();
         }
 
         /// <summary>
@@ -117,10 +137,20 @@ namespace Util.Ui.Viser.Data {
             var groups = _items.SelectMany( t => t.Points ).GroupBy( t => t.Name ).ToList();
             foreach( var @group in groups ) {
                 var jObject = new JObject { { "name", @group.Key } };
-                @group.ToList().ForEach( t => jObject.Add( t.ToColumnJProperty() ) );
+                GetPoints( @group ).ForEach( t => jObject.Add( t.ToColumnJProperty() ) );
                 jArray.Add( jObject );
             }
             return new JProperty( "data", jArray );
+        }
+
+        /// <summary>
+        /// 获取点列表
+        /// </summary>
+        protected virtual List<Point> GetPoints( IGrouping<string, Point> grouping ) {
+            var list = grouping.ToList();
+            if( IsOrder )
+                return list.OrderBy( t => t.Value.SafeString().ToDecimal() ).Take( Limit ).ToList();
+            return list.Take( Limit ).ToList();
         }
     }
 }

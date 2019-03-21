@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
+using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Internal;
 using Util.Ui.Extensions;
-using Util.Ui.Material.Forms.Configs;
 
-namespace Util.Ui.Material.Forms.Resolvers {
+namespace Util.Ui.Angular.Forms.Resolvers {
     /// <summary>
     /// 下拉列表表达式解析器
     /// </summary>

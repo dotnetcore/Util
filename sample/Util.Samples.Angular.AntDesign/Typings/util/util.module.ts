@@ -42,6 +42,7 @@ import { RosePieWrapperComponent } from "./viser/rose-pie-wrapper.component";
 //Util组件
 import { ButtonWrapperComponent } from "./zorro/button-wrapper.component";
 import { TextBoxWrapperComponent } from "./zorro/textbox-wrapper.component";
+import { SelectWrapperComponent } from "./zorro/select-wrapper.component";
 
 //导入模块集合
 const importModules = [
@@ -53,7 +54,7 @@ const components = [
     MinValidator, MaxValidator, SafeUrlPipe,
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
-    ButtonWrapperComponent, TextBoxWrapperComponent
+    ButtonWrapperComponent, TextBoxWrapperComponent, SelectWrapperComponent
 ];
 
 /**

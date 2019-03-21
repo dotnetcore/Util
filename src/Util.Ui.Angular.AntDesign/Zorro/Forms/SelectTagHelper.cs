@@ -1,15 +1,20 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Forms.Configs;
-using Util.Ui.Material.Forms.Renders;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
+using Util.Ui.Zorro.Forms.Base;
+using Util.Ui.Zorro.Forms.Renders;
 
-namespace Util.Ui.Material.Forms.TagHelpers {
+namespace Util.Ui.Zorro.Forms {
     /// <summary>
     /// 下拉列表
     /// </summary>
     [HtmlTargetElement( "util-select" )]
     public class SelectTagHelper : FormControlTagHelperBase {
+        /// <summary>
+        /// 宽度，单位：px
+        /// </summary>
+        public int Width { get; set; }
         /// <summary>
         /// 请求地址
         /// </summary>
@@ -19,21 +24,13 @@ namespace Util.Ui.Material.Forms.TagHelpers {
         /// </summary>
         public string DatasSource { get; set; }
         /// <summary>
-        /// 启用重置项，重置项显示在列表的第一行，用于清空当前选择的值
+        /// 默认项文本，默认项显示在列表的第一行
         /// </summary>
-        public bool EnableResetOption { get; set; }
-        /// <summary>
-        /// 重置项文本，重置项显示在列表的第一行，用于清空当前选择的值
-        /// </summary>
-        public string ResetOptionText { get; set; }
+        public string DefaultOptionText { get; set; }
         /// <summary>
         /// 启用多选
         /// </summary>
         public bool Multiple { get; set; }
-        /// <summary>
-        /// 显示模板，值用{0}表示，范例：当前选中：{0} ,显示为 当前选中：1,2,3
-        /// </summary>
-        public string Template { get; set; }
 
         /// <summary>
         /// 获取渲染器
