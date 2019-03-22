@@ -10,9 +10,15 @@ namespace Util.Samples.Pages.Components.Forms {
     [Model]
     public class FormModel {
         /// <summary>
+        /// 编码
+        /// </summary>
+        [Required( ErrorMessage = "编码不能为空" )]
+        [Display( Name = "编码" )]
+        public string Code { get; set; }
+        /// <summary>
         /// 姓名
         /// </summary>
-        [Required( ErrorMessage = "名称不能为空" )]
+        [Required( ErrorMessage = "姓名不能为空" )]
         [Display(Name = "姓名" )]
         public string Name { get; set; }
         /// <summary>
@@ -33,5 +39,11 @@ namespace Util.Samples.Pages.Components.Forms {
         [Required( ErrorMessage = "备注不能为空" )]
         [Display( Name = "备注" )]
         public string Comment { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [Required( ErrorMessage = "备注不能为空" )]
+        [Display( Name = "备注" )]
+        public string Comment2 { get; set; }
     }
 }

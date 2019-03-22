@@ -1,7 +1,8 @@
-import { Component, OnInit,Injector } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { env } from '../../env';
-import { FormComponentBase } from '../../../util';
+import { ComponentBase } from '../../../util';
+import { FormViewModel } from "./model/form-view-model";
 
 /**
  * 表单组件
@@ -10,24 +11,18 @@ import { FormComponentBase } from '../../../util';
     selector: 'app-components-form',
     templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form',
 } )
-export class FormComponent extends FormComponentBase implements OnInit {
+export class FormComponent extends ComponentBase {
     /**
      * 视图模型
      */
-    model;
+    model: FormViewModel;
 
     /**
      * 初始化
      */
     constructor( public injector: Injector ) {
         super( injector );
-    }
-
-    /**
-     * 初始化
-     */
-    ngOnInit() {
-        this.model = {};
+        this.model = new FormViewModel();
     }
 
     /**
@@ -41,9 +36,5 @@ export class FormComponent extends FormComponentBase implements OnInit {
             data: this.model,
             confirm: "Hello World"
         } );
-    }
-
-    info() {
-        this.util.message.info("嘿嘿");
     }
 }

@@ -46,10 +46,10 @@ namespace Util.Ui.Angular.Internal {
         /// 初始化基础配置
         /// </summary>
         private static void Init( IConfig config, Type modelType, MemberInfo member, string propertyName ) {
-            config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( propertyName ) );
+            config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( propertyName ), false );
             var displayName = Reflection.GetDisplayNameOrDescription( member );
-            config.SetAttribute( UiConst.Placeholder, displayName );
-            config.SetAttribute( UiConst.Label, displayName );
+            config.SetAttribute( UiConst.Placeholder, displayName, false );
+            config.SetAttribute( UiConst.Label, displayName, false );
             InitModel( config, modelType, member, propertyName );
             InitRequired( config, member );
         }
@@ -63,8 +63,8 @@ namespace Util.Ui.Angular.Internal {
             var model = GetModel( GetModelName( modelType ), GetPropertyName( member, propertyName ) );
             if( string.IsNullOrWhiteSpace( model ) )
                 return;
-            config.SetAttribute( UiConst.Model, model );
-            config.SetAttribute( AngularConst.NgModel, model );
+            config.SetAttribute( UiConst.Model, model, false );
+            config.SetAttribute( AngularConst.NgModel, model, false );
         }
 
         /// <summary>

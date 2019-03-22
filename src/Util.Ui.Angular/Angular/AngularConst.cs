@@ -56,6 +56,10 @@
         /// </summary>
         public const string BindMaterialIcon = "bind-material-icon";
         /// <summary>
+        /// Url绑定
+        /// </summary>
+        public const string BindUrl = "bind-url";
+        /// <summary>
         /// 是否提交
         /// </summary>
         public const string IsSubmit = "is-submit";

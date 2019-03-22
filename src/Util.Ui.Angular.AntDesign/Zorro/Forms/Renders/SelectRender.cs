@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Angular;
 using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Forms.Resolvers;
 using Util.Ui.Builders;
@@ -70,6 +71,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigUrl( SelectWrapperBuilder builder ) {
             builder.AddAttribute( UiConst.Url, _config.GetValue( UiConst.Url ) );
+            builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
+            builder.AddAttribute( "[queryParam]", _config.GetValue( UiConst.QueryParam ) );
         }
 
         /// <summary>

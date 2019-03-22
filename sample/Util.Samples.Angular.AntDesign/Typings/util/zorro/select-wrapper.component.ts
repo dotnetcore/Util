@@ -87,10 +87,6 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
      * 显示清空按钮
      */
     @Input() allowClear: boolean;
-    /**
-     * 显示模板，值用{0}表示，范例：当前选中：{0} ,显示为 当前选中：1,2,3
-     */
-    @Input() template: string;
 
     /**
      * 初始化下拉列表包装器
@@ -153,12 +149,5 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
                 this.loadData(result);
             }
         });
-    }
-
-    /**
-     * 获取模板
-     */
-    private getTemplate(value) {
-        return this.template.replace(/\{0\}/g, value);
     }
 }
