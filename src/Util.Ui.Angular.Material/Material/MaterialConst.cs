@@ -44,14 +44,6 @@
         /// </summary>
         public const string ShowClearButton = "show-clear-button";
         /// <summary>
-        /// 最小行数
-        /// </summary>
-        public const string MinRows = "min-rows";
-        /// <summary>
-        /// 最大行数
-        /// </summary>
-        public const string MaxRows = "max-rows";
-        /// <summary>
         /// 起始视图
         /// </summary>
         public const string StartView = "start-view";

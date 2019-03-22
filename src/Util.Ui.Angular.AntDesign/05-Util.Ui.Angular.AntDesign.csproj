@@ -33,8 +33,4 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <ProjectReference Include="..\Util.Ui.Angular\03-Util.Ui.Angular.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Zorro\Forms\Resolvers\" />
-  </ItemGroup>
-
 </Project>

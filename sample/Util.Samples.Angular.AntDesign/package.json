@@ -28,6 +28,7 @@
     "oidc-client": "1.7.0",
     "font-awesome": "4.7.0",
     "material-design-icons": "3.0.1",
+    "ng2-ckeditor": "1.2.2",
     "ng-zorro-antd": "7.0.1",
     "@antv/data-set": "0.10.2",
     "@antv/g2": "3.4.10",

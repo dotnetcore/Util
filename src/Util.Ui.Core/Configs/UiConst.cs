@@ -495,5 +495,13 @@
         /// 默认项文本
         /// </summary>
         public const string DefaultOptionText = "default-option-text";
+        /// <summary>
+        /// 最小行数
+        /// </summary>
+        public const string MinRows = "min-rows";
+        /// <summary>
+        /// 最大行数
+        /// </summary>
+        public const string MaxRows = "max-rows";
     }
 }

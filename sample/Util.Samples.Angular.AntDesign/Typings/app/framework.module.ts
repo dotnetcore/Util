@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
+//CKEditor模块
+import { CKEditorModule } from 'ng2-ckeditor';
+
 //Ant Design模块
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ViserModule } from 'viser-ng';
@@ -22,6 +25,7 @@ import { UtilModule } from '../util';
         FormsModule,
         RouterModule, 
         ReactiveFormsModule,
+        CKEditorModule,
         NgZorroAntdModule,
         ViserModule,
         AlainThemeModule,

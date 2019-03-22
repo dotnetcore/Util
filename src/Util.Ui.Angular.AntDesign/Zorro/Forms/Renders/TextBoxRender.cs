@@ -53,8 +53,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 创建标签生成器
         /// </summary>
         private TagBuilder CreateBuilder() {
-            //if( _config.IsTextArea )
-            //    return new TextAreaWrapperBuilder();
+            if( _config.IsTextArea )
+                return new TextAreaWrapperBuilder();
             if( _config.IsDatePicker )
                 return new DatePickerWrapperBuilder();
             return new TextBoxWrapperBuilder();
@@ -66,8 +66,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void ConfigTextArea( TagBuilder builder ) {
             if( _config.IsTextArea == false )
                 return;
-            //builder.AddAttribute( "[minRows]", _config.GetValue( MaterialConst.MinRows ) );
-            //builder.AddAttribute( "[maxRows]", _config.GetValue( MaterialConst.MaxRows ) );
+            builder.AddAttribute( "[minRows]", _config.GetValue( UiConst.MinRows ) );
+            builder.AddAttribute( "[maxRows]", _config.GetValue( UiConst.MaxRows ) );
         }
 
         /// <summary>
@@ -84,7 +84,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void ConfigTextBox( TagBuilder builder ) {
             ConfigType( builder );
             ConfigReadOnly( builder );
-            ConfigShowClearButton( builder );
             ConfigValidations( builder );
         }
 
@@ -100,13 +99,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigReadOnly( TagBuilder builder ) {
             builder.AddAttribute( "[readonly]", _config.GetBoolValue( UiConst.ReadOnly ) );
-        }
-
-        /// <summary>
-        /// 配置是否显示清除按钮
-        /// </summary>
-        private void ConfigShowClearButton( TagBuilder builder ) {
-            //builder.AddAttribute( "[showClearButton]", _config.GetBoolValue( MaterialConst.ShowClearButton ) );
         }
 
         /// <summary>

@@ -27,5 +27,11 @@ namespace Util.Samples.Pages.Components.Forms {
         [Required( ErrorMessage = "请选择日期时间" )]
         [Display( Name = "日期时间" )]
         public DateTime? DateTime { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [Required( ErrorMessage = "备注不能为空" )]
+        [Display( Name = "备注" )]
+        public string Comment { get; set; }
     }
 }

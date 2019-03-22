@@ -66,8 +66,8 @@ namespace Util.Ui.Material.Forms.Renders {
         private void ConfigTextArea( TagBuilder builder ) {
             if( _config.IsTextArea == false )
                 return;
-            builder.AddAttribute( "[minRows]", _config.GetValue( MaterialConst.MinRows ) );
-            builder.AddAttribute( "[maxRows]", _config.GetValue( MaterialConst.MaxRows ) );
+            builder.AddAttribute( "[minRows]", _config.GetValue( UiConst.MinRows ) );
+            builder.AddAttribute( "[maxRows]", _config.GetValue( UiConst.MaxRows ) );
         }
 
         /// <summary>

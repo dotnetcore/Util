@@ -75,8 +75,8 @@ namespace Util.Ui.Material.Extensions {
             var option = component as IOptionConfig;
             option?.Config<TextBoxConfig>( config => {
                 config.IsTextArea = true;
-                config.SetAttribute( MaterialConst.MinRows, minRows );
-                config.SetAttribute( MaterialConst.MaxRows, maxRows );
+                config.SetAttribute( UiConst.MinRows, minRows );
+                config.SetAttribute( UiConst.MaxRows, maxRows );
             } );
             return component;
         }
