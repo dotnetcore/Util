@@ -55,8 +55,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private TagBuilder CreateBuilder() {
             //if( _config.IsTextArea )
             //    return new TextAreaWrapperBuilder();
-            //if( _config.IsDatePicker )
-            //    return new DatePickerWrapperBuilder();
+            if( _config.IsDatePicker )
+                return new DatePickerWrapperBuilder();
             return new TextBoxWrapperBuilder();
         }
 
@@ -76,11 +76,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void ConfigDatePicker( TagBuilder builder ) {
             if( _config.IsDatePicker == false )
                 return;
-            //builder.AddAttribute( "[width]", _config.GetValue( UiConst.Width ) );
-            //builder.AddAttribute( "startView", _config.GetValue<DateView?>( MaterialConst.StartView )?.Description() );
-            //builder.AddAttribute( "[touchUi]", _config.GetBoolValue( MaterialConst.TouchUi ) );
-            //builder.AddAttribute( "minDate", _config.GetValue( MaterialConst.MinDate ) );
-            //builder.AddAttribute( "maxDate", _config.GetValue( MaterialConst.MaxDate ) );
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Util.Biz.Enums;
 using Util.Ui.Attributes;
 
@@ -20,5 +21,11 @@ namespace Util.Samples.Pages.Components.Forms {
         [Required( ErrorMessage = "请选择民族" )]
         [Display( Name = "民族" )]
         public Nation? Nation { get; set; }
+        /// <summary>
+        /// 日期时间
+        /// </summary>
+        [Required( ErrorMessage = "请选择日期时间" )]
+        [Display( Name = "日期时间" )]
+        public DateTime? DateTime { get; set; }
     }
 }

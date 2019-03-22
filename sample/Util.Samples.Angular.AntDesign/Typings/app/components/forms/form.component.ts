@@ -26,7 +26,7 @@ export class FormComponent extends FormComponentBase implements OnInit {
     /**
      * 初始化
      */
-    ngOnInit(): void {
+    ngOnInit() {
         this.model = {};
     }
 
@@ -41,5 +41,9 @@ export class FormComponent extends FormComponentBase implements OnInit {
             data: this.model,
             confirm: "Hello World"
         } );
+    }
+
+    info() {
+        this.util.message.info("嘿嘿");
     }
 }
