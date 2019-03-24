@@ -178,16 +178,5 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             result.Append( "<x-date-picker (onKeydown)=\"a\"></x-date-picker>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
-
-        /// <summary>
-        /// 测试宽度
-        /// </summary>
-        [Fact]
-        public void TestWidth() {
-            var attributes = new TagHelperAttributeList { { UiConst.Width, 1 } };
-            var result = new String();
-            result.Append( "<x-date-picker [width]=\"1\"></x-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
     }
 }

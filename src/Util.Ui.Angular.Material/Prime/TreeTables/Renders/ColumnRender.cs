@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Tables.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Material.Icons.Builders;
-using Util.Ui.Material.Tables.Resolvers;
 using Util.Ui.Prime.Enums;
 using Util.Ui.Prime.TreeTables.Builders;
 

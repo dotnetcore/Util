@@ -11,7 +11,7 @@ import { AlainThemeModule } from '@delon/theme';
 //语言设置
 import { default as ngLang } from '@angular/common/locales/zh';
 import { registerLocaleData } from '@angular/common';
-registerLocaleData( ngLang, "zh" );
+registerLocaleData( ngLang, "zh_CN" );
 
 //框架模块
 import { FrameworkModule } from './framework.module';

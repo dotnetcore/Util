@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Configs;
-using Util.Ui.Material.Enums;
 using Util.Ui.Material.Tables.Configs;
 using Util.Ui.Material.Tables.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;

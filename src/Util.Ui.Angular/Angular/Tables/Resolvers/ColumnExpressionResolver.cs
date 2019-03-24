@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
-using Util.Ui.Material.Enums;
 
-namespace Util.Ui.Material.Tables.Resolvers {
+namespace Util.Ui.Angular.Tables.Resolvers {
     /// <summary>
     /// 表格列表达式解析器
     /// </summary>

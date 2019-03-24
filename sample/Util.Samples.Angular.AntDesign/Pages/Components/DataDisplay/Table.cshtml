@@ -1,0 +1,17 @@
+﻿@page
+@model UserModel
+<page-header title="表格">
+    展示行列数据
+</page-header>
+<nz-card>
+    <util-table id="userTable" url="/api/table/users">
+        <util-table-column for="Name"></util-table-column>
+        <util-table-column for="Age"></util-table-column>
+        <util-table-column for="Address"></util-table-column>
+        <util-table-column title="操作">
+            <a>Action 一 {{ row.name }}</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>Delete</a>
+        </util-table-column>
+    </util-table>
+</nz-card>

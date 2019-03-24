@@ -92,6 +92,16 @@ namespace Util.Samples.Apis.Home {
                                 Link = "/component/forms/textbox"
                             }
                         }
+                    },
+                    new MenuInfo {
+                        Text = "数据展示组件",
+                        Icon = "anticon anticon-edit",
+                        Children = {
+                            new MenuInfo {
+                                Text = "表格",
+                                Link = "/component/data-display/table"
+                            }
+                        }
                     }
                 }
             };

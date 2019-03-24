@@ -1,4 +1,4 @@
-﻿namespace Util.Ui.Material.Enums {
+﻿namespace Util.Ui.Angular.Enums {
     /// <summary>
     /// 表格列类型
     /// </summary>

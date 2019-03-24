@@ -56,9 +56,17 @@
         /// </summary>
         public const string BindMaterialIcon = "bind-material-icon";
         /// <summary>
+        /// 基Url绑定
+        /// </summary>
+        public const string BindBaseUrl = "bind-base-url";
+        /// <summary>
         /// Url绑定
         /// </summary>
         public const string BindUrl = "bind-url";
+        /// <summary>
+        /// 删除Url绑定
+        /// </summary>
+        public const string BindDeleteUrl = "bind-delete-url";
         /// <summary>
         /// 是否提交
         /// </summary>

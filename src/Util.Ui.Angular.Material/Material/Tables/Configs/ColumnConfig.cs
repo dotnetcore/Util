@@ -1,6 +1,6 @@
-﻿using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Enums;
+using Util.Ui.Configs;
 using Util.Ui.Extensions;
-using Util.Ui.Material.Enums;
 using Util.Ui.TagHelpers;
 
 namespace Util.Ui.Material.Tables.Configs {

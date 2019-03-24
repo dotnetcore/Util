@@ -1,9 +1,9 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Material.Enums;
 using Util.Ui.Material.Forms.Builders;
 using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tables.Builders;
