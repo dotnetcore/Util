@@ -4,7 +4,7 @@ namespace Util.Ui.Zorro.Forms.Builders {
     /// <summary>
     /// NgZorro下拉列表包装器生成器
     /// </summary>
-    class SelectWrapperBuilder : TagBuilder {
+    public class SelectWrapperBuilder : TagBuilder {
         /// <summary>
         /// 初始化NgZorro下拉列表包装器生成器
         /// </summary>

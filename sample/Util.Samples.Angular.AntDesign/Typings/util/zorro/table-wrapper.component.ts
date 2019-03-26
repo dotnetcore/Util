@@ -223,16 +223,16 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**
      * 加载数据
      */
-    private loadData( result ) {
-        if ( result.totalCount ) {
-            result = new PagerList<T>(result);
-            result.initLineNumbers();
-            this.dataSource = result.data;
-            this.totalCount = result.totalCount;
-            this.checkedSelection.clear();
+    private loadData(result) {
+        if (util.helper.isUndefined(result.totalCount)) {
+            this.dataSource = result;
             return;
         }
-        this.dataSource = result;
+        result = new PagerList<T>(result);
+        result.initLineNumbers();
+        this.dataSource = result.data;
+        this.totalCount = result.totalCount;
+        this.checkedSelection.clear();
     }
 
     /**

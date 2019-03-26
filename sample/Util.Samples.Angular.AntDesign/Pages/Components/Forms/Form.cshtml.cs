@@ -19,6 +19,7 @@ namespace Util.Samples.Pages.Components.Forms {
         /// 姓名
         /// </summary>
         [Required( ErrorMessage = "姓名不能为空" )]
+        [StringLength(10)]
         [Display(Name = "姓名" )]
         public string Name { get; set; }
         /// <summary>
