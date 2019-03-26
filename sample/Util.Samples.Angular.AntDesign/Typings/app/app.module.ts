@@ -11,7 +11,13 @@ import { AlainThemeModule } from '@delon/theme';
 //语言设置
 import { default as ngLang } from '@angular/common/locales/zh';
 import { registerLocaleData } from '@angular/common';
-registerLocaleData( ngLang, "zh_CN" );
+registerLocaleData(ngLang, "zh_CN");
+
+//图标设置
+import { NZ_ICONS } from 'ng-zorro-antd';
+import { IconDefinition } from '@ant-design/icons-angular';
+import * as AllIcons from '@ant-design/icons-angular/icons';
+const icons: IconDefinition[] = Object.keys(AllIcons).map(key => AllIcons[key]);
 
 //框架模块
 import { FrameworkModule } from './framework.module';
@@ -55,7 +61,8 @@ export function startupServiceFactory( startupService: StartupService ) {
             useFactory: startupServiceFactory,
             deps: [StartupService],
             multi: true,
-        }
+        },
+        { provide: NZ_ICONS, useValue: icons }
     ],
     bootstrap: [AppComponent],
 } )

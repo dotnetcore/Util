@@ -27,8 +27,6 @@
     "lodash": "4.17.11",
     "oidc-client": "1.7.0",
     "extend": "3.0.2",
-    "font-awesome": "4.7.0",
-    "material-design-icons": "3.0.1",
     "ng2-ckeditor": "1.2.2",
     "ng-zorro-antd": "7.1.0",
     "@antv/data-set": "0.10.2",

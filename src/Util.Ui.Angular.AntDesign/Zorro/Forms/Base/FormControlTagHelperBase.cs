@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular.Base;
 using Util.Ui.Enums;
+using Util.Ui.Zorro.Enums;
 
 namespace Util.Ui.Zorro.Forms.Base {
     /// <summary>
@@ -42,7 +43,7 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// <summary>
         /// 后缀Material图标
         /// </summary>
-        public MaterialIcon SuffixMaterialIcon { get; set; }
+        public AntDesignIcon SuffixMaterialIcon { get; set; }
         /// <summary>
         /// 后缀图标单击事件,范例：click()
         /// </summary>

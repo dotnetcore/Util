@@ -10,6 +10,12 @@ import { FormViewModel } from "./model/form-view-model";
 @Component( {
     selector: 'app-components-form',
     templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form',
+    styles: [`
+      [nz-icon] {
+        margin-right: 6px;
+        font-size: 24px;
+      }
+    `]
 } )
 export class FormComponent extends ComponentBase {
     /**
