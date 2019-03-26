@@ -1,6 +1,10 @@
 ﻿using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
+using Util.Ui.Zorro.Tables.Configs;
+using TableHeadColumnBuilder = Util.Ui.Zorro.Tables.Builders.TableHeadColumnBuilder;
 
 namespace Util.Ui.Zorro.Tables.Renders {
     /// <summary>
@@ -10,13 +14,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly Config _config;
 
         /// <summary>
         /// 初始化标题列渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public HeadColumnRender( IConfig config ) : base( config ) {
+        public HeadColumnRender( Config config ) : base( config ) {
             _config = config;
         }
 
@@ -34,15 +38,9 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected void Config( TableHeadColumnBuilder builder ) {
             ConfigId( builder );
-            ConfigHeader( builder );
-            ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置列头
-        /// </summary>
-        private void ConfigHeader( TableHeadColumnBuilder builder ) {
             ConfigTitle( builder );
+            ConfigType( builder );
+            ConfigContent( builder );
         }
 
         /// <summary>
@@ -50,6 +48,23 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigTitle( TableHeadColumnBuilder builder ) {
             builder.Title( _config.GetValue( UiConst.Title ) );
+        }
+
+        /// <summary>
+        /// 配置类型
+        /// </summary>
+        private void ConfigType( TableHeadColumnBuilder builder ) {
+            ConfigCheckbox( builder );
+        }
+
+        /// <summary>
+        /// 配置复选框
+        /// </summary>
+        private void ConfigCheckbox( TableHeadColumnBuilder builder ) {
+            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
+                return;
+            var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
+            builder.AddCheckBox( tableId );
         }
     }
 }

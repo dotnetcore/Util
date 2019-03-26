@@ -78,6 +78,10 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     @Input() width: number;
     /**
+     * 是否显示分页
+     */
+    @Input() showPagination: boolean;
+    /**
      * 分页长度列表
      */
     @Input() pageSizeOptions: number[];
@@ -118,6 +122,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     constructor(private dic: DicService<QueryParameter>) {
         this.minHeight = 300;
         this.pageSizeOptions = [10, 20, 50, 100];
+        this.showPagination = true;
         this.dataSource = new Array<any>();
         this.checkedSelection = new SelectionModel<T>(true, []);
         this.selectedSelection = new SelectionModel<T>(false, []);
@@ -224,15 +229,17 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 加载数据
      */
     private loadData(result) {
-        if (util.helper.isUndefined(result.totalCount)) {
-            this.dataSource = result;
+        if (result && result.totalCount) {
+            result = new PagerList<T>(result);
+            result.initLineNumbers();
+            this.showPagination = true;
+            this.dataSource = result.data || [];
+            this.totalCount = result.totalCount;
+            this.checkedSelection.clear();
             return;
         }
-        result = new PagerList<T>(result);
-        result.initLineNumbers();
-        this.dataSource = result.data;
-        this.totalCount = result.totalCount;
-        this.checkedSelection.clear();
+        this.dataSource = result || [];
+        this.showPagination = false;
     }
 
     /**
@@ -277,7 +284,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
             this.checkedSelection.clear();
             return;
         }
-        //this.dataSource.data.forEach(data => this.checkedSelection.select(data));
+        this.dataSource.forEach(data => this.checkedSelection.select(data));
     }
 
     /**
@@ -285,32 +292,29 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     isMasterChecked() {
         return this.checkedSelection.hasValue() &&
-            this.isAllChecked();
-        //this.checkedSelection.selected.length >= this.dataSource.data.length;
+            this.isAllChecked() &&
+            this.checkedSelection.selected.length >= this.dataSource.length;
     }
 
     /**
      * 是否所有行复选框被选中
      */
     private isAllChecked() {
-        //return this.dataSource.data.every(data => this.checkedSelection.isSelected(data));
-        return true;
+        return this.dataSource.every(data => this.checkedSelection.isSelected(data));
     }
 
     /**
      * 表头主复选框的确定状态
      */
     isMasterIndeterminate() {
-        //return this.checkedSelection.hasValue() && (!this.isAllChecked() || !this.dataSource.data.length);
-        return true;
+        return this.checkedSelection.hasValue() && (!this.isAllChecked() || !this.dataSource.length);
     }
 
     /**
      * 获取复选框被选中实体列表
      */
     getChecked(): T[] {
-        //return this.dataSource.data.filter(data => this.checkedSelection.isSelected(data));
-        return null;
+        return this.dataSource.filter(data => this.checkedSelection.isSelected(data));
     }
 
     /**

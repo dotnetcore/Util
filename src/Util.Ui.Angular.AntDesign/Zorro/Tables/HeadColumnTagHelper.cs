@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Configs;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -15,6 +16,10 @@ namespace Util.Ui.Zorro.Tables {
         /// 标题
         /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// 表格列类型
+        /// </summary>
+        public TableColumnType Type { get; set; }
 
         /// <summary>
         /// 获取渲染器

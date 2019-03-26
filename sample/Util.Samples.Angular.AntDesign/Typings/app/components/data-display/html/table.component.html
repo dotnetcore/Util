@@ -2,14 +2,25 @@
     展示行列数据
 </page-header>
 <nz-card>
-    <nz-table-wrapper #userTable_wrapper="" url="/api/table/users"><nz-table #userTable="" [nzData]="userTable_wrapper.dataSource" [nzTotal]="userTable_wrapper.totalCount"><thead><tr><th>姓名</th><th>年龄</th><th>地址</th><th>操作</th></tr></thead><tbody><tr *ngFor="let row of userTable.data">
-        <td>{{row.name}}</td>
-        <td>{{row.age}}</td>
-        <td>{{row.address}}</td>
-        <td>
-            <a>Action 一 {{ row.name }}</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a>Delete</a>
-        </td>
-    </tr></tbody></nz-table></nz-table-wrapper>
+    <nz-table-wrapper #userTable_wrapper="" url="/api/table/users"><nz-table #userTable=""
+                                                                             [nzData]="userTable_wrapper.dataSource" [nzShowPagination]="userTable_wrapper.showPagination" [nzTotal]="userTable_wrapper.totalCount">
+        <thead><tr><th (nzCheckedChange)="userTable_wrapper.masterToggle()" nzShowCheckbox=""
+                       [nzChecked]="userTable_wrapper.isMasterChecked()" [nzDisabled]="!userTable_wrapper.dataSource.length"
+                       [nzIndeterminate]="userTable_wrapper.isMasterIndeterminate()">
+
+        </th><th>姓名</th><th>年龄</th><th>地址</th><th>操作</th></tr></thead>
+        <tbody>
+        <tr *ngFor="let row of userTable.data">
+            <td (click)="$event.stopPropagation()" (nzCheckedChange)="userTable_wrapper.checkedSelection.toggle(row)" 
+                nzShowCheckbox="" [nzChecked]="userTable_wrapper.checkedSelection.isSelected(row)"></td>
+            <td>{{row.name}}</td>
+            <td>{{row.age}}</td>
+            <td>{{row.address}}</td>
+            <td>
+                <a>Action 一 {{ row.name }}</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a>Delete</a>
+            </td>
+        </tr></tbody>
+    </nz-table></nz-table-wrapper>
 </nz-card>

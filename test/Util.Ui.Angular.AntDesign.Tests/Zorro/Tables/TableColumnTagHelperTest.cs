@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Configs;
 using Util.Ui.Zorro.Tables;
+using Util.Ui.Zorro.Tables.Configs;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
@@ -67,6 +69,21 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<td>{{row.a}}</td>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置复选框类型
+        /// </summary>
+        [Fact]
+        public void TestType_Checkbox() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
+            var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
+            var result = new String();
+            result.Append( "" );
+            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"id_wrapper.checkedSelection.toggle(row)\" nzShowCheckbox=\"\" " );
+            result.Append( "[nzChecked]=\"id_wrapper.checkedSelection.isSelected(row)\">" );
+            result.Append( "</td>" );
+             Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
+using Util.Ui.Zorro.Tables.Configs;
 
 namespace Util.Ui.Zorro.Tables.Renders {
     /// <summary>
@@ -10,13 +13,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly Config _config;
 
         /// <summary>
         /// 初始化列渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ColumnRender( IConfig config ) : base( config ) {
+        public ColumnRender( Config config ) : base( config ) {
             _config = config;
         }
 
@@ -35,6 +38,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigColumn( builder );
+            ConfigType( builder );
             ConfigContent( builder );
         }
 
@@ -45,6 +49,26 @@ namespace Util.Ui.Zorro.Tables.Renders {
             if( _config.Contains( UiConst.Column ) == false )
                 return;
             builder.AppendContent( $"{{{{row.{_config.GetValue( UiConst.Column )}}}}}" );
+        }
+
+        /// <summary>
+        /// 配置类型
+        /// </summary>
+        private void ConfigType( TagBuilder builder ) {
+            ConfigCheckbox( builder );
+        }
+
+        /// <summary>
+        /// 配置复选框
+        /// </summary>
+        private void ConfigCheckbox( TagBuilder builder ) {
+            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
+                return;
+            var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
+            builder.AddAttribute( "nzShowCheckbox" );
+            builder.AddAttribute( "(click)", "$event.stopPropagation()" );
+            builder.AddAttribute( "(nzCheckedChange)", $"{tableId}_wrapper.checkedSelection.toggle(row)" );
+            builder.AddAttribute( "[nzChecked]", $"{tableId}_wrapper.checkedSelection.isSelected(row)" );
         }
     }
 }

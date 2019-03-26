@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Util.Domains.Repositories;
 using Util.Samples.Models.Demo;
@@ -37,7 +38,7 @@ namespace Util.Samples.Apis.Demo {
                 new UserModel {Key = "20", Name = "P Black", Age = 54, Address = "P No. 1 Lake Park"},
                 new UserModel {Key = "21", Name = "N Black", Age = 43, Address = "N No. 1 Lake Park"}
             };
-            var result = new PagerList<UserModel>( 1,10,22, list );
+            var result = new PagerList<UserModel>( 1,10,22, list.Take( 10 ) );
             return Success( result );
         }
     }

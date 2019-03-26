@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Enums;
 using Util.Ui.Angular.Tables.Resolvers;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
@@ -39,6 +40,10 @@ namespace Util.Ui.Zorro.Tables {
         /// 列名
         /// </summary>
         public string Column { get; set; }
+        /// <summary>
+        /// 表格列类型
+        /// </summary>
+        public TableColumnType Type { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -57,7 +62,7 @@ namespace Util.Ui.Zorro.Tables {
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
             _config.Load( context, output );
             ResolveExpression();
-            AddTitle();
+            SetShareConfig();
         }
 
         /// <summary>
@@ -71,18 +76,31 @@ namespace Util.Ui.Zorro.Tables {
         }
 
         /// <summary>
-        /// 把标题添加到表格容器
+        /// 设置共享配置
         /// </summary>
-        private void AddTitle() {
+        private void SetShareConfig() {
             var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
-            shareConfig?.Titles.Add( GetTitle() );
+            AddTitle( shareConfig );
+            AddCheckbox( shareConfig );
         }
 
         /// <summary>
-        /// 获取标题
+        /// 添加标题配置
         /// </summary>
-        private string GetTitle() {
-            return _config.GetValue<string>( UiConst.Title );
+        private void AddTitle( TableShareConfig config ) {
+            if( _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox )
+                return;
+            var title = _config.GetValue<string>( UiConst.Title );
+            config?.Titles.Add( title );
+        }
+
+        /// <summary>
+        /// 添加复选框配置
+        /// </summary>
+        private void AddCheckbox( TableShareConfig config ) {
+            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
+                return;
+            config.AutoCreateHeadCheckbox = true;
         }
     }
 }

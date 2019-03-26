@@ -5,6 +5,7 @@ using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
+using TableHeadColumnBuilder = Util.Ui.Zorro.Tables.Builders.TableHeadColumnBuilder;
 
 namespace Util.Ui.Zorro.Tables.Renders {
     /// <summary>
@@ -107,7 +108,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected virtual void ConfigTable( TagBuilder builder ) {
             var tableBuilder = new TableBuilder();
-            ConfigId( tableBuilder );
             ConfigTableDefault( tableBuilder );
             AddHead( tableBuilder );
             AddRow( tableBuilder );
@@ -116,18 +116,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置表格包装器标识
-        /// </summary>
-        protected override void ConfigId( TagBuilder builder ) {
-            builder.AddAttribute( $"#{_config.Id}" );
-        }
-
-        /// <summary>
         /// 配置表格默认属性
         /// </summary>
         private void ConfigTableDefault( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( $"#{_config.Id}" );
             tableBuilder.AddAttribute( "[nzData]", $"{GetWrapperId()}.dataSource" );
             tableBuilder.AddAttribute( "[nzTotal]", $"{GetWrapperId()}.totalCount" );
+            tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
         }
 
         /// <summary>
@@ -150,8 +145,25 @@ namespace Util.Ui.Zorro.Tables.Renders {
             var headBuilder = new TableHeadBuilder();
             tableBuilder.AppendContent( headBuilder );
             var rowBuilder = new TableRowBuilder();
+            AddHeadCheckbox( rowBuilder );
+            AddHeadTitles( rowBuilder );
             headBuilder.AppendContent( rowBuilder );
-            foreach ( var title in _config.Titles ) {
+        }
+
+        /// <summary>
+        /// 添加表头复选框
+        /// </summary>
+        private void AddHeadCheckbox( TableRowBuilder rowBuilder ) {
+            var headColumnBuilder = new TableHeadColumnBuilder();
+            headColumnBuilder.AddCheckBox( _config.Id );
+            rowBuilder.AppendContent( headColumnBuilder );
+        }
+
+        /// <summary>
+        /// 添加标题列表
+        /// </summary>
+        private void AddHeadTitles( TableRowBuilder rowBuilder ) {
+            foreach( var title in _config.Titles ) {
                 var headColumnBuilder = new TableHeadColumnBuilder();
                 headColumnBuilder.Title( title );
                 rowBuilder.AppendContent( headColumnBuilder );

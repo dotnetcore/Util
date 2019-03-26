@@ -44,7 +44,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         public void TestDefault() {
             var result = new String();  
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -62,7 +63,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #a_wrapper=\"\">" );
-            result.Append( "<nz-table #a=\"\" [nzData]=\"a_wrapper.dataSource\" [nzTotal]=\"a_wrapper.totalCount\">" );
+            result.Append( "<nz-table #a=\"\" [nzData]=\"a_wrapper.dataSource\" [nzShowPagination]=\"a_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"a_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of a.data\">" );
             result.Append( "</tr>" );
@@ -80,7 +82,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.QueryParam, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [(queryParam)]=\"a\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -98,7 +101,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.BaseUrl, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" baseUrl=\"a\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -116,7 +120,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { AngularConst.BindBaseUrl, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [baseUrl]=\"a\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -134,7 +139,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.Url, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" url=\"a\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -152,7 +158,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { AngularConst.BindUrl, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [url]=\"a\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -170,7 +177,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.DeleteUrl, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" deleteUrl=\"a\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -188,7 +196,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { AngularConst.BindDeleteUrl, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [deleteUrl]=\"a\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
@@ -206,7 +215,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.AutoLoad, false } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [autoLoad]=\"false\">" );
-            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
             result.Append( "</tr>" );
