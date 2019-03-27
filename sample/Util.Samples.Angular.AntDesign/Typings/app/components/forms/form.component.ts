@@ -9,13 +9,7 @@ import { FormViewModel } from "./model/form-view-model";
  */
 @Component( {
     selector: 'app-components-form',
-    templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form',
-    styles: [`
-      [nz-icon] {
-        margin-right: 6px;
-        font-size: 24px;
-      }
-    `]
+    templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form'
 } )
 export class FormComponent extends ComponentBase {
     /**
@@ -35,12 +29,12 @@ export class FormComponent extends ComponentBase {
      * 提交表单
      * @param form
      */
-    submit( form: NgForm ) {
+    submit( form: NgForm,btn ) {
         this.util.form.submit( {
             form: form,
+            button: btn,
             url: "/api/form",
-            data: this.model,
-            confirm: "Hello World"
+            data: this.model
         } );
     }
 }

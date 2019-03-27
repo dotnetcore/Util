@@ -27,6 +27,10 @@ export class MessageConfig {
      */
     static submit = "提 交";
     /**
+     * 确定
+     */
+    static ok = "确定";
+    /**
      * 进度提示
      */
     static loading = "loading...";

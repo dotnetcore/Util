@@ -69,6 +69,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         }
 
         /// <summary>
+        /// 测试文本 - 空值允许覆盖
+        /// </summary>
+        [Fact]
+        public void TestText_Empty() {
+            var attributes = new TagHelperAttributeList { { UiConst.Text, "" } };
+            var result = new String();
+            result.Append( "<x-button text=\"\"></x-button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试绑定文本
         /// </summary>
         [Fact]
@@ -153,6 +164,61 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
             var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
             var result = new String();
             result.Append( "<x-button (onClick)=\"a\"></x-button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试按钮尺寸
+        /// </summary>
+        [Fact]
+        public void TestSize() {
+            var attributes = new TagHelperAttributeList { { UiConst.Size, ButtonSize.Small } };
+            var result = new String();
+            result.Append( "<x-button size=\"small\"></x-button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试按钮形状
+        /// </summary>
+        [Fact]
+        public void TestShape() {
+            var attributes = new TagHelperAttributeList { { UiConst.Shape, ButtonShape.Circle } };
+            var result = new String();
+            result.Append( "<x-button shape=\"circle\"></x-button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试加载状态
+        /// </summary>
+        [Fact]
+        public void TestLoading() {
+            var attributes = new TagHelperAttributeList { { UiConst.Loading,"true" } };
+            var result = new String();
+            result.Append( "<x-button [loading]=\"true\"></x-button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试调整为父宽度
+        /// </summary>
+        [Fact]
+        public void TestBlock() {
+            var attributes = new TagHelperAttributeList { { UiConst.Block, true } };
+            var result = new String();
+            result.Append( "<x-button [block]=\"true\"></x-button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置为透明背景
+        /// </summary>
+        [Fact]
+        public void TestGhost() {
+            var attributes = new TagHelperAttributeList { { UiConst.Ghost, true } };
+            var result = new String();
+            result.Append( "<x-button [ghost]=\"true\"></x-button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

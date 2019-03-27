@@ -68,6 +68,14 @@
         /// </summary>
         public const string BindDeleteUrl = "bind-delete-url";
         /// <summary>
+        /// 类型绑定
+        /// </summary>
+        public const string BindType = "bind-type";
+        /// <summary>
+        /// 主题绑定
+        /// </summary>
+        public const string BindTheme = "bind-theme";
+        /// <summary>
         /// 是否提交
         /// </summary>
         public const string IsSubmit = "is-submit";

@@ -13,11 +13,11 @@ namespace Util.Ui.Zorro.Buttons {
     [HtmlTargetElement("util-button")]
     public class ButtonTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// 文本
+        /// text,文本
         /// </summary>
         public string Text { get; set; }
         /// <summary>
-        /// 文本属性绑定
+        /// [text],文本属性绑定
         /// </summary>
         public string BindText { get; set; }
         /// <summary>
@@ -36,6 +36,26 @@ namespace Util.Ui.Zorro.Buttons {
         /// 提示
         /// </summary>
         public string Tooltip { get; set; }
+        /// <summary>
+        /// nzSize,按钮尺寸
+        /// </summary>
+        public ButtonSize Size { get; set; }
+        /// <summary>
+        /// nzShape,按钮形状
+        /// </summary>
+        public ButtonShape Shape { get; set; }
+        /// <summary>
+        /// [nzLoading],设置加载状态
+        /// </summary>
+        public string Loading { get; set; }
+        /// <summary>
+        /// [nzBlock],将按钮宽度调整为其父宽度
+        /// </summary>
+        public bool Block { get; set; }
+        /// <summary>
+        /// [nzGhost],设置为透明背景
+        /// </summary>
+        public bool Ghost { get; set; }
         /// <summary>
         /// 单击事件处理函数,范例：handle()
         /// </summary>

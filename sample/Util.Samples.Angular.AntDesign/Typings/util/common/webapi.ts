@@ -3,7 +3,6 @@
 //Licensed under the MIT license
 //================================================
 import { HttpErrorResponse } from '@angular/common/http';
-import { Dialog } from './dialog';
 import { Result, FailResult, StateCode } from '../core/result';
 import { HttpHelper, HttpRequest, HttpContentType, HttpMethod } from '../angular/http-helper';
 import { Message } from './message';
@@ -265,30 +264,17 @@ export class WebApiRequest<T> {
         let result = options && options.before && options.before();
         if (result === false)
             return false;
-        this.disableButton();
         this.showLoading();
         return true;
     }
 
     /**
-     * 禁用按钮
-     */
-    private disableButton() {
-        if (!this.btn)
-            return;
-        this.btn.disable();
-    }
-
-    /**
-     * 显示遮罩
+     * 显示加载状态
      */
     private showLoading() {
-        if (!this.isShowLoading)
-            return;
-        Dialog.open({
-            panelClass: "loading-panel",
-            disableClose: true
-        });
+        if ( this.btn ) {
+            this.btn.loading = true;
+        }
     }
 
     /**
@@ -296,26 +282,16 @@ export class WebApiRequest<T> {
      */
     private handleComplete(options: WebApiHandleOptions<T>) {
         options && options.complete && options.complete();
-        this.enableButton();
         this.closeLoading();
     }
 
     /**
-     * 启用按钮
-     */
-    private enableButton() {
-        if (!this.btn)
-            return;
-        this.btn.enable();
-    }
-
-    /**
-     * 关闭遮罩
+     * 关闭加载状态
      */
     private closeLoading() {
-        if (!this.isShowLoading)
-            return;
-        Dialog.close();
+        if ( this.btn ) {
+            this.btn.loading = false;
+        }
     }
 }
 

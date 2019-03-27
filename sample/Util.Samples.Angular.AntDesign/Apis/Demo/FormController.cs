@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Util.Webs.Controllers;
 
@@ -12,6 +13,7 @@ namespace Util.Samples.Apis.Demo {
         /// </summary>
         [HttpPost]
         public IActionResult Create() {
+            Thread.Sleep( 2000 );
             return Success();
         }
 

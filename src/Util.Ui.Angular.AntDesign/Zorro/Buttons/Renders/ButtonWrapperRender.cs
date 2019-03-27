@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Zorro.Buttons.Builders;
@@ -39,17 +40,20 @@ namespace Util.Ui.Zorro.Buttons.Renders {
             ConfigId( builder );
             ConfigText( builder );
             ConfigType( builder );
-            ConfigColor( builder );
+            ConfigStype( builder );
             ConfigDisabled( builder );
             ConfigTooltip( builder );
+            ConfigLoading( builder );
             ConfigEvents( builder );
+            ConfigContent( builder );
         }
 
         /// <summary>
         /// 配置文本
         /// </summary>
         private void ConfigText( TagBuilder builder ) {
-            builder.AddAttribute( UiConst.Text, _config.GetValue( UiConst.Text ) );
+            if( _config.Contains( UiConst.Text ) )
+                builder.AddAttribute( UiConst.Text, _config.GetValue( UiConst.Text ),false );
             builder.AddAttribute( "[text]", _config.GetValue( AngularConst.BindText ) );
         }
 
@@ -61,10 +65,14 @@ namespace Util.Ui.Zorro.Buttons.Renders {
         }
 
         /// <summary>
-        /// 配置颜色
+        /// 配置样式
         /// </summary>
-        private void ConfigColor( TagBuilder builder ) {
+        private void ConfigStype( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Color, _config.GetValue<Color?>( UiConst.Color )?.Description() );
+            builder.AddAttribute( UiConst.Size, _config.GetValue<ButtonSize?>( UiConst.Size )?.Description() );
+            builder.AddAttribute( UiConst.Shape, _config.GetValue<ButtonShape?>( UiConst.Shape )?.Description() );
+            builder.AddAttribute( $"[{UiConst.Block}]", _config.GetBoolValue( UiConst.Block ) );
+            builder.AddAttribute( $"[{UiConst.Ghost}]", _config.GetBoolValue( UiConst.Ghost ) );
         }
 
         /// <summary>
@@ -82,10 +90,28 @@ namespace Util.Ui.Zorro.Buttons.Renders {
         }
 
         /// <summary>
+        /// 配置加载状态
+        /// </summary>
+        private void ConfigLoading( TagBuilder builder ) {
+            builder.AddAttribute( $"[{UiConst.Loading}]", _config.GetValue( UiConst.Loading ) );
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(onClick)", _config.GetValue( UiConst.OnClick ) );
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected override void ConfigContent( TagBuilder builder ) {
+            if( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
+                return;
+            var template = new TemplateBuilder();
+            template.AppendContent( _config.Content );
+            builder.AppendContent( template );
         }
     }
 }

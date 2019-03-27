@@ -2,7 +2,7 @@
 
 namespace Util.Ui.Zorro.Enums {
     /// <summary>
-    /// Material图标
+    /// Ant Design图标
     /// </summary>
     public enum AntDesignIcon {
         ///<summary>
@@ -315,6 +315,11 @@ namespace Util.Ui.Zorro.Enums {
         ///</summary>
         [Description( "down-square" )]
         DownSquare,
+        ///<summary>
+        ///download
+        ///</summary>
+        [Description( "download" )]
+        Download,
         ///<summary>
         ///dribbble-circle
         ///</summary>
@@ -896,6 +901,11 @@ namespace Util.Ui.Zorro.Enums {
         [Description( "smile" )]
         Smile,
         ///<summary>
+        ///sync
+        ///</summary>
+        [Description( "sync" )]
+        Sync,
+        ///<summary>
         ///snippets
         ///</summary>
         [Description( "snippets" )]
@@ -1006,6 +1016,11 @@ namespace Util.Ui.Zorro.Enums {
         [Description( "usb" )]
         Usb,
         ///<summary>
+        ///usb
+        ///</summary>
+        [Description( "upload" )]
+        Upload,
+        ///<summary>
         ///video-camera
         ///</summary>
         [Description( "video-camera" )]
@@ -1064,6 +1079,947 @@ namespace Util.Ui.Zorro.Enums {
         ///zhihu-square
         ///</summary>
         [Description( "zhihu-square" )]
-        ZhihuSquare
+        ZhihuSquare,
+        ///<summary>
+        ///alibaba
+        ///</summary>
+        [Description( "alibaba" )]
+        Alibaba,
+        ///<summary>
+        ///align-left
+        ///</summary>
+        [Description( "align-left" )]
+        AlignLeft,
+        ///<summary>
+        ///align-right
+        ///</summary>
+        [Description( "align-right" )]
+        AlignRight,
+        ///<summary>
+        ///alipay
+        ///</summary>
+        [Description( "alipay" )]
+        Alipay,
+        ///<summary>
+        ///aliyun
+        ///</summary>
+        [Description( "aliyun" )]
+        Aliyun,
+        ///<summary>
+        ///amazon
+        ///</summary>
+        [Description( "amazon" )]
+        Amazon,
+        ///<summary>
+        ///ant-cloud
+        ///</summary>
+        [Description( "ant-cloud" )]
+        AntCloud,
+        ///<summary>
+        ///ant-design
+        ///</summary>
+        [Description( "ant-design" )]
+        AntDesign,
+        ///<summary>
+        ///apartment
+        ///</summary>
+        [Description( "apartment" )]
+        Apartment,
+        ///<summary>
+        ///area-chart
+        ///</summary>
+        [Description( "area-chart" )]
+        AreaChart,
+        ///<summary>
+        ///arrow-down
+        ///</summary>
+        [Description( "arrow-down" )]
+        ArrowDown,
+        ///<summary>
+        ///arrow-left
+        ///</summary>
+        [Description( "arrow-left" )]
+        ArrowLeft,
+        ///<summary>
+        ///arrow-right
+        ///</summary>
+        [Description( "arrow-right" )]
+        ArrowRight,
+        ///<summary>
+        ///arrow-up
+        ///</summary>
+        [Description( "arrow-up" )]
+        ArrowUp,
+        ///<summary>
+        ///arrows-alt
+        ///</summary>
+        [Description( "arrows-alt" )]
+        ArrowsAlt,
+        ///<summary>
+        ///audit
+        ///</summary>
+        [Description( "audit" )]
+        Audit,
+        ///<summary>
+        ///align-center
+        ///</summary>
+        [Description( "align-center" )]
+        AlignCenter,
+        ///<summary>
+        ///barcode
+        ///</summary>
+        [Description( "barcode" )]
+        Barcode,
+        ///<summary>
+        ///bar-chart
+        ///</summary>
+        [Description( "bar-chart" )]
+        BarChart,
+        ///<summary>
+        ///bars
+        ///</summary>
+        [Description( "bars" )]
+        Bars,
+        ///<summary>
+        ///behance
+        ///</summary>
+        [Description( "behance" )]
+        Behance,
+        ///<summary>
+        ///bg-colors
+        ///</summary>
+        [Description( "bg-colors" )]
+        BgColors,
+        ///<summary>
+        ///block
+        ///</summary>
+        [Description( "block" )]
+        Block,
+        ///<summary>
+        ///bold
+        ///</summary>
+        [Description( "bold" )]
+        Bold,
+        ///<summary>
+        ///border-bottom
+        ///</summary>
+        [Description( "border-bottom" )]
+        BorderBottom,
+        ///<summary>
+        ///border-horizontal
+        ///</summary>
+        [Description( "border-horizontal" )]
+        BorderHorizontal,
+        ///<summary>
+        ///border-inner
+        ///</summary>
+        [Description( "border-inner" )]
+        BorderInner,
+        ///<summary>
+        ///border-left
+        ///</summary>
+        [Description( "border-left" )]
+        BorderLeft,
+        ///<summary>
+        ///border-outer
+        ///</summary>
+        [Description( "border-outer" )]
+        BorderOuter,
+        ///<summary>
+        ///border-right
+        ///</summary>
+        [Description( "border-right" )]
+        BorderRight,
+        ///<summary>
+        ///border-top
+        ///</summary>
+        [Description( "border-top" )]
+        BorderTop,
+        ///<summary>
+        ///border-verticle
+        ///</summary>
+        [Description( "border-verticle" )]
+        BorderVerticle,
+        ///<summary>
+        ///border
+        ///</summary>
+        [Description( "border" )]
+        Border,
+        ///<summary>
+        ///branches
+        ///</summary>
+        [Description( "branches" )]
+        Branches,
+        ///<summary>
+        ///check
+        ///</summary>
+        [Description( "check" )]
+        Check,
+        ///<summary>
+        ///ci
+        ///</summary>
+        [Description( "ci" )]
+        Ci,
+        ///<summary>
+        ///close
+        ///</summary>
+        [Description( "close" )]
+        Close,
+        ///<summary>
+        ///cloud-download
+        ///</summary>
+        [Description( "cloud-download" )]
+        CloudDownload,
+        ///<summary>
+        ///cloud-server
+        ///</summary>
+        [Description( "cloud-server" )]
+        CloudServer,
+        ///<summary>
+        ///cloud-sync
+        ///</summary>
+        [Description( "cloud-sync" )]
+        CloudSync,
+        ///<summary>
+        ///cloud-upload
+        ///</summary>
+        [Description( "cloud-upload" )]
+        CloudUpload,
+        ///<summary>
+        ///cluster
+        ///</summary>
+        [Description( "cluster" )]
+        Cluster,
+        ///<summary>
+        ///code-sandbox
+        ///</summary>
+        [Description( "code-sandbox" )]
+        CodeSandbox,
+        ///<summary>
+        ///codepen
+        ///</summary>
+        [Description( "codepen" )]
+        Codepen,
+        ///<summary>
+        ///coffee
+        ///</summary>
+        [Description( "coffee" )]
+        Coffee,
+        ///<summary>
+        ///colum-height
+        ///</summary>
+        [Description( "colum-height" )]
+        ColumHeight,
+        ///<summary>
+        ///column-width
+        ///</summary>
+        [Description( "column-width" )]
+        ColumnWidth,
+        ///<summary>
+        ///copyright
+        ///</summary>
+        [Description( "copyright" )]
+        Copyright,
+        ///<summary>
+        ///dash
+        ///</summary>
+        [Description( "dash" )]
+        Dash,
+        ///<summary>
+        ///deployment-unit
+        ///</summary>
+        [Description( "deployment-unit" )]
+        DeploymentUnit,
+        ///<summary>
+        ///desktop
+        ///</summary>
+        [Description( "desktop" )]
+        Desktop,
+        ///<summary>
+        ///dingding
+        ///</summary>
+        [Description( "dingding" )]
+        Dingding,
+        ///<summary>
+        ///disconnect
+        ///</summary>
+        [Description( "disconnect" )]
+        Disconnect,
+        ///<summary>
+        ///dollar
+        ///</summary>
+        [Description( "dollar" )]
+        Dollar,
+        ///<summary>
+        ///dot-chart
+        ///</summary>
+        [Description( "dot-chart" )]
+        DotChart,
+        ///<summary>
+        ///double-right
+        ///</summary>
+        [Description( "double-right" )]
+        DoubleRight,
+        ///<summary>
+        ///double-left
+        ///</summary>
+        [Description( "double-left" )]
+        DoubleLeft,
+        ///<summary>
+        ///down
+        ///</summary>
+        [Description( "down" )]
+        Down,
+        ///<summary>
+        ///drag
+        ///</summary>
+        [Description( "drag" )]
+        Drag,
+        ///<summary>
+        ///dribbble
+        ///</summary>
+        [Description( "dribbble" )]
+        Dribbble,
+        ///<summary>
+        ///dropbox
+        ///</summary>
+        [Description( "dropbox" )]
+        Dropbox,
+        ///<summary>
+        ///ellipsis
+        ///</summary>
+        [Description( "ellipsis" )]
+        Ellipsis,
+        ///<summary>
+        ///enter
+        ///</summary>
+        [Description( "enter" )]
+        Enter,
+        ///<summary>
+        ///euro
+        ///</summary>
+        [Description( "euro" )]
+        Euro,
+        ///<summary>
+        ///exception
+        ///</summary>
+        [Description( "exception" )]
+        Exception,
+        ///<summary>
+        ///exclamation
+        ///</summary>
+        [Description( "exclamation" )]
+        Exclamation,
+        ///<summary>
+        ///export
+        ///</summary>
+        [Description( "export" )]
+        Export,
+        ///<summary>
+        ///fall
+        ///</summary>
+        [Description( "fall" )]
+        Fall,
+        ///<summary>
+        ///file-done
+        ///</summary>
+        [Description( "file-done" )]
+        FileDone,
+        ///<summary>
+        ///file-jpg
+        ///</summary>
+        [Description( "file-jpg" )]
+        FileJpg,
+        ///<summary>
+        ///file-protect
+        ///</summary>
+        [Description( "file-protect" )]
+        FileProtect,
+        ///<summary>
+        ///file-search
+        ///</summary>
+        [Description( "file-search" )]
+        FileSearch,
+        ///<summary>
+        ///file-sync
+        ///</summary>
+        [Description( "file-sync" )]
+        FileSync,
+        ///<summary>
+        ///font-colors
+        ///</summary>
+        [Description( "font-colors" )]
+        FontColors,
+        ///<summary>
+        ///font-size
+        ///</summary>
+        [Description( "font-size" )]
+        FontSize,
+        ///<summary>
+        ///fork
+        ///</summary>
+        [Description( "fork" )]
+        Fork,
+        ///<summary>
+        ///form
+        ///</summary>
+        [Description( "form" )]
+        Form,
+        ///<summary>
+        ///fullscreen-exit
+        ///</summary>
+        [Description( "fullscreen-exit" )]
+        FullscreenExit,
+        ///<summary>
+        ///fullscreen
+        ///</summary>
+        [Description( "fullscreen" )]
+        Fullscreen,
+        ///<summary>
+        ///gateway
+        ///</summary>
+        [Description( "gateway" )]
+        Gateway,
+        ///<summary>
+        ///global
+        ///</summary>
+        [Description( "global" )]
+        Global,
+        ///<summary>
+        ///gold
+        ///</summary>
+        [Description( "gold" )]
+        Gold,
+        ///<summary>
+        ///google-plus
+        ///</summary>
+        [Description( "google-plus" )]
+        GooglePlus,
+        ///<summary>
+        ///google
+        ///</summary>
+        [Description( "google" )]
+        Google,
+        ///<summary>
+        ///heat-map
+        ///</summary>
+        [Description( "heat-map" )]
+        HeatMap,
+        ///<summary>
+        ///ie
+        ///</summary>
+        [Description( "ie" )]
+        Ie,
+        ///<summary>
+        ///import
+        ///</summary>
+        [Description( "import" )]
+        Import,
+        ///<summary>
+        ///inbox
+        ///</summary>
+        [Description( "inbox" )]
+        Inbox,
+        ///<summary>
+        ///info
+        ///</summary>
+        [Description( "info" )]
+        Info,
+        ///<summary>
+        ///issues-close
+        ///</summary>
+        [Description( "issues-close" )]
+        IssuesClose,
+        ///<summary>
+        ///italic
+        ///</summary>
+        [Description( "italic" )]
+        Italic,
+        ///<summary>
+        ///key
+        ///</summary>
+        [Description( "key" )]
+        Key,
+        ///<summary>
+        ///laptop
+        ///</summary>
+        [Description( "laptop" )]
+        Laptop,
+
+        ///<summary>
+        ///left
+        ///</summary>
+        [Description( "left" )]
+        Left,
+        ///<summary>
+        ///line-chart
+        ///</summary>
+        [Description( "line-chart" )]
+        LineChart,
+        ///<summary>
+        ///line-height
+        ///</summary>
+        [Description( "line-height" )]
+        LineHeight,
+        ///<summary>
+        ///line
+        ///</summary>
+        [Description( "line" )]
+        Line,
+        ///<summary>
+        ///link
+        ///</summary>
+        [Description( "link" )]
+        Link,
+        ///<summary>
+        ///loading-3-quarters
+        ///</summary>
+        [Description( "loading-3-quarters" )]
+        Loading3Quarters,
+        ///<summary>
+        ///loading
+        ///</summary>
+        [Description( "loading" )]
+        Loading,
+        ///<summary>
+        ///login
+        ///</summary>
+        [Description( "login" )]
+        Login,
+        ///<summary>
+        ///logout
+        ///</summary>
+        [Description( "logout" )]
+        Logout,
+        ///<summary>
+        ///man
+        ///</summary>
+        [Description( "man" )]
+        Man,
+        ///<summary>
+        ///medium-workmark
+        ///</summary>
+        [Description( "medium-workmark" )]
+        MediumWorkmark,
+        ///<summary>
+        ///medium
+        ///</summary>
+        [Description( "medium" )]
+        Medium,
+        ///<summary>
+        ///menu-fold
+        ///</summary>
+        [Description( "menu-fold" )]
+        MenuFold,
+        ///<summary>
+        ///menu-unfold
+        ///</summary>
+        [Description( "menu-unfold" )]
+        MenuUnfold,
+        ///<summary>
+        ///menu
+        ///</summary>
+        [Description( "menu" )]
+        Menu,
+        ///<summary>
+        ///minus
+        ///</summary>
+        [Description( "minus" )]
+        Minus,
+        ///<summary>
+        ///monitor
+        ///</summary>
+        [Description( "monitor" )]
+        Monitor,
+        ///<summary>
+        ///mr
+        ///</summary>
+        [Description( "mr" )]
+        Mr,
+        ///<summary>
+        ///number
+        ///</summary>
+        [Description( "number" )]
+        Number,
+        ///<summary>
+        ///ordered-list
+        ///</summary>
+        [Description( "ordered-list" )]
+        OrderedList,
+        ///<summary>
+        ///paper-clip
+        ///</summary>
+        [Description( "paper-clip" )]
+        PaperClip,
+        ///<summary>
+        ///pause
+        ///</summary>
+        [Description( "pause" )]
+        Pause,
+        ///<summary>
+        ///percentage
+        ///</summary>
+        [Description( "percentage" )]
+        Percentage,
+        ///<summary>
+        ///pic-center
+        ///</summary>
+        [Description( "pic-center" )]
+        PicCenter,
+        ///<summary>
+        ///pic-left
+        ///</summary>
+        [Description( "pic-left" )]
+        PicLeft,
+        ///<summary>
+        ///pic-right
+        ///</summary>
+        [Description( "pic-right" )]
+        PicRight,
+        ///<summary>
+        ///plus
+        ///</summary>
+        [Description( "plus" )]
+        Plus,
+        ///<summary>
+        ///pound
+        ///</summary>
+        [Description( "pound" )]
+        Pound,
+        ///<summary>
+        ///poweroff
+        ///</summary>
+        [Description( "poweroff" )]
+        Poweroff,
+        ///<summary>
+        ///qq
+        ///</summary>
+        [Description( "qq" )]
+        Qq,
+        ///<summary>
+        ///qrcode
+        ///</summary>
+        [Description( "qrcode" )]
+        Qrcode,
+        ///<summary>
+        ///question
+        ///</summary>
+        [Description( "question" )]
+        Question,
+        ///<summary>
+        ///radar-chart
+        ///</summary>
+        [Description( "radar-chart" )]
+        RadarChart,
+        ///<summary>
+        ///radius-bottomleft
+        ///</summary>
+        [Description( "radius-bottomleft" )]
+        RadiusBottomleft,
+        ///<summary>
+        ///radius-bottomright
+        ///</summary>
+        [Description( "radius-bottomright" )]
+        RadiusBottomright,
+        ///<summary>
+        ///radius-setting
+        ///</summary>
+        [Description( "radius-setting" )]
+        RadiusSetting,
+        ///<summary>
+        ///radius-upleft
+        ///</summary>
+        [Description( "radius-upleft" )]
+        RadiusUpleft,
+        ///<summary>
+        ///radius-upright
+        ///</summary>
+        [Description( "radius-upright" )]
+        RadiusUpright,
+        ///<summary>
+        ///reddit
+        ///</summary>
+        [Description( "reddit" )]
+        Reddit,
+        ///<summary>
+        ///redo
+        ///</summary>
+        [Description( "redo" )]
+        Redo,
+        ///<summary>
+        ///reload
+        ///</summary>
+        [Description( "reload" )]
+        Reload,
+        ///<summary>
+        ///reload-time
+        ///</summary>
+        [Description( "reload-time" )]
+        ReloadTime,
+        ///<summary>
+        ///retweet
+        ///</summary>
+        [Description( "retweet" )]
+        Retweet,
+        ///<summary>
+        ///right
+        ///</summary>
+        [Description( "right" )]
+        Right,
+        ///<summary>
+        ///rise
+        ///</summary>
+        [Description( "rise" )]
+        Rise,
+        ///<summary>
+        ///robot
+        ///</summary>
+        [Description( "robot" )]
+        Robot,
+        ///<summary>
+        ///rollback
+        ///</summary>
+        [Description( "rollback" )]
+        Rollback,
+        ///<summary>
+        ///safety
+        ///</summary>
+        [Description( "safety" )]
+        Safety,
+        ///<summary>
+        ///scan
+        ///</summary>
+        [Description( "scan" )]
+        Scan,
+        ///<summary>
+        ///scissor
+        ///</summary>
+        [Description( "scissor" )]
+        Scissor,
+        ///<summary>
+        ///search
+        ///</summary>
+        [Description( "search" )]
+        Search,
+        ///<summary>
+        ///select
+        ///</summary>
+        [Description( "select" )]
+        Select,
+        ///<summary>
+        ///shake
+        ///</summary>
+        [Description( "shake" )]
+        Shake,
+        ///<summary>
+        ///share-alt
+        ///</summary>
+        [Description( "share-alt" )]
+        ShareAlt,
+        ///<summary>
+        ///shopping-cart
+        ///</summary>
+        [Description( "shopping-cart" )]
+        ShoppingCart,
+        ///<summary>
+        ///shrink
+        ///</summary>
+        [Description( "shrink" )]
+        Shrink,
+        ///<summary>
+        ///sketch
+        ///</summary>
+        [Description( "sketch" )]
+        Sketch,
+        ///<summary>
+        ///slack
+        ///</summary>
+        [Description( "slack" )]
+        Slack,
+        ///<summary>
+        ///small-dash
+        ///</summary>
+        [Description( "small-dash" )]
+        SmallDash,
+        ///<summary>
+        ///solution
+        ///</summary>
+        [Description( "solution" )]
+        Solution,
+        ///<summary>
+        ///sort-ascending
+        ///</summary>
+        [Description( "sort-ascending" )]
+        SortAscending,
+        ///<summary>
+        ///sort-descending
+        ///</summary>
+        [Description( "sort-descending" )]
+        SortDescending,
+        ///<summary>
+        ///stock
+        ///</summary>
+        [Description( "stock" )]
+        Stock,
+        ///<summary>
+        ///strikethrough
+        ///</summary>
+        [Description( "strikethrough" )]
+        Strikethrough,
+        ///<summary>
+        ///swap-left
+        ///</summary>
+        [Description( "swap-left" )]
+        SwapLeft,
+        ///<summary>
+        ///swap-right
+        ///</summary>
+        [Description( "swap-right" )]
+        SwapRight,
+        ///<summary>
+        ///swap
+        ///</summary>
+        [Description( "swap" )]
+        Swap,
+        ///<summary>
+        ///table
+        ///</summary>
+        [Description( "table" )]
+        Table,
+        ///<summary>
+        ///taobao
+        ///</summary>
+        [Description( "taobao" )]
+        Taobao,
+        ///<summary>
+        ///team
+        ///</summary>
+        [Description( "team" )]
+        Team,
+        ///<summary>
+        ///to-top
+        ///</summary>
+        [Description( "to-top" )]
+        ToTop,
+        ///<summary>
+        ///trademark
+        ///</summary>
+        [Description( "trademark" )]
+        Trademark,
+        ///<summary>
+        ///transaction
+        ///</summary>
+        [Description( "transaction" )]
+        Transaction,
+        ///<summary>
+        ///twitter
+        ///</summary>
+        [Description( "twitter" )]
+        Twitter,
+        ///<summary>
+        ///underline
+        ///</summary>
+        [Description( "underline" )]
+        Underline,
+        ///<summary>
+        ///undo
+        ///</summary>
+        [Description( "undo" )]
+        Undo,
+        ///<summary>
+        ///unordered-list
+        ///</summary>
+        [Description( "unordered-list" )]
+        UnorderedList,
+        ///<summary>
+        ///up
+        ///</summary>
+        [Description( "up" )]
+        Up,
+        ///<summary>
+        ///user-add
+        ///</summary>
+        [Description( "user-add" )]
+        UserAdd,
+        ///<summary>
+        ///user-delete
+        ///</summary>
+        [Description( "user-delete" )]
+        UserDelete,
+        ///<summary>
+        ///user
+        ///</summary>
+        [Description( "user" )]
+        User,
+        ///<summary>
+        ///usergroup-add
+        ///</summary>
+        [Description( "usergroup-add" )]
+        UsergroupAdd,
+        ///<summary>
+        ///usergroup-delete
+        ///</summary>
+        [Description( "usergroup-delete" )]
+        UsergroupDelete,
+        ///<summary>
+        ///vertical-align-bottom
+        ///</summary>
+        [Description( "vertical-align-bottom" )]
+        VerticalAlignBottom,
+        ///<summary>
+        ///vertical-align-middle
+        ///</summary>
+        [Description( "vertical-align-middle" )]
+        VerticalAlignMiddle,
+        ///<summary>
+        ///vertical-align-top
+        ///</summary>
+        [Description( "vertical-align-top" )]
+        VerticalAlignTop,
+        ///<summary>
+        ///vertical-left
+        ///</summary>
+        [Description( "vertical-left" )]
+        VerticalLeft,
+        ///<summary>
+        ///vertical-right
+        ///</summary>
+        [Description( "vertical-right" )]
+        VerticalRight,
+        ///<summary>
+        ///weibo
+        ///</summary>
+        [Description( "weibo" )]
+        Weibo,
+        ///<summary>
+        ///wifi
+        ///</summary>
+        [Description( "wifi" )]
+        Wifi,
+        ///<summary>
+        ///woman
+        ///</summary>
+        [Description( "woman" )]
+        Woman,
+        ///<summary>
+        ///zhihu
+        ///</summary>
+        [Description( "zhihu" )]
+        Zhihu,
+        ///<summary>
+        ///zoom-in
+        ///</summary>
+        [Description( "zoom-in" )]
+        ZoomIn,
+        ///<summary>
+        ///zoom-out
+        ///</summary>
+        [Description( "zoom-out" )]
+        ZoomOut,
+        ///<summary>
+        ///canlendar
+        ///</summary>
+        [Description( "canlendar" )]
+        Canlendar
     }
 }

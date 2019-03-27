@@ -503,5 +503,25 @@
         /// 最大行数
         /// </summary>
         public const string MaxRows = "max-rows";
+        /// <summary>
+        /// 主题
+        /// </summary>
+        public const string Theme = "theme";
+        /// <summary>
+        /// 形状
+        /// </summary>
+        public const string Shape = "shape";
+        /// <summary>
+        /// 加载状态
+        /// </summary>
+        public const string Loading = "loading";
+        /// <summary>
+        /// 块
+        /// </summary>
+        public const string Block = "block";
+        /// <summary>
+        /// 幽灵
+        /// </summary>
+        public const string Ghost = "ghost";
     }
 }
