@@ -47,7 +47,13 @@ module.exports = (env) => {
                         }
                     }]
                 },
-                { test: /\.css$/, use: extractCss.extract({ use: 'css-loader' }) },
+                {
+                    test: /\.css$/, use: [{
+                        loader: 'to-string-loader'
+                    }, {
+                        loader: "css-loader"
+                    }]
+                },
                 {
                     test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
                         loader: 'url-loader',

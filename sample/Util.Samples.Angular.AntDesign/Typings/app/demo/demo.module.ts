@@ -9,13 +9,17 @@ import { DemoRoutingModule } from './demo-routing.module';
 //表单组件
 import { BasicFormComponent } from "./forms/basic-form.component";
 
+//列表组件
+import { TableListComponent } from "./list/table-list.component";
+
 /**
  * Demo模块
  */
 @NgModule( {
     imports: [FrameworkModule, DemoRoutingModule],
     declarations: [
-        BasicFormComponent
+        BasicFormComponent,
+        TableListComponent
     ]
 } )
 export class DemoModule { }

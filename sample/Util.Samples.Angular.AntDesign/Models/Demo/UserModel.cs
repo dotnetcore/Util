@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Util.Biz.Enums;
+using Util.Ui.Attributes;
 
 namespace Util.Samples.Models.Demo {
     /// <summary>
     /// 用户视图模型
     /// </summary>
+    [Model]
     public class UserModel {
         /// <summary>
         /// 标识
@@ -30,5 +33,15 @@ namespace Util.Samples.Models.Demo {
         /// </summary>
         [Display( Name = "地址" )]
         public string Address { get; set; }
+        /// <summary>
+        /// 民族
+        /// </summary>
+        [Display( Name = "民族" )]
+        public Nation Nation { get; set; }
+        /// <summary>
+        /// 民族
+        /// </summary>
+        [Display( Name = "民族" )]
+        public string NationDescription => Nation.Description();
     }
 }

@@ -66,6 +66,16 @@ namespace Util.Samples.Apis.Home {
                                 Link = "/demo/form/basic-form"
                             }
                         }
+                    },
+                    new MenuInfo {
+                        Text = "列表",
+                        Icon = "anticon anticon-edit",
+                        Children = {
+                            new MenuInfo {
+                                Text = "基础列表",
+                                Link = "/demo/list/table-list"
+                            }
+                        }
                     }
                 }
             };

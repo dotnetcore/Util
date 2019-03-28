@@ -6,7 +6,7 @@ import { env } from '../../env';
  */
 @Component( {
     selector: 'app-components-table',
-    templateUrl: !env.dev() ? './html/textbox.component.html' : '/View/Components/DataDisplay/Table',
+    templateUrl: !env.dev() ? './html/textbox.component.html' : '/View/Components/DataDisplay/Table'
 } )
 export class TableComponent {
 }

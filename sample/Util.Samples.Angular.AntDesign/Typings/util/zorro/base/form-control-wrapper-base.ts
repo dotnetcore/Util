@@ -25,7 +25,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 占位提示符
      */
-    @Input() placeholder: string;
+    @Input() placeholder?: string;
     /**
      * 必填项
      */
@@ -77,6 +77,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     constructor( @Optional() @Host() private form: NgForm) {
         this.requiredMessage = MessageConfig.requiredMessage;
+        this.placeholder = '';
     }
 
     /**
