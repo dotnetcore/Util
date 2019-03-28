@@ -38,7 +38,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigColumn( builder );
-            ConfigType( builder );
             ConfigContent( builder );
         }
 
@@ -46,16 +45,22 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 配置列
         /// </summary>
         private void ConfigColumn( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Column ) == false )
-                return;
-            builder.AppendContent( $"{{{{row.{_config.GetValue( UiConst.Column )}}}}}" );
-        }
-
-        /// <summary>
-        /// 配置类型
-        /// </summary>
-        private void ConfigType( TagBuilder builder ) {
-            ConfigCheckbox( builder );
+            var type = _config.GetValue<TableColumnType?>( UiConst.Type );
+            var column = _config.GetValue( UiConst.Column );
+            switch( type ) {
+                case TableColumnType.Checkbox:
+                    ConfigCheckbox( builder );
+                    return;
+                case TableColumnType.Bool:
+                    //AddBoolCell( cellBuilder, column );
+                    return;
+                case TableColumnType.Date:
+                    AddDateColumn( builder, column );
+                    return;
+                default:
+                    AddDefaultColumn( builder,column );
+                    return;
+            }
         }
 
         /// <summary>
@@ -69,6 +74,27 @@ namespace Util.Ui.Zorro.Tables.Renders {
             builder.AddAttribute( "(click)", "$event.stopPropagation()" );
             builder.AddAttribute( "(nzCheckedChange)", $"{tableId}_wrapper.checkedSelection.toggle(row)" );
             builder.AddAttribute( "[nzChecked]", $"{tableId}_wrapper.checkedSelection.isSelected(row)" );
+        }
+
+        /// <summary>
+        /// 添加日期类型列
+        /// </summary>
+        private void AddDateColumn( TagBuilder builder, string column ) {
+            if( column.IsEmpty() )
+                return;
+            var format = _config.GetValue( UiConst.DateFormat );
+            if( string.IsNullOrWhiteSpace( format ) )
+                format = "yyyy-MM-dd";
+            builder.AppendContent( $"{{{{ row.{column} | date:\"{format}\" }}}}" );
+        }
+
+        /// <summary>
+        /// 添加默认列
+        /// </summary>
+        private void AddDefaultColumn( TagBuilder builder,string column ) {
+            if( column.IsEmpty() )
+                return;
+            builder.AppendContent( $"{{{{row.{column}}}}}" );
         }
     }
 }

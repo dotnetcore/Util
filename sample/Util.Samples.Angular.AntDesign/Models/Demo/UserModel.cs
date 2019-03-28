@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Util.Samples.Models.Demo {
     /// <summary>
@@ -19,6 +20,11 @@ namespace Util.Samples.Models.Demo {
         /// </summary>
         [Display( Name = "年龄" )]
         public double Age { get; set; }
+        /// <summary>
+        /// 出生年月
+        /// </summary>
+        [Display( Name = "出生年月" )]
+        public DateTime Birthday { get; set; }
         /// <summary>
         /// 地址
         /// </summary>

@@ -85,5 +85,27 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "</td>" );
              Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }
+
+        /// <summary>
+        /// 测试列名称
+        /// </summary>
+        [Fact]
+        public void TestType_Date() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<td>{{ row.a | date:\"yyyy-MM-dd\" }}</td>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试列名称
+        /// </summary>
+        [Fact]
+        public void TestType_Date_Format() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.DateFormat, "a" }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<td>{{ row.a | date:\"a\" }}</td>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

@@ -229,7 +229,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 加载数据
      */
     private loadData(result) {
-        if (result && result.totalCount) {
+        if (result && !util.helper.isUndefined(result.totalCount)) {
             result = new PagerList<T>(result);
             result.initLineNumbers();
             this.showPagination = true;

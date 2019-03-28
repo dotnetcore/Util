@@ -4,11 +4,13 @@
     展示行列数据
 </page-header>
 <nz-card>
+    @await Html.PartialAsync( "Table.Query" )
     <util-table id="userTable" url="/api/table/users">
         <util-table-row>
             <util-table-column type="Checkbox"></util-table-column>
             <util-table-column for="Name"></util-table-column>
             <util-table-column for="Age"></util-table-column>
+            <util-table-column for="Birthday"></util-table-column>
             <util-table-column for="Address"></util-table-column>
             <util-table-column title="操作">
                 <a>Action 一 {{ row.name }}</a>
