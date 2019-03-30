@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Util.Datas" Version="1.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Samples.Domain\Util.Samples.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

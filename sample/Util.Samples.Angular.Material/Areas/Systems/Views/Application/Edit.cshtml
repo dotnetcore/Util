@@ -1,4 +1,4 @@
-﻿@model Util.Samples.Services.Dtos.Systems.ApplicationDto
+﻿@model ApplicationDto
 
 <util-form id="form" on-submit="submit(form,btnSubmit)">
     <util-card>
@@ -31,7 +31,7 @@
             </util-layout>
             <util-layout class="mt30">
                 <util-layout-item flex="50%" offset="5%">
-                    <util-editor for="Comment" upload-url="/api/upload"></util-editor>
+                    <util-editor for="Comment"></util-editor>
                 </util-layout-item>
             </util-layout>
         </util-card-content>

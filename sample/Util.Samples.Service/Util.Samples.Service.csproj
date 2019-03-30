@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Util.Applications" Version="1.3.6" />
+    <PackageReference Include="Util.Ui.Core" Version="1.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Samples.Data\Util.Samples.Data.csproj" />
+  </ItemGroup>
+
+</Project>

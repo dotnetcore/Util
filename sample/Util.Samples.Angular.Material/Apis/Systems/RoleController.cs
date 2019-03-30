@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Util.Samples.Services.Abstractions.Systems;
-using Util.Samples.Services.Dtos.Systems;
-using Util.Samples.Services.Queries.Systems;
+using Util.Samples.Service.Abstractions.Systems;
+using Util.Samples.Service.Dtos.Systems;
+using Util.Samples.Service.Queries.Systems;
 using Util.Ui.Controllers;
 
 namespace Util.Samples.Apis.Systems {

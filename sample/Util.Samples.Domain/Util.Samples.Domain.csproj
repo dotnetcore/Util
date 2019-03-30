@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Util.Core" Version="1.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Models/Role.*.cs">
+      <DependentUpon>Role.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

@@ -27,6 +27,7 @@
   <ItemGroup>
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2022" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
+    <PackageReference Include="Util.Ui.Angular.Material" Version="1.3.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,18 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Applications\08-Util.Applications.csproj" />
-    <ProjectReference Include="..\..\src\Util.Biz.Payments\02-Util.Biz.Payments.csproj" />
-    <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
-    <ProjectReference Include="..\..\src\Util.Caches\04-Util.Caches.csproj" />
-    <ProjectReference Include="..\..\src\Util.Datas\07-Util.Datas.csproj" />
-    <ProjectReference Include="..\..\src\Util.Events\05-Util.Events.csproj" />
-    <ProjectReference Include="..\..\src\Util.Logs\03-Util.Logs.csproj" />
-    <ProjectReference Include="..\..\src\Util.Security\02-Util.Security.csproj" />
-    <ProjectReference Include="..\..\src\Util.Tools.QrCode\01-Util.Tools.QrCode.csproj" />
-    <ProjectReference Include="..\..\src\Util.Ui.Angular.Material\04-Util.Ui.Angular.Material.csproj" />
-    <ProjectReference Include="..\..\src\Util.Webs\09-Util.Webs.csproj" />
-    <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
+    <ProjectReference Include="..\Util.Samples.Service\Util.Samples.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
