@@ -86,5 +86,16 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "</th>" );
             Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }
+
+        /// <summary>
+        /// 测试排序
+        /// </summary>
+        [Fact]
+        public void TestSort() {
+            var attributes = new TagHelperAttributeList { { UiConst.Sort, "a" } };
+            var result = new String();
+            result.Append( "<th nzSortKey=\"a\" [nzShowSort]=\"true\"></th>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

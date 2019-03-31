@@ -8,5 +8,13 @@
         /// </summary>
         public TableHeadBuilder() : base( "thead" ) {
         }
+
+        /// <summary>
+        /// 添加排序变更事件处理
+        /// </summary>
+        /// <param name="onSortChange">排序变更事件处理函数</param>
+        public void AddSortChange( string onSortChange ) {
+            AddAttribute( "(nzSortChange)", onSortChange );
+        }
     }
 }

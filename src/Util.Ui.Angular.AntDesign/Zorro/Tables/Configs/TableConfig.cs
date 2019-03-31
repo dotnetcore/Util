@@ -21,6 +21,11 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public const string TableShareKey = "TableShare";
 
         /// <summary>
+        /// 表格包装器标识
+        /// </summary>
+        public string WrapperId => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).TableWrapperId;
+
+        /// <summary>
         /// 表格标识
         /// </summary>
         public string Id => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).TableId;
@@ -28,7 +33,7 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// <summary>
         /// 标题集合
         /// </summary>
-        public List<string> Titles => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).Titles;
+        public List<ColumnInfo> Columns => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).Columns;
 
         /// <summary>
         /// 是否自动创建行
@@ -44,5 +49,10 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// 是否自动创建表头复选框
         /// </summary>
         public bool AutoCreateHeadCheckbox => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).AutoCreateHeadCheckbox;
+
+        /// <summary>
+        /// 是否排序
+        /// </summary>
+        public bool IsSort => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).IsSort;
     }
 }

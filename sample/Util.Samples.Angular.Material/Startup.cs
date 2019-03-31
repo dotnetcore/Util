@@ -9,7 +9,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using Util.Datas.Ef;
 using Util.Logs.Extensions;
 using Util.Samples.Data;
-using Util.Samples.Data.UnitOfWorks.SqlServer;
 using Util.Webs.Extensions;
 
 namespace Util.Samples {
@@ -44,15 +43,15 @@ namespace Util.Samples {
 
             //添加EF工作单元
             //====== 支持Sql Server 2012+ ==========
-            services.AddUnitOfWork<ISampleUnitOfWork, SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
+            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
             //======= 支持Sql Server 2005+ ==========
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Data.SqlServer.SampleUnitOfWork>( builder => {
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.SqlServer.SampleUnitOfWork>( builder => {
             //    builder.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ), option => option.UseRowNumberForPaging() );
             //} );
             //======= 支持PgSql =======
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Data.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
             //======= 支持MySql =======
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Data.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
 
             //添加Swagger
             services.AddSwaggerGen( options => {

@@ -55,6 +55,10 @@ namespace Util.Ui.Zorro.Tables {
         /// 7. 毫秒 - SSS
         /// </summary>
         public string DateFormat { get; set; }
+        /// <summary>
+        /// 是否排序
+        /// </summary>
+        public bool Sort { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -91,18 +95,22 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         private void SetShareConfig() {
             var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
-            AddTitle( shareConfig );
+            AddColumn( shareConfig );
             AddCheckbox( shareConfig );
         }
 
         /// <summary>
-        /// 添加标题配置
+        /// 添加列配置
         /// </summary>
-        private void AddTitle( TableShareConfig config ) {
+        private void AddColumn( TableShareConfig config ) {
             if( _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox )
                 return;
             var title = _config.GetValue<string>( UiConst.Title );
-            config?.Titles.Add( title );
+            var column = _config.GetValue<string>( UiConst.Column );
+            var isSort = _config.GetValue<bool>( UiConst.Sort );
+            if ( isSort )
+                config.IsSort = true;
+            config?.Columns.Add( new ColumnInfo( title,column, isSort ) );
         }
 
         /// <summary>

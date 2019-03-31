@@ -1,19 +1,19 @@
 ﻿@page
-@model UserModel
+@model ApplicationDto
 <page-header [title]="'查询表格'"></page-header>
 <nz-card [nzBordered]="false">
     <form nz-form [nzLayout]="'inline'"  class="search__form">
         <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
             <div nz-col nzMd="8" nzSm="24">
                 <nz-form-item>
-                    <nz-form-label nzFor="no">姓名</nz-form-label>
-                    <util-textbox for="Name"></util-textbox>
+                    <nz-form-label nzFor="no">应用程序编码</nz-form-label>
+                    
                 </nz-form-item>
             </div>
             <div nz-col nzMd="8" nzSm="24">
                 <nz-form-item>
-                    <nz-form-label nzFor="status">民族</nz-form-label>
-                    <util-select for="Nation"></util-select>
+                    <nz-form-label nzFor="status">应用程序名称</nz-form-label>
+                  
                 </nz-form-item>
             </div>
             <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
@@ -75,20 +75,14 @@
             </ng-template>
         </nz-alert>
     </div>
-    <util-table id="userTable" url="/api/table/users">
-        <util-table-row>
-            <util-table-column type="Checkbox"></util-table-column>
-            <util-table-column for="Name"></util-table-column>
-            <util-table-column for="Age"></util-table-column>
-            <util-table-column for="Birthday"></util-table-column>
-            <util-table-column for="NationDescription"></util-table-column>
-            <util-table-column for="Address"></util-table-column>
-            <util-table-column title="操作">
-                <a>Action 一 {{ row.name }}</a>
-                <nz-divider nzType="vertical"></nz-divider>
-                <a>Delete</a>
-            </util-table-column>
-        </util-table-row>
+
+    <util-table id="tableApplication" query-param="queryParam" base-url="application" sort="CreationTime desc">
+        <util-table-column type="Checkbox" ></util-table-column>
+        <util-table-column for="Code" sort="true"></util-table-column>
+        <util-table-column for="Name"></util-table-column>
+        <util-table-column for="Enabled"></util-table-column>
+        <util-table-column for="RegisterEnabled"></util-table-column>
+        <util-table-column for="CreationTime"></util-table-column>
     </util-table>
 </nz-card>
 

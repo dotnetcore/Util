@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Util.Datas" Version="1.3.6" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\src\Util.Datas\07-Util.Datas.csproj" />
     <ProjectReference Include="..\Util.Samples.Domain\Util.Samples.Domain.csproj" />
   </ItemGroup>
 

@@ -225,5 +225,24 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "</nz-table-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试排序
+        /// </summary>
+        [Fact]
+        public void TestSort() {
+            var attributes = new TagHelperAttributeList { { UiConst.Sort, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" sortKey=\"a\">" );
+            result.Append( "<nz-table #m_id=\"\" [nzData]=\"m_id_wrapper.dataSource\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "</nz-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

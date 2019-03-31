@@ -1,17 +1,14 @@
 ﻿using System;
 using System.IO;
-using EasyCaching.InMemory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using Util.Caches.EasyCaching;
-using Util.Events.Cap;
-using Util.Events.Default;
-using Util.Locks.Default;
+using Util.Datas.Ef;
 using Util.Logs.Extensions;
+using Util.Samples.Data;
 using Util.Ui.Extensions;
 using Util.Webs.Extensions;
 
@@ -49,26 +46,17 @@ namespace Util.Samples {
             //添加NLog日志操作
             services.AddNLog();
 
-            //添加EasyCaching缓存
-            services.AddCache( options => options.UseInMemory() );
-
-            //添加业务锁
-            services.AddLock();
-
-            //注册XSRF令牌服务
-            services.AddXsrfToken();
-
             //添加EF工作单元
             //====== 支持Sql Server 2012+ ==========
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Data.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
+            services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.SqlServer.SampleUnitOfWork>( Configuration.GetConnectionString( "DefaultConnection" ) );
             //======= 支持Sql Server 2005+ ==========
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Data.SqlServer.SampleUnitOfWork>( builder => {
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.SqlServer.SampleUnitOfWork>( builder => {
             //    builder.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ), option => option.UseRowNumberForPaging() );
             //} );
             //======= 支持PgSql =======
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Data.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
             //======= 支持MySql =======
-            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Webs.Data.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
 
             //添加Swagger
             services.AddSwaggerGen( options => {
@@ -77,16 +65,6 @@ namespace Util.Samples {
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Webs.xml" ) );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.xml" ) );
             } );
-
-            //添加事件总线
-            services.AddEventBus();
-
-            //添加Cap事件总线
-            //services.AddEventBus( options => {
-            //    options.UseDashboard();
-            //    options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) );
-            //    options.UseRabbitMQ( "192.168.244.138" );
-            //} );
 
             //添加Util基础设施服务
             return services.AddUtil();
@@ -121,7 +99,6 @@ namespace Util.Samples {
             app.UseErrorLog();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseXsrfToken();
             ConfigRoute( app );
         }
 

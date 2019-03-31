@@ -29,5 +29,16 @@ namespace Util.Ui.Zorro.Tables.Builders {
             AddAttribute( "[nzDisabled]", $"!{tableId}_wrapper.dataSource.length" );
             AddAttribute( "[nzIndeterminate]", $"{tableId}_wrapper.isMasterIndeterminate()" );
         }
+
+        /// <summary>
+        /// 添加排序
+        /// </summary>
+        /// <param name="sortKey">排序字段</param>
+        public void AddSort( string sortKey ) {
+            if ( sortKey.IsEmpty() )
+                return;
+            AddAttribute( "[nzShowSort]", "true" );
+            AddAttribute( "nzSortKey", sortKey );
+        }
     }
 }

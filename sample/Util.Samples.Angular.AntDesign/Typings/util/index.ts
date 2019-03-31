@@ -8,6 +8,7 @@ export { HttpContentType, HttpMethod } from "./angular/http-helper";
 export { ComponentBase } from './base/component-base';
 export { FormComponentBase } from './base/form-component-base';
 export { EditComponentBase } from './base/edit-component-base';
+export { TableQueryComponentBase } from './base/table-query-component-base';
 export { IKey, ViewModel, QueryParameter } from './core/model';
 export { TreeViewModel, TreeQueryParameter } from './core/tree';
 export { PagerList } from './core/pager-list';

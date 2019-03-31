@@ -14,16 +14,17 @@ namespace Util.Ui.Zorro.Tables {
     [HtmlTargetElement( "util-table-head", ParentTag = "util-table" )]
     public class HeadTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// 行单击事件，使用row访问行对象，范例：on-click="click(row)"
+        /// (nzSortChange),排序变更事件,范例：on-sort-change="sort($event)"
         /// </summary>
-        public string OnClick { get; set; }
+        public string OnSortChange { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new HeadRender( new Config( context ) );
+            var shareConfig = context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            return new HeadRender( new Config( context ), shareConfig?.TableWrapperId, shareConfig?.IsSort );
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace Util.Ui.Zorro.Tables {
         /// <param name="output">TagHelper输出</param>
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
             var shareConfig = context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
-            if ( shareConfig == null )
+            if( shareConfig == null )
                 return;
             shareConfig.AutoCreateHead = false;
         }

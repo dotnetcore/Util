@@ -43,13 +43,9 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string QueryParam { get; set; }
         /// <summary>
-        /// 排序列名
+        /// 排序字段
         /// </summary>
         public string Sort { get; set; }
-        /// <summary>
-        /// 排序方向
-        /// </summary>
-        public SortDirection SortDirection { get; set; }
         /// <summary>
         /// 最大高度
         /// </summary>

@@ -25,11 +25,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
-    <ProjectReference Include="..\..\src\Util.Caches\04-Util.Caches.csproj" />
-    <ProjectReference Include="..\..\src\Util.Events\05-Util.Events.csproj" />
     <ProjectReference Include="..\..\src\Util.Ui.Angular.AntDesign\05-Util.Ui.Angular.AntDesign.csproj" />
-    <ProjectReference Include="..\..\src\Util.Ui.Core\02-Util.Ui.Core.csproj" />
-    <ProjectReference Include="..\..\src\Util.Webs\09-Util.Webs.csproj" />
+    <ProjectReference Include="..\Util.Samples.Service\Util.Samples.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

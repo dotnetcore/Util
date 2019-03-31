@@ -523,5 +523,9 @@
         /// 幽灵
         /// </summary>
         public const string Ghost = "ghost";
+        /// <summary>
+        /// 排序变更事件
+        /// </summary>
+        public const string OnSortChange = "on-sort-change";
     }
 }

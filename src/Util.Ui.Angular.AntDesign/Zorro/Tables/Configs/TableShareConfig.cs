@@ -11,10 +11,16 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// <param name="tableId">表格标识</param>
         public TableShareConfig( string tableId ) {
             TableId = tableId;
-            Titles = new List<string>();
+            Columns = new List<ColumnInfo>();
             AutoCreateRow = true;
             AutoCreateHead = true;
+            AutoCreateSort = true;
         }
+
+        /// <summary>
+        /// 表格包装器标识
+        /// </summary>
+        public string TableWrapperId => $"{TableId}_wrapper";
 
         /// <summary>
         /// 表格标识
@@ -22,9 +28,9 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public string TableId { get; }
 
         /// <summary>
-        /// 标题集合
+        /// 列信息集合
         /// </summary>
-        public List<string> Titles { get; }
+        public List<ColumnInfo> Columns { get; }
 
         /// <summary>
         /// 是否自动创建行
@@ -40,5 +46,15 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// 是否自动创建表头复选框
         /// </summary>
         public bool AutoCreateHeadCheckbox { get; set; }
+
+        /// <summary>
+        /// 是否自动创建排序列
+        /// </summary>
+        public bool AutoCreateSort { get; set; }
+
+        /// <summary>
+        /// 是否排序
+        /// </summary>
+        public bool IsSort { get; set; }
     }
 }

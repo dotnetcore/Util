@@ -39,6 +39,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected void Config( TableHeadColumnBuilder builder ) {
             ConfigId( builder );
             ConfigTitle( builder );
+            ConfigSort( builder );
             ConfigType( builder );
             ConfigContent( builder );
         }
@@ -47,7 +48,36 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 配置标题
         /// </summary>
         private void ConfigTitle( TableHeadColumnBuilder builder ) {
-            builder.Title( _config.GetValue( UiConst.Title ) );
+            builder.Title( GetTitle() );
+        }
+
+        /// <summary>
+        /// 获取标题
+        /// </summary>
+        private string GetTitle() {
+            return _config.GetValue( UiConst.Title );
+        }
+
+        /// <summary>
+        /// 配置排序
+        /// </summary>
+        private void ConfigSort( TableHeadColumnBuilder builder ) {
+            var shareConfig = GetShareConfig();
+            var columnInfo = shareConfig?.Columns.Find( t => t.IsSort && t.Title == GetTitle() );
+            if ( columnInfo != null ) {
+                builder.AddSort( columnInfo.Column );
+                return;
+            }
+            if ( _config.Contains( UiConst.Sort ) == false )
+                return;
+            builder.AddSort( _config.GetValue( UiConst.Sort ) );
+        }
+
+        /// <summary>
+        /// 获取共享配置
+        /// </summary>
+        private TableShareConfig GetShareConfig() {
+            return _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
         }
 
         /// <summary>

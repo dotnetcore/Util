@@ -16,14 +16,14 @@ import { Util as util } from '../util';
 /**
  * NgZorro表格包装器
  */
-@Component({
+@Component( {
     selector: 'nz-table-wrapper',
     template: `
         <ng-content></ng-content>
     `,
     styles: [`
     `]
-})
+} )
 export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**
      * 查询延迟
@@ -41,10 +41,6 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 总行数
      */
     totalCount = 0;
-    /**
-     * 初始排序
-     */
-    initOrder: string;
     /**
      * 数据源
      */
@@ -102,30 +98,24 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     @Input() queryParam: QueryParameter;
     /**
+     * 初始排序字段
+     */
+    @Input() sortKey: string;
+    /**
      * 查询参数变更事件
      */
     @Output() queryParamChange = new EventEmitter<QueryParameter>();
 
     /**
-     * 获取样式
-     */
-    getStyle() {
-        return {
-            'max-height': this.maxHeight ? `${this.maxHeight}px` : null,
-            'width': this.width ? `${this.width}px` : null
-        };
-    }
-
-    /**
      * 初始化表格包装器
      */
-    constructor(private dic: DicService<QueryParameter>) {
+    constructor( private dic: DicService<QueryParameter> ) {
         this.minHeight = 300;
         this.pageSizeOptions = [10, 20, 50, 100];
         this.showPagination = true;
         this.dataSource = new Array<any>();
-        this.checkedSelection = new SelectionModel<T>(true, []);
-        this.selectedSelection = new SelectionModel<T>(false, []);
+        this.checkedSelection = new SelectionModel<T>( true, [] );
+        this.selectedSelection = new SelectionModel<T>( false, [] );
         this.loading = false;
         this.autoLoad = true;
         this.queryParam = new QueryParameter();
@@ -139,7 +129,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         this.initPaginator();
         this.initSort();
         this.restoreQueryParam();
-        if (this.autoLoad)
+        if ( this.autoLoad )
             this.query();
     }
 
@@ -160,46 +150,50 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     private initPage() {
         this.queryParam.page = 1;
-        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
+        if ( this.pageSizeOptions && this.pageSizeOptions.length > 0 )
             this.queryParam.pageSize = this.pageSizeOptions[0];
     }
 
     /**
-    * 初始化排序组件
+    * 初始化排序
     */
     private initSort() {
-        //if (!this.sort)
-        //    return;
-        //this.setOrder();
-        //this.sort.sortChange && this.sort.sortChange.subscribe(() => {
-        //    this.setOrder();
-        //    this.query();
-        //});
-    }
-
-    /**
-     * 设置排序
-     */
-    private setOrder() {
-        //if (!this.sort.active)
-        //    return;
-        //let order = `${this.sort.active} ${this.sort.direction}`;
-        //if (!this.initOrder)
-        //    this.initOrder = order;
-        //this.queryParam.order = order;
+        if ( !this.sortKey )
+            return;
+        this.queryParam.order = this.sortKey;
     }
 
     /**
      * 还原查询参数
      */
     private restoreQueryParam() {
-        if (!this.key)
+        if ( !this.key )
             return;
-        let query = this.dic.get(this.key);
-        if (!query)
+        let query = this.dic.get( this.key );
+        if ( !query )
             return;
         this.queryParam = query;
-        this.queryParamChange.emit(query);
+        this.queryParamChange.emit( query );
+    }
+
+    /**
+     * 排序
+     * @param sortParam 排序参数，key为列名，value为升降序
+     */
+    sort( sortParam: { key: string; value: string } ): void {
+        this.queryParam.order = this.getSortKey( sortParam.key, sortParam.value );
+        this.query();
+    }
+
+    /**
+     * 获取排序字段
+     */
+    private getSortKey( sortKey, sortValue ) {
+        if ( !sortValue )
+            return this.sortKey;
+        if ( sortValue === 'ascend' )
+            return sortKey;
+        return `${sortKey} desc`;
     }
 
     /**
@@ -207,30 +201,30 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * @param url 查询请求地址
      * @param param 查询参数
      */
-    query( url: string = null, param = null) {
-        url = url || this.url || (this.baseUrl && `/api/${this.baseUrl}`);
-        if (!url) {
-            console.log("表格url未设置");
+    query( url: string = null, param = null ) {
+        url = url || this.url || ( this.baseUrl && `/api/${this.baseUrl}` );
+        if ( !url ) {
+            console.log( "表格url未设置" );
             return;
         }
         param = param || this.queryParam;
-        if (this.key)
-            this.dic.add(this.key, param);
-        webapi.get<any>(url).param(param).handle({
+        if ( this.key )
+            this.dic.add( this.key, param );
+        webapi.get<any>( url ).param( param ).handle( {
             before: () => { this.loading = true; return true; },
             ok: result => {
                 this.loadData( result );
             },
             complete: () => this.loading = false
-        });
+        } );
     }
 
     /**
      * 加载数据
      */
-    private loadData(result) {
-        if (result && !util.helper.isUndefined(result.totalCount)) {
-            result = new PagerList<T>(result);
+    private loadData( result ) {
+        if ( result && !util.helper.isUndefined( result.totalCount ) ) {
+            result = new PagerList<T>( result );
             result.initLineNumbers();
             this.showPagination = true;
             this.dataSource = result.data || [];
@@ -246,23 +240,23 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 延迟搜索
      * @param delay 查询延迟间隔，单位：毫秒，默认500
      */
-    search(delay?: number) {
-        if (this.timeout)
-            clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
+    search( delay?: number ) {
+        if ( this.timeout )
+            clearTimeout( this.timeout );
+        this.timeout = setTimeout( () => {
             this.query();
-        }, delay || this.delay);
+        }, delay || this.delay );
     }
 
     /**
      * 刷新
      * @param queryParam 查询参数
      */
-    refresh(queryParam) {
+    refresh( queryParam ) {
         this.queryParam = queryParam;
         this.initPage();
-        this.queryParam.order = this.initOrder;
-        this.dic.remove(this.key);
+        this.queryParam.order = this.sortKey;
+        this.dic.remove( this.key );
         this.query();
     }
 
@@ -280,11 +274,11 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 表头主复选框切换选中状态
      */
     masterToggle() {
-        if (this.isMasterChecked()) {
+        if ( this.isMasterChecked() ) {
             this.checkedSelection.clear();
             return;
         }
-        this.dataSource.forEach(data => this.checkedSelection.select(data));
+        this.dataSource.forEach( data => this.checkedSelection.select( data ) );
     }
 
     /**
@@ -300,28 +294,28 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 是否所有行复选框被选中
      */
     private isAllChecked() {
-        return this.dataSource.every(data => this.checkedSelection.isSelected(data));
+        return this.dataSource.every( data => this.checkedSelection.isSelected( data ) );
     }
 
     /**
      * 表头主复选框的确定状态
      */
     isMasterIndeterminate() {
-        return this.checkedSelection.hasValue() && (!this.isAllChecked() || !this.dataSource.length);
+        return this.checkedSelection.hasValue() && ( !this.isAllChecked() || !this.dataSource.length );
     }
 
     /**
      * 获取复选框被选中实体列表
      */
     getChecked(): T[] {
-        return this.dataSource.filter(data => this.checkedSelection.isSelected(data));
+        return this.dataSource.filter( data => this.checkedSelection.isSelected( data ) );
     }
 
     /**
      * 获取复选框被选中实体Id列表
      */
     getCheckedIds(): string {
-        return this.getChecked().map((value) => value.id).join(",");
+        return this.getChecked().map( ( value ) => value.id ).join( "," );
     }
 
     /**
@@ -330,44 +324,44 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * @param handler 删除成功回调函数
      * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
      */
-    delete(ids?: string, handler?: () => void, deleteUrl?: string) {
+    delete( ids?: string, handler?: () => void, deleteUrl?: string ) {
         ids = ids || this.getCheckedIds();
-        if (!ids) {
-            message.warn(config.deleteNotSelected);
+        if ( !ids ) {
+            message.warn( config.deleteNotSelected );
             return;
         }
-        message.confirm(config.deleteConfirm, () => {
-            this.deleteRequest(ids, handler, deleteUrl);
-        });
+        message.confirm( config.deleteConfirm, () => {
+            this.deleteRequest( ids, handler, deleteUrl );
+        } );
     }
 
     /**
      * 发送删除请求
      */
-    private deleteRequest(ids?: string, handler?: () => void, deleteUrl?: string) {
-        deleteUrl = deleteUrl || this.deleteUrl || (this.baseUrl && `/api/${this.baseUrl}/delete`);
-        if (!deleteUrl) {
-            console.log("表格deleteUrl未设置");
+    private deleteRequest( ids?: string, handler?: () => void, deleteUrl?: string ) {
+        deleteUrl = deleteUrl || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
+        if ( !deleteUrl ) {
+            console.log( "表格deleteUrl未设置" );
             return;
         }
-        webapi.post(deleteUrl, ids).handle({
+        webapi.post( deleteUrl, ids ).handle( {
             ok: () => {
-                if (handler) {
+                if ( handler ) {
                     handler();
                     return;
                 }
-                message.success(config.deleteSuccessed);
+                message.success( config.deleteSuccessed );
                 this.query();
             }
-        });
+        } );
     }
 
     /**
      * 选中一行
      * @param row 行
      */
-    checkRow(row) {
+    checkRow( row ) {
         this.checkedSelection.clear();
-        this.checkedSelection.select(row);
+        this.checkedSelection.select( row );
     }
 }

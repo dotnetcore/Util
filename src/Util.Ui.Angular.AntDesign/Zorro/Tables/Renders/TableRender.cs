@@ -51,6 +51,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             ConfigUrl( builder );
             ConfigSize( builder );
             ConfigAutoLoad( builder );
+            ConfigSort( builder );
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 获取表格包装器标识
         /// </summary>
         private string GetWrapperId() {
-            return $"{_config.Id}_wrapper";
+            return _config.WrapperId;
         }
 
         /// <summary>
@@ -101,6 +102,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigAutoLoad( TagBuilder builder ) {
             builder.AddAttribute( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
+        }
+
+        /// <summary>
+        /// 配置排序
+        /// </summary>
+        private void ConfigSort( TagBuilder builder ) {
+            builder.AddAttribute( "sortKey", _config.GetValue( UiConst.Sort ) );
         }
 
         /// <summary>
@@ -140,32 +148,45 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 添加表头
         /// </summary>
         protected virtual void AddHead( TagBuilder tableBuilder ) {
-            if( _config.Titles.Count == 0 || _config.AutoCreateHead == false )
+            if( _config.Columns.Count == 0 || _config.AutoCreateHead == false )
                 return;
             var headBuilder = new TableHeadBuilder();
             tableBuilder.AppendContent( headBuilder );
+            AddSortChange( headBuilder );
             var rowBuilder = new TableRowBuilder();
             AddHeadCheckbox( rowBuilder );
-            AddHeadTitles( rowBuilder );
+            AddHeadColumns( rowBuilder );
             headBuilder.AppendContent( rowBuilder );
+        }
+
+        /// <summary>
+        /// 添加排序变更事件处理
+        /// </summary>
+        private void AddSortChange( TableHeadBuilder headBuilder ) {
+            if ( _config.IsSort == false )
+                return;
+            headBuilder.AddSortChange( $"{GetWrapperId()}.sort($event)" );
         }
 
         /// <summary>
         /// 添加表头复选框
         /// </summary>
         private void AddHeadCheckbox( TableRowBuilder rowBuilder ) {
+            if( _config.AutoCreateHeadCheckbox == false )
+                return;
             var headColumnBuilder = new TableHeadColumnBuilder();
             headColumnBuilder.AddCheckBox( _config.Id );
             rowBuilder.AppendContent( headColumnBuilder );
         }
 
         /// <summary>
-        /// 添加标题列表
+        /// 添加标题列
         /// </summary>
-        private void AddHeadTitles( TableRowBuilder rowBuilder ) {
-            foreach( var title in _config.Titles ) {
+        private void AddHeadColumns( TableRowBuilder rowBuilder ) {
+            foreach( var column in _config.Columns ) {
                 var headColumnBuilder = new TableHeadColumnBuilder();
-                headColumnBuilder.Title( title );
+                headColumnBuilder.Title( column.Title );
+                headColumnBuilder.AddSort( column.GetSortKey() );
                 rowBuilder.AppendContent( headColumnBuilder );
             }
         }
