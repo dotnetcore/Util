@@ -117,6 +117,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected virtual void ConfigTable( TagBuilder builder ) {
             var tableBuilder = new TableBuilder();
             ConfigTableDefault( tableBuilder );
+            ConfigPage( tableBuilder );
             AddHead( tableBuilder );
             AddRow( tableBuilder );
             ConfigContent( tableBuilder );
@@ -131,6 +132,60 @@ namespace Util.Ui.Zorro.Tables.Renders {
             tableBuilder.AddAttribute( "[nzData]", $"{GetWrapperId()}.dataSource" );
             tableBuilder.AddAttribute( "[nzTotal]", $"{GetWrapperId()}.totalCount" );
             tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
+        }
+
+        /// <summary>
+        /// 配置分页
+        /// </summary>
+        private void ConfigPage( TagBuilder tableBuilder ) {
+            ConfigFrontPage( tableBuilder );
+            ConfigShowSizeChanger( tableBuilder );
+            ConfigOnPageSizeChange( tableBuilder );
+            ConfigOnPageIndexChange( tableBuilder );
+        }
+
+        /// <summary>
+        /// 配置前端分页
+        /// </summary>
+        private void ConfigFrontPage( TagBuilder tableBuilder ) {
+            if ( _config.Contains( UiConst.FrontPage ) ) {
+                tableBuilder.AddAttribute( "[nzFrontPagination]", _config.GetBoolValue( UiConst.FrontPage ) );
+                return;
+            }
+            tableBuilder.AddAttribute( "[nzFrontPagination]", "false" );
+        }
+
+        /// <summary>
+        /// 配置分页大小下拉框
+        /// </summary>
+        private void ConfigShowSizeChanger( TagBuilder tableBuilder ) {
+            if( _config.Contains( UiConst.ShowSizeChanger ) ) {
+                tableBuilder.AddAttribute( "[nzShowSizeChanger]", _config.GetBoolValue( UiConst.ShowSizeChanger ) );
+                return;
+            }
+            tableBuilder.AddAttribute( "[nzShowSizeChanger]", "true" );
+        }
+
+        /// <summary>
+        /// 配置分页大小变更事件
+        /// </summary>
+        private void ConfigOnPageSizeChange( TagBuilder tableBuilder ) {
+            if( _config.Contains( UiConst.OnPageSizeChange ) ) {
+                tableBuilder.AddAttribute( "(nzPageSizeChange)", _config.GetValue( UiConst.OnPageSizeChange ) );
+                return;
+            }
+            tableBuilder.AddAttribute( "(nzPageSizeChange)", $"{GetWrapperId()}.pageSizeChange($event)" );
+        }
+
+        /// <summary>
+        /// 配置页索引变更事件
+        /// </summary>
+        private void ConfigOnPageIndexChange( TagBuilder tableBuilder ) {
+            if( _config.Contains( UiConst.OnPageIndexChange ) ) {
+                tableBuilder.AddAttribute( "(nzPageIndexChange)", _config.GetValue( UiConst.OnPageIndexChange ) );
+                return;
+            }
+            tableBuilder.AddAttribute( "(nzPageIndexChange)", $"{GetWrapperId()}.pageIndexChange($event)" );
         }
 
         /// <summary>

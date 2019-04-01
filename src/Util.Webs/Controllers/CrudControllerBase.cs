@@ -152,6 +152,7 @@ namespace Util.Webs.Controllers {
         /// <param name="ids">标识列表，多个Id用逗号分隔，范例：1,2,3</param>
         [HttpPost( "delete" )]
         public virtual async Task<IActionResult> BatchDeleteAsync( [FromBody] string ids ) {
+            await Task.Delay( 1000 );
             await _service.DeleteAsync( ids );
             return Success();
         }

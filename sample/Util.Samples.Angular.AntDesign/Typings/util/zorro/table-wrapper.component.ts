@@ -2,8 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, ViewChild, ContentChild, AfterContentInit, EventEmitter } from '@angular/core';
-import { NzTableComponent } from 'ng-zorro-antd';
+import { Component, Input, Output, AfterContentInit, EventEmitter } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
@@ -138,11 +137,6 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     private initPaginator() {
         this.initPage();
-        //this.paginator.page.subscribe(() => {
-        //    this.queryParam.page = this.paginator.pageIndex + 1;
-        //    this.queryParam.pageSize = this.paginator.pageSize;
-        //    this.query();
-        //});
     }
 
     /**
@@ -152,6 +146,25 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         this.queryParam.page = 1;
         if ( this.pageSizeOptions && this.pageSizeOptions.length > 0 )
             this.queryParam.pageSize = this.pageSizeOptions[0];
+    }
+
+    /**
+     * 页索引变更事件处理
+     * @param pageIndex 页索引，第一页传入的是1
+     */
+    pageIndexChange( pageIndex: number ) {
+        this.queryParam.page = pageIndex;
+        this.query();
+    }
+
+    /**
+     * 分页大小变更事件处理
+     * @param pageSize 分页大小
+     */
+    pageSizeChange( pageSize: number ) {
+        this.queryParam.pageSize = pageSize;
+        this.queryParam.page = 1;
+        this.query();
     }
 
     /**
@@ -322,29 +335,30 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 批量删除被选中实体
      * @param ids 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
      * @param handler 删除成功回调函数
-     * @param deleteUrl 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
+     * @param url 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
+     * @param button 按钮
      */
-    delete( ids?: string, handler?: () => void, deleteUrl?: string ) {
+    delete( ids?: string, handler?: () => void, url?: string,button? ) {
         ids = ids || this.getCheckedIds();
         if ( !ids ) {
             message.warn( config.deleteNotSelected );
             return;
         }
         message.confirm( config.deleteConfirm, () => {
-            this.deleteRequest( ids, handler, deleteUrl );
+            this.deleteRequest( ids, handler, url, button );
         } );
     }
 
     /**
      * 发送删除请求
      */
-    private deleteRequest( ids?: string, handler?: () => void, deleteUrl?: string ) {
+    private deleteRequest( ids?: string, handler?: () => void, deleteUrl?: string, button? ) {
         deleteUrl = deleteUrl || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
         if ( !deleteUrl ) {
             console.log( "表格deleteUrl未设置" );
             return;
         }
-        webapi.post( deleteUrl, ids ).handle( {
+        webapi.post( deleteUrl, ids ).button( button).handle( {
             ok: () => {
                 if ( handler ) {
                     handler();

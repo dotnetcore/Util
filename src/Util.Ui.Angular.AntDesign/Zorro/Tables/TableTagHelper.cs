@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
-using Util.Ui.Angular.Enums;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Renders;
@@ -43,7 +42,7 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string QueryParam { get; set; }
         /// <summary>
-        /// 排序字段
+        /// 排序字段,范例: creationTime desc
         /// </summary>
         public string Sort { get; set; }
         /// <summary>
@@ -62,6 +61,22 @@ namespace Util.Ui.Zorro.Tables {
         /// 初始化时是否自动加载数据，默认为true,设置成false则手工加载
         /// </summary>
         public bool AutoLoad { get; set; }
+        /// <summary>
+        /// [nzFrontPagination],是否在前端进行分页
+        /// </summary>
+        public bool FrontPage { get; set; }
+        /// <summary>
+        /// [nzShowSizeChanger],是否显示分页大小下拉框
+        /// </summary>
+        public bool ShowSizeChanger { get; set; }
+        /// <summary>
+        /// (nzPageSizeChange),分页大小变更事件
+        /// </summary>
+        public string OnPageSizeChange { get; set; }
+        /// <summary>
+        /// (nzPageIndexChange),页索引变更事件
+        /// </summary>
+        public string OnPageIndexChange { get; set; }
 
         /// <summary>
         /// 获取渲染器

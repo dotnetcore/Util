@@ -527,5 +527,21 @@
         /// 排序变更事件
         /// </summary>
         public const string OnSortChange = "on-sort-change";
+        /// <summary>
+        /// 前端分页
+        /// </summary>
+        public const string FrontPage = "front-page";
+        /// <summary>
+        /// 是否显示大小选择
+        /// </summary>
+        public const string ShowSizeChanger = "show-size-changer";
+        /// <summary>
+        /// 分页大小变更事件
+        /// </summary>
+        public const string OnPageSizeChange = "on-page-size-change";
+        /// <summary>
+        /// 页索引变更事件
+        /// </summary>
+        public const string OnPageIndexChange = "on-page-index-change";
     }
 }

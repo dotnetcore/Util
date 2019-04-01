@@ -20,13 +20,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     /**
      * 表格组件
      */
-    @ViewChild(forwardRef(() => TableWrapperComponent)) protected table: TableWrapperComponent<TViewModel>;
+    @ViewChild( forwardRef( () => TableWrapperComponent ) ) protected table: TableWrapperComponent<TViewModel>;
 
     /**
      * 初始化组件
      * @param injector 注入器
      */
-    constructor(injector: Injector) {
+    constructor( injector: Injector ) {
         util.ioc.componentInjector = injector;
         this.queryParam = this.createQuery();
     }
@@ -47,7 +47,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 延迟搜索
      */
     search() {
-        this.table.search(this.getDelay());
+        this.table.search( this.getDelay() );
     }
 
     /**
@@ -59,10 +59,11 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
 
     /**
      * 删除
+     * @param button 按钮
      * @param id 标识
      */
-    delete(id?: string | undefined) {
-        this.table.delete(id);
+    delete( button?, id?) {
+        this.table.delete( id, null, null, button );
     }
 
     /**
@@ -70,7 +71,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     refresh() {
         this.queryParam = this.createQuery();
-        this.table.refresh(this.queryParam);
+        this.table.refresh( this.queryParam );
     }
 
     /**
@@ -92,14 +93,14 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     select() {
         let selection = this.getChecked();
-        if (!selection || selection.length === 0) {
-            this.util.dialog.close(new ViewModel());
+        if ( !selection || selection.length === 0 ) {
+            this.util.dialog.close( new ViewModel() );
             return;
         }
-        if (selection.length === 1) {
-            this.util.dialog.close(selection[0]);
+        if ( selection.length === 1 ) {
+            this.util.dialog.close( selection[0] );
             return;
         }
-        this.util.dialog.close(selection);
+        this.util.dialog.close( selection );
     }
 }

@@ -2,18 +2,18 @@
 @model ApplicationDto
 <page-header [title]="'查询表格'"></page-header>
 <nz-card [nzBordered]="false">
-    <form nz-form [nzLayout]="'inline'"  class="search__form">
+    <form nz-form [nzLayout]="'inline'" class="search__form">
         <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
             <div nz-col nzMd="8" nzSm="24">
                 <nz-form-item>
                     <nz-form-label nzFor="no">应用程序编码</nz-form-label>
-                    
+
                 </nz-form-item>
             </div>
             <div nz-col nzMd="8" nzSm="24">
                 <nz-form-item>
                     <nz-form-label nzFor="status">应用程序名称</nz-form-label>
-                  
+
                 </nz-form-item>
             </div>
             <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
@@ -61,10 +61,13 @@
             </div>
         </div>
     </form>
-    <button nz-button  [nzType]="'primary'">
-        <i nz-icon type="plus"></i>
-        <span>新建</span>
-    </button>
+    <util-button color="Primary" text="新建">
+        <util-icon type="Plus"></util-icon>
+    </util-button>
+    <util-button id="btnDelete" color="Primary" text="删除" on-click="delete(btnDelete)">
+        <util-icon type="Delete"></util-icon>
+    </util-button>
+    
     <div class="my-md">
         <nz-alert [nzType]="'info'" [nzShowIcon]="true" [nzMessage]="message">
             <ng-template #message>
@@ -77,7 +80,7 @@
     </div>
 
     <util-table id="tableApplication" query-param="queryParam" base-url="application" sort="CreationTime desc">
-        <util-table-column type="Checkbox" ></util-table-column>
+        <util-table-column type="Checkbox"></util-table-column>
         <util-table-column for="Code" sort="true"></util-table-column>
         <util-table-column for="Name"></util-table-column>
         <util-table-column for="Enabled"></util-table-column>
