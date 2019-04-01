@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular.Base;
+﻿using Util.Properties;
+using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Enums;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -52,7 +53,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
                     ConfigCheckbox( builder );
                     return;
                 case TableColumnType.Bool:
-                    //AddBoolCell( cellBuilder, column );
+                    AddBoolColumn( builder, column );
                     return;
                 case TableColumnType.Date:
                     AddDateColumn( builder, column );
@@ -74,6 +75,15 @@ namespace Util.Ui.Zorro.Tables.Renders {
             builder.AddAttribute( "(click)", "$event.stopPropagation()" );
             builder.AddAttribute( "(nzCheckedChange)", $"{tableId}_wrapper.checkedSelection.toggle(row)" );
             builder.AddAttribute( "[nzChecked]", $"{tableId}_wrapper.checkedSelection.isSelected(row)" );
+        }
+
+        /// <summary>
+        /// 添加布尔类型列
+        /// </summary>
+        private void AddBoolColumn( TagBuilder builder, string column ) {
+            if( column.IsEmpty() )
+                return;
+            builder.AppendContent( $"{{{{row.{column}?'{R.Yes}':'{R.No}'}}}}" );
         }
 
         /// <summary>

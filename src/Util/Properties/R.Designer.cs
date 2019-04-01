@@ -79,6 +79,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 否 的本地化字符串。
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 操作成功 的本地化字符串。
         /// </summary>
         public static string Success {
@@ -102,6 +111,15 @@ namespace Util.Properties {
         public static string UserDuplicateRequest {
             get {
                 return ResourceManager.GetString("UserDuplicateRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是 的本地化字符串。
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

@@ -87,7 +87,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
-        /// 测试列名称
+        /// 测试日期类型列
         /// </summary>
         [Fact]
         public void TestType_Date() {
@@ -98,13 +98,24 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
-        /// 测试列名称
+        /// 测试日期类型列 - 自定义日期格式
         /// </summary>
         [Fact]
         public void TestType_Date_Format() {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.DateFormat, "a" }, { UiConst.Column, "a" } };
             var result = new String();
             result.Append( "<td>{{ row.a | date:\"a\" }}</td>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试布尔类型列
+        /// </summary>
+        [Fact]
+        public void TestType_Bool() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Bool }, { UiConst.Column, "a" } };
+            var result = new String();
+            result.Append( "<td>{{row.a?'是':'否'}}</td>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

@@ -45,7 +45,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();  
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -65,7 +65,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #a_wrapper=\"\">" );
             result.Append( "<nz-table #a=\"\" (nzPageIndexChange)=\"a_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"a_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"a_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"a_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"a_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"a_wrapper.loading\" [nzShowPagination]=\"a_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"a_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of a.data\">" );
@@ -85,7 +85,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [(queryParam)]=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -105,7 +105,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" baseUrl=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -125,7 +125,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [baseUrl]=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -145,7 +145,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" url=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -165,7 +165,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [url]=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -185,7 +185,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" deleteUrl=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -205,7 +205,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [deleteUrl]=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -225,7 +225,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [autoLoad]=\"false\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -245,7 +245,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" sortKey=\"a\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -265,7 +265,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"true\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"true\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -285,7 +285,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"false\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -305,7 +305,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"a\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
@@ -325,7 +325,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
             result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"a\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
-            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of m_id.data\">" );

@@ -132,6 +132,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             tableBuilder.AddAttribute( "[nzData]", $"{GetWrapperId()}.dataSource" );
             tableBuilder.AddAttribute( "[nzTotal]", $"{GetWrapperId()}.totalCount" );
             tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
+            tableBuilder.AddAttribute( "[nzLoading]", $"{GetWrapperId()}.loading" );
         }
 
         /// <summary>
