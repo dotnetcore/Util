@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Properties;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Enums;
 using Util.Ui.Angular.Tables.Resolvers;
@@ -95,31 +96,32 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         private void SetShareConfig() {
             var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            if ( shareConfig == null )
+                return;
             AddColumn( shareConfig );
-            AddCheckbox( shareConfig );
         }
 
         /// <summary>
         /// 添加列配置
         /// </summary>
         private void AddColumn( TableShareConfig config ) {
-            if( _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox )
-                return;
-            var title = _config.GetValue<string>( UiConst.Title );
-            var column = _config.GetValue<string>( UiConst.Column );
+            var title = GetTitle();
+            var column = _config.GetValue( UiConst.Column );
             var isSort = _config.GetValue<bool>( UiConst.Sort );
             if ( isSort )
                 config.IsSort = true;
-            config?.Columns.Add( new ColumnInfo( title,column, isSort ) );
+            var isCheckbox = _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox;
+            config.Columns.Add( new ColumnInfo( title,column, isSort, isCheckbox ) );
         }
 
         /// <summary>
-        /// 添加复选框配置
+        /// 获取标题
         /// </summary>
-        private void AddCheckbox( TableShareConfig config ) {
-            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
-                return;
-            config.AutoCreateHeadCheckbox = true;
+        private string GetTitle() {
+            var result = _config.GetValue( UiConst.Title );
+            if ( result.IsEmpty() == false )
+                return result;
+            return _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.LineNumber ? R.LineNumber : null;
         }
     }
 }

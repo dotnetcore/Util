@@ -118,5 +118,16 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "<td>{{row.a?'是':'否'}}</td>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试设置行号类型
+        /// </summary>
+        [Fact]
+        public void TestType_LineNumber() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.LineNumber } };
+            var result = new String();
+            result.Append( "<td>{{row.lineNumber}}</td>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

@@ -4,7 +4,7 @@
     /// </summary>
     public enum TableColumnType {
         /// <summary>
-        /// 行号
+        /// 序号
         /// </summary>
         LineNumber,
         /// <summary>

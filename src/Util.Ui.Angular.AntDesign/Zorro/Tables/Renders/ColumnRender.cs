@@ -49,8 +49,11 @@ namespace Util.Ui.Zorro.Tables.Renders {
             var type = _config.GetValue<TableColumnType?>( UiConst.Type );
             var column = _config.GetValue( UiConst.Column );
             switch( type ) {
+                case TableColumnType.LineNumber:
+                    AddLineNumber( builder );
+                    return;
                 case TableColumnType.Checkbox:
-                    ConfigCheckbox( builder );
+                    AddCheckbox( builder );
                     return;
                 case TableColumnType.Bool:
                     AddBoolColumn( builder, column );
@@ -65,9 +68,18 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置复选框
+        /// 添加序号
         /// </summary>
-        private void ConfigCheckbox( TagBuilder builder ) {
+        private void AddLineNumber( TagBuilder builder ) {
+            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.LineNumber )
+                return;
+            builder.AppendContent( "{{row.lineNumber}}" );
+        }
+
+        /// <summary>
+        /// 添加复选框
+        /// </summary>
+        private void AddCheckbox( TagBuilder builder ) {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
                 return;
             var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;

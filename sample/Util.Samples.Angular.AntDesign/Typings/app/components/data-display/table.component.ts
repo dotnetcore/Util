@@ -9,4 +9,15 @@ import { env } from '../../env';
     templateUrl: !env.dev() ? './html/textbox.component.html' : '/View/Components/DataDisplay/Table'
 } )
 export class TableComponent {
+    /**
+     * 查询对象
+     */
+    queryParam;
+
+    /**
+     * 初始化
+     */
+    constructor() {
+        this.queryParam = {};
+    }
 }

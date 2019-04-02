@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Biz.Enums;
+using Util.Datas.Queries;
 using Util.Domains.Repositories;
 using Util.Samples.Models.Demo;
 using Util.Webs.Controllers;
@@ -13,11 +15,48 @@ namespace Util.Samples.Apis.Demo {
     /// </summary>
     public class TableController : WebApiControllerBase {
         /// <summary>
-        /// 获取用户列表
+        /// 获取空分页列表
         /// </summary>
-        [HttpGet( "users" )]
-        public IActionResult GetUsers() {
-            var list = new List<UserModel> {
+        [HttpGet( "empty-page-list" )]
+        public async Task<IActionResult> GetEmptyPageList( QueryParameter parameter ) {
+            await Task.Delay( 1000 );
+            var result = new PagerList<UserModel>( parameter.Page, parameter.PageSize, CreateList().Count );
+            return Success( result );
+        }
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        [HttpGet( "page-list" )]
+        public async Task<IActionResult> GetPageList( QueryParameter parameter ) {
+            await Task.Delay( 1000 );
+            parameter.TotalCount = CreateList().Count;
+            var list = CreateList().Skip( parameter.GetSkipCount() ).Take( parameter.PageSize );
+            var result = new PagerList<UserModel>( parameter, list );
+            return Success( result );
+        }
+
+        /// <summary>
+        /// 获取空列表
+        /// </summary>
+        [HttpGet( "empty-list" )]
+        public IActionResult GetEmptyList() {
+            return Success();
+        }
+
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        [HttpGet( "list" )]
+        public async Task<IActionResult> GetList() {
+            await Task.Delay( 1000 );
+            return Success( CreateList() );
+        }
+
+        /// <summary>
+        /// 创建列表
+        /// </summary>
+        private List<UserModel> CreateList() {
+            return new List<UserModel> {
                 new UserModel {Key = "1", Name = "John Brown",Nation = Nation.Hz, Age = 30, Address = "New York No. 1 Lake Park",Birthday="1990-1-1 2:2:2".ToDate() },
                 new UserModel {Key = "2", Name = "Jim Green", Nation = Nation.Mz,Age = 42, Address = "London No. 1 Lake Park",Birthday="1990-2-1 2:2:2".ToDate()},
                 new UserModel {Key = "3", Name = "Joe Black",Nation = Nation.Byz, Age = 55, Address = "Sidney No. 1 Lake Park",Birthday="1990-2-1 2:2:2".ToDate()},
@@ -40,8 +79,6 @@ namespace Util.Samples.Apis.Demo {
                 new UserModel {Key = "20", Name = "P Black", Nation = Nation.Baz,Age = 54, Address = "P No. 1 Lake Park",Birthday="1990-1-1 2:2:2".ToDate()},
                 new UserModel {Key = "21", Name = "N Black", Nation = Nation.Baz,Age = 43, Address = "N No. 1 Lake Park",Birthday="1990-1-1 2:2:2".ToDate()}
             };
-            var result = new PagerList<UserModel>( 0,1,21, list );
-            return Success( result );
         }
     }
 }

@@ -46,11 +46,6 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public bool AutoCreateHead => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).AutoCreateHead;
 
         /// <summary>
-        /// 是否自动创建表头复选框
-        /// </summary>
-        public bool AutoCreateHeadCheckbox => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).AutoCreateHeadCheckbox;
-
-        /// <summary>
         /// 是否排序
         /// </summary>
         public bool IsSort => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).IsSort;

@@ -79,6 +79,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 序号 的本地化字符串。
+        /// </summary>
+        public static string LineNumber {
+            get {
+                return ResourceManager.GetString("LineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 否 的本地化字符串。
         /// </summary>
         public static string No {

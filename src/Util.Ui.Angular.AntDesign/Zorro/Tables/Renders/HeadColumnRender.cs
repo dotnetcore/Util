@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular.Base;
+﻿using Util.Properties;
+using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Enums;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -84,7 +85,17 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 配置类型
         /// </summary>
         private void ConfigType( TableHeadColumnBuilder builder ) {
+            ConfigLineNumber( builder );
             ConfigCheckbox( builder );
+        }
+
+        /// <summary>
+        /// 配置序号
+        /// </summary>
+        private void ConfigLineNumber( TableHeadColumnBuilder builder ) {
+            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.LineNumber )
+                return;
+            builder.Title( R.LineNumber );
         }
 
         /// <summary>

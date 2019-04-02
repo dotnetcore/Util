@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Properties;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Angular.Enums;
 using Util.Ui.Configs;
@@ -79,12 +80,22 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
             var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
             var result = new String();
-            result.Append( "" );
             result.Append( "<th (nzCheckedChange)=\"id_wrapper.masterToggle()\" nzShowCheckbox=\"\" " );
             result.Append( "[nzChecked]=\"id_wrapper.isMasterChecked()\" " );
             result.Append( "[nzDisabled]=\"!id_wrapper.dataSource.length\" [nzIndeterminate]=\"id_wrapper.isMasterIndeterminate()\">" );
             result.Append( "</th>" );
             Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
+        }
+
+        /// <summary>
+        /// 测试设置序号类型
+        /// </summary>
+        [Fact]
+        public void TestType_LineNumber() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.LineNumber } };
+            var result = new String();
+            result.Append( $"<th>{R.LineNumber}</th>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>

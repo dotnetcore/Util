@@ -37,6 +37,10 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     loading: boolean;
     /**
+     * 首次加载
+     */
+    firstLoad: boolean;
+    /**
      * 总行数
      */
     totalCount = 0;
@@ -115,7 +119,8 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         this.dataSource = new Array<any>();
         this.checkedSelection = new SelectionModel<T>( true, [] );
         this.selectedSelection = new SelectionModel<T>( false, [] );
-        this.loading = false;
+        this.firstLoad = true;
+        this.loading = true;
         this.autoLoad = true;
         this.queryParam = new QueryParameter();
         this.delay = 500;
@@ -213,8 +218,9 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 发送查询请求
      * @param url 查询请求地址
      * @param param 查询参数
+     * @param button 按钮
      */
-    query( url: string = null, param = null ) {
+    query( url: string = null, param = null, button?) {
         url = url || this.url || ( this.baseUrl && `/api/${this.baseUrl}` );
         if ( !url ) {
             console.log( "表格url未设置" );
@@ -223,8 +229,15 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         param = param || this.queryParam;
         if ( this.key )
             this.dic.add( this.key, param );
-        webapi.get<any>( url ).param( param ).handle( {
-            before: () => { this.loading = true; return true; },
+        webapi.get<any>( url ).param( param ).button( button ).handle( {
+            before: () => {
+                if ( this.firstLoad ) {
+                    this.firstLoad = false;
+                    return true;
+                }
+                this.loading = true;
+                return true;
+            },
             ok: result => {
                 this.loadData( result );
             },
@@ -236,16 +249,15 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * 加载数据
      */
     private loadData( result ) {
-        if ( result && !util.helper.isUndefined( result.totalCount ) ) {
-            result = new PagerList<T>( result );
-            result.initLineNumbers();
+        result = new PagerList<T>( result );
+        result.initLineNumbers();
+        this.dataSource = result.data || [];
+        this.totalCount = result.totalCount;
+        this.checkedSelection.clear();
+        if ( result.totalCount ) {
             this.showPagination = true;
-            this.dataSource = result.data || [];
-            this.totalCount = result.totalCount;
-            this.checkedSelection.clear();
             return;
         }
-        this.dataSource = result || [];
         this.showPagination = false;
     }
 
@@ -338,7 +350,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      * @param url 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
      * @param button 按钮
      */
-    delete( ids?: string, handler?: () => void, url?: string,button? ) {
+    delete( ids?: string, handler?: () => void, url?: string, button?) {
         ids = ids || this.getCheckedIds();
         if ( !ids ) {
             message.warn( config.deleteNotSelected );
@@ -352,13 +364,13 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**
      * 发送删除请求
      */
-    private deleteRequest( ids?: string, handler?: () => void, deleteUrl?: string, button? ) {
+    private deleteRequest( ids?: string, handler?: () => void, deleteUrl?: string, button?) {
         deleteUrl = deleteUrl || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
         if ( !deleteUrl ) {
             console.log( "表格deleteUrl未设置" );
             return;
         }
-        webapi.post( deleteUrl, ids ).button( button).handle( {
+        webapi.post( deleteUrl, ids ).button( button ).handle( {
             ok: () => {
                 if ( handler ) {
                     handler();

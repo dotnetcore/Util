@@ -26,3 +26,4 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Angular.Material/Typings/app/**/*.html
 /sample/Util.Samples.Angular.AntDesign/Typings/app/**/*.html
 
+/sample/Util.Samples.Angular.AntDesign/Typings/app/components/data-display/html

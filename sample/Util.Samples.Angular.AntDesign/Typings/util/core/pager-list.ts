@@ -1,18 +1,24 @@
 ﻿//============== 分页集合=========================
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
 /**
- * 分页集合
+ * 分页列表
  */
 export class PagerList<T> {
     /**
-     * 初始化分页集合
-     * @param list 分页集合
+     * 初始化分页列表
+     * @param list 列表
      */
-    constructor(list?: PagerList<T>) {
-        if (!list)
+    constructor( list?) {
+        if ( !list )
             return;
+        if ( !list.totalCount ) {
+            this.page = 1;
+            this.pageSize = list.length;
+            this.data = list;
+            return;
+        }
         this.page = list.page;
         this.pageSize = list.pageSize;
         this.totalCount = list.totalCount;
@@ -50,8 +56,10 @@ export class PagerList<T> {
      * 初始化行号
      */
     initLineNumbers(): void {
-        for (let i = 0; i < this.data.length; i++) {
-            let line = (this.page - 1) * this.pageSize + i + 1;
+        if ( !this.data )
+            return;
+        for ( let i = 0; i < this.data.length; i++ ) {
+            let line = ( this.page - 1 ) * this.pageSize + i + 1;
             this.data[i]["lineNumber"] = line;
         }
     }

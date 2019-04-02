@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular;
+﻿using Util.Properties;
+using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -210,7 +211,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
             tableBuilder.AppendContent( headBuilder );
             AddSortChange( headBuilder );
             var rowBuilder = new TableRowBuilder();
-            AddHeadCheckbox( rowBuilder );
             AddHeadColumns( rowBuilder );
             headBuilder.AppendContent( rowBuilder );
         }
@@ -225,24 +225,18 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 添加表头复选框
-        /// </summary>
-        private void AddHeadCheckbox( TableRowBuilder rowBuilder ) {
-            if( _config.AutoCreateHeadCheckbox == false )
-                return;
-            var headColumnBuilder = new TableHeadColumnBuilder();
-            headColumnBuilder.AddCheckBox( _config.Id );
-            rowBuilder.AppendContent( headColumnBuilder );
-        }
-
-        /// <summary>
         /// 添加标题列
         /// </summary>
         private void AddHeadColumns( TableRowBuilder rowBuilder ) {
             foreach( var column in _config.Columns ) {
                 var headColumnBuilder = new TableHeadColumnBuilder();
-                headColumnBuilder.Title( column.Title );
-                headColumnBuilder.AddSort( column.GetSortKey() );
+                if ( column.IsCheckbox ) {
+                    headColumnBuilder.AddCheckBox( _config.Id );
+                }
+                else {
+                    headColumnBuilder.Title( column.Title );
+                    headColumnBuilder.AddSort( column.GetSortKey() );
+                }
                 rowBuilder.AppendContent( headColumnBuilder );
             }
         }

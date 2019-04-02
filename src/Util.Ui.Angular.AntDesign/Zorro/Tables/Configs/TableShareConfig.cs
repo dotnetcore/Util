@@ -43,11 +43,6 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public bool AutoCreateHead { get; set; }
 
         /// <summary>
-        /// 是否自动创建表头复选框
-        /// </summary>
-        public bool AutoCreateHeadCheckbox { get; set; }
-
-        /// <summary>
         /// 是否自动创建排序列
         /// </summary>
         public bool AutoCreateSort { get; set; }
