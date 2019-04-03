@@ -40,5 +40,17 @@ namespace Util.Ui.Zorro.Tables.Builders {
             AddAttribute( "[nzShowSort]", "true" );
             AddAttribute( "nzSortKey", sortKey );
         }
+
+        /// <summary>
+        /// 添加宽度
+        /// </summary>
+        /// <param name="width">宽度</param>
+        public void AddWidth( string width ) {
+            if ( width.IsEmpty() )
+                return;
+            if( Util.Helpers.Validation.IsNumber( width ) )
+                width += "px";
+            AddAttribute( "nzWidth", width );
+        }
     }
 }

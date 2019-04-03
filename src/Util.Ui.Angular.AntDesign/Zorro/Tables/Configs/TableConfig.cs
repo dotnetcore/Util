@@ -16,6 +16,16 @@ namespace Util.Ui.Zorro.Tables.Configs {
         }
 
         /// <summary>
+        /// 序号宽度
+        /// </summary>
+        public static string LineNumberWidth { get; set; } = "50";
+
+        /// <summary>
+        /// 复选框宽度
+        /// </summary>
+        public static string CheckboxWidth { get; set; } = "30";
+
+        /// <summary>
         /// 表格共享键
         /// </summary>
         public const string TableShareKey = "TableShare";

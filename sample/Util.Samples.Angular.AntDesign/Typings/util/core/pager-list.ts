@@ -13,7 +13,7 @@ export class PagerList<T> {
     constructor( list?) {
         if ( !list )
             return;
-        if ( !list.totalCount ) {
+        if ( !list.totalCount && !list.pageSize ) {
             this.page = 1;
             this.pageSize = list.length;
             this.data = list;

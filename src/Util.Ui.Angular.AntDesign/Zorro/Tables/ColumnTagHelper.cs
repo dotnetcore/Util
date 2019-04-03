@@ -60,6 +60,10 @@ namespace Util.Ui.Zorro.Tables {
         /// 是否排序
         /// </summary>
         public bool Sort { get; set; }
+        /// <summary>
+        /// 宽度，默认单位：px，范例：100，表示100px，也可以使用百分比，范例：10%
+        /// </summary>
+        public string Width { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -96,32 +100,51 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         private void SetShareConfig() {
             var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
-            if ( shareConfig == null )
+            if( shareConfig == null )
                 return;
-            AddColumn( shareConfig );
+            var type = _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type );
+            AddColumn( shareConfig, type );
         }
 
         /// <summary>
         /// 添加列配置
         /// </summary>
-        private void AddColumn( TableShareConfig config ) {
-            var title = GetTitle();
+        private void AddColumn( TableShareConfig config, TableColumnType? type ) {
+            var title = GetTitle( type );
             var column = _config.GetValue( UiConst.Column );
             var isSort = _config.GetValue<bool>( UiConst.Sort );
-            if ( isSort )
+            if( isSort )
                 config.IsSort = true;
-            var isCheckbox = _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.Checkbox;
-            config.Columns.Add( new ColumnInfo( title,column, isSort, isCheckbox ) );
+            config.Columns.Add( new ColumnInfo( title, column ) {
+                IsSort = isSort,
+                IsCheckbox = type == TableColumnType.Checkbox,
+                IsLineNumber = type == TableColumnType.LineNumber,
+                Width = GetWidth( type )
+            } );
         }
 
         /// <summary>
         /// 获取标题
         /// </summary>
-        private string GetTitle() {
+        private string GetTitle( TableColumnType? type ) {
             var result = _config.GetValue( UiConst.Title );
-            if ( result.IsEmpty() == false )
+            if( result.IsEmpty() == false )
                 return result;
-            return _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type ) == TableColumnType.LineNumber ? R.LineNumber : null;
+            return type == TableColumnType.LineNumber ? R.LineNumber : null;
+        }
+
+        /// <summary>
+        /// 获取宽度
+        /// </summary>
+        private string GetWidth( TableColumnType? type ) {
+            var result = _config.GetValue( UiConst.Width );
+            if( result.IsEmpty() == false )
+                return result;
+            if( type == TableColumnType.LineNumber )
+                return TableConfig.LineNumberWidth;
+            if( type == TableColumnType.Checkbox )
+                return TableConfig.CheckboxWidth;
+            return null;
         }
     }
 }

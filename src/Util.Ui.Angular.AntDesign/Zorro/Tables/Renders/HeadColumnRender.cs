@@ -40,6 +40,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected void Config( TableHeadColumnBuilder builder ) {
             ConfigId( builder );
             ConfigTitle( builder );
+            ConfigStyle( builder );
             ConfigSort( builder );
             ConfigType( builder );
             ConfigContent( builder );
@@ -60,18 +61,32 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置排序
+        /// 配置样式
         /// </summary>
-        private void ConfigSort( TableHeadColumnBuilder builder ) {
-            var shareConfig = GetShareConfig();
-            var columnInfo = shareConfig?.Columns.Find( t => t.IsSort && t.Title == GetTitle() );
-            if ( columnInfo != null ) {
-                builder.AddSort( columnInfo.Column );
+        private void ConfigStyle( TableHeadColumnBuilder builder ) {
+            ConfigWidth( builder );
+        }
+
+        /// <summary>
+        /// 配置宽度
+        /// </summary>
+        private void ConfigWidth( TableHeadColumnBuilder builder ) {
+            if( _config.Contains( UiConst.Width ) ) {
+                builder.AddWidth( _config.GetValue( UiConst.Width ) );
                 return;
             }
-            if ( _config.Contains( UiConst.Sort ) == false )
+            var columnInfo = GetColumnInfo();
+            if ( columnInfo == null || columnInfo.Width.IsEmpty() )
                 return;
-            builder.AddSort( _config.GetValue( UiConst.Sort ) );
+            builder.AddWidth( columnInfo.Width );
+        }
+
+        /// <summary>
+        /// 获取列信息
+        /// </summary>
+        private ColumnInfo GetColumnInfo() {
+            var shareConfig = GetShareConfig();
+            return shareConfig?.Columns.Find( t => t.Title == GetTitle() );
         }
 
         /// <summary>
@@ -79,6 +94,20 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private TableShareConfig GetShareConfig() {
             return _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+        }
+
+        /// <summary>
+        /// 配置排序
+        /// </summary>
+        private void ConfigSort( TableHeadColumnBuilder builder ) {
+            if ( _config.Contains( UiConst.Sort ) ) {
+                builder.AddSort( _config.GetValue( UiConst.Sort ) );
+                return;
+            }
+            var columnInfo = GetColumnInfo();
+            if ( columnInfo == null || columnInfo.IsSort == false )
+                return;
+            builder.AddSort( columnInfo.Column );
         }
 
         /// <summary>
@@ -96,6 +125,9 @@ namespace Util.Ui.Zorro.Tables.Renders {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.LineNumber )
                 return;
             builder.Title( R.LineNumber );
+            if( _config.Contains( UiConst.Width ) )
+                return;
+            builder.AddWidth( TableConfig.LineNumberWidth );
         }
 
         /// <summary>
@@ -106,6 +138,9 @@ namespace Util.Ui.Zorro.Tables.Renders {
                 return;
             var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
             builder.AddCheckBox( tableId );
+            if( _config.Contains( UiConst.Width ) )
+                return;
+            builder.AddWidth( TableConfig.CheckboxWidth );
         }
     }
 }

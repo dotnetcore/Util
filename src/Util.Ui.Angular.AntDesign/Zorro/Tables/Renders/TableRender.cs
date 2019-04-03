@@ -230,6 +230,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         private void AddHeadColumns( TableRowBuilder rowBuilder ) {
             foreach( var column in _config.Columns ) {
                 var headColumnBuilder = new TableHeadColumnBuilder();
+                headColumnBuilder.AddWidth( column.Width );
                 if ( column.IsCheckbox ) {
                     headColumnBuilder.AddCheckBox( _config.Id );
                 }

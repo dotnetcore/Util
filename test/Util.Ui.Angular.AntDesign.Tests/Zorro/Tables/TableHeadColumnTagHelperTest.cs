@@ -80,7 +80,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
             var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
             var result = new String();
-            result.Append( "<th (nzCheckedChange)=\"id_wrapper.masterToggle()\" nzShowCheckbox=\"\" " );
+            result.Append( "<th (nzCheckedChange)=\"id_wrapper.masterToggle()\" nzShowCheckbox=\"\" nzWidth=\"30px\" " );
             result.Append( "[nzChecked]=\"id_wrapper.isMasterChecked()\" " );
             result.Append( "[nzDisabled]=\"!id_wrapper.dataSource.length\" [nzIndeterminate]=\"id_wrapper.isMasterIndeterminate()\">" );
             result.Append( "</th>" );
@@ -94,7 +94,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         public void TestType_LineNumber() {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.LineNumber } };
             var result = new String();
-            result.Append( $"<th>{R.LineNumber}</th>" );
+            result.Append( $"<th nzWidth=\"50px\">{R.LineNumber}</th>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -106,6 +106,28 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.Sort, "a" } };
             var result = new String();
             result.Append( "<th nzSortKey=\"a\" [nzShowSort]=\"true\"></th>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试宽度
+        /// </summary>
+        [Fact]
+        public void TestWidth() {
+            var attributes = new TagHelperAttributeList { { UiConst.Width, "a" } };
+            var result = new String();
+            result.Append( "<th nzWidth=\"a\"></th>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试宽度,如果是数值，添加px
+        /// </summary>
+        [Fact]
+        public void TestWidth_Number() {
+            var attributes = new TagHelperAttributeList { { UiConst.Width, "100" } };
+            var result = new String();
+            result.Append( "<th nzWidth=\"100px\"></th>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
