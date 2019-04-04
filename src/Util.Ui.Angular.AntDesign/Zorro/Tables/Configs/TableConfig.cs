@@ -18,7 +18,7 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// <summary>
         /// 序号宽度
         /// </summary>
-        public static string LineNumberWidth { get; set; } = "50";
+        public static string LineNumberWidth { get; set; } = "60";
 
         /// <summary>
         /// 复选框宽度

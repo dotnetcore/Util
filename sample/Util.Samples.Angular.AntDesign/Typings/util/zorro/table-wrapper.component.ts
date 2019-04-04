@@ -9,7 +9,6 @@ import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
 import { IKey, QueryParameter } from '../core/model';
 import { MessageConfig as config } from '../config/message-config';
-import { DicService } from '../services/dic.service';
 import { Util as util } from '../util';
 
 /**
@@ -57,25 +56,9 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
      */
     selectedSelection: SelectionModel<T>;
     /**
-     * 键
-     */
-    @Input() key: string;
-    /**
      * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
      */
     @Input() autoLoad: boolean;
-    /**
-     * 最大高度
-     */
-    @Input() maxHeight: number;
-    /**
-     * 最小高度
-     */
-    @Input() minHeight: number;
-    /**
-     * 宽度
-     */
-    @Input() width: number;
     /**
      * 是否显示分页
      */
@@ -112,8 +95,7 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**
      * 初始化表格包装器
      */
-    constructor( private dic: DicService<QueryParameter> ) {
-        this.minHeight = 300;
+    constructor() {
         this.pageSizeOptions = [10, 20, 50, 100];
         this.showPagination = true;
         this.dataSource = new Array<any>();
@@ -132,7 +114,6 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     ngAfterContentInit() {
         this.initPaginator();
         this.initSort();
-        this.restoreQueryParam();
         if ( this.autoLoad )
             this.query();
     }
@@ -154,6 +135,15 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     }
 
     /**
+    * 初始化排序
+    */
+    private initSort() {
+        if ( !this.sortKey )
+            return;
+        this.queryParam.order = this.sortKey;
+    }
+
+    /**
      * 页索引变更事件处理
      * @param pageIndex 页索引，第一页传入的是1
      */
@@ -170,28 +160,6 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
         this.queryParam.pageSize = pageSize;
         this.queryParam.page = 1;
         this.query();
-    }
-
-    /**
-    * 初始化排序
-    */
-    private initSort() {
-        if ( !this.sortKey )
-            return;
-        this.queryParam.order = this.sortKey;
-    }
-
-    /**
-     * 还原查询参数
-     */
-    private restoreQueryParam() {
-        if ( !this.key )
-            return;
-        let query = this.dic.get( this.key );
-        if ( !query )
-            return;
-        this.queryParam = query;
-        this.queryParamChange.emit( query );
     }
 
     /**
@@ -216,19 +184,17 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
 
     /**
      * 发送查询请求
+     * @param button 按钮
      * @param url 查询请求地址
      * @param param 查询参数
-     * @param button 按钮
      */
-    query( url: string = null, param = null, button?) {
+    query( button?, url: string = null, param = null ) {
         url = url || this.url || ( this.baseUrl && `/api/${this.baseUrl}` );
         if ( !url ) {
             console.log( "表格url未设置" );
             return;
         }
         param = param || this.queryParam;
-        if ( this.key )
-            this.dic.add( this.key, param );
         webapi.get<any>( url ).param( param ).button( button ).handle( {
             before: () => {
                 if ( this.firstLoad ) {
@@ -263,34 +229,38 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
 
     /**
      * 延迟搜索
+     * @param button 按钮
      * @param delay 查询延迟间隔，单位：毫秒，默认500
+     * @param url 查询请求地址
+     * @param param 查询参数
      */
-    search( delay?: number ) {
+    search( button?, delay?: number, url: string = null, param = null ) {
         if ( this.timeout )
             clearTimeout( this.timeout );
         this.timeout = setTimeout( () => {
-            this.query();
+            this.query( url, param, button );
         }, delay || this.delay );
     }
 
     /**
      * 刷新
      * @param queryParam 查询参数
+     * @param button 按钮
      */
-    refresh( queryParam ) {
+    refresh( queryParam, button? ) {
         this.queryParam = queryParam;
+        this.queryParamChange.emit( queryParam );
         this.initPage();
         this.queryParam.order = this.sortKey;
-        this.dic.remove( this.key );
-        this.query();
+        this.query( button );
     }
 
     /**
      * 清空数据
      */
     clear() {
-        //this.dataSource.data = new PagerList<T>().data;
-        //this.paginator.pageIndex = 1;
+        this.dataSource = [];
+        this.queryParam.page = 1;
         this.totalCount = 0;
         this.checkedSelection.clear();
     }
@@ -345,32 +315,32 @@ export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
 
     /**
      * 批量删除被选中实体
+     * @param button 按钮
      * @param ids 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
      * @param handler 删除成功回调函数
      * @param url 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
-     * @param button 按钮
      */
-    delete( ids?: string, handler?: () => void, url?: string, button?) {
+    delete( button?, ids?: string, handler?: () => void, url?: string) {
         ids = ids || this.getCheckedIds();
         if ( !ids ) {
             message.warn( config.deleteNotSelected );
             return;
         }
         message.confirm( config.deleteConfirm, () => {
-            this.deleteRequest( ids, handler, url, button );
+            this.deleteRequest( button, ids, handler, url );
         } );
     }
 
     /**
      * 发送删除请求
      */
-    private deleteRequest( ids?: string, handler?: () => void, deleteUrl?: string, button?) {
-        deleteUrl = deleteUrl || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
-        if ( !deleteUrl ) {
+    private deleteRequest( button?, ids?: string, handler?: () => void, url?: string) {
+        url = url || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
+        if ( !url ) {
             console.log( "表格deleteUrl未设置" );
             return;
         }
-        webapi.post( deleteUrl, ids ).button( button ).handle( {
+        webapi.post( url, ids ).button( button ).handle( {
             ok: () => {
                 if ( handler ) {
                     handler();

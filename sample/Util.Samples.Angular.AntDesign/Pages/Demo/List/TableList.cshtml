@@ -2,83 +2,24 @@
 @model ApplicationDto
 <page-header [title]="'查询表格'"></page-header>
 <nz-card [nzBordered]="false">
-    <form nz-form [nzLayout]="'inline'" class="search__form">
-        <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
-            <div nz-col nzMd="8" nzSm="24">
-                <nz-form-item>
-                    <nz-form-label nzFor="no">应用程序编码</nz-form-label>
-
-                </nz-form-item>
-            </div>
-            <div nz-col nzMd="8" nzSm="24">
-                <nz-form-item>
-                    <nz-form-label nzFor="status">应用程序名称</nz-form-label>
-
-                </nz-form-item>
-            </div>
-            <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
-                <nz-form-item>
-                    <nz-form-label nzFor="callNo">调用次数</nz-form-label>
-                    <nz-form-control>
-                        <input nz-input id="callNo">
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-            <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
-                <nz-form-item>
-                    <nz-form-label nzFor="updatedAt">更新日期</nz-form-label>
-                    <nz-form-control>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-            <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
-                <nz-form-item>
-                    <nz-form-label nzFor="status2">使用状态</nz-form-label>
-                    <nz-form-control>
-                        <nz-select [nzPlaceHolder]="'请选择'" nzId="status2" [nzShowSearch]="true">
-                            <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-                        </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-            <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
-                <nz-form-item>
-                    <nz-form-label nzFor="status3">使用状态</nz-form-label>
-                    <nz-form-control>
-                        <nz-select [nzPlaceHolder]="'请选择'" nzId="status3" [nzShowSearch]="true">
-                            <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-                        </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-            <div nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
-                <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-                <button nz-button type="reset" (click)="reset()" class="mx-sm">重置</button>
-                <a (click)="expandForm=!expandForm">
-                    {{expandForm ? '收起' : '展开'}}
-                    <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
-                </a>
-            </div>
-        </div>
-    </form>
+    @*查询表单*@
+    @await Html.PartialAsync( "TableList/QueryForm" )
     <util-button color="Primary" text="新建">
         <util-icon type="Plus"></util-icon>
     </util-button>
     <util-button id="btnDelete" color="Primary" text="删除" on-click="delete(btnDelete)">
         <util-icon type="Delete"></util-icon>
     </util-button>
-    
+
     <div class="my-md">
         <nz-alert [nzType]="'info'" [nzShowIcon]="true" [nzMessage]="message">
             <ng-template #message>
-                已选择
-                <strong class="text-primary"></strong> 项&nbsp;&nbsp; 服务调用总计
-                <strong>{{totalCallNo}}</strong> 万
-                <a *ngIf="totalCallNo > 0" (click)="st.clearCheck()" class="ml-lg">清空</a>
+                说明
+                <strong class="text-primary">重点</strong>
             </ng-template>
         </nz-alert>
     </div>
-
+    @*表格*@
     <util-table id="tableApplication" query-param="queryParam" base-url="application" sort="CreationTime desc">
         <util-table-column type="Checkbox"></util-table-column>
         <util-table-column type="LineNumber"></util-table-column>

@@ -2,13 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Util.Applications.Dtos;
-using Util.Ui.Attributes;
 
 namespace Util.Samples.Service.Dtos.Systems {
     /// <summary>
     /// 应用程序数据传输对象
     /// </summary>
-    [Model]
     public class ApplicationDto : DtoBase {
         /// <summary>
         /// 应用程序编码

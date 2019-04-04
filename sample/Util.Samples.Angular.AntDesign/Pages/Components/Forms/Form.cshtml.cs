@@ -1,14 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Util.Applications.Dtos;
 using Util.Biz.Enums;
-using Util.Ui.Attributes;
 
 namespace Util.Samples.Pages.Components.Forms {
     /// <summary>
     /// 基础表单
     /// </summary>
-    [Model]
-    public class FormModel {
+    public class FormModel : RequestBase {
         /// <summary>
         /// 编码
         /// </summary>

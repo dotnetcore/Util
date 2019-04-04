@@ -38,16 +38,18 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
 
     /**
      * 查询
+     * @param button 按钮
      */
-    query() {
-        this.table.query();
+    query( button ) {
+        this.table.query( button );
     }
 
     /**
      * 延迟搜索
+     * @param button 按钮
      */
-    search() {
-        this.table.search( this.getDelay() );
+    search( button ) {
+        this.table.search( button, this.getDelay() );
     }
 
     /**
@@ -63,15 +65,16 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * @param id 标识
      */
     delete( button?, id?) {
-        this.table.delete( id, null, null, button );
+        this.table.delete( button, id );
     }
 
     /**
      * 刷新
+     * @param button 按钮
      */
-    refresh() {
+    refresh( button? ) {
         this.queryParam = this.createQuery();
-        this.table.refresh( this.queryParam );
+        this.table.refresh( this.queryParam, button );
     }
 
     /**

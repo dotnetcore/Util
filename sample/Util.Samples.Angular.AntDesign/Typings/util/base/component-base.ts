@@ -1,5 +1,5 @@
 ﻿//============== 组件基类=========================
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
 import { Injector } from '@angular/core';

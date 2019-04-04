@@ -1,0 +1,64 @@
+﻿@model ApplicationQuery
+<util-form [nzLayout]="'inline'" class="search__form">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+        <div nz-col nzMd="8" nzSm="24">
+            <nz-form-item>
+                <nz-form-label nzFor="no">应用程序编码</nz-form-label>
+                <util-textbox for="Code"></util-textbox>
+            </nz-form-item>
+        </div>
+        <div nz-col nzMd="8" nzSm="24">
+            <nz-form-item>
+                <nz-form-label nzFor="status">应用程序名称</nz-form-label>
+                <util-textbox for="Name"></util-textbox>
+            </nz-form-item>
+        </div>
+        <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+            <nz-form-item>
+                <nz-form-label nzFor="callNo">调用次数</nz-form-label>
+                <nz-form-control>
+                    <input nz-input id="callNo">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+            <nz-form-item>
+                <nz-form-label nzFor="updatedAt">更新日期</nz-form-label>
+                <nz-form-control>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+            <nz-form-item>
+                <nz-form-label nzFor="status2">使用状态</nz-form-label>
+                <nz-form-control>
+                    <nz-select [nzPlaceHolder]="'请选择'" nzId="status2" [nzShowSearch]="true">
+                        <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+            <nz-form-item>
+                <nz-form-label nzFor="status3">使用状态</nz-form-label>
+                <nz-form-control>
+                    <nz-select [nzPlaceHolder]="'请选择'" nzId="status3" [nzShowSearch]="true">
+                        <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
+            <util-button id="btnQuery" color="Primary" text="查询" on-click="query(btnQuery)">
+                <util-icon type="Search"></util-icon>
+            </util-button>
+            <util-button id="btnRefresh" text="刷新" on-click="refresh(btnRefresh)" class="mx-sm" >
+                <util-icon type="Sync"></util-icon>
+            </util-button>
+            <a (click)="expandForm=!expandForm">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+            </a>
+        </div>
+    </div>
+</util-form>
