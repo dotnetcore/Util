@@ -1,5 +1,5 @@
 ﻿//============== 安全Url管道=======================
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
 import { Pipe, PipeTransform } from '@angular/core';

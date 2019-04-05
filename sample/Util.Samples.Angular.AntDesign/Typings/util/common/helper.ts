@@ -358,3 +358,12 @@ export let groupBy = <T>(source: T[], property?: (t: T) => any): Map<string, T[]
 export let distinct = <T>(source: T[], property?: (t: T) => any) => {
     return _.uniqBy(source, property);
 }
+
+/**
+ * 截断字符串,范例：原始字符串为abcd,保留长度传入2，则返回 ab...
+ * @param input 原始字符串
+ * @param length 截断后保留的长度
+ */
+export function truncate( input:string,length?:number ) {
+    return _.truncate( input , { length: length + 3 } );
+}

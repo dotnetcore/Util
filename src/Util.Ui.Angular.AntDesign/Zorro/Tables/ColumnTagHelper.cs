@@ -64,6 +64,10 @@ namespace Util.Ui.Zorro.Tables {
         /// 宽度，默认单位：px，范例：100，表示100px，也可以使用百分比，范例：10%
         /// </summary>
         public string Width { get; set; }
+        /// <summary>
+        /// 截断原始内容，并使用tooltip显示完整内容，设置截断后保留的长度,范例：原始内容为abcd,设置2，则显示 ab...
+        /// </summary>
+        public int Truncate { get; set; }
 
         /// <summary>
         /// 获取渲染器

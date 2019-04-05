@@ -24,6 +24,8 @@ import { MaxValidator } from './directives/max-validator.directive';
 
 //Util管道
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { TruncatePipe } from "./pipes/truncate.pipe";
+import { IsTruncatePipe } from "./pipes/is-truncate.pipe";
 
 //授权
 import { Authorize as OidcAuthorize } from './security/openid-connect/authorize';
@@ -54,7 +56,7 @@ const importModules = [
 
 //组件集合
 const components = [
-    MinValidator, MaxValidator, SafeUrlPipe,
+    MinValidator, MaxValidator, SafeUrlPipe, TruncatePipe, IsTruncatePipe,
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
     ButtonWrapperComponent, TextBoxWrapperComponent, DatePickerWrapperComponent, TextareaWrapperComponent,

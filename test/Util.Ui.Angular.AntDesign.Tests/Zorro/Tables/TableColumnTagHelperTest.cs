@@ -129,5 +129,16 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "<td>{{row.lineNumber}}</td>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试截断
+        /// </summary>
+        [Fact]
+        public void TestTruncate() {
+            var attributes = new TagHelperAttributeList { { UiConst.Column, "a" },{ UiConst.Truncate, 3 } };
+            var result = new String();
+            result.Append( "<td nz-tooltip=\"\" [nzTitle]=\"(row.a|isTruncate:3)?row.a:''\">{{row.a|truncate:3}}</td>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

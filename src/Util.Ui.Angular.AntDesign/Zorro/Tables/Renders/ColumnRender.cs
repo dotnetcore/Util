@@ -1,9 +1,9 @@
 ﻿using Util.Properties;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Enums;
-using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
 
 namespace Util.Ui.Zorro.Tables.Renders {
@@ -27,7 +27,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected override TagBuilder GetTagBuilder() {
+        protected override Util.Ui.Builders.TagBuilder GetTagBuilder() {
             var builder = new TableColumnBuilder();
             Config( builder );
             return builder;
@@ -36,7 +36,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TagBuilder builder ) {
+        protected void Config( TableColumnBuilder builder ) {
             ConfigId( builder );
             ConfigColumn( builder );
             ConfigContent( builder );
@@ -45,7 +45,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置列
         /// </summary>
-        private void ConfigColumn( TagBuilder builder ) {
+        private void ConfigColumn( TableColumnBuilder builder ) {
             var type = _config.GetValue<TableColumnType?>( UiConst.Type );
             var column = _config.GetValue( UiConst.Column );
             switch( type ) {
@@ -62,7 +62,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
                     AddDateColumn( builder, column );
                     return;
                 default:
-                    AddDefaultColumn( builder,column );
+                    AddDefaultColumn( builder, column );
                     return;
             }
         }
@@ -70,7 +70,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加序号
         /// </summary>
-        private void AddLineNumber( TagBuilder builder ) {
+        private void AddLineNumber( TableColumnBuilder builder ) {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.LineNumber )
                 return;
             builder.AppendContent( "{{row.lineNumber}}" );
@@ -79,7 +79,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加复选框
         /// </summary>
-        private void AddCheckbox( TagBuilder builder ) {
+        private void AddCheckbox( TableColumnBuilder builder ) {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
                 return;
             var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
@@ -92,7 +92,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加布尔类型列
         /// </summary>
-        private void AddBoolColumn( TagBuilder builder, string column ) {
+        private void AddBoolColumn( TableColumnBuilder builder, string column ) {
             if( column.IsEmpty() )
                 return;
             builder.AppendContent( $"{{{{row.{column}?'{R.Yes}':'{R.No}'}}}}" );
@@ -101,7 +101,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加日期类型列
         /// </summary>
-        private void AddDateColumn( TagBuilder builder, string column ) {
+        private void AddDateColumn( TableColumnBuilder builder, string column ) {
             if( column.IsEmpty() )
                 return;
             var format = _config.GetValue( UiConst.DateFormat );
@@ -113,10 +113,15 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加默认列
         /// </summary>
-        private void AddDefaultColumn( TagBuilder builder,string column ) {
+        private void AddDefaultColumn( TableColumnBuilder builder, string column ) {
             if( column.IsEmpty() )
                 return;
-            builder.AppendContent( $"{{{{row.{column}}}}}" );
+            var length = _config.GetValue<int?>( UiConst.Truncate );
+            if( length == null ) {
+                builder.AppendContent( $"{{{{row.{column}}}}}" );
+                return;
+            }
+            builder.Truncate( column, length.SafeValue() );
         }
     }
 }

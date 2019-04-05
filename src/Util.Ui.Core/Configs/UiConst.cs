@@ -543,5 +543,9 @@
         /// 页索引变更事件
         /// </summary>
         public const string OnPageIndexChange = "on-page-index-change";
+        /// <summary>
+        /// 截断
+        /// </summary>
+        public const string Truncate = "truncate";
     }
 }
