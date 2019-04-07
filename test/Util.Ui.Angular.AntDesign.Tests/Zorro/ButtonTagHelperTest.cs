@@ -221,5 +221,20 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
             result.Append( "<x-button [ghost]=\"true\"></x-button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试设置图标
+        /// </summary>
+        [Fact]
+        public void TestIcon() {
+            var attributes = new TagHelperAttributeList { { UiConst.Icon, AntDesignIcon.Check } };
+            var result = new String();
+            result.Append( "<x-button>" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

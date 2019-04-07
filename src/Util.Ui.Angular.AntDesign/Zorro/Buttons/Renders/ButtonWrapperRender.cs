@@ -5,6 +5,7 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Zorro.Buttons.Builders;
 using Util.Ui.Zorro.Enums;
+using Util.Ui.Zorro.Icons.Builders;
 
 namespace Util.Ui.Zorro.Buttons.Renders {
     /// <summary>
@@ -45,6 +46,7 @@ namespace Util.Ui.Zorro.Buttons.Renders {
             ConfigTooltip( builder );
             ConfigLoading( builder );
             ConfigEvents( builder );
+            ConfigIcon( builder );
             ConfigContent( builder );
         }
 
@@ -101,6 +103,19 @@ namespace Util.Ui.Zorro.Buttons.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(onClick)", _config.GetValue( UiConst.OnClick ) );
+        }
+
+        /// <summary>
+        /// 配置图标
+        /// </summary>
+        private void ConfigIcon( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Icon ) == false )
+                return;
+            var template = new TemplateBuilder();
+            var iconBuilder = new IconBuilder();
+            iconBuilder.AddType( _config.GetValue<AntDesignIcon?>( UiConst.Icon )?.Description() );
+            template.AppendContent( iconBuilder );
+            builder.AppendContent( template );
         }
 
         /// <summary>

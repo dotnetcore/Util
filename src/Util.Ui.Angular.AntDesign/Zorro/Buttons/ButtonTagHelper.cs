@@ -33,6 +33,10 @@ namespace Util.Ui.Zorro.Buttons {
         /// </summary>
         public string Disabled { get; set; }
         /// <summary>
+        /// 图标
+        /// </summary>
+        public AntDesignIcon Icon { get; set; }
+        /// <summary>
         /// 提示
         /// </summary>
         public string Tooltip { get; set; }

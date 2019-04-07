@@ -27,7 +27,7 @@ namespace Util.Ui.Zorro.Icons.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            TagBuilder result = new IconBuilder();
+            var result = new IconBuilder();
             Config( result );
             return result;
         }
@@ -35,7 +35,7 @@ namespace Util.Ui.Zorro.Icons.Renders {
         /// <summary>
         /// 公共配置
         /// </summary>
-        private void Config( TagBuilder builder ) {
+        private void Config( IconBuilder builder ) {
             ConfigId( builder );
             ConfigType( builder );
             ConfigTheme( builder );
@@ -45,9 +45,9 @@ namespace Util.Ui.Zorro.Icons.Renders {
         /// <summary>
         /// 配置图标类型
         /// </summary>
-        private void ConfigType( TagBuilder builder ) {
-            builder.AddAttribute( "nzType", _config.GetValue<AntDesignIcon?>( UiConst.Type )?.Description() );
-            builder.AddAttribute( "[nzType]", _config.GetValue( AngularConst.BindType ) );
+        private void ConfigType( IconBuilder builder ) {
+            builder.AddType( _config.GetValue<AntDesignIcon?>( UiConst.Type )?.Description() );
+            builder.AddBindType( _config.GetValue( AngularConst.BindType ) );
         }
 
         /// <summary>
