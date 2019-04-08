@@ -1,10 +1,21 @@
 ﻿@page
 @model FormModel
+@functions {
+    /// <summary>
+    /// 获取文件限制列表
+    /// </summary>
+    List<FileType> GetFilTypes() {
+        return new List<FileType> {
+            FileType.Jpg,
+            FileType.Png
+        };
+    }
+}
 <page-header title="基础表单">
     将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
 </page-header>
 <nz-card>
-    <util-form id="form" on-submit="submit(form,btnSubmit)">
+    <util-form id="form">
         <nz-form-item>
             <util-textbox for="Name"></util-textbox>
         </nz-form-item>
@@ -21,15 +32,12 @@
             <util-textarea for="Comment"></util-textarea>
         </nz-form-item>
         <nz-form-item>
-            <util-upload url="https://jsonplaceholder.typicode.com/posts/" multiple="true">
-                <util-button text="上传">
-                    <util-icon type="Upload"></util-icon>
-                </util-button>
-            </util-upload>
+            <util-upload url="/api/upload" file-types="@GetFilTypes()"></util-upload>
         </nz-form-item>
         <nz-form-item>
             <nz-form-control>
-                <util-button id="btnSubmit" is-submit="true" color="Primary"></util-button>
+                <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Smile">
+                </util-button>
             </nz-form-control>
         </nz-form-item>
     </util-form>

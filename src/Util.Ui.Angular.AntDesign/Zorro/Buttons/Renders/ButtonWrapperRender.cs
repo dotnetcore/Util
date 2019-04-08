@@ -37,10 +37,10 @@ namespace Util.Ui.Zorro.Buttons.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TagBuilder builder ) {
+        protected void Config( ButtonWrapperBuilder builder ) {
             ConfigId( builder );
             ConfigText( builder );
-            ConfigType( builder );
+            ConfigValidateForm( builder );
             ConfigStype( builder );
             ConfigDisabled( builder );
             ConfigTooltip( builder );
@@ -53,17 +53,19 @@ namespace Util.Ui.Zorro.Buttons.Renders {
         /// <summary>
         /// 配置文本
         /// </summary>
-        private void ConfigText( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Text ) )
-                builder.AddAttribute( UiConst.Text, _config.GetValue( UiConst.Text ),false );
-            builder.AddAttribute( "[text]", _config.GetValue( AngularConst.BindText ) );
+        private void ConfigText( ButtonWrapperBuilder builder ) {
+            if ( _config.Contains( UiConst.Text ) ) {
+                builder.AddText( _config.GetValue( UiConst.Text ) );
+                return;
+            }
+            builder.AddBindText( _config.GetValue( AngularConst.BindText ) );
         }
 
         /// <summary>
-        /// 配置按钮类型
+        /// 配置是否验证表单
         /// </summary>
-        private void ConfigType( TagBuilder builder ) {
-            builder.AddAttribute( "[isSubmit]", _config.GetBoolValue( AngularConst.IsSubmit ) );
+        private void ConfigValidateForm( TagBuilder builder ) {
+            builder.AddAttribute( "[validateForm]", _config.GetBoolValue( UiConst.ValidateForm ) );
         }
 
         /// <summary>
@@ -108,25 +110,12 @@ namespace Util.Ui.Zorro.Buttons.Renders {
         /// <summary>
         /// 配置图标
         /// </summary>
-        private void ConfigIcon( TagBuilder builder ) {
+        private void ConfigIcon( ButtonWrapperBuilder builder ) {
             if( _config.Contains( UiConst.Icon ) == false )
                 return;
-            var template = new TemplateBuilder();
             var iconBuilder = new IconBuilder();
             iconBuilder.AddType( _config.GetValue<AntDesignIcon?>( UiConst.Icon )?.Description() );
-            template.AppendContent( iconBuilder );
-            builder.AppendContent( template );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        protected override void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
-                return;
-            var template = new TemplateBuilder();
-            template.AppendContent( _config.Content );
-            builder.AppendContent( template );
+            builder.AppendContent( iconBuilder );
         }
     }
 }

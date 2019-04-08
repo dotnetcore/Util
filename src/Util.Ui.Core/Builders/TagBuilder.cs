@@ -55,7 +55,7 @@ namespace Util.Ui.Builders {
         /// 添加class属性
         /// </summary>
         /// <param name="class">class属性值</param>
-        public TagBuilder Class( string @class ) {
+        public virtual TagBuilder Class( string @class ) {
             if( string.IsNullOrWhiteSpace( @class ) )
                 return this;
             if( _classList.Contains( @class ) )
@@ -71,7 +71,7 @@ namespace Util.Ui.Builders {
         /// <param name="name">属性名</param>
         /// <param name="value">属性值</param>
         /// <param name="replaceExisting">是否替换已存在的属性</param>
-        public TagBuilder Attribute( string name, string value, bool replaceExisting = false ) {
+        public virtual TagBuilder Attribute( string name, string value, bool replaceExisting = false ) {
             _tagBuilder.MergeAttribute( name, value, replaceExisting );
             return this;
         }
@@ -82,7 +82,7 @@ namespace Util.Ui.Builders {
         /// <param name="name">属性名</param>
         /// <param name="value">属性值</param>
         /// <param name="ignoreIfValueIsEmpty">当值为空时忽略</param>
-        public TagBuilder AddAttribute( string name, string value, bool ignoreIfValueIsEmpty = true ) {
+        public virtual TagBuilder AddAttribute( string name, string value, bool ignoreIfValueIsEmpty = true ) {
             if( ignoreIfValueIsEmpty && string.IsNullOrWhiteSpace( value ) )
                 return this;
             Attribute( name, value );
@@ -93,7 +93,7 @@ namespace Util.Ui.Builders {
         /// 添加属性
         /// </summary>
         /// <param name="name">属性名</param>
-        public TagBuilder AddAttribute( string name ) {
+        public virtual TagBuilder AddAttribute( string name ) {
             return Attribute( name, string.Empty ); ;
         }
 
@@ -101,7 +101,7 @@ namespace Util.Ui.Builders {
         /// 添加内容
         /// </summary>
         /// <param name="content">内容</param>
-        public TagBuilder AppendContent( string content ) {
+        public virtual TagBuilder AppendContent( string content ) {
             _tagBuilder.InnerHtml.AppendHtml( content );
             return this;
         }
@@ -110,7 +110,7 @@ namespace Util.Ui.Builders {
         /// 添加内容
         /// </summary>
         /// <param name="content">内容</param>
-        public TagBuilder AppendContent( IHtmlContent content ) {
+        public virtual TagBuilder AppendContent( IHtmlContent content ) {
             _tagBuilder.InnerHtml.AppendHtml( content );
             return this;
         }
@@ -119,7 +119,7 @@ namespace Util.Ui.Builders {
         /// 添加内容
         /// </summary>
         /// <param name="tagBuilder">标签生成器</param>
-        public TagBuilder AppendContent( TagBuilder tagBuilder ) {
+        public virtual TagBuilder AppendContent( TagBuilder tagBuilder ) {
             AppendContent( tagBuilder.GetTagBuilder() );
             return this;
         }
@@ -128,7 +128,7 @@ namespace Util.Ui.Builders {
         /// 设置内容
         /// </summary>
         /// <param name="content">内容</param>
-        public TagBuilder SetContent( string content ) {
+        public virtual TagBuilder SetContent( string content ) {
             _tagBuilder.InnerHtml.SetHtmlContent( content );
             return this;
         }
@@ -137,7 +137,7 @@ namespace Util.Ui.Builders {
         /// 设置内容
         /// </summary>
         /// <param name="content">内容</param>
-        public TagBuilder SetContent( IHtmlContent content ) {
+        public virtual TagBuilder SetContent( IHtmlContent content ) {
             _tagBuilder.InnerHtml.SetHtmlContent( content );
             return this;
         }
@@ -146,7 +146,7 @@ namespace Util.Ui.Builders {
         /// 设置内容
         /// </summary>
         /// <param name="tagBuilder">标签生成器</param>
-        public TagBuilder SetContent( TagBuilder tagBuilder ) {
+        public virtual TagBuilder SetContent( TagBuilder tagBuilder ) {
             SetContent( tagBuilder.GetTagBuilder() );
             return this;
         }

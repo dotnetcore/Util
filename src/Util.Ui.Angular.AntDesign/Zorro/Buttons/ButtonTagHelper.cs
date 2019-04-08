@@ -25,9 +25,9 @@ namespace Util.Ui.Zorro.Buttons {
         /// </summary>
         public Color Color { get; set; }
         /// <summary>
-        /// 是否提交按钮
+        /// 是否验证表单
         /// </summary>
-        public bool IsSubmit { get; set; }
+        public bool ValidateForm { get; set; }
         /// <summary>
         /// 禁用
         /// </summary>

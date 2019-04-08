@@ -115,6 +115,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 上传 的本地化字符串。
+        /// </summary>
+        public static string Upload {
+            get {
+                return ResourceManager.GetString("Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请不要重复提交 的本地化字符串。
         /// </summary>
         public static string UserDuplicateRequest {

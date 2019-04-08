@@ -136,6 +136,9 @@
     <value>系统忙，请稍后再试</value>
     <comment>抛出系统异常时显示该消息</comment>
   </data>
+  <data name="Upload" xml:space="preserve">
+    <value>上传</value>
+  </data>
   <data name="UserDuplicateRequest" xml:space="preserve">
     <value>请不要重复提交</value>
   </data>

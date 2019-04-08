@@ -75,9 +75,5 @@
         /// 主题绑定
         /// </summary>
         public const string BindTheme = "bind-theme";
-        /// <summary>
-        /// 是否提交
-        /// </summary>
-        public const string IsSubmit = "is-submit";
     }
 }

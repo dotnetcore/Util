@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
+using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms;
 using Xunit;
 using Xunit.Abstractions;
@@ -42,7 +45,13 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<nz-upload></nz-upload>" );
+            result.Append( "<nz-upload>" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -54,6 +63,11 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<nz-upload #a=\"\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
             result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -65,7 +79,13 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestUrl() {
             var attributes = new TagHelperAttributeList { { UiConst.Url, "a" } };
             var result = new String();
-            result.Append( "<nz-upload nzAction=\"a\"></nz-upload>" );
+            result.Append( "<nz-upload nzAction=\"a\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -76,7 +96,13 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestBindUrl() {
             var attributes = new TagHelperAttributeList { { AngularConst.BindUrl, "a" } };
             var result = new String();
-            result.Append( "<nz-upload [nzAction]=\"a\"></nz-upload>" );
+            result.Append( "<nz-upload [nzAction]=\"a\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -87,7 +113,132 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestMultiple() {
             var attributes = new TagHelperAttributeList { { UiConst.Multiple, true } };
             var result = new String();
-            result.Append( "<nz-upload [nzMultiple]=\"true\"></nz-upload>" );
+            result.Append( "<nz-upload [nzMultiple]=\"true\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试按钮文本
+        /// </summary>
+        [Fact]
+        public void TestButtonText() {
+            var attributes = new TagHelperAttributeList { { UiConst.ButtonText, "a" } };
+            var result = new String();
+            result.Append( "<nz-upload>" );
+            result.Append( "<x-button text=\"a\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试按钮图标
+        /// </summary>
+        [Fact]
+        public void TestButtonIcon() {
+            var attributes = new TagHelperAttributeList { { UiConst.ButtonIcon, AntDesignIcon.Check } };
+            var result = new String();
+            result.Append( "<nz-upload>" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试接受上传的文件类型
+        /// </summary>
+        [Fact]
+        public void TestAccept() {
+            var attributes = new TagHelperAttributeList { { UiConst.Accept, "a" } };
+            var result = new String();
+            result.Append( "<nz-upload nzAccept=\"a\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试文件类型限制
+        /// </summary>
+        [Fact]
+        public void TestFileType() {
+            var attributes = new TagHelperAttributeList { { UiConst.FileType, "a" } };
+            var result = new String();
+            result.Append( "<nz-upload nzFileType=\"a\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试文件类型限制 - Jpg
+        /// </summary>
+        [Fact]
+        public void TestFileTypes_Jpg() {
+            var attributes = new TagHelperAttributeList { { UiConst.FileTypes, new List<FileType> { FileType.Jpg } } };
+            var result = new String();
+            result.Append( "<nz-upload nzAccept=\".jpg,.jpeg\" nzFileType=\"image/jpeg\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试文件类型限制 - Jpg + Png
+        /// </summary>
+        [Fact]
+        public void TestFileTypes_Jpg_Png() {
+            var attributes = new TagHelperAttributeList { { UiConst.FileTypes, new List<FileType> { FileType.Jpg, FileType.Png } } };
+            var result = new String();
+            result.Append( "<nz-upload nzAccept=\".jpg,.jpeg,.png\" nzFileType=\"image/jpeg,image/png\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试文件大小限制
+        /// </summary>
+        [Fact]
+        public void TestSize() {
+            var attributes = new TagHelperAttributeList { { UiConst.Size, 1.1 } };
+            var result = new String();
+            result.Append( "<nz-upload nzSize=\"1.1\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

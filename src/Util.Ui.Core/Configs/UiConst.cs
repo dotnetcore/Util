@@ -547,5 +547,29 @@
         /// 截断
         /// </summary>
         public const string Truncate = "truncate";
+        /// <summary>
+        /// 按钮文本
+        /// </summary>
+        public const string ButtonText = "button-text";
+        /// <summary>
+        /// 按钮图标
+        /// </summary>
+        public const string ButtonIcon = "button-icon";
+        /// <summary>
+        /// 验证表单
+        /// </summary>
+        public const string ValidateForm = "validate-form";
+        /// <summary>
+        /// 接受
+        /// </summary>
+        public const string Accept = "accept";
+        /// <summary>
+        /// 文件类型
+        /// </summary>
+        public const string FileType = "file-type";
+        /// <summary>
+        /// 文件类型列表
+        /// </summary>
+        public const string FileTypes = "file-types";
     }
 }

@@ -27,9 +27,9 @@ export class ButtonWrapperComponent {
      */
     @Input() text?: string;
     /**
-     * 是否提交按钮
+     * 是否验证表单
      */
-    @Input() isSubmit?: boolean;
+    @Input() validateForm?: boolean;
     /**
      * 颜色，可选值：default,primary,dashed,danger
      */
@@ -84,7 +84,7 @@ export class ButtonWrapperComponent {
     private isDisabled() {
         if ( this.disabled !== undefined )
             return this.disabled;
-        return this.isSubmit && this.form && !this.form.valid;
+        return this.validateForm && this.form && !this.form.valid;
     }
 
     /**

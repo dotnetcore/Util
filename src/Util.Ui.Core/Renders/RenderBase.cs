@@ -3,6 +3,7 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 
 namespace Util.Ui.Renders {
     /// <summary>
@@ -87,7 +88,7 @@ namespace Util.Ui.Renders {
         /// 配置内容
         /// </summary>
         protected virtual void ConfigContent( TagBuilder builder ) {
-            if( _config.Content == null || _config.Content.IsEmptyOrWhiteSpace )
+            if( _config.Content.IsEmpty() )
                 return;
             builder.AppendContent( _config.Content );
         }

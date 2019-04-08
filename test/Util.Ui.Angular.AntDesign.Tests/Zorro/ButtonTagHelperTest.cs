@@ -91,13 +91,13 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         }
 
         /// <summary>
-        /// 测试是否提交按钮
+        /// 测试是否验证表单
         /// </summary>
         [Fact]
-        public void TestIsSubmit() {
-            var attributes = new TagHelperAttributeList { { AngularConst.IsSubmit, true } };
+        public void TestValidateForm() {
+            var attributes = new TagHelperAttributeList { { UiConst.ValidateForm, true } };
             var result = new String();
-            result.Append( "<x-button [isSubmit]=\"true\"></x-button>" );
+            result.Append( "<x-button [validateForm]=\"true\"></x-button>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
