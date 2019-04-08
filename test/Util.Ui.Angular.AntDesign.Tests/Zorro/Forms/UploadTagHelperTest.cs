@@ -192,11 +192,31 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
-        /// 测试文件类型限制 - Jpg
+        /// 测试允许上传图片文件
         /// </summary>
         [Fact]
-        public void TestFileTypes_Jpg() {
-            var attributes = new TagHelperAttributeList { { UiConst.FileTypes, new List<FileType> { FileType.Jpg } } };
+        public void TestAcceptImage() {
+            var attributes = new TagHelperAttributeList { { UiConst.AcceptImage, true } };
+            var result = new String();
+            result.Append( "<nz-upload " );
+            result.Append( "nzAccept=\".jpg,.jpeg,.png,.gif,.bmp\" " );
+            result.Append( "nzFileType=\"image/jpeg,image/png,image/gif,image/bmp\"" );
+            result.Append( ">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试图片文件类型限制 - Jpg
+        /// </summary>
+        [Fact]
+        public void TestImageTypes_Jpg() {
+            var attributes = new TagHelperAttributeList { { UiConst.ImageTypes, new List<ImageType> { ImageType.Jpg } } };
             var result = new String();
             result.Append( "<nz-upload nzAccept=\".jpg,.jpeg\" nzFileType=\"image/jpeg\">" );
             result.Append( "<x-button text=\"上传\">" );
@@ -209,11 +229,11 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
-        /// 测试文件类型限制 - Jpg + Png
+        /// 测试图片文件类型限制 - Jpg + Png
         /// </summary>
         [Fact]
-        public void TestFileTypes_Jpg_Png() {
-            var attributes = new TagHelperAttributeList { { UiConst.FileTypes, new List<FileType> { FileType.Jpg, FileType.Png } } };
+        public void TestImageTypes_Jpg_Png() {
+            var attributes = new TagHelperAttributeList { { UiConst.ImageTypes, new List<ImageType> { ImageType.Jpg, ImageType.Png } } };
             var result = new String();
             result.Append( "<nz-upload nzAccept=\".jpg,.jpeg,.png\" nzFileType=\"image/jpeg,image/png\">" );
             result.Append( "<x-button text=\"上传\">" );
@@ -233,6 +253,40 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Size, 1.1 } };
             var result = new String();
             result.Append( "<nz-upload nzSize=\"1.1\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试上传文件夹
+        /// </summary>
+        [Fact]
+        public void TestDirectory() {
+            var attributes = new TagHelperAttributeList { { UiConst.Directory, true } };
+            var result = new String();
+            result.Append( "<nz-upload [nzDirectory]=\"true\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试上传参数
+        /// </summary>
+        [Fact]
+        public void TestData() {
+            var attributes = new TagHelperAttributeList { { UiConst.Data, "a" } };
+            var result = new String();
+            result.Append( "<nz-upload [nzData]=\"a\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );

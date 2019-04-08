@@ -15,21 +15,25 @@ namespace Util.Ui.Zorro.Forms {
     [HtmlTargetElement( "util-upload" )]
     public class UploadTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// nzAction, 请求地址
+        /// nzAction, 上传地址
         /// </summary>
         public string Url { get; set; }
         /// <summary>
-        /// [nzAction],请求地址
+        /// [nzAction],上传地址
         /// </summary>
         public string BindUrl { get; set; }
         /// <summary>
-        /// 查询参数
+        /// [nzData],上传参数或返回上传参数的方法
         /// </summary>
-        public string QueryParam { get; set; }
+        public string Data { get; set; }
         /// <summary>
-        /// nzMultiple,启用多选
+        /// [nzMultiple],启用多选
         /// </summary>
         public bool Multiple { get; set; }
+        /// <summary>
+        /// [nzDirectory],启用上传文件夹
+        /// </summary>
+        public bool Directory { get; set; }
         /// <summary>
         /// 按钮文本
         /// </summary>
@@ -43,13 +47,17 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Accept { get; set; }
         /// <summary>
+        /// 允许上传图片，在文件选择框中显示图片文件
+        /// </summary>
+        public bool AcceptImage { get; set; }
+        /// <summary>
         /// nzFileType,文件类型限制
         /// </summary>
         public string FileType { get; set; }
         /// <summary>
-        /// 文件类型限制列表，将会设置nzFileType和nzAccept
+        /// 图片文件类型限制列表
         /// </summary>
-        public List<FileType> FileTypes { get; set; }
+        public List<ImageType> ImageTypes { get; set; }
         /// <summary>
         /// nzSize,文件大小限制，单位：KB；0 表示不限
         /// </summary>

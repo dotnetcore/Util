@@ -568,8 +568,20 @@
         /// </summary>
         public const string FileType = "file-type";
         /// <summary>
-        /// 文件类型列表
+        /// 接受图片
         /// </summary>
-        public const string FileTypes = "file-types";
+        public const string AcceptImage = "accept-image";
+        /// <summary>
+        /// 图片类型
+        /// </summary>
+        public const string ImageTypes = "image-types";
+        /// <summary>
+        /// 目录
+        /// </summary>
+        public const string Directory = "directory";
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public const string Data = "data";
     }
 }

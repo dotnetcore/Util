@@ -1,16 +1,5 @@
 ﻿@page
 @model FormModel
-@functions {
-    /// <summary>
-    /// 获取文件限制列表
-    /// </summary>
-    List<FileType> GetFilTypes() {
-        return new List<FileType> {
-            FileType.Jpg,
-            FileType.Png
-        };
-    }
-}
 <page-header title="基础表单">
     将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
 </page-header>
@@ -32,11 +21,11 @@
             <util-textarea for="Comment"></util-textarea>
         </nz-form-item>
         <nz-form-item>
-            <util-upload url="/api/upload" file-types="@GetFilTypes()"></util-upload>
+            <util-upload url="/api/upload"></util-upload>
         </nz-form-item>
         <nz-form-item>
             <nz-form-control>
-                <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Smile">
+                <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Check">
                 </util-button>
             </nz-form-control>
         </nz-form-item>

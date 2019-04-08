@@ -43,7 +43,7 @@ namespace Util.Ui.Viser.Data {
         /// 转换为Json属性
         /// </summary>
         public JProperty ToJProperty() {
-            return new JProperty( Name, Value );
+            return new JProperty( Name,Util.Helpers.Convert.ToDoubleOrNull( Value ) );
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Util.Ui.Viser.Data {
         public JProperty ToColumnJProperty() {
             if( _item == null )
                 throw new ArgumentNullException();
-            return new JProperty( _item.Name, Value );
+            return new JProperty( _item.Name, Util.Helpers.Convert.ToDoubleOrNull( Value ) );
         }
     }
 }

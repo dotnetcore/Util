@@ -46,7 +46,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         [Fact]
         public void TestToResult_1() {
             _data.Add( "a", 1 );
-            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1}]}", ToResultJson() );
+            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1.0}]}", ToResultJson() );
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         [Fact]
         public void TestToResult_2() {
             _data.Add( "a", 1 ).Add( "b", 2 );
-            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1},{\"name\":\"b\",\"value\":2}]}", ToResultJson() );
+            Assert.Equal( "{\"columns\":[\"value\"],\"data\":[{\"name\":\"a\",\"value\":1.0},{\"name\":\"b\",\"value\":2.0}]}", ToResultJson() );
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         [Fact]
         public void TestToResult_3() {
             _data.Add( "a", new Point( "b", 1 ) );
-            Assert.Equal( "{\"columns\":[\"b\"],\"data\":[{\"name\":\"a\",\"b\":1}]}", ToResultJson() );
+            Assert.Equal( "{\"columns\":[\"b\"],\"data\":[{\"name\":\"a\",\"b\":1.0}]}", ToResultJson() );
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         [Fact]
         public void TestToResult_4() {
             _data.Add( "a", new Point( "b", 1 ), new Point( "c", 2 ) );
-            Assert.Equal( "{\"columns\":[\"b\",\"c\"],\"data\":[{\"name\":\"a\",\"b\":1,\"c\":2}]}", ToResultJson() );
+            Assert.Equal( "{\"columns\":[\"b\",\"c\"],\"data\":[{\"name\":\"a\",\"b\":1.0,\"c\":2.0}]}", ToResultJson() );
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         public void TestToResult_5() {
             _data.Add( "a", new Point( "b", 1 ), new Point( "c", 2 ) );
             _data.Add( "d", new Point( "b", 3 ), new Point( "c", 4 ) );
-            Assert.Equal( "{\"columns\":[\"b\",\"c\"],\"data\":[{\"name\":\"a\",\"b\":1,\"c\":2},{\"name\":\"d\",\"b\":3,\"c\":4}]}", ToResultJson() );
+            Assert.Equal( "{\"columns\":[\"b\",\"c\"],\"data\":[{\"name\":\"a\",\"b\":1.0,\"c\":2.0},{\"name\":\"d\",\"b\":3.0,\"c\":4.0}]}", ToResultJson() );
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         [Fact]
         public void TestToColumnResult_1() {
             _data.Add( "a", 1 );
-            Assert.Equal( "{\"columns\":[\"a\"],\"data\":[{\"name\":\"value\",\"a\":1}]}", ToColumnResultJson() );
+            Assert.Equal( "{\"columns\":[\"a\"],\"data\":[{\"name\":\"value\",\"a\":1.0}]}", ToColumnResultJson() );
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         [Fact]
         public void TestToColumnResult_2() {
             _data.Add( "a", 1 ).Add( "b", 2 );
-            Assert.Equal( "{\"columns\":[\"a\",\"b\"],\"data\":[{\"name\":\"value\",\"a\":1,\"b\":2}]}", ToColumnResultJson() );
+            Assert.Equal( "{\"columns\":[\"a\",\"b\"],\"data\":[{\"name\":\"value\",\"a\":1.0,\"b\":2.0}]}", ToColumnResultJson() );
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
         [Fact]
         public void TestToColumnResult_3() {
             _data.Add( "a", new Point( "b", 1 ) );
-            Assert.Equal( "{\"columns\":[\"a\"],\"data\":[{\"name\":\"b\",\"a\":1}]}", ToColumnResultJson() );
+            Assert.Equal( "{\"columns\":[\"a\"],\"data\":[{\"name\":\"b\",\"a\":1.0}]}", ToColumnResultJson() );
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Viser.Data {
             _data.Add( "a1", new Point( "b", 1 ), new Point( "c", 2 ) );
             _data.Add( "a2", new Point( "b", 3 ), new Point( "c", 4 ) );
             _data.Add( "a3", new Point( "b", 5 ), new Point( "c", 6 ) );
-            Assert.Equal( "{\"columns\":[\"a1\",\"a2\",\"a3\"],\"data\":[{\"name\":\"b\",\"a1\":1,\"a2\":3,\"a3\":5},{\"name\":\"c\",\"a1\":2,\"a2\":4,\"a3\":6}]}", ToColumnResultJson() );
+            Assert.Equal( "{\"columns\":[\"a1\",\"a2\",\"a3\"],\"data\":[{\"name\":\"b\",\"a1\":1.0,\"a2\":3.0,\"a3\":5.0},{\"name\":\"c\",\"a1\":2.0,\"a2\":4.0,\"a3\":6.0}]}", ToColumnResultJson() );
         }
     }
 }
