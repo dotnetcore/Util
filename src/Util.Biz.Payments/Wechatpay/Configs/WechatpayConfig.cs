@@ -59,5 +59,13 @@ namespace Util.Biz.Payments.Wechatpay.Configs {
         public string GetOrderUrl() {
             return Url.Combine( GatewayUrl, "pay/unifiedorder" );
         }
+        /// <summary>
+        /// 获取退款地址
+        /// </summary>
+        /// <returns></returns>
+        public string GetRefundUrl()
+        {
+            return Url.Combine(GatewayUrl, "secapi/pay/refund");
+        }
     }
 }
