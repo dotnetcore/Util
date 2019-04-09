@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using DotNetCore.CAP;
 using Util.Datas.Transactions;
+using Util.Logs;
+using Util.Logs.Extensions;
 
 namespace Util.Events.Cap {
     /// <summary>
@@ -47,8 +49,31 @@ namespace Util.Events.Cap {
                 Publisher.Transaction.DbTransaction = transaction;
                 Publisher.Transaction.AutoCommit = false;
                 await Publisher.PublishAsync( name, data, callback );
+                WriteLog( name );
             } );
             return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        private void WriteLog( string name ) {
+            GetLog()
+                .Caption( "Cap已发送事件" )
+                .Content( $"消息名称:{name}" )
+                .Trace();
+        }
+
+        /// <summary>
+        /// 获取日志
+        /// </summary>
+        private ILog GetLog() {
+            try {
+                return Log.GetLog( this );
+            }
+            catch {
+                return Log.Null;
+            }
         }
     }
 }

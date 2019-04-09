@@ -38,6 +38,10 @@ namespace Util.Datas.Ef.Core {
         /// 日志工厂
         /// </summary>
         private static readonly ILoggerFactory LoggerFactory;
+        /// <summary>
+        /// 服务提供器
+        /// </summary>
+        private IServiceProvider _serviceProvider;
 
         #endregion
 
@@ -60,11 +64,13 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         /// <param name="options">配置</param>
         /// <param name="manager">工作单元管理器</param>
-        protected UnitOfWorkBase( DbContextOptions options, IUnitOfWorkManager manager )
+        /// <param name="serviceProvider">服务提供器</param>
+        protected UnitOfWorkBase( DbContextOptions options, IUnitOfWorkManager manager, IServiceProvider serviceProvider )
             : base( options ) {
             manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
             Session = Util.Security.Sessions.Session.Instance;
+            _serviceProvider = serviceProvider ?? Ioc.Create<IServiceProvider>();
         }
 
         #endregion
@@ -133,12 +139,22 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         private EfConfig GetConfig() {
             try {
-                var options = Ioc.Create<IOptionsSnapshot<EfConfig>>();
+                var options = Create<IOptionsSnapshot<EfConfig>>();
                 return options.Value;
             }
             catch {
                 return new EfConfig { EfLogLevel = EfLogLevel.Sql };
             }
+        }
+
+        /// <summary>
+        /// 创建实例
+        /// </summary>
+        private T Create<T>() {
+            var result = _serviceProvider.GetService( typeof( T ) );
+            if ( result == null )
+                return default(T);
+            return (T) result;
         }
 
         #endregion
@@ -234,7 +250,7 @@ namespace Util.Datas.Ef.Core {
         /// </summary>
         public override async Task<int> SaveChangesAsync( CancellationToken cancellationToken = default( CancellationToken ) ) {
             SaveChangesBefore();
-            var transactionActionManager = Ioc.Create<ITransactionActionManager>();
+            var transactionActionManager = Create<ITransactionActionManager>();
             if( transactionActionManager.Count == 0 )
                 return await base.SaveChangesAsync( cancellationToken );
             return await TransactionCommit( transactionActionManager, cancellationToken );

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Util.Applications;
-using Util.Datas.Queries;
 using Util.Datas.Sql;
 using Util.Domains.Repositories;
 using Util.Exceptions;

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Util.Datas.UnitOfWorks;
 
 namespace Util.Samples.Data.UnitOfWorks.SqlServer {
@@ -11,7 +12,9 @@ namespace Util.Samples.Data.UnitOfWorks.SqlServer {
         /// </summary>
         /// <param name="options">配置项</param>
         /// <param name="unitOfWorkManager">工作单元服务</param>
-        public SampleUnitOfWork( DbContextOptions options, IUnitOfWorkManager unitOfWorkManager ) : base( options, unitOfWorkManager ) {
+        /// <param name="serviceProvider">服务提供器</param>
+        public SampleUnitOfWork( DbContextOptions options, IUnitOfWorkManager unitOfWorkManager,IServiceProvider serviceProvider ) 
+            : base( options, unitOfWorkManager, serviceProvider ) {
         }
     }
 }

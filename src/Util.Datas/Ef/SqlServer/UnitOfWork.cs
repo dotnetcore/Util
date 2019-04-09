@@ -15,8 +15,9 @@ namespace Util.Datas.Ef.SqlServer {
         /// </summary>
         /// <param name="options">配置</param>
         /// <param name="manager">工作单元服务</param>
-        protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager )
-            : base( options, manager ) {
+        /// <param name="serviceProvider">服务提供器</param>
+        protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager, IServiceProvider serviceProvider = null )
+            : base( options, manager, serviceProvider ) {
         }
 
         /// <summary>
