@@ -63,14 +63,31 @@ namespace Util.Datas.Ef.Core {
         /// 初始化Entity Framework工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        /// <param name="manager">工作单元管理器</param>
         /// <param name="serviceProvider">服务提供器</param>
-        protected UnitOfWorkBase( DbContextOptions options, IUnitOfWorkManager manager, IServiceProvider serviceProvider )
+        protected UnitOfWorkBase( DbContextOptions options, IServiceProvider serviceProvider )
             : base( options ) {
-            manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
             Session = Util.Security.Sessions.Session.Instance;
             _serviceProvider = serviceProvider ?? Ioc.Create<IServiceProvider>();
+            RegisterToManager();
+        }
+
+        /// <summary>
+        /// 注册到工作单元管理器
+        /// </summary>
+        private void RegisterToManager() {
+            var manager = Create<IUnitOfWorkManager>();
+            manager?.Register( this );
+        }
+
+        /// <summary>
+        /// 创建实例
+        /// </summary>
+        private T Create<T>() {
+            var result = _serviceProvider.GetService( typeof( T ) );
+            if( result == null )
+                return default( T );
+            return (T)result;
         }
 
         #endregion
@@ -145,16 +162,6 @@ namespace Util.Datas.Ef.Core {
             catch {
                 return new EfConfig { EfLogLevel = EfLogLevel.Sql };
             }
-        }
-
-        /// <summary>
-        /// 创建实例
-        /// </summary>
-        private T Create<T>() {
-            var result = _serviceProvider.GetService( typeof( T ) );
-            if ( result == null )
-                return default(T);
-            return (T) result;
         }
 
         #endregion
