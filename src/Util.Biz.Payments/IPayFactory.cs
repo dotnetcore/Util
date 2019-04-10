@@ -59,7 +59,6 @@ namespace Util.Biz.Payments {
         /// <summary>
         /// 创建微信退款服务
         /// </summary>
-        /// <returns></returns>
-        IWechatRefundService CreateWechatRefundService();
+        IWechatpayRefundService CreateWechatpayRefundService();
     }
 }
