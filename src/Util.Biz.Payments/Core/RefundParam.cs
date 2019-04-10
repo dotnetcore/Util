@@ -24,14 +24,5 @@ namespace Util.Biz.Payments.Core
         /// 微信订单号 与商户订单号 必须二选一
         /// </summary>
         public string TransactionId { get; set; }
-
-        /// <summary>
-        /// 证书绝对路径，如@"C:\apiclient_cert.p12"
-        /// </summary>
-        public string Cert { get; set; }
-        /// <summary>
-        /// 证书密码
-        /// </summary>
-        public string Password { get; set; }
     }
 }

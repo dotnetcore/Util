@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Util.Biz.Payments.Core;
 using Util.Biz.Payments.Wechatpay.Abstractions;
 using Util.Biz.Payments.Wechatpay.Configs;
@@ -24,14 +21,6 @@ namespace Util.Biz.Payments.Wechatpay.Services
         /// 微信配置提供器
         /// </summary>
         private IWechatpayConfigProvider ConfigProvider { get; set; }
-        /// <summary>
-        /// 证书
-        /// </summary>
-        private string Cert { get; set; }
-        /// <summary>
-        /// 证书密码
-        /// </summary>
-        private string Password { get; set; }
 
         /// <summary>
         /// 是否发送请求
@@ -55,14 +44,10 @@ namespace Util.Biz.Payments.Wechatpay.Services
         {
             var param = request.ToParam();
             var config = await ConfigProvider.GetConfigAsync();
-            if (param.Password.IsEmpty())
-                param.Password = config.MerchantId;
             Validate(config, param);
             var builder = new WechatRefundParameterBuilder(config);
             Config(builder, param);
-            Cert = param.Cert;
-            Password = param.Password;
-          return  await RequstResult(config, builder);
+            return await RequstResult(config, builder);
         }
 
         /// <summary>
@@ -74,6 +59,7 @@ namespace Util.Biz.Payments.Wechatpay.Services
             param.CheckNull(nameof(param));
             config.Validate();
             param.Validate();
+            ValidateConfig(config);
             ValidateParam(param);
         }
 
@@ -85,8 +71,15 @@ namespace Util.Biz.Payments.Wechatpay.Services
         {
             if (param.TransactionId.IsEmpty() && param.OrderId.IsEmpty())
                 throw new Warning("商户订单号和微信订单号必须设置一个");
-            if (param.Cert.IsEmpty())
-                throw new Exception("证书路径不能为空!");
+        }
+        /// <summary>
+        /// 验证配置
+        /// </summary>
+        /// <param name="config"></param>
+        protected void ValidateConfig(WechatpayConfig config)
+        {
+            if (config.Cert.IsEmpty() )
+                throw new Warning("必须设置证书路径");
         }
 
         /// <summary>
@@ -117,19 +110,24 @@ namespace Util.Biz.Payments.Wechatpay.Services
         {
             if (IsSend == false)
                 return string.Empty;
-            var handler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (a, b, c, d) => true
-            };
-            var certificate = new X509Certificate2(Cert, Password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-            handler.ClientCertificates.Add(certificate);
-            var http = new HttpClient(handler) { Timeout = new TimeSpan(0, 0, 15) };
-            var request = new HttpRequestMessage(HttpMethod.Post, config.GetRefundUrl())
-            {
-                Content = new StringContent(builder.ToXml(), System.Text.Encoding.UTF8, "text/xml")
-            };
-            var result = await http.SendAsync(request).Result.Content.ReadAsStringAsync();
-            return result;
+            //var handler = new HttpClientHandler
+            //{
+            //    ServerCertificateCustomValidationCallback = (a, b, c, d) => true
+            //};
+            //var certificate = new X509Certificate2(Cert, Password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+            //handler.ClientCertificates.Add(certificate);
+            //var http = new HttpClient(handler) { Timeout = new TimeSpan(0, 0, 15) };
+            //var request = new HttpRequestMessage(HttpMethod.Post, config.GetRefundUrl())
+            //{
+            //    Content = new StringContent(builder.ToXml(), System.Text.Encoding.UTF8, "text/xml")
+            //};
+            //var result = await http.SendAsync(request).Result.Content.ReadAsStringAsync();
+            //return result;
+            return await Web.Client()
+                .Post(config.GetRefundUrl())
+                .Certificate(config.Cert, config.CertPassword)
+                .XmlData(builder.ToXml())
+                .ResultAsync();
         }
 
         /// <summary>

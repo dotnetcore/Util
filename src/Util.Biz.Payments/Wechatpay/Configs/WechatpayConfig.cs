@@ -52,6 +52,14 @@ namespace Util.Biz.Payments.Wechatpay.Configs {
             if( result.IsValid == false )
                 throw new Warning( result.First().ErrorMessage );
         }
+        /// <summary>
+        /// 证书绝对路径
+        /// </summary>
+        public string Cert { get; set; }
+        /// <summary>
+        /// 证书密码
+        /// </summary>
+        public string CertPassword { get; set; }
 
         /// <summary>
         /// 获取统一下单地址
