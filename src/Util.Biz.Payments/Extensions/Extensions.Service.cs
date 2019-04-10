@@ -28,6 +28,7 @@ namespace Util.Biz.Payments.Extensions {
             services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
             services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
             services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
+            services.TryAddScoped<IWechatRefundNotifyService, WechatRefundNotifyService>();
         }
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace Util.Biz.Payments.Extensions {
             services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
             services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
             services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
+            services.TryAddScoped<IWechatRefundNotifyService, WechatRefundNotifyService>();
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace Util.Biz.Payments.Extensions {
             services.TryAddScoped<IWechatpayConfigProvider, TWechatpayConfigProvider>();
             services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
-            services.TryAddScoped<IWechatRefundService, WechatRefundService>();
+            services.TryAddScoped<IWechatRefundNotifyService, WechatRefundNotifyService>();
         }
     }
 }
