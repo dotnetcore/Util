@@ -60,6 +60,8 @@ namespace Util.Biz.Payments.Wechatpay.Services
             Validate(config, param);
             var builder = new WechatRefundParameterBuilder(config);
             Config(builder, param);
+            Cert = param.Cert;
+            Password = param.Password;
           return  await RequstResult(config, builder);
         }
 
