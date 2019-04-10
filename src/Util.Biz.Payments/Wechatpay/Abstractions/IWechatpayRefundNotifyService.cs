@@ -5,7 +5,7 @@ namespace Util.Biz.Payments.Wechatpay.Abstractions
     /// <summary>
     /// 微信退款回调服务
     /// </summary>
-    public interface IWechatRefundNotifyService: INotifyService
+    public interface IWechatpayRefundNotifyService: INotifyService
     {
     }
 }

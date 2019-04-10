@@ -6,13 +6,13 @@ namespace Util.Biz.Payments.Wechatpay.Services
     /// <summary>
     /// 微信退款回调服务
     /// </summary>
-    public class WechatRefundNotifyService:WechatpayNotifyService,IWechatRefundNotifyService
+    public class WechatpayRefundNotifyService:WechatpayNotifyService,IWechatpayRefundNotifyService
     {
         /// <summary>
-        /// 初始化微信退款服务
+        /// 初始化微信退款回调服务
         /// </summary>
         /// <param name="configProvider"></param>
-        public WechatRefundNotifyService(IWechatpayConfigProvider configProvider) : base(configProvider)
+        public WechatpayRefundNotifyService(IWechatpayConfigProvider configProvider) : base(configProvider)
         {
         }
         /// <summary>
