@@ -12,7 +12,7 @@ namespace Util.Datas.Tests.Ef.SqlServer.UnitOfWorks {
         /// <summary>
         /// 初始化SqlServer工作单元
         /// </summary>
-        public SqlServerUnitOfWork(IUnitOfWorkManager unitOfWorkManager) : base( new DbContextOptionsBuilder().UseSqlServer( AppConfig.Connection ).Options, unitOfWorkManager ) {
+        public SqlServerUnitOfWork() : base( new DbContextOptionsBuilder().UseSqlServer( AppConfig.Connection ).Options ) {
         }
     }
 
@@ -24,8 +24,7 @@ namespace Util.Datas.Tests.Ef.SqlServer.UnitOfWorks {
         /// 初始化
         /// </summary>
         /// <param name="options">配置项</param>
-        /// <param name="unitOfWorkManager">工作单元服务</param>
-        public SqlServerUnitOfWork2( DbContextOptions options, IUnitOfWorkManager unitOfWorkManager ) : base( options, unitOfWorkManager ) {
+        public SqlServerUnitOfWork2( DbContextOptions options ) : base( options ) {
         }
     }
 }

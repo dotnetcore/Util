@@ -69,6 +69,14 @@ namespace Util.Webs.Clients {
         /// 令牌
         /// </summary>
         private string _token;
+        /// <summary>
+        /// 证书路径
+        /// </summary>
+        private string _certificatePath;
+        /// <summary>
+        /// 证书密码
+        /// </summary>
+        private string _certificatePassword;
 
         #endregion
 
@@ -277,6 +285,17 @@ namespace Util.Webs.Clients {
             return This();
         }
 
+        /// <summary>
+        /// 设置证书
+        /// </summary>
+        /// <param name="path">证书路径</param>
+        /// <param name="password">证书密码</param>
+        public TRequest Certificate( string path, string password ) {
+            _certificatePath = path;
+            _certificatePassword = password;
+            return This();
+        }
+
         #endregion
 
         #region ResultAsync(获取结果)
@@ -319,10 +338,20 @@ namespace Util.Webs.Clients {
         /// 创建Http客户端
         /// </summary>
         protected virtual HttpClient CreateHttpClient() {
-            return new HttpClient( new HttpClientHandler {
+            return new HttpClient( CreateHttpClientHandler() ) { Timeout = _timeout };
+        }
+
+        /// <summary>
+        /// 创建Http客户端处理器
+        /// </summary>
+        protected HttpClientHandler CreateHttpClientHandler() {
+            var handler = new HttpClientHandler {
                 CookieContainer = _cookieContainer,
                 ServerCertificateCustomValidationCallback = _serverCertificateCustomValidationCallback
-            } ) { Timeout = _timeout };
+            };
+            var certificate = new X509Certificate2( _certificatePath, _certificatePassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet );
+            handler.ClientCertificates.Add( certificate );
+            return handler;
         }
 
         /// <summary>
