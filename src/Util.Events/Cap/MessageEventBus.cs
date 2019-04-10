@@ -58,8 +58,10 @@ namespace Util.Events.Cap {
         /// 写日志
         /// </summary>
         private void WriteLog( string name ) {
-            GetLog()
-                .Caption( "Cap已发送事件" )
+            var log = GetLog();
+            if( log.IsTraceEnabled == false )
+                return;
+            log.Caption( "Cap已发送事件" )
                 .Content( $"消息名称:{name}" )
                 .Trace();
         }

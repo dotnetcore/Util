@@ -64,12 +64,12 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// <summary>
         /// 写日志
         /// </summary>
-        protected void WriteLog() {
+        protected virtual void WriteLog() {
             var log = GetLog();
             if( log.IsTraceEnabled == false )
                 return;
             log.Class( GetType().FullName )
-                .Caption( "微信支付返回" )
+                .Caption( "微信支付返回结果" )
                 .Content( "参数:" )
                 .Content( GetParams() )
                 .Content()
@@ -81,7 +81,7 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// <summary>
         /// 获取日志操作
         /// </summary>
-        private ILog GetLog() {
+        protected ILog GetLog() {
             try {
                 return Log.GetLog( WechatpayConst.TraceLogName );
             }

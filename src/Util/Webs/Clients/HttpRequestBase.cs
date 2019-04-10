@@ -349,6 +349,8 @@ namespace Util.Webs.Clients {
                 CookieContainer = _cookieContainer,
                 ServerCertificateCustomValidationCallback = _serverCertificateCustomValidationCallback
             };
+            if ( string.IsNullOrWhiteSpace( _certificatePath ) )
+                return handler;
             var certificate = new X509Certificate2( _certificatePath, _certificatePassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet );
             handler.ClientCertificates.Add( certificate );
             return handler;

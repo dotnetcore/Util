@@ -70,7 +70,7 @@ namespace Util.Biz.Payments.Extensions {
             services.TryAddScoped<IWechatpayConfigProvider, TWechatpayConfigProvider>();
             services.TryAddScoped<IPayFactory, PayFactory>();
             services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
-            services.TryAddScoped<IWechatRefundNotifyService, WechatRefundNotifyService>();
+            services.TryAddScoped<IWechatRefundService, WechatRefundService>();
         }
     }
 }

@@ -133,13 +133,12 @@ namespace Util.Biz.Payments.Factories {
         public IWechatpayJsApiPayService CreateWechatpayJsApiPayService() {
             return new WechatpayJsApiPayService( _wechatpayConfigProvider );
         }
+
         /// <summary>
         /// 创建微信退款服务
         /// </summary>
-        /// <returns></returns>
-        public IWechatRefundService CreateWechatRefundService()
-        {
-            return new WechatRefundService(_wechatpayConfigProvider);
+        public IWechatpayRefundService CreateWechatpayRefundService() {
+            return new WechatpayRefundService( _wechatpayConfigProvider );
         }
     }
 }

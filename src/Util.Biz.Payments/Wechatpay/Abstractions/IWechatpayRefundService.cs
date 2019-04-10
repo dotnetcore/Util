@@ -2,18 +2,15 @@
 using Util.Biz.Payments.Core;
 using Util.Biz.Payments.Wechatpay.Parameters.Requests;
 
-namespace Util.Biz.Payments.Wechatpay.Abstractions
-{
+namespace Util.Biz.Payments.Wechatpay.Abstractions {
     /// <summary>
     /// 微信退款
     /// </summary>
-    public interface IWechatRefundService
-    {
+    public interface IWechatpayRefundService {
         /// <summary>
         /// 退款
         /// </summary>
         /// <param name="request">退款参数</param>
-        /// <returns></returns>
-        Task<RefundResult> RefundAsync(WechatRefundRequest request);
+        Task<RefundResult> RefundAsync( WechatRefundRequest request );
     }
 }
