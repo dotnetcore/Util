@@ -82,7 +82,7 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
      */
     @Input() emailMessage: string;
     /**
-     * 正则表达式
+     * 正则表达式验证
      */
     @Input() pattern: string;
     /**

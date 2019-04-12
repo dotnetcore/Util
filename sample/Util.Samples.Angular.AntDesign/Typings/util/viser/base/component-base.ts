@@ -69,4 +69,11 @@ export class ComponentBase implements OnInit {
         } );
         return dataView.rows;
     }
+
+    /**
+     * 是否包含数据
+     */
+    hasData() {
+        return this.data && this.data.length > 0;
+    }
 }
