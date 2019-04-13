@@ -4,6 +4,7 @@
 //=====================================================
 import { Component } from '@angular/core';
 import { ComponentBase } from "./base/component-base";
+import { ChartContext } from "viser-ng/es/chartService";
 
 /**
  * Viser折线图包装器
@@ -20,8 +21,9 @@ import { ComponentBase } from "./base/component-base";
 export class LineWrapperComponent extends ComponentBase {
     /**
      * 初始化折线图包装器
+     * @param context 图表上下文
      */
-    constructor() {
-        super();
+    constructor( public context: ChartContext ) {
+        super( context );
     }
 }

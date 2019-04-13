@@ -2,10 +2,11 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=====================================================
-import { Component, Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ComponentBase } from "./base/component-base";
 import { DataSet } from '@antv/data-set';
 import { Model } from "./data/model";
+import { ChartContext } from "viser-ng/es/chartService";
 
 /**
  * Viser饼图包装器
@@ -40,7 +41,7 @@ export class PieWrapperComponent extends ComponentBase implements OnInit {
     /**
      * 是否在内部显示标签,默认值为 false
      */
-    @Input() isInnerLabel?:boolean;
+    @Input() isInnerLabel?: boolean;
     /**
      * 设置坐标系半径，值范围为 0 至 1
      */
@@ -52,9 +53,10 @@ export class PieWrapperComponent extends ComponentBase implements OnInit {
 
     /**
      * 初始化饼图包装器
+     * @param context 图表上下文
      */
-    constructor() {
-        super();
+    constructor( public context: ChartContext ) {
+        super( context );
         this.initScale();
         this.initStyle();
     }

@@ -5,11 +5,10 @@
                 折线图
                 <small class="text-sm font-weight-normal">基础折线图</small>
             </ng-template>
-            <nz-empty *ngIf="!basicLine.hasData()"></nz-empty>
             <v-chart [forceFit]="true" [height]="275">
                 <v-tooltip></v-tooltip>
                 <v-axis></v-axis>
-                <x-line #basicLine url="/api/line"></x-line>
+                <x-line url="/api/line"></x-line>
             </v-chart>
         </nz-card>
     </div>

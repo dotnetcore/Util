@@ -8,6 +8,15 @@ namespace Util.Samples.Apis.Viser {
     /// </summary>
     public class LineController : WebApiControllerBase {
         /// <summary>
+        /// 获取空折线图数据
+        /// </summary>
+        [HttpGet("empty")]
+        public IActionResult GetEmptyLine() {
+            var data = new ChartData();
+            return Success( data.ToResult() );
+        }
+
+        /// <summary>
         /// 获取基础折线图数据
         /// </summary>
         [HttpGet]

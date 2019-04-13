@@ -4,6 +4,7 @@
 //=====================================================
 import { Component, Input } from '@angular/core';
 import { ComponentBase } from "./base/component-base";
+import { ChartContext } from "viser-ng/es/chartService";
 
 /**
  * Viser条形图包装器
@@ -27,13 +28,14 @@ export class BarWrapperComponent extends ComponentBase {
     /**
      * 是否堆叠，默认为 false
      */
-    @Input() isStack:boolean;
+    @Input() isStack: boolean;
 
     /**
      * 初始化条形图包装器
+     * @param context 图表上下文
      */
-    constructor() {
-        super();
+    constructor( public context: ChartContext ) {
+        super( context );
         this.adjust = [{ type: 'dodge', marginRatio: 1 / 32 }];
     }
 }

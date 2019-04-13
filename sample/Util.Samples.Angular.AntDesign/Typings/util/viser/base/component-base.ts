@@ -6,6 +6,7 @@ import { Input, OnInit } from '@angular/core';
 import { DataSet } from '@antv/data-set';
 import { util } from "../../index";
 import { Model } from "./../data/model";
+import { ChartContext } from "viser-ng/es/chartService";
 
 /**
  * Viser图表包装器基类
@@ -23,6 +24,13 @@ export class ComponentBase implements OnInit {
      * 查询参数
      */
     @Input() queryParam;
+
+    /**
+     * 初始化图表包装器
+     * @param context 图表上下文
+     */
+    constructor( public context: ChartContext ) {
+    }
 
     /**
      * 初始化
@@ -50,8 +58,11 @@ export class ComponentBase implements OnInit {
     sendRequest( url, param ) {
         util.webapi.get<Model>( url ).param( param ).handle( {
             ok: result => {
-                if ( result )
-                    this.data = this.toData( result );
+                if ( !result )
+                    return;
+                this.data = this.toData( result );
+                if ( !this.hasData() )
+                    this.clear();
             }
         } );
     }
@@ -75,5 +86,13 @@ export class ComponentBase implements OnInit {
      */
     hasData() {
         return this.data && this.data.length > 0;
+    }
+
+    /**
+     * 清空并初始化
+     */
+    clear() {
+        this.context.chartDivElement.innerHTML = null;
+        this.context.chart = null;
     }
 }
