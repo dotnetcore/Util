@@ -34,8 +34,8 @@ namespace Util.Events.Cap {
         /// </summary>
         /// <typeparam name="TEvent">事件类型</typeparam>
         /// <param name="event">事件</param>
-        public Task PublishAsync<TEvent>( TEvent @event ) where TEvent : IMessageEvent {
-            return PublishAsync( @event.Name, @event.Data, @event.Callback );
+        public async Task PublishAsync<TEvent>( TEvent @event ) where TEvent : IMessageEvent {
+            await PublishAsync( @event.Name, @event.Data, @event.Callback, @event.Send );
         }
 
         /// <summary>
@@ -44,14 +44,26 @@ namespace Util.Events.Cap {
         /// <param name="name">消息名称</param>
         /// <param name="data">事件数据</param>
         /// <param name="callback">回调名称</param>
-        public Task PublishAsync( string name, object data, string callback = null ) {
+        /// <param name="send">是否立即发送消息</param>
+        public async Task PublishAsync( string name, object data, string callback = null, bool send = false ) {
+            if( send ) {
+                Publisher.Transaction.AutoCommit = true;
+                await Publish( name, data, callback );
+                return;
+            }
             TransactionActionManager.Register( async transaction => {
                 Publisher.Transaction.DbTransaction = transaction;
                 Publisher.Transaction.AutoCommit = false;
-                await Publisher.PublishAsync( name, data, callback );
-                WriteLog( name );
+                await Publish( name, data, callback );
             } );
-            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 发布事件
+        /// </summary>
+        private async Task Publish( string name, object data, string callback ) {
+            await Publisher.PublishAsync( name, data, callback );
+            WriteLog( name );
         }
 
         /// <summary>
@@ -59,11 +71,11 @@ namespace Util.Events.Cap {
         /// </summary>
         private void WriteLog( string name ) {
             var log = GetLog();
-            if( log.IsTraceEnabled == false )
+            if( log.IsDebugEnabled == false )
                 return;
-            log.Caption( "Cap已发送事件" )
+            log.Caption( "Cap发送事件完成" )
                 .Content( $"消息名称:{name}" )
-                .Trace();
+                .Debug();
         }
 
         /// <summary>
