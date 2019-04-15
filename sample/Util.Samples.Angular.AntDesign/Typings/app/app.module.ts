@@ -1,4 +1,4 @@
-import { NgModule, Injector, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
+import { NgModule, Injector, APP_INITIALIZER } from '@angular/core';
 
 //Angular模块
 import { BrowserModule } from '@angular/platform-browser';

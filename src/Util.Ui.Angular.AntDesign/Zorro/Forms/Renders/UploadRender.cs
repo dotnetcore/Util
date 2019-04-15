@@ -248,8 +248,19 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
-            builder.AddAttribute( "(nzChange)", _config.GetValue( UiConst.OnChange ) );
             builder.AddAttribute( "[nzBeforeUpload]", _config.GetValue( UiConst.OnBeforeUpload ) );
+            ConfigOnChange( builder );
+        }
+
+        /// <summary>
+        /// 配置OnChange事件
+        /// </summary>
+        private void ConfigOnChange( TagBuilder builder ) {
+            if( _config.Contains( UiConst.OnChange ) ) {
+                builder.AddAttribute( "(nzChange)", _config.GetValue( UiConst.OnChange ) );
+                return;
+            }
+            builder.AddAttribute( "(nzChange)", $"{GetWrapperId()}.handleChange($event)" );
         }
     }
 }

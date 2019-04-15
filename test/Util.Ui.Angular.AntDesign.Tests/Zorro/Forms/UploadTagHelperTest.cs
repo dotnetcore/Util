@@ -48,7 +48,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestDefault() {
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -67,7 +67,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #a_wrapper=\"\">" );
-            result.Append( "<nz-upload #a=\"\" [nzFilter]=\"a_wrapper.filters\">" );
+            result.Append( "<nz-upload #a=\"\" (nzChange)=\"a_wrapper.handleChange($event)\" [nzFilter]=\"a_wrapper.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -86,7 +86,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Url, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload nzAction=\"a\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAction=\"a\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -105,7 +105,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { AngularConst.BindUrl, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzAction]=\"a\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzAction]=\"a\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -124,7 +124,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Multiple, true } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzFilter]=\"m_id.filters\" [nzMultiple]=\"true\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzFilter]=\"m_id.filters\" [nzMultiple]=\"true\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -143,7 +143,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.ButtonText, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"a\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -162,7 +162,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.ButtonIcon, AntDesignIcon.Check } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>" );
@@ -181,7 +181,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Accept, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload nzAccept=\"a\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAccept=\"a\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -200,7 +200,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.FileType, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload nzFileType=\"a\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzFileType=\"a\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -220,7 +220,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
             result.Append( "<nz-upload " );
-            result.Append( "nzAccept=\".jpg,.jpeg,.png,.gif,.bmp\" " );
+            result.Append( "(nzChange)=\"m_id.handleChange($event)\" nzAccept=\".jpg,.jpeg,.png,.gif,.bmp\" " );
             result.Append( "nzFileType=\"image/jpeg,image/png,image/gif,image/bmp\" " );
             result.Append( "[nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
@@ -241,7 +241,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.ImageTypes, new List<ImageType> { ImageType.Jpg } } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload nzAccept=\".jpg,.jpeg\" nzFileType=\"image/jpeg\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAccept=\".jpg,.jpeg\" nzFileType=\"image/jpeg\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -260,7 +260,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.ImageTypes, new List<ImageType> { ImageType.Jpg, ImageType.Png } } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload nzAccept=\".jpg,.jpeg,.png\" nzFileType=\"image/jpeg,image/png\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAccept=\".jpg,.jpeg,.png\" nzFileType=\"image/jpeg,image/png\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -279,7 +279,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Size, 1.1 } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload nzSize=\"1.1\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzSize=\"1.1\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -298,7 +298,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Directory, true } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzDirectory]=\"true\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzDirectory]=\"true\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -317,7 +317,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Data, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzData]=\"a\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzData]=\"a\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -355,7 +355,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.OnBeforeUpload, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzBeforeUpload]=\"a\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzBeforeUpload]=\"a\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -374,7 +374,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Filter, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload [nzFilter]=\"a\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzFilter]=\"a\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
@@ -393,7 +393,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Limit, 2 } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload nzLimit=\"2\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzLimit=\"2\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
