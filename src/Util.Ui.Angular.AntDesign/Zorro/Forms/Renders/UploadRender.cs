@@ -23,6 +23,10 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置
         /// </summary>
         private readonly Config _config;
+        /// <summary>
+        /// 包装器标识
+        /// </summary>
+        private readonly string _wrapperId;
 
         /// <summary>
         /// 初始化文件上传渲染器
@@ -30,15 +34,35 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <param name="config">配置</param>
         public UploadRender( Config config ) : base( config ) {
             _config = config;
+            _wrapperId = Id.Guid();
         }
 
         /// <summary>
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
+            var wrapperBuilder = new UploadWrapperBuilder();
             var builder = new UploadBuilder();
+            wrapperBuilder.AppendContent( builder );
+            ConfigWrapper( wrapperBuilder );
             Config( builder );
-            return builder;
+            return wrapperBuilder;
+        }
+
+        /// <summary>
+        /// 配置包装器
+        /// </summary>
+        private void ConfigWrapper( UploadWrapperBuilder builder ) {
+            builder.AddAttribute( $"#{GetWrapperId()}" );
+        }
+
+        /// <summary>
+        /// 获取包装器标识
+        /// </summary>
+        private string GetWrapperId() {
+            if( _config.Contains( UiConst.Id ) )
+                return $"{_config.GetValue( UiConst.Id )}_wrapper";
+            return $"m_{_wrapperId}";
         }
 
         /// <summary>
@@ -53,6 +77,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigAccept( builder );
             ConfigFileType( builder );
             ConfigLimit( builder );
+            ConfigFilter( builder );
             ConfigEvents( builder );
             ConfigContent( builder );
         }
@@ -84,7 +109,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置按钮
         /// </summary>
         private void ConfigButton( TagBuilder builder ) {
-            if ( _config.Content.IsEmpty() == false )
+            if( _config.Content.IsEmpty() == false )
                 return;
             var buttonBuilder = new ButtonWrapperBuilder();
             ConfigButtonText( buttonBuilder );
@@ -95,7 +120,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置按钮文本
         /// </summary>
-        private void ConfigButtonText( ButtonWrapperBuilder buttonBuilder  ) {
+        private void ConfigButtonText( ButtonWrapperBuilder buttonBuilder ) {
             if( _config.Contains( UiConst.ButtonText ) ) {
                 buttonBuilder.AddText( _config.GetValue( UiConst.ButtonText ) );
                 return;
@@ -205,12 +230,26 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigLimit( UploadBuilder builder ) {
             builder.AddAttribute( "nzSize", _config.GetValue( UiConst.Size ) );
+            builder.AddAttribute( "nzLimit", _config.GetValue( UiConst.Limit ) );
+        }
+
+        /// <summary>
+        /// 配置过滤器
+        /// </summary>
+        private void ConfigFilter( UploadBuilder builder ) {
+            if( _config.Contains( UiConst.Filter ) ) {
+                builder.AddAttribute( "[nzFilter]", _config.GetValue( UiConst.Filter ) );
+                return;
+            }
+            builder.AddAttribute( "[nzFilter]", $"{GetWrapperId()}.filters" );
         }
 
         /// <summary>
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(nzChange)", _config.GetValue( UiConst.OnChange ) );
+            builder.AddAttribute( "[nzBeforeUpload]", _config.GetValue( UiConst.OnBeforeUpload ) );
         }
     }
 }

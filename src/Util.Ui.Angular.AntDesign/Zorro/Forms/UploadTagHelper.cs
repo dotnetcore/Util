@@ -51,7 +51,7 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public bool AcceptImage { get; set; }
         /// <summary>
-        /// nzFileType,文件类型限制
+        /// nzFileType,允许上传的文件类型的MIME,范例：image/png,image/jpeg,image/gif,image/bmp
         /// </summary>
         public string FileType { get; set; }
         /// <summary>
@@ -59,9 +59,25 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public List<ImageType> ImageTypes { get; set; }
         /// <summary>
-        /// nzSize,文件大小限制，单位：KB；0 表示不限
+        /// nzSize,文件大小限制，单位：KB
         /// </summary>
         public double Size { get; set; }
+        /// <summary>
+        /// nzLimit,单次上传文件数量限制
+        /// </summary>
+        public int Limit { get; set; }
+        /// <summary>
+        /// [nzFilter],过滤器
+        /// </summary>
+        public string Filter { get; set; }
+        /// <summary>
+        /// (nzChange),上传状态改变事件,范例：on-change="change($event)"
+        /// </summary>
+        public string OnChange { get; set; }
+        /// <summary>
+        /// [nzBeforeUpload],上传前事件，返回 false 停止上传
+        /// </summary>
+        public string OnBeforeUpload { get; set; }
 
         /// <summary>
         /// 获取渲染器

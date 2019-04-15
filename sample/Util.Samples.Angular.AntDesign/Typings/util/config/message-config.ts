@@ -94,4 +94,16 @@ export class MessageConfig {
      * 存在未保存的修改，确定离开?
      */
     static saveGuardConfirm = "存在未保存的修改，确定离开此页面?";
+    /**
+     * 文件类型过滤消息
+     */
+    static fileTypeFilter = "{0} 文件格式不正确";
+    /**
+     * 文件大小过滤消息
+     */
+    static fileSizeFilter = "{0} 文件过大，单个文件不能超过 {1} KB";
+    /**
+     * 文件数量过滤消息
+     */
+    static fileLimitFilter = "您选择的文件过多，单次上传文件最多不能超过 {0} 个";
 }

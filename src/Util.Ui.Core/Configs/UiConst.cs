@@ -583,5 +583,17 @@
         /// 数据
         /// </summary>
         public const string Data = "data";
+        /// <summary>
+        /// 上传前事件
+        /// </summary>
+        public const string OnBeforeUpload = "on-before-upload";
+        /// <summary>
+        /// 过滤器
+        /// </summary>
+        public const string Filter = "filter";
+        /// <summary>
+        /// 限制
+        /// </summary>
+        public const string Limit = "limit";
     }
 }

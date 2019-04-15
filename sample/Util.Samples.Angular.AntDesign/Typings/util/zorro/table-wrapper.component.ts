@@ -9,7 +9,6 @@ import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
 import { IKey, QueryParameter } from '../core/model';
 import { MessageConfig as config } from '../config/message-config';
-import { Util as util } from '../util';
 
 /**
  * NgZorro表格包装器
@@ -18,9 +17,7 @@ import { Util as util } from '../util';
     selector: 'nz-table-wrapper',
     template: `
         <ng-content></ng-content>
-    `,
-    styles: [`
-    `]
+    `
 } )
 export class TableWrapperComponent<T extends IKey> implements AfterContentInit {
     /**

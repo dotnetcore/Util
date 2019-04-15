@@ -48,6 +48,7 @@ import { DatePickerWrapperComponent } from "./zorro/datepicker-wrapper.component
 import { TextareaWrapperComponent } from "./zorro/textarea-wrapper.component";
 import { SelectWrapperComponent } from "./zorro/select-wrapper.component";
 import { TableWrapperComponent } from "./zorro/table-wrapper.component";
+import { UploadWrapperComponent } from "./zorro/upload-wrapper.component";
 
 //导入模块集合
 const importModules = [
@@ -60,7 +61,7 @@ const components = [
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
     ButtonWrapperComponent, TextBoxWrapperComponent, DatePickerWrapperComponent, TextareaWrapperComponent,
-    SelectWrapperComponent, TableWrapperComponent
+    SelectWrapperComponent, TableWrapperComponent, UploadWrapperComponent
 ];
 
 /**

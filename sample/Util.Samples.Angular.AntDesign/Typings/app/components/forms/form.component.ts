@@ -1,10 +1,7 @@
 import { Component, Injector } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { env } from '../../env';
-import { ComponentBase } from '../../../util';
+import { EditComponentBase } from '../../../util';
 import { FormViewModel } from "./model/form-view-model";
-import { NzMessageService, UploadFile } from 'ng-zorro-antd';
-import { Observable, Observer } from 'rxjs';
 
 /**
  * 表单组件
@@ -27,30 +24,25 @@ import { Observable, Observer } from 'rxjs';
       }
     `]
 } )
-export class FormComponent extends ComponentBase {
-    /**
-     * 视图模型
-     */
-    model: FormViewModel;
-
+export class FormComponent extends EditComponentBase<FormViewModel> {
     /**
      * 初始化
      */
-    constructor( public injector: Injector, private msg: NzMessageService ) {
+    constructor( public injector: Injector ) {
         super( injector );
-        this.model = new FormViewModel();
     }
 
     /**
-     * 提交表单
-     * @param form
+     * 创建模型
      */
-    submit( form: NgForm, btn ) {
-        this.util.form.submit( {
-            form: form,
-            button: btn,
-            url: "/api/form",
-            data: this.model
-        } );
+    createModel() {
+        return new FormViewModel();
+    }
+
+    /**
+     * 获取基地址
+     */
+    getBaseUrl() {
+        return "form";
     }
 }
