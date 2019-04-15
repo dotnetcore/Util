@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, ContentChild, forwardRef, AfterContentInit, Optional } from '@angular/core';
+import { Component, Input, ContentChild, forwardRef, AfterContentInit, Optional, Output, EventEmitter } from '@angular/core';
 import { NzUploadComponent, UploadFile, UploadFilter } from 'ng-zorro-antd';
 import { MessageConfig as config } from '../config/message-config';
 import { UploadService } from "../services/upload.service";
@@ -25,6 +25,10 @@ export class UploadWrapperComponent implements AfterContentInit {
      */
     @Input() model: any[];
     /**
+     * 模型变更事件
+     */
+    @Output() modelChange = new EventEmitter<any>();
+    /**
      * 上传组件实例
      */
     @ContentChild(forwardRef(() => NzUploadComponent)) instance: NzUploadComponent;
@@ -44,16 +48,19 @@ export class UploadWrapperComponent implements AfterContentInit {
 
     /**
      * 上传变更处理
-     * @param info
+     * @param data 上传参数
      */
-    handleChange(info: { file, fileList, event, type }) {
-        if (!info || !this.uploadService)
+    handleChange(data: { file, fileList, event, type }) {
+        if (!data || !data.file || !data.file.response || !this.uploadService)
             return;
-        if (info.type === 'success') {
-            let result = this.uploadService.toResult(info.file.response);
+        let result = this.uploadService.toResult(data.file.response);
+        if (!result)
+            return;
+        if (data.type === 'success')
             this.model = [...(this.model || []), result];
-            return;
-        }
+        if (data.type === 'removed')
+            util.helper.remove(this.model, item => item === result);
+        this.modelChange.emit(this.model);
     }
 
     /**

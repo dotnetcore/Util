@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
 using Util.Properties;
 using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Forms.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
@@ -41,6 +43,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
+            ResolveExpression();
             var wrapperBuilder = new UploadWrapperBuilder();
             var builder = new UploadBuilder();
             wrapperBuilder.AppendContent( builder );
@@ -50,10 +53,21 @@ namespace Util.Ui.Zorro.Forms.Renders {
         }
 
         /// <summary>
+        /// 解析属性表达式
+        /// </summary>
+        private void ResolveExpression() {
+            if( _config.Contains( UiConst.For ) == false )
+                return;
+            var expression = _config.GetValue<ModelExpression>( UiConst.For );
+            ExpressionResolver.Init( expression, _config );
+        }
+
+        /// <summary>
         /// 配置包装器
         /// </summary>
         private void ConfigWrapper( UploadWrapperBuilder builder ) {
             builder.AddAttribute( $"#{GetWrapperId()}" );
+            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
         }
 
         /// <summary>

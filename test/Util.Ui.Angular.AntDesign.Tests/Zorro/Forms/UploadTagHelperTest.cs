@@ -117,6 +117,25 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试上传地址
+        /// </summary>
+        [Fact]
+        public void TestModel() {
+            var attributes = new TagHelperAttributeList { { UiConst.Model, "a" } };
+            var result = new String();
+            result.Append( "<nz-upload-wrapper #m_id=\"\" [(model)]=\"a\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试多选
         /// </summary>
         [Fact]

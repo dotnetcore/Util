@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
@@ -26,6 +27,10 @@ namespace Util.Ui.Zorro.Forms {
         /// [nzData],上传参数或返回上传参数的方法
         /// </summary>
         public string Data { get; set; }
+        /// <summary>
+        /// 属性表达式
+        /// </summary>
+        public ModelExpression For { get; set; }
         /// <summary>
         /// [nzMultiple],启用多选
         /// </summary>
