@@ -87,6 +87,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigDataSource( builder );
             ConfigMultiple( builder );
             ConfigDirectory( builder );
+            ConfigFileList( builder );
             ConfigButton( builder );
             ConfigAccept( builder );
             ConfigFileType( builder );
@@ -117,6 +118,17 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigDirectory( TagBuilder builder ) {
             builder.AddAttribute( "[nzDirectory]", _config.GetBoolValue( UiConst.Directory ) );
+        }
+
+        /// <summary>
+        /// 配置文件列表
+        /// </summary>
+        private void ConfigFileList( TagBuilder builder ) {
+            if( _config.Contains( UiConst.FileList ) ) {
+                builder.AddAttribute( "[(nzFileList)]", _config.GetValue( UiConst.FileList ) );
+                return;
+            }
+            builder.AddAttribute( "[(nzFileList)]", $"{GetWrapperId()}.files" );
         }
 
         /// <summary>

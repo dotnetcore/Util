@@ -27,6 +27,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
                 .AppId( Config.AppId )
                 .MerchantId( Config.MerchantId )
                 .Add( "nonce_str", Id.Guid() )
+                .NotifyUrl( param.NotifyUrl )
                 .OutTradeNo( param.OrderId )
                 .TotalFee( param.Money );
         }

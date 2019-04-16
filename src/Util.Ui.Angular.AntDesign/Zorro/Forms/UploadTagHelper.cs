@@ -28,6 +28,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Data { get; set; }
         /// <summary>
+        /// [(nzFileList)],上传文件列表
+        /// </summary>
+        public string FileList { get; set; }
+        /// <summary>
         /// 属性表达式
         /// </summary>
         public ModelExpression For { get; set; }

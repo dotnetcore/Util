@@ -16,14 +16,32 @@ import { Util as util } from '../util';
     template: `
         <ng-content></ng-content>
     `,
-    styles: [`
-    `]
+    styles: [
+        `
+    `
+    ]
 })
 export class UploadWrapperComponent implements AfterContentInit {
     /**
+     * 上传文件列表
+     */
+    files: UploadFile[];
+    /**
+     * 模型数据
+     */
+    data:any[];
+    /**
      * 模型
      */
-    @Input() model: any[];
+    @Input()
+    get model(): any[]{
+        return this.data;
+    }
+    set model(value) {
+        this.data = value;
+        this.files = this.uploadService.toUploadFiles(this.data);
+    }
+
     /**
      * 模型变更事件
      */
@@ -53,13 +71,13 @@ export class UploadWrapperComponent implements AfterContentInit {
     handleChange(data: { file, fileList, event, type }) {
         if (!data || !data.file || !data.file.response || !this.uploadService)
             return;
-        let result = this.uploadService.toResult(data.file.response);
-        if (!result)
+        let item = this.uploadService.getItem(data.file.response);
+        if (!item)
             return;
         if (data.type === 'success')
-            this.model = [...(this.model || []), result];
+            this.model = [...(this.model || []), item];
         if (data.type === 'removed')
-            util.helper.remove(this.model, item => item === result);
+            util.helper.remove(this.model, t => t === item);
         this.modelChange.emit(this.model);
     }
 

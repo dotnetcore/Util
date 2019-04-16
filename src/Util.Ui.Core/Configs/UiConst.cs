@@ -595,5 +595,9 @@
         /// 限制
         /// </summary>
         public const string Limit = "limit";
+        /// <summary>
+        /// 文件列表
+        /// </summary>
+        public const string FileList = "file-list";
     }
 }
