@@ -60,6 +60,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public bool AcceptImage { get; set; }
         /// <summary>
+        /// 允许上传文档，在文件选择框中显示文档文件
+        /// </summary>
+        public bool AcceptDocument { get; set; }
+        /// <summary>
         /// nzFileType,允许上传的文件类型的MIME,范例：image/png,image/jpeg,image/gif,image/bmp
         /// </summary>
         public string FileType { get; set; }
@@ -67,6 +71,10 @@ namespace Util.Ui.Zorro.Forms {
         /// 图片文件类型限制列表
         /// </summary>
         public List<ImageType> ImageTypes { get; set; }
+        /// <summary>
+        /// 文档文件类型限制列表
+        /// </summary>
+        public List<DocumentType> DocumentTypes { get; set; }
         /// <summary>
         /// nzSize,文件大小限制，单位：KB
         /// </summary>

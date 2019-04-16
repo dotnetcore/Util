@@ -184,6 +184,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private string GetAccepts() {
             var result = new List<string>();
             result.AddRange( GetImageAccepts() );
+            result.AddRange( GetDocumentAccepts() );
             return result.Join();
         }
 
@@ -206,7 +207,21 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private List<string> GetAccepts<TEnum>() {
             var names = Enum.GetNames<TEnum>();
-            return names.Select( ImageTypeHelper.GetExtensions ).ToList();
+            return names.Select( FileTypeHelper.GetExtensions ).ToList();
+        }
+
+        /// <summary>
+        /// 获取文档类型接受列表
+        /// </summary>
+        private List<string> GetDocumentAccepts() {
+            if( _config.Contains( UiConst.DocumentTypes ) ) {
+                var types = _config.GetValue<List<DocumentType>>( UiConst.DocumentTypes );
+                if( types != null )
+                    return types.Select( t => t.GetExtensions() ).ToList();
+            }
+            if( _config.GetValue<bool?>( UiConst.AcceptDocument ) == true )
+                return GetAccepts<DocumentType>();
+            return new List<string>();
         }
 
         /// <summary>
@@ -226,11 +241,12 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private string GetFileTypes() {
             var result = new List<string>();
             result.AddRange( GetImageFileTypes() );
+            result.AddRange( GetDocumentFileTypes() );
             return result.Join();
         }
 
         /// <summary>
-        /// 获取图片类型接受列表
+        /// 获取图片类型限制列表
         /// </summary>
         private List<string> GetImageFileTypes() {
             if( _config.Contains( UiConst.ImageTypes ) ) {
@@ -249,6 +265,20 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private List<string> GetFileTypes<TEnum>() {
             var items = Enum.GetItems<TEnum>();
             return items.Select( t => t.Text.SafeString() ).ToList();
+        }
+
+        /// <summary>
+        /// 获取文档类型限制列表
+        /// </summary>
+        private List<string> GetDocumentFileTypes() {
+            if( _config.Contains( UiConst.DocumentTypes ) ) {
+                var types = _config.GetValue<List<DocumentType>>( UiConst.DocumentTypes );
+                if( types != null )
+                    return types.Select( t => t.Description() ).ToList();
+            }
+            if( _config.GetValue<bool?>( UiConst.AcceptDocument ) == true )
+                return GetFileTypes<DocumentType>();
+            return new List<string>();
         }
 
         /// <summary>

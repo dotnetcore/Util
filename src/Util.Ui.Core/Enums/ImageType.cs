@@ -37,7 +37,7 @@ namespace Util.Ui.Enums {
         /// </summary>
         public static string GetExtensions( this ImageType fileType ) {
             var name = Util.Helpers.Enum.GetName<ImageType>( fileType );
-            return ImageTypeHelper.GetExtensions( name );
+            return FileTypeHelper.GetExtensions( name );
         }
     }
 }

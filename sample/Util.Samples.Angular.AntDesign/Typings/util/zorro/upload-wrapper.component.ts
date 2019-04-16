@@ -16,10 +16,8 @@ import { Util as util } from '../util';
     template: `
         <ng-content></ng-content>
     `,
-    styles: [
-        `
-    `
-    ]
+    styles: [`
+    `]
 })
 export class UploadWrapperComponent implements AfterContentInit {
     /**
@@ -38,6 +36,8 @@ export class UploadWrapperComponent implements AfterContentInit {
         return this.data;
     }
     set model(value) {
+        if (!value)
+            return;
         this.data = value;
         this.files = this.data.map(item => this.uploadService.toUploadFile(item));
     }
@@ -91,7 +91,7 @@ export class UploadWrapperComponent implements AfterContentInit {
                 if (!this.instance || !this.instance.nzFileType || this.instance.nzFileType.length === 0)
                     return files;
                 const types = this.instance.nzFileType.split(',');
-                let validFiles = files.filter(file => ~types.indexOf(file.type));
+                let validFiles = files.filter(file => !file.type || ~types.indexOf(file.type));
                 let invalidFiles = util.helper.except(files, validFiles);
                 if (invalidFiles && invalidFiles.length > 0)
                     util.message.warn(this.getMessageByType(invalidFiles));

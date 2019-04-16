@@ -253,6 +253,28 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试允许上传文档文件
+        /// </summary>
+        [Fact]
+        public void TestAcceptDocument() {
+            var attributes = new TagHelperAttributeList { { UiConst.AcceptDocument, true } };
+            var result = new String();
+            result.Append( "<nz-upload-wrapper #m_id=\"\">" );
+            result.Append( "<nz-upload " );
+            result.Append( "(nzChange)=\"m_id.handleChange($event)\" nzAccept=\".xls,.xlsx,.doc,.docx,.pdf,.txt\" " );
+            result.Append( "nzFileType=\"application/x-xls,application/msword,application/pdf,text/plain\" [(nzFileList)]=\"m_id.files\" " );
+            result.Append( "[nzFilter]=\"m_id.filters\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试图片文件类型限制 - Jpg
         /// </summary>
         [Fact]
@@ -280,6 +302,25 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
             result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAccept=\".jpg,.jpeg,.png\" nzFileType=\"image/jpeg,image/png\" [(nzFileList)]=\"m_id.files\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试文档文件类型限制 - Doc
+        /// </summary>
+        [Fact]
+        public void TestDocumentTypes_Doc() {
+            var attributes = new TagHelperAttributeList { { UiConst.DocumentTypes, new List<DocumentType> { DocumentType.Doc } } };
+            var result = new String();
+            result.Append( "<nz-upload-wrapper #m_id=\"\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAccept=\".doc,.docx\" nzFileType=\"application/msword\" [(nzFileList)]=\"m_id.files\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );

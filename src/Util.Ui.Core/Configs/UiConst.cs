@@ -572,9 +572,17 @@
         /// </summary>
         public const string AcceptImage = "accept-image";
         /// <summary>
+        /// 接受文档
+        /// </summary>
+        public const string AcceptDocument = "accept-document";
+        /// <summary>
         /// 图片类型
         /// </summary>
         public const string ImageTypes = "image-types";
+        /// <summary>
+        /// 文档类型
+        /// </summary>
+        public const string DocumentTypes = "document-types";
         /// <summary>
         /// 目录
         /// </summary>
