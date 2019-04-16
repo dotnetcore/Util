@@ -29,17 +29,17 @@ export class UploadWrapperComponent implements AfterContentInit {
     /**
      * 模型数据
      */
-    data:any[];
+    data: any[];
     /**
      * 模型
      */
     @Input()
-    get model(): any[]{
+    get model(): any[] {
         return this.data;
     }
     set model(value) {
         this.data = value;
-        this.files = this.uploadService.toUploadFiles(this.data);
+        this.files = this.data.map(item => this.uploadService.toUploadFile(item));
     }
 
     /**
