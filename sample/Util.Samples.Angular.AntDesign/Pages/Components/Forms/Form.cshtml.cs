@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Util.Applications.Dtos;
 using Util.Biz.Enums;
+using Util.Samples.Models.Tools;
 
 namespace Util.Samples.Pages.Components.Forms {
     /// <summary>
@@ -33,6 +35,12 @@ namespace Util.Samples.Pages.Components.Forms {
         /// </summary>
         [Display( Name = "日期时间" )]
         public DateTime? DateTime { get; set; }
+
+        /// <summary>
+        /// 上传文件列表
+        /// </summary>
+        [Display( Name = "上传文件列表" )]
+        public List<UploadFileInfo> Files { get; set; }
 
         /// <summary>
         /// 备注

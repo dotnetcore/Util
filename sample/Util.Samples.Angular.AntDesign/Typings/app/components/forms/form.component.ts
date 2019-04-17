@@ -8,21 +8,7 @@ import { FormViewModel } from "./model/form-view-model";
  */
 @Component( {
     selector: 'app-components-form',
-    templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form',
-    styles: [`
-      .avatar {
-        width: 128px;
-        height: 128px;
-      }
-      .upload-icon {
-        font-size: 32px;
-        color: #999;
-      }
-      .ant-upload-text {
-        margin-top: 8px;
-        color: #666;
-      }
-    `]
+    templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form'
 } )
 export class FormComponent extends EditComponentBase<FormViewModel> {
     /**

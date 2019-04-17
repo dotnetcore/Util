@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc;
+using Util.Samples.Pages.Components.Forms;
 using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Demo {
@@ -12,7 +13,7 @@ namespace Util.Samples.Apis.Demo {
         /// 新增
         /// </summary>
         [HttpPost]
-        public IActionResult Create() {
+        public IActionResult Create( [FromBody] FormModel model ) {
             Thread.Sleep( 2000 );
             return Success();
         }
