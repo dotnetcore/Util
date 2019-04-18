@@ -10,7 +10,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters.Requests {
         /// </summary>
         public string RefundDescription { get; set; }
         /// <summary>
-        /// 退款金额
+        /// 退款金额,单位：元
         /// </summary>
         public decimal RefundFee { get; set; }
         /// <summary>

@@ -73,6 +73,8 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         protected void ValidateParam( WechatRefundRequest param ) {
             if( param.TransactionId.IsEmpty() && param.OrderId.IsEmpty() )
                 throw new Warning( "商户订单号和微信订单号只能设置一个" );
+            if( param.RefundFee > param.Money )
+                throw new Warning( "退款金额不能超过支付金额" );
         }
 
         /// <summary>
@@ -89,7 +91,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// </summary>
         protected virtual async Task<RefundResult> RequstResult( WechatpayConfig config, WechatpayRefundParameterBuilder builder ) {
             var response = await Request( config, builder );
-            var result = new WechatpayRefundResult( ConfigProvider, response );
+            var result = new WechatpayResult( ConfigProvider, response );
             WriteLog( config, builder, result );
             return await CreateResult( config, builder, result );
         }
@@ -113,9 +115,9 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <param name="config">支付配置</param>
         /// <param name="builder">参数生成器</param>
         /// <param name="result">支付结果</param>
-        protected virtual async Task<RefundResult> CreateResult( WechatpayConfig config, WechatpayRefundParameterBuilder builder, WechatpayRefundResult result ) {
+        protected virtual async Task<RefundResult> CreateResult( WechatpayConfig config, WechatpayRefundParameterBuilder builder, WechatpayResult result ) {
             var success = ( await result.ValidateAsync() ).IsValid;
-            return new RefundResult( success, result.GetPrepayId(), result.Raw ) {
+            return new RefundResult( success, result.GetRefundId(), result.Raw ) {
                 Parameter = builder.ToString(),
                 Message = result.GetReturnMessage(),
                 Result = success ? GetResult( config, builder, result ) : null
@@ -128,7 +130,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <param name="config">支付配置</param>
         /// <param name="builder">参数生成器</param>
         /// <param name="result">支付结果</param>
-        protected string GetResult( WechatpayConfig config, WechatpayRefundParameterBuilder builder, WechatpayRefundResult result ) {
+        protected string GetResult( WechatpayConfig config, WechatpayRefundParameterBuilder builder, WechatpayResult result ) {
             return new WechatpayParameterBuilder( config )
                 .Add( "appId", config.AppId )
                 .Add( "timeStamp", Time.GetUnixTimestamp().SafeString() )
