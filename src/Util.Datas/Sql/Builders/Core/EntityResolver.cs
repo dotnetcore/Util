@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using Util.Datas.Sql.Matedatas;
 using Util.Helpers;
 
@@ -40,6 +41,17 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <param name="entity">实体类型</param>
         public string GetSchema( Type entity ) {
             return _matedata?.GetSchema( entity );
+        }
+
+        /// <summary>
+        /// 获取列名
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public string GetColumns<TEntity>( bool propertyAsAlias ) {
+            var type = typeof( TEntity );
+            var properties = type.GetProperties().Select( t => t.Name ).ToList();
+            return GetColumns<TEntity>( properties, propertyAsAlias );
         }
 
         /// <summary>

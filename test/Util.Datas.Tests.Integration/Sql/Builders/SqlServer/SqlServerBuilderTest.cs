@@ -21,7 +21,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
         /// <summary>
         /// Sql Server Sql生成器
         /// </summary>
-        private readonly SqlServerBuilder _builder;
+        private SqlServerBuilder _builder;
 
         /// <summary>
         /// 测试初始化

@@ -64,7 +64,7 @@ namespace Util.Samples.Service.Implements.Systems {
         /// <param name="query">查询参数</param>
         public override async Task<PagerList<ApplicationDto>> PagerQueryAsync( ApplicationQuery query ) {
             return await SqlQuery
-                .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled, t.CreationTime }, true )
+                .Select<Application>( true )
                 .From<Application>( "a" )
                 .WhereIfNotEmpty<Application>( t => t.Code.Contains( query.Code ) )
                 .WhereIfNotEmpty<Application>( t => t.Name.Contains( query.Name ) )
