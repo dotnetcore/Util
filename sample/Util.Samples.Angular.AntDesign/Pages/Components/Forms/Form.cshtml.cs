@@ -25,6 +25,12 @@ namespace Util.Samples.Pages.Components.Forms {
         public string Name { get; set; }
 
         /// <summary>
+        /// 是否禁用
+        /// </summary>
+        [Display( Name = "是否禁用" )]
+        public bool? Enabled { get; set; }
+
+        /// <summary>
         /// 民族
         /// </summary>
         [Display( Name = "民族" )]

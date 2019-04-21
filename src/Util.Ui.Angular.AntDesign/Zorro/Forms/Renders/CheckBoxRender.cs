@@ -4,10 +4,9 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Forms.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Material.Enums;
-using Util.Ui.Material.Forms.Builders;
+using Util.Ui.Zorro.Forms.Builders;
 
-namespace Util.Ui.Material.Forms.Renders {
+namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
     /// 复选框渲染器
     /// </summary>
@@ -53,13 +52,9 @@ namespace Util.Ui.Material.Forms.Renders {
             ConfigName( builder );
             ConfigLabel( builder );
             ConfigDisabled( builder );
-            ConfigColor( builder );
             ConfigModel( builder );
             ConfigIndeterminate( builder );
-            ConfigRequired( builder );
             ConfigEvents( builder );
-            ConfigChecked( builder );
-            ConfigStandalone( builder );
         }
 
         /// <summary>
@@ -74,25 +69,22 @@ namespace Util.Ui.Material.Forms.Renders {
         /// 配置标签
         /// </summary>
         private void ConfigLabel( TagBuilder builder ) {
-            builder.SetContent( _config.GetValue( UiConst.Label ) );
+            if ( _config.Contains( UiConst.Label ) ) {
+                builder.SetContent( _config.GetValue( UiConst.Label ) );
+                return;
+            }
             var bindLabel = _config.GetValue( AngularConst.BindLabel );
-            if( !bindLabel.IsEmpty() )
-                builder.SetContent( $"{{{{{bindLabel}}}}}" );
-            builder.AddAttribute( "labelPosition", _config.GetValue<XPosition?>( UiConst.Position )?.Description() );
+            if ( bindLabel.IsEmpty() )
+                return;
+            builder.SetContent( $"{{{{{bindLabel}}}}}" );
         }
 
         /// <summary>
         /// 配置禁用
         /// </summary>
         private void ConfigDisabled( TagBuilder builder ) {
-            builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        }
-
-        /// <summary>
-        /// 配置颜色
-        /// </summary>
-        private void ConfigColor( TagBuilder builder ) {
-            builder.AddAttribute( UiConst.Color, _config.GetValue( UiConst.Color )?.ToLower() );
+            builder.AddAttribute( "nzDisabled", _config.GetBoolValue( UiConst.Disabled ) );
+            builder.AddAttribute( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled) );
         }
 
         /// <summary>
@@ -103,39 +95,17 @@ namespace Util.Ui.Material.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置不确定样式
+        /// 配置中间状态
         /// </summary>
         private void ConfigIndeterminate( TagBuilder builder ) {
-            builder.AddAttribute( "[indeterminate]", _config.GetValue( UiConst.Indeterminate ) );
-        }
-
-        /// <summary>
-        /// 配置必填项
-        /// </summary>
-        private void ConfigRequired( TagBuilder builder ) {
-            builder.AddAttribute( "[required]", _config.GetBoolValue( UiConst.Required ) );
+            builder.AddAttribute( "[nzIndeterminate]", _config.GetValue( UiConst.Indeterminate ) );
         }
 
         /// <summary>
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
-            builder.AddAttribute( "(change)", _config.GetValue( UiConst.OnChange ) );
-        }
-
-        /// <summary>
-        /// 配置选中
-        /// </summary>
-        private void ConfigChecked( TagBuilder builder ) {
-            builder.AddAttribute( "[checked]", _config.GetValue( UiConst.Checked ) );
-        }
-
-        /// <summary>
-        /// 配置独立
-        /// </summary>
-        private void ConfigStandalone( TagBuilder builder ) {
-            if( _config.GetValue<bool>( UiConst.Standalone ) )
-                builder.AddAttribute( "[ngModelOptions]", "{standalone: true}" );
+            builder.AddAttribute( "(nzOnChange)", _config.GetValue( UiConst.OnChange ) );
         }
     }
 }

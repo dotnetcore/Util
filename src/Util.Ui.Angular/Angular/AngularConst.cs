@@ -75,5 +75,9 @@
         /// 主题绑定
         /// </summary>
         public const string BindTheme = "bind-theme";
+        /// <summary>
+        /// 禁用绑定
+        /// </summary>
+        public const string BindDisabled = "bind-disabled";
     }
 }
