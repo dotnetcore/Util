@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
+using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Renders;
 
@@ -11,6 +12,11 @@ namespace Util.Ui.Zorro.Forms {
     /// </summary>
     [HtmlTargetElement( "util-date-picker" )]
     public class DatePickerTagHelper : FormControlTagHelperBase {
+        /// <summary>
+        /// 日期选择器类型
+        /// </summary>
+        public DatePickerType Type { get; set; }
+
         /// <summary>
         /// 获取渲染器
         /// </summary>

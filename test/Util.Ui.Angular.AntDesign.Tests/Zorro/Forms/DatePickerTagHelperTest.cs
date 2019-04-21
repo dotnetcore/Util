@@ -2,6 +2,7 @@
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
+using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms;
 using Xunit;
 using Xunit.Abstractions;
@@ -110,6 +111,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
             result.Append( "<x-date-picker [(model)]=\"a\"></x-date-picker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试日期选择类型
+        /// </summary>
+        [Fact]
+        public void TestType() {
+            var attributes = new TagHelperAttributeList { { UiConst.Type, DatePickerType.Month } };
+            var result = new String();
+            result.Append( "<x-date-picker type=\"month\"></x-date-picker>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

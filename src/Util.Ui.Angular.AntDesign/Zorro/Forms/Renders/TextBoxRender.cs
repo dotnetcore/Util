@@ -4,6 +4,7 @@ using Util.Ui.Angular.Forms.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
+using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
 
@@ -76,6 +77,14 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void ConfigDatePicker( TagBuilder builder ) {
             if( _config.IsDatePicker == false )
                 return;
+            ConfigDatePickerType( builder );
+        }
+
+        /// <summary>
+        /// 配置日期选择器类型
+        /// </summary>
+        private void ConfigDatePickerType( TagBuilder builder ) {
+            builder.AddAttribute( "type", _config.GetValue<DatePickerType?>( UiConst.Type ).Description() );
         }
 
         /// <summary>
