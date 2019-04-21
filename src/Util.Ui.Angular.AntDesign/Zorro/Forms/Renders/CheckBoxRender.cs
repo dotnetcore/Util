@@ -69,12 +69,12 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置标签
         /// </summary>
         private void ConfigLabel( TagBuilder builder ) {
-            if ( _config.Contains( UiConst.Label ) ) {
+            if( _config.Contains( UiConst.Label ) ) {
                 builder.SetContent( _config.GetValue( UiConst.Label ) );
                 return;
             }
             var bindLabel = _config.GetValue( AngularConst.BindLabel );
-            if ( bindLabel.IsEmpty() )
+            if( bindLabel.IsEmpty() )
                 return;
             builder.SetContent( $"{{{{{bindLabel}}}}}" );
         }
@@ -84,7 +84,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigDisabled( TagBuilder builder ) {
             builder.AddAttribute( "nzDisabled", _config.GetBoolValue( UiConst.Disabled ) );
-            builder.AddAttribute( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled) );
+            builder.AddAttribute( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
         }
 
         /// <summary>
@@ -105,6 +105,13 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
+            ConfigOnChange( builder );
+        }
+
+        /// <summary>
+        /// 配置变更事件
+        /// </summary>
+        protected virtual void ConfigOnChange( TagBuilder builder ) {
             builder.AddAttribute( "(nzOnChange)", _config.GetValue( UiConst.OnChange ) );
         }
     }
