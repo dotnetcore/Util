@@ -1,5 +1,5 @@
 ﻿//============== util模块=========================
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
 import { NgModule, Injector } from '@angular/core';
@@ -47,6 +47,7 @@ import { TextBoxWrapperComponent } from "./zorro/textbox-wrapper.component";
 import { DatePickerWrapperComponent } from "./zorro/datepicker-wrapper.component";
 import { TextareaWrapperComponent } from "./zorro/textarea-wrapper.component";
 import { SelectWrapperComponent } from "./zorro/select-wrapper.component";
+import { RadioWrapperComponent } from "./zorro/radio-wrapper.component";
 import { TableWrapperComponent } from "./zorro/table-wrapper.component";
 import { UploadWrapperComponent } from "./zorro/upload-wrapper.component";
 
@@ -61,7 +62,8 @@ const components = [
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
     ButtonWrapperComponent, TextBoxWrapperComponent, DatePickerWrapperComponent, TextareaWrapperComponent,
-    SelectWrapperComponent, TableWrapperComponent, UploadWrapperComponent
+    SelectWrapperComponent, RadioWrapperComponent,
+    TableWrapperComponent, UploadWrapperComponent
 ];
 
 /**

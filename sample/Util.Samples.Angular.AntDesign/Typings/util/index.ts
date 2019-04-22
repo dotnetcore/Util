@@ -32,5 +32,6 @@ export { TextBoxWrapperComponent } from "./zorro/textbox-wrapper.component";
 export { DatePickerWrapperComponent } from "./zorro/datepicker-wrapper.component";
 export { TextareaWrapperComponent } from "./zorro/textarea-wrapper.component";
 export { SelectWrapperComponent } from "./zorro/select-wrapper.component";
+export { RadioWrapperComponent } from "./zorro/radio-wrapper.component";
 export { TableWrapperComponent } from "./zorro/table-wrapper.component";
 export { UploadWrapperComponent } from "./zorro/upload-wrapper.component";
