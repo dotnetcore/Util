@@ -126,6 +126,28 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试格式化
+        /// </summary>
+        [Fact]
+        public void TestFormat() {
+            var attributes = new TagHelperAttributeList { { UiConst.Format,"a" } };
+            var result = new String();
+            result.Append( "<x-date-picker format=\"a\"></x-date-picker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示时间
+        /// </summary>
+        [Fact]
+        public void TestShowTime() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowTime, true } };
+            var result = new String();
+            result.Append( "<x-date-picker showTime=\"true\"></x-date-picker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试必填项
         /// </summary>
         [Fact]

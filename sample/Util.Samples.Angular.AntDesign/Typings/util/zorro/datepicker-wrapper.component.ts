@@ -14,34 +14,34 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
     template: `
         <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-date-picker *ngIf="type==='date'"
-                [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
+                [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" [nzFormat]="format"
                 #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                [required]="required">
+                [nzShowTime]="showTime" [required]="required">
             </nz-date-picker>
             <nz-range-picker *ngIf="type==='range'"
                 [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
+                #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                [required]="required">
+                [nzShowTime]="showTime" [required]="required">
             </nz-range-picker>
             <nz-year-picker *ngIf="type==='year'"
                  [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                 #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
+                 #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                  (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                  [required]="required">
             </nz-year-picker>
             <nz-month-picker *ngIf="type==='month'"
                 [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
+                #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                 [required]="required">
             </nz-month-picker>
             <nz-week-picker *ngIf="type==='week'"
                  [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                 #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
+                 #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                  (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                 [required]="required">
+                 [nzShowTime]="showTime" [required]="required">
             </nz-week-picker>
             <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
         </nz-form-control>
@@ -60,6 +60,14 @@ export class DatePickerWrapperComponent extends FormControlWrapperBase {
      * 类型，可选值：date,range,year,month,week
      */
     @Input() type: string;
+    /**
+     * 日期格式化
+     */
+    @Input() format: string;
+    /**
+     * 显示时间
+     */
+    @Input() showTime: boolean;
 
     /**
      * 初始化日期选择包装器
