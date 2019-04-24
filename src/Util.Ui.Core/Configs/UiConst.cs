@@ -380,6 +380,10 @@
         /// </summary>
         public const string Wrap = "wrap";
         /// <summary>
+        /// 格式化
+        /// </summary>
+        public const string Format = "format";
+        /// <summary>
         /// 日期格式化
         /// </summary>
         public const string DateFormat = "date-format";
@@ -607,5 +611,9 @@
         /// 文件列表
         /// </summary>
         public const string FileList = "file-list";
+        /// <summary>
+        /// 显示时间
+        /// </summary>
+        public const string ShowTime = "show-time";
     }
 }
