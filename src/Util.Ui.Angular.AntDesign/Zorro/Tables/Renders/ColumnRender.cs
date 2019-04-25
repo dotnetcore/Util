@@ -46,6 +46,8 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 配置列
         /// </summary>
         private void ConfigColumn( TableColumnBuilder builder ) {
+            if( _config.Content.IsEmpty() == false )
+                return;
             var type = _config.GetValue<TableColumnType?>( UiConst.Type );
             var column = _config.GetValue( UiConst.Column );
             switch( type ) {

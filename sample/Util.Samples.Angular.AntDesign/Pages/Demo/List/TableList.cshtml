@@ -26,7 +26,8 @@
         <util-table-column for="Code"></util-table-column>
         <util-table-column for="Name" sort="true"></util-table-column>
         <util-table-column for="Enabled">
-            <util-icon type="Check"></util-icon>
+            <util-icon type="Check" ng-if="row.enabled"></util-icon>
+            <util-icon type="Close" ng-if="!row.enabled"></util-icon>
         </util-table-column>
         <util-table-column for="RegisterEnabled"></util-table-column>
         <util-table-column for="CreationTime"></util-table-column>
