@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { Injector, ViewChild, forwardRef } from '@angular/core';
-import { util, ViewModel, QueryParameter, TableWrapperComponent } from '../index';
+import { util, ViewModel, QueryParameter, Table } from '../index';
 
 /**
  * 表格查询基类
@@ -20,7 +20,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     /**
      * 表格组件
      */
-    @ViewChild( forwardRef( () => TableWrapperComponent ) ) protected table: TableWrapperComponent<TViewModel>;
+    @ViewChild( forwardRef( () => Table ) ) protected table: Table<TViewModel>;
 
     /**
      * 初始化组件

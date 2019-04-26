@@ -4,7 +4,7 @@
 //=======================================================
 import { Component, Input, Output, EventEmitter, OnInit, Host, Optional, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { NgModel,NgForm } from '@angular/forms';
-import { Select, SelectItem, SelectOption } from '../core/select';
+import { SelectList, SelectItem, SelectOption } from '../core/select';
 import { WebApi as webapi } from '../common/webapi';
 
 /**
@@ -23,7 +23,7 @@ import { WebApi as webapi } from '../common/webapi';
     styles: [`
     `]
 })
-export class RadioWrapperComponent implements OnInit, AfterViewInit {
+export class Radio implements OnInit, AfterViewInit {
     /**
      * 名称
      */
@@ -105,7 +105,7 @@ export class RadioWrapperComponent implements OnInit, AfterViewInit {
     loadData(data?: SelectItem[]) {
         if (!data)
             return;
-        let select = new Select(data);
+        let select = new SelectList(data);
         this.dataSource = select.toOptions();
     }
 

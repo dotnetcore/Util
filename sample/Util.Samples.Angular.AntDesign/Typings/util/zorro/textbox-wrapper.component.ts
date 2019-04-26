@@ -24,7 +24,7 @@ import { MessageConfig } from '../config/message-config';
         </nz-form-control>
     `
 })
-export class TextBoxWrapperComponent extends FormControlWrapperBase implements OnInit {
+export class TextBox extends FormControlWrapperBase implements OnInit {
     /**
      * 是否密码框
      */

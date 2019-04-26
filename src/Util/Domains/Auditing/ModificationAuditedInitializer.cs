@@ -1,5 +1,4 @@
 ﻿using System;
-using Util.Sessions;
 
 namespace Util.Domains.Auditing {
     /// <summary>
@@ -7,37 +6,46 @@ namespace Util.Domains.Auditing {
     /// </summary>
     public class ModificationAuditedInitializer {
         /// <summary>
-        /// 初始化修改操作审计初始化器
-        /// </summary>
-        /// <param name="entity">实体</param>
-        /// <param name="session">用户上下文</param>
-        private ModificationAuditedInitializer( object entity, ISession session ) {
-            _entity = entity;
-            _session = session;
-        }
-
-        /// <summary>
         /// 实体
         /// </summary>
         private readonly object _entity;
         /// <summary>
-        /// 用户会话
+        /// 用户标识
         /// </summary>
-        private readonly ISession _session;
+        private readonly string _userId;
+        /// <summary>
+        /// 用户名称
+        /// </summary>
+        private readonly string _userName;
+
+        /// <summary>
+        /// 初始化修改操作审计初始化器
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <param name="userId">用户标识</param>
+        /// <param name="userName">用户名称</param>
+        private ModificationAuditedInitializer( object entity, string userId, string userName ) {
+            _entity = entity;
+            _userId = userId;
+            _userName = userName;
+        }
 
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="session">用户上下文</param>
-        public static void Init( object entity, ISession session ) {
-            new ModificationAuditedInitializer( entity, session ).Init();
+        /// <param name="userId">用户标识</param>
+        /// <param name="userName">用户名称</param>
+        public static void Init( object entity, string userId, string userName ) {
+            new ModificationAuditedInitializer( entity, userId, userName ).Init();
         }
 
         /// <summary>
         /// 初始化
         /// </summary>
         public void Init() {
+            InitLastModificationTime();
+            InitModifier();
             if( _entity is IModificationAudited<Guid>) {
                 InitGuid();
                 return;
@@ -69,12 +77,27 @@ namespace Util.Domains.Auditing {
         }
 
         /// <summary>
+        /// 初始化最后修改时间
+        /// </summary>
+        private void InitLastModificationTime() {
+            if( _entity is IModificationTime result )
+                result.LastModificationTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 初始化修改人
+        /// </summary>
+        private void InitModifier() {
+            if( _entity is IModifier result )
+                result.Modifier = _userName;
+        }
+
+        /// <summary>
         /// 初始化Guid
         /// </summary>
         private void InitGuid() {
             var result = (IModificationAudited<Guid>)_entity;
-            result.LastModificationTime = DateTime.Now;
-            result.LastModifierId = _session.UserId.ToGuid();
+            result.LastModifierId = _userId.ToGuid();
         }
 
         /// <summary>
@@ -82,8 +105,7 @@ namespace Util.Domains.Auditing {
         /// </summary>
         private void InitNullableGuid() {
             var result = (IModificationAudited<Guid?>)_entity;
-            result.LastModificationTime = DateTime.Now;
-            result.LastModifierId = _session.UserId.ToGuidOrNull();
+            result.LastModifierId = _userId.ToGuidOrNull();
         }
 
         /// <summary>
@@ -91,8 +113,7 @@ namespace Util.Domains.Auditing {
         /// </summary>
         private void InitInt() {
             var result = (IModificationAudited<int>)_entity;
-            result.LastModificationTime = DateTime.Now;
-            result.LastModifierId = _session.UserId.ToInt();
+            result.LastModifierId = _userId.ToInt();
         }
 
         /// <summary>
@@ -100,8 +121,7 @@ namespace Util.Domains.Auditing {
         /// </summary>
         private void InitNullableInt() {
             var result = (IModificationAudited<int?>)_entity;
-            result.LastModificationTime = DateTime.Now;
-            result.LastModifierId = _session.UserId.ToIntOrNull();
+            result.LastModifierId = _userId.ToIntOrNull();
         }
 
         /// <summary>
@@ -109,8 +129,7 @@ namespace Util.Domains.Auditing {
         /// </summary>
         private void InitString() {
             var result = (IModificationAudited<string>)_entity;
-            result.LastModificationTime = DateTime.Now;
-            result.LastModifierId = _session.UserId.SafeString();
+            result.LastModifierId = _userId.SafeString();
         }
 
         /// <summary>
@@ -118,8 +137,7 @@ namespace Util.Domains.Auditing {
         /// </summary>
         private void InitLong() {
             var result = (IModificationAudited<long>)_entity;
-            result.LastModificationTime = DateTime.Now;
-            result.LastModifierId = _session.UserId.ToLong();
+            result.LastModifierId = _userId.ToLong();
         }
 
         /// <summary>
@@ -127,8 +145,7 @@ namespace Util.Domains.Auditing {
         /// </summary>
         private void InitNullableLong() {
             var result = (IModificationAudited<long?>)_entity;
-            result.LastModificationTime = DateTime.Now;
-            result.LastModifierId = _session.UserId.ToLongOrNull();
+            result.LastModifierId = _userId.ToLongOrNull();
         }
     }
 }

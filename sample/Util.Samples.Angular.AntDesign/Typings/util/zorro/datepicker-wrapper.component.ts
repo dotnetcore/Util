@@ -63,7 +63,7 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
         </nz-form-control>
     `
 })
-export class DatePickerWrapperComponent extends FormControlWrapperBase {
+export class DatePicker extends FormControlWrapperBase {
     /**
      * 只读
      */

@@ -19,7 +19,7 @@ import { Util as util } from '../util';
     styles: [`
     `]
 } )
-export class UploadWrapperComponent {
+export class Upload {
     /**
      * 上传文件列表
      */

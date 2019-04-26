@@ -5,7 +5,7 @@
 import { Component, Input, OnInit, Host, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
-import { Select, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
+import { SelectList, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
 import { WebApi as webapi } from '../common/webapi';
 import { MessageConfig } from '../config/message-config';
 
@@ -36,7 +36,7 @@ import { MessageConfig } from '../config/message-config';
         </nz-form-control>
     `
 })
-export class SelectWrapperComponent extends FormControlWrapperBase implements OnInit {
+export class Select extends FormControlWrapperBase implements OnInit {
     /**
      * 按组显示
      */
@@ -124,7 +124,7 @@ export class SelectWrapperComponent extends FormControlWrapperBase implements On
         data = data || this.dataSource;
         if (!data)
             return;
-        let select = new Select(data);
+        let select = new SelectList(data);
         if (select.isGroup()) {
             this.isGroup = true;
             this.optionGroups = select.toGroups();

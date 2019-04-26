@@ -21,7 +21,7 @@ import { MessageConfig } from '../config/message-config';
         </button>
     `
 } )
-export class ButtonWrapperComponent {
+export class Button {
     /**
      * 文本
      */

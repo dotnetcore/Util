@@ -8,7 +8,7 @@ import { util } from '../index';
 /**
  * 列表
  */
-export class Select {
+export class SelectList {
     /**
      * 初始化列表
      * @param items 列表项集合

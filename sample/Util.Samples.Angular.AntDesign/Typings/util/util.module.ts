@@ -42,14 +42,14 @@ import { PieWrapperComponent } from "./viser/pie-wrapper.component";
 import { RosePieWrapperComponent } from "./viser/rose-pie-wrapper.component";
 
 //Util组件
-import { ButtonWrapperComponent } from "./zorro/button-wrapper.component";
-import { TextBoxWrapperComponent } from "./zorro/textbox-wrapper.component";
-import { DatePickerWrapperComponent } from "./zorro/datepicker-wrapper.component";
-import { TextareaWrapperComponent } from "./zorro/textarea-wrapper.component";
-import { SelectWrapperComponent } from "./zorro/select-wrapper.component";
-import { RadioWrapperComponent } from "./zorro/radio-wrapper.component";
-import { TableWrapperComponent } from "./zorro/table-wrapper.component";
-import { UploadWrapperComponent } from "./zorro/upload-wrapper.component";
+import { Button } from "./zorro/button-wrapper.component";
+import { TextBox } from "./zorro/textbox-wrapper.component";
+import { DatePicker } from "./zorro/datepicker-wrapper.component";
+import { TextArea } from "./zorro/textarea-wrapper.component";
+import { Select } from "./zorro/select-wrapper.component";
+import { Radio } from "./zorro/radio-wrapper.component";
+import { Table } from "./zorro/table-wrapper.component";
+import { Upload } from "./zorro/upload-wrapper.component";
 
 //导入模块集合
 const importModules = [
@@ -61,9 +61,9 @@ const components = [
     MinValidator, MaxValidator, SafeUrlPipe, TruncatePipe, IsTruncatePipe,
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
-    ButtonWrapperComponent, TextBoxWrapperComponent, DatePickerWrapperComponent, TextareaWrapperComponent,
-    SelectWrapperComponent, RadioWrapperComponent,
-    TableWrapperComponent, UploadWrapperComponent
+    Button, TextBox, DatePicker, TextArea,
+    Select, Radio,
+    Table, Upload
 ];
 
 /**

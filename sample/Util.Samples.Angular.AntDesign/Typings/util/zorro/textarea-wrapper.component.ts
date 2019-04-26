@@ -25,7 +25,7 @@ import { MessageConfig } from '../config/message-config';
         </nz-form-control>
     `
 })
-export class TextareaWrapperComponent extends FormControlWrapperBase {
+export class TextArea extends FormControlWrapperBase {
     /**
      * 是否显示清除按钮
      */

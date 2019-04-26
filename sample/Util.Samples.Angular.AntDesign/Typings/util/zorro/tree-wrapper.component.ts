@@ -1,9 +1,10 @@
-﻿//============== NgZorro表格包装器=======================
+﻿//============== NgZorro树形包装器=======================
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
 import { Component, Input, Output, AfterContentInit, EventEmitter } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { NzTreeNode,NzTreeNodeOptions } from "ng-zorro-antd";
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
 import { PagerList } from '../core/pager-list';
@@ -11,15 +12,15 @@ import { IKey, QueryParameter } from '../core/model';
 import { MessageConfig as config } from '../config/message-config';
 
 /**
- * NgZorro表格包装器
+ * NgZorro树形包装器
  */
 @Component( {
-    selector: 'nz-table-wrapper',
+    selector: 'x-tree',
     template: `
-        <ng-content></ng-content>
+        <nz-tree></nz-tree>
     `
 } )
-export class Table<T extends IKey> implements AfterContentInit {
+export class Tree<T extends IKey> implements AfterContentInit {
     /**
      * 查询延迟
      */
@@ -43,7 +44,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     /**
      * 数据源
      */
-    dataSource: any[];
+    dataSource: NzTreeNode[] | NzTreeNodeOptions[];
     /**
      * checkbox选中列表
      */
