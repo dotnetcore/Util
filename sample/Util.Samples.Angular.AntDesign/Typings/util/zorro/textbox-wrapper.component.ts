@@ -127,15 +127,6 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
     }
 
     /**
-     * 后缀图标单击事件
-     */
-    suffixIconClick() {
-        super.suffixIconClick();
-        if (this.isPassword)
-            this.togglePassword();
-    }
-
-    /**
      * 获取错误消息
      */
     private getErrorMessage(): string {

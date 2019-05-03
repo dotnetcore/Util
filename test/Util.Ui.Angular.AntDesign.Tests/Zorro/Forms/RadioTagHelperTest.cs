@@ -149,8 +149,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试模型绑定
         /// </summary>
         [Fact]
-        public void TestModel() {
-            var attributes = new TagHelperAttributeList { { UiConst.Model, "a" } };
+        public void TestNgModel() {
+            var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
             result.Append( "<x-radio [(model)]=\"a\"></x-radio>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

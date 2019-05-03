@@ -68,6 +68,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void ConfigWrapper( UploadWrapperBuilder builder ) {
             builder.AddAttribute( $"#{GetWrapperId()}" );
             builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
+            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
         }
 
         /// <summary>

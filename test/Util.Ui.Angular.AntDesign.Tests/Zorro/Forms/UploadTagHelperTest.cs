@@ -117,11 +117,11 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
-        /// 测试上传地址
+        /// 测试模型绑定
         /// </summary>
         [Fact]
-        public void TestModel() {
-            var attributes = new TagHelperAttributeList { { UiConst.Model, "a" } };
+        public void TestNgModel() {
+            var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\" [(model)]=\"a\">" );
             result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" [nzFilter]=\"m_id.filters\">" );

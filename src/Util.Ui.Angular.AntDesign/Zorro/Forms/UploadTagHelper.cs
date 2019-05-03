@@ -16,6 +16,14 @@ namespace Util.Ui.Zorro.Forms {
     [HtmlTargetElement( "util-upload" )]
     public class UploadTagHelper : AngularTagHelperBase {
         /// <summary>
+        /// 属性表达式
+        /// </summary>
+        public ModelExpression For { get; set; }
+        /// <summary>
+        /// [(ngModel)],模型绑定
+        /// </summary>
+        public string NgModel { get; set; }
+        /// <summary>
         /// nzAction, 上传地址
         /// </summary>
         public string Url { get; set; }
@@ -31,10 +39,6 @@ namespace Util.Ui.Zorro.Forms {
         /// [(nzFileList)],上传文件列表
         /// </summary>
         public string FileList { get; set; }
-        /// <summary>
-        /// 属性表达式
-        /// </summary>
-        public ModelExpression For { get; set; }
         /// <summary>
         /// [nzMultiple],启用多选
         /// </summary>

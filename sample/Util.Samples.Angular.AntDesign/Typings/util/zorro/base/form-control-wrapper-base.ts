@@ -23,7 +23,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     @Input() disabled: boolean;
     /**
-     * 占位提示符
+     * 占位提示
      */
     @Input() placeholder?: string;
     /**
@@ -34,10 +34,6 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      * 必填项验证消息
      */
     @Input() requiredMessage: string;
-    /**
-     * 后缀图标单击事件
-     */
-    @Output() onSuffixIconClick = new EventEmitter<any>();
     /**
      * 模型，用于双向绑定
      */
@@ -125,13 +121,6 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     onModelChange(value) {
         this.modelChange.emit(value);
         this.onChange.emit(value);
-    }
-
-    /**
-     * 后缀图标单击事件
-     */
-    suffixIconClick() {
-        this.onSuffixIconClick.emit();
     }
 
     /**

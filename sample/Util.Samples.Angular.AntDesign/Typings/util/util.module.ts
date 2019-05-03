@@ -51,6 +51,7 @@ import { Radio } from "./zorro/radio-wrapper.component";
 import { Table } from "./zorro/table-wrapper.component";
 import { Upload } from "./zorro/upload-wrapper.component";
 import { Tree } from "./zorro/tree-wrapper.component";
+import { TreeSelect } from "./zorro/tree-select-wrapper.component";
 
 //导入模块集合
 const importModules = [
@@ -64,7 +65,7 @@ const components = [
     PieWrapperComponent, RosePieWrapperComponent,
     Button, TextBox, DatePicker, TextArea,
     Select, Radio,
-    Table, Upload, Tree
+    Table, Upload, Tree, TreeSelect
 ];
 
 /**
