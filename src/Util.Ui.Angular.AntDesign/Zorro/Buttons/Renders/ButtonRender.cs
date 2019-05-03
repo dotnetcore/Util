@@ -9,19 +9,19 @@ using Util.Ui.Zorro.Icons.Builders;
 
 namespace Util.Ui.Zorro.Buttons.Renders {
     /// <summary>
-    /// 按钮包装器渲染器
+    /// 按钮渲染器
     /// </summary>
-    public class ButtonWrapperRender : AngularRenderBase {
+    public class ButtonRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化按钮包装器渲染器
+        /// 初始化按钮渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ButtonWrapperRender( IConfig config ) : base( config ) {
+        public ButtonRender( IConfig config ) : base( config ) {
             _config = config;
         }
 

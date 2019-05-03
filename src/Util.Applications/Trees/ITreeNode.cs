@@ -14,7 +14,7 @@ namespace Util.Applications.Trees {
         /// </summary>
         string Path { get; set; }
         /// <summary>
-        /// 级数
+        /// 层级
         /// </summary>
         int? Level { get; set; }
         /// <summary>

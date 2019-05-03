@@ -18,21 +18,21 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string BaseUrl { get; set; }
         /// <summary>
-        /// 数据加载地址，范例：/api/test
-        /// </summary>
-        public string Url { get; set; }
-        /// <summary>
-        /// 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
-        /// </summary>
-        public string DeleteUrl { get; set; }
-        /// <summary>
         /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
         /// </summary>
         public string BindBaseUrl { get; set; }
         /// <summary>
         /// 数据加载地址，范例：/api/test
         /// </summary>
+        public string Url { get; set; }
+        /// <summary>
+        /// 数据加载地址，范例：/api/test
+        /// </summary>
         public string BindUrl { get; set; }
+        /// <summary>
+        /// 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
+        /// </summary>
+        public string DeleteUrl { get; set; }
         /// <summary>
         /// 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
         /// </summary>

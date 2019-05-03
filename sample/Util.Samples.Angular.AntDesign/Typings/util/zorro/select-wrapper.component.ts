@@ -5,7 +5,7 @@
 import { Component, Input, OnInit, Host, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
-import { SelectList, SelectItem, SelectOption, SelectOptionGroup } from '../core/select';
+import { SelectList, SelectItem, SelectOption, SelectOptionGroup } from "../core/select-model";
 import { WebApi as webapi } from '../common/webapi';
 import { MessageConfig } from '../config/message-config';
 

@@ -31,7 +31,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     /**
      * 显示进度条
      */
-    loading: boolean;
+    @Input() loading: boolean;
     /**
      * 首次加载
      */

@@ -33,6 +33,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Url { get; set; }
         /// <summary>
+        /// [url],请求地址
+        /// </summary>
+        public string BindUrl { get; set; }
+        /// <summary>
         /// 数据源
         /// </summary>
         public string DatasSource { get; set; }

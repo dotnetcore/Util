@@ -3,13 +3,9 @@
 //Licensed under the MIT license
 //=======================================================
 import { Component, Input, Output, AfterContentInit, EventEmitter } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { NzTreeNode,NzTreeNodeOptions } from "ng-zorro-antd";
+import { NzTreeNodeOptions, NzFormatEmitEvent } from "ng-zorro-antd";
 import { WebApi as webapi } from '../common/webapi';
-import { Message as message } from '../common/message';
-import { PagerList } from '../core/pager-list';
-import { IKey, QueryParameter } from '../core/model';
-import { MessageConfig as config } from '../config/message-config';
+import { TreeQueryParameter } from "../core/tree-model";
 
 /**
  * NgZorro树形包装器
@@ -17,195 +13,138 @@ import { MessageConfig as config } from '../config/message-config';
 @Component( {
     selector: 'x-tree',
     template: `
-        <nz-tree></nz-tree>
+        <nz-tree [nzData]="dataSource" [nzAsyncData]="async"
+            [nzCheckable]="showCheckbox" [nzBlockNode]="blockNode" 
+            [nzShowExpand]="showExpand" [nzShowLine]="showLine" [nzExpandAll]="expandAll" [nzExpandedKeys]="expandedKeys"
+            [nzCheckedKeys]="checkedKeys" [nzSelectedKeys]="selectedKeys" [nzMultiple]="multiple" [nzShowIcon]="showIcon"
+            (nzClick)="click($event)" (nzDblClick)="dblClick($event)" (nzExpandChange)="expandChange($event)">
+        </nz-tree>
     `
 } )
-export class Tree<T extends IKey> implements AfterContentInit {
+export class Tree implements AfterContentInit {
     /**
-     * 查询延迟
+     * 是否异步加载
      */
-    timeout;
-    /**
-     * 查询延迟间隔，单位：毫秒，默认500
-     */
-    @Input() delay: number;
-    /**
-     * 显示进度条
-     */
-    loading: boolean;
-    /**
-     * 首次加载
-     */
-    firstLoad: boolean;
-    /**
-     * 总行数
-     */
-    totalCount = 0;
+    @Input() async: boolean;
     /**
      * 数据源
      */
-    dataSource: NzTreeNode[] | NzTreeNodeOptions[];
-    /**
-     * checkbox选中列表
-     */
-    checkedSelection: SelectionModel<T>;
-    /**
-     * 点击行选中列表
-     */
-    selectedSelection: SelectionModel<T>;
+    @Input() dataSource: NzTreeNodeOptions[];
     /**
      * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
      */
     @Input() autoLoad: boolean;
     /**
-     * 是否显示分页
-     */
-    @Input() showPagination: boolean;
-    /**
-     * 分页长度列表
-     */
-    @Input() pageSizeOptions: number[];
-    /**
-    * 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
-    */
-    @Input() baseUrl: string;
-    /**
      * 数据加载地址，范例：/api/test
      */
     @Input() url: string;
     /**
-     * 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
-     */
-    @Input() deleteUrl: string;
-    /**
      * 查询参数
      */
-    @Input() queryParam: QueryParameter;
-    /**
-     * 初始排序字段
-     */
-    @Input() sortKey: string;
+    @Input() queryParam: TreeQueryParameter;
     /**
      * 查询参数变更事件
      */
-    @Output() queryParamChange = new EventEmitter<QueryParameter>();
+    @Output() queryParamChange = new EventEmitter<TreeQueryParameter>();
+    /**
+     * 是否显示复选框
+     */
+    @Input() showCheckbox: boolean;
+    /**
+     * 节点是否占据一行
+     */
+    @Input() blockNode: boolean;
+    /**
+     * 节点前是否添加展开图标
+     */
+    @Input() showExpand: boolean;
+    /**
+     * 是否显示连接线
+     */
+    @Input() showLine: boolean;
+    /**
+     * 展开所有节点
+     */
+    @Input() expandAll: boolean;
+    /**
+     * 展开节点的标识列表
+     */
+    @Input() expandedKeys: boolean;
+    /**
+     * 复选框选中节点的标识列表
+     */
+    @Input() checkedKeys: boolean;
+    /**
+     * 选中节点的标识列表
+     */
+    @Input() selectedKeys: boolean;
+    /**
+     * 允许选中多个节点
+     */
+    @Input() multiple: boolean;
+    /**
+     * 是否显示图标
+     */
+    @Input() showIcon: boolean;
+    /**
+     * 单击事件
+     */
+    @Output() onClick = new EventEmitter<NzFormatEmitEvent>();
+    /**
+     * 双击事件
+     */
+    @Output() onDblClick = new EventEmitter<NzFormatEmitEvent>();
+    /**
+     * 展开事件
+     */
+    @Output() onExpand = new EventEmitter<NzFormatEmitEvent>();
 
     /**
-     * 初始化表格包装器
+     * 初始化树形包装器
      */
     constructor() {
-        this.pageSizeOptions = [10, 20, 50, 100];
-        this.showPagination = true;
         this.dataSource = new Array<any>();
-        this.checkedSelection = new SelectionModel<T>( true, [] );
-        this.selectedSelection = new SelectionModel<T>( false, [] );
-        this.firstLoad = true;
-        this.loading = true;
         this.autoLoad = true;
-        this.queryParam = new QueryParameter();
-        this.delay = 500;
+        this.queryParam = new TreeQueryParameter();
+        this.showExpand = true;
+        this.showIcon = true;
+        this.async = true;
     }
 
     /**
      * 内容加载完成时进行初始化
      */
     ngAfterContentInit() {
-        this.initPaginator();
-        this.initSort();
         if ( this.autoLoad )
             this.query();
     }
 
     /**
-     * 初始化分页组件
+     * 发送请求
+     * @param option 参数
      */
-    private initPaginator() {
-        this.initPage();
-    }
-
-    /**
-     * 初始化分页参数
-     */
-    private initPage() {
-        this.queryParam.page = 1;
-        if ( this.pageSizeOptions && this.pageSizeOptions.length > 0 )
-            this.queryParam.pageSize = this.pageSizeOptions[0];
-    }
-
-    /**
-    * 初始化排序
-    */
-    private initSort() {
-        if ( !this.sortKey )
+    query( option?: {
+        url?: string;
+        param?;
+        before?: () => boolean;
+        complete?: () => void;
+        ok?: ( value ) => void;
+    } ) {
+        option = option || {};
+        let url = option.url || this.url;
+        if ( !url )
             return;
-        this.queryParam.order = this.sortKey;
-    }
-
-    /**
-     * 页索引变更事件处理
-     * @param pageIndex 页索引，第一页传入的是1
-     */
-    pageIndexChange( pageIndex: number ) {
-        this.queryParam.page = pageIndex;
-        this.query();
-    }
-
-    /**
-     * 分页大小变更事件处理
-     * @param pageSize 分页大小
-     */
-    pageSizeChange( pageSize: number ) {
-        this.queryParam.pageSize = pageSize;
-        this.queryParam.page = 1;
-        this.query();
-    }
-
-    /**
-     * 排序
-     * @param sortParam 排序参数，key为列名，value为升降序
-     */
-    sort( sortParam: { key: string; value: string } ): void {
-        this.queryParam.order = this.getSortKey( sortParam.key, sortParam.value );
-        this.query();
-    }
-
-    /**
-     * 获取排序字段
-     */
-    private getSortKey( sortKey, sortValue ) {
-        if ( !sortValue )
-            return this.sortKey;
-        if ( sortValue === 'ascend' )
-            return sortKey;
-        return `${sortKey} desc`;
-    }
-
-    /**
-     * 发送查询请求
-     * @param button 按钮
-     * @param url 查询请求地址
-     * @param param 查询参数
-     */
-    query( button?, url: string = null, param = null ) {
-        url = url || this.url || ( this.baseUrl && `/api/${this.baseUrl}` );
-        if ( !url ) {
-            console.log( "表格url未设置" );
-            return;
-        }
-        param = param || this.queryParam;
-        webapi.get<any>( url ).param( param ).button( button ).handle( {
-            before: () => {
-                if ( this.firstLoad ) {
-                    this.firstLoad = false;
-                    return true;
-                }
-                this.loading = true;
-                return true;
-            },
+        let param = option.param || this.queryParam;
+        webapi.get<any>( url ).param( param ).handle( {
+            before: option.before,
             ok: result => {
+                if ( option.ok ) {
+                    option.ok( result );
+                    return;
+                }
                 this.loadData( result );
             },
-            complete: () => this.loading = false
+            complete: option.complete
         } );
     }
 
@@ -213,44 +152,25 @@ export class Tree<T extends IKey> implements AfterContentInit {
      * 加载数据
      */
     private loadData( result ) {
-        result = new PagerList<T>( result );
-        result.initLineNumbers();
-        this.dataSource = result.data || [];
-        this.totalCount = result.totalCount;
-        this.checkedSelection.clear();
-        if ( result.totalCount ) {
-            this.showPagination = true;
+        if ( !result )
             return;
-        }
-        this.showPagination = false;
-    }
-
-    /**
-     * 延迟搜索
-     * @param button 按钮
-     * @param delay 查询延迟间隔，单位：毫秒，默认500
-     * @param url 查询请求地址
-     * @param param 查询参数
-     */
-    search( button?, delay?: number, url: string = null, param = null ) {
-        if ( this.timeout )
-            clearTimeout( this.timeout );
-        this.timeout = setTimeout( () => {
-            this.query( url, param, button );
-        }, delay || this.delay );
+        this.dataSource = result.nodes || [];
+        this.expandedKeys = result.expandedKeys || [];
+        this.checkedKeys = result.checkedKeys || [];
+        this.selectedKeys = result.selectedKeys || [];
     }
 
     /**
      * 刷新
      * @param queryParam 查询参数
-     * @param button 按钮
      */
-    refresh( queryParam, button? ) {
-        this.queryParam = queryParam;
-        this.queryParamChange.emit( queryParam );
-        this.initPage();
-        this.queryParam.order = this.sortKey;
-        this.query( button );
+    refresh( queryParam? : TreeQueryParameter ) {
+        if ( queryParam ) {
+            this.queryParam = queryParam;
+            this.queryParamChange.emit( queryParam );
+        }
+        this.queryParam.order = null;
+        this.query();
     }
 
     /**
@@ -258,50 +178,13 @@ export class Tree<T extends IKey> implements AfterContentInit {
      */
     clear() {
         this.dataSource = [];
-        this.queryParam.page = 1;
-        this.totalCount = 0;
-        this.checkedSelection.clear();
-    }
-
-    /**
-     * 表头主复选框切换选中状态
-     */
-    masterToggle() {
-        if ( this.isMasterChecked() ) {
-            this.checkedSelection.clear();
-            return;
-        }
-        this.dataSource.forEach( data => this.checkedSelection.select( data ) );
-    }
-
-    /**
-     * 表头主复选框的选中状态
-     */
-    isMasterChecked() {
-        return this.checkedSelection.hasValue() &&
-            this.isAllChecked() &&
-            this.checkedSelection.selected.length >= this.dataSource.length;
-    }
-
-    /**
-     * 是否所有行复选框被选中
-     */
-    private isAllChecked() {
-        return this.dataSource.every( data => this.checkedSelection.isSelected( data ) );
-    }
-
-    /**
-     * 表头主复选框的确定状态
-     */
-    isMasterIndeterminate() {
-        return this.checkedSelection.hasValue() && ( !this.isAllChecked() || !this.dataSource.length );
     }
 
     /**
      * 获取复选框被选中实体列表
      */
-    getChecked(): T[] {
-        return this.dataSource.filter( data => this.checkedSelection.isSelected( data ) );
+    getChecked() {
+        return null;
     }
 
     /**
@@ -312,50 +195,55 @@ export class Tree<T extends IKey> implements AfterContentInit {
     }
 
     /**
-     * 批量删除被选中实体
-     * @param button 按钮
-     * @param ids 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
-     * @param handler 删除成功回调函数
-     * @param url 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
+     * 单击事件处理
      */
-    delete( button?, ids?: string, handler?: () => void, url?: string) {
-        ids = ids || this.getCheckedIds();
-        if ( !ids ) {
-            message.warn( config.deleteNotSelected );
-            return;
-        }
-        message.confirm( config.deleteConfirm, () => {
-            this.deleteRequest( button, ids, handler, url );
-        } );
+    private click( event ) {
+        this.onClick.emit( event );
     }
 
     /**
-     * 发送删除请求
+     * 双击事件处理
      */
-    private deleteRequest( button?, ids?: string, handler?: () => void, url?: string) {
-        url = url || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
-        if ( !url ) {
-            console.log( "表格deleteUrl未设置" );
+    private dblClick( event ) {
+        this.onDblClick.emit( event );
+    }
+
+    /**
+     * 展开事件处理
+     * @param event
+     */
+    private expandChange( event ) {
+        this.loadChildren( event );
+        this.onExpand.emit( event );
+    }
+
+    /**
+     * 加载子节点列表
+     */
+    private loadChildren( event: NzFormatEmitEvent ) {
+        if ( !event )
             return;
-        }
-        webapi.post( url, ids ).button( button ).handle( {
-            ok: () => {
-                if ( handler ) {
-                    handler();
+        let node = event.node;
+        if ( !node )
+            return;
+        let children = node.getChildren();
+        if ( children && children.length > 0 )
+            return;
+        this.queryParam.operation = "LoadChild";
+        this.queryParam.parentId = node.key;
+        this.query({
+            ok: result => {
+                if ( result && result.nodes && result.nodes.length > 0 ) {
+                    node.addChildren( result.nodes );
                     return;
                 }
-                message.success( config.deleteSuccessed );
-                this.query();
+                node.isLoading = false;
+                node.isLeaf = true;
+            },
+            complete: () => {
+                this.queryParam.operation = null;
+                this.queryParam.parentId = null;
             }
         } );
-    }
-
-    /**
-     * 选中一行
-     * @param row 行
-     */
-    checkRow( row ) {
-        this.checkedSelection.clear();
-        this.checkedSelection.select( row );
     }
 }

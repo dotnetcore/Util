@@ -19,7 +19,7 @@ namespace Util.Ui.Controllers {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     public abstract class PrimeTreeControllerBase<TDto, TQuery> : PrimeTreeControllerBase<TDto, TQuery, Guid?>
-        where TDto : class, IResponse, ITreeNode, new()
+        where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter, new() {
         /// <summary>
         /// 初始化树型控制器
@@ -36,7 +36,7 @@ namespace Util.Ui.Controllers {
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
     public abstract class PrimeTreeControllerBase<TDto, TQuery, TParentId> : TreeControllerBase<TDto, TQuery, TParentId>
-        where TDto : class, IResponse, ITreeNode, new()
+        where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter<TParentId>, new() {
         /// <summary>
         /// 树型服务

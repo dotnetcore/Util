@@ -20,7 +20,7 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Url { get; set; }
         /// <summary>
-        /// 请求地址,[url]
+        /// [url],请求地址
         /// </summary>
         public string BindUrl { get; set; }
         /// <summary>

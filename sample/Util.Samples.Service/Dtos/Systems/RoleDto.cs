@@ -1,15 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using Util.Applications.Trees;
-using Util.Ui.Attributes;
+using Util.Ui.Data;
 
 namespace Util.Samples.Service.Dtos.Systems {
     /// <summary>
     /// 角色数据传输对象
     /// </summary>
-    [Model]
-    public class RoleDto : TreeDtoBase {
+    public class RoleDto : TreeDto {
         /// <summary>
         /// 角色编码
         /// </summary>
@@ -26,6 +24,10 @@ namespace Util.Samples.Service.Dtos.Systems {
         [Display( Name = "角色名称" )]
         [DataMember]
         public string Name { get; set; }
+        /// <summary>
+        /// 角色名称
+        /// </summary>
+        public override string Text => Name;
         /// <summary>
         /// 标准化角色名称
         /// </summary>

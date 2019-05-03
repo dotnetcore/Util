@@ -1,14 +1,12 @@
-﻿//============== 树型模型 ==========================
-//Copyright 2018 何镇汐
+﻿//============== 树形模型 ==========================
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { ISort } from '../core/sort';
-import { IKey } from './model';
 
 /**
- * 树型视图模型
+ * 树形视图模型
  */
-export class TreeViewModel implements ISort, IKey {
+export class TreeViewModel {
     /**
      * 标识
      */
@@ -26,7 +24,7 @@ export class TreeViewModel implements ISort, IKey {
      */
     path?;
     /**
-     * 级数
+     * 层级
      */
     level?;
     /**
@@ -38,41 +36,37 @@ export class TreeViewModel implements ISort, IKey {
      */
     enabled?: boolean;
     /**
-     * 类型
-     */
-    type?;
-    /**
-     * 数据
-     */
-    data?;
-    /**
      * 展开
      */
     expanded?: boolean;
 }
 
 /**
- * 树型查询参数
+ * 树形查询参数
  */
 export class TreeQueryParameter {
     /**
      * 页索引，即第几页
      */
-    page: number;
+    page?: number;
     /**
      * 每页显示行数
      */
-    pageSize: number;
+    pageSize?: number;
     /**
      * 排序条件
      */
-    order: string;
+    order?: string;
     /**
      * 搜索关键字
      */
-    keyword: string;
+    keyword?: string;
     /**
      * 父标识
      */
     parentId?: string;
+    /**
+     * 操作
+     */
+    operation?: string;
 }

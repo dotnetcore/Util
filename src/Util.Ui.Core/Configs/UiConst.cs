@@ -396,6 +396,10 @@
         /// </summary>
         public const string OnQueryRestore = "on-query-restore";
         /// <summary>
+        /// 显示复选框
+        /// </summary>
+        public const string ShowCheckbox = "show-checkbox";
+        /// <summary>
         /// 复选框
         /// </summary>
         public const string Checkbox = "checkbox";
@@ -615,5 +619,33 @@
         /// 显示时间
         /// </summary>
         public const string ShowTime = "show-time";
+        /// <summary>
+        /// 节点占据一行
+        /// </summary>
+        public const string BlockNode = "block-node";
+        /// <summary>
+        /// 显示展开
+        /// </summary>
+        public const string ShowExpand = "show-expand";
+        /// <summary>
+        /// 显示线
+        /// </summary>
+        public const string ShowLine = "show-line";
+        /// <summary>
+        /// 展开所有
+        /// </summary>
+        public const string ExpandAll = "expand-all";
+        /// <summary>
+        /// 显示图标
+        /// </summary>
+        public const string ShowIcon = "show-icon";
+        /// <summary>
+        /// 双击事件
+        /// </summary>
+        public const string OnDblClick = "on-dbl-click";
+        /// <summary>
+        /// 展开事件
+        /// </summary>
+        public const string OnExpand = "on-expand";
     }
 }
