@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Util.Datas.Queries;
 using Util.Ui.Data;
-using Util.Ui.Zorro.Enums;
 using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Demo {
@@ -13,7 +12,7 @@ namespace Util.Samples.Apis.Demo {
         /// <summary>
         /// 获取树形列表
         /// </summary>
-        [HttpGet( "tree-list" )]
+        [HttpGet]
         public IActionResult GetTreeNodes( QueryParameter parameter ) {
             var list = new List<TreeDto> { GetNode1(), GetNode2(), GetNode3(), GetNode4(), GetNode5() };
             var result = new TreeResult( list ).GetResult();
@@ -26,8 +25,7 @@ namespace Util.Samples.Apis.Demo {
         private TreeDto GetNode1() {
             return new TreeDto {
                 Id = "1",
-                Text = "测试节点1",
-                Icon = AntDesignIcon.Alibaba.Description()
+                Text = "测试节点1"
             };
         }
 
@@ -38,8 +36,7 @@ namespace Util.Samples.Apis.Demo {
             return new TreeDto {
                 Id = "2",
                 ParentId = "1",
-                Text = "测试节点2",
-                Enabled = false
+                Text = "测试节点2"
             };
         }
 
@@ -49,9 +46,7 @@ namespace Util.Samples.Apis.Demo {
         private TreeDto GetNode3() {
             return new TreeDto {
                 Id = "3",
-                Text = "测试节点3",
-                Selected = true,
-                DisableCheckbox = true
+                Text = "测试节点3"
             };
         }
 
@@ -73,8 +68,7 @@ namespace Util.Samples.Apis.Demo {
             return new TreeDto {
                 Id = "5",
                 ParentId = "4",
-                Text = "测试节点5",
-                Selected = true
+                Text = "测试节点5"
             };
         }
     }
