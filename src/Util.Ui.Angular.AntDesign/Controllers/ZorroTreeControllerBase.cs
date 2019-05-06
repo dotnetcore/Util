@@ -122,8 +122,25 @@ namespace Util.Ui.Controllers {
         /// 同步首次加载
         /// </summary>
         protected virtual async Task<ZorroTreeResult> SyncFirstLoad( TQuery query ) {
-            var data = await _service.QueryAsync( query );
+            var data = await Query( query );
             return ToResult( data );
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        private async Task<List<TDto>> Query( TQuery query ) {
+            var data = await _service.QueryAsync( query );
+            ProcessData( data, query );
+            return data;
+        }
+
+        /// <summary>
+        /// 数据处理
+        /// </summary>
+        /// <param name="data">数据列表</param>
+        /// <param name="query">查询参数</param>
+        protected virtual void ProcessData( List<TDto> data, TQuery query ) {
         }
 
         /// <summary>
@@ -138,8 +155,8 @@ namespace Util.Ui.Controllers {
         /// </summary>
         protected virtual async Task<ZorroTreeResult> AsyncFirstLoad( TQuery query ) {
             query.Level = 1;
-            var result = await _service.QueryAsync( query );
-            return ToResult( result, true );
+            var data = await Query( query );
+            return ToResult( data, true );
         }
 
         /// <summary>
@@ -158,8 +175,8 @@ namespace Util.Ui.Controllers {
         /// </summary>
         protected virtual async Task<ZorroTreeResult> AsyncLoadChildren( TQuery query ) {
             var queryParam = await GetAsyncLoadChildrenQuery( query );
-            var result = await _service.QueryAsync( queryParam );
-            return ToResult( result, true );
+            var data = await Query( queryParam );
+            return ToResult( data, true );
         }
 
         /// <summary>
@@ -178,9 +195,10 @@ namespace Util.Ui.Controllers {
         protected virtual async Task<ZorroTreeResult> SyncLoadChildren( TQuery query ) {
             var parentId = query.ParentId.SafeString();
             var queryParam = await GetSyncLoadChildrenQuery( query );
-            var result = await _service.QueryAsync( queryParam );
-            result.RemoveAll( t => t.Id == parentId );
-            return ToResult( result );
+            var data = await _service.QueryAsync( queryParam );
+            data.RemoveAll( t => t.Id == parentId );
+            ProcessData( data, query );
+            return ToResult( data );
         }
 
         /// <summary>
@@ -203,6 +221,7 @@ namespace Util.Ui.Controllers {
             var ids = data.GetMissingParentIds();
             var list = await _service.GetByIdsAsync( ids.Join() );
             data.AddRange( list );
+            ProcessData( data, query );
             return ToResult( data, true );
         }
     }

@@ -2,8 +2,8 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, AfterContentInit, EventEmitter } from '@angular/core';
-import { NzTreeNodeOptions, NzFormatEmitEvent } from "ng-zorro-antd";
+import { Component, Input, Output, AfterContentInit, EventEmitter, ViewChild, forwardRef } from '@angular/core';
+import { NzTreeNodeOptions, NzFormatEmitEvent, NzTreeBase } from "ng-zorro-antd";
 import { WebApi as webapi } from '../common/webapi';
 import { TreeQueryParameter } from "../core/tree-model";
 
@@ -98,6 +98,10 @@ export class Tree implements AfterContentInit {
      * 展开事件
      */
     @Output() onExpand = new EventEmitter<NzFormatEmitEvent>();
+    /**
+     * 树形组件
+     */
+    @ViewChild( forwardRef( () => NzTreeBase ) ) protected tree: NzTreeBase;
 
     /**
      * 初始化树形包装器
@@ -164,7 +168,7 @@ export class Tree implements AfterContentInit {
      * 刷新
      * @param queryParam 查询参数
      */
-    refresh( queryParam? : TreeQueryParameter ) {
+    refresh( queryParam?: TreeQueryParameter ) {
         if ( queryParam ) {
             this.queryParam = queryParam;
             this.queryParamChange.emit( queryParam );
@@ -178,20 +182,6 @@ export class Tree implements AfterContentInit {
      */
     clear() {
         this.dataSource = [];
-    }
-
-    /**
-     * 获取复选框被选中实体列表
-     */
-    getChecked() {
-        return null;
-    }
-
-    /**
-     * 获取复选框被选中实体Id列表
-     */
-    getCheckedIds(): string {
-        return this.getChecked().map( ( value ) => value.id ).join( "," );
     }
 
     /**
@@ -231,7 +221,7 @@ export class Tree implements AfterContentInit {
             return;
         this.queryParam.operation = "LoadChild";
         this.queryParam.parentId = node.key;
-        this.query({
+        this.query( {
             ok: result => {
                 if ( result && result.nodes && result.nodes.length > 0 ) {
                     node.addChildren( result.nodes );
@@ -245,5 +235,62 @@ export class Tree implements AfterContentInit {
                 this.queryParam.parentId = null;
             }
         } );
+    }
+
+    /**
+     * 获取树节点列表
+     */
+    getNodes() {
+        return this.tree.getTreeNodes();
+    }
+
+    /**
+     * 获取节点
+     * @param id 标识
+     */
+    getNodeById( id: string ) {
+        return this.tree.getTreeNodeByKey( id );
+    }
+
+    /**
+     * 获取选中复选框的节点列表
+     */
+    getCheckedNodes() {
+        return this.tree.getCheckedNodeList();
+    }
+
+    /**
+     * 获取选中复选框的标识列表
+     */
+    getCheckedIds(): string {
+        return this.getCheckedNodes().map( value => value.key ).join( "," );
+    }
+
+    /**
+     * 获取选中的节点列表
+     */
+    getSelectedNodes() {
+        return this.tree.getSelectedNodeList();
+    }
+
+    /**
+     * 获取选中的标识列表
+     */
+    getSelectedIds(): string {
+        return this.getSelectedNodes().map( value => value.key ).join( "," );
+    }
+
+    /**
+     * 获取展开的节点列表
+     */
+    getExpandedNodes() {
+        return this.tree.getExpandedNodeList();
+    }
+
+    /**
+     * 获取展开的标识列表
+     */
+    getExpandedIds(): string {
+        return this.getExpandedNodes().map( value => value.key ).join( "," );
     }
 }
