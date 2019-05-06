@@ -1,4 +1,5 @@
-﻿using Util.Samples.Service.Abstractions.Systems;
+﻿using Util.Applications.Trees;
+using Util.Samples.Service.Abstractions.Systems;
 using Util.Samples.Service.Dtos.Systems;
 using Util.Samples.Service.Queries.Systems;
 using Util.Ui.Controllers;
@@ -13,6 +14,13 @@ namespace Util.Samples.Apis.Systems {
         /// </summary>
         /// <param name="service">角色服务</param>
         public RoleController( IRoleService service ) : base( service ) {
+        }
+
+        /// <summary>
+        /// 设置为同步加载模式
+        /// </summary>
+        protected override LoadMode GetLoadMode() {
+            return LoadMode.Sync;
         }
     }
 }

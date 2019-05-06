@@ -91,6 +91,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Trees {
         }
 
         /// <summary>
+        /// 测试占位提示
+        /// </summary>
+        [Fact]
+        public void TestBindPlaceholder() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindPlaceholder, "a" } };
+            var result = new String();
+            result.Append( "<x-tree-select [placeholder]=\"a\"></x-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试模型绑定
         /// </summary>
         [Fact]
@@ -98,6 +109,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Trees {
             var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
             result.Append( "<x-tree-select [(model)]=\"a\"></x-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisabled() {
+            var attributes = new TagHelperAttributeList { { UiConst.Disabled, "a" } };
+            var result = new String();
+            result.Append( "<x-tree-select [disabled]=\"a\"></x-tree-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

@@ -32,6 +32,7 @@ namespace Util.Ui.Zorro.Trees.Renders {
             Config( builder );
             ConfigName( builder );
             ConfigPlaceholder( builder );
+            ConfigDisabled( builder );
             ConfigWidth( builder );
             ConfigModel( builder );
             ConfigRequired( builder );
@@ -63,6 +64,13 @@ namespace Util.Ui.Zorro.Trees.Renders {
         private void ConfigPlaceholder( TagBuilder builder ) {
             builder.AddAttribute( "placeholder", _config.GetValue( UiConst.Placeholder ) );
             builder.AddAttribute( "[placeholder]", _config.GetValue( AngularConst.BindPlaceholder ) );
+        }
+
+        /// <summary>
+        /// 配置禁用
+        /// </summary>
+        private void ConfigDisabled( TagBuilder builder ) {
+            builder.AddAttribute( "[disabled]", _config.GetValue( UiConst.Disabled ) );
         }
 
         /// <summary>

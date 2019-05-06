@@ -222,7 +222,9 @@ namespace Util.Ui.Controllers {
             var list = await _service.GetByIdsAsync( ids.Join() );
             data.AddRange( list );
             ProcessData( data, query );
-            return ToResult( data, true );
+            if( GetLoadMode() == LoadMode.Async )
+                return ToResult( data, true );
+            return ToResult( data );
         }
     }
 }

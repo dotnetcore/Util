@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.Base;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
+using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Trees.Renders;
 
 namespace Util.Ui.Zorro.Trees {
@@ -11,27 +10,7 @@ namespace Util.Ui.Zorro.Trees {
     /// 树形选择框
     /// </summary>
     [HtmlTargetElement("util-tree-select")]
-    public class TreeSelectTagHelper : AngularTagHelperBase {
-        /// <summary>
-        /// 属性表达式
-        /// </summary>
-        public ModelExpression For { get; set; }
-        /// <summary>
-        /// [(ngModel)],模型绑定
-        /// </summary>
-        public string NgModel { get; set; }
-        /// <summary>
-        /// name,组件名称
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// [name],组件名称
-        /// </summary>
-        public string BindName { get; set; }
-        /// <summary>
-        /// nzPlaceHolder,占位提示
-        /// </summary>
-        public string Placeholder { get; set; }
+    public class TreeSelectTagHelper : FormControlTagHelperBase {
         /// <summary>
         /// 宽度，单位：px
         /// </summary>
@@ -72,18 +51,6 @@ namespace Util.Ui.Zorro.Trees {
         /// nzMultiple,是否允许多选，默认为 false
         /// </summary>
         public bool Multiple { get; set; }
-        /// <summary>
-        /// 必填项
-        /// </summary>
-        public string Required { get; set; }
-        /// <summary>
-        /// 必填项错误消息
-        /// </summary>
-        public string RequiredMessage { get; set; }
-        /// <summary>
-        /// (ngModelChange),变更事件处理函数
-        /// </summary>
-        public string OnChange { get; set; }
         /// <summary>
         /// (nzExpandChange),节点展开事件处理函数
         /// </summary>
