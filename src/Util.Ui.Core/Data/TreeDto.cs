@@ -29,5 +29,9 @@ namespace Util.Ui.Data {
         /// 节点是否被选中
         /// </summary>
         public bool? Selected { get; set; }
+        /// <summary>
+        /// 是否叶节点
+        /// </summary>
+        public bool? Leaf { get; set; }
     }
 }

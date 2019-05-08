@@ -6,7 +6,7 @@ using Util.Applications.Trees;
 using Util.Datas.Queries.Trees;
 using Util.Exceptions;
 using Util.Ui.Data;
-using Util.Webs.Controllers;
+using Util.Webs.Controllers.Trees;
 
 namespace Util.Ui.Controllers {
     /// <summary>
@@ -14,14 +14,14 @@ namespace Util.Ui.Controllers {
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
-    public abstract class ZorroTreeControllerBase<TDto, TQuery> : ZorroTreeControllerBase<TDto, TQuery, Guid?>
+    public abstract class TreeControllerBase<TDto, TQuery> : TreeControllerBase<TDto, TQuery, Guid?>
         where TDto : TreeDto, new()
         where TQuery : class, ITreeQueryParameter, new() {
         /// <summary>
-        /// 初始化树型控制器
+        /// 初始化树形控制器
         /// </summary>
-        /// <param name="service">树型服务</param>
-        protected ZorroTreeControllerBase( ITreeService<TDto, TQuery, Guid?> service ) : base( service ) {
+        /// <param name="service">树形服务</param>
+        protected TreeControllerBase( ITreeService<TDto, TQuery, Guid?> service ) : base( service ) {
         }
     }
 
@@ -31,19 +31,19 @@ namespace Util.Ui.Controllers {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public abstract class ZorroTreeControllerBase<TDto, TQuery, TParentId> : TreeControllerBase<TDto, TQuery, TParentId>
+    public abstract class TreeControllerBase<TDto, TQuery, TParentId> : ControllerBase<TDto, TQuery, TParentId>
         where TDto : TreeDto, new()
         where TQuery : class, ITreeQueryParameter<TParentId>, new() {
         /// <summary>
-        /// 树型服务
+        /// 树形服务
         /// </summary>
         private readonly ITreeService<TDto, TQuery, TParentId> _service;
 
         /// <summary>
-        /// 初始化树型控制器
+        /// 初始化树形控制器
         /// </summary>
-        /// <param name="service">树型服务</param>
-        protected ZorroTreeControllerBase( ITreeService<TDto, TQuery, TParentId> service ) : base( service ) {
+        /// <param name="service">树形服务</param>
+        protected TreeControllerBase( ITreeService<TDto, TQuery, TParentId> service ) : base( service ) {
             _service = service;
         }
 

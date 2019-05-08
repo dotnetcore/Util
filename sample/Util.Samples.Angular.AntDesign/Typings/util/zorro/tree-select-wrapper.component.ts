@@ -200,7 +200,7 @@ export class TreeSelect extends FormControlWrapperBase implements AfterContentIn
      * 展开事件处理
      * @param event
      */
-    private expandChange( event ) {
+    expandChange( event ) {
         this.loadChildren( event );
         this.onExpand.emit( event );
     }

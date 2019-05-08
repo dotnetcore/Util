@@ -20,7 +20,7 @@ namespace Util.Ui.Data {
         private readonly bool _async;
 
         /// <summary>
-        /// 初始化Prime树结果
+        /// 初始化树形结果
         /// </summary>
         /// <param name="data">树形参数列表</param>
         /// <param name="async">是否异步加载</param>
@@ -31,7 +31,7 @@ namespace Util.Ui.Data {
         }
 
         /// <summary>
-        /// 获取Prime树结果
+        /// 获取树形结果
         /// </summary>
         public ZorroTreeResult GetResult() {
             if( _data == null )
@@ -84,13 +84,11 @@ namespace Util.Ui.Data {
         /// 初始化叶节点状态
         /// </summary>
         protected virtual void InitIsLeaf( ZorroTreeNode node ) {
-            if ( IsLeaf( node ) == false )
+            node.IsLeaf = false;
+            if( _async )
                 return;
-            if ( _async ) {
-                node.IsLeaf = false;
-                return;
-            }
-            node.IsLeaf = true;
+            if( IsLeaf( node ) )
+                node.IsLeaf = true;
         }
 
         /// <summary>

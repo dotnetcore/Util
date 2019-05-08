@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Util.Applications.Trees;
 using Util.Datas.Queries.Trees;
 
-namespace Util.Webs.Controllers {
+namespace Util.Webs.Controllers.Trees {
     /// <summary>
     /// 树形控制器
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public abstract class TreeControllerBase<TDto, TQuery, TParentId> : WebApiControllerBase
+    public abstract class ControllerBase<TDto, TQuery, TParentId> : WebApiControllerBase
         where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter<TParentId> {
         /// <summary>
@@ -22,7 +22,7 @@ namespace Util.Webs.Controllers {
         /// 初始化树型控制器
         /// </summary>
         /// <param name="service">树型服务</param>
-        protected TreeControllerBase( ITreeService<TDto, TQuery, TParentId> service ) {
+        protected ControllerBase( ITreeService<TDto, TQuery, TParentId> service ) {
             _service = service;
         }
 
@@ -30,7 +30,7 @@ namespace Util.Webs.Controllers {
         /// 获取加载模式
         /// </summary>
         protected virtual LoadMode GetLoadMode() {
-            return LoadMode.OnlyRootAsync;
+            return LoadMode.Sync;
         }
 
         /// <summary>

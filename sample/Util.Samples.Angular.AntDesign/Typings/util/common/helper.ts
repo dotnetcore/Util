@@ -367,3 +367,20 @@ export let distinct = <T>(source: T[], property?: (t: T) => any) => {
 export function truncate( input:string,length?:number ) {
     return _.truncate( input , { length: length + 3 } );
 }
+
+/**
+ * 插入到数组
+ * @param source 数组
+ * @param item 项
+ * @param index 索引
+ */
+export function insert( source: any[], item, index?: number ) {
+    if ( isUndefined( source ) || source == null )
+        return [];
+    if ( isUndefined( index ) ) {
+        source.push( item );
+        return source;
+    }
+    source.splice( index, 0, item );
+    return source;
+}

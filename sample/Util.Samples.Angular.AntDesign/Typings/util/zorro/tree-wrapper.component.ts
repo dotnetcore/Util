@@ -187,14 +187,14 @@ export class Tree implements AfterContentInit {
     /**
      * 单击事件处理
      */
-    private click( event ) {
+    click( event ) {
         this.onClick.emit( event );
     }
 
     /**
      * 双击事件处理
      */
-    private dblClick( event ) {
+    dblClick( event ) {
         this.onDblClick.emit( event );
     }
 
@@ -202,7 +202,7 @@ export class Tree implements AfterContentInit {
      * 展开事件处理
      * @param event
      */
-    private expandChange( event ) {
+    expandChange( event ) {
         this.loadChildren( event );
         this.onExpand.emit( event );
     }

@@ -116,7 +116,10 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置类型
         /// </summary>
         private void ConfigType( TagBuilder builder ) {
-            builder.AddAttribute( UiConst.Type, _config.GetValue<TextBoxType?>( UiConst.Type )?.Description() );
+            var type = _config.GetValue<TextBoxType?>( UiConst.Type );
+            if ( type == TextBoxType.Number )
+                return;
+            builder.AddAttribute( UiConst.Type, type?.Description() );
         }
 
         /// <summary>
