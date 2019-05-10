@@ -82,11 +82,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Domain", "03-Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Infrastructure", "04-Infrastructure", "{11ED0240-9469-44ED-B92B-007633238CC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Samples.Service", "sample\Util.Samples.Service\Util.Samples.Service.csproj", "{9C3643A9-2C53-4578-A373-CCF5626E7346}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Service", "sample\Util.Samples.Service\Util.Samples.Service.csproj", "{9C3643A9-2C53-4578-A373-CCF5626E7346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Samples.Domain", "sample\Util.Samples.Domain\Util.Samples.Domain.csproj", "{02E7316A-0B88-47D3-B859-3B2E90307F7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Domain", "sample\Util.Samples.Domain\Util.Samples.Domain.csproj", "{02E7316A-0B88-47D3-B859-3B2E90307F7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Samples.Data", "sample\Util.Samples.Data\Util.Samples.Data.csproj", "{8F374F37-9A07-427E-9BA3-0E3A69AB094D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.Data", "sample\Util.Samples.Data\Util.Samples.Data.csproj", "{8F374F37-9A07-427E-9BA3-0E3A69AB094D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Tools", "04-Tools", "{884F9933-2A36-4BD3-B048-DD770E9169DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-Util.Tools.Offices", "src\Util.Tools.Offices\03-Util.Tools.Offices.csproj", "{8426424E-CC15-404D-B89D-E2CD50FC317D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Tools.Offices.Tests.Integration", "test\Util.Tools.Offices.Tests.Integration\Util.Tools.Offices.Tests.Integration.csproj", "{F65754FF-D699-40BF-B29F-46AD55E7FDF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -210,6 +216,14 @@ Global
 		{8F374F37-9A07-427E-9BA3-0E3A69AB094D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F374F37-9A07-427E-9BA3-0E3A69AB094D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F374F37-9A07-427E-9BA3-0E3A69AB094D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8426424E-CC15-404D-B89D-E2CD50FC317D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8426424E-CC15-404D-B89D-E2CD50FC317D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8426424E-CC15-404D-B89D-E2CD50FC317D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8426424E-CC15-404D-B89D-E2CD50FC317D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65754FF-D699-40BF-B29F-46AD55E7FDF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65754FF-D699-40BF-B29F-46AD55E7FDF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65754FF-D699-40BF-B29F-46AD55E7FDF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65754FF-D699-40BF-B29F-46AD55E7FDF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -255,6 +269,9 @@ Global
 		{9C3643A9-2C53-4578-A373-CCF5626E7346} = {BA4E4760-AE72-4091-8E25-6B300CC27EEE}
 		{02E7316A-0B88-47D3-B859-3B2E90307F7F} = {4B71322A-458F-448D-844A-62A15F4323BC}
 		{8F374F37-9A07-427E-9BA3-0E3A69AB094D} = {11ED0240-9469-44ED-B92B-007633238CC6}
+		{884F9933-2A36-4BD3-B048-DD770E9169DE} = {DE1DF0B9-0403-4888-8B24-8208348E9AFA}
+		{8426424E-CC15-404D-B89D-E2CD50FC317D} = {1907A873-8368-4CFF-B5B3-98F04CD2E3A7}
+		{F65754FF-D699-40BF-B29F-46AD55E7FDF1} = {884F9933-2A36-4BD3-B048-DD770E9169DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA6E8E23-8AB6-4AB6-9B31-494CB7CE5E63}
