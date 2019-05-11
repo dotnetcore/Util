@@ -4,7 +4,7 @@ using Util.Tools.Offices.Npoi;
 
 namespace Util.Tools.Offices {
     /// <summary>
-    /// 事件总线扩展
+    /// Office操作扩展
     /// </summary>
     public static class Extensions {
         /// <summary>

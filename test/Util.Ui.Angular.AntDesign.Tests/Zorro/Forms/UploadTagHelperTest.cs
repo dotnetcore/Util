@@ -136,6 +136,44 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public void TestDisabled() {
+            var attributes = new TagHelperAttributeList { { UiConst.Disabled, "a" } };
+            var result = new String();
+            result.Append( "<nz-upload-wrapper #m_id=\"\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" [nzDisabled]=\"a\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<x-button text=\"上传\" [disabled]=\"a\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示上传按钮
+        /// </summary>
+        [Fact]
+        public void TestShowButton() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowButton, "a" } };
+            var result = new String();
+            result.Append( "<nz-upload-wrapper #m_id=\"\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" [nzFilter]=\"m_id.filters\" [nzShowButton]=\"a\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试多选
         /// </summary>
         [Fact]
@@ -435,6 +473,26 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
             result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" [nzFilter]=\"a\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试上传总数量限制
+        /// </summary>
+        [Fact]
+        public void TestTotalLimit() {
+            var attributes = new TagHelperAttributeList { { UiConst.TotalLimit, 2 } };
+            var result = new String();
+            result.Append( "<nz-upload-wrapper #m_id=\"\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" [nzFilter]=\"m_id.filters\" " );
+            result.Append( "[nzShowButton]=\"!m_id.files||(m_id.files&&m_id.files).length<2\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );

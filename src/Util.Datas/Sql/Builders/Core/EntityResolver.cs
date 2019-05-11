@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -50,8 +51,23 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
         public string GetColumns<TEntity>( bool propertyAsAlias ) {
             var type = typeof( TEntity );
-            var properties = type.GetProperties().Select( t => t.Name ).ToList();
-            return GetColumns<TEntity>( properties, propertyAsAlias );
+            var names = GetProperties( type ).Select( t => t.Name ).ToList();
+            return GetColumns<TEntity>( names, propertyAsAlias );
+        }
+
+        /// <summary>
+        /// 获取属性列表
+        /// </summary>
+        private List<PropertyInfo> GetProperties( Type type ) {
+            var result = new List<PropertyInfo>();
+            var properties = type.GetProperties();
+            foreach ( var property in properties ) {
+                var notMapped = property.GetCustomAttribute<NotMappedAttribute>();
+                if ( notMapped != null )
+                    continue;
+                result.Add( property );
+            }
+            return result;
         }
 
         /// <summary>
