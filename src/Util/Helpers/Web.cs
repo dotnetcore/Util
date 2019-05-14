@@ -420,7 +420,7 @@ namespace Util.Helpers {
                 return;
             fileName = fileName.Replace( " ", "" );
             fileName = UrlEncode( fileName, encoding );
-            Response.ContentType = "application/cotet-stream";
+            Response.ContentType = "application/octet-stream";
             Response.Headers.Add( "Content-Disposition", $"attachment; filename={fileName}" );
             await Response.Body.WriteAsync( bytes, 0, bytes.Length );
         }
