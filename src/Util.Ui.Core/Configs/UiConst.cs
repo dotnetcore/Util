@@ -655,5 +655,9 @@
         /// 显示按钮
         /// </summary>
         public const string ShowButton = "show-button";
+        /// <summary>
+        /// 显示边框
+        /// </summary>
+        public const string ShowBorder = "show-border";
     }
 }

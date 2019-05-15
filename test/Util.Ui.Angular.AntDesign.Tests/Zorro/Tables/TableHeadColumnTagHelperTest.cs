@@ -94,7 +94,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         public void TestType_LineNumber() {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.LineNumber } };
             var result = new String();
-            result.Append( $"<th nzWidth=\"60px\">{R.LineNumber}</th>" );
+            result.Append( $"<th nzWidth=\"70px\">{R.LineNumber}</th>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

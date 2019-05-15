@@ -33,6 +33,7 @@ export { DatePicker } from "./zorro/datepicker-wrapper.component";
 export { TextArea } from "./zorro/textarea-wrapper.component";
 export { Select } from "./zorro/select-wrapper.component";
 export { Radio } from "./zorro/radio-wrapper.component";
+export { CheckboxGroup } from "./zorro/checkbox-group-wrapper.component";
 export { Table } from "./zorro/table-wrapper.component";
 export { Upload } from "./zorro/upload-wrapper.component";
 export { Tree } from "./zorro/tree-wrapper.component";

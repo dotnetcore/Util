@@ -1,5 +1,4 @@
-﻿using Util.Properties;
-using Util.Ui.Angular;
+﻿using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -118,6 +117,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected virtual void ConfigTable( TagBuilder builder ) {
             var tableBuilder = new TableBuilder();
             ConfigTableDefault( tableBuilder );
+            ConfigStyle( tableBuilder );
             ConfigPage( tableBuilder );
             AddHead( tableBuilder );
             AddRow( tableBuilder );
@@ -134,6 +134,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
             tableBuilder.AddAttribute( "[nzTotal]", $"{GetWrapperId()}.totalCount" );
             tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
             tableBuilder.AddAttribute( "[nzLoading]", $"{GetWrapperId()}.loading" );
+        }
+
+        /// <summary>
+        /// 配置表格样式
+        /// </summary>
+        private void ConfigStyle( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( "nzBordered", _config.GetBoolValue( UiConst.ShowBorder ) );
         }
 
         /// <summary>

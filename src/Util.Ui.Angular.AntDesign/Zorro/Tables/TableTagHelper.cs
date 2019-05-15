@@ -46,6 +46,10 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string Sort { get; set; }
         /// <summary>
+        /// nzBordered,是否显示边框
+        /// </summary>
+        public bool ShowBorder { get; set; }
+        /// <summary>
         /// 最大高度
         /// </summary>
         public double MaxHeight { get; set; }

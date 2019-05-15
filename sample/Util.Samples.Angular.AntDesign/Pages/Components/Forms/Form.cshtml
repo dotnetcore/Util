@@ -27,7 +27,10 @@
             <util-upload id="upload" url="/api/upload" for="Files"></util-upload>
         </nz-form-item>
         <nz-form-item>
-            <util-checkbox for="Enabled"></util-checkbox>
+            <util-checkbox for="Enabled" disabled="true"></util-checkbox>
+        </nz-form-item>
+        <nz-form-item>
+            <util-checkbox-group for="Code" datas-source="Nation"></util-checkbox-group>
         </nz-form-item>
         <nz-form-item>
             <util-switch for="Enabled"></util-switch>
@@ -38,6 +41,8 @@
         <nz-form-item>
             <nz-form-control>
                 <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Check">
+                </util-button>
+                <util-button id="btnSubmit2" on-click="a()" color="Primary" icon="Check">
                 </util-button>
             </nz-form-control>
         </nz-form-item>
