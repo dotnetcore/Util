@@ -291,7 +291,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 ## 技术顾问团队
 
-[AlexLEWIS](https://github.com/alexinea "刘怡") [Kiler](https://github.com/kiler398 "谢炀") [Lemon](https://github.com/liuhaoyang "刘浩杨") [Savorboard](https://github.com/yuleyule66 "杨晓东") [Lyrics](https://github.com/lyricsyo "娄宇")
+[AlexLEWIS](https://github.com/alexinea "刘怡") [Kiler](https://github.com/kiler398 "谢炀") [Lemon](https://github.com/liuhaoyang "刘浩杨") [Savorboard](https://github.com/yang-xiaodong "杨晓东") [Lyrics](https://github.com/lyricsyo "娄宇")
 
 Util应用框架技术顾问团队负责对API易用性，代码健壮性，设计缺陷等内容进行审查，在发现问题时提出改善意见。
 
