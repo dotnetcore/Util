@@ -26,16 +26,17 @@
             </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let row of tableApplication.data">
-                    <ng-container *ngFor="let item of row.children">
-                        <tr>
+                <ng-container *ngFor="let item of tableApplication.data">
+                        <tr *ngIf="tableApplication_wrapper.isShow(item)">
                             <td [nzIndentSize]="item.level * 20"
-                                [nzShowExpand]="true"
-                                [nzExpand]="false">
+                                [nzShowExpand]="!tableApplication_wrapper.isLeaf(item)"
+                                [nzExpand]="tableApplication_wrapper.isExpand(item)"
+                                (nzExpandChange)="tableApplication_wrapper.collapse(item, $event)">
                                 <label *ngIf="true"
                                        nz-checkbox
+                                       [nzIndeterminate]="tableApplication_wrapper.isMasterIndeterminate()"
                                        [nzChecked]="tableApplication_wrapper.checkedSelection.isSelected(item)"
-                                       (nzCheckedChange)="tableApplication_wrapper.checkedSelection.toggle(item)">
+                                       (nzCheckedChange)="tableApplication_wrapper.rowToggle(item)">
                                     {{item.code}}
                                 </label>
                             </td>
@@ -47,7 +48,6 @@
                             <td></td>
                             <td></td>
                         </tr>
-                    </ng-container>
                 </ng-container>
             </tbody>
         </nz-table>

@@ -14,12 +14,12 @@ import { Table } from './table-wrapper.component';
 /**
  * NgZorro树形表格包装器
  */
-@Component( {
+@Component({
     selector: 'nz-tree-table-wrapper',
     template: `
         <ng-content></ng-content>
     `
-} )
+})
 export class TreeTable<T extends IKey> extends Table<T> {
     /**
      * 初始化树形表格包装器
@@ -29,38 +29,59 @@ export class TreeTable<T extends IKey> extends Table<T> {
     }
 
     /**
-     * 表头主复选框切换选中状态
+     * 展开操作
+     * @param node 节点
+     * @param expand 是否展开
      */
-    masterToggle() {
-        if ( this.isMasterChecked() ) {
-            this.checkedSelection.clear();
+    collapse(node, expand) {
+        if (!node)
             return;
-        }
-        this.dataSource.forEach( data => this.checkedSelection.select( data ) );
-    }
-
-    
-
-    /**
-     * 表头主复选框的选中状态
-     */
-    isMasterChecked() {
-        return this.checkedSelection.hasValue() &&
-            this.isAllChecked() &&
-            this.checkedSelection.selected.length >= this.dataSource.length;
+        node.expanded = !!expand;
     }
 
     /**
-     * 是否所有行复选框被选中
+     * 是否叶节点
+     * @param node 节点
      */
-    isAllChecked() {
-        return this.dataSource.every( data => this.checkedSelection.isSelected( data ) );
+    isLeaf(node) {
+        if (!node)
+            return false;
+        return node.leaf;
     }
 
     /**
-     * 表头主复选框的确定状态
+     * 是否展开
+     * @param node 节点
      */
-    isMasterIndeterminate() {
-        return this.checkedSelection.hasValue() && ( !this.isAllChecked() || !this.dataSource.length );
+    isExpand(node) {
+        if (!node)
+            return false;
+        return node.expanded;
+    }
+
+    /**
+     * 是否显示行
+     * @param node 节点
+     */
+    isShow(node) {
+        if (!node)
+            return false;
+        if (node.level === 1)
+            return true;
+        let parent = this.dataSource.find(t => t.id === node.parentId);
+        if (!parent)
+            return false;
+        if (!parent.expanded)
+            return false;
+        return this.isShow(parent);
+    }
+
+    /**
+     * 行复选框切换选中状态
+     * @param node 节点
+     */
+    rowToggle(node) {
+        this.checkedSelection.toggle(node);
+
     }
 }

@@ -38,7 +38,6 @@ namespace Util.Ui.Data {
                 return _result;
             foreach ( var root in _data.Where( IsRoot ).OrderBy( t => t.SortId ) ) {
                 AddNode( root );
-                _result.Add( root );
             }
             return _result;
         }
@@ -58,10 +57,31 @@ namespace Util.Ui.Data {
         private void AddNode( TNode node ) {
             if ( node == null )
                 return;
-            InitLeaf( node );
-            node.Children = GetChildren( node );
-            foreach( var child in node.Children )
+            Init( node );
+            _result.Add( node );
+            var children = GetChildren( node );
+            foreach( var child in children )
                 AddNode( child );
+        }
+
+        /// <summary>
+        /// 初始化节点
+        /// </summary>
+        protected virtual void Init( TNode node ) {
+            InitExpanded( node );
+            InitLeaf( node );
+        }
+
+        /// <summary>
+        /// 初始化节点展开状态
+        /// </summary>
+        protected virtual void InitExpanded( TNode node ) {
+            if( node.Expanded == null ) {
+                node.Expanded = false;
+                return;
+            }
+            if( node.Level == 1 )
+                node.Expanded = true;
         }
 
         /// <summary>
