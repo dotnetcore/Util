@@ -2,16 +2,23 @@
 <page-header [title]="'树形'"></page-header>
 <nz-card [nzBordered]="false">
     <util-tree url="/api/role" query-param="queryParam" show-checkbox="true"></util-tree>
-    <nz-tree-table-wrapper #tableRole="" baseUrl="RoleTable"  [(queryParam)]="queryParam">
-        <nz-table #tableApplication="" (nzPageIndexChange)="tableRole.pageIndexChange($event)"
-                  (nzPageSizeChange)="tableRole.pageSizeChange($event)"
-                  [nzData]="tableRole.dataSource" [nzFrontPagination]="false"
-                  [nzLoading]="tableRole.loading" [nzShowPagination]="tableRole.showPagination"
-                  [nzShowSizeChanger]="true" [nzTotal]="tableRole.totalCount">
-            <thead (nzSortChange)="tableRole.sort($event)">
+    <nz-tree-table-wrapper #tableApplication_wrapper="" baseUrl="RoleTable"  [(queryParam)]="queryParam">
+        <nz-table #tableApplication="" (nzPageIndexChange)="tableApplication_wrapper.pageIndexChange($event)"
+                  (nzPageSizeChange)="tableApplication_wrapper.pageSizeChange($event)"
+                  [nzData]="tableApplication_wrapper.dataSource" [nzFrontPagination]="false"
+                  [nzLoading]="tableApplication_wrapper.loading" [nzShowPagination]="tableApplication_wrapper.showPagination"
+                  [nzShowSizeChanger]="true" [nzTotal]="tableApplication_wrapper.totalCount">
+            <thead (nzSortChange)="tableApplication_wrapper.sort($event)">
             <tr>
-               
-                <th>应用程序编码</th>
+                <th>
+                    <label *ngIf="true"
+                           nz-checkbox
+                           [nzIndeterminate]="tableApplication_wrapper.isMasterIndeterminate()"
+                           [nzChecked]="tableApplication_wrapper.isMasterChecked()"
+                           (nzCheckedChange)="tableApplication_wrapper.masterToggle()">
+                        应用程序编码
+                    </label>
+                </th>
                 <th nzSortKey="name" [nzShowSort]="true">应用程序名称</th>
                 <th>启用</th>
                 <th>启用注册</th>
@@ -22,11 +29,16 @@
                 <ng-container *ngFor="let row of tableApplication.data">
                     <ng-container *ngFor="let item of row.children">
                         <tr>
-               
                             <td [nzIndentSize]="item.level * 20"
                                 [nzShowExpand]="true"
-                                [nzExpand]="true"
-                                >{{item.code}}</td>
+                                [nzExpand]="false">
+                                <label *ngIf="true"
+                                       nz-checkbox
+                                       [nzChecked]="tableApplication_wrapper.checkedSelection.isSelected(item)"
+                                       (nzCheckedChange)="tableApplication_wrapper.checkedSelection.toggle(item)">
+                                    {{item.code}}
+                                </label>
+                            </td>
                             <td>{{item.name}}</td>
                             <td>
                                 <i *ngIf="item.enabled" nz-icon="" nzType="check"></i>

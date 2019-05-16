@@ -7,7 +7,7 @@ namespace Util.Samples.Service.Dtos.Systems {
     /// <summary>
     /// 角色数据传输对象
     /// </summary>
-    public class RoleDto : TreeDto {
+    public class RoleDto : TreeDto<RoleDto> {
         /// <summary>
         /// 角色编码
         /// </summary>

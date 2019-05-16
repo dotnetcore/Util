@@ -285,7 +285,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     /**
      * 是否所有行复选框被选中
      */
-    private isAllChecked() {
+    isAllChecked() {
         return this.dataSource.every( data => this.checkedSelection.isSelected( data ) );
     }
 

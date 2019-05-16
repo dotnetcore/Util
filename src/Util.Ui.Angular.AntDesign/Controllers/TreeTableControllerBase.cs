@@ -16,7 +16,7 @@ namespace Util.Ui.Controllers {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     public abstract class TreeTableControllerBase<TDto, TQuery> : TreeTableControllerBase<TDto, TQuery, Guid?>
-        where TDto : TreeDto, new()
+        where TDto : TreeDto<TDto>, new()
         where TQuery : class, ITreeQueryParameter, new() {
         /// <summary>
         /// 初始化树形表格控制器
@@ -33,7 +33,7 @@ namespace Util.Ui.Controllers {
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
     public abstract class TreeTableControllerBase<TDto, TQuery, TParentId> : ControllerBase<TDto, TQuery, TParentId>
-        where TDto : TreeDto, new()
+        where TDto : TreeDto<TDto>, new()
         where TQuery : class, ITreeQueryParameter<TParentId>, new() {
         /// <summary>
         /// 树形服务
@@ -63,7 +63,7 @@ namespace Util.Ui.Controllers {
                 throw new ArgumentNullException( nameof( query ) );
             QueryBefore( query );
             InitParam( query );
-            PagerList<ZorroTreeTableResult<TDto>> result;
+            PagerList<TDto> result;
             switch( GetOperation( query ) ) {
                 case LoadOperation.FirstLoad:
                     result = await FirstLoad( query );
@@ -113,7 +113,7 @@ namespace Util.Ui.Controllers {
         /// <summary>
         /// 首次加载
         /// </summary>
-        protected virtual async Task<PagerList<ZorroTreeTableResult<TDto>>> FirstLoad( TQuery query ) {
+        protected virtual async Task<PagerList<TDto>> FirstLoad( TQuery query ) {
             if( GetLoadMode() == LoadMode.Sync )
                 return await SyncFirstLoad( query );
             return await AsyncFirstLoad( query );
@@ -122,7 +122,7 @@ namespace Util.Ui.Controllers {
         /// <summary>
         /// 同步首次加载
         /// </summary>
-        protected virtual async Task<PagerList<ZorroTreeTableResult<TDto>>> SyncFirstLoad( TQuery query ) {
+        protected virtual async Task<PagerList<TDto>> SyncFirstLoad( TQuery query ) {
             var data = await Query( query );
             return ToResult( data );
         }
@@ -147,14 +147,14 @@ namespace Util.Ui.Controllers {
         /// <summary>
         /// 转换为树形结果
         /// </summary>
-        protected virtual PagerList<ZorroTreeTableResult<TDto>> ToResult( List<TDto> data, bool async = false ) {
-            return new PagerList<ZorroTreeTableResult<TDto>>( new TreeTableResult<TDto>( data, async ).GetResult() );
+        protected virtual PagerList<TDto> ToResult( List<TDto> data, bool async = false ) {
+            return new PagerList<TDto>( new TreeTableResult<TDto>( data, async ).GetResult() );
         }
 
         /// <summary>
         /// 异步首次加载
         /// </summary>
-        protected virtual async Task<PagerList<ZorroTreeTableResult<TDto>>> AsyncFirstLoad( TQuery query ) {
+        protected virtual async Task<PagerList<TDto>> AsyncFirstLoad( TQuery query ) {
             query.Level = 1;
             var data = await _service.PagerQueryAsync( query );
             ProcessData( data.Data, query );
@@ -164,7 +164,7 @@ namespace Util.Ui.Controllers {
         /// <summary>
         /// 加载子节点
         /// </summary>
-        protected virtual async Task<PagerList<ZorroTreeTableResult<TDto>>> LoadChildren( TQuery query ) {
+        protected virtual async Task<PagerList<TDto>> LoadChildren( TQuery query ) {
             if( query.ParentId == null )
                 throw new Warning( "父节点标识为空，加载子节点失败" );
             if( GetLoadMode() == LoadMode.Async )
@@ -175,7 +175,7 @@ namespace Util.Ui.Controllers {
         /// <summary>
         /// 异步加载子节点
         /// </summary>
-        protected virtual async Task<PagerList<ZorroTreeTableResult<TDto>>> AsyncLoadChildren( TQuery query ) {
+        protected virtual async Task<PagerList<TDto>> AsyncLoadChildren( TQuery query ) {
             var queryParam = await GetAsyncLoadChildrenQuery( query );
             var data = await Query( queryParam );
             return ToResult( data, true );
@@ -194,7 +194,7 @@ namespace Util.Ui.Controllers {
         /// <summary>
         /// 同步加载子节点
         /// </summary>
-        protected virtual async Task<PagerList<ZorroTreeTableResult<TDto>>> SyncLoadChildren( TQuery query ) {
+        protected virtual async Task<PagerList<TDto>> SyncLoadChildren( TQuery query ) {
             var parentId = query.ParentId.SafeString();
             var queryParam = await GetSyncLoadChildrenQuery( query );
             var data = await _service.QueryAsync( queryParam );
@@ -218,7 +218,7 @@ namespace Util.Ui.Controllers {
         /// <summary>
         /// 搜索
         /// </summary>
-        protected virtual async Task<PagerList<ZorroTreeTableResult<TDto>>> Search( TQuery query ) {
+        protected virtual async Task<PagerList<TDto>> Search( TQuery query ) {
             var data = await _service.QueryAsync( query );
             var ids = data.GetMissingParentIds();
             var list = await _service.GetByIdsAsync( ids.Join() );

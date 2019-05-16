@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Util.Maps;
 
 namespace Util.Ui.Data {
     /// <summary>
     /// 树形表格结果
     /// </summary>
-    public class TreeTableResult<TNode> where TNode : TreeDto {
+    public class TreeTableResult<TNode> where TNode : TreeDto<TNode> {
         /// <summary>
         /// 树形参数列表
         /// </summary>
@@ -14,7 +13,7 @@ namespace Util.Ui.Data {
         /// <summary>
         /// 树形表格结果
         /// </summary>
-        private readonly List<ZorroTreeTableResult<TNode>> _result;
+        private readonly List<TNode> _result;
         /// <summary>
         /// 是否异步加载
         /// </summary>
@@ -28,19 +27,18 @@ namespace Util.Ui.Data {
         public TreeTableResult( IEnumerable<TNode> data, bool async = false ) {
             _data = data;
             _async = async;
-            _result = new List<ZorroTreeTableResult<TNode>>();
+            _result = new List<TNode>();
         }
 
         /// <summary>
         /// 获取树形表格结果
         /// </summary>
-        public List<ZorroTreeTableResult<TNode>> GetResult() {
+        public List<TNode> GetResult() {
             if( _data == null )
                 return _result;
             foreach ( var root in _data.Where( IsRoot ).OrderBy( t => t.SortId ) ) {
-                var rootNode = ToNode( root );
-                AddNode( rootNode, root );
-                _result.Add( rootNode );
+                AddNode( root );
+                _result.Add( root );
             }
             return _result;
         }
@@ -55,23 +53,15 @@ namespace Util.Ui.Data {
         }
 
         /// <summary>
-        /// 转换为结果节点
-        /// </summary>
-        protected virtual ZorroTreeTableResult<TNode> ToNode( TNode dto ) {
-            return dto?.MapTo<ZorroTreeTableResult<TNode>>();
-        }
-
-        /// <summary>
         /// 添加节点
         /// </summary>
-        private void AddNode( ZorroTreeTableResult<TNode> root, TNode dto ) {
-            if ( root == null || dto == null )
+        private void AddNode( TNode node ) {
+            if ( node == null )
                 return;
-            InitLeaf( dto );
-            root.Children.Add( dto );
-            var children = GetChildren( dto );
-            foreach( var child in children )
-                AddNode( root,child );
+            InitLeaf( node );
+            node.Children = GetChildren( node );
+            foreach( var child in node.Children )
+                AddNode( child );
         }
 
         /// <summary>

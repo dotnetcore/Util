@@ -1,6 +1,25 @@
-﻿using Util.Applications.Trees;
+﻿using System.Collections.Generic;
+using Util.Applications.Trees;
 
 namespace Util.Ui.Data {
+    /// <summary>
+    /// 树形参数
+    /// </summary>
+    /// <typeparam name="TNode">树形参数类型</typeparam>
+    public class TreeDto<TNode> : TreeDto where TNode : TreeDto<TNode> {
+        /// <summary>
+        /// 初始化树形参数
+        /// </summary>
+        public TreeDto() {
+            Children = new List<TNode>();
+        }
+
+        /// <summary>
+        /// 子节点列表
+        /// </summary>
+        public List<TNode> Children { get; set; }
+    }
+
     /// <summary>
     /// 树形参数
     /// </summary>

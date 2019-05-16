@@ -27,4 +27,40 @@ export class TreeTable<T extends IKey> extends Table<T> {
     constructor() {
         super();
     }
+
+    /**
+     * 表头主复选框切换选中状态
+     */
+    masterToggle() {
+        if ( this.isMasterChecked() ) {
+            this.checkedSelection.clear();
+            return;
+        }
+        this.dataSource.forEach( data => this.checkedSelection.select( data ) );
+    }
+
+    
+
+    /**
+     * 表头主复选框的选中状态
+     */
+    isMasterChecked() {
+        return this.checkedSelection.hasValue() &&
+            this.isAllChecked() &&
+            this.checkedSelection.selected.length >= this.dataSource.length;
+    }
+
+    /**
+     * 是否所有行复选框被选中
+     */
+    isAllChecked() {
+        return this.dataSource.every( data => this.checkedSelection.isSelected( data ) );
+    }
+
+    /**
+     * 表头主复选框的确定状态
+     */
+    isMasterIndeterminate() {
+        return this.checkedSelection.hasValue() && ( !this.isAllChecked() || !this.dataSource.length );
+    }
 }
