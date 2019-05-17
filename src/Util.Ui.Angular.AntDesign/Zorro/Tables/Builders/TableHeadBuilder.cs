@@ -1,4 +1,6 @@
-﻿namespace Util.Ui.Builders {
+﻿using Util.Ui.Builders;
+
+namespace Util.Ui.Zorro.Tables.Builders {
     /// <summary>
     /// 表格头thead生成器
     /// </summary>

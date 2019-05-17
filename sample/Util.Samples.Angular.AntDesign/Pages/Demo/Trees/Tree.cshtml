@@ -2,7 +2,7 @@
 <page-header [title]="'树形'"></page-header>
 <nz-card [nzBordered]="false">
     <util-tree url="/api/role" query-param="queryParam" show-checkbox="true"></util-tree>
-    <nz-tree-table-wrapper #tableApplication_wrapper="" baseUrl="RoleTable"  [(queryParam)]="queryParam">
+    <nz-tree-table-wrapper #tableApplication_wrapper="" baseUrl="RoleTable"  [(queryParam)]="queryParam" [expandAll]="true" [showCheckbox]="true">
         <nz-table #tableApplication="" (nzPageIndexChange)="tableApplication_wrapper.pageIndexChange($event)"
                   (nzPageSizeChange)="tableApplication_wrapper.pageSizeChange($event)"
                   [nzData]="tableApplication_wrapper.dataSource" [nzFrontPagination]="false"
@@ -11,13 +11,14 @@
             <thead (nzSortChange)="tableApplication_wrapper.sort($event)">
             <tr>
                 <th>
-                    <label *ngIf="true"
+                    <label *ngIf="tableApplication_wrapper.showCheckbox"
                            nz-checkbox
                            [nzIndeterminate]="tableApplication_wrapper.isMasterIndeterminate()"
                            [nzChecked]="tableApplication_wrapper.isMasterChecked()"
                            (nzCheckedChange)="tableApplication_wrapper.masterToggle()">
                         应用程序编码
                     </label>
+                    <span *ngIf="!tableApplication_wrapper.showCheckbox">应用程序编码</span>
                 </th>
                 <th nzSortKey="name" [nzShowSort]="true">应用程序名称</th>
                 <th>启用</th>
@@ -32,13 +33,14 @@
                                 [nzShowExpand]="!tableApplication_wrapper.isLeaf(item)"
                                 [nzExpand]="tableApplication_wrapper.isExpand(item)"
                                 (nzExpandChange)="tableApplication_wrapper.collapse(item, $event)">
-                                <label *ngIf="true"
+                                <label *ngIf="tableApplication_wrapper.showCheckbox"
                                        nz-checkbox
-                                       [nzIndeterminate]="tableApplication_wrapper.isRowIndeterminate(item)"
+                                       [nzIndeterminate]="tableApplication_wrapper.isIndeterminate(item)"
                                        [nzChecked]="tableApplication_wrapper.isSelected(item)"
-                                       (nzCheckedChange)="tableApplication_wrapper.rowToggle(item)">
+                                       (nzCheckedChange)="tableApplication_wrapper.toggle(item)">
                                     {{item.code}}
                                 </label>
+                                <ng-container *ngIf="!tableApplication_wrapper.showCheckbox">{{item.code}}</ng-container>
                             </td>
                             <td>{{item.name}}</td>
                             <td>

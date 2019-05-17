@@ -225,7 +225,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加排序变更事件处理
         /// </summary>
-        private void AddSortChange( TableHeadBuilder headBuilder ) {
+        protected void AddSortChange( TableHeadBuilder headBuilder ) {
             if ( _config.IsSort == false )
                 return;
             headBuilder.AddSortChange( $"{GetWrapperId()}.sort($event)" );

@@ -211,7 +211,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     /**
      * 加载数据
      */
-    private loadData( result ) {
+    protected loadData( result ) {
         result = new PagerList<T>( result );
         result.initLineNumbers();
         this.dataSource = result.data || [];

@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Zorro.Tables.Builders;
 
 namespace Util.Ui.Zorro.Tables.Renders {
     /// <summary>
