@@ -34,8 +34,8 @@
                                 (nzExpandChange)="tableApplication_wrapper.collapse(item, $event)">
                                 <label *ngIf="true"
                                        nz-checkbox
-                                       [nzIndeterminate]="tableApplication_wrapper.isMasterIndeterminate()"
-                                       [nzChecked]="tableApplication_wrapper.checkedSelection.isSelected(item)"
+                                       [nzIndeterminate]="tableApplication_wrapper.isRowIndeterminate(item)"
+                                       [nzChecked]="tableApplication_wrapper.isSelected(item)"
                                        (nzCheckedChange)="tableApplication_wrapper.rowToggle(item)">
                                     {{item.code}}
                                 </label>
