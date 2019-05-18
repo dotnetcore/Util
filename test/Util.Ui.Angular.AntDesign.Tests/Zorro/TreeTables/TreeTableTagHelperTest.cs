@@ -48,8 +48,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -68,8 +70,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"a_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"a_wrapper.loading\" [nzShowPagination]=\"a_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"a_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of a.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of a.data\">" );
+            result.Append( "<tr *ngIf=\"a_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -88,8 +92,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -108,8 +114,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -128,8 +136,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -148,8 +158,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -168,8 +180,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -188,8 +202,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -208,8 +224,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -228,8 +246,54 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "nzBordered=\"true\" [nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "</nz-tree-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试全部展开
+        /// </summary>
+        [Fact]
+        public void TestExpandAll() {
+            var attributes = new TagHelperAttributeList { { UiConst.ExpandAll, false } };
+            var result = new String();
+            result.Append( "<nz-tree-table-wrapper #m_id_wrapper=\"\" [expandAll]=\"false\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
+            result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "</nz-tree-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示复选框
+        /// </summary>
+        [Fact]
+        public void TestShowCheckbox() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowCheckbox, false } };
+            var result = new String();
+            result.Append( "<nz-tree-table-wrapper #m_id_wrapper=\"\" [showCheckbox]=\"false\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
+            result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -248,8 +312,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -268,8 +334,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -288,8 +356,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"true\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -308,8 +378,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"false\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -328,8 +400,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );
@@ -348,8 +422,32 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
             result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "</nz-tree-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试展开事件
+        /// </summary>
+        [Fact]
+        public void TestOnExpand() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnExpand, "a" } };
+            var result = new String();
+            result.Append( "<nz-tree-table-wrapper #m_id_wrapper=\"\" (onExpand)=\"a\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<ng-container *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngIf=\"m_id_wrapper.isShow(row)\">" );
+            result.Append( "</tr>" );
+            result.Append( "</ng-container>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
             result.Append( "</nz-tree-table-wrapper>" );

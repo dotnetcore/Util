@@ -14,7 +14,7 @@ namespace Util.Ui.Zorro.TreeTables.Builders {
             base.AddAttribute( "nz-checkbox" );
             base.AddAttribute( "*ngIf", $"{id}.showCheckbox" );
             base.AddAttribute( "[nzIndeterminate]", $"{id}.isIndeterminate(row)" );
-            base.AddAttribute( "[nzChecked]", $"{id}.isSelected(row)" );
+            base.AddAttribute( "[nzChecked]", $"{id}.isChecked(row)" );
             base.AddAttribute( "(nzCheckedChange)", $"{id}.toggle(row)" );
             base.SetContent( $"{{{{{column}}}}}" );
         }

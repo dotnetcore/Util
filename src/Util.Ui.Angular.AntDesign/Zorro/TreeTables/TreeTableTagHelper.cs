@@ -12,19 +12,15 @@ namespace Util.Ui.Zorro.TreeTables {
     [HtmlTargetElement("util-tree-table")]
     public class TreeTableTagHelper : TableTagHelper {
         /// <summary>
-        /// nzCheckable,是否显示复选框，默认为 false
+        /// 是否显示复选框，默认为 true
         /// </summary>
         public bool ShowCheckbox { get; set; }
         /// <summary>
-        /// nzExpandAll,是否展开所有节点，默认为 false
+        /// 是否展开所有节点，默认为 false
         /// </summary>
         public bool ExpandAll { get; set; }
         /// <summary>
-        /// nzMultiple,是否允许选中多个节点，默认为 false
-        /// </summary>
-        public bool Multiple { get; set; }
-        /// <summary>
-        /// (nzExpandChange),节点展开事件处理函数
+        /// 节点展开事件处理函数
         /// </summary>
         public string OnExpand { get; set; }
 

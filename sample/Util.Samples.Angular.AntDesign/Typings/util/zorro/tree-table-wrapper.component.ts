@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, AfterContentInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { remove } from "../common/helper";
 import { IKey } from '../core/model';
 import { Table } from './table-wrapper.component';
@@ -25,6 +25,10 @@ export class TreeTable<T extends IKey> extends Table<T> {
      * 是否显示复选框,默认为true
      */
     @Input() showCheckbox: boolean;
+    /**
+     * 展开事件
+     */
+    @Output() onExpand = new EventEmitter<any>();
 
     /**
      * 初始化树形表格包装器
@@ -112,6 +116,7 @@ export class TreeTable<T extends IKey> extends Table<T> {
         if (!node)
             return;
         node.expanded = !!expand;
+        this.onExpand.emit( {node:node,expand:expand} );
     }
 
     /**
@@ -165,7 +170,7 @@ export class TreeTable<T extends IKey> extends Table<T> {
      * 切换所有下级节点的选中状态
      */
     private toggleAllChildren(node) {
-        let isChecked = this.isSelected(node);
+        let isChecked = this.isChecked(node);
         let nodes = this.getAllChildren(node);
         if (isChecked) {
             nodes.forEach(item => this.checkedSelection.select(item));
@@ -216,7 +221,7 @@ export class TreeTable<T extends IKey> extends Table<T> {
      * 节点复选框的选中状态
      * @param node 节点
      */
-    isSelected(node) {
+    isChecked(node) {
         return this.checkedSelection.isSelected(node);
     }
 

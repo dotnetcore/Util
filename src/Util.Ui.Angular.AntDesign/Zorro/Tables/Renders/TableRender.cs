@@ -65,7 +65,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 获取表格包装器标识
         /// </summary>
-        private string GetWrapperId() {
+        protected string GetWrapperId() {
             return _config.WrapperId;
         }
 
@@ -120,7 +120,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             ConfigStyle( tableBuilder );
             ConfigPage( tableBuilder );
             AddHead( tableBuilder );
-            AddRow( tableBuilder );
+            AddBody( tableBuilder );
             ConfigContent( tableBuilder );
             builder.AppendContent( tableBuilder );
         }
@@ -234,7 +234,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加标题列
         /// </summary>
-        private void AddHeadColumns( TableRowBuilder rowBuilder ) {
+        protected virtual void AddHeadColumns( TableRowBuilder rowBuilder ) {
             foreach( var column in _config.Columns ) {
                 var headColumnBuilder = new TableHeadColumnBuilder();
                 headColumnBuilder.AddWidth( column.Width );
@@ -250,17 +250,24 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 添加行
+        /// 添加内容
         /// </summary>
-        protected void AddRow( TagBuilder tableBuilder ) {
+        protected void AddBody( TagBuilder tableBuilder ) {
             if( _config.AutoCreateRow == false )
                 return;
             var tableBodyBuilder = new TableBodyBuilder();
+            AddBody( tableBodyBuilder );
+            tableBuilder.AppendContent( tableBodyBuilder );
+        }
+
+        /// <summary>
+        /// 添加内容
+        /// </summary>
+        protected virtual void AddBody( TableBodyBuilder tableBodyBuilder ) {
             var rowBuilder = new TableRowBuilder();
             rowBuilder.NgFor( $"let row of {_config.Id}.data" );
             rowBuilder.AppendContent( _config.Content );
             tableBodyBuilder.AppendContent( rowBuilder );
-            tableBuilder.AppendContent( tableBodyBuilder );
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Zorro.Tables.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Builders;
+using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Configs;
 using Util.Ui.Zorro.Tables.Renders;
 using Util.Ui.Zorro.TreeTables.Builders;
@@ -29,35 +31,108 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new TreeTableWrapperBuilder();
             Config( builder );
+            ConfigExpandAll( builder );
+            ConfigShowCheckbox( builder );
+            ConfigEvents( builder );
             return builder;
         }
 
         /// <summary>
-        /// 添加表头
+        /// 配置展开
         /// </summary>
-        protected override void AddHead( TagBuilder tableBuilder ) {
-            if( _config.Columns.Count == 0 || _config.AutoCreateHead == false )
-                return;
-            var headBuilder = new TableHeadBuilder();
-            tableBuilder.AppendContent( headBuilder );
-            AddSortChange( headBuilder );
-            var rowBuilder = new TableRowBuilder();
-            AddHeadColumns( rowBuilder );
-            headBuilder.AppendContent( rowBuilder );
+        private void ConfigExpandAll( TagBuilder builder ) {
+            builder.AddAttribute( "[expandAll]", _config.GetBoolValue( UiConst.ExpandAll ) );
+        }
+
+        /// <summary>
+        /// 配置显示复选框
+        /// </summary>
+        private void ConfigShowCheckbox( TagBuilder builder ) {
+            builder.AddAttribute( "[showCheckbox]", _config.GetBoolValue( UiConst.ShowCheckbox ) );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(onExpand)", _config.GetValue( UiConst.OnExpand ) );
         }
 
         /// <summary>
         /// 添加标题列
         /// </summary>
-        private void AddHeadColumns( TableRowBuilder rowBuilder ) {
+        protected override void AddHeadColumns( TableRowBuilder rowBuilder ) {
             for ( int i = 0; i < _config.Columns.Count; i++ ) {
-                var column = _config.Columns[i];
                 var headColumnBuilder = new TableHeadColumnBuilder();
-                headColumnBuilder.AddWidth( column.Width );
-                headColumnBuilder.Title( column.Title );
-                headColumnBuilder.AddSort( column.GetSortKey() );
+                var column = _config.Columns[i];
+                if ( i == 0 )
+                    AddCheckboxColumn( headColumnBuilder, column );
+                else
+                    AddColumn( headColumnBuilder, column );
                 rowBuilder.AppendContent( headColumnBuilder );
             }
+        }
+
+        /// <summary>
+        /// 添加复选框列
+        /// </summary>
+        private void AddCheckboxColumn( TableHeadColumnBuilder headColumnBuilder, ColumnInfo column ) {
+            AddCheckBoxBuilder( headColumnBuilder, column );
+            AddSpanBuilder( headColumnBuilder, column );
+        }
+
+        /// <summary>
+        /// 添加标题复选框生成器
+        /// </summary>
+        private void AddCheckBoxBuilder( TableHeadColumnBuilder headColumnBuilder, ColumnInfo column ) {
+            var checkBoxBuilder = new MasterCheckBoxBuilder( GetWrapperId(), column.Title );
+            headColumnBuilder.AppendContent( checkBoxBuilder );
+        }
+
+        /// <summary>
+        /// 添加标签生成器
+        /// </summary>
+        private void AddSpanBuilder( TableHeadColumnBuilder headColumnBuilder, ColumnInfo column ) {
+            var spanBuilder = new SpanBuilder();
+            spanBuilder.AddAttribute( "*ngIf", $"!{GetWrapperId()}.showCheckbox" );
+            spanBuilder.SetContent( column.Title );
+            headColumnBuilder.AppendContent( spanBuilder );
+        }
+
+        /// <summary>
+        /// 添加复选框列
+        /// </summary>
+        private void AddColumn( TableHeadColumnBuilder headColumnBuilder, ColumnInfo column ) {
+            headColumnBuilder.AddWidth( column.Width );
+            headColumnBuilder.Title( column.Title );
+            headColumnBuilder.AddSort( column.GetSortKey() );
+        }
+
+        /// <summary>
+        /// 添加内容
+        /// </summary>
+        protected override void AddBody( TableBodyBuilder tableBodyBuilder ) {
+            tableBodyBuilder.AppendContent( CreateContainerBuilder() );
+        }
+
+        /// <summary>
+        /// 创建容器生成器
+        /// </summary>
+        private ContainerBuilder CreateContainerBuilder() {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.NgFor( $"let row of {_config.Id}.data" );
+            containerBuilder.AppendContent( CreateRowBuilder() );
+            return containerBuilder;
+        }
+
+        /// <summary>
+        /// 创建行生成器
+        /// </summary>
+        private TableRowBuilder CreateRowBuilder() {
+            var rowBuilder = new TableRowBuilder();
+            rowBuilder.NgIf( $"{GetWrapperId()}.isShow(row)" );
+            rowBuilder.AppendContent( _config.Content );
+            return rowBuilder;
         }
     }
 }

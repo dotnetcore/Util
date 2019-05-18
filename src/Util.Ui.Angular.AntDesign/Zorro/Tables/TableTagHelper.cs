@@ -104,7 +104,9 @@ namespace Util.Ui.Zorro.Tables {
         /// 初始化共享实例
         /// </summary>
         public void InitShare( TagHelperContext context ) {
-            context.SetValueToItems( TableConfig.TableShareKey, new TableShareConfig( GetId( context ) ) );
+            var shareConfig = new TableShareConfig( GetId( context ) );
+            InitShareConfig( context, shareConfig );
+            context.SetValueToItems( TableConfig.TableShareKey, shareConfig );
         }
 
         /// <summary>
@@ -114,6 +116,12 @@ namespace Util.Ui.Zorro.Tables {
             if ( context.AllAttributes.ContainsName( UiConst.Id ) )
                 return context.GetValueFromAttributes<string>( UiConst.Id );
             return $"m_{Util.Helpers.Id.Guid()}";
+        }
+
+        /// <summary>
+        /// 初始化共享配置
+        /// </summary>
+        protected virtual void InitShareConfig( TagHelperContext context, TableShareConfig config ) {
         }
     }
 }
