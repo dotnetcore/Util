@@ -29,30 +29,8 @@ if( Entity.IsTreeEntity() ){
     return;
 }
 %>
+@page
 @model <%=SafeClassName%>Dto
-
-<style>
-    <% foreach(Property p in Entity.Properties) { %>
-    <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
-    <% if( p.ColumnName.ToLower() == "creationtime" ) { %>
-    .mat-column-creationTime {
-        max-width: 100px;
-    }
-    <%continue; } %>    
-    <% if( Entity.IsHidden(p) ) continue; %>
-    <% if( p.DataType == DbType.Boolean ) { %>
-    .mat-column-<%= p.PropertyName.ToSafeName().ToCamelCase() %> {
-        max-width: 80px;
-    }
-    <%continue; } %>
-    .mat-column-<%= p.PropertyName.ToSafeName().ToCamelCase() %> {
-        max-width: 20%;
-    }
-    <% } %>
-    .mat-column-operation {
-        max-width: 120px;
-    }
-</style>
 
 <util-toolbar>
     <util-layout>
@@ -77,7 +55,7 @@ if( Entity.IsTreeEntity() ){
     <% foreach(Property p in Entity.Properties) { %>
     <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
     <% if( Entity.IsHidden(p) ) continue; %>
-    <util-table-column for="<%= p.PropertyName.ToSafeName() %>" sort="true"></util-table-column>
+    <util-table-column for="<%= p.PropertyName.ToSafeName() %>"></util-table-column>
     <% } %>
     <util-table-column title="操作" column="operation">
         <util-table-cell>
