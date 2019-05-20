@@ -52,6 +52,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             ConfigSize( builder );
             ConfigAutoLoad( builder );
             ConfigSort( builder );
+            ConfigTableWrapperEvents( builder );
         }
 
         /// <summary>
@@ -109,6 +110,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigSort( TagBuilder builder ) {
             builder.AddAttribute( "sortKey", _config.GetValue( UiConst.Sort ) );
+        }
+
+        /// <summary>
+        /// 配置表格包装器事件
+        /// </summary>
+        private void ConfigTableWrapperEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
         }
 
         /// <summary>

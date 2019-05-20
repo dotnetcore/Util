@@ -317,6 +317,26 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
+        /// 测试加载后事件
+        /// </summary>
+        [Fact]
+        public void TestOnLoad() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnLoad, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" (onLoad)=\"a\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "</nz-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试分页大小变更事件
         /// </summary>
         [Fact]

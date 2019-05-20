@@ -81,6 +81,10 @@ namespace Util.Ui.Zorro.Tables {
         /// (nzPageIndexChange),页索引变更事件
         /// </summary>
         public string OnPageIndexChange { get; set; }
+        /// <summary>
+        /// 数据加载完成后事件
+        /// </summary>
+        public string OnLoad { get; set; }
 
         /// <summary>
         /// 获取渲染器

@@ -2,13 +2,13 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, ViewChild, forwardRef } from '@angular/core';
+import { Injector, ViewChild, forwardRef,AfterViewInit } from '@angular/core';
 import { util, ViewModel, QueryParameter, Table } from '../index';
 
 /**
  * 表格查询基类
  */
-export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> {
+export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> implements AfterViewInit {
     /**
      * 操作库
      */
@@ -35,6 +35,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 创建查询参数
      */
     protected abstract createQuery(): TQuery;
+
+    /**
+     * 视图加载完成
+     */
+    ngAfterViewInit() {
+        this.table.loadAfter = this.loadAfter;
+    }
 
     /**
      * 查询
@@ -105,5 +112,12 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
             return;
         }
         this.util.dialog.close( selection );
+    }
+
+    /**
+     * 数据加载完成操作
+     * @param result
+     */
+    loadAfter( result ) {
     }
 }

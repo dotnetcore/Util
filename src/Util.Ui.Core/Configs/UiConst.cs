@@ -659,5 +659,9 @@
         /// 显示边框
         /// </summary>
         public const string ShowBorder = "show-border";
+        /// <summary>
+        /// 加载后事件
+        /// </summary>
+        public const string OnLoadAfter = "on-load-after";
     }
 }

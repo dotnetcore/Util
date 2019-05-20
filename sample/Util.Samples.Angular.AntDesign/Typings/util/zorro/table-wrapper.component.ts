@@ -13,12 +13,12 @@ import { MessageConfig as config } from '../config/message-config';
 /**
  * NgZorro表格包装器
  */
-@Component( {
+@Component({
     selector: 'nz-table-wrapper',
     template: `
         <ng-content></ng-content>
     `
-} )
+})
 export class Table<T extends IKey> implements AfterContentInit {
     /**
      * 查询延迟
@@ -88,6 +88,10 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 查询参数变更事件
      */
     @Output() queryParamChange = new EventEmitter<QueryParameter>();
+    /**
+     * 加载完成后事件
+     */
+    @Output() onLoad = new EventEmitter<any>();
 
     /**
      * 初始化表格包装器
@@ -96,8 +100,8 @@ export class Table<T extends IKey> implements AfterContentInit {
         this.pageSizeOptions = [10, 20, 50, 100];
         this.showPagination = true;
         this.dataSource = new Array<any>();
-        this.checkedSelection = new SelectionModel<T>( true, [] );
-        this.selectedSelection = new SelectionModel<T>( false, [] );
+        this.checkedSelection = new SelectionModel<T>(true, []);
+        this.selectedSelection = new SelectionModel<T>(false, []);
         this.firstLoad = true;
         this.loading = true;
         this.autoLoad = true;
@@ -111,7 +115,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     ngAfterContentInit() {
         this.initPaginator();
         this.initSort();
-        if ( this.autoLoad )
+        if (this.autoLoad)
             this.query();
     }
 
@@ -127,7 +131,7 @@ export class Table<T extends IKey> implements AfterContentInit {
      */
     private initPage() {
         this.queryParam.page = 1;
-        if ( this.pageSizeOptions && this.pageSizeOptions.length > 0 )
+        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
             this.queryParam.pageSize = this.pageSizeOptions[0];
     }
 
@@ -135,7 +139,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     * 初始化排序
     */
     private initSort() {
-        if ( !this.sortKey )
+        if (!this.sortKey)
             return;
         this.queryParam.order = this.sortKey;
     }
@@ -144,7 +148,7 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 页索引变更事件处理
      * @param pageIndex 页索引，第一页传入的是1
      */
-    pageIndexChange( pageIndex: number ) {
+    pageIndexChange(pageIndex: number) {
         this.queryParam.page = pageIndex;
         this.query();
     }
@@ -153,7 +157,7 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 分页大小变更事件处理
      * @param pageSize 分页大小
      */
-    pageSizeChange( pageSize: number ) {
+    pageSizeChange(pageSize: number) {
         this.queryParam.pageSize = pageSize;
         this.queryParam.page = 1;
         this.query();
@@ -163,18 +167,18 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 排序
      * @param sortParam 排序参数，key为列名，value为升降序
      */
-    sort( sortParam: { key: string; value: string } ): void {
-        this.queryParam.order = this.getSortKey( sortParam.key, sortParam.value );
+    sort(sortParam: { key: string; value: string }): void {
+        this.queryParam.order = this.getSortKey(sortParam.key, sortParam.value);
         this.query();
     }
 
     /**
      * 获取排序字段
      */
-    private getSortKey( sortKey, sortValue ) {
-        if ( !sortValue )
+    private getSortKey(sortKey, sortValue) {
+        if (!sortValue)
             return this.sortKey;
-        if ( sortValue === 'ascend' )
+        if (sortValue === 'ascend')
             return sortKey;
         return `${sortKey} desc`;
     }
@@ -185,16 +189,16 @@ export class Table<T extends IKey> implements AfterContentInit {
      * @param url 查询请求地址
      * @param param 查询参数
      */
-    query( button?, url: string = null, param = null ) {
-        url = url || this.url || ( this.baseUrl && `/api/${this.baseUrl}` );
-        if ( !url ) {
-            console.log( "表格url未设置" );
+    query(button?, url: string = null, param = null) {
+        url = url || this.url || (this.baseUrl && `/api/${this.baseUrl}`);
+        if (!url) {
+            console.log("表格url未设置");
             return;
         }
         param = param || this.queryParam;
-        webapi.get<any>( url ).param( param ).button( button ).handle( {
+        webapi.get<any>(url).param(param).button(button).handle({
             before: () => {
-                if ( this.firstLoad ) {
+                if (this.firstLoad) {
                     this.firstLoad = false;
                     return true;
                 }
@@ -202,26 +206,35 @@ export class Table<T extends IKey> implements AfterContentInit {
                 return true;
             },
             ok: result => {
-                this.loadData( result );
+                this.loadData(result);
+                this.loadAfter(result);
+                this.onLoad.emit(result);
             },
             complete: () => this.loading = false
-        } );
+        });
     }
 
     /**
      * 加载数据
      */
-    protected loadData( result ) {
-        result = new PagerList<T>( result );
+    protected loadData(result) {
+        result = new PagerList<T>(result);
         result.initLineNumbers();
         this.dataSource = result.data || [];
         this.totalCount = result.totalCount;
         this.checkedSelection.clear();
-        if ( result.totalCount ) {
+        if (result.totalCount) {
             this.showPagination = true;
             return;
         }
         this.showPagination = false;
+    }
+
+    /**
+     * 加载完成后操作
+     * @param result
+     */
+    loadAfter(result) {
     }
 
     /**
@@ -231,12 +244,12 @@ export class Table<T extends IKey> implements AfterContentInit {
      * @param url 查询请求地址
      * @param param 查询参数
      */
-    search( button?, delay?: number, url: string = null, param = null ) {
-        if ( this.timeout )
-            clearTimeout( this.timeout );
-        this.timeout = setTimeout( () => {
-            this.query( url, param, button );
-        }, delay || this.delay );
+    search(button?, delay?: number, url: string = null, param = null) {
+        if (this.timeout)
+            clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+            this.query(url, param, button);
+        }, delay || this.delay);
     }
 
     /**
@@ -244,33 +257,23 @@ export class Table<T extends IKey> implements AfterContentInit {
      * @param queryParam 查询参数
      * @param button 按钮
      */
-    refresh( queryParam, button? ) {
+    refresh(queryParam, button?) {
         this.queryParam = queryParam;
-        this.queryParamChange.emit( queryParam );
+        this.queryParamChange.emit(queryParam);
         this.initPage();
         this.queryParam.order = this.sortKey;
-        this.query( button );
-    }
-
-    /**
-     * 清空数据
-     */
-    clear() {
-        this.dataSource = [];
-        this.queryParam.page = 1;
-        this.totalCount = 0;
-        this.checkedSelection.clear();
+        this.query(button);
     }
 
     /**
      * 表头主复选框切换选中状态
      */
     masterToggle() {
-        if ( this.isMasterChecked() ) {
+        if (this.isMasterChecked()) {
             this.checkedSelection.clear();
             return;
         }
-        this.dataSource.forEach( data => this.checkedSelection.select( data ) );
+        this.dataSource.forEach(data => this.checkedSelection.select(data));
     }
 
     /**
@@ -286,28 +289,28 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 是否所有行复选框被选中
      */
     isAllChecked() {
-        return this.dataSource.every( data => this.checkedSelection.isSelected( data ) );
+        return this.dataSource.every(data => this.checkedSelection.isSelected(data));
     }
 
     /**
      * 表头主复选框的确定状态
      */
     isMasterIndeterminate() {
-        return this.checkedSelection.hasValue() && ( !this.isAllChecked() || !this.dataSource.length );
+        return this.checkedSelection.hasValue() && (!this.isAllChecked() || !this.dataSource.length);
     }
 
     /**
      * 获取复选框被选中实体列表
      */
     getChecked(): T[] {
-        return this.dataSource.filter( data => this.checkedSelection.isSelected( data ) );
+        return this.dataSource.filter(data => this.checkedSelection.isSelected(data));
     }
 
     /**
      * 获取复选框被选中实体Id列表
      */
     getCheckedIds(): string {
-        return this.getChecked().map( ( value ) => value.id ).join( "," );
+        return this.getChecked().map((value) => value.id).join(",");
     }
 
     /**
@@ -317,44 +320,61 @@ export class Table<T extends IKey> implements AfterContentInit {
      * @param handler 删除成功回调函数
      * @param url 服务端删除Api地址，如果设置了基地址baseUrl，则可以省略该参数
      */
-    delete( button?, ids?: string, handler?: () => void, url?: string) {
+    delete(button?, ids?: string, handler?: () => void, url?: string) {
         ids = ids || this.getCheckedIds();
-        if ( !ids ) {
-            message.warn( config.deleteNotSelected );
+        if (!ids) {
+            message.warn(config.deleteNotSelected);
             return;
         }
-        message.confirm( config.deleteConfirm, () => {
-            this.deleteRequest( button, ids, handler, url );
-        } );
+        message.confirm(config.deleteConfirm, () => {
+            this.deleteRequest(button, ids, handler, url);
+        });
     }
 
     /**
      * 发送删除请求
      */
-    private deleteRequest( button?, ids?: string, handler?: () => void, url?: string) {
-        url = url || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
-        if ( !url ) {
-            console.log( "表格deleteUrl未设置" );
+    private deleteRequest(button?, ids?: string, handler?: () => void, url?: string) {
+        url = url || this.deleteUrl || (this.baseUrl && `/api/${this.baseUrl}/delete`);
+        if (!url) {
+            console.log("表格deleteUrl未设置");
             return;
         }
-        webapi.post( url, ids ).button( button ).handle( {
+        webapi.post(url, ids).button(button).handle({
             ok: () => {
-                if ( handler ) {
+                if (handler) {
                     handler();
                     return;
                 }
-                message.success( config.deleteSuccessed );
+                message.success(config.deleteSuccessed);
                 this.query();
             }
-        } );
+        });
     }
 
     /**
      * 选中一行
      * @param row 行
      */
-    checkRow( row ) {
+    checkRow(row) {
         this.checkedSelection.clear();
-        this.checkedSelection.select( row );
+        this.checkedSelection.select(row);
+    }
+
+    /**
+     * 清空数据
+     */
+    clear() {
+        this.dataSource = [];
+        this.queryParam.page = 1;
+        this.totalCount = 0;
+        this.checkedSelection.clear();
+    }
+
+    /**
+     * 清空复选框
+     */
+    clearCheckboxs() {
+        this.checkedSelection.clear();
     }
 }
