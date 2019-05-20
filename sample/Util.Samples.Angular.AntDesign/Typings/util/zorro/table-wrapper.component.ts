@@ -43,7 +43,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     /**
      * 数据源
      */
-    dataSource: any[];
+    @Input() dataSource: any[];
     /**
      * checkbox选中列表
      */
@@ -110,20 +110,13 @@ export class Table<T extends IKey> implements AfterContentInit {
     }
 
     /**
-     * 内容加载完成时进行初始化
+     * 内容加载完成操作
      */
     ngAfterContentInit() {
-        this.initPaginator();
+        this.initPage();
         this.initSort();
         if (this.autoLoad)
             this.query();
-    }
-
-    /**
-     * 初始化分页组件
-     */
-    private initPaginator() {
-        this.initPage();
     }
 
     /**
@@ -191,10 +184,8 @@ export class Table<T extends IKey> implements AfterContentInit {
      */
     query(button?, url: string = null, param = null) {
         url = url || this.url || (this.baseUrl && `/api/${this.baseUrl}`);
-        if (!url) {
-            console.log("表格url未设置");
+        if (!url)
             return;
-        }
         param = param || this.queryParam;
         webapi.get<any>(url).param(param).button(button).handle({
             before: () => {

@@ -47,7 +47,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected void ConfigTableWrapper( TagBuilder builder ) {
             ConfigWrapperId( builder );
-            ConfigQueryParam( builder );
+            ConfigData( builder );
             ConfigUrl( builder );
             ConfigSize( builder );
             ConfigAutoLoad( builder );
@@ -71,10 +71,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置查询参数
+        /// 配置数据源
         /// </summary>
-        private void ConfigQueryParam( TagBuilder builder ) {
-            builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
+        private void ConfigData( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Data ) == false )
+                return;
+            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.Data ) );
+            builder.AddAttribute( "[loading]", "false" );
         }
 
         /// <summary>
@@ -87,6 +90,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             builder.AddAttribute( "[baseUrl]", _config.GetValue( AngularConst.BindBaseUrl ) );
             builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
             builder.AddAttribute( "[deleteUrl]", _config.GetValue( AngularConst.BindDeleteUrl ) );
+            builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
         }
 
         /// <summary>
