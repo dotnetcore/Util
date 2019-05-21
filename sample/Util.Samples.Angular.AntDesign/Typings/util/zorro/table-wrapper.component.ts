@@ -65,6 +65,10 @@ export class Table<T extends IKey> implements AfterContentInit {
      */
     @Input() pageSizeOptions: number[];
     /**
+     * 分页大小
+     */
+    @Input() pageSize: number;
+    /**
     * 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
     */
     @Input() baseUrl: string;
@@ -97,7 +101,8 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 初始化表格包装器
      */
     constructor() {
-        this.pageSizeOptions = [10, 20, 50, 100];
+        this.pageSizeOptions = [];
+        this.pageSize = 10;
         this.showPagination = true;
         this.dataSource = new Array<any>();
         this.checkedSelection = new SelectionModel<T>(true, []);
@@ -124,8 +129,10 @@ export class Table<T extends IKey> implements AfterContentInit {
      */
     private initPage() {
         this.queryParam.page = 1;
-        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
+        if (this.pageSizeOptions && this.pageSizeOptions.length > 0) {
             this.queryParam.pageSize = this.pageSizeOptions[0];
+            this.pageSize = this.queryParam.pageSize;
+        }
     }
 
     /**

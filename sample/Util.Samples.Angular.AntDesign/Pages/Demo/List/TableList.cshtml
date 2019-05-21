@@ -20,17 +20,42 @@
         </nz-alert>
     </div>
     @*表格*@
-    <util-table id="tableApplication" query-param="queryParam" base-url="application" sort="CreationTime desc">
-        <util-table-column type="Checkbox"></util-table-column>
-        <util-table-column type="LineNumber"></util-table-column>
-        <util-table-column for="Code"></util-table-column>
-        <util-table-column for="Name" sort="true"></util-table-column>
-        <util-table-column for="Enabled">
-            <util-icon type="Check" ng-if="row.enabled"></util-icon>
-            <util-icon type="Close" ng-if="!row.enabled"></util-icon>
-        </util-table-column>
-        <util-table-column for="RegisterEnabled"></util-table-column>
-        <util-table-column for="CreationTime"></util-table-column>
-    </util-table>
+    <nz-table-wrapper #tableApplication_wrapper="" baseUrl="application" sortKey="CreationTime desc" [(queryParam)]="queryParam">
+        <nz-table #tableApplication="" (nzPageIndexChange)="tableApplication_wrapper.pageIndexChange($event)"
+                  (nzPageSizeChange)="tableApplication_wrapper.pageSizeChange($event)" [nzData]="tableApplication_wrapper.dataSource"
+                  [nzFrontPagination]="false" [nzLoading]="tableApplication_wrapper.loading" [nzShowPagination]="tableApplication_wrapper.showPagination"
+                  [nzShowSizeChanger]="true" [nzTotal]="tableApplication_wrapper.totalCount"
+                  [nzShowTotal]="rangeTemplate">
+            <thead (nzSortChange)="tableApplication_wrapper.sort($event)">
+            <tr><th (nzCheckedChange)="tableApplication_wrapper.masterToggle()" 
+                    nzShowCheckbox="" nzWidth="30px" [nzChecked]="tableApplication_wrapper.isMasterChecked()" 
+                    [nzDisabled]="!tableApplication_wrapper.dataSource.length" [nzIndeterminate]="tableApplication_wrapper.isMasterIndeterminate()"></th>
+                <th nzWidth="70px">序号</th>
+                <th>应用程序编码</th>
+                <th nzSortKey="name" [nzShowSort]="true">应用程序名称</th>
+                <th>启用</th>
+                <th>启用注册</th>
+                <th>创建时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of tableApplication.data">
+                <td (click)="$event.stopPropagation()" (nzCheckedChange)="tableApplication_wrapper.checkedSelection.toggle(row)" 
+                    nzShowCheckbox="" [nzChecked]="tableApplication_wrapper.checkedSelection.isSelected(row)"></td>
+                <td>{{row.lineNumber}}</td>
+                <td>{{row.code}}</td>
+                <td>{{row.name}}</td>
+                <td>
+                    <i *ngIf="row.enabled" nz-icon="" nzType="check"></i>
+                    <i *ngIf="!row.enabled" nz-icon="" nzType="close"></i>
+                </td>
+                <td>{{row.registerEnabled?'是':'否'}}</td>
+                <td>{{ row.creationTime | date:"yyyy-MM-dd" }}</td>
+            </tr></tbody>
+        </nz-table>
+        <ng-template #rangeTemplate let-range="range" let-total>
+            当前: {{ range[0] }}-{{ range[1] }} 共 {{ total }} 条记录
+        </ng-template>
+    </nz-table-wrapper>
 </nz-card>
 

@@ -663,5 +663,10 @@
         /// 加载后事件
         /// </summary>
         public const string OnLoadAfter = "on-load-after";
+        /// <summary>
+        /// 显示跳转
+        /// </summary>
+        public const string ShowJumper = "show-jumper";
+        
     }
 }

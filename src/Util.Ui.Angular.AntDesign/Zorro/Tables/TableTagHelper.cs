@@ -78,6 +78,14 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public bool ShowSizeChanger { get; set; }
         /// <summary>
+        /// [nzShowQuickJumper],是否显示跳转到指定页按钮
+        /// </summary>
+        public bool ShowJumper { get; set; }
+        /// <summary>
+        /// [nzPageSizeOptions],分页长度配置,范例:[ 10, 20, 30 ]
+        /// </summary>
+        public string PageSizeOptions { get; set; }
+        /// <summary>
         /// (nzPageSizeChange),分页大小变更事件
         /// </summary>
         public string OnPageSizeChange { get; set; }

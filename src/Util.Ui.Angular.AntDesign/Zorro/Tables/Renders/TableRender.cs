@@ -47,6 +47,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected void ConfigTableWrapper( TagBuilder builder ) {
             ConfigWrapperId( builder );
+            ConfigTableWrapperPage( builder );
             ConfigData( builder );
             ConfigUrl( builder );
             ConfigSize( builder );
@@ -68,6 +69,14 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected string GetWrapperId() {
             return _config.WrapperId;
+        }
+
+        /// <summary>
+        /// 配置表格包装器分页信息
+        /// </summary>
+        private void ConfigTableWrapperPage( TagBuilder builder ) {
+            if( _config.Contains( UiConst.PageSizeOptions ) )
+                builder.AddAttribute( "[pageSizeOptions]", _config.GetValue( UiConst.PageSizeOptions ) );
         }
 
         /// <summary>
@@ -144,7 +153,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
             tableBuilder.AddAttribute( $"#{_config.Id}" );
             tableBuilder.AddAttribute( "[nzData]", $"{GetWrapperId()}.dataSource" );
             tableBuilder.AddAttribute( "[nzTotal]", $"{GetWrapperId()}.totalCount" );
-            tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
             tableBuilder.AddAttribute( "[nzLoading]", $"{GetWrapperId()}.loading" );
         }
 
@@ -159,10 +167,27 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 配置分页
         /// </summary>
         private void ConfigPage( TagBuilder tableBuilder ) {
+            ConfigShowPage( tableBuilder );
+            ConfigShowJumper( tableBuilder );
             ConfigFrontPage( tableBuilder );
+            ConfigPageSizeOptions( tableBuilder );
             ConfigShowSizeChanger( tableBuilder );
             ConfigOnPageSizeChange( tableBuilder );
             ConfigOnPageIndexChange( tableBuilder );
+        }
+
+        /// <summary>
+        /// 配置显示分页
+        /// </summary>
+        private void ConfigShowPage( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
+        }
+
+        /// <summary>
+        /// 配置显示跳转按钮
+        /// </summary>
+        private void ConfigShowJumper( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( "[nzShowQuickJumper]", _config.GetBoolValue( UiConst.ShowJumper ) );
         }
 
         /// <summary>
@@ -177,7 +202,17 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置分页大小下拉框
+        /// 配置分页长度下拉框
+        /// </summary>
+        private void ConfigPageSizeOptions( TagBuilder tableBuilder ) {
+            if( _config.Contains( UiConst.PageSizeOptions ) == false )
+                return;
+            tableBuilder.AddAttribute( "[nzPageSizeOptions]", $"{GetWrapperId()}.pageSizeOptions" );
+            tableBuilder.AddAttribute( "[nzPageSize]", $"{GetWrapperId()}.pageSize" );
+        }
+
+        /// <summary>
+        /// 配置是否显示分页大小
         /// </summary>
         private void ConfigShowSizeChanger( TagBuilder tableBuilder ) {
             if( _config.Contains( UiConst.ShowSizeChanger ) ) {
