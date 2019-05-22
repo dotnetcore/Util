@@ -50,7 +50,7 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string Sort { get; set; }
         /// <summary>
-        /// nzBordered,是否显示边框
+        /// [nzBordered],是否显示边框,默认为 false
         /// </summary>
         public bool ShowBorder { get; set; }
         /// <summary>
@@ -70,17 +70,25 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public bool AutoLoad { get; set; }
         /// <summary>
-        /// [nzFrontPagination],是否在前端进行分页
+        /// [nzFrontPagination],是否在前端进行分页，默认为 false
         /// </summary>
         public bool FrontPage { get; set; }
         /// <summary>
-        /// [nzShowSizeChanger],是否显示分页大小下拉框
+        /// [nzShowSizeChanger],是否显示分页大小下拉框，默认为 true
         /// </summary>
         public bool ShowSizeChanger { get; set; }
         /// <summary>
-        /// [nzShowQuickJumper],是否显示跳转到指定页按钮
+        /// [nzShowQuickJumper],是否显示跳转到指定页文本框，默认为 true
         /// </summary>
         public bool ShowJumper { get; set; }
+        /// <summary>
+        /// [nzShowTotal],是否显示数据总量和当前数据范围，默认为 true
+        /// </summary>
+        public bool ShowTotal { get; set; }
+        /// <summary>
+        /// 显示数据总量和当前数据范围的模板，默认值: {{ range[0] }}-{{ range[1] }} 共 {{ total }} 条
+        /// </summary>
+        public bool TotalTemplate { get; set; }
         /// <summary>
         /// [nzPageSizeOptions],分页长度配置,范例:[ 10, 20, 30 ]
         /// </summary>

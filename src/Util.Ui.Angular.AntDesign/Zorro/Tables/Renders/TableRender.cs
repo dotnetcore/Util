@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
@@ -137,13 +138,14 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected virtual void ConfigTable( TagBuilder builder ) {
             var tableBuilder = new TableBuilder();
+            builder.AppendContent( tableBuilder );
             ConfigTableDefault( tableBuilder );
             ConfigStyle( tableBuilder );
             ConfigPage( tableBuilder );
             AddHead( tableBuilder );
             AddBody( tableBuilder );
+            ConfigTotalTemplate( builder, tableBuilder );
             ConfigContent( tableBuilder );
-            builder.AppendContent( tableBuilder );
         }
 
         /// <summary>
@@ -184,17 +186,21 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置显示跳转按钮
+        /// 配置显示跳转文本框
         /// </summary>
         private void ConfigShowJumper( TagBuilder tableBuilder ) {
-            tableBuilder.AddAttribute( "[nzShowQuickJumper]", _config.GetBoolValue( UiConst.ShowJumper ) );
+            if( _config.Contains( UiConst.ShowJumper ) ) {
+                tableBuilder.AddAttribute( "[nzShowQuickJumper]", _config.GetBoolValue( UiConst.ShowJumper ) );
+                return;
+            }
+            tableBuilder.AddAttribute( "[nzShowQuickJumper]", "true" );
         }
 
         /// <summary>
         /// 配置前端分页
         /// </summary>
         private void ConfigFrontPage( TagBuilder tableBuilder ) {
-            if ( _config.Contains( UiConst.FrontPage ) ) {
+            if( _config.Contains( UiConst.FrontPage ) ) {
                 tableBuilder.AddAttribute( "[nzFrontPagination]", _config.GetBoolValue( UiConst.FrontPage ) );
                 return;
             }
@@ -273,7 +279,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 添加排序变更事件处理
         /// </summary>
         protected void AddSortChange( TableHeadBuilder headBuilder ) {
-            if ( _config.IsSort == false )
+            if( _config.IsSort == false )
                 return;
             headBuilder.AddSortChange( $"{GetWrapperId()}.sort($event)" );
         }
@@ -285,7 +291,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             foreach( var column in _config.Columns ) {
                 var headColumnBuilder = new TableHeadColumnBuilder();
                 headColumnBuilder.AddWidth( column.Width );
-                if ( column.IsCheckbox ) {
+                if( column.IsCheckbox ) {
                     headColumnBuilder.AddCheckBox( _config.Id );
                 }
                 else {
@@ -315,6 +321,40 @@ namespace Util.Ui.Zorro.Tables.Renders {
             rowBuilder.NgFor( $"let row of {_config.Id}.data" );
             rowBuilder.AppendContent( _config.Content );
             tableBodyBuilder.AppendContent( rowBuilder );
+        }
+
+        /// <summary>
+        /// 配置总行数模板
+        /// </summary>
+        protected void ConfigTotalTemplate( TagBuilder builder, TableBuilder tableBuilder ) {
+            if( _config.GetValue<bool?>( UiConst.ShowTotal ) == false )
+                return;
+            var templateId = $"template_{_config.Id}";
+            tableBuilder.AddAttribute( "[nzShowTotal]", templateId );
+            var templateBuilder = CreateTotalTemplateBuilder( templateId, GetTotalTemplate() );
+            builder.AppendContent( templateBuilder );
+        }
+
+        /// <summary>
+        /// 创建总行数模板生成器
+        /// </summary>
+        private TemplateBuilder CreateTotalTemplateBuilder( string templateId, string content ) {
+            var templateBuilder = new TemplateBuilder();
+            templateBuilder.AddAttribute( $"#{templateId}" );
+            templateBuilder.AddAttribute( "let-range", "range" );
+            templateBuilder.AddAttribute( "let-total" );
+            templateBuilder.AppendContent( content );
+            return templateBuilder;
+        }
+
+        /// <summary>
+        /// 获取总行数模板
+        /// </summary>
+        private string GetTotalTemplate() {
+            var result = _config.GetValue( UiConst.TotalTemplate );
+            if ( result.IsEmpty() == false )
+                return result;
+            return TableConfig.TotalTemplate;
         }
     }
 }

@@ -667,6 +667,13 @@
         /// 显示跳转
         /// </summary>
         public const string ShowJumper = "show-jumper";
-        
+        /// <summary>
+        /// 显示总量
+        /// </summary>
+        public const string ShowTotal = "show-total";
+        /// <summary>
+        /// 总量模板
+        /// </summary>
+        public const string TotalTemplate = "total-template";
     }
 }

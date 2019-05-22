@@ -26,6 +26,11 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public static string CheckboxWidth { get; set; } = "30";
 
         /// <summary>
+        /// 分页总量模板
+        /// </summary>
+        public static string TotalTemplate { get; set; } = "{{ range[0] }}-{{ range[1] }} 共 {{ total }} 条";
+
+        /// <summary>
         /// 表格共享键
         /// </summary>
         public const string TableShareKey = "TableShare";
