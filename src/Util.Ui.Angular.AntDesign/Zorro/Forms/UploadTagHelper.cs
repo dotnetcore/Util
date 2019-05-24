@@ -76,10 +76,6 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public bool AcceptDocument { get; set; }
         /// <summary>
-        /// nzFileType,允许上传的文件类型的MIME,范例：image/png,image/jpeg,image/gif,image/bmp
-        /// </summary>
-        public string FileType { get; set; }
-        /// <summary>
         /// 图片文件类型限制列表
         /// </summary>
         public List<ImageType> ImageTypes { get; set; }

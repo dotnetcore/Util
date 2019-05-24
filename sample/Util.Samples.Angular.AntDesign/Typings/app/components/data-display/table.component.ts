@@ -20,4 +20,8 @@ export class TableComponent {
     constructor() {
         this.queryParam = {};
     }
+
+    a(v) {
+        debugger 
+    }
 }

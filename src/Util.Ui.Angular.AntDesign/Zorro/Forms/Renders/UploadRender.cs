@@ -10,7 +10,6 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
-using Util.Ui.Helpers;
 using Util.Ui.Zorro.Buttons.Builders;
 using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms.Builders;
@@ -93,7 +92,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigFileList( builder );
             ConfigButton( builder );
             ConfigAccept( builder );
-            ConfigFileType( builder );
             ConfigLimit( builder );
             ConfigFilter( builder );
             ConfigEvents( builder );
@@ -220,7 +218,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.ImageTypes ) ) {
                 var types = _config.GetValue<List<ImageType>>( UiConst.ImageTypes );
                 if( types != null )
-                    return types.Select( t => t.GetExtensions() ).ToList();
+                    return types.Select( t => t.Description() ).ToList();
             }
             if( _config.GetValue<bool?>( UiConst.AcceptImage ) == true )
                 return GetAccepts<ImageType>();
@@ -231,8 +229,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 获取枚举接受列表
         /// </summary>
         private List<string> GetAccepts<TEnum>() {
-            var names = Enum.GetNames<TEnum>();
-            return names.Select( FileTypeHelper.GetExtensions ).ToList();
+            var items = Enum.GetItems<TEnum>();
+            return items.Select( t => t.Text ).ToList();
         }
 
         /// <summary>
@@ -242,67 +240,10 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.DocumentTypes ) ) {
                 var types = _config.GetValue<List<DocumentType>>( UiConst.DocumentTypes );
                 if( types != null )
-                    return types.Select( t => t.GetExtensions() ).ToList();
+                    return types.Select( t => t.Description() ).ToList();
             }
             if( _config.GetValue<bool?>( UiConst.AcceptDocument ) == true )
                 return GetAccepts<DocumentType>();
-            return new List<string>();
-        }
-
-        /// <summary>
-        /// 配置文件类型限制
-        /// </summary>
-        private void ConfigFileType( UploadBuilder builder ) {
-            if( _config.Contains( UiConst.FileType ) ) {
-                builder.FileType( _config.GetValue( UiConst.FileType ) );
-                return;
-            }
-            builder.FileType( GetFileTypes() );
-        }
-
-        /// <summary>
-        /// 获取文件类型限制列表
-        /// </summary>
-        private string GetFileTypes() {
-            var result = new List<string>();
-            result.AddRange( GetImageFileTypes() );
-            result.AddRange( GetDocumentFileTypes() );
-            return result.Join();
-        }
-
-        /// <summary>
-        /// 获取图片类型限制列表
-        /// </summary>
-        private List<string> GetImageFileTypes() {
-            if( _config.Contains( UiConst.ImageTypes ) ) {
-                var types = _config.GetValue<List<ImageType>>( UiConst.ImageTypes );
-                if( types != null )
-                    return types.Select( t => t.Description() ).ToList();
-            }
-            if( _config.GetValue<bool?>( UiConst.AcceptImage ) == true )
-                return GetFileTypes<ImageType>();
-            return new List<string>();
-        }
-
-        /// <summary>
-        /// 获取枚举文件类型限制列表
-        /// </summary>
-        private List<string> GetFileTypes<TEnum>() {
-            var items = Enum.GetItems<TEnum>();
-            return items.Select( t => t.Text.SafeString() ).ToList();
-        }
-
-        /// <summary>
-        /// 获取文档类型限制列表
-        /// </summary>
-        private List<string> GetDocumentFileTypes() {
-            if( _config.Contains( UiConst.DocumentTypes ) ) {
-                var types = _config.GetValue<List<DocumentType>>( UiConst.DocumentTypes );
-                if( types != null )
-                    return types.Select( t => t.Description() ).ToList();
-            }
-            if( _config.GetValue<bool?>( UiConst.AcceptDocument ) == true )
-                return GetFileTypes<DocumentType>();
             return new List<string>();
         }
 

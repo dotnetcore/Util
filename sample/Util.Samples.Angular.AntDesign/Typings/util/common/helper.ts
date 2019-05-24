@@ -76,7 +76,7 @@ export let toString = (value): string => {
  * 转换为布尔值
  * @param value 输入值
  */
-export let toBool = (value): boolean => {    
+export let toBool = (value): boolean => {
     if (value === true)
         return true;
     let strValue = toString(value).toLowerCase();
@@ -364,8 +364,8 @@ export let distinct = <T>(source: T[], property?: (t: T) => any) => {
  * @param input 原始字符串
  * @param length 截断后保留的长度
  */
-export function truncate( input:string,length?:number ) {
-    return _.truncate( input , { length: length + 3 } );
+export function truncate(input: string, length?: number) {
+    return _.truncate(input, { length: length + 3 });
 }
 
 /**
@@ -374,13 +374,23 @@ export function truncate( input:string,length?:number ) {
  * @param item 项
  * @param index 索引
  */
-export function insert( source: any[], item, index?: number ) {
-    if ( isUndefined( source ) || source == null )
+export function insert(source: any[], item, index?: number) {
+    if (isUndefined(source) || source == null)
         return [];
-    if ( isUndefined( index ) ) {
-        source.push( item );
+    if (isUndefined(index)) {
+        source.push(item);
         return source;
     }
-    source.splice( index, 0, item );
+    source.splice(index, 0, item);
     return source;
+}
+
+/**
+ * 获取文件扩展名,范例:a.jpg,返回.jpg
+ * @param name 文件名
+ */
+export function getExtension(name: string) {
+    if (!name)
+        return null;
+    return `.${name.replace(/.+\./, "")}`;
 }
