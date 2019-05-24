@@ -23,7 +23,7 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// </summary>
         public string BindName { get; set; }
         /// <summary>
-        /// 禁用
+        /// [nzDisabled],禁用
         /// </summary>
         public string Disabled { get; set; }
         /// <summary>

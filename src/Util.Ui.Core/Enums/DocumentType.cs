@@ -9,12 +9,12 @@ namespace Util.Ui.Enums {
         /// <summary>
         /// xls,xlsx
         /// </summary>
-        [Description( "application/x-xls" )]
+        [Description( "application/x-xls,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" )]
         Xls,
         /// <summary>
         /// doc,docx
         /// </summary>
-        [Description( "application/msword" )]
+        [Description( "application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" )]
         Doc,
         /// <summary>
         /// pdf

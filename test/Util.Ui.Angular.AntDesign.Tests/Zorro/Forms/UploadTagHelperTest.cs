@@ -300,7 +300,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
             result.Append( "<nz-upload " );
             result.Append( "(nzChange)=\"m_id.handleChange($event)\" nzAccept=\".xls,.xlsx,.doc,.docx,.pdf,.txt\" " );
-            result.Append( "nzFileType=\"application/x-xls,application/msword,application/pdf,text/plain\" [(nzFileList)]=\"m_id.files\" " );
+            result.Append( "nzFileType=\"application/x-xls,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet," );
+            result.Append( "application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document," );
+            result.Append( "application/pdf,text/plain\" " );
+            result.Append( "[(nzFileList)]=\"m_id.files\" " );
             result.Append( "[nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
@@ -358,7 +361,9 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.DocumentTypes, new List<DocumentType> { DocumentType.Doc } } };
             var result = new String();
             result.Append( "<nz-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAccept=\".doc,.docx\" nzFileType=\"application/msword\" [(nzFileList)]=\"m_id.files\" [nzFilter]=\"m_id.filters\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" nzAccept=\".doc,.docx\" " );
+            result.Append( "nzFileType=\"application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document\" " );
+            result.Append( "[(nzFileList)]=\"m_id.files\" [nzFilter]=\"m_id.filters\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );
             result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );

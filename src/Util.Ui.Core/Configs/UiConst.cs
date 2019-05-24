@@ -12,6 +12,10 @@
         /// </summary>
         public const string Class = "class";
         /// <summary>
+        /// 类名
+        /// </summary>
+        public const string ClassName = "class-name";
+        /// <summary>
         /// 样式
         /// </summary>
         public const string Style = "style";
@@ -43,6 +47,10 @@
         /// 禁用
         /// </summary>
         public const string Disabled = "disabled";
+        /// <summary>
+        /// 禁用日期
+        /// </summary>
+        public const string DisabledDate = "disabled-date";
         /// <summary>
         /// 只读
         /// </summary>
@@ -675,5 +683,29 @@
         /// 总量模板
         /// </summary>
         public const string TotalTemplate = "total-template";
+        /// <summary>
+        /// 显示清除按钮
+        /// </summary>
+        public const string ShowClearButton = "show-clear-button";
+        /// <summary>
+        /// 自动获取焦点
+        /// </summary>
+        public const string AutoFocus = "auto-focus";
+        /// <summary>
+        /// 日期渲染器
+        /// </summary>
+        public const string DateRender = "date-render";
+        /// <summary>
+        /// 本地化
+        /// </summary>
+        public const string Locale = "locale";
+        /// <summary>
+        /// 是否打开
+        /// </summary>
+        public const string IsOpen = "is-open";
+        /// <summary>
+        /// 打开变更事件
+        /// </summary>
+        public const string OnOpenChange = "on-open-change";
     }
 }

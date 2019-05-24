@@ -2,24 +2,27 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=========================================================
-import { Component, Input, Host, Optional } from '@angular/core';
+import { Component, Input, Host, Optional,Output,EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
+import { NzDatePickerI18nInterface } from "ng-zorro-antd";
 
 /**
  * NgZorro日期选择包装器
  */
-@Component({
-    selector: 'x-date-picker',
+@Component( {
+    selector: 'x-date-picker' ,
     template: `
         <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <ng-container [ngSwitch]="type">
                 <ng-container *ngSwitchCase="'date'">
-                    <nz-date-picker 
+                    <nz-date-picker
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" [nzFormat]="format"
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                         (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                        [nzShowTime]="showTime" [required]="required">
+                        [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
+                        [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
+                        [nzLocale]="locale" (nzOnOpenChange)="openChange($event)">
                     </nz-date-picker>            
                     <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
                 </ng-container>
@@ -28,7 +31,9 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                         (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                        [nzShowTime]="showTime" [required]="required">
+                        [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
+                        [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
+                        (nzOnOpenChange)="openChange($event)">
                     </nz-range-picker>
                     <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
                 </ng-container>
@@ -37,7 +42,9 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
                          [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                          #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                          (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                         [required]="required">
+                         [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
+                         [nzClassName]="className" [nzDisabledDate]="disableDate" [nzLocale]="locale"
+                         (nzOnOpenChange)="openChange($event)">
                     </nz-year-picker>
                     <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
                 </ng-container>
@@ -46,7 +53,9 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                         (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                        [required]="required">
+                        [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
+                        [nzClassName]="className" [nzDisabledDate]="disableDate" [nzLocale]="locale"
+                        (nzOnOpenChange)="openChange($event)">
                     </nz-month-picker>
                     <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
                 </ng-container>
@@ -55,19 +64,17 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
                          [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                          #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
                          (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                         [nzShowTime]="showTime" [required]="required">
+                         [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
+                         [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
+                         [nzLocale]="locale" (nzOnOpenChange)="openChange($event)">
                     </nz-week-picker>
                     <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
                 </ng-container>
             </ng-container>
         </nz-form-control>
     `
-})
+} )
 export class DatePicker extends FormControlWrapperBase {
-    /**
-     * 只读
-     */
-    @Input() readonly: boolean;
     /**
      * 宽度
      */
@@ -84,6 +91,34 @@ export class DatePicker extends FormControlWrapperBase {
      * 显示时间
      */
     @Input() showTime: boolean;
+    /**
+     * 是否显示清除按钮
+     */
+    @Input() allowClear: boolean;
+    /**
+     * 是否自动获取焦点
+     */
+    @Input() autoFocus: boolean;
+    /**
+     * css类选择器
+     */
+    @Input() className: string;
+    /**
+     * 自定义日期单元格内容
+     */
+    @Input() dateRender;
+    /**
+     * 禁用日期函数
+     */
+    @Input() disabledDateFunc;
+    /**
+     * 国际化配置
+     */
+    @Input() locale: NzDatePickerI18nInterface;
+    /**
+     * 弹出和关闭日历事件
+     */
+    @Output() onOpenChange: EventEmitter<any> = new EventEmitter<any>();
 
     /**
      * 初始化日期选择包装器
@@ -92,5 +127,21 @@ export class DatePicker extends FormControlWrapperBase {
     constructor( @Optional() @Host() form: NgForm) {
         super( form );
         this.type = 'date';
+        this.allowClear = true;
+    }
+
+    /**
+     * 设置禁用日期
+     */
+    disableDate = ( value: Date ): boolean => {
+        let result = this.disabledDateFunc && this.disabledDateFunc( value );
+        return result;
+    }
+
+    /**
+     * 弹出和关闭日历事件处理
+     */
+    openChange = ( value ) => {
+        this.onOpenChange.emit( value );
     }
 }
