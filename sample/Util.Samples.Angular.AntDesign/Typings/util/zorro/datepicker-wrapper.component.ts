@@ -2,16 +2,17 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=========================================================
-import { Component, Input, Host, Optional,Output,EventEmitter } from '@angular/core';
+import { Component, Input, Host, Optional, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { NzDatePickerI18nInterface } from "ng-zorro-antd";
+import { FormControlWrapperBase } from './base/form-control-wrapper-base';
+import { util } from "../index";
 
 /**
  * NgZorro日期选择包装器
  */
 @Component( {
-    selector: 'x-date-picker' ,
+    selector: 'x-date-picker',
     template: `
         <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <ng-container [ngSwitch]="type">
@@ -21,7 +22,8 @@ import { NzDatePickerI18nInterface } from "ng-zorro-antd";
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                         (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                         [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
-                        [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
+                        [nzShowToday]="showToday"
+                        [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate" 
                         [nzLocale]="locale" (nzOnOpenChange)="openChange($event)">
                     </nz-date-picker>            
                     <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
@@ -104,13 +106,25 @@ export class DatePicker extends FormControlWrapperBase {
      */
     @Input() className: string;
     /**
+     * 是否显示“今天”按钮
+     */
+    @Input() showToday: boolean;
+    /**
      * 自定义日期单元格内容
      */
     @Input() dateRender;
     /**
      * 禁用日期函数
      */
-    @Input() disabledDateFunc;
+    @Input() disabledDateFunc: ( value: Date ) => boolean;
+    /**
+     * 禁用今天之前的日期
+     */
+    @Input() disabledBeforeToday: boolean;
+    /**
+     * 禁用明天之前的日期
+     */
+    @Input() disabledBeforeTomorrow: boolean;
     /**
      * 国际化配置
      */
@@ -124,18 +138,35 @@ export class DatePicker extends FormControlWrapperBase {
      * 初始化日期选择包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() form: NgForm) {
+    constructor( @Optional() @Host() form: NgForm ) {
         super( form );
         this.type = 'date';
         this.allowClear = true;
+        this.showToday = true;
     }
 
     /**
      * 设置禁用日期
      */
     disableDate = ( value: Date ): boolean => {
-        let result = this.disabledDateFunc && this.disabledDateFunc( value );
-        return result;
+        if ( this.disabledDateFunc )
+            return this.disabledDateFunc( value );
+        if ( this.disabledBeforeToday )
+            return util.helper.isBeforeToday( value );
+        if ( this.disabledBeforeTomorrow )
+            return this.disableBeforeTomorrow( value );
+        return false;
+    }
+
+    /**
+     * 禁用明天之前的日期
+     */
+    private disableBeforeTomorrow( value: Date ) {
+        if ( util.helper.isBeforeTomorrow( value ) ) {
+            this.showToday = false;
+            return true;
+        }
+        return false;
     }
 
     /**

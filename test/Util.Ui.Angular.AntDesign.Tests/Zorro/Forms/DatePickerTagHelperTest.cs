@@ -93,6 +93,28 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试仅能选择今天之后的日期
+        /// </summary>
+        [Fact]
+        public void TestDisabledBeforeToday() {
+            var attributes = new TagHelperAttributeList { { UiConst.DisabledBeforeToday, true } };
+            var result = new String();
+            result.Append( "<x-date-picker [disabledBeforeToday]=\"true\"></x-date-picker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试仅能选择今天以及之后的日期
+        /// </summary>
+        [Fact]
+        public void TestDisabledBeforeTomorrow() {
+            var attributes = new TagHelperAttributeList { { UiConst.DisabledBeforeTomorrow, true } };
+            var result = new String();
+            result.Append( "<x-date-picker [disabledBeforeTomorrow]=\"true\"></x-date-picker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试是否打开弹出面板
         /// </summary>
         [Fact]
@@ -220,7 +242,18 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestShowTime() {
             var attributes = new TagHelperAttributeList { { UiConst.ShowTime, true } };
             var result = new String();
-            result.Append( "<x-date-picker showTime=\"true\"></x-date-picker>" );
+            result.Append( "<x-date-picker [showTime]=\"true\"></x-date-picker>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示“今天”按钮
+        /// </summary>
+        [Fact]
+        public void TestShowToday() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowToday, true } };
+            var result = new String();
+            result.Append( "<x-date-picker [showToday]=\"true\"></x-date-picker>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

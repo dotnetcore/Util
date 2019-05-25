@@ -32,6 +32,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public bool ShowTime { get; set; }
         /// <summary>
+        /// [nzShowToday],是否显示“今天”按钮，默认值： true
+        /// </summary>
+        public bool ShowToday { get; set; }
+        /// <summary>
         /// [nzAllowClear],是否显示清除按钮，默认值： true
         /// </summary>
         public bool ShowClearButton { get; set; }
@@ -51,6 +55,14 @@ namespace Util.Ui.Zorro.Forms {
         /// [nzDisabledDate],禁用日期函数
         /// </summary>
         public string DisabledDate { get; set; }
+        /// <summary>
+        /// 禁用今天之前的日期
+        /// </summary>
+        public bool DisabledBeforeToday { get; set; }
+        /// <summary>
+        /// 禁用明天之前的日期
+        /// </summary>
+        public bool DisabledBeforeTomorrow { get; set; }
         /// <summary>
         /// [nzLocale],国际化配置
         /// </summary>

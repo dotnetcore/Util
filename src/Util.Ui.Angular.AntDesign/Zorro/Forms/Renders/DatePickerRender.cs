@@ -69,6 +69,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigShowTime() {
             _builder.AddAttribute( "[showTime]", _config.GetBoolValue( UiConst.ShowTime ) );
+            _builder.AddAttribute( "[showToday]", _config.GetBoolValue( UiConst.ShowToday ) );
         }
 
         /// <summary>
@@ -90,6 +91,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigDisabledDate() {
             _builder.AddAttribute( "[disabledDateFunc]", _config.GetValue( UiConst.DisabledDate ) );
+            _builder.AddAttribute( "[disabledBeforeToday]", _config.GetBoolValue( UiConst.DisabledBeforeToday ) );
+            _builder.AddAttribute( "[disabledBeforeTomorrow]", _config.GetBoolValue( UiConst.DisabledBeforeTomorrow ) );
         }
 
         /// <summary>

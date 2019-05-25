@@ -632,6 +632,10 @@
         /// </summary>
         public const string ShowTime = "show-time";
         /// <summary>
+        /// 显示今天
+        /// </summary>
+        public const string ShowToday = "show-today";
+        /// <summary>
         /// 节点占据一行
         /// </summary>
         public const string BlockNode = "block-node";
@@ -707,5 +711,13 @@
         /// 打开变更事件
         /// </summary>
         public const string OnOpenChange = "on-open-change";
+        /// <summary>
+        /// 禁用今天之前的日期
+        /// </summary>
+        public const string DisabledBeforeToday = "disabled-before-today";
+        /// <summary>
+        /// 禁用明天之前的日期
+        /// </summary>
+        public const string DisabledBeforeTomorrow = "disabled-before-tomorrow";
     }
 }

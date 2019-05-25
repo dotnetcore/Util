@@ -18,6 +18,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// </summary>
         public FormBuilder() {
             _builder = new TagBuilder( "form" );
+            _builder.MergeAttribute( "style","display:none" );
         }
 
         /// <summary>
