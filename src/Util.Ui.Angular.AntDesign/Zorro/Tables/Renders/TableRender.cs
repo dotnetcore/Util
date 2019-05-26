@@ -76,8 +76,8 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 配置表格包装器分页信息
         /// </summary>
         private void ConfigTableWrapperPage( TagBuilder builder ) {
-            if( _config.Contains( UiConst.PageSizeOptions ) )
-                builder.AddAttribute( "[pageSizeOptions]", _config.GetValue( UiConst.PageSizeOptions ) );
+            builder.AddAttribute( "[showPagination]", _config.GetBoolValue( UiConst.ShowPagination ) );
+            builder.AddAttribute( "[pageSizeOptions]", _config.GetValue( UiConst.PageSizeOptions ) );
         }
 
         /// <summary>
@@ -319,8 +319,16 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected virtual void AddBody( TableBodyBuilder tableBodyBuilder ) {
             var rowBuilder = new TableRowBuilder();
             rowBuilder.NgFor( $"let row of {_config.Id}.data" );
+            AddRowEvents( rowBuilder );
             rowBuilder.AppendContent( _config.Content );
             tableBodyBuilder.AppendContent( rowBuilder );
+        }
+
+        /// <summary>
+        /// 添加行事件
+        /// </summary>
+        private void AddRowEvents( TableRowBuilder rowBuilder ) {
+            rowBuilder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClickRow ) );
         }
 
         /// <summary>

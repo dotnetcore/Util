@@ -48,13 +48,18 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public bool AutoCreateSort { get; set; }
 
         /// <summary>
+        /// 是否排序
+        /// </summary>
+        public bool IsSort { get; set; }
+
+        /// <summary>
         /// 展开事件
         /// </summary>
         public string OnExpand { get; set; }
 
         /// <summary>
-        /// 是否排序
+        /// 单击行事件
         /// </summary>
-        public bool IsSort { get; set; }
+        public string OnClickRow { get; set; }
     }
 }

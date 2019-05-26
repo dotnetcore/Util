@@ -209,6 +209,18 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
+        /// 测试显示分页
+        /// </summary>
+        [Fact]
+        public void TestShowPagination() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowPagination, true } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [showPagination]=\"true\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试分页长度列表
         /// </summary>
         [Fact]
@@ -375,6 +387,29 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             AppendTableBodyHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试单击行事件
+        /// </summary>
+        [Fact]
+        public void TestOnClickRow() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnClickRow, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr (click)=\"a\" *ngFor=\"let row of m_id.data\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "<ng-template #template_m_id=\"\" let-range=\"range\" let-total=\"\">" );
+            result.Append( TableConfig.TotalTemplate );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-table-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

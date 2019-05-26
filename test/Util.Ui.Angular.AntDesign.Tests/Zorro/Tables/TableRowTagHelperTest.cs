@@ -56,10 +56,9 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         /// </summary>
         [Fact]
         public void TestSetTableId() {
-            //添加表格组件的Id
-            IDictionary<object, object> items = new Dictionary<object, object>();
-            items.Add( TableConfig.TableShareKey, new TableShareConfig( "a" ) );
-
+            IDictionary<object, object> items = new Dictionary<object, object> {
+                { TableConfig.TableShareKey, new TableShareConfig( "a" ) }
+            };
             var result = new String();
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of a.data\">" );
@@ -77,6 +76,20 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var result = new String();
             result.Append( "<tbody>" );
             result.Append( "<tr #a=\"\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试单击行事件
+        /// </summary>
+        [Fact]
+        public void TestOnClick() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
+            var result = new String();
+            result.Append( "<tbody>" );
+            result.Append( "<tr (click)=\"a\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

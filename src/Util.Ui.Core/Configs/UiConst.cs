@@ -719,5 +719,9 @@
         /// 禁用明天之前的日期
         /// </summary>
         public const string DisabledBeforeTomorrow = "disabled-before-tomorrow";
+        /// <summary>
+        /// 显示分页
+        /// </summary>
+        public const string ShowPagination = "show-pagination";
     }
 }

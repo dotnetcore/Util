@@ -221,11 +221,8 @@ export class Table<T extends IKey> implements AfterContentInit {
         this.dataSource = result.data || [];
         this.totalCount = result.totalCount;
         this.checkedSelection.clear();
-        if (result.totalCount) {
-            this.showPagination = true;
-            return;
-        }
-        this.showPagination = false;
+        if ( !result.totalCount )
+            this.showPagination = false;
     }
 
     /**

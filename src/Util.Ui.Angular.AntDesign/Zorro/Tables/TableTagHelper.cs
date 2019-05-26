@@ -74,6 +74,10 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public bool FrontPage { get; set; }
         /// <summary>
+        /// [nzShowPagination],是否显示分页
+        /// </summary>
+        public bool ShowPagination { get; set; }
+        /// <summary>
         /// [nzShowSizeChanger],是否显示分页大小下拉框，默认为 true
         /// </summary>
         public bool ShowSizeChanger { get; set; }
@@ -105,6 +109,10 @@ namespace Util.Ui.Zorro.Tables {
         /// 数据加载完成后事件
         /// </summary>
         public string OnLoad { get; set; }
+        /// <summary>
+        /// 行单击事件，使用 row 访问行对象，范例：on-click-row="click(row)"
+        /// </summary>
+        public string OnClickRow { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -146,6 +154,7 @@ namespace Util.Ui.Zorro.Tables {
         /// 初始化共享配置
         /// </summary>
         protected virtual void InitShareConfig( TagHelperContext context, TableShareConfig config ) {
+            config.OnClickRow = context.GetValueFromAttributes<string>( UiConst.OnClickRow );
         }
     }
 }
