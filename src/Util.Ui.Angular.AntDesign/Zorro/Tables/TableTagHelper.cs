@@ -54,17 +54,13 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public bool ShowBorder { get; set; }
         /// <summary>
-        /// 最大高度
+        /// [nzScroll], 内容区滚动高度,用于支持固定表头，需要设置每列宽度才能让表头和内容对齐，范例：400，表示 [nzScroll]="{ y: '400px' }"
         /// </summary>
-        public double MaxHeight { get; set; }
+        public string ScrollHeight { get; set; }
         /// <summary>
-        /// 最小高度
+        /// [nzScroll], 滚动宽度,用于支持固定列，范例：400，表示 [nzScroll]="{ x: '400px' }"
         /// </summary>
-        public double MinHeight { get; set; }
-        /// <summary>
-        /// 宽度
-        /// </summary>
-        public double Width { get; set; }
+        public string ScrollWidth { get; set; }
         /// <summary>
         /// 初始化时是否自动加载数据，默认为true,设置成false则手工加载
         /// </summary>

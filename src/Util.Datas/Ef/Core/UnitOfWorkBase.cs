@@ -295,8 +295,6 @@ namespace Util.Datas.Ef.Core {
         /// 初始化创建审计信息
         /// </summary>
         private void InitCreationAudited( EntityEntry entry ) {
-            if ( GetUserId().IsEmpty() )
-                return;
             CreationAuditedInitializer.Init( entry.Entity, GetUserId(), GetUserName() );
         }
 
@@ -326,8 +324,6 @@ namespace Util.Datas.Ef.Core {
         /// 初始化修改审计信息
         /// </summary>
         private void InitModificationAudited( EntityEntry entry ) {
-            if( GetUserId().IsEmpty() )
-                return;
             ModificationAuditedInitializer.Init( entry.Entity, GetUserId(), GetUserName() );
         }
 

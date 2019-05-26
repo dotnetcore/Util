@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular;
+﻿using Util.Helpers;
+using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
@@ -51,7 +52,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
             ConfigTableWrapperPage( builder );
             ConfigData( builder );
             ConfigUrl( builder );
-            ConfigSize( builder );
             ConfigAutoLoad( builder );
             ConfigSort( builder );
             ConfigTableWrapperEvents( builder );
@@ -104,15 +104,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置大小
-        /// </summary>
-        private void ConfigSize( TagBuilder builder ) {
-            builder.AddAttribute( "maxHeight", _config.GetValue( UiConst.MaxHeight ) );
-            builder.AddAttribute( "minHeight", _config.GetValue( UiConst.MinHeight ) );
-            builder.AddAttribute( "width", _config.GetValue( UiConst.Width ) );
-        }
-
-        /// <summary>
         /// 配置自动加载
         /// </summary>
         private void ConfigAutoLoad( TagBuilder builder ) {
@@ -141,6 +132,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             builder.AppendContent( tableBuilder );
             ConfigTableDefault( tableBuilder );
             ConfigStyle( tableBuilder );
+            ConfigScroll( tableBuilder );
             ConfigPage( tableBuilder );
             AddHead( tableBuilder );
             AddBody( tableBuilder );
@@ -166,10 +158,21 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
+        /// 配置滚动
+        /// </summary>
+        private void ConfigScroll( TagBuilder tableBuilder ) {
+            var scroll = new ScrollInfo( _config.GetValue( UiConst.ScrollWidth ), _config.GetValue( UiConst.ScrollHeight ) );
+            if ( scroll.IsNull )
+                return;
+            tableBuilder.AddAttribute( "[nzScroll]", Json.ToJson( scroll,true ) );
+        }
+
+        /// <summary>
         /// 配置分页
         /// </summary>
         private void ConfigPage( TagBuilder tableBuilder ) {
             ConfigShowPage( tableBuilder );
+            ConfigPageInfo( tableBuilder );
             ConfigShowJumper( tableBuilder );
             ConfigFrontPage( tableBuilder );
             ConfigPageSizeOptions( tableBuilder );
@@ -183,6 +186,14 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigShowPage( TagBuilder tableBuilder ) {
             tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
+        }
+
+        /// <summary>
+        /// 配置分页信息
+        /// </summary>
+        private void ConfigPageInfo( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( "[(nzPageSize)]", $"{GetWrapperId()}.queryParam.pageSize" );
+            tableBuilder.AddAttribute( "[(nzPageIndex)]", $"{GetWrapperId()}.queryParam.page" );
         }
 
         /// <summary>
@@ -214,7 +225,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
             if( _config.Contains( UiConst.PageSizeOptions ) == false )
                 return;
             tableBuilder.AddAttribute( "[nzPageSizeOptions]", $"{GetWrapperId()}.pageSizeOptions" );
-            tableBuilder.AddAttribute( "[nzPageSize]", $"{GetWrapperId()}.pageSize" );
         }
 
         /// <summary>

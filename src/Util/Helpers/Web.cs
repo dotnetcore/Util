@@ -422,6 +422,7 @@ namespace Util.Helpers {
             fileName = UrlEncode( fileName, encoding );
             Response.ContentType = "application/octet-stream";
             Response.Headers.Add( "Content-Disposition", $"attachment; filename={fileName}" );
+            Response.Headers.Add( "Content-Length", bytes.Length.ToString() );
             await Response.Body.WriteAsync( bytes, 0, bytes.Length );
         }
 

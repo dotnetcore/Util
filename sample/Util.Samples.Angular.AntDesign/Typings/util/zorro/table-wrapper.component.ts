@@ -65,10 +65,6 @@ export class Table<T extends IKey> implements AfterContentInit {
      */
     @Input() pageSizeOptions: number[];
     /**
-     * 分页大小
-     */
-    @Input() pageSize: number;
-    /**
     * 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
     */
     @Input() baseUrl: string;
@@ -101,8 +97,8 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 初始化表格包装器
      */
     constructor() {
+        this.queryParam = new QueryParameter();
         this.pageSizeOptions = [];
-        this.pageSize = 10;
         this.showPagination = true;
         this.dataSource = new Array<any>();
         this.checkedSelection = new SelectionModel<T>(true, []);
@@ -110,7 +106,6 @@ export class Table<T extends IKey> implements AfterContentInit {
         this.firstLoad = true;
         this.loading = true;
         this.autoLoad = true;
-        this.queryParam = new QueryParameter();
         this.delay = 500;
     }
 
@@ -129,10 +124,9 @@ export class Table<T extends IKey> implements AfterContentInit {
      */
     private initPage() {
         this.queryParam.page = 1;
-        if (this.pageSizeOptions && this.pageSizeOptions.length > 0) {
+        this.queryParam.pageSize = 10;
+        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
             this.queryParam.pageSize = this.pageSizeOptions[0];
-            this.pageSize = this.queryParam.pageSize;
-        }
     }
 
     /**
@@ -148,7 +142,7 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 页索引变更事件处理
      * @param pageIndex 页索引，第一页传入的是1
      */
-    pageIndexChange(pageIndex: number) {
+    pageIndexChange( pageIndex: number ) {
         this.queryParam.page = pageIndex;
         this.query();
     }
@@ -157,9 +151,8 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 分页大小变更事件处理
      * @param pageSize 分页大小
      */
-    pageSizeChange(pageSize: number) {
+    pageSizeChange( pageSize: number ) {
         this.queryParam.pageSize = pageSize;
-        this.queryParam.page = 1;
         this.query();
     }
 
@@ -167,7 +160,7 @@ export class Table<T extends IKey> implements AfterContentInit {
      * 排序
      * @param sortParam 排序参数，key为列名，value为升降序
      */
-    sort(sortParam: { key: string; value: string }): void {
+    sort( sortParam: { key: string; value: string } ): void {
         this.queryParam.order = this.getSortKey(sortParam.key, sortParam.value);
         this.query();
     }
@@ -357,7 +350,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     }
 
     /**
-     * 清空数据
+     * 清理
      */
     clear() {
         this.dataSource = [];

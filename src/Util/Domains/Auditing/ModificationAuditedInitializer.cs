@@ -44,8 +44,12 @@ namespace Util.Domains.Auditing {
         /// 初始化
         /// </summary>
         public void Init() {
+            if ( _entity == null )
+                return;
             InitLastModificationTime();
             InitModifier();
+            if ( string.IsNullOrWhiteSpace( _userId ) )
+                return;
             if( _entity is IModificationAudited<Guid>) {
                 InitGuid();
                 return;
@@ -88,6 +92,8 @@ namespace Util.Domains.Auditing {
         /// 初始化修改人
         /// </summary>
         private void InitModifier() {
+            if ( string.IsNullOrWhiteSpace( _userName ) )
+                return;
             if( _entity is IModifier result )
                 result.Modifier = _userName;
         }

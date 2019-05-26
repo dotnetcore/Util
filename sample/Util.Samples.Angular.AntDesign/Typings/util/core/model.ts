@@ -28,6 +28,14 @@ export class ViewModel implements IKey {
  */
 export class QueryParameter {
     /**
+     * 初始化查询参数
+     */
+    constructor() {
+        this.page = 1;
+        this.pageSize = 10;
+    }
+
+    /**
      * 页索引，即第几页
      */
     page: number;

@@ -23,8 +23,7 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            var shareConfig = context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
-            return new HeadRender( new Config( context ), shareConfig?.TableWrapperId, shareConfig?.IsSort );
+            return new HeadRender( new Config( context ) );
         }
 
         /// <summary>

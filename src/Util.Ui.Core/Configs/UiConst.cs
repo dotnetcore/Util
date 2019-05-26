@@ -723,5 +723,13 @@
         /// 显示分页
         /// </summary>
         public const string ShowPagination = "show-pagination";
+        /// <summary>
+        /// 滚动高度
+        /// </summary>
+        public const string ScrollHeight = "scroll-height";
+        /// <summary>
+        /// 滚动宽度
+        /// </summary>
+        public const string ScrollWidth = "scroll-width";
     }
 }
