@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Util.Datas.Sql.Matedatas;
 using Util.Helpers;
 
 namespace Util.Datas.Sql.Builders.Core {
@@ -23,14 +23,20 @@ namespace Util.Datas.Sql.Builders.Core {
             if( list.Count == 2 ) {
                 Prefix = list[0];
                 Name = list[1];
+                return;
+            }
+            if( list.Count == 3 ) {
+                DatabaseName = list[0];
+                Prefix = list[1];
+                Name = list[2];
             }
         }
 
         /// <summary>
-        /// 是否复杂名称，包含多个句点的名称为复杂名称
+        /// 是否复杂名称
         /// </summary>
         private bool IsComplex( string name ) {
-            return name.IndexOf( ".",StringComparison.CurrentCulture ) != name.LastIndexOf( ".",StringComparison.CurrentCulture );
+            return name.Contains( "[" ) || name.Contains( "`" ) || name.Contains( "\"" );
         }
 
         /// <summary>
@@ -44,9 +50,15 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 通过正则进行解析
         /// </summary>
         private List<string> ResolveByPattern( string name ) {
-            var pattern = "^([\\[`\"]\\S+[\\]`\"]).([\\[`\"]\\S+[\\]`\"])$";
-            return Regex.GetValues( name, pattern, new[] { "$1", "$2" } ).Select( t => t.Value ).ToList();
+            var pattern = "^(([\\[`\"]\\S+?[\\]`\"]).)?(([\\[`\"]\\S+[\\]`\"]).)?([\\[`\"]\\S+[\\]`\"])$";
+            var list = Regex.GetValues( name, pattern, new[] { "$1", "$2", "$3", "$4", "$5" } ).Select( t => t.Value ).ToList();
+            return list.Where( t => string.IsNullOrWhiteSpace( t ) == false && t.EndsWith( "." ) == false ).ToList();
         }
+
+        /// <summary>
+        /// 数据库名称
+        /// </summary>
+        public string DatabaseName { get; private set; }
 
         /// <summary>
         /// 前缀
@@ -77,11 +89,21 @@ namespace Util.Datas.Sql.Builders.Core {
         /// </summary>
         /// <param name="dialect">Sql方言</param>
         /// <param name="prefix">前缀</param>
-        public string ToSql( IDialect dialect,string prefix ) {
-            Prefix = GetPrefix( prefix );
-            if( string.IsNullOrWhiteSpace( Prefix ) )
+        /// <param name="tableDatabase">表数据库</param>
+        public string ToSql( IDialect dialect, string prefix = null, ITableDatabase tableDatabase = null ) {
+            var name = GetName( dialect, prefix );
+            var database = GetDatabase( dialect, tableDatabase, prefix );
+            return string.IsNullOrWhiteSpace( database ) ? name : $"{database}.{name}";
+        }
+
+        /// <summary>
+        /// 获取名称
+        /// </summary>
+        private string GetName( IDialect dialect, string prefix ) {
+            prefix = GetPrefix( prefix );
+            if( string.IsNullOrWhiteSpace( prefix ) )
                 return dialect.SafeName( Name );
-            return $"{dialect.SafeName( Prefix )}.{dialect.SafeName( Name )}";
+            return $"{dialect.SafeName( prefix )}.{dialect.SafeName( Name )}";
         }
 
         /// <summary>
@@ -91,6 +113,25 @@ namespace Util.Datas.Sql.Builders.Core {
             if( string.IsNullOrWhiteSpace( Prefix ) )
                 return prefix;
             return Prefix;
+        }
+
+        /// <summary>
+        /// 获取前缀
+        /// </summary>
+        private string GetDatabase( IDialect dialect, ITableDatabase tableDatabase, string prefix ) {
+            if ( string.IsNullOrWhiteSpace( DatabaseName ) == false )
+                return dialect.SafeName( DatabaseName );
+            return tableDatabase == null ? null : dialect.SafeName( tableDatabase.GetDatabase( GetName( prefix ) ) );
+        }
+
+        /// <summary>
+        /// 获取名称
+        /// </summary>
+        private string GetName( string prefix ) {
+            prefix = GetPrefix( prefix );
+            if( string.IsNullOrWhiteSpace( prefix ) )
+                return Name;
+            return $"{prefix}.{Name}";
         }
     }
 }

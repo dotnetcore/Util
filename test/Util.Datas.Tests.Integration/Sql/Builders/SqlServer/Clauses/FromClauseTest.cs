@@ -14,12 +14,17 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// From子句
         /// </summary>
         private FromClause _clause;
+        /// <summary>
+        /// 表数据库
+        /// </summary>
+        private readonly TestTableDatabase _database;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public FromClauseTest() {
-            _clause = new FromClause( null, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister() );
+            _database = new TestTableDatabase();
+            _clause = new FromClause( null, new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), null );
         }
 
         /// <summary>
@@ -155,7 +160,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestFrom_13() {
-            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister() );
+            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister(), null );
             _clause.From<Sample>();
             var result = _clause.ToSql();
             Assert.Equal( "From [s].[t_Sample]", result );
@@ -166,7 +171,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestFrom_14() {
-            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister() );
+            _clause = new FromClause( null, new SqlServerDialect(), new TestEntityResolver(), new EntityAliasRegister(), null );
             _clause.From<Sample>( "a" );
             var result = _clause.ToSql();
             Assert.Equal( "From [s].[t_Sample] As [a]", result );

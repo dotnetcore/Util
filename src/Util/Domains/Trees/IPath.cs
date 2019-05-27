@@ -1,6 +1,6 @@
 ﻿namespace Util.Domains.Trees {
     /// <summary>
-    /// 树型物化路径
+    /// 树形物化路径
     /// </summary>
     public interface IPath {
         /// <summary>
@@ -8,7 +8,7 @@
         /// </summary>
         string Path { get; }
         /// <summary>
-        /// 级数
+        /// 层级
         /// </summary>
         int Level { get; }
     }

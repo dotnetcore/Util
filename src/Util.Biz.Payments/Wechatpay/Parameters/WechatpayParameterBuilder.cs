@@ -43,7 +43,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
             param.Init();
             AppId( Config.AppId ).MerchantId( Config.MerchantId ).SignType( Config.SignType.Description() )
                 .Add( "nonce_str", Id.Guid() ).SpbillCreateIp( Web.Ip ).Body( param.Subject ).OutTradeNo( param.OrderId )
-                .TotalFee( param.Money ).NotifyUrl( param.NotifyUrl ).Attach( param.Attach ).OpenId( param.OpenId );
+                .TotalFee( param.Money ).NotifyUrl( param.NotifyUrl ).Attach( param.Attach );
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
-        public WechatpayParameterBuilder Add( string name, string value ) {
+        public WechatpayParameterBuilder Add( string name, object value ) {
             _builder.Add( name, value );
             return this;
         }

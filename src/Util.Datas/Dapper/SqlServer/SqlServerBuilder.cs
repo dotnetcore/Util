@@ -12,8 +12,10 @@ namespace Util.Datas.Dapper.SqlServer {
         /// 初始化Sql生成器
         /// </summary>
         /// <param name="matedata">实体元数据解析器</param>
+        /// <param name="tableDatabase">表数据库</param>
         /// <param name="parameterManager">参数管理器</param>
-        public SqlServerBuilder( IEntityMatedata matedata = null, IParameterManager parameterManager = null ) : base( matedata, parameterManager ) {
+        public SqlServerBuilder( IEntityMatedata matedata = null, ITableDatabase tableDatabase = null, IParameterManager parameterManager = null )
+            : base( matedata, tableDatabase, parameterManager ) {
         }
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace Util.Datas.Dapper.SqlServer {
         /// 创建Sql生成器
         /// </summary>
         public override ISqlBuilder New() {
-            return new SqlServerBuilder( EntityMatedata,ParameterManager );
+            return new SqlServerBuilder( EntityMatedata, TableDatabase, ParameterManager );
         }
 
         /// <summary>

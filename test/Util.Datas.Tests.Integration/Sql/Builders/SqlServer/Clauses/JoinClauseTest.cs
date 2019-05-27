@@ -3,6 +3,7 @@ using Util.Datas.Queries;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Tests.Samples;
+using Util.Datas.Tests.Sql.Builders.Samples;
 using Util.Helpers;
 using Xunit;
 
@@ -12,6 +13,14 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
     /// </summary>
     public class JoinClauseTest {
         /// <summary>
+        /// 参数管理器
+        /// </summary>
+        private readonly ParameterManager _parameterManager;
+        /// <summary>
+        /// 表数据库
+        /// </summary>
+        private readonly TestTableDatabase _database;
+        /// <summary>
         /// Join子句
         /// </summary>
         private readonly JoinClause _clause;
@@ -20,7 +29,9 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// 测试初始化
         /// </summary>
         public JoinClauseTest() {
-            _clause = new JoinClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister() );
+            _parameterManager = new ParameterManager( new SqlServerDialect() );
+            _database = new TestTableDatabase();
+            _clause = new JoinClause( new SqlServerBuilder(), new SqlServerDialect(), new EntityResolver(), new EntityAliasRegister(), _parameterManager, null );
         }
 
         /// <summary>
@@ -28,6 +39,25 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         private string GetSql() {
             return _clause.ToSql();
+        }
+
+        /// <summary>
+        /// 复制
+        /// </summary>
+        [Fact]
+        public void TestClone() {
+            _clause.Join( "b" );
+            _clause.On( "a.A", "c" );
+
+            //复制副本
+            var copy = _clause.Clone( null, null,_parameterManager.Clone() );
+            Assert.Equal( "Join [b] On [a].[A]=@_p_0", GetSql() );
+            Assert.Equal( "Join [b] On [a].[A]=@_p_0", copy.ToSql() );
+
+            //修改副本
+            copy.On( "a.C", "d" );
+            Assert.Equal( "Join [b] On [a].[A]=@_p_0", GetSql() );
+            Assert.Equal( "Join [b] On [a].[A]=@_p_0 And [a].[C]=@_p_1", copy.ToSql() );
         }
 
         /// <summary>
@@ -152,7 +182,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestOn_1() {
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             Assert.Empty( GetSql() );
         }
 
@@ -164,11 +194,11 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [t] " );
-            result.Append( "On [a].[id]=[b].[id]" );
+            result.Append( "On [a].[id]=@_p_0" );
 
             //操作
             _clause.Join( "t" );
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
@@ -182,12 +212,12 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [t] " );
-            result.Append( "On [a].[id]=[b].[id] And [c].[Aid]=[d].[Bid]" );
+            result.Append( "On [a].[id]=@_p_0 And [c].[Aid]=@_p_1" );
 
             //操作
             _clause.Join( "t" );
-            _clause.On( "a.id", "b.id" );
-            _clause.On( "c.Aid", "d.Bid" );
+            _clause.On( "a.id", "b" );
+            _clause.On( "c.Aid", "d" );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
@@ -201,17 +231,17 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] And [c].[Aid]=[d].[Bid] " );
+            result.AppendLine( "On [a].[id]=@_p_0 And [c].[Aid]=@_p_1 " );
             result.Append( "Join [n] " );
-            result.Append( "On [t].[id]=[n].[id] And [t].[Aid]=[n].[Bid]" );
+            result.Append( "On [t].[id]=@_p_2 And [t].[Aid]=@_p_3" );
 
             //操作
             _clause.Join( "t" );
-            _clause.On( "a.id", "b.id" );
-            _clause.On( "c.Aid", "d.Bid" );
+            _clause.On( "a.id", "b" );
+            _clause.On( "c.Aid", "d" );
             _clause.Join( "n" );
-            _clause.On( "t.id", "n.id" );
-            _clause.On( "t.Aid", "n.Bid" );
+            _clause.On( "t.id", "e" );
+            _clause.On( "t.Aid", "f" );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
@@ -225,11 +255,11 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [t] " );
-            result.Append( "On [a].[id]<[b].[id]" );
+            result.Append( "On [a].[id]<@_p_0" );
 
             //操作
             _clause.Join( "t" );
-            _clause.On( "a.id", "b.id", Operator.Less );
+            _clause.On( "a.id", "b", Operator.Less );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
@@ -243,13 +273,13 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [Sample] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] " );
             result.Append( "On [Sample].[BoolValue]<[Sample2].[IntValue]" );
 
             //操作
             _clause.Join<Sample>();
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             _clause.Join<Sample2>();
             _clause.On<Sample, Sample2>( t => t.BoolValue, t => t.IntValue, Operator.Less );
 
@@ -258,20 +288,20 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         }
 
         /// <summary>
-        /// 表连接条件 - 实体
+        /// 表连接条件 - 实体 - 表别名
         /// </summary>
         [Fact]
         public void TestOn_7() {
             //结果
             var result = new String();
             result.Append( "Join [Sample] As [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] As [t2] " );
             result.Append( "On [t].[BoolValue]<[t2].[IntValue]" );
 
             //操作
             _clause.Join<Sample>( "t" );
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             _clause.Join<Sample2>( "t2" );
             _clause.On<Sample, Sample2>( t => t.BoolValue, t => t.IntValue, Operator.Less );
 
@@ -287,13 +317,13 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [Sample] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] " );
             result.Append( "On [Sample].[ShortValue]>[Sample2].[IntValue]" );
 
             //操作
             _clause.Join<Sample>();
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             _clause.Join<Sample2>();
             _clause.On<Sample, Sample2>( ( l, r ) => l.ShortValue > r.IntValue );
 
@@ -309,13 +339,13 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [Sample] As [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] As [t2] " );
             result.Append( "On [t].[ShortValue]>[t2].[IntValue]" );
 
             //操作
             _clause.Join<Sample>( "t" );
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             _clause.Join<Sample2>( "t2" );
             _clause.On<Sample, Sample2>( ( l, r ) => l.ShortValue > r.IntValue );
 
@@ -331,13 +361,13 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [Sample] As [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] As [t2] " );
             result.Append( "On [t].[ShortValue]>[t2].[IntValue] And [t].[DisplayValue]=[t2].[StringValue]" );
 
             //操作
             _clause.Join<Sample>( "t" );
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             _clause.Join<Sample2>( "t2" );
             _clause.On<Sample, Sample2>( ( l, r ) => l.ShortValue > r.IntValue && l.DisplayValue == r.StringValue );
 
@@ -353,15 +383,41 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             //结果
             var result = new String();
             result.Append( "Join [Sample] As [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] As [t2] " );
-            result.Append( "On [t].[ShortValue]>[t2].[IntValue] Or [t].[DisplayValue]=[t2].[StringValue]" );
+            result.Append( "On ([t].[ShortValue]>[t2].[IntValue] Or [t].[DisplayValue]=[t2].[StringValue])" );
 
             //操作
             _clause.Join<Sample>( "t" );
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             _clause.Join<Sample2>( "t2" );
             _clause.On<Sample, Sample2>( ( l, r ) => l.ShortValue > r.IntValue || l.DisplayValue == r.StringValue );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 表连接条件 - 谓词表达式 - 或运算 - 多条件
+        /// </summary>
+        [Fact]
+        public void TestOn_12() {
+            //结果
+            var result = new String();
+            result.Append( "Join [Sample] As [t] " );
+            result.AppendLine( "On [t].[id]=@_p_0 " );
+            result.Append( "Join [Sample2] As [t2] " );
+            result.Append( "On [t2].[id]=@_p_1 " );
+            result.Append( "And ([t].[ShortValue]>[t2].[IntValue] Or [t].[DisplayValue]=[t2].[StringValue]) " );
+            result.Append( "And a.Id=b.Id" );
+
+            //操作
+            _clause.Join<Sample>( "t" );
+            _clause.On( "t.id", "b" );
+            _clause.Join<Sample2>( "t2" );
+            _clause.On( "t2.id", "b" );
+            _clause.On<Sample, Sample2>( ( l, r ) => l.ShortValue > r.IntValue || l.DisplayValue == r.StringValue );
+            _clause.AppendOn( "a.Id=b.Id" );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
@@ -371,35 +427,37 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// 表连接条件 - 值为数字
         /// </summary>
         [Fact]
-        public void TestOn_12() {
+        public void TestOn_13() {
             //结果
             var result = new String();
             result.Append( "Join [Sample] As [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] As [t2] " );
-            result.Append( "On [t].[ShortValue]>[t2].[IntValue] And [t].[IntValue]=1" );
+            result.Append( "On [t].[ShortValue]>[t2].[IntValue] And [t].[IntValue]=@_p_1" );
 
             //操作
             _clause.Join<Sample>( "t" );
-            _clause.On( "a.id", "b.id" );
+            _clause.On( "a.id", "b" );
             _clause.Join<Sample2>( "t2" );
             _clause.On<Sample, Sample2>( ( l, r ) => l.ShortValue > r.IntValue && l.IntValue == 1 );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
+            Assert.Equal( "b", _parameterManager.GetParams()["@_p_0"] );
+            Assert.Equal( 1, _parameterManager.GetParams()["@_p_1"] );
         }
 
         /// <summary>
         /// 表连接条件 - 值为数字 - 数字在左边
         /// </summary>
         [Fact]
-        public void TestOn_13() {
+        public void TestOn_14() {
             //结果
             var result = new String();
             result.Append( "Join [Sample] As [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] As [t2] " );
-            result.Append( "On [t].[ShortValue]>[t2].[IntValue] And 1=[t].[IntValue]" );
+            result.Append( "On [t].[ShortValue]>[t2].[IntValue] And @_p_1=[t].[IntValue]" );
 
             //操作
             _clause.Join<Sample>( "t" );
@@ -415,11 +473,11 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// 表连接条件 - 交换左右操作数
         /// </summary>
         [Fact]
-        public void TestOn_14() {
+        public void TestOn_15() {
             //结果
             var result = new String();
             result.Append( "Join [Sample] As [t] " );
-            result.AppendLine( "On [a].[id]=[b].[id] " );
+            result.AppendLine( "On [a].[id]=@_p_0 " );
             result.Append( "Join [Sample2] As [t2] " );
             result.Append( "On [t2].[IntValue]>[t].[ShortValue]" );
 
@@ -428,6 +486,49 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             _clause.On( "a.id", "b.id" );
             _clause.Join<Sample2>( "t2" );
             _clause.On<Sample, Sample2>( ( l, r ) => r.IntValue > l.ShortValue );
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 添加到表连接条件
+        /// </summary>
+        [Fact]
+        public void TestAppendOn_1() {
+            //结果
+            var result = new String();
+            result.Append( "Join [t] " );
+            result.Append( "On a.id=b.id" );
+
+            //操作
+            _clause.Join( "t" );
+            _clause.AppendOn( "a.id=b.id" );
+            
+
+            //验证
+            Assert.Equal( result.ToString(), GetSql() );
+        }
+
+        /// <summary>
+        /// 添加到表连接条件 - 多条件
+        /// </summary>
+        [Fact]
+        public void TestAppendOn_2() {
+            //结果
+            var result = new String();
+            result.Append( "Join [t] " );
+            result.AppendLine( "On [a].[id]=@_p_0 And a.id=b.id " );
+            result.Append( "Join [v] " );
+            result.Append( "On [v].[id]=@_p_1 And v.id=b.id" );
+
+            //操作
+            _clause.Join( "t" );
+            _clause.On( "a.id", "b" );
+            _clause.AppendOn( "a.id=b.id" );
+            _clause.Join( "v" );
+            _clause.On( "v.id", "c" );
+            _clause.AppendOn( "v.id=b.id" );
 
             //验证
             Assert.Equal( result.ToString(), GetSql() );
@@ -525,23 +626,6 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
             Assert.Equal( result.ToString(), GetSql() );
         }
 
-        /// <summary>
-        /// 复制
-        /// </summary>
-        [Fact]
-        public void TestClone_1() {
-            _clause.Join( "b" );
-            _clause.On( "a.A","b.B" );
-
-            //复制副本
-            var copy = _clause.Clone( null, null );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", copy.ToSql() );
-
-            //修改副本
-            copy.On( "a.C","b.D" );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B]", GetSql() );
-            Assert.Equal( "Join [b] On [a].[A]=[b].[B] And [a].[C]=[b].[D]", copy.ToSql() );
-        }
+        
     }
 }

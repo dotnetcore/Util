@@ -10,14 +10,10 @@ namespace Util.Domains.Auditing {
     /// <summary>
     /// 修改操作审计
     /// </summary>
-    /// <typeparam name="TKey">最后修改人编号类型</typeparam>
-    public interface IModificationAudited<TKey> {
+    /// <typeparam name="TKey">最后修改人标识类型</typeparam>
+    public interface IModificationAudited<TKey> : IModificationTime {
         /// <summary>
-        /// 最后修改时间
-        /// </summary>
-        DateTime? LastModificationTime { get; set; }
-        /// <summary>
-        /// 最后修改人编号
+        /// 最后修改人标识
         /// </summary>
         TKey LastModifierId { get; set; }
     }

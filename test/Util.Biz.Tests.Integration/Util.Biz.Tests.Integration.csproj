@@ -8,12 +8,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\test</OutputPath>
-    <DocumentationFile>..\..\output\test\netcoreapp2.0\Util.Biz.Tests.Integration.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\output\test</OutputPath>
-    <DocumentationFile>..\..\output\test\netcoreapp2.0\Util.Biz.Tests.Integration.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

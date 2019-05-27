@@ -206,14 +206,40 @@ namespace Util.Datas.Sql {
         /// 设置连接条件
         /// </summary>
         /// <param name="source">源</param>
-        /// <param name="left">左表列名</param>
-        /// <param name="right">右表列名</param>
-        /// <param name="operator">条件运算符</param>
-        public static T On<T>( this T source, string left, string right, Operator @operator = Operator.Equal ) where T : IJoin {
+        /// <param name="condition">连接条件</param>
+        public static T On<T>( this T source, ICondition condition ) where T : IJoin {
             if( source == null )
                 throw new ArgumentNullException( nameof( source ) );
             if( source is IClauseAccessor accessor )
-                accessor.JoinClause.On( left, right, @operator );
+                accessor.JoinClause.On( condition );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        /// <param name="operator">运算符</param>
+        public static T On<T>( this T source, string column, object value, Operator @operator = Operator.Equal ) where T : IJoin {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.JoinClause.On( column, value, @operator );
+            return source;
+        }
+
+        /// <summary>
+        /// 添加到On子句
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="sql">Sql语句</param>
+        public static T AppendOn<T>( this T source, string sql ) where T : IJoin {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.JoinClause.AppendOn( sql );
             return source;
         }
     }

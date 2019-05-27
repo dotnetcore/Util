@@ -1,13 +1,13 @@
 ﻿using System.Linq;
-using System.Runtime.Serialization;
 using Util.Exceptions;
+using Util.Ui.Attributes;
 using Util.Validations;
 
 namespace Util.Applications.Dtos {
     /// <summary>
     /// 请求参数
     /// </summary>
-    [DataContract]
+    [Model]
     public abstract class RequestBase : IRequest {
         /// <summary>
         /// 验证

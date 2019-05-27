@@ -2,6 +2,7 @@
 using Util.Datas.Dapper.PgSql;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Tests.Sql.Builders.Samples;
 using Xunit;
 
 namespace Util.Datas.Tests.Sql.Builders.Base {
@@ -9,6 +10,18 @@ namespace Util.Datas.Tests.Sql.Builders.Base {
     /// Sql项测试
     /// </summary>
     public class SqlItemTest {
+        /// <summary>
+        /// 表数据库
+        /// </summary>
+        private readonly TestTableDatabase _database;
+
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
+        public SqlItemTest() {
+            _database = new TestTableDatabase();
+        }
+
         /// <summary>
         /// 只设置名称
         /// </summary>
@@ -57,6 +70,8 @@ namespace Util.Datas.Tests.Sql.Builders.Base {
             Assert.Equal( "a", item.Name );
             Assert.Equal( "t", item.Prefix );
             Assert.Equal( "b",item.Alias );
+            Assert.Equal( "[t].[a] As [b]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "[test].[t].[a] As [b]", item.ToSql( new SqlServerDialect(),_database ) );
         }
 
         /// <summary>
@@ -123,6 +138,7 @@ namespace Util.Datas.Tests.Sql.Builders.Base {
             Assert.Equal( "\"b\"", item.Name );
             Assert.Equal( "\"a\"",item.Prefix );
             Assert.Equal( "[a].[b]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "[test].[a].[b]", item.ToSql( new SqlServerDialect(),_database ) );
             Assert.Equal( "\"a\".\"b\"", item.ToSql( new PgSqlDialect() ) );
             Assert.Equal( "`a`.`b`", item.ToSql( new MySqlDialect() ) );
         }
@@ -188,8 +204,24 @@ namespace Util.Datas.Tests.Sql.Builders.Base {
             Assert.Equal( "[c]", item.Name );
             Assert.Equal( "[a.b]", item.Prefix );
             Assert.Equal( "[a.b].[c]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "[test].[a.b].[c]", item.ToSql( new SqlServerDialect(),_database ) );
             Assert.Equal( "\"a.b\".\"c\"", item.ToSql( new PgSqlDialect() ) );
             Assert.Equal( "`a.b`.`c`", item.ToSql( new MySqlDialect() ) );
+        }
+
+        /// <summary>
+        /// 带[]符号 - 前缀带句点
+        /// </summary>
+        [Fact]
+        public void Test_16() {
+            var item = new SqlItem( "a.b.c" );
+            Assert.Equal( "c", item.Name );
+            Assert.Equal( "b", item.Prefix );
+            Assert.Equal( "a", item.DatabaseName );
+            Assert.Equal( "[a].[b].[c]", item.ToSql( new SqlServerDialect() ) );
+            Assert.Equal( "[a].[b].[c]", item.ToSql( new SqlServerDialect(),_database ) );
+            Assert.Equal( "\"a\".\"b\".\"c\"", item.ToSql( new PgSqlDialect() ) );
+            Assert.Equal( "`a`.`b`.`c`", item.ToSql( new MySqlDialect() ) );
         }
     }
 }

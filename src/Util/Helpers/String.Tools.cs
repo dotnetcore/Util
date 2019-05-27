@@ -131,7 +131,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="value">值</param>
         public static string FirstLowerCase( string value ) {
-            if ( string.IsNullOrWhiteSpace( value ) )
+            if( string.IsNullOrWhiteSpace( value ) )
                 return string.Empty;
             return $"{value.Substring( 0, 1 ).ToLower()}{value.Substring( 1 )}";
         }
@@ -167,6 +167,20 @@ namespace Util.Helpers {
             if( value.ToLower().EndsWith( removeValue.ToLower() ) )
                 return value.Remove( value.Length - removeValue.Length, removeValue.Length );
             return value;
+        }
+
+        #endregion
+
+        #region SplitWordGroup(分隔词组)
+
+        /// <summary>
+        /// 分隔词组
+        /// </summary>
+        /// <param name="value">值</param>
+        /// <param name="separator">分隔符，默认使用"-"分隔</param>
+        public static string SplitWordGroup( string value, char separator = '-' ) {
+            var pattern = @"([A-Z])(?=[a-z])|(?<=[a-z])([A-Z]|[0-9]+)";
+            return string.IsNullOrWhiteSpace( value ) ? string.Empty : System.Text.RegularExpressions.Regex.Replace( value, pattern, $"{separator}$1$2" ).TrimStart( separator ).ToLower();
         }
 
         #endregion

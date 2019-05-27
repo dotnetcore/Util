@@ -4,9 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Util.Datas.Queries;
+using Util.Datas.Sql.Builders.Conditions;
 using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Sql.Builders.Extensions;
 using Util.Datas.Sql.Builders.Internal;
+using Util.Datas.Sql.Matedatas;
 using Util.Helpers;
 
 namespace Util.Datas.Sql.Builders.Clauses {
@@ -43,6 +45,18 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         private readonly IEntityAliasRegister _register;
         /// <summary>
+        /// 参数管理器
+        /// </summary>
+        private readonly IParameterManager _parameterManager;
+        /// <summary>
+        /// 表数据库
+        /// </summary>
+        protected ITableDatabase TableDatabase;
+        /// <summary>
+        /// 辅助操作
+        /// </summary>
+        private readonly Helper _helper;
+        /// <summary>
         /// 连接参数列表
         /// </summary>
         private readonly List<JoinItem> _params;
@@ -53,13 +67,19 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
-        /// <param name="register">实体注册器</param>
+        /// <param name="register">实体别名注册器</param>
+        /// <param name="parameterManager">参数管理器</param>
+        /// <param name="tableDatabase">表数据库</param>
         /// <param name="joinItems">连接参数列表</param>
-        public JoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, List<JoinItem> joinItems = null ) {
+        public JoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, 
+            IParameterManager parameterManager, ITableDatabase tableDatabase, List<JoinItem> joinItems = null ) {
             _sqlBuilder = sqlBuilder;
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
+            _parameterManager = parameterManager;
+            TableDatabase = tableDatabase;
+            _helper = new Helper( dialect, resolver, register, parameterManager );
             _params = joinItems ?? new List<JoinItem>();
         }
 
@@ -68,8 +88,18 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         /// <param name="sqlBuilder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
-        public virtual IJoinClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register ) {
-            return new JoinClause( sqlBuilder, _dialect, _resolver, register, _params.Select( t => t.Clone() ).ToList() );
+        /// <param name="parameterManager">参数管理器</param>
+        public virtual IJoinClause Clone( ISqlBuilder sqlBuilder, IEntityAliasRegister register, IParameterManager parameterManager ) {
+            var helper = new Helper( _dialect, _resolver, register, parameterManager );
+            return new JoinClause( sqlBuilder, _dialect, _resolver, register, parameterManager, TableDatabase, _params.Select( t => t.Clone( helper ) ).ToList() );
+        }
+
+        /// <summary>
+        /// 查找连接项
+        /// </summary>
+        /// <param name="type">表实体类型</param>
+        public IJoinOn Find( Type type ) {
+            return _params.Find( t => t.Type == type );
         }
 
         /// <summary>
@@ -85,7 +115,8 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// 表连接
         /// </summary>
         private void Join( string joinType, string table, string alias ) {
-            _params.Add( CreateJoinItem( joinType, table, null, alias ) );
+            var item = CreateJoinItem( joinType, table, null, alias );
+            AddItem( item );
         }
 
         /// <summary>
@@ -95,8 +126,17 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="table">表名</param>
         /// <param name="schema">架构名</param>
         /// <param name="alias">别名</param>
-        protected virtual JoinItem CreateJoinItem( string joinType, string table, string schema, string alias ) {
-            return new JoinItem( joinType, table, schema, alias );
+        /// <param name="type">类型</param>
+        protected virtual JoinItem CreateJoinItem( string joinType, string table, string schema, string alias, Type type = null ) {
+            return new JoinItem( joinType, table, schema, alias, type: type );
+        }
+
+        /// <summary>
+        /// 添加连接项
+        /// </summary>
+        private void AddItem( JoinItem item ) {
+            item.SetDependency( _helper );
+            _params.Add( item );
         }
 
         /// <summary>
@@ -112,10 +152,11 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// 表连接
         /// </summary>
         private void Join<TEntity>( string joinType, string alias, string schema ) {
-            var entity = typeof( TEntity );
-            var table = _resolver.GetTableAndSchema( entity );
-            _params.Add( CreateJoinItem( joinType, table, schema, alias ) );
-            _register.Register( entity, _resolver.GetAlias( entity, alias ) );
+            var type = typeof( TEntity );
+            var table = _resolver.GetTableAndSchema( type );
+            var item = CreateJoinItem( joinType, table, schema, alias, type );
+            AddItem( item );
+            _register.Register( type, _resolver.GetAlias( type, alias ) );
         }
 
         /// <summary>
@@ -169,7 +210,8 @@ namespace Util.Datas.Sql.Builders.Clauses {
             if( string.IsNullOrWhiteSpace( sql ) )
                 return;
             sql = Helper.ResolveSql( sql, _dialect );
-            _params.Add( new JoinItem( joinType, sql, raw: true ) );
+            var item = new JoinItem( joinType, sql, raw: true );
+            AddItem( item );
         }
 
         /// <summary>
@@ -263,11 +305,19 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <summary>
         /// 设置连接条件
         /// </summary>
-        /// <param name="left">左表列名</param>
-        /// <param name="right">右表列名</param>
-        /// <param name="operator">条件运算符</param>
-        public void On( string left, string right, Operator @operator = Operator.Equal ) {
-            _params.LastOrDefault()?.On( left, right, @operator );
+        /// <param name="condition">连接条件</param>
+        public void On( ICondition condition ) {
+            _params.LastOrDefault()?.On( condition );
+        }
+
+        /// <summary>
+        /// 设置连接条件
+        /// </summary>
+        /// <param name="column">列名</param>
+        /// <param name="value">值</param>
+        /// <param name="operator">运算符</param>
+        public void On( string column, object value, Operator @operator = Operator.Equal ) {
+            _params.LastOrDefault()?.On( column, value, @operator );
         }
 
         /// <summary>
@@ -279,7 +329,10 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public void On<TLeft, TRight>( Expression<Func<TLeft, object>> left, Expression<Func<TRight, object>> right, Operator @operator = Operator.Equal )
             where TLeft : class
             where TRight : class {
-            On( GetColumn( left ), GetColumn( right ), @operator );
+            var leftColumn = new SqlItem( GetColumn( left ) ).ToSql( _dialect );
+            var rightColumn = new SqlItem( GetColumn( right ) ).ToSql( _dialect );
+            var condition = SqlConditionFactory.Create( leftColumn, rightColumn, @operator );
+            AppendOn( condition.GetCondition() );
         }
 
         /// <summary>
@@ -304,17 +357,17 @@ namespace Util.Datas.Sql.Builders.Clauses {
             if( expression == null )
                 throw new ArgumentNullException( nameof( expression ) );
             var expressions = Lambda.GetGroupPredicates( expression );
-            expressions.ForEach( On );
+            var items = expressions.Select( GetOnItems ).ToList();
+            _params.LastOrDefault()?.On( items, _dialect );
         }
 
         /// <summary>
         /// 设置连接条件组
         /// </summary>
-        private void On( List<Expression> group ) {
-            var items = group.Select( expression => new OnItem(
+        private List<OnItem> GetOnItems( List<Expression> group ) {
+            return group.Select( expression => new OnItem(
                 GetColumn( expression, false ), GetColumn( expression, true ), Lambda.GetOperator( expression ).SafeValue()
             ) ).ToList();
-            _params.LastOrDefault()?.On( items );
         }
 
         /// <summary>
@@ -323,9 +376,20 @@ namespace Util.Datas.Sql.Builders.Clauses {
         private SqlItem GetColumn( Expression expression, bool right ) {
             var type = _resolver.GetType( expression, right );
             var column = _resolver.GetColumn( expression, type, right );
-            if( string.IsNullOrWhiteSpace( column ) )
-                return new SqlItem( Lambda.GetValue( expression ).SafeString(), raw: true );
+            if( string.IsNullOrWhiteSpace( column ) ) {
+                var name = _parameterManager.GenerateName();
+                _parameterManager.Add( name, Lambda.GetValue( expression ) );
+                return new SqlItem( name, raw: true );
+            }
             return new SqlItem( GetColumn( type, column ) );
+        }
+
+        /// <summary>
+        /// 添加到On子句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        public void AppendOn( string sql ) {
+            _params.LastOrDefault()?.AppendOn( sql, _dialect );
         }
 
         /// <summary>
@@ -334,7 +398,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public string ToSql() {
             var result = new StringBuilder();
             _params.ForEach( item => {
-                result.AppendLine( $"{item.ToSql( _dialect )} " );
+                result.AppendLine( $"{item.ToSql( _dialect, TableDatabase )} " );
             } );
             return result.ToString().Trim();
         }

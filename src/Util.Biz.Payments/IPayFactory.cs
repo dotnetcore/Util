@@ -56,5 +56,9 @@ namespace Util.Biz.Payments {
         /// 创建微信JsApi支付服务
         /// </summary>
         IWechatpayJsApiPayService CreateWechatpayJsApiPayService();
+        /// <summary>
+        /// 创建微信退款服务
+        /// </summary>
+        IWechatpayRefundService CreateWechatpayRefundService();
     }
 }

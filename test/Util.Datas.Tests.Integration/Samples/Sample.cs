@@ -176,5 +176,10 @@ namespace Util.Datas.Tests.Samples {
         public static Sample Create2() {
             return new Sample { StringValue = "B" };
         }
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public bool IsDeleted { get; set; }
     }
 }

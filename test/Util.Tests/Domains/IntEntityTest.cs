@@ -58,16 +58,5 @@ namespace Util.Tests.Domains {
             _sample = new IntAggregateRootSample { Name = "a" };
             Assert.Equal( string.Format( "Id:{0},姓名:a", _sample.Id ), _sample.ToString() );
         }
-
-        /// <summary>
-        /// 测试验证 - Id为空，无法通过
-        /// </summary>
-        [Fact]
-        public void TestValidate_IdIsEmpty() {
-            AssertHelper.Throws<Warning>( () => {
-                _sample = new IntAggregateRootSample( 0 );
-                _sample.Validate();
-            }, "Id" );
-        }
     }
 }

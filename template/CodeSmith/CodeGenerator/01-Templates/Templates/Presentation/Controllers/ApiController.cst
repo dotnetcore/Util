@@ -38,14 +38,14 @@ namespace <%= Namespace %>.Apis.<%= Schema %> {
     /// <%= Description %>控制器
     /// </summary>
     public class <%= SafeClassName %>Controller : CrudControllerBase<<%= SafeClassName %>Dto, <%= SafeClassName %>Query> {
-        /// <summary>
-        /// 初始化<%= Description %>控制器
-        /// </summary>
         /// <param name="service"><%= Description %>服务</param>
         public <%= SafeClassName %>Controller( I<%= SafeClassName %>Service service ) : base( service ) {
             <%= SafeClassName %>Service = service;
         }
 
+        /// <summary>
+        /// 初始化<%= Description %>控制器
+        /// </summary>
         /// <summary>
         /// <%= Description %>服务
         /// </summary>

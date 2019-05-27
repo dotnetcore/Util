@@ -1,4 +1,6 @@
-﻿using Util.Helpers;
+﻿using System.Text;
+using Util.Datas.Sql.Matedatas;
+using Util.Helpers;
 
 namespace Util.Datas.Sql.Builders.Core {
     /// <summary>
@@ -61,31 +63,38 @@ namespace Util.Datas.Sql.Builders.Core {
         /// </summary>
         private void SplitName( string name ) {
             var result = new NameItem( name );
-            if( string.IsNullOrWhiteSpace( result.Prefix ) == false )
-                _prefix = result.Prefix;
             if( string.IsNullOrWhiteSpace( result.Name ) == false )
                 _name = result.Name;
+            if( string.IsNullOrWhiteSpace( result.Prefix ) == false )
+                _prefix = result.Prefix;
+            if( string.IsNullOrWhiteSpace( result.DatabaseName ) == false )
+                DatabaseName = result.DatabaseName;
         }
 
         /// <summary>
         /// 使用原始值
         /// </summary>
         public bool Raw { get; }
-        
+
         /// <summary>
         /// 前缀，范例:t.a As b，值为 t
         /// </summary>
         public string Prefix => _prefix.SafeString();
-        
+
         /// <summary>
         /// 名称，范例:t.a As b，值为 a
         /// </summary>
         public string Name => Raw ? _name : _name.SafeString();
-        
+
         /// <summary>
         /// 别名，范例:t.a As b，值为 b
         /// </summary>
         public string Alias => _alias.SafeString();
+
+        /// <summary>
+        /// 数据库名称
+        /// </summary>
+        public string DatabaseName { get; private set; }
 
         /// <summary>
         /// 复制副本
@@ -97,13 +106,37 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 获取Sql
         /// </summary>
-        public string ToSql( IDialect dialect = null ) {
+        public string ToSql( IDialect dialect = null, ITableDatabase tableDatabase = null ) {
             if( string.IsNullOrWhiteSpace( Name ) )
                 return null;
             if( Raw )
                 return Name;
-            var column = string.IsNullOrWhiteSpace( Prefix ) ? GetSafeName( dialect, Name ) : $"{GetSafeName( dialect, Prefix )}.{GetSafeName( dialect, Name )}";
-            return string.IsNullOrWhiteSpace( Alias ) ? column : $"{column} As {GetSafeName( dialect, Alias )}";
+            return string.IsNullOrWhiteSpace( Alias ) ? GetColumn( dialect, tableDatabase ) : $"{GetColumn( dialect, tableDatabase )} As {GetSafeName( dialect, Alias )}";
+        }
+
+        /// <summary>
+        /// 获取列
+        /// </summary>
+        private string GetColumn( IDialect dialect, ITableDatabase tableDatabase ) {
+            var result = new StringBuilder();
+            var database = DatabaseName;
+            if ( string.IsNullOrWhiteSpace( DatabaseName ) && tableDatabase != null )
+                database = tableDatabase.GetDatabase( GetName() );
+            if( string.IsNullOrWhiteSpace( database ) == false )
+                result.Append( $"{GetSafeName( dialect, database )}." );
+            if( string.IsNullOrWhiteSpace( Prefix ) == false )
+                result.Append( $"{GetSafeName( dialect, Prefix )}." );
+            result.Append( GetSafeName( dialect, Name ) );
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// 获取名称
+        /// </summary>
+        private string GetName() {
+            if ( string.IsNullOrWhiteSpace( Prefix ) )
+                return Name;
+            return $"{Prefix}.{Name}";
         }
 
         /// <summary>

@@ -79,6 +79,33 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Id不能为空 的本地化字符串。
+        /// </summary>
+        public static string IdIsEmpty {
+            get {
+                return ResourceManager.GetString("IdIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 序号 的本地化字符串。
+        /// </summary>
+        public static string LineNumber {
+            get {
+                return ResourceManager.GetString("LineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 否 的本地化字符串。
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 操作成功 的本地化字符串。
         /// </summary>
         public static string Success {
@@ -97,11 +124,29 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 上传 的本地化字符串。
+        /// </summary>
+        public static string Upload {
+            get {
+                return ResourceManager.GetString("Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请不要重复提交 的本地化字符串。
         /// </summary>
         public static string UserDuplicateRequest {
             get {
                 return ResourceManager.GetString("UserDuplicateRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是 的本地化字符串。
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

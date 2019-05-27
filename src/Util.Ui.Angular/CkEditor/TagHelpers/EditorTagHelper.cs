@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.Angular.Base;
 using Util.Ui.CkEditor.Renders;
 using Util.Ui.Configs;
 using Util.Ui.Renders;

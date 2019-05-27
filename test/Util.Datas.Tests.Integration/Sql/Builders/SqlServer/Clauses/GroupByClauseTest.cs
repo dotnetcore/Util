@@ -51,7 +51,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer.Clauses {
         /// </summary>
         [Fact]
         public void TestGroupBy_2() {
-            _clause.GroupBy( "a.B,c.[D]" );
+            _clause.GroupBy( "a.B,c.D" );
             Assert.Equal( "Group By [a].[B],[c].[D]", GetSql() );
         }
 

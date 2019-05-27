@@ -429,12 +429,12 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             var result = new String();
             result.AppendLine( "Select [a] " );
             result.AppendLine( "From [b] " );
-            result.Append( "Join [c] As [d] On [b].[Id]<>[c].[Id]" );
+            result.Append( "Join [c] As [d] On [b].[Id]<>@_p_0" );
 
             //执行
             _builder.Select( "a" )
                 .From( "b" )
-                .Join( "c", "d" ).On( "b.Id", "c.Id", Operator.NotEqual );
+                .Join( "c", "d" ).On( "b.Id", "c", Operator.NotEqual );
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
@@ -478,6 +478,52 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
 
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
+
+        /// <summary>
+        /// 连接条件 - 值为字面量
+        /// </summary>
+        [Fact]
+        public void TestOn_4() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a],[b] " );
+            result.AppendLine( "From [Sample] As [s] " );
+            result.Append( "Left Join [Sample2] As [s2] On [s].[IntValue]=[s2].[IntValue] And [s].[StringValue]=@_p_0" );
+
+            //执行
+            _builder.Select( "a,b" )
+                .From<Sample>( "s" )
+                .LeftJoin<Sample2>( "s2" ).On<Sample, Sample2>( ( l, r ) => l.IntValue == r.IntValue && l.StringValue == "a" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            _output.WriteLine( _builder.ToSql() );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
+        }
+
+        /// <summary>
+        /// 连接条件 - 值为变量
+        /// </summary>
+        [Fact]
+        public void TestOn_5() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [a],[b] " );
+            result.AppendLine( "From [Sample] As [s] " );
+            result.Append( "Left Join [Sample2] As [s2] On [s].[IntValue]=[s2].[IntValue] And [s].[StringValue]=@_p_0" );
+
+            var a = "a";
+
+            //执行
+            _builder.Select( "a,b" )
+                .From<Sample>( "s" )
+                .LeftJoin<Sample2>( "s2" ).On<Sample, Sample2>( ( l, r ) => l.IntValue == r.IntValue && l.StringValue == a );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+            _output.WriteLine( _builder.ToSql() );
+            Assert.Equal( "a", _builder.GetParams()["@_p_0"] );
         }
     }
 }

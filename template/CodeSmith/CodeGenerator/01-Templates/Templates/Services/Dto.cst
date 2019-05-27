@@ -36,7 +36,6 @@ namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema)
     /// <summary>
     /// <%= Description %>数据传输对象
     /// </summary>
-    [Model("model")]
     public class <%= SafeClassName %>Dto : DtoBase {
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
@@ -47,7 +46,6 @@ namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema)
         <%= p.Validate() %>
         <%}%>
         [Display( Name = "<%= p.Description %>" )]
-        [DataMember]
         <% if( p.DataType == DbType.Boolean ) { %>
         public bool? <%= p.PropertyName.ToSafeName() %> { get; set; }
         <% }else {%>

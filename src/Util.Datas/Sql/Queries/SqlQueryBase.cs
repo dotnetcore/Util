@@ -23,6 +23,7 @@ namespace Util.Datas.Sql.Queries {
         protected SqlQueryBase( ISqlBuilder sqlBuilder, IDatabase database = null, SqlOptions sqlOptions = null ) {
             Builder = sqlBuilder ?? throw new ArgumentNullException( nameof( sqlBuilder ) );
             Database = database;
+            Connection = database?.GetConnection();
             SqlOptions = sqlOptions ?? GetOptions();
         }
 
@@ -46,7 +47,11 @@ namespace Util.Datas.Sql.Queries {
         /// <summary>
         /// 数据库
         /// </summary>
-        protected IDatabase Database { get; }
+        protected IDatabase Database { get; private set; }
+        /// <summary>
+        /// 数据库连接
+        /// </summary>
+        protected IDbConnection Connection { get; private set; }
         /// <summary>
         /// Sql查询配置
         /// </summary>
@@ -91,6 +96,27 @@ namespace Util.Datas.Sql.Queries {
         /// 公用表表达式CTE集合
         /// </summary>
         public List<BuilderItem> CteItems => ( (ICteAccessor)Builder ).CteItems;
+
+        /// <summary>
+        /// 设置数据库连接
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        public ISqlQuery SetConnection( IDbConnection connection ) {
+            Connection = connection;
+            return this;
+        }
+
+        /// <summary>
+        /// 获取数据库连接
+        /// </summary>
+        /// <param name="connection">数据库连接</param>
+        protected IDbConnection GetConnection( IDbConnection connection ) {
+            if( connection != null )
+                return connection;
+            if( Connection == null )
+                throw new ArgumentNullException( nameof( Connection ) );
+            return Connection;
+        }
 
         /// <summary>
         /// 复制Sql查询对象
@@ -215,6 +241,22 @@ namespace Util.Datas.Sql.Queries {
         /// <param name="parameter">分页参数</param>
         /// <param name="connection">数据库连接</param>
         public abstract Task<PagerList<TResult>> PagerQueryAsync<TResult>( Func<Task<List<TResult>>> func, IPager parameter, IDbConnection connection = null );
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract Task<List<TResult>> ToListAsync<TResult>( string sql, IDbConnection connection = null );
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="page">页数</param>
+        /// <param name="pageSize">每页显示行数</param>
+        /// <param name="connection">数据库连接</param>
+        public abstract Task<PagerList<TResult>> ToPagerListAsync<TResult>( string sql, int page, int pageSize, IDbConnection connection = null );
 
         /// <summary>
         /// 查询
@@ -242,19 +284,6 @@ namespace Util.Datas.Sql.Queries {
             var result = await func( GetConnection( connection ), sql, Params );
             ClearAfterExecution();
             return result;
-        }
-
-        /// <summary>
-        /// 获取数据库连接
-        /// </summary>
-        /// <param name="connection">数据库连接</param>
-        protected IDbConnection GetConnection( IDbConnection connection ) {
-            if( connection != null )
-                return connection;
-            connection = Database?.GetConnection();
-            if( connection == null )
-                throw new ArgumentNullException( nameof( connection ) );
-            return connection;
         }
 
         /// <summary>

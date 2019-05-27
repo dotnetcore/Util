@@ -3,6 +3,10 @@
 [![Member project of .NET Core Community](https://img.shields.io/badge/member%20project%20of-NCC-9e20c9.svg)](https://github.com/dotnetcore)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://mit-license.org/)
 
+<a href="https://www.jetbrains.com/?from=Util" target="_blank">
+    <img src="https://github.com/dotnetcore/Home/blob/master/img/jetbrains.svg" title="JetBrains" />
+</a>
+
 Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。
 
 ## 引子
@@ -115,7 +119,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 1. 开发工具： 
   - Visual Studio 2017
-  - Resharper
+  - [Resharper](https://www.jetbrains.com/resharper/)
 
 2. 数据库
   - Sql Server
@@ -194,32 +198,27 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - 脚本框架
     - [Angular 7](https://angular.cn/)
   - Css预处理器
-    - [Sass](http://www.sass-lang.com) 
+    - [Less](http://lesscss.org)
+    - [Sass](http://www.sass-lang.com)
   - 组件库
     - [Angular Material](https://material.angular.io/)
     - [Angular Flex-Layout](https://github.com/angular/flex-layout)
     - [PrimeNg](https://www.primefaces.org/primeng)
-    - [Ngx-Admin](http://akveo.com/ngx-admin)
-    - [Vmware-Clarity](http://clarity.design)
-    - [阿里-Ng-Zorro](https://ng.ant.design)
-    - [Ng-Alain](http://ng-alain.com/)
-    - [饿了么-Element](https://element-angular.faas.ele.me/)
-    - [中兴-Jigsaw](https://github.com/rdkmaster/jigsaw)
-    - [Angular-Material-App](https://github.com/stbui/angular-material-app)
+    - [Ng-Zorro](https://ng.ant.design)
+    - [Ng-Alain](https://ng-alain.github.io/ng-alain/)
   - 编辑器
     - [CKEditor](https://ckeditor.com/ckeditor-4/)
     - [Ng2-CKEditor](https://github.com/chymz/ng2-ckeditor)    
-    - [TinyMce](https://www.tinymce.com/)
-    - [TinyMce-Angular](https://github.com/tinymce/tinymce-angular)
   - 脚本库
     - [Lodash](https://lodash.com/)
     - [Moment](http://momentjs.cn/)
   - 图标
     - [Material Design Icon](https://material.io/icons/)
     - [Font Awesome Icon](http://fontawesome.io/)
+    - [Ant Design Icon](https://ant.design/components/icon/)    
   - 图表
-    - [Echarts](http://echarts.baidu.com/examples/)
-    - [Echarts-Ng2](https://github.com/twp0217/echarts-ng2)
+    - [Viser](https://viserjs.github.io/)
+    - [Antv-G2](https://antv.alipay.com/zh-cn/g2/3.x/index.html)
   - 打包
     - Webpack
   - 测试
@@ -228,7 +227,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 24. 权限
     - [Asp Net Core Identity](https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?tabs=visual-studio%2Caspnetcore2x)
-    - [Identity Server](https://identityserver4.readthedocs.io/en/release/)
+    - [Identity Server](https://identityserver4.readthedocs.io/en/latest/)
 
 25. 代码生成器
   - CodeSmith 6.5
@@ -282,7 +281,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 ## 核心开发团队
 
-[何镇汐](https://github.com/utilcore) [程序喵](https://github.com/program-meow "胡雲鹏") [玄冰](https://github.com/jianxuanbing "简楚恩") [Richfiter](https://github.com/xingwen1987 "邢文")
+[何镇汐](https://github.com/utilcore) [玄冰](https://github.com/jianxuanbing "简楚恩") [青成](https://github.com/nilpower "张青成")  [程序喵](https://github.com/program-meow "胡雲鹏") [Richfiter](https://github.com/xingwen1987 "邢文")
 
 应用框架的开发工作量很大，个人显得力不从心，我也迫切希望找到一些志同道合的同学共同完成，同时也欢迎你的加入。
 
@@ -292,7 +291,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 ## 技术顾问团队
 
-[AlexLEWIS](https://github.com/alexinea "刘怡") [Kiler](https://github.com/kiler398 "谢炀") [Lemon](https://github.com/liuhaoyang "刘浩杨") [Savorboard](https://github.com/yuleyule66 "杨晓东") [Lyrics](https://github.com/lyricsyo "娄宇")
+[AlexLEWIS](https://github.com/alexinea "刘怡") [Kiler](https://github.com/kiler398 "谢炀") [Lemon](https://github.com/liuhaoyang "刘浩杨") [Savorboard](https://github.com/yang-xiaodong "杨晓东") [Lyrics](https://github.com/lyricsyo "娄宇")
 
 Util应用框架技术顾问团队负责对API易用性，代码健壮性，设计缺陷等内容进行审查，在发现问题时提出改善意见。
 
@@ -300,7 +299,7 @@ Util应用框架技术顾问团队负责对API易用性，代码健壮性，设�
 
 ## 贡献与反馈
 
-> 如果你在阅读或使用Util中任意一个代码片断时发现Bug，或有更佳实现方式，请通知我们。
+> 如果你在阅读或使用发现Bug，或有更佳实现方式，请通知我们。
 
 > 为了保持代码简单，目前很多功能只建立了基本结构，细节特性未进行迁移，在后续需要时进行添加，如果你发现某个类无法满足你的需求，请通知我们。
 
@@ -366,181 +365,3 @@ https://github.com/dotnetcore/util/
   - 《实现模式》 作者：Kent Beck
   - 《代码整洁之道-Clean Code》 作者：Robert C.Martin
   - 《重构与模式》 作者：Joshua Kerievsky
-
-## 重大升级
-
-> 包括.net core版本的跳跃式升级等，比如从.net core1.x升级到2.0。
-
-- 2017年7月21日，将.net core升级到2.0 Preview 2。
-- 2018年6月12日，将angular和material升级到6.x。
-- 2018年12月30日，将.net core升级到2.2。
-
-## 更新计划
-
-> 不打算提供精确的更新计划，以免无法兑现。
-
-> 对于已发布的代码，将标记为[已发布]。对于已迁移到.net core的代码，将标记为[已完成]，并即将发布。对于正在开发或迁移的代码，标记为[开发中]。对于尚未启动的部分，标记为[待启动]。这个列表会经常更新。
-
-- 公共操作类(工具类)及扩展
-  - 类型转换操作 [已发布]
-  - Json操作 - 基于Newtonsoft.Json [已发布]
-  - 映射操作 - 基于AutoMapper [已发布]
-  - Ioc操作 - 基于Autofac [已发布]
-  - 应用程序异常操作 [已发布]
-  - 验证操作 [已发布]
-  - 验证操作拦截器 [已发布]
-  - 枚举操作 [已发布]
-  - 字符串操作 [已发布]
-  - Lambda表达式操作 [已发布]
-  - 日志操作 - 基于NLog和Exceptionless [已发布]
-  - 日志操作拦截器 [已发布]
-  - IQueryable查询扩展 [已发布]
-  - 时间操作 [已发布]
-  - 上下文操作 [已发布]
-  - 类型查找器 [已发布]
-  - 二维码操作 - 基于QRCoder [已发布]
-  - 短信操作 -基于LuoSiMao [已发布]
-  - 加密操作 [已发布]
-  - Url参数生成器 [已发布]
-  - 调度器 - 基于Quartz.Net [已发布]
-  - 缓存 - 基于EasyCaching [已发布]
-  - 消息事件总线 - 基于Cap [已发布]
-  - 防重复提交过滤器
-- 分层架构基类及组件
-  - 实体基类 [已发布]
-  - 聚合根基类 [已发布]
-  - 值对象基类 [已发布]
-  - 树型实体基类 [已发布]
-  - 操作审计 [已发布]
-  - EF Core实体映射配置基类 [已发布]
-  - EF Core工作单元基类 [已发布]
-  - EF Core调试日志 [已发布]
-  - 仓储基类 [已发布]
-  - 查询对象 [已发布]
-  - 范围查询条件 [已发布]
-  - 分页参数 [已发布]
-  - 分页集合 [已发布]
-  - 查询参数 [已发布]
-  - 工作单元服务 [已发布]
-  - 工作单元拦截器 [已发布]
-  - Crud服务 [已发布]
-  - 树型服务 [已发布]
-  - 持久化对象Po基类 [已发布]
-  - 持久化对象存储基类 [已发布]
-  - 事件总线 [已发布]
-  - Crud控制器基类 [已发布]
-  - 树型控制器基类 [已发布]
-  - Sql生成器 [已发布]
-  - Sql查询对象 [已发布]
-- UI组件 - 支持HtmlHelper和TagHelper两种方式
-  - 组件基类  [已发布]
-  - TagHelper基类  [已发布]
-  - 图标 - 集成了Material Design和Font Awesome图标集 [已发布]
-  - 下拉列表 - 基于Material Select组件 [已发布]
-  - 文本框 - 基于Material 文本框和日期选择框组件 [已发布]
-  - 表单 [已发布]
-  - 按钮 - 基于Material 按钮组件 [已发布]
-  - 链接 - 基于Material 链接组件 [已发布]
-  - 复选框 - 基于Material 复选框组件 [已发布]
-  - 滑动开关 - 基于Material slide-toggle组件 [已发布]
-  - 单选框 - 基于Material 单选框组件 [已发布]
-  - 菜单 - 基于Material Menu组件 [已发布]
-  - 选项卡 - 基于Material Tabs组件 [已发布]
-  - 导航侧边栏 - 基于Material SideNav组件 [已发布]
-  - 工具栏 - 基于Material Toolbar组件 [已发布]
-  - 卡片 - 基于Material Card组件 [已发布]
-  - 面板 - 基于Material Panel组件 [已发布]
-  - 网格 - 基于Material Grid List组件 [已发布]
-  - 列表 - 基于Material List组件 [已发布]
-  - 弹出层 - 基于Material Dialog组件 [已发布]
-  - 表格 - 基于Material Table组件 [已发布]
-  - 布局(栅格) - 基于Angular flex-layout组件 [已发布]
-  - 树型表格 - 基于PrimeNg TreeTable组件改造 [已发布]
-  - 颜色选择器 - 基于PrimeNg ColorPicker组件 [已发布]
-  - 富文本框编辑器 - 基于CKEditor组件 [已发布]
-  - 文件上传 - 基于PrimeNg 文件上传组件 [待启动]
-  
-- 权限 [开发中]
-  - Identity集成 [开发中]
-- 公共业务基类
-  - 地址 [已发布]
-- 支付操作
-  - 支付宝条码支付 [已发布]
-  - 支付宝二维码支付 [已发布]
-  - 支付宝电脑网站支付 [已发布]
-  - 支付宝手机网站支付 [已发布]
-  - 支付宝回调 [已发布]
-  - 支付宝APP支付 [已发布]
-  - 微信支付回调 [已发布]
-  - 微信APP支付 [已发布]
-  - 微信小程序支付 [已发布]
-  - 微信JsApi支付 [已发布]
-
-## 更新列表
-
-- 2017年7月6日，更新了类型转换操作类，类型转换扩展方法，类型转换单元测试。
-- 2017年7月14日，更新了Json操作类，Json操作单元测试。更新了对象映射操作类，对象映射操作单元测试。
-- 2017年7月18日，更新了Ioc操作类，Ioc扩展方法，Ioc操作单元测试。
-- 2017年7月21日，将Util升级到.net core 2.0 prew。
-- 2017年7月26日，更新了应用程序异常操作类Warning及单元测试。
-- 2017年7月28日，更新了验证操作(Util/Validations目录)及单元测试。
-- 2017年8月1日，更新了枚举操作及单元测试。
-- 2017年8月2日，更新了实体、聚合根基类及单元测试。
-- 2017年8月3日，更新了值对象基类及单元测试。
-- 2017年8月4日，更新了字符串操作及扩展，Lambda表达式操作及扩展，以及相关单元测试。
-- 2017年8月5日，更新了映射操作的集合映射。更新了范围查询条件(Util/Datas/Queries/Criterias)及相关单元测试。
-- 2017年8月6日，更新了分页参数、分页集合、查询参数及相关单元测试。
-- 2017年8月8日，更新了查询对象及相关单元测试。
-- 2017年8月9日，更新了EF实体映射配置基类。更新了EF工作单元基类。
-- 2017年8月10日，更新了数据操作集成测试项目。
-- 2017年8月11日，更新了CodeSmith代码生成模板。
-- 2017年8月12日，更新了树型实体基类及单元测试。
-- 2017年8月14日，更新了持久化对象Po基类，仓储部分实现及相关单元测试。
-- 2017年8月19日，更新了操作审计(Util/Domains/Auditing)。
-- 2017年8月21日，更新了仓储基类，持久化对象存储基类，IQueryable查询扩展。
-- 2017年9月3日，更新了公共业务类型-地址(Address)，修改了代码生成模板。
-- 2017年9月10日，更新了时间操作类，修改了代码生成模板。
-- 2017年9月15日，更新了上下文操作(Util/Contexts)，更新了日期格式化扩展(Util/Extensions.DateTime)。
-- 2017年9月19日，更新了日志操作，日志提供程序支持NLog与Exceptionless。
-- 2017年9月20日，更新了日志操作拦截器(Util.Logs/Aspects)。
-- 2017年9月21日，更新了验证操作拦截器(Util/Validations/Aspects)。
-- 2017年9月27日，更新了工作单元服务(Util/Datas.UnitOfWorks),工作单元拦截器(Util.Applications/Aspects),Crud服务(Util.Applications)。
-- 2017年9月30日，更新了事件总线(Util/Events)，类型查找器(Util/Reflections)，支持了IOC扫描注册功能。
-- 2017年10月21日，更新了Ui组件基类及TagHelper基类，图标组件(Util.Ui.Angular/Material/Icons)及单元测试。
-- 2017年10月25日，更新了二维码操作(Util.Tools.QrCode,基于QRCoder)和短信操作(Util.Tools.Sms，封装了LuoSiMao接口)。
-- 2017年10月29日，更新了加密操作(Util.Helpers.Encrypt，集成了MD5,DES,AES,RSA加密操作)及单元测试。
-- 2017年10月30日，更新了Url参数生成器(Util.Parameters)及单元测试。
-- 2017年10月31日，更新了支付宝条码支付操作(Util.Biz.Payments/Alipay)及单元测试。
-- 2017年11月15日，更新了EF Core调试日志(Util.Datas/Logs)及单元测试。
-- 2018年1月2日，更新了下拉列表组件(Util.Ui.Angular/Material/Forms)及单元测试。
-- 2018年1月10日，更新了文本框组件(Util.Ui.Angular/Material/Forms)及单元测试。
-- 2018年1月12日，更新了表单组件(Util.Ui.Angular/Material/Forms)及单元测试。
-- 2018年1月14日，更新了按钮和链接组件(Util.Ui.Angular/Material/Buttons)及单元测试。
-- 2018年1月16日，更新了复选框组件(Util.Ui.Angular/Material/Forms)及单元测试。
-- 2018年1月17日，更新了滑动开关组件(Util.Ui.Angular/Material/Forms)及单元测试。
-- 2018年1月18日，更新了单选框组件(Util.Ui.Angular/Material/Forms)及单元测试。
-- 2018年2月18日，更新了菜单组件(Util.Ui.Angular/Material/Menus)及单元测试。
-- 2018年2月22日，更新了选项卡组件(Util.Ui.Angular/Material/Tabs)及单元测试。
-- 2018年2月25日，更新了导航侧边栏组件(Util.Ui.Angular/Material/SideNavs)及工具栏组件(Util.Ui.Angular/Material/Toolbars)。
-- 2018年2月26日，更新了卡片组件(Util.Ui.Angular/Material/Cards)。
-- 2018年2月27日，更新了面板组件(Util.Ui.Angular/Material/Panels)。
-- 2018年3月1日，更新了网格组件(Util.Ui.Angular/Material/Grids)。
-- 2018年3月4日，更新了列表，导航列表，选择列表组件(Util.Ui.Angular/Material/Lists)。
-- 2018年3月7日，更新了弹出层组件(Util.Ui.Angular/Material/Dialogs)。
-- 2018年3月10日，更新了表格组件(Util.Ui.Angular/Material/Tables)。
-- 2018年3月13日，更新了布局组件(Util.Ui.Angular/FlexLayout)。
-- 2018年4月16日，更新了树型表格组件(Util.Ui.Angular/Prime/TreeTables)，树型控制器，树型服务。
-- 2018年4月20日，更新了颜色选择器组件(Util.Ui.Angular/Prime/ColorPickers)。
-- 2018年4月23日，更新了富文本框编辑器组件(Util.Ui.Angular/CkEditor)。
-- 2018年5月22日，更新了支付宝电脑网站支付和手机网站支付操作。
-- 2018年5月24日，更新了支付宝回调操作。
-- 2018年6月19日，更新了支付宝APP支付。
-- 2018年7月15日，更新了微信APP支付。
-- 2018年7月16日，更新了微信支付回调。
-- 2018年8月30日，更新了Sql生成器和SqlQuery查询对象。
-- 2018年9月14日，更新了WebApi跟踪日志过滤器。
-- 2018年10月19日，更新了支付宝二维码支付。
-- 2018年11月16日，更新了微信小程序支付。
-- 2018年11月18日，更新了基于Quartz.Net的调度器(Util.Schedulers/Quartz)及控制台示例。
-- 2019年1月15日，更新了基于EasyCaching的缓存操作(Util.Caches/EasyCaching)，更新了基于Cap的消息事件总线(Util.Events/Cap)，更新了防重复提交过滤器(Util.Webs/Filters/AntiDuplicateRequestAttribute)。
-- 2019年2月21日，更新微信JsApi支付。

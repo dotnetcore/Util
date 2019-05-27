@@ -206,6 +206,14 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <summary>
         /// 设置列名
         /// </summary>
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public void Select<TEntity>( bool propertyAsAlias = false ) {
+            _columns.Add( new ColumnCollection( _resolver.GetColumns<TEntity>( propertyAsAlias ), tableType: typeof( TEntity ) ) );
+        }
+
+        /// <summary>
+        /// 设置列名
+        /// </summary>
         /// <param name="expression">列名表达式</param>
         /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
         public void Select<TEntity>( Expression<Func<TEntity, object[]>> expression, bool propertyAsAlias = false ) where TEntity : class {

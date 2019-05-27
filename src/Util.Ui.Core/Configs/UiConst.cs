@@ -12,6 +12,10 @@
         /// </summary>
         public const string Class = "class";
         /// <summary>
+        /// 类名
+        /// </summary>
+        public const string ClassName = "class-name";
+        /// <summary>
         /// 样式
         /// </summary>
         public const string Style = "style";
@@ -43,6 +47,10 @@
         /// 禁用
         /// </summary>
         public const string Disabled = "disabled";
+        /// <summary>
+        /// 禁用日期
+        /// </summary>
+        public const string DisabledDate = "disabled-date";
         /// <summary>
         /// 只读
         /// </summary>
@@ -380,6 +388,10 @@
         /// </summary>
         public const string Wrap = "wrap";
         /// <summary>
+        /// 格式化
+        /// </summary>
+        public const string Format = "format";
+        /// <summary>
         /// 日期格式化
         /// </summary>
         public const string DateFormat = "date-format";
@@ -391,6 +403,10 @@
         /// 还原查询参数
         /// </summary>
         public const string OnQueryRestore = "on-query-restore";
+        /// <summary>
+        /// 显示复选框
+        /// </summary>
+        public const string ShowCheckbox = "show-checkbox";
         /// <summary>
         /// 复选框
         /// </summary>
@@ -491,5 +507,229 @@
         /// 最大值错误消息
         /// </summary>
         public const string MaxMessage = "max-message";
+        /// <summary>
+        /// 默认项文本
+        /// </summary>
+        public const string DefaultOptionText = "default-option-text";
+        /// <summary>
+        /// 最小行数
+        /// </summary>
+        public const string MinRows = "min-rows";
+        /// <summary>
+        /// 最大行数
+        /// </summary>
+        public const string MaxRows = "max-rows";
+        /// <summary>
+        /// 主题
+        /// </summary>
+        public const string Theme = "theme";
+        /// <summary>
+        /// 形状
+        /// </summary>
+        public const string Shape = "shape";
+        /// <summary>
+        /// 加载状态
+        /// </summary>
+        public const string Loading = "loading";
+        /// <summary>
+        /// 块
+        /// </summary>
+        public const string Block = "block";
+        /// <summary>
+        /// 幽灵
+        /// </summary>
+        public const string Ghost = "ghost";
+        /// <summary>
+        /// 排序变更事件
+        /// </summary>
+        public const string OnSortChange = "on-sort-change";
+        /// <summary>
+        /// 前端分页
+        /// </summary>
+        public const string FrontPage = "front-page";
+        /// <summary>
+        /// 是否显示大小选择
+        /// </summary>
+        public const string ShowSizeChanger = "show-size-changer";
+        /// <summary>
+        /// 分页大小变更事件
+        /// </summary>
+        public const string OnPageSizeChange = "on-page-size-change";
+        /// <summary>
+        /// 页索引变更事件
+        /// </summary>
+        public const string OnPageIndexChange = "on-page-index-change";
+        /// <summary>
+        /// 截断
+        /// </summary>
+        public const string Truncate = "truncate";
+        /// <summary>
+        /// 按钮文本
+        /// </summary>
+        public const string ButtonText = "button-text";
+        /// <summary>
+        /// 按钮图标
+        /// </summary>
+        public const string ButtonIcon = "button-icon";
+        /// <summary>
+        /// 验证表单
+        /// </summary>
+        public const string ValidateForm = "validate-form";
+        /// <summary>
+        /// 接受
+        /// </summary>
+        public const string Accept = "accept";
+        /// <summary>
+        /// 文件类型
+        /// </summary>
+        public const string FileType = "file-type";
+        /// <summary>
+        /// 接受图片
+        /// </summary>
+        public const string AcceptImage = "accept-image";
+        /// <summary>
+        /// 接受文档
+        /// </summary>
+        public const string AcceptDocument = "accept-document";
+        /// <summary>
+        /// 图片类型
+        /// </summary>
+        public const string ImageTypes = "image-types";
+        /// <summary>
+        /// 文档类型
+        /// </summary>
+        public const string DocumentTypes = "document-types";
+        /// <summary>
+        /// 目录
+        /// </summary>
+        public const string Directory = "directory";
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public const string Data = "data";
+        /// <summary>
+        /// 上传前事件
+        /// </summary>
+        public const string OnBeforeUpload = "on-before-upload";
+        /// <summary>
+        /// 过滤器
+        /// </summary>
+        public const string Filter = "filter";
+        /// <summary>
+        /// 限制
+        /// </summary>
+        public const string Limit = "limit";
+        /// <summary>
+        /// 总量限制
+        /// </summary>
+        public const string TotalLimit = "total-limit";
+        /// <summary>
+        /// 文件列表
+        /// </summary>
+        public const string FileList = "file-list";
+        /// <summary>
+        /// 显示时间
+        /// </summary>
+        public const string ShowTime = "show-time";
+        /// <summary>
+        /// 显示今天
+        /// </summary>
+        public const string ShowToday = "show-today";
+        /// <summary>
+        /// 节点占据一行
+        /// </summary>
+        public const string BlockNode = "block-node";
+        /// <summary>
+        /// 显示展开
+        /// </summary>
+        public const string ShowExpand = "show-expand";
+        /// <summary>
+        /// 显示线
+        /// </summary>
+        public const string ShowLine = "show-line";
+        /// <summary>
+        /// 展开所有
+        /// </summary>
+        public const string ExpandAll = "expand-all";
+        /// <summary>
+        /// 显示图标
+        /// </summary>
+        public const string ShowIcon = "show-icon";
+        /// <summary>
+        /// 双击事件
+        /// </summary>
+        public const string OnDblClick = "on-dbl-click";
+        /// <summary>
+        /// 展开事件
+        /// </summary>
+        public const string OnExpand = "on-expand";
+        /// <summary>
+        /// 显示按钮
+        /// </summary>
+        public const string ShowButton = "show-button";
+        /// <summary>
+        /// 显示边框
+        /// </summary>
+        public const string ShowBorder = "show-border";
+        /// <summary>
+        /// 加载后事件
+        /// </summary>
+        public const string OnLoadAfter = "on-load-after";
+        /// <summary>
+        /// 显示跳转
+        /// </summary>
+        public const string ShowJumper = "show-jumper";
+        /// <summary>
+        /// 显示总量
+        /// </summary>
+        public const string ShowTotal = "show-total";
+        /// <summary>
+        /// 总量模板
+        /// </summary>
+        public const string TotalTemplate = "total-template";
+        /// <summary>
+        /// 显示清除按钮
+        /// </summary>
+        public const string ShowClearButton = "show-clear-button";
+        /// <summary>
+        /// 自动获取焦点
+        /// </summary>
+        public const string AutoFocus = "auto-focus";
+        /// <summary>
+        /// 日期渲染器
+        /// </summary>
+        public const string DateRender = "date-render";
+        /// <summary>
+        /// 本地化
+        /// </summary>
+        public const string Locale = "locale";
+        /// <summary>
+        /// 是否打开
+        /// </summary>
+        public const string IsOpen = "is-open";
+        /// <summary>
+        /// 打开变更事件
+        /// </summary>
+        public const string OnOpenChange = "on-open-change";
+        /// <summary>
+        /// 禁用今天之前的日期
+        /// </summary>
+        public const string DisabledBeforeToday = "disabled-before-today";
+        /// <summary>
+        /// 禁用明天之前的日期
+        /// </summary>
+        public const string DisabledBeforeTomorrow = "disabled-before-tomorrow";
+        /// <summary>
+        /// 显示分页
+        /// </summary>
+        public const string ShowPagination = "show-pagination";
+        /// <summary>
+        /// 滚动高度
+        /// </summary>
+        public const string ScrollHeight = "scroll-height";
+        /// <summary>
+        /// 滚动宽度
+        /// </summary>
+        public const string ScrollWidth = "scroll-width";
     }
 }

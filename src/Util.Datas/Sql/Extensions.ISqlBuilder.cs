@@ -86,6 +86,19 @@ namespace Util.Datas.Sql {
         /// 设置列名
         /// </summary>
         /// <param name="source">源</param>
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public static ISqlBuilder Select<TEntity>( this ISqlBuilder source, bool propertyAsAlias = false ) where TEntity : class {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.SelectClause.Select<TEntity>( propertyAsAlias );
+            return source;
+        }
+
+        /// <summary>
+        /// 设置列名
+        /// </summary>
+        /// <param name="source">源</param>
         /// <param name="columns">列名,范例：t => new object[] { t.Id, t.Name }</param>
         /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
         public static ISqlBuilder Select<TEntity>( this ISqlBuilder source, Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class {

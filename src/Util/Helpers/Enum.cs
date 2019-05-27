@@ -120,5 +120,30 @@ namespace Util.Helpers {
             var description = Reflection.GetDescription( field );
             result.Add( new Item( description, value, value ) );
         }
+
+        /// <summary>
+        /// 获取名称集合
+        /// </summary>
+        /// <typeparam name="TEnum">枚举类型</typeparam>
+        public static List<string> GetNames<TEnum>() {
+            return GetNames( typeof( TEnum ) );
+        }
+
+        /// <summary>
+        /// 获取名称集合
+        /// </summary>
+        /// <param name="type">枚举类型</param>
+        public static List<string> GetNames( Type type ) {
+            type = Common.GetType( type );
+            if( type.IsEnum == false )
+                throw new InvalidOperationException( $"类型 {type} 不是枚举" );
+            var result = new List<string>();
+            foreach ( var field in type.GetFields() ) {
+                if( !field.FieldType.IsEnum )
+                    continue;
+                result.Add( field.Name );
+            }
+            return result;
+        }
     }
 }

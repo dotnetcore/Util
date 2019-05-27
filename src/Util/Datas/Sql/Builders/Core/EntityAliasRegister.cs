@@ -15,6 +15,11 @@ namespace Util.Datas.Sql.Builders.Core {
         }
 
         /// <summary>
+        /// From子句设置的实体类型
+        /// </summary>
+        public Type FromType { get; set; }
+
+        /// <summary>
         /// 实体别名列表
         /// </summary>
         public IDictionary<Type, string> Data { get; }

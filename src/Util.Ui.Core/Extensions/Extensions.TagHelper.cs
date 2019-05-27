@@ -47,5 +47,13 @@ namespace Util.Ui.Extensions {
                 return;
             context.Items[key] = value;
         }
+
+        /// <summary>
+        /// 是否为空内容
+        /// </summary>
+        /// <param name="content">内容</param>
+        public static bool IsEmpty( this TagHelperContent content ) {
+            return content == null || content.IsEmptyOrWhiteSpace;
+        }
     }
 }

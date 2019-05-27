@@ -1,7 +1,9 @@
-﻿using Util.Datas.Sql;
+﻿using System;
+using Util.Datas.Sql;
 using Util.Datas.Sql.Builders;
 using Util.Datas.Sql.Builders.Clauses;
 using Util.Datas.Sql.Builders.Core;
+using Util.Datas.Sql.Matedatas;
 
 namespace Util.Datas.Dapper.MySql {
     /// <summary>
@@ -15,8 +17,11 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体注册器</param>
-        public MySqlJoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register )
-            : base( sqlBuilder, dialect, resolver, register ) {
+        /// <param name="parameterManager">参数管理器</param>
+        /// <param name="tableDatabase">表数据库</param>
+        public MySqlJoinClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, 
+            IParameterManager parameterManager, ITableDatabase tableDatabase )
+            : base( sqlBuilder, dialect, resolver, register, parameterManager, tableDatabase ) {
         }
 
         /// <summary>
@@ -26,8 +31,9 @@ namespace Util.Datas.Dapper.MySql {
         /// <param name="table">表名</param>
         /// <param name="schema">架构名</param>
         /// <param name="alias">别名</param>
-        protected override JoinItem CreateJoinItem( string joinType, string table, string schema, string alias ) {
-            return new JoinItem( joinType, table, schema, alias, false, false );
+        /// <param name="type">实体类型</param>
+        protected override JoinItem CreateJoinItem( string joinType, string table, string schema, string alias, Type type = null ) {
+            return new JoinItem( joinType, table, schema, alias, false, false, type );
         }
     }
 }

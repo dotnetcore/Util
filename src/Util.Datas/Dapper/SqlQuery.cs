@@ -42,7 +42,9 @@ namespace Util.Datas.Dapper {
         /// 复制Sql查询对象
         /// </summary>
         public override ISqlQuery Clone() {
-            return new SqlQuery( Builder.Clone(),Database, SqlOptions );
+            var result = new SqlQuery( Builder.Clone(),Database, SqlOptions );
+            result.SetConnection( Connection );
+            return result;
         }
 
         /// <summary>
@@ -195,6 +197,29 @@ namespace Util.Datas.Dapper {
         /// <param name="connection">数据库连接</param>
         public override async Task<PagerList<TResult>> ToPagerListAsync<TResult>( int page, int pageSize, IDbConnection connection = null ) {
             return await ToPagerListAsync<TResult>( new Pager( page, pageSize ), connection );
+        }
+
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="connection">数据库连接</param>
+        public override async Task<List<TResult>> ToListAsync<TResult>( string sql, IDbConnection connection = null ) {
+            return ( await GetConnection( connection ).QueryAsync<TResult>( sql, Params ) ).ToList();
+        }
+
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <typeparam name="TResult">返回结果类型</typeparam>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="page">页数</param>
+        /// <param name="pageSize">每页显示行数</param>
+        /// <param name="connection">数据库连接</param>
+        public override async Task<PagerList<TResult>> ToPagerListAsync<TResult>( string sql, int page, int pageSize, IDbConnection connection = null ) {
+            var result = await ToListAsync<TResult>( sql, connection );
+            return new PagerList<TResult>( new Pager( page, pageSize ), result );
         }
 
         /// <summary>

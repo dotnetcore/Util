@@ -53,6 +53,15 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         }
 
         /// <summary>
+        /// 初始化参数生成器
+        /// </summary>
+        /// <param name="builder">参数生成器</param>
+        /// <param name="param">支付参数</param>
+        protected override void InitBuilder( WechatpayParameterBuilder builder, PayParam param ) {
+            builder.OpenId( param.OpenId );
+        }
+
+        /// <summary>
         /// 获取结果
         /// </summary>
         /// <param name="config">支付配置</param>

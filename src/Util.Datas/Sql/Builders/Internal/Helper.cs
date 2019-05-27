@@ -5,14 +5,13 @@ using System.Linq.Expressions;
 using Util.Datas.Queries;
 using Util.Datas.Sql.Builders.Conditions;
 using Util.Datas.Sql.Builders.Core;
-using Util.Datas.Sql.Configs;
 using Util.Helpers;
 
 namespace Util.Datas.Sql.Builders.Internal {
     /// <summary>
     /// Sql生成器辅助操作
     /// </summary>
-    internal class Helper {
+    public class Helper {
         /// <summary>
         /// 方言
         /// </summary>
@@ -120,6 +119,8 @@ namespace Util.Datas.Sql.Builders.Internal {
         public ICondition CreateCondition( string column, object value, Operator @operator ) {
             if( string.IsNullOrWhiteSpace( column ) )
                 throw new ArgumentNullException( nameof( column ) );
+            if ( _parameterManager == null )
+                return null;
             column = GetColumn( column );
             if( IsInCondition( @operator, value ) )
                 return CreateInCondition( column, value as IEnumerable );
@@ -173,6 +174,8 @@ namespace Util.Datas.Sql.Builders.Internal {
         /// <param name="value">值</param>
         /// <param name="operator">运算符</param>
         public string GenerateParamName( object value, Operator @operator ) {
+            if ( _parameterManager == null )
+                return string.Empty;
             var result = _parameterManager.GenerateName();
             if( value != null )
                 return result;
