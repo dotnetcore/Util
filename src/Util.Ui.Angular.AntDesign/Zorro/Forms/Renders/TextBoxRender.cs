@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular.Forms.Configs;
-using Util.Ui.Angular.Forms.Resolvers;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
 

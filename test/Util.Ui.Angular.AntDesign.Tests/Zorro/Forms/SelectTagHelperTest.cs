@@ -69,6 +69,39 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试设置名称
+        /// </summary>
+        [Fact]
+        public void TestBindName() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindName, "a" } };
+            var result = new String();
+            result.Append( "<x-select [name]=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示清除按钮
+        /// </summary>
+        [Fact]
+        public void TestShowClearButton() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowClearButton, true } };
+            var result = new String();
+            result.Append( "<x-select [allowClear]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示搜索框
+        /// </summary>
+        [Fact]
+        public void TestShowSearch() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowSearch, true } };
+            var result = new String();
+            result.Append( "<x-select [showSearch]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试禁用
         /// </summary>
         [Fact]
@@ -116,8 +149,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试设置数据源
         /// </summary>
         [Fact]
-        public void TestDataSource() {
-            var attributes = new TagHelperAttributeList { { UiConst.DataSource, "a" } };
+        public void TestData() {
+            var attributes = new TagHelperAttributeList { { UiConst.Data, "a" } };
             var result = new String();
             result.Append( "<x-select [dataSource]=\"a\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
@@ -161,9 +194,20 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// </summary>
         [Fact]
         public void TestWidth() {
-            var attributes = new TagHelperAttributeList { { UiConst.Width, 1 } };
+            var attributes = new TagHelperAttributeList { { UiConst.Width, "a" } };
             var result = new String();
-            result.Append( "<x-select width=\"1\"></x-select>" );
+            result.Append( "<x-select width=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置宽度
+        /// </summary>
+        [Fact]
+        public void TestWidth_Number() {
+            var attributes = new TagHelperAttributeList { { UiConst.Width, "1" } };
+            var result = new String();
+            result.Append( "<x-select width=\"1px\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

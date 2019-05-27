@@ -1,20 +1,21 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Helpers;
 using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Internal;
 using Util.Ui.Extensions;
 
-namespace Util.Ui.Angular.Forms.Resolvers {
+namespace Util.Ui.Angular.Resolvers {
     /// <summary>
-    /// 文本框表达式解析器
+    /// 下拉列表表达式解析器
     /// </summary>
-    public class TextBoxExpressionResolver {
+    public class SelectExpressionResolver {
         /// <summary>
-        /// 初始化文本框表达式解析器
+        /// 初始化下拉列表表达式解析器
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        private TextBoxExpressionResolver( ModelExpression expression, TextBoxConfig config ) {
+        private SelectExpressionResolver( ModelExpression expression, SelectConfig config ) {
             if( expression == null || config == null )
                 return;
             _expression = expression;
@@ -26,10 +27,12 @@ namespace Util.Ui.Angular.Forms.Resolvers {
         /// 属性表达式
         /// </summary>
         private readonly ModelExpression _expression;
+
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly TextBoxConfig _config;
+        private readonly SelectConfig _config;
+
         /// <summary>
         /// 成员
         /// </summary>
@@ -40,8 +43,8 @@ namespace Util.Ui.Angular.Forms.Resolvers {
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        public static void Init( ModelExpression expression, TextBoxConfig config ) {
-            new TextBoxExpressionResolver( expression, config ).Init();
+        public static void Init( ModelExpression expression, SelectConfig config ) {
+            new SelectExpressionResolver( expression, config ).Init();
         }
 
         /// <summary>
@@ -49,8 +52,17 @@ namespace Util.Ui.Angular.Forms.Resolvers {
         /// </summary>
         private void Init() {
             Helper.Init( _config, _expression, _memberInfo );
-            Helper.InitDataType( _config, _memberInfo );
-            Helper.InitValidation( _config, _memberInfo );
+            InitType();
+        }
+
+        /// <summary>
+        /// 根据类型初始化
+        /// </summary>
+        private void InitType() {
+            if ( Reflection.IsBool( _memberInfo ) )
+                _config.AddBool();
+            else if ( Reflection.IsEnum( _memberInfo ) )
+                _config.AddEnum( _expression.Metadata.ModelType );
         }
     }
 }

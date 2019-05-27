@@ -692,6 +692,10 @@
         /// </summary>
         public const string ShowClearButton = "show-clear-button";
         /// <summary>
+        /// 显示搜索
+        /// </summary>
+        public const string ShowSearch = "show-search";
+        /// <summary>
         /// 自动获取焦点
         /// </summary>
         public const string AutoFocus = "auto-focus";

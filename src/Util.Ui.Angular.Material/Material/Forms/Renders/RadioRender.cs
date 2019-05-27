@@ -2,7 +2,7 @@
 using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Forms.Configs;
-using Util.Ui.Angular.Forms.Resolvers;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Material.Enums;

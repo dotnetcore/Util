@@ -3,6 +3,7 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.FlexLayout.Enums;
+using Util.Ui.Helpers;
 
 namespace Util.Ui.FlexLayout.Renders {
     /// <summary>
@@ -81,9 +82,7 @@ namespace Util.Ui.FlexLayout.Renders {
         /// </summary>
         private void ConfigGap( TagBuilder builder ) {
             var value = _config.GetValue( UiConst.Gap );
-            if ( Util.Helpers.Validation.IsNumber( value ) )
-                value = $"{value}px";
-            builder.AddAttribute( "fxLayoutGap", value );
+            builder.AddAttribute( "fxLayoutGap", CommonHelper.GetPixelValue(value) );
         }
 
         /// <summary>

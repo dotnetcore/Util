@@ -39,10 +39,6 @@ export class MessageConfig {
      */
     static defaultOptionText = "-- 请选择 --";
     /**
-     * 下拉框宽度
-     */
-    static selectWidth = 150;
-    /**
      * 必填项默认验证消息
      */
     static requiredMessage = "该项必须填写";

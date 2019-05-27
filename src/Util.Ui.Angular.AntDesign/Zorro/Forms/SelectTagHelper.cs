@@ -12,15 +12,15 @@ namespace Util.Ui.Zorro.Forms {
     [HtmlTargetElement( "util-select" )]
     public class SelectTagHelper : FormControlTagHelperBase {
         /// <summary>
-        /// 宽度，单位：px
+        /// 宽度，默认单位：px，范例：100，表示100px，也可以使用百分比，范例：10%
         /// </summary>
-        public int Width { get; set; }
+        public string Width { get; set; }
         /// <summary>
         /// 请求地址
         /// </summary>
         public string Url { get; set; }
         /// <summary>
-        /// [url],请求地址
+        /// 请求地址
         /// </summary>
         public string BindUrl { get; set; }
         /// <summary>
@@ -30,7 +30,7 @@ namespace Util.Ui.Zorro.Forms {
         /// <summary>
         /// 数据源
         /// </summary>
-        public string DatasSource { get; set; }
+        public string Data { get; set; }
         /// <summary>
         /// 默认项文本，默认项显示在列表的第一行
         /// </summary>
@@ -39,6 +39,14 @@ namespace Util.Ui.Zorro.Forms {
         /// 启用多选
         /// </summary>
         public bool Multiple { get; set; }
+        /// <summary>
+        /// [nzAllowClear],是否显示清除按钮，默认值： true
+        /// </summary>
+        public bool ShowClearButton { get; set; }
+        /// <summary>
+        /// [nzShowSearch],是否允许单选时搜索，默认值： true
+        /// </summary>
+        public bool ShowSearch { get; set; }
 
         /// <summary>
         /// 获取渲染器

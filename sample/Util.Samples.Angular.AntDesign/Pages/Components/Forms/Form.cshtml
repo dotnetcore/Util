@@ -12,10 +12,10 @@
             <util-tree-select url="/api/tree" expand-all="true" width="300"></util-tree-select>
         </nz-form-item>
         <nz-form-item>
-            <util-select url="/api/form/groupItems" multiple="true" width="500"></util-select>
+            <util-select url="/api/form/groupItems" multiple="true"></util-select>
         </nz-form-item>
         <nz-form-item>
-            <util-select for="Nation"></util-select>
+            <util-select for="Nation" width="500" ></util-select>
         </nz-form-item>
         <nz-form-item>
             <util-date-picker for="DateTime"></util-date-picker>
@@ -25,6 +25,9 @@
         </nz-form-item>
         <nz-form-item>
             <util-upload id="upload" url="/api/upload" for="Files"></util-upload>
+        </nz-form-item>
+        <nz-form-item>
+            <util-single-upload id="singleUpload" url="/api/upload" for="File"></util-single-upload>
         </nz-form-item>
         <nz-form-item>
             <util-checkbox for="Enabled"></util-checkbox>

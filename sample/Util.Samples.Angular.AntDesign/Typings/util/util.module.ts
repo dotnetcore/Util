@@ -51,6 +51,7 @@ import { Radio } from "./zorro/radio-wrapper.component";
 import { CheckboxGroup } from "./zorro/checkbox-group-wrapper.component";
 import { Table } from "./zorro/table-wrapper.component";
 import { Upload } from "./zorro/upload-wrapper.component";
+import { SingleUpload } from "./zorro/single-upload-wrapper.component";
 import { Tree } from "./zorro/tree-wrapper.component";
 import { TreeSelect } from "./zorro/tree-select-wrapper.component";
 import { TreeTable } from "./zorro/tree-table-wrapper.component";
@@ -67,7 +68,7 @@ const components = [
     PieWrapperComponent, RosePieWrapperComponent,
     Button, TextBox, DatePicker, TextArea,
     Select, Radio, CheckboxGroup,
-    Table, Upload,
+    Table, Upload, SingleUpload,
     Tree, TreeSelect, TreeTable
 ];
 

@@ -29,26 +29,26 @@ export class Upload {
      */
     timeout;
     /**
-     * 模型数据
+     * 附件列表
      */
-    data: any[];
+    private items: any[];
     /**
      * 模型
      */
     @Input()
     get model(): any[] {
-        return this.data;
+        return this.items;
     }
     set model(value) {
         if (!value)
             return;
-        this.data = value;
+        this.items = value;
         if ( !this.uploadService )
             return;
         if (this.timeout)
             clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-            this.files = this.data.map(item => this.uploadService.toFile(item));
+            this.files = this.items.map(item => this.uploadService.toFile(item));
         }, 500);
     }
     /**
@@ -64,7 +64,7 @@ export class Upload {
      * 初始化上传组件包装器
      * @param uploadService 上传服务
      */
-    constructor(@Optional() private uploadService: UploadService) {
+    constructor(@Optional() public uploadService: UploadService) {
     }
 
     /**
@@ -77,6 +77,7 @@ export class Upload {
         if ( data.type === 'removed' ) {
             this.uploadService.removeFromModel( this.model, data.file );
             this.uploadService.removeFromFileList( this.files, data.file );
+            this.modelChange.emit( this.model );
             return;
         }
         if ( !data.file.response )
@@ -84,9 +85,10 @@ export class Upload {
         let item = this.uploadService.resolve(data.file.response);
         if (!item)
             return;
-        if (data.type === 'success')
-            this.model = [...(this.model || []), item];
-        this.modelChange.emit(this.model);
+        if ( data.type === 'success' ) {
+            this.model = [...( this.model || [] ) , item];
+            this.modelChange.emit( this.model );
+        }
     }
 
     /**
