@@ -43,10 +43,12 @@ export class Upload {
         if (!value)
             return;
         this.data = value;
+        if ( !this.uploadService )
+            return;
         if (this.timeout)
             clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-            this.files = this.data.map(item => this.uploadService.toUploadFile(item));
+            this.files = this.data.map(item => this.uploadService.toFile(item));
         }, 500);
     }
     /**
@@ -70,24 +72,20 @@ export class Upload {
      * @param data 上传参数
      */
     handleChange(data: { file, fileList, event, type }) {
-        if (!data || !data.file || !this.uploadService)
+        if ( !data || !data.file || !this.uploadService )
             return;
-        if (!data.file.response) {
-            if (data.type === 'removed') {
-                util.helper.remove(this.model, t => t === 1);
-                util.helper.remove(this.files, t => t.name === "1");
-            }
+        if ( data.type === 'removed' ) {
+            this.uploadService.removeFromModel( this.model, data.file );
+            this.uploadService.removeFromFileList( this.files, data.file );
             return;
         }
-        let item = this.uploadService.getItem(data.file.response);
+        if ( !data.file.response )
+            return;
+        let item = this.uploadService.resolve(data.file.response);
         if (!item)
             return;
         if (data.type === 'success')
             this.model = [...(this.model || []), item];
-        if (data.type === 'removed') {
-            util.helper.remove(this.model, t => t === item);
-            util.helper.remove(this.files, t => t.name === item.name);
-        }
         this.modelChange.emit(this.model);
     }
 
