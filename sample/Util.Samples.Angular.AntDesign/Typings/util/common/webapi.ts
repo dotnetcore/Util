@@ -272,9 +272,8 @@ export class WebApiRequest<T> {
      * 显示加载状态
      */
     private showLoading() {
-        if ( this.btn ) {
+        if ( this.btn )
             this.btn.loading = true;
-        }
     }
 
     /**
@@ -289,9 +288,8 @@ export class WebApiRequest<T> {
      * 关闭加载状态
      */
     private closeLoading() {
-        if ( this.btn ) {
+        if ( this.btn )
             this.btn.loading = false;
-        }
     }
 }
 

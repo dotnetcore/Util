@@ -43,4 +43,8 @@ export class FormComponent extends EditComponentBase<any> {
             }
         } );
     }
+
+    onChange(result: Date): void {
+        console.log('onChange: ', result);
+    }
 }

@@ -40,7 +40,7 @@ namespace Util.Samples.Pages.Components.Forms {
         /// 日期时间
         /// </summary>
         [Display( Name = "日期时间" )]
-        public DateTime? DateTime { get; set; }
+        public DateTimeOffset? DateTime { get; set; }
 
         /// <summary>
         /// 上传文件列表

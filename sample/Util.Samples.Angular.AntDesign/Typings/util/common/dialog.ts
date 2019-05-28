@@ -30,7 +30,7 @@ export class Dialog {
      * 获取模态窗服务
      */
     private static getModalService() {
-        return ioc.injector.get( NzModalService );
+        return ioc.get( NzModalService );
     }
 
     /**
