@@ -119,7 +119,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigDataSource( TagBuilder builder ) {
             AddItems();
-            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.DataSource ) );
+            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.Data ) );
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void AddItems() {
             if( _config.Items.Count == 0 )
                 return;
-            _config.SetAttribute( UiConst.DataSource, Util.Helpers.Json.ToJson( _config.Items, true ) );
+            _config.SetAttribute( UiConst.Data, Util.Helpers.Json.ToJson( _config.Items, true ) );
         }
     }
 }

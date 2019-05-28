@@ -103,6 +103,7 @@ export class Select extends FormControlWrapperBase implements OnInit {
         super(form);
         this.allowClear = true;
         this.showSearch = true;
+        this.maxMultipleCount = 9999;
     }
 
     /**

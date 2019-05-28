@@ -31,4 +31,15 @@ export class FormComponent extends EditComponentBase<any> {
     getBaseUrl() {
         return "form";
     }
+
+    test() {
+        this.util.dialog.open( {
+            title: "Hello",
+            content: "World",
+            closable: false,
+            beforeOpen: () => {
+                return false;
+            }
+        } );
+    }
 }

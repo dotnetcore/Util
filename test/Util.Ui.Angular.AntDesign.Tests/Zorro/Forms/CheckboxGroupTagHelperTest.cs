@@ -106,7 +106,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// </summary>
         [Fact]
         public void TestBindDataSource() {
-            var attributes = new TagHelperAttributeList { { AngularConst.BindDataSource, "a" } };
+            var attributes = new TagHelperAttributeList { { AngularConst.BindData, "a" } };
             var result = new String();
             result.Append( "<x-checkbox-group [dataSource]=\"a\"></x-checkbox-group>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
