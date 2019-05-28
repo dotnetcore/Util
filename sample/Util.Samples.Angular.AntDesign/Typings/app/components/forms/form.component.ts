@@ -36,9 +36,10 @@ export class FormComponent extends EditComponentBase<any> {
         this.util.dialog.open( {
             title: "Hello",
             content: "World",
-            closable: false,
-            beforeOpen: () => {
-                return false;
+            onCancel: () => {
+                return true;
+            },
+            onAfterClose: (result) => {
             }
         } );
     }

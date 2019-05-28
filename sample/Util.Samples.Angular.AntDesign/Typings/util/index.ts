@@ -38,6 +38,7 @@ export { CheckboxGroup } from "./zorro/checkbox-group-wrapper.component";
 export { Table } from "./zorro/table-wrapper.component";
 export { Upload } from "./zorro/upload-wrapper.component";
 export { SingleUpload } from "./zorro/single-upload-wrapper.component";
+export { DialogWrapperComponent } from "./zorro/dialog-wrapper.component";
 export { Tree } from "./zorro/tree-wrapper.component";
 export { TreeSelect } from "./zorro/tree-select-wrapper.component";
 export { TreeTable } from "./zorro/tree-table-wrapper.component";

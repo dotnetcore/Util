@@ -2,9 +2,10 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { NzModalService, ModalOptionsForService, NzModalRef } from "ng-zorro-antd";
+import { TemplateRef } from '@angular/core';
+import { NzModalService, ModalOptionsForService, NzModalRef, ModalButtonOptions } from "ng-zorro-antd";
 import { IocHelper as ioc } from '../angular/ioc-helper';
-import { isNumber, toNumber } from './helper';
+import { isNumber, toNumber, isUndefined } from './helper';
 
 /**
  * 弹出层操作
@@ -16,10 +17,20 @@ export class Dialog {
      */
     static openAsync( dialogOptions?: IDialogOptions ) {
         let options: IDialogOptions = dialogOptions || {};
-        if ( options.beforeOpen && !options.beforeOpen() )
+        if ( options.onBeforeOpen && !options.onBeforeOpen() )
             return null;
         Dialog.initOptions( options );
+        let dialog = Dialog.getModalService();
+        let dialogRef: NzModalRef = dialog.create( this.toOptions( options ) );
+        dialogRef.afterOpen.subscribe( () => options.onAfterOpen && options.onAfterOpen() );
+        return dialogRef.afterClose.map( ( result ) => options.onAfterClose && options.onAfterClose( result ) );
+    }
 
+    /**
+     * 获取模态窗服务
+     */
+    private static getModalService() {
+        return ioc.injector.get( NzModalService );
     }
 
     /**
@@ -28,15 +39,13 @@ export class Dialog {
      */
     static open( options?: IDialogOptions ) {
         options = options || {};
-        if ( options.beforeOpen && !options.beforeOpen() )
+        if ( options.onBeforeOpen && !options.onBeforeOpen() )
             return;
         Dialog.initOptions( options );
-        let dialog = ioc.injector.get( NzModalService );
-        let dialogRef = dialog.create( this.toOptions( options ) );
-        dialogRef.afterOpen.subscribe( () => options.afterOpen && options.afterOpen() );
-        //dialogRef.beforeClose().subscribe( ( result ) => options.beforeClose && options.beforeClose( result ) );
-        //dialogRef.afterClosed().subscribe( ( result ) => options.afterClosed && options.afterClosed( result ) );
-        //dialogRef.backdropClick().subscribe( event => options.backdropClick && options.backdropClick( event ) );
+        let dialog = Dialog.getModalService();
+        let dialogRef: NzModalRef = dialog.create( this.toOptions( options ) );
+        dialogRef.afterOpen.subscribe( () => options.onAfterOpen && options.onAfterOpen() );
+        dialogRef.afterClose.subscribe( ( result ) => options.onAfterClose && options.onAfterClose( result ) );
     }
 
     /**
@@ -106,8 +115,13 @@ export class Dialog {
     private static toOptions( options: IDialogOptions ): ModalOptionsForService {
         return {
             nzTitle: options.title,
-            nzContent: options.content,
-            nzClosable: options.closable
+            nzContent: options.content || options.dialogComponent,
+            nzComponentParams: options.data,
+            nzClosable: isUndefined( options.closable ) ? true : options.closable,
+            nzMask: isUndefined( options.mask ) ? true : options.mask,
+            nzFooter: options.footer,
+            nzOnOk: options.onOk,
+            nzOnCancel: options.onCancel || options.onBeforeClose
         };
     }
 
@@ -115,29 +129,20 @@ export class Dialog {
      * 关闭所有弹出层
      */
     static closeAll() {
-
+        let dialog = Dialog.getModalService();
+        dialog.closeAll();
     }
 
     /**
      * 关闭弹出层
      * @param result 返回结果
      */
-    static close<TResult>( result?: TResult );
-    /**
-     * 关闭弹出层
-     * @param result 返回结果
-     * @param id 弹出层标识
-     */
-    static close<TResult>( result?: TResult, id?: string );
-    static close<TResult>( result?: TResult, id?: string ) {
-
-    }
-
-    /**
-     * 获取数据，注意：必须在OnInit之后的事件调用，不能在构造函数中调用，可能获取不到值
-     */
-    static getData<T>() {
-
+    static close( result?) {
+        let dialog = Dialog.getModalService();
+        if ( !dialog.openModals || dialog.openModals.length === 0 )
+            return;
+        let dialogRef = dialog.openModals[dialog.openModals.length - 1];
+        dialogRef && dialogRef.close( result );
     }
 }
 
@@ -166,13 +171,13 @@ export interface IDialogOptions {
      */
     url?: string,
     /**
-     * 是否显示右上角的关闭按钮
+     * 是否显示右上角的关闭按钮，默认为 true
      */
     closable?: boolean,
     /**
-     * 是否显示遮罩背景
+     * 是否显示遮罩，默认为 true
      */
-    hasBackdrop?: boolean,
+    mask?: boolean,
     /**
      * 是否禁用按下ESC键或点击屏幕关闭遮罩，默认false
      */
@@ -214,33 +219,32 @@ export interface IDialogOptions {
      */
     maxHeight?: number | string,
     /**
-     * 遮罩背景自定义样式类
+     * 底部内容
      */
-    backdropClass?: string,
+    footer?: string | TemplateRef<{}> | Array<ModalButtonOptions>;
     /**
-     * 面板自定义样式类
+     * 点击确定按钮事件，返回false则阻止关闭弹出框
      */
-    panelClass?: string,
+    onOk?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**
-     * 打开前操作，返回false则取消
+     * 关闭弹出层事件，点击遮罩层，点击右上角关闭按钮，点击取消按钮都可触发，返回false则阻止关闭弹出框
      */
-    beforeOpen?: () => boolean,
+    onCancel?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**
-     * 打开后操作
+     * 打开前事件，返回false则取消
      */
-    afterOpen?: () => void,
+    onBeforeOpen?: () => boolean,
     /**
-     * 关闭前操作
+     * 打开后事件
+     */
+    onAfterOpen?: () => void,
+    /**
+     * 关闭前事件，返回false则阻止关闭弹出框
+     */
+    onBeforeClose?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
+    /**
+     * 关闭后事件
      * @param result 返回结果
      */
-    beforeClose?: ( result ) => void,
-    /**
-     * 关闭后操作
-     * @param result 返回结果
-     */
-    afterClosed?: ( result ) => boolean,
-    /**
-     * 点击遮罩背景操作
-     */
-    backdropClick?: ( event: MouseEvent ) => void;
+    onAfterClose?: ( result ) => void;
 }
