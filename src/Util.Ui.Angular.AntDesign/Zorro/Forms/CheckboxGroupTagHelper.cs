@@ -39,11 +39,11 @@ namespace Util.Ui.Zorro.Forms {
         /// <summary>
         /// 数据源
         /// </summary>
-        public ModelExpression DatasSource { get; set; }
+        public ModelExpression Data { get; set; }
         /// <summary>
         /// 数据源
         /// </summary>
-        public string BindDataSource { get; set; }
+        public string BindData { get; set; }
         /// <summary>
         /// [nzDisabled],禁用
         /// </summary>

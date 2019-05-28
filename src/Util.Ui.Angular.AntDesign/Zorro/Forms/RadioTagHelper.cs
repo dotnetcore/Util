@@ -43,7 +43,7 @@ namespace Util.Ui.Zorro.Forms {
         /// <summary>
         /// 数据源
         /// </summary>
-        public string DatasSource { get; set; }
+        public string Data { get; set; }
         /// <summary>
         /// [nzDisabled],禁用
         /// </summary>

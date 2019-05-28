@@ -16,6 +16,7 @@ export { Result, FailResult, StateCode } from './core/result';
 export { SelectItem } from './core/select-model';
 export { DicService } from './services/dic.service';
 export { UploadService } from './services/upload.service';
+export { IDialogOptions } from './common/dialog';
 export { Session } from './security/session';
 export { Authorize } from './security/authorize';
 export { Authorize as OidcAuthorize } from './security/openid-connect/authorize';

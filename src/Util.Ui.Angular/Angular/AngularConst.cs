@@ -82,6 +82,6 @@
         /// <summary>
         /// 数据源绑定
         /// </summary>
-        public const string BindDataSource = "bind-data-source";
+        public const string BindData = "bind-data";
     }
 }

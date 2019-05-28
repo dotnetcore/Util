@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { UploadFile } from 'ng-zorro-antd';
-import {util} from "../index";
+import { util } from "../index";
 
 /**
  * 上传服务
@@ -26,7 +26,7 @@ export abstract class UploadService {
      * @param model 模型对象，即附件数组
      * @param file 移除的文件
      */
-    removeFromModel( model: any[] , file: UploadFile ) {
+    removeFromModel( model: any[], file: UploadFile ) {
         util.helper.remove( model, t => t.id === file.uid );
     }
 

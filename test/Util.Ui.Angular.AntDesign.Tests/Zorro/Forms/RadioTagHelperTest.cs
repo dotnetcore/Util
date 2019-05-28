@@ -139,7 +139,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// </summary>
         [Fact]
         public void TestDataSource() {
-            var attributes = new TagHelperAttributeList { { UiConst.DataSource, "a" } };
+            var attributes = new TagHelperAttributeList { { UiConst.Data, "a" } };
             var result = new String();
             result.Append( "<x-radio [dataSource]=\"a\"></x-radio>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
