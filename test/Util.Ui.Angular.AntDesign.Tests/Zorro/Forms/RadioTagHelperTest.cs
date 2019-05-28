@@ -124,6 +124,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试设置Url
+        /// </summary>
+        [Fact]
+        public void TestBindUrl() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindUrl, "a" } };
+            var result = new String();
+            result.Append( "<x-radio [url]=\"a\"></x-radio>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试设置数据源
         /// </summary>
         [Fact]
@@ -138,8 +149,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试模型绑定
         /// </summary>
         [Fact]
-        public void TestModel() {
-            var attributes = new TagHelperAttributeList { { UiConst.Model, "a" } };
+        public void TestNgModel() {
+            var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
             result.Append( "<x-radio [(model)]=\"a\"></x-radio>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

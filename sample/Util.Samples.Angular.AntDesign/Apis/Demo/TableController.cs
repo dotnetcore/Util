@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Biz.Enums;
@@ -23,6 +22,7 @@ namespace Util.Samples.Apis.Demo {
             var result = new PagerList<UserModel>( parameter.Page, parameter.PageSize, CreateList().Count );
             return Success( result );
         }
+
         /// <summary>
         /// 获取分页列表
         /// </summary>

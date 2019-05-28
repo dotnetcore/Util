@@ -28,9 +28,49 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Format { get; set; }
         /// <summary>
-        /// nzShowTime,显示时间
+        /// [nzShowTime],是否显示时间，默认值： false
         /// </summary>
         public bool ShowTime { get; set; }
+        /// <summary>
+        /// [nzShowToday],是否显示“今天”按钮，默认值： true
+        /// </summary>
+        public bool ShowToday { get; set; }
+        /// <summary>
+        /// [nzAllowClear],是否显示清除按钮，默认值： true
+        /// </summary>
+        public bool ShowClearButton { get; set; }
+        /// <summary>
+        /// [nzAutoFocus],是否自动获取焦点，默认值： false
+        /// </summary>
+        public bool AutoFocus { get; set; }
+        /// <summary>
+        /// nzClassName,css类选择器
+        /// </summary>
+        public string ClassName { get; set; }
+        /// <summary>
+        /// [nzDateRender],自定义日期单元格内容
+        /// </summary>
+        public string DateRender { get; set; }
+        /// <summary>
+        /// [nzDisabledDate],禁用日期函数
+        /// </summary>
+        public string DisabledDate { get; set; }
+        /// <summary>
+        /// 禁用今天之前的日期
+        /// </summary>
+        public bool DisabledBeforeToday { get; set; }
+        /// <summary>
+        /// 禁用明天之前的日期
+        /// </summary>
+        public bool DisabledBeforeTomorrow { get; set; }
+        /// <summary>
+        /// [nzLocale],国际化配置
+        /// </summary>
+        public string Locale { get; set; }
+        /// <summary>
+        /// (nzOnOpenChange),弹出和关闭日历事件
+        /// </summary>
+        public string OnOpenChange { get; set; }
 
         /// <summary>
         /// 获取渲染器

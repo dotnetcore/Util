@@ -39,9 +39,9 @@ namespace Util.Maps {
         /// </summary>
         private static TDestination MapTo<TDestination>( object source, TDestination destination ) {
             if( source == null )
-                throw new ArgumentNullException( nameof( source ) );
+                return default( TDestination );
             if( destination == null )
-                throw new ArgumentNullException( nameof( destination ) );
+                return default( TDestination );
             var sourceType = GetType( source );
             var destinationType = GetType( destination );
             var map = GetMap( sourceType, destinationType );

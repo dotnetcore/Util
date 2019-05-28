@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Util.Applications.Dtos;
 
 namespace Util.Applications.Operations {
     /// <summary>
     /// 获取指定标识实体
     /// </summary>
-    public interface IGetByIdAsync<TDto> where TDto : IResponse, new() {
+    public interface IGetByIdAsync<TDto> where TDto : new() {
         /// <summary>
         /// 通过编号获取
         /// </summary>

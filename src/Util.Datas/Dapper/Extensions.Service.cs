@@ -64,7 +64,7 @@ namespace Util.Datas.Dapper {
                 services.TryAddScoped( database );
                 services.TryAddScoped( typeof( IDatabase ), t => t.GetService( database ) );
             }
-            services.TryAddScoped<ISqlQuery, SqlQuery>();
+            services.TryAddTransient<ISqlQuery, SqlQuery>();
             services.TryAddScoped<ITableDatabase, DefaultTableDatabase>();
             AddSqlBuilder( services, config );
             RegisterTypeHandlers();
@@ -77,13 +77,13 @@ namespace Util.Datas.Dapper {
         private static void AddSqlBuilder( IServiceCollection services, SqlOptions config ) {
             switch( config.DatabaseType ) {
                 case DatabaseType.SqlServer:
-                    services.TryAddScoped<ISqlBuilder, SqlServerBuilder>();
+                    services.TryAddTransient<ISqlBuilder, SqlServerBuilder>();
                     return;
                 case DatabaseType.PgSql:
-                    services.TryAddScoped<ISqlBuilder, PgSqlBuilder>();
+                    services.TryAddTransient<ISqlBuilder, PgSqlBuilder>();
                     return;
                 case DatabaseType.MySql:
-                    services.TryAddScoped<ISqlBuilder, MySqlBuilder>();
+                    services.TryAddTransient<ISqlBuilder, MySqlBuilder>();
                     return;
                 default:
                     throw new NotImplementedException( $"Sql生成器未实现 {config.DatabaseType.Description()} 数据库" );

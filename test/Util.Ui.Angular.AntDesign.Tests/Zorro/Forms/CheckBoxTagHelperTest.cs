@@ -105,8 +105,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试模型绑定
         /// </summary>
         [Fact]
-        public void TestModel() {
-            var attributes = new TagHelperAttributeList { { UiConst.Model, "a" } };
+        public void TestNgModel() {
+            var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
             result.Append( "<label nz-checkbox=\"\" [(ngModel)]=\"a\"></label>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

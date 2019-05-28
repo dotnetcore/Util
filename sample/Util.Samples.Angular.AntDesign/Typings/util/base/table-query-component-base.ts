@@ -2,13 +2,13 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, ViewChild, forwardRef } from '@angular/core';
-import { util, ViewModel, QueryParameter, TableWrapperComponent } from '../index';
+import { Injector, ViewChild, forwardRef, AfterViewInit } from '@angular/core';
+import { util, ViewModel, QueryParameter, Table } from '../index';
 
 /**
  * 表格查询基类
  */
-export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> {
+export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> implements AfterViewInit {
     /**
      * 操作库
      */
@@ -20,13 +20,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     /**
      * 表格组件
      */
-    @ViewChild( forwardRef( () => TableWrapperComponent ) ) protected table: TableWrapperComponent<TViewModel>;
+    @ViewChild(forwardRef(() => Table)) protected table: Table<TViewModel>;
 
     /**
      * 初始化组件
      * @param injector 注入器
      */
-    constructor( injector: Injector ) {
+    constructor(injector: Injector) {
         util.ioc.componentInjector = injector;
         this.queryParam = this.createQuery();
     }
@@ -37,19 +37,30 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     protected abstract createQuery(): TQuery;
 
     /**
+     * 视图加载完成
+     */
+    ngAfterViewInit() {
+        if (!this.table)
+            return;
+        this.table.loadAfter = result => {
+            this.loadAfter(result);
+        }
+    }
+
+    /**
      * 查询
      * @param button 按钮
      */
-    query( button ) {
-        this.table.query( button );
+    query(button) {
+        this.table.query(button);
     }
 
     /**
      * 延迟搜索
      * @param button 按钮
      */
-    search( button ) {
-        this.table.search( button, this.getDelay() );
+    search(button) {
+        this.table.search(button, this.getDelay());
     }
 
     /**
@@ -60,21 +71,28 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     }
 
     /**
+     * 清空复选框
+     */
+    clearCheckboxs() {
+        this.table.clearCheckboxs();
+    }
+
+    /**
      * 删除
      * @param button 按钮
      * @param id 标识
      */
-    delete( button?, id?) {
-        this.table.delete( button, id );
+    delete(button?, id?) {
+        this.table.delete(button, id);
     }
 
     /**
      * 刷新
      * @param button 按钮
      */
-    refresh( button? ) {
+    refresh(button?) {
         this.queryParam = this.createQuery();
-        this.table.refresh( this.queryParam, button );
+        this.table.refresh(this.queryParam, button);
     }
 
     /**
@@ -96,14 +114,21 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     select() {
         let selection = this.getChecked();
-        if ( !selection || selection.length === 0 ) {
-            this.util.dialog.close( new ViewModel() );
+        if (!selection || selection.length === 0) {
+            this.util.dialog.close(new ViewModel());
             return;
         }
-        if ( selection.length === 1 ) {
-            this.util.dialog.close( selection[0] );
+        if (selection.length === 1) {
+            this.util.dialog.close(selection[0]);
             return;
         }
-        this.util.dialog.close( selection );
+        this.util.dialog.close(selection);
+    }
+
+    /**
+     * 数据加载完成操作
+     * @param result
+     */
+    loadAfter(result) {
     }
 }

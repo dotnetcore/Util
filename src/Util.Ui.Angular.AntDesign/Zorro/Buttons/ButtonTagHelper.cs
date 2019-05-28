@@ -70,7 +70,7 @@ namespace Util.Ui.Zorro.Buttons {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new ButtonWrapperRender( new Config( context ) );
+            return new ButtonRender( new Config( context ) );
         }
     }
 }

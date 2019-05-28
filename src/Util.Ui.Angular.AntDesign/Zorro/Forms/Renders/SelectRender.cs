@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
 using Util.Ui.Angular.Forms.Configs;
-using Util.Ui.Angular.Forms.Resolvers;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Helpers;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
 
@@ -55,6 +56,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigDataSource( builder );
             ConfigDefaultOption( builder );
             ConfigMultiple( builder );
+            ConfigShowClearButton( builder );
+            ConfigShowSearch( builder );
             ConfigTemplate( builder );
             ConfigStandalone( builder );
         }
@@ -63,7 +66,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置宽度
         /// </summary>
         private void ConfigWidth( SelectWrapperBuilder builder ) {
-            builder.AddAttribute( UiConst.Width, _config.GetValue( UiConst.Width ) );
+            var width = _config.GetValue( UiConst.Width );
+            builder.AddAttribute( UiConst.Width, CommonHelper.GetPixelValue( width ) );
         }
 
         /// <summary>
@@ -80,7 +84,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigDataSource( SelectWrapperBuilder builder ) {
             AddItems();
-            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.DataSource ) );
+            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.Data ) );
         }
 
         /// <summary>
@@ -89,7 +93,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void AddItems() {
             if( _config.Items.Count == 0 )
                 return;
-            _config.SetAttribute( UiConst.DataSource, Util.Helpers.Json.ToJson( _config.Items, true ) );
+            _config.SetAttribute( UiConst.Data, Util.Helpers.Json.ToJson( _config.Items, true ) );
         }
 
         /// <summary>
@@ -104,6 +108,20 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigMultiple( SelectWrapperBuilder builder ) {
             builder.AddAttribute( "[multiple]", _config.GetBoolValue( UiConst.Multiple ) );
+        }
+
+        /// <summary>
+        /// 配置显示清除按钮
+        /// </summary>
+        private void ConfigShowClearButton( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "[allowClear]", _config.GetBoolValue( UiConst.ShowClearButton ) );
+        }
+
+        /// <summary>
+        /// 配置显示搜索框
+        /// </summary>
+        private void ConfigShowSearch( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "[showSearch]", _config.GetBoolValue( UiConst.ShowSearch ) );
         }
 
         /// <summary>

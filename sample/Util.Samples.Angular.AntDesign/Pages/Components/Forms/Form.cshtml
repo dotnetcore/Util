@@ -9,10 +9,13 @@
             <util-textbox for="Name"></util-textbox>
         </nz-form-item>
         <nz-form-item>
-            <util-select url="/api/form/groupItems" multiple="true" width="500"></util-select>
+            <util-tree-select url="/api/tree" expand-all="true" width="300"></util-tree-select>
         </nz-form-item>
         <nz-form-item>
-            <util-select for="Nation" on-change="change()"></util-select>
+            <util-select url="/api/form/groupItems" multiple="true"></util-select>
+        </nz-form-item>
+        <nz-form-item>
+            <util-select for="Nation" width="500" ></util-select>
         </nz-form-item>
         <nz-form-item>
             <util-date-picker for="DateTime"></util-date-picker>
@@ -24,13 +27,19 @@
             <util-upload id="upload" url="/api/upload" for="Files"></util-upload>
         </nz-form-item>
         <nz-form-item>
+            <util-single-upload id="singleUpload" url="/api/upload" for="File"></util-single-upload>
+        </nz-form-item>
+        <nz-form-item>
             <util-checkbox for="Enabled"></util-checkbox>
+        </nz-form-item>
+        <nz-form-item>
+            <util-checkbox-group datas-source="Enabled"></util-checkbox-group>
         </nz-form-item>
         <nz-form-item>
             <util-switch for="Enabled"></util-switch>
         </nz-form-item>
         <nz-form-item>
-            <util-radio for="Enabled" ></util-radio>
+            <util-radio for="Enabled"></util-radio>
         </nz-form-item>
         <nz-form-item>
             <nz-form-control>

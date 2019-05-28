@@ -1,6 +1,7 @@
-﻿using Util.Properties;
+﻿using Util.Helpers;
 using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
@@ -48,11 +49,12 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected void ConfigTableWrapper( TagBuilder builder ) {
             ConfigWrapperId( builder );
-            ConfigQueryParam( builder );
+            ConfigTableWrapperPage( builder );
+            ConfigData( builder );
             ConfigUrl( builder );
-            ConfigSize( builder );
             ConfigAutoLoad( builder );
             ConfigSort( builder );
+            ConfigTableWrapperEvents( builder );
         }
 
         /// <summary>
@@ -66,15 +68,26 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 获取表格包装器标识
         /// </summary>
-        private string GetWrapperId() {
+        protected string GetWrapperId() {
             return _config.WrapperId;
         }
 
         /// <summary>
-        /// 配置查询参数
+        /// 配置表格包装器分页信息
         /// </summary>
-        private void ConfigQueryParam( TagBuilder builder ) {
-            builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
+        private void ConfigTableWrapperPage( TagBuilder builder ) {
+            builder.AddAttribute( "[showPagination]", _config.GetBoolValue( UiConst.ShowPagination ) );
+            builder.AddAttribute( "[pageSizeOptions]", _config.GetValue( UiConst.PageSizeOptions ) );
+        }
+
+        /// <summary>
+        /// 配置数据源
+        /// </summary>
+        private void ConfigData( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Data ) == false )
+                return;
+            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.Data ) );
+            builder.AddAttribute( "[loading]", "false" );
         }
 
         /// <summary>
@@ -87,15 +100,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             builder.AddAttribute( "[baseUrl]", _config.GetValue( AngularConst.BindBaseUrl ) );
             builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
             builder.AddAttribute( "[deleteUrl]", _config.GetValue( AngularConst.BindDeleteUrl ) );
-        }
-
-        /// <summary>
-        /// 配置大小
-        /// </summary>
-        private void ConfigSize( TagBuilder builder ) {
-            builder.AddAttribute( "maxHeight", _config.GetValue( UiConst.MaxHeight ) );
-            builder.AddAttribute( "minHeight", _config.GetValue( UiConst.MinHeight ) );
-            builder.AddAttribute( "width", _config.GetValue( UiConst.Width ) );
+            builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
         }
 
         /// <summary>
@@ -113,16 +118,26 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
+        /// 配置表格包装器事件
+        /// </summary>
+        private void ConfigTableWrapperEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
+        }
+
+        /// <summary>
         /// 配置表格
         /// </summary>
         protected virtual void ConfigTable( TagBuilder builder ) {
             var tableBuilder = new TableBuilder();
+            builder.AppendContent( tableBuilder );
             ConfigTableDefault( tableBuilder );
+            ConfigStyle( tableBuilder );
+            ConfigScroll( tableBuilder );
             ConfigPage( tableBuilder );
             AddHead( tableBuilder );
-            AddRow( tableBuilder );
+            AddBody( tableBuilder );
+            ConfigTotalTemplate( builder, tableBuilder );
             ConfigContent( tableBuilder );
-            builder.AppendContent( tableBuilder );
         }
 
         /// <summary>
@@ -132,25 +147,71 @@ namespace Util.Ui.Zorro.Tables.Renders {
             tableBuilder.AddAttribute( $"#{_config.Id}" );
             tableBuilder.AddAttribute( "[nzData]", $"{GetWrapperId()}.dataSource" );
             tableBuilder.AddAttribute( "[nzTotal]", $"{GetWrapperId()}.totalCount" );
-            tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
             tableBuilder.AddAttribute( "[nzLoading]", $"{GetWrapperId()}.loading" );
+        }
+
+        /// <summary>
+        /// 配置表格样式
+        /// </summary>
+        private void ConfigStyle( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( "nzBordered", _config.GetBoolValue( UiConst.ShowBorder ) );
+        }
+
+        /// <summary>
+        /// 配置滚动
+        /// </summary>
+        private void ConfigScroll( TagBuilder tableBuilder ) {
+            var scroll = new ScrollInfo( _config.GetValue( UiConst.ScrollWidth ), _config.GetValue( UiConst.ScrollHeight ) );
+            if ( scroll.IsNull )
+                return;
+            tableBuilder.AddAttribute( "[nzScroll]", Json.ToJson( scroll,true ) );
         }
 
         /// <summary>
         /// 配置分页
         /// </summary>
         private void ConfigPage( TagBuilder tableBuilder ) {
+            ConfigShowPage( tableBuilder );
+            ConfigPageInfo( tableBuilder );
+            ConfigShowJumper( tableBuilder );
             ConfigFrontPage( tableBuilder );
+            ConfigPageSizeOptions( tableBuilder );
             ConfigShowSizeChanger( tableBuilder );
             ConfigOnPageSizeChange( tableBuilder );
             ConfigOnPageIndexChange( tableBuilder );
         }
 
         /// <summary>
+        /// 配置显示分页
+        /// </summary>
+        private void ConfigShowPage( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( "[nzShowPagination]", $"{GetWrapperId()}.showPagination" );
+        }
+
+        /// <summary>
+        /// 配置分页信息
+        /// </summary>
+        private void ConfigPageInfo( TagBuilder tableBuilder ) {
+            tableBuilder.AddAttribute( "[(nzPageSize)]", $"{GetWrapperId()}.queryParam.pageSize" );
+            tableBuilder.AddAttribute( "[(nzPageIndex)]", $"{GetWrapperId()}.queryParam.page" );
+        }
+
+        /// <summary>
+        /// 配置显示跳转文本框
+        /// </summary>
+        private void ConfigShowJumper( TagBuilder tableBuilder ) {
+            if( _config.Contains( UiConst.ShowJumper ) ) {
+                tableBuilder.AddAttribute( "[nzShowQuickJumper]", _config.GetBoolValue( UiConst.ShowJumper ) );
+                return;
+            }
+            tableBuilder.AddAttribute( "[nzShowQuickJumper]", "true" );
+        }
+
+        /// <summary>
         /// 配置前端分页
         /// </summary>
         private void ConfigFrontPage( TagBuilder tableBuilder ) {
-            if ( _config.Contains( UiConst.FrontPage ) ) {
+            if( _config.Contains( UiConst.FrontPage ) ) {
                 tableBuilder.AddAttribute( "[nzFrontPagination]", _config.GetBoolValue( UiConst.FrontPage ) );
                 return;
             }
@@ -158,7 +219,16 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 配置分页大小下拉框
+        /// 配置分页长度下拉框
+        /// </summary>
+        private void ConfigPageSizeOptions( TagBuilder tableBuilder ) {
+            if( _config.Contains( UiConst.PageSizeOptions ) == false )
+                return;
+            tableBuilder.AddAttribute( "[nzPageSizeOptions]", $"{GetWrapperId()}.pageSizeOptions" );
+        }
+
+        /// <summary>
+        /// 配置是否显示分页大小
         /// </summary>
         private void ConfigShowSizeChanger( TagBuilder tableBuilder ) {
             if( _config.Contains( UiConst.ShowSizeChanger ) ) {
@@ -218,8 +288,8 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加排序变更事件处理
         /// </summary>
-        private void AddSortChange( TableHeadBuilder headBuilder ) {
-            if ( _config.IsSort == false )
+        protected void AddSortChange( TableHeadBuilder headBuilder ) {
+            if( _config.IsSort == false )
                 return;
             headBuilder.AddSortChange( $"{GetWrapperId()}.sort($event)" );
         }
@@ -227,11 +297,11 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加标题列
         /// </summary>
-        private void AddHeadColumns( TableRowBuilder rowBuilder ) {
+        protected virtual void AddHeadColumns( TableRowBuilder rowBuilder ) {
             foreach( var column in _config.Columns ) {
                 var headColumnBuilder = new TableHeadColumnBuilder();
                 headColumnBuilder.AddWidth( column.Width );
-                if ( column.IsCheckbox ) {
+                if( column.IsCheckbox ) {
                     headColumnBuilder.AddCheckBox( _config.Id );
                 }
                 else {
@@ -243,17 +313,66 @@ namespace Util.Ui.Zorro.Tables.Renders {
         }
 
         /// <summary>
-        /// 添加行
+        /// 添加内容
         /// </summary>
-        protected void AddRow( TagBuilder tableBuilder ) {
+        protected void AddBody( TagBuilder tableBuilder ) {
             if( _config.AutoCreateRow == false )
                 return;
             var tableBodyBuilder = new TableBodyBuilder();
+            AddBody( tableBodyBuilder );
+            tableBuilder.AppendContent( tableBodyBuilder );
+        }
+
+        /// <summary>
+        /// 添加内容
+        /// </summary>
+        protected virtual void AddBody( TableBodyBuilder tableBodyBuilder ) {
             var rowBuilder = new TableRowBuilder();
             rowBuilder.NgFor( $"let row of {_config.Id}.data" );
+            AddRowEvents( rowBuilder );
             rowBuilder.AppendContent( _config.Content );
             tableBodyBuilder.AppendContent( rowBuilder );
-            tableBuilder.AppendContent( tableBodyBuilder );
+        }
+
+        /// <summary>
+        /// 添加行事件
+        /// </summary>
+        private void AddRowEvents( TableRowBuilder rowBuilder ) {
+            rowBuilder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClickRow ) );
+        }
+
+        /// <summary>
+        /// 配置总行数模板
+        /// </summary>
+        protected void ConfigTotalTemplate( TagBuilder builder, TableBuilder tableBuilder ) {
+            if( _config.GetValue<bool?>( UiConst.ShowTotal ) == false )
+                return;
+            var templateId = $"template_{_config.Id}";
+            tableBuilder.AddAttribute( "[nzShowTotal]", templateId );
+            var templateBuilder = CreateTotalTemplateBuilder( templateId, GetTotalTemplate() );
+            builder.AppendContent( templateBuilder );
+        }
+
+        /// <summary>
+        /// 创建总行数模板生成器
+        /// </summary>
+        private TemplateBuilder CreateTotalTemplateBuilder( string templateId, string content ) {
+            var templateBuilder = new TemplateBuilder();
+            templateBuilder.AddAttribute( $"#{templateId}" );
+            templateBuilder.AddAttribute( "let-range", "range" );
+            templateBuilder.AddAttribute( "let-total" );
+            templateBuilder.AppendContent( content );
+            return templateBuilder;
+        }
+
+        /// <summary>
+        /// 获取总行数模板
+        /// </summary>
+        private string GetTotalTemplate() {
+            var result = _config.GetValue( UiConst.TotalTemplate );
+            if ( result.IsEmpty() == false )
+                return result;
+            return TableConfig.TotalTemplate;
         }
     }
 }

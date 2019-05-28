@@ -21,7 +21,7 @@ import { MessageConfig } from '../config/message-config';
         </button>
     `
 } )
-export class ButtonWrapperComponent {
+export class Button {
     /**
      * 文本
      */
@@ -81,7 +81,7 @@ export class ButtonWrapperComponent {
     /**
      * 是否禁用
      */
-    private isDisabled() {
+    isDisabled() {
         if ( this.disabled !== undefined )
             return this.disabled;
         return this.validateForm && this.form && !this.form.valid;
@@ -90,7 +90,7 @@ export class ButtonWrapperComponent {
     /**
      * 获取文本
      */
-    private getText() {
+    getText() {
         if ( this.shape === "circle" )
             return null;
         if ( !Util.helper.isUndefined( this.text ) )
@@ -101,7 +101,7 @@ export class ButtonWrapperComponent {
     /**
      * 单击事件
      */
-    private click( event ) {
+    click( event ) {
         this.onClick.emit( event );
     }
 }

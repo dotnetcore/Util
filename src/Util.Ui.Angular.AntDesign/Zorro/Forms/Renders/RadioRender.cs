@@ -2,7 +2,7 @@
 using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Forms.Configs;
-using Util.Ui.Angular.Forms.Resolvers;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Zorro.Forms.Builders;
@@ -89,6 +89,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigModel( TagBuilder builder ) {
             builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
+            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
         }
 
         /// <summary>
@@ -110,6 +111,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigUrl( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Url, _config.GetValue( UiConst.Url ) );
+            builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
         }
 
         /// <summary>

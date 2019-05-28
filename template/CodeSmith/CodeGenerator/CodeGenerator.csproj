@@ -67,6 +67,98 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="02-Result\Datas\ISampleUnitOfWork.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Systems\MySql\ApplicationMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Systems\MySql\RoleMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Systems\PgSql\ApplicationMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Systems\PgSql\RoleMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Systems\SqlServer\ApplicationMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Systems\SqlServer\RoleMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Users\MySql\UserMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Users\PgSql\UserMap.cs" />
+    <Compile Include="02-Result\Datas\Mappings\Users\SqlServer\UserMap.cs" />
+    <Compile Include="02-Result\Datas\Repositories\Systems\ApplicationRepository.cs" />
+    <Compile Include="02-Result\Datas\Repositories\Systems\RoleRepository.cs" />
+    <Compile Include="02-Result\Datas\Repositories\Users\UserRepository.cs" />
+    <Compile Include="02-Result\Datas\UnitOfWorks\MySql\SampleUnitOfWork.cs" />
+    <Compile Include="02-Result\Datas\UnitOfWorks\PgSql\SampleUnitOfWork.cs" />
+    <Compile Include="02-Result\Datas\UnitOfWorks\SqlServer\SampleUnitOfWork.cs" />
+    <Compile Include="02-Result\Domains\Systems\Factories\ApplicationFactory.cs" />
+    <Compile Include="02-Result\Domains\Systems\Factories\RoleFactory.cs" />
+    <Compile Include="02-Result\Domains\Systems\Models\Application.Base.cs">
+      <DependentUpon>Application.cs</DependentUpon>
+    </Compile>
+    <Compile Include="02-Result\Domains\Systems\Models\Application.cs" />
+    <Compile Include="02-Result\Domains\Systems\Models\Role.Base.cs">
+      <DependentUpon>Role.cs</DependentUpon>
+    </Compile>
+    <Compile Include="02-Result\Domains\Systems\Models\Role.cs" />
+    <Compile Include="02-Result\Domains\Systems\Repositories\IApplicationRepository.cs" />
+    <Compile Include="02-Result\Domains\Systems\Repositories\IRoleRepository.cs" />
+    <Compile Include="02-Result\Domains\Users\Factories\UserFactory.cs" />
+    <Compile Include="02-Result\Domains\Users\Models\User.Base.cs">
+      <DependentUpon>User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="02-Result\Domains\Users\Models\User.cs" />
+    <Compile Include="02-Result\Domains\Users\Repositories\IUserRepository.cs" />
+    <Compile Include="02-Result\Persists\Datas\Mappings\Systems\PgSql\ApplicationPoMap.cs" />
+    <Compile Include="02-Result\Persists\Datas\Mappings\Systems\PgSql\RolePoMap.cs" />
+    <Compile Include="02-Result\Persists\Datas\Mappings\Systems\SqlServer\ApplicationPoMap.cs" />
+    <Compile Include="02-Result\Persists\Datas\Mappings\Systems\SqlServer\RolePoMap.cs" />
+    <Compile Include="02-Result\Persists\Datas\Mappings\Users\PgSql\UserPoMap.cs" />
+    <Compile Include="02-Result\Persists\Datas\Mappings\Users\SqlServer\UserPoMap.cs" />
+    <Compile Include="02-Result\Persists\Datas\Pos\Systems\ApplicationPo.cs" />
+    <Compile Include="02-Result\Persists\Datas\Pos\Systems\Extensions\Extension.ApplicationPo.cs" />
+    <Compile Include="02-Result\Persists\Datas\Pos\Systems\Extensions\Extension.RolePo.cs" />
+    <Compile Include="02-Result\Persists\Datas\Pos\Systems\RolePo.cs" />
+    <Compile Include="02-Result\Persists\Datas\Pos\Users\Extensions\Extension.UserPo.cs" />
+    <Compile Include="02-Result\Persists\Datas\Pos\Users\UserPo.cs" />
+    <Compile Include="02-Result\Persists\Datas\Repositories\Systems\ApplicationRepository.cs" />
+    <Compile Include="02-Result\Persists\Datas\Repositories\Systems\RoleRepository.cs" />
+    <Compile Include="02-Result\Persists\Datas\Repositories\Users\UserRepository.cs" />
+    <Compile Include="02-Result\Persists\Datas\Stores\Abstractions\Systems\IApplicationPoStore.cs" />
+    <Compile Include="02-Result\Persists\Datas\Stores\Abstractions\Systems\IRolePoStore.cs" />
+    <Compile Include="02-Result\Persists\Datas\Stores\Abstractions\Users\IUserPoStore.cs" />
+    <Compile Include="02-Result\Persists\Datas\Stores\Implements\Systems\ApplicationPoStore.cs" />
+    <Compile Include="02-Result\Persists\Datas\Stores\Implements\Systems\RolePoStore.cs" />
+    <Compile Include="02-Result\Persists\Datas\Stores\Implements\Users\UserPoStore.cs" />
+    <Compile Include="02-Result\Persists\Domains\Systems\Repositories\IApplicationRepository.cs" />
+    <Compile Include="02-Result\Persists\Domains\Systems\Repositories\IRoleRepository.cs" />
+    <Compile Include="02-Result\Persists\Domains\Users\Repositories\IUserRepository.cs" />
+    <Compile Include="02-Result\Persists\Services\Systems\ApplicationService.cs" />
+    <Compile Include="02-Result\Persists\Services\Systems\RoleService.cs" />
+    <Compile Include="02-Result\Persists\Services\Users\UserService.cs" />
+    <Compile Include="02-Result\Presentation\Apis\Systems\ApplicationController.cs" />
+    <Compile Include="02-Result\Presentation\Apis\Systems\RoleController.cs" />
+    <Compile Include="02-Result\Presentation\Apis\Users\UserController.cs" />
+    <Compile Include="02-Result\Services\Abstractions\Systems\IApplicationService.cs" />
+    <Compile Include="02-Result\Services\Abstractions\Systems\IRoleService.cs" />
+    <Compile Include="02-Result\Services\Abstractions\Users\IUserService.cs" />
+    <Compile Include="02-Result\Services\Configs\IocConfig.cs" />
+    <Compile Include="02-Result\Services\Dtos\Systems\ApplicationDto.cs" />
+    <Compile Include="02-Result\Services\Dtos\Systems\Extensions\Extensions.ApplicationDto.cs" />
+    <Compile Include="02-Result\Services\Dtos\Systems\Extensions\Extensions.RoleDto.cs" />
+    <Compile Include="02-Result\Services\Dtos\Systems\RoleDto.cs" />
+    <Compile Include="02-Result\Services\Dtos\Users\Extensions\Extensions.UserDto.cs" />
+    <Compile Include="02-Result\Services\Dtos\Users\UserDto.cs" />
+    <Compile Include="02-Result\Services\Implements\Systems\ApplicationService.cs" />
+    <Compile Include="02-Result\Services\Implements\Systems\RoleService.cs" />
+    <Compile Include="02-Result\Services\Implements\Users\UserService.cs" />
+    <Compile Include="02-Result\Services\Queries\Systems\ApplicationQuery.cs" />
+    <Compile Include="02-Result\Services\Queries\Systems\RoleQuery.cs" />
+    <Compile Include="02-Result\Services\Queries\Users\UserQuery.cs" />
+    <Compile Include="02-Result\Tests\IntegrationTests\Dtos\Systems\ApplicationDtoTest.cs" />
+    <Compile Include="02-Result\Tests\IntegrationTests\Dtos\Systems\RoleDtoTest.cs" />
+    <Compile Include="02-Result\Tests\IntegrationTests\Dtos\Users\UserDtoTest.cs" />
+    <Compile Include="02-Result\Tests\IntegrationTests\Services\Systems\ApplicationServiceTest.cs" />
+    <Compile Include="02-Result\Tests\IntegrationTests\Services\Systems\RoleServiceTest.cs" />
+    <Compile Include="02-Result\Tests\IntegrationTests\Services\Users\UserServiceTest.cs" />
+    <Compile Include="02-Result\Tests\UnitTests\Models\Systems\ApplicationTest.cs" />
+    <Compile Include="02-Result\Tests\UnitTests\Models\Systems\ApplicationTest.Data.cs" />
+    <Compile Include="02-Result\Tests\UnitTests\Models\Systems\RoleTest.cs" />
+    <Compile Include="02-Result\Tests\UnitTests\Models\Systems\RoleTest.Data.cs" />
+    <Compile Include="02-Result\Tests\UnitTests\Models\Users\UserTest.cs" />
+    <Compile Include="02-Result\Tests\UnitTests\Models\Users\UserTest.Data.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="01-Templates\Common\Extensions.cs" />
     <Compile Include="01-Templates\Common\Generator.cs" />
@@ -130,8 +222,40 @@
     <None Include="01-Templates\Templates\Tests\EntityTest.cst" />
     <None Include="01-Templates\Templates\Tests\EntityTest.Data.cst" />
     <None Include="01-Templates\Templates\Tests\ServiceTest.cst" />
+    <None Include="02-Result\Presentation\Areas\Systems\Views\Application\Detail.cshtml" />
+    <None Include="02-Result\Presentation\Areas\Systems\Views\Application\Edit.cshtml" />
+    <None Include="02-Result\Presentation\Areas\Systems\Views\Role\Detail.cshtml" />
+    <None Include="02-Result\Presentation\Areas\Systems\Views\Role\Edit.cshtml" />
+    <None Include="02-Result\Presentation\Areas\Users\Views\User\Detail.cshtml" />
+    <None Include="02-Result\Presentation\Areas\Users\Views\User\Edit.cshtml" />
+    <None Include="02-Result\Presentation\Pages\Systems\Application\Index.cshtml" />
+    <None Include="02-Result\Presentation\Pages\Systems\Role\Index.cshtml" />
+    <None Include="02-Result\Presentation\Pages\Users\User\Index.cshtml" />
     <None Include="Project.csp" />
     <None Include="01-Templates\Templates.cst" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="02-Result\Domains\Systems\ItemGroup..txt" />
+    <Content Include="02-Result\Domains\Users\ItemGroup..txt" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\application\application-detail.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\application\application-edit.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\application\application-index.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\application\model\application-query.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\application\model\application-view-model.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\role\model\role-query.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\role\model\role-view-model.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\role\role-detail.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\role\role-edit.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\role\role-index.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\system.module.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\systems\system.routing.module.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\users\user.module.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\users\user.routing.module.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\users\user\model\user-query.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\users\user\model\user-view-model.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\users\user\user-detail.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\users\user\user-edit.component.ts" />
+    <Content Include="02-Result\Presentation\Typings\app\users\user\user-index.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

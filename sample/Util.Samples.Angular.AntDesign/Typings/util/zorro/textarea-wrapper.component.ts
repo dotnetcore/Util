@@ -18,14 +18,13 @@ import { MessageConfig } from '../config/message-config';
                    #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                    [nzAutosize]="{ minRows: minRows, maxRows: maxRows }"
                    (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                   [required]="required" [email]="type==='email'" [pattern]="pattern" [min]="min" [max]="max"
-                   [minlength]="minLength" [maxlength]="maxLength"
+                   [required]="required" [minlength]="minLength" [maxlength]="maxLength"
             ></textarea>
             <nz-form-explain *ngIf="controlModel?.invalid && (controlModel?.dirty || controlModel.touched)">{{getErrorMessage()}}</nz-form-explain>
         </nz-form-control>
     `
 })
-export class TextareaWrapperComponent extends FormControlWrapperBase {
+export class TextArea extends FormControlWrapperBase {
     /**
      * 是否显示清除按钮
      */

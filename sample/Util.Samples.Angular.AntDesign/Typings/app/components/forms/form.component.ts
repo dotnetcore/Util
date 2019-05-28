@@ -10,7 +10,7 @@ import { FormViewModel } from "./model/form-view-model";
     selector: 'app-components-form',
     templateUrl: !env.dev() ? './html/form.component.html' : '/View/Components/Forms/Form'
 } )
-export class FormComponent extends EditComponentBase<FormViewModel> {
+export class FormComponent extends EditComponentBase<any> {
     /**
      * 初始化
      */
@@ -22,7 +22,7 @@ export class FormComponent extends EditComponentBase<FormViewModel> {
      * 创建模型
      */
     createModel() {
-        return new FormViewModel();
+        return {};
     }
 
     /**

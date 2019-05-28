@@ -153,7 +153,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestType_Number() {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TextBoxType.Number } };
             var result = new String();
-            result.Append( "<x-textbox type=\"number\"></x-textbox>" );
+            result.Append( "<x-textbox></x-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

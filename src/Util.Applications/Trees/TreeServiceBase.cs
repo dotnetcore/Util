@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Util.Applications.Dtos;
 using Util.Datas.Queries.Trees;
 using Util.Datas.Stores;
 using Util.Datas.UnitOfWorks;
@@ -12,7 +11,7 @@ using Convert = Util.Helpers.Convert;
 
 namespace Util.Applications.Trees {
     /// <summary>
-    /// 树型服务
+    /// 树形服务
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
@@ -20,7 +19,7 @@ namespace Util.Applications.Trees {
     public abstract class TreeServiceBase<TEntity, TDto, TQueryParameter>
         : TreeServiceBase<TEntity, TDto, TQueryParameter, Guid, Guid?>, ITreeService<TDto, TQueryParameter>
         where TEntity : class, IParentId<Guid?>, IPath, IEnabled, ISortId, IKey<Guid>, IVersion, new()
-        where TDto : class, IDto, ITreeNode, new()
+        where TDto : class, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter {
         /// <summary>
         /// 存储器
@@ -28,7 +27,7 @@ namespace Util.Applications.Trees {
         private readonly IStore<TEntity, Guid> _store;
 
         /// <summary>
-        /// 初始化树型服务
+        /// 初始化树形服务
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="store">存储器</param>
@@ -53,7 +52,7 @@ namespace Util.Applications.Trees {
     }
 
     /// <summary>
-    /// 树型服务
+    /// 树形服务
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
@@ -63,7 +62,7 @@ namespace Util.Applications.Trees {
     public abstract class TreeServiceBase<TEntity, TDto, TQueryParameter, TKey, TParentId>
         : DeleteServiceBase<TEntity, TDto, TQueryParameter, TKey>, ITreeService<TDto, TQueryParameter, TParentId>
         where TEntity : class, IParentId<TParentId>, IPath, IEnabled, ISortId, IKey<TKey>, IVersion, new()
-        where TDto : class, IDto, ITreeNode, new()
+        where TDto : class, ITreeNode, new()
         where TQueryParameter : class, ITreeQueryParameter<TParentId> {
         /// <summary>
         /// 工作单元
@@ -75,7 +74,7 @@ namespace Util.Applications.Trees {
         private readonly IStore<TEntity, TKey> _store;
 
         /// <summary>
-        /// 初始化树型服务
+        /// 初始化树形服务
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         /// <param name="store">存储器</param>

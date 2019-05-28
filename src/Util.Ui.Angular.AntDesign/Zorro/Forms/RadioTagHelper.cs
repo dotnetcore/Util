@@ -17,6 +17,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
+        /// [(ngModel)],模型绑定
+        /// </summary>
+        public string NgModel { get; set; }
+        /// <summary>
         /// nzName,控件的名称
         /// </summary>
         public string Name { get; set; }
@@ -33,6 +37,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Url { get; set; }
         /// <summary>
+        /// [url],请求地址
+        /// </summary>
+        public string BindUrl { get; set; }
+        /// <summary>
         /// 数据源
         /// </summary>
         public string DatasSource { get; set; }
@@ -40,10 +48,6 @@ namespace Util.Ui.Zorro.Forms {
         /// [nzDisabled],禁用
         /// </summary>
         public string Disabled { get; set; }
-        /// <summary>
-        /// [(ngModel)],模型绑定
-        /// </summary>
-        public string Model { get; set; }
         /// <summary>
         /// 必填项
         /// </summary>

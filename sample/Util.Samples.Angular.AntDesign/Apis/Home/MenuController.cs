@@ -76,6 +76,16 @@ namespace Util.Samples.Apis.Home {
                                 Link = "/demo/list/table-list"
                             }
                         }
+                    },
+                    new MenuInfo {
+                        Text = "树形",
+                        Icon = "anticon anticon-edit",
+                        Children = {
+                            new MenuInfo {
+                                Text = "树形",
+                                Link = "/demo/trees/tree"
+                            }
+                        }
                     }
                 }
             };

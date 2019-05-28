@@ -285,8 +285,6 @@
         CreateService( context );
         //创建Api控制器
         CreateApiController( context );
-        //创建控制器
-        CreateController( context );
         //创建Index视图
         CreateIndexView( context );
         //创建Edit视图
@@ -781,22 +779,6 @@
         }
     }
     
-    //创建控制器
-    public void CreateController(EntityContext entityContext)
-    {
-        ControllerClass result = this.Create<ControllerClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = string.Format( "{0}Controller",entity.ClassName );
-            result.Entity = entity;
-            result.Namespace = GetNamespace(entity);
-            result.Schema = GetSchema(entity);
-            result.RenderToFile(GetPath(className,"Presentation\\Areas\\" + GetSchema(entity) + "\\Controllers" ), true);
-        }
-    }
-    
     //创建Index视图
     public void CreateIndexView(EntityContext entityContext)
     {
@@ -808,7 +790,7 @@
             string className = "Index";
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Areas\\{0}\\Views\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
         }
     }
     

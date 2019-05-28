@@ -51,5 +51,15 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// 是否排序
         /// </summary>
         public bool IsSort { get; set; }
+
+        /// <summary>
+        /// 展开事件
+        /// </summary>
+        public string OnExpand { get; set; }
+
+        /// <summary>
+        /// 单击行事件
+        /// </summary>
+        public string OnClickRow { get; set; }
     }
 }

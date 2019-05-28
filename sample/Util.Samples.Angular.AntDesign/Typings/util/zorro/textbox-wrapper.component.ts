@@ -24,7 +24,7 @@ import { MessageConfig } from '../config/message-config';
         </nz-form-control>
     `
 })
-export class TextBoxWrapperComponent extends FormControlWrapperBase implements OnInit {
+export class TextBox extends FormControlWrapperBase implements OnInit {
     /**
      * 是否密码框
      */
@@ -124,15 +124,6 @@ export class TextBoxWrapperComponent extends FormControlWrapperBase implements O
     private togglePassword() {
         this.type = this.hide ? 'password' : 'text';
         this.hide = !this.hide;
-    }
-
-    /**
-     * 后缀图标单击事件
-     */
-    suffixIconClick() {
-        super.suffixIconClick();
-        if (this.isPassword)
-            this.togglePassword();
     }
 
     /**

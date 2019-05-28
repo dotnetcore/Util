@@ -5,12 +5,11 @@ using Util.Helpers;
 using Util.Properties;
 using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
-using Util.Ui.Angular.Forms.Resolvers;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
-using Util.Ui.Helpers;
 using Util.Ui.Zorro.Buttons.Builders;
 using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms.Builders;
@@ -44,12 +43,19 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
-            var wrapperBuilder = new UploadWrapperBuilder();
+            var wrapperBuilder = CreateUploadWrapperBuilder();
             var builder = new UploadBuilder();
             wrapperBuilder.AppendContent( builder );
             ConfigWrapper( wrapperBuilder );
             Config( builder );
             return wrapperBuilder;
+        }
+
+        /// <summary>
+        /// 创建上传包装器生成器
+        /// </summary>
+        protected virtual TagBuilder CreateUploadWrapperBuilder() {
+            return new UploadWrapperBuilder();
         }
 
         /// <summary>
@@ -65,15 +71,16 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置包装器
         /// </summary>
-        private void ConfigWrapper( UploadWrapperBuilder builder ) {
+        private void ConfigWrapper( TagBuilder builder ) {
             builder.AddAttribute( $"#{GetWrapperId()}" );
             builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
+            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
         }
 
         /// <summary>
         /// 获取包装器标识
         /// </summary>
-        private string GetWrapperId() {
+        protected string GetWrapperId() {
             if( _config.Contains( UiConst.Id ) )
                 return $"{_config.GetValue( UiConst.Id )}_wrapper";
             return $"m_{_wrapperId}";
@@ -85,12 +92,13 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void Config( UploadBuilder builder ) {
             ConfigId( builder );
             ConfigDataSource( builder );
+            ConfigDisabled( builder );
+            ConfigShowButton( builder );
             ConfigMultiple( builder );
             ConfigDirectory( builder );
             ConfigFileList( builder );
             ConfigButton( builder );
             ConfigAccept( builder );
-            ConfigFileType( builder );
             ConfigLimit( builder );
             ConfigFilter( builder );
             ConfigEvents( builder );
@@ -104,6 +112,26 @@ namespace Util.Ui.Zorro.Forms.Renders {
             builder.AddAttribute( "nzAction", _config.GetValue( UiConst.Url ) );
             builder.AddAttribute( "[nzAction]", _config.GetValue( AngularConst.BindUrl ) );
             builder.AddAttribute( "[nzData]", _config.GetValue( UiConst.Data ) );
+        }
+
+        /// <summary>
+        /// 配置禁用
+        /// </summary>
+        private void ConfigDisabled( TagBuilder builder ) {
+            builder.AddAttribute( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
+        }
+
+        /// <summary>
+        /// 配置显示按钮
+        /// </summary>
+        protected virtual void ConfigShowButton( TagBuilder builder ) {
+            if ( _config.Contains( UiConst.ShowButton ) ) {
+                builder.AddAttribute( "[nzShowButton]", _config.GetValue( UiConst.ShowButton ) );
+                return;
+            }
+            if( _config.Contains( UiConst.TotalLimit ) == false )
+                return;
+            builder.AddAttribute( "[nzShowButton]", $"!{GetWrapperId()}.files||({GetWrapperId()}.files&&{GetWrapperId()}.files).length<{_config.GetValue( UiConst.TotalLimit )}" );
         }
 
         /// <summary>
@@ -138,9 +166,17 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Content.IsEmpty() == false )
                 return;
             var buttonBuilder = new ButtonWrapperBuilder();
+            ConfigButtonDisabled( buttonBuilder );
             ConfigButtonText( buttonBuilder );
             ConfigButtonIcon( buttonBuilder );
             builder.AppendContent( buttonBuilder );
+        }
+
+        /// <summary>
+        /// 配置按钮禁用
+        /// </summary>
+        private void ConfigButtonDisabled( TagBuilder builder ) {
+            builder.AddAttribute( "[disabled]", _config.GetValue( UiConst.Disabled ) );
         }
 
         /// <summary>
@@ -195,7 +231,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.ImageTypes ) ) {
                 var types = _config.GetValue<List<ImageType>>( UiConst.ImageTypes );
                 if( types != null )
-                    return types.Select( t => t.GetExtensions() ).ToList();
+                    return types.Select( t => t.Description() ).ToList();
             }
             if( _config.GetValue<bool?>( UiConst.AcceptImage ) == true )
                 return GetAccepts<ImageType>();
@@ -206,8 +242,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 获取枚举接受列表
         /// </summary>
         private List<string> GetAccepts<TEnum>() {
-            var names = Enum.GetNames<TEnum>();
-            return names.Select( FileTypeHelper.GetExtensions ).ToList();
+            var items = Enum.GetItems<TEnum>();
+            return items.Select( t => t.Text ).ToList();
         }
 
         /// <summary>
@@ -217,67 +253,10 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.DocumentTypes ) ) {
                 var types = _config.GetValue<List<DocumentType>>( UiConst.DocumentTypes );
                 if( types != null )
-                    return types.Select( t => t.GetExtensions() ).ToList();
+                    return types.Select( t => t.Description() ).ToList();
             }
             if( _config.GetValue<bool?>( UiConst.AcceptDocument ) == true )
                 return GetAccepts<DocumentType>();
-            return new List<string>();
-        }
-
-        /// <summary>
-        /// 配置文件类型限制
-        /// </summary>
-        private void ConfigFileType( UploadBuilder builder ) {
-            if( _config.Contains( UiConst.FileType ) ) {
-                builder.FileType( _config.GetValue( UiConst.FileType ) );
-                return;
-            }
-            builder.FileType( GetFileTypes() );
-        }
-
-        /// <summary>
-        /// 获取文件类型限制列表
-        /// </summary>
-        private string GetFileTypes() {
-            var result = new List<string>();
-            result.AddRange( GetImageFileTypes() );
-            result.AddRange( GetDocumentFileTypes() );
-            return result.Join();
-        }
-
-        /// <summary>
-        /// 获取图片类型限制列表
-        /// </summary>
-        private List<string> GetImageFileTypes() {
-            if( _config.Contains( UiConst.ImageTypes ) ) {
-                var types = _config.GetValue<List<ImageType>>( UiConst.ImageTypes );
-                if( types != null )
-                    return types.Select( t => t.Description() ).ToList();
-            }
-            if( _config.GetValue<bool?>( UiConst.AcceptImage ) == true )
-                return GetFileTypes<ImageType>();
-            return new List<string>();
-        }
-
-        /// <summary>
-        /// 获取枚举文件类型限制列表
-        /// </summary>
-        private List<string> GetFileTypes<TEnum>() {
-            var items = Enum.GetItems<TEnum>();
-            return items.Select( t => t.Text.SafeString() ).ToList();
-        }
-
-        /// <summary>
-        /// 获取文档类型限制列表
-        /// </summary>
-        private List<string> GetDocumentFileTypes() {
-            if( _config.Contains( UiConst.DocumentTypes ) ) {
-                var types = _config.GetValue<List<DocumentType>>( UiConst.DocumentTypes );
-                if( types != null )
-                    return types.Select( t => t.Description() ).ToList();
-            }
-            if( _config.GetValue<bool?>( UiConst.AcceptDocument ) == true )
-                return GetFileTypes<DocumentType>();
             return new List<string>();
         }
 
