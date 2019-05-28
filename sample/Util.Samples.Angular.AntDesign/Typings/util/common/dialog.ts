@@ -2,9 +2,10 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { NzModalService, ModalOptionsForService, NzModalRef } from "ng-zorro-antd";
+import { TemplateRef } from '@angular/core';
+import { NzModalService, ModalOptionsForService, NzModalRef, ModalButtonOptions } from "ng-zorro-antd";
 import { IocHelper as ioc } from '../angular/ioc-helper';
-import { isNumber, toNumber,isUndefined } from './helper';
+import { isNumber, toNumber, isUndefined } from './helper';
 
 /**
  * 弹出层操作
@@ -115,10 +116,12 @@ export class Dialog {
         return {
             nzTitle: options.title,
             nzContent: options.content || options.dialogComponent,
+            nzComponentParams: options.data,
             nzClosable: isUndefined( options.closable ) ? true : options.closable,
             nzMask: isUndefined( options.mask ) ? true : options.mask,
+            nzFooter: options.footer,
             nzOnOk: options.onOk,
-            nzOnCancel: options.onCancel
+            nzOnCancel: options.onCancel || options.onBeforeClose
         };
     }
 
@@ -140,13 +143,6 @@ export class Dialog {
             return;
         let dialogRef = dialog.openModals[dialog.openModals.length - 1];
         dialogRef && dialogRef.close( result );
-    }
-
-    /**
-     * 获取数据，注意：必须在OnInit之后的事件调用，不能在构造函数中调用，可能获取不到值
-     */
-    static getData<T>() {
-
     }
 }
 
@@ -223,6 +219,10 @@ export interface IDialogOptions {
      */
     maxHeight?: number | string,
     /**
+     * 底部内容
+     */
+    footer?: string | TemplateRef<{}> | Array<ModalButtonOptions>;
+    /**
      * 点击确定按钮事件，返回false则阻止关闭弹出框
      */
     onOk?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
@@ -239,10 +239,9 @@ export interface IDialogOptions {
      */
     onAfterOpen?: () => void,
     /**
-     * 关闭前事件
-     * @param result 返回结果
+     * 关闭前事件，返回false则阻止关闭弹出框
      */
-    onBeforeClose?: ( result ) => void,
+    onBeforeClose?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**
      * 关闭后事件
      * @param result 返回结果

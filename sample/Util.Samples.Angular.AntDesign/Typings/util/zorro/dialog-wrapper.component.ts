@@ -10,13 +10,7 @@ import { Component, Inject } from '@angular/core';
 @Component({
     selector: 'mat-dialog-wrapper',
     template: `
-        <h2 mat-dialog-title>{{data.dialogTitle}}</h2>
-        <mat-dialog-content [ngStyle]="getContentStyle()">
-            <iframe *ngIf="url" [src]="url | safeUrl" frameborder="0" style="width:100%;height:96%"></iframe>
-        </mat-dialog-content>
-        <mat-dialog-actions align="end">
-          <button mat-raised-button color="primary" mat-dialog-close>关 闭</button>
-        </mat-dialog-actions>
+       
   `
 })
 export class DialogWrapperComponent {
@@ -27,7 +21,6 @@ export class DialogWrapperComponent {
 
     /**
      * 初始化弹出层包装器
-     * @param data 数据
      */
     constructor( ) {
         this.url = null;
