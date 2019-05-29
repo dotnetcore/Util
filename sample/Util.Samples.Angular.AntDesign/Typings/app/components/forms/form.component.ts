@@ -19,13 +19,6 @@ export class FormComponent extends EditComponentBase<any> {
     }
 
     /**
-     * 创建模型
-     */
-    createModel() {
-        return {};
-    }
-
-    /**
      * 获取基地址
      */
     getBaseUrl() {
@@ -42,9 +35,5 @@ export class FormComponent extends EditComponentBase<any> {
             onAfterClose: (result) => {
             }
         } );
-    }
-
-    onChange(result: Date): void {
-        console.log('onChange: ', result);
     }
 }

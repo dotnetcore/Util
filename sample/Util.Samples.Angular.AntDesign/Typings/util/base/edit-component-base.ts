@@ -32,7 +32,9 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
     /**
      * 创建视图模型
      */
-    protected abstract createModel(): TViewModel;
+    protected createModel(): TViewModel {
+        return <TViewModel>{};
+    }
 
     /**
      * 初始化
