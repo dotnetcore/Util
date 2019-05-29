@@ -34,7 +34,9 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     /**
      * 创建查询参数
      */
-    protected abstract createQuery(): TQuery;
+    protected createQuery(): TQuery {
+        return <TQuery>{};
+    }
 
     /**
      * 视图加载完成

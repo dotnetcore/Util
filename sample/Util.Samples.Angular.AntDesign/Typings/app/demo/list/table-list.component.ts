@@ -9,20 +9,12 @@ import { ApplicationViewModel } from './model/application-view-model';
     templateUrl: !env.dev() ? './html/table-list.component.html' : '/View/Demo/List/TableList',
 })
 export class TableListComponent extends TableQueryComponentBase<ApplicationViewModel, ApplicationQuery> {
+    expandForm;
     /**
      * 初始化
      * @param injector 注入器
      */
     constructor( injector: Injector ) {
         super( injector );
-    }
-
-    expandForm;
-
-    /**
-     * 创建查询参数
-     */
-    protected createQuery() {
-        return new ApplicationQuery();
     }
 }
