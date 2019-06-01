@@ -83,8 +83,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试显示清除按钮
         /// </summary>
         [Fact]
-        public void TestShowClearButton() {
-            var attributes = new TagHelperAttributeList { { UiConst.ShowClearButton, true } };
+        public void TestShowClear() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowClear, true } };
             var result = new String();
             result.Append( "<x-select [allowClear]=\"true\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
@@ -219,6 +219,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Multiple, true } };
             var result = new String();
             result.Append( "<x-select [multiple]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试最多选择数量
+        /// </summary>
+        [Fact]
+        public void TestMaxMultipleCount() {
+            var attributes = new TagHelperAttributeList { { UiConst.MaxMultipleCount, 10 } };
+            var result = new String();
+            result.Append( "<x-select [maxMultipleCount]=\"10\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

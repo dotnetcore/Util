@@ -56,7 +56,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigDataSource( builder );
             ConfigDefaultOption( builder );
             ConfigMultiple( builder );
-            ConfigShowClearButton( builder );
+            ConfigShowClear( builder );
             ConfigShowSearch( builder );
             ConfigTemplate( builder );
             ConfigStandalone( builder );
@@ -108,13 +108,14 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigMultiple( SelectWrapperBuilder builder ) {
             builder.AddAttribute( "[multiple]", _config.GetBoolValue( UiConst.Multiple ) );
+            builder.AddAttribute( "[maxMultipleCount]", _config.GetValue( UiConst.MaxMultipleCount ) );
         }
 
         /// <summary>
         /// 配置显示清除按钮
         /// </summary>
-        private void ConfigShowClearButton( SelectWrapperBuilder builder ) {
-            builder.AddAttribute( "[allowClear]", _config.GetBoolValue( UiConst.ShowClearButton ) );
+        private void ConfigShowClear( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "[allowClear]", _config.GetBoolValue( UiConst.ShowClear ) );
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ import { ApplicationViewModel } from './model/application-view-model';
 })
 export class TableListComponent extends TableQueryComponentBase<ApplicationViewModel, ApplicationQuery> {
     expandForm;
+    status;
     /**
      * ³õÊ¼»¯
      * @param injector ×¢ÈëÆ÷

@@ -181,6 +181,7 @@ export interface IDialogOptions {
     width?: string | number,
     /**
      * 点击确定按钮事件，返回 false 阻止关闭
+     * @param instance 弹出层组件实例
      */
     onOk?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**

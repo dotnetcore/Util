@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, OnInit, Host, Optional } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { SelectList, SelectItem, SelectOption, SelectOptionGroup } from "../core/select-model";
@@ -99,7 +99,7 @@ export class Select extends FormControlWrapperBase implements OnInit {
     /**
      * 初始化下拉列表包装器
      */
-    constructor(@Optional() @Host() form: NgForm) {
+    constructor(@Optional() form: NgForm) {
         super(form);
         this.allowClear = true;
         this.showSearch = true;

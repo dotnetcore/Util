@@ -1,4 +1,4 @@
-import { Input,Component, Injector } from '@angular/core';
+import { Input, Component, Injector } from '@angular/core';
 import { env } from '../../env';
 import { ComponentBase } from '../../../util';
 

@@ -40,9 +40,13 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public bool Multiple { get; set; }
         /// <summary>
+        /// [nzMaxMultipleCount],允许选中的最大数量
+        /// </summary>
+        public int MaxMultipleCount { get; set; }
+        /// <summary>
         /// [nzAllowClear],是否显示清除按钮，默认值： true
         /// </summary>
-        public bool ShowClearButton { get; set; }
+        public bool ShowClear { get; set; }
         /// <summary>
         /// [nzShowSearch],是否允许单选时搜索，默认值： true
         /// </summary>

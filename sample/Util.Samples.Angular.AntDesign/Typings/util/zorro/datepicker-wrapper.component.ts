@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=========================================================
-import { Component, Input, Host, Optional, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Optional, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NzDatePickerI18nInterface } from "ng-zorro-antd";
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
@@ -138,7 +138,7 @@ export class DatePicker extends FormControlWrapperBase {
      * 初始化日期选择包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() form: NgForm ) {
+    constructor( @Optional() form: NgForm ) {
         super( form );
         this.type = 'date';
         this.allowClear = true;

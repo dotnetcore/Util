@@ -156,7 +156,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - [AspectCore](https://github.com/dotnetcore/AspectCore-Framework)
 
 11. Json框架
-  - Newtonsoft.Json( 即Json.Net )
+  - Json.Net
 
 12. 映射框架
   - AutoMapper
@@ -202,7 +202,6 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
     - [Sass](http://www.sass-lang.com)
   - 组件库
     - [Angular Material](https://material.angular.io/)
-    - [Angular Flex-Layout](https://github.com/angular/flex-layout)
     - [PrimeNg](https://www.primefaces.org/primeng)
     - [Ng-Zorro](https://ng.ant.design)
     - [Ng-Alain](https://ng-alain.github.io/ng-alain/)

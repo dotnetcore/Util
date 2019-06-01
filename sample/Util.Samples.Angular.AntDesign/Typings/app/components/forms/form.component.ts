@@ -33,8 +33,8 @@ export class FormComponent extends EditComponentBase<any> {
             disableClose:true,
             component: DialogComponent,
             data: { test: "a" },
-            onOk: () => {
-                return "c";
+            onOk: instance => {
+                instance.ok2();
             },
             onBeforeClose: ( result ) => {
                 if ( result === "a" )

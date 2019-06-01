@@ -140,6 +140,10 @@
         /// </summary>
         public const string Multiple = "multiple";
         /// <summary>
+        /// 最多选择数量
+        /// </summary>
+        public const string MaxMultipleCount = "max-multiple-count";
+        /// <summary>
         /// 模型绑定
         /// </summary>
         public const string Model = "model";
@@ -688,9 +692,9 @@
         /// </summary>
         public const string TotalTemplate = "total-template";
         /// <summary>
-        /// 显示清除按钮
+        /// 显示清除
         /// </summary>
-        public const string ShowClearButton = "show-clear-button";
+        public const string ShowClear = "show-clear";
         /// <summary>
         /// 显示搜索
         /// </summary>

@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, AfterContentInit, EventEmitter, Host, Optional } from '@angular/core';
+import { Component, Input, Output, AfterContentInit, EventEmitter, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NzTreeNodeOptions, NzFormatEmitEvent } from "ng-zorro-antd";
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
@@ -95,7 +95,7 @@ export class TreeSelect extends FormControlWrapperBase implements AfterContentIn
     /**
      * 初始化树形选择包装器
      */
-    constructor( @Optional() @Host() form: NgForm ) {
+    constructor( @Optional() form: NgForm ) {
         super( form );
         this.dataSource = new Array<any>();
         this.autoLoad = true;
