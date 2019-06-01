@@ -49,6 +49,12 @@ namespace Util.Samples.Pages.Components.Forms {
         public List<UploadFileInfo> Files { get; set; }
 
         /// <summary>
+        /// 上传文件
+        /// </summary>
+        [Display( Name = "上传文件" )]
+        public UploadFileInfo File { get; set; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         [Display( Name = "备注" )]

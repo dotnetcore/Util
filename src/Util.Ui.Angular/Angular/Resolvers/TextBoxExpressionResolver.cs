@@ -1,20 +1,20 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Internal;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 
-namespace Util.Ui.Angular.Forms.Resolvers {
+namespace Util.Ui.Angular.Resolvers {
     /// <summary>
-    /// 表达式解析器
+    /// 文本框表达式解析器
     /// </summary>
-    public class ExpressionResolver {
+    public class TextBoxExpressionResolver {
         /// <summary>
-        /// 初始化表达式解析器
+        /// 初始化文本框表达式解析器
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        private ExpressionResolver( ModelExpression expression, IConfig config ) {
+        private TextBoxExpressionResolver( ModelExpression expression, TextBoxConfig config ) {
             if( expression == null || config == null )
                 return;
             _expression = expression;
@@ -29,7 +29,7 @@ namespace Util.Ui.Angular.Forms.Resolvers {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly TextBoxConfig _config;
         /// <summary>
         /// 成员
         /// </summary>
@@ -40,8 +40,8 @@ namespace Util.Ui.Angular.Forms.Resolvers {
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        public static void Init( ModelExpression expression, IConfig config ) {
-            new ExpressionResolver( expression, config ).Init();
+        public static void Init( ModelExpression expression, TextBoxConfig config ) {
+            new TextBoxExpressionResolver( expression, config ).Init();
         }
 
         /// <summary>
@@ -49,6 +49,8 @@ namespace Util.Ui.Angular.Forms.Resolvers {
         /// </summary>
         private void Init() {
             Helper.Init( _config, _expression, _memberInfo );
+            Helper.InitDataType( _config, _memberInfo );
+            Helper.InitValidation( _config, _memberInfo );
         }
     }
 }

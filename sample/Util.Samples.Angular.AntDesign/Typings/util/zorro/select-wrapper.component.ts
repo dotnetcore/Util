@@ -2,12 +2,11 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, OnInit, Host, Optional } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { SelectList, SelectItem, SelectOption, SelectOptionGroup } from "../core/select-model";
 import { WebApi as webapi } from '../common/webapi';
-import { MessageConfig } from '../config/message-config';
 
 /**
  * NgZorro下拉列表包装器
@@ -17,8 +16,9 @@ import { MessageConfig } from '../config/message-config';
     template: `
         <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-select #controlModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
-                [nzPlaceHolder]="placeholder" [ngStyle]="getStyle()" [nzAllowClear]="allowClear"
-                [nzMode]="multiple?'multiple':'default'"
+                [nzPlaceHolder]="placeholder" [ngStyle]="getStyle()" 
+                [nzMode]="multiple?'multiple':'default'" [nzMaxMultipleCount]="maxMultipleCount"
+                [nzShowSearch]="showSearch" [nzAllowClear]="allowClear"
                 (nzBlur)="blur($event)" (nzFocus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                 [nzDisabled]="disabled" [required]="required">
                 <nz-option *ngIf="defaultOptionText" [nzLabel]="defaultOptionText"></nz-option>
@@ -74,11 +74,15 @@ export class Select extends FormControlWrapperBase implements OnInit {
     /**
      * 宽度
      */
-    @Input() width?: number;
+    @Input() width?: string;
     /**
      * 多选
      */
     @Input() multiple: boolean;
+    /**
+     * 最多允许选中的数量
+     */
+    @Input() maxMultipleCount: number;
     /**
      * 默认项文本
      */
@@ -87,14 +91,19 @@ export class Select extends FormControlWrapperBase implements OnInit {
      * 显示清空按钮
      */
     @Input() allowClear: boolean;
+    /**
+     * 显示搜索框
+     */
+    @Input() showSearch: boolean;
 
     /**
      * 初始化下拉列表包装器
      */
-    constructor(@Optional() @Host() form: NgForm) {
+    constructor(@Optional() form: NgForm) {
         super(form);
         this.allowClear = true;
-        this.width = MessageConfig.selectWidth;
+        this.showSearch = true;
+        this.maxMultipleCount = 9999;
     }
 
     /**
@@ -102,7 +111,7 @@ export class Select extends FormControlWrapperBase implements OnInit {
      */
     getStyle() {
         return {
-            'width': this.width ? `${this.width}px` : null
+            'width': this.width ? this.width : null
         };
     }
 

@@ -22,7 +22,7 @@ namespace Util.Helpers {
         /// <param name="isConvertToSingleQuotes">是否将双引号转成单引号</param>
         public static string ToJson( object target,bool isConvertToSingleQuotes = false ) {
             if ( target == null )
-                return "{}";
+                return string.Empty;
             var result = JsonConvert.SerializeObject( target );
             if ( isConvertToSingleQuotes )
                 result = result.Replace( "\"", "'" );

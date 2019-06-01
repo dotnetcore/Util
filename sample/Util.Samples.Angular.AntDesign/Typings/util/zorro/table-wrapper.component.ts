@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, AfterContentInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output,OnInit, AfterContentInit, EventEmitter } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { WebApi as webapi } from '../common/webapi';
 import { Message as message } from '../common/message';
@@ -19,7 +19,7 @@ import { MessageConfig as config } from '../config/message-config';
         <ng-content></ng-content>
     `
 })
-export class Table<T extends IKey> implements AfterContentInit {
+export class Table<T extends IKey> implements OnInit,AfterContentInit {
     /**
      * 查询延迟
      */
@@ -110,13 +110,11 @@ export class Table<T extends IKey> implements AfterContentInit {
     }
 
     /**
-     * 内容加载完成操作
+     * 初始化
      */
-    ngAfterContentInit() {
+    ngOnInit() {
         this.initPage();
         this.initSort();
-        if (this.autoLoad)
-            this.query();
     }
 
     /**
@@ -125,7 +123,7 @@ export class Table<T extends IKey> implements AfterContentInit {
     private initPage() {
         this.queryParam.page = 1;
         this.queryParam.pageSize = 10;
-        if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
+        if ( this.pageSizeOptions && this.pageSizeOptions.length > 0 )
             this.queryParam.pageSize = this.pageSizeOptions[0];
     }
 
@@ -133,9 +131,17 @@ export class Table<T extends IKey> implements AfterContentInit {
     * 初始化排序
     */
     private initSort() {
-        if (!this.sortKey)
+        if ( !this.sortKey )
             return;
         this.queryParam.order = this.sortKey;
+    }
+
+    /**
+     * 内容加载完成操作
+     */
+    ngAfterContentInit() {
+        if (this.autoLoad)
+            this.query();
     }
 
     /**

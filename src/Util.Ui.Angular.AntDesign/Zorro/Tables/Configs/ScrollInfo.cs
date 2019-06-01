@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Util.Ui.Helpers;
 
 namespace Util.Ui.Zorro.Tables.Configs {
     /// <summary>
@@ -11,19 +12,8 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
         public ScrollInfo( string width, string height ) {
-            Width = GetValue( width );
-            Height = GetValue( height );
-        }
-
-        /// <summary>
-        /// 获取值
-        /// </summary>
-        private string GetValue( string value ) {
-            if ( value.IsEmpty() )
-                return null;
-            if( Util.Helpers.Validation.IsNumber( value ) )
-                return $"{value}px";
-            return value;
+            Width = CommonHelper.GetPixelValue( width );
+            Height = CommonHelper.GetPixelValue( height );
         }
 
         /// <summary>

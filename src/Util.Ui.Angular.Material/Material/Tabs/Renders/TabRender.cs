@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Material.Icons.Builders;
 using Util.Ui.Material.Tabs.Builders;
 
 namespace Util.Ui.Material.Tabs.Renders {

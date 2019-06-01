@@ -94,7 +94,7 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
      * 初始化文本框包装器
      * @param form 表单
      */
-    constructor(@Optional() @Host() form: NgForm) {
+    constructor( @Optional() form: NgForm ) {
         super(form);
         this.clearButtonTooltip = MessageConfig.clear;
         this.showClearButton = true;
@@ -129,7 +129,7 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
     /**
      * 获取错误消息
      */
-    private getErrorMessage(): string {
+    getErrorMessage() {
         if (!this.controlModel)
             return "";
         if (this.controlModel.hasError('required'))

@@ -51,6 +51,8 @@ namespace Util.Ui.Zorro.Tables.Renders {
                 return;
             }
             var shareConfig = GetShareConfig();
+            if ( shareConfig == null )
+                return;
             if ( shareConfig.IsSort == false )
                 return;
             builder.AddSortChange( $"{shareConfig.TableWrapperId}.sort($event)" );
@@ -60,7 +62,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 获取共享配置
         /// </summary>
         private TableShareConfig GetShareConfig() {
-            return _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            return _config.Context?.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
         }
 
         /// <summary>

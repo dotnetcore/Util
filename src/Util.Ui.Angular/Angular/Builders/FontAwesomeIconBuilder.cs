@@ -1,9 +1,8 @@
-﻿using Util.Ui.Angular;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 
-namespace Util.Ui.Material.Icons.Builders {
+namespace Util.Ui.Angular.Builders {
     /// <summary>
     /// FontAwesome图标生成器
     /// </summary>

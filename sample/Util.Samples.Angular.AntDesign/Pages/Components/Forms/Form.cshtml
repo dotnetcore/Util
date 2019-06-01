@@ -12,10 +12,10 @@
             <util-tree-select url="/api/tree" expand-all="true" width="300"></util-tree-select>
         </nz-form-item>
         <nz-form-item>
-            <util-select url="/api/form/groupItems" multiple="true" width="500"></util-select>
+            <util-select url="/api/form/groupItems" multiple="true" max-multiple-count="2"></util-select>
         </nz-form-item>
         <nz-form-item>
-            <util-select for="Nation"></util-select>
+            <util-select for="Nation" width="500"></util-select>
         </nz-form-item>
         <nz-form-item>
             <util-date-picker for="DateTime"></util-date-picker>
@@ -30,18 +30,19 @@
             <util-checkbox for="Enabled"></util-checkbox>
         </nz-form-item>
         <nz-form-item>
-            <util-checkbox-group datas-source="Enabled"></util-checkbox-group>
+            <util-radio for="Enabled"></util-radio>
+        </nz-form-item>
+        <nz-form-item>
+            <util-checkbox-group for="Code" data="Enabled"></util-checkbox-group>
         </nz-form-item>
         <nz-form-item>
             <util-switch for="Enabled"></util-switch>
         </nz-form-item>
         <nz-form-item>
-            <util-radio for="Enabled"></util-radio>
-        </nz-form-item>
-        <nz-form-item>
             <nz-form-control>
                 <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Check">
                 </util-button>
+                <util-button on-click="test()" text="弹出层测试" icon="Eye"></util-button>
             </nz-form-control>
         </nz-form-item>
     </util-form>

@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Helpers;
 using Util.Ui.Material.Grids.Builders;
 
 namespace Util.Ui.Material.Grids.Renders {
@@ -52,12 +53,10 @@ namespace Util.Ui.Material.Grids.Renders {
         /// 配置行高
         /// </summary>
         private void ConfigRowHeight( TagBuilder builder ) {
-            if ( _config.Contains( UiConst.RowHeight ) == false )
+            if( _config.Contains( UiConst.RowHeight ) == false )
                 return;
             var value = _config.GetValue( UiConst.RowHeight );
-            if ( Util.Helpers.Validation.IsNumber( value ) )
-                value = $"{value}px";
-            builder.AddAttribute( "rowHeight", value );
+            builder.AddAttribute( "rowHeight", CommonHelper.GetPixelValue( value ) );
         }
 
         /// <summary>
@@ -67,9 +66,7 @@ namespace Util.Ui.Material.Grids.Renders {
             if( _config.Contains( MaterialConst.GutterSize ) == false )
                 return;
             var value = _config.GetValue( MaterialConst.GutterSize );
-            if( Util.Helpers.Validation.IsNumber( value ) )
-                value = $"{value}px";
-            builder.AddAttribute( "gutterSize", value );
+            builder.AddAttribute( "gutterSize", CommonHelper.GetPixelValue( value ) );
         }
     }
 }

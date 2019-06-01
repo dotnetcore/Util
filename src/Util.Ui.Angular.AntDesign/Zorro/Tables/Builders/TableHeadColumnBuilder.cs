@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Builders;
+using Util.Ui.Helpers;
 
 namespace Util.Ui.Zorro.Tables.Builders {
     /// <summary>
@@ -35,7 +36,7 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// </summary>
         /// <param name="sortKey">排序字段</param>
         public void AddSort( string sortKey ) {
-            if ( sortKey.IsEmpty() )
+            if( sortKey.IsEmpty() )
                 return;
             AddAttribute( "[nzShowSort]", "true" );
             AddAttribute( "nzSortKey", sortKey );
@@ -46,11 +47,7 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// </summary>
         /// <param name="width">宽度</param>
         public void AddWidth( string width ) {
-            if ( width.IsEmpty() )
-                return;
-            if( Util.Helpers.Validation.IsNumber( width ) )
-                width += "px";
-            AddAttribute( "nzWidth", width );
+            AddAttribute( "nzWidth", CommonHelper.GetPixelValue( width ) );
         }
     }
 }

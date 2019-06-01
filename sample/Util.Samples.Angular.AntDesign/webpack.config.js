@@ -26,6 +26,9 @@ module.exports = (env) => {
             filename: "[name].js",
             chunkFilename: '[id].chunk.js'
         },
+        optimization: {
+            noEmitOnErrors: true
+        },
         resolve: {
             extensions: ['.js', '.ts','.less','.css']
         },

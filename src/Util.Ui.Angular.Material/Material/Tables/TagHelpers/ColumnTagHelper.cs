@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Enums;
-using Util.Ui.Angular.Tables.Resolvers;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Material.Tables.Configs;
