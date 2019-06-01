@@ -12,7 +12,10 @@
             <util-tree-select url="/api/tree" expand-all="true" width="300"></util-tree-select>
         </nz-form-item>
         <nz-form-item>
-            <util-select url="/api/form/groupItems" multiple="true" max-multiple-count="2"></util-select>
+            <util-select url="/api/form/groupItems" multiple="true" width="500"></util-select>
+        </nz-form-item>
+        <nz-form-item>
+            <util-select url="/api/application/items" server-search="true" scroll-load="true" width="500"></util-select>
         </nz-form-item>
         <nz-form-item>
             <util-select for="Nation" width="500"></util-select>
@@ -30,7 +33,7 @@
             <util-checkbox for="Enabled"></util-checkbox>
         </nz-form-item>
         <nz-form-item>
-            <util-radio for="Enabled"></util-radio>
+            <util-radio for="Gender"></util-radio>
         </nz-form-item>
         <nz-form-item>
             <util-checkbox-group for="Code" data="Enabled"></util-checkbox-group>

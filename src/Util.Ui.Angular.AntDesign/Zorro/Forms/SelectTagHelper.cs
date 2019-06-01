@@ -16,17 +16,21 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Width { get; set; }
         /// <summary>
-        /// 请求地址
+        /// 服务端地址
         /// </summary>
         public string Url { get; set; }
         /// <summary>
-        /// 请求地址
+        /// 服务端地址
         /// </summary>
         public string BindUrl { get; set; }
         /// <summary>
         /// 查询参数
         /// </summary>
         public string QueryParam { get; set; }
+        /// <summary>
+        /// 排序字段,范例: creationTime desc
+        /// </summary>
+        public string Sort { get; set; }
         /// <summary>
         /// 数据源
         /// </summary>
@@ -51,6 +55,26 @@ namespace Util.Ui.Zorro.Forms {
         /// [nzShowSearch],是否允许单选时搜索，默认值： true
         /// </summary>
         public bool ShowSearch { get; set; }
+        /// <summary>
+        /// [nzShowArrow],是否显示下拉箭头，默认值： true
+        /// </summary>
+        public bool ShowArrow { get; set; }
+        /// <summary>
+        /// [nzServerSearch],是否服务端搜索，默认值： false
+        /// </summary>
+        public bool ServerSearch { get; set; }
+        /// <summary>
+        /// 滚动到底部是否自动加载，默认值： false
+        /// </summary>
+        public bool ScrollLoad { get; set; }
+        /// <summary>
+        /// (nzOnSearch),搜索事件
+        /// </summary>
+        public string OnSearch { get; set; }
+        /// <summary>
+        /// (nzScrollToBottom),滚动到底部事件
+        /// </summary>
+        public string OnScrollToBottom { get; set; }
 
         /// <summary>
         /// 获取渲染器

@@ -31,6 +31,12 @@ namespace Util.Samples.Pages.Components.Forms {
         public bool? Enabled { get; set; }
 
         /// <summary>
+        /// 性别
+        /// </summary>
+        [Display( Name = "性别" )]
+        public Gender? Gender { get; set; }
+
+        /// <summary>
         /// 民族
         /// </summary>
         [Display( Name = "民族" )]

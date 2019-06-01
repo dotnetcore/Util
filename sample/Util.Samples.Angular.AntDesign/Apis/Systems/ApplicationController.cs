@@ -14,5 +14,12 @@ namespace Util.Samples.Apis.Systems {
         /// <param name="service">应用程序服务</param>
         public ApplicationController( IApplicationService service ) : base( service ) {
         }
+
+        /// <summary>
+        /// 将Dto转换为列表项
+        /// </summary>
+        protected override Item ToItem( ApplicationDto dto ) {
+            return new Item( dto.Name,dto.Id );
+        }
     }
 }

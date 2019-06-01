@@ -70,8 +70,6 @@
         /// 获取跳过的行数
         /// </summary>
         public int GetSkipCount() {
-            if ( Page > GetPageCount() )
-                Page = GetPageCount();
             return PageSize * ( Page - 1 );
         }
 

@@ -92,6 +92,14 @@
         /// </summary>
         public const string OnClose = "on-close";
         /// <summary>
+        /// 搜索事件
+        /// </summary>
+        public const string OnSearch = "on-search";
+        /// <summary>
+        /// 滚动到底部事件
+        /// </summary>
+        public const string OnScrollToBottom = "on-scroll-to-bottom";
+        /// <summary>
         /// 图标
         /// </summary>
         public const string Icon = "icon";
@@ -700,6 +708,10 @@
         /// </summary>
         public const string ShowSearch = "show-search";
         /// <summary>
+        /// 显示箭头
+        /// </summary>
+        public const string ShowArrow = "show-arrow";
+        /// <summary>
         /// 自动获取焦点
         /// </summary>
         public const string AutoFocus = "auto-focus";
@@ -739,5 +751,13 @@
         /// 滚动宽度
         /// </summary>
         public const string ScrollWidth = "scroll-width";
+        /// <summary>
+        /// 服务端搜索
+        /// </summary>
+        public const string ServerSearch = "server-search";
+        /// <summary>
+        /// 滚动加载
+        /// </summary>
+        public const string ScrollLoad = "scroll-load";
     }
 }
