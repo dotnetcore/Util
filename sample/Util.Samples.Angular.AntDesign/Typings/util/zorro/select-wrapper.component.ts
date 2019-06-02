@@ -151,11 +151,21 @@ export class Select extends FormControlWrapperBase implements OnInit {
      * 组件初始化
      */
     ngOnInit() {
+        this.initPageSize();
         this.initOrder();
         this.loadData();
         if ( this.dataSource )
             return;
         this.loadUrl();
+    }
+
+    /**
+     * 初始化分页大小
+     */
+    private initPageSize() {
+        if ( this.isScrollLoad )
+            return;
+        this.queryParam.pageSize = 9999;
     }
 
     /**
@@ -238,8 +248,6 @@ export class Select extends FormControlWrapperBase implements OnInit {
      */
     private serverSearch( value: string ) {
         this.queryParam.page = 1;
-        if ( !this.isScrollLoad )
-            this.queryParam.pageSize = 9999;
         this.queryParam.keyword = value;
         this.loadUrl();
     }

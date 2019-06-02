@@ -759,5 +759,13 @@
         /// 滚动加载
         /// </summary>
         public const string ScrollLoad = "scroll-load";
+        /// <summary>
+        /// 精度
+        /// </summary>
+        public const string Precision = "precision";
+        /// <summary>
+        /// 步
+        /// </summary>
+        public const string Step = "step";
     }
 }

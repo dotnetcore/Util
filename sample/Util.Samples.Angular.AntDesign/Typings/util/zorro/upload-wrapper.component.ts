@@ -71,7 +71,7 @@ export class Upload {
      * 上传变更处理
      * @param data 上传参数
      */
-    handleChange(data: { file, fileList, event, type }) {
+    handleChange( data: { file, fileList, event, type } ) {
         if ( !data || !data.file || !this.uploadService )
             return;
         if ( data.type === 'removed' ) {

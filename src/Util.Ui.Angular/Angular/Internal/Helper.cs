@@ -138,7 +138,7 @@ namespace Util.Ui.Angular.Internal {
                 return;
             }
             if( Reflection.IsNumber( member ) ) {
-                config.Number();
+                config.IsNumber = true;
                 return;
             }
             InitDataType( config, member.GetCustomAttribute<DataTypeAttribute>() );

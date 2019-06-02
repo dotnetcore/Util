@@ -30,11 +30,9 @@ namespace Util.Ui.Angular.Forms.Configs {
         public bool IsDatePicker { get; set; }
 
         /// <summary>
-        /// 设置为数值类型
+        /// 是否数字框
         /// </summary>
-        public void Number() {
-            SetAttribute( UiConst.Type, "number" );
-        }
+        public bool IsNumber { get; set; }
 
         /// <summary>
         /// 设置为密码类型
