@@ -73,8 +73,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigWrapper( TagBuilder builder ) {
             builder.AddAttribute( $"#{GetWrapperId()}" );
-            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
-            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
+            builder.NgModel( _config );
             ConfigWrapperOnChange( builder );
         }
 
