@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Host, Optional } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { MessageConfig } from '../config/message-config';
@@ -66,7 +66,7 @@ export class TextArea extends FormControlWrapperBase {
      * 初始化多行文本框包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() form: NgForm ) {
+    constructor( @Optional() form: NgForm ) {
         super(form);
         this.minRows = 3;
     }
@@ -74,7 +74,7 @@ export class TextArea extends FormControlWrapperBase {
     /**
      * 获取错误消息
      */
-    private getErrorMessage(): string {
+    getErrorMessage(): string {
         if (!this.controlModel)
             return "";
         if (this.controlModel.hasError('required'))

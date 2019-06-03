@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, EventEmitter, OnInit, Host, Optional, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, Optional, ViewChild, AfterViewInit } from '@angular/core';
 import { NgModel, NgForm } from '@angular/forms';
 import { SelectItem } from "../core/select-model";
 import { WebApi as webapi } from '../common/webapi';
@@ -82,7 +82,7 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
     /**
      * 初始化复选框组包装器
      */
-    constructor( @Optional() @Host() private form: NgForm ) {
+    constructor( @Optional() private form: NgForm ) {
         this.isValid = true;
     }
 

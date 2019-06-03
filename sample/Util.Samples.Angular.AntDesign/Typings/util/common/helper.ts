@@ -223,7 +223,7 @@ export let toDate = ( date ): Date => {
  * (6) 秒: ss
  * (7) 毫秒: SSS
  */
-export let formatDate = ( datetime, format: string = 'YYYY-MM-DD' ): string => {
+export let formatDate = ( datetime, format: string = 'YYYY-MM-DD HH:mm:ss' ): string => {
     let date = moment( getValidDate( datetime ) );
     if ( !date.isValid() )
         return "";

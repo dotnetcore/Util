@@ -4,12 +4,49 @@
 <nz-card [nzBordered]="false">
     <util-tree url="/api/role" query-param="queryParam" show-checkbox="true"></util-tree>
 
-    <util-tree-table id="t" base-url="RoleTable" query-param="queryParam" expand-all="true">
-        <util-tree-table-column for="Code"></util-tree-table-column>
-        <util-tree-table-column for="Name"></util-tree-table-column>
-        <util-tree-table-column for="Enabled"></util-tree-table-column>
-        <util-tree-table-column for="CreationTime"></util-tree-table-column>
-        <util-tree-table-column for="SortId"></util-tree-table-column>
-        <util-tree-table-column for="Comment"></util-tree-table-column>
-    </util-tree-table>
+    <nz-tree-table-wrapper #t_wrapper="" baseUrl="RoleTable" [(queryParam)]="queryParam" [expandAll]="true">
+        <nz-table #t="" (nzPageIndexChange)="t_wrapper.pageIndexChange($event)" (nzPageSizeChange)="t_wrapper.pageSizeChange($event)"
+                  [(nzPageIndex)]="t_wrapper.queryParam.page" [(nzPageSize)]="t_wrapper.queryParam.pageSize"
+                  [nzData]="t_wrapper.dataSource" [nzFrontPagination]="false" [nzLoading]="t_wrapper.loading"
+                  [nzShowPagination]="t_wrapper.showPagination" [nzShowQuickJumper]="true"
+                  [nzShowSizeChanger]="true" [nzShowTotal]="template_t" [nzTotal]="t_wrapper.totalCount">
+            <thead>
+                <tr>
+                    <th>
+                        <label (nzCheckedChange)="t_wrapper.masterToggle()" *ngIf="t_wrapper.showCheckbox" nz-checkbox=""
+                               [nzChecked]="t_wrapper.isMasterChecked()" [nzIndeterminate]="t_wrapper.isMasterIndeterminate()">角色编码</label>
+                        <span *ngIf="!t_wrapper.showCheckbox">角色编码</span>
+                    </th>
+                    <th>角色名称</th>
+                    <th>启用</th>
+                    <th>创建时间</th>
+                    <th>排序号</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let row of t.data">
+                    <tr *ngIf="t_wrapper.isShow(row)">
+                        <td (nzExpandChange)="t_wrapper.collapse(row,$event)" [nzExpand]="t_wrapper.isExpand(row)"
+                            [nzIndentSize]="row.level*20" [nzShowExpand]="!t_wrapper.isLeaf(row)">
+                            <label (nzCheckedChange)="t_wrapper.toggle(row)" *ngIf="t_wrapper.showCheckbox"
+                                   nz-checkbox="" [nzChecked]="t_wrapper.isChecked(row)"
+                                   [nzIndeterminate]="t_wrapper.isIndeterminate(row)">
+                                {{row.code}}
+                            </label>
+                            <ng-container *ngIf="!t_wrapper.showCheckbox">
+                                {{row.code}}
+                            </ng-container>
+                        </td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.enabled?'是':'否'}}</td>
+                        <td>{{ row.creationTime | date:"yyyy-MM-dd" }}</td>
+                        <td>{{row.sortId}}</td>
+                        <td>{{row.comment}}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+        <ng-template #template_t="" let-range="range" let-total="">{{ range[0] }}-{{ range[1] }} 共 {{ total }} 条</ng-template>
+    </nz-tree-table-wrapper>
 </nz-card>

@@ -92,6 +92,14 @@
         /// </summary>
         public const string OnClose = "on-close";
         /// <summary>
+        /// 搜索事件
+        /// </summary>
+        public const string OnSearch = "on-search";
+        /// <summary>
+        /// 滚动到底部事件
+        /// </summary>
+        public const string OnScrollToBottom = "on-scroll-to-bottom";
+        /// <summary>
         /// 图标
         /// </summary>
         public const string Icon = "icon";
@@ -139,6 +147,10 @@
         /// 多选
         /// </summary>
         public const string Multiple = "multiple";
+        /// <summary>
+        /// 最多选择数量
+        /// </summary>
+        public const string MaxMultipleCount = "max-multiple-count";
         /// <summary>
         /// 模型绑定
         /// </summary>
@@ -688,13 +700,17 @@
         /// </summary>
         public const string TotalTemplate = "total-template";
         /// <summary>
-        /// 显示清除按钮
+        /// 显示清除
         /// </summary>
-        public const string ShowClearButton = "show-clear-button";
+        public const string ShowClear = "show-clear";
         /// <summary>
         /// 显示搜索
         /// </summary>
         public const string ShowSearch = "show-search";
+        /// <summary>
+        /// 显示箭头
+        /// </summary>
+        public const string ShowArrow = "show-arrow";
         /// <summary>
         /// 自动获取焦点
         /// </summary>
@@ -735,5 +751,21 @@
         /// 滚动宽度
         /// </summary>
         public const string ScrollWidth = "scroll-width";
+        /// <summary>
+        /// 服务端搜索
+        /// </summary>
+        public const string ServerSearch = "server-search";
+        /// <summary>
+        /// 滚动加载
+        /// </summary>
+        public const string ScrollLoad = "scroll-load";
+        /// <summary>
+        /// 精度
+        /// </summary>
+        public const string Precision = "precision";
+        /// <summary>
+        /// 步
+        /// </summary>
+        public const string Step = "step";
     }
 }

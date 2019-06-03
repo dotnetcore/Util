@@ -46,6 +46,10 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string QueryParam { get; set; }
         /// <summary>
+        /// 是否多选，如果设置为false,则复选框变成单选框，默认为true
+        /// </summary>
+        public string Multiple { get; set; }
+        /// <summary>
         /// 排序字段,范例: creationTime desc
         /// </summary>
         public string Sort { get; set; }

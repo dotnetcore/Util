@@ -30,7 +30,7 @@ namespace Util.Ui.Material.Extensions {
         public static TComponent Number<TComponent>( this TComponent component ) where TComponent : ITextBox {
             var option = component as IOptionConfig;
             option?.Config<TextBoxConfig>( config => {
-                config.Number();
+                config.SetAttribute( UiConst.Type, "number" );
             } );
             return component;
         }

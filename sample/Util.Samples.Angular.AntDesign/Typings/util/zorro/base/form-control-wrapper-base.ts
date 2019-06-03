@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Input, Output, EventEmitter, ViewChild, Optional, Host, AfterViewInit, OnDestroy } from '@angular/core';
+import { Input, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgModel, NgForm } from '@angular/forms';
 import { MessageConfig } from '../../config/message-config';
 
@@ -71,7 +71,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      * 表单控件包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() private form: NgForm) {
+    constructor( private form: NgForm) {
         this.requiredMessage = MessageConfig.requiredMessage;
         this.placeholder = '';
     }
@@ -79,7 +79,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 视图加载完成
      */
-    ngAfterViewInit(): void {
+    ngAfterViewInit() {
         this.addControl();
     }
 

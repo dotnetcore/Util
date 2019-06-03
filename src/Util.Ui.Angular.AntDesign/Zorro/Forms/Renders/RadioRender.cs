@@ -5,6 +5,7 @@ using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
 
 namespace Util.Ui.Zorro.Forms.Renders {
@@ -88,8 +89,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置模型绑定
         /// </summary>
         private void ConfigModel( TagBuilder builder ) {
-            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
-            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
+            builder.NgModel( _config );
         }
 
         /// <summary>

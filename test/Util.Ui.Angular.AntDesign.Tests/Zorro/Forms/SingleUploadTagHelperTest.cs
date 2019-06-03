@@ -330,8 +330,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestOnChange() {
             var attributes = new TagHelperAttributeList { { UiConst.OnChange, "a" } };
             var result = new String();
-            result.Append( "<nz-single-upload-wrapper #m_id=\"\">" );
-            result.Append( "<nz-upload (nzChange)=\"a\" [(nzFileList)]=\"m_id.files\" " );
+            result.Append( "<nz-single-upload-wrapper #m_id=\"\" (modelChange)=\"a\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" " );
             result.Append( "[nzFilter]=\"m_id.filters\" [nzShowButton]=\"!m_id.files||(m_id.files&&m_id.files).length<1\">" );
             result.Append( "<x-button text=\"上传\">" );
             result.Append( "<ng-template>" );

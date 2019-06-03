@@ -184,8 +184,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试是否显示清除按钮
         /// </summary>
         [Fact]
-        public void TestShowClearButton() {
-            var attributes = new TagHelperAttributeList { { UiConst.ShowClearButton, false } };
+        public void TestShowClear() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowClear, false } };
             var result = new String();
             result.Append( "<x-date-picker [allowClear]=\"false\"></x-date-picker>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

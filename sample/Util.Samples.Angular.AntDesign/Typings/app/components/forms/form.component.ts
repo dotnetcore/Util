@@ -2,6 +2,7 @@ import { Component, Injector } from '@angular/core';
 import { env } from '../../env';
 import { EditComponentBase } from '../../../util';
 import { FormViewModel } from "./model/form-view-model";
+import { DialogComponent } from "./dialog.component";
 
 /**
  * 表单组件
@@ -19,13 +20,6 @@ export class FormComponent extends EditComponentBase<any> {
     }
 
     /**
-     * 创建模型
-     */
-    createModel() {
-        return {};
-    }
-
-    /**
      * 获取基地址
      */
     getBaseUrl() {
@@ -34,12 +28,21 @@ export class FormComponent extends EditComponentBase<any> {
 
     test() {
         this.util.dialog.open( {
-            title: "Hello",
-            content: "World",
-            onCancel: () => {
+            title:"Util应用框架 - 新增",
+            width: 800,
+            disableClose:true,
+            component: DialogComponent,
+            data: { test: "a" },
+            onOk: instance => {
+                instance.ok2();
+            },
+            onBeforeClose: ( result ) => {
+                if ( result === "a" )
+                    return false;
                 return true;
             },
-            onAfterClose: (result) => {
+            onClose: ( result ) => {
+                this.util.message.success( result );
             }
         } );
     }

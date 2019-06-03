@@ -73,8 +73,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigWrapper( TagBuilder builder ) {
             builder.AddAttribute( $"#{GetWrapperId()}" );
-            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
-            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
+            builder.NgModel( _config );
+            ConfigWrapperOnChange( builder );
         }
 
         /// <summary>
@@ -84,6 +84,15 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.Id ) )
                 return $"{_config.GetValue( UiConst.Id )}_wrapper";
             return $"m_{_wrapperId}";
+        }
+
+        /// <summary>
+        /// 配置OnChange事件
+        /// </summary>
+        private void ConfigWrapperOnChange( TagBuilder builder ) {
+            if ( _config.Contains( UiConst.OnChange ) == false )
+                return;
+            builder.AddAttribute( "(modelChange)", _config.GetValue( UiConst.OnChange ) );
         }
 
         /// <summary>
@@ -284,17 +293,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "[nzBeforeUpload]", _config.GetValue( UiConst.OnBeforeUpload ) );
-            ConfigOnChange( builder );
-        }
-
-        /// <summary>
-        /// 配置OnChange事件
-        /// </summary>
-        private void ConfigOnChange( TagBuilder builder ) {
-            if( _config.Contains( UiConst.OnChange ) ) {
-                builder.AddAttribute( "(nzChange)", _config.GetValue( UiConst.OnChange ) );
-                return;
-            }
             builder.AddAttribute( "(nzChange)", $"{GetWrapperId()}.handleChange($event)" );
         }
     }

@@ -80,9 +80,11 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
             var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
             var result = new String();
-            result.Append( "<th (nzCheckedChange)=\"id_wrapper.masterToggle()\" nzShowCheckbox=\"\" nzWidth=\"30px\" " );
+            result.Append( "<th (nzCheckedChange)=\"id_wrapper.masterToggle()\" nzWidth=\"30px\" " );
             result.Append( "[nzChecked]=\"id_wrapper.isMasterChecked()\" " );
-            result.Append( "[nzDisabled]=\"!id_wrapper.dataSource.length\" [nzIndeterminate]=\"id_wrapper.isMasterIndeterminate()\">" );
+            result.Append( "[nzDisabled]=\"!id_wrapper.dataSource.length\" [nzIndeterminate]=\"id_wrapper.isMasterIndeterminate()\" " );
+            result.Append( "[nzShowCheckbox]=\"id_wrapper.multiple\">" );
+            result.Append( "{{id_wrapper.multiple?'':'单选'}}" );
             result.Append( "</th>" );
             Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }

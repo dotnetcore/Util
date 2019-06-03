@@ -90,7 +90,7 @@ namespace Util.Tests.Domains.Repositories {
             Assert.Equal( 80, _pager.GetSkipCount() );
 
             _pager.Page = 6;
-            Assert.Equal( 80, _pager.GetSkipCount() );
+            Assert.Equal( 100, _pager.GetSkipCount() );
 
             _pager.TotalCount = 99;
 
@@ -113,7 +113,7 @@ namespace Util.Tests.Domains.Repositories {
             Assert.Equal( 80, _pager.GetSkipCount() );
 
             _pager.Page = 6;
-            Assert.Equal( 80, _pager.GetSkipCount() );
+            Assert.Equal( 100, _pager.GetSkipCount() );
 
             _pager.TotalCount = 0;
             _pager.Page = 1;

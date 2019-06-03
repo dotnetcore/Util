@@ -9,9 +9,9 @@ using String = Util.Helpers.String;
 
 namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
     /// <summary>
-    /// 文本框测试
+    /// 数字文本框测试
     /// </summary>
-    public class TextBoxTagHelperTest {
+    public class NumberTextBoxTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -24,7 +24,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public TextBoxTagHelperTest( ITestOutputHelper output ) {
+        public NumberTextBoxTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _component = new TextBoxTagHelper();
             Config.IsValidate = false;
@@ -34,6 +34,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 获取结果
         /// </summary>
         private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
+            contextAttributes = contextAttributes ?? new TagHelperAttributeList();
+            contextAttributes.Add( UiConst.Type,TextBoxType.Number );
             return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content );
         }
 
@@ -43,7 +45,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "<x-number-textbox></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -54,7 +56,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<x-textbox #a=\"\"></x-textbox>" );
+            result.Append( "<x-number-textbox #a=\"\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -65,7 +67,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestName() {
             var attributes = new TagHelperAttributeList { { UiConst.Name, "a" } };
             var result = new String();
-            result.Append( "<x-textbox name=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox name=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -76,7 +78,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestBindName() {
             var attributes = new TagHelperAttributeList { { AngularConst.BindName, "a" } };
             var result = new String();
-            result.Append( "<x-textbox [name]=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox [name]=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -87,7 +89,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestDisabled() {
             var attributes = new TagHelperAttributeList { { UiConst.Disabled, true } };
             var result = new String();
-            result.Append( "<x-textbox [disabled]=\"true\"></x-textbox>" );
+            result.Append( "<x-number-textbox [disabled]=\"true\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -98,7 +100,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestReadOnly() {
             var attributes = new TagHelperAttributeList { { UiConst.ReadOnly, true } };
             var result = new String();
-            result.Append( "<x-textbox [readonly]=\"true\"></x-textbox>" );
+            result.Append( "<x-number-textbox></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -109,7 +111,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestPlaceholder() {
             var attributes = new TagHelperAttributeList { { UiConst.Placeholder, "a" } };
             var result = new String();
-            result.Append( "<x-textbox placeholder=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox placeholder=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -120,7 +122,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestBindPlaceholder() {
             var attributes = new TagHelperAttributeList { { AngularConst.BindPlaceholder, "a" } };
             var result = new String();
-            result.Append( "<x-textbox [placeholder]=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox [placeholder]=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -131,51 +133,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestNgModel() {
             var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
-            result.Append( "<x-textbox [(model)]=\"a\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试设置为密码框
-        /// </summary>
-        [Fact]
-        public void TestType_Password() {
-            var attributes = new TagHelperAttributeList { { UiConst.Type, TextBoxType.Password } };
-            var result = new String();
-            result.Append( "<x-textbox type=\"password\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试设置为多行文本框
-        /// </summary>
-        [Fact]
-        public void TestType_Multiple() {
-            var attributes = new TagHelperAttributeList { { UiConst.Type, TextBoxType.Multiple } };
-            var result = new String();
-            result.Append( "<x-textarea type=\"text\"></x-textarea>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试设置为电子邮件
-        /// </summary>
-        [Fact]
-        public void TestType_Email() {
-            var attributes = new TagHelperAttributeList { { UiConst.Type, TextBoxType.Email } };
-            var result = new String();
-            result.Append( "<x-textbox type=\"email\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试设置电子邮件错误消息
-        /// </summary>
-        [Fact]
-        public void TestEmailMessage() {
-            var attributes = new TagHelperAttributeList { { UiConst.EmailMessage, "a" } };
-            var result = new String();
-            result.Append( "<x-textbox emailMessage=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox [(model)]=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -186,7 +144,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestRequired() {
             var attributes = new TagHelperAttributeList { { UiConst.Required, true } };
             var result = new String();
-            result.Append( "<x-textbox [required]=\"true\"></x-textbox>" );
+            result.Append( "<x-number-textbox [required]=\"true\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -197,62 +155,62 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestRequiredMessage() {
             var attributes = new TagHelperAttributeList { { UiConst.RequiredMessage, "a" } };
             var result = new String();
-            result.Append( "<x-textbox requiredMessage=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox requiredMessage=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试最小长度
+        /// 测试最小值验证
         /// </summary>
         [Fact]
-        public void TestMinLength() {
-            var attributes = new TagHelperAttributeList { { UiConst.MinLength, 3 } };
+        public void TestMin() {
+            var attributes = new TagHelperAttributeList { { UiConst.Min, 3 } };
             var result = new String();
-            result.Append( "<x-textbox [minLength]=\"3\"></x-textbox>" );
+            result.Append( "<x-number-textbox [min]=\"3\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试最小长度,添加指定错误消息
+        /// 测试最大值验证
         /// </summary>
         [Fact]
-        public void TestMinLength_Message() {
-            var attributes = new TagHelperAttributeList { { UiConst.MinLengthMessage, "a" } };
+        public void TestMax() {
+            var attributes = new TagHelperAttributeList { { UiConst.Max, 3 } };
             var result = new String();
-            result.Append( "<x-textbox minLengthMessage=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox [max]=\"3\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试最大长度
+        /// 测试自动获取焦点
         /// </summary>
         [Fact]
-        public void TestMaxLength() {
-            var attributes = new TagHelperAttributeList { { UiConst.MaxLength, 3 } };
+        public void TestAutoFocus() {
+            var attributes = new TagHelperAttributeList { { UiConst.AutoFocus, true } };
             var result = new String();
-            result.Append( "<x-textbox [maxLength]=\"3\"></x-textbox>" );
+            result.Append( "<x-number-textbox [autoFocus]=\"true\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试正则表达式验证
+        /// 测试精度
         /// </summary>
         [Fact]
-        public void TestRegex() {
-            var attributes = new TagHelperAttributeList { { UiConst.Regex, "a" } };
+        public void TestPrecision() {
+            var attributes = new TagHelperAttributeList { { UiConst.Precision, 1 } };
             var result = new String();
-            result.Append( "<x-textbox pattern=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox [precision]=\"1\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试正则表达式验证消息
+        /// 测试步进
         /// </summary>
         [Fact]
-        public void TestRegexMessage() {
-            var attributes = new TagHelperAttributeList { { UiConst.RegexMessage, "a" } };
+        public void TestStep() {
+            var attributes = new TagHelperAttributeList { { UiConst.Step, 1 } };
             var result = new String();
-            result.Append( "<x-textbox patterMessage=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox [step]=\"1\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -263,7 +221,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestOnChange() {
             var attributes = new TagHelperAttributeList { { UiConst.OnChange, "a" } };
             var result = new String();
-            result.Append( "<x-textbox (onChange)=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox (onChange)=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -274,7 +232,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestOnFocus() {
             var attributes = new TagHelperAttributeList { { UiConst.OnFocus, "a" } };
             var result = new String();
-            result.Append( "<x-textbox (onFocus)=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox (onFocus)=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -285,7 +243,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestOnBlur() {
             var attributes = new TagHelperAttributeList { { UiConst.OnBlur, "a" } };
             var result = new String();
-            result.Append( "<x-textbox (onBlur)=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox (onBlur)=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -296,7 +254,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestOnKeydown() {
             var attributes = new TagHelperAttributeList { { UiConst.OnKeydown, "a" } };
             var result = new String();
-            result.Append( "<x-textbox (onKeydown)=\"a\"></x-textbox>" );
+            result.Append( "<x-number-textbox (onKeydown)=\"a\"></x-number-textbox>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

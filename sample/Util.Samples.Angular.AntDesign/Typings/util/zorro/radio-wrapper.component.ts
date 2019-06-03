@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, EventEmitter, OnInit, Host, Optional, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, Optional, ViewChild, AfterViewInit } from '@angular/core';
 import { NgModel,NgForm } from '@angular/forms';
 import { SelectList, SelectItem, SelectOption } from "../core/select-model";
 import { WebApi as webapi } from '../common/webapi';
@@ -13,7 +13,7 @@ import { WebApi as webapi } from '../common/webapi';
 @Component({
     selector: 'x-radio',
     template:`
-        <nz-radio-group #controlModel="ngModel" [nzName]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" [nzDisabled]="disabled" [required]="required">
+        <nz-radio-group #controlModel="ngModel" [name]="name" [nzName]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" [nzDisabled]="disabled" [required]="required">
             <label nz-radio *ngFor="let item of dataSource" [nzValue]="item.value" [nzDisabled]="item.disabled" 
                    [ngStyle]="vertical?verticalStyle:''">
             {{ item.text }}
@@ -76,7 +76,7 @@ export class Radio implements OnInit, AfterViewInit {
     /**
      * 初始化单选按钮包装器
      */
-    constructor( @Optional() @Host() private form: NgForm) {
+    constructor( @Optional() private form: NgForm) {
         this.showLabel = true;
     }
 

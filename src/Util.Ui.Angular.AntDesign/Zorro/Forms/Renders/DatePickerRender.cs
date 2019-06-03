@@ -29,12 +29,12 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置日期选择框
         /// </summary>
-        public void ConfigDatePicker() {
+        public void Config() {
             ConfigDatePickerType();
             ConfigStyle();
             ConfigDateFormat();
             ConfigShowTime();
-            ConfigShowClearButton();
+            ConfigShowClear();
             ConfigAutoFocus();
             ConfigDisabledDate();
             ConfigLocale();
@@ -75,8 +75,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置是否显示清除按钮
         /// </summary>
-        private void ConfigShowClearButton() {
-            _builder.AddAttribute( "[allowClear]", _config.GetBoolValue( UiConst.ShowClearButton ) );
+        private void ConfigShowClear() {
+            _builder.AddAttribute( "[allowClear]", _config.GetBoolValue( UiConst.ShowClear ) );
         }
 
         /// <summary>

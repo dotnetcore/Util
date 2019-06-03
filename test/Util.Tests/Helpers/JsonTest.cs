@@ -31,7 +31,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestToJson_Null() {
-            Assert.Equal( "{}", Json.ToJson( null ) );
+            Assert.Empty( Json.ToJson( null ) );
         }
 
         /// <summary>

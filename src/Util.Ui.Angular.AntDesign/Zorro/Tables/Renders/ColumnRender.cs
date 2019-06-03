@@ -85,10 +85,11 @@ namespace Util.Ui.Zorro.Tables.Renders {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
                 return;
             var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
-            builder.AddAttribute( "nzShowCheckbox" );
+            builder.AddAttribute( "[nzShowCheckbox]", $"{tableId}_wrapper.multiple" );
             builder.AddAttribute( "(click)", "$event.stopPropagation()" );
             builder.AddAttribute( "(nzCheckedChange)", $"{tableId}_wrapper.checkedSelection.toggle(row)" );
             builder.AddAttribute( "[nzChecked]", $"{tableId}_wrapper.checkedSelection.isSelected(row)" );
+            builder.AppendContent( new TableRadioBuilder( tableId ) );
         }
 
         /// <summary>

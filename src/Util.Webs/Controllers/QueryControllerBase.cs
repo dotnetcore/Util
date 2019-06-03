@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Applications;
 using Util.Applications.Dtos;
 using Util.Datas.Queries;
 using Util.Domains.Repositories;
+using Util.Webs.Properties;
 
 namespace Util.Webs.Controllers {
     /// <summary>
@@ -103,6 +106,29 @@ namespace Util.Webs.Controllers {
         /// <param name="result">查询结果</param>
         protected virtual dynamic ToQueryResult( List<TDto> result ) {
             return result;
+        }
+
+        /// <summary>
+        /// 获取项列表
+        /// </summary>
+        /// <param name="query">查询参数</param>
+        [HttpGet( "Items" )]
+        public async Task<IActionResult> GetItemsAsync( TQuery query ) {
+            if( query == null )
+                return Fail( WebResource.QueryIsEmpty );
+            if( query.Order.IsEmpty() )
+                query.Order = "CreationTime Desc";
+            var list = await _service.PagerQueryAsync( query );
+            var result = list.Data.Select( ToItem );
+            return Success( result );
+        }
+
+        /// <summary>
+        /// 将Dto转换为列表项
+        /// </summary>
+        /// <param name="dto">数据传输对象</param>
+        protected virtual Item ToItem( TDto dto ) {
+            throw new NotImplementedException( "ToItem方法未实现,请重写控制器 ToItem 方法" );
         }
     }
 }

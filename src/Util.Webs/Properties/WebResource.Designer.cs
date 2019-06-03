@@ -47,7 +47,7 @@ namespace Util.Webs.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -75,6 +75,15 @@ namespace Util.Webs.Properties {
         public static string IdIsEmpty {
             get {
                 return ResourceManager.GetString("IdIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查询参数不能为空 的本地化字符串。
+        /// </summary>
+        public static string QueryIsEmpty {
+            get {
+                return ResourceManager.GetString("QueryIsEmpty", resourceCulture);
             }
         }
         

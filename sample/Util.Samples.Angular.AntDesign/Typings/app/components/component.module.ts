@@ -9,6 +9,7 @@ import { ComponentRoutingModule } from './component-routing.module';
 //表单组件
 import { FormComponent } from "./forms/form.component";
 import { TextBoxComponent } from "./forms/textbox.component";
+import { DialogComponent } from "./forms/dialog.component";
 
 //数据展示组件
 import { TableComponent } from "./data-display/table.component";
@@ -19,8 +20,9 @@ import { TableComponent } from "./data-display/table.component";
 @NgModule( {
     imports: [FrameworkModule, ComponentRoutingModule],
     declarations: [
-        FormComponent, TextBoxComponent,
+        FormComponent, TextBoxComponent, DialogComponent,
         TableComponent
-    ]
+    ],
+    entryComponents: [DialogComponent]
 } )
 export class ComponentModule { }

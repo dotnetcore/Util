@@ -63,6 +63,32 @@ namespace Util.Ui.Extensions {
         }
 
         /// <summary>
+        /// 添加NgModel指令
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="value">值</param>
+        /// <param name="modelName">model名称,默认值:model,表示[(model)]</param>
+        public static TBuilder NgModel<TBuilder>( this TBuilder builder, string value, string modelName ="model") where TBuilder : TagBuilder {
+            builder.AddAttribute( $"[({modelName})]", value );
+            return builder;
+        }
+
+        /// <summary>
+        /// 添加NgModel指令
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        /// <param name="modelName">model名称,默认值:model,表示[(model)]</param>
+        public static TBuilder NgModel<TBuilder>( this TBuilder builder, IConfig config, string modelName = "model" ) where TBuilder : TagBuilder {
+            var value = config.GetValue( AngularConst.NgModel );
+            if( value.IsEmpty() )
+                return NgModel( builder, config.GetValue( UiConst.Model ), modelName );
+            return NgModel( builder, value, modelName );
+        }
+
+        /// <summary>
         /// 添加NgClass指令
         /// </summary>
         /// <typeparam name="TBuilder">生成器类型</typeparam>
