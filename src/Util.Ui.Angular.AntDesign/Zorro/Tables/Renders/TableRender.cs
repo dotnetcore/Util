@@ -54,6 +54,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             ConfigUrl( builder );
             ConfigAutoLoad( builder );
             ConfigSort( builder );
+            ConfigMultiple( builder );
             ConfigTableWrapperEvents( builder );
         }
 
@@ -115,6 +116,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigSort( TagBuilder builder ) {
             builder.AddAttribute( "sortKey", _config.GetValue( UiConst.Sort ) );
+        }
+
+        /// <summary>
+        /// 配置多选
+        /// </summary>
+        private void ConfigMultiple( TagBuilder builder ) {
+            builder.AddAttribute( "[multiple]", _config.GetValue( UiConst.Multiple ) );
         }
 
         /// <summary>

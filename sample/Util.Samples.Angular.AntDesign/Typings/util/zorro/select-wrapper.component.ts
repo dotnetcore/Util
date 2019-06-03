@@ -19,7 +19,7 @@ import { util, QueryParameter } from "../index";
                 [nzPlaceHolder]="placeholder" [ngStyle]="getStyle()" [nzLoading]="loading"
                 [nzMode]="multiple?'multiple':'default'" [nzMaxMultipleCount]="maxMultipleCount"
                 [nzShowSearch]="showSearch" [nzAllowClear]="allowClear" [nzShowArrow]="showArrow"
-                [nzDisabled]="disabled" [required]="required" [nzServerSearch]="serverSearch"
+                [nzDisabled]="disabled" [required]="required" [nzServerSearch]="isServerSearch"
                 (nzBlur)="blur($event)" (nzFocus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                 (nzOnSearch)="search($event)" (nzScrollToBottom)="scrollToBottom()">
                 <nz-option *ngIf="defaultOptionText" [nzLabel]="defaultOptionText"></nz-option>
@@ -139,15 +139,6 @@ export class Select extends FormControlWrapperBase implements OnInit {
     }
 
     /**
-     * 获取样式
-     */
-    getStyle() {
-        return {
-            'width': this.width ? this.width : null
-        };
-    }
-
-    /**
      * 组件初始化
      */
     ngOnInit() {
@@ -206,7 +197,7 @@ export class Select extends FormControlWrapperBase implements OnInit {
         /**
          * 查询参数
          */
-        param?: null,
+        param?,
         /**
          * 成功加载回调函数
          */
@@ -231,6 +222,15 @@ export class Select extends FormControlWrapperBase implements OnInit {
             },
             complete: () => this.loading = false
         } );
+    }
+
+    /**
+     * 获取样式
+     */
+    getStyle() {
+        return {
+            'width': this.width ? this.width : null
+        };
     }
 
     /**
