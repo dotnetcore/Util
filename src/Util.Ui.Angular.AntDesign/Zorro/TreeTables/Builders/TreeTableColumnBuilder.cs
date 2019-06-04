@@ -27,7 +27,7 @@ namespace Util.Ui.Zorro.TreeTables.Builders {
         /// </summary>
         private ContainerBuilder CreateContainerBuilder( string treeTableWrapperId, string column ) {
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.NgIf( $"!{treeTableWrapperId}.isShowCheckbox()" );
+            containerBuilder.NgIf( $"{treeTableWrapperId}.isShowText(row)" );
             containerBuilder.AppendContent( $"{{{{{column}}}}}" );
             return containerBuilder;
         }

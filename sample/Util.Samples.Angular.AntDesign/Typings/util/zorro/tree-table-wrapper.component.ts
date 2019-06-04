@@ -188,6 +188,17 @@ export class TreeTable<T extends IKey> extends Table<T> {
     }
 
     /**
+     * 是否显示文本
+     */
+    isShowText( node ) {
+        if ( !this.showCheckbox )
+            return true;
+        if ( !this.multiple && this.checkLeafOnly && !this.isLeaf( node ) )
+            return true;
+        return false;
+    }
+
+    /**
      * 节点复选框切换选中状态
      * @param node 节点
      */
