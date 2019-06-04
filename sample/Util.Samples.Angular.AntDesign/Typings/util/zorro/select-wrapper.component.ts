@@ -277,4 +277,17 @@ export class Select extends FormControlWrapperBase implements OnInit {
             }
         } );
     }
+
+    /**
+     * 模型变更事件处理
+     */
+    onModelChange( value ) {
+        this.modelChange.emit( value );
+        let result = this.data.find( t => t.value === value );
+        if ( result ) {
+            this.onChange.emit( result );
+            return;
+        }
+        this.onChange.emit( value );
+    }
 }

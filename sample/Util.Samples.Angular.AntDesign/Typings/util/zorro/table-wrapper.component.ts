@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Output, OnInit, AfterContentInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { util, PagerList, IKey, QueryParameter } from "../index";
 import { MessageConfig as config } from '../config/message-config';
@@ -16,11 +16,7 @@ import { MessageConfig as config } from '../config/message-config';
         <ng-content></ng-content>
     `
 } )
-export class Table<T extends IKey> implements OnInit, AfterContentInit {
-    /**
-     * 首次加载
-     */
-    firstLoad: boolean;
+export class Table<T extends IKey> implements OnInit {
     /**
      * 总行数
      */
@@ -104,8 +100,6 @@ export class Table<T extends IKey> implements OnInit, AfterContentInit {
         this.selectedSelection = new SelectionModel<T>( false, [] );
         this.pageSizeOptions = [];
         this.showPagination = true;
-        this.firstLoad = true;
-        this.loading = true;
         this.autoLoad = true;
         this.multiple = true;
         this.delay = 500;
@@ -117,6 +111,8 @@ export class Table<T extends IKey> implements OnInit, AfterContentInit {
     ngOnInit() {
         this.initPage();
         this.initSort();
+        if ( this.autoLoad )
+            this.query();
     }
 
     /**
@@ -136,14 +132,6 @@ export class Table<T extends IKey> implements OnInit, AfterContentInit {
         if ( !this.sortKey )
             return;
         this.queryParam.order = this.sortKey;
-    }
-
-    /**
-     * 内容加载完成操作
-     */
-    ngAfterContentInit() {
-        if ( this.autoLoad )
-            this.query();
     }
 
     /**
@@ -171,10 +159,7 @@ export class Table<T extends IKey> implements OnInit, AfterContentInit {
         let param = options.param || this.queryParam;
         util.webapi.get<any>( url ).param( param ).button( options.button ).handle( {
             before: () => {
-                if ( this.firstLoad ) {
-                    this.firstLoad = false;
-                    return true;
-                }
+       
                 this.loading = true;
                 return true;
             },

@@ -30,8 +30,6 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <param name="entity">实体类型</param>
         /// <param name="alias">别名</param>
         public void Register( Type entity, string alias ) {
-            if ( Data.ContainsKey( entity ) )
-                Data.Remove( entity );
             Data[entity] = alias;
         }
 
