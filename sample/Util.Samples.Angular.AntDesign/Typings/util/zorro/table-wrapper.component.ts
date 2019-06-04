@@ -159,7 +159,6 @@ export class Table<T extends IKey> implements OnInit {
         let param = options.param || this.queryParam;
         util.webapi.get<any>( url ).param( param ).button( options.button ).handle( {
             before: () => {
-       
                 this.loading = true;
                 return true;
             },
