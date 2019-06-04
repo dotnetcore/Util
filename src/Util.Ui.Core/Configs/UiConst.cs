@@ -767,5 +767,9 @@
         /// 步
         /// </summary>
         public const string Step = "step";
+        /// <summary>
+        /// 只能选择叶节点
+        /// </summary>
+        public const string CheckLeafOnly = "check-leaf-only";
     }
 }

@@ -16,6 +16,10 @@ namespace Util.Ui.Zorro.TreeTables {
         /// </summary>
         public bool ShowCheckbox { get; set; }
         /// <summary>
+        /// 是否只能选择叶节点,仅对单选框有效，默认为 false
+        /// </summary>
+        public string CheckLeafOnly { get; set; }
+        /// <summary>
         /// 是否展开所有节点，默认为 false
         /// </summary>
         public bool ExpandAll { get; set; }

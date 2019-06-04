@@ -16,7 +16,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables.Builders {
             var result = new String();
             result.Append( "<label " );
             result.Append( "(nzCheckedChange)=\"a.toggle(row)\" " );
-            result.Append( "*ngIf=\"a.showCheckbox\" " );
+            result.Append( "*ngIf=\"a.isShowCheckbox()\" " );
             result.Append( "nz-checkbox=\"\" " );
             result.Append( "[nzChecked]=\"a.isChecked(row)\" " );
             result.Append( "[nzIndeterminate]=\"a.isIndeterminate(row)\">" );

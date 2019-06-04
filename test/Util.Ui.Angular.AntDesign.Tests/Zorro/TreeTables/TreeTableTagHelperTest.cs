@@ -228,6 +228,30 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
         }
 
         /// <summary>
+        /// 测试多选
+        /// </summary>
+        [Fact]
+        public void TestMultiple() {
+            var attributes = new TagHelperAttributeList { { UiConst.Multiple, "a" } };
+            var result = new String();
+            result.Append( "<nz-tree-table-wrapper #m_id_wrapper=\"\" [multiple]=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试选择叶节点 
+        /// </summary>
+        [Fact]
+        public void TestCheckLeafOnly() {
+            var attributes = new TagHelperAttributeList { { UiConst.CheckLeafOnly, "a" } };
+            var result = new String();
+            result.Append( "<nz-tree-table-wrapper #m_id_wrapper=\"\" [checkLeafOnly]=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试自动加载
         /// </summary>
         [Fact]
