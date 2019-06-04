@@ -118,7 +118,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 模型变更事件处理
      */
-    onModelChange(value) {
+    onModelChange( value ) {
         this.modelChange.emit(value);
         this.onChange.emit(value);
     }

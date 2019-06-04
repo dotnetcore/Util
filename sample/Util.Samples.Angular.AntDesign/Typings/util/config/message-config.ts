@@ -43,6 +43,10 @@ export class MessageConfig {
      */
     static requiredMessage = "该项必须填写";
     /**
+     * 组必填项默认验证消息
+     */
+    static groupRequiredMessage = "该项必须勾选";
+    /**
      * 最小长度默认验证消息
      */
     static minLengthMessage = "输入内容的长度必须大于{0}位";

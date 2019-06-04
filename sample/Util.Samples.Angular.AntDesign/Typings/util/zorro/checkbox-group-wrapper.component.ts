@@ -3,9 +3,10 @@
 //Licensed under the MIT license
 //=======================================================
 import { Component, Input, Output, EventEmitter, OnInit, Optional, ViewChild, AfterViewInit } from '@angular/core';
-import { NgModel, NgForm } from '@angular/forms';
+import { NgModel, NgForm, ValidatorFn, AbstractControl } from '@angular/forms';
 import { SelectItem } from "../core/select-model";
 import { WebApi as webapi } from '../common/webapi';
+import { MessageConfig } from '../config/message-config';
 
 /**
  * NgZorro复选框组包装器
@@ -13,10 +14,10 @@ import { WebApi as webapi } from '../common/webapi';
 @Component( {
     selector: 'x-checkbox-group',
     template: `
-        <nz-form-control [nzValidateStatus]="(!isValid && (controlModel?.dirty || controlModel.touched))?'error':'success'">
+        <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-checkbox-group #control #controlModel="ngModel" [name]="name" [nzDisabled]="disabled"
-                [ngModel]="dataSource" (ngModelChange)="onModelChange($event)" [required]="required"></nz-checkbox-group>
-            <nz-form-explain *ngIf="!isValid && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
+                [ngModel]="dataSource" (ngModelChange)="onModelChange($event)"></nz-checkbox-group>
+            <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
         </nz-form-control>
     `,
     styles: [`
@@ -24,9 +25,9 @@ import { WebApi as webapi } from '../common/webapi';
 } )
 export class CheckboxGroup implements OnInit, AfterViewInit {
     /**
-     * 是否验证有效
+     * 组件不添加到FormGroup，独立存在，这样也无法基于NgForm进行表单验证
      */
-    isValid:boolean;
+    @Input() standalone: boolean;
     /**
      * 名称
      */
@@ -54,7 +55,7 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
     /**
      * 模型绑定的列表
      */
-    items:any[];
+    items: any[];
     /**
      * 模型
      */
@@ -65,7 +66,6 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
         this.items = value;
         this.initDataSource();
     }
-
     /**
      * 模型变更事件,用于双向绑定
      */
@@ -83,7 +83,7 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
      * 初始化复选框组包装器
      */
     constructor( @Optional() private form: NgForm ) {
-        this.isValid = true;
+        this.requiredMessage = MessageConfig.groupRequiredMessage;
     }
 
     /**
@@ -93,6 +93,21 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
         if ( this.dataSource )
             return;
         this.loadUrl();
+    }
+
+    /**
+     * 从服务器加载
+     * @param url 请求地址
+     */
+    loadUrl( url?: string ) {
+        url = url || this.url;
+        if ( !url )
+            return;
+        webapi.get<SelectItem[]>( url ).handle( {
+            ok: result => {
+                this.loadData( result );
+            }
+        } );
     }
 
     /**
@@ -119,39 +134,37 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
     }
 
     /**
-     * 从服务器加载
-     * @param url 请求地址
-     */
-    loadUrl( url?: string ) {
-        url = url || this.url;
-        if ( !url )
-            return;
-        webapi.get<SelectItem[]>( url ).handle( {
-            ok: result => {
-                this.loadData( result );
-            }
-        } );
-    }
-
-    /**
      * 视图加载完成
      */
-    ngAfterViewInit(): void {
-        this.form && this.form.addControl( this.controlModel );
-        this.validate();
+    ngAfterViewInit() {
+        this.addControl();
     }
 
     /**
-     * 验证
+     * 将控件添加到FormGroup
      */
-    private validate() {
-        if ( !this.required )
+    private addControl() {
+        if ( this.standalone )
             return;
-        if ( this.dataSource.some( t => t.checked ) ) {
-            this.isValid = true;
+        if ( this.required )
+            this.controlModel.control.setValidators( requiredValidator( this.dataSource ) );
+        this.form && this.form.addControl( this.controlModel );
+    }
+
+    /**
+     * 组件销毁
+     */
+    ngOnDestroy() {
+        this.removeControl();
+    }
+
+    /**
+     * 将控件移除FormGroup
+     */
+    private removeControl() {
+        if ( this.standalone )
             return;
-        }
-        this.isValid = false;
+        this.form && this.form.removeControl( this.controlModel );
     }
 
     /**
@@ -170,7 +183,6 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
         let values = data.filter( t => t.checked ).map( t => t.value );
         this.modelChange.emit( values );
         this.onChange.emit( data );
-        this.validate();
     }
 }
 
@@ -199,4 +211,14 @@ export class CheckboxOption {
         this.label = item.text;
         this.value = item.value;
     }
+}
+
+/**
+ * 复选框组必填验证器
+ */
+export function requiredValidator( data: CheckboxOption[] ): ValidatorFn {
+    return ( control: AbstractControl ): { [key: string]: any } | null => {
+        let isValid = data.some( t => t.checked );
+        return isValid ? null : { 'required': { value: control.value } };
+    };
 }

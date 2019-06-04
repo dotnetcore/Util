@@ -4,7 +4,7 @@
 <nz-card [nzBordered]="false">
     <util-tree url="/api/role" query-param="queryParam" show-checkbox="true"></util-tree>
 
-    <nz-tree-table-wrapper #t_wrapper="" baseUrl="RoleTable" [(queryParam)]="queryParam" [expandAll]="true">
+    <nz-tree-table-wrapper #t_wrapper="" baseUrl="RoleTable" [(queryParam)]="queryParam" [expandAll]="true" [multiple]="false" [checkLeafOnly]="true">
         <nz-table #t="" (nzPageIndexChange)="t_wrapper.pageIndexChange($event)" (nzPageSizeChange)="t_wrapper.pageSizeChange($event)"
                   [(nzPageIndex)]="t_wrapper.queryParam.page" [(nzPageSize)]="t_wrapper.queryParam.pageSize"
                   [nzData]="t_wrapper.dataSource" [nzFrontPagination]="false" [nzLoading]="t_wrapper.loading"
@@ -13,9 +13,9 @@
             <thead>
                 <tr>
                     <th>
-                        <label (nzCheckedChange)="t_wrapper.masterToggle()" *ngIf="t_wrapper.showCheckbox" nz-checkbox=""
+                        <label (nzCheckedChange)="t_wrapper.masterToggle()" *ngIf="t_wrapper.isShowCheckbox()" nz-checkbox=""
                                [nzChecked]="t_wrapper.isMasterChecked()" [nzIndeterminate]="t_wrapper.isMasterIndeterminate()">角色编码</label>
-                        <span *ngIf="!t_wrapper.showCheckbox">角色编码</span>
+                        <span *ngIf="!t_wrapper.isShowCheckbox()">角色编码</span>
                     </th>
                     <th>角色名称</th>
                     <th>启用</th>
@@ -29,11 +29,17 @@
                     <tr *ngIf="t_wrapper.isShow(row)">
                         <td (nzExpandChange)="t_wrapper.collapse(row,$event)" [nzExpand]="t_wrapper.isExpand(row)"
                             [nzIndentSize]="row.level*20" [nzShowExpand]="!t_wrapper.isLeaf(row)">
-                            <label (nzCheckedChange)="t_wrapper.toggle(row)" *ngIf="t_wrapper.showCheckbox"
+                            <label (nzCheckedChange)="t_wrapper.toggle(row)" *ngIf="t_wrapper.isShowCheckbox()"
                                    nz-checkbox="" [nzChecked]="t_wrapper.isChecked(row)"
                                    [nzIndeterminate]="t_wrapper.isIndeterminate(row)">
                                 {{row.code}}
                             </label>
+                            <label (click)="$event.stopPropagation()" (ngModelChange)="t_wrapper.checkRowOnly(row)"
+                                   *ngIf="t_wrapper.isShowRadio(row)" name="radio_tableApplication" nz-radio=""
+                                   [ngModel]="t_wrapper.checkedSelection.isSelected(row)">
+                                {{row.code}}
+                            </label>
+
                             <ng-container *ngIf="!t_wrapper.showCheckbox">
                                 {{row.code}}
                             </ng-container>

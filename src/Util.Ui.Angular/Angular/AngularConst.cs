@@ -20,67 +20,71 @@
         /// </summary>
         public const string NgModel = "ng-model";
         /// <summary>
-        /// 路由链接属性绑定
+        /// 路由链接属性
         /// </summary>
         public const string BindLink = "bind-link";
         /// <summary>
-        /// 名称属性绑定
+        /// 名称属性
         /// </summary>
         public const string BindName = "bind-name";
         /// <summary>
-        /// 文本属性绑定
+        /// 文本属性
         /// </summary>
         public const string BindText = "bind-text";
         /// <summary>
-        /// 值属性绑定
+        /// 值属性
         /// </summary>
         public const string BindValue = "bind-value";
         /// <summary>
-        /// 提示绑定
+        /// 提示
         /// </summary>
         public const string BindPlaceholder = "bind-placeholder";
         /// <summary>
-        /// 标签绑定
+        /// 标签
         /// </summary>
         public const string BindLabel = "bind-label";
         /// <summary>
-        /// 激活绑定
+        /// 激活
         /// </summary>
         public const string BindActive = "bind-active";
         /// <summary>
-        /// FontAwesome图标绑定
+        /// FontAwesome图标
         /// </summary>
         public const string BindFontAwesomeIcon = "bind-font-awesome-icon";
         /// <summary>
-        /// Material图标绑定
+        /// Material图标
         /// </summary>
         public const string BindMaterialIcon = "bind-material-icon";
         /// <summary>
-        /// 基Url绑定
+        /// 基Url
         /// </summary>
         public const string BindBaseUrl = "bind-base-url";
         /// <summary>
-        /// Url绑定
+        /// Url
         /// </summary>
         public const string BindUrl = "bind-url";
         /// <summary>
-        /// 删除Url绑定
+        /// 删除Url
         /// </summary>
         public const string BindDeleteUrl = "bind-delete-url";
         /// <summary>
-        /// 类型绑定
+        /// 上传Url
+        /// </summary>
+        public const string BindUploadUrl = "bind-upload-url";
+        /// <summary>
+        /// 类型
         /// </summary>
         public const string BindType = "bind-type";
         /// <summary>
-        /// 主题绑定
+        /// 主题
         /// </summary>
         public const string BindTheme = "bind-theme";
         /// <summary>
-        /// 禁用绑定
+        /// 禁用
         /// </summary>
         public const string BindDisabled = "bind-disabled";
         /// <summary>
-        /// 数据源绑定
+        /// 数据源
         /// </summary>
         public const string BindData = "bind-data";
     }
