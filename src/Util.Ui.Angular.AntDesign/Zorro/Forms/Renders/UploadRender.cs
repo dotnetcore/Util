@@ -75,6 +75,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             builder.AddAttribute( $"#{GetWrapperId()}" );
             builder.NgModel( _config );
             ConfigWrapperOnChange( builder );
+            ConfigRequired( builder );
         }
 
         /// <summary>
@@ -93,6 +94,14 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if ( _config.Contains( UiConst.OnChange ) == false )
                 return;
             builder.AddAttribute( "(modelChange)", _config.GetValue( UiConst.OnChange ) );
+        }
+
+        /// <summary>
+        /// 配置必填项
+        /// </summary>
+        private void ConfigRequired( TagBuilder builder ) {
+            builder.AddAttribute( "[required]", _config.GetBoolValue( UiConst.Required ) );
+            builder.AddAttribute( "requiredMessage", _config.GetValue( UiConst.RequiredMessage ) );
         }
 
         /// <summary>

@@ -3,6 +3,7 @@
 //Licensed under the MIT license
 //=======================================================
 import { Component, Input, Optional } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { UploadService } from "../services/upload.service";
 import { Upload } from "./upload-wrapper.component";
 
@@ -13,6 +14,10 @@ import { Upload } from "./upload-wrapper.component";
     selector: 'nz-single-upload-wrapper',
     template: `
         <ng-content></ng-content>
+        <nz-form-control [nzValidateStatus]="isValid()?'success':'error'">
+            <input nz-input style="display: none" [name]="validationId" #validationModel="ngModel" [(ngModel)]="validation" [required]="required" />
+            <nz-form-explain *ngIf="!isValid()">{{requiredMessage}}</nz-form-explain>
+        </nz-form-control>
     `,
     styles: [`
     `]
@@ -39,15 +44,17 @@ export class SingleUpload extends Upload{
             clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
             this.files = [this.uploadService.toFile( value )];
+            this.loadValidate();
         }, 500);
     }
 
     /**
      * 初始化单文件上传组件包装器
      * @param uploadService 上传服务
+     * @param form 表单组件
      */
-    constructor( @Optional() public uploadService: UploadService ) {
-        super( uploadService );
+    constructor( @Optional() public uploadService: UploadService, @Optional() public form: NgForm ) {
+        super( uploadService, form );
     }
 
     /**
@@ -60,6 +67,7 @@ export class SingleUpload extends Upload{
         if ( data.type === 'removed' ) {
             this.clear();
             this.modelChange.emit( this.model );
+            this.loadValidate();
             return;
         }
         if ( !data.file.response )
@@ -70,6 +78,7 @@ export class SingleUpload extends Upload{
         if ( data.type === 'success' ) {
             this.model = item;
             this.modelChange.emit( this.model );
+            this.loadValidate();
         }
     }
 

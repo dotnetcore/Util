@@ -40,6 +40,14 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Disabled { get; set; }
         /// <summary>
+        /// 必填项
+        /// </summary>
+        public string Required { get; set; }
+        /// <summary>
+        /// 必填项错误消息
+        /// </summary>
+        public string RequiredMessage { get; set; }
+        /// <summary>
         /// [nzShowButton],是否显示上传按钮
         /// </summary>
         public string ShowButton { get; set; }

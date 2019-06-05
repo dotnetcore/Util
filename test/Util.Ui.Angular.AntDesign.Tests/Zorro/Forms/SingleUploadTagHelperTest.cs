@@ -161,6 +161,46 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试必填
+        /// </summary>
+        [Fact]
+        public void TestRequired() {
+            var attributes = new TagHelperAttributeList { { UiConst.Required, "true" } };
+            var result = new String();
+            result.Append( "<nz-single-upload-wrapper #m_id=\"\" [required]=\"true\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" " );
+            result.Append( "[nzFilter]=\"m_id.filters\" [nzShowButton]=\"!m_id.files||(m_id.files&&m_id.files).length<1\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-single-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试必填消息
+        /// </summary>
+        [Fact]
+        public void TestRequiredMessage() {
+            var attributes = new TagHelperAttributeList { { UiConst.RequiredMessage, "a" } };
+            var result = new String();
+            result.Append( "<nz-single-upload-wrapper #m_id=\"\" requiredMessage=\"a\">" );
+            result.Append( "<nz-upload (nzChange)=\"m_id.handleChange($event)\" [(nzFileList)]=\"m_id.files\" " );
+            result.Append( "[nzFilter]=\"m_id.filters\" [nzShowButton]=\"!m_id.files||(m_id.files&&m_id.files).length<1\">" );
+            result.Append( "<x-button text=\"上传\">" );
+            result.Append( "<ng-template>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "</ng-template>" );
+            result.Append( "</x-button>" );
+            result.Append( "</nz-upload>" );
+            result.Append( "</nz-single-upload-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试显示上传按钮
         /// </summary>
         [Fact]

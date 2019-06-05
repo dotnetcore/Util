@@ -43,9 +43,13 @@ export class MessageConfig {
      */
     static requiredMessage = "该项必须填写";
     /**
-     * 组必填项默认验证消息
+     * 该项必须勾选
      */
     static groupRequiredMessage = "该项必须勾选";
+    /**
+     * 上传必填项默认验证消息
+     */
+    static uploadRequiredMessage = "请选择文件";
     /**
      * 最小长度默认验证消息
      */

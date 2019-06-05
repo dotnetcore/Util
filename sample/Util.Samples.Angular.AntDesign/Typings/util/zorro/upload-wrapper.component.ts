@@ -2,7 +2,8 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, ContentChild, forwardRef, Optional, Output, EventEmitter } from '@angular/core';
+import { Component, Input,ViewChild, ContentChild, forwardRef, Optional, Output, EventEmitter,AfterContentInit } from '@angular/core';
+import { NgModel, NgForm } from '@angular/forms';
 import { NzUploadComponent, UploadFile, UploadFilter } from 'ng-zorro-antd';
 import { MessageConfig as config } from '../config/message-config';
 import { UploadService } from "../services/upload.service";
@@ -13,25 +14,53 @@ import { Util as util } from '../util';
  */
 @Component({
     selector: 'nz-upload-wrapper',
-    template: `
+    template: `        
         <ng-content></ng-content>
+        <nz-form-control [nzValidateStatus]="isValid()?'success':'error'">
+            <input nz-input style="display: none" [name]="validationId" #validationModel="ngModel" [(ngModel)]="validation" [required]="required" />
+            <nz-form-explain *ngIf="!isValid()">{{requiredMessage}}</nz-form-explain>
+        </nz-form-control>
     `,
     styles: [`
     `]
 })
-export class Upload {
-    /**
-     * 上传文件列表
-     */
-    files: UploadFile[];
+export class Upload implements AfterContentInit{
     /**
      * 延迟
      */
     timeout;
     /**
+     * 已修改状态
+     */
+    dirty;
+    /**
+     * 验证标识
+     */
+    validationId;
+    /**
+     * 验证值
+     */
+    validation;
+    /**
+     * 上传文件列表
+     */
+    files: UploadFile[];
+    /**
      * 附件列表
      */
     private items: any[];
+    /**
+     * 组件不添加到FormGroup，独立存在，这样也无法基于NgForm进行表单验证
+     */
+    @Input() standalone: boolean;
+    /**
+     * 必填项
+     */
+    @Input() required: boolean;
+    /**
+     * 必填项验证消息
+     */
+    @Input() requiredMessage: string;
     /**
      * 模型
      */
@@ -48,7 +77,8 @@ export class Upload {
         if (this.timeout)
             clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-            this.files = this.items.map(item => this.uploadService.toFile(item));
+            this.files = this.items.map( item => this.uploadService.toFile( item ) );
+            this.loadValidate();
         }, 500);
     }
     /**
@@ -56,15 +86,69 @@ export class Upload {
      */
     @Output() modelChange = new EventEmitter<any>();
     /**
+     * 验证模型变更事件
+     */
+    @Output() validateModelChange = new EventEmitter<any>();
+    /**
      * 上传组件实例
      */
-    @ContentChild(forwardRef(() => NzUploadComponent)) instance: NzUploadComponent;
+    @ContentChild( forwardRef( () => NzUploadComponent ) ) instance: NzUploadComponent;
+    /**
+     * 文本框组件模型，用于验证
+     */
+    @ViewChild( forwardRef( () => NgModel ) ) controlModel: NgModel;
 
     /**
      * 初始化上传组件包装器
      * @param uploadService 上传服务
+     * @param form 表单组件
      */
-    constructor(@Optional() public uploadService: UploadService) {
+    constructor( @Optional() public uploadService: UploadService, @Optional() public form: NgForm ) {
+        this.validationId = util.helper.uuid();
+        this.requiredMessage = config.uploadRequiredMessage;
+    }
+
+    /**
+     * 初始化
+     */
+    ngAfterContentInit() {
+        this.addControl();
+    }
+
+    /**
+     * 将控件添加到FormGroup
+     */
+    private addControl() {
+        if ( this.standalone )
+            return;
+        this.form && this.form.addControl( this.controlModel );
+    }
+
+    /**
+     * 组件销毁
+     */
+    ngOnDestroy() {
+        this.removeControl();
+    }
+
+    /**
+     * 将控件移除FormGroup
+     */
+    private removeControl() {
+        if ( this.standalone )
+            return;
+        this.form && this.form.removeControl( this.controlModel );
+    }
+
+    /**
+     * 是否验证有效
+     */
+    isValid() {
+        if ( !this.required )
+            return true;
+        if ( !this.dirty )
+            return true;
+        return this.validation;
     }
 
     /**
@@ -78,6 +162,7 @@ export class Upload {
             this.uploadService.removeFromModel( this.model, data.file );
             this.uploadService.removeFromFileList( this.files, data.file );
             this.modelChange.emit( this.model );
+            this.loadValidate();
             return;
         }
         if ( !data.file.response )
@@ -88,7 +173,20 @@ export class Upload {
         if ( data.type === 'success' ) {
             this.model = [...( this.model || [] ) , item];
             this.modelChange.emit( this.model );
+            this.loadValidate();
         }
+    }
+
+    /**
+     * 加载验证值
+     */
+    loadValidate() {
+        this.dirty = true;
+        if ( this.files && this.files.length > 0 ) {
+            this.validation = "1";
+            return;
+        }
+        this.validation = undefined;
     }
 
     /**
