@@ -27,3 +27,6 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.Angular.AntDesign/Typings/app/**/*.html
 
 /sample/Util.Samples.Angular.AntDesign/Typings/app/components/data-display/html
+/template/CodeSmith/.vs/CodeGenerator/v15
+/sample/Util.Samples.Webs/node_modules
+/sample/Util.Samples.Webs/wwwroot/dist

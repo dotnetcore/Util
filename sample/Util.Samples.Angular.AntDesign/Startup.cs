@@ -10,7 +10,9 @@ using Util.Datas.Ef;
 using Util.Logs.Extensions;
 using Util.Samples.Data;
 using Util.Ui.Extensions;
+using Util.Ui.Pages;
 using Util.Webs.Extensions;
+using Util.Webs.Razors;
 
 namespace Util.Samples {
     /// <summary>
@@ -65,6 +67,8 @@ namespace Util.Samples {
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Webs.xml" ) );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.xml" ) );
             } );
+            services.AddScoped<IRouteAnalyzer, PageRouteAnalyzer>();
+            services.AddScoped<IRazorHtmlGenerator, PageHtmlGenerator>();
 
             //添加Util基础设施服务
             return services.AddUtil();
@@ -77,9 +81,9 @@ namespace Util.Samples {
             app.UseBrowserLink();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
-            app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
-                HotModuleReplacement = true
-            } );
+            //app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
+            //    HotModuleReplacement = true
+            //} );
             app.UseSwaggerX();
             CommonConfig( app );
         }
