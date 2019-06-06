@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Util.Ui.Pages;
 using Util.Webs.Controllers;
-using Util.Webs.Razors;
 
 namespace Util.Samples.Apis.Tools
 {
@@ -11,16 +11,16 @@ namespace Util.Samples.Apis.Tools
     public class InitController : WebApiControllerBase
     {
         /// <summary>
-        /// Razor静态Html生成器
+        /// Html生成器
         /// </summary>
-        public IRazorHtmlGenerator RazorHtmlGenerator { get; set; }
+        public IHtmlGenerator HtmlGenerator { get; set; }
 
         /// <summary>
         /// 初始化一个<see cref="InitController"/>类型的实例
         /// </summary>
-        public InitController(IRazorHtmlGenerator razorHtmlGenerator)
+        public InitController(IHtmlGenerator htmlGenerator)
         {
-            RazorHtmlGenerator = razorHtmlGenerator;
+            HtmlGenerator = htmlGenerator;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Util.Samples.Apis.Tools
         [HttpGet("init")]
         public async Task<IActionResult> Init()
         {
-            await RazorHtmlGenerator.Generate();
+            await HtmlGenerator.BuildAsync();
             return Success();
         }
     }

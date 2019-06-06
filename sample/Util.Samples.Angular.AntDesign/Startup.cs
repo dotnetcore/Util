@@ -67,8 +67,7 @@ namespace Util.Samples {
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Webs.xml" ) );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.xml" ) );
             } );
-            services.AddScoped<IRouteAnalyzer, PageRouteAnalyzer>();
-            services.AddScoped<IRazorHtmlGenerator, PageHtmlGenerator>();
+            services.AddScoped<IHtmlGenerator, PageHtmlGenerator>();
 
             //添加Util基础设施服务
             return services.AddUtil();
