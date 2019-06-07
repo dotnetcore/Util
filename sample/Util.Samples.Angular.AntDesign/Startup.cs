@@ -2,7 +2,6 @@
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -10,9 +9,7 @@ using Util.Datas.Ef;
 using Util.Logs.Extensions;
 using Util.Samples.Data;
 using Util.Ui.Extensions;
-using Util.Ui.Pages;
 using Util.Webs.Extensions;
-using Util.Webs.Razors;
 
 namespace Util.Samples {
     /// <summary>
@@ -67,7 +64,6 @@ namespace Util.Samples {
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Webs.xml" ) );
                 options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.xml" ) );
             } );
-            services.AddScoped<IHtmlGenerator, PageHtmlGenerator>();
 
             //添加Util基础设施服务
             return services.AddUtil();
