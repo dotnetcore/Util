@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -76,9 +77,9 @@ namespace Util.Samples {
             app.UseBrowserLink();
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
-            //app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
-            //    HotModuleReplacement = true
-            //} );
+            app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
+                HotModuleReplacement = true
+            } );
             app.UseSwaggerX();
             CommonConfig( app );
         }

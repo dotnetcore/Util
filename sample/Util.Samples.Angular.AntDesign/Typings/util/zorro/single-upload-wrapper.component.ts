@@ -11,15 +11,44 @@ import { Upload } from "./upload-wrapper.component";
  * NgZorro单文件上传组件包装器
  */
 @Component({
-    selector: 'nz-single-upload-wrapper',
+    selector: 'x-single-upload',
     template: `
-        <ng-content></ng-content>
+        <nz-upload [nzName]="name" [(nzFileList)]="files" [nzListType]="listType"
+                   [nzAction]="url" [nzData]="data" [nzHeaders]="headers"
+                   [nzDisabled]="disabled" [nzShowButton]="isShowButton()" [nzAccept]="accept"
+                   [nzFilter]="customFilters?customFilters:filters" [nzWithCredentials]="withCredentials"
+                   [nzSize]="size" [nzShowUploadList]="showUploadList"
+                   [nzPreview]="preview?preview:handlePreview" [nzBeforeUpload]="beforeUpload"
+                   [nzCustomRequest]="customRequest" [nzRemove]="remove"
+                   (nzChange)="handleChange($event)" >
+            <button nz-button *ngIf="listType !== 'picture-card'" [disabled]="disabled">
+                <i nz-icon nzType="{{buttonIcon?buttonIcon:'upload'}}"></i>
+                <span>{{buttonText}}</span>
+            </button>
+            <ng-container *ngIf="listType === 'picture-card'">
+                <i nz-icon class="upload-icon"  [nzType]="loading ? 'loading' : buttonIcon?buttonIcon:'plus'"></i>
+                <div class="upload-text">{{buttonText}}</div>
+            </ng-container>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+            <ng-template #modalContent>
+                <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+            </ng-template>
+        </nz-modal>
         <nz-form-control [nzValidateStatus]="isValid()?'success':'error'">
             <input nz-input style="display: none" [name]="validationId" #validationModel="ngModel" [(ngModel)]="validation" [required]="required" />
             <nz-form-explain *ngIf="!isValid()">{{requiredMessage}}</nz-form-explain>
         </nz-form-control>
     `,
     styles: [`
+        .upload-icon {
+            font-size: 32px;
+            color: #999;
+        }
+        .upload-text {
+            margin-top: 8px;
+            color: #666;
+        }
     `]
 })
 export class SingleUpload extends Upload{
@@ -55,30 +84,42 @@ export class SingleUpload extends Upload{
      */
     constructor( @Optional() public uploadService: UploadService, @Optional() public form: NgForm ) {
         super( uploadService, form );
+        this.totalLimit = 1;
     }
 
     /**
      * 上传变更处理
      * @param data 上传参数
      */
-    handleChange(data: { file, fileList, event, type }) {
+    handleChange( data: { file, fileList, event, type } ) {
         if ( !data || !data.file || !this.uploadService )
             return;
-        if ( data.type === 'removed' ) {
+        switch ( data.file.status ) {
+        case 'uploading':
+            this.loading = true;
+            break;
+        case 'done':
+            this.loading = false;
+            if ( !data.file.response )
+                return;
+            let item = this.uploadService.resolve( data.file.response );
+            if ( !item )
+                return;
+            if ( data.type === 'success' ) {
+                this.model = item;
+                this.modelChange.emit( this.model );
+                this.loadValidate();
+            }
+            break;
+        case 'removed':
+            this.loading = false;
             this.clear();
             this.modelChange.emit( this.model );
             this.loadValidate();
-            return;
-        }
-        if ( !data.file.response )
-            return;
-        let item = this.uploadService.resolve(data.file.response);
-        if (!item)
-            return;
-        if ( data.type === 'success' ) {
-            this.model = item;
-            this.modelChange.emit( this.model );
-            this.loadValidate();
+            break;
+        case 'error':
+            this.loading = false;
+            break;
         }
     }
 
