@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 using Util.Ui.Zorro.Buttons.Renders;
-using Util.Ui.Zorro.Enums;
 
 namespace Util.Ui.Zorro.Buttons {
     /// <summary>

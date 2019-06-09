@@ -803,5 +803,13 @@
         /// 移除
         /// </summary>
         public const string Remove = "remove";
+        /// <summary>
+        /// 是否虚线
+        /// </summary>
+        public const string Dashed = "dashed";
+        /// <summary>
+        /// 方向
+        /// </summary>
+        public const string Orientation = "orientation";
     }
 }

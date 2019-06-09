@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Util.Ui.Zorro.Enums {
+namespace Util.Ui.Enums {
     /// <summary>
     /// 上传文件列表类型
     /// </summary>

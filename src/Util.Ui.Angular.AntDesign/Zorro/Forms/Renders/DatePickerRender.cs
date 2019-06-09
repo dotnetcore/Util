@@ -1,6 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Enums;
+using Util.Ui.Enums;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
