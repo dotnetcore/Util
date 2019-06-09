@@ -221,6 +221,18 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试列表类型
+        /// </summary>
+        [Fact]
+        public void TestListType_Picture() {
+            var attributes = new TagHelperAttributeList { { UiConst.ListType, UploadListType.PictureCard } };
+            var result = new String();
+            result.Append( "<x-upload accept=\".jpg,.jpeg,.png,.gif,.bmp\" listType=\"picture-card\">" );
+            result.Append( "</x-upload>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试多选
         /// </summary>
         [Fact]

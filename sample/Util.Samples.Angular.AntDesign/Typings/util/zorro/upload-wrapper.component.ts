@@ -22,7 +22,7 @@ import { Util as util } from '../util';
                    [nzFilter]="customFilters?customFilters:filters" [nzWithCredentials]="withCredentials"
                    [nzLimit]="limit" [nzSize]="size" [nzShowUploadList]="showUploadList"
                    [nzMultiple]="multiple" [nzDirectory]="directory"
-                   [nzPreview]="preview?preview:handlePreview" [nzBeforeUpload]="beforeUpload" 
+                   [nzPreview]="getPreviewHandler()" [nzBeforeUpload]="beforeUpload" 
                    [nzCustomRequest]="customRequest" [nzRemove]="remove"
                    (nzChange)="handleChange($event)" >
             <button nz-button *ngIf="listType !== 'picture-card'" [disabled]="disabled">
@@ -273,6 +273,17 @@ export class Upload implements AfterViewInit {
         if ( this.standalone )
             return;
         this.form && this.form.removeControl( this.controlModel );
+    }
+
+    /**
+     * 获取预览处理器
+     */
+    getPreviewHandler() {
+        if ( this.listType === 'text' )
+            return undefined;
+        if ( this.preview )
+            return this.preview;
+        return this.handlePreview;
     }
 
     /**

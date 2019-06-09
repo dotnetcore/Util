@@ -3,9 +3,9 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Util.Ui.CkEditor;
 using Util.Ui.CkEditor.Models;
+using Util.Ui.ColorPickers.Models;
 using Util.Ui.Components;
 using Util.Ui.Material.Forms.Models;
-using Util.Ui.Prime.ColorPickers.Models;
 
 namespace Util.Ui.Services {
     /// <summary>

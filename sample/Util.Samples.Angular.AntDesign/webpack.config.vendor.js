@@ -20,6 +20,7 @@ const jsModules = [
     '@angular/platform-browser/animations',
     '@angular/platform-browser-dynamic',
     '@angular/router',
+    'primeng/primeng',
     '@antv/data-set',
     '@antv/g2',
     'viser-ng',
@@ -33,7 +34,9 @@ const jsModules = [
 //第三方Css库
 const cssModules = [
     'ng-zorro-antd/ng-zorro-antd.css',
-    '@delon/theme/styles/ng-alain.css'
+    '@delon/theme/styles/ng-alain.css',
+    'primeng/resources/themes/omega/theme.css',
+    'primeng/resources/primeng.css'
 ];
 
 module.exports = (env) => {
@@ -88,7 +91,7 @@ module.exports = (env) => {
                     test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
                         loader: 'url-loader',
                         options: {
-                            limit: 20000,
+                            limit: 10000,
                             name: "[name].[ext]",
                             outputPath: "images/"
                         }

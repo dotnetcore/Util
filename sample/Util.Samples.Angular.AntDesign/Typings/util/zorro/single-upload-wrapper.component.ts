@@ -18,7 +18,7 @@ import { Upload } from "./upload-wrapper.component";
                    [nzDisabled]="disabled" [nzShowButton]="isShowButton()" [nzAccept]="accept"
                    [nzFilter]="customFilters?customFilters:filters" [nzWithCredentials]="withCredentials"
                    [nzSize]="size" [nzShowUploadList]="showUploadList"
-                   [nzPreview]="preview?preview:handlePreview" [nzBeforeUpload]="beforeUpload"
+                   [nzPreview]="getPreviewHandler()" [nzBeforeUpload]="beforeUpload"
                    [nzCustomRequest]="customRequest" [nzRemove]="remove"
                    (nzChange)="handleChange($event)" >
             <button nz-button *ngIf="listType !== 'picture-card'" [disabled]="disabled">

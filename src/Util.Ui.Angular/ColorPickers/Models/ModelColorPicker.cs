@@ -4,7 +4,7 @@ using System.Reflection;
 using Util.Helpers;
 using Util.Ui.Angular.Internal;
 
-namespace Util.Ui.Prime.ColorPickers.Models {
+namespace Util.Ui.ColorPickers.Models {
     /// <summary>
     /// 模型颜色选择器
     /// </summary>

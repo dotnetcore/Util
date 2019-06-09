@@ -30,7 +30,7 @@
             <util-textarea for="Comment"></util-textarea>
         </nz-form-item>
         <nz-form-item>
-            <util-upload for="Files" url="/api/upload" data="data"></util-upload>
+            <util-upload for="Files" url="/api/upload" data="data" list-type="PictureCard"></util-upload>
         </nz-form-item>
         <nz-form-item>
             <util-checkbox for="Enabled"></util-checkbox>
@@ -43,6 +43,10 @@
         </nz-form-item>
         <nz-form-item>
             <util-switch for="Enabled"></util-switch>
+        </nz-form-item>
+        <nz-form-item>
+            <util-color-picker for="Color"  />
+            {{model.color}}
         </nz-form-item>
         <nz-form-item>
             <nz-form-control>

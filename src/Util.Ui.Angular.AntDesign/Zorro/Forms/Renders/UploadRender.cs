@@ -93,8 +93,18 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置列表
         /// </summary>
         private void ConfigList( TagBuilder builder ) {
-            builder.AddAttribute( "listType", _config.GetValue<UploadListType?>( UiConst.ListType )?.Description() );
             builder.AddAttribute( "[showUploadList]", _config.GetValue( UiConst.ShowUploadList ) );
+            ConfigListType( builder );
+        }
+
+        /// <summary>
+        /// 配置列表类型
+        /// </summary>
+        private void ConfigListType( TagBuilder builder ) {
+            var listType = _config.GetValue<UploadListType?>( UiConst.ListType );
+            builder.AddAttribute( "listType", listType?.Description() );
+            if( listType == UploadListType.Picture || listType == UploadListType.PictureCard )
+                _config.SetAttribute( UiConst.AcceptImage,true );
         }
 
         /// <summary>
