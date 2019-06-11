@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular;
+using Util.Ui.ColorPickers.TagHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Material;
-using Util.Ui.Prime.ColorPickers.TagHelpers;
 using Util.Ui.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;

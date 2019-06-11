@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
+using Util.Ui.ColorPickers.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Prime.ColorPickers.Builders;
-using Util.Ui.Prime.ColorPickers.Resolvers;
+using Util.Ui.Extensions;
 
-namespace Util.Ui.Prime.ColorPickers.Renders {
+namespace Util.Ui.ColorPickers.Renders {
     /// <summary>
     /// 颜色选择器渲染器
     /// </summary>
@@ -41,7 +42,7 @@ namespace Util.Ui.Prime.ColorPickers.Renders {
             if( _config.Contains( UiConst.For ) == false )
                 return;
             var expression = _config.GetValue<ModelExpression>( UiConst.For );
-            ColorPickerExpressionResolver.Init( expression, _config );
+            ExpressionResolver.Init( expression, _config );
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Util.Ui.Prime.ColorPickers.Renders {
         /// 配置模型绑定
         /// </summary>
         private void ConfigModel( TagBuilder builder ) {
-            builder.AddAttribute( "[(ngModel)]", _config.GetValue( UiConst.Model ) );
+            builder.NgModel( _config, "ngModel" );
         }
 
         /// <summary>

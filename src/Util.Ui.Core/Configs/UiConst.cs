@@ -620,6 +620,10 @@
         /// </summary>
         public const string Data = "data";
         /// <summary>
+        /// 上传前操作
+        /// </summary>
+        public const string BeforeUpload = "before-upload";
+        /// <summary>
         /// 上传前事件
         /// </summary>
         public const string OnBeforeUpload = "on-before-upload";
@@ -771,5 +775,41 @@
         /// 只能选择叶节点
         /// </summary>
         public const string CheckLeafOnly = "check-leaf-only";
+        /// <summary>
+        /// 列表类型
+        /// </summary>
+        public const string ListType = "list-type";
+        /// <summary>
+        /// 自定义请求
+        /// </summary>
+        public const string CustomRequest = "custom-request";
+        /// <summary>
+        /// 头部
+        /// </summary>
+        public const string Headers = "headers";
+        /// <summary>
+        /// 显示上传列表
+        /// </summary>
+        public const string ShowUploadList = "show-upload-list";
+        /// <summary>
+        /// 携带凭据
+        /// </summary>
+        public const string WithCredentials = "with-credentials";
+        /// <summary>
+        /// 预览
+        /// </summary>
+        public const string Preview = "preview";
+        /// <summary>
+        /// 移除
+        /// </summary>
+        public const string Remove = "remove";
+        /// <summary>
+        /// 是否虚线
+        /// </summary>
+        public const string Dashed = "dashed";
+        /// <summary>
+        /// 方向
+        /// </summary>
+        public const string Orientation = "orientation";
     }
 }

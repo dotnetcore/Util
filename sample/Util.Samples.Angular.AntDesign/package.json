@@ -29,6 +29,7 @@
     "extend": "3.0.2",
     "ng2-ckeditor": "1.2.2",
     "ng-zorro-antd": "7.4.1",
+    "primeng": "7.1.3",
     "@antv/data-set": "0.10.2",
     "@antv/g2": "3.5.1",
     "viser-ng": "2.4.4",

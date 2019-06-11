@@ -6,7 +6,6 @@ using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
-using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms.Renders;
 
 namespace Util.Ui.Zorro.Forms {
@@ -19,6 +18,10 @@ namespace Util.Ui.Zorro.Forms {
         /// 属性表达式
         /// </summary>
         public ModelExpression For { get; set; }
+        /// <summary>
+        /// [nzName],发到服务端的文件参数名
+        /// </summary>
+        public string Name { get; set; }
         /// <summary>
         /// [(ngModel)],模型绑定
         /// </summary>
@@ -36,17 +39,37 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Data { get; set; }
         /// <summary>
-        /// [nzDisabled],禁用
+        /// [nzHeaders],上传请求头部或返回上传请求头部的方法
+        /// </summary>
+        public string Headers { get; set; }
+        /// <summary>
+        /// [nzWithCredentials],上传是否携带cookie,默认值: false
+        /// </summary>
+        public bool WithCredentials { get; set; }
+        /// <summary>
+        /// [nzDisabled],禁用，默认值: false
         /// </summary>
         public string Disabled { get; set; }
         /// <summary>
-        /// [nzShowButton],是否显示上传按钮
+        /// 必填项
+        /// </summary>
+        public string Required { get; set; }
+        /// <summary>
+        /// 必填项错误消息
+        /// </summary>
+        public string RequiredMessage { get; set; }
+        /// <summary>
+        /// nzListType,上传列表的内建样式
+        /// </summary>
+        public UploadListType ListType { get; set; }
+        /// <summary>
+        /// [nzShowButton],是否显示上传按钮，默认值: true
         /// </summary>
         public string ShowButton { get; set; }
         /// <summary>
-        /// [(nzFileList)],上传文件列表
+        /// [nzShowUploadList],是否显示上传列表，还能控制是否显示预览图标和删除图标，默认值: true
         /// </summary>
-        public string FileList { get; set; }
+        public string ShowUploadList { get; set; }
         /// <summary>
         /// 按钮文本
         /// </summary>
@@ -76,21 +99,33 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public List<DocumentType> DocumentTypes { get; set; }
         /// <summary>
-        /// nzSize,文件大小限制，单位：KB
+        /// [nzSize],文件大小限制，单位：KB
         /// </summary>
         public double Size { get; set; }
         /// <summary>
-        /// [nzFilter],过滤器
+        /// [nzFilter],自定义过滤器，将覆盖默认过滤器设置
         /// </summary>
         public string Filter { get; set; }
+        /// <summary>
+        /// [nzBeforeUpload],上传前操作，返回 false 停止上传
+        /// </summary>
+        public string BeforeUpload { get; set; }
+        /// <summary>
+        /// [nzPreview],点击文件链接或预览图标时的回调操作
+        /// </summary>
+        public string Preview { get; set; }
+        /// <summary>
+        /// [nzRemove],移除文件时的回调操作，返回 false 不移除
+        /// </summary>
+        public string Remove { get; set; }
+        /// <summary>
+        /// [nzCustomRequest],自定义上传操作
+        /// </summary>
+        public string CustomRequest { get; set; }
         /// <summary>
         /// (nzChange),上传状态改变事件,范例：on-change="change($event)"
         /// </summary>
         public string OnChange { get; set; }
-        /// <summary>
-        /// [nzBeforeUpload],上传前事件，返回 false 停止上传
-        /// </summary>
-        public string OnBeforeUpload { get; set; }
 
         /// <summary>
         /// 获取渲染器

@@ -25,6 +25,12 @@ namespace Util.Samples.Pages.Components.Forms {
         public string Name { get; set; }
 
         /// <summary>
+        /// 颜色
+        /// </summary>
+        [Display( Name = "颜色" )]
+        public string Color { get; set; }
+
+        /// <summary>
         /// 年龄
         /// </summary>
         [Display( Name = "年龄" )]

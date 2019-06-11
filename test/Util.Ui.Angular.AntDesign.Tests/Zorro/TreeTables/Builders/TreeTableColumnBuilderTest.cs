@@ -37,7 +37,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables.Builders {
             result.Append( "[ngModel]=\"a.isChecked(row)\">" );
             result.Append( "{{b}}" );
             result.Append( "</label>" );
-            result.Append( "<ng-container *ngIf=\"!a.isShowCheckbox()\">" );
+            result.Append( "<ng-container *ngIf=\"a.isShowText(row)\">" );
             result.Append( "{{b}}" );
             result.Append( "</ng-container>" );
             result.Append( "</td>" );

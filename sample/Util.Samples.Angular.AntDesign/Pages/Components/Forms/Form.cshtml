@@ -9,7 +9,7 @@
             <util-textbox for="Name"></util-textbox>
         </nz-form-item>
         <nz-form-item>
-            <util-textbox for="Age" precision="1" step="0.1" min="0.1" max="150.2"></util-textbox>
+            <util-textbox for="Age"></util-textbox>
         </nz-form-item>
         <nz-form-item>
             <util-tree-select url="/api/tree" expand-all="true" width="300"></util-tree-select>
@@ -30,7 +30,7 @@
             <util-textarea for="Comment"></util-textarea>
         </nz-form-item>
         <nz-form-item>
-            <util-upload id="upload" url="/api/upload" for="Files"></util-upload>
+            <util-upload for="Files" url="/api/upload" data="data" list-type="PictureCard"></util-upload>
         </nz-form-item>
         <nz-form-item>
             <util-checkbox for="Enabled"></util-checkbox>
@@ -43,6 +43,10 @@
         </nz-form-item>
         <nz-form-item>
             <util-switch for="Enabled"></util-switch>
+        </nz-form-item>
+        <nz-form-item>
+            <util-color-picker for="Color"  />
+            {{model.color}}
         </nz-form-item>
         <nz-form-item>
             <nz-form-control>

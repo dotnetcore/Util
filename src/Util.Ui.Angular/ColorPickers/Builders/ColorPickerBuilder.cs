@@ -1,6 +1,6 @@
 ﻿using Util.Ui.Builders;
 
-namespace Util.Ui.Prime.ColorPickers.Builders {
+namespace Util.Ui.ColorPickers.Builders {
     /// <summary>
     /// Prime颜色选择器生成器
     /// </summary>

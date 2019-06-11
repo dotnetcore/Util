@@ -13,10 +13,16 @@ import { DialogComponent } from "./dialog.component";
 } )
 export class FormComponent extends EditComponentBase<any> {
     /**
+     * 上传参数
+     */
+    data;
+
+    /**
      * 初始化
      */
     constructor( public injector: Injector ) {
         super( injector );
+        this.data = { code: "a", name: "b" };
     }
 
     /**
@@ -28,16 +34,16 @@ export class FormComponent extends EditComponentBase<any> {
 
     test() {
         this.util.dialog.open( {
-            title:"Util应用框架 - 新增",
+            title: "Util应用框架 - 新增",
             width: 800,
-            disableClose:true,
+            disableClose: true,
             component: DialogComponent,
             data: { test: "a" },
             onOk: instance => {
                 instance.ok2();
             },
             onBeforeClose: ( result ) => {
-                if ( result === "a" )
+                if ( result === "b" )
                     return false;
                 return true;
             },

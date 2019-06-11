@@ -1,32 +1,32 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Helpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Zorro.Icons;
+using Util.Ui.Zorro.Dividers;
 using Xunit;
 using Xunit.Abstractions;
+using String = Util.Helpers.String;
 
-namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
+namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Dividers {
     /// <summary>
-    /// 图标测试
+    /// 分隔线测试
     /// </summary>
-    public class IconTagHelperTest {
+    public class DividerTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 图标
+        /// 分隔线
         /// </summary>
-        private readonly IconTagHelper _component;
+        private readonly DividerTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public IconTagHelperTest( ITestOutputHelper output ) {
+        public DividerTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new IconTagHelper();
+            _component = new DividerTagHelper();
         }
 
         /// <summary>
@@ -42,73 +42,62 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<i nz-icon=\"\"></i>" );
+            result.Append( "<nz-divider></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
         /// <summary>
-        /// 测试图标类型
+        /// 测试添加标识
         /// </summary>
         [Fact]
-        public void TestType() {
-            var attributes = new TagHelperAttributeList { { UiConst.Type, AntDesignIcon.InfoCircle } };
+        public void TestId() {
+            var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<i nz-icon=\"\" nzType=\"info-circle\"></i>" );
+            result.Append( "<nz-divider #a=\"\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试图标类型
+        /// 测试虚线
         /// </summary>
         [Fact]
-        public void TestBindType() {
-            var attributes = new TagHelperAttributeList { { AngularConst.BindType, "a" } };
+        public void TestDashed() {
+            var attributes = new TagHelperAttributeList { { UiConst.Dashed, true } };
             var result = new String();
-            result.Append( "<i nz-icon=\"\" [nzType]=\"a\"></i>" );
+            result.Append( "<nz-divider [nzDashed]=\"true\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试图标主题风格
+        /// 测试设置垂直方向
         /// </summary>
         [Fact]
-        public void TestTheme() {
-            var attributes = new TagHelperAttributeList { { UiConst.Theme, AntDesignTheme.Outline } };
+        public void TestVertical() {
+            var attributes = new TagHelperAttributeList { { UiConst.Vertical, true } };
             var result = new String();
-            result.Append( "<i nz-icon=\"\" nzTheme=\"outline\"></i>" );
+            result.Append( "<nz-divider nzType=\"vertical\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试图标主题风格
+        /// 测试设置文字
         /// </summary>
         [Fact]
-        public void TestBindThme() {
-            var attributes = new TagHelperAttributeList { { AngularConst.BindTheme, "a" } };
+        public void TestText() {
+            var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
             var result = new String();
-            result.Append( "<i nz-icon=\"\" [nzTheme]=\"a\"></i>" );
+            result.Append( "<nz-divider nzText=\"a\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试图标持续旋转
+        /// 测试设置文字方向
         /// </summary>
         [Fact]
-        public void TestSpin() {
-            var attributes = new TagHelperAttributeList { { UiConst.Spin, true } };
+        public void TestOrientation() {
+            var attributes = new TagHelperAttributeList { { UiConst.Orientation, Orientation.Right } };
             var result = new String();
-            result.Append( "<i nz-icon=\"\" [nzSpin]=\"true\"></i>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试图标旋转角度
-        /// </summary>
-        [Fact]
-        public void TestRotate() {
-            var attributes = new TagHelperAttributeList { { UiConst.Rotate, "180" } };
-            var result = new String();
-            result.Append( "<i nz-icon=\"\" [nzRotate]=\"180\"></i>" );
+            result.Append( "<nz-divider nzOrientation=\"right\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

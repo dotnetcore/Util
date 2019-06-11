@@ -23,19 +23,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 创建上传包装器生成器
         /// </summary>
-        protected override TagBuilder CreateUploadWrapperBuilder() {
+        protected override TagBuilder CreateBuilder() {
             return new SingleUploadWrapperBuilder();
-        }
-
-        /// <summary>
-        /// 配置显示按钮
-        /// </summary>
-        protected override void ConfigShowButton( TagBuilder builder ) {
-            if( _config.Contains( UiConst.ShowButton ) ) {
-                builder.AddAttribute( "[nzShowButton]", _config.GetValue( UiConst.ShowButton ) );
-                return;
-            }
-            builder.AddAttribute( "[nzShowButton]", $"!{GetWrapperId()}.files||({GetWrapperId()}.files&&{GetWrapperId()}.files).length<1" );
         }
     }
 }

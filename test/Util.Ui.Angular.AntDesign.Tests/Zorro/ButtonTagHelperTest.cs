@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Buttons;
-using Util.Ui.Zorro.Enums;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;

@@ -15,59 +15,59 @@ export class Dialog {
      * 打开弹出层
      * @param options 弹出层配置
      */
-    static open(options?: IDialogOptions) {
+    static open( options?: IDialogOptions ) {
         options = options || {};
-        if (options.onBeforeOpen && options.onBeforeOpen() === false)
+        if ( options.onBeforeOpen && options.onBeforeOpen() === false )
             return;
-        Dialog.initOptions(options);
+        Dialog.initOptions( options );
         let dialog: NzModalService = Dialog.getModalService();
-        let dialogRef: NzModalRef = dialog.create(this.toOptions(options));
-        dialogRef.afterOpen.subscribe(() => options.onOpen && options.onOpen());
-        dialogRef.afterClose.subscribe((result) => options.onClose && options.onClose(result));
+        let dialogRef: NzModalRef = dialog.create( this.toOptions( options ) );
+        dialogRef.afterOpen.subscribe( () => options.onOpen && options.onOpen() );
+        dialogRef.afterClose.subscribe( ( result ) => options.onClose && options.onClose( result ) );
     }
 
     /**
      * 获取模态窗服务
      */
     private static getModalService() {
-        return ioc.get(NzModalService);
+        return ioc.get( NzModalService );
     }
 
     /**
      * 初始化配置
      */
-    private static initOptions(options: IDialogOptions) {
-        if (!options.data)
+    private static initOptions( options: IDialogOptions ) {
+        if ( !options.data )
             options.data = {};
     }
 
     /**
      * 转换配置
      */
-    private static toOptions(options: IDialogOptions): ModalOptionsForService {
+    private static toOptions( options: IDialogOptions ): ModalOptionsForService {
         return {
             nzTitle: options.title,
             nzContent: options.component || options.content,
             nzComponentParams: options.data,
-            nzCancelText: this.getCancelText(options),
-            nzOkText: this.getOkText(options),
+            nzCancelText: this.getCancelText( options ),
+            nzOkText: this.getOkText( options ),
             nzOkType: options.okType,
-            nzClosable: isUndefined(options.showClose) ? true : options.showClose,
-            nzMask: isUndefined(options.showMask) ? true : options.showMask,
-            nzFooter: this.getFooter(options),
+            nzClosable: isUndefined( options.showClose ) ? true : options.showClose,
+            nzMask: isUndefined( options.showMask ) ? true : options.showMask,
+            nzFooter: this.getFooter( options ),
             nzWidth: options.width,
             nzMaskClosable: !options.disableClose,
             nzKeyboard: !options.disableClose,
             nzOnOk: options.onOk,
-            nzOnCancel: () => options.onBeforeClose(null)
+            nzOnCancel: () => options.onBeforeClose && options.onBeforeClose( null )
         };
     }
 
     /**
      * 获取取消按钮文本
      */
-    private static getCancelText(options: IDialogOptions) {
-        if (options.showCancel === false)
+    private static getCancelText( options: IDialogOptions ) {
+        if ( options.showCancel === false )
             return null;
         return options.cancelText;
     }
@@ -75,8 +75,8 @@ export class Dialog {
     /**
      * 获取确定按钮文本
      */
-    private static getOkText(options: IDialogOptions) {
-        if (options.showOk === false)
+    private static getOkText( options: IDialogOptions ) {
+        if ( options.showOk === false )
             return null;
         return options.okText;
     }
@@ -84,8 +84,8 @@ export class Dialog {
     /**
      * 获取页脚
      */
-    private static getFooter(options: IDialogOptions) {
-        if (options.showFooter === false)
+    private static getFooter( options: IDialogOptions ) {
+        if ( options.showFooter === false )
             return null;
         return options.footer;
     }
@@ -102,16 +102,16 @@ export class Dialog {
      * 关闭弹出层
      * @param result 返回结果
      */
-    static close(result?) {
+    static close( result?) {
         let dialog: NzModalService = Dialog.getModalService();
-        if (!dialog.openModals || dialog.openModals.length === 0)
+        if ( !dialog.openModals || dialog.openModals.length === 0 )
             return;
         let dialogRef: NzModalRef = dialog.openModals[dialog.openModals.length - 1];
-        if (!dialogRef)
+        if ( !dialogRef )
             return;
-        if (dialogRef["nzOnCancel"](result) === false)
+        if ( dialogRef["nzOnCancel"]( result ) === false )
             return;
-        dialogRef.close(result);
+        dialogRef.close( result );
     }
 }
 
@@ -183,7 +183,7 @@ export interface IDialogOptions {
      * 点击确定按钮事件，返回 false 阻止关闭
      * @param instance 弹出层组件实例
      */
-    onOk?: (instance) => (false | void | {}) | Promise<false | void | {}>,
+    onOk?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**
      * 打开前事件，返回 false 阻止弹出
      */
@@ -195,10 +195,10 @@ export interface IDialogOptions {
     /**
      * 关闭前事件，返回 false 阻止关闭
      */
-    onBeforeClose?: (result) => (false | void | {}) | Promise<false | void | {}>,
+    onBeforeClose?: ( result ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**
      * 关闭后事件
      * @param result 返回结果
      */
-    onClose?: (result) => void;
+    onClose?: ( result ) => void;
 }

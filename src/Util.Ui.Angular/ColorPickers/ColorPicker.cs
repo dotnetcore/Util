@@ -1,8 +1,8 @@
-﻿using Util.Ui.Components;
-using Util.Ui.Prime.ColorPickers.Renders;
+﻿using Util.Ui.ColorPickers.Renders;
+using Util.Ui.Components;
 using Util.Ui.Renders;
 
-namespace Util.Ui.Prime.ColorPickers {
+namespace Util.Ui.ColorPickers {
     /// <summary>
     /// 颜色选择器
     /// </summary>

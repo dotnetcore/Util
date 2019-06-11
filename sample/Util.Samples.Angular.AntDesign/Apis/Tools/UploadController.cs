@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Files;
 using Util.Helpers;
@@ -28,6 +29,9 @@ namespace Util.Samples.Apis.Tools {
         /// </summary>
         [HttpPost]
         public async Task<IActionResult> Upload() {
+            await Task.Delay( 3000 );
+            var code = Web.GetParam( "code" );
+            var name = Web.GetParam( "name" );
             var file = Web.GetFile();
             var path = await FileStore.SaveAsync();
             var result = new UploadFileInfo {
