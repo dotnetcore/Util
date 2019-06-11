@@ -136,5 +136,14 @@ namespace Util.Dependency {
         public void Dispose() {
             _container.Dispose();
         }
+
+        /// <summary>
+        /// 注册依赖
+        /// </summary>
+        /// <param name="container">容器</param>
+        public void Register(Autofac.IContainer container)
+        {
+            _container = container;
+        }
     }
 }

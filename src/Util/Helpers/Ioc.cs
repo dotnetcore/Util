@@ -92,5 +92,14 @@ namespace Util.Helpers {
         public static void Dispose() {
             DefaultContainer.Dispose();
         }
+
+        /// <summary>
+        /// 注册依赖
+        /// </summary>
+        /// <param name="container">容器</param>
+        public static void Register(Autofac.IContainer container)
+        {
+            DefaultContainer.Register(container);
+        }
     }
 }
