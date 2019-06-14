@@ -12,7 +12,7 @@ namespace Util.Ui.Zorro.TreeTables.Builders {
         /// <param name="column">列名</param>
         public CheckBoxBuilder( string id,string column  ) : base( "label" ) {
             base.AddAttribute( "nz-checkbox" );
-            base.AddAttribute( "*ngIf", $"{id}.showCheckbox" );
+            base.AddAttribute( "*ngIf", $"{id}.isShowCheckbox()" );
             base.AddAttribute( "[nzIndeterminate]", $"{id}.isIndeterminate(row)" );
             base.AddAttribute( "[nzChecked]", $"{id}.isChecked(row)" );
             base.AddAttribute( "(nzCheckedChange)", $"{id}.toggle(row)" );

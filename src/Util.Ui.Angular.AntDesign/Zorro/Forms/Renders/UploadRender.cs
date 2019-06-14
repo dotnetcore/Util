@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Helpers;
-using Util.Properties;
 using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Resolvers;
@@ -10,10 +9,7 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
-using Util.Ui.Zorro.Buttons.Builders;
-using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms.Builders;
-using Util.Ui.Zorro.Icons.Builders;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -24,10 +20,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置
         /// </summary>
         private readonly Config _config;
-        /// <summary>
-        /// 包装器标识
-        /// </summary>
-        private readonly string _wrapperId;
 
         /// <summary>
         /// 初始化文件上传渲染器
@@ -35,7 +27,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <param name="config">配置</param>
         public UploadRender( Config config ) : base( config ) {
             _config = config;
-            _wrapperId = Id.Guid();
         }
 
         /// <summary>
@@ -43,19 +34,9 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
-            var wrapperBuilder = CreateUploadWrapperBuilder();
-            var builder = new UploadBuilder();
-            wrapperBuilder.AppendContent( builder );
-            ConfigWrapper( wrapperBuilder );
+            var builder = CreateBuilder();
             Config( builder );
-            return wrapperBuilder;
-        }
-
-        /// <summary>
-        /// 创建上传包装器生成器
-        /// </summary>
-        protected virtual TagBuilder CreateUploadWrapperBuilder() {
-            return new UploadWrapperBuilder();
+            return builder;
         }
 
         /// <summary>
@@ -69,149 +50,95 @@ namespace Util.Ui.Zorro.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置包装器
+        /// 创建上传包装器生成器
         /// </summary>
-        private void ConfigWrapper( TagBuilder builder ) {
-            builder.AddAttribute( $"#{GetWrapperId()}" );
-            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
-            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
-        }
-
-        /// <summary>
-        /// 获取包装器标识
-        /// </summary>
-        protected string GetWrapperId() {
-            if( _config.Contains( UiConst.Id ) )
-                return $"{_config.GetValue( UiConst.Id )}_wrapper";
-            return $"m_{_wrapperId}";
+        protected virtual TagBuilder CreateBuilder() {
+            return new UploadWrapperBuilder();
         }
 
         /// <summary>
         /// 配置
         /// </summary>
-        private void Config( UploadBuilder builder ) {
+        private void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigDataSource( builder );
+            ConfigServer( builder );
+            ConfigList( builder );
             ConfigDisabled( builder );
-            ConfigShowButton( builder );
             ConfigMultiple( builder );
-            ConfigDirectory( builder );
-            ConfigFileList( builder );
             ConfigButton( builder );
             ConfigAccept( builder );
             ConfigLimit( builder );
             ConfigFilter( builder );
+            ConfigRequired( builder );
+            ConfigOperations( builder );
             ConfigEvents( builder );
             ConfigContent( builder );
         }
 
         /// <summary>
-        /// 配置数据源
+        /// 配置服务端参数
         /// </summary>
-        private void ConfigDataSource( TagBuilder builder ) {
-            builder.AddAttribute( "nzAction", _config.GetValue( UiConst.Url ) );
-            builder.AddAttribute( "[nzAction]", _config.GetValue( AngularConst.BindUrl ) );
-            builder.AddAttribute( "[nzData]", _config.GetValue( UiConst.Data ) );
+        private void ConfigServer( TagBuilder builder ) {
+            builder.NgModel( _config );
+            builder.AddAttribute( "name", _config.GetValue( UiConst.Name ) );
+            builder.AddAttribute( "url", _config.GetValue( UiConst.Url ) );
+            builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
+            builder.AddAttribute( "[data]", _config.GetValue( UiConst.Data ) );
+            builder.AddAttribute( "[headers]", _config.GetValue( UiConst.Headers ) );
+            builder.AddAttribute( "[withCredentials]", _config.GetBoolValue( UiConst.WithCredentials ) );
+        }
+
+        /// <summary>
+        /// 配置列表
+        /// </summary>
+        private void ConfigList( TagBuilder builder ) {
+            builder.AddAttribute( "[showUploadList]", _config.GetValue( UiConst.ShowUploadList ) );
+            ConfigListType( builder );
+        }
+
+        /// <summary>
+        /// 配置列表类型
+        /// </summary>
+        private void ConfigListType( TagBuilder builder ) {
+            var listType = _config.GetValue<UploadListType?>( UiConst.ListType );
+            builder.AddAttribute( "listType", listType?.Description() );
+            if( listType == UploadListType.Picture || listType == UploadListType.PictureCard )
+                _config.SetAttribute( UiConst.AcceptImage,true );
         }
 
         /// <summary>
         /// 配置禁用
         /// </summary>
         private void ConfigDisabled( TagBuilder builder ) {
-            builder.AddAttribute( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
-        }
-
-        /// <summary>
-        /// 配置显示按钮
-        /// </summary>
-        protected virtual void ConfigShowButton( TagBuilder builder ) {
-            if ( _config.Contains( UiConst.ShowButton ) ) {
-                builder.AddAttribute( "[nzShowButton]", _config.GetValue( UiConst.ShowButton ) );
-                return;
-            }
-            if( _config.Contains( UiConst.TotalLimit ) == false )
-                return;
-            builder.AddAttribute( "[nzShowButton]", $"!{GetWrapperId()}.files||({GetWrapperId()}.files&&{GetWrapperId()}.files).length<{_config.GetValue( UiConst.TotalLimit )}" );
+            builder.AddAttribute( "[disabled]", _config.GetValue( UiConst.Disabled ) );
         }
 
         /// <summary>
         /// 配置多选
         /// </summary>
         private void ConfigMultiple( TagBuilder builder ) {
-            builder.AddAttribute( "[nzMultiple]", _config.GetBoolValue( UiConst.Multiple ) );
-        }
-
-        /// <summary>
-        /// 配置上传文件夹
-        /// </summary>
-        private void ConfigDirectory( TagBuilder builder ) {
-            builder.AddAttribute( "[nzDirectory]", _config.GetBoolValue( UiConst.Directory ) );
-        }
-
-        /// <summary>
-        /// 配置文件列表
-        /// </summary>
-        private void ConfigFileList( TagBuilder builder ) {
-            if( _config.Contains( UiConst.FileList ) ) {
-                builder.AddAttribute( "[(nzFileList)]", _config.GetValue( UiConst.FileList ) );
-                return;
-            }
-            builder.AddAttribute( "[(nzFileList)]", $"{GetWrapperId()}.files" );
-        }
-
-        /// <summary>
-        /// 配置按钮
-        /// </summary>
-        private void ConfigButton( TagBuilder builder ) {
-            if( _config.Content.IsEmpty() == false )
-                return;
-            var buttonBuilder = new ButtonWrapperBuilder();
-            ConfigButtonDisabled( buttonBuilder );
-            ConfigButtonText( buttonBuilder );
-            ConfigButtonIcon( buttonBuilder );
-            builder.AppendContent( buttonBuilder );
-        }
-
-        /// <summary>
-        /// 配置按钮禁用
-        /// </summary>
-        private void ConfigButtonDisabled( TagBuilder builder ) {
-            builder.AddAttribute( "[disabled]", _config.GetValue( UiConst.Disabled ) );
+            builder.AddAttribute( "[multiple]", _config.GetBoolValue( UiConst.Multiple ) );
+            builder.AddAttribute( "[directory]", _config.GetBoolValue( UiConst.Directory ) );
         }
 
         /// <summary>
         /// 配置按钮文本
         /// </summary>
-        private void ConfigButtonText( ButtonWrapperBuilder buttonBuilder ) {
-            if( _config.Contains( UiConst.ButtonText ) ) {
-                buttonBuilder.AddText( _config.GetValue( UiConst.ButtonText ) );
-                return;
-            }
-            buttonBuilder.AddText( R.Upload );
-        }
-
-        /// <summary>
-        /// 配置按钮图标
-        /// </summary>
-        private void ConfigButtonIcon( ButtonWrapperBuilder buttonBuilder ) {
-            var iconBuilder = new IconBuilder();
-            buttonBuilder.AppendContent( iconBuilder );
-            if( _config.Contains( UiConst.ButtonIcon ) ) {
-                iconBuilder.AddType( _config.GetValue<AntDesignIcon?>( UiConst.ButtonIcon )?.Description() );
-                return;
-            }
-            iconBuilder.AddType( AntDesignIcon.Upload.Description() );
+        private void ConfigButton( TagBuilder builder ) {
+            builder.AddAttribute( "buttonText", _config.GetValue( UiConst.ButtonText ) );
+            builder.AddAttribute( "buttonIcon", _config.GetValue<AntDesignIcon?>( UiConst.ButtonIcon )?.Description() );
+            builder.AddAttribute( "[showButton]", _config.GetValue( UiConst.ShowButton ) );
         }
 
         /// <summary>
         /// 配置接受的文件类型
         /// </summary>
-        private void ConfigAccept( UploadBuilder builder ) {
+        private void ConfigAccept( TagBuilder builder ) {
             if( _config.Contains( UiConst.Accept ) ) {
-                builder.Accept( _config.GetValue( UiConst.Accept ) );
+                builder.AddAttribute( "accept",_config.GetValue( UiConst.Accept ) );
                 return;
             }
-            builder.Accept( GetAccepts() );
+            builder.AddAttribute("accept", GetAccepts() );
         }
 
         /// <summary>
@@ -263,39 +190,42 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置文件限制
         /// </summary>
-        private void ConfigLimit( UploadBuilder builder ) {
-            builder.AddAttribute( "nzSize", _config.GetValue( UiConst.Size ) );
-            builder.AddAttribute( "nzLimit", _config.GetValue( UiConst.Limit ) );
+        private void ConfigLimit( TagBuilder builder ) {
+            builder.AddAttribute( "[size]", _config.GetValue( UiConst.Size ) );
+            builder.AddAttribute( "[limit]", _config.GetValue( UiConst.Limit ) );
+            builder.AddAttribute( "[totalLimit]", _config.GetValue( UiConst.TotalLimit ) );
         }
 
         /// <summary>
         /// 配置过滤器
         /// </summary>
-        private void ConfigFilter( UploadBuilder builder ) {
-            if( _config.Contains( UiConst.Filter ) ) {
-                builder.AddAttribute( "[nzFilter]", _config.GetValue( UiConst.Filter ) );
-                return;
-            }
-            builder.AddAttribute( "[nzFilter]", $"{GetWrapperId()}.filters" );
+        private void ConfigFilter( TagBuilder builder ) {
+            builder.AddAttribute( "[customFilters]", _config.GetValue( UiConst.Filter ) );
+        }
+
+        /// <summary>
+        /// 配置必填项
+        /// </summary>
+        private void ConfigRequired( TagBuilder builder ) {
+            builder.AddAttribute( "[required]", _config.GetBoolValue( UiConst.Required ) );
+            builder.AddAttribute( "requiredMessage", _config.GetValue( UiConst.RequiredMessage ) );
+        }
+
+        /// <summary>
+        /// 配置上传操作
+        /// </summary>
+        private void ConfigOperations( TagBuilder builder ) {
+            builder.AddAttribute( "[beforeUpload]", _config.GetValue( UiConst.BeforeUpload ) );
+            builder.AddAttribute( "[preview]", _config.GetValue( UiConst.Preview ) );
+            builder.AddAttribute( "[remove]", _config.GetValue( UiConst.Remove ) );
+            builder.AddAttribute( "[customRequest]", _config.GetValue( UiConst.CustomRequest ) );
         }
 
         /// <summary>
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
-            builder.AddAttribute( "[nzBeforeUpload]", _config.GetValue( UiConst.OnBeforeUpload ) );
-            ConfigOnChange( builder );
-        }
-
-        /// <summary>
-        /// 配置OnChange事件
-        /// </summary>
-        private void ConfigOnChange( TagBuilder builder ) {
-            if( _config.Contains( UiConst.OnChange ) ) {
-                builder.AddAttribute( "(nzChange)", _config.GetValue( UiConst.OnChange ) );
-                return;
-            }
-            builder.AddAttribute( "(nzChange)", $"{GetWrapperId()}.handleChange($event)" );
+            builder.AddAttribute( "(modelChange)", _config.GetValue( UiConst.OnChange ) );
         }
     }
 }

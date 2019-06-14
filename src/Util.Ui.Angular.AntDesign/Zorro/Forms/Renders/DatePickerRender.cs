@@ -1,6 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Enums;
+using Util.Ui.Enums;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -29,7 +29,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置日期选择框
         /// </summary>
-        public void ConfigDatePicker() {
+        public void Config() {
             ConfigDatePickerType();
             ConfigStyle();
             ConfigDateFormat();

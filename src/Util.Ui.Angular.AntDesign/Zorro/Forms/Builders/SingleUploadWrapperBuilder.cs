@@ -8,7 +8,7 @@ namespace Util.Ui.Zorro.Forms.Builders {
         /// <summary>
         /// 初始化NgZorro单文件上传包装器生成器
         /// </summary>
-        public SingleUploadWrapperBuilder( ) : base( "nz-single-upload-wrapper" ) {
+        public SingleUploadWrapperBuilder( ) : base( "x-single-upload" ) {
         }
     }
 }

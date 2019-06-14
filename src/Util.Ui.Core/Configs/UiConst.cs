@@ -92,6 +92,14 @@
         /// </summary>
         public const string OnClose = "on-close";
         /// <summary>
+        /// 搜索事件
+        /// </summary>
+        public const string OnSearch = "on-search";
+        /// <summary>
+        /// 滚动到底部事件
+        /// </summary>
+        public const string OnScrollToBottom = "on-scroll-to-bottom";
+        /// <summary>
         /// 图标
         /// </summary>
         public const string Icon = "icon";
@@ -612,6 +620,10 @@
         /// </summary>
         public const string Data = "data";
         /// <summary>
+        /// 上传前操作
+        /// </summary>
+        public const string BeforeUpload = "before-upload";
+        /// <summary>
         /// 上传前事件
         /// </summary>
         public const string OnBeforeUpload = "on-before-upload";
@@ -700,6 +712,10 @@
         /// </summary>
         public const string ShowSearch = "show-search";
         /// <summary>
+        /// 显示箭头
+        /// </summary>
+        public const string ShowArrow = "show-arrow";
+        /// <summary>
         /// 自动获取焦点
         /// </summary>
         public const string AutoFocus = "auto-focus";
@@ -739,5 +755,61 @@
         /// 滚动宽度
         /// </summary>
         public const string ScrollWidth = "scroll-width";
+        /// <summary>
+        /// 服务端搜索
+        /// </summary>
+        public const string ServerSearch = "server-search";
+        /// <summary>
+        /// 滚动加载
+        /// </summary>
+        public const string ScrollLoad = "scroll-load";
+        /// <summary>
+        /// 精度
+        /// </summary>
+        public const string Precision = "precision";
+        /// <summary>
+        /// 步
+        /// </summary>
+        public const string Step = "step";
+        /// <summary>
+        /// 只能选择叶节点
+        /// </summary>
+        public const string CheckLeafOnly = "check-leaf-only";
+        /// <summary>
+        /// 列表类型
+        /// </summary>
+        public const string ListType = "list-type";
+        /// <summary>
+        /// 自定义请求
+        /// </summary>
+        public const string CustomRequest = "custom-request";
+        /// <summary>
+        /// 头部
+        /// </summary>
+        public const string Headers = "headers";
+        /// <summary>
+        /// 显示上传列表
+        /// </summary>
+        public const string ShowUploadList = "show-upload-list";
+        /// <summary>
+        /// 携带凭据
+        /// </summary>
+        public const string WithCredentials = "with-credentials";
+        /// <summary>
+        /// 预览
+        /// </summary>
+        public const string Preview = "preview";
+        /// <summary>
+        /// 移除
+        /// </summary>
+        public const string Remove = "remove";
+        /// <summary>
+        /// 是否虚线
+        /// </summary>
+        public const string Dashed = "dashed";
+        /// <summary>
+        /// 方向
+        /// </summary>
+        public const string Orientation = "orientation";
     }
 }

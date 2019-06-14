@@ -18,10 +18,6 @@ import { ViserModule } from 'viser-ng';
 import { DicService } from './services/dic.service';
 import { Session } from './security/session';
 
-//Util指令
-import { MinValidator } from './directives/min-validator.directive';
-import { MaxValidator } from './directives/max-validator.directive';
-
 //Util管道
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { TruncatePipe } from "./pipes/truncate.pipe";
@@ -46,6 +42,7 @@ import { Button } from "./zorro/button-wrapper.component";
 import { TextBox } from "./zorro/textbox-wrapper.component";
 import { DatePicker } from "./zorro/datepicker-wrapper.component";
 import { TextArea } from "./zorro/textarea-wrapper.component";
+import { NumberTextBox } from "./zorro/number-textbox-wrapper.component";
 import { Select } from "./zorro/select-wrapper.component";
 import { Radio } from "./zorro/radio-wrapper.component";
 import { CheckboxGroup } from "./zorro/checkbox-group-wrapper.component";
@@ -63,10 +60,10 @@ const importModules = [
 
 //组件集合
 const components = [
-    MinValidator, MaxValidator, SafeUrlPipe, TruncatePipe, IsTruncatePipe,
+    SafeUrlPipe, TruncatePipe, IsTruncatePipe,
     LineWrapperComponent, ColumnWrapperComponent, BarWrapperComponent, AreaWrapperComponent,
     PieWrapperComponent, RosePieWrapperComponent,
-    Button, TextBox, DatePicker, TextArea,
+    Button, TextBox, DatePicker, TextArea, NumberTextBox,
     Select, Radio, CheckboxGroup,
     Table, Upload, SingleUpload,
     Tree, TreeSelect, TreeTable

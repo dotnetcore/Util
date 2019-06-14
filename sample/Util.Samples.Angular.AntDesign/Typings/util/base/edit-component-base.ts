@@ -52,10 +52,18 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
             return;
         this.util.webapi.get<TViewModel>(this.getByIdUrl(id)).handle({
             ok: result => {
+                result = this.loadBefore( result );
                 this.model = result;
                 this.loadAfter(result);
             }
         });
+    }
+
+    /**
+     * 加载完成前操作
+     */
+    protected loadBefore( result ) {
+        return result;
     }
 
     /**

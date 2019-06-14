@@ -1,10 +1,9 @@
 ﻿using Util.Ui.Angular;
 using Util.Ui.Angular.Base;
-using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Buttons.Builders;
-using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Icons.Builders;
 
 namespace Util.Ui.Zorro.Buttons.Renders {
@@ -41,7 +40,7 @@ namespace Util.Ui.Zorro.Buttons.Renders {
             ConfigId( builder );
             ConfigText( builder );
             ConfigValidateForm( builder );
-            ConfigStype( builder );
+            ConfigStyle( builder );
             ConfigDisabled( builder );
             ConfigTooltip( builder );
             ConfigLoading( builder );
@@ -71,7 +70,7 @@ namespace Util.Ui.Zorro.Buttons.Renders {
         /// <summary>
         /// 配置样式
         /// </summary>
-        private void ConfigStype( TagBuilder builder ) {
+        private void ConfigStyle( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Color, _config.GetValue<Color?>( UiConst.Color )?.Description() );
             builder.AddAttribute( UiConst.Size, _config.GetValue<ButtonSize?>( UiConst.Size )?.Description() );
             builder.AddAttribute( UiConst.Shape, _config.GetValue<ButtonShape?>( UiConst.Shape )?.Description() );

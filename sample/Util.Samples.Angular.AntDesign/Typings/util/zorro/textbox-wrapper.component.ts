@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, OnInit, Host, Optional } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { MessageConfig } from '../config/message-config';
@@ -17,7 +17,7 @@ import { MessageConfig } from '../config/message-config';
             <input nz-input [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"                 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                [required]="required" [email]="type==='email'" [pattern]="pattern" [min]="min" [max]="max"
+                [required]="required" [email]="type==='email'" [pattern]="pattern"
                 [minlength]="minLength" [maxlength]="maxLength"
             />
             <nz-form-explain *ngIf="controlModel?.invalid && (controlModel?.dirty || controlModel.touched)">{{getErrorMessage()}}</nz-form-explain>
@@ -49,22 +49,6 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
      * 只读
      */
     @Input() readonly: boolean;
-    /**
-     * 最小值
-     */
-    @Input() min: number;
-    /**
-     * 最小值验证消息
-     */
-    @Input() minMessage: string;
-    /**
-     * 最大值
-     */
-    @Input() max: number;
-    /**
-     * 最大值验证消息
-     */
-    @Input() maxMessage: string;
     /**
      * 最小长度
      */
@@ -140,10 +124,6 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
             return this.emailMessage || MessageConfig.emailMessage;
         if (this.controlModel.hasError('pattern'))
             return this.patterMessage;
-        if ( this.controlModel.hasError( 'min' ) )
-            return this.replace( this.minMessage || MessageConfig.minMessage, this.min );
-        if ( this.controlModel.hasError( 'max' ) )
-            return this.replace( this.maxMessage || MessageConfig.maxMessage, this.max );
         return "";
     }
 

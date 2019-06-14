@@ -284,6 +284,33 @@ namespace Util.Helpers {
 
         #endregion
 
+        #region GetParam(获取请求参数)
+
+        /// <summary>
+        /// 获取请求参数，搜索路径：查询参数->表单参数->请求头
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public static string GetParam( string name ) {
+            if ( string.IsNullOrWhiteSpace( name ) )
+                return string.Empty;
+            if ( Request == null )
+                return string.Empty;
+            var result = string.Empty;
+            if( Request.Query != null )
+                result = Request.Query[name];
+            if ( string.IsNullOrWhiteSpace( result ) == false )
+                return result;
+            if( Request.Form != null )
+                result = Request.Form[name];
+            if( string.IsNullOrWhiteSpace( result ) == false )
+                return result;
+            if( Request.Headers != null )
+                result = Request.Headers[name];
+            return result;
+        }
+
+        #endregion
+
         #region UrlEncode(Url编码)
 
         /// <summary>

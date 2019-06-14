@@ -18,6 +18,7 @@ namespace Util.Ui.Zorro.TreeTables.Builders {
             AddAttribute( "[nzExpand]", $"{treeTableWrapperId}.isExpand(row)" );
             AddAttribute( "(nzExpandChange)", $"{treeTableWrapperId}.collapse(row,$event)" );
             AppendContent( new CheckBoxBuilder( treeTableWrapperId, column ) );
+            AppendContent( new RadioBuilder( treeTableWrapperId, column ) );
             AppendContent( CreateContainerBuilder( treeTableWrapperId, column ) );
         }
 
@@ -26,7 +27,7 @@ namespace Util.Ui.Zorro.TreeTables.Builders {
         /// </summary>
         private ContainerBuilder CreateContainerBuilder( string treeTableWrapperId, string column ) {
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.NgIf( $"!{treeTableWrapperId}.showCheckbox" );
+            containerBuilder.NgIf( $"{treeTableWrapperId}.isShowText(row)" );
             containerBuilder.AppendContent( $"{{{{{column}}}}}" );
             return containerBuilder;
         }

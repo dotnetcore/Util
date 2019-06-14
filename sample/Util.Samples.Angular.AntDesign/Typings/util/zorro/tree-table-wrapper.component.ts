@@ -26,6 +26,10 @@ export class TreeTable<T extends IKey> extends Table<T> {
      */
     @Input() showCheckbox: boolean;
     /**
+     * 是否只能勾选叶节点,仅对单选框有效，默认为false
+     */
+    @Input() checkLeafOnly: boolean;
+    /**
      * 展开事件
      */
     @Output() onExpand = new EventEmitter<any>();
@@ -154,6 +158,44 @@ export class TreeTable<T extends IKey> extends Table<T> {
         if (!parent.expanded)
             return false;
         return this.isShow(parent);
+    }
+
+    /**
+     * 是否显示复选框
+     */
+    isShowCheckbox() {
+        if ( !this.showCheckbox )
+            return false;
+        if ( this.multiple )
+            return true;
+        return false;
+    }
+
+    /**
+     * 是否显示单选框
+     * @param node 节点
+     */
+    isShowRadio( node ) {
+        if ( !this.showCheckbox )
+            return false;
+        if ( this.multiple )
+            return false;
+        if ( !this.checkLeafOnly )
+            return true;
+        if ( this.isLeaf( node ) )
+            return true;
+        return false;
+    }
+
+    /**
+     * 是否显示文本
+     */
+    isShowText( node ) {
+        if ( !this.showCheckbox )
+            return true;
+        if ( !this.multiple && this.checkLeafOnly && !this.isLeaf( node ) )
+            return true;
+        return false;
     }
 
     /**

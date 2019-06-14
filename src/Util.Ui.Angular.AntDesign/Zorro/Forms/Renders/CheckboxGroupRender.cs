@@ -80,8 +80,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置模型绑定
         /// </summary>
         private void ConfigModel( TagBuilder builder ) {
-            builder.AddAttribute( "[(model)]", _config.GetValue( UiConst.Model ) );
-            builder.AddAttribute( "[(model)]", _config.GetValue( AngularConst.NgModel ) );
+            builder.NgModel( _config );
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Util.Ui.Zorro.Enums {
+namespace Util.Ui.Enums {
     /// <summary>
     /// Ant Design图标
     /// </summary>

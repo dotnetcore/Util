@@ -25,10 +25,28 @@ namespace Util.Samples.Pages.Components.Forms {
         public string Name { get; set; }
 
         /// <summary>
+        /// 颜色
+        /// </summary>
+        [Display( Name = "颜色" )]
+        public string Color { get; set; }
+
+        /// <summary>
+        /// 年龄
+        /// </summary>
+        [Display( Name = "年龄" )]
+        public double? Age { get; set; }
+
+        /// <summary>
         /// 是否禁用
         /// </summary>
         [Display( Name = "是否禁用" )]
         public bool? Enabled { get; set; }
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        [Display( Name = "性别" )]
+        public Gender? Gender { get; set; }
 
         /// <summary>
         /// 民族

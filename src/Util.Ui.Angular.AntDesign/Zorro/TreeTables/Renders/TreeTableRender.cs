@@ -33,6 +33,7 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
             Config( builder );
             ConfigExpandAll( builder );
             ConfigShowCheckbox( builder );
+            ConfigCheckLeafOnly( builder );
             ConfigEvents( builder );
             return builder;
         }
@@ -49,6 +50,13 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
         /// </summary>
         private void ConfigShowCheckbox( TagBuilder builder ) {
             builder.AddAttribute( "[showCheckbox]", _config.GetBoolValue( UiConst.ShowCheckbox ) );
+        }
+
+        /// <summary>
+        /// 配置选择叶节点
+        /// </summary>
+        private void ConfigCheckLeafOnly( TagBuilder builder ) {
+            builder.AddAttribute( "[checkLeafOnly]", _config.GetValue( UiConst.CheckLeafOnly ) );
         }
 
         /// <summary>
@@ -94,7 +102,7 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
         /// </summary>
         private void AddSpanBuilder( TableHeadColumnBuilder headColumnBuilder, ColumnInfo column ) {
             var spanBuilder = new SpanBuilder();
-            spanBuilder.AddAttribute( "*ngIf", $"!{GetWrapperId()}.showCheckbox" );
+            spanBuilder.AddAttribute( "*ngIf", $"!{GetWrapperId()}.isShowCheckbox()" );
             spanBuilder.SetContent( column.Title );
             headColumnBuilder.AppendContent( spanBuilder );
         }

@@ -59,7 +59,13 @@ export class Dialog {
             nzMaskClosable: !options.disableClose,
             nzKeyboard: !options.disableClose,
             nzOnOk: options.onOk,
-            nzOnCancel: options.onBeforeClose
+            nzOnCancel: data => {
+                if ( data.tag === true ) {
+                    options.onBeforeClose && options.onBeforeClose( data.result );
+                    return;
+                }
+                options.onBeforeClose && options.onBeforeClose( null );
+            }
         };
     }
 
@@ -102,14 +108,14 @@ export class Dialog {
      * 关闭弹出层
      * @param result 返回结果
      */
-    static close( result? ) {
+    static close( result?) {
         let dialog: NzModalService = Dialog.getModalService();
         if ( !dialog.openModals || dialog.openModals.length === 0 )
             return;
         let dialogRef: NzModalRef = dialog.openModals[dialog.openModals.length - 1];
         if ( !dialogRef )
             return;
-        if ( dialogRef["nzOnCancel"]( result ) === false )
+        if ( dialogRef["nzOnCancel"]( { result: result, tag: true } ) === false )
             return;
         dialogRef.close( result );
     }

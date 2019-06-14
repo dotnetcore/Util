@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Samples.Pages.Components.Forms;
 using Util.Webs.Controllers;
@@ -36,7 +37,8 @@ namespace Util.Samples.Apis.Demo {
         /// 获取分组列表项
         /// </summary>
         [HttpGet( "groupItems" )]
-        public IActionResult GetGroupItems() {
+        public async Task<IActionResult> GetGroupItems() {
+            await Task.Delay( 3000 );
             var list = new List<Item> {
                 new Item( "汽车", 1,group:"交通工具" ),
                 new Item( "飞机", 2,group:"交通工具" ),

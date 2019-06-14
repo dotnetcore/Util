@@ -444,7 +444,7 @@ export function getEndOfWeek() {
 export function isBeforeToday( value: Date ) {
     let date = formatDate( value );
     let today = formatDate( new Date() );
-    return  moment( date ).isBefore( today );
+    return moment( date ).isBefore( today );
 }
 
 /**
@@ -453,6 +453,24 @@ export function isBeforeToday( value: Date ) {
  */
 export function isBeforeTomorrow( value: Date ) {
     let date = formatDate( value );
-    let tomorrow = moment().add( 1, 'day' ).format("YYYY-MM-DD");
+    let tomorrow = moment().add( 1, 'day' ).format( "YYYY-MM-DD" );
     return moment( date ).isBefore( tomorrow );
+}
+
+/**
+ * 是否图片
+ * @param name 文件名称
+ */
+export function isImage( name: string ) {
+    let extension = getExtension( name );
+    switch ( extension ) {
+        case ".jpg":
+        case ".jpeg":
+        case ".png":
+        case ".gif":
+        case ".bmp":
+            return true;
+        default:
+            return false;
+    }
 }

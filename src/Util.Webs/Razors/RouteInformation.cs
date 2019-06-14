@@ -52,5 +52,10 @@
         /// 是否页面路由
         /// </summary>
         public bool IsPageRoute { get; set; } = false;
+
+        /// <summary>
+        /// 是否忽略生成
+        /// </summary>
+        public bool Ignore { get; set; } = false;
     }
 }

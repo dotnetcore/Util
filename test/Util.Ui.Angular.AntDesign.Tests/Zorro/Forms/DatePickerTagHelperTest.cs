@@ -2,7 +2,6 @@
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Zorro.Enums;
 using Util.Ui.Zorro.Forms;
 using Xunit;
 using Xunit.Abstractions;

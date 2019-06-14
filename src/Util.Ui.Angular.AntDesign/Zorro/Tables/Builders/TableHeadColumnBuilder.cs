@@ -16,7 +16,7 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// 设置标题
         /// </summary>
         public void Title( string title ) {
-            this.AppendContent( title );
+            AppendContent( title );
         }
 
         /// <summary>
@@ -24,11 +24,12 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// </summary>
         /// <param name="tableId">表格标识</param>
         public void AddCheckBox( string tableId ) {
-            AddAttribute( "nzShowCheckbox" );
+            AddAttribute( "[nzShowCheckbox]", $"{tableId}_wrapper.multiple" );
             AddAttribute( "(nzCheckedChange)", $"{tableId}_wrapper.masterToggle()" );
             AddAttribute( "[nzChecked]", $"{tableId}_wrapper.isMasterChecked()" );
             AddAttribute( "[nzDisabled]", $"!{tableId}_wrapper.dataSource.length" );
             AddAttribute( "[nzIndeterminate]", $"{tableId}_wrapper.isMasterIndeterminate()" );
+            AppendContent( $"{{{{{tableId}_wrapper.multiple?'':'单选'}}}}" );
         }
 
         /// <summary>
