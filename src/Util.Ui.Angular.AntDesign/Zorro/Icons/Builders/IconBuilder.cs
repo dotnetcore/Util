@@ -9,7 +9,7 @@ namespace Util.Ui.Zorro.Icons.Builders {
         /// 初始化图标生成器
         /// </summary>
         public IconBuilder() : base( "i" ) {
-            AddAttribute( "nz-icon" );
+            base.AddAttribute( "nz-icon" );
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Datas.Dapper.Handlers;
 using Util.Datas.Dapper.MySql;
+using Util.Datas.Dapper.Oracle;
 using Util.Datas.Dapper.PgSql;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Enums;
@@ -84,6 +85,9 @@ namespace Util.Datas.Dapper {
                     return;
                 case DatabaseType.MySql:
                     services.TryAddTransient<ISqlBuilder, MySqlBuilder>();
+                    return;
+                case DatabaseType.Oracle:
+                    services.TryAddTransient<ISqlBuilder, OracleBuilder>();
                     return;
                 default:
                     throw new NotImplementedException( $"Sql生成器未实现 {config.DatabaseType.Description()} 数据库" );

@@ -91,6 +91,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         }
 
         /// <summary>
+        /// 测试图标
+        /// </summary>
+        [Fact]
+        public void TestIcon() {
+            var attributes = new TagHelperAttributeList { { UiConst.Text, "a" },{ UiConst.Icon, AntDesignIcon.Alert } };
+            var result = new String();
+            result.Append( "<a nz-button=\"\"><i nz-icon=\"\" nzType=\"alert\"></i>a</a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试颜色
         /// </summary>
         [Fact]
@@ -113,13 +124,35 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         }
 
         /// <summary>
-        /// 测试禁用
+        /// 测试调整为父宽度
         /// </summary>
         [Fact]
-        public void TestDisabled() {
-            var attributes = new TagHelperAttributeList { { UiConst.Disabled, "a" } };
+        public void TestBlock() {
+            var attributes = new TagHelperAttributeList { { UiConst.Block, true } };
             var result = new String();
-            result.Append( "<a nz-button=\"\" [disabled]=\"a\"></a>" );
+            result.Append( "<a nz-button=\"\" [nzBlock]=\"true\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试形状
+        /// </summary>
+        [Fact]
+        public void TestShape() {
+            var attributes = new TagHelperAttributeList { { UiConst.Shape, ButtonShape.Round } };
+            var result = new String();
+            result.Append( "<a nz-button=\"\" nzShape=\"round\"></a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试透明背景
+        /// </summary>
+        [Fact]
+        public void TestGhost() {
+            var attributes = new TagHelperAttributeList { { UiConst.Ghost, true } };
+            var result = new String();
+            result.Append( "<a nz-button=\"\" [nzGhost]=\"true\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Util.Samples.Domain.Models;
 
-namespace Util.Samples.Data.Mappings.Systems.PgSql {
+namespace Util.Samples.Data.Mappings.Systems.Oracle {
     /// <summary>
     /// 应用程序映射配置
     /// </summary>
-    public class ApplicationMap : Util.Datas.Ef.PgSql.AggregateRootMap<Application> {
+    public class ApplicationMap : Util.Datas.Ef.Oracle.AggregateRootMap<Application> {
         /// <summary>
         /// 映射表
         /// </summary>

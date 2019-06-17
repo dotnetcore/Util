@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Util.Datas.Ef;
+using Util.Datas.Ef.Configs;
 using Util.Logs.Extensions;
 using Util.Samples.Data;
 using Util.Webs.Extensions;
@@ -52,6 +53,8 @@ namespace Util.Samples {
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
             //======= 支持MySql =======
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
+            //======= 支持Oracle 12g =======
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.Oracle.SampleUnitOfWork>( Configuration.GetConnectionString( "OracleConnection" ) );
 
             //添加Swagger
             services.AddSwaggerGen( options => {

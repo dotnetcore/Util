@@ -14,6 +14,10 @@
         /// <summary>
         /// PostgreSQL数据库
         /// </summary>
-        PgSql
+        PgSql,
+        /// <summary>
+        /// Oracle数据库
+        /// </summary>
+        Oracle
     }
 }

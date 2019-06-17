@@ -21,7 +21,7 @@ namespace Util.Ui.Zorro.Links {
         /// </summary>
         public string BindText { get; set; }
         /// <summary>
-        /// 颜色
+        /// nzType,颜色
         /// </summary>
         public Color Color { get; set; }
         /// <summary>
@@ -29,13 +29,21 @@ namespace Util.Ui.Zorro.Links {
         /// </summary>
         public ButtonSize Size { get; set; }
         /// <summary>
+        /// nzShape,按钮形状
+        /// </summary>
+        public ButtonShape Shape { get; set; }
+        /// <summary>
         /// 图标
         /// </summary>
         public AntDesignIcon Icon { get; set; }
         /// <summary>
-        /// 禁用
+        /// [nzBlock],将按钮宽度调整为其父宽度，默认值: false
         /// </summary>
-        public string Disabled { get; set; }
+        public bool Block { get; set; }
+        /// <summary>
+        /// [nzGhost],设置为透明背景，默认值: false
+        /// </summary>
+        public bool Ghost { get; set; }
         /// <summary>
         /// 提示
         /// </summary>
