@@ -5,12 +5,10 @@
 </page-header>
 <nz-card>
     <util-form id="form">
-        <nz-form-item>
-            <util-textbox for="Name"></util-textbox>
-        </nz-form-item>
-        <nz-form-item>
-            <util-textbox for="Age"></util-textbox>
-        </nz-form-item>
+        <util-row>
+            <util-column span="1"><util-textbox for="Name"></util-textbox></util-column>
+            <util-column ><util-textbox for="Age"></util-textbox></util-column>
+        </util-row>
         <nz-form-item>
             <util-tree-select url="/api/tree" expand-all="true" width="300"></util-tree-select>
         </nz-form-item>

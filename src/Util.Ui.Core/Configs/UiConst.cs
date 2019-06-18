@@ -811,5 +811,9 @@
         /// 方向
         /// </summary>
         public const string Orientation = "orientation";
+        /// <summary>
+        /// 跨度
+        /// </summary>
+        public const string Span = "span";
     }
 }

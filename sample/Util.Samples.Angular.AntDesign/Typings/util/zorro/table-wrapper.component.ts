@@ -191,8 +191,6 @@ export class Table<T extends IKey> implements OnInit {
         this.dataSource = result.data || [];
         this.totalCount = result.totalCount;
         this.checkedSelection.clear();
-        if ( !result.totalCount )
-            this.showPagination = false;
     }
 
     /**
