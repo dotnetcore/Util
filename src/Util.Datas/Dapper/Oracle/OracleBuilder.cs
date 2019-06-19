@@ -59,7 +59,7 @@ namespace Util.Datas.Dapper.Oracle {
         /// 创建分页Sql
         /// </summary>
         protected override string CreateLimitSql() {
-            return $"Limit {GetLimitParam()} OFFSET {GetOffsetParam()}";
+            return $"OFFSET {GetOffsetParam()} ROWS FETCH NEXT {GetLimitParam()} ROWS ONLY";
         }
     }
 }

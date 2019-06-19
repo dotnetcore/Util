@@ -47,5 +47,27 @@ namespace Util.Datas.Dapper.Oracle {
                 return paramName.TrimStart( ':' );
             return paramName;
         }
+
+        /// <summary>
+        /// 获取参数值
+        /// </summary>
+        /// <param name="paramValue">参数值</param>
+        public override object GetParamValue( object paramValue ) {
+            if( paramValue == null )
+                return "";
+            switch( paramValue.GetType().Name.ToLower() ) {
+                case "boolean":
+                    return Helpers.Convert.ToBool( paramValue ) ? 1 : 0;
+                case "int16":
+                case "int32":
+                case "int64":
+                case "single":
+                case "double":
+                case "decimal":
+                    return paramValue.SafeString();
+                default:
+                    return $"{paramValue}";
+            }
+        }
     }
 }

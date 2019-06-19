@@ -55,7 +55,7 @@ namespace Util.Datas.Dapper {
         /// </summary>
         private static IServiceCollection AddSqlQuery( IServiceCollection services, Action<SqlOptions> action, Type database, Type entityMatedata ) {
             var config = new SqlOptions();
-            if ( action != null ) {
+            if( action != null ) {
                 action.Invoke( config );
                 services.Configure( action );
             }
@@ -68,7 +68,7 @@ namespace Util.Datas.Dapper {
             services.TryAddTransient<ISqlQuery, SqlQuery>();
             services.TryAddScoped<ITableDatabase, DefaultTableDatabase>();
             AddSqlBuilder( services, config );
-            RegisterTypeHandlers();
+            RegisterTypeHandlers( config );
             return services;
         }
 
@@ -97,8 +97,10 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 注册类型处理器
         /// </summary>
-        private static void RegisterTypeHandlers() {
+        private static void RegisterTypeHandlers( SqlOptions config ) {
             SqlMapper.AddTypeHandler( typeof( string ), new StringTypeHandler() );
+            if( config.DatabaseType == DatabaseType.Oracle )
+                SqlMapper.AddTypeHandler( new GuidTypeHandler() );
         }
     }
 }

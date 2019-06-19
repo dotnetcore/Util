@@ -5,53 +5,25 @@
 </page-header>
 <nz-card>
     <util-form id="form">
-        <util-row>
-            <util-column span="1"><util-textbox for="Name"></util-textbox></util-column>
-            <util-column ><util-textbox for="Age"></util-textbox></util-column>
-        </util-row>
-        <nz-form-item>
-            <util-tree-select url="/api/tree" expand-all="true" width="300"></util-tree-select>
-        </nz-form-item>
-        <nz-form-item>
-            <util-select url="/api/form/groupItems" multiple="true" width="500"></util-select>
-        </nz-form-item>
-        <nz-form-item>
-            <util-select url="/api/application/items" sort="name" server-search="true" scroll-load="true" width="500"></util-select>
-        </nz-form-item>
-        <nz-form-item>
-            <util-select for="Nation" width="500"></util-select>
-        </nz-form-item>
-        <nz-form-item>
-            <util-date-picker for="DateTime"></util-date-picker>
-        </nz-form-item>
-        <nz-form-item>
-            <util-textarea for="Comment"></util-textarea>
-        </nz-form-item>
-        <nz-form-item>
-            <util-upload for="Files" url="/api/upload" data="data" list-type="PictureCard"></util-upload>
-        </nz-form-item>
-        <nz-form-item>
-            <util-checkbox for="Enabled"></util-checkbox>
-        </nz-form-item>
-        <nz-form-item>
-            <util-radio for="Gender"></util-radio>
-        </nz-form-item>
-        <nz-form-item>
-            <util-checkbox-group for="Code" data="Gender"></util-checkbox-group>
-        </nz-form-item>
-        <nz-form-item>
-            <util-switch for="Enabled"></util-switch>
-        </nz-form-item>
-        <nz-form-item>
-            <util-color-picker for="Color"/>
-            {{model.color}}
-        </nz-form-item>
-        <nz-form-item>
+        <util-form-item>
+            <util-form-label text="哈哈" required="true" label-for="a">
+            </util-form-label>
+            <util-textbox for="Name" raw-id="a"></util-textbox>
+        </util-form-item>
+        <util-form-item>
+            <util-form-label text="哈哈" required=""></util-form-label>
+            <nz-form-control nzSpan="12">
+                <nz-input-group>
+                    <input nz-input type="password" placeholder="Password"/>
+                </nz-input-group>
+            </nz-form-control>
+        </util-form-item>
+        <util-form-item>
             <nz-form-control>
                 <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Check">
                 </util-button>
                 <util-button on-click="test()" text="弹出层测试" icon="Eye"></util-button>
             </nz-form-control>
-        </nz-form-item>
+        </util-form-item>
     </util-form>
 </nz-card>

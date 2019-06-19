@@ -815,5 +815,17 @@
         /// 跨度
         /// </summary>
         public const string Span = "span";
+        /// <summary>
+        /// 布局
+        /// </summary>
+        public const string Layout = "layout";
+        /// <summary>
+        /// 显示冒号
+        /// </summary>
+        public const string ShowColon = "show-colon";
+        /// <summary>
+        /// 标签for属性
+        /// </summary>
+        public const string LabelFor = "label-for";
     }
 }

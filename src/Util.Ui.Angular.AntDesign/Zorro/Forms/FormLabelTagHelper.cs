@@ -1,36 +1,35 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 using Util.Ui.Zorro.Forms.Renders;
 
 namespace Util.Ui.Zorro.Forms {
     /// <summary>
-    /// 表单
+    /// 表单标签
     /// </summary>
-    [HtmlTargetElement( "util-form" )]
-    public class FormTagHelper : AngularTagHelperBase {
+    [HtmlTargetElement( "util-form-label" )]
+    public class FormLabelTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// nzLayout,布局方式
+        /// 标签文本
         /// </summary>
-        public FormLayout Layout { get; set; }
+        public string Text { get; set; }
         /// <summary>
-        /// 是否显示表单标签的冒号，默认值：true
+        /// 是否必填项，显示红色星号
         /// </summary>
-        public bool ShowColon { get; set; }
+        public string Required { get; set; }
         /// <summary>
-        /// 提交事件处理函数，范例：handle()
+        /// nzFor,设置标签指向的组件Id,注意：请设置组件的raw-id属性
         /// </summary>
-        public string OnSubmit { get; set; }
+        public string LabelFor { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            return new FormRender( new Config( context ) );
+            return new FormLabelRender( new Config( context ) );
         }
     }
 }

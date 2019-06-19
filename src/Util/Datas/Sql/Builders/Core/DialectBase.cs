@@ -62,5 +62,13 @@
         public virtual string GetParamName( string paramName ) {
             return paramName;
         }
+
+        /// <summary>
+        /// 获取参数值
+        /// </summary>
+        /// <param name="paramValue">参数值</param>
+        public virtual object GetParamValue( object paramValue ) {
+            return paramValue;
+        }
     }
 }

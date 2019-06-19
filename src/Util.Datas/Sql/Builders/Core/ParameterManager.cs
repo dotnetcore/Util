@@ -58,6 +58,7 @@ namespace Util.Datas.Sql.Builders.Core {
             if( string.IsNullOrWhiteSpace( name ) )
                 return;
             name = _dialect.GetParamName( name );
+            value = _dialect.GetParamValue( value );
             if ( _params.ContainsKey( name ) )
                 _params.Remove( name );
             _params.Add( name, GetValue( value, @operator ) );

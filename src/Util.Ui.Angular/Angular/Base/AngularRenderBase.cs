@@ -38,6 +38,8 @@ namespace Util.Ui.Angular.Base {
         protected virtual void ConfigId( TagBuilder builder ) {
             if( _config.Contains( UiConst.Id ) )
                 builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}" );
+            if( _config.Contains( "raw-id" ) )
+                builder.AddAttribute( "rawId", _config.GetValue( "raw-id" ) );
         }
     }
 }

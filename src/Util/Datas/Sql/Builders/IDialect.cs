@@ -30,5 +30,10 @@
         /// </summary>
         /// <param name="paramName">参数名</param>
         string GetParamName( string paramName );
+        /// <summary>
+        /// 获取参数值
+        /// </summary>
+        /// <param name="paramValue">参数值</param>
+        object GetParamValue( object paramValue );
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -34,9 +35,11 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void Config( TagBuilder builder ) {
             builder.AddAttribute( "nz-form" );
-            ConfigContent( builder );
             ConfigId( builder );
+            ConfigLayout( builder );
+            ConfigLabel( builder );
             ConfigEvents( builder );
+            ConfigContent( builder );
         }
 
         /// <summary>
@@ -45,6 +48,20 @@ namespace Util.Ui.Zorro.Forms.Renders {
         protected override void ConfigId( TagBuilder builder ) {
             if( _config.Contains( UiConst.Id ) )
                 builder.AddAttribute( $"#{_config.GetValue( UiConst.Id )}", "ngForm" );
+        }
+
+        /// <summary>
+        /// 配置布局方式
+        /// </summary>
+        private void ConfigLayout( TagBuilder builder ) {
+            builder.AddAttribute( "nzLayout", _config.GetValue<FormLayout?>( UiConst.Layout )?.Description() );
+        }
+
+        /// <summary>
+        /// 配置标签
+        /// </summary>
+        private void ConfigLabel( TagBuilder builder ) {
+            builder.AddAttribute( "[nzNoColon]", (!_config.GetValue<bool?>( UiConst.ShowColon )).SafeString().ToLower() );
         }
 
         /// <summary>

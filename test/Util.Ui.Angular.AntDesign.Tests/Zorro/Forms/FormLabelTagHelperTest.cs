@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
 using Util.Ui.Zorro.Forms;
 using Xunit;
 using Xunit.Abstractions;
@@ -9,24 +8,24 @@ using String = Util.Helpers.String;
 
 namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
     /// <summary>
-    /// 表单测试
+    /// 表单标签测试
     /// </summary>
-    public class FormTagHelperTest {
+    public class FormLabelTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 表单
+        /// 表单标签
         /// </summary>
-        private readonly FormTagHelper _component;
+        private readonly FormLabelTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public FormTagHelperTest( ITestOutputHelper output ) {
+        public FormLabelTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new FormTagHelper();
+            _component = new FormLabelTagHelper();
             Config.IsValidate = false;
         }
 
@@ -43,7 +42,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<form nz-form=\"\"></form>" );
+            result.Append( "<nz-form-label></nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -54,44 +53,45 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<form #a=\"ngForm\" nz-form=\"\">" );
-            result.Append( "</form>" );
+            result.Append( "<nz-form-label #a=\"\">" );
+            result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试布局
+        /// 测试文本
         /// </summary>
         [Fact]
-        public void TestLayout() {
-            var attributes = new TagHelperAttributeList { { UiConst.Layout, FormLayout.Inline } };
+        public void TestText() {
+            var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
             var result = new String();
-            result.Append( "<form nz-form=\"\" nzLayout=\"inline\">" );
-            result.Append( "</form>" );
+            result.Append( "<nz-form-label>" );
+            result.Append( "a" );
+            result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试显示标签冒号
+        /// 测试必填样式
         /// </summary>
         [Fact]
-        public void TestShowColon() {
-            var attributes = new TagHelperAttributeList { { UiConst.ShowColon, false } };
+        public void TestRequired() {
+            var attributes = new TagHelperAttributeList { { UiConst.Required, "true" } };
             var result = new String();
-            result.Append( "<form nz-form=\"\" [nzNoColon]=\"true\">" );
-            result.Append( "</form>" );
+            result.Append( "<nz-form-label [nzRequired]=\"true\">" );
+            result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试提交事件
+        /// 测试标签for
         /// </summary>
         [Fact]
-        public void TestOnSubmit() {
-            var attributes = new TagHelperAttributeList { { UiConst.OnSubmit, "a" } };
+        public void TestLabelFor() {
+            var attributes = new TagHelperAttributeList { { UiConst.LabelFor, "a" } };
             var result = new String();
-            result.Append( "<form (ngSubmit)=\"a\" nz-form=\"\">" );
-            result.Append( "</form>" );
+            result.Append( "<nz-form-label nzFor=\"a\">" );
+            result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }
