@@ -14,7 +14,7 @@ import { MessageConfig } from '../config/message-config';
     selector: 'x-textbox',
     template: `
         <nz-form-control [nzValidateStatus]="(controlModel?.invalid && (controlModel?.dirty || controlModel.touched))?'error':'success'">
-            <input nz-input [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
+            <input nz-input [id]="rawId" [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"                 
                 (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
                 [required]="required" [email]="type==='email'" [pattern]="pattern"

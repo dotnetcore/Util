@@ -4,6 +4,7 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Extensions;
+using Util.Ui.Zorro.Icons.Builders;
 
 namespace Util.Ui.Zorro.Links.Renders {
     /// <summary>
@@ -39,8 +40,8 @@ namespace Util.Ui.Zorro.Links.Renders {
             ConfigId( builder );
             ConfigButton( builder );
             ConfigStyle( builder );
+            ConfigIcon( builder );
             ConfigText( builder );
-            ConfigDisabled( builder );
             ConfigTooltip( builder );
             ConfigLink( builder );
             ConfigEvents( builder );
@@ -66,20 +67,24 @@ namespace Util.Ui.Zorro.Links.Renders {
         }
 
         /// <summary>
+        /// 配置图标
+        /// </summary>
+        private void ConfigIcon( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Icon ) == false )
+                return;
+            var iconBuilder = new IconBuilder();
+            iconBuilder.AddType( _config.GetValue<AntDesignIcon?>( UiConst.Icon )?.Description() );
+            builder.AppendContent( iconBuilder );
+        }
+
+        /// <summary>
         /// 配置文本
         /// </summary>
         private void ConfigText( TagBuilder builder ) {
             if( _config.Contains( UiConst.Text ) )
-                builder.SetContent( _config.GetValue( UiConst.Text ) );
+                builder.AppendContent( _config.GetValue( UiConst.Text ) );
             if( _config.Contains( AngularConst.BindText ) )
-                builder.SetContent( $"{{{{{_config.GetValue( AngularConst.BindText )}}}}}" );
-        }
-
-        /// <summary>
-        /// 配置禁用
-        /// </summary>
-        private void ConfigDisabled( TagBuilder builder ) {
-            builder.AddAttribute( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
+                builder.AppendContent( $"{{{{{_config.GetValue( AngularConst.BindText )}}}}}" );
         }
 
         /// <summary>
@@ -104,15 +109,6 @@ namespace Util.Ui.Zorro.Links.Renders {
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClick ) );
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        protected override void ConfigContent( TagBuilder builder ) {
-            if( _config.Contains( UiConst.Text ) || _config.Contains( AngularConst.BindText ) )
-                return;
-            builder.SetContent( _config.Content );
         }
     }
 }

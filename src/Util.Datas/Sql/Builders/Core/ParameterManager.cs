@@ -36,7 +36,9 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 创建参数名
         /// </summary>
         public string GenerateName() {
-            return $"{_dialect.GetPrefix()}_p_{_paramIndex++}";
+            var result =_dialect.GenerateName( _paramIndex );
+            _paramIndex += 1;
+            return result;
         }
 
         /// <summary>
@@ -55,6 +57,8 @@ namespace Util.Datas.Sql.Builders.Core {
         public void Add( string name, object value, Operator? @operator = null ) {
             if( string.IsNullOrWhiteSpace( name ) )
                 return;
+            name = _dialect.GetParamName( name );
+            value = _dialect.GetParamValue( value );
             if ( _params.ContainsKey( name ) )
                 _params.Remove( name );
             _params.Add( name, GetValue( value, @operator ) );

@@ -46,5 +46,29 @@
         public virtual string GetPrefix() {
             return "@";
         }
+
+        /// <summary>
+        /// 创建参数名
+        /// </summary>
+        /// <param name="paramIndex">参数索引</param>
+        public virtual string GenerateName( int paramIndex ) {
+            return $"{GetPrefix()}_p_{paramIndex}";
+        }
+
+        /// <summary>
+        /// 获取参数名
+        /// </summary>
+        /// <param name="paramName">参数名</param>
+        public virtual string GetParamName( string paramName ) {
+            return paramName;
+        }
+
+        /// <summary>
+        /// 获取参数值
+        /// </summary>
+        /// <param name="paramValue">参数值</param>
+        public virtual object GetParamValue( object paramValue ) {
+            return paramValue;
+        }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Datas.Dapper.Handlers;
 using Util.Datas.Dapper.MySql;
+using Util.Datas.Dapper.Oracle;
 using Util.Datas.Dapper.PgSql;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Enums;
@@ -54,7 +55,7 @@ namespace Util.Datas.Dapper {
         /// </summary>
         private static IServiceCollection AddSqlQuery( IServiceCollection services, Action<SqlOptions> action, Type database, Type entityMatedata ) {
             var config = new SqlOptions();
-            if ( action != null ) {
+            if( action != null ) {
                 action.Invoke( config );
                 services.Configure( action );
             }
@@ -67,7 +68,7 @@ namespace Util.Datas.Dapper {
             services.TryAddTransient<ISqlQuery, SqlQuery>();
             services.TryAddScoped<ITableDatabase, DefaultTableDatabase>();
             AddSqlBuilder( services, config );
-            RegisterTypeHandlers();
+            RegisterTypeHandlers( config );
             return services;
         }
 
@@ -85,6 +86,9 @@ namespace Util.Datas.Dapper {
                 case DatabaseType.MySql:
                     services.TryAddTransient<ISqlBuilder, MySqlBuilder>();
                     return;
+                case DatabaseType.Oracle:
+                    services.TryAddTransient<ISqlBuilder, OracleBuilder>();
+                    return;
                 default:
                     throw new NotImplementedException( $"Sql生成器未实现 {config.DatabaseType.Description()} 数据库" );
             }
@@ -93,8 +97,10 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 注册类型处理器
         /// </summary>
-        private static void RegisterTypeHandlers() {
+        private static void RegisterTypeHandlers( SqlOptions config ) {
             SqlMapper.AddTypeHandler( typeof( string ), new StringTypeHandler() );
+            if( config.DatabaseType == DatabaseType.Oracle )
+                SqlMapper.AddTypeHandler( new GuidTypeHandler() );
         }
     }
 }

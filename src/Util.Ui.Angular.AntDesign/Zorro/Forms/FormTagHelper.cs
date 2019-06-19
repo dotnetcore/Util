@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 using Util.Ui.Zorro.Forms.Renders;
@@ -11,6 +12,14 @@ namespace Util.Ui.Zorro.Forms {
     /// </summary>
     [HtmlTargetElement( "util-form" )]
     public class FormTagHelper : AngularTagHelperBase {
+        /// <summary>
+        /// nzLayout,布局方式
+        /// </summary>
+        public FormLayout Layout { get; set; }
+        /// <summary>
+        /// 是否显示表单标签的冒号，默认值：true
+        /// </summary>
+        public bool ShowColon { get; set; }
         /// <summary>
         /// 提交事件处理函数，范例：handle()
         /// </summary>

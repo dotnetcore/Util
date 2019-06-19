@@ -106,21 +106,21 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 获取Sql
         /// </summary>
-        public string ToSql( IDialect dialect = null, ITableDatabase tableDatabase = null ) {
+        public virtual string ToSql( IDialect dialect = null, ITableDatabase tableDatabase = null ) {
             if( string.IsNullOrWhiteSpace( Name ) )
                 return null;
             if( Raw )
                 return Name;
-            return string.IsNullOrWhiteSpace( Alias ) ? GetColumn( dialect, tableDatabase ) : $"{GetColumn( dialect, tableDatabase )} As {GetSafeName( dialect, Alias )}";
+            return string.IsNullOrWhiteSpace( Alias ) ? GetColumn( dialect, tableDatabase ) : GetColumnAlias( dialect, tableDatabase );
         }
 
         /// <summary>
         /// 获取列
         /// </summary>
-        private string GetColumn( IDialect dialect, ITableDatabase tableDatabase ) {
+        protected string GetColumn( IDialect dialect, ITableDatabase tableDatabase ) {
             var result = new StringBuilder();
             var database = DatabaseName;
-            if ( string.IsNullOrWhiteSpace( DatabaseName ) && tableDatabase != null )
+            if( string.IsNullOrWhiteSpace( DatabaseName ) && tableDatabase != null )
                 database = tableDatabase.GetDatabase( GetName() );
             if( string.IsNullOrWhiteSpace( database ) == false )
                 result.Append( $"{GetSafeName( dialect, database )}." );
@@ -133,8 +133,8 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 获取名称
         /// </summary>
-        private string GetName() {
-            if ( string.IsNullOrWhiteSpace( Prefix ) )
+        protected string GetName() {
+            if( string.IsNullOrWhiteSpace( Prefix ) )
                 return Name;
             return $"{Prefix}.{Name}";
         }
@@ -142,10 +142,17 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 获取安全名称
         /// </summary>
-        private string GetSafeName( IDialect dialect, string name ) {
+        protected string GetSafeName( IDialect dialect, string name ) {
             if( dialect == null )
                 return name;
             return dialect.SafeName( name );
+        }
+
+        /// <summary>
+        /// 获取列名和别名
+        /// </summary>
+        protected virtual string GetColumnAlias( IDialect dialect, ITableDatabase tableDatabase ) {
+            return $"{GetColumn( dialect, tableDatabase )} As {GetSafeName( dialect, Alias )}";
         }
     }
 }
