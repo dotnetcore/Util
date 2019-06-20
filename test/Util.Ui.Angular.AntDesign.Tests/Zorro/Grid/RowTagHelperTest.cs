@@ -56,5 +56,16 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Grid {
             result.Append( "<div #a=\"\" nz-row=\"\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试间隔
+        /// </summary>
+        [Fact]
+        public void TestGutter() {
+            var attributes = new TagHelperAttributeList { { UiConst.Gutter, 2 } };
+            var result = new String();
+            result.Append( "<div nz-row=\"\" [nzGutter]=\"2\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

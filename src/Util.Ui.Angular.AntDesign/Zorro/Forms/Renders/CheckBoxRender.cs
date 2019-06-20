@@ -32,7 +32,12 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ResolveExpression();
             var builder = new CheckBoxBuilder();
             Config( builder );
-            return builder;
+            var formControlBuilder = new FormControlBuilder();
+            if( formControlBuilder.HasGrid( _config ) == false )
+                return builder;
+            formControlBuilder.AddLayout( _config );
+            formControlBuilder.AppendContent( builder );
+            return formControlBuilder;
         }
 
         /// <summary>

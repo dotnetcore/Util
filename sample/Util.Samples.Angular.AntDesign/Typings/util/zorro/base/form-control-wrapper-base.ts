@@ -43,6 +43,10 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     @Input() model;
     /**
+     * 跨度
+     */
+    @Input() span;
+    /**
      * 模型变更事件,用于双向绑定
      */
     @Output() modelChange = new EventEmitter<any>();

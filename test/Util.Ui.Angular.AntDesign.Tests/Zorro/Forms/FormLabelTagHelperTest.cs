@@ -62,8 +62,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试文本
         /// </summary>
         [Fact]
-        public void TestText() {
-            var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
+        public void TestLabel() {
+            var attributes = new TagHelperAttributeList { { UiConst.Label, "a" } };
             var result = new String();
             result.Append( "<nz-form-label>" );
             result.Append( "a" );
@@ -91,6 +91,30 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.LabelFor, "a" } };
             var result = new String();
             result.Append( "<nz-form-label nzFor=\"a\">" );
+            result.Append( "</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示标签冒号
+        /// </summary>
+        [Fact]
+        public void TestShowColon() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowColon, true } };
+            var result = new String();
+            result.Append( "<nz-form-label [nzNoColon]=\"false\">" );
+            result.Append( "</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试跨度
+        /// </summary>
+        [Fact]
+        public void TestSpan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
+            var result = new String();
+            result.Append( "<nz-form-label [nzSpan]=\"2\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

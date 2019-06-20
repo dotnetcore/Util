@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
 using Util.Ui.Renders;
@@ -12,9 +13,13 @@ namespace Util.Ui.Zorro.Forms {
     [HtmlTargetElement( "util-form-label" )]
     public class FormLabelTagHelper : AngularTagHelperBase {
         /// <summary>
+        /// 属性表达式
+        /// </summary>
+        public ModelExpression For { get; set; }
+        /// <summary>
         /// 标签文本
         /// </summary>
-        public string Text { get; set; }
+        public string Label { get; set; }
         /// <summary>
         /// 是否必填项，显示红色星号
         /// </summary>
@@ -23,6 +28,14 @@ namespace Util.Ui.Zorro.Forms {
         /// nzFor,设置标签指向的组件Id,注意：请设置组件的raw-id属性
         /// </summary>
         public string LabelFor { get; set; }
+        /// <summary>
+        /// nzColon,是否显示冒号，默认值：true
+        /// </summary>
+        public bool ShowColon { get; set; }
+        /// <summary>
+        /// [nzSpan],24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
+        /// </summary>
+        public int Span { get; set; }
 
         /// <summary>
         /// 获取渲染器

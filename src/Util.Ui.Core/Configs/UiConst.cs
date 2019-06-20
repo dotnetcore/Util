@@ -827,5 +827,9 @@
         /// 标签for属性
         /// </summary>
         public const string LabelFor = "label-for";
+        /// <summary>
+        /// 间隔
+        /// </summary>
+        public const string Gutter = "gutter";
     }
 }
