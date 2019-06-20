@@ -8,6 +8,7 @@ using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
 using Util.Ui.Zorro.Forms.Configs;
+using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -143,7 +144,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置栅格
         /// </summary>
         private void ConfigGrid( TagBuilder builder ) {
-            builder.AddAttribute( "span", _config.GetValue( UiConst.Span ) );
+            var gridConfig = new GridConfig( builder, _config );
+            gridConfig.Config();
         }
     }
 }

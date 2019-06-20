@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Configs;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -43,7 +45,25 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置栅格
         /// </summary>
         private void ConfigGrid( TagBuilder builder ) {
-            builder.AddAttribute( "[nzGutter]", _config.GetValue( UiConst.Gutter ) );
+            var shareConfig = GetShareConfig();
+            ConfigGutter( builder, shareConfig );
+        }
+
+        /// <summary>
+        /// 获取共享配置
+        /// </summary>
+        private GridShareConfig GetShareConfig() {
+            return _config.Context?.GetValueFromItems<GridShareConfig>( GridShareConfig.Key );
+        }
+
+        /// <summary>
+        /// 配置间隔
+        /// </summary>
+        private void ConfigGutter( TagBuilder builder, GridShareConfig shareConfig ) {
+            var gutter = _config.GetValue( UiConst.Gutter );
+            if( gutter.IsEmpty() )
+                gutter = shareConfig?.Gutter;
+            builder.AddAttribute( "[nzGutter]", gutter );
         }
     }
 }

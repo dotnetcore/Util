@@ -3,7 +3,9 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Configs;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -88,7 +90,25 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置栅格
         /// </summary>
         private void ConfigGrid( TagBuilder builder ) {
-            builder.AddAttribute( "[nzSpan]", _config.GetValue( UiConst.Span ) );
+            var shareConfig = GetShareConfig();
+            ConfigSpan( builder, shareConfig );
+        }
+
+        /// <summary>
+        /// 获取共享配置
+        /// </summary>
+        private GridShareConfig GetShareConfig() {
+            return _config.Context?.GetValueFromItems<GridShareConfig>( GridShareConfig.Key );
+        }
+
+        /// <summary>
+        /// 配置跨度
+        /// </summary>
+        private void ConfigSpan( TagBuilder builder,GridShareConfig shareConfig) {
+            var span = _config.GetValue( UiConst.Span );
+            if( span.IsEmpty() )
+                span = shareConfig?.LabelSpan;
+            builder.AddAttribute( "[nzSpan]", span );
         }
     }
 }

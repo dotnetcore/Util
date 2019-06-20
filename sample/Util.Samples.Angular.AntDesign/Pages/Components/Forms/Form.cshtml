@@ -4,70 +4,70 @@
     将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
 </page-header>
 <nz-card>
-    <util-form id="form">
-        <util-form-item gutter="8">
-            <util-form-label for="Name" span="3"></util-form-label>
-            <util-textbox for="Name" span="12"></util-textbox>
+    <util-form id="form" label-span="4" control-span="8" gutter="16" >
+        <util-form-item>
+            <util-form-label for="Name"></util-form-label>
+            <util-textbox for="Name"></util-textbox>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Age" span="3"></util-form-label>
-            <util-textbox for="Age" span="12"></util-textbox>
+        <util-form-item>
+            <util-form-label for="Age" ></util-form-label>
+            <util-textbox for="Age"></util-textbox>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label label="下拉树" span="3"></util-form-label>
-            <util-tree-select url="/api/tree" expand-all="true" span="6"></util-tree-select>
+        <util-form-item>
+            <util-form-label label="下拉树"></util-form-label>
+            <util-tree-select url="/api/tree" expand-all="true"></util-tree-select>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label label="分组下拉" span="3"></util-form-label>
-            <util-select url="/api/form/groupItems" multiple="true" span="6"></util-select>
+        <util-form-item>
+            <util-form-label label="分组下拉" ></util-form-label>
+            <util-select url="/api/form/groupItems" multiple="true"></util-select>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label label="远程加载下拉" span="3"></util-form-label>
-            <util-select url="/api/application/items" sort="name" server-search="true" scroll-load="true" span="6"></util-select>
+        <util-form-item>
+            <util-form-label label="远程加载下拉" ></util-form-label>
+            <util-select url="/api/application/items" sort="name" server-search="true" scroll-load="true" ></util-select>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Nation" span="3"></util-form-label>
-            <util-select for="Nation" span="6"></util-select>
+        <util-form-item>
+            <util-form-label for="Nation" ></util-form-label>
+            <util-select for="Nation"></util-select>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="DateTime" span="3"></util-form-label>
-            <util-date-picker for="DateTime" span="12"></util-date-picker>
+        <util-form-item>
+            <util-form-label for="DateTime" ></util-form-label>
+            <util-date-picker for="DateTime"></util-date-picker>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Comment" span="3"></util-form-label>
-            <util-textarea for="Comment" span="12"></util-textarea>
+        <util-form-item>
+            <util-form-label for="Comment" ></util-form-label>
+            <util-textarea for="Comment"></util-textarea>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Files" span="3"></util-form-label>
+        <util-form-item>
+            <util-form-label for="Files"></util-form-label>
             <util-upload for="Files" url="/api/upload" data="data" list-type="PictureCard"></util-upload>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Enabled" span="3"></util-form-label>
-            <util-checkbox for="Enabled" span="12"></util-checkbox>
+        <util-form-item>
+            <util-form-label for="Enabled" ></util-form-label>
+            <util-checkbox for="Enabled"></util-checkbox>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Gender" span="3"></util-form-label>
-            <util-radio for="Gender" span="12"></util-radio>
+        <util-form-item>
+            <util-form-label for="Gender" ></util-form-label>
+            <util-radio for="Gender"></util-radio>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Code" span="3"></util-form-label>
-            <util-checkbox-group for="Code" data="Gender" span="12"></util-checkbox-group>
+        <util-form-item>
+            <util-form-label for="Code" ></util-form-label>
+            <util-checkbox-group for="Code" data="Gender"></util-checkbox-group>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Enabled" span="3"></util-form-label>
-            <util-switch for="Enabled" span="12"></util-switch>
+        <util-form-item>
+            <util-form-label for="Enabled" ></util-form-label>
+            <util-switch for="Enabled"></util-switch>
         </util-form-item>
-        <util-form-item gutter="8">
-            <util-form-label for="Color" span="3"></util-form-label>
+        <util-form-item>
+            <util-form-label for="Color" ></util-form-label>
             <util-color-picker for="Color" />
             {{model.color}}
         </util-form-item>
-        <util-form-item>
-            <nz-form-control>
+        <util-row>
+            <util-column span="3">
                 <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Check">
                 </util-button>
                 <util-button on-click="test()" text="弹出层测试" icon="Eye"></util-button>
-            </nz-form-control>
-        </util-form-item>
+            </util-column>
+        </util-row>
     </util-form>
 </nz-card>

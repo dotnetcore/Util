@@ -4,6 +4,7 @@ using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.Zorro.Grid.Helpers;
 using Util.Ui.Zorro.Trees.Builders;
 
 namespace Util.Ui.Zorro.Trees.Renders {
@@ -14,13 +15,13 @@ namespace Util.Ui.Zorro.Trees.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly Config _config;
 
         /// <summary>
         /// 初始化树形包装器渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TreeSelectRender( IConfig config ) : base( config ) {
+        public TreeSelectRender( Config config ) : base( config ) {
             _config = config;
         }
 
@@ -101,7 +102,8 @@ namespace Util.Ui.Zorro.Trees.Renders {
         /// 配置栅格
         /// </summary>
         private void ConfigGrid( TagBuilder builder ) {
-            builder.AddAttribute( "span", _config.GetValue( UiConst.Span ) );
+            var gridConfig = new GridConfig( builder, _config );
+            gridConfig.Config();
         }
 
         /// <summary>

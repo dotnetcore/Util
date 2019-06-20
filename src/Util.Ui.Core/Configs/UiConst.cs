@@ -831,5 +831,13 @@
         /// 间隔
         /// </summary>
         public const string Gutter = "gutter";
+        /// <summary>
+        /// 标签跨度
+        /// </summary>
+        public const string LabelSpan = "label-span";
+        /// <summary>
+        /// 控件跨度
+        /// </summary>
+        public const string ControlSpan = "control-span";
     }
 }

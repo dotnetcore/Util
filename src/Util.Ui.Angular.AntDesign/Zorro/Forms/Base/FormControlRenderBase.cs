@@ -3,6 +3,7 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Base {
     /// <summary>
@@ -12,13 +13,13 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly Config _config;
 
         /// <summary>
         /// 初始化下拉列表渲染器
         /// </summary>
         /// <param name="config">下拉列表配置</param>
-        protected FormControlRenderBase( IConfig config ) : base( config ) {
+        protected FormControlRenderBase( Config config ) : base( config ) {
             _config = config;
         }
 
@@ -86,7 +87,8 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// 配置栅格
         /// </summary>
         private void ConfigGrid( TagBuilder builder ) {
-            builder.AddAttribute( "span", _config.GetValue( UiConst.Span ) );
+            var gridConfig = new GridConfig( builder, _config );
+            gridConfig.Config();
         }
 
         /// <summary>
