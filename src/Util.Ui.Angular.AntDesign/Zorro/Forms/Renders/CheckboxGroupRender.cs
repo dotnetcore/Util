@@ -59,6 +59,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigEvents( builder );
             ConfigUrl( builder );
             ConfigDataSource( builder );
+            ConfigGrid( builder );
         }
 
         /// <summary>
@@ -136,6 +137,13 @@ namespace Util.Ui.Zorro.Forms.Renders {
                 _config.AddBool();
             else if( Reflection.IsEnum( memberInfo ) )
                 _config.AddEnum( expression.Metadata.ModelType );
+        }
+
+        /// <summary>
+        /// 配置栅格
+        /// </summary>
+        private void ConfigGrid( TagBuilder builder ) {
+            builder.AddAttribute( "span", _config.GetValue( UiConst.Span ) );
         }
     }
 }

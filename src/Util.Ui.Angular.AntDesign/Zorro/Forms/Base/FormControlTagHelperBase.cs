@@ -43,6 +43,10 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// </summary>
         public string RequiredMessage { get; set; }
         /// <summary>
+        /// nzSpan,24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
+        /// </summary>
+        public int Span { get; set; }
+        /// <summary>
         /// (ngModelChange),变更事件处理函数
         /// </summary>
         public string OnChange { get; set; }

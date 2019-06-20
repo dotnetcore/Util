@@ -57,5 +57,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试间隔
+        /// </summary>
+        [Fact]
+        public void TestGutter() {
+            var attributes = new TagHelperAttributeList { { UiConst.Gutter, 2 } };
+            var result = new String();
+            result.Append( "<nz-form-item [nzGutter]=\"2\">" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

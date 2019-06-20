@@ -35,7 +35,15 @@ namespace Util.Ui.Zorro.Grid.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigGrid( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置栅格
+        /// </summary>
+        private void ConfigGrid( TagBuilder builder ) {
+            builder.AddAttribute( "[nzGutter]", _config.GetValue( UiConst.Gutter ) );
         }
     }
 }

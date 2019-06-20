@@ -14,7 +14,7 @@ import { MessageConfig } from '../config/message-config';
 @Component( {
     selector: 'x-checkbox-group',
     template: `
-        <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
+        <nz-form-control [nzSpan]="span" [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-checkbox-group #control #controlModel="ngModel" [name]="name" [nzDisabled]="disabled"
                 [ngModel]="dataSource" (ngModelChange)="onModelChange($event)"></nz-checkbox-group>
             <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
@@ -28,6 +28,14 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
      * 组件不添加到FormGroup，独立存在，这样也无法基于NgForm进行表单验证
      */
     @Input() standalone: boolean;
+    /**
+     * id
+     */
+    @Input() rawId: string;
+    /**
+     * 跨度
+     */
+    @Input() span;
     /**
      * 名称
      */

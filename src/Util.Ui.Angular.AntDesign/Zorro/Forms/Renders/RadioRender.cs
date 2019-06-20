@@ -56,6 +56,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigDisabled( builder );
             ConfigModel( builder );
             ConfigRequired( builder );
+            ConfigGrid( builder );
             ConfigEvents( builder );
             ConfigUrl( builder );
             ConfigDataSource( builder );
@@ -97,6 +98,13 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigRequired( TagBuilder builder ) {
             builder.AddAttribute( "[required]", _config.GetBoolValue( UiConst.Required ) );
+        }
+
+        /// <summary>
+        /// 配置栅格
+        /// </summary>
+        private void ConfigGrid( TagBuilder builder ) {
+            builder.AddAttribute( "span", _config.GetValue( UiConst.Span ) );
         }
 
         /// <summary>

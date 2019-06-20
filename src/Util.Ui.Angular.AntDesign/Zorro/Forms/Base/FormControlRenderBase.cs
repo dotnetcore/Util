@@ -33,6 +33,7 @@ namespace Util.Ui.Zorro.Forms.Base {
             ConfigPrefix( builder );
             ConfigModel( builder );
             ConfigRequired( builder );
+            ConfigGrid( builder );
             ConfigEvents( builder );
         }
 
@@ -79,6 +80,13 @@ namespace Util.Ui.Zorro.Forms.Base {
         private void ConfigRequired( TagBuilder builder ) {
             builder.AddAttribute( "[required]", _config.GetBoolValue( UiConst.Required ) );
             builder.AddAttribute( "requiredMessage", _config.GetValue( UiConst.RequiredMessage ) );
+        }
+
+        /// <summary>
+        /// 配置栅格
+        /// </summary>
+        private void ConfigGrid( TagBuilder builder ) {
+            builder.AddAttribute( "span", _config.GetValue( UiConst.Span ) );
         }
 
         /// <summary>

@@ -12,6 +12,11 @@ namespace Util.Ui.Zorro.Grid {
     [HtmlTargetElement( "util-row")]
     public class RowTagHelper : AngularTagHelperBase {
         /// <summary>
+        /// [nzGutter],栅格间隔，可以是数字，单位为像素，也可以是响应式写法,范例：{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }
+        /// </summary>
+        public string Gutter { get; set; }
+
+        /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>

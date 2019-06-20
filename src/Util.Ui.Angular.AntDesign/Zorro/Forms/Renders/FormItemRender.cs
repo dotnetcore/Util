@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
 using Util.Ui.Zorro.Forms.Builders;
 
 namespace Util.Ui.Zorro.Forms.Renders {
@@ -36,7 +35,15 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigGrid( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置栅格
+        /// </summary>
+        private void ConfigGrid( TagBuilder builder ) {
+            builder.AddAttribute( "[nzGutter]", _config.GetValue( UiConst.Gutter ) );
         }
     }
 }
