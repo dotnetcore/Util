@@ -10,5 +10,13 @@ namespace Util.Ui.Zorro.Forms.Builders {
         /// </summary>
         public FormItemBuilder( ) : base( "nz-form-item" ) {
         }
+
+        /// <summary>
+        /// 添加间隔
+        /// </summary>
+        /// <param name="value">值</param>
+        public void AddGutter(string value) {
+            AddAttribute( "[nzGutter]", value );
+        }
     }
 }

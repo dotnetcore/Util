@@ -7,6 +7,8 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Helpers;
+using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -33,6 +35,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ResolveExpression();
             var builder = new RadioWrapperBuilder();
             Config( builder );
+            if( EnableLabel() )
+                return GetFormItemBuilder( builder );
             return builder;
         }
 
@@ -104,7 +108,8 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置栅格
         /// </summary>
         private void ConfigGrid( TagBuilder builder ) {
-            builder.AddAttribute( "span", _config.GetValue( UiConst.Span ) );
+            var gridConfig = new GridConfig( builder, _config );
+            gridConfig.Config();
         }
 
         /// <summary>
@@ -137,6 +142,20 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Items.Count == 0 )
                 return;
             _config.SetAttribute( UiConst.Data, Util.Helpers.Json.ToJson( _config.Items, true ) );
+        }
+
+        /// <summary>
+        /// 是否启用标签
+        /// </summary>
+        protected virtual bool EnableLabel() {
+            return FormHelper.EnableLabel( _config );
+        }
+
+        /// <summary>
+        /// 获取表单项生成器
+        /// </summary>
+        protected virtual TagBuilder GetFormItemBuilder( TagBuilder controlBuilder ) {
+            return FormHelper.CreateFormItemBuilder( _config, controlBuilder );
         }
     }
 }

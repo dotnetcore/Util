@@ -11,6 +11,14 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
+        /// 标签文本
+        /// </summary>
+        public string LabelText { get; set; }
+        /// <summary>
+        /// 标签的栅格占位格数
+        /// </summary>
+        public int LabelSpan { get; set; }
+        /// <summary>
         /// [(ngModel)],模型绑定
         /// </summary>
         public string NgModel { get; set; }

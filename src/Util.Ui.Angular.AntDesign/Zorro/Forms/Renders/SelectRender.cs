@@ -32,8 +32,10 @@ namespace Util.Ui.Zorro.Forms.Renders {
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
             var builder = new SelectWrapperBuilder();
-            base.Config( builder );
+            Config( builder );
             ConfigSelect( builder );
+            if( EnableLabel() )
+                return GetFormItemBuilder( builder );
             return builder;
         }
 

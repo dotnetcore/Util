@@ -63,7 +63,18 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Grid {
         public void TestSpan() {
             var attributes = new TagHelperAttributeList { { UiConst.Span, 1 } };
             var result = new String();
-            result.Append( "<div nz-col=\"\" nzSpan=\"1\"></div>" );
+            result.Append( "<div nz-col=\"\" [nzSpan]=\"1\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试偏移量
+        /// </summary>
+        [Fact]
+        public void TestOffset() {
+            var attributes = new TagHelperAttributeList { { UiConst.Offset, 1 } };
+            var result = new String();
+            result.Append( "<div nz-col=\"\" [nzOffset]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

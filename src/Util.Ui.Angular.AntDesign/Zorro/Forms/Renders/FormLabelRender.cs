@@ -4,6 +4,7 @@ using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -46,7 +47,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private void Config( TagBuilder builder ) {
+        private void Config( FormLabelBuilder builder ) {
             ConfigId( builder );
             ConfigText( builder );
             ConfigRequired( builder );
@@ -59,15 +60,15 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置文本
         /// </summary>
-        private void ConfigText( TagBuilder builder ) {
+        private void ConfigText( FormLabelBuilder builder ) {
             builder.AppendContent( _config.GetValue( UiConst.Label ) );
         }
 
         /// <summary>
         /// 配置必填样式
         /// </summary>
-        private void ConfigRequired( TagBuilder builder ) {
-            builder.AddAttribute( "[nzRequired]", _config.GetBoolValue( UiConst.Required ) );
+        private void ConfigRequired( FormLabelBuilder builder ) {
+            builder.AddRequired( _config.GetBoolValue( UiConst.Required ) );
         }
 
         /// <summary>
@@ -87,8 +88,20 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置栅格
         /// </summary>
-        private void ConfigGrid( TagBuilder builder ) {
-            builder.AddAttribute( "[nzSpan]", _config.GetValue( UiConst.Span ) );
+        private void ConfigGrid( FormLabelBuilder builder ) {
+            ConfigSpan( builder );
+        }
+
+        /// <summary>
+        /// 配置跨度
+        /// </summary>
+        private void ConfigSpan( FormLabelBuilder builder ) {
+            var result = _config.GetValue( UiConst.Span );
+            if( result.IsEmpty() ) {
+                var shareConfig = GridHelper.GetShareConfig( _config );
+                result = shareConfig?.LabelSpan;
+            }
+            builder.AddSpan( result );
         }
     }
 }

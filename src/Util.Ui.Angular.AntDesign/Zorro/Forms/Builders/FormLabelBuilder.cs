@@ -10,5 +10,21 @@ namespace Util.Ui.Zorro.Forms.Builders {
         /// </summary>
         public FormLabelBuilder( ) : base( "nz-form-label" ) {
         }
+
+        /// <summary>
+        /// 添加必填项
+        /// </summary>
+        /// <param name="value">值</param>
+        public void AddRequired( string value ) {
+            AddAttribute( "[nzRequired]", value );
+        }
+
+        /// <summary>
+        /// 添加跨度
+        /// </summary>
+        /// <param name="value">值</param>
+        public void AddSpan( string value ) {
+            AddAttribute( "[nzSpan]", value );
+        }
     }
 }

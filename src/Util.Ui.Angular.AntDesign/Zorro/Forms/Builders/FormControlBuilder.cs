@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Builders {
     /// <summary>
@@ -13,19 +14,11 @@ namespace Util.Ui.Zorro.Forms.Builders {
         }
 
         /// <summary>
-        /// 是否包含栅格布局
-        /// </summary>
-        public bool HasGrid( IConfig config ) {
-            if ( config.Contains( UiConst.Span ) )
-                return true;
-            return false;
-        }
-
-        /// <summary>
         /// 添加布局
         /// </summary>
-        public void AddLayout( IConfig config ) {
-            AddAttribute( "[nzSpan]", config.GetValue( UiConst.Span ) );
+        public void AddLayout( Config config ) {
+            var gridConfig = new FormControlGridConfig( this, config );
+            gridConfig.Config();
         }
     }
 }
