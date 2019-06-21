@@ -1,9 +1,11 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
-using Util.Ui.Zorro.Forms.Configs;
+using Util.Ui.Zorro.Grid.Configs;
+using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -35,7 +37,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private void Config( TagBuilder builder ) {
+        private void Config( FormItemBuilder builder ) {
             ConfigId( builder );
             ConfigGrid( builder );
             ConfigContent( builder );
@@ -44,26 +46,47 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// <summary>
         /// 配置栅格
         /// </summary>
-        private void ConfigGrid( TagBuilder builder ) {
-            var shareConfig = GetShareConfig();
-            ConfigGutter( builder, shareConfig );
-        }
-
-        /// <summary>
-        /// 获取共享配置
-        /// </summary>
-        private GridShareConfig GetShareConfig() {
-            return _config.Context?.GetValueFromItems<GridShareConfig>( GridShareConfig.Key );
+        private void ConfigGrid( FormItemBuilder builder ) {
+            ConfigGutter( builder );
+            ConfigType( builder );
+            ConfigAlign( builder );
+            ConfigJustify( builder );
         }
 
         /// <summary>
         /// 配置间隔
         /// </summary>
-        private void ConfigGutter( TagBuilder builder, GridShareConfig shareConfig ) {
-            var gutter = _config.GetValue( UiConst.Gutter );
-            if( gutter.IsEmpty() )
-                gutter = shareConfig?.Gutter;
-            builder.AddAttribute( "[nzGutter]", gutter );
+        private void ConfigGutter( FormItemBuilder builder ) {
+            builder.AddGutter( GridHelper.GetGutter( _config ) );
+        }
+
+        /// <summary>
+        /// 配置布局模式
+        /// </summary>
+        private void ConfigType( TagBuilder builder ) {
+            var isFlex = _config.GetValue<bool?>( UiConst.IsFlex );
+            if( isFlex == true )
+                builder.AddAttribute( "nzType", "flex" );
+        }
+
+        /// <summary>
+        /// 配置对齐
+        /// </summary>
+        private void ConfigAlign( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Align ) == false )
+                return;
+            builder.AddAttribute( "nzType", "flex" );
+            builder.AddAttribute( "nzAlign", _config.GetValue<Align?>( UiConst.Align )?.Description() );
+        }
+
+        /// <summary>
+        /// 配置水平排列方式
+        /// </summary>
+        private void ConfigJustify( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Justify ) == false )
+                return;
+            builder.AddAttribute( "nzType", "flex" );
+            builder.AddAttribute( "nzJustify", _config.GetValue<Justify?>( UiConst.Justify )?.Description() );
         }
     }
 }

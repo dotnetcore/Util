@@ -1,7 +1,5 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
-using Util.Ui.Zorro.Forms.Configs;
 
 namespace Util.Ui.Zorro.Grid.Helpers {
     /// <summary>
@@ -31,25 +29,14 @@ namespace Util.Ui.Zorro.Grid.Helpers {
         /// 配置布局
         /// </summary>
         public void Config() {
-            var shareConfig = GetShareConfig();
-            ConfigSpan( shareConfig );
-        }
-
-        /// <summary>
-        /// 获取共享配置
-        /// </summary>
-        private GridShareConfig GetShareConfig() {
-            return _config.Context?.GetValueFromItems<GridShareConfig>( GridShareConfig.Key );
+            ConfigSpan();
         }
 
         /// <summary>
         /// 配置跨度
         /// </summary>
-        private void ConfigSpan( GridShareConfig shareConfig ) {
-            var span = _config.GetValue( UiConst.Span );
-            if( span.IsEmpty() )
-                span = shareConfig?.ControlSpan;
-            _builder.AddAttribute( GetSpanName(), span );
+        private void ConfigSpan() {
+            _builder.AddAttribute( GetSpanName(), GridHelper.GetControlSpan( _config ) );
         }
 
         /// <summary>

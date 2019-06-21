@@ -36,6 +36,7 @@ namespace Util.Ui.Zorro.Grid.Renders {
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigSpan( builder );
+            ConfigOffset( builder );
             ConfigContent( builder );
         }
 
@@ -43,7 +44,14 @@ namespace Util.Ui.Zorro.Grid.Renders {
         /// 配置跨度
         /// </summary>
         private void ConfigSpan( TagBuilder builder ) {
-            builder.AddAttribute( "nzSpan", _config.GetValue( UiConst.Span ) );
+            builder.AddAttribute( "[nzSpan]", _config.GetValue( UiConst.Span ) );
+        }
+
+        /// <summary>
+        /// 配置偏移量
+        /// </summary>
+        private void ConfigOffset( TagBuilder builder ) {
+            builder.AddAttribute( "[nzOffset]", _config.GetValue( UiConst.Offset ) );
         }
     }
 }

@@ -21,18 +21,10 @@ namespace Util.Ui.Zorro.Forms.Renders {
         }
 
         /// <summary>
-        /// 获取标签生成器
+        /// 创建标签生成器
         /// </summary>
-        protected override TagBuilder GetTagBuilder() {
-            ResolveExpression();
-            var builder = new SwitchBuilder();
-            Config( builder );
-            var formControlBuilder = new FormControlBuilder();
-            if( formControlBuilder.HasGrid( _config ) == false )
-                return builder;
-            formControlBuilder.AddLayout( _config );
-            formControlBuilder.AppendContent( builder );
-            return formControlBuilder;
+        protected override TagBuilder CreateTagBuilder() {
+            return new SwitchBuilder();
         }
 
         /// <summary>

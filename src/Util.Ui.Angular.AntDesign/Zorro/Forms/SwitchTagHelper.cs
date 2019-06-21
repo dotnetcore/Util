@@ -17,6 +17,14 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
+        /// 标签文本
+        /// </summary>
+        public string LabelText { get; set; }
+        /// <summary>
+        /// 标签的栅格占位格数
+        /// </summary>
+        public int LabelSpan { get; set; }
+        /// <summary>
         /// name,控件名称
         /// </summary>
         public string Name { get; set; }

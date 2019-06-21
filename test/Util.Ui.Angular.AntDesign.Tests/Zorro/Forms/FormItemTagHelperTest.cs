@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Forms;
 using Xunit;
 using Xunit.Abstractions;
@@ -66,6 +67,42 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Gutter, 2 } };
             var result = new String();
             result.Append( "<nz-form-item [nzGutter]=\"2\">" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试是否flex模式
+        /// </summary>
+        [Fact]
+        public void TestIsFlex() {
+            var attributes = new TagHelperAttributeList { { UiConst.IsFlex, true } };
+            var result = new String();
+            result.Append( "<nz-form-item nzType=\"flex\">" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试垂直对齐方式
+        /// </summary>
+        [Fact]
+        public void TestAlign() {
+            var attributes = new TagHelperAttributeList { { UiConst.Align, Align.Middle } };
+            var result = new String();
+            result.Append( "<nz-form-item nzAlign=\"middle\" nzType=\"flex\">" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试水平排列方式
+        /// </summary>
+        [Fact]
+        public void TestJustify() {
+            var attributes = new TagHelperAttributeList { { UiConst.Justify, Justify.Center } };
+            var result = new String();
+            result.Append( "<nz-form-item nzJustify=\"center\" nzType=\"flex\">" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

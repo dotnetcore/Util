@@ -6,6 +6,7 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -30,14 +31,19 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
-            var builder = new CheckBoxBuilder();
+            var builder = CreateTagBuilder();
             Config( builder );
-            var formControlBuilder = new FormControlBuilder();
-            if( formControlBuilder.HasGrid( _config ) == false )
-                return builder;
-            formControlBuilder.AddLayout( _config );
-            formControlBuilder.AppendContent( builder );
+            var formControlBuilder = FormHelper.CreateFormControlBuilder( _config, builder );
+            if( EnableLabel() )
+                return GetFormItemBuilder( formControlBuilder );
             return formControlBuilder;
+        }
+
+        /// <summary>
+        /// 创建标签生成器
+        /// </summary>
+        protected virtual TagBuilder CreateTagBuilder() {
+            return new CheckBoxBuilder();
         }
 
         /// <summary>
@@ -119,6 +125,20 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         protected virtual void ConfigOnChange( TagBuilder builder ) {
             builder.AddAttribute( "(nzOnChange)", _config.GetValue( UiConst.OnChange ) );
+        }
+
+        /// <summary>
+        /// 是否启用标签
+        /// </summary>
+        protected virtual bool EnableLabel() {
+            return FormHelper.EnableLabel( _config );
+        }
+
+        /// <summary>
+        /// 获取表单项生成器
+        /// </summary>
+        protected virtual TagBuilder GetFormItemBuilder( TagBuilder controlBuilder ) {
+            return FormHelper.CreateFormItemBuilder( _config, controlBuilder );
         }
     }
 }

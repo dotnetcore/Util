@@ -1,4 +1,4 @@
-﻿namespace Util.Ui.Zorro.Forms.Configs {
+﻿namespace Util.Ui.Zorro.Grid.Configs {
     /// <summary>
     /// 栅格共享配置
     /// </summary>

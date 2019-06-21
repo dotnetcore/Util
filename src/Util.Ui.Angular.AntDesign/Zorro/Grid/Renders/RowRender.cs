@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Grid.Builders;
 
 namespace Util.Ui.Zorro.Grid.Renders {
@@ -35,15 +36,47 @@ namespace Util.Ui.Zorro.Grid.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
-            ConfigGrid( builder );
+            ConfigGutter( builder );
+            ConfigType( builder );
+            ConfigAlign( builder );
+            ConfigJustify( builder );
             ConfigContent( builder );
         }
 
         /// <summary>
-        /// 配置栅格
+        /// 配置间隔
         /// </summary>
-        private void ConfigGrid( TagBuilder builder ) {
+        private void ConfigGutter( TagBuilder builder ) {
             builder.AddAttribute( "[nzGutter]", _config.GetValue( UiConst.Gutter ) );
+        }
+
+        /// <summary>
+        /// 配置布局模式
+        /// </summary>
+        private void ConfigType( TagBuilder builder ) {
+            var isFlex = _config.GetValue<bool?>( UiConst.IsFlex );
+            if( isFlex == true )
+                builder.AddAttribute( "nzType", "flex" );
+        }
+
+        /// <summary>
+        /// 配置对齐
+        /// </summary>
+        private void ConfigAlign( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Align ) == false )
+                return;
+            builder.AddAttribute( "nzType", "flex" );
+            builder.AddAttribute( "nzAlign", _config.GetValue<Align?>( UiConst.Align )?.Description() );
+        }
+
+        /// <summary>
+        /// 配置水平排列方式
+        /// </summary>
+        private void ConfigJustify( TagBuilder builder ) {
+            if( _config.Contains( UiConst.Justify ) == false )
+                return;
+            builder.AddAttribute( "nzType", "flex" );
+            builder.AddAttribute( "nzJustify", _config.GetValue<Justify?>( UiConst.Justify )?.Description() );
         }
     }
 }

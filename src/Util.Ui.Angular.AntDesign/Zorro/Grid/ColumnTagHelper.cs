@@ -12,9 +12,13 @@ namespace Util.Ui.Zorro.Grid {
     [HtmlTargetElement( "util-column")]
     public class ColumnTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// nzSpan,24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
+        /// [nzSpan],24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
         /// </summary>
         public int Span { get; set; }
+        /// <summary>
+        /// [nzOffset],栅格左侧偏移的间隔格数
+        /// </summary>
+        public int Offset { get; set; }
 
         /// <summary>
         /// 获取渲染器

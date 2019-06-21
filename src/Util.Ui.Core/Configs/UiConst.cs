@@ -208,6 +208,10 @@
         /// </summary>
         public const string Label = "label";
         /// <summary>
+        /// 标签文本
+        /// </summary>
+        public const string LabelText = "label-text";
+        /// <summary>
         /// 位置
         /// </summary>
         public const string Position = "position";
@@ -839,5 +843,13 @@
         /// 控件跨度
         /// </summary>
         public const string ControlSpan = "control-span";
+        /// <summary>
+        /// 是否浮动
+        /// </summary>
+        public const string IsFlex = "is-flex";
+        /// <summary>
+        /// 水平排列
+        /// </summary>
+        public const string Justify = "justify";
     }
 }

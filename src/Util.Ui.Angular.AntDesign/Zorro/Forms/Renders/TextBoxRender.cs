@@ -31,12 +31,14 @@ namespace Util.Ui.Zorro.Forms.Renders {
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
             var builder = CreateBuilder();
-            base.Config( builder );
+            Config( builder );
             ConfigTextArea( builder );
             ConfigDatePicker( builder );
             ConfigNumber( builder );
             ConfigTextBox( builder );
             ConfigStandalone( builder );
+            if ( EnableLabel() )
+                return GetFormItemBuilder( builder );
             return builder;
         }
 
