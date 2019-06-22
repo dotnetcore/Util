@@ -14,7 +14,7 @@ import { util, QueryParameter } from "../index";
 @Component( {
     selector: 'x-select',
     template: `
-        <nz-form-control [nzSpan]="span" [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
+        <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-select #controlModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 [nzPlaceHolder]="placeholder" [ngStyle]="getStyle()" [nzLoading]="loading"
                 [nzMode]="multiple?'multiple':'default'" [nzMaxMultipleCount]="maxMultipleCount"

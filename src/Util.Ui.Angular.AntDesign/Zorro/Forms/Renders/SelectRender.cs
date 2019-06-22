@@ -7,6 +7,7 @@ using Util.Ui.Configs;
 using Util.Ui.Helpers;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -34,9 +35,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             var builder = new SelectWrapperBuilder();
             Config( builder );
             ConfigSelect( builder );
-            if( EnableLabel() )
-                return GetFormItemBuilder( builder );
-            return builder;
+            return GetFormItemBuilder( builder );
         }
 
         /// <summary>

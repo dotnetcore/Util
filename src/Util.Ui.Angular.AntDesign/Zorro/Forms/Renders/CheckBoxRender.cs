@@ -33,10 +33,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ResolveExpression();
             var builder = CreateTagBuilder();
             Config( builder );
-            var formControlBuilder = FormHelper.CreateFormControlBuilder( _config, builder );
-            if( EnableLabel() )
-                return GetFormItemBuilder( formControlBuilder );
-            return formControlBuilder;
+            return FormHelper.CreateFormItemBuilder( _config, builder );
         }
 
         /// <summary>
@@ -125,20 +122,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         protected virtual void ConfigOnChange( TagBuilder builder ) {
             builder.AddAttribute( "(nzOnChange)", _config.GetValue( UiConst.OnChange ) );
-        }
-
-        /// <summary>
-        /// 是否启用标签
-        /// </summary>
-        protected virtual bool EnableLabel() {
-            return FormHelper.EnableLabel( _config );
-        }
-
-        /// <summary>
-        /// 获取表单项生成器
-        /// </summary>
-        protected virtual TagBuilder GetFormItemBuilder( TagBuilder controlBuilder ) {
-            return FormHelper.CreateFormItemBuilder( _config, controlBuilder );
         }
     }
 }

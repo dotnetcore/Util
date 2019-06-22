@@ -208,7 +208,9 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestSpan() {
             var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
             var result = new String();
-            result.Append( "<x-textarea span=\"2\"></x-textarea>" );
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-textarea></x-textarea>" );
+            result.Append( "</nz-form-control>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

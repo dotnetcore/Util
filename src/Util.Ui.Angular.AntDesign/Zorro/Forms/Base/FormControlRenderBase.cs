@@ -3,9 +3,7 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
-using Util.Ui.Zorro.Forms.Builders;
 using Util.Ui.Zorro.Forms.Helpers;
-using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Base {
     /// <summary>
@@ -36,7 +34,6 @@ namespace Util.Ui.Zorro.Forms.Base {
             ConfigPrefix( builder );
             ConfigModel( builder );
             ConfigRequired( builder );
-            ConfigGrid( builder );
             ConfigEvents( builder );
         }
 
@@ -86,14 +83,6 @@ namespace Util.Ui.Zorro.Forms.Base {
         }
 
         /// <summary>
-        /// 配置栅格
-        /// </summary>
-        private void ConfigGrid( TagBuilder builder ) {
-            var gridConfig = new GridConfig( builder, _config );
-            gridConfig.Config();
-        }
-
-        /// <summary>
         /// 配置事件
         /// </summary>
         private void ConfigEvents( TagBuilder builder ) {
@@ -102,13 +91,6 @@ namespace Util.Ui.Zorro.Forms.Base {
             builder.AddAttribute( "(onBlur)", _config.GetValue( UiConst.OnBlur ) );
             builder.AddAttribute( "(onKeyup)", _config.GetValue( UiConst.OnKeyup ) );
             builder.AddAttribute( "(onKeydown)", _config.GetValue( UiConst.OnKeydown ) );
-        }
-
-        /// <summary>
-        /// 是否启用标签
-        /// </summary>
-        protected virtual bool EnableLabel() {
-            return FormHelper.EnableLabel( _config );
         }
 
         /// <summary>

@@ -18,6 +18,10 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     queryParam: TQuery;
     /**
+     * 是否展开
+     */
+    expand;
+    /**
      * 表格组件
      */
     @ViewChild( forwardRef( () => Table ) ) protected table: Table<TViewModel>;

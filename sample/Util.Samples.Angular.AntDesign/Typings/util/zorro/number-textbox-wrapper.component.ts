@@ -12,7 +12,7 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 @Component({
     selector: 'x-number-textbox',
     template: `
-        <nz-form-control [nzSpan]="span" [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
+        <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-input-number [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                 [nzAutoFocus]="autoFocus" [nzPrecision]="precision" [nzStep]="step"

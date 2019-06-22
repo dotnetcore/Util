@@ -37,9 +37,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigNumber( builder );
             ConfigTextBox( builder );
             ConfigStandalone( builder );
-            if ( EnableLabel() )
-                return GetFormItemBuilder( builder );
-            return builder;
+            return GetFormItemBuilder( builder );
         }
 
         /// <summary>

@@ -668,6 +668,10 @@
         /// </summary>
         public const string ShowLine = "show-line";
         /// <summary>
+        /// 显示标签
+        /// </summary>
+        public const string ShowLabel = "show-label";
+        /// <summary>
         /// 展开所有
         /// </summary>
         public const string ExpandAll = "expand-all";

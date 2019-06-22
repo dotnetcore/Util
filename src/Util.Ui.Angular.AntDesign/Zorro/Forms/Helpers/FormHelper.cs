@@ -13,6 +13,8 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// </summary>
         /// <param name="config">配置</param>
         public static bool EnableLabel( Config config ) {
+            if( config.GetValue<bool?>( UiConst.ShowLabel ) == true )
+                return true;
             if ( config.Contains( UiConst.LabelText ) )
                 return true;
             if( config.Contains( UiConst.LabelSpan ) )
@@ -31,10 +33,13 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// <param name="config">配置</param>
         /// <param name="controlBuilder">控件生成器</param>
         public static TagBuilder CreateFormItemBuilder( Config config, TagBuilder controlBuilder ) {
+            var formControlBuilder = CreateFormControlBuilder( config, controlBuilder );
+            if( EnableLabel( config ) == false )
+                return formControlBuilder;
             var result = CreateFormItemBuilder( config );
             var labelBuilder = CreateFormLabelBuilder( config );
             result.AppendContent( labelBuilder );
-            result.AppendContent( controlBuilder );
+            result.AppendContent( formControlBuilder );
             return result;
         }
 
@@ -76,7 +81,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// <param name="config">配置</param>
         /// <param name="builder">配置</param>
         public static TagBuilder CreateFormControlBuilder( Config config,TagBuilder builder ) {
-            if( GridHelper.EnabelGrid( config ) == false )
+            if( EnableLabel( config ) == false && GridHelper.EnabelGrid( config ) == false )
                 return builder;
             var result = new FormControlBuilder();
             result.AddLayout( config );

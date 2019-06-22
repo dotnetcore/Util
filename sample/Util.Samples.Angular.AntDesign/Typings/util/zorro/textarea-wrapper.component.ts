@@ -13,7 +13,7 @@ import { MessageConfig } from '../config/message-config';
 @Component({
     selector: 'x-textarea',
     template:`
-        <nz-form-control [nzSpan]="span" [nzValidateStatus]="(controlModel?.invalid && (controlModel?.dirty || controlModel.touched))?'error':'success'">
+        <nz-form-control [nzValidateStatus]="(controlModel?.invalid && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <textarea nz-input [id]="rawId" [name]="name" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                    #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                    [nzAutosize]="{ minRows: minRows, maxRows: maxRows }"

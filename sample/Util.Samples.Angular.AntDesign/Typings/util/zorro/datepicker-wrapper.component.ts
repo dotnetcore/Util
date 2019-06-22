@@ -14,7 +14,7 @@ import { util } from "../index";
 @Component( {
     selector: 'x-date-picker',
     template: `
-        <nz-form-control [nzSpan]="span" [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
+        <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <ng-container [ngSwitch]="type">
                 <ng-container *ngSwitchCase="'date'">
                     <nz-date-picker

@@ -11,6 +11,10 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
+        /// 是否显示标签，默认值：false
+        /// </summary>
+        public bool ShowLabel { get; set; }
+        /// <summary>
         /// 标签文本
         /// </summary>
         public string LabelText { get; set; }

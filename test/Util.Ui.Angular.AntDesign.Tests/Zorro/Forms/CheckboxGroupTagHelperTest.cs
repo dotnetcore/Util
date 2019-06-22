@@ -152,7 +152,9 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestSpan() {
             var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
             var result = new String();
-            result.Append( "<x-checkbox-group span=\"2\"></x-checkbox-group>" );
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-checkbox-group></x-checkbox-group>" );
+            result.Append( "</nz-form-control>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

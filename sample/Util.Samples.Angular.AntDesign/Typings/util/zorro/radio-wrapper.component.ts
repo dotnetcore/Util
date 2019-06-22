@@ -13,7 +13,7 @@ import { WebApi as webapi } from '../common/webapi';
 @Component({
     selector: 'x-radio',
     template:`
-    <nz-form-control [nzSpan]="span">
+    <nz-form-control>
         <nz-radio-group #controlModel="ngModel" [name]="name" [nzName]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" [nzDisabled]="disabled" [required]="required">
             <label nz-radio *ngFor="let item of dataSource" [nzValue]="item.value" [nzDisabled]="item.disabled" 
                    [ngStyle]="vertical?verticalStyle:''">
@@ -30,10 +30,6 @@ export class Radio implements OnInit, AfterViewInit {
      * id
      */
     @Input() rawId: string;
-    /**
-     * 跨度
-     */
-    @Input() span;
     /**
      * 名称
      */
