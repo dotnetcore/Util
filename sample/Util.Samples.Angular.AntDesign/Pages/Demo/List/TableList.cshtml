@@ -1,22 +1,18 @@
 ﻿@page
 @model ApplicationDto
 <page-header [title]="'查询表格'"></page-header>
-<nz-card [nzBordered]="false">
+<util-card show-border="false">
     @*查询表单*@
     @await Html.PartialAsync( "TableList.Query" )
-    <util-button color="Primary" text="新建">
-        <util-icon type="Plus"></util-icon>
-    </util-button>
-    <util-button id="btnDelete" color="Primary" text="删除" on-click="delete(btnDelete)">
-        <util-icon type="Delete"></util-icon>
-    </util-button>
-
+    @*工具按钮*@
+    <util-button class="mr-sm" color="Primary" icon="Plus" text="新建"></util-button>
+    <util-button id="btnDelete" color="Danger" icon="Delete" text="删除" on-click="delete(btnDelete)"></util-button>
+    @*提示语*@
     <div class="my-md">
         <nz-alert [nzType]="'info'" [nzShowIcon]="true" [nzMessage]="message">
-            <ng-template #message>
-                说明
-                <strong class="text-primary">重点</strong>
-            </ng-template>
+            <util-template id="message">
+                已选择<strong class="text-primary mx-md">{{getCheckedLength()}}</strong>行
+            </util-template>
         </nz-alert>
     </div>
     @*表格*@
@@ -32,5 +28,5 @@
         <util-table-column for="RegisterEnabled"></util-table-column>
         <util-table-column for="CreationTime"></util-table-column>
     </util-table>
-</nz-card>
+</util-card>
 

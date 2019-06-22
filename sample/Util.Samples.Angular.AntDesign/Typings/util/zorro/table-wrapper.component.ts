@@ -322,6 +322,13 @@ export class Table<T extends IKey> implements OnInit {
     }
 
     /**
+     * 获取勾选的实体列表长度
+     */
+    getCheckedLength(): number {
+        return this.getChecked().length;
+    }
+
+    /**
      * 获取勾选的实体标识列表
      */
     getCheckedIds(): string {

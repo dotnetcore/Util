@@ -122,6 +122,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     }
 
     /**
+     * 获取勾选的实体列表长度
+     */
+    getCheckedLength(): number {
+        return this.table.getCheckedLength();
+    }
+
+    /**
      * 获取勾选的实体标识列表
      */
     getCheckedIds() {
