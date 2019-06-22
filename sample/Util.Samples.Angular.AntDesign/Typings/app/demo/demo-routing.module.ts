@@ -15,14 +15,18 @@ const routes: Routes = [
     {
         path: 'form',
         children: [
-            { path: 'basic-form', component: BasicFormComponent }
+            { path: 'basic-form', component: BasicFormComponent },
+            { path: 'basic-form/:id', component: BasicFormComponent }
         ]
     },
     {
         path: 'list',
         children: [
             {
-                path: 'table-list',component: TableListComponent
+                path: 'table-list', children: [
+                    { path: '', component: TableListComponent},
+                    { path: 'edit/:id', component: BasicFormComponent }
+                ]
             }
         ]
     },

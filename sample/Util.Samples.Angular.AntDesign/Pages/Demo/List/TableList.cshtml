@@ -16,12 +16,13 @@
         <util-table-column type="Checkbox"></util-table-column>
         <util-table-column type="LineNumber"></util-table-column>
         <util-table-column for="Code"></util-table-column>
-        <util-table-column for="Name" sort="true"></util-table-column>
-        <util-table-column for="Enabled">
-            <util-icon type="Check" ng-if="row.enabled"></util-icon>
-            <util-icon type="Close" ng-if="!row.enabled"></util-icon>
-        </util-table-column>
+        <util-table-column for="Name"></util-table-column>
+        <util-table-column for="Comment" width="30%"></util-table-column>
+        <util-table-column for="Enabled"></util-table-column>
         <util-table-column for="RegisterEnabled"></util-table-column>
-        <util-table-column for="CreationTime"></util-table-column>
+        <util-table-column title="操作">
+            <util-a class="mr-sm" color="Primary" shape="Circle" icon="Edit" tooltip="编辑" bind-link="['edit',row.id]"></util-a>
+            <util-button color="Danger" shape="Circle" icon="Delete" tooltip="删除" on-click="delete(row.id)"></util-button>
+        </util-table-column>
     </util-table>
 </util-card>

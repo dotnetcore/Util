@@ -158,6 +158,9 @@
 <%@ Register Name="IndexViewClass"
              Template="Templates\Presentation\Pages\IndexView.cst"
              MergeProperties="False" %>
+<%@ Register Name="QueryViewClass"
+             Template="Templates\Presentation\Pages\QueryView.cst"
+             MergeProperties="False" %>
 <%@ Register Name="EditViewClass"
              Template="Templates\Presentation\Pages\EditView.cst"
              MergeProperties="False" %>
@@ -284,6 +287,8 @@
         CreateApiController( context );
         //创建Index视图
         CreateIndexView( context );
+        //创建Query视图
+        CreateQueryView( context );
         //创建Edit视图
         CreateEditView( context );
         //创建Detail视图
@@ -785,6 +790,21 @@
         foreach(Entity entity in entityContext.Entities)
         {
             string className = "Index";
+            result.Entity = entity;
+            result.Namespace = GetSchema(entity).ToLower();
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
+        }
+    }
+    
+    //创建Query视图
+    public void CreateQueryView(EntityContext entityContext)
+    {
+        QueryViewClass result = this.Create<QueryViewClass>();
+        this.CopyPropertiesTo(result);
+        
+        foreach(Entity entity in entityContext.Entities)
+        {
+            string className = "Index.Query";
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);

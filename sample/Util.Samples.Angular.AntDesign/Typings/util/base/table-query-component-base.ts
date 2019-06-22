@@ -99,6 +99,12 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * @param id 标识
      */
     delete( button?, id?) {
+        if ( button && !id ) {
+            this.table.delete( {
+                ids: button
+            } );
+            return;
+        }
         this.table.delete( {
             button: button,
             ids: id
@@ -109,7 +115,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 刷新
      * @param button 按钮
      */
-    refresh( button?) {
+    refresh( button? ) {
         this.queryParam = this.createQuery();
         this.table.refresh( this.queryParam, button );
     }

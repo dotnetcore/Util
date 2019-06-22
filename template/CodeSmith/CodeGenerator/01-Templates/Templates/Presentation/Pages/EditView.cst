@@ -23,13 +23,13 @@
 @*表单*@
 <util-card show-border="false">
     <util-form id="form" label-span="3" control-span="18" gutter="16">
-    <% foreach(Property p in Entity.Properties) { %>
+        <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         <% if( Entity.IsHidden(p) ) continue; %>
         <% if( p.DataType == DbType.Boolean ){%>
         <util-switch for="<%= p.PropertyName.ToSafeName() %>"></util-switch>
-        <% }else{ %>           
-        <util-textbox for="<%= p.PropertyName.ToSafeName() %>"></util-textbox>                
+        <% }else{ %>
+        <util-textbox for="<%= p.PropertyName.ToSafeName() %>"></util-textbox>
         <% } %>
         <% } %>
         <util-form-item>

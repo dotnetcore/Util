@@ -94,6 +94,7 @@
     <None Include="01-Templates\Templates\PersistObjects\Services\TreeService.cst" />
     <None Include="01-Templates\Templates\Presentation\Controllers\ApiController.cst" />
     <None Include="01-Templates\Templates\Presentation\Controllers\TreeApiController.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\QueryView.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\IndexComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Module.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Query.cst" />
