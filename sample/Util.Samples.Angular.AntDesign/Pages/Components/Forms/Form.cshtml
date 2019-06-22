@@ -3,7 +3,7 @@
 <page-header title="基础表单">
     将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
 </page-header>
-<nz-card>
+<util-card show-border="false">
     <util-form id="form" label-span="3" control-span="15" gutter="16">
         <util-textbox for="Name"></util-textbox>
         <util-textbox for="Age"></util-textbox>
@@ -23,7 +23,7 @@
         </util-form-item>
         <util-form-item>
             <util-form-label for="Color"></util-form-label>
-            <util-color-picker for="Color"/>
+            <util-color-picker for="Color" />
             {{model.color}}
         </util-form-item>
         <util-form-item>
@@ -33,4 +33,4 @@
             </util-form-control>
         </util-form-item>
     </util-form>
-</nz-card>
+</util-card>

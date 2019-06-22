@@ -93,7 +93,6 @@
     <None Include="01-Templates\Templates\PersistObjects\Services\Service.cst" />
     <None Include="01-Templates\Templates\PersistObjects\Services\TreeService.cst" />
     <None Include="01-Templates\Templates\Presentation\Controllers\ApiController.cst" />
-    <None Include="01-Templates\Templates\Presentation\Controllers\Controller.cst" />
     <None Include="01-Templates\Templates\Presentation\Controllers\TreeApiController.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\IndexComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Module.cst" />
@@ -105,10 +104,10 @@
     <None Include="01-Templates\Templates\Presentation\Typings\DetailComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Trees\TreeViewModel.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Trees\TreeQuery.cst" />
-    <None Include="01-Templates\Templates\Presentation\Views\IndexView.cst" />
-    <None Include="01-Templates\Templates\Presentation\Views\EditView.cst" />
-    <None Include="01-Templates\Templates\Presentation\Views\DetailView.cst" />
-    <None Include="01-Templates\Templates\Presentation\Views\TreeIndexView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\IndexView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\EditView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\DetailView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\TreeIndexView.cst" />
     <None Include="01-Templates\Templates\Services\Dto.cst" />
     <None Include="01-Templates\Templates\Services\DtoExtension.cst" />
     <None Include="01-Templates\Templates\Services\IocConfig.cst" />

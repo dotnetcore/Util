@@ -155,17 +155,14 @@
 <%@ Register Name="ApiControllerClass"
              Template="Templates\Presentation\Controllers\ApiController.cst"
              MergeProperties="False" %>
-<%@ Register Name="ControllerClass"
-             Template="Templates\Presentation\Controllers\Controller.cst"
-             MergeProperties="False" %>
 <%@ Register Name="IndexViewClass"
-             Template="Templates\Presentation\Views\IndexView.cst"
+             Template="Templates\Presentation\Pages\IndexView.cst"
              MergeProperties="False" %>
 <%@ Register Name="EditViewClass"
-             Template="Templates\Presentation\Views\EditView.cst"
+             Template="Templates\Presentation\Pages\EditView.cst"
              MergeProperties="False" %>
 <%@ Register Name="DetailViewClass"
-             Template="Templates\Presentation\Views\DetailView.cst"
+             Template="Templates\Presentation\Pages\DetailView.cst"
              MergeProperties="False" %>
 <%@ Register Name="IndexComponentClass"
              Template="Templates\Presentation\Typings\IndexComponent.cst"
@@ -805,7 +802,7 @@
             string className = "Edit";
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Areas\\{0}\\Views\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
         }
     }
     
@@ -820,7 +817,7 @@
             string className = "Detail";
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Areas\\{0}\\Views\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
+            result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
         }
     }
     

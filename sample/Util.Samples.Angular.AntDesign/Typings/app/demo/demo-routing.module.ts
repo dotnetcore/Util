@@ -22,11 +22,7 @@ const routes: Routes = [
         path: 'list',
         children: [
             {
-                path: 'table-list', children: [
-                    { path: '', component: TableListComponent },
-                    { path: 'create', component: BasicFormComponent }
-
-                ]
+                path: 'table-list',component: TableListComponent
             }
         ]
     },

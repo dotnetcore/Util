@@ -27,7 +27,7 @@ import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-mo
  */
 @Component({
     selector: '<%=CamelClassName%>-edit',
-    templateUrl: env.prod() ? './html/<%=CamelClassName%>-edit.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
+    templateUrl: !env.dev() ? './html/<%=CamelClassName%>-edit.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
 })
 export class <%=SafeClassName%>EditComponent extends EditComponentBase<<%=SafeClassName%>ViewModel> {
     /**
@@ -36,13 +36,6 @@ export class <%=SafeClassName%>EditComponent extends EditComponentBase<<%=SafeCl
      */
     constructor(injector: Injector) {
         super(injector);
-    }
-    
-    /**
-     * 创建视图模型
-     */
-    protected createModel() {
-        return new <%=SafeClassName%>ViewModel();
     }
 
     /**

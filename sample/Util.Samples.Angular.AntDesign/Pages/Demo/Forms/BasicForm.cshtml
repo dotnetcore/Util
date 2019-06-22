@@ -1,6 +1,20 @@
 ﻿@page
-<page-header title="基础表单">
-    将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
-</page-header>
-<nz-card>
-</nz-card>
+@model ApplicationDto
+@*标题*@
+<page-header title="基础表单"></page-header>
+@*表单*@
+<util-card show-border="false">
+    <util-form id="form" label-span="3" control-span="12" gutter="16">
+        <util-textbox for="Code"></util-textbox>
+        <util-textbox for="Name"></util-textbox>
+        <util-textarea for="Comment"></util-textarea>
+        <util-switch for="Enabled"></util-switch>
+        <util-switch for="RegisterEnabled"></util-switch>
+        <util-form-item>
+            <util-form-control offset="2">
+                <util-button class="mr-sm" id="btnSubmit" validate-form="true" color="Primary" on-click="submit(form,btnSubmit)"></util-button>
+                <util-button text="返回" on-click="back()"></util-button>
+            </util-form-control>
+        </util-form-item>
+    </util-form>
+</util-card>
