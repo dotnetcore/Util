@@ -15,8 +15,7 @@ const routes: Routes = [
     {
         path: 'form',
         children: [
-            { path: 'basic-form', component: BasicFormComponent },
-            { path: 'basic-form/:id', component: BasicFormComponent }
+            { path: 'basic-form', component: BasicFormComponent }
         ]
     },
     {

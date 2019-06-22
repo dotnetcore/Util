@@ -68,6 +68,7 @@ namespace Util.Samples.Service.Implements.Systems {
                 .From<Application>( "a" )
                 .WhereIfNotEmpty<Application>( t => t.Code.Contains( query.Code ) )
                 .WhereIfNotEmpty<Application>( t => t.Name.Contains( query.Name ) )
+                .WhereIfNotEmpty<Application>( t => t.Comment.Contains( query.Comment ) )
                 .OrIfNotEmpty<Application>( t => t.Code.Contains( query.Keyword ), t => t.Name.Contains( query.Keyword ) )
                 .ToPagerListAsync<ApplicationDto>( query );
         }
