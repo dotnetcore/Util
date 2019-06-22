@@ -87,5 +87,9 @@
         /// 数据源
         /// </summary>
         public const string BindData = "bind-data";
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public const string BindMessage = "bind-message";
     }
 }

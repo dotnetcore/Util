@@ -20,8 +20,14 @@ const routes: Routes = [
     },
     {
         path: 'list',
-            children: [
-                { path: 'table-list', component: TableListComponent }
+        children: [
+            {
+                path: 'table-list', children: [
+                    { path: '', component: TableListComponent },
+                    { path: 'create', component: BasicFormComponent }
+
+                ]
+            }
         ]
     },
     {
@@ -35,9 +41,9 @@ const routes: Routes = [
 /**
  * Demo路由配置模块
  */
-@NgModule({
+@NgModule( {
     imports: [
-        RouterModule.forChild(routes)
+        RouterModule.forChild( routes )
     ]
-})
+} )
 export class DemoRoutingModule { }

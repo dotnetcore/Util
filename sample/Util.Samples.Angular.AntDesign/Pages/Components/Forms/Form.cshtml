@@ -26,11 +26,11 @@
             <util-color-picker for="Color"/>
             {{model.color}}
         </util-form-item>
-        <util-form-item justify="Center">
-            <util-column>
-                <util-button id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Check"></util-button>
+        <util-form-item>
+            <util-form-control offset="2">
+                <util-button class="mr-sm" id="btnSubmit" validate-form="true" on-click="submit(form,btnSubmit)" color="Primary" icon="Check"></util-button>
                 <util-button on-click="test()" text="弹出层测试" icon="Eye"></util-button>
-            </util-column>
+            </util-form-control>
         </util-form-item>
     </util-form>
 </nz-card>

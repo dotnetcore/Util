@@ -855,5 +855,9 @@
         /// 水平排列
         /// </summary>
         public const string Justify = "justify";
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public const string Message = "message";
     }
 }

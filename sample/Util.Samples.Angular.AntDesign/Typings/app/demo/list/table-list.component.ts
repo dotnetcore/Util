@@ -4,6 +4,9 @@ import { env } from '../../env';
 import { ApplicationQuery } from './model/application-query';
 import { ApplicationViewModel } from './model/application-view-model';
 
+/**
+ * »ù´¡ÁÐ±í
+ */
 @Component({
     selector: 'app-table-list',
     templateUrl: !env.dev() ? './html/table-list.component.html' : '/View/Demo/List/TableList',
