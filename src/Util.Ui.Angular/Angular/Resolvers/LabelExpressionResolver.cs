@@ -52,6 +52,7 @@ namespace Util.Ui.Angular.Resolvers {
         /// 初始化
         /// </summary>
         private void Init() {
+            ExpressionResolver.Init( _expression,_config );
             _config.SetAttribute( AngularConst.BindText,Helper.GetModel( _expression,_memberInfo ) );
             InitType();
         }

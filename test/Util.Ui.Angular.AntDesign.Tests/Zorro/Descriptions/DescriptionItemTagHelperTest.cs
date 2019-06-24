@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Cards;
+using Util.Ui.Zorro.Descriptions;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
-namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
+namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Descriptions {
     /// <summary>
-    /// 卡片测试
+    /// 描述列表项测试
     /// </summary>
-    public class CardTagHelperTest {
+    public class DescriptionItemTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 卡片
+        /// 描述列表项
         /// </summary>
-        private readonly CardTagHelper _component;
+        private readonly DescriptionItemTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public CardTagHelperTest( ITestOutputHelper output ) {
+        public DescriptionItemTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new CardTagHelper();
+            _component = new DescriptionItemTagHelper();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<nz-card></nz-card>" );
+            result.Append( "<nz-descriptions-item></nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -52,7 +52,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<nz-card #a=\"\"></nz-card>" );
+            result.Append( "<nz-descriptions-item #a=\"\"></nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -60,32 +60,43 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
         /// 测试标题
         /// </summary>
         [Fact]
-        public void TestTitle() {
-            var attributes = new TagHelperAttributeList { { UiConst.Title, "a" } };
+        public void TestLabel() {
+            var attributes = new TagHelperAttributeList { { UiConst.Label, "a" } };
             var result = new String();
-            result.Append( "<nz-card nzTitle=\"a\"></nz-card>" );
+            result.Append( "<nz-descriptions-item nzTitle=\"a\"></nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试显示边框
+        /// 测试值
+        /// </summary>
+        [Fact]
+        public void TestValue() {
+            var attributes = new TagHelperAttributeList { { UiConst.Value, "a" } };
+            var result = new String();
+            result.Append( "<nz-descriptions-item>a</nz-descriptions-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试值
+        /// </summary>
+        [Fact]
+        public void TestBindValue() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindValue, "a" } };
+            var result = new String();
+            result.Append( "<nz-descriptions-item>{{a}}</nz-descriptions-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试列跨度
         /// </summary>
         [Fact]
         public void TestShowBorder() {
-            var attributes = new TagHelperAttributeList { { UiConst.ShowBorder, true } };
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
             var result = new String();
-            result.Append( "<nz-card [nzBordered]=\"true\"></nz-card>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试操作组
-        /// </summary>
-        [Fact]
-        public void TestActions() {
-            var attributes = new TagHelperAttributeList { { UiConst.Actions, "a" } };
-            var result = new String();
-            result.Append( "<nz-card [nzActions]=\"a\"></nz-card>" );
+            result.Append( "<nz-descriptions-item [nzSpan]=\"2\"></nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

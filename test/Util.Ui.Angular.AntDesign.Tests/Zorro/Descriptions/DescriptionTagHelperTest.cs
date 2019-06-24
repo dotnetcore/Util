@@ -1,31 +1,32 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Cards;
+using Util.Ui.Enums;
+using Util.Ui.Zorro.Descriptions;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
 
-namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
+namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Descriptions {
     /// <summary>
-    /// 卡片测试
+    /// 描述列表测试
     /// </summary>
-    public class CardTagHelperTest {
+    public class DescriptionTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
         private readonly ITestOutputHelper _output;
         /// <summary>
-        /// 卡片
+        /// 描述列表
         /// </summary>
-        private readonly CardTagHelper _component;
+        private readonly DescriptionTagHelper _component;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public CardTagHelperTest( ITestOutputHelper output ) {
+        public DescriptionTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _component = new CardTagHelper();
+            _component = new DescriptionTagHelper();
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<nz-card></nz-card>" );
+            result.Append( "<nz-descriptions></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -52,7 +53,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<nz-card #a=\"\"></nz-card>" );
+            result.Append( "<nz-descriptions #a=\"\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -63,7 +64,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
         public void TestTitle() {
             var attributes = new TagHelperAttributeList { { UiConst.Title, "a" } };
             var result = new String();
-            result.Append( "<nz-card nzTitle=\"a\"></nz-card>" );
+            result.Append( "<nz-descriptions nzTitle=\"a\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -74,18 +75,29 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Cards {
         public void TestShowBorder() {
             var attributes = new TagHelperAttributeList { { UiConst.ShowBorder, true } };
             var result = new String();
-            result.Append( "<nz-card [nzBordered]=\"true\"></nz-card>" );
+            result.Append( "<nz-descriptions [nzBordered]=\"true\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
         /// <summary>
-        /// 测试操作组
+        /// 测试列的数量
         /// </summary>
         [Fact]
-        public void TestActions() {
-            var attributes = new TagHelperAttributeList { { UiConst.Actions, "a" } };
+        public void TestColumn() {
+            var attributes = new TagHelperAttributeList { { UiConst.Column, "2" } };
             var result = new String();
-            result.Append( "<nz-card [nzActions]=\"a\"></nz-card>" );
+            result.Append( "<nz-descriptions [nzColumn]=\"2\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试大小
+        /// </summary>
+        [Fact]
+        public void TestSize() {
+            var attributes = new TagHelperAttributeList { { UiConst.Size, DescriptionSize.Middle } };
+            var result = new String();
+            result.Append( "<nz-descriptions nzSize=\"middle\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

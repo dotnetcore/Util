@@ -849,7 +849,7 @@
         
         foreach(Entity entity in entityContext.Entities)
         {
-            string className = string.Format("{0}-index.component",entity.ClassName.ToCamelCase());
+            string className = string.Format("{0}-list.component",entity.ClassName.ToCamelCase());
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
@@ -879,7 +879,7 @@
         
         foreach(Entity entity in entityContext.Entities)
         {
-            string className = string.Format("{0}-detail.component",entity.ClassName.ToCamelCase());
+            string className = string.Format("{0}-detail.component",entity.ClassName.ToCamelCase());            
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
@@ -910,7 +910,7 @@
         
         foreach(Entity entity in entityContext.Entities)
         {
-            string className = string.Format("{0}.routing.module",GetSchema(entity).ToSingular().ToCamelCase());
+            string className = string.Format("{0}-routing.module",GetSchema(entity).ToSingular().ToCamelCase());
             result.EntityContext = entityContext;
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();            

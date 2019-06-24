@@ -17,24 +17,20 @@
 <% string Description = Entity.Description; %>
 <%-- 驼峰形式类名 --%>
 <% string CamelClassName = SafeClassName.ToCamelCase(); %>
+@page
 @model <%=SafeClassName%>Dto
-<util-layout flex="70%" x-align="Center">
-    <util-card>
-        <util-card-header>
-            <util-icon font-awesome-icon="AddressCardO" style="margin-right: 10px;"></util-icon>
-            <%=Description%>
-        </util-card-header>
-        <util-card-content class="form-content form-list-content">
-            <% foreach(Property p in Entity.Properties) { %>
-            <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
-            <% if( Entity.IsHidden(p) ) continue; %>
-                <util-layout flex="100%">
-                    <label asp-for="<%= p.PropertyName.ToSafeName() %>"></label>: <util-label for="<%= p.PropertyName.ToSafeName() %>"/>
-                </util-layout>
-            <% } %>
-        </util-card-content>
-        <util-card-actions align="Right">
-            <util-button text="返回" styles="Default" on-click="back()"></util-button>
-        </util-card-actions>
-    </util-card>
-</util-layout>
+@*标题*@
+<page-header title="<%=Description%>详情"></page-header>
+@*表单*@
+<util-card show-border="false" actions="[actionBack]">
+    <util-description title="详细信息" column="3" show-border="true" >
+        <% foreach(Property p in Entity.Properties) { %>
+        <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+        <% if( Entity.IsDetailHidden(p) ) continue; %>
+        <util-description-item for="<%= p.PropertyName.ToSafeName() %>"></util-description-item>
+        <% } %>
+    </util-description>
+    <util-template id="actionBack">
+        <util-button text="返回" on-click="back()"></util-button>
+    </util-template>
+</util-card>

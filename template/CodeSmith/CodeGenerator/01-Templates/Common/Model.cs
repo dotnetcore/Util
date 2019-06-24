@@ -476,6 +476,25 @@ namespace SchemaMapper
         }
 
         /// <summary>
+        /// 是否在详情隐藏
+        /// </summary>
+        /// <param name="property">属性</param>
+        public bool IsDetailHidden(Property property)
+        {
+            if (property.ColumnName == "Version" && property.DataType == DbType.Binary)
+                return true;
+            if (property.ColumnName == "IsDeleted" && property.DataType == DbType.Boolean)
+                return true;
+            if (property.ColumnName == "CreatorId" && property.DataType == DbType.Guid)
+                return true;
+            if (property.ColumnName == "LastModificationTime" && property.DataType == DbType.DateTime)
+                return true;
+            if (property.ColumnName == "LastModifierId" && property.DataType == DbType.Guid)
+                return true;
+            return false;
+        }
+
+        /// <summary>
         /// 获取格式化
         /// </summary>
         /// <param name="property">属性</param>

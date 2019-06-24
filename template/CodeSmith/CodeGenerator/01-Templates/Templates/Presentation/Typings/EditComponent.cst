@@ -23,7 +23,7 @@ import { EditComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-model';
 
 /**
- * <%=Description%>编辑
+ * <%=Description%>编辑页
  */
 @Component({
     selector: '<%=CamelClassName%>-edit',
@@ -31,7 +31,7 @@ import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-mo
 })
 export class <%=SafeClassName%>EditComponent extends EditComponentBase<<%=SafeClassName%>ViewModel> {
     /**
-     * 初始化组件
+     * 初始化<%=Description%>编辑页
      * @param injector 注入器
      */
     constructor(injector: Injector) {

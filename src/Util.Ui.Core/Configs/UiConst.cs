@@ -859,5 +859,9 @@
         /// 消息
         /// </summary>
         public const string Message = "message";
+        /// <summary>
+        /// 操作
+        /// </summary>
+        public const string Actions = "actions";
     }
 }

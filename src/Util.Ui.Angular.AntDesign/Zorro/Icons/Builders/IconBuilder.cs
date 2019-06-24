@@ -16,16 +16,18 @@ namespace Util.Ui.Zorro.Icons.Builders {
         /// 添加图标类型
         /// </summary>
         /// <param name="value">图标类型</param>
-        public void AddType( string value ) {
+        public IconBuilder AddType( string value ) {
             AddAttribute( "nzType", value );
+            return this;
         }
 
         /// <summary>
         /// 添加图标类型
         /// </summary>
         /// <param name="value">图标类型</param>
-        public void AddBindType( string value ) {
+        public IconBuilder AddBindType( string value ) {
             AddAttribute( "[nzType]", value );
+            return this;
         }
     }
 }

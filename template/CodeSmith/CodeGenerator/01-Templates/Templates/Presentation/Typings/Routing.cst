@@ -21,7 +21,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 <% foreach(Entity entity in EntityContext.Entities) {%>
-import { <%= entity.ClassName.ToSafeName() %>IndexComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-index.component';
+import { <%= entity.ClassName.ToSafeName() %>ListComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-list.component';
 import { <%= entity.ClassName.ToSafeName() %>EditComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-edit.component';
 import { <%= entity.ClassName.ToSafeName() %>DetailComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-detail.component';
 <%} %>
@@ -33,9 +33,9 @@ const routes: Routes = [
         children: [
         <% foreach(Entity entity in EntityContext.Entities) {%>
             {path: '<%= entity.ClassName.ToSafeName().ToCamelCase() %>', children: [
-                { path: '', component: <%= entity.ClassName.ToSafeName() %>IndexComponent },
+                { path: '', component: <%= entity.ClassName.ToSafeName() %>ListComponent },
                 { path: 'create', component: <%= entity.ClassName.ToSafeName() %>EditComponent },
-                { path: 'update/:id', component: <%= entity.ClassName.ToSafeName() %>EditComponent },
+                { path: 'edit/:id', component: <%= entity.ClassName.ToSafeName() %>EditComponent },
                 { path: 'detail/:id', component: <%= entity.ClassName.ToSafeName() %>DetailComponent }
             ]},
         <%} %>

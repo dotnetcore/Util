@@ -1,23 +1,24 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Cards.Builders;
+using Util.Ui.Enums;
+using Util.Ui.Zorro.Descriptions.Builders;
 
-namespace Util.Ui.Zorro.Cards.Renders {
+namespace Util.Ui.Zorro.Descriptions.Renders {
     /// <summary>
-    /// 卡片渲染器
+    /// 描述列表渲染器
     /// </summary>
-    public class CardRender : AngularRenderBase {
+    public class DescriptionRender : AngularRenderBase {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly IConfig _config;
 
         /// <summary>
-        /// 初始化卡片渲染器
+        /// 初始化描述列表渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public CardRender( IConfig config ) : base( config ) {
+        public DescriptionRender( IConfig config ) : base( config ) {
             _config = config;
         }
 
@@ -25,7 +26,7 @@ namespace Util.Ui.Zorro.Cards.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new CardBuilder();
+            var builder = new DescriptionBuilder();
             Config( builder );
             return builder;
         }
@@ -37,7 +38,8 @@ namespace Util.Ui.Zorro.Cards.Renders {
             ConfigId( builder );
             ConfigTitle( builder );
             ConfigShowBorder( builder );
-            ConfigActions( builder );
+            ConfigColumn( builder );
+            ConfigSize( builder );
             ConfigContent( builder );
         }
 
@@ -56,10 +58,17 @@ namespace Util.Ui.Zorro.Cards.Renders {
         }
 
         /// <summary>
-        /// 配置操作组
+        /// 配置列
         /// </summary>
-        private void ConfigActions( TagBuilder builder ) {
-            builder.AddAttribute( "[nzActions]", _config.GetValue( UiConst.Actions ) );
+        private void ConfigColumn( TagBuilder builder ) {
+            builder.AddAttribute( "[nzColumn]", _config.GetValue( UiConst.Column ) );
+        }
+
+        /// <summary>
+        /// 配置大小
+        /// </summary>
+        private void ConfigSize( TagBuilder builder ) {
+            builder.AddAttribute( "nzSize", _config.GetValue<DescriptionSize?>( UiConst.Size )?.Description() );
         }
     }
 }

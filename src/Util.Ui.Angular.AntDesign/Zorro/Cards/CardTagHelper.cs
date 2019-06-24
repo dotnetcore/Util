@@ -19,6 +19,10 @@ namespace Util.Ui.Zorro.Cards {
         /// [nzBordered],是否显示边框，默认值：true
         /// </summary>
         public bool ShowBorder { get; set; }
+        /// <summary>
+        /// [nzActions],卡片操作组，位于卡片底部
+        /// </summary>
+        public string Actions { get; set; }
 
         /// <summary>
         /// 获取渲染器

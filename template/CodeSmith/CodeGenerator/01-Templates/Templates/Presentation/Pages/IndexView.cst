@@ -53,7 +53,8 @@ if( Entity.IsTreeEntity() ){
         <% } %>
         <util-table-column title="操作">
             <util-a class="mr-sm" color="Primary" shape="Circle" icon="Edit" tooltip="编辑" bind-link="['edit',row.id]"></util-a>
-            <util-button color="Danger" shape="Circle" icon="Delete" tooltip="删除" on-click="delete(null,row.id)"></util-button>
+            <util-button class="mr-sm" color="Danger" shape="Circle" icon="Delete" tooltip="删除" on-click="delete(null,row.id)"></util-button>
+            <util-a shape="Circle" icon="Eye" tooltip="详情" bind-link="['detail',row.id]"></util-a>
         </util-table-column>
     </util-table>
 </util-card>

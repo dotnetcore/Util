@@ -38,6 +38,7 @@ namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema)
     /// </summary>
     public class <%= SafeClassName %>Dto : DtoBase {
         <% foreach(Property p in Entity.Properties) { %>
+        <% if( p.ColumnName == "IsDeleted" && p.DataType == DbType.Boolean ) continue;%>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         /// <summary>
         /// <%= p.Description %>
