@@ -25,8 +25,8 @@ if( Entity.IsTreeEntity() ){
     CodeTemplate template =new TreeIndexView();
     template.SetProperty("Namespace",Namespace);
     template.SetProperty("Entity",Entity);
-    template.Render(this.Response);
-    return;
+    //template.Render(this.Response);
+    //return;
 }
 %>
 @page

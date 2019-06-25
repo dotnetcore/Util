@@ -25,7 +25,7 @@ namespace <%= Namespace %>.Apis.<%= Schema %> {
     /// <summary>
     /// <%= Description %>控制器
     /// </summary>
-    public class <%= SafeClassName %>Controller : PrimeTreeControllerBase<<%= SafeClassName %>Dto, <%= SafeClassName %>Query> {
+    public class <%= SafeClassName %>Controller : TreeControllerBase<<%= SafeClassName %>Dto, <%= SafeClassName %>Query> {
         /// <summary>
         /// 初始化<%= Description %>控制器
         /// </summary>

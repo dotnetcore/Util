@@ -39,7 +39,7 @@ import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-mo
  */
 @Component({
     selector: '<%=CamelClassName%>-list',
-    templateUrl: !env.dev() ? './html/<%=CamelClassName%>-index.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
+    templateUrl: !env.dev() ? './html/<%=CamelClassName%>-list.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
 })
 export class <%=SafeClassName%>ListComponent extends TableQueryComponentBase<<%=SafeClassName%>ViewModel, <%=SafeClassName%>Query>  {
     /**

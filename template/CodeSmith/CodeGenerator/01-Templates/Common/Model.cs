@@ -714,7 +714,7 @@ namespace SchemaMapper
                 return;
             if (MaxLength == -1)
                 return;
-            result.Add(string.Format("[StringLength( {0}, ErrorMessage = \"{1}输入过长，不能超过{0}位\" )]", MaxLength, Description));
+            result.Add(string.Format("[StringLength( {0} )]", MaxLength, Description));
         }
 
         /// <summary>

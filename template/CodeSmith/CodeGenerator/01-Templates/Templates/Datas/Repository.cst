@@ -21,6 +21,22 @@ using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 using <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %>;
 using Util.Datas.Ef.Core;
 
+<%
+if( Entity.IsTreeEntity() ){ %>
+namespace <%= Namespace %>.Data.Repositories.<%= Entity.TableSchema %> {
+    /// <summary>
+    /// <%= Description %>仓储
+    /// </summary>
+    public class <%= SafeClassName %>Repository : TreeRepositoryBase<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>>, I<%= SafeClassName %>Repository {
+        /// <summary>
+        /// 初始化<%= Description %>仓储
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        public <%= SafeClassName %>Repository( I<%= UnitOfWork %> unitOfWork ) : base( unitOfWork ) {
+        }
+    }
+}
+<% return;}%>
 namespace <%= Namespace %>.Data.Repositories.<%= Entity.TableSchema %> {
     /// <summary>
     /// <%= Description %>仓储

@@ -43,7 +43,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
         /// </summary>
         /// <param name="id"><%= Description %>标识</param>
         /// <param name="path">路径</param>
-        /// <param name="level">级数</param>
+        /// <param name="level">层级</param>
         public <%= SafeClassName %>( <%= Entity.GetKeyTypeString() %> id, string path, int level )
             : base( id, path, level ) {
             <% foreach(var r in Entity.Relationships.Where(e => e.ThisCardinality == Cardinality.Many)) { %>
