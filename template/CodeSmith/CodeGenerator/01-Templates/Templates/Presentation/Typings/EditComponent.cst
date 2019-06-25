@@ -27,7 +27,7 @@ import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-mo
  */
 @Component({
     selector: '<%=CamelClassName%>-edit',
-    templateUrl: !env.dev() ? './html/<%=CamelClassName%>-edit.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
+    templateUrl: !env.dev() ? './html/edit.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/edit'
 })
 export class <%=SafeClassName%>EditComponent extends EditComponentBase<<%=SafeClassName%>ViewModel> {
     /**
