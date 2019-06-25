@@ -7,6 +7,7 @@ using Util.Ui.Configs;
 using Util.Ui.Helpers;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -32,9 +33,9 @@ namespace Util.Ui.Zorro.Forms.Renders {
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
             var builder = new SelectWrapperBuilder();
-            base.Config( builder );
+            Config( builder );
             ConfigSelect( builder );
-            return builder;
+            return GetFormItemBuilder( builder );
         }
 
         /// <summary>

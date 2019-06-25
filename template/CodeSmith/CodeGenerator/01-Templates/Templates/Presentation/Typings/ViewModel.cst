@@ -34,6 +34,7 @@ import { ViewModel } from '../../../../util';
 export class <%=SafeClassName%>ViewModel extends ViewModel {
     <% foreach(Property p in Entity.Properties) { %>
     <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
+    <% if( p.ColumnName == "IsDeleted" && p.DataType == DbType.Boolean ) continue;%>
     /**
      * <%=p.Description %>
      */

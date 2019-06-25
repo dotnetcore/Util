@@ -29,6 +29,10 @@ export class CheckboxGroup implements OnInit, AfterViewInit {
      */
     @Input() standalone: boolean;
     /**
+     * id
+     */
+    @Input() rawId: string;
+    /**
      * 名称
      */
     @Input() name: string;

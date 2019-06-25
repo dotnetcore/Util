@@ -245,6 +245,19 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Trees {
         }
 
         /// <summary>
+        /// 测试栅格跨度
+        /// </summary>
+        [Fact]
+        public void TestSpan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
+            var result = new String();
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-tree-select></x-tree-select>" );
+            result.Append( "</nz-form-control>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试单击事件
         /// </summary>
         [Fact]

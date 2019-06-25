@@ -208,6 +208,10 @@
         /// </summary>
         public const string Label = "label";
         /// <summary>
+        /// 标签文本
+        /// </summary>
+        public const string LabelText = "label-text";
+        /// <summary>
         /// 位置
         /// </summary>
         public const string Position = "position";
@@ -664,6 +668,10 @@
         /// </summary>
         public const string ShowLine = "show-line";
         /// <summary>
+        /// 显示标签
+        /// </summary>
+        public const string ShowLabel = "show-label";
+        /// <summary>
         /// 展开所有
         /// </summary>
         public const string ExpandAll = "expand-all";
@@ -811,5 +819,49 @@
         /// 方向
         /// </summary>
         public const string Orientation = "orientation";
+        /// <summary>
+        /// 跨度
+        /// </summary>
+        public const string Span = "span";
+        /// <summary>
+        /// 布局
+        /// </summary>
+        public const string Layout = "layout";
+        /// <summary>
+        /// 显示冒号
+        /// </summary>
+        public const string ShowColon = "show-colon";
+        /// <summary>
+        /// 标签for属性
+        /// </summary>
+        public const string LabelFor = "label-for";
+        /// <summary>
+        /// 间隔
+        /// </summary>
+        public const string Gutter = "gutter";
+        /// <summary>
+        /// 标签跨度
+        /// </summary>
+        public const string LabelSpan = "label-span";
+        /// <summary>
+        /// 控件跨度
+        /// </summary>
+        public const string ControlSpan = "control-span";
+        /// <summary>
+        /// 是否浮动
+        /// </summary>
+        public const string IsFlex = "is-flex";
+        /// <summary>
+        /// 水平排列
+        /// </summary>
+        public const string Justify = "justify";
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public const string Message = "message";
+        /// <summary>
+        /// 操作
+        /// </summary>
+        public const string Actions = "actions";
     }
 }

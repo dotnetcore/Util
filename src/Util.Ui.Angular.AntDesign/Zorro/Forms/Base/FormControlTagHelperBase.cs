@@ -11,6 +11,18 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
+        /// 是否显示标签，默认值：false
+        /// </summary>
+        public bool ShowLabel { get; set; }
+        /// <summary>
+        /// 标签文本
+        /// </summary>
+        public string LabelText { get; set; }
+        /// <summary>
+        /// 标签的栅格占位格数
+        /// </summary>
+        public int LabelSpan { get; set; }
+        /// <summary>
         /// [(ngModel)],模型绑定
         /// </summary>
         public string NgModel { get; set; }
@@ -42,6 +54,10 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// 必填项错误消息
         /// </summary>
         public string RequiredMessage { get; set; }
+        /// <summary>
+        /// nzSpan,24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
+        /// </summary>
+        public int Span { get; set; }
         /// <summary>
         /// (ngModelChange),变更事件处理函数
         /// </summary>

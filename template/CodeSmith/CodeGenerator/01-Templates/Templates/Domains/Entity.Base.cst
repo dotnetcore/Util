@@ -53,9 +53,6 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
         /// </summary>
         /// <param name="id"><%= Description %>标识</param>
         public <%= SafeClassName %>( <%= Entity.GetKeyTypeString() %> id ) : base( id ) {
-            <% foreach(var r in Entity.Relationships.Where(e => e.ThisCardinality == Cardinality.Many)) { %>
-            <%= r.ThisPropertyName.ToSafeName() %> = new List<<%= r.OtherEntity.ToSafeName() %>>();
-            <% } %>
         }
 
         <% foreach(Property p in Entity.Properties) { %>
@@ -70,7 +67,7 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
         <%}%>
         public <%= p.TypeName %> <%= p.PropertyName.ToSafeName() %> { get; set; }
         <% }%>
-        <% foreach(var r in Entity.Relationships) { %>        
+        <% foreach(var r in Entity.Relationships) { %>
         <% if(r.ThisCardinality != Cardinality.Many) { %>
         /// <summary>
         /// <%= Entity.GetOtherDescription( r.OtherEntity ) %>

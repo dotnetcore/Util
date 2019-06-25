@@ -18,6 +18,10 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     queryParam: TQuery;
     /**
+     * 是否展开
+     */
+    expand;
+    /**
      * 表格组件
      */
     @ViewChild( forwardRef( () => Table ) ) protected table: Table<TViewModel>;
@@ -94,7 +98,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * @param button 按钮
      * @param id 标识
      */
-    delete( button?, id?) {
+    delete( button?, id? ) {
         this.table.delete( {
             button: button,
             ids: id
@@ -105,7 +109,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 刷新
      * @param button 按钮
      */
-    refresh( button?) {
+    refresh( button? ) {
         this.queryParam = this.createQuery();
         this.table.refresh( this.queryParam, button );
     }
@@ -115,6 +119,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     getChecked() {
         return this.table.getChecked();
+    }
+
+    /**
+     * 获取勾选的实体列表长度
+     */
+    getCheckedLength(): number {
+        return this.table.getCheckedLength();
     }
 
     /**

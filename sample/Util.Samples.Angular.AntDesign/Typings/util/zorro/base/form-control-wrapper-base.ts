@@ -11,6 +11,10 @@ import { MessageConfig } from '../../config/message-config';
  */
 export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
+     * id
+     */
+    @Input() rawId: string;
+    /**
      * 名称
      */
     @Input() name: string;

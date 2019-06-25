@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Forms;
 using Xunit;
 using Xunit.Abstractions;
@@ -54,6 +55,30 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
             result.Append( "<form #a=\"ngForm\" nz-form=\"\">" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试布局
+        /// </summary>
+        [Fact]
+        public void TestLayout() {
+            var attributes = new TagHelperAttributeList { { UiConst.Layout, FormLayout.Inline } };
+            var result = new String();
+            result.Append( "<form nz-form=\"\" nzLayout=\"inline\">" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示标签冒号
+        /// </summary>
+        [Fact]
+        public void TestShowColon() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowColon, false } };
+            var result = new String();
+            result.Append( "<form nz-form=\"\" [nzNoColon]=\"true\">" );
             result.Append( "</form>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

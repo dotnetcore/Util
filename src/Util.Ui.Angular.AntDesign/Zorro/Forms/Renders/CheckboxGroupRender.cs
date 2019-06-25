@@ -8,6 +8,7 @@ using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
 using Util.Ui.Zorro.Forms.Configs;
+using Util.Ui.Zorro.Forms.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -34,7 +35,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ResolveExpression();
             var builder = new CheckboxGroupWrapperBuilder();
             Config( builder );
-            return builder;
+            return FormHelper.CreateFormItemBuilder( _config, builder );
         }
 
         /// <summary>

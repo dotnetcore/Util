@@ -3,6 +3,7 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.Zorro.Forms.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Base {
     /// <summary>
@@ -12,13 +13,13 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly Config _config;
 
         /// <summary>
         /// 初始化下拉列表渲染器
         /// </summary>
         /// <param name="config">下拉列表配置</param>
-        protected FormControlRenderBase( IConfig config ) : base( config ) {
+        protected FormControlRenderBase( Config config ) : base( config ) {
             _config = config;
         }
 
@@ -90,6 +91,13 @@ namespace Util.Ui.Zorro.Forms.Base {
             builder.AddAttribute( "(onBlur)", _config.GetValue( UiConst.OnBlur ) );
             builder.AddAttribute( "(onKeyup)", _config.GetValue( UiConst.OnKeyup ) );
             builder.AddAttribute( "(onKeydown)", _config.GetValue( UiConst.OnKeydown ) );
+        }
+
+        /// <summary>
+        /// 获取表单项生成器
+        /// </summary>
+        protected virtual TagBuilder GetFormItemBuilder( TagBuilder controlBuilder ) {
+            return FormHelper.CreateFormItemBuilder( _config, controlBuilder );
         }
     }
 }

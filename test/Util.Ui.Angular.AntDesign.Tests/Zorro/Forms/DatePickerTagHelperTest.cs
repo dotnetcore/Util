@@ -279,6 +279,19 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试栅格跨度
+        /// </summary>
+        [Fact]
+        public void TestSpan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
+            var result = new String();
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-date-picker></x-date-picker>" );
+            result.Append( "</nz-form-control>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试弹出和关闭日历事件
         /// </summary>
         [Fact]

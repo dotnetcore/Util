@@ -150,13 +150,23 @@ export class Table<T extends IKey> implements OnInit {
         /**
          * 查询参数
          */
-        param?;
+        param?,
+        /**
+         * 页数
+         */
+        pageIndex?,
+        /**
+         * 成功回调函数
+         */
+        handler?: ( result ) => void;
     } ) {
         options = options || {};
         let url = options.url || this.url || ( this.baseUrl && `/api/${this.baseUrl}` );
         if ( !url )
             return;
         let param = options.param || this.queryParam;
+        if ( options.pageIndex )
+            param.page = options.pageIndex; 
         util.webapi.get<any>( url ).param( param ).button( options.button ).handle( {
             before: () => {
                 this.loading = true;
@@ -164,6 +174,7 @@ export class Table<T extends IKey> implements OnInit {
             },
             ok: result => {
                 this.loadData( result );
+                options.handler && options.handler( result );
                 this.loadAfter( result );
                 this.onLoad.emit( result );
             },
@@ -180,8 +191,6 @@ export class Table<T extends IKey> implements OnInit {
         this.dataSource = result.data || [];
         this.totalCount = result.totalCount;
         this.checkedSelection.clear();
-        if ( !result.totalCount )
-            this.showPagination = false;
     }
 
     /**
@@ -290,7 +299,17 @@ export class Table<T extends IKey> implements OnInit {
                     return;
                 }
                 util.message.success( config.deleteSuccessed );
-                this.query();
+                this.query( {
+                    handler: result => {
+                        if ( result.page <= 1 )
+                            return;
+                        if ( result.page > result.pageCount ) {
+                            this.query( {
+                                pageIndex: result.page - 1
+                            } );
+                        }
+                    }
+                } );
             }
         } );
     }
@@ -300,6 +319,13 @@ export class Table<T extends IKey> implements OnInit {
      */
     getChecked(): T[] {
         return this.dataSource.filter( data => this.checkedSelection.isSelected( data ) );
+    }
+
+    /**
+     * 获取勾选的实体列表长度
+     */
+    getCheckedLength(): number {
+        return this.getChecked().length;
     }
 
     /**

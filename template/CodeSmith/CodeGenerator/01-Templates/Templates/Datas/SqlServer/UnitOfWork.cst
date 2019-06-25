@@ -26,8 +26,7 @@ namespace <%= Namespace %>.Data.UnitOfWorks.SqlServer {
         /// 初始化工作单元
         /// </summary>
         /// <param name="options">配置项</param>
-        /// <param name="unitOfWorkManager">工作单元服务</param>
-        public <%= UnitOfWork %>( DbContextOptions options, IUnitOfWorkManager unitOfWorkManager ) : base( options, unitOfWorkManager ) {
+        public <%= UnitOfWork %>( DbContextOptions<<%= UnitOfWork %>> options ) : base( options ) {
         }
     }
 }

@@ -6,6 +6,7 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -30,9 +31,16 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
-            var builder = new CheckBoxBuilder();
+            var builder = CreateTagBuilder();
             Config( builder );
-            return builder;
+            return FormHelper.CreateFormItemBuilder( _config, builder );
+        }
+
+        /// <summary>
+        /// 创建标签生成器
+        /// </summary>
+        protected virtual TagBuilder CreateTagBuilder() {
+            return new CheckBoxBuilder();
         }
 
         /// <summary>

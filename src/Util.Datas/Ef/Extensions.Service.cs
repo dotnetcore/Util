@@ -29,7 +29,7 @@ namespace Util.Datas.Ef {
             where TImplementation : UnitOfWorkBase, TService {
             services.AddDbContext<TImplementation>( configAction );
             var efConfig = new EfConfig();
-            if ( efConfigAction != null ) {
+            if( efConfigAction != null ) {
                 services.Configure( efConfigAction );
                 efConfigAction.Invoke( efConfig );
             }
@@ -55,6 +55,8 @@ namespace Util.Datas.Ef {
                 return DatabaseType.MySql;
             if( type == typeof( Util.Datas.Ef.PgSql.UnitOfWork ) )
                 return DatabaseType.PgSql;
+            if( type == typeof( Util.Datas.Ef.Oracle.UnitOfWork ) )
+                return DatabaseType.Oracle;
             return DatabaseType.SqlServer;
         }
 
@@ -87,6 +89,9 @@ namespace Util.Datas.Ef {
                     return;
                 case DatabaseType.PgSql:
                     builder.UseNpgsql( connection );
+                    return;
+                case DatabaseType.Oracle:
+                    builder.UseOracle( connection );
                     return;
             }
         }
