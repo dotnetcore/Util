@@ -867,5 +867,17 @@
         /// 复选框变更事件
         /// </summary>
         public const string OnCheckBoxChange = "on-check-box-change";
+        /// <summary>
+        /// 允许选择
+        /// </summary>
+        public const string Selectable = "selectable";
+        /// <summary>
+        /// 内联折叠
+        /// </summary>
+        public const string InlineCollapsed = "inline-collapsed";
+        /// <summary>
+        /// 内联缩进
+        /// </summary>
+        public const string InlineIndent = "inline-indent";
     }
 }
