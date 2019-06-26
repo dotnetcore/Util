@@ -18,6 +18,8 @@ namespace Util {
         /// </summary>
         /// <param name="instance">枚举实例</param>
         public static int Value( this System.Enum instance ) {
+            if( instance == null )
+                return 0;
             return Util.Helpers.Enum.GetValue( instance.GetType(), instance );
         }
 
@@ -27,6 +29,8 @@ namespace Util {
         /// <typeparam name="TResult">返回值类型</typeparam>
         /// <param name="instance">枚举实例</param>
         public static TResult Value<TResult>( this System.Enum instance ) {
+            if( instance == null )
+                return default( TResult );
             return Util.Helpers.Convert.To<TResult>( Value( instance ) );
         }
 
@@ -35,6 +39,8 @@ namespace Util {
         /// </summary>
         /// <param name="instance">枚举实例</param>
         public static string Description( this System.Enum instance ) {
+            if ( instance == null )
+                return string.Empty;
             return Util.Helpers.Enum.GetDescription( instance.GetType(), instance );
         }
 

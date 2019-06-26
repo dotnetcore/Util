@@ -18,12 +18,17 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// <summary>
         /// 序号宽度
         /// </summary>
-        public static string LineNumberWidth { get; set; } = "60";
+        public static string LineNumberWidth { get; set; } = "70";
 
         /// <summary>
         /// 复选框宽度
         /// </summary>
         public static string CheckboxWidth { get; set; } = "30";
+
+        /// <summary>
+        /// 分页总量模板
+        /// </summary>
+        public static string TotalTemplate { get; set; } = "{{ range[0] }}-{{ range[1] }} 共 {{ total }} 条";
 
         /// <summary>
         /// 表格共享键

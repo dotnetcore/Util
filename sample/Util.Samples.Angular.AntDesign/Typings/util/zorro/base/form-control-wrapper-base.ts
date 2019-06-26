@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Input, Output, EventEmitter, ViewChild, Optional, Host, AfterViewInit, OnDestroy } from '@angular/core';
+import { Input, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgModel, NgForm } from '@angular/forms';
 import { MessageConfig } from '../../config/message-config';
 
@@ -10,6 +10,10 @@ import { MessageConfig } from '../../config/message-config';
  * 表单控件包装器
  */
 export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
+    /**
+     * id
+     */
+    @Input() rawId: string;
     /**
      * 名称
      */
@@ -23,7 +27,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     @Input() disabled: boolean;
     /**
-     * 占位提示符
+     * 占位提示
      */
     @Input() placeholder?: string;
     /**
@@ -34,10 +38,6 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      * 必填项验证消息
      */
     @Input() requiredMessage: string;
-    /**
-     * 后缀图标单击事件
-     */
-    @Output() onSuffixIconClick = new EventEmitter<any>();
     /**
      * 模型，用于双向绑定
      */
@@ -75,7 +75,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      * 表单控件包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() private form: NgForm) {
+    constructor( private form: NgForm) {
         this.requiredMessage = MessageConfig.requiredMessage;
         this.placeholder = '';
     }
@@ -83,7 +83,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 视图加载完成
      */
-    ngAfterViewInit(): void {
+    ngAfterViewInit() {
         this.addControl();
     }
 
@@ -122,16 +122,9 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 模型变更事件处理
      */
-    onModelChange(value) {
+    onModelChange( value ) {
         this.modelChange.emit(value);
         this.onChange.emit(value);
-    }
-
-    /**
-     * 后缀图标单击事件
-     */
-    suffixIconClick() {
-        this.onSuffixIconClick.emit();
     }
 
     /**

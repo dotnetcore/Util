@@ -12,6 +12,9 @@ import { BasicFormComponent } from "./forms/basic-form.component";
 //列表组件
 import { TableListComponent } from "./list/table-list.component";
 
+//树组件
+import { TreeComponent } from "./trees/tree.component";
+
 /**
  * Demo模块
  */
@@ -19,7 +22,8 @@ import { TableListComponent } from "./list/table-list.component";
     imports: [FrameworkModule, DemoRoutingModule],
     declarations: [
         BasicFormComponent,
-        TableListComponent
+        TableListComponent,
+        TreeComponent
     ]
 } )
 export class DemoModule { }

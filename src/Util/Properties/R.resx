@@ -123,6 +123,9 @@
   <data name="GlobalDuplicateRequest" xml:space="preserve">
     <value>其他用户正在执行该操作,请稍后再试</value>
   </data>
+  <data name="IdIsEmpty" xml:space="preserve">
+    <value>Id不能为空</value>
+  </data>
   <data name="LineNumber" xml:space="preserve">
     <value>序号</value>
   </data>

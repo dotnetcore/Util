@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular;
 using Util.Ui.Angular.Forms.Configs;
-using Util.Ui.Angular.Forms.Resolvers;
+using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Helpers;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
+using Util.Ui.Zorro.Forms.Helpers;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -31,9 +33,9 @@ namespace Util.Ui.Zorro.Forms.Renders {
         protected override TagBuilder GetTagBuilder() {
             ResolveExpression();
             var builder = new SelectWrapperBuilder();
-            base.Config( builder );
+            Config( builder );
             ConfigSelect( builder );
-            return builder;
+            return GetFormItemBuilder( builder );
         }
 
         /// <summary>
@@ -55,15 +57,20 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigDataSource( builder );
             ConfigDefaultOption( builder );
             ConfigMultiple( builder );
+            ConfigShowClear( builder );
+            ConfigSearch( builder );
+            ConfigShowArrow( builder );
             ConfigTemplate( builder );
             ConfigStandalone( builder );
+            ConfigEvents( builder );
         }
 
         /// <summary>
         /// 配置宽度
         /// </summary>
         private void ConfigWidth( SelectWrapperBuilder builder ) {
-            builder.AddAttribute( UiConst.Width, _config.GetValue( UiConst.Width ) );
+            var width = _config.GetValue( UiConst.Width );
+            builder.AddAttribute( UiConst.Width, CommonHelper.GetPixelValue( width ) );
         }
 
         /// <summary>
@@ -80,7 +87,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigDataSource( SelectWrapperBuilder builder ) {
             AddItems();
-            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.DataSource ) );
+            builder.AddAttribute( "[dataSource]", _config.GetValue( UiConst.Data ) );
         }
 
         /// <summary>
@@ -89,7 +96,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void AddItems() {
             if( _config.Items.Count == 0 )
                 return;
-            _config.SetAttribute( UiConst.DataSource, Util.Helpers.Json.ToJson( _config.Items, true ) );
+            _config.SetAttribute( UiConst.Data, Util.Helpers.Json.ToJson( _config.Items, true ) );
         }
 
         /// <summary>
@@ -104,6 +111,31 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigMultiple( SelectWrapperBuilder builder ) {
             builder.AddAttribute( "[multiple]", _config.GetBoolValue( UiConst.Multiple ) );
+            builder.AddAttribute( "[maxMultipleCount]", _config.GetValue( UiConst.MaxMultipleCount ) );
+        }
+
+        /// <summary>
+        /// 配置显示清除按钮
+        /// </summary>
+        private void ConfigShowClear( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "[allowClear]", _config.GetBoolValue( UiConst.ShowClear ) );
+        }
+
+        /// <summary>
+        /// 配置搜索
+        /// </summary>
+        private void ConfigSearch( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "order", _config.GetValue( UiConst.Sort ) );
+            builder.AddAttribute( "[showSearch]", _config.GetBoolValue( UiConst.ShowSearch ) );
+            builder.AddAttribute( "[isServerSearch]", _config.GetBoolValue( UiConst.ServerSearch ) );
+            builder.AddAttribute( "[isScrollLoad]", _config.GetBoolValue( UiConst.ScrollLoad ) );
+        }
+
+        /// <summary>
+        /// 配置显示箭头
+        /// </summary>
+        private void ConfigShowArrow( SelectWrapperBuilder builder ) {
+            builder.AddAttribute( "[showArrow]", _config.GetBoolValue( UiConst.ShowArrow ) );
         }
 
         /// <summary>
@@ -118,6 +150,14 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigStandalone( TagBuilder builder ) {
             builder.AddAttribute( "[standalone]", _config.GetBoolValue( UiConst.Standalone ) );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(onSearch)", _config.GetValue( UiConst.OnSearch ) );
+            builder.AddAttribute( "(onScrollToBottom)", _config.GetValue( UiConst.OnScrollToBottom ) );
         }
     }
 }

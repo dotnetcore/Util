@@ -23,26 +23,19 @@ import { EditComponentBase } from '../../../util';
 import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-model';
 
 /**
- * <%=Description%>详细
+ * <%=Description%>详情页
  */
 @Component({
     selector: '<%=CamelClassName%>-detail',
-    templateUrl: env.prod() ? './html/<%=CamelClassName%>-detail.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/detail'
+    templateUrl: !env.dev() ? './html/detail.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>/detail'
 })
 export class <%=SafeClassName%>DetailComponent extends EditComponentBase<<%=SafeClassName%>ViewModel> {
     /**
-     * 初始化组件
+     * 初始化<%=Description%>详情页
      * @param injector 注入器
      */
     constructor(injector: Injector) {
         super(injector);
-    }
-    
-    /**
-     * 创建视图模型
-     */
-    protected createModel() {
-        return new <%=SafeClassName%>ViewModel();
     }
 
     /**

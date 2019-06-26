@@ -63,7 +63,6 @@ namespace Util.Ui.Angular.Internal {
             if( string.IsNullOrWhiteSpace( model ) )
                 return;
             config.SetAttribute( UiConst.Model, model, false );
-            config.SetAttribute( AngularConst.NgModel, model, false );
         }
 
         /// <summary>
@@ -138,7 +137,7 @@ namespace Util.Ui.Angular.Internal {
                 return;
             }
             if( Reflection.IsNumber( member ) ) {
-                config.Number();
+                config.IsNumber = true;
                 return;
             }
             InitDataType( config, member.GetCustomAttribute<DataTypeAttribute>() );

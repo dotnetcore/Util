@@ -6,6 +6,10 @@ namespace Util.Ui.Angular.Base {
     /// </summary>
     public abstract class AngularTagHelperBase : TagHelperBase {
         /// <summary>
+        /// id,标签的Id属性
+        /// </summary>
+        public string RawId { get; set; }
+        /// <summary>
         /// *ngIf
         /// </summary>
         public string NgIf { get; set; }

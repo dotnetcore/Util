@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Util.Datas.UnitOfWorks;
 
 namespace Util.Samples.Data.UnitOfWorks.PgSql {
     /// <summary>
@@ -10,8 +9,7 @@ namespace Util.Samples.Data.UnitOfWorks.PgSql {
         /// 初始化工作单元
         /// </summary>
         /// <param name="options">配置项</param>
-        /// <param name="unitOfWorkManager">工作单元服务</param>
-        public SampleUnitOfWork( DbContextOptions options, IUnitOfWorkManager unitOfWorkManager ) : base( options, unitOfWorkManager ) {
+        public SampleUnitOfWork( DbContextOptions<SampleUnitOfWork> options ) : base( options ) {
         }
     }
 }

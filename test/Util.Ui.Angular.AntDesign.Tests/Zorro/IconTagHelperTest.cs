@@ -2,7 +2,7 @@
 using Util.Helpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Enums;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Icons;
 using Xunit;
 using Xunit.Abstractions;

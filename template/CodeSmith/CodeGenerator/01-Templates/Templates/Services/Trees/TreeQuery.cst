@@ -38,7 +38,7 @@ namespace <%= string.Format("{0}.Service.Queries.{1}",Namespace,Entity.TableSche
         /// 结束<%=p.Description %>
         /// </summary>
         [Display( Name = "结束<%=p.Description %>" )]
-        public DateTime? End<%= p.PropertyName.ToSafeName() %> { get; set; }        
+        public DateTime? End<%= p.PropertyName.ToSafeName() %> { get; set; }
         <%continue;}%>
         <% if( p.SystemType == typeof(string) ) {%>
         

@@ -5,11 +5,17 @@ using Util.Helpers;
 
 namespace Util.Datas.Queries.Trees {
     /// <summary>
-    /// 树型查询参数
+    /// 树形查询参数
+    /// </summary>
+    public class TreeQueryParameter : TreeQueryParameter<Guid?>, ITreeQueryParameter {
+    }
+
+    /// <summary>
+    /// 树形查询参数
     /// </summary>
     public class TreeQueryParameter<TParentId> : QueryParameter, ITreeQueryParameter<TParentId> {
         /// <summary>
-        /// 初始化树型查询参数
+        /// 初始化树形查询参数
         /// </summary>
         protected TreeQueryParameter() {
             Order = "SortId";
@@ -21,7 +27,7 @@ namespace Util.Datas.Queries.Trees {
         public TParentId ParentId { get; set; }
 
         /// <summary>
-        /// 级数
+        /// 层级
         /// </summary>
         public int? Level { get; set; }
 
@@ -63,11 +69,5 @@ namespace Util.Datas.Queries.Trees {
             }
             return true;
         }
-    }
-
-    /// <summary>
-    /// 树型查询参数
-    /// </summary>
-    public class TreeQueryParameter : TreeQueryParameter<Guid?>, ITreeQueryParameter {
     }
 }

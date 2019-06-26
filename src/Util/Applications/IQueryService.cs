@@ -1,5 +1,4 @@
-﻿using Util.Applications.Dtos;
-using Util.Applications.Operations;
+﻿using Util.Applications.Operations;
 using Util.Datas.Queries;
 
 namespace Util.Applications {
@@ -12,7 +11,7 @@ namespace Util.Applications {
         IGetById<TDto>, IGetByIdAsync<TDto>,
         IGetAll<TDto>, IGetAllAsync<TDto>,
         IPageQuery<TDto, TQueryParameter>, IPageQueryAsync<TDto, TQueryParameter>
-        where TDto : IResponse, new()
+        where TDto : new()
         where TQueryParameter : IQueryParameter {
     }
 }

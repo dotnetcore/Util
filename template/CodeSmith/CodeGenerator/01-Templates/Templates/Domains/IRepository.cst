@@ -18,6 +18,16 @@
 using Util.Domains.Repositories;
 using <%= Entity.GetNamespace(Namespace,"Domain","Models") %>;
 
+<%
+if( Entity.IsTreeEntity() ){ %>
+namespace <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %> {
+    /// <summary>
+    /// <%= Description %>仓储
+    /// </summary>
+    public interface I<%= SafeClassName %>Repository : ITreeRepository<<%= SafeClassName %><%= Entity.GetKeyTypeNoContainsGuid() %>> {
+    }
+}
+<% return;}%>
 namespace <%= Entity.GetNamespace(Namespace,"Domain","Repositories") %> {
     /// <summary>
     /// <%= Description %>仓储

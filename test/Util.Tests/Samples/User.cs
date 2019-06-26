@@ -1,11 +1,11 @@
 ﻿using System;
-using Util.Security.Identity.Models;
+using Util.Domains;
 
 namespace Util.Tests.Samples {
     /// <summary>
     /// 用户
     /// </summary>
-    public class User : User<User,Guid> {
+    public class User : AggregateRoot<User> {
         /// <summary>
         /// 初始化用户
         /// </summary>

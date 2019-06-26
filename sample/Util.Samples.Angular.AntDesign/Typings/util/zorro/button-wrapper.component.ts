@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=====================================================
-import { Component, Input, Output, EventEmitter, Host, Optional, ContentChild, TemplateRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Optional, ContentChild, TemplateRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Util } from "../util";
 import { MessageConfig } from '../config/message-config';
@@ -21,7 +21,7 @@ import { MessageConfig } from '../config/message-config';
         </button>
     `
 } )
-export class ButtonWrapperComponent {
+export class Button {
     /**
      * 文本
      */
@@ -75,13 +75,13 @@ export class ButtonWrapperComponent {
      * 初始化按钮包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() private form: NgForm ) {
+    constructor( @Optional() private form: NgForm ) {
     }
 
     /**
      * 是否禁用
      */
-    private isDisabled() {
+    isDisabled() {
         if ( this.disabled !== undefined )
             return this.disabled;
         return this.validateForm && this.form && !this.form.valid;
@@ -90,7 +90,7 @@ export class ButtonWrapperComponent {
     /**
      * 获取文本
      */
-    private getText() {
+    getText() {
         if ( this.shape === "circle" )
             return null;
         if ( !Util.helper.isUndefined( this.text ) )
@@ -101,7 +101,7 @@ export class ButtonWrapperComponent {
     /**
      * 单击事件
      */
-    private click( event ) {
+    click( event ) {
         this.onClick.emit( event );
     }
 }

@@ -2,8 +2,9 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=====================================================
-import { Component,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ComponentBase } from "./base/component-base";
+import { ChartContext } from "viser-ng/es/chartService";
 
 /**
  * Viser面积图包装器
@@ -25,13 +26,14 @@ export class AreaWrapperComponent extends ComponentBase {
     /**
      * 折线尺寸
      */
-    @Input() lineSize? : number;
+    @Input() lineSize?: number;
 
     /**
      * 初始化面积图包装器
+     * @param context 图表上下文
      */
-    constructor() {
-        super();
+    constructor( public context: ChartContext ) {
+        super( context );
         this.showLine = true;
         this.lineSize = 2;
     }

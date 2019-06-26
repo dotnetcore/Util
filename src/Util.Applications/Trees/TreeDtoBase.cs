@@ -19,14 +19,14 @@ namespace Util.Applications.Trees {
         /// </summary>
         public string Path { get; set; }
         /// <summary>
-        /// 级数
+        /// 层级
         /// </summary>
         public int? Level { get; set; }
         /// <summary>
         /// 启用
         /// </summary>
         [Display( Name = "启用" )]
-        public bool? Enabled { get; set; }
+        public bool? Enabled { get; set; } = true;
         /// <summary>
         /// 排序号
         /// </summary>

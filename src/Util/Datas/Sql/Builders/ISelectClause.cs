@@ -90,6 +90,11 @@ namespace Util.Datas.Sql.Builders {
         /// <summary>
         /// 设置列名
         /// </summary>
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        void Select<TEntity>( bool propertyAsAlias = false );
+        /// <summary>
+        /// 设置列名
+        /// </summary>
         /// <param name="columns">列名</param>
         /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
         void Select<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class;

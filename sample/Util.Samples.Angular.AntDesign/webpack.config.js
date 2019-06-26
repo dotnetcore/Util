@@ -26,6 +26,9 @@ module.exports = (env) => {
             filename: "[name].js",
             chunkFilename: '[id].chunk.js'
         },
+        optimization: {
+            noEmitOnErrors: true
+        },
         resolve: {
             extensions: ['.js', '.ts','.less','.css']
         },
@@ -67,7 +70,6 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            extractCss,
             new webpack.DefinePlugin({
                 'process.env': { NODE_ENV: isDev ? JSON.stringify("dev") : JSON.stringify("prod") }
             })

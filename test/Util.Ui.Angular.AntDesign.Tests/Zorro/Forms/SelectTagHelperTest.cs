@@ -69,6 +69,61 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试设置名称
+        /// </summary>
+        [Fact]
+        public void TestBindName() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindName, "a" } };
+            var result = new String();
+            result.Append( "<x-select [name]=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置排序
+        /// </summary>
+        [Fact]
+        public void TestSort() {
+            var attributes = new TagHelperAttributeList { { UiConst.Sort, "a" } };
+            var result = new String();
+            result.Append( "<x-select order=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示清除按钮
+        /// </summary>
+        [Fact]
+        public void TestShowClear() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowClear, true } };
+            var result = new String();
+            result.Append( "<x-select [allowClear]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示搜索框
+        /// </summary>
+        [Fact]
+        public void TestShowSearch() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowSearch, true } };
+            var result = new String();
+            result.Append( "<x-select [showSearch]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示箭头
+        /// </summary>
+        [Fact]
+        public void TestShowArrow() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowArrow, true } };
+            var result = new String();
+            result.Append( "<x-select [showArrow]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试禁用
         /// </summary>
         [Fact]
@@ -116,10 +171,32 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// 测试设置数据源
         /// </summary>
         [Fact]
-        public void TestDataSource() {
-            var attributes = new TagHelperAttributeList { { UiConst.DataSource, "a" } };
+        public void TestData() {
+            var attributes = new TagHelperAttributeList { { UiConst.Data, "a" } };
             var result = new String();
             result.Append( "<x-select [dataSource]=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试服务端搜索
+        /// </summary>
+        [Fact]
+        public void TestServerSearch() {
+            var attributes = new TagHelperAttributeList { { UiConst.ServerSearch, true } };
+            var result = new String();
+            result.Append( "<x-select [isServerSearch]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试滚动加载
+        /// </summary>
+        [Fact]
+        public void TestScrollLoad() {
+            var attributes = new TagHelperAttributeList { { UiConst.ScrollLoad, true } };
+            var result = new String();
+            result.Append( "<x-select [isScrollLoad]=\"true\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -161,9 +238,20 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// </summary>
         [Fact]
         public void TestWidth() {
-            var attributes = new TagHelperAttributeList { { UiConst.Width, 1 } };
+            var attributes = new TagHelperAttributeList { { UiConst.Width, "a" } };
             var result = new String();
-            result.Append( "<x-select width=\"1\"></x-select>" );
+            result.Append( "<x-select width=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试设置宽度
+        /// </summary>
+        [Fact]
+        public void TestWidth_Number() {
+            var attributes = new TagHelperAttributeList { { UiConst.Width, "1" } };
+            var result = new String();
+            result.Append( "<x-select width=\"1px\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -175,6 +263,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Multiple, true } };
             var result = new String();
             result.Append( "<x-select [multiple]=\"true\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试最多选择数量
+        /// </summary>
+        [Fact]
+        public void TestMaxMultipleCount() {
+            var attributes = new TagHelperAttributeList { { UiConst.MaxMultipleCount, 10 } };
+            var result = new String();
+            result.Append( "<x-select [maxMultipleCount]=\"10\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -208,6 +307,19 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.RequiredMessage, "a" } };
             var result = new String();
             result.Append( "<x-select requiredMessage=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试栅格跨度
+        /// </summary>
+        [Fact]
+        public void TestSpan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
+            var result = new String();
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-select></x-select>" );
+            result.Append( "</nz-form-control>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -252,6 +364,28 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.OnKeydown, "a" } };
             var result = new String();
             result.Append( "<x-select (onKeydown)=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试搜索事件
+        /// </summary>
+        [Fact]
+        public void TestOnSearch() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnSearch, "a" } };
+            var result = new String();
+            result.Append( "<x-select (onSearch)=\"a\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试滚动到底部事件
+        /// </summary>
+        [Fact]
+        public void TestOnScrollToBottom() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnScrollToBottom, "a" } };
+            var result = new String();
+            result.Append( "<x-select (onScrollToBottom)=\"a\"></x-select>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

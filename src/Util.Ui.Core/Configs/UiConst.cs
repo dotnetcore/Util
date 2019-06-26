@@ -12,6 +12,10 @@
         /// </summary>
         public const string Class = "class";
         /// <summary>
+        /// 类名
+        /// </summary>
+        public const string ClassName = "class-name";
+        /// <summary>
         /// 样式
         /// </summary>
         public const string Style = "style";
@@ -43,6 +47,10 @@
         /// 禁用
         /// </summary>
         public const string Disabled = "disabled";
+        /// <summary>
+        /// 禁用日期
+        /// </summary>
+        public const string DisabledDate = "disabled-date";
         /// <summary>
         /// 只读
         /// </summary>
@@ -83,6 +91,14 @@
         /// 关闭事件
         /// </summary>
         public const string OnClose = "on-close";
+        /// <summary>
+        /// 搜索事件
+        /// </summary>
+        public const string OnSearch = "on-search";
+        /// <summary>
+        /// 滚动到底部事件
+        /// </summary>
+        public const string OnScrollToBottom = "on-scroll-to-bottom";
         /// <summary>
         /// 图标
         /// </summary>
@@ -131,6 +147,10 @@
         /// 多选
         /// </summary>
         public const string Multiple = "multiple";
+        /// <summary>
+        /// 最多选择数量
+        /// </summary>
+        public const string MaxMultipleCount = "max-multiple-count";
         /// <summary>
         /// 模型绑定
         /// </summary>
@@ -187,6 +207,10 @@
         /// 标签
         /// </summary>
         public const string Label = "label";
+        /// <summary>
+        /// 标签文本
+        /// </summary>
+        public const string LabelText = "label-text";
         /// <summary>
         /// 位置
         /// </summary>
@@ -380,6 +404,10 @@
         /// </summary>
         public const string Wrap = "wrap";
         /// <summary>
+        /// 格式化
+        /// </summary>
+        public const string Format = "format";
+        /// <summary>
         /// 日期格式化
         /// </summary>
         public const string DateFormat = "date-format";
@@ -391,6 +419,10 @@
         /// 还原查询参数
         /// </summary>
         public const string OnQueryRestore = "on-query-restore";
+        /// <summary>
+        /// 显示复选框
+        /// </summary>
+        public const string ShowCheckbox = "show-checkbox";
         /// <summary>
         /// 复选框
         /// </summary>
@@ -572,9 +604,17 @@
         /// </summary>
         public const string AcceptImage = "accept-image";
         /// <summary>
+        /// 接受文档
+        /// </summary>
+        public const string AcceptDocument = "accept-document";
+        /// <summary>
         /// 图片类型
         /// </summary>
         public const string ImageTypes = "image-types";
+        /// <summary>
+        /// 文档类型
+        /// </summary>
+        public const string DocumentTypes = "document-types";
         /// <summary>
         /// 目录
         /// </summary>
@@ -583,5 +623,245 @@
         /// 数据
         /// </summary>
         public const string Data = "data";
+        /// <summary>
+        /// 上传前操作
+        /// </summary>
+        public const string BeforeUpload = "before-upload";
+        /// <summary>
+        /// 上传前事件
+        /// </summary>
+        public const string OnBeforeUpload = "on-before-upload";
+        /// <summary>
+        /// 过滤器
+        /// </summary>
+        public const string Filter = "filter";
+        /// <summary>
+        /// 限制
+        /// </summary>
+        public const string Limit = "limit";
+        /// <summary>
+        /// 总量限制
+        /// </summary>
+        public const string TotalLimit = "total-limit";
+        /// <summary>
+        /// 文件列表
+        /// </summary>
+        public const string FileList = "file-list";
+        /// <summary>
+        /// 显示时间
+        /// </summary>
+        public const string ShowTime = "show-time";
+        /// <summary>
+        /// 显示今天
+        /// </summary>
+        public const string ShowToday = "show-today";
+        /// <summary>
+        /// 节点占据一行
+        /// </summary>
+        public const string BlockNode = "block-node";
+        /// <summary>
+        /// 显示展开
+        /// </summary>
+        public const string ShowExpand = "show-expand";
+        /// <summary>
+        /// 显示线
+        /// </summary>
+        public const string ShowLine = "show-line";
+        /// <summary>
+        /// 显示标签
+        /// </summary>
+        public const string ShowLabel = "show-label";
+        /// <summary>
+        /// 展开所有
+        /// </summary>
+        public const string ExpandAll = "expand-all";
+        /// <summary>
+        /// 显示图标
+        /// </summary>
+        public const string ShowIcon = "show-icon";
+        /// <summary>
+        /// 双击事件
+        /// </summary>
+        public const string OnDblClick = "on-dbl-click";
+        /// <summary>
+        /// 展开事件
+        /// </summary>
+        public const string OnExpand = "on-expand";
+        /// <summary>
+        /// 显示按钮
+        /// </summary>
+        public const string ShowButton = "show-button";
+        /// <summary>
+        /// 显示边框
+        /// </summary>
+        public const string ShowBorder = "show-border";
+        /// <summary>
+        /// 加载后事件
+        /// </summary>
+        public const string OnLoadAfter = "on-load-after";
+        /// <summary>
+        /// 显示跳转
+        /// </summary>
+        public const string ShowJumper = "show-jumper";
+        /// <summary>
+        /// 显示总量
+        /// </summary>
+        public const string ShowTotal = "show-total";
+        /// <summary>
+        /// 总量模板
+        /// </summary>
+        public const string TotalTemplate = "total-template";
+        /// <summary>
+        /// 显示清除
+        /// </summary>
+        public const string ShowClear = "show-clear";
+        /// <summary>
+        /// 显示搜索
+        /// </summary>
+        public const string ShowSearch = "show-search";
+        /// <summary>
+        /// 显示箭头
+        /// </summary>
+        public const string ShowArrow = "show-arrow";
+        /// <summary>
+        /// 自动获取焦点
+        /// </summary>
+        public const string AutoFocus = "auto-focus";
+        /// <summary>
+        /// 日期渲染器
+        /// </summary>
+        public const string DateRender = "date-render";
+        /// <summary>
+        /// 本地化
+        /// </summary>
+        public const string Locale = "locale";
+        /// <summary>
+        /// 是否打开
+        /// </summary>
+        public const string IsOpen = "is-open";
+        /// <summary>
+        /// 打开变更事件
+        /// </summary>
+        public const string OnOpenChange = "on-open-change";
+        /// <summary>
+        /// 禁用今天之前的日期
+        /// </summary>
+        public const string DisabledBeforeToday = "disabled-before-today";
+        /// <summary>
+        /// 禁用明天之前的日期
+        /// </summary>
+        public const string DisabledBeforeTomorrow = "disabled-before-tomorrow";
+        /// <summary>
+        /// 显示分页
+        /// </summary>
+        public const string ShowPagination = "show-pagination";
+        /// <summary>
+        /// 滚动高度
+        /// </summary>
+        public const string ScrollHeight = "scroll-height";
+        /// <summary>
+        /// 滚动宽度
+        /// </summary>
+        public const string ScrollWidth = "scroll-width";
+        /// <summary>
+        /// 服务端搜索
+        /// </summary>
+        public const string ServerSearch = "server-search";
+        /// <summary>
+        /// 滚动加载
+        /// </summary>
+        public const string ScrollLoad = "scroll-load";
+        /// <summary>
+        /// 精度
+        /// </summary>
+        public const string Precision = "precision";
+        /// <summary>
+        /// 步
+        /// </summary>
+        public const string Step = "step";
+        /// <summary>
+        /// 只能选择叶节点
+        /// </summary>
+        public const string CheckLeafOnly = "check-leaf-only";
+        /// <summary>
+        /// 列表类型
+        /// </summary>
+        public const string ListType = "list-type";
+        /// <summary>
+        /// 自定义请求
+        /// </summary>
+        public const string CustomRequest = "custom-request";
+        /// <summary>
+        /// 头部
+        /// </summary>
+        public const string Headers = "headers";
+        /// <summary>
+        /// 显示上传列表
+        /// </summary>
+        public const string ShowUploadList = "show-upload-list";
+        /// <summary>
+        /// 携带凭据
+        /// </summary>
+        public const string WithCredentials = "with-credentials";
+        /// <summary>
+        /// 预览
+        /// </summary>
+        public const string Preview = "preview";
+        /// <summary>
+        /// 移除
+        /// </summary>
+        public const string Remove = "remove";
+        /// <summary>
+        /// 是否虚线
+        /// </summary>
+        public const string Dashed = "dashed";
+        /// <summary>
+        /// 方向
+        /// </summary>
+        public const string Orientation = "orientation";
+        /// <summary>
+        /// 跨度
+        /// </summary>
+        public const string Span = "span";
+        /// <summary>
+        /// 布局
+        /// </summary>
+        public const string Layout = "layout";
+        /// <summary>
+        /// 显示冒号
+        /// </summary>
+        public const string ShowColon = "show-colon";
+        /// <summary>
+        /// 标签for属性
+        /// </summary>
+        public const string LabelFor = "label-for";
+        /// <summary>
+        /// 间隔
+        /// </summary>
+        public const string Gutter = "gutter";
+        /// <summary>
+        /// 标签跨度
+        /// </summary>
+        public const string LabelSpan = "label-span";
+        /// <summary>
+        /// 控件跨度
+        /// </summary>
+        public const string ControlSpan = "control-span";
+        /// <summary>
+        /// 是否浮动
+        /// </summary>
+        public const string IsFlex = "is-flex";
+        /// <summary>
+        /// 水平排列
+        /// </summary>
+        public const string Justify = "justify";
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public const string Message = "message";
+        /// <summary>
+        /// 操作
+        /// </summary>
+        public const string Actions = "actions";
     }
 }

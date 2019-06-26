@@ -147,17 +147,6 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
-        /// 测试设置为数字框
-        /// </summary>
-        [Fact]
-        public void TestType_Number() {
-            var attributes = new TagHelperAttributeList { { UiConst.Type, TextBoxType.Number } };
-            var result = new String();
-            result.Append( "<x-textbox type=\"number\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
         /// 测试设置为多行文本框
         /// </summary>
         [Fact]
@@ -246,50 +235,6 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
-        /// 测试最小值验证
-        /// </summary>
-        [Fact]
-        public void TestMin() {
-            var attributes = new TagHelperAttributeList { { UiConst.Min, 3 } };
-            var result = new String();
-            result.Append( "<x-textbox [min]=\"3\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试最小值,添加指定错误消息
-        /// </summary>
-        [Fact]
-        public void TestMin_Message() {
-            var attributes = new TagHelperAttributeList { { UiConst.MinMessage, "a" } };
-            var result = new String();
-            result.Append( "<x-textbox minMessage=\"a\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试最大值验证
-        /// </summary>
-        [Fact]
-        public void TestMax() {
-            var attributes = new TagHelperAttributeList { { UiConst.Max, 3 } };
-            var result = new String();
-            result.Append( "<x-textbox [max]=\"3\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
-        /// 测试最大值,添加指定错误消息
-        /// </summary>
-        [Fact]
-        public void TestMax_Message() {
-            var attributes = new TagHelperAttributeList { { UiConst.MaxMessage, "a" } };
-            var result = new String();
-            result.Append( "<x-textbox maxMessage=\"a\"></x-textbox>" );
-            Assert.Equal( result.ToString(), GetResult( attributes ) );
-        }
-
-        /// <summary>
         /// 测试正则表达式验证
         /// </summary>
         [Fact]
@@ -308,6 +253,19 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.RegexMessage, "a" } };
             var result = new String();
             result.Append( "<x-textbox patterMessage=\"a\"></x-textbox>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试栅格跨度
+        /// </summary>
+        [Fact]
+        public void TestSpan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 } };
+            var result = new String();
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "</nz-form-control>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

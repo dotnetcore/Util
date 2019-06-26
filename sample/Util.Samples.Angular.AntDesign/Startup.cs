@@ -57,6 +57,8 @@ namespace Util.Samples {
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.PgSql.SampleUnitOfWork>( Configuration.GetConnectionString( "PgSqlConnection" ) );
             //======= 支持MySql =======
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
+            //======= 支持Oracle =======
+            //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.Oracle.SampleUnitOfWork>( Configuration.GetConnectionString( "OracleConnection" ) );
 
             //添加Swagger
             services.AddSwaggerGen( options => {

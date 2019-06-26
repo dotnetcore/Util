@@ -17,6 +17,7 @@ namespace Util.Events {
         /// <param name="name">消息名称</param>
         /// <param name="data">事件数据</param>
         /// <param name="callback">回调名称</param>
-        Task PublishAsync( string name, object data, string callback = null );
+        /// <param name="send">是否立即发送消息</param>
+        Task PublishAsync( string name, object data, string callback = null, bool send = false );
     }
 }

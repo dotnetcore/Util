@@ -20,6 +20,12 @@ namespace Util.Datas.Sql.Builders {
         /// 获取列名
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        string GetColumns<TEntity>( bool propertyAsAlias );
+        /// <summary>
+        /// 获取列名
+        /// </summary>
+        /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="columns">列名表达式</param>
         /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
         string GetColumns<TEntity>( Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias );

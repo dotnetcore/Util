@@ -79,9 +79,13 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
             var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
             var result = new String();
-            result.Append( "" );
-            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"id_wrapper.checkedSelection.toggle(row)\" nzShowCheckbox=\"\" " );
-            result.Append( "[nzChecked]=\"id_wrapper.checkedSelection.isSelected(row)\">" );
+            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"id_wrapper.checkedSelection.toggle(row)\" " );
+            result.Append( "[nzChecked]=\"id_wrapper.checkedSelection.isSelected(row)\" " );
+            result.Append( "[nzShowCheckbox]=\"id_wrapper.multiple\">" );
+            result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"id_wrapper.checkRowOnly(row)\" " );
+            result.Append( "*ngIf=\"!id_wrapper.multiple\" name=\"radio_id\" nz-radio=\"\" " );
+            result.Append( "[ngModel]=\"id_wrapper.checkedSelection.isSelected(row)\">" );
+            result.Append( "</label>" );
             result.Append( "</td>" );
              Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }

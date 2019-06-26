@@ -2,7 +2,7 @@
 using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Enums;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Icons.Builders;
 
 namespace Util.Ui.Zorro.Icons.Renders {

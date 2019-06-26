@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Util.Datas.Ef.Core;
 using Util.Datas.Ef.Internal;
-using Util.Datas.UnitOfWorks;
 
 namespace Util.Datas.Ef.PgSql {
     /// <summary>
@@ -16,10 +15,9 @@ namespace Util.Datas.Ef.PgSql {
         /// 初始化PgSql工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        /// <param name="manager">工作单元服务</param>
         /// <param name="serviceProvider">服务提供器</param>
-        protected UnitOfWork( DbContextOptions options, IUnitOfWorkManager manager, IServiceProvider serviceProvider = null )
-            : base( options, manager, serviceProvider ) {
+        protected UnitOfWork( DbContextOptions options, IServiceProvider serviceProvider = null )
+            : base( options, serviceProvider ) {
         }
 
         /// <summary>

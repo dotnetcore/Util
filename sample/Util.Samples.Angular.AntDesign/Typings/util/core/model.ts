@@ -1,5 +1,5 @@
 ﻿//============== 模型=========================
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
 
@@ -27,6 +27,14 @@ export class ViewModel implements IKey {
  * 查询参数
  */
 export class QueryParameter {
+    /**
+     * 初始化查询参数
+     */
+    constructor() {
+        this.page = 1;
+        this.pageSize = 10;
+    }
+
     /**
      * 页索引，即第几页
      */

@@ -20,6 +20,7 @@ using Util.Datas.Sql.Matedatas;
 using Util.Datas.Transactions;
 using Util.Helpers;
 using Util.Logs;
+using Util.Security;
 using Util.Sessions;
 
 namespace Util.Datas.Ef.Core {
@@ -63,14 +64,31 @@ namespace Util.Datas.Ef.Core {
         /// 初始化Entity Framework工作单元
         /// </summary>
         /// <param name="options">配置</param>
-        /// <param name="manager">工作单元管理器</param>
         /// <param name="serviceProvider">服务提供器</param>
-        protected UnitOfWorkBase( DbContextOptions options, IUnitOfWorkManager manager, IServiceProvider serviceProvider )
+        protected UnitOfWorkBase( DbContextOptions options, IServiceProvider serviceProvider )
             : base( options ) {
-            manager?.Register( this );
             TraceId = Guid.NewGuid().ToString();
             Session = Util.Security.Sessions.Session.Instance;
             _serviceProvider = serviceProvider ?? Ioc.Create<IServiceProvider>();
+            RegisterToManager();
+        }
+
+        /// <summary>
+        /// 注册到工作单元管理器
+        /// </summary>
+        private void RegisterToManager() {
+            var manager = Create<IUnitOfWorkManager>();
+            manager?.Register( this );
+        }
+
+        /// <summary>
+        /// 创建实例
+        /// </summary>
+        private T Create<T>() {
+            var result = _serviceProvider.GetService( typeof( T ) );
+            if( result == null )
+                return default( T );
+            return (T)result;
         }
 
         #endregion
@@ -145,16 +163,6 @@ namespace Util.Datas.Ef.Core {
             catch {
                 return new EfConfig { EfLogLevel = EfLogLevel.Sql };
             }
-        }
-
-        /// <summary>
-        /// 创建实例
-        /// </summary>
-        private T Create<T>() {
-            var result = _serviceProvider.GetService( typeof( T ) );
-            if ( result == null )
-                return default(T);
-            return (T) result;
         }
 
         #endregion
@@ -287,7 +295,14 @@ namespace Util.Datas.Ef.Core {
         /// 初始化创建审计信息
         /// </summary>
         private void InitCreationAudited( EntityEntry entry ) {
-            CreationAuditedInitializer.Init( entry.Entity, GetSession() );
+            CreationAuditedInitializer.Init( entry.Entity, GetUserId(), GetUserName() );
+        }
+
+        /// <summary>
+        /// 获取用户标识
+        /// </summary>
+        protected virtual string GetUserId() {
+            return GetSession().UserId;
         }
 
         /// <summary>
@@ -298,10 +313,18 @@ namespace Util.Datas.Ef.Core {
         }
 
         /// <summary>
+        /// 获取用户名称
+        /// </summary>
+        protected virtual string GetUserName() {
+            var name = GetSession().GetFullName();
+            return string.IsNullOrEmpty( name ) ? GetSession().GetUserName() : name;
+        }
+
+        /// <summary>
         /// 初始化修改审计信息
         /// </summary>
         private void InitModificationAudited( EntityEntry entry ) {
-            ModificationAuditedInitializer.Init( entry.Entity, GetSession() );
+            ModificationAuditedInitializer.Init( entry.Entity, GetUserId(), GetUserName() );
         }
 
         /// <summary>

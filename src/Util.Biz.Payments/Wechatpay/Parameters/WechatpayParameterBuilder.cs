@@ -51,7 +51,7 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
-        public WechatpayParameterBuilder Add( string name, string value ) {
+        public WechatpayParameterBuilder Add( string name, object value ) {
             _builder.Add( name, value );
             return this;
         }

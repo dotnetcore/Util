@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Util.Datas.Tests.Samples {
     /// <summary>
@@ -14,5 +15,10 @@ namespace Util.Datas.Tests.Samples {
         /// 是否删除
         /// </summary>
         public bool IsDeleted { get; set; }
+        /// <summary>
+        /// 跳过的属性
+        /// </summary>
+        [NotMapped]
+        public bool Ignore { get; set; }
     }
 }

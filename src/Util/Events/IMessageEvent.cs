@@ -15,5 +15,9 @@
         /// 回调名称
         /// </summary>
         string Callback { get; set; }
+        /// <summary>
+        /// 是否立即发送消息
+        /// </summary>
+        bool Send { get; set; }
     }
 }

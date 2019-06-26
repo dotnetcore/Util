@@ -3,56 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Util.Applications.Dtos;
 using Util.Applications.Trees;
 using Util.Datas.Queries.Trees;
 using Util.Domains.Repositories;
 using Util.Exceptions;
 using Util.Ui.Extensions;
 using Util.Ui.Prime.TreeTables.Datas;
-using Util.Webs.Controllers;
+using Util.Webs.Controllers.Trees;
 
 namespace Util.Ui.Controllers {
     /// <summary>
-    /// 树型控制器
+    /// 树形控制器
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     public abstract class PrimeTreeControllerBase<TDto, TQuery> : PrimeTreeControllerBase<TDto, TQuery, Guid?>
-        where TDto : class, IResponse, ITreeNode, new()
+        where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter, new() {
         /// <summary>
-        /// 初始化树型控制器
+        /// 初始化树形控制器
         /// </summary>
-        /// <param name="service">树型服务</param>
+        /// <param name="service">树形服务</param>
         protected PrimeTreeControllerBase( ITreeService<TDto, TQuery, Guid?> service ) : base( service ) {
         }
     }
 
     /// <summary>
-    /// 树型控制器
+    /// 树形控制器
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public abstract class PrimeTreeControllerBase<TDto, TQuery, TParentId> : TreeControllerBase<TDto, TQuery, TParentId>
-        where TDto : class, IResponse, ITreeNode, new()
+    public abstract class PrimeTreeControllerBase<TDto, TQuery, TParentId> : ControllerBase<TDto, TQuery, TParentId>
+        where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter<TParentId>, new() {
         /// <summary>
-        /// 树型服务
+        /// 树形服务
         /// </summary>
         private readonly ITreeService<TDto, TQuery, TParentId> _service;
 
         /// <summary>
-        /// 初始化树型控制器
+        /// 初始化树形控制器
         /// </summary>
-        /// <param name="service">树型服务</param>
+        /// <param name="service">树形服务</param>
         protected PrimeTreeControllerBase( ITreeService<TDto, TQuery, TParentId> service ) : base( service ) {
             _service = service;
         }
 
         /// <summary>
-        /// 获取单个树型节点
+        /// 获取单个树形节点
         /// </summary>
         /// <remarks> 
         /// 调用范例: 

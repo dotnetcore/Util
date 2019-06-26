@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Util.Applications.Dtos;
 
 namespace Util.Applications.Operations {
     /// <summary>
     /// 获取指定标识实体
     /// </summary>
-    public interface IGetById<TDto> where TDto : IResponse, new() {
+    public interface IGetById<TDto> where TDto : new() {
         /// <summary>
         /// 通过编号获取
         /// </summary>

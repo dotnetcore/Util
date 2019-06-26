@@ -7,6 +7,9 @@ import { BasicFormComponent } from "./forms/basic-form.component";
 //列表组件
 import { TableListComponent } from "./list/table-list.component";
 
+//树组件
+import { TreeComponent } from "./trees/tree.component";
+
 //路由配置
 const routes: Routes = [
     {
@@ -17,8 +20,19 @@ const routes: Routes = [
     },
     {
         path: 'list',
-            children: [
-                { path: 'table-list', component: TableListComponent }
+        children: [
+            {
+                path: 'table-list', children: [
+                    { path: '', component: TableListComponent},
+                    { path: 'edit/:id', component: BasicFormComponent }
+                ]
+            }
+        ]
+    },
+    {
+        path: 'trees',
+        children: [
+            { path: 'tree', component: TreeComponent }
         ]
     }
 ];
@@ -26,9 +40,9 @@ const routes: Routes = [
 /**
  * Demo路由配置模块
  */
-@NgModule({
+@NgModule( {
     imports: [
-        RouterModule.forChild(routes)
+        RouterModule.forChild( routes )
     ]
-})
+} )
 export class DemoRoutingModule { }

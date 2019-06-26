@@ -40,7 +40,7 @@ namespace Util.Applications {
     public abstract class DeleteServiceBase<TEntity, TDto, TQueryParameter, TKey>
         : QueryServiceBase<TEntity, TDto, TQueryParameter, TKey>,IDeleteService<TDto, TQueryParameter>
         where TEntity : class, IKey<TKey>,IVersion, new()
-        where TDto : IResponse, new()
+        where TDto : new()
         where TQueryParameter : IQueryParameter {
         /// <summary>
         /// 工作单元

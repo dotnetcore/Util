@@ -10,7 +10,7 @@ namespace Util.Datas.Sql.Matedatas {
         /// </summary>
         /// <param name="type">实体类型</param>
         public string GetTable( Type type ) {
-            return type?.FullName;
+            return type?.Name;
         }
 
         /// <summary>

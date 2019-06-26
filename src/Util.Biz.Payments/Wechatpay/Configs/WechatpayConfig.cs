@@ -45,6 +45,16 @@ namespace Util.Biz.Payments.Wechatpay.Configs {
         public string NotifyUrl { get; set; }
 
         /// <summary>
+        /// 证书绝对路径
+        /// </summary>
+        public string Certificate { get; set; }
+
+        /// <summary>
+        /// 证书密码
+        /// </summary>
+        public string CertificatePassword { get; set; }
+
+        /// <summary>
         /// 验证
         /// </summary>
         public void Validate() {
@@ -58,6 +68,13 @@ namespace Util.Biz.Payments.Wechatpay.Configs {
         /// </summary>
         public string GetOrderUrl() {
             return Url.Combine( GatewayUrl, "pay/unifiedorder" );
+        }
+
+        /// <summary>
+        /// 获取退款地址
+        /// </summary>
+        public string GetRefundUrl() {
+            return Url.Combine( GatewayUrl, "secapi/pay/refund" );
         }
     }
 }

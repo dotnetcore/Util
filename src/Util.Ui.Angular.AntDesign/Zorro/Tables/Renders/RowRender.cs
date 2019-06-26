@@ -2,6 +2,7 @@
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.Zorro.Tables.Configs;
 
 namespace Util.Ui.Zorro.Tables.Renders {
     /// <summary>
@@ -11,7 +12,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly IConfig _config;
+        private readonly Config _config;
         /// <summary>
         /// 表格标识
         /// </summary>
@@ -22,7 +23,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         /// <param name="config">配置</param>
         /// <param name="tableId">表格标识</param>
-        public RowRender( IConfig config, string tableId ) : base( config ) {
+        public RowRender( Config config, string tableId ) : base( config ) {
             _config = config;
             _tableId = tableId;
         }
@@ -45,6 +46,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             InitBuilder( builder );
             ConfigId( builder );
             ConfigVariable( builder );
+            ConfigEvents( builder );
             ConfigContent( builder );
         }
 
@@ -52,9 +54,34 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 配置循环变量
         /// </summary>
         private void ConfigVariable( TableRowBuilder builder ) {
-            if ( _tableId.IsEmpty() )
+            if( _tableId.IsEmpty() )
                 return;
             builder.NgFor( $"let row of {_tableId}.data" );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( TableRowBuilder builder ) {
+            ConfigOnClick( builder );
+        }
+
+        /// <summary>
+        /// 配置行单击事件
+        /// </summary>
+        private void ConfigOnClick( TableRowBuilder builder ) {
+            if( _config.Contains( UiConst.OnClick ) ) {
+                builder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClick ) );
+                return;
+            }
+            builder.AddAttribute( "(click)", GetShareConfig()?.OnClickRow );
+        }
+
+        /// <summary>
+        /// 获取共享配置
+        /// </summary>
+        private TableShareConfig GetShareConfig() {
+            return _config.Context?.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
         }
     }
 }

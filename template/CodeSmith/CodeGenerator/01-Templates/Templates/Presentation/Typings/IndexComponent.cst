@@ -35,25 +35,18 @@ import { <%=SafeClassName%>Query } from './model/<%=CamelClassName%>-query';
 import { <%=SafeClassName%>ViewModel } from './model/<%=CamelClassName%>-view-model';
 
 /**
- * <%=Description%>首页
+ * <%=Description%>列表页
  */
 @Component({
-    selector: '<%=CamelClassName%>-index',
-    templateUrl: env.prod() ? './html/<%=CamelClassName%>-index.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
+    selector: '<%=CamelClassName%>-list',
+    templateUrl: !env.dev() ? './html/index.component.html' : '/view/<%=Namespace.ToCamelCase()%>/<%=CamelClassName%>'
 })
-export class <%=SafeClassName%>IndexComponent extends TableQueryComponentBase<<%=SafeClassName%>ViewModel, <%=SafeClassName%>Query>  {
+export class <%=SafeClassName%>ListComponent extends TableQueryComponentBase<<%=SafeClassName%>ViewModel, <%=SafeClassName%>Query>  {
     /**
-     * 初始化<%=Description%>首页
+     * 初始化<%=Description%>列表页
      * @param injector 注入器
      */
     constructor(injector: Injector) {
         super(injector);
-    }
-    
-    /**
-     * 创建查询参数
-     */
-    protected createQuery() {
-        return new <%=SafeClassName%>Query();
     }
 }

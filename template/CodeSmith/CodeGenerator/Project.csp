@@ -2,6 +2,7 @@
 <codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
   <variables>
     <add key="ConnectionString1" value="Data Source=.\sql2014;Initial Catalog=Sample;Integrated Security=True" />
+    <add key="ConnectionString2" value="Data Source=.\sql2014;Initial Catalog=GreatWall;Integrated Security=True" />
   </variables>
   <propertySets>
     <propertySet name="Templates" template="01-Templates\Templates.cst">
@@ -21,11 +22,11 @@
     </stringList>
       </property>
       <property name="Database">
-        <connectionString>$(ConnectionString1)</connectionString>
+        <connectionString>$(ConnectionString2)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
-      <property name="Namespace">Sample</property>
-      <property name="DbName">Sample</property>
+      <property name="Namespace">GreatWall</property>
+      <property name="DbName">.</property>
     </propertySet>
   </propertySets>
 </codeSmith>

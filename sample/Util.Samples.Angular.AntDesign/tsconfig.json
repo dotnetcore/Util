@@ -21,7 +21,8 @@
     "baseUrl": "."
   },
   "angularCompilerOptions": {
-    "debug": true
+    "debug": true,
+    "fullTemplateTypeCheck": true
   },
-  "exclude": [ "bin", "node_modules" ]
+  "exclude": [ "bin", "node_modules","wwwroot/upload" ]
 }

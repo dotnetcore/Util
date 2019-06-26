@@ -14,10 +14,6 @@ namespace Util.Ui.Zorro.Forms {
     [HtmlTargetElement( "util-textbox" )]
     public class TextBoxTagHelper : FormControlTagHelperBase {
         /// <summary>
-        /// 是否显示清除按钮
-        /// </summary>
-        public bool ShowClearButton { get; set; }
-        /// <summary>
         /// 只读
         /// </summary>
         public bool Readonly { get; set; }
@@ -42,21 +38,13 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string MaxLength { get; set; }
         /// <summary>
-        /// 最小值
+        /// [nzMin],最小值
         /// </summary>
         public string Min { get; set; }
         /// <summary>
-        /// 最小值错误消息
-        /// </summary>
-        public string MinMessage { get; set; }
-        /// <summary>
-        /// 最大值
+        /// [nzMax],最大值
         /// </summary>
         public string Max { get; set; }
-        /// <summary>
-        /// 最大值错误消息
-        /// </summary>
-        public string MaxMessage { get; set; }
         /// <summary>
         /// 正则表达式
         /// </summary>
@@ -65,6 +53,18 @@ namespace Util.Ui.Zorro.Forms {
         /// 正则表达式错误消息
         /// </summary>
         public string RegexMessage { get; set; }
+        /// <summary>
+        /// [nzAutoFocus],是否自动获取焦点，默认值： false
+        /// </summary>
+        public bool AutoFocus { get; set; }
+        /// <summary>
+        /// [nzPrecision]，数值精度，即保留的小数位数，默认值：6
+        /// </summary>
+        public int Precision { get; set; }
+        /// <summary>
+        /// [nzStep]，每次改变数值，默认值：1
+        /// </summary>
+        public double Step { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -72,8 +72,15 @@ namespace Util.Ui.Zorro.Forms {
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
             var config = new TextBoxConfig( context );
-            if ( config.GetValue<TextBoxType?>( UiConst.Type ) == TextBoxType.Multiple )
-                config.IsTextArea = true;
+            var type = config.GetValue<TextBoxType?>( UiConst.Type );
+            switch ( type ) {
+                case TextBoxType.Multiple:
+                    config.IsTextArea = true;
+                    break;
+                case TextBoxType.Number:
+                    config.IsNumber = true;
+                    break;
+            }
             return new TextBoxRender( config );
         }
     }

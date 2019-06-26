@@ -36,7 +36,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        protected void Config( TableColumnBuilder builder ) {
+        private void Config( TableColumnBuilder builder ) {
             ConfigId( builder );
             ConfigColumn( builder );
             ConfigContent( builder );
@@ -45,7 +45,9 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置列
         /// </summary>
-        private void ConfigColumn( TableColumnBuilder builder ) {
+        protected virtual void ConfigColumn( TableColumnBuilder builder ) {
+            if( _config.Content.IsEmpty() == false )
+                return;
             var type = _config.GetValue<TableColumnType?>( UiConst.Type );
             var column = _config.GetValue( UiConst.Column );
             switch( type ) {
@@ -70,7 +72,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加序号
         /// </summary>
-        private void AddLineNumber( TableColumnBuilder builder ) {
+        protected void AddLineNumber( TableColumnBuilder builder ) {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.LineNumber )
                 return;
             builder.AppendContent( "{{row.lineNumber}}" );
@@ -79,20 +81,21 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加复选框
         /// </summary>
-        private void AddCheckbox( TableColumnBuilder builder ) {
+        protected void AddCheckbox( TableColumnBuilder builder ) {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
                 return;
             var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
-            builder.AddAttribute( "nzShowCheckbox" );
+            builder.AddAttribute( "[nzShowCheckbox]", $"{tableId}_wrapper.multiple" );
             builder.AddAttribute( "(click)", "$event.stopPropagation()" );
             builder.AddAttribute( "(nzCheckedChange)", $"{tableId}_wrapper.checkedSelection.toggle(row)" );
             builder.AddAttribute( "[nzChecked]", $"{tableId}_wrapper.checkedSelection.isSelected(row)" );
+            builder.AppendContent( new TableRadioBuilder( tableId ) );
         }
 
         /// <summary>
         /// 添加布尔类型列
         /// </summary>
-        private void AddBoolColumn( TableColumnBuilder builder, string column ) {
+        protected void AddBoolColumn( TableColumnBuilder builder, string column ) {
             if( column.IsEmpty() )
                 return;
             builder.AppendContent( $"{{{{row.{column}?'{R.Yes}':'{R.No}'}}}}" );
@@ -101,7 +104,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加日期类型列
         /// </summary>
-        private void AddDateColumn( TableColumnBuilder builder, string column ) {
+        protected void AddDateColumn( TableColumnBuilder builder, string column ) {
             if( column.IsEmpty() )
                 return;
             var format = _config.GetValue( UiConst.DateFormat );
@@ -113,7 +116,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 添加默认列
         /// </summary>
-        private void AddDefaultColumn( TableColumnBuilder builder, string column ) {
+        protected void AddDefaultColumn( TableColumnBuilder builder, string column ) {
             if( column.IsEmpty() )
                 return;
             var length = _config.GetValue<int?>( UiConst.Truncate );

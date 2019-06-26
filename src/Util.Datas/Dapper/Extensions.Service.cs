@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Datas.Dapper.Handlers;
 using Util.Datas.Dapper.MySql;
+using Util.Datas.Dapper.Oracle;
 using Util.Datas.Dapper.PgSql;
 using Util.Datas.Dapper.SqlServer;
 using Util.Datas.Enums;
@@ -54,7 +55,7 @@ namespace Util.Datas.Dapper {
         /// </summary>
         private static IServiceCollection AddSqlQuery( IServiceCollection services, Action<SqlOptions> action, Type database, Type entityMatedata ) {
             var config = new SqlOptions();
-            if ( action != null ) {
+            if( action != null ) {
                 action.Invoke( config );
                 services.Configure( action );
             }
@@ -64,10 +65,10 @@ namespace Util.Datas.Dapper {
                 services.TryAddScoped( database );
                 services.TryAddScoped( typeof( IDatabase ), t => t.GetService( database ) );
             }
-            services.TryAddScoped<ISqlQuery, SqlQuery>();
+            services.TryAddTransient<ISqlQuery, SqlQuery>();
             services.TryAddScoped<ITableDatabase, DefaultTableDatabase>();
             AddSqlBuilder( services, config );
-            RegisterTypeHandlers();
+            RegisterTypeHandlers( config );
             return services;
         }
 
@@ -77,13 +78,16 @@ namespace Util.Datas.Dapper {
         private static void AddSqlBuilder( IServiceCollection services, SqlOptions config ) {
             switch( config.DatabaseType ) {
                 case DatabaseType.SqlServer:
-                    services.TryAddScoped<ISqlBuilder, SqlServerBuilder>();
+                    services.TryAddTransient<ISqlBuilder, SqlServerBuilder>();
                     return;
                 case DatabaseType.PgSql:
-                    services.TryAddScoped<ISqlBuilder, PgSqlBuilder>();
+                    services.TryAddTransient<ISqlBuilder, PgSqlBuilder>();
                     return;
                 case DatabaseType.MySql:
-                    services.TryAddScoped<ISqlBuilder, MySqlBuilder>();
+                    services.TryAddTransient<ISqlBuilder, MySqlBuilder>();
+                    return;
+                case DatabaseType.Oracle:
+                    services.TryAddTransient<ISqlBuilder, OracleBuilder>();
                     return;
                 default:
                     throw new NotImplementedException( $"Sql生成器未实现 {config.DatabaseType.Description()} 数据库" );
@@ -93,8 +97,10 @@ namespace Util.Datas.Dapper {
         /// <summary>
         /// 注册类型处理器
         /// </summary>
-        private static void RegisterTypeHandlers() {
+        private static void RegisterTypeHandlers( SqlOptions config ) {
             SqlMapper.AddTypeHandler( typeof( string ), new StringTypeHandler() );
+            if( config.DatabaseType == DatabaseType.Oracle )
+                SqlMapper.AddTypeHandler( new GuidTypeHandler() );
         }
     }
 }

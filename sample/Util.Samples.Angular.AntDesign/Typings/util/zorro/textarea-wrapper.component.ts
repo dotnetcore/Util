@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Component, Input, Host, Optional } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormControlWrapperBase } from './base/form-control-wrapper-base';
 import { MessageConfig } from '../config/message-config';
@@ -14,18 +14,17 @@ import { MessageConfig } from '../config/message-config';
     selector: 'x-textarea',
     template:`
         <nz-form-control [nzValidateStatus]="(controlModel?.invalid && (controlModel?.dirty || controlModel.touched))?'error':'success'">
-            <textarea nz-input [name]="name" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
+            <textarea nz-input [id]="rawId" [name]="name" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                    #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                    [nzAutosize]="{ minRows: minRows, maxRows: maxRows }"
                    (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
-                   [required]="required" [email]="type==='email'" [pattern]="pattern" [min]="min" [max]="max"
-                   [minlength]="minLength" [maxlength]="maxLength"
+                   [required]="required" [minlength]="minLength" [maxlength]="maxLength"
             ></textarea>
             <nz-form-explain *ngIf="controlModel?.invalid && (controlModel?.dirty || controlModel.touched)">{{getErrorMessage()}}</nz-form-explain>
         </nz-form-control>
     `
 })
-export class TextareaWrapperComponent extends FormControlWrapperBase {
+export class TextArea extends FormControlWrapperBase {
     /**
      * 是否显示清除按钮
      */
@@ -67,7 +66,7 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
      * 初始化多行文本框包装器
      * @param form 表单
      */
-    constructor( @Optional() @Host() form: NgForm ) {
+    constructor( @Optional() form: NgForm ) {
         super(form);
         this.minRows = 3;
     }
@@ -75,7 +74,7 @@ export class TextareaWrapperComponent extends FormControlWrapperBase {
     /**
      * 获取错误消息
      */
-    private getErrorMessage(): string {
+    getErrorMessage(): string {
         if (!this.controlModel)
             return "";
         if (this.controlModel.hasError('required'))

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Angular.Base;
-using Util.Ui.Enums;
-using Util.Ui.Zorro.Enums;
 
 namespace Util.Ui.Zorro.Forms.Base {
     /// <summary>
@@ -9,53 +7,45 @@ namespace Util.Ui.Zorro.Forms.Base {
     /// </summary>
     public abstract class FormControlTagHelperBase : AngularTagHelperBase {
         /// <summary>
-        /// 控件名称
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// 控件的绑定名称 [name]
-        /// </summary>
-        public string BindName { get; set; }
-        /// <summary>
-        /// 禁用
-        /// </summary>
-        public string Disabled { get; set; }
-        /// <summary>
-        /// 占位提示符
-        /// </summary>
-        public string Placeholder { get; set; }
-        /// <summary>
-        /// 占位提示符绑定
-        /// </summary>
-        public string BindPlaceholder { get; set; }
-        /// <summary>
-        /// 前缀
-        /// </summary>
-        public string Prefix { get; set; }
-        /// <summary>
-        /// 后缀文本
-        /// </summary>
-        public string SuffixText { get; set; }
-        /// <summary>
-        /// 后缀FontAwesome图标
-        /// </summary>
-        public FontAwesomeIcon SuffixFontAwesomeIcon { get; set; }
-        /// <summary>
-        /// 后缀Material图标
-        /// </summary>
-        public AntDesignIcon SuffixMaterialIcon { get; set; }
-        /// <summary>
-        /// 后缀图标单击事件,范例：click()
-        /// </summary>
-        public string OnSuffixIconClick { get; set; }
-        /// <summary>
         /// 属性表达式
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
-        /// 模型绑定
+        /// 是否显示标签，默认值：false
+        /// </summary>
+        public bool ShowLabel { get; set; }
+        /// <summary>
+        /// 标签文本
+        /// </summary>
+        public string LabelText { get; set; }
+        /// <summary>
+        /// 标签的栅格占位格数
+        /// </summary>
+        public int LabelSpan { get; set; }
+        /// <summary>
+        /// [(ngModel)],模型绑定
         /// </summary>
         public string NgModel { get; set; }
+        /// <summary>
+        /// name,名称
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// [name],名称
+        /// </summary>
+        public string BindName { get; set; }
+        /// <summary>
+        /// [nzDisabled],禁用
+        /// </summary>
+        public string Disabled { get; set; }
+        /// <summary>
+        /// nzPlaceHolder,占位提示
+        /// </summary>
+        public string Placeholder { get; set; }
+        /// <summary>
+        /// [nzPlaceHolder],占位提示
+        /// </summary>
+        public string BindPlaceholder { get; set; }
         /// <summary>
         /// 必填项
         /// </summary>
@@ -65,7 +55,11 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// </summary>
         public string RequiredMessage { get; set; }
         /// <summary>
-        /// 变更事件处理函数,范例：handle()
+        /// nzSpan,24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
+        /// </summary>
+        public int Span { get; set; }
+        /// <summary>
+        /// (ngModelChange),变更事件处理函数
         /// </summary>
         public string OnChange { get; set; }
         /// <summary>
@@ -84,9 +78,5 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// 键盘按下事件处理函数,范例：handle()
         /// </summary>
         public string OnKeydown { get; set; }
-        /// <summary>
-        /// 组件不添加到FormGroup，独立存在，这样也无法基于NgForm进行表单验证
-        /// </summary>
-        public bool Standalone { get; set; }
     }
 }

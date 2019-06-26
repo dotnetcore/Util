@@ -45,7 +45,7 @@ namespace <%= Namespace %>.Apis.<%= Schema %> {
         public <%= SafeClassName %>Controller( I<%= SafeClassName %>Service service ) : base( service ) {
             <%= SafeClassName %>Service = service;
         }
-
+        
         /// <summary>
         /// <%= Description %>服务
         /// </summary>

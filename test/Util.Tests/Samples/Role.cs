@@ -1,13 +1,11 @@
 ﻿using System;
-using Util.Domains.Repositories;
 using Util.Domains.Trees;
-using Util.Security.Identity.Models;
 
 namespace Util.Tests.Samples {
     /// <summary>
     /// 角色
     /// </summary>
-    public class Role : Role<Role,Guid,Guid?> {
+    public class Role : TreeEntityBase<Role, Guid, Guid?> {
         /// <summary>
         /// 初始化角色
         /// </summary>

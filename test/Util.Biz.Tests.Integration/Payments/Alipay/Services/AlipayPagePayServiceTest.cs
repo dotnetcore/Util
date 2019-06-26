@@ -42,7 +42,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Services {
         public async Task TestPayAsync() {
             //结果
             String result = new String();
-            result.Append( "<form action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8\" charset=\"utf-8\" id=\"formAlipay\" method=\"POST\" name=\"formAlipay\">" );
+            result.Append( "<form action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8\" charset=\"utf-8\" id=\"formAlipay\" method=\"POST\" name=\"formAlipay\" style=\"display:none\">" );
             result.Append( "<input name=\"app_id\" value=\"2016090800463464\"></input>" );
             result.Append( "<input name=\"biz_content\" value=\"{'out_trade_no':'59f7caeeab89e009e4a4e1fb','subject':'test','total_amount':'10','timeout_express':'90m'}\"></input>" );
             result.Append( "<input name=\"charset\" value=\"utf-8\"></input>" );

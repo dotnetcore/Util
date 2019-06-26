@@ -1,9 +1,11 @@
 ﻿//============== 弹出层操作 ======================
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
+import { TemplateRef } from '@angular/core';
+import { NzModalService, ModalOptionsForService, NzModalRef, ModalButtonOptions } from "ng-zorro-antd";
 import { IocHelper as ioc } from '../angular/ioc-helper';
-import { isNumber, toNumber } from './helper';
+import { isNumber, toNumber, isUndefined } from './helper';
 
 /**
  * 弹出层操作
@@ -11,214 +13,198 @@ import { isNumber, toNumber } from './helper';
 export class Dialog {
     /**
      * 打开弹出层
-     * @param dialogOptions 弹出层配置
+     * @param options 弹出层配置
      */
-    static openAsync(dialogOptions?: IDialogOption) {
-        let options: IDialogOption = dialogOptions || {};
-        if (options.beforeOpen && !options.beforeOpen())
-            return null;
-        Dialog.initOptions(options);
-      
+    static open( options?: IDialogOptions ) {
+        options = options || {};
+        if ( options.onBeforeOpen && options.onBeforeOpen() === false )
+            return;
+        Dialog.initOptions( options );
+        let dialog: NzModalService = Dialog.getModalService();
+        let dialogRef: NzModalRef = dialog.create( this.toOptions( options ) );
+        dialogRef.afterOpen.subscribe( () => options.onOpen && options.onOpen() );
+        dialogRef.afterClose.subscribe( ( result ) => options.onClose && options.onClose( result ) );
     }
 
     /**
-     * 打开弹出层
-     * @param dialogOptions 弹出层配置
+     * 获取模态窗服务
      */
-    static open(dialogOptions?: IDialogOption) {
-        let options: IDialogOption = dialogOptions || {};
-        if (options.beforeOpen && !options.beforeOpen())
-            return;
-        Dialog.initOptions(options);
-       
+    private static getModalService() {
+        return ioc.get( NzModalService );
     }
 
     /**
      * 初始化配置
      */
-    private static initOptions(options: IDialogOption) {
-        Dialog.initData(options);
-        Dialog.initPosition(options);
-        options.width = Dialog.getUnitValue(options.width);
-        options.height = Dialog.getUnitValue(options.height);
-        if (!options.autoFocus)
-            options.autoFocus = false;
-    }
-
-    /**
-     * 初始化数据
-     * @param options
-     */
-    private static initData(options: IDialogOption) {
-        if (!options.data)
+    private static initOptions( options: IDialogOptions ) {
+        if ( !options.data )
             options.data = {};
-        if (options.title)
-            options.data["dialogTitle"] = options.title;
-        if (options.url)
-            options.data["dialogUrl"] = options.url;
-        let height = Dialog.getContentHeight(options);
-        if (height)
-            options.data["dialogHeight"] = height;
     }
 
     /**
-     * 获取内容高度
+     * 转换配置
      */
-    private static getContentHeight(options: IDialogOption) {
-        let height = options.height ? options.height : options.minHeight && options.minHeight.toString();
-        if (!height)
+    private static toOptions( options: IDialogOptions ): ModalOptionsForService {
+        return {
+            nzTitle: options.title,
+            nzContent: options.component || options.content,
+            nzComponentParams: options.data,
+            nzCancelText: this.getCancelText( options ),
+            nzOkText: this.getOkText( options ),
+            nzOkType: options.okType,
+            nzClosable: isUndefined( options.showClose ) ? true : options.showClose,
+            nzMask: isUndefined( options.showMask ) ? true : options.showMask,
+            nzFooter: this.getFooter( options ),
+            nzWidth: options.width,
+            nzMaskClosable: !options.disableClose,
+            nzKeyboard: !options.disableClose,
+            nzOnOk: options.onOk,
+            nzOnCancel: data => {
+                if ( data.tag === true ) {
+                    options.onBeforeClose && options.onBeforeClose( data.result );
+                    return;
+                }
+                options.onBeforeClose && options.onBeforeClose( null );
+            }
+        };
+    }
+
+    /**
+     * 获取取消按钮文本
+     */
+    private static getCancelText( options: IDialogOptions ) {
+        if ( options.showCancel === false )
             return null;
-        if (height.lastIndexOf("px") > 0)
-            height = height.substr(0, height.length - 2);
-        return Dialog.getUnitValue(toNumber(height) - 140);
+        return options.cancelText;
     }
 
     /**
-     * 初始化位置
-     * @param options
+     * 获取确定按钮文本
      */
-    private static initPosition(options: IDialogOption) {
-        if (!options.position)
-            return;
-        options.position.top = Dialog.getUnitValue(options.position.top);
-        options.position.bottom = Dialog.getUnitValue(options.position.bottom);
-        options.position.left = Dialog.getUnitValue(options.position.left);
-        options.position.right = Dialog.getUnitValue(options.position.right);
+    private static getOkText( options: IDialogOptions ) {
+        if ( options.showOk === false )
+            return null;
+        return options.okText;
     }
 
     /**
-     * 附加像素单位
+     * 获取页脚
      */
-    private static getUnitValue(value) {
-        return isNumber(value) ? `${value}px` : value;
+    private static getFooter( options: IDialogOptions ) {
+        if ( options.showFooter === false )
+            return null;
+        return options.footer;
     }
 
     /**
      * 关闭所有弹出层
      */
     static closeAll() {
-       
+        let dialog = Dialog.getModalService();
+        dialog.closeAll();
     }
 
     /**
      * 关闭弹出层
      * @param result 返回结果
      */
-    static close<TResult>(result?: TResult);
-    /**
-     * 关闭弹出层
-     * @param result 返回结果
-     * @param id 弹出层标识
-     */
-    static close<TResult>(result?: TResult, id?: string);
-    static close<TResult>(result?: TResult, id?: string) {
-       
-    }
-
-    /**
-     * 获取数据，注意：必须在OnInit之后的事件调用，不能在构造函数中调用，可能获取不到值
-     */
-    static getData<T>() {
-        
+    static close( result?) {
+        let dialog: NzModalService = Dialog.getModalService();
+        if ( !dialog.openModals || dialog.openModals.length === 0 )
+            return;
+        let dialogRef: NzModalRef = dialog.openModals[dialog.openModals.length - 1];
+        if ( !dialogRef )
+            return;
+        if ( dialogRef["nzOnCancel"]( { result: result, tag: true } ) === false )
+            return;
+        dialogRef.close( result );
     }
 }
 
 /**
  * 弹出层配置
  */
-export interface IDialogOption {
+export interface IDialogOptions {
     /**
-     * 弹出层组件，该组件应添加到模块 NgModule 装饰器的 entryComponents 配置节，默认使用 DialogWrapperComponent，
+     * 弹出层组件，该组件应添加到当前模块 NgModule 的 entryComponents
      */
-    dialogComponent?,
+    component?,
     /**
-     * 弹出层标识
-     */
-    id?: string,
-    /**
-     * 弹出层标题
-     */
-    title?: string,
-    /**
-     * 数据
+     * 传入弹出层组件中的参数
      */
     data?,
     /**
-     * 将该地址加载到iframe中
+     * 标题
      */
-    url?: string,
+    title?: string | TemplateRef<any>,
     /**
-     * 是否显示遮罩背景
+     * 内容
      */
-    hasBackdrop?: boolean,
+    content?: string | TemplateRef<any>,
     /**
-     * 是否禁用按下ESC键或点击屏幕关闭遮罩，默认false
+     * 是否显示页脚，默认为 true
+     */
+    showFooter?: boolean,
+    /**
+     * 页脚
+     */
+    footer?: string | TemplateRef<any> | Array<ModalButtonOptions>;
+    /**
+     * 是否显示右上角的关闭按钮，默认为 true
+     */
+    showClose?: boolean,
+    /**
+     * 是否显示底部取消按钮，默认为 true
+     */
+    showCancel?: boolean,
+    /**
+     * 底部取消按钮的文字
+     */
+    cancelText?: string,
+    /**
+     * 是否显示底部确定按钮，默认为 true
+     */
+    showOk?: boolean,
+    /**
+     * 底部确定按钮的文字
+     */
+    okText?: string,
+    /**
+     * 底部确定按钮的颜色, 可选值: default,primary,dashed,danger
+     */
+    okType?: string,
+    /**
+     * 是否显示遮罩，默认为 true
+     */
+    showMask?: boolean,
+    /**
+     * 是否禁用按下ESC键或点击屏幕关闭遮罩，默认 false
      */
     disableClose?: boolean,
     /**
-     * 是否自动将焦点放在控件上,默认false
-     */
-    autoFocus?: boolean,
-    /**
-     * 点击历史导航前进或后退时是否关闭弹出层，默认true
-     */
-    closeOnNavigation?: boolean,
-    /**
-     * 弹出层位置，范例：{ top: "100px", left:"100px" }
-     */
-    position?,
-    /**
      * 宽度
      */
-    width?: string,
+    width?: string | number,
     /**
-     * 高度
+     * 点击确定按钮事件，返回 false 阻止关闭
+     * @param instance 弹出层组件实例
      */
-    height?: string,
+    onOk?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**
-     * 最小宽度
+     * 打开前事件，返回 false 阻止弹出
      */
-    minWidth?: number | string,
+    onBeforeOpen?: () => boolean,
     /**
-     * 最小高度
+     * 打开后事件
      */
-    minHeight?: number | string,
+    onOpen?: () => void,
     /**
-     * 最大宽度
+     * 关闭前事件，返回 false 阻止关闭
      */
-    maxWidth?: number | string,
+    onBeforeClose?: ( result ) => ( false | void | {} ) | Promise<false | void | {}>,
     /**
-     * 最大高度
-     */
-    maxHeight?: number | string,
-    /**
-     * 遮罩背景自定义样式类
-     */
-    backdropClass?: string,
-    /**
-     * 面板自定义样式类
-     */
-    panelClass?: string,
-    /**
-     * 打开前操作，返回false则取消
-     */
-    beforeOpen?: () => boolean,
-    /**
-     * 打开后操作
-     */
-    afterOpen?: () => void,
-    /**
-     * 关闭前操作
+     * 关闭后事件
      * @param result 返回结果
      */
-    beforeClose?: (result) => void,
-    /**
-     * 关闭后操作
-     * @param result 返回结果
-     */
-    afterClosed?: (result) => boolean,
-    /**
-     * 点击遮罩背景操作
-     */
-    backdropClick?: (event: MouseEvent) => void;
+    onClose?: ( result ) => void;
 }

@@ -75,6 +75,17 @@ namespace Util.Datas.Sql {
         /// 设置列名
         /// </summary>
         /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
+        public static ISqlQuery Select<TEntity>( this ISqlQuery sqlQuery, bool propertyAsAlias = false ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.Select<TEntity>( propertyAsAlias );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 设置列名
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
         /// <param name="columns">列名,范例：t => new object[] { t.Id, t.Name }</param>
         /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
         public static ISqlQuery Select<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object[]>> columns, bool propertyAsAlias = false ) where TEntity : class {

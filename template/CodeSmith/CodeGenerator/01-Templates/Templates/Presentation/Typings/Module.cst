@@ -22,7 +22,7 @@ import { NgModule } from '@angular/core';
 import { FrameworkModule } from '../framework.module';
 import { <%=Entity.TableSchema.ToSingular()%>RoutingModule } from './<%=Entity.TableSchema.ToSingular().ToCamelCase()%>-routing.module';
 <% foreach(Entity entity in EntityContext.Entities) {%>
-import { <%= entity.ClassName.ToSafeName() %>IndexComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-index.component';
+import { <%= entity.ClassName.ToSafeName() %>ListComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-list.component';
 import { <%= entity.ClassName.ToSafeName() %>EditComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-edit.component';
 import { <%= entity.ClassName.ToSafeName() %>DetailComponent } from './<%= entity.ClassName.ToSafeName().ToCamelCase() %>/<%= entity.ClassName.ToSafeName().ToCamelCase() %>-detail.component';
 <%} %>
@@ -33,7 +33,7 @@ import { <%= entity.ClassName.ToSafeName() %>DetailComponent } from './<%= entit
 @NgModule({
     declarations: [
         <% foreach(Entity entity in EntityContext.Entities) {%>
-        <%= entity.ClassName.ToSafeName() %>IndexComponent,<%= entity.ClassName.ToSafeName() %>EditComponent,<%= entity.ClassName.ToSafeName() %>DetailComponent,
+        <%= entity.ClassName.ToSafeName() %>ListComponent,<%= entity.ClassName.ToSafeName() %>EditComponent,<%= entity.ClassName.ToSafeName() %>DetailComponent,
         <%} %>
     ],
     imports: [

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Util.Helpers;
+using Util.Properties;
 using Util.Sessions;
 using Util.Validations;
 
@@ -35,7 +36,6 @@ namespace Util.Domains {
         /// <summary>
         /// 标识
         /// </summary>
-        [Required(ErrorMessage = "Id不能为空")]
         [Key]
         public TKey Id { get; private set; }
 
@@ -79,6 +79,15 @@ namespace Util.Domains {
         /// 初始化
         /// </summary>
         public virtual void Init() {
+            InitId();
+        }
+
+        /// <summary>
+        /// 初始化标识
+        /// </summary>
+        protected virtual void InitId() {
+            if( typeof( TKey ) == typeof( int ) || typeof( TKey ) == typeof( long ) )
+                return;
             if( string.IsNullOrWhiteSpace( Id.SafeString() ) || Id.Equals( default( TKey ) ) )
                 Id = CreateId();
         }
@@ -99,8 +108,17 @@ namespace Util.Domains {
         /// 验证
         /// </summary>
         protected override void Validate( ValidationResultCollection results ) {
-            if( Id == null || Id.Equals( default( TKey ) ) )
-                results.Add( new ValidationResult( "Id不能为空" ) );
+            ValidateId( results );
+        }
+
+        /// <summary>
+        /// 验证标识
+        /// </summary>
+        protected virtual void ValidateId( ValidationResultCollection results ) {
+            if( typeof( TKey ) == typeof( int ) || typeof( TKey ) == typeof( long ) )
+                return;
+            if( string.IsNullOrWhiteSpace( Id.SafeString() ) || Id.Equals( default( TKey ) ) )
+                results.Add( new ValidationResult( R.IdIsEmpty ) );
         }
     }
 }

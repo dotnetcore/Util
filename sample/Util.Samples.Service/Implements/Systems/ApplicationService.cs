@@ -64,10 +64,11 @@ namespace Util.Samples.Service.Implements.Systems {
         /// <param name="query">查询参数</param>
         public override async Task<PagerList<ApplicationDto>> PagerQueryAsync( ApplicationQuery query ) {
             return await SqlQuery
-                .Select<Application>( t => new object[] { t.Id, t.Code, t.Comment, t.Enabled, t.Name, t.RegisterEnabled, t.CreationTime }, true )
+                .Select<Application>( true )
                 .From<Application>( "a" )
                 .WhereIfNotEmpty<Application>( t => t.Code.Contains( query.Code ) )
                 .WhereIfNotEmpty<Application>( t => t.Name.Contains( query.Name ) )
+                .WhereIfNotEmpty<Application>( t => t.Comment.Contains( query.Comment ) )
                 .OrIfNotEmpty<Application>( t => t.Code.Contains( query.Keyword ), t => t.Name.Contains( query.Keyword ) )
                 .ToPagerListAsync<ApplicationDto>( query );
         }
@@ -87,14 +88,14 @@ namespace Util.Samples.Service.Implements.Systems {
         /// 抛出编码重复异常
         /// </summary>
         private void ThrowCodeRepeatException( string code ) {
-            throw new Warning( string.Format( SecurityResource.DuplicateApplicationCode, code ) );
+            throw new Warning( $"应用程序编码 {code} 已存在" );
         }
 
         /// <summary>
         /// 抛出名称重复异常
         /// </summary>
         private void ThrowNameRepeatException( string name ) {
-            throw new Warning( string.Format( SecurityResource.DuplicateApplicationName, name ) );
+            throw new Warning( $"应用程序名称 {name} 已存在" );
         }
 
         /// <summary>

@@ -2,9 +2,10 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=====================================================
-import { Component, Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ComponentBase } from "./base/component-base";
 import { Model } from "./data/model";
+import { ChartContext } from "viser-ng/es/chartService";
 
 /**
  * Viser南丁格尔玫瑰图包装器
@@ -35,17 +36,18 @@ export class RosePieWrapperComponent extends ComponentBase implements OnInit {
     /**
      * 图例位置，默认为 right
      */
-    @Input() legendPosition?:string;
+    @Input() legendPosition?: string;
     /**
      * 图例 x 方向的偏移值，数值类型，数值单位为 'px'，默认值为 -140。
      */
-    @Input() legendOffsetX?:number;
+    @Input() legendOffsetX?: number;
 
     /**
      * 初始化南丁格尔玫瑰图包装器
+     * @param context 图表上下文
      */
-    constructor() {
-        super();
+    constructor( public context: ChartContext ) {
+        super( context );
         this.initStyle();
     }
 

@@ -10,7 +10,7 @@ namespace Util.Samples.Service.Queries.Systems {
         /// <summary>
         /// 应用程序编号
         /// </summary>
-        [Display( Name = "应用程序编号" )]
+        [Display( Name = "应用程序" )]
         public Guid? ApplicationId { get; set; }
 
         private string _code = string.Empty;

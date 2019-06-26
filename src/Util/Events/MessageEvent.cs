@@ -17,6 +17,10 @@ namespace Util.Events {
         /// 回调名称
         /// </summary>
         public string Callback { get; set; }
+        /// <summary>
+        /// 是否立即发送消息
+        /// </summary>
+        public bool Send { get; set; }
 
         /// <summary>
         /// 输出日志

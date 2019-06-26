@@ -79,6 +79,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Id不能为空 的本地化字符串。
+        /// </summary>
+        public static string IdIsEmpty {
+            get {
+                return ResourceManager.GetString("IdIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 序号 的本地化字符串。
         /// </summary>
         public static string LineNumber {
