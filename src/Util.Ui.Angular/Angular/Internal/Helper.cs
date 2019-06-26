@@ -276,7 +276,7 @@ namespace Util.Ui.Angular.Internal {
             if( attribute == null )
                 return;
             var message = attribute.ErrorMessage;
-            if( message.IsEmpty() )
+            if( message.IsEmpty() || message.Contains( "is not a valid phone number" ) )
                 message = LibraryResource.InvalidMobilePhone;
             InitRegex( config, ValidatePattern.MobilePhonePattern, message );
         }

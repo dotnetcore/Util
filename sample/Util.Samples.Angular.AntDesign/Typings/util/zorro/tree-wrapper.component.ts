@@ -17,7 +17,8 @@ import { TreeQueryParameter } from "../core/tree-model";
             [nzCheckable]="showCheckbox" [nzBlockNode]="blockNode" 
             [nzShowExpand]="showExpand" [nzShowLine]="showLine" [nzExpandAll]="expandAll" [nzExpandedKeys]="expandedKeys"
             [nzCheckedKeys]="checkedKeys" [nzSelectedKeys]="selectedKeys" [nzMultiple]="multiple" [nzShowIcon]="showIcon"
-            (nzClick)="click($event)" (nzDblClick)="dblClick($event)" (nzExpandChange)="expandChange($event)">
+            (nzClick)="click($event)" (nzDblClick)="dblClick($event)" (nzExpandChange)="expandChange($event)"
+            (nzCheckBoxChange)="checkBoxChange($event)">
         </nz-tree>
     `
 } )
@@ -94,6 +95,10 @@ export class Tree implements AfterContentInit {
      * 双击事件
      */
     @Output() onDblClick = new EventEmitter<NzFormatEmitEvent>();
+    /**
+     * 复选框变更事件
+     */
+    @Output() onCheckBoxChange = new EventEmitter<NzFormatEmitEvent>();
     /**
      * 展开事件
      */
@@ -196,6 +201,13 @@ export class Tree implements AfterContentInit {
      */
     dblClick( event ) {
         this.onDblClick.emit( event );
+    }
+
+    /**
+     * 复选框变更事件
+     */
+    checkBoxChange( event ) {
+        this.onCheckBoxChange.emit( event );
     }
 
     /**

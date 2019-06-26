@@ -60,6 +60,10 @@ namespace Util.Ui.Zorro.Trees {
         /// </summary>
         public string OnDblClick { get; set; }
         /// <summary>
+        /// (nzCheckBoxChange),勾选复选框变更事件处理函数
+        /// </summary>
+        public string OnCheckBoxChange { get; set; }
+        /// <summary>
         /// (nzExpandChange),节点展开事件处理函数
         /// </summary>
         public string OnExpand { get; set; }

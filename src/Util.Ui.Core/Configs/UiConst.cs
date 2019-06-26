@@ -863,5 +863,9 @@
         /// 操作
         /// </summary>
         public const string Actions = "actions";
+        /// <summary>
+        /// 复选框变更事件
+        /// </summary>
+        public const string OnCheckBoxChange = "on-check-box-change";
     }
 }

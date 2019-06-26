@@ -70,6 +70,7 @@ namespace Util.Ui.Zorro.Trees.Renders {
         private void ConfigEvents( TagBuilder builder ) {
             builder.AddAttribute( "(onClick)", _config.GetValue( UiConst.OnClick ) );
             builder.AddAttribute( "(onDblClick)", _config.GetValue( UiConst.OnDblClick ) );
+            builder.AddAttribute( "(onCheckBoxChange)", _config.GetValue( UiConst.OnCheckBoxChange ) );
             builder.AddAttribute( "(onExpand)", _config.GetValue( UiConst.OnExpand ) );
         }
     }

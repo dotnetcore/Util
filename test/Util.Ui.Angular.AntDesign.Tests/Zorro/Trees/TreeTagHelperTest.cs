@@ -190,6 +190,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Trees {
         }
 
         /// <summary>
+        /// 测试复选框变更事件
+        /// </summary>
+        [Fact]
+        public void TestOnCheckBoxChange() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnCheckBoxChange, "a" } };
+            var result = new String();
+            result.Append( "<x-tree (onCheckBoxChange)=\"a\"></x-tree>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试展开事件
         /// </summary>
         [Fact]
