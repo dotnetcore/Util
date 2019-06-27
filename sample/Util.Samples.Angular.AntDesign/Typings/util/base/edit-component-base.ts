@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, OnInit } from '@angular/core';
+import { Injector,Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { util, ViewModel } from '../index';
 import { FormComponentBase } from './form-component-base';
@@ -19,6 +19,10 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * 视图模型
      */
     model: TViewModel;
+    /**
+     * 标识
+     */
+    @Input() id;
 
     /**
      * 初始化组件
@@ -47,7 +51,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * 通过标识加载
      */
     protected loadById( id = null ) {
-        id = id || this.util.router.getParam("id");
+        id = id || this.id || this.util.router.getParam("id");
         if (!id)
             return;
         this.util.webapi.get<TViewModel>(this.getByIdUrl(id)).handle({

@@ -64,9 +64,9 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 查询
      * @param button 按钮
      */
-    query( button? ) {
+    query( button?) {
         this.table.query( {
-            button:button
+            button: button
         } );
     }
 
@@ -74,7 +74,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 延迟搜索
      * @param button 按钮
      */
-    search( button? ) {
+    search( button?) {
         this.table.search( {
             button: button,
             delay: this.getDelay()
@@ -100,7 +100,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * @param button 按钮
      * @param id 标识
      */
-    delete( button?, id? ) {
+    delete( button?, id?) {
         this.table.delete( {
             button: button,
             ids: id
@@ -111,7 +111,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 刷新
      * @param button 按钮
      */
-    refresh( button? ) {
+    refresh( button?) {
         this.queryParam = this.createQuery();
         this.table.refresh( this.queryParam, button );
     }
@@ -151,5 +151,138 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
             return;
         }
         this.util.dialog.close( selection );
+    }
+
+    /**
+     * 打开创建页面弹出框
+     */
+    openCreateDialog() {
+        this.util.dialog.open( {
+            component: this.getCreateDialogComponent(),
+            data: this.getCreateDialogData(),
+            width: this.getDialogWidth(),
+            disableClose: true,
+            showFooter: false,
+            onBeforeClose: result => {
+                return this.onCreateBeforeClose( result );
+            },
+            onClose: result => {
+                this.onCreateClose( result );
+            }
+        } );
+    }
+
+    /**
+     * 获取创建弹出框组件
+     */
+    protected getCreateDialogComponent(): any {
+        return {};
+    }
+
+    /**
+     * 获取创建弹出框数据
+     */
+    protected getCreateDialogData() {
+        return {};
+    }
+
+    /**
+     * 获取弹出框宽度，默认值：60%
+     */
+    protected getDialogWidth() {
+        return "60%";
+    }
+
+    /**
+     * 创建弹出框关闭前回调函数，返回 false 阻止关闭
+     * @param result 返回结果
+     */
+    protected onCreateBeforeClose( result ) {
+        return true;
+    }
+
+    /**
+     * 创建弹出框关闭回调函数
+     * @param result 返回结果
+     */
+    protected onCreateClose( result ) {
+        this.query();
+    }
+
+    /**
+     * 打开修改页面弹出框
+     * @param id 标识
+     */
+    openEditDialog( id ) {
+        this.util.dialog.open( {
+            component: this.getEditDialogComponent(),
+            data: this.getEditDialogData( id ),
+            width: this.getDialogWidth(),
+            disableClose: true,
+            showFooter: false,
+            onBeforeClose: result => {
+                return this.onEditBeforeClose( result );
+            },
+            onClose: result => {
+                this.onEditClose( result );
+            }
+        } );
+    }
+
+    /**
+     * 获取更新弹出框组件
+     */
+    protected getEditDialogComponent(): any {
+        return this.getCreateDialogComponent();
+    }
+
+    /**
+     * 获取更新弹出框数据
+     */
+    protected getEditDialogData( id ) {
+        return { id: id };
+    }
+
+    /**
+     * 更新弹出框关闭前回调函数，返回 false 阻止关闭
+     * @param result 返回结果
+     */
+    protected onEditBeforeClose( result ) {
+        return true;
+    }
+
+    /**
+     * 更新弹出框关闭回调函数
+     * @param result 返回结果
+     */
+    protected onEditClose( result ) {
+        this.query();
+    }
+
+    /**
+     * 打开详情页面弹出框
+     * @param id 标识
+     */
+    openDetailDialog( id ) {
+        this.util.dialog.open( {
+            component: this.getDetailDialogComponent(),
+            data: this.getDetailDialogData( id ),
+            width: this.getDialogWidth(),
+            showOk:false
+        } );
+    }
+
+    /**
+     * 获取详情弹出框组件
+     */
+    protected getDetailDialogComponent(): any {
+        return {};
+    }
+
+    /**
+     * 获取详情弹出框数据
+     */
+    protected getDetailDialogData( id ) {
+        return this.getEditDialogData( id );
     }
 }
