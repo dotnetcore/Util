@@ -52,6 +52,18 @@ namespace Util.Ui.Zorro.Trees {
         /// </summary>
         public bool Multiple { get; set; }
         /// <summary>
+        /// [nzCheckedKeys],选中复选框的标识数组，范例：['1','2']
+        /// </summary>
+        public string CheckedKeys { get; set; }
+        /// <summary>
+        /// [nzExpandedKeys],展开树节点的标识数组，范例：['1','2']
+        /// </summary>
+        public string ExpandedKeys { get; set; }
+        /// <summary>
+        /// [nzSelectedKeys],选中树节点的标识数组，范例：['1','2']
+        /// </summary>
+        public string SelectedKeys { get; set; }
+        /// <summary>
         /// (nzClick),单击事件处理函数
         /// </summary>
         public string OnClick { get; set; }
@@ -59,6 +71,10 @@ namespace Util.Ui.Zorro.Trees {
         /// (nzDblClick),双击事件处理函数
         /// </summary>
         public string OnDblClick { get; set; }
+        /// <summary>
+        /// (nzCheckBoxChange),勾选复选框变更事件处理函数
+        /// </summary>
+        public string OnCheckBoxChange { get; set; }
         /// <summary>
         /// (nzExpandChange),节点展开事件处理函数
         /// </summary>

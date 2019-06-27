@@ -42,7 +42,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         [Fact]
         public void TestDefault() {
             var result = new String();
-            result.Append( "<a nz-button=\"\"></a>" );
+            result.Append( "<a></a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -53,7 +53,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestId() {
             var attributes = new TagHelperAttributeList { { UiConst.Id, "a" } };
             var result = new String();
-            result.Append( "<a #a=\"\" nz-button=\"\"></a>" );
+            result.Append( "<a #a=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -64,7 +64,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestNgIf() {
             var attributes = new TagHelperAttributeList { { AngularConst.NgIf, "a" } };
             var result = new String();
-            result.Append( "<a *ngIf=\"a\" nz-button=\"\"></a>" );
+            result.Append( "<a *ngIf=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -75,7 +75,18 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestText() {
             var attributes = new TagHelperAttributeList { { UiConst.Text, "a" } };
             var result = new String();
-            result.Append( "<a nz-button=\"\">a</a>" );
+            result.Append( "<a>a</a>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试按钮样式
+        /// </summary>
+        [Fact]
+        public void TestIsButton() {
+            var attributes = new TagHelperAttributeList { { UiConst.IsButton, true } };
+            var result = new String();
+            result.Append( "<a nz-button=\"\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -86,7 +97,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestBindText() {
             var attributes = new TagHelperAttributeList { { AngularConst.BindText, "a" } };
             var result = new String();
-            result.Append( "<a nz-button=\"\">{{a}}</a>" );
+            result.Append( "<a>{{a}}</a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -97,7 +108,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestIcon() {
             var attributes = new TagHelperAttributeList { { UiConst.Text, "a" },{ UiConst.Icon, AntDesignIcon.Alert } };
             var result = new String();
-            result.Append( "<a nz-button=\"\"><i nz-icon=\"\" nzType=\"alert\"></i>a</a>" );
+            result.Append( "<a><i nz-icon=\"\" nzType=\"alert\"></i>a</a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -163,7 +174,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestTooltip() {
             var attributes = new TagHelperAttributeList { { UiConst.Tooltip, "a" } };
             var result = new String();
-            result.Append( "<a nz-button=\"\" nz-tooltip=\"\" nzTitle=\"a\"></a>" );
+            result.Append( "<a nz-tooltip=\"\" nzTitle=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -174,7 +185,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestLink() {
             var attributes = new TagHelperAttributeList { { UiConst.Link, "a" } };
             var result = new String();
-            result.Append( "<a nz-button=\"\" routerLink=\"a\"></a>" );
+            result.Append( "<a routerLink=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -185,7 +196,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestBindLink() {
             var attributes = new TagHelperAttributeList { { AngularConst.BindLink, "a" } };
             var result = new String();
-            result.Append( "<a nz-button=\"\" [routerLink]=\"a\"></a>" );
+            result.Append( "<a [routerLink]=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -196,7 +207,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestQueryParams() {
             var attributes = new TagHelperAttributeList { { UiConst.QueryParams, "a" } };
             var result = new String();
-            result.Append( "<a nz-button=\"\" [queryParams]=\"a\"></a>" );
+            result.Append( "<a [queryParams]=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 
@@ -207,7 +218,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro {
         public void TestOnClick() {
             var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
             var result = new String();
-            result.Append( "<a (click)=\"a\" nz-button=\"\"></a>" );
+            result.Append( "<a (click)=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
     }

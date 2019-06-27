@@ -22,7 +22,7 @@
 <page-header title="编辑<%=Description%>"></page-header>
 @*表单*@
 <util-card show-border="false">
-    <util-form id="form" label-span="3" control-span="18" gutter="16">
+    <util-form id="form" label-span="3" control-span="21" gutter="16">
         <% foreach(Property p in Entity.Properties) { %>
         <% if( p.IsPrimaryKey.SafeValue() ) continue; %>
         <% if( Entity.IsHidden(p) ) continue; %>

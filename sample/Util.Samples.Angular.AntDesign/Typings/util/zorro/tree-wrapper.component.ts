@@ -14,10 +14,11 @@ import { TreeQueryParameter } from "../core/tree-model";
     selector: 'x-tree',
     template: `
         <nz-tree [nzData]="dataSource" [nzAsyncData]="async"
-            [nzCheckable]="showCheckbox" [nzBlockNode]="blockNode" 
-            [nzShowExpand]="showExpand" [nzShowLine]="showLine" [nzExpandAll]="expandAll" [nzExpandedKeys]="expandedKeys"
-            [nzCheckedKeys]="checkedKeys" [nzSelectedKeys]="selectedKeys" [nzMultiple]="multiple" [nzShowIcon]="showIcon"
-            (nzClick)="click($event)" (nzDblClick)="dblClick($event)" (nzExpandChange)="expandChange($event)">
+            [nzCheckable]="showCheckbox" [nzBlockNode]="blockNode" [nzMultiple]="multiple"
+            [nzShowExpand]="showExpand" [nzShowLine]="showLine" [nzExpandAll]="expandAll" [nzShowIcon]="showIcon"
+            [nzExpandedKeys]="expandedKeys" [nzCheckedKeys]="checkedKeys" [nzSelectedKeys]="selectedKeys" 
+            (nzClick)="click($event)" (nzDblClick)="dblClick($event)" (nzExpandChange)="expandChange($event)"
+            (nzCheckBoxChange)="checkBoxChange($event)">
         </nz-tree>
     `
 } )
@@ -69,15 +70,15 @@ export class Tree implements AfterContentInit {
     /**
      * 展开节点的标识列表
      */
-    @Input() expandedKeys: boolean;
+    @Input() expandedKeys: string[];
     /**
      * 复选框选中节点的标识列表
      */
-    @Input() checkedKeys: boolean;
+    @Input() checkedKeys: string[];
     /**
      * 选中节点的标识列表
      */
-    @Input() selectedKeys: boolean;
+    @Input() selectedKeys: string[];
     /**
      * 允许选中多个节点
      */
@@ -94,6 +95,10 @@ export class Tree implements AfterContentInit {
      * 双击事件
      */
     @Output() onDblClick = new EventEmitter<NzFormatEmitEvent>();
+    /**
+     * 复选框变更事件
+     */
+    @Output() onCheckBoxChange = new EventEmitter<NzFormatEmitEvent>();
     /**
      * 展开事件
      */
@@ -159,9 +164,9 @@ export class Tree implements AfterContentInit {
         if ( !result )
             return;
         this.dataSource = result.nodes || [];
-        this.expandedKeys = result.expandedKeys || [];
-        this.checkedKeys = result.checkedKeys || [];
-        this.selectedKeys = result.selectedKeys || [];
+        this.expandedKeys = this.expandedKeys ? [...this.expandedKeys] : result.expandedKeys || [];
+        this.checkedKeys = this.checkedKeys ? [...this.checkedKeys] : result.checkedKeys || [];
+        this.selectedKeys = this.selectedKeys ? [...this.selectedKeys] : result.selectedKeys || [];
     }
 
     /**
@@ -196,6 +201,13 @@ export class Tree implements AfterContentInit {
      */
     dblClick( event ) {
         this.onDblClick.emit( event );
+    }
+
+    /**
+     * 复选框变更事件
+     */
+    checkBoxChange( event ) {
+        this.onCheckBoxChange.emit( event );
     }
 
     /**

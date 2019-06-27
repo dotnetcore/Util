@@ -863,5 +863,37 @@
         /// 操作
         /// </summary>
         public const string Actions = "actions";
+        /// <summary>
+        /// 复选框变更事件
+        /// </summary>
+        public const string OnCheckBoxChange = "on-check-box-change";
+        /// <summary>
+        /// 允许选择
+        /// </summary>
+        public const string Selectable = "selectable";
+        /// <summary>
+        /// 内联折叠
+        /// </summary>
+        public const string InlineCollapsed = "inline-collapsed";
+        /// <summary>
+        /// 内联缩进
+        /// </summary>
+        public const string InlineIndent = "inline-indent";
+        /// <summary>
+        /// 勾选的键列表
+        /// </summary>
+        public const string CheckedKeys = "checked-keys";
+        /// <summary>
+        /// 展开的键列表
+        /// </summary>
+        public const string ExpandedKeys = "expanded-keys";
+        /// <summary>
+        /// 选中的键列表
+        /// </summary>
+        public const string SelectedKeys = "selected-keys";
+        /// <summary>
+        /// 是否按钮
+        /// </summary>
+        public const string IsButton = "is-button";
     }
 }
