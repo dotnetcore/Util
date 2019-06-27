@@ -891,5 +891,9 @@
         /// 选中的键列表
         /// </summary>
         public const string SelectedKeys = "selected-keys";
+        /// <summary>
+        /// 是否按钮
+        /// </summary>
+        public const string IsButton = "is-button";
     }
 }
