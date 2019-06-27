@@ -30,3 +30,5 @@ BenchmarkDotNet.Artifacts/
 /template/CodeSmith/.vs/CodeGenerator/v15
 /sample/Util.Samples.Webs/node_modules
 /sample/Util.Samples.Webs/wwwroot/dist
+/template/CodeSmith/CodeGenerator/*.user
+/template/CodeSmith/*.suo

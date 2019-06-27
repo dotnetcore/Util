@@ -77,5 +77,16 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Menus {
             result.Append( "<li nz-menu-item=\"\" [nzSelected]=\"true\"></li>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试单击事件
+        /// </summary>
+        [Fact]
+        public void TestOnClick() {
+            var attributes = new TagHelperAttributeList { { UiConst.OnClick, "a" } };
+            var result = new String();
+            result.Append( "<li (click)=\"a\" nz-menu-item=\"\"></li>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

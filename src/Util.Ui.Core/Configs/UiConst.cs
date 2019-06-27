@@ -879,5 +879,17 @@
         /// 内联缩进
         /// </summary>
         public const string InlineIndent = "inline-indent";
+        /// <summary>
+        /// 勾选的键列表
+        /// </summary>
+        public const string CheckedKeys = "checked-keys";
+        /// <summary>
+        /// 展开的键列表
+        /// </summary>
+        public const string ExpandedKeys = "expanded-keys";
+        /// <summary>
+        /// 选中的键列表
+        /// </summary>
+        public const string SelectedKeys = "selected-keys";
     }
 }

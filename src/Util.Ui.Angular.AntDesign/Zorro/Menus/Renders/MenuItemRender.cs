@@ -37,6 +37,7 @@ namespace Util.Ui.Zorro.Menus.Renders {
             ConfigId( builder );
             ConfigDisabled( builder );
             ConfigSelected( builder );
+            ConfigEvents( builder );
             ConfigContent( builder );
         }
 
@@ -52,6 +53,13 @@ namespace Util.Ui.Zorro.Menus.Renders {
         /// </summary>
         private void ConfigSelected( TagBuilder builder ) {
             builder.AddAttribute( "[nzSelected]", _config.GetBoolValue( UiConst.Selected ) );
+        }
+
+        /// <summary>
+        /// 配置事件
+        /// </summary>
+        private void ConfigEvents( TagBuilder builder ) {
+            builder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClick ) );
         }
     }
 }

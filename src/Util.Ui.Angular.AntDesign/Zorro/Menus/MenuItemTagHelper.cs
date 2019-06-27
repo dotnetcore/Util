@@ -19,6 +19,10 @@ namespace Util.Ui.Zorro.Menus {
         /// [nzSelected],是否被选中，默认值：false
         /// </summary>
         public string Selected { get; set; }
+        /// <summary>
+        /// (click),单击事件处理函数
+        /// </summary>
+        public string OnClick { get; set; }
 
         /// <summary>
         /// 获取渲染器

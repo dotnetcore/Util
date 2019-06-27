@@ -64,15 +64,17 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 查询
      * @param button 按钮
      */
-    query( button ) {
-        this.table.query( button );
+    query( button? ) {
+        this.table.query( {
+            button:button
+        } );
     }
 
     /**
      * 延迟搜索
      * @param button 按钮
      */
-    search( button ) {
+    search( button? ) {
         this.table.search( {
             button: button,
             delay: this.getDelay()

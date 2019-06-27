@@ -38,6 +38,7 @@ namespace Util.Ui.Zorro.Trees.Renders {
             ConfigId( builder );
             ConfigData( builder );
             ConfigNode( builder );
+            ConfigKeys( builder );
             ConfigEvents( builder );
             ConfigContent( builder );
         }
@@ -62,6 +63,15 @@ namespace Util.Ui.Zorro.Trees.Renders {
             builder.AddAttribute( "showLine", _config.GetBoolValue( UiConst.ShowLine ) );
             builder.AddAttribute( "showIcon", _config.GetBoolValue( UiConst.ShowIcon ) );
             builder.AddAttribute( "multiple", _config.GetBoolValue( UiConst.Multiple ) );
+        }
+
+        /// <summary>
+        /// 配置键列表
+        /// </summary>
+        private void ConfigKeys( TagBuilder builder ) {
+            builder.AddAttribute( "[checkedKeys]", _config.GetValue( UiConst.CheckedKeys ) );
+            builder.AddAttribute( "[expandedKeys]", _config.GetValue( UiConst.ExpandedKeys ) );
+            builder.AddAttribute( "[selectedKeys]", _config.GetValue( UiConst.SelectedKeys ) );
         }
 
         /// <summary>
