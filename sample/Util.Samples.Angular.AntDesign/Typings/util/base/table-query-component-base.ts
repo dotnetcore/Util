@@ -163,6 +163,9 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
             width: this.getCreateDialogWidth(),
             disableClose: true,
             showFooter: false,
+            onBeforeOpen: () => {
+                return this.onCreateBeforeOpen();
+            },
             onBeforeClose: result => {
                 return this.onCreateBeforeClose( result );
             },
@@ -201,6 +204,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     }
 
     /**
+     * 创建弹出框打开前回调函数，返回 false 阻止打开
+     */
+    protected onCreateBeforeOpen() {
+        return true;
+    }
+
+    /**
      * 创建弹出框关闭前回调函数，返回 false 阻止关闭
      * @param result 返回结果
      */
@@ -227,6 +237,9 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
             width: this.getEditDialogWidth(),
             disableClose: true,
             showFooter: false,
+            onBeforeOpen: () => {
+                return this.onEditBeforeOpen();
+            },
             onBeforeClose: result => {
                 return this.onEditBeforeClose( result );
             },
@@ -255,6 +268,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     protected getEditDialogWidth() {
         return this.getDialogWidth();
+    }
+
+    /**
+     * 更新弹出框打开前回调函数，返回 false 阻止打开
+     */
+    protected onEditBeforeOpen() {
+        return true;
     }
 
     /**

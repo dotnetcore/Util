@@ -474,3 +474,14 @@ export function isImage( name: string ) {
             return false;
     }
 }
+
+/**
+ * 获取标识列表
+ */
+export function getIds( data ) {
+    if ( !data )
+        return null;
+    if ( !data.map )
+        return data.id;
+    return data.map( t => t.id );
+}

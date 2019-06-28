@@ -82,6 +82,10 @@ export class Table<T extends IKey> implements OnInit {
      */
     @Input() sortKey: string;
     /**
+     * 复选框选中的标识列表
+     */
+    @Input() checkedKeys: string | string[];
+    /**
      * 查询参数变更事件
      */
     @Output() queryParamChange = new EventEmitter<QueryParameter>();
@@ -166,7 +170,7 @@ export class Table<T extends IKey> implements OnInit {
             return;
         let param = options.param || this.queryParam;
         if ( options.pageIndex )
-            param.page = options.pageIndex; 
+            param.page = options.pageIndex;
         util.webapi.get<any>( url ).param( param ).button( options.button ).handle( {
             before: () => {
                 this.loading = true;
@@ -191,6 +195,7 @@ export class Table<T extends IKey> implements OnInit {
         this.dataSource = result.data || [];
         this.totalCount = result.totalCount;
         this.checkedSelection.clear();
+        this.checkIds( this.checkedKeys );
     }
 
     /**
@@ -239,14 +244,17 @@ export class Table<T extends IKey> implements OnInit {
      * 刷新
      * @param queryParam 查询参数
      * @param button 按钮
+     * @param handler 刷新成功回调函数
      */
-    refresh( queryParam, button?) {
+    refresh( queryParam, button?, handler?: ( result ) => void ) {
         this.queryParam = queryParam;
         this.queryParamChange.emit( queryParam );
         this.initPage();
         this.queryParam.order = this.sortKey;
+        this.checkedKeys = null;
         this.query( {
-            button: button
+            button: button,
+            handler: handler
         } );
     }
 
@@ -322,6 +330,13 @@ export class Table<T extends IKey> implements OnInit {
     }
 
     /**
+     * 获取勾选的实体列表
+     */
+    getCheckedNodes(): T[] {
+        return this.getChecked();
+    }
+
+    /**
      * 获取勾选的实体列表长度
      */
     getCheckedLength(): number {
@@ -333,6 +348,16 @@ export class Table<T extends IKey> implements OnInit {
      */
     getCheckedIds(): string {
         return this.getChecked().map( value => value.id ).join( "," );
+    }
+
+    /**
+     * 获取勾选的单个节点
+     */
+    getCheckedNode(): T {
+        let list = this.getChecked();
+        if ( !list || list.length === 0 )
+            return null;
+        return list[0];
     }
 
     /**
@@ -351,6 +376,25 @@ export class Table<T extends IKey> implements OnInit {
     }
 
     /**
+     * 勾选标识列表
+     */
+    checkIds( ids ) {
+        if ( !ids )
+            return;
+        if ( !ids.some ) {
+            let item = this.dataSource.find( data => data.id === ids );
+            this.checkedSelection.select( item );
+            return;
+        }
+        let list = this.dataSource.filter( data => ids.some( data.id ) );
+        list.forEach( item => {
+            if ( this.checkedSelection.isSelected( item ) )
+                return;
+            this.checkedSelection.select( item );
+        } );
+    }
+
+    /**
      * 清空勾选的行
      */
     clearChecked() {
@@ -365,6 +409,7 @@ export class Table<T extends IKey> implements OnInit {
         this.queryParam.page = 1;
         this.totalCount = 0;
         this.checkedSelection.clear();
+        this.checkedKeys = null;
     }
 
     /**

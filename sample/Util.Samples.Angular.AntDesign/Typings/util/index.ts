@@ -1,7 +1,7 @@
 ﻿//============== util操作=========================
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
-//Version: 1.0.0.1
+//Version: 1.0.0.2
 //================================================
 export { Util as util } from './util';
 export { UtilModule, createOidcProviders } from './util.module';
@@ -9,8 +9,10 @@ export { HttpContentType, HttpMethod } from "./angular/http-helper";
 export { ComponentBase } from './base/component-base';
 export { FormComponentBase } from './base/form-component-base';
 export { EditComponentBase } from './base/edit-component-base';
-export { EditDialogComponentBase } from './base/edit-dialog-component-base';
+export { DialogEditComponentBase } from './base/dialog-edit-component-base';
+export { DialogTreeEditComponentBase } from './base/dialog-tree-edit-component-base';
 export { TableQueryComponentBase } from './base/table-query-component-base';
+export { TreeTableQueryComponentBase } from './base/tree-table-query-component-base';
 export { IKey, ViewModel, QueryParameter } from './core/model';
 export { TreeViewModel, TreeQueryParameter } from './core/tree-model';
 export { PagerList } from './core/pager-list';
