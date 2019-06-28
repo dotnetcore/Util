@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //=======================================================
 import { Component, Input, Output, AfterContentInit, EventEmitter, ViewChild, forwardRef } from '@angular/core';
-import { NzTreeNodeOptions, NzFormatEmitEvent, NzTreeBase } from "ng-zorro-antd";
+import { NzTreeNodeOptions, NzFormatEmitEvent, NzTreeComponent } from "ng-zorro-antd";
 import { WebApi as webapi } from '../common/webapi';
 import { TreeQueryParameter } from "../core/tree-model";
 
@@ -106,7 +106,7 @@ export class Tree implements AfterContentInit {
     /**
      * 树形组件
      */
-    @ViewChild( forwardRef( () => NzTreeBase ) ) protected tree: NzTreeBase;
+    @ViewChild( forwardRef( () => NzTreeComponent ) ) protected tree: NzTreeComponent;
 
     /**
      * 初始化树形包装器

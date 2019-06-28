@@ -160,7 +160,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
         this.util.dialog.open( {
             component: this.getCreateDialogComponent(),
             data: this.getCreateDialogData(),
-            width: this.getDialogWidth(),
+            width: this.getCreateDialogWidth(),
             disableClose: true,
             showFooter: false,
             onBeforeClose: result => {
@@ -184,6 +184,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     protected getCreateDialogData() {
         return {};
+    }
+
+    /**
+     * 获取创建弹出框宽度
+     */
+    protected getCreateDialogWidth() {
+        return this.getDialogWidth();
     }
 
     /**
@@ -217,7 +224,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
         this.util.dialog.open( {
             component: this.getEditDialogComponent(),
             data: this.getEditDialogData( id ),
-            width: this.getDialogWidth(),
+            width: this.getEditDialogWidth(),
             disableClose: true,
             showFooter: false,
             onBeforeClose: result => {
@@ -244,6 +251,13 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     }
 
     /**
+     * 获取编辑弹出框宽度
+     */
+    protected getEditDialogWidth() {
+        return this.getDialogWidth();
+    }
+
+    /**
      * 更新弹出框关闭前回调函数，返回 false 阻止关闭
      * @param result 返回结果
      */
@@ -267,7 +281,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
         this.util.dialog.open( {
             component: this.getDetailDialogComponent(),
             data: this.getDetailDialogData( id ),
-            width: this.getDialogWidth(),
+            width: this.getDetailDialogWidth(),
             showOk:false
         } );
     }
@@ -284,5 +298,12 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     protected getDetailDialogData( id ) {
         return this.getEditDialogData( id );
+    }
+
+    /**
+     * 获取详情弹出框宽度
+     */
+    protected getDetailDialogWidth() {
+        return this.getDialogWidth();
     }
 }

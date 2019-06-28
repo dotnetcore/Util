@@ -1,5 +1,5 @@
-﻿import { Component, Injector } from '@angular/core';
-import { ComponentBase } from '../../../util';
+﻿import { Component, Injector,ViewChild,forwardRef } from '@angular/core';
+import { ComponentBase,Tree } from '../../../util';
 import { env } from '../../env';
 import { RoleQuery } from './model/role-query';
 
