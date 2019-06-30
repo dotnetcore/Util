@@ -895,5 +895,9 @@
         /// 是否按钮
         /// </summary>
         public const string IsButton = "is-button";
+        /// <summary>
+        /// 自动完成
+        /// </summary>
+        public const string AutoComplete = "autocomplete";
     }
 }
