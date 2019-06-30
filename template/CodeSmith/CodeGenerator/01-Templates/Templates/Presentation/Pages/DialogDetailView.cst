@@ -20,7 +20,7 @@
 @page
 @model <%=SafeClassName%>Dto
 @*标题*@
-<page-header title="<%=Description%>详情"></page-header>
+<page-header title="<%=Description%>详情" [autoBreadcrumb]="false"></page-header>
 @*表单*@
 <util-card show-border="false">
     <util-description column="3" show-border="true" >

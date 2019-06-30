@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector,Input, OnInit } from '@angular/core';
+import { Injector, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { util, ViewModel } from '../index';
 import { FormComponentBase } from './form-component-base';
@@ -23,13 +23,17 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * 标识
      */
     @Input() id;
+    /**
+     * 数据
+     */
+    @Input() data;
 
     /**
      * 初始化组件
      * @param injector 注入器
      */
-    constructor(injector: Injector) {
-        super(injector);
+    constructor( injector: Injector ) {
+        super( injector );
         this.model = this.createModel();
     }
 
@@ -51,16 +55,29 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * 通过标识加载
      */
     protected loadById( id = null ) {
-        id = id || this.id || this.util.router.getParam("id");
-        if (!id)
+        if ( this.isRequestLoad() === false && this.data ) {
+            let result = this.loadBefore( this.data );
+            this.model = result;
+            this.loadAfter( result );
             return;
-        this.util.webapi.get<TViewModel>(this.getByIdUrl(id)).handle({
+        }
+        id = id || this.id || this.util.router.getParam( "id" );
+        if ( !id )
+            return;
+        this.util.webapi.get<TViewModel>( this.getByIdUrl( id ) ).handle( {
             ok: result => {
                 result = this.loadBefore( result );
                 this.model = result;
-                this.loadAfter(result);
+                this.loadAfter( result );
             }
-        });
+        } );
+    }
+
+    /**
+     * 是否发送请求进行加载
+     */
+    protected isRequestLoad() {
+        return true;
     }
 
     /**
@@ -73,7 +90,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
     /**
      * 加载完成后操作
      */
-    protected loadAfter(result) {
+    protected loadAfter( result ) {
     }
 
     /**
@@ -85,7 +102,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * 获取单个实体地址
      * @param id 标识
      */
-    protected getByIdUrl(id) {
+    protected getByIdUrl( id ) {
         return `/api/${this.getBaseUrl()}/${id}`;
     }
 
@@ -94,14 +111,14 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * @param form 表单
      * @param button 按钮
      */
-    submit(form?: NgForm, button?) {
-        this.util.form.submit({
+    submit( form?: NgForm, button?) {
+        this.util.form.submit( {
             url: this.getSubmitUrl(),
             data: this.model,
             form: form,
             button: button,
             back: true
-        });
+        } );
     }
 
     /**
@@ -117,5 +134,12 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      */
     back() {
         this.util.router.back();
+    }
+
+    /**
+     * 关闭弹出框
+     */
+    close() {
+        this.util.dialog.close();
     }
 }

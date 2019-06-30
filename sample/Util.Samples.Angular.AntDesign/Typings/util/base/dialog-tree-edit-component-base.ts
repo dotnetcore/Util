@@ -29,33 +29,55 @@ export abstract class DialogTreeEditComponentBase<TViewModel extends TreeViewMod
      */
     ngOnInit() {
         super.ngOnInit();
-        this.setParent( this.parent );
+        this.initParent();
     }
 
     /**
-     * 获取父标识
+     * 初始化父节点
      */
-    protected getParentId() {
-        return this.parent && this.parent.id;
-    }
-
-    /**
-     * 获取父节点名称
-     */
-    protected getParentName() {
-        return this.parent && this.parent.name;
+    protected initParent() {
+        this.setParent( this.getParent() );
     }
 
     /**
      * 设置父节点
      * @param parent 父节点
      */
-    protected setParent( parent? ) {
-        if ( !parent )
+    protected setParent( parent?) {
+        if ( !parent ) {
+            this.parent = null;
+            this.model.parentId = null;
+            this.model.parentName = null;
             return;
+        }
         this.parent = parent;
         this.model.parentId = parent.id;
-        this.model.parentName = parent.name;
+        this.model.parentName = this.getParentName( parent );
+    }
+
+    /**
+     * 获取父节点
+     */
+    protected getParent() {
+        if ( this.parent )
+            return this.parent;
+        if ( this.data && this.data.parentId )
+            return { id: this.data.parentId, name: this.data.parentName };
+        return null;
+    }
+
+    /**
+     * 获取父节点名称
+     */
+    protected getParentName( parent ) {
+        return parent && parent.name;
+    }
+
+    /**
+     * 加载完成后操作
+     */
+    protected loadAfter( result ) {
+        this.setParent( this.getParent() );
     }
 
     /**
@@ -74,19 +96,12 @@ export abstract class DialogTreeEditComponentBase<TViewModel extends TreeViewMod
     }
 
     /**
-     * 关闭弹出框
-     */
-    close() {
-        this.util.dialog.close();
-    }
-
-    /**
      * 打开选择框
      */
     openSelectDialog() {
         this.util.dialog.open( {
             component: this.getSelectDialogComponent(),
-            data: this.getSelectDialogData( this.parent ),
+            data: this.getSelectDialogData(),
             width: this.getSelectDialogWidth(),
             disableClose: true,
             onBeforeOpen: () => {
@@ -114,8 +129,8 @@ export abstract class DialogTreeEditComponentBase<TViewModel extends TreeViewMod
     /**
      * 获取选择框数据
      */
-    protected getSelectDialogData( parent?): any {
-        return { data: parent };
+    protected getSelectDialogData(): any {
+        return { data: this.parent };
     }
 
     /**

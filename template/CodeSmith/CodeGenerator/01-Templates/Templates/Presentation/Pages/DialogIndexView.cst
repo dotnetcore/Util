@@ -52,9 +52,9 @@ if( Entity.IsTreeEntity() ){
         <util-table-column for="<%= p.PropertyName.ToSafeName() %>"></util-table-column>
         <% } %>
         <util-table-column title="操作">
-            <util-button class="mr-sm" color="Primary" shape="Circle" icon="Edit" tooltip="编辑" on-click="openEditDialog(row.id)"></util-button>
+            <util-button class="mr-sm" color="Primary" shape="Circle" icon="Edit" tooltip="编辑" on-click="openEditDialog(row)"></util-button>
             <util-button class="mr-sm" color="Danger" shape="Circle" icon="Delete" tooltip="删除" on-click="delete(null,row.id)"></util-button>
-            <util-button shape="Circle" icon="Eye" tooltip="详情" on-click="openDetailDialog(row.id)"></util-button>
+            <util-button shape="Circle" icon="Eye" tooltip="详情" on-click="openDetailDialog(row)"></util-button>
         </util-table-column>
     </util-table>
 </util-card>

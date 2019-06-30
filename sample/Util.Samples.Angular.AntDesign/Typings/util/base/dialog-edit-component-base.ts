@@ -33,11 +33,4 @@ export abstract class DialogEditComponentBase<TViewModel extends ViewModel> exte
             closeDialog: true
         } );
     }
-
-    /**
-     * 关闭弹出框
-     */
-    close() {
-        this.util.dialog.close();
-    }
 }

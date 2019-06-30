@@ -3,7 +3,7 @@ using Util.Applications.Dtos;
 
 namespace Util.Applications.Trees {
     /// <summary>
-    /// 树型数据传输对象
+    /// 树型参数
     /// </summary>
     public abstract class TreeDtoBase : DtoBase, ITreeNode {
         /// <summary>
@@ -13,6 +13,7 @@ namespace Util.Applications.Trees {
         /// <summary>
         /// 父名称
         /// </summary>
+        [Display( Name = "父名称" )]
         public string ParentName { get; set; }
         /// <summary>
         /// 路径

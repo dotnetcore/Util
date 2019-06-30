@@ -44,4 +44,11 @@ export class <%=SafeClassName%>DetailComponent extends DialogEditComponentBase<<
     protected getBaseUrl() {
         return "<%=CamelClassName%>";
     }
+    
+    /**
+     * 是否远程加载
+     */
+    isRequestLoad() {
+        return false;
+    }
 }

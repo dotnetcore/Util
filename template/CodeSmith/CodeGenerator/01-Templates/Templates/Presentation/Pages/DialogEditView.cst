@@ -19,7 +19,7 @@
 @page
 @model <%=SafeClassName%>Dto
 @*标题*@
-<page-header title="编辑<%=Description%>"></page-header>
+<page-header title="编辑<%=Description%>" [autoBreadcrumb]="false"></page-header>
 @*表单*@
 <util-card show-border="false">
     <util-form id="form" label-span="4" control-span="20" gutter="16">

@@ -483,4 +483,12 @@ export class Table<T extends IKey> implements OnInit {
     isMasterIndeterminate() {
         return this.checkedSelection.hasValue() && ( !this.isAllChecked() || !this.dataSource.length );
     }
+
+    /**
+     * 通过标识查找
+     * @param id 标识
+     */
+    getById( id ) {
+        return this.dataSource.find( data => data.id === id );
+    }
 }
