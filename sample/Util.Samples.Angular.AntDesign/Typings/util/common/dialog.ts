@@ -115,6 +115,9 @@ export class Dialog {
         let dialogRef: NzModalRef = dialog.openModals[dialog.openModals.length - 1];
         if ( !dialogRef )
             return;
+        let content = dialogRef.getContentComponent();
+        if ( !content && dialog.openModals.length > 1 )
+            dialogRef = dialog.openModals[dialog.openModals.length - 2];
         if ( dialogRef["nzOnCancel"]( { result: result, tag: true } ) === false )
             return;
         dialogRef.close( result );
