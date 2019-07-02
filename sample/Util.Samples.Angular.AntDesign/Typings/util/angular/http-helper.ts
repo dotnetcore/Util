@@ -1,5 +1,5 @@
 ﻿//============== Http操作=========================
-//Copyright 2019 何镇汐
+//Copyright 2018 何镇汐
 //Licensed under the MIT license
 //================================================
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
@@ -227,7 +227,7 @@ export class HttpRequest<T> {
             if ( !this.body.hasOwnProperty( key ) )
                 continue;;
             let value = this.getValue( this.body[key] );
-            if ( !value ) {
+            if ( value === undefined || value === null || value === '' ) {
                 delete this.body[key];
                 continue;;
             }

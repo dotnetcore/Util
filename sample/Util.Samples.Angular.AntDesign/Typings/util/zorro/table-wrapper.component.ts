@@ -386,7 +386,7 @@ export class Table<T extends IKey> implements OnInit {
             this.checkedSelection.select( item );
             return;
         }
-        let list = this.dataSource.filter( data => ids.some( data.id ) );
+        let list = this.dataSource.filter( data => ids.indexOf( data.id ) > -1 );
         list.forEach( item => {
             if ( this.checkedSelection.isSelected( item ) )
                 return;

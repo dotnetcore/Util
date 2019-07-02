@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Injector, ViewChild, Input, forwardRef, OnInit } from '@angular/core';
+import { Injector, ViewChild, forwardRef, OnInit } from '@angular/core';
 import { MessageConfig } from '../config/message-config';
 import { util, TreeViewModel, TreeQueryParameter, TreeTable, PagerList } from '../index';
 import { QueryComponentBase } from "./query-component-base";
@@ -91,6 +91,16 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     }
 
     /**
+     * 勾选标识列表
+     * @param checkedIds 要勾选的标识列表
+     */
+    checkIds( checkedIds?) {
+        if ( checkedIds )
+            this.checkedIds = checkedIds;
+        this.table.checkIds( this.checkedIds );
+    }
+
+    /**
      * 刷新
      * @param button 按钮
      * @param handler 刷新后回调函数
@@ -99,14 +109,13 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
         handler = handler || this.refreshAfter;
         this.queryParam = this.createQuery();
         this.table.refresh( this.queryParam, button, handler );
-        
     }
 
     /**
      * 刷新完成后操作
      */
     protected refreshAfter = ( data: PagerList<TViewModel> ) => {
-        this.table.checkIds( this.checkedIds );
+        this.checkIds();
     }
 
     /**
