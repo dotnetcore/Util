@@ -86,8 +86,17 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     delete( button?, id?) {
         this.table.delete( {
             button: button,
-            ids: id
+            ids: id,
+            handler: () => {
+                this.deleteAfter();
+            }
         } );
+    }
+
+    /**
+     * 删除后操作
+     */
+    protected deleteAfter = () => {
     }
 
     /**
@@ -105,7 +114,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
      * @param button 按钮
      * @param handler 刷新后回调函数
      */
-    refresh( button?, handler?: ( data: PagerList<TViewModel> ) => void ) {
+    refresh( button?, handler?: ( data ) => void ) {
         handler = handler || this.refreshAfter;
         this.queryParam = this.createQuery();
         this.table.refresh( this.queryParam, button, handler );
@@ -114,7 +123,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     /**
      * 刷新完成后操作
      */
-    protected refreshAfter = ( data: PagerList<TViewModel> ) => {
+    protected refreshAfter = data => {
         this.checkIds();
     }
 

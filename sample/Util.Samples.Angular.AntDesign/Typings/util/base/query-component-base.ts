@@ -53,6 +53,7 @@ export abstract class QueryComponentBase {
     openCreateDialog( data?) {
         this.util.dialog.open( {
             component: this.getCreateDialogComponent(),
+            title: this.getCreateDialogTitle(),
             data: this.getCreateDialogData( data ),
             width: this.getCreateDialogWidth(),
             disableClose: true,
@@ -74,6 +75,13 @@ export abstract class QueryComponentBase {
      */
     protected getCreateDialogComponent(): any {
         return {};
+    }
+
+    /**
+     * 获取创建弹出框标题
+     */
+    protected getCreateDialogTitle() {
+        return null;
     }
 
     /**
@@ -127,6 +135,7 @@ export abstract class QueryComponentBase {
     openEditDialog( data ) {
         this.util.dialog.open( {
             component: this.getEditDialogComponent(),
+            title: this.getEditDialogTitle(),
             data: this.getEditDialogData( data ),
             width: this.getEditDialogWidth(),
             disableClose: true,
@@ -148,6 +157,13 @@ export abstract class QueryComponentBase {
      */
     protected getEditDialogComponent(): any {
         return this.getCreateDialogComponent();
+    }
+
+    /**
+     * 获取更新弹出框标题
+     */
+    protected getEditDialogTitle() {
+        return null;
     }
 
     /**
@@ -196,6 +212,7 @@ export abstract class QueryComponentBase {
     openDetailDialog( data ) {
         this.util.dialog.open( {
             component: this.getDetailDialogComponent(),
+            title: this.getDetailDialogTitle(),
             data: this.getDetailDialogData( data ),
             width: this.getDetailDialogWidth(),
             showOk: false
@@ -207,6 +224,13 @@ export abstract class QueryComponentBase {
      */
     protected getDetailDialogComponent(): any {
         return {};
+    }
+
+    /**
+     * 获取更新弹出框标题
+     */
+    protected getDetailDialogTitle() {
+        return null;
     }
 
     /**

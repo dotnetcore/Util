@@ -82,17 +82,34 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     delete( button?, id?) {
         this.table.delete( {
             button: button,
-            ids: id
+            ids: id,
+            handler: () => {
+                this.deleteAfter();
+            }
         } );
+    }
+
+    /**
+     * 删除后操作
+     */
+    protected deleteAfter = () => {
     }
 
     /**
      * 刷新
      * @param button 按钮
+     * @param handler 刷新后回调函数
      */
-    refresh( button?) {
+    refresh( button?, handler?: ( data ) => void ) {
+        handler = handler || this.refreshAfter;
         this.queryParam = this.createQuery();
-        this.table.refresh( this.queryParam, button );
+        this.table.refresh( this.queryParam, button, handler );
+    }
+
+    /**
+     * 刷新完成后操作
+     */
+    protected refreshAfter = data => {
     }
 
     /**
