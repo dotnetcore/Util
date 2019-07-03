@@ -302,20 +302,23 @@ export class Table<T extends IKey> implements OnInit {
         }
         util.webapi.post( url, ids ).button( button ).handle( {
             ok: () => {
-                if ( handler ) {
-                    handler();
-                    return;
-                }
                 util.message.success( config.deleteSuccessed );
                 this.query( {
                     handler: result => {
-                        if ( result.page <= 1 )
+                        if ( result.page <= 1 ) {
+                            handler && handler();
                             return;
+                        }
                         if ( result.page > result.pageCount ) {
                             this.query( {
-                                pageIndex: result.page - 1
+                                pageIndex: result.page - 1,
+                                handler: () => {
+                                    handler && handler();
+                                }
                             } );
+                            return;
                         }
+                        handler && handler();
                     }
                 } );
             }
