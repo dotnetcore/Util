@@ -1,5 +1,5 @@
 ﻿//============== OpenId Connect授权服务 ==========
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
 import { Injectable } from '@angular/core';
@@ -51,8 +51,8 @@ export class AuthorizeService {
     /**
      * 登录，重定向到认证服务进行登录操作
      */
-    login() {
-        this.manager.signinRedirect();
+    login(url?) {
+        this.manager.signinRedirect({ state: url});
     }
 
     /**
@@ -74,7 +74,7 @@ export class AuthorizeService {
      */
     private loginSuccess(options: IOidcLoginCallbackOptions, user: User) {
         options.handler && options.handler(user);
-        let redirectUrl = options.redirectUrl || "/";
+        let redirectUrl = user.state || "/";
         util.router.navigate([redirectUrl]);
     }
 
