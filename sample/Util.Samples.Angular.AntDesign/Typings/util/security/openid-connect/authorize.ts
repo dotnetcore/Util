@@ -1,9 +1,9 @@
 ﻿//============== OpenId Connect授权 ==============
-//Copyright 2018 何镇汐
+//Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
 import { Injector, Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { util, Session } from '../../index';
 import { AuthorizeService } from "./authorize-service";
 
@@ -11,7 +11,7 @@ import { AuthorizeService } from "./authorize-service";
  * OpenId Connect授权
  */
 @Injectable()
-export class Authorize implements CanActivate {
+export class Authorize implements CanActivate, CanActivateChild {
     /**
      * 初始化
      * @param injector 注入器
@@ -25,13 +25,13 @@ export class Authorize implements CanActivate {
     /**
      * 是否激活组件
      */
-    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    async canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Promise<boolean> {
         if (this.session && this.session.isAuthenticated)
             return true;
         await this.loadSessionAsync();
         if (this.session && this.session.isAuthenticated)
             return true;
-        this.authService.login();
+        this.authService.login(state.url);
         return false;
     }
 
@@ -45,5 +45,12 @@ export class Authorize implements CanActivate {
         this.session.isAuthenticated = true;
         this.session.userId = user.profile["sub"];
         this.session.name = user.profile["name"];
+    }
+
+    /**
+     * 是否激活子组件
+     */
+    async canActivateChild( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Promise<boolean> {
+        return await this.canActivate( route , state );
     }
 }

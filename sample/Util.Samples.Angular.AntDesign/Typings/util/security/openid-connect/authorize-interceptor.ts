@@ -17,7 +17,7 @@ export class AuthorizeInterceptor implements HttpInterceptor {
      * 初始化
      * @param auth 授权服务
      */
-    constructor(private auth: AuthorizeService) {
+    constructor( private auth: AuthorizeService ) {
     }
 
     /**
@@ -25,21 +25,22 @@ export class AuthorizeInterceptor implements HttpInterceptor {
      * @param request http请求
      * @param next Http处理器
      */
-    intercept(request: HttpRequest<any>, next: HttpHandler) {
-        return from(this.auth.getUser()).pipe(
-            map(user => {
-                if (!user || !user.access_token)
+    intercept( request: HttpRequest<any>, next: HttpHandler ) {
+        return from( this.auth.getUser() ).pipe(
+            map( user => {
+                if ( !user || !user.access_token )
                     return request;
-                return request.clone({
+
+                return request.clone( {
                     setHeaders: { Authorization: `${user.token_type} ${user.access_token}` }
-                });
-            }),
-            mergeMap(authRequest => next.handle(authRequest)),
-            catchError(res => {
-                if (res.status === 401)
+                } );
+            } ),
+            mergeMap( authRequest => next.handle( authRequest ) ),
+            catchError( res => {
+                if ( res.status === 401 )
                     this.auth.login();
-                return throwError(res);
-            })
+                return throwError( res );
+            } )
         );
     }
 }

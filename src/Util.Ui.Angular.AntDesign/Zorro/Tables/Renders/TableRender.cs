@@ -55,6 +55,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             ConfigAutoLoad( builder );
             ConfigSort( builder );
             ConfigMultiple( builder );
+            ConfigKeys( builder );
             ConfigTableWrapperEvents( builder );
         }
 
@@ -123,6 +124,13 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigMultiple( TagBuilder builder ) {
             builder.AddAttribute( "[multiple]", _config.GetValue( UiConst.Multiple ) );
+        }
+
+        /// <summary>
+        /// 配置标识列表
+        /// </summary>
+        private void ConfigKeys( TagBuilder builder ) {
+            builder.AddAttribute( "[checkedKeys]", _config.GetValue( UiConst.CheckedKeys ) );
         }
 
         /// <summary>

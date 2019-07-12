@@ -188,6 +188,18 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables {
         }
 
         /// <summary>
+        /// 测试复选框选中的标识列表
+        /// </summary>
+        [Fact]
+        public void TestCheckedKeys() {
+            var attributes = new TagHelperAttributeList { { UiConst.CheckedKeys, "a" } };
+            var result = new String();
+            result.Append( "<nz-tree-table-wrapper #m_id_wrapper=\"\" [checkedKeys]=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试显示边框
         /// </summary>
         [Fact]

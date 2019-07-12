@@ -98,6 +98,10 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string PageSizeOptions { get; set; }
         /// <summary>
+        /// 选中的标识列表，用于还原选中的复选框，可以是单个Id，或Id数组，范例：'1' 或 ['1','2']
+        /// </summary>
+        public string CheckedKeys { get; set; }
+        /// <summary>
         /// (nzPageSizeChange),分页大小变更事件
         /// </summary>
         public string OnPageSizeChange { get; set; }

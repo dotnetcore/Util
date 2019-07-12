@@ -1,28 +1,29 @@
-﻿const pathPlugin = require('path');
-const webpack = require('webpack');
-var Extract = require("extract-text-webpack-plugin");
-const AngularCompiler = require('@ngtools/webpack').AngularCompilerPlugin;
+﻿const pathPlugin = require( 'path' );
+const webpack = require( 'webpack' );
+var Extract = require( "extract-text-webpack-plugin" );
+const AngularCompiler = require( '@ngtools/webpack' ).AngularCompilerPlugin;
+const OptimizeCssnano = require( '@intervolga/optimize-cssnano-plugin' );
 
-module.exports = (env) => {
+module.exports = ( env ) => {
     //环境
-    const isDev = !(env && env.prod);
+    const isDev = !( env && env.prod );
     const mode = isDev ? "development" : "production";
 
     //将css提取到单独文件中
-    const extractCss = new Extract("app.css");
+    const extractCss = new Extract( "app.css" );
 
     //获取路径
-    function getPath(path) {
-        return pathPlugin.join(__dirname, path);
+    function getPath( path ) {
+        return pathPlugin.join( __dirname, path );
     }
 
     //打包js
     let jsConfig = {
         mode: mode,
-        entry: { app: getPath("Typings/main.ts") },
+        entry: { app: getPath( "Typings/main.ts" ) },
         output: {
             publicPath: 'dist/',
-            path: getPath("wwwroot/dist"),
+            path: getPath( "wwwroot/dist" ),
             filename: "[name].js",
             chunkFilename: '[id].chunk.js'
         },
@@ -30,7 +31,7 @@ module.exports = (env) => {
             noEmitOnErrors: true
         },
         resolve: {
-            extensions: ['.js', '.ts','.less','.css']
+            extensions: ['.js', '.ts', '.less', '.css']
         },
         devtool: "source-map",
         module: {
@@ -70,20 +71,69 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            new webpack.DefinePlugin({
-                'process.env': { NODE_ENV: isDev ? JSON.stringify("dev") : JSON.stringify("prod") }
-            })
-        ].concat(isDev ? [
-            new webpack.DllReferencePlugin({
-                manifest: require('./wwwroot/dist/vendor-manifest.json')
-            }),
-            new webpack.DllReferencePlugin({
-                manifest: require('./wwwroot/dist/util-manifest.json')
-            })
-        ] : new AngularCompiler({
+            new webpack.DefinePlugin( {
+                'process.env': { NODE_ENV: isDev ? JSON.stringify( "dev" ) : JSON.stringify( "prod" ) }
+            } )
+        ].concat( isDev ? [
+            new webpack.DllReferencePlugin( {
+                manifest: require( './wwwroot/dist/vendor-manifest.json' )
+            } ),
+            new webpack.DllReferencePlugin( {
+                manifest: require( './wwwroot/dist/util-manifest.json' )
+            } )
+        ] : new AngularCompiler( {
             tsConfigPath: 'tsconfig.json',
             entryModule: "Typings/app/app.module#AppModule"
-        }))
+        } ) )
     }
-    return [jsConfig];
+
+    //打包css
+    let cssConfig = {
+        mode: mode,
+        entry: { app: getPath( "wwwroot/css/main.less" ) },
+        output: {
+            publicPath: './',
+            path: getPath( "wwwroot/dist" ),
+            filename: "[name].css"
+        },
+        resolve: {
+            modules: ['wwwroot']
+        },
+        devtool: "source-map",
+        module: {
+            rules: [
+                {
+                    test: /\.less$/, use: extractCss.extract( {
+                        use: [{
+                            loader: 'to-string-loader'
+                        }, {
+                            loader: "css-loader"
+                        }, {
+                            loader: "less-loader",
+                            options: {
+                                javascriptEnabled: true
+                            }
+                        }]
+                    } )
+                },
+                {
+                    test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 20000,
+                            name: "[name].[ext]",
+                            outputPath: "images/"
+                        }
+                    }
+                }
+            ]
+        },
+        plugins: [
+            extractCss
+        ].concat( isDev ? [] : new OptimizeCssnano( {
+            cssnanoOptions: { preset: ['default', { discardComments: { removeAll: true } }] }
+        } ) )
+    }
+
+    return [jsConfig, cssConfig];
 }

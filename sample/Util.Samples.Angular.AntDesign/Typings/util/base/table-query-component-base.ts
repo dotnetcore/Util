@@ -3,24 +3,17 @@
 //Licensed under the MIT license
 //================================================
 import { Injector, ViewChild, forwardRef, AfterViewInit } from '@angular/core';
-import { util, ViewModel, QueryParameter, Table } from '../index';
+import { ViewModel, QueryParameter, Table } from '../index';
+import { QueryComponentBase } from "./query-component-base";
 
 /**
  * 表格查询基类
  */
-export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> implements AfterViewInit {
-    /**
-     * 操作库
-     */
-    protected util = util;
+export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQuery extends QueryParameter> extends QueryComponentBase implements AfterViewInit {
     /**
      * 查询参数
      */
     queryParam: TQuery;
-    /**
-     * 是否展开
-     */
-    expand;
     /**
      * 表格组件
      */
@@ -31,7 +24,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * @param injector 注入器
      */
     constructor( injector: Injector ) {
-        util.ioc.componentInjector = injector;
+        super( injector );
         this.queryParam = this.createQuery();
     }
 
@@ -64,9 +57,9 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 查询
      * @param button 按钮
      */
-    query( button? ) {
+    query( button?) {
         this.table.query( {
-            button:button
+            button: button
         } );
     }
 
@@ -74,7 +67,7 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      * 延迟搜索
      * @param button 按钮
      */
-    search( button? ) {
+    search( button?) {
         this.table.search( {
             button: button,
             delay: this.getDelay()
@@ -82,10 +75,41 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     }
 
     /**
-     * 获取查询延迟间隔，单位：毫秒，默认500
+     * 删除
+     * @param button 按钮
+     * @param id 标识
      */
-    protected getDelay() {
-        return 500;
+    delete( button?, id?) {
+        this.table.delete( {
+            button: button,
+            ids: id,
+            handler: () => {
+                this.deleteAfter();
+            }
+        } );
+    }
+
+    /**
+     * 删除后操作
+     */
+    protected deleteAfter = () => {
+    }
+
+    /**
+     * 刷新
+     * @param button 按钮
+     * @param handler 刷新后回调函数
+     */
+    refresh( button?, handler?: ( data ) => void ) {
+        handler = handler || this.refreshAfter;
+        this.queryParam = this.createQuery();
+        this.table.refresh( this.queryParam, button, handler );
+    }
+
+    /**
+     * 刷新完成后操作
+     */
+    protected refreshAfter = data => {
     }
 
     /**
@@ -96,30 +120,9 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     }
 
     /**
-     * 删除
-     * @param button 按钮
-     * @param id 标识
-     */
-    delete( button?, id? ) {
-        this.table.delete( {
-            button: button,
-            ids: id
-        } );
-    }
-
-    /**
-     * 刷新
-     * @param button 按钮
-     */
-    refresh( button? ) {
-        this.queryParam = this.createQuery();
-        this.table.refresh( this.queryParam, button );
-    }
-
-    /**
      * 获取勾选的实体列表
      */
-    getChecked() {
+    getCheckedNodes() {
         return this.table.getChecked();
     }
 
@@ -138,18 +141,9 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
     }
 
     /**
-     * 选中实体
+     * 获取勾选的单个节点
      */
-    select() {
-        let selection = this.getChecked();
-        if ( !selection || selection.length === 0 ) {
-            this.util.dialog.close( new ViewModel() );
-            return;
-        }
-        if ( selection.length === 1 ) {
-            this.util.dialog.close( selection[0] );
-            return;
-        }
-        this.util.dialog.close( selection );
+    getCheckedNode() {
+        return this.table.getCheckedNode();
     }
 }

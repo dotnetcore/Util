@@ -19,37 +19,37 @@ export class Form {
      * 提交表单
      * @param options 表单提交参数
      */
-    submit(options: IFormSubmitOption): void {
-        if (!this.validateSubmit(options))
+    submit( options: IFormSubmitOption ): void {
+        if ( !this.validateSubmit( options ) )
             return;
-        if (!options.confirm) {
-            this.submitForm(options);
+        if ( !options.confirm ) {
+            this.submitForm( options );
             return;
         }
-        Message.confirm({
+        Message.confirm( {
             title: options.confirmTitle,
             message: options.confirm,
-            ok: () => this.submitForm(options),
+            ok: () => this.submitForm( options ),
             cancel: options.complete
-        });
+        } );
     }
 
     /**
      * 提交表单验证
      */
-    private validateSubmit(options: IFormSubmitOption) {
-        if (!options) {
-            Message.error("表单参数 options: FormSubmitOptions 未设置");
+    private validateSubmit( options: IFormSubmitOption ) {
+        if ( !options ) {
+            Message.error( "表单参数 options: FormSubmitOptions 未设置" );
             return false;
         }
-        if (options.form && !options.form.valid)
+        if ( options.form && !options.form.valid )
             return false;
-        if (!options.url) {
-            Message.error("表单url未设置");
+        if ( !options.url ) {
+            Message.error( "表单url未设置" );
             return false;
         }
-        if (!options.data) {
-            Message.error("表单数据未设置");
+        if ( !options.data ) {
+            Message.error( "表单数据未设置" );
             return false;
         }
         return true;
@@ -58,32 +58,32 @@ export class Form {
     /**
      * 提交表单
      */
-    private submitForm(options: IFormSubmitOption) {
-        this.initHttpMethod(options);
-        WebApi.send(options.url, options.httpMethod, options.data)
-            .header(options.header)
-            .button(options.button)
-            .loading(options.loading || false)
-            .handle({
+    private submitForm( options: IFormSubmitOption ) {
+        this.initHttpMethod( options );
+        WebApi.send( options.url, options.httpMethod, options.data )
+            .header( options.header )
+            .button( options.button )
+            .loading( options.loading || false )
+            .handle( {
                 before: () => {
-                    return options.before && options.before(options.data);
+                    return options.before && options.before( options.data );
                 },
                 ok: result => {
-                    this.okHandler(options, result);
+                    this.okHandler( options, result );
                 },
                 fail: result => {
-                    this.failHandler(options, result);
+                    this.failHandler( options, result );
                 },
                 complete: options.complete
-            });
+            } );
     }
 
     /**
      * 初始化Http方法
      * @param options
      */
-    private initHttpMethod(options: IFormSubmitOption) {
-        if (options.httpMethod)
+    private initHttpMethod( options: IFormSubmitOption ) {
+        if ( options.httpMethod )
             return;
         options.httpMethod = options.data.id ? HttpMethod.Put : HttpMethod.Post;
     }
@@ -91,24 +91,26 @@ export class Form {
     /**
      * 失败处理函数
      */
-    private failHandler(options: IFormSubmitOption, result) {
-        (options.form as { submitted: boolean }).submitted = false;
-        options.fail && options.fail(result);
-        if (options.showErrorMessage !== false)
-            Message.error(result.message);
+    private failHandler( options: IFormSubmitOption, result ) {
+        ( options.form as { submitted: boolean } ).submitted = false;
+        options.fail && options.fail( result );
+        if ( options.showErrorMessage !== false )
+            Message.error( result.message );
     }
 
     /**
      * 成功处理函数
      */
-    private okHandler(options: IFormSubmitOption, result) {
-        options.ok && options.ok(result);
-        if (options.showMessage !== false)
-            Message.success(options.message || MessageConfig.successed);
-        if (options.back)
+    private okHandler( options: IFormSubmitOption, result ) {
+        options.ok && options.ok( result );
+        if ( options.showMessage !== false )
+            Message.success( options.message || MessageConfig.successed );
+        if ( options.back )
             RouterHelper.back();
-        if (options.closeDialog)
-            Dialog.close();
+        if ( options.closeDialog ) {
+            result = result || "ok";
+            Dialog.close( result );
+        }
     }
 }
 
@@ -176,16 +178,16 @@ export interface IFormSubmitOption {
      * 提交前处理函数，返回false则取消提交
      * @param data 数据
      */
-    before?: (data) => boolean;
+    before?: ( data ) => boolean;
     /**
      * 提交成功处理函数
      * @param result 结果
      */
-    ok?: (result) => void;
+    ok?: ( result ) => void;
     /**
      * 提交失败处理函数
      */
-    fail?: (result: FailResult) => void;
+    fail?: ( result: FailResult ) => void;
     /**
      * 操作完成处理函数，注意：该函数在任意情况下都会执行
      */

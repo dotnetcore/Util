@@ -35,6 +35,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Gutter { get; set; }
         /// <summary>
+        /// 是否打开浏览器自动完成功能，默认值：false
+        /// </summary>
+        public bool AutoComplete { get; set; }
+        /// <summary>
         /// 提交事件处理函数，范例：handle()
         /// </summary>
         public string OnSubmit { get; set; }

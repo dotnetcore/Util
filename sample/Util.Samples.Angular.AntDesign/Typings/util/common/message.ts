@@ -58,7 +58,7 @@ export class Message {
         /**
          * 确认回调函数
          */
-        ok: () => void,
+        ok?: () => void,
         /**
          * 取消回调函数
          */
@@ -77,7 +77,7 @@ export class Message {
     static confirm( options, ok?): void {
         let message = "";
         let title = "";
-        let cancel: () => void;
+        let cancel: () => void = null;
         if ( typeof options === "object" ) {
             message = options["message"];
             title = options["title"];

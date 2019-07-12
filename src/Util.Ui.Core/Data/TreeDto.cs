@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Util.Applications.Trees;
 
 namespace Util.Ui.Data {
@@ -31,6 +32,7 @@ namespace Util.Ui.Data {
         /// <summary>
         /// 图标
         /// </summary>
+        [Display( Name = "图标" )]
         public string Icon { get; set; }
         /// <summary>
         /// 是否禁用复选框

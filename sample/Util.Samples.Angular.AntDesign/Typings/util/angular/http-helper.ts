@@ -224,9 +224,14 @@ export class HttpRequest<T> {
      */
     private processBody() {
         for ( let key in this.body ) {
-            if ( this.body.hasOwnProperty( key ) ) {
-                this.body[key] = this.getValue( this.body[key] );
+            if ( !this.body.hasOwnProperty( key ) )
+                continue;;
+            let value = this.getValue( this.body[key] );
+            if ( value === undefined || value === null || value === '' ) {
+                delete this.body[key];
+                continue;;
             }
+            this.body[key] = this.getValue( this.body[key] );
         }
     }
 

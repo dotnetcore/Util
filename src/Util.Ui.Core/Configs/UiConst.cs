@@ -895,5 +895,17 @@
         /// 是否按钮
         /// </summary>
         public const string IsButton = "is-button";
+        /// <summary>
+        /// 自动完成
+        /// </summary>
+        public const string AutoComplete = "autocomplete";
+        /// <summary>
+        /// 选择索引变更事件
+        /// </summary>
+        public const string OnSelectedIndexChange = "on-selected-index-change";
+        /// <summary>
+        /// 延迟加载
+        /// </summary>
+        public const string Lazy = "lazy";
     }
 }

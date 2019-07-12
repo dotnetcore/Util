@@ -95,6 +95,9 @@
     <None Include="01-Templates\Templates\Presentation\Controllers\ApiController.cst" />
     <None Include="01-Templates\Templates\Presentation\Controllers\TreeApiController.cst" />
     <None Include="01-Templates\Templates\Presentation\Pages\QueryView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\DialogIndexView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\DialogEditView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Pages\DialogDetailView.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\IndexComponent.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Module.cst" />
     <None Include="01-Templates\Templates\Presentation\Typings\Query.cst" />
@@ -109,6 +112,11 @@
     <None Include="01-Templates\Templates\Presentation\Pages\EditView.cst" />
     <None Include="01-Templates\Templates\Presentation\Pages\DetailView.cst" />
     <None Include="01-Templates\Templates\Presentation\Pages\TreeIndexView.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\DialogIndexComponent.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\DialogEditComponent.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\DialogDetailComponent.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\DialogRouting.cst" />
+    <None Include="01-Templates\Templates\Presentation\Typings\DialogModule.cst" />
     <None Include="01-Templates\Templates\Services\Dto.cst" />
     <None Include="01-Templates\Templates\Services\DtoExtension.cst" />
     <None Include="01-Templates\Templates\Services\IocConfig.cst" />
