@@ -4,15 +4,15 @@ using Xunit;
 
 namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables.Builders {
     /// <summary>
-    /// 树形表格列td生成器测试
+    /// 树形表格文本列生成器测试
     /// </summary>
-    public class TreeTableColumnBuilderTest {
+    public class TextColumnBuilderTest {
         /// <summary>
         /// 测试
         /// </summary>
         [Fact]
         public void Test() {
-            var builder = new TreeTableColumnBuilder();
+            var builder = new TextColumnBuilder();
             builder.SetColumn( "a", "b", 20 );
             var result = new String();
             result.Append( "<td " );

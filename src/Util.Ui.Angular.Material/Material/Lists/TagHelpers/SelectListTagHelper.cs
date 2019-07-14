@@ -60,10 +60,9 @@ namespace Util.Ui.Material.Lists.TagHelpers {
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            context.Items[MaterialConst.CheckboxPosition] = context.AllAttributes[MaterialConst.CheckboxPosition];
+        /// <param name="context">上下文</param>
+        protected override void ProcessBefore( Context context ) {
+            context.TagHelperContext.Items[MaterialConst.CheckboxPosition] = context.AllAttributes[MaterialConst.CheckboxPosition];
         }
     }
 }

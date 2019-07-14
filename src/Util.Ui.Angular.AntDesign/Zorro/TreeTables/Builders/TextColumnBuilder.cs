@@ -1,11 +1,18 @@
 ﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Builders;
 using Util.Ui.Extensions;
 
 namespace Util.Ui.Zorro.TreeTables.Builders {
     /// <summary>
-    /// 树形表格列td生成器
+    /// 树形表格文本列生成器
     /// </summary>
-    public class TreeTableColumnBuilder : Util.Ui.Zorro.Tables.Builders.TableColumnBuilder {
+    public class TextColumnBuilder : TagBuilder {
+        /// <summary>
+        /// 初始化树形表格文本列生成器
+        /// </summary>
+        public TextColumnBuilder() : base( "td" ) {
+        }
+
         /// <summary>
         /// 设置列
         /// </summary>

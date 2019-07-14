@@ -13,7 +13,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
     /// <summary>
     /// 表格列测试
     /// </summary>
-    public class TableColumnTagHelperTest {
+    public class ColumnTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -26,9 +26,10 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public TableColumnTagHelperTest( ITestOutputHelper output ) {
+        public ColumnTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _component = new ColumnTagHelper();
+            Util.Helpers.Id.SetId( "id" );
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         [Fact]
         public void TestType_Checkbox() {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
-            var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
+            var items = new Dictionary<object, object> { { typeof( TableShareConfig ), new TableShareConfig( "id" ) } };
             var result = new String();
             result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"id_wrapper.checkedSelection.toggle(row)\" " );
             result.Append( "[nzChecked]=\"id_wrapper.checkedSelection.isSelected(row)\" " );
@@ -106,9 +107,9 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         /// </summary>
         [Fact]
         public void TestType_Date_Format() {
-            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.DateFormat, "a" }, { UiConst.Column, "a" } };
+            var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Date }, { UiConst.DateFormat, "b" }, { UiConst.Column, "a" } };
             var result = new String();
-            result.Append( "<td>{{ row.a | date:\"a\" }}</td>" );
+            result.Append( "<td>{{ row.a | date:\"b\" }}</td>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

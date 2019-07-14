@@ -126,6 +126,11 @@ namespace Util.Tests.Maps {
             proxy2.Name = "b";
             sample = proxy2.MapTo<EntitySample>();
             Assert.Equal( "b", sample.Name );
+
+            var sample2 = new DtoSample { Name = "c"};
+            var proxy3 = proxyGenerator.CreateClassProxy<EntitySample>();
+            sample2.MapTo( proxy3 );
+            Assert.Equal( "c", proxy3.Name );
         }
     }
 }

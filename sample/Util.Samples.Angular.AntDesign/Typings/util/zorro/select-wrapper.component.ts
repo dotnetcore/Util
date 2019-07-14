@@ -20,7 +20,7 @@ import { util, QueryParameter } from "../index";
                 [nzMode]="multiple?'multiple':'default'" [nzMaxMultipleCount]="maxMultipleCount"
                 [nzShowSearch]="showSearch" [nzAllowClear]="allowClear" [nzShowArrow]="showArrow"
                 [nzDisabled]="disabled" [required]="required" [nzServerSearch]="isServerSearch"
-                (nzBlur)="blur($event)" (nzFocus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                (nzBlur)="handleBlur($event)" (nzFocus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                 (nzOnSearch)="search($event)" (nzScrollToBottom)="scrollToBottom()">
                 <nz-option *ngIf="defaultOptionText" [nzLabel]="defaultOptionText"></nz-option>
                 <ng-container *ngIf="!isGroup">

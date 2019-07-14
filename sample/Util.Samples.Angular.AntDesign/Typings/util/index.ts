@@ -46,3 +46,5 @@ export { SingleUpload } from "./zorro/single-upload-wrapper.component";
 export { Tree } from "./zorro/tree-wrapper.component";
 export { TreeSelect } from "./zorro/tree-select-wrapper.component";
 export { TreeTable } from "./zorro/tree-table-wrapper.component";
+export { EditTableDirective } from "./zorro/edit-table.directive"
+export { EditRowDirective } from "./zorro/edit-row.directive";

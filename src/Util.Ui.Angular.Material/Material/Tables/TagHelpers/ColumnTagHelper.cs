@@ -65,17 +65,15 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            _config.Content = context.Content;
             return new ColumnRender( _config );
         }
 
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            _config.Load( context, output );
+        /// <param name="context">上下文</param>
+        protected override void ProcessBefore( Context context ) {
+            _config.Load( context );
             _config.InitShare();
             ResolveExpression();
             AddColumnToParent();
@@ -95,7 +93,7 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// 把列添加到表格容器
         /// </summary>
         private void AddColumnToParent() {
-            var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            var shareConfig = _config.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
             shareConfig?.Columns.Add( GetColumn() );
         }
 

@@ -907,5 +907,13 @@
         /// 延迟加载
         /// </summary>
         public const string Lazy = "lazy";
+        /// <summary>
+        /// 双击启动编辑
+        /// </summary>
+        public const string DoubleClickStartEdit = "double-click-start-edit";
+        /// <summary>
+        /// 是否编辑
+        /// </summary>
+        public const string IsEdit = "is-edit";
     }
 }

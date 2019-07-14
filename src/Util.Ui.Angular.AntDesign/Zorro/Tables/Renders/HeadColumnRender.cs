@@ -93,7 +93,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 获取共享配置
         /// </summary>
         private TableShareConfig GetShareConfig() {
-            return _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            return _config.GetValueFromItems<TableShareConfig>();
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         private void ConfigCheckbox( TableHeadColumnBuilder builder ) {
             if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
                 return;
-            var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
+            var tableId = _config.GetValueFromItems<TableShareConfig>()?.TableId;
             builder.AddCheckBox( tableId );
             if( _config.Contains( UiConst.Width ) )
                 return;

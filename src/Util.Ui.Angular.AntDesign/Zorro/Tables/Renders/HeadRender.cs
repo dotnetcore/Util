@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
 
@@ -62,7 +61,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 获取共享配置
         /// </summary>
         private TableShareConfig GetShareConfig() {
-            return _config.Context?.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            return _config.GetValueFromItems<TableShareConfig>();
         }
 
         /// <summary>

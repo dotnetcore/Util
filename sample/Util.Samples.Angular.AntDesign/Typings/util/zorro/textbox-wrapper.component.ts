@@ -10,20 +10,20 @@ import { MessageConfig } from '../config/message-config';
 /**
  * NgZorro文本框包装器
  */
-@Component({
+@Component( {
     selector: 'x-textbox',
     template: `
         <nz-form-control [nzValidateStatus]="(controlModel?.invalid && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <input nz-input [id]="rawId" [name]="name" [type]="type" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
-                (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                 [required]="required" [email]="type==='email'" [pattern]="pattern"
                 [minlength]="minLength" [maxlength]="maxLength"
             />
             <nz-form-explain *ngIf="controlModel?.invalid && (controlModel?.dirty || controlModel.touched)">{{getErrorMessage()}}</nz-form-explain>
         </nz-form-control>
     `
-})
+} )
 export class TextBox extends FormControlWrapperBase implements OnInit {
     /**
      * 是否密码框
@@ -79,7 +79,7 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
      * @param form 表单
      */
     constructor( @Optional() form: NgForm ) {
-        super(form);
+        super( form );
         this.clearButtonTooltip = MessageConfig.clear;
         this.showClearButton = true;
     }
@@ -88,6 +88,7 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
      * 组件初始化
      */
     ngOnInit() {
+        super.ngOnInit();
         this.initPassword();
     }
 
@@ -95,7 +96,7 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
      * 初始化密码框
      */
     private initPassword() {
-        if (this.type !== "password")
+        if ( this.type !== "password" )
             return;
         this.isPassword = true;
         this.hide = true;
@@ -114,15 +115,15 @@ export class TextBox extends FormControlWrapperBase implements OnInit {
      * 获取错误消息
      */
     getErrorMessage() {
-        if (!this.controlModel)
+        if ( !this.controlModel )
             return "";
-        if (this.controlModel.hasError('required'))
+        if ( this.controlModel.hasError( 'required' ) )
             return this.requiredMessage;
-        if (this.controlModel.hasError('minlength'))
+        if ( this.controlModel.hasError( 'minlength' ) )
             return this.replace( this.minLengthMessage || MessageConfig.minLengthMessage, this.minLength );
-        if (this.controlModel.hasError('email'))
+        if ( this.controlModel.hasError( 'email' ) )
             return this.emailMessage || MessageConfig.emailMessage;
-        if (this.controlModel.hasError('pattern'))
+        if ( this.controlModel.hasError( 'pattern' ) )
             return this.patterMessage;
         return "";
     }
