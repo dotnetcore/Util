@@ -915,5 +915,9 @@
         /// 是否编辑
         /// </summary>
         public const string IsEdit = "is-edit";
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Tags = "tags";
     }
 }

@@ -17,7 +17,7 @@ import { util, QueryParameter } from "../index";
         <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-select #controlModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 [nzPlaceHolder]="placeholder" [ngStyle]="getStyle()" [nzLoading]="loading"
-                [nzMode]="multiple?'multiple':'default'" [nzMaxMultipleCount]="maxMultipleCount"
+                [nzMode]="getMode()" [nzMaxMultipleCount]="maxMultipleCount"
                 [nzShowSearch]="showSearch" [nzAllowClear]="allowClear" [nzShowArrow]="showArrow"
                 [nzDisabled]="disabled" [required]="required" [nzServerSearch]="isServerSearch"
                 (nzBlur)="handleBlur($event)" (nzFocus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
@@ -88,6 +88,10 @@ export class Select extends FormControlWrapperBase implements OnInit {
      * 多选
      */
     @Input() multiple: boolean;
+    /**
+     * 标签
+     */
+    @Input() tags: boolean;
     /**
      * 最多允许选中的数量
      */
@@ -231,6 +235,15 @@ export class Select extends FormControlWrapperBase implements OnInit {
         return {
             'width': this.width ? this.width : null
         };
+    }
+
+    /**
+     * 获取模式
+     */
+    getMode() {
+        if ( this.tags )
+            return 'tags';
+        return this.multiple ? 'multiple' : 'default';
     }
 
     /**
