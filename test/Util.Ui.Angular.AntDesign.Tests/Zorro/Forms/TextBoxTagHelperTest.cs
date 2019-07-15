@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Zorro.Forms;
+using Util.Ui.Zorro.Tables.Configs;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
@@ -33,8 +35,9 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
-            return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content );
+        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null,
+            TagHelperContent content = null, IDictionary<object, object> items = null ) {
+            return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content, items );
         }
 
         /// <summary>
@@ -267,6 +270,20 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             result.Append( "<x-textbox></x-textbox>" );
             result.Append( "</nz-form-control>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试表格编辑
+        /// </summary>
+        [Fact]
+        public void TestTableEdit() {
+            var config = new ColumnShareConfig( new TableShareConfig( "id" ), "a" );
+            var items = new Dictionary<object, object> { { typeof( ColumnShareConfig ), config } };
+
+            var result = new String();
+            result.Append( "<x-textbox [row]=\"id_row\"></x-textbox>" );
+
+            Assert.Equal( result.ToString(), GetResult( items: items ) );
         }
 
         /// <summary>

@@ -11,6 +11,7 @@
         public ColumnShareConfig( TableShareConfig tableShareConfig, string column ) {
             TableId = tableShareConfig?.TableId;
             EditTableId = tableShareConfig?.EditTableId;
+            RowId = tableShareConfig?.RowId;
             Column = column;
             IsCreateDisplay = true;
             IsCreateControl = true;
@@ -24,6 +25,10 @@
         /// 编辑表格标识
         /// </summary>
         public string EditTableId { get; }
+        /// <summary>
+        /// 表格行标识
+        /// </summary>
+        public string RowId { get; }
         /// <summary>
         /// 列名
         /// </summary>
