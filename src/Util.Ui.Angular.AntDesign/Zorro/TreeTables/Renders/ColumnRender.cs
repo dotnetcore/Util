@@ -30,6 +30,7 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
         protected override TagBuilder CreateColumnBuilder() {
             var shareConfig = _config.GetValueFromItems<ColumnShareConfig>();
             var type = _config.GetValue<TreeTableColumnType?>( UiConst.Type );
+            var tableWrapperId = GetTableShareConfig()?.TableWrapperId;
             var tableId = shareConfig?.TableId;
             var editTableId = shareConfig?.EditTableId;
             var column = _config.GetValue( UiConst.Column );
@@ -43,24 +44,15 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
                 case TreeTableColumnType.Date:
                     return new DateColumnBuilder( column, format, _config.Content );
                 default:
-                    return GetTextColumnBuilder( column, length );
+                    return new TextColumnBuilder( column, length, _config.Content, IsFirstColumn(), tableWrapperId );
             }
-        }
-
-        /// <summary>
-        /// 获取文本列生成器
-        /// </summary>
-        private TagBuilder GetTextColumnBuilder(string column ,int? length ) {
-            var result = new TextColumnBuilder();
-            if( IsFirstColumn() )
-                result.SetColumn( GetTableShareConfig()?.TableWrapperId, $"row.{column}", 20 );
-            return result;
         }
 
         /// <summary>
         /// 获取表格共享配置
         /// </summary>
         private TableShareConfig GetTableShareConfig() {
+
             return _config.GetValueFromItems<TableShareConfig>();
         }
 

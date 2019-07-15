@@ -1,4 +1,5 @@
-﻿using Util.Helpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Helpers;
 using Util.Ui.Zorro.TreeTables.Builders;
 using Xunit;
 
@@ -8,12 +9,39 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables.Builders {
     /// </summary>
     public class TextColumnBuilderTest {
         /// <summary>
-        /// 测试
+        /// 测试空列
         /// </summary>
         [Fact]
-        public void Test() {
-            var builder = new TextColumnBuilder();
-            builder.SetColumn( "a", "b", 20 );
+        public void TestEmpty() {
+            var result = new String();
+            result.Append( "<td>" );
+            result.Append( "</td>" );
+
+            var builder = new TextColumnBuilder( "", null, null,false,null );
+            builder.Init();
+            Assert.Equal( result.ToString(), builder.ToString() );
+        }
+
+        /// <summary>
+        /// 测试设置列名
+        /// </summary>
+        [Fact]
+        public void TestColumn() {
+            var result = new String();
+            result.Append( "<td>" );
+            result.Append( "{{row.a}}" );
+            result.Append( "</td>" );
+
+            var builder = new TextColumnBuilder( "a", null, null,false, null );
+            builder.Init();
+            Assert.Equal( result.ToString(), builder.ToString() );
+        }
+
+        /// <summary>
+        /// 测试设置列名，添加复选框
+        /// </summary>
+        [Fact]
+        public void TestColumn_AddCheckbox() {
             var result = new String();
             result.Append( "<td " );
             result.Append( "(nzExpandChange)=\"a.collapse(row,$event)\" " );
@@ -27,7 +55,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables.Builders {
             result.Append( "nz-checkbox=\"\" " );
             result.Append( "[nzChecked]=\"a.isChecked(row)\" " );
             result.Append( "[nzIndeterminate]=\"a.isIndeterminate(row)\">" );
-            result.Append( "{{b}}" );
+            result.Append( "{{row.b}}" );
             result.Append( "</label>" );
             result.Append( "<label " );
             result.Append( "(click)=\"$event.stopPropagation()\" " );
@@ -35,12 +63,47 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.TreeTables.Builders {
             result.Append( "*ngIf=\"a.isShowRadio(row)\" name=\"radio_a\" " );
             result.Append( "nz-radio=\"\" " );
             result.Append( "[ngModel]=\"a.isChecked(row)\">" );
-            result.Append( "{{b}}" );
+            result.Append( "{{row.b}}" );
             result.Append( "</label>" );
             result.Append( "<ng-container *ngIf=\"a.isShowText(row)\">" );
-            result.Append( "{{b}}" );
+            result.Append( "{{row.b}}" );
             result.Append( "</ng-container>" );
             result.Append( "</td>" );
+
+            var builder = new TextColumnBuilder( "b", null, null, true, "a" );
+            builder.Init();
+            Assert.Equal( result.ToString(), builder.ToString() );
+        }
+
+        /// <summary>
+        /// 测试截断
+        /// </summary>
+        [Fact]
+        public void TestTrancate() {
+            var result = new String();
+            result.Append( "<td nz-tooltip=\"\" [nzTitle]=\"(row.a|isTruncate:3)?row.a:''\">" );
+            result.Append( "{{row.a|truncate:3}}" );
+            result.Append( "</td>" );
+
+            var builder = new TextColumnBuilder( "a", 3, null,false, null );
+            builder.Init();
+            Assert.Equal( result.ToString(), builder.ToString() );
+        }
+
+        /// <summary>
+        /// 测试设置内容
+        /// </summary>
+        [Fact]
+        public void TestContent() {
+            var result = new String();
+            result.Append( "<td>" );
+            result.Append( "content" );
+            result.Append( "</td>" );
+
+            var content = new DefaultTagHelperContent();
+            content.AppendHtml( "content" );
+            var builder = new TextColumnBuilder( "a", null, content,false, null );
+            builder.Init();
             Assert.Equal( result.ToString(), builder.ToString() );
         }
     }
