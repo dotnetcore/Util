@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Claims;
 using System.Text;
@@ -181,8 +183,8 @@ namespace Util.Helpers {
                     return _ip;
                 var list = new[] { "127.0.0.1", "::1" };
                 var result = HttpContext?.Connection?.RemoteIpAddress.SafeString();
-                if( string.IsNullOrWhiteSpace( result ) || list.Contains( result ) )
-                    result = GetLanIp();
+                if (string.IsNullOrWhiteSpace(result) || list.Contains(result))
+                    result = Common.IsWindows ? GetLanIp() : GetLanIp(NetworkInterfaceType.Ethernet);
                 return result;
             }
         }
@@ -195,6 +197,31 @@ namespace Util.Helpers {
                 if( hostAddress.AddressFamily == AddressFamily.InterNetwork )
                     return hostAddress.ToString();
             }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 获取局域网IP
+        /// </summary>
+        /// <param name="type">网络接口类型</param>
+        private static string GetLanIp(NetworkInterfaceType type) {
+            try {
+                foreach (var item in NetworkInterface.GetAllNetworkInterfaces()) {
+                    if(item.NetworkInterfaceType!=type || item.OperationalStatus!=OperationalStatus.Up)
+                        continue;
+                    var ipProperties = item.GetIPProperties();
+                    if(ipProperties.GatewayAddresses.FirstOrDefault() == null)
+                        continue;
+                    foreach (var ip in ipProperties.UnicastAddresses) {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                            return ip.Address.ToString();
+                    }
+                }
+            }
+            catch {
+                return string.Empty;
+            }
+
             return string.Empty;
         }
 
