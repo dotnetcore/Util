@@ -84,7 +84,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         /// </summary>
         [Fact]
         public void TestModel() {
-            var attributes = new TagHelperAttributeList { { UiConst.Model, "a" } };
+            var attributes = new TagHelperAttributeList { { AngularConst.NgModel, "a" } };
             var result = new String();
             result.Append( "<nz-switch [(ngModel)]=\"a\"></nz-switch>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );

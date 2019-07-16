@@ -15,8 +15,12 @@
     <util-table id="tableApplication" query-param="queryParam" base-url="application" sort="CreationTime desc">
         <util-table-column type="Checkbox"></util-table-column>
         <util-table-column type="LineNumber"></util-table-column>
-        <util-table-column for="Code"></util-table-column>
-        <util-table-column for="Name"></util-table-column>
+        <util-table-column for="Code" is-edit="true">
+            <util-textbox for="Code"></util-textbox>
+        </util-table-column>
+        <util-table-column for="Name" is-edit="true">
+            <util-textbox for="Name"></util-textbox>
+        </util-table-column>
         <util-table-column for="Comment" width="30%"></util-table-column>
         <util-table-column for="Enabled"></util-table-column>
         <util-table-column for="RegisterEnabled"></util-table-column>

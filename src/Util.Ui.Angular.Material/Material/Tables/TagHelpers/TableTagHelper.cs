@@ -83,10 +83,9 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            InitShare( context );
+        /// <param name="context">上下文</param>
+        protected override void ProcessBefore( Context context ) {
+            InitShare( context.TagHelperContext );
         }
 
         /// <summary>

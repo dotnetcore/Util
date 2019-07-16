@@ -91,5 +91,9 @@
         /// 消息
         /// </summary>
         public const string BindMessage = "bind-message";
+        /// <summary>
+        /// 选中索引
+        /// </summary>
+        public const string BindOnSelectedIndex = "bind-on-selected-index";
     }
 }

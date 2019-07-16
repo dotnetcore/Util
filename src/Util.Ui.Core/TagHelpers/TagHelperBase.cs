@@ -23,9 +23,10 @@ namespace Util.Ui.TagHelpers {
         /// 渲染
         /// </summary>
         public override async Task ProcessAsync( TagHelperContext tagHelperContext, TagHelperOutput output ) {
-            ProcessBefore( tagHelperContext, output );
+            var context = new Context( tagHelperContext, output, null );
+            ProcessBefore( context );
             var content = await output.GetChildContentAsync();
-            var context = new Context( tagHelperContext, output, content );
+            context.Content = content;
             var render = GetRender( context );
             output.SuppressOutput();
             output.PostElement.SetHtmlContent( render );
@@ -35,9 +36,8 @@ namespace Util.Ui.TagHelpers {
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected virtual void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+        /// <param name="context">上下文</param>
+        protected virtual void ProcessBefore( Context context ) {
         }
 
         /// <summary>

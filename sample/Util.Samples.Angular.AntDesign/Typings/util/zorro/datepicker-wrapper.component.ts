@@ -20,7 +20,7 @@ import { util } from "../index";
                     <nz-date-picker
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" [nzFormat]="format"
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
-                        (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                        (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                         [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                         [nzShowToday]="showToday"
                         [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate" 
@@ -32,7 +32,7 @@ import { util } from "../index";
                     <nz-range-picker
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
-                        (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                        (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                         [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                         [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
                         (nzOnOpenChange)="openChange($event)">
@@ -43,7 +43,7 @@ import { util } from "../index";
                     <nz-year-picker
                          [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                          #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
-                         (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                         (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                          [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                          [nzClassName]="className" [nzDisabledDate]="disableDate" [nzLocale]="locale"
                          (nzOnOpenChange)="openChange($event)">
@@ -54,7 +54,7 @@ import { util } from "../index";
                     <nz-month-picker
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
-                        (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                        (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                         [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                         [nzClassName]="className" [nzDisabledDate]="disableDate" [nzLocale]="locale"
                         (nzOnOpenChange)="openChange($event)">
@@ -65,7 +65,7 @@ import { util } from "../index";
                     <nz-week-picker
                          [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                          #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
-                         (blur)="blur($event)" (focus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                         (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                          [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                          [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
                          [nzLocale]="locale" (nzOnOpenChange)="openChange($event)">

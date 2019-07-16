@@ -68,5 +68,22 @@ namespace Util.Ui.Configs {
         /// 验证
         /// </summary>
         string Validate();
+        /// <summary>
+        /// 从TagHelperContext Items里获取值
+        /// </summary>
+        /// <typeparam name="T">返回类型</typeparam>
+        /// <param name="key">键</param>
+        T GetValueFromItems<T>( object key = null );
+        /// <summary>
+        /// 设置TagHelperContext Items值
+        /// </summary>
+        /// <param name="value">值</param>
+        void SetValueToItems<T>( T value );
+        /// <summary>
+        /// 从TagHelperContext AllAttributes里获取值
+        /// </summary>
+        /// <typeparam name="T">返回类型</typeparam>
+        /// <param name="key">键</param>
+        T GetValueFromAttributes<T>( string key );
     }
 }

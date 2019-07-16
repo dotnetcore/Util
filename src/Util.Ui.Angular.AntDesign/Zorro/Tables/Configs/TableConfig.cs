@@ -31,38 +31,55 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public static string TotalTemplate { get; set; } = "{{ range[0] }}-{{ range[1] }} 共 {{ total }} 条";
 
         /// <summary>
-        /// 表格共享键
-        /// </summary>
-        public const string TableShareKey = "TableShare";
-
-        /// <summary>
         /// 表格包装器标识
         /// </summary>
-        public string WrapperId => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).TableWrapperId;
+        public string WrapperId => GetShareConfig().TableWrapperId;
+
+        /// <summary>
+        /// 获取共享配置
+        /// </summary>
+        private TableShareConfig GetShareConfig() {
+            return Context.GetValueFromItems<TableShareConfig>();
+        }
 
         /// <summary>
         /// 表格标识
         /// </summary>
-        public string Id => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).TableId;
+        public string Id => GetShareConfig().TableId;
+
+        /// <summary>
+        /// 编辑表格标识
+        /// </summary>
+        public string EditTableId => GetShareConfig().EditTableId;
+
+        /// <summary>
+        /// 表格行标识
+        /// </summary>
+        public string RowId => GetShareConfig().RowId;
 
         /// <summary>
         /// 标题集合
         /// </summary>
-        public List<ColumnInfo> Columns => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).Columns;
+        public List<ColumnInfo> Columns => GetShareConfig().Columns;
 
         /// <summary>
         /// 是否自动创建行
         /// </summary>
-        public bool AutoCreateRow => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).AutoCreateRow;
+        public bool AutoCreateRow => GetShareConfig().AutoCreateRow;
 
         /// <summary>
         /// 是否自动创建表头
         /// </summary>
-        public bool AutoCreateHead => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).AutoCreateHead;
+        public bool AutoCreateHead => GetShareConfig().AutoCreateHead;
 
         /// <summary>
         /// 是否排序
         /// </summary>
-        public bool IsSort => Context.GetValueFromItems<TableShareConfig>( TableShareKey ).IsSort;
+        public bool IsSort => GetShareConfig().IsSort;
+
+        /// <summary>
+        /// 是否支持表格编辑
+        /// </summary>
+        public bool IsEdit => GetShareConfig().IsEdit;
     }
 }

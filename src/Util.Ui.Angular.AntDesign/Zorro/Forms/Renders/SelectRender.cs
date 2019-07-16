@@ -4,6 +4,7 @@ using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Helpers;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
@@ -56,7 +57,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigUrl( builder );
             ConfigDataSource( builder );
             ConfigDefaultOption( builder );
-            ConfigMultiple( builder );
+            ConfigMode( builder );
             ConfigShowClear( builder );
             ConfigSearch( builder );
             ConfigShowArrow( builder );
@@ -107,10 +108,16 @@ namespace Util.Ui.Zorro.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置多选
+        /// 配置多选模式
         /// </summary>
-        private void ConfigMultiple( SelectWrapperBuilder builder ) {
+        private void ConfigMode( SelectWrapperBuilder builder ) {
+            var mode = _config.GetValue<SelectMode?>( UiConst.Mode );
+            if( mode == SelectMode.Multiple )
+                _config.SetAttribute( UiConst.Multiple,true );
+            if( mode == SelectMode.Tags )
+                _config.SetAttribute( UiConst.Tags, true );
             builder.AddAttribute( "[multiple]", _config.GetBoolValue( UiConst.Multiple ) );
+            builder.AddAttribute( "[tags]", _config.GetBoolValue( UiConst.Tags ) );
             builder.AddAttribute( "[maxMultipleCount]", _config.GetValue( UiConst.MaxMultipleCount ) );
         }
 

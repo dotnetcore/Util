@@ -53,6 +53,10 @@ import { Tree } from "./zorro/tree-wrapper.component";
 import { TreeSelect } from "./zorro/tree-select-wrapper.component";
 import { TreeTable } from "./zorro/tree-table-wrapper.component";
 
+//Util指令
+import { EditTableDirective } from "./zorro/edit-table.directive"
+import { EditRowDirective } from "./zorro/edit-row.directive";
+
 //导入模块集合
 const importModules = [
     NgZorroAntdModule, ViserModule
@@ -69,6 +73,11 @@ const components = [
     Tree, TreeSelect, TreeTable
 ];
 
+//指令集合
+const directives = [
+    EditTableDirective,EditRowDirective
+];
+
 /**
  * Util模块
  */
@@ -78,10 +87,10 @@ const components = [
         importModules
     ],
     declarations: [
-        components
+        components, directives
     ],
     exports: [
-        components
+        components, directives
     ],
     providers: [
         DicService, Session

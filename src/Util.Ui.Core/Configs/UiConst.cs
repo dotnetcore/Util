@@ -899,5 +899,25 @@
         /// 自动完成
         /// </summary>
         public const string AutoComplete = "autocomplete";
+        /// <summary>
+        /// 选择索引变更事件
+        /// </summary>
+        public const string OnSelectedIndexChange = "on-selected-index-change";
+        /// <summary>
+        /// 延迟加载
+        /// </summary>
+        public const string Lazy = "lazy";
+        /// <summary>
+        /// 双击启动编辑
+        /// </summary>
+        public const string DoubleClickStartEdit = "double-click-start-edit";
+        /// <summary>
+        /// 是否编辑
+        /// </summary>
+        public const string IsEdit = "is-edit";
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Tags = "tags";
     }
 }

@@ -4,7 +4,6 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Enums;
 using Util.Ui.Angular.Resolvers;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 using Util.Ui.Zorro.Tables.Configs;
@@ -72,17 +71,15 @@ namespace Util.Ui.Zorro.TreeTables {
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            _config.Content = context.Content;
             return new Util.Ui.Zorro.TreeTables.Renders.ColumnRender( _config );
         }
 
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            _config.Load( context, output );
+        /// <param name="context">上下文</param>
+        protected override void ProcessBefore( Context context ) {
+            _config.Load( context );
             ResolveExpression();
             SetShareConfig();
         }
@@ -101,7 +98,7 @@ namespace Util.Ui.Zorro.TreeTables {
         /// 设置共享配置
         /// </summary>
         private void SetShareConfig() {
-            var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            var shareConfig = _config.GetValueFromItems<TableShareConfig>();
             if( shareConfig == null )
                 return;
             AddColumn( shareConfig );

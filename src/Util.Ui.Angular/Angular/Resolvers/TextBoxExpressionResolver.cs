@@ -14,12 +14,14 @@ namespace Util.Ui.Angular.Resolvers {
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        private TextBoxExpressionResolver( ModelExpression expression, TextBoxConfig config ) {
+        /// <param name="isTableEdit">是否表格编辑</param>
+        private TextBoxExpressionResolver( ModelExpression expression, TextBoxConfig config, bool isTableEdit ) {
             if( expression == null || config == null )
                 return;
             _expression = expression;
             _config = config;
             _memberInfo = expression.GetMemberInfo();
+            _isTableEdit = isTableEdit;
         }
 
         /// <summary>
@@ -34,21 +36,26 @@ namespace Util.Ui.Angular.Resolvers {
         /// 成员
         /// </summary>
         private readonly MemberInfo _memberInfo;
+        /// <summary>
+        /// 是否表格编辑
+        /// </summary>
+        private readonly bool _isTableEdit;
 
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        public static void Init( ModelExpression expression, TextBoxConfig config ) {
-            new TextBoxExpressionResolver( expression, config ).Init();
+        /// <param name="isTableEdit">是否表格编辑</param>
+        public static void Init( ModelExpression expression, TextBoxConfig config, bool isTableEdit = false ) {
+            new TextBoxExpressionResolver( expression, config, isTableEdit ).Init();
         }
 
         /// <summary>
         /// 初始化
         /// </summary>
         private void Init() {
-            Helper.Init( _config, _expression, _memberInfo );
+            Helper.Init( _config, _expression, _memberInfo, _isTableEdit );
             Helper.InitDataType( _config, _memberInfo );
             Helper.InitValidation( _config, _memberInfo );
         }
