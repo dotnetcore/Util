@@ -479,8 +479,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" " );
             result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id,m_id_row)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id,m_id_row)\" " );
-            result.Append( "*ngFor=\"let row of m_id.data\" x-edit-row=\"\">" );
+            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
+            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -508,8 +508,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" " );
             result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id,m_id_row)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id,m_id_row)\" " );
-            result.Append( "*ngFor=\"let row of m_id.data\" x-edit-row=\"\">" );
+            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
+            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );

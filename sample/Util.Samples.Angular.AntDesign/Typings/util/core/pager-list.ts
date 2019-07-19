@@ -9,22 +9,20 @@ export class PagerList<T> {
     /**
      * 初始化分页列表
      * @param list 列表
+     * @param page 页索引
+     * @param pageSize 每页显示行数
+     * @param totalCount 总行数
+     * @param pageCount 总页数
      */
-    constructor( list?) {
+    constructor( list?, page?: number, pageSize?: number, totalCount?: number, pageCount?:number) {
         if ( !list )
             return;
-        if ( !list.totalCount && !list.pageSize ) {
-            this.page = 1;
-            this.pageSize = list.length;
-            this.data = list;
-            return;
-        }
-        this.page = list.page;
-        this.pageSize = list.pageSize;
-        this.totalCount = list.totalCount;
-        this.pageCount = list.pageCount;
+        this.page = page || list.page || 1;
+        this.pageSize = pageSize || list.pageSize || list.length;
+        this.totalCount = totalCount || list.totalCount;
+        this.pageCount = pageCount || list.pageCount;
         this.order = list.order;
-        this.data = list.data;
+        this.data = list.data || list;
     }
 
     /**
@@ -55,7 +53,7 @@ export class PagerList<T> {
     /**
      * 初始化行号
      */
-    initLineNumbers(): void {
+    initLineNumbers() {
         if ( !this.data )
             return;
         for ( let i = 0; i < this.data.length; i++ ) {

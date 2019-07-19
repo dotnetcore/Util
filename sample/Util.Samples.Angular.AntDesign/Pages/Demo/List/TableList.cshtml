@@ -5,8 +5,8 @@
     @*查询表单*@
     @await Html.PartialAsync( "TableList.Query" )
     @*工具按钮*@
-    <util-a class="mr-sm" color="Primary" icon="Plus" text="新建" link="/demo/form/basic-form"></util-a>
-    <util-button id="btnDelete" color="Danger" icon="Delete" text="删除" on-click="delete(btnDelete)"></util-button>
+    <util-button class="mr-sm" color="Primary" icon="Plus" text="新建" on-click="addRow()"></util-button>
+    <util-button color="Danger" icon="Delete" text="删除" on-click="delete()"></util-button>
     @*提示语*@
     <util-alert class="my-md" type="Info" show-icon="true">
         已选择<strong class="text-primary mx-md">{{getCheckedLength()}}</strong>行
@@ -21,12 +21,14 @@
         <util-table-column for="Name" is-edit="true">
             <util-textbox for="Name"></util-textbox>
         </util-table-column>
-        <util-table-column for="Comment" width="30%"></util-table-column>
+        <util-table-column for="Comment" width="30%" is-edit="true">
+            <util-textbox for="Comment"></util-textbox>
+        </util-table-column>
         <util-table-column for="Enabled"></util-table-column>
         <util-table-column for="RegisterEnabled"></util-table-column>
         <util-table-column title="操作">
-            <util-a class="mr-sm" color="Primary" shape="Circle" icon="Edit" tooltip="编辑" bind-link="['edit',row.id]"></util-a>
-            <util-button color="Danger" shape="Circle" icon="Delete" tooltip="删除" on-click="delete(null,row.id)"></util-button>
+            <util-button class="mr-sm" color="Primary" shape="Circle" icon="Edit" tooltip="编辑" on-click="edit(row.id)"></util-button>
+            <util-button color="Danger" shape="Circle" icon="Delete" tooltip="删除" on-click="delete(row.id)"></util-button>
         </util-table-column>
     </util-table>
 </util-card>

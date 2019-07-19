@@ -25,10 +25,10 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// <param name="editTableId">编辑表格标识</param>
         /// <param name="rowId">行标识</param>
         public void ConfigEdit( string editTableId, string rowId ) {
-            AddAttribute( "x-edit-row" );
+            AddAttribute( "[x-edit-row]","row" );
             AddAttribute( $"#{rowId}", "utilEditRow" );
-            AddAttribute( "(click)", $"{editTableId}.clickEdit(row.id,{rowId})" );
-            AddAttribute( "(dblclick)", $"{editTableId}.dblClickEdit(row.id,{rowId})" );
+            AddAttribute( "(click)", $"{editTableId}.clickEdit(row.id)" );
+            AddAttribute( "(dblclick)", $"{editTableId}.dblClickEdit(row.id)" );
         }
     }
 }

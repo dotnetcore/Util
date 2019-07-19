@@ -1,7 +1,7 @@
 ﻿//============== util操作=========================
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
-//Version: 1.0.1.1
+//Version: 1.0.1.2
 //================================================
 export { Util as util } from './util';
 export { UtilModule, createOidcProviders } from './util.module';
@@ -12,6 +12,7 @@ export { EditComponentBase } from './base/edit-component-base';
 export { DialogEditComponentBase } from './base/dialog-edit-component-base';
 export { DialogTreeEditComponentBase } from './base/dialog-tree-edit-component-base';
 export { TableQueryComponentBase } from './base/table-query-component-base';
+export { TableEditComponentBase } from './base/table-edit-component-base';
 export { TreeTableQueryComponentBase } from './base/tree-table-query-component-base';
 export { IKey, ViewModel, QueryParameter } from './core/model';
 export { TreeViewModel, TreeQueryParameter } from './core/tree-model';

@@ -4,7 +4,7 @@
 //================================================
 import { ViewChild, forwardRef, Injector } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { util } from '../index';
+import { Util as util } from "../util";
 
 /**
  * 表单编辑组件基类
