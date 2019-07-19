@@ -18,7 +18,7 @@ import { util } from "../index";
             <ng-container [ngSwitch]="type">
                 <ng-container *ngSwitchCase="'date'">
                     <nz-date-picker
-                        [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" [nzFormat]="format"
+                        [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" [nzFormat]="getFormat()"
                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                         (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                         [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
@@ -31,7 +31,7 @@ import { util } from "../index";
                 <ng-container *ngSwitchCase="'range'">
                     <nz-range-picker
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                        #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
+                        #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="getFormat()"
                         (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                         [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                         [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
@@ -42,7 +42,7 @@ import { util } from "../index";
                 <ng-container *ngSwitchCase="'year'">
                     <nz-year-picker
                          [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
+                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="getFormat()"
                          (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                          [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                          [nzClassName]="className" [nzDisabledDate]="disableDate" [nzLocale]="locale"
@@ -53,7 +53,7 @@ import { util } from "../index";
                 <ng-container *ngSwitchCase="'month'">
                     <nz-month-picker
                         [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                        #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
+                        #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="getFormat()"
                         (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                         [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                         [nzClassName]="className" [nzDisabledDate]="disableDate" [nzLocale]="locale"
@@ -64,7 +64,7 @@ import { util } from "../index";
                 <ng-container *ngSwitchCase="'week'">
                     <nz-week-picker
                          [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="format"
+                         #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"  [nzFormat]="getFormat()"
                          (blur)="handleBlur($event)" (focus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                          [nzShowTime]="showTime" [required]="required" [nzAllowClear]="allowClear" [nzAutoFocus]="autoFocus"
                          [nzClassName]="className" [nzDateRender]="dateRender" [nzDisabledDate]="disableDate"
@@ -143,6 +143,24 @@ export class DatePicker extends FormControlWrapperBase {
         this.type = 'date';
         this.allowClear = true;
         this.showToday = true;
+    }
+
+    /**
+     * 获取日期格式化
+     */
+    getFormat() {
+        if ( this.format )
+            return this.format;
+        switch ( this.type ) {
+            case 'year':
+                return 'yyyy';
+            case 'month':
+                return 'yyyy-MM';
+            case 'week':
+                return 'yyyy-ww';
+            default:
+                return 'yyyy-MM-dd';
+        }
     }
 
     /**
