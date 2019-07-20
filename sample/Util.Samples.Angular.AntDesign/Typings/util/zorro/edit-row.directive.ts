@@ -2,8 +2,9 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, Input, OnInit, HostListener } from '@angular/core';
 import { EditTableDirective } from "./edit-table.directive";
+import { Util as util } from "../util";
 
 /**
  * NgZorro编辑行指令
@@ -49,6 +50,37 @@ export class EditRowDirective implements OnInit {
     }
 
     /**
+     * 注销控件
+     * @param control 控件
+     */
+    unRegister( control ) {
+        if ( !control )
+            return;
+        util.helper.remove( this.controls, t => t === control );
+    }
+
+    /**
+     * 处理行双击事件
+     */
+    @HostListener( 'dblclick', ['$event.target'] )
+    handleDblClick( element ) {
+        this.handleClick( element );
+    }
+
+    /**
+     * 处理行点击事件
+     */
+    @HostListener( 'click', ['$event.target'] )
+    handleClick( element ) {
+        setTimeout( () => {
+            if ( this.controls.length === 0 )
+                return;
+            let control = this.controls.find( t => element.contains( t.element.nativeElement ) );
+            control && control.focus && control.focus();
+        }, 100 );
+    }
+
+    /**
      * 是否有效
      */
     isValid() {
@@ -62,15 +94,13 @@ export class EditRowDirective implements OnInit {
         if ( this.controls.length === 0 )
             return;
         let control = this.controls.find( control => control && control.isValid && !control.isValid() );
-        if ( !control )
-            control = this.controls[0];
-        control.focus && control.focus();
+        control && control.focus && control.focus();
     }
 
     /**
-     * 设置第一个组件的焦点
+     * 设置焦点到第一个组件
      */
-    focus() {
+    focusToFirst() {
         if ( this.controls.length === 0 )
             return;
         let control = this.controls[0];

@@ -25,6 +25,16 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
     }
 
     /**
+     * 添加行
+     */
+    add() {
+        this.editTable.addRow( {
+            row: this.createModel(),
+            addBefore: row => this.addBefore( row )
+        } );
+    }
+
+    /**
      * 创建参数
      */
     protected createModel(): TViewModel {
@@ -32,20 +42,10 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
     }
 
     /**
-     * 添加行
-     */
-    addRow() {
-        this.editTable.addRow( {
-            row: this.createModel(),
-            addBefore: row => this.addRowBefore( row )
-        } );
-    }
-
-    /**
      * 添加前操作，返回 false 阻止添加
      * @param row 行参数
      */
-    addRowBefore( row ): boolean {
+    addBefore( row ): boolean {
         return true;
     }
 
@@ -54,7 +54,10 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * @param id 行标识
      */
     edit( id ) {
-        this.editTable.dblClickEdit( id );
+        this.editTable.editRow( {
+            rowId: id,
+            editAfter: () => setTimeout( () => this.editTable.focusToFirst(), 0 )
+        } );
     }
 
     /**
@@ -63,12 +66,6 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      */
     delete( id?) {
         this.editTable.remove( id );
-    }
-
-    /**
-     * 删除后操作
-     */
-    protected deleteAfter = () => {
     }
 
     /**

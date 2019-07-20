@@ -125,6 +125,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     ngOnDestroy() {
         this.removeControl();
+        this.unRegisterFromRow();
     }
 
     /**
@@ -134,6 +135,14 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
         if ( this.standalone )
             return;
         this.form && this.form.removeControl( this.controlModel );
+    }
+
+    /**
+     * 从编辑行注销
+     */
+    unRegisterFromRow() {
+        if ( this.row )
+            this.row.unRegister( this );
     }
 
     /**

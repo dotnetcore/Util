@@ -20,7 +20,7 @@ export class EditTableDirective {
      */
     editId;
     /**
-     * 编辑行
+     * 当前编辑行
      */
     currentEditRow: EditRowDirective;
     /**
@@ -107,6 +107,7 @@ export class EditTableDirective {
          */
         addBefore?: ( row ) => boolean,
     } ) {
+        event && event.stopPropagation();
         if ( !options )
             return;
         if ( !this.validate() )
@@ -123,7 +124,7 @@ export class EditTableDirective {
         this.table.addRow( row );
         setTimeout( () => this.editRow( {
             rowId: row.id,
-            editAfter: () => setTimeout( () => this.currentEditRow.focus(), 0 )
+            editAfter: () => setTimeout( () => this.focusToFirst(), 0 )
         } ), 0 );
     }
 
@@ -135,6 +136,15 @@ export class EditTableDirective {
         if ( row.id )
             return;
         row.id = util.helper.uuid();
+    }
+
+    /**
+     * 设置焦点到第一个组件
+     */
+    focusToFirst() {
+        if ( !this.currentEditRow )
+            return;
+        this.currentEditRow.focusToFirst();
     }
 
     /**
@@ -211,6 +221,7 @@ export class EditTableDirective {
         this.clearEditRow();
         this.editRows.clear();
         this.creationIds = [];
+        this.removeRows = [];
     }
 
     /**
