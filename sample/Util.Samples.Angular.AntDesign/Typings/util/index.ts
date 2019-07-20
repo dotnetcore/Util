@@ -1,7 +1,7 @@
 ﻿//============== util操作=========================
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
-//Version: 1.0.1.3
+//Version: 1.0.1.4
 //================================================
 export { Util as util } from './util';
 export { UtilModule, createOidcProviders } from './util.module';
@@ -49,3 +49,4 @@ export { TreeSelect } from "./zorro/tree-select-wrapper.component";
 export { TreeTable } from "./zorro/tree-table-wrapper.component";
 export { EditTableDirective } from "./zorro/edit-table.directive"
 export { EditRowDirective } from "./zorro/edit-row.directive";
+export { EditControlDirective } from "./zorro/edit-control.directive";

@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Directive, Input, OnInit, HostListener } from '@angular/core';
+import { Directive, Input, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { EditTableDirective } from "./edit-table.directive";
 import { Util as util } from "../util";
 
@@ -13,9 +13,9 @@ import { Util as util } from "../util";
     selector: '[x-edit-row]',
     exportAs: 'utilEditRow'
 } )
-export class EditRowDirective implements OnInit {
+export class EditRowDirective implements OnInit, OnDestroy {
     /**
-     * 控件列表
+     * 编辑控件列表
      */
     controls: any[];
     /**
@@ -37,6 +37,14 @@ export class EditRowDirective implements OnInit {
     ngOnInit() {
         if ( this.data )
             this.table && this.table.register( this.data.id, this );
+    }
+
+    /**
+     * 组件销毁
+     */
+    ngOnDestroy() {
+        if ( this.data )
+            this.table && this.table.unRegister( this.data.id );
     }
 
     /**
@@ -70,13 +78,13 @@ export class EditRowDirective implements OnInit {
     /**
      * 处理行点击事件
      */
-    @HostListener( 'click', ['$event.target'] )
+    @HostListener( 'mousedown', ['$event.target'] )
     handleClick( element ) {
         setTimeout( () => {
             if ( this.controls.length === 0 )
                 return;
-            let control = this.controls.find( t => element.contains( t.element.nativeElement ) );
-            control && control.focus && control.focus();
+            let control = this.controls.find( t => element.contains( t.getNativeElement() ) );
+            control && control.focus();
         }, 100 );
     }
 
@@ -84,7 +92,7 @@ export class EditRowDirective implements OnInit {
      * 是否有效
      */
     isValid() {
-        return !this.controls.some( control => control && control.isValid && !control.isValid() );
+        return !this.controls.some( control => !control.isValid() );
     }
 
     /**
@@ -93,8 +101,8 @@ export class EditRowDirective implements OnInit {
     focusToInvalid() {
         if ( this.controls.length === 0 )
             return;
-        let control = this.controls.find( control => control && control.isValid && !control.isValid() );
-        control && control.focus && control.focus();
+        let control = this.controls.find( control => !control.isValid() );
+        control && control.focus();
     }
 
     /**
@@ -104,6 +112,6 @@ export class EditRowDirective implements OnInit {
         if ( this.controls.length === 0 )
             return;
         let control = this.controls[0];
-        control.focus && control.focus();
+        control.focus();
     }
 }

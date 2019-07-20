@@ -166,9 +166,18 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     focus() {
         setTimeout( () => {
-            if ( this.element && this.element.nativeElement )
-                this.element.nativeElement.focus();
+            let element = this.getNativeElement();
+            element && element.focus();
         }, 0 );
+    }
+
+    /**
+     * 获取html元素
+     */
+    getNativeElement() {
+        if ( this.element )
+            return this.element.nativeElement;
+        return null;
     }
 
     /**

@@ -65,6 +65,18 @@ export class EditTableDirective {
     }
 
     /**
+     * 注销编辑行
+     * @param rowId 行标识
+     */
+    unRegister( rowId ) {
+        if ( !rowId )
+            return;
+        if ( !this.editRows.has( rowId ) )
+            return;
+        this.editRows.delete( rowId );
+    }
+
+    /**
      * 处理全局点击事件
      */
     @HostListener( 'document:click' )
