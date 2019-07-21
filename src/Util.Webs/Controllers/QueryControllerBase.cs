@@ -17,7 +17,7 @@ namespace Util.Webs.Controllers {
     /// <typeparam name="TQuery">查询参数类型</typeparam>    
     public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
         where TQuery : IQueryParameter
-        where TDto : IResponse, new() {
+        where TDto : IDto, new() {
         /// <summary>
         /// 查询服务
         /// </summary>

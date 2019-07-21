@@ -10,7 +10,6 @@ using Util.Samples.Domain.Repositories;
 using Util.Samples.Service.Abstractions.Systems;
 using Util.Samples.Service.Dtos.Systems;
 using Util.Samples.Service.Queries.Systems;
-using Util.Security.Properties;
 
 namespace Util.Samples.Service.Implements.Systems {
     /// <summary>

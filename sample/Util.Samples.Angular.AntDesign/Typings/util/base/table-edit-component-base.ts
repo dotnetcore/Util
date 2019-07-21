@@ -30,7 +30,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
     add() {
         this.editTable.addRow( {
             row: this.createModel(),
-            addBefore: row => this.addBefore( row )
+            before: row => this.addBefore( row )
         } );
     }
 
@@ -56,7 +56,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
     edit( id ) {
         this.editTable.editRow( {
             rowId: id,
-            editAfter: () => setTimeout( () => this.editTable.focusToFirst(), 0 )
+            after: () => setTimeout( () => this.editTable.focusToFirst(), 0 )
         } );
     }
 
@@ -76,5 +76,40 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
     refresh( button?, handler?: ( data ) => void ) {
         super.refresh( button, handler );
         this.editTable.clear();
+    }
+
+    /**
+     * 保存
+     * @param button 按钮
+     */
+    save( button? ) {
+        this.editTable.save( {
+            button: button ,
+            before: data => this.saveBefore(data),
+            ok: result => this.saveAfter( result ) ,
+            url: this.getSaveUrl()
+        } );
+    }
+
+    /**
+     * 保存前操作，返回 false 阻止添加
+     * @param data 保存参数
+     */
+    protected saveBefore( data ) {
+        return true;
+    }
+
+    /**
+     * 保存成功操作
+     * @param result 结果
+     */
+    protected saveAfter( result ) {
+    }
+
+    /**
+     * 获取保存地址
+     */
+    protected getSaveUrl() {
+        return null;
     }
 }

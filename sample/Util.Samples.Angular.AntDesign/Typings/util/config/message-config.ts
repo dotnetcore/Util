@@ -99,6 +99,14 @@ export class MessageConfig {
      */
     static saveGuardConfirm = "存在未保存的修改，确定离开此页面?";
     /**
+     * 确定保存吗?
+     */
+    static saveConfirm = "确定要保存吗?";
+    /**
+     * 没有需要保存的记录
+     */
+    static noNeedSave = "没有需要保存的记录";
+    /**
      * 文件类型过滤消息
      */
     static fileTypeFilter = "{0} 文件格式不正确";

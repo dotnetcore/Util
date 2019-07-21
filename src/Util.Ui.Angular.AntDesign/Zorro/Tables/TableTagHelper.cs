@@ -18,11 +18,11 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string Data { get; set; }
         /// <summary>
-        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
+        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete,批量保存地址为/api/test/save
         /// </summary>
         public string BaseUrl { get; set; }
         /// <summary>
-        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
+        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete,批量保存地址为/api/test/save
         /// </summary>
         public string BindBaseUrl { get; set; }
         /// <summary>
@@ -41,6 +41,14 @@ namespace Util.Ui.Zorro.Tables {
         /// 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
         /// </summary>
         public string BindDeleteUrl { get; set; }
+        /// <summary>
+        /// 批量保存地址，范例：/api/test/save
+        /// </summary>
+        public string SaveUrl { get; set; }
+        /// <summary>
+        /// 批量保存地址，范例：/api/test/save
+        /// </summary>
+        public string BindSaveUrl { get; set; }
         /// <summary>
         /// 查询参数
         /// </summary>

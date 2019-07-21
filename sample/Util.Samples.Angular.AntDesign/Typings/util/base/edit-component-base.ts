@@ -123,7 +123,6 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
 
     /**
      * 获取提交地址
-     * @param id 标识
      */
     protected getSubmitUrl() {
         return `/api/${this.getBaseUrl()}`;

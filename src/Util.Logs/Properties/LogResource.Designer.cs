@@ -47,7 +47,7 @@ namespace Util.Logs.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -79,7 +79,7 @@ namespace Util.Logs.Properties {
         }
         
         /// <summary>
-        ///   查找类似 业务编号 的本地化字符串。
+        ///   查找类似 业务标识 的本地化字符串。
         /// </summary>
         public static string BusinessId {
             get {
@@ -295,7 +295,7 @@ namespace Util.Logs.Properties {
         }
         
         /// <summary>
-        ///   查找类似 操作人编号 的本地化字符串。
+        ///   查找类似 操作人标识 的本地化字符串。
         /// </summary>
         public static string UserId {
             get {

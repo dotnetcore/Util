@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Directive, Input, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { EditTableDirective } from "./edit-table.directive";
 import { Util as util } from "../util";
 
@@ -19,9 +19,17 @@ export class EditRowDirective implements OnInit, OnDestroy {
      */
     controls: any[];
     /**
+     * 是否新行
+     */
+    isNew: boolean;
+    /**
      * 行数据
      */
     @Input( 'x-edit-row' ) data;
+    /**
+     * 变更事件
+     */
+    @Output() onChange = new EventEmitter<any>();
 
     /**
      * 初始化编辑行指令
@@ -35,8 +43,9 @@ export class EditRowDirective implements OnInit, OnDestroy {
      * 初始化
      */
     ngOnInit() {
-        if ( this.data )
-            this.table && this.table.register( this.data.id, this );
+        if ( !this.table || !this.data )
+            return;
+        this.table.register( this.data.id, this );
     }
 
     /**
@@ -55,6 +64,12 @@ export class EditRowDirective implements OnInit, OnDestroy {
         if ( !control )
             return;
         this.controls.push( control );
+        if ( control.onChange && control.onChange.subscribe )
+            control.onChange.subscribe( () => {
+                if ( this.isNew )
+                    return;
+                this.onChange.emit( this.data.id );
+            } );
     }
 
     /**
@@ -65,6 +80,8 @@ export class EditRowDirective implements OnInit, OnDestroy {
         if ( !control )
             return;
         util.helper.remove( this.controls, t => t === control );
+        if ( control.onChange && control.onChange.unsubscribe )
+            control.onChange.unsubscribe();
     }
 
     /**

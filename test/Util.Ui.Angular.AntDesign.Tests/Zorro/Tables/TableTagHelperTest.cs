@@ -200,6 +200,30 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
+        /// 测试保存地址
+        /// </summary>
+        [Fact]
+        public void TestSaveUrl() {
+            var attributes = new TagHelperAttributeList { { UiConst.SaveUrl, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" saveUrl=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试保存地址
+        /// </summary>
+        [Fact]
+        public void TestBindSaveUrl() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindSaveUrl, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [saveUrl]=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试滚动高度
         /// </summary>
         [Fact]

@@ -366,6 +366,26 @@ export class Table<T extends IKey> implements OnInit {
     }
 
     /**
+     * 通过标识列表查找
+     * @param ids 标识列表
+     */
+    getByIds( ids: string[] ): T[] {
+        if ( !ids || ids.length === 0 )
+            return [];
+        return this.dataSource.filter( item => ids.some( id => id === item.id ) );
+    }
+
+    /**
+     * 通过标识查找
+     * @param id 标识
+     */
+    getById( id: string ): T {
+        if ( !id )
+            return null;
+        return this.dataSource.find( data => data.id === id );
+    }
+
+    /**
      * 仅勾选一行
      */
     checkRowOnly( row ) {
@@ -487,14 +507,6 @@ export class Table<T extends IKey> implements OnInit {
      */
     isMasterIndeterminate() {
         return this.checkedSelection.hasValue() && ( !this.isAllChecked() || !this.dataSource.length );
-    }
-
-    /**
-     * 通过标识查找
-     * @param id 标识
-     */
-    getById( id ) {
-        return this.dataSource.find( data => data.id === id );
     }
 
     /**

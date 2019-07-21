@@ -6,6 +6,7 @@
     @await Html.PartialAsync( "TableList.Query" )
     @*工具按钮*@
     <util-button class="mr-sm" color="Primary" icon="Plus" text="新建" on-click="add()"></util-button>
+    <util-button id="btnSave" class="mr-sm" color="Primary" icon="Save" text="保存" on-click="save(btnSave)"></util-button>
     <util-button color="Danger" icon="Delete" text="删除" on-click="delete()"></util-button>
     @*提示语*@
     <util-alert class="my-md" type="Info" show-icon="true">

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Util.Domains;
 using Util.Logs.Extensions;
+using Util.Logs.Properties;
 
 namespace Util.Applications {
     /// <summary>
@@ -140,7 +141,7 @@ namespace Util.Applications {
         /// <param name="entity">实体</param>
         /// <param name="changeValues">变更值集合</param>
         protected virtual void UpdateAfter( TEntity entity, ChangeValueCollection changeValues ) {
-            Log.BusinessId( entity.Id.SafeString() ).Content( changeValues.SafeString() );
+            Log.BusinessId( entity.Id.SafeString() ).Content( $"Id:{entity.Id},{changeValues}" );
         }
 
         /// <summary>
@@ -192,7 +193,7 @@ namespace Util.Applications {
         /// 保存
         /// </summary>
         /// <param name="request">参数</param>
-        public virtual void Save( TRequest request ) {
+        public virtual async Task SaveAsync( TRequest request ) {
             if( request == null )
                 throw new ArgumentNullException( nameof( request ) );
             SaveBefore( request );
@@ -200,11 +201,11 @@ namespace Util.Applications {
             if( entity == null )
                 throw new ArgumentNullException( nameof( entity ) );
             if( IsNew( request, entity ) ) {
-                Create( entity );
+                await CreateAsync( entity );
                 request.Id = entity.Id.ToString();
             }
             else
-                Update( entity );
+                await UpdateAsync( entity );
         }
 
         /// <summary>
@@ -224,13 +225,6 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 保存后操作
-        /// </summary>
-        protected virtual void SaveAfter() {
-            WriteLog( $"保存{EntityDescription}成功" );
-        }
-
-        /// <summary>
         /// 提交后操作 - 该方法由工作单元拦截器调用
         /// </summary>
         public void CommitAfter() {
@@ -238,22 +232,10 @@ namespace Util.Applications {
         }
 
         /// <summary>
-        /// 保存
+        /// 保存后操作
         /// </summary>
-        /// <param name="request">参数</param>
-        public virtual async Task SaveAsync( TRequest request ) {
-            if( request == null )
-                throw new ArgumentNullException( nameof( request ) );
-            SaveBefore( request );
-            var entity = ToEntity( request );
-            if( entity == null )
-                throw new ArgumentNullException( nameof( entity ) );
-            if( IsNew( request, entity ) ) {
-                await CreateAsync( entity );
-                request.Id = entity.Id.ToString();
-            }
-            else
-                await UpdateAsync( entity );
+        protected virtual void SaveAfter() {
+            WriteLog( $"保存{EntityDescription}成功" );
         }
     }
 }
