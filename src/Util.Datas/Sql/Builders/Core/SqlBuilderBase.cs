@@ -261,6 +261,7 @@ namespace Util.Datas.Sql.Builders.Core {
             LimitParam = sqlBuilder.LimitParam;
             UnionItems = sqlBuilder.UnionItems.Select( t => new BuilderItem( t.Name, t.Builder.Clone() ) ).ToList();
             CteItems = sqlBuilder.CteItems.Select( t => new BuilderItem( t.Name, t.Builder.Clone() ) ).ToList();
+            _excludedFilters = sqlBuilder._excludedFilters;
         }
 
         #endregion
