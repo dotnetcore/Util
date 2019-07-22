@@ -16,7 +16,7 @@ import { FormControlWrapperBase } from './base/form-control-wrapper-base';
             <nz-input-number [name]="name" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
                 #control #controlModel="ngModel" [ngModel]="model" (ngModelChange)="onModelChange($event)"
                 [nzAutoFocus]="autoFocus" [nzPrecision]="precision" [nzStep]="step"
-                (nzBlur)="blur($event)" (nzFocus)="focus($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"
+                (nzBlur)="handleBlur($event)" (nzFocus)="handleFocus($event)" (keyup)="handleKeyup($event)" (keydown)="handleKeydown($event)"
                 [required]="required" [nzMin]="min" [nzMax]="max"></nz-input-number>
             <nz-form-explain *ngIf="controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched)">{{requiredMessage}}</nz-form-explain>
         </nz-form-control>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
@@ -34,8 +35,9 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         /// <summary>
         /// 获取结果
         /// </summary>
-        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null, TagHelperContent content = null ) {
-            return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content );
+        private string GetResult( TagHelperAttributeList contextAttributes = null, TagHelperAttributeList outputAttributes = null,
+            TagHelperContent content = null, IDictionary<object, object> items = null ) {
+            return Helper.GetResult( _output, _component, contextAttributes, outputAttributes, content, items );
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         /// </summary>
         [Fact]
         public void TestDefault() {
-            var result = new String();  
+            var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
             AppendTableHtml( result );
             Assert.Equal( result.ToString(), GetResult() );
@@ -193,6 +195,30 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             var attributes = new TagHelperAttributeList { { AngularConst.BindDeleteUrl, "a" } };
             var result = new String();
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [deleteUrl]=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试保存地址
+        /// </summary>
+        [Fact]
+        public void TestSaveUrl() {
+            var attributes = new TagHelperAttributeList { { UiConst.SaveUrl, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" saveUrl=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试保存地址
+        /// </summary>
+        [Fact]
+        public void TestBindSaveUrl() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindSaveUrl, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [saveUrl]=\"a\">" );
             AppendTableHtml( result );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
@@ -459,6 +485,63 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [checkedKeys]=\"a\">" );
             AppendTableHtml( result );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试编辑模式
+        /// </summary>
+        [Fact]
+        public void TestEdit() {
+            var shareConfig = new TableShareConfig( "m_id" ) { IsEdit = true };
+            var items = new Dictionary<object, object> { { typeof( TableShareConfig ), shareConfig } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_edit=\"utilEditTable\" #m_id_wrapper=\"\" x-edit-table=\"\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[(nzPageIndex)]=\"m_id_wrapper.queryParam.page\" [(nzPageSize)]=\"m_id_wrapper.queryParam.pageSize\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" " );
+            result.Append( "[nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" " );
+            result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
+            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "<ng-template #template_m_id=\"\" let-range=\"range\" let-total=\"\">" );
+            result.Append( TableConfig.TotalTemplate );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( items: items ) );
+        }
+
+        /// <summary>
+        /// 测试编辑模式-双击启动编辑
+        /// </summary>
+        [Fact]
+        public void TestEdit_DoubleClickStartEdit() {
+            var attributes = new TagHelperAttributeList { { UiConst.DoubleClickStartEdit, false } };
+            var shareConfig = new TableShareConfig( "m_id" ) { IsEdit = true };
+            var items = new Dictionary<object, object> { { typeof( TableShareConfig ), shareConfig } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_edit=\"utilEditTable\" #m_id_wrapper=\"\" x-edit-table=\"\" [dblClickStartEdit]=\"false\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[(nzPageIndex)]=\"m_id_wrapper.queryParam.page\" [(nzPageSize)]=\"m_id_wrapper.queryParam.pageSize\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" " );
+            result.Append( "[nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" " );
+            result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
+            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "<ng-template #template_m_id=\"\" let-range=\"range\" let-total=\"\">" );
+            result.Append( TableConfig.TotalTemplate );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes,items: items ) );
         }
 
         /// <summary>

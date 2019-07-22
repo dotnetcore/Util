@@ -16,7 +16,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      */
     protected util = util;
     /**
-     * 视图模型
+     * 参数
      */
     model: TViewModel;
     /**
@@ -38,7 +38,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
     }
 
     /**
-     * 创建视图模型
+     * 创建参数
      */
     protected createModel(): TViewModel {
         return <TViewModel>{};
@@ -123,7 +123,6 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
 
     /**
      * 获取提交地址
-     * @param id 标识
      */
     protected getSubmitUrl() {
         return `/api/${this.getBaseUrl()}`;

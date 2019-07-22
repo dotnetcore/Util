@@ -18,11 +18,11 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string Data { get; set; }
         /// <summary>
-        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
+        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete,批量保存地址为/api/test/save
         /// </summary>
         public string BaseUrl { get; set; }
         /// <summary>
-        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete
+        /// 基地址，基于该地址构建加载地址和删除地址，范例：传入test,则加载地址为/api/test,删除地址为/api/test/delete,批量保存地址为/api/test/save
         /// </summary>
         public string BindBaseUrl { get; set; }
         /// <summary>
@@ -41,6 +41,14 @@ namespace Util.Ui.Zorro.Tables {
         /// 删除地址，注意：由于支持批量删除，所以采用Post提交，范例：/api/test/delete
         /// </summary>
         public string BindDeleteUrl { get; set; }
+        /// <summary>
+        /// 批量保存地址，范例：/api/test/save
+        /// </summary>
+        public string SaveUrl { get; set; }
+        /// <summary>
+        /// 批量保存地址，范例：/api/test/save
+        /// </summary>
+        public string BindSaveUrl { get; set; }
         /// <summary>
         /// 查询参数
         /// </summary>
@@ -102,6 +110,10 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public string CheckedKeys { get; set; }
         /// <summary>
+        /// 双击启动行编辑模式，仅影响首次进入编辑模式，默认值：true，设置成false，则首次进入编辑模式使用单击
+        /// </summary>
+        public bool DoubleClickStartEdit { get; set; }
+        /// <summary>
         /// (nzPageSizeChange),分页大小变更事件
         /// </summary>
         public string OnPageSizeChange { get; set; }
@@ -130,10 +142,9 @@ namespace Util.Ui.Zorro.Tables {
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            InitShare( context );
+        /// <param name="context">上下文</param>
+        protected override void ProcessBefore( Context context ) {
+            InitShare( context.TagHelperContext );
         }
 
         /// <summary>
@@ -142,7 +153,7 @@ namespace Util.Ui.Zorro.Tables {
         public void InitShare( TagHelperContext context ) {
             var shareConfig = new TableShareConfig( GetId( context ) );
             InitShareConfig( context, shareConfig );
-            context.SetValueToItems( TableConfig.TableShareKey, shareConfig );
+            context.SetValueToItems( shareConfig );
         }
 
         /// <summary>

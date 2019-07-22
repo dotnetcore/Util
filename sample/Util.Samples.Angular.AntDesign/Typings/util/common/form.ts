@@ -92,7 +92,8 @@ export class Form {
      * 失败处理函数
      */
     private failHandler( options: IFormSubmitOption, result ) {
-        ( options.form as { submitted: boolean } ).submitted = false;
+        if ( options.form)
+            ( options.form as { submitted: boolean } ).submitted = false;
         options.fail && options.fail( result );
         if ( options.showErrorMessage !== false )
             Message.error( result.message );

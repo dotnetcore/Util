@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Material.Tables.Configs;
 using Util.Ui.Material.Tables.Renders;
 using Util.Ui.Renders;
@@ -24,9 +23,8 @@ namespace Util.Ui.Material.Tables.TagHelpers {
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+        /// <param name="context">上下文</param>
+        protected override void ProcessBefore( Context context ) {
             var shareConfig = context.GetValueFromItems<ColumnShareConfig>( ColumnConfig.ColumnShareKey );
             if( shareConfig != null )
                 shareConfig.AutoCreateCell = false;

@@ -136,6 +136,10 @@
         /// </summary>
         public const string Url = "url";
         /// <summary>
+        /// 保存Url
+        /// </summary>
+        public const string SaveUrl = "save-url";
+        /// <summary>
         /// 数据源
         /// </summary>
         public const string DataSource = "datas-source";
@@ -907,5 +911,17 @@
         /// 延迟加载
         /// </summary>
         public const string Lazy = "lazy";
+        /// <summary>
+        /// 双击启动编辑
+        /// </summary>
+        public const string DoubleClickStartEdit = "double-click-start-edit";
+        /// <summary>
+        /// 是否编辑
+        /// </summary>
+        public const string IsEdit = "is-edit";
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Tags = "tags";
     }
 }

@@ -2,9 +2,10 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //================================================
-import { Input, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Input, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy, ElementRef, forwardRef } from '@angular/core';
 import { NgModel, NgForm } from '@angular/forms';
 import { MessageConfig } from '../../config/message-config';
+import { EditRowDirective } from "../../zorro/edit-row.directive";
 
 /**
  * 表单控件包装器
@@ -43,6 +44,10 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     @Input() model;
     /**
+     * 编辑行
+     */
+    @Input() row: EditRowDirective;
+    /**
      * 模型变更事件,用于双向绑定
      */
     @Output() modelChange = new EventEmitter<any>();
@@ -69,15 +74,34 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 控件模型
      */
-    @ViewChild('controlModel') controlModel: NgModel;
+    @ViewChild( 'controlModel' ) controlModel: NgModel;
+    /**
+     * 组件元素
+     */
+    @ViewChild( forwardRef( () => 'control' ) ) element: ElementRef;
 
     /**
      * 表单控件包装器
      * @param form 表单
      */
-    constructor( private form: NgForm) {
+    constructor( private form: NgForm ) {
         this.requiredMessage = MessageConfig.requiredMessage;
         this.placeholder = '';
+    }
+
+    /**
+     * 初始化
+     */
+    ngOnInit() {
+        this.registerToRow();
+    }
+
+    /**
+     * 注册到编辑行
+     */
+    registerToRow() {
+        if ( this.row )
+            this.row.register( this );
     }
 
     /**
@@ -91,9 +115,9 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      * 将控件添加到FormGroup
      */
     private addControl() {
-        if (this.standalone)
+        if ( this.standalone )
             return;
-        this.form && this.form.addControl(this.controlModel);
+        this.form && this.form.addControl( this.controlModel );
     }
 
     /**
@@ -101,15 +125,24 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     ngOnDestroy() {
         this.removeControl();
+        this.unRegisterFromRow();
     }
 
     /**
      * 将控件移除FormGroup
      */
     private removeControl() {
-        if (this.standalone)
+        if ( this.standalone )
             return;
-        this.form && this.form.removeControl(this.controlModel);
+        this.form && this.form.removeControl( this.controlModel );
+    }
+
+    /**
+     * 从编辑行注销
+     */
+    unRegisterFromRow() {
+        if ( this.row )
+            this.row.unRegister( this );
     }
 
     /**
@@ -120,38 +153,66 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     }
 
     /**
+     * 是否有效
+     */
+    isValid() {
+        if ( !this.controlModel )
+            return false;
+        return !this.controlModel.invalid;
+    }
+
+    /**
+     * 设置焦点
+     */
+    focus() {
+        setTimeout( () => {
+            let element = this.getNativeElement();
+            element && element.focus();
+        }, 0 );
+    }
+
+    /**
+     * 获取html元素
+     */
+    getNativeElement() {
+        if ( this.element )
+            return this.element.nativeElement;
+        return null;
+    }
+
+    /**
      * 模型变更事件处理
      */
     onModelChange( value ) {
-        this.modelChange.emit(value);
-        this.onChange.emit(value);
+        this.modelChange.emit( value );
+        this.onChange.emit( value );
     }
 
     /**
      * 获得焦点事件
      */
-    focus(event: FocusEvent) {
-        this.onFocus.emit(event);
+    handleFocus( event: FocusEvent ) {
+        this.onFocus.emit( event );
     }
 
     /**
      * 失去焦点事件
      */
-    blur(event: FocusEvent) {
-        this.onBlur.emit(event);
+    handleBlur( event: FocusEvent ) {
+        this.onBlur.emit( event );
     }
 
     /**
      * 键盘按键事件
      */
-    keyup(event: KeyboardEvent) {
-        this.onKeyup.emit(event);
+    handleKeyup( event: KeyboardEvent ) {
+        this.onKeyup.emit( event );
     }
 
     /**
      * 键盘按下事件
      */
-    keydown(event: KeyboardEvent) {
-        this.onKeydown.emit(event);
+    handleKeydown( event: KeyboardEvent ) {
+        this.onKeydown.emit( event );
     }
 }

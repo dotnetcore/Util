@@ -4,7 +4,7 @@
 //================================================
 import { Injector, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ViewModel } from '../index';
+import { ViewModel } from "../core/model";
 import { EditComponentBase } from "./edit-component-base";
 
 /**

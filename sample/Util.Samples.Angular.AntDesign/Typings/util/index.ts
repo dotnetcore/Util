@@ -1,7 +1,7 @@
 ﻿//============== util操作=========================
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
-//Version: 1.0.0.8
+//Version: 1.0.1.4
 //================================================
 export { Util as util } from './util';
 export { UtilModule, createOidcProviders } from './util.module';
@@ -12,6 +12,7 @@ export { EditComponentBase } from './base/edit-component-base';
 export { DialogEditComponentBase } from './base/dialog-edit-component-base';
 export { DialogTreeEditComponentBase } from './base/dialog-tree-edit-component-base';
 export { TableQueryComponentBase } from './base/table-query-component-base';
+export { TableEditComponentBase } from './base/table-edit-component-base';
 export { TreeTableQueryComponentBase } from './base/tree-table-query-component-base';
 export { IKey, ViewModel, QueryParameter } from './core/model';
 export { TreeViewModel, TreeQueryParameter } from './core/tree-model';
@@ -46,3 +47,6 @@ export { SingleUpload } from "./zorro/single-upload-wrapper.component";
 export { Tree } from "./zorro/tree-wrapper.component";
 export { TreeSelect } from "./zorro/tree-select-wrapper.component";
 export { TreeTable } from "./zorro/tree-table-wrapper.component";
+export { EditTableDirective } from "./zorro/edit-table.directive"
+export { EditRowDirective } from "./zorro/edit-row.directive";
+export { EditControlDirective } from "./zorro/edit-control.directive";

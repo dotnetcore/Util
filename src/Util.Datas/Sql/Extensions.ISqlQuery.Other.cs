@@ -1,4 +1,7 @@
-﻿namespace Util.Datas.Sql {
+﻿using Util.Datas.Sql.Builders;
+using Util.Datas.Sql.Builders.Filters;
+
+namespace Util.Datas.Sql {
     /// <summary>
     /// Sql查询对象扩展 - 杂项
     /// </summary>
@@ -141,5 +144,22 @@
             builder.ClearPageParams();
             return sqlQuery;
         }
+
+        /// <summary>
+        /// 忽略过滤器
+        /// </summary>
+        /// <typeparam name="TSqlFilter">Sql过滤器类型</typeparam>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery IgnoreFilter<TSqlFilter>(this ISqlQuery sqlQuery) where TSqlFilter : ISqlFilter {
+            var builder = sqlQuery.GetBuilder();
+            builder.IgnoreFilter<TSqlFilter>();
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 忽略逻辑删除过滤器
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        public static ISqlQuery IgnoreDeletedFilter(this ISqlQuery sqlQuery) => sqlQuery.IgnoreFilter<IsDeletedFilter>();
     }
 }
