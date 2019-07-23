@@ -125,6 +125,7 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     ngOnDestroy() {
         this.removeControl();
+        this.unRegisterFromRow();
     }
 
     /**
@@ -134,6 +135,14 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
         if ( this.standalone )
             return;
         this.form && this.form.removeControl( this.controlModel );
+    }
+
+    /**
+     * 从编辑行注销
+     */
+    unRegisterFromRow() {
+        if ( this.row )
+            this.row.unRegister( this );
     }
 
     /**
@@ -157,9 +166,18 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
      */
     focus() {
         setTimeout( () => {
-            if ( this.element && this.element.nativeElement )
-                this.element.nativeElement.focus();
+            let element = this.getNativeElement();
+            element && element.focus();
         }, 0 );
+    }
+
+    /**
+     * 获取html元素
+     */
+    getNativeElement() {
+        if ( this.element )
+            return this.element.nativeElement;
+        return null;
     }
 
     /**

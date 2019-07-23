@@ -96,5 +96,11 @@ namespace Util.Datas.Sql {
         /// </summary>
         /// <param name="count">获取的行数</param>
         ISqlBuilder Take( int count );
+
+        /// <summary>
+        /// 忽略过滤器
+        /// </summary>
+        /// <typeparam name="TSqlFilter">Sql过滤器类型</typeparam>
+        ISqlBuilder IgnoreFilter<TSqlFilter>() where TSqlFilter : ISqlFilter;
     }
 }

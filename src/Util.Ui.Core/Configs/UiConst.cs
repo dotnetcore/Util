@@ -136,6 +136,10 @@
         /// </summary>
         public const string Url = "url";
         /// <summary>
+        /// 保存Url
+        /// </summary>
+        public const string SaveUrl = "save-url";
+        /// <summary>
         /// 数据源
         /// </summary>
         public const string DataSource = "datas-source";

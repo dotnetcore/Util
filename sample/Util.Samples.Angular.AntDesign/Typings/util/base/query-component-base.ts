@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { Input, Injector } from '@angular/core';
-import { util } from '../index';
+import { Util as util } from "../util";
 
 /**
  * 查询基类

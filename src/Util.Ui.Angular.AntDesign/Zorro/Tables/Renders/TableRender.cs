@@ -117,9 +117,11 @@ namespace Util.Ui.Zorro.Tables.Renders {
             builder.AddAttribute( "baseUrl", _config.GetValue( UiConst.BaseUrl ) );
             builder.AddAttribute( "url", _config.GetValue( UiConst.Url ) );
             builder.AddAttribute( "deleteUrl", _config.GetValue( UiConst.DeleteUrl ) );
+            builder.AddAttribute( "saveUrl", _config.GetValue( UiConst.SaveUrl ) );
             builder.AddAttribute( "[baseUrl]", _config.GetValue( AngularConst.BindBaseUrl ) );
             builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
             builder.AddAttribute( "[deleteUrl]", _config.GetValue( AngularConst.BindDeleteUrl ) );
+            builder.AddAttribute( "[saveUrl]", _config.GetValue( AngularConst.BindSaveUrl ) );
             builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
         }
 

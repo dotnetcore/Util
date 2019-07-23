@@ -4,7 +4,7 @@
 //================================================
 import { Injector, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { TreeViewModel } from '../index';
+import { TreeViewModel } from "../core/tree-model";
 import { EditComponentBase } from "./edit-component-base";
 
 /**

@@ -200,6 +200,30 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
+        /// 测试保存地址
+        /// </summary>
+        [Fact]
+        public void TestSaveUrl() {
+            var attributes = new TagHelperAttributeList { { UiConst.SaveUrl, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" saveUrl=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试保存地址
+        /// </summary>
+        [Fact]
+        public void TestBindSaveUrl() {
+            var attributes = new TagHelperAttributeList { { AngularConst.BindSaveUrl, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\" [saveUrl]=\"a\">" );
+            AppendTableHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试滚动高度
         /// </summary>
         [Fact]
@@ -479,8 +503,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" " );
             result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id,m_id_row)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id,m_id_row)\" " );
-            result.Append( "*ngFor=\"let row of m_id.data\" x-edit-row=\"\">" );
+            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
+            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -508,8 +532,8 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" " );
             result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id,m_id_row)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id,m_id_row)\" " );
-            result.Append( "*ngFor=\"let row of m_id.data\" x-edit-row=\"\">" );
+            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
+            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );

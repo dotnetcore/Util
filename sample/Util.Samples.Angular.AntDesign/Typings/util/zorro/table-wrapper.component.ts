@@ -4,7 +4,9 @@
 //=======================================================
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { util, PagerList, IKey, QueryParameter } from "../index";
+import { Util as util } from "../util";
+import { QueryParameter, IKey } from "../core/model";
+import { PagerList } from "../core/pager-list";
 import { MessageConfig as config } from '../config/message-config';
 
 /**
@@ -260,7 +262,7 @@ export class Table<T extends IKey> implements OnInit {
 
     /**
      * 批量删除被选中实体
-     * @param options 配置
+     * @param options 参数
      */
     delete( options?: {
         /**
@@ -361,6 +363,26 @@ export class Table<T extends IKey> implements OnInit {
         if ( !list || list.length === 0 )
             return null;
         return list[0];
+    }
+
+    /**
+     * 通过标识列表查找
+     * @param ids 标识列表
+     */
+    getByIds( ids: string[] ): T[] {
+        if ( !ids || ids.length === 0 )
+            return [];
+        return this.dataSource.filter( item => ids.some( id => id === item.id ) );
+    }
+
+    /**
+     * 通过标识查找
+     * @param id 标识
+     */
+    getById( id: string ): T {
+        if ( !id )
+            return null;
+        return this.dataSource.find( data => data.id === id );
     }
 
     /**
@@ -488,10 +510,43 @@ export class Table<T extends IKey> implements OnInit {
     }
 
     /**
-     * 通过标识查找
-     * @param id 标识
+     * 添加行
+     * @param row 行
      */
-    getById( id ) {
-        return this.dataSource.find( data => data.id === id );
+    addRow( row ) {
+        if ( !row )
+            return;
+        if ( this.dataSource.some( t => t.id === row.id ) )
+            return;
+        this.dataSource = [row, ...this.dataSource];
+        this.totalCount = this.totalCount + 1;
+        this.initLineNumbers( this.dataSource );
+    }
+
+    /**
+     * 初始化行号
+     */
+    private initLineNumbers( data ) {
+        let result = new PagerList<T>( data, this.queryParam.page, this.queryParam.pageSize );
+        result.initLineNumbers();
+    }
+
+    /**
+     * 移除行
+     * @param ids 行标识列表
+     */
+    removeRows( ids?: string[] ) {
+        if ( !ids || ids.length === 0 )
+            ids = this.getChecked().map( value => value.id );
+        if ( !ids || ids.length === 0 ) {
+            util.message.warn( config.deleteNotSelected );
+            return null;
+        }
+        let result = util.helper.remove( this.dataSource, row => ids.findIndex( id => row.id === id ) > -1 );
+        this.dataSource = [...this.dataSource];
+        this.totalCount = this.totalCount - result.length;
+        this.initLineNumbers( this.dataSource );
+        this.checkedSelection.deselect( ...result );
+        return result;
     }
 }
