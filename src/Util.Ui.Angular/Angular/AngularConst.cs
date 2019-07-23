@@ -99,5 +99,13 @@
         /// 选中索引
         /// </summary>
         public const string BindOnSelectedIndex = "bind-on-selected-index";
+        /// <summary>
+        /// 颜色
+        /// </summary>
+        public const string BindColor = "bind-color";
+        /// <summary>
+        /// 选中
+        /// </summary>
+        public const string BindOnChecked = "bind-on-checked";
     }
 }

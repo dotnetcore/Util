@@ -39,7 +39,7 @@ namespace Util.Webs.Controllers {
         /// <summary>
         /// 会话
         /// </summary>
-        public virtual ISession Session => Security.Sessions.Session.Instance;
+        public virtual ISession Session => Sessions.Session.Instance;
 
         /// <summary>
         /// 返回成功消息
