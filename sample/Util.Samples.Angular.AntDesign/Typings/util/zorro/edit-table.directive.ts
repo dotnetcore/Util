@@ -302,6 +302,10 @@ export class EditTableDirective {
          */
         createData?: (data) => any,
         /**
+         * 是否已修改，返回 false 阻止添加
+         */
+        isDirty?: (data) => boolean,
+        /**
          * 保存前操作，返回 false 阻止添加
          */
         before?: (data) => boolean,
@@ -320,13 +324,13 @@ export class EditTableDirective {
             console.error("表格编辑提交url未设置");
             return;
         }
-        if (this.creationIds.length === 0 && this.updateIds.length === 0 && this.removeRows.length === 0) {
-            util.message.warn(config.noNeedSave);
-            return;
-        }
         let data = this.createSaveData(options.createData);
         if (!data)
             return;
+        if (!this.isDirty(data, options.isDirty)) {
+            util.message.warn(config.noNeedSave);
+            return;
+        }
         if (options.before && !options.before(data))
             return;
         this.processData(data);
@@ -342,6 +346,19 @@ export class EditTableDirective {
                 this.table.query();
             }
         });
+    }
+
+    /**
+     * 是否已修改
+     */
+    private isDirty(data, handler: (data) => boolean) {
+        if (data.creationList && data.creationList.length > 0)
+            return true;
+        if (data.updateList && data.updateList.length > 0)
+            return true;
+        if (data.deleteList && data.deleteList.length > 0)
+            return true;
+        return handler && handler(data);
     }
 
     /**

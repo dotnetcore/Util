@@ -86,6 +86,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
         this.editTable.save({
             button: button,
             createData: data => this.createData(data),
+            isDirty: (data) => this.isDirty(data),
             before: data => this.saveBefore(data),
             ok: result => this.saveAfter(result),
             url: this.getSaveUrl()
@@ -98,6 +99,14 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      */
     protected createData(data) {
         return data;
+    }
+
+    /**
+     * 是否已修改，返回 false 阻止添加
+     * @param data 保存参数
+     */
+    protected isDirty(data) {
+        return false;
     }
 
     /**
