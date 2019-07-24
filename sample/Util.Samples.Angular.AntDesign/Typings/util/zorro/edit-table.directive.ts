@@ -12,10 +12,10 @@ import { HttpMethod } from "../angular/http-helper";
 /**
  * NgZorro编辑表格指令
  */
-@Directive( {
+@Directive({
     selector: '[x-edit-table]',
     exportAs: 'utilEditTable'
-} )
+})
 export class EditTableDirective {
     /**
      * 编辑行标识
@@ -54,7 +54,7 @@ export class EditTableDirective {
      * 初始化编辑表格指令
      * @param table 表格包装器组件
      */
-    constructor( private table: Table<any> ) {
+    constructor(private table: Table<any>) {
         this.dblClickStartEdit = true;
         this.rows = new Map<string, EditRowDirective>();
         this.creationIds = [];
@@ -67,47 +67,47 @@ export class EditTableDirective {
      * @param rowId 行标识
      * @param row 编辑行
      */
-    register( rowId, row: EditRowDirective ) {
-        if ( !rowId || !row )
+    register(rowId, row: EditRowDirective) {
+        if (!rowId || !row)
             return;
-        if ( this.rows.has( rowId ) )
+        if (this.rows.has(rowId))
             return;
-        this.rows.set( rowId, row );
-        row.onChange.subscribe( id => this.handleEditChange( id ) );
+        this.rows.set(rowId, row);
+        row.onChange.subscribe(id => this.handleEditChange(id));
     }
 
     /**
      * 处理行编辑事件
      * @param rowId 行标识
      */
-    private handleEditChange( rowId ) {
-        if ( this.creationIds.some( id => id === rowId ) )
+    private handleEditChange(rowId) {
+        if (this.creationIds.some(id => id === rowId))
             return;
-        if ( this.updateIds.some( id => id === rowId ) )
+        if (this.updateIds.some(id => id === rowId))
             return;
-        this.updateIds.push( rowId );
+        this.updateIds.push(rowId);
     }
 
     /**
      * 注销编辑行
      * @param rowId 行标识
      */
-    unRegister( rowId ) {
-        if ( !rowId )
+    unRegister(rowId) {
+        if (!rowId)
             return;
-        if ( !this.rows.has( rowId ) )
+        if (!this.rows.has(rowId))
             return;
-        let row = this.rows.get( rowId );
+        let row = this.rows.get(rowId);
         row.onChange.unsubscribe();
-        this.rows.delete( rowId );
+        this.rows.delete(rowId);
     }
 
     /**
      * 处理全局点击事件
      */
-    @HostListener( 'document:click' )
+    @HostListener('document:click')
     handleClick() {
-        if ( !this.validate() )
+        if (!this.validate())
             return;
         this.clearEditRow();
     }
@@ -116,7 +116,7 @@ export class EditTableDirective {
      * 验证
      */
     validate() {
-        if ( this.isValid() )
+        if (this.isValid())
             return true;
         this.currentRow.focusToInvalid();
         return false;
@@ -126,7 +126,7 @@ export class EditTableDirective {
      * 是否验证通过
      */
     isValid() {
-        if ( !this.currentRow )
+        if (!this.currentRow)
             return true;
         return this.currentRow.isValid();
     }
@@ -135,7 +135,7 @@ export class EditTableDirective {
      * 添加行
      * @param options 参数
      */
-    addRow( options: {
+    addRow(options: {
         /**
          * 行数据
          */
@@ -143,39 +143,39 @@ export class EditTableDirective {
         /**
          * 添加前操作，返回 false 阻止添加
          */
-        before?: ( row ) => boolean,
-    } ) {
+        before?: (row) => boolean,
+    }) {
         event && event.stopPropagation();
-        if ( !options )
+        if (!options)
             return;
-        if ( !this.validate() )
+        if (!this.validate())
             return;
         let row = options.row;
-        if ( !row )
+        if (!row)
             return;
-        this.initRow( row );
-        if ( options.before && !options.before( row ) )
+        this.initRow(row);
+        if (options.before && !options.before(row))
             return;
-        if ( this.creationIds.some( id => id === row.id ) )
+        if (this.creationIds.some(id => id === row.id))
             return;
-        this.creationIds.push( row.id );
-        this.table.addRow( row );
-        setTimeout( () => this.editRow( {
+        this.creationIds.push(row.id);
+        this.table.addRow(row);
+        setTimeout(() => this.editRow({
             rowId: row.id,
-            after: ( row: EditRowDirective ) => {
-                if ( row )
+            after: (row: EditRowDirective) => {
+                if (row)
                     row.isNew = true;
-                setTimeout( () => this.focusToFirst(), 0 );
+                setTimeout(() => this.focusToFirst(), 0);
             }
-        } ), 0 );
+        }), 0);
     }
 
     /**
      * 初始化行
      * @param row 行
      */
-    protected initRow( row ) {
-        if ( row.id )
+    protected initRow(row) {
+        if (row.id)
             return;
         row.id = util.helper.uuid();
     }
@@ -184,7 +184,7 @@ export class EditTableDirective {
      * 设置焦点到第一个组件
      */
     focusToFirst() {
-        if ( !this.currentRow )
+        if (!this.currentRow)
             return;
         this.currentRow.focusToFirst();
     }
@@ -193,7 +193,7 @@ export class EditTableDirective {
      * 编辑行
      * @param options 参数
      */
-    editRow( options: {
+    editRow(options: {
         /**
          * 行标识
          */
@@ -201,68 +201,68 @@ export class EditTableDirective {
         /**
          * 编辑前操作，返回 false 阻止编辑
          */
-        before?: ( row ) => boolean,
+        before?: (row) => boolean,
         /**
          * 编辑后操作
          */
-        after?: ( row ) => void,
-    } ) {
-        if ( !options )
+        after?: (row) => void,
+    }) {
+        if (!options)
             return;
         event && event.preventDefault();
         event && event.stopPropagation();
         let rowId = options.rowId || options;
-        if ( !rowId )
+        if (!rowId)
             return;
-        if ( !this.rows.has( rowId ) )
+        if (!this.rows.has(rowId))
             return;
-        let row = this.rows.get( rowId );
-        if ( options.before && !options.before( row ) )
+        let row = this.rows.get(rowId);
+        if (options.before && !options.before(row))
             return;
-        if ( !this.validate() )
+        if (!this.validate())
             return;
         this.editId = rowId;
         this.currentRow = row;
-        options.after && options.after( row );
+        options.after && options.after(row);
     }
 
     /**
      * 单击编辑
      * @param id 行标识
      */
-    clickEdit( rowId ) {
-        if ( this.dblClickStartEdit && !this.currentRow )
+    clickEdit(rowId) {
+        if (this.dblClickStartEdit && !this.currentRow)
             return;
-        this.editRow( rowId );
+        this.editRow(rowId);
     }
 
     /**
      * 双击编辑
      * @param rowId 行标识
      */
-    dblClickEdit( rowId ) {
-        this.editRow( rowId );
+    dblClickEdit(rowId) {
+        this.editRow(rowId);
     }
 
     /**
      * 移除行
      * @param rowId 行标识
      */
-    remove( rowId?) {
+    remove(rowId?) {
         let ids = [];
-        if ( rowId )
-            ids.push( rowId );
-        let result = this.table.removeRows( ids );
-        if ( !result )
+        if (rowId)
+            ids.push(rowId);
+        let result = this.table.removeRows(ids);
+        if (!result)
             return;
-        result.forEach( item => {
-            if ( this.creationIds.some( id => id === item.id ) ) {
-                util.helper.remove( this.creationIds, id => id === item.id );
+        result.forEach(item => {
+            if (this.creationIds.some(id => id === item.id)) {
+                util.helper.remove(this.creationIds, id => id === item.id);
                 return;
             }
-            util.helper.remove( this.updateIds, id => id === item.id );
-            this.removeRows.push( item );
-        } );
+            util.helper.remove(this.updateIds, id => id === item.id);
+            this.removeRows.push(item);
+        });
     }
 
     /**
@@ -288,7 +288,7 @@ export class EditTableDirective {
      * 保存
      * @param options 参数
      */
-    save( options?: {
+    save(options?: {
         /**
          * 按钮
          */
@@ -298,32 +298,39 @@ export class EditTableDirective {
          */
         url?: string,
         /**
+         * 创建保存参数
+         */
+        createData?: (data) => any,
+        /**
          * 保存前操作，返回 false 阻止添加
          */
-        before?: ( data ) => boolean,
+        before?: (data) => boolean,
         /**
          * 保存成功操作
          */
-        ok?: ( result ) => void;
-    } ) {
-        if ( !options )
+        ok?: (result) => void;
+    }) {
+        if (!options)
             return;
-        if ( !this.validate() )
+        if (!this.validate())
             return;
         let baseUrl = this.table.baseUrl;
-        let url = options.url || this.saveUrl || ( baseUrl && `/api/${baseUrl}/save` );
-        if ( !url ) {
-            console.error( "表格编辑提交url未设置" );
+        let url = options.url || this.saveUrl || (baseUrl && `/api/${baseUrl}/save`);
+        if (!url) {
+            console.error("表格编辑提交url未设置");
             return;
         }
-        if ( this.creationIds.length === 0 && this.updateIds.length === 0 && this.removeRows.length === 0 ) {
-            util.message.warn( config.noNeedSave );
+        if (this.creationIds.length === 0 && this.updateIds.length === 0 && this.removeRows.length === 0) {
+            util.message.warn(config.noNeedSave);
             return;
         }
-        let data = this.createSaveData();
-        if ( options.before && !options.before( data ) )
+        let data = this.createSaveData(options.createData);
+        if (!data)
             return;
-        util.form.submit( {
+        if (options.before && !options.before(data))
+            return;
+        this.processData(data);
+        util.form.submit({
             httpMethod: HttpMethod.Post,
             url: url,
             data: data,
@@ -331,21 +338,36 @@ export class EditTableDirective {
             confirm: config.saveConfirm,
             ok: result => {
                 this.clear();
-                options.ok && options.ok( result );
+                options.ok && options.ok(result);
                 this.table.query();
             }
-        } );
+        });
     }
 
     /**
      * 创建保存操作参数
      */
-    private createSaveData() {
-        return {
-            creationList: util.helper.toJson( this.table.getByIds( this.creationIds ) ),
-            updateList: util.helper.toJson( this.table.getByIds( this.updateIds ) ),
-            deleteList: util.helper.toJson( this.removeRows )
+    private createSaveData(createData: (data) => any) {
+        let result = {
+            creationList: this.table.getByIds(this.creationIds),
+            updateList: this.table.getByIds(this.updateIds),
+            deleteList: this.removeRows
         };
+        if (!createData)
+            return result;
+        return createData(result);
+    }
+
+    /**
+     * 处理数据
+     */
+    private processData(data) {
+        if (data.creationList && data.creationList.length > 0)
+            data.creationList = util.helper.toJson(data.creationList);
+        if (data.updateList && data.updateList.length > 0)
+            data.updateList = util.helper.toJson(data.updateList);
+        if (data.deleteList && data.deleteList.length > 0)
+            data.deleteList = util.helper.toJson(data.deleteList);
     }
 }
 
