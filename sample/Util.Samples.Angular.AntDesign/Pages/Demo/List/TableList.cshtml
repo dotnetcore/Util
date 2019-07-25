@@ -26,20 +26,30 @@
             <util-textbox for="Comment"></util-textbox>
         </util-table-column>
         <util-table-column for="Enabled">
-            <util-tag color-type="GeekBlue" ng-if="row.enabled">
-                启用
-            </util-tag>
-            <util-tag color-type="Red" ng-if="!row.enabled">
-                未启用
-            </util-tag>
+            <util-table-column-display>
+                <util-tag color-type="GeekBlue" ng-if="row.enabled">
+                    启用
+                </util-tag>
+                <util-tag color-type="Red" ng-if="!row.enabled">
+                    未启用
+                </util-tag>
+            </util-table-column-display>
+            <util-table-column-control>
+                <util-checkbox for="Enabled"></util-checkbox>
+            </util-table-column-control>
         </util-table-column>
         <util-table-column for="RegisterEnabled">
-            <util-tag color-type="GeekBlue" ng-if="row.registerEnabled">
-                启用
-            </util-tag>
-            <util-tag color-type="Red" ng-if="!row.registerEnabled">
-                未启用
-            </util-tag>
+            <util-table-column-display>
+                <util-tag color-type="GeekBlue" ng-if="row.registerEnabled">
+                    启用
+                </util-tag>
+                <util-tag color-type="Red" ng-if="!row.registerEnabled">
+                    未启用
+                </util-tag>
+            </util-table-column-display>
+            <util-table-column-control>
+                <util-switch for="RegisterEnabled"></util-switch>
+            </util-table-column-control>
         </util-table-column>
         <util-table-column title="操作">
             <util-button class="mr-sm" color="Primary" shape="Circle" icon="Edit" tooltip="编辑" on-click="edit(row.id)"></util-button>

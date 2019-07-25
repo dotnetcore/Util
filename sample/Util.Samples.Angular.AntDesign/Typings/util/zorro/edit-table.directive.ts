@@ -298,6 +298,10 @@ export class EditTableDirective {
          */
         url?: string,
         /**
+         * 确认消息,
+         */
+        confirm?:string,
+        /**
          * 创建保存参数
          */
         createData?: (data) => any,
@@ -313,7 +317,7 @@ export class EditTableDirective {
          * 保存成功操作
          */
         ok?: (result) => void;
-    }) {
+    } ) {
         if (!options)
             return;
         if (!this.validate())
@@ -339,7 +343,7 @@ export class EditTableDirective {
             url: url,
             data: data,
             button: options.button,
-            confirm: config.saveConfirm,
+            confirm: options.confirm,
             ok: result => {
                 this.clear();
                 options.ok && options.ok(result);
@@ -379,11 +383,11 @@ export class EditTableDirective {
      * 处理数据
      */
     private processData(data) {
-        if (data.creationList && data.creationList.length > 0)
+        if (data.creationList)
             data.creationList = util.helper.toJson(data.creationList);
-        if (data.updateList && data.updateList.length > 0)
+        if (data.updateList)
             data.updateList = util.helper.toJson(data.updateList);
-        if (data.deleteList && data.deleteList.length > 0)
+        if (data.deleteList)
             data.deleteList = util.helper.toJson(data.deleteList);
     }
 }

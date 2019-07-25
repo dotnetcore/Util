@@ -14,24 +14,24 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
     /**
      * 编辑表格指令
      */
-    @ViewChild(forwardRef(() => EditTableDirective)) protected editTable: EditTableDirective;
+    @ViewChild( forwardRef( () => EditTableDirective ) ) protected editTable: EditTableDirective;
 
     /**
      * 初始化组件
      * @param injector 注入器
      */
-    constructor(injector: Injector) {
-        super(injector);
+    constructor( injector: Injector ) {
+        super( injector );
     }
 
     /**
      * 添加行
      */
     add() {
-        this.editTable.addRow({
+        this.editTable.addRow( {
             row: this.createModel(),
-            before: row => this.addBefore(row)
-        });
+            before: row => this.addBefore( row )
+        } );
     }
 
     /**
@@ -45,7 +45,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * 添加前操作，返回 false 阻止添加
      * @param row 行参数
      */
-    addBefore(row): boolean {
+    addBefore( row ): boolean {
         return true;
     }
 
@@ -53,19 +53,19 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * 编辑
      * @param id 行标识
      */
-    edit(id) {
-        this.editTable.editRow({
+    edit( id ) {
+        this.editTable.editRow( {
             rowId: id,
-            after: () => setTimeout(() => this.editTable.focusToFirst(), 0)
-        });
+            after: () => setTimeout( () => this.editTable.focusToFirst(), 0 )
+        } );
     }
 
     /**
      * 删除
      * @param id 标识
      */
-    delete(id?) {
-        this.editTable.remove(id);
+    delete( id?) {
+        this.editTable.remove( id );
     }
 
     /**
@@ -73,8 +73,8 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * @param button 按钮
      * @param handler 刷新后回调函数
      */
-    refresh(button?, handler?: (data) => void) {
-        super.refresh(button, handler);
+    refresh( button?, handler?: ( data ) => void ) {
+        super.refresh( button, handler );
         this.editTable.clear();
     }
 
@@ -82,22 +82,30 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * 保存
      * @param button 按钮
      */
-    save(button?) {
-        this.editTable.save({
+    save( button?) {
+        this.editTable.save( {
             button: button,
-            createData: data => this.createData(data),
-            isDirty: (data) => this.isDirty(data),
-            before: data => this.saveBefore(data),
-            ok: result => this.saveAfter(result),
+            confirm: this.getConfirm(),
+            createData: data => this.createData( data ),
+            isDirty: ( data ) => this.isDirty( data ),
+            before: data => this.saveBefore( data ),
+            ok: result => this.saveAfter( result ),
             url: this.getSaveUrl()
-        });
+        } );
+    }
+
+    /**
+     * 获取确认消息
+     */
+    protected getConfirm() {
+        return null;
     }
 
     /**
      * 创建保存参数
      * @param data 保存参数
      */
-    protected createData(data) {
+    protected createData( data ) {
         return data;
     }
 
@@ -105,7 +113,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * 是否已修改，返回 false 阻止添加
      * @param data 保存参数
      */
-    protected isDirty(data) {
+    protected isDirty( data ) {
         return false;
     }
 
@@ -113,7 +121,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * 保存前操作，返回 false 阻止添加
      * @param data 保存参数
      */
-    protected saveBefore(data) {
+    protected saveBefore( data ) {
         return true;
     }
 
@@ -121,7 +129,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * 保存成功操作
      * @param result 结果
      */
-    protected saveAfter(result) {
+    protected saveAfter( result ) {
     }
 
     /**
