@@ -53,9 +53,11 @@ export class EditControlDirective implements OnInit, OnDestroy {
     registerChange() {
         if ( !this.control )
             return;
-        this.control.valueChanges.subscribe( value => {
-            this.onChange.emit( value );
-        } );
+        setTimeout( () => {
+            this.control.valueChanges.subscribe( value => {
+                this.onChange.emit( value );
+            } );
+        },100 );
     }
 
     /**

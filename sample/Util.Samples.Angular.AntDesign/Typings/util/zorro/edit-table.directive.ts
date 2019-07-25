@@ -306,7 +306,7 @@ export class EditTableDirective {
          */
         createData?: (data) => any,
         /**
-         * 是否已修改，返回 false 阻止添加
+         * 是否已修改
          */
         isDirty?: (data) => boolean,
         /**
