@@ -1,8 +1,7 @@
-﻿using Util.Helpers;
-using IdentityModel;
-using Util.Sessions;
+﻿using IdentityModel;
+using Util.Helpers;
 
-namespace Util.Security.Sessions {
+namespace Util.Sessions {
     /// <summary>
     /// 用户会话
     /// </summary>

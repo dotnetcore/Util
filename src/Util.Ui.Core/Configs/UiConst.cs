@@ -923,5 +923,17 @@
         /// 标签
         /// </summary>
         public const string Tags = "tags";
+        /// <summary>
+        /// 颜色类型
+        /// </summary>
+        public const string ColorType = "color-type";
+        /// <summary>
+        /// 关闭后事件
+        /// </summary>
+        public const string OnAfterClose = "on-after-close";
+        /// <summary>
+        /// 选中变更事件
+        /// </summary>
+        public const string OnCheckedChange = "on-checked-change";
     }
 }

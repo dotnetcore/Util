@@ -2,7 +2,7 @@
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
 //=======================================================
-import { Directive, Input, OnInit, OnDestroy, ElementRef, Self, Optional } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, OnInit, OnDestroy, ElementRef, Self, Optional } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { EditRowDirective } from "./edit-row.directive";
 
@@ -17,7 +17,11 @@ export class EditControlDirective implements OnInit, OnDestroy {
     /**
      * 编辑行
      */
-    @Input() row: EditRowDirective;
+    @Input( 'x-edit-control' ) row: EditRowDirective;
+    /**
+     * 变更事件
+     */
+    @Output() onChange = new EventEmitter<any>();
 
     /**
      * 初始化表格编辑控件指令
@@ -31,8 +35,29 @@ export class EditControlDirective implements OnInit, OnDestroy {
      * 初始化
      */
     ngOnInit() {
+        this.registerToRow();
+        this.registerChange();
+    }
+
+    /**
+     * 注册到行指令
+     */
+    registerToRow() {
         if ( this.row )
             this.row.register( this );
+    }
+
+    /**
+     * 注册变更事件
+     */
+    registerChange() {
+        if ( !this.control )
+            return;
+        setTimeout( () => {
+            this.control.valueChanges.subscribe( value => {
+                this.onChange.emit( value );
+            } );
+        },100 );
     }
 
     /**

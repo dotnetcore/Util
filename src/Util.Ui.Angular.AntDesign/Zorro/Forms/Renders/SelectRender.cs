@@ -46,7 +46,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.For ) == false )
                 return;
             var expression = _config.GetValue<ModelExpression>( UiConst.For );
-            SelectExpressionResolver.Init( expression, _config );
+            SelectExpressionResolver.Init( expression, _config, IsTableEdit() );
         }
 
         /// <summary>

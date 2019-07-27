@@ -7,6 +7,7 @@ using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
 using Util.Ui.Zorro.Forms.Helpers;
+using Util.Ui.Zorro.Tables.Configs;
 
 namespace Util.Ui.Zorro.Forms.Renders {
     /// <summary>
@@ -50,7 +51,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.For ) == false )
                 return;
             var expression = _config.GetValue<ModelExpression>( UiConst.For );
-            ExpressionResolver.Init( expression, _config );
+            ExpressionResolver.Init( expression, _config, IsTableEdit() );
         }
 
         /// <summary>
@@ -58,12 +59,39 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         protected void Config( TagBuilder builder ) {
             ConfigId( builder );
+            ConfigTableEdit( builder );
             ConfigName( builder );
             ConfigLabel( builder );
             ConfigDisabled( builder );
             ConfigModel( builder );
             ConfigIndeterminate( builder );
             ConfigEvents( builder );
+        }
+
+        /// <summary>
+        /// 配置表格编辑
+        /// </summary>
+        private void ConfigTableEdit( TagBuilder builder ) {
+            var config = GetColumnShareConfig();
+            if( config == null )
+                return;
+            builder.AddAttribute( "[x-edit-control]", config.RowId );
+        }
+
+        /// <summary>
+        /// 是否表格编辑
+        /// </summary>
+        protected bool IsTableEdit() {
+            if( GetColumnShareConfig() == null )
+                return false;
+            return true;
+        }
+
+        /// <summary>
+        /// 获取列共享配置
+        /// </summary>
+        protected ColumnShareConfig GetColumnShareConfig() {
+            return _config.GetValueFromItems<ColumnShareConfig>();
         }
 
         /// <summary>

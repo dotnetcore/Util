@@ -82,13 +82,39 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
      * 保存
      * @param button 按钮
      */
-    save( button? ) {
+    save( button?) {
         this.editTable.save( {
-            button: button ,
-            before: data => this.saveBefore(data),
-            ok: result => this.saveAfter( result ) ,
+            button: button,
+            confirm: this.getConfirm(),
+            createData: data => this.createData( data ),
+            isDirty: ( data ) => this.isDirty( data ),
+            before: data => this.saveBefore( data ),
+            ok: result => this.saveAfter( result ),
             url: this.getSaveUrl()
         } );
+    }
+
+    /**
+     * 获取确认消息
+     */
+    protected getConfirm() {
+        return null;
+    }
+
+    /**
+     * 创建保存参数
+     * @param data 保存参数
+     */
+    protected createData( data ) {
+        return data;
+    }
+
+    /**
+     * 是否已修改，返回 false 阻止添加
+     * @param data 保存参数
+     */
+    protected isDirty( data ) {
+        return false;
     }
 
     /**
