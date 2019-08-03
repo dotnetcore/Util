@@ -451,16 +451,23 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 创建CTE
         /// </summary>
-        protected void CreateCte( StringBuilder result ) {
+        protected virtual void CreateCte( StringBuilder result ) {
             if( CteItems.Count == 0 )
                 return;
             var cte = new StringBuilder();
-            cte.Append( "With " );
+            cte.Append( $"{GetCteKeyWord()} " );
             foreach( var item in CteItems ) {
                 cte.AppendLine( $"{Dialect.SafeName( item.Name )} " );
                 cte.AppendLine( $"As ({item.Builder.ToSql()})," );
             }
             result.AppendLine( cte.ToString().RemoveEnd( $",{Common.Line}" ) );
+        }
+
+        /// <summary>
+        /// 获取CTE关键字
+        /// </summary>
+        protected virtual string GetCteKeyWord() {
+            return "With";
         }
 
         /// <summary>

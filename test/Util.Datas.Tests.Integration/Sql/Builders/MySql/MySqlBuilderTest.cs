@@ -79,5 +79,26 @@ namespace Util.Datas.Tests.Sql.Builders.MySql {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
         }
+
+        /// <summary>
+        /// 测试CTE
+        /// </summary>
+        [Fact]
+        public void TestWith() {
+            //结果
+            var result = new String();
+            result.AppendLine( "With Recursive `Test` " );
+            result.AppendLine( "As (Select `a`,`b` " );
+            result.AppendLine( "From `Test2`)" );
+            result.AppendLine( "Select `a`,`b` " );
+            result.Append( "From `Test`" );
+
+            //执行
+            var builder2 = _builder.New().Select( "a,b" ).From( "Test2" );
+            _builder.Select( "a,b" ).From( "Test" ).With( "Test", builder2 );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
     }
 }
