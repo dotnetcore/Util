@@ -78,7 +78,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         public void TestIsFlex() {
             var attributes = new TagHelperAttributeList { { UiConst.IsFlex, true } };
             var result = new String();
-            result.Append( "<nz-form-item nzFlex=\"true\">" );
+            result.Append( "<nz-form-item [nzFlex]=\"true\">" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }

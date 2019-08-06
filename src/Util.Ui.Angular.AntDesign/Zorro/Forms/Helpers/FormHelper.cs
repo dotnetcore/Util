@@ -15,12 +15,12 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         public static bool EnableLabel( Config config ) {
             if( config.GetValue<bool?>( UiConst.ShowLabel ) == true )
                 return true;
-            if ( config.Contains( UiConst.LabelText ) )
+            if( config.Contains( UiConst.LabelText ) )
                 return true;
             if( config.Contains( UiConst.LabelSpan ) )
                 return true;
             var shareConfig = GridHelper.GetShareConfig( config );
-            if ( shareConfig == null )
+            if( shareConfig == null )
                 return false;
             if( shareConfig.LabelSpan.IsEmpty() == false )
                 return true;
@@ -50,6 +50,9 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         public static FormItemBuilder CreateFormItemBuilder( Config config ) {
             var result = new FormItemBuilder();
             result.AddGutter( GridHelper.GetGutter( config ) );
+            var isFlex = config.GetValue<bool?>( UiConst.IsFlex );
+            if( isFlex == true )
+                result.AddAttribute( "[nzFlex]", "true" );
             return result;
         }
 
@@ -59,7 +62,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// <param name="config">配置</param>
         public static FormLabelBuilder CreateFormLabelBuilder( Config config ) {
             var result = new FormLabelBuilder();
-            result.AppendContent( GetLabel(config) );
+            result.AppendContent( GetLabel( config ) );
             result.AddRequired( config.GetBoolValue( UiConst.Required ) );
             result.AddSpan( GridHelper.GetLabelSpan( config ) );
             return result;
@@ -70,7 +73,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// </summary>
         private static string GetLabel( Config config ) {
             var result = config.GetValue( UiConst.LabelText );
-            if ( result.IsEmpty() )
+            if( result.IsEmpty() )
                 result = config.GetValue( UiConst.Label );
             return result;
         }
@@ -80,7 +83,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// </summary>
         /// <param name="config">配置</param>
         /// <param name="builder">配置</param>
-        public static TagBuilder CreateFormControlBuilder( Config config,TagBuilder builder ) {
+        public static TagBuilder CreateFormControlBuilder( Config config, TagBuilder builder ) {
             if( EnableLabel( config ) == false && GridHelper.EnabelGrid( config ) == false )
                 return builder;
             var result = new FormControlBuilder();

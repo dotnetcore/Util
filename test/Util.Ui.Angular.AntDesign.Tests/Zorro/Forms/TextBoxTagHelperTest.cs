@@ -273,6 +273,40 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试标签栅格跨度
+        /// </summary>
+        [Fact]
+        public void TestLabelSpan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 }, { UiConst.LabelSpan, 3 } };
+            var result = new String();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label [nzSpan]=\"3\">" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试浮动布局
+        /// </summary>
+        [Fact]
+        public void TestIsFlex() {
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 }, { UiConst.LabelSpan, 3 }, { UiConst.IsFlex, true } };
+            var result = new String();
+            result.Append( "<nz-form-item [nzFlex]=\"true\">" );
+            result.Append( "<nz-form-label [nzSpan]=\"3\">" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试表格编辑
         /// </summary>
         [Fact]

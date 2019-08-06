@@ -66,7 +66,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void ConfigFlex( TagBuilder builder ) {
             var isFlex = _config.GetValue<bool?>( UiConst.IsFlex );
             if( isFlex == true )
-                builder.AddAttribute( "nzFlex", "true" );
+                builder.AddAttribute( "[nzFlex]", "true" );
         }
 
         /// <summary>
