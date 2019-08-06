@@ -48,7 +48,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigGrid( FormItemBuilder builder ) {
             ConfigGutter( builder );
-            ConfigType( builder );
+            ConfigFlex( builder );
             ConfigAlign( builder );
             ConfigJustify( builder );
         }
@@ -61,12 +61,12 @@ namespace Util.Ui.Zorro.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置布局模式
+        /// 配置浮动布局模式
         /// </summary>
-        private void ConfigType( TagBuilder builder ) {
+        private void ConfigFlex( TagBuilder builder ) {
             var isFlex = _config.GetValue<bool?>( UiConst.IsFlex );
             if( isFlex == true )
-                builder.AddAttribute( "nzType", "flex" );
+                builder.AddAttribute( "nzFlex", "true" );
         }
 
         /// <summary>
