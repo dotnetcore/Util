@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Forms.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 using Util.Ui.Zorro.Forms.Renders;
@@ -44,6 +45,10 @@ namespace Util.Ui.Zorro.Forms {
         /// [nzName],控件的名称
         /// </summary>
         public string BindName { get; set; }
+        /// <summary>
+        /// 按钮样式
+        /// </summary>
+        public RadioButtonStyle ButtonStyle { get; set; }
         /// <summary>
         /// 是否垂直布局
         /// </summary>

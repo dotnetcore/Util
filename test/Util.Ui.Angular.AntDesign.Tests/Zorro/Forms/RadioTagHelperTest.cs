@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Forms;
 using Xunit;
 using Xunit.Abstractions;
@@ -65,6 +66,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             var attributes = new TagHelperAttributeList { { UiConst.Name, "a" } };
             var result = new String();
             result.Append( "<x-radio name=\"a\"></x-radio>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试按钮样式
+        /// </summary>
+        [Fact]
+        public void TestButtonStyle() {
+            var attributes = new TagHelperAttributeList { { UiConst.ButtonStyle, RadioButtonStyle.Solid } };
+            var result = new String();
+            result.Append( "<x-radio buttonStyle=\"solid\"></x-radio>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
 

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Util.Domains;
 using Util.Logs.Extensions;
-using Util.Logs.Properties;
 
 namespace Util.Applications {
     /// <summary>

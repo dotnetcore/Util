@@ -935,5 +935,9 @@
         /// 选中变更事件
         /// </summary>
         public const string OnCheckedChange = "on-checked-change";
+        /// <summary>
+        /// 按钮样式
+        /// </summary>
+        public const string ButtonStyle = "button-style";
     }
 }
