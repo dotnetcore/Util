@@ -60,7 +60,8 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
      */
     query( button?) {
         this.table.query( {
-            button: button
+            button: button,
+            pageIndex: 1
         } );
     }
 
