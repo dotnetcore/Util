@@ -4,6 +4,7 @@ using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.Zorro.Forms;
+using Util.Ui.Zorro.Grid.Configs;
 using Util.Ui.Zorro.Tables.Configs;
 using Xunit;
 using Xunit.Abstractions;
@@ -290,10 +291,58 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试显示标签
+        /// </summary>
+        [Fact]
+        public void TestShowLabel_1() {
+            var attributes = new TagHelperAttributeList { { UiConst.ShowLabel, true } };
+            var result = new String();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试显示标签 - 从父容器继承
+        /// </summary>
+        [Fact]
+        public void TestShowLabel_2() {
+            var config = new GridShareConfig { ShowLabel = true };
+            var items = new Dictionary<object, object> { { typeof( GridShareConfig ), config } };
+            var result = new String();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( items: items ) );
+        }
+
+        /// <summary>
+        /// 测试显示标签 - 覆盖父容器继承的属性
+        /// </summary>
+        [Fact]
+        public void TestShowLabel_3() {
+            var config = new GridShareConfig { ShowLabel = true };
+            var items = new Dictionary<object, object> { { typeof( GridShareConfig ), config } };
+            var attributes = new TagHelperAttributeList { { UiConst.ShowLabel, false } };
+            var result = new String();
+            result.Append( "<x-textbox></x-textbox>" );
+            Assert.Equal( result.ToString(), GetResult( attributes,items: items ) );
+        }
+
+        /// <summary>
         /// 测试浮动布局
         /// </summary>
         [Fact]
-        public void TestIsFlex() {
+        public void TestIsFlex_1() {
             var attributes = new TagHelperAttributeList { { UiConst.Span, 2 }, { UiConst.LabelSpan, 3 }, { UiConst.IsFlex, true } };
             var result = new String();
             result.Append( "<nz-form-item [nzFlex]=\"true\">" );
@@ -304,6 +353,44 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试浮动布局 - 从父容器继承
+        /// </summary>
+        [Fact]
+        public void TestIsFlex_2() {
+            var config = new GridShareConfig { FormItemFlex = true };
+            var items = new Dictionary<object, object> { { typeof( GridShareConfig ), config } };
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 }, { UiConst.LabelSpan, 3 } };
+            var result = new String();
+            result.Append( "<nz-form-item [nzFlex]=\"true\">" );
+            result.Append( "<nz-form-label [nzSpan]=\"3\">" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
+        }
+
+        /// <summary>
+        /// 测试浮动布局 - 覆盖父容器继承的属性
+        /// </summary>
+        [Fact]
+        public void TestIsFlex_3() {
+            var config = new GridShareConfig { FormItemFlex = true };
+            var items = new Dictionary<object, object> { { typeof( GridShareConfig ), config } };
+            var attributes = new TagHelperAttributeList { { UiConst.Span, 2 }, { UiConst.LabelSpan, 3 }, { UiConst.IsFlex, false } };
+            var result = new String();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label [nzSpan]=\"3\">" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control [nzSpan]=\"2\">" );
+            result.Append( "<x-textbox></x-textbox>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }
 
         /// <summary>

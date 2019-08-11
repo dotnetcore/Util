@@ -13,8 +13,9 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// </summary>
         /// <param name="config">配置</param>
         public static bool EnableLabel( Config config ) {
-            if( config.GetValue<bool?>( UiConst.ShowLabel ) == true )
-                return true;
+            var result = config.GetValue<bool?>( UiConst.ShowLabel );
+            if ( result != null )
+                return result.SafeValue();
             if( config.Contains( UiConst.LabelText ) )
                 return true;
             if( config.Contains( UiConst.LabelSpan ) )
@@ -22,6 +23,8 @@ namespace Util.Ui.Zorro.Forms.Helpers {
             var shareConfig = GridHelper.GetShareConfig( config );
             if( shareConfig == null )
                 return false;
+            if( shareConfig.ShowLabel )
+                return true;
             if( shareConfig.LabelSpan.IsEmpty() == false )
                 return true;
             return false;
@@ -50,10 +53,24 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         public static FormItemBuilder CreateFormItemBuilder( Config config ) {
             var result = new FormItemBuilder();
             result.AddGutter( GridHelper.GetGutter( config ) );
-            var isFlex = config.GetValue<bool?>( UiConst.IsFlex );
-            if( isFlex == true )
+            if( FormItemFlex( config ) )
                 result.AddAttribute( "[nzFlex]", "true" );
             return result;
+        }
+
+        /// <summary>
+        /// 表单项是否浮动布局
+        /// </summary>
+        private static bool FormItemFlex( Config config ) {
+            var result = config.GetValue<bool?>( UiConst.IsFlex );
+            if ( result != null )
+                return result.SafeValue();
+            var shareConfig = GridHelper.GetShareConfig( config );
+            if( shareConfig == null )
+                return false;
+            if( shareConfig.FormItemFlex )
+                return true;
+            return false;
         }
 
         /// <summary>

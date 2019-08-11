@@ -4,9 +4,13 @@
     /// </summary>
     public class GridShareConfig {
         /// <summary>
-        /// 栅格共享配置键
+        /// 间隔
         /// </summary>
-        public const string Key = "GridShareConfig";
+        public string Gutter { get; set; }
+        /// <summary>
+        /// 显示标签
+        /// </summary>
+        public bool ShowLabel { get; set; }
         /// <summary>
         /// 标签跨度
         /// </summary>
@@ -16,8 +20,8 @@
         /// </summary>
         public string ControlSpan { get; set; }
         /// <summary>
-        /// 间隔
+        /// 表单项是否开启浮动布局
         /// </summary>
-        public string Gutter { get; set; }
+        public bool FormItemFlex { get; set; }
     }
 }

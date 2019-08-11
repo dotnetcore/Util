@@ -23,6 +23,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public bool ShowColon { get; set; }
         /// <summary>
+        /// 是否显示表单标签，默认值：false
+        /// </summary>
+        public bool ShowLabel { get; set; }
+        /// <summary>
         /// 标签在栅格布局中的占位格数
         /// </summary>
         public int LabelSpan { get; set; }
@@ -30,6 +34,10 @@ namespace Util.Ui.Zorro.Forms {
         /// 控件在栅格布局中的占位格数
         /// </summary>
         public int ControlSpan { get; set; }
+        /// <summary>
+        /// 表单项是否开启浮动布局
+        /// </summary>
+        public bool FormItemFlex { get; set; }
         /// <summary>
         /// 标签与控件之间间隔，可以是数字，单位为像素，也可以是响应式写法,范例：{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }
         /// </summary>
@@ -65,15 +73,17 @@ namespace Util.Ui.Zorro.Forms {
         public void InitShare( TagHelperContext context ) {
             var shareConfig = new GridShareConfig();
             InitShareConfig( context, shareConfig );
-            context.SetValueToItems( GridShareConfig.Key, shareConfig );
+            context.SetValueToItems( typeof( GridShareConfig ), shareConfig );
         }
 
         /// <summary>
         /// 初始化共享配置
         /// </summary>
         protected virtual void InitShareConfig( TagHelperContext context, GridShareConfig config ) {
+            config.ShowLabel = context.GetValueFromAttributes<bool>( UiConst.ShowLabel );
             config.LabelSpan = context.GetValueFromAttributes<string>( UiConst.LabelSpan );
             config.ControlSpan = context.GetValueFromAttributes<string>( UiConst.ControlSpan );
+            config.FormItemFlex = context.GetValueFromAttributes<bool>( UiConst.FormItemFlex );
             config.Gutter = context.GetValueFromAttributes<string>( UiConst.Gutter );
         }
     }

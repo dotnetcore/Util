@@ -939,5 +939,9 @@
         /// 按钮样式
         /// </summary>
         public const string ButtonStyle = "button-style";
+        /// <summary>
+        /// 表单项浮动
+        /// </summary>
+        public const string FormItemFlex = "form-item-flex";
     }
 }

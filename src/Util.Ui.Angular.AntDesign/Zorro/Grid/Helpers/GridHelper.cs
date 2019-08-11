@@ -11,7 +11,7 @@ namespace Util.Ui.Zorro.Grid.Helpers {
         /// 获取栅格共享配置
         /// </summary>
         public static GridShareConfig GetShareConfig( Config config ) {
-            return config.Context?.GetValueFromItems<GridShareConfig>( GridShareConfig.Key );
+            return config.Context?.GetValueFromItems<GridShareConfig>( typeof( GridShareConfig ) );
         }
 
         /// <summary>
