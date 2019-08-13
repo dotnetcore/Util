@@ -315,6 +315,17 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Forms {
         }
 
         /// <summary>
+        /// 测试自动加载
+        /// </summary>
+        [Fact]
+        public void TestAutoLoad() {
+            var attributes = new TagHelperAttributeList { { UiConst.AutoLoad, false } };
+            var result = new String();
+            result.Append( "<x-select [autoLoad]=\"false\"></x-select>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试必填项
         /// </summary>
         [Fact]

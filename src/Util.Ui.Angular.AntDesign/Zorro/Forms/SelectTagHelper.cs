@@ -17,6 +17,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string Width { get; set; }
         /// <summary>
+        /// 初始化时是否自动发送请求加载，默认为true,设置成false则手工加载
+        /// </summary>
+        public bool AutoLoad { get; set; }
+        /// <summary>
         /// 服务端地址
         /// </summary>
         public string Url { get; set; }

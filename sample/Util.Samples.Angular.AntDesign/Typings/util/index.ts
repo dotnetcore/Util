@@ -1,7 +1,7 @@
 ﻿//============== util操作=========================
 //Copyright 2019 何镇汐
 //Licensed under the MIT license
-//Version: 1.0.1.8
+//Version: 1.0.1.9
 //================================================
 export { Util as util } from './util';
 export { UtilModule, createOidcProviders } from './util.module';
