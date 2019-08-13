@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
 
@@ -59,7 +58,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         private void ConfigVariable( RowBuilder builder ) {
             if( _tableId.IsEmpty() )
                 return;
-            builder.NgFor( $"let row of {_tableId}.data" );
+            builder.ConfigIterationVar( _tableId );
         }
 
         /// <summary>

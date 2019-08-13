@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Builders;
+using Util.Ui.Extensions;
 
 namespace Util.Ui.Zorro.Tables.Builders {
     /// <summary>
@@ -17,6 +18,15 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// <param name="value">值</param>
         public void Click( string value ) {
             AddAttribute( "(click)", value );
+        }
+
+        /// <summary>
+        /// 配置循环变量
+        /// </summary>
+        /// <param name="tableId">表格标识</param>
+        /// <param name="indexName">行索引名称</param>
+        public void ConfigIterationVar( string tableId,string indexName = "index") {
+            this.NgFor( $"let row of {tableId}.data;index as {indexName}" );
         }
 
         /// <summary>

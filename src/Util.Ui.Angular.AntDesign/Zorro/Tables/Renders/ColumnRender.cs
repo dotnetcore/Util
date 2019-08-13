@@ -31,6 +31,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             if( builder is IInit result )
                 result.Init();
             ConfigId( builder );
+            ConfigSpan( builder );
             return builder;
         }
 
@@ -61,6 +62,14 @@ namespace Util.Ui.Zorro.Tables.Renders {
                         return new TextEditColumnBuilder( editTableId, templateId, column, length, _config.Content, shareConfig?.IsCreateDisplay, shareConfig?.IsCreateControl );
                     return new TextColumnBuilder( column, length, _config.Content );
             }
+        }
+
+        /// <summary>
+        /// 配置跨度
+        /// </summary>
+        protected void ConfigSpan( TagBuilder builder ) {
+            builder.AddAttribute( "[attr.colspan]", _config.GetValue( UiConst.Colspan ) );
+            builder.AddAttribute( "[attr.rowspan]", _config.GetValue( UiConst.Rowspan ) );
         }
     }
 }

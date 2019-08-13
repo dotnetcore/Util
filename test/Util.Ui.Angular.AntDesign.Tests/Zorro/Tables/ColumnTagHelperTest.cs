@@ -145,5 +145,27 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "<td nz-tooltip=\"\" [nzTitle]=\"(row.a|isTruncate:3)?row.a:''\">{{row.a|truncate:3}}</td>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试列合并
+        /// </summary>
+        [Fact]
+        public void TestColspan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Colspan, "a" } };
+            var result = new String();
+            result.Append( "<td [attr.colspan]=\"a\"></td>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试行合并
+        /// </summary>
+        [Fact]
+        public void TestRowspan() {
+            var attributes = new TagHelperAttributeList { { UiConst.Rowspan, "a" } };
+            var result = new String();
+            result.Append( "<td [attr.rowspan]=\"a\"></td>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

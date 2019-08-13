@@ -364,7 +364,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected virtual void AddBody( TableBodyBuilder tableBodyBuilder ) {
             var rowBuilder = new RowBuilder();
-            rowBuilder.NgFor( $"let row of {_config.Id}.data" );
+            rowBuilder.ConfigIterationVar( _config.Id );
             AddEditRow( rowBuilder );
             AddRowEvents( rowBuilder );
             rowBuilder.AppendContent( _config.Content );
