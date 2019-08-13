@@ -52,6 +52,8 @@ namespace Util.Ui.Zorro.Grid.Renders {
         /// </summary>
         private void ConfigOffset( TagBuilder builder ) {
             builder.AddAttribute( "[nzOffset]", _config.GetValue( UiConst.Offset ) );
+            builder.AddAttribute( "[nzPull]", _config.GetValue( UiConst.Pull ) );
+            builder.AddAttribute( "[nzPush]", _config.GetValue( UiConst.Push ) );
         }
     }
 }

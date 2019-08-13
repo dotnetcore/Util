@@ -943,5 +943,13 @@
         /// 表单项浮动
         /// </summary>
         public const string FormItemFlex = "form-item-flex";
+        /// <summary>
+        /// 拉
+        /// </summary>
+        public const string Pull = "pull";
+        /// <summary>
+        /// 推
+        /// </summary>
+        public const string Push = "push";
     }
 }

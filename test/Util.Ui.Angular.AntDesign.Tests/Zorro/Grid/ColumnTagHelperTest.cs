@@ -77,5 +77,27 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Grid {
             result.Append( "<div nz-col=\"\" [nzOffset]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试向左移动
+        /// </summary>
+        [Fact]
+        public void TestPull() {
+            var attributes = new TagHelperAttributeList { { UiConst.Pull, 1 } };
+            var result = new String();
+            result.Append( "<div nz-col=\"\" [nzPull]=\"1\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试向右移动
+        /// </summary>
+        [Fact]
+        public void TestPush() {
+            var attributes = new TagHelperAttributeList { { UiConst.Push, 1 } };
+            var result = new String();
+            result.Append( "<div nz-col=\"\" [nzPush]=\"1\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

@@ -16,9 +16,17 @@ namespace Util.Ui.Zorro.Grid {
         /// </summary>
         public int Span { get; set; }
         /// <summary>
-        /// [nzOffset],栅格左侧偏移的间隔格数
+        /// [nzOffset],栅格偏移的格数
         /// </summary>
         public int Offset { get; set; }
+        /// <summary>
+        /// [nzPull],栅格向左移动的格数
+        /// </summary>
+        public int Pull { get; set; }
+        /// <summary>
+        /// [nzPush],栅格向右移动的格数
+        /// </summary>
+        public int Push { get; set; }
 
         /// <summary>
         /// 获取渲染器
