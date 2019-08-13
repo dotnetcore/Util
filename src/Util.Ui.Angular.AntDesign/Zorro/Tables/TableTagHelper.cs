@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -113,6 +114,10 @@ namespace Util.Ui.Zorro.Tables {
         /// 双击启动行编辑模式，仅影响首次进入编辑模式，默认值：true，设置成false，则首次进入编辑模式使用单击
         /// </summary>
         public bool DoubleClickStartEdit { get; set; }
+        /// <summary>
+        /// nzSize,表格尺寸，默认为 default
+        /// </summary>
+        public TableSize Size { get; set; }
         /// <summary>
         /// (nzPageSizeChange),分页大小变更事件
         /// </summary>
