@@ -99,5 +99,16 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Grid {
             result.Append( "<div nz-col=\"\" [nzPush]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
         }
+
+        /// <summary>
+        /// 测试栅格顺序
+        /// </summary>
+        [Fact]
+        public void TestOrder() {
+            var attributes = new TagHelperAttributeList { { UiConst.Order, 1 } };
+            var result = new String();
+            result.Append( "<div nz-col=\"\" [nzOrder]=\"1\"></div>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
     }
 }

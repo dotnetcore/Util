@@ -951,5 +951,13 @@
         /// 推
         /// </summary>
         public const string Push = "push";
+        /// <summary>
+        /// 列跨度
+        /// </summary>
+        public const string ColumnSpan = "column-span";
+        /// <summary>
+        /// 自动创建列
+        /// </summary>
+        public const string AutoCreateColumn = "auto-create-column";
     }
 }

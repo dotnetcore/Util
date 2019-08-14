@@ -11,5 +11,13 @@ namespace Util.Ui.Zorro.Grid.Builders {
         public ColumnBuilder() : base( "div" ) {
             base.AddAttribute( "nz-col" );
         }
+
+        /// <summary>
+        /// 添加跨度
+        /// </summary>
+        /// <param name="span">占位格数</param>
+        public void AddSpan( string span ) {
+            AddAttribute( "[nzSpan]", span );
+        }
     }
 }

@@ -36,6 +36,31 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// <param name="config">配置</param>
         /// <param name="controlBuilder">控件生成器</param>
         public static TagBuilder CreateFormItemBuilder( Config config, TagBuilder controlBuilder ) {
+            var builder = CreateBuilder( config, controlBuilder );
+            return CreateColumnBuilder( config, builder );
+        }
+
+        /// <summary>
+        /// 创建栅格列生成器
+        /// </summary>
+        private static TagBuilder CreateColumnBuilder( Config config,TagBuilder builder ) {
+            var shareConfig = GridHelper.GetShareConfig( config );
+            if( shareConfig == null )
+                return builder;
+            if( shareConfig.AutoCreateColumn == false )
+                return builder;
+            var result = new Util.Ui.Zorro.Grid.Builders.ColumnBuilder();
+            result.AddSpan( shareConfig.ColumnSpan );
+            result.AppendContent( builder );
+            return result;
+        }
+
+        /// <summary>
+        /// 创建表单项生成器
+        /// </summary>
+        /// <param name="config">配置</param>
+        /// <param name="controlBuilder">控件生成器</param>
+        private static TagBuilder CreateBuilder( Config config, TagBuilder controlBuilder ) {
             var formControlBuilder = CreateFormControlBuilder( config, controlBuilder );
             if( EnableLabel( config ) == false )
                 return formControlBuilder;

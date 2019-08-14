@@ -20,8 +20,16 @@
         /// </summary>
         public string ControlSpan { get; set; }
         /// <summary>
+        /// 列跨度
+        /// </summary>
+        public string ColumnSpan { get; set; }
+        /// <summary>
         /// 表单项是否开启浮动布局
         /// </summary>
         public bool FormItemFlex { get; set; }
+        /// <summary>
+        /// 自动创建栅格列
+        /// </summary>
+        public bool AutoCreateColumn { get; set; }
     }
 }
