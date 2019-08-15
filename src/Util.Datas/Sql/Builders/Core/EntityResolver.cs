@@ -62,7 +62,7 @@ namespace Util.Datas.Sql.Builders.Core {
             var result = new List<PropertyInfo>();
             var properties = type.GetProperties();
             foreach ( var property in properties ) {
-                var notMapped = property.GetCustomAttribute<NotMappedAttribute>();
+                var notMapped = property.GetCustomAttribute<IgnoreAttribute>();
                 if ( notMapped != null )
                     continue;
                 result.Add( property );

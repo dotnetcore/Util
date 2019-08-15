@@ -358,7 +358,7 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
         }
 
         /// <summary>
-        /// 将类型上所有属性设置为列名
+        /// 将类型上所有属性设置为列名 - 忽略Ignore特性的属性
         /// </summary>
         [Fact]
         public void TestSelect_8() {
