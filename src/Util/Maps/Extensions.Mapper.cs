@@ -1,8 +1,8 @@
 ﻿using System;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
-using AutoMapper.Configuration;
 
 namespace Util.Maps {
     /// <summary>
@@ -97,23 +97,23 @@ namespace Util.Maps {
         private static void InitMaps( Type sourceType, Type destinationType ) {
             try {
                 var maps = Mapper.Configuration.GetAllTypeMaps();
-                Mapper.Reset();
-                InitMapper( sourceType, destinationType );
+                ClearConfig();
+                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
                 foreach( var map in maps )
                     Mapper.Configuration.RegisterTypeMap( map );
             }
             catch( InvalidOperationException ) {
-                InitMapper( sourceType, destinationType );
+                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
             }
         }
 
         /// <summary>
-        /// 初始化映射器
+        /// 清空配置
         /// </summary>
-        private static void InitMapper( Type sourceType, Type destinationType ) {
-            var config = new MapperConfigurationExpression();
-            config.CreateMap( sourceType, destinationType );
-            Mapper.Initialize( config );
+        private static void ClearConfig() {
+            var typeMapper = typeof( Mapper ).GetTypeInfo();
+            var configuration = typeMapper.GetDeclaredField( "_configuration" );
+            configuration.SetValue( null, null, BindingFlags.Static, null, CultureInfo.CurrentCulture );
         }
 
         /// <summary>

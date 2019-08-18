@@ -61,7 +61,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             };
             var result = new String();
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of a.data\">" );
+            result.Append( "<tr *ngFor=\"let row of a.data;index as index\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             Assert.Equal( result.ToString(), GetResult( items: items ) );

@@ -156,9 +156,12 @@ namespace Util.Ui.Zorro.Tables {
         /// 初始化共享实例
         /// </summary>
         public void InitShare( TagHelperContext context ) {
-            var shareConfig = new TableShareConfig( GetId( context ) );
+            var shareConfig = context.GetValueFromItems<TableShareConfig>();
+            if ( shareConfig == null ) {
+                shareConfig = new TableShareConfig( GetId( context ) );
+                context.SetValueToItems( shareConfig );
+            }
             InitShareConfig( context, shareConfig );
-            context.SetValueToItems( shareConfig );
         }
 
         /// <summary>

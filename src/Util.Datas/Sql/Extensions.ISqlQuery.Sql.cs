@@ -107,6 +107,28 @@ namespace Util.Datas.Sql {
             return sqlQuery;
         }
 
+        /// <summary>
+        /// 移除列名
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="columns">列名,范例：t => new object[] { t.Id, t.Name }</param>
+        public static ISqlQuery RemoveSelect<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.RemoveSelect( columns );
+            return sqlQuery;
+        }
+
+        /// <summary>
+        /// 移除列名
+        /// </summary>
+        /// <param name="sqlQuery">Sql查询对象</param>
+        /// <param name="column">列名,范例：t => t.Name，支持字典批量设置列和列别名</param>
+        public static ISqlQuery RemoveSelect<TEntity>( this ISqlQuery sqlQuery, Expression<Func<TEntity, object>> column ) where TEntity : class {
+            var builder = sqlQuery.GetBuilder();
+            builder.RemoveSelect( column );
+            return sqlQuery;
+        }
+
         #endregion
 
         #region From子句

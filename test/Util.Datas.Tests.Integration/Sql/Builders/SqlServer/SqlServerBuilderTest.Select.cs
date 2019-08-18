@@ -374,5 +374,25 @@ namespace Util.Datas.Tests.Sql.Builders.SqlServer {
             //验证
             Assert.Equal( result.ToString(), _builder.ToSql() );
         }
+
+        /// <summary>
+        /// 覆盖已设置列名
+        /// </summary>
+        [Fact]
+        public void TestSelect_9() {
+            //结果
+            var result = new String();
+            result.AppendLine( "Select [s].[IsDeleted],[s].[StringValue] As [a] " );
+            result.Append( "From [Sample3] As [s]" );
+
+            //执行
+            _builder = new SqlServerBuilder( new DefaultEntityMatedata() );
+            _builder.Select<Sample3>()
+                .Select<Sample3>( t => t.StringValue,"a" )
+                .From<Sample3>( "s" );
+
+            //验证
+            Assert.Equal( result.ToString(), _builder.ToSql() );
+        }
     }
 }
