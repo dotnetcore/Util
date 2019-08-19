@@ -47,14 +47,12 @@ namespace Util.Maps {
                 return default( TDestination );
             var sourceType = GetType( source );
             var destinationType = GetType( destination );
-            var map = GetMap( sourceType, destinationType );
-            if( map != null )
+            if( Exists( sourceType, destinationType ) )
                 return GetResult( source, destination );
             lock( Sync ) {
-                map = GetMap( sourceType, destinationType );
-                if( map != null )
+                if( Exists( sourceType, destinationType ) )
                     return GetResult( source, destination );
-                InitMaps( sourceType, destinationType );
+                Init( sourceType, destinationType );
             }
             return GetResult( source, destination );
         }
@@ -75,18 +73,16 @@ namespace Util.Maps {
         }
 
         /// <summary>
-        /// 获取映射配置
+        /// 是否已存在映射配置
         /// </summary>
-        private static TypeMap GetMap( Type sourceType, Type destinationType ) {
-            if( _config == null )
-                InitMaps( sourceType, destinationType );
-            return _config?.FindTypeMapFor( sourceType, destinationType );
+        private static bool Exists( Type sourceType, Type destinationType ) {
+            return _config?.FindTypeMapFor( sourceType, destinationType ) != null;
         }
 
         /// <summary>
         /// 初始化映射配置
         /// </summary>
-        private static void InitMaps( Type sourceType, Type destinationType ) {
+        private static void Init( Type sourceType, Type destinationType ) {
             if( _config == null ) {
                 _config = new MapperConfiguration( t => t.CreateMap( sourceType, destinationType ) );
                 return;
@@ -101,8 +97,7 @@ namespace Util.Maps {
         /// 获取映射结果
         /// </summary>
         private static TDestination GetResult<TDestination>( object source, TDestination destination ) {
-            var mapper = new Mapper( _config );
-            return mapper.Map( source, destination );
+            return new Mapper( _config ).Map( source, destination );
         }
 
         /// <summary>
