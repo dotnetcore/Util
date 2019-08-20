@@ -11,9 +11,9 @@ using Util.Ui.Zorro.Tables.Renders;
 
 namespace Util.Ui.Zorro.Tables {
     /// <summary>
-    /// 表格标题列定义，该标签应放在 util-table-head 中
+    /// 表格标题列定义
     /// </summary>
-    [HtmlTargetElement( "util-table-head-column",ParentTag = "util-table-head" )]
+    [HtmlTargetElement( "util-table-head-column" )]
     public class HeadColumnTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 配置
