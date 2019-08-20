@@ -47,6 +47,14 @@ namespace Util.Ui.Zorro.Tables {
         /// 宽度，默认单位：px，范例：100，表示100px，也可以使用百分比，范例：10%
         /// </summary>
         public string Width { get; set; }
+        /// <summary>
+        /// 列合并
+        /// </summary>
+        public string Colspan { get; set; }
+        /// <summary>
+        /// 行合并
+        /// </summary>
+        public string Rowspan { get; set; }
 
         /// <summary>
         /// 获取渲染器

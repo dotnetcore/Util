@@ -401,6 +401,13 @@ export class Table<T extends IKey> implements OnInit {
     }
 
     /**
+     * 切换勾选状态
+     */
+    toggleRow(row) {
+        this.checkedSelection.toggle(row);
+    }
+
+    /**
      * 勾选标识列表
      */
     checkIds( ids ) {
