@@ -11,9 +11,9 @@ using Util.Ui.Zorro.Tables.Renders;
 
 namespace Util.Ui.Zorro.Tables {
     /// <summary>
-    /// 表格标题列定义，该标签应放在 util-table-head 中
+    /// 表格标题列定义
     /// </summary>
-    [HtmlTargetElement( "util-table-head-column",ParentTag = "util-table-head" )]
+    [HtmlTargetElement( "util-table-head-column" )]
     public class HeadColumnTagHelper : AngularTagHelperBase {
         /// <summary>
         /// 配置
@@ -47,6 +47,14 @@ namespace Util.Ui.Zorro.Tables {
         /// 宽度，默认单位：px，范例：100，表示100px，也可以使用百分比，范例：10%
         /// </summary>
         public string Width { get; set; }
+        /// <summary>
+        /// 列合并
+        /// </summary>
+        public string Colspan { get; set; }
+        /// <summary>
+        /// 行合并
+        /// </summary>
+        public string Rowspan { get; set; }
 
         /// <summary>
         /// 获取渲染器

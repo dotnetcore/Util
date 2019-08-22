@@ -2,6 +2,7 @@
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Zorro.Grid.Builders;
+using Util.Ui.Zorro.Grid.Helpers;
 
 namespace Util.Ui.Zorro.Grid.Renders {
     /// <summary>
@@ -44,7 +45,18 @@ namespace Util.Ui.Zorro.Grid.Renders {
         /// 配置跨度
         /// </summary>
         private void ConfigSpan( TagBuilder builder ) {
-            builder.AddAttribute( "[nzSpan]", _config.GetValue( UiConst.Span ) );
+            builder.AddAttribute( "[nzSpan]", GetColumnSpan() );
+        }
+
+        /// <summary>
+        /// 获取列跨度
+        /// </summary>
+        private string GetColumnSpan() {
+            var result = _config.GetValue( UiConst.Span );
+            if( result.IsEmpty() == false )
+                return result;
+            var shareConfig = GridHelper.GetShareConfig( _config );
+            return shareConfig?.ColumnSpan;
         }
 
         /// <summary>
@@ -52,6 +64,9 @@ namespace Util.Ui.Zorro.Grid.Renders {
         /// </summary>
         private void ConfigOffset( TagBuilder builder ) {
             builder.AddAttribute( "[nzOffset]", _config.GetValue( UiConst.Offset ) );
+            builder.AddAttribute( "[nzOrder]", _config.GetValue( UiConst.Order ) );
+            builder.AddAttribute( "[nzPull]", _config.GetValue( UiConst.Pull ) );
+            builder.AddAttribute( "[nzPush]", _config.GetValue( UiConst.Push ) );
         }
     }
 }

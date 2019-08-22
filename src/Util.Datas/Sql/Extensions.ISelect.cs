@@ -165,5 +165,19 @@ namespace Util.Datas.Sql {
         public static T AppendSelect<T>( this T source, string sql, bool condition ) where T : ISelect {
             return condition ? AppendSelect( source, sql ) : source;
         }
+
+        /// <summary>
+        /// 移除列名
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="columns">列名,范例：a.AppId,a.Name</param>
+        /// <param name="tableAlias">表别名</param>
+        public static T RemoveSelect<T>( this T source, string columns, string tableAlias = null ) where T : ISelect {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.SelectClause.RemoveSelect( columns, tableAlias );
+            return source;
+        }
     }
 }

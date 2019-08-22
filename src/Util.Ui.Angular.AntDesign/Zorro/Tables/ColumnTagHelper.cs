@@ -13,7 +13,7 @@ using Util.Ui.Zorro.Tables.Renders;
 
 namespace Util.Ui.Zorro.Tables {
     /// <summary>
-    /// 表格列定义，行数据变量名为 row
+    /// 表格列定义，行数据变量名为 row，行索引变量名为 index
     /// </summary>
     [HtmlTargetElement( "util-table-column" )]
     public class ColumnTagHelper : AngularTagHelperBase {
@@ -72,6 +72,14 @@ namespace Util.Ui.Zorro.Tables {
         /// 是否编辑列，默认值：false
         /// </summary>
         public bool IsEdit { get; set; }
+        /// <summary>
+        /// 列合并，[attr.colspan]
+        /// </summary>
+        public string Colspan { get; set; }
+        /// <summary>
+        /// 行合并，[attr.rowspan]
+        /// </summary>
+        public string Rowspan { get; set; }
 
         /// <summary>
         /// 获取渲染器

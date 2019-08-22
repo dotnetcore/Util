@@ -14,6 +14,7 @@ namespace Util.Ui.Zorro.Tables.Configs {
             Columns = new List<ColumnInfo>();
             AutoCreateRow = true;
             AutoCreateHead = true;
+            AutoCreateHeadRow = true;
             AutoCreateSort = true;
         }
 
@@ -51,6 +52,11 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// 是否自动创建表头
         /// </summary>
         public bool AutoCreateHead { get; set; }
+
+        /// <summary>
+        /// 是否自动创建表头行
+        /// </summary>
+        public bool AutoCreateHeadRow { get; set; }
 
         /// <summary>
         /// 是否自动创建排序列

@@ -78,6 +78,10 @@ export class Select extends FormControlWrapperBase implements OnInit {
      */
     @Input() queryParam;
     /**
+     * 初始化时是否自动加载数据，默认为true,设置成false则手工加载
+     */
+    @Input() autoLoad: boolean;
+    /**
      * 排序列
      */
     @Input() order: string;
@@ -139,6 +143,7 @@ export class Select extends FormControlWrapperBase implements OnInit {
         this.allowClear = true;
         this.showSearch = true;
         this.showArrow = true;
+        this.autoLoad = true;
         this.loading = false;
         this.maxMultipleCount = 9999;
     }
@@ -152,7 +157,8 @@ export class Select extends FormControlWrapperBase implements OnInit {
         this.loadData();
         if ( this.dataSource )
             return;
-        this.loadUrl();
+        if ( this.autoLoad )
+            this.loadUrl();
     }
 
     /**

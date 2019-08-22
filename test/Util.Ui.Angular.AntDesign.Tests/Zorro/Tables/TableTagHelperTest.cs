@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Helpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Zorro.Tables;
 using Util.Ui.Zorro.Tables.Configs;
 using Xunit;
@@ -58,7 +59,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         /// </summary>
         private void AppendTableBodyHtml( String result ) {
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngFor=\"let row of m_id.data;index as index\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -92,7 +93,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzData]=\"a_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"a_wrapper.loading\" [nzShowPagination]=\"a_wrapper.showPagination\" " );
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzShowTotal]=\"template_a\" [nzTotal]=\"a_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of a.data\">" );
+            result.Append( "<tr *ngFor=\"let row of a.data;index as index\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -359,6 +360,22 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
+        /// 测试表格尺寸
+        /// </summary>
+        [Fact]
+        public void TestSize() {
+            var attributes = new TagHelperAttributeList { { UiConst.Size, TableSize.Middle } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "nzSize=\"middle\" [(nzPageIndex)]=\"m_id_wrapper.queryParam.page\" [(nzPageSize)]=\"m_id_wrapper.queryParam.pageSize\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            AppendTableBodyHtml( result );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试多选
         /// </summary>
         [Fact]
@@ -443,7 +460,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngFor=\"let row of m_id.data;index as index\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -464,7 +481,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr *ngFor=\"let row of m_id.data;index as index\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -504,7 +521,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
-            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
+            result.Append( "*ngFor=\"let row of m_id.data;index as index\" [x-edit-row]=\"row\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -533,7 +550,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
             result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id)\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
-            result.Append( "*ngFor=\"let row of m_id.data\" [x-edit-row]=\"row\">" );
+            result.Append( "*ngFor=\"let row of m_id.data;index as index\" [x-edit-row]=\"row\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );
@@ -601,7 +618,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
             result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
             result.Append( "<tbody>" );
-            result.Append( "<tr (click)=\"a\" *ngFor=\"let row of m_id.data\">" );
+            result.Append( "<tr (click)=\"a\" *ngFor=\"let row of m_id.data;index as index\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );

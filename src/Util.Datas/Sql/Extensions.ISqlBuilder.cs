@@ -124,6 +124,32 @@ namespace Util.Datas.Sql {
             return source;
         }
 
+        /// <summary>
+        /// 移除列名
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="columns">列名,范例：t => new object[] { t.Id, t.Name }</param>
+        public static ISqlBuilder RemoveSelect<TEntity>( this ISqlBuilder source, Expression<Func<TEntity, object[]>> columns ) where TEntity : class {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.SelectClause.RemoveSelect( columns );
+            return source;
+        }
+
+        /// <summary>
+        /// 移除列名
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="column">列名,范例：t => t.Name，支持字典批量设置列和列别名</param>
+        public static ISqlBuilder RemoveSelect<TEntity>( this ISqlBuilder source, Expression<Func<TEntity, object>> column ) where TEntity : class {
+            if( source == null )
+                throw new ArgumentNullException( nameof( source ) );
+            if( source is IClauseAccessor accessor )
+                accessor.SelectClause.RemoveSelect( column );
+            return source;
+        }
+
         #endregion
 
         #region From子句

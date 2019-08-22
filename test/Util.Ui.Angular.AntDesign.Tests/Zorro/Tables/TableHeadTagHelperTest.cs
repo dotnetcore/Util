@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.AntDesign.Tests.XUnitHelpers;
 using Util.Ui.Configs;
 using Util.Ui.Zorro.Tables;
+using Util.Ui.Zorro.Tables.Configs;
 using Xunit;
 using Xunit.Abstractions;
 using String = Util.Helpers.String;
@@ -62,6 +63,19 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试不自动创建表头行
+        /// </summary>
+        [Fact]
+        public void TestAutoCreateHeadRow_False() {
+            var config = new TableShareConfig( null ) { AutoCreateHeadRow = false };
+            var items = new Dictionary<object, object> { { typeof( TableShareConfig ), config } };
+            var result = new String();
+            result.Append( "<thead>" );
+            result.Append( "</thead>" );
+            Assert.Equal( result.ToString(), GetResult( items: items ) );
         }
 
         /// <summary>

@@ -346,8 +346,16 @@ export class EditTableDirective {
             confirm: options.confirm,
             ok: result => {
                 this.clear();
-                options.ok && options.ok(result);
-                this.table.query();
+                options.ok && options.ok( result );
+                this.table.query( {
+                    handler: result => {
+                        if ( result.page > result.pageCount ) {
+                            this.table.query( {
+                                pageIndex: result.page - 1
+                            } );
+                        }
+                    }
+                } );
             }
         });
     }

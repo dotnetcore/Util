@@ -28,6 +28,11 @@ namespace Util.Ui.Zorro.Tables.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new TableHeadBuilder();
             ConfigHead( builder );
+            var shareConfig = GetShareConfig();
+            if( shareConfig != null && shareConfig.AutoCreateHeadRow == false ) {
+                ConfigContent( builder );
+                return builder;
+            }
             var rowBuilder = new TableRowBuilder();
             builder.AppendContent( rowBuilder );
             ConfigRow( rowBuilder );

@@ -39,11 +39,20 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected void Config( TableHeadColumnBuilder builder ) {
             ConfigId( builder );
+            ConfigSpan( builder );
             ConfigTitle( builder );
             ConfigStyle( builder );
             ConfigSort( builder );
             ConfigType( builder );
             ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置跨度
+        /// </summary>
+        protected void ConfigSpan( TagBuilder builder ) {
+            builder.AddAttribute( "colspan", _config.GetValue( UiConst.Colspan ) );
+            builder.AddAttribute( "rowspan", _config.GetValue( UiConst.Rowspan ) );
         }
 
         /// <summary>

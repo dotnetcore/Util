@@ -20,6 +20,10 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      */
     model: TViewModel;
     /**
+     * 是否创建
+     */
+    isNew: boolean;
+    /**
      * 标识
      */
     @Input() id;
@@ -34,6 +38,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      */
     constructor( injector: Injector ) {
         super( injector );
+        this.isNew = true;
         this.model = this.createModel();
     }
 
@@ -56,9 +61,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      */
     protected loadById( id = null ) {
         if ( this.isRequestLoad() === false && this.data ) {
-            let result = this.loadBefore( this.data );
-            this.model = result;
-            this.loadAfter( result );
+            this.loadModel( this.data );
             return;
         }
         id = id || this.id || this.util.router.getParam( "id" );
@@ -66,11 +69,19 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
             return;
         this.util.webapi.get<TViewModel>( this.getByIdUrl( id ) ).handle( {
             ok: result => {
-                result = this.loadBefore( result );
-                this.model = result;
-                this.loadAfter( result );
+                this.loadModel( result );
             }
         } );
+    }
+
+    /**
+     * 加载模型
+     */
+    private loadModel( data ) {
+        let result = this.loadBefore( data );
+        this.isNew = false;
+        this.model = result;
+        this.loadAfter( result );
     }
 
     /**

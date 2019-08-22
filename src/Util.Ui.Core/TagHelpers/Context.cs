@@ -53,5 +53,20 @@ namespace Util.Ui.TagHelpers {
         public T GetValueFromItems<T>( object key = null ) {
             return TagHelperContext.GetValueFromItems<T>( key );
         }
+
+        /// <summary>
+        /// 设置TagHelperContext Items值
+        /// </summary>
+        /// <param name="value">值</param>
+        public void SetValueToItems<T>( T value ) {
+            TagHelperContext.SetValueToItems( value );
+        }
+
+        /// <summary>
+        /// 移除TagHelperContext Items值
+        /// </summary>
+        public void RemoveFromItems<T>() {
+            TagHelperContext.RemoveFromItems<T>();
+        }
     }
 }

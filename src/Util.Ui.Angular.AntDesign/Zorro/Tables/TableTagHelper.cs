@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
@@ -114,6 +115,10 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public bool DoubleClickStartEdit { get; set; }
         /// <summary>
+        /// nzSize,表格尺寸，默认为 default
+        /// </summary>
+        public TableSize Size { get; set; }
+        /// <summary>
         /// (nzPageSizeChange),分页大小变更事件
         /// </summary>
         public string OnPageSizeChange { get; set; }
@@ -151,9 +156,12 @@ namespace Util.Ui.Zorro.Tables {
         /// 初始化共享实例
         /// </summary>
         public void InitShare( TagHelperContext context ) {
-            var shareConfig = new TableShareConfig( GetId( context ) );
+            var shareConfig = context.GetValueFromItems<TableShareConfig>();
+            if ( shareConfig == null ) {
+                shareConfig = new TableShareConfig( GetId( context ) );
+                context.SetValueToItems( shareConfig );
+            }
             InitShareConfig( context, shareConfig );
-            context.SetValueToItems( shareConfig );
         }
 
         /// <summary>

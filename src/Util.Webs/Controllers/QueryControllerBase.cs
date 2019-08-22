@@ -113,7 +113,7 @@ namespace Util.Webs.Controllers {
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpGet( "Items" )]
-        public async Task<IActionResult> GetItemsAsync( TQuery query ) {
+        public virtual async Task<IActionResult> GetItemsAsync( TQuery query ) {
             if( query == null )
                 return Fail( WebResource.QueryIsEmpty );
             if( query.Order.IsEmpty() )
