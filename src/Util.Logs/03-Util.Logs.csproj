@@ -36,7 +36,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
   <ItemGroup>
     <PackageReference Include="Exceptionless" Version="4.3.2027" />
-    <PackageReference Include="NLog" Version="4.6.6" />
+    <PackageReference Include="NLog" Version="4.6.7" />
   </ItemGroup>
 
   <ItemGroup>
