@@ -30,11 +30,11 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.CAP.Kafka" Version="2.5.1" />
-    <PackageReference Include="DotNetCore.CAP.MySql" Version="2.5.1" />
-    <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="2.5.1" />
-    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.5.1" />
-    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="2.5.1" />
+    <PackageReference Include="DotNetCore.CAP.Kafka" Version="2.6.0" />
+    <PackageReference Include="DotNetCore.CAP.MySql" Version="2.6.0" />
+    <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="2.6.0" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.6.0" />
+    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="2.6.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -33,10 +33,10 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyCaching.CSRedis" Version="0.6.0" />
-    <PackageReference Include="EasyCaching.HybridCache" Version="0.6.0" />
-    <PackageReference Include="EasyCaching.InMemory" Version="0.6.0" />
-    <PackageReference Include="EasyCaching.Memcached" Version="0.6.0" />
+    <PackageReference Include="EasyCaching.CSRedis" Version="0.6.1" />
+    <PackageReference Include="EasyCaching.HybridCache" Version="0.6.1" />
+    <PackageReference Include="EasyCaching.InMemory" Version="0.6.1" />
+    <PackageReference Include="EasyCaching.Memcached" Version="0.6.1" />
   </ItemGroup>
 
 </Project>
