@@ -82,7 +82,7 @@ namespace Util.Logs.Formats {
         protected void Line1( StringBuilder result, LogContent content, ref int line ) {
             AppendLine( result, content, ( r, c ) => {
                 r.AppendFormat( "{0}: {1} >> ", c.Level, c.LogName );
-                r.AppendFormat( "{0}: {1}   ", LogResource.TraceId, c.TraceId );
+                r.AppendFormat( "{0}: {1}   ", LogResource.LogId, c.LogId );
                 r.AppendFormat( "{0}: {1}   ", LogResource.OperationTime, c.OperationTime );
                 if( string.IsNullOrWhiteSpace( c.Duration ) )
                     return;

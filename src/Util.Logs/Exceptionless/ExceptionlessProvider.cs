@@ -61,6 +61,7 @@ namespace Util.Logs.Exceptionless {
             SetSource( builder, content );
             SetReferenceId( builder, content );
             AddProperties( builder, content as ILogConvert );
+            AddTags(builder, content);
             builder.Submit();
         }
 
@@ -75,9 +76,12 @@ namespace Util.Logs.Exceptionless {
         /// 创建事件生成器
         /// </summary>
         private EventBuilder CreateBuilder( LogLevel level, ILogContent content ) {
-            if( content.Exception != null )
-                return _client.CreateException( content.Exception );
-            return _client.CreateLog( GetMessage( content ), ConvertTo( level ) );
+            if (content.Exception != null && (level == LogLevel.Error || level == LogLevel.Critical))
+                return _client.CreateException(content.Exception);
+            var builder = _client.CreateLog(GetMessage(content), ConvertTo(level));
+            if (content.Exception != null && level == LogLevel.Warning)
+                builder.SetException(content.Exception);
+            return builder;
         }
 
         /// <summary>
@@ -89,7 +93,7 @@ namespace Util.Logs.Exceptionless {
                 return caption.Caption;
             if( content.Content.Length > 0 )
                 return content.Content.ToString();
-            return content.TraceId;
+            return content.LogId;
         }
 
         /// <summary>
@@ -135,9 +139,7 @@ namespace Util.Logs.Exceptionless {
         /// <summary>
         /// 设置跟踪号
         /// </summary>
-        private void SetReferenceId( EventBuilder builder, ILogContent content ) {
-            builder.SetReferenceId( content.TraceId );
-        }
+        private void SetReferenceId( EventBuilder builder, ILogContent content ) => builder.SetReferenceId($"{content.LogId}");
 
         /// <summary>
         /// 添加属性集合
@@ -151,6 +153,11 @@ namespace Util.Logs.Exceptionless {
                 builder.SetProperty( $"{GetLine()}. {parameter.Text}", parameter.Value );
             }
         }
+
+        /// <summary>
+        /// 添加标签
+        /// </summary>
+        private void AddTags(EventBuilder builder, ILogContent content) => builder.AddTags(content.Level, content.LogName, content.TraceId);
 
         /// <summary>
         /// 获取行号

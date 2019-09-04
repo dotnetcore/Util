@@ -69,6 +69,7 @@ namespace Util.Logs.Core {
         /// <param name="content">日志内容</param>
         protected virtual void Init( TContent content ) {
             content.LogName = Provider.LogName;
+            content.LogId = Context.LogId;
             content.TraceId = Context.TraceId;
             content.OperationTime = DateTime.Now.ToMillisecondString();
             content.Duration = Context.Stopwatch.Elapsed.Description();
