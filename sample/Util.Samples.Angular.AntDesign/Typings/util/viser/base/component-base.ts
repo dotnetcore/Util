@@ -71,6 +71,8 @@ export class ComponentBase implements OnInit {
      * 转换数据
      */
     toData( model: Model ) {
+        if ( !model.data )
+            return [];
         let dataView = new DataSet.View().source( model.data );
         dataView.transform( {
             type: "fold",

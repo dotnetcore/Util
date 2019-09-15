@@ -71,8 +71,20 @@ namespace Util.Ui.Builders {
         /// <param name="name">属性名</param>
         /// <param name="value">属性值</param>
         /// <param name="replaceExisting">是否替换已存在的属性</param>
-        public virtual TagBuilder Attribute( string name, string value, bool replaceExisting = false ) {
-            _tagBuilder.MergeAttribute( name, value, replaceExisting );
+        /// <param name="append">相同名称的属性值是否累加</param>
+        public virtual TagBuilder Attribute( string name, string value, bool replaceExisting = false,bool append = false ) {
+            if( _tagBuilder.Attributes.ContainsKey( name ) == false ) {
+                _tagBuilder.MergeAttribute( name, value );
+                return this;
+            }
+            if ( replaceExisting ) {
+                _tagBuilder.MergeAttribute( name, value, true );
+                return this;
+            }
+            if ( append == false )
+                return this;
+            var newValue = $"{_tagBuilder.Attributes[name]};{value}";
+            _tagBuilder.MergeAttribute( name, newValue,true );
             return this;
         }
 
@@ -82,10 +94,12 @@ namespace Util.Ui.Builders {
         /// <param name="name">属性名</param>
         /// <param name="value">属性值</param>
         /// <param name="ignoreIfValueIsEmpty">当值为空时忽略</param>
-        public virtual TagBuilder AddAttribute( string name, string value, bool ignoreIfValueIsEmpty = true ) {
+        /// <param name="replaceExisting">是否替换已存在的属性</param>
+        /// <param name="append">相同名称的属性值是否累加</param>
+        public virtual TagBuilder AddAttribute( string name, string value, bool ignoreIfValueIsEmpty = true, bool replaceExisting = false, bool append = false ) {
             if( ignoreIfValueIsEmpty && string.IsNullOrWhiteSpace( value ) )
                 return this;
-            Attribute( name, value );
+            Attribute( name, value, replaceExisting, append );
             return this;
         }
 

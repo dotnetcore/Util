@@ -249,11 +249,11 @@ export class Table<T extends IKey> implements OnInit {
      * @param handler 刷新成功回调函数
      */
     refresh( queryParam, button?, handler?: ( result ) => void ) {
+        this.clear();
         this.queryParam = queryParam;
         this.queryParamChange.emit( queryParam );
         this.initPage();
         this.queryParam.order = this.sortKey;
-        this.checkedKeys = null;
         this.query( {
             button: button,
             handler: handler
@@ -403,8 +403,8 @@ export class Table<T extends IKey> implements OnInit {
     /**
      * 切换勾选状态
      */
-    toggleRow(row) {
-        this.checkedSelection.toggle(row);
+    toggleRow( row ) {
+        this.checkedSelection.toggle( row );
     }
 
     /**
@@ -434,6 +434,36 @@ export class Table<T extends IKey> implements OnInit {
     }
 
     /**
+     * 仅选中一行
+     */
+    selectRowOnly( row ) {
+        this.clearSelected();
+        this.selectRow( row );
+    }
+
+    /**
+     * 单击选中一行
+     */
+    selectRow( row ) {
+        this.selectedSelection.select( row );
+    }
+
+    /**
+     * 清空选中的行
+     */
+    clearSelected() {
+        this.selectedSelection.clear();
+    }
+
+    /**
+     * 是否被选中
+     * @param row 行
+     */
+    isSelected( row ) {
+        return this.selectedSelection.isSelected( row );
+    }
+
+    /**
      * 清理
      */
     clear() {
@@ -441,6 +471,7 @@ export class Table<T extends IKey> implements OnInit {
         this.queryParam.page = 1;
         this.totalCount = 0;
         this.checkedSelection.clear();
+        this.selectedSelection.clear();
         this.checkedKeys = null;
     }
 
