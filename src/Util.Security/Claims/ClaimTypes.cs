@@ -8,6 +8,11 @@ namespace Util.Security.Claims {
         /// <summary>
         /// 电子邮件
         /// </summary>
+        public static string UserId { get; set; } = JwtClaimTypes.Subject;
+
+        /// <summary>
+        /// 电子邮件
+        /// </summary>
         public static string Email { get; set; } = JwtClaimTypes.Email;
 
         /// <summary>
