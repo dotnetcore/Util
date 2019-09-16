@@ -17,7 +17,7 @@ export abstract class FormComponentBase {
     /**
      * 表单
      */
-    @ViewChild( forwardRef( () => NgForm ) ) protected form: NgForm;
+    @ViewChild( forwardRef( () => NgForm ), { "static": false } ) protected form: NgForm;
 
     /**
      * 初始化

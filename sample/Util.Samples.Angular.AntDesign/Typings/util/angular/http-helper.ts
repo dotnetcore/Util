@@ -124,8 +124,9 @@ export class HttpRequest<T> {
      * 设置响应类型
      * @param responseType 响应类型
      */
-    responseType(responseType) {
+    responseType( responseType ): HttpRequest<T>{
         this.httpResponseType = responseType;
+        return this;
     }
 
     /**

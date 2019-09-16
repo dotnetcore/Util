@@ -69,7 +69,7 @@ export class Button {
     /**
      * 模板，用来支持图标
      */
-    @ContentChild( TemplateRef ) template: TemplateRef<any>;
+    @ContentChild( TemplateRef, { "static": false } ) template: TemplateRef<any>;
 
     /**
      * 初始化按钮包装器

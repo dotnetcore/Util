@@ -74,11 +74,11 @@ export class FormControlWrapperBase implements AfterViewInit, OnDestroy {
     /**
      * 控件模型
      */
-    @ViewChild( 'controlModel' ) controlModel: NgModel;
+    @ViewChild( 'controlModel', { "static": false } ) controlModel: NgModel;
     /**
      * 组件元素
      */
-    @ViewChild( forwardRef( () => 'control' ) ) element: ElementRef;
+    @ViewChild( forwardRef( () => 'control' ), { "static": false } ) element: ElementRef;
 
     /**
      * 表单控件包装器

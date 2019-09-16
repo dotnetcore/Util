@@ -122,7 +122,7 @@ export class WebApiRequest<T> {
      * 设置响应类型
      * @param responseType 响应类型
      */
-    responseType(responseType) {
+    responseType( responseType ): WebApiRequest<T>  {
         this.request.responseType(responseType);
         return this;
     }
