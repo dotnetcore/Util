@@ -5,7 +5,6 @@ using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
 using TableHeadColumnBuilder = Util.Ui.Zorro.Tables.Builders.TableHeadColumnBuilder;
@@ -369,6 +368,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
             rowBuilder.ConfigIterationVar( _config.Id );
             AddEditRow( rowBuilder );
             AddRowEvents( rowBuilder );
+            AddSelectedRowBackgroundColor( rowBuilder );
             rowBuilder.AppendContent( _config.Content );
             tableBodyBuilder.AppendContent( rowBuilder );
         }
@@ -387,6 +387,16 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void AddRowEvents( RowBuilder rowBuilder ) {
             rowBuilder.Click( _config.GetValue( UiConst.OnClickRow ) );
+        }
+
+        /// <summary>
+        /// 添加选中行的背景色
+        /// </summary>
+        private void AddSelectedRowBackgroundColor( RowBuilder rowBuilder ) {
+            if ( _config.Contains( UiConst.SelectedRowBackgroundColor ) == false )
+                return;
+            rowBuilder.Click( $"{_config.WrapperId}.selectRowOnly(row)" );
+            rowBuilder.AddAttribute( "[style.background-color]", $"{_config.WrapperId}.isSelected(row)?{_config.GetValue( UiConst.SelectedRowBackgroundColor )}:''" );
         }
 
         /// <summary>

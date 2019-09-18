@@ -82,7 +82,7 @@ export class Radio implements OnInit, AfterViewInit {
     /**
      * 控件模型
      */
-    @ViewChild('controlModel') controlModel: NgModel;
+    @ViewChild( 'controlModel', { "static": false }) controlModel: NgModel;
 
     /**
      * 初始化单选按钮包装器

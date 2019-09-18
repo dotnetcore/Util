@@ -223,11 +223,11 @@ export class Upload implements AfterViewInit {
     /**
      * 上传组件实例
      */
-    @ViewChild( forwardRef( () => NzUploadComponent ) ) instance: NzUploadComponent;
+    @ViewChild( forwardRef( () => NzUploadComponent ), { "static": false }) instance: NzUploadComponent;
     /**
      * 文本框组件模型，用于验证
      */
-    @ViewChild( forwardRef( () => NgModel ) ) controlModel: NgModel;
+    @ViewChild( forwardRef( () => NgModel ), { "static": false } ) controlModel: NgModel;
 
     /**
      * 初始化上传组件包装器

@@ -82,6 +82,10 @@ export class HttpRequest<T> {
      * Http参数集合
      */
     private parameters: HttpParams;
+    /**
+     * 响应类型
+     */
+    private httpResponseType;
 
     /**
      * 初始化Http请求操作
@@ -113,6 +117,15 @@ export class HttpRequest<T> {
      */
     contentType( contentType: HttpContentType ): HttpRequest<T> {
         this.httpContentType = contentType;
+        return this;
+    }
+
+    /**
+     * 设置响应类型
+     * @param responseType 响应类型
+     */
+    responseType( responseType ): HttpRequest<T>{
+        this.httpResponseType = responseType;
         return this;
     }
 
@@ -194,12 +207,12 @@ export class HttpRequest<T> {
     private request() {
         this.setContentType();
         let httpClient = ioc.get<HttpClient>( HttpClient );
-        let options = { headers: this.headers, params: this.parameters };
+        let options = { headers: this.headers, params: this.parameters, responseType: this.httpResponseType };
         switch ( this.httpMethod ) {
             case HttpMethod.Get:
                 return httpClient.get<T>( this.url, options );
             case HttpMethod.Post:
-                return httpClient.post<T>( this.url, this.getBody(), options );
+                return httpClient.post<T>(this.url, this.getBody(), options );
             case HttpMethod.Put:
                 return httpClient.put<T>( this.url, this.getBody(), options );
             case HttpMethod.Delete:

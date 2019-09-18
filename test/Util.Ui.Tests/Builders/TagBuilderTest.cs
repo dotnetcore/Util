@@ -40,6 +40,16 @@ namespace Util.Ui.Tests.Builders {
         }
 
         /// <summary>
+        /// 添加属性 - 多个属性值累加
+        /// </summary>
+        [Fact]
+        public void TestAttribute_Append() {
+            _builder.Attribute( "name", "a" );
+            _builder.Attribute( "name", "b",append:true );
+            Assert.Equal( "<div name=\"a;b\"></div>", _builder.ToString() );
+        }
+
+        /// <summary>
         /// 添加class属性
         /// </summary>
         [Fact]

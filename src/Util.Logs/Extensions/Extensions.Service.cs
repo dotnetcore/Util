@@ -2,9 +2,11 @@
 using Exceptionless;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using NLog.LayoutRenderers;
 using Util.Logs.Abstractions;
 using Util.Logs.Core;
 using Util.Logs.Formats;
+using Util.Logs.NLog;
 
 namespace Util.Logs.Extensions {
     /// <summary>
@@ -16,6 +18,7 @@ namespace Util.Logs.Extensions {
         /// </summary>
         /// <param name="services">服务集合</param>
         public static void AddNLog( this IServiceCollection services ) {
+            LayoutRenderer.Register<NLogLayoutRenderer>( "log" );
             services.TryAddScoped<ILogProviderFactory, Util.Logs.NLog.LogProviderFactory>();
             services.TryAddSingleton<ILogFormat, ContentFormat>();
             services.TryAddScoped<ILogContext, LogContext>();

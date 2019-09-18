@@ -959,5 +959,9 @@
         /// 自动创建列
         /// </summary>
         public const string AutoCreateColumn = "auto-create-column";
+        /// <summary>
+        /// 选中行背景色
+        /// </summary>
+        public const string SelectedRowBackgroundColor = "selected-row-background-color";
     }
 }

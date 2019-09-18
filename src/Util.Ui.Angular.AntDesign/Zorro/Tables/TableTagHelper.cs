@@ -119,6 +119,10 @@ namespace Util.Ui.Zorro.Tables {
         /// </summary>
         public TableSize Size { get; set; }
         /// <summary>
+        /// 选中行的背景色，范例：selected-row-background-color="'red'"
+        /// </summary>
+        public string SelectedRowBackgroundColor { get; set; }
+        /// <summary>
         /// (nzPageSizeChange),分页大小变更事件
         /// </summary>
         public string OnPageSizeChange { get; set; }

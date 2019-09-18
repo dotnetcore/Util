@@ -17,7 +17,7 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// </summary>
         /// <param name="value">值</param>
         public void Click( string value ) {
-            AddAttribute( "(click)", value );
+            AddAttribute( "(click)", value, append: true );
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// </summary>
         /// <param name="tableId">表格标识</param>
         /// <param name="indexName">行索引名称</param>
-        public void ConfigIterationVar( string tableId,string indexName = "index") {
+        public void ConfigIterationVar( string tableId, string indexName = "index" ) {
             this.NgFor( $"let row of {tableId}.data;index as {indexName}" );
         }
 
@@ -35,10 +35,10 @@ namespace Util.Ui.Zorro.Tables.Builders {
         /// <param name="editTableId">编辑表格标识</param>
         /// <param name="rowId">行标识</param>
         public void ConfigEdit( string editTableId, string rowId ) {
-            AddAttribute( "[x-edit-row]","row" );
+            AddAttribute( "[x-edit-row]", "row" );
             AddAttribute( $"#{rowId}", "utilEditRow" );
-            AddAttribute( "(click)", $"{editTableId}.clickEdit(row.id)" );
-            AddAttribute( "(dblclick)", $"{editTableId}.dblClickEdit(row.id)" );
+            AddAttribute( "(click)", $"{editTableId}.clickEdit(row.id)", append: true );
+            AddAttribute( "(dblclick)", $"{editTableId}.dblClickEdit(row.id)", append: true );
         }
     }
 }

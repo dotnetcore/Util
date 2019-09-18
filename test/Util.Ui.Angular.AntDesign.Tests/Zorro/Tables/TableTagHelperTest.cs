@@ -505,6 +505,30 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         }
 
         /// <summary>
+        /// 测试选中行背景色
+        /// </summary>
+        [Fact]
+        public void TestSelectedRowBackgroundColor() {
+            var attributes = new TagHelperAttributeList { { UiConst.SelectedRowBackgroundColor, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_wrapper=\"\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[(nzPageIndex)]=\"m_id_wrapper.queryParam.page\" [(nzPageSize)]=\"m_id_wrapper.queryParam.pageSize\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" [nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" [nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr (click)=\"m_id_wrapper.selectRowOnly(row)\" *ngFor=\"let row of m_id.data;index as index\" [style.background-color]=\"m_id_wrapper.isSelected(row)?a:''\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "<ng-template #template_m_id=\"\" let-range=\"range\" let-total=\"\">" );
+            result.Append( TableConfig.TotalTemplate );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
         /// 测试编辑模式
         /// </summary>
         [Fact]
@@ -627,6 +651,35 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
             result.Append( "</ng-template>" );
             result.Append( "</nz-table-wrapper>" );
             Assert.Equal( result.ToString(), GetResult( attributes ) );
+        }
+
+        /// <summary>
+        /// 测试编辑模式 - 单击行事件
+        /// </summary>
+        [Fact]
+        public void TestEdit_OnClickRow() {
+            var shareConfig = new TableShareConfig( "m_id" ) { IsEdit = true };
+            var items = new Dictionary<object, object> { { typeof( TableShareConfig ), shareConfig } };
+            var attributes = new TagHelperAttributeList { { UiConst.OnClickRow, "a" } };
+            var result = new String();
+            result.Append( "<nz-table-wrapper #m_id_edit=\"utilEditTable\" #m_id_wrapper=\"\" x-edit-table=\"\">" );
+            result.Append( "<nz-table #m_id=\"\" (nzPageIndexChange)=\"m_id_wrapper.pageIndexChange($event)\" (nzPageSizeChange)=\"m_id_wrapper.pageSizeChange($event)\" " );
+            result.Append( "[(nzPageIndex)]=\"m_id_wrapper.queryParam.page\" [(nzPageSize)]=\"m_id_wrapper.queryParam.pageSize\" " );
+            result.Append( "[nzData]=\"m_id_wrapper.dataSource\" [nzFrontPagination]=\"false\" " );
+            result.Append( "[nzLoading]=\"m_id_wrapper.loading\" [nzShowPagination]=\"m_id_wrapper.showPagination\" " );
+            result.Append( "[nzShowQuickJumper]=\"true\" [nzShowSizeChanger]=\"true\" " );
+            result.Append( "[nzShowTotal]=\"template_m_id\" [nzTotal]=\"m_id_wrapper.totalCount\">" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr #m_id_row=\"utilEditRow\" (click)=\"m_id_edit.clickEdit(row.id);a\" (dblclick)=\"m_id_edit.dblClickEdit(row.id)\" " );
+            result.Append( "*ngFor=\"let row of m_id.data;index as index\" [x-edit-row]=\"row\">" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            result.Append( "<ng-template #template_m_id=\"\" let-range=\"range\" let-total=\"\">" );
+            result.Append( TableConfig.TotalTemplate );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-table-wrapper>" );
+            Assert.Equal( result.ToString(), GetResult( attributes, items: items ) );
         }
     }
 }

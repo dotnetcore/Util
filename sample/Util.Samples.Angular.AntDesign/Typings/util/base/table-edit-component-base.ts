@@ -14,7 +14,7 @@ export abstract class TableEditComponentBase<TViewModel extends ViewModel, TQuer
     /**
      * 编辑表格指令
      */
-    @ViewChild( forwardRef( () => EditTableDirective ) ) protected editTable: EditTableDirective;
+    @ViewChild( forwardRef( () => EditTableDirective ), { "static": false } ) protected editTable: EditTableDirective;
 
     /**
      * 初始化组件

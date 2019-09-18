@@ -106,7 +106,7 @@ export class Tree implements AfterContentInit {
     /**
      * 树形组件
      */
-    @ViewChild( forwardRef( () => NzTreeComponent ) ) protected tree: NzTreeComponent;
+    @ViewChild( forwardRef( () => NzTreeComponent ), { "static": false } ) protected tree: NzTreeComponent;
 
     /**
      * 初始化树形包装器

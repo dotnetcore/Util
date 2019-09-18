@@ -147,6 +147,9 @@
   <data name="Host" xml:space="preserve">
     <value>主机</value>
   </data>
+  <data name="LogId" xml:space="preserve">
+    <value>日志标识</value>
+  </data>
   <data name="LogName" xml:space="preserve">
     <value>日志名称</value>
   </data>

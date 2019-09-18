@@ -32,7 +32,7 @@ import { env } from '../../../env';
 })
 export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-  @ViewChild('settingHost', { read: ViewContainerRef })
+  @ViewChild('settingHost', { read: ViewContainerRef,static:false })
   private settingHost: ViewContainerRef;
   isFetching = false;
 

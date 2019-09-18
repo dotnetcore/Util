@@ -119,6 +119,15 @@ export class WebApiRequest<T> {
     }
 
     /**
+     * 设置响应类型
+     * @param responseType 响应类型
+     */
+    responseType( responseType ): WebApiRequest<T>  {
+        this.request.responseType(responseType);
+        return this;
+    }
+
+    /**
      * 设置内容类型
      * @param contentType 内容类型
      */

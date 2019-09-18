@@ -20,7 +20,7 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
     /**
      * 树形表格组件
      */
-    @ViewChild( forwardRef( () => TreeTable ) ) protected table: TreeTable<TViewModel>;
+    @ViewChild( forwardRef( () => TreeTable ), { "static": false }) protected table: TreeTable<TViewModel>;
 
     /**
      * 初始化树形表格查询基类
