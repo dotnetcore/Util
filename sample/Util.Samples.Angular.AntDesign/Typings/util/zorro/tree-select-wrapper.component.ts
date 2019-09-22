@@ -18,7 +18,7 @@ import { TreeQueryParameter } from "../core/tree-model";
         <nz-form-control [nzValidateStatus]="(controlModel?.hasError( 'required' ) && (controlModel?.dirty || controlModel.touched))?'error':'success'">
             <nz-tree-select #controlModel="ngModel" [name]="name" [ngModel]="model" (ngModelChange)="onModelChange($event)" 
                 [ngStyle]="getStyle()" [nzPlaceHolder]="placeholder" [nzNodes]="dataSource" [nzAsyncData]="async" [nzCheckable]="showCheckbox"
-                [nzShowExpand]="showExpand" [nzShowLine]="showLine" [nzDefaultExpandAll]="expandAll" [nzDefaultExpandedKeys]="expandedKeys"
+                [nzShowExpand]="showExpand" [nzShowLine]="showLine" [nzDefaultExpandAll]="expandAll" [nzExpandedKeys]="expandedKeys"
                 [nzMultiple]="multiple" [required]="required" [nzDisabled]="disabled"
                 (nzExpandChange)="expandChange($event)">
             </nz-tree-select>

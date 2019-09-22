@@ -34,15 +34,16 @@
     "@antv/g2": "3.5.1",
     "viser-ng": "2.4.4",
     "screenfull": "4.0.1",
-    "ng-alain": "7.0.3",
-    "@delon/theme": "7.0.3",
-    "@delon/abc": "7.0.3",
-    "@delon/acl": "7.0.3",
-    "@delon/auth": "7.0.3",
-    "@delon/util": "7.0.3"
+    "ng-alain": "8.4.0",
+    "@delon/theme": "8.4.0",
+    "@delon/abc": "8.4.0",
+    "@delon/acl": "8.4.0",
+    "@delon/auth": "8.4.0",
+    "@delon/util": "8.4.0",
+    "@delon/chart": "8.4.0"
   },
   "devDependencies": {
-    "typescript": "3.2.4",
+    "typescript": "3.5.3",
     "webpack": "4.29.6",
     "webpack-cli": "3.2.3",
     "webpack-dev-middleware": "3.6.0",
