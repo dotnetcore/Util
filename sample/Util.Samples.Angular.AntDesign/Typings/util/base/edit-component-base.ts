@@ -114,7 +114,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * @param id 标识
      */
     protected getByIdUrl( id ) {
-        return `/api/${this.getBaseUrl()}/${id}`;
+        return util.helper.getUrl( this.getBaseUrl(), id );
     }
 
     /**
@@ -136,7 +136,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Fo
      * 获取提交地址
      */
     protected getSubmitUrl() {
-        return `/api/${this.getBaseUrl()}`;
+        return util.helper.getUrl( this.getBaseUrl() );
     }
 
     /**

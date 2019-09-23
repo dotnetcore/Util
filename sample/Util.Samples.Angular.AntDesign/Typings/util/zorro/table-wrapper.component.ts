@@ -167,7 +167,7 @@ export class Table<T extends IKey> implements OnInit {
         handler?: ( result ) => void;
     } ) {
         options = options || {};
-        let url = options.url || this.url || ( this.baseUrl && `/api/${this.baseUrl}` );
+        let url = options.url || this.url || util.helper.getUrl( this.baseUrl );
         if ( !url )
             return;
         let param = options.param || this.queryParam;
@@ -297,7 +297,7 @@ export class Table<T extends IKey> implements OnInit {
      * 发送删除请求
      */
     private deleteRequest( button?, ids?: string, handler?: () => void, url?: string ) {
-        url = url || this.deleteUrl || ( this.baseUrl && `/api/${this.baseUrl}/delete` );
+        url = url || this.deleteUrl || util.helper.getUrl( this.baseUrl,"delete" );
         if ( !url ) {
             console.log( "表格deleteUrl未设置" );
             return;
