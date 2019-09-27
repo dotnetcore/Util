@@ -142,14 +142,25 @@ export class PieWrapperComponent extends ComponentBase implements OnInit {
     /**
      * 转换数据
      */
-    toData( model: Model ) {
-        let dataView = new DataSet.View().source( model.data );
-        dataView.transform( {
+    toData(model: Model) {
+        let dataView = new DataSet.View().source(model.data);
+        if (model.columns.length === 0)
+            return dataView.rows;
+        if (model.columns.length === 1) {
+            dataView.transform({
+                type: "percent",
+                field: model.columns[0],
+                dimension: 'name',
+                as: 'percent'
+            });
+            return dataView.rows;
+        }
+        dataView.transform({
             type: "percent",
             fields: model.columns,
             dimension: 'name',
             as: 'percent'
-        } );
+        });
         return dataView.rows;
     }
 }
