@@ -97,6 +97,25 @@ namespace Util.Helpers {
 
         #endregion
 
+        #region AccessToken(获取访问令牌)
+
+        /// <summary>
+        /// 获取访问令牌
+        /// </summary>
+        public static string AccessToken {
+            get {
+                var authorization = Request?.Headers["Authorization"].SafeString();
+                if ( string.IsNullOrWhiteSpace( authorization ) )
+                    return null;
+                var list = authorization.Split( ' ' );
+                if ( list.Length == 2 )
+                    return list[1];
+                return null;
+            }
+        }
+
+        #endregion
+
         #region Body(请求正文)
 
         /// <summary>

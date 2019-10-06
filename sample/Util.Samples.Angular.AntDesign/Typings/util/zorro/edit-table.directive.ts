@@ -323,7 +323,7 @@ export class EditTableDirective {
         if (!this.validate())
             return;
         let baseUrl = this.table.baseUrl;
-        let url = options.url || this.saveUrl || (baseUrl && `/api/${baseUrl}/save`);
+        let url = options.url || this.saveUrl || util.helper.getUrl( baseUrl, "save" );
         if (!url) {
             console.error("表格编辑提交url未设置");
             return;

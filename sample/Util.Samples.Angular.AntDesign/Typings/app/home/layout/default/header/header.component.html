@@ -9,62 +9,66 @@
     <!-- Menu -->
     <li>
       <div class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
-        <i nz-icon type="menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}"></i>
+        <i nz-icon nzType="menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}"></i>
       </div>
     </li>
     <!-- Github Page -->
     <li>
       <a class="alain-default__nav-item" href="//github.com/ng-alain/ng-alain" target="_blank">
-        <i nz-icon type="github"></i>
+        <i nz-icon nzType="github"></i>
       </a>
     </li>
     <!-- Lock Page -->
     <li class="hidden-mobile">
       <div class="alain-default__nav-item" routerLink="/passport/lock">
-        <i nz-icon type="lock"></i>
+        <i nz-icon nzType="lock"></i>
       </div>
     </li>
     <!-- Search Button -->
     <li class="hidden-pc" (click)="searchToggleChange()">
       <div class="alain-default__nav-item">
-        <i nz-icon type="search"></i>
+        <i nz-icon nzType="search"></i>
       </div>
     </li>
   </ul>
-  <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search>
-  <ul class="alain-default__nav">
-    <!-- Notify -->
-    <li>
-      <header-notify></header-notify>
-    </li>
-    <!-- Task -->
-    <li class="hidden-mobile">
-      <header-task></header-task>
-    </li>
-    <!-- App Icons -->
-    <li class="hidden-mobile">
-      <header-icon></header-icon>
-    </li>
-    <!-- Settings -->
-    <li class="hidden-mobile">
-      <nz-dropdown-menu nzTrigger="click" nzPlacement="bottomRight">
-        <div class="alain-default__nav-item" nz-dropdown-menu>
-          <i nz-icon type="setting"></i>
-        </div>
-        <div nz-menu style="width:200px;">
-          <div nz-menu-item>
-            <header-fullscreen></header-fullscreen>
-          </div>
-          <div nz-menu-item>
-            <header-storage></header-storage>
-          </div>
-          <div nz-menu-item>
-          </div>
-        </div>
-      </nz-dropdown-menu>
-    </li>
-    <li class="hidden-mobile">
-      <header-user></header-user>
-    </li>
-  </ul>
+    <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search>
+    <ul class="alain-default__nav">
+        <!-- Notify -->
+        <li>
+            <header-notify></header-notify>
+        </li>
+        <!-- Task -->
+        <li class="hidden-mobile">
+            <header-task></header-task>
+        </li>
+        <!-- App Icons -->
+        <li class="hidden-mobile">
+            <header-icon></header-icon>
+        </li>
+        <!-- Settings -->
+        <li class="hidden-mobile">
+            <div
+                class="alain-default__nav-item"
+                nz-dropdown
+                [nzDropdownMenu]="settingsMenu"
+                nzTrigger="click"
+                nzPlacement="bottomRight"
+            >
+                <i nz-icon nzType="setting"></i>
+            </div>
+            <nz-dropdown-menu #settingsMenu="nzDropdownMenu">
+                <div nz-menu style="width:200px;">
+                    <div nz-menu-item>
+                        <header-fullscreen></header-fullscreen>
+                    </div>
+                    <div nz-menu-item>
+                        <header-storage></header-storage>
+                    </div>
+                </div>
+            </nz-dropdown-menu>
+        </li>
+        <li class="hidden-mobile">
+            <header-user></header-user>
+        </li>
+    </ul>
 </div>

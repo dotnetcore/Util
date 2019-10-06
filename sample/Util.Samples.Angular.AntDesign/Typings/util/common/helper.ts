@@ -485,3 +485,29 @@ export function getIds( data ) {
         return data.id;
     return data.map( t => t.id );
 }
+
+/**
+ * 获取基地址
+ * @param baseUrl 基地址
+ */
+export function getBaseUrl( baseUrl: string ) {
+    if ( !baseUrl )
+        return null;
+    if ( !baseUrl.startsWith( "http" ) )
+        baseUrl = `/api/${baseUrl}`;
+    return _.trimEnd( baseUrl , "/" );
+}
+
+/**
+ * 获取完整地址
+ * @param baseUrl 基地址
+ * @param path 路径
+ */
+export function getUrl( baseUrl: string, path?: string ) {
+    baseUrl = getBaseUrl( baseUrl );
+    if ( !baseUrl )
+        return null;
+    if ( !path )
+        return baseUrl;
+    return `${baseUrl}/${path}`;
+}

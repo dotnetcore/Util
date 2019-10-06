@@ -17,7 +17,7 @@
             <util-button id="btnQuery" text="查询" color="Primary" icon="Search" on-click="query(btnQuery)"></util-button>
             <util-button class="mx-sm" id="btnRefresh" text="刷新" icon="Sync" on-click="refresh(btnRefresh)"></util-button>
             <a (click)="expand=!expand">
-                <i class="anticon" [class.anticon-down]="!expand" [class.anticon-up]="expand"></i>
+                <i nz-icon nzType="anticon" [class.anticon-down]="!expand" [class.anticon-up]="expand"></i>
             </a>
         </util-column>
     </util-row>
