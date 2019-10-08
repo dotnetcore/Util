@@ -1,7 +1,7 @@
 ﻿using Util.Ui.Angular.Base;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
+using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
 
 namespace Util.Ui.Zorro.Tables.Renders {
@@ -33,7 +33,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
             var builder = new TableBodyBuilder();
-            var rowBuilder = new TableRowBuilder();
+            var rowBuilder = new RowBuilder();
             builder.AppendContent( rowBuilder );
             Config( rowBuilder );
             return builder;
@@ -42,46 +42,52 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private void Config( TableRowBuilder builder ) {
+        private void Config( RowBuilder builder ) {
+            var config = _config.GetValueFromItems<TableShareConfig>();
             InitBuilder( builder );
             ConfigId( builder );
             ConfigVariable( builder );
-            ConfigEvents( builder );
+            ConfigEdit( builder, config );
+            ConfigEvents( builder, config );
             ConfigContent( builder );
         }
 
         /// <summary>
         /// 配置循环变量
         /// </summary>
-        private void ConfigVariable( TableRowBuilder builder ) {
+        private void ConfigVariable( RowBuilder builder ) {
             if( _tableId.IsEmpty() )
                 return;
-            builder.NgFor( $"let row of {_tableId}.data" );
+            builder.ConfigIterationVar( _tableId );
+        }
+
+        /// <summary>
+        /// 添加行编辑属性
+        /// </summary>
+        private void ConfigEdit( RowBuilder builder, TableShareConfig config ) {
+            if ( config == null )
+                return;
+            if( config.IsEdit == false )
+                return;
+            builder.ConfigEdit( config.EditTableId, config.RowId );
         }
 
         /// <summary>
         /// 配置事件
         /// </summary>
-        private void ConfigEvents( TableRowBuilder builder ) {
-            ConfigOnClick( builder );
+        private void ConfigEvents( RowBuilder builder, TableShareConfig config ) {
+            ConfigOnClick( builder, config );
         }
 
         /// <summary>
         /// 配置行单击事件
         /// </summary>
-        private void ConfigOnClick( TableRowBuilder builder ) {
+        private void ConfigOnClick( RowBuilder builder, TableShareConfig config ) {
             if( _config.Contains( UiConst.OnClick ) ) {
                 builder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClick ) );
                 return;
             }
-            builder.AddAttribute( "(click)", GetShareConfig()?.OnClickRow );
-        }
-
-        /// <summary>
-        /// 获取共享配置
-        /// </summary>
-        private TableShareConfig GetShareConfig() {
-            return _config.Context?.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
+            builder.AddAttribute( "(click)", config?.OnClickRow );
         }
     }
 }

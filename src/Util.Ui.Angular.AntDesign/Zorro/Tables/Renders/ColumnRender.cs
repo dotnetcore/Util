@@ -1,8 +1,7 @@
-﻿using Util.Properties;
-using Util.Ui.Angular.Base;
+﻿using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Enums;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
 
@@ -27,104 +26,50 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// <summary>
         /// 获取标签生成器
         /// </summary>
-        protected override Util.Ui.Builders.TagBuilder GetTagBuilder() {
-            var builder = new TableColumnBuilder();
-            Config( builder );
+        protected override TagBuilder GetTagBuilder() {
+            var builder = CreateColumnBuilder();
+            if( builder is IInit result )
+                result.Init();
+            ConfigId( builder );
+            ConfigSpan( builder );
             return builder;
         }
 
         /// <summary>
-        /// 配置
+        /// 创建列生成器
         /// </summary>
-        private void Config( TableColumnBuilder builder ) {
-            ConfigId( builder );
-            ConfigColumn( builder );
-            ConfigContent( builder );
-        }
-
-        /// <summary>
-        /// 配置列
-        /// </summary>
-        protected virtual void ConfigColumn( TableColumnBuilder builder ) {
-            if( _config.Content.IsEmpty() == false )
-                return;
+        protected virtual TagBuilder CreateColumnBuilder() {
+            var shareConfig = _config.GetValueFromItems<ColumnShareConfig>();
             var type = _config.GetValue<TableColumnType?>( UiConst.Type );
-            var column = _config.GetValue( UiConst.Column );
+            var tableId = shareConfig?.TableId;
+            var editTableId = shareConfig?.EditTableId;
+            var column = shareConfig?.Column;
+            var templateId = shareConfig?.TemplateId;
+            var format = _config.GetValue( UiConst.DateFormat );
+            var length = _config.GetValue<int?>( UiConst.Truncate );
+            var isEdit = (shareConfig?.IsEdit).SafeValue();
             switch( type ) {
                 case TableColumnType.LineNumber:
-                    AddLineNumber( builder );
-                    return;
+                    return new LineNumberColumnBuilder();
                 case TableColumnType.Checkbox:
-                    AddCheckbox( builder );
-                    return;
+                    return new CheckboxColumnBuilder( tableId );
                 case TableColumnType.Bool:
-                    AddBoolColumn( builder, column );
-                    return;
+                    return new BoolColumnBuilder( column, _config.Content );
                 case TableColumnType.Date:
-                    AddDateColumn( builder, column );
-                    return;
+                    return new DateColumnBuilder( column, format, _config.Content );
                 default:
-                    AddDefaultColumn( builder, column );
-                    return;
+                    if( isEdit )
+                        return new TextEditColumnBuilder( editTableId, templateId, column, length, _config.Content, shareConfig?.IsCreateDisplay, shareConfig?.IsCreateControl );
+                    return new TextColumnBuilder( column, length, _config.Content );
             }
         }
 
         /// <summary>
-        /// 添加序号
+        /// 配置跨度
         /// </summary>
-        protected void AddLineNumber( TableColumnBuilder builder ) {
-            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.LineNumber )
-                return;
-            builder.AppendContent( "{{row.lineNumber}}" );
-        }
-
-        /// <summary>
-        /// 添加复选框
-        /// </summary>
-        protected void AddCheckbox( TableColumnBuilder builder ) {
-            if( _config.GetValue<TableColumnType?>( UiConst.Type ) != TableColumnType.Checkbox )
-                return;
-            var tableId = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey )?.TableId;
-            builder.AddAttribute( "[nzShowCheckbox]", $"{tableId}_wrapper.multiple" );
-            builder.AddAttribute( "(click)", "$event.stopPropagation()" );
-            builder.AddAttribute( "(nzCheckedChange)", $"{tableId}_wrapper.checkedSelection.toggle(row)" );
-            builder.AddAttribute( "[nzChecked]", $"{tableId}_wrapper.checkedSelection.isSelected(row)" );
-            builder.AppendContent( new TableRadioBuilder( tableId ) );
-        }
-
-        /// <summary>
-        /// 添加布尔类型列
-        /// </summary>
-        protected void AddBoolColumn( TableColumnBuilder builder, string column ) {
-            if( column.IsEmpty() )
-                return;
-            builder.AppendContent( $"{{{{row.{column}?'{R.Yes}':'{R.No}'}}}}" );
-        }
-
-        /// <summary>
-        /// 添加日期类型列
-        /// </summary>
-        protected void AddDateColumn( TableColumnBuilder builder, string column ) {
-            if( column.IsEmpty() )
-                return;
-            var format = _config.GetValue( UiConst.DateFormat );
-            if( string.IsNullOrWhiteSpace( format ) )
-                format = "yyyy-MM-dd";
-            builder.AppendContent( $"{{{{ row.{column} | date:\"{format}\" }}}}" );
-        }
-
-        /// <summary>
-        /// 添加默认列
-        /// </summary>
-        protected void AddDefaultColumn( TableColumnBuilder builder, string column ) {
-            if( column.IsEmpty() )
-                return;
-            var length = _config.GetValue<int?>( UiConst.Truncate );
-            if( length == null ) {
-                builder.AppendContent( $"{{{{row.{column}}}}}" );
-                return;
-            }
-            builder.Truncate( column, length.SafeValue() );
+        protected void ConfigSpan( TagBuilder builder ) {
+            builder.AddAttribute( "[attr.colspan]", _config.GetValue( UiConst.Colspan ) );
+            builder.AddAttribute( "[attr.rowspan]", _config.GetValue( UiConst.Rowspan ) );
         }
     }
 }

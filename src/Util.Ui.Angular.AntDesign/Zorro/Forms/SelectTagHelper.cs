@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Forms.Configs;
+using Util.Ui.Enums;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
 using Util.Ui.Zorro.Forms.Base;
@@ -15,6 +16,10 @@ namespace Util.Ui.Zorro.Forms {
         /// 宽度，默认单位：px，范例：100，表示100px，也可以使用百分比，范例：10%
         /// </summary>
         public string Width { get; set; }
+        /// <summary>
+        /// 初始化时是否自动发送请求加载，默认为true,设置成false则手工加载
+        /// </summary>
+        public bool AutoLoad { get; set; }
         /// <summary>
         /// 服务端地址
         /// </summary>
@@ -40,9 +45,17 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public string DefaultOptionText { get; set; }
         /// <summary>
-        /// 启用多选
+        /// nzMode,选择模式
+        /// </summary>
+        public SelectMode Mode { get; set; }
+        /// <summary>
+        /// 启用多选,默认值:false
         /// </summary>
         public bool Multiple { get; set; }
+        /// <summary>
+        /// 启用标签,默认值:false
+        /// </summary>
+        public bool Tags { get; set; }
         /// <summary>
         /// [nzMaxMultipleCount],允许选中的最大数量
         /// </summary>

@@ -13,7 +13,7 @@ using Util.Ui.Zorro.Tables.Renders;
 
 namespace Util.Ui.Zorro.Tables {
     /// <summary>
-    /// 表格列定义，行数据变量名为 row
+    /// 表格列定义，行数据变量名为 row，行索引变量名为 index
     /// </summary>
     [HtmlTargetElement( "util-table-column" )]
     public class ColumnTagHelper : AngularTagHelperBase {
@@ -68,25 +68,40 @@ namespace Util.Ui.Zorro.Tables {
         /// 截断原始内容，并使用tooltip显示完整内容，设置截断后保留的长度,范例：原始内容为abcd,设置2，则显示 ab...
         /// </summary>
         public int Truncate { get; set; }
+        /// <summary>
+        /// 是否编辑列，默认值：false
+        /// </summary>
+        public bool IsEdit { get; set; }
+        /// <summary>
+        /// 列合并，[attr.colspan]
+        /// </summary>
+        public string Colspan { get; set; }
+        /// <summary>
+        /// 行合并，[attr.rowspan]
+        /// </summary>
+        public string Rowspan { get; set; }
 
         /// <summary>
         /// 获取渲染器
         /// </summary>
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
-            _config.Content = context.Content;
             return new ColumnRender( _config );
         }
 
         /// <summary>
         /// 处理前操作
         /// </summary>
-        /// <param name="context">TagHelper上下文</param>
-        /// <param name="output">TagHelper输出</param>
-        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            _config.Load( context, output );
+        /// <param name="context">上下文</param>
+        protected override void ProcessBefore( Context context ) {
+            _config.Load( context );
             ResolveExpression();
-            SetShareConfig();
+            var tableShareConfig = _config.GetValueFromItems<TableShareConfig>();
+            var column = _config.GetValue( UiConst.Column );
+            var columnShareConfig = new ColumnShareConfig( tableShareConfig, column );
+            SetTableShareConfig( tableShareConfig, column );
+            SetColumnShareConfig( columnShareConfig );
+            ConfigEdit( tableShareConfig, columnShareConfig );
         }
 
         /// <summary>
@@ -100,22 +115,20 @@ namespace Util.Ui.Zorro.Tables {
         }
 
         /// <summary>
-        /// 设置共享配置
+        /// 设置表格共享配置
         /// </summary>
-        private void SetShareConfig() {
-            var shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
-            if( shareConfig == null )
+        private void SetTableShareConfig( TableShareConfig config,string column ) {
+            if( config == null )
                 return;
             var type = _config.Context.GetValueFromAttributes<TableColumnType?>( UiConst.Type );
-            AddColumn( shareConfig, type );
+            AddColumn( config, type, column );
         }
 
         /// <summary>
         /// 添加列配置
         /// </summary>
-        private void AddColumn( TableShareConfig config, TableColumnType? type ) {
+        private void AddColumn( TableShareConfig config, TableColumnType? type, string column ) {
             var title = GetTitle( type );
-            var column = _config.GetValue( UiConst.Column );
             var isSort = _config.GetValue<bool>( UiConst.Sort );
             if( isSort )
                 config.IsSort = true;
@@ -149,6 +162,26 @@ namespace Util.Ui.Zorro.Tables {
             if( type == TableColumnType.Checkbox )
                 return TableConfig.CheckboxWidth;
             return null;
+        }
+
+        /// <summary>
+        /// 设置列共享配置
+        /// </summary>
+        private void SetColumnShareConfig( ColumnShareConfig config ) {
+            _config.SetValueToItems( config );
+        }
+
+        /// <summary>
+        /// 配置编辑模式
+        /// </summary>
+        private void ConfigEdit( TableShareConfig tableShareConfig, ColumnShareConfig columnShareConfig ) {
+            var isEdit = _config.GetValue<bool>( UiConst.IsEdit );
+            if ( !isEdit )
+                return;
+            columnShareConfig.IsEdit = true;
+            if ( tableShareConfig == null )
+                return;
+            tableShareConfig.IsEdit = true;
         }
     }
 }

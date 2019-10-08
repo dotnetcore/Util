@@ -15,6 +15,10 @@ namespace Util.Logs.Abstractions {
         /// </summary>
         string Level { get; set; }
         /// <summary>
+        /// 日志标识
+        /// </summary>
+        string LogId { get; set; }
+        /// <summary>
         /// 跟踪号
         /// </summary>
         string TraceId { get; set; }

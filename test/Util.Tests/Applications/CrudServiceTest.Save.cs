@@ -6,10 +6,7 @@ using Autofac;
 using NSubstitute;
 using Util.Datas.UnitOfWorks;
 using Util.Dependency;
-using Util.Exceptions;
-using Util.Helpers;
 using Util.Tests.Samples;
-using Util.Tests.XUnitHelpers;
 using Xunit;
 
 namespace Util.Tests.Applications {
@@ -74,44 +71,6 @@ namespace Util.Tests.Applications {
         /// </summary>
         private List<EntitySample> GetEntities() {
             return new List<EntitySample> { _entity, _entity2 };
-        }
-
-        /// <summary>
-        /// 通过AOP进行DTO验证
-        /// </summary>
-        [Fact]
-        public void TestSave_ValidateDto() {
-            var container = Ioc.CreateContainer( new IocConfig() );
-            var service = container.Create<ICrudServiceSample>();
-
-            //有效
-            service.Save( _dto );
-
-            //无效
-            AssertHelper.Throws<Warning>( () => {
-                service.Save( new DtoSample() );
-            }, "名称不能为空" );
-        }
-
-        /// <summary>
-        /// 测试添加
-        /// </summary>
-        [Fact]
-        public void TestSave_Add() {
-            _service.Save( new DtoSample{Name = "a"} );
-            _repository.Received().Add( Arg.Is<EntitySample>( t => t.Name == "a" ) );
-            _repository.DidNotReceive().Update( Arg.Any<EntitySample>() );
-        }
-
-        /// <summary>
-        /// 测试修改
-        /// </summary>
-        [Fact]
-        public void TestSave_Update() {
-            _repository.Find( _id ).Returns( t => new EntitySample( _id ) );
-            _service.Save( new DtoSample { Id =_id.ToString(), Name = "b" } );
-            _repository.DidNotReceive().Add( Arg.Any<EntitySample>() );
-            _repository.Received().Update( Arg.Is<EntitySample>( t => t.Name == "b" ) );
         }
 
         /// <summary>

@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="title">标题</param>
         /// <param name="column">列名</param>
-        public ColumnInfo( string title,string column ) {
+        public ColumnInfo( string title, string column ) {
             Title = title;
             Column = column;
         }
@@ -42,7 +42,7 @@
         /// 获取排序字段
         /// </summary>
         public string GetSortKey() {
-            if ( IsSort )
+            if( IsSort )
                 return Column;
             return null;
         }

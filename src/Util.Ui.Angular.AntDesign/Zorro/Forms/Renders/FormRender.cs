@@ -36,6 +36,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void Config( TagBuilder builder ) {
             builder.AddAttribute( "nz-form" );
             ConfigId( builder );
+            ConfigAutoComplete( builder );
             ConfigLayout( builder );
             ConfigLabel( builder );
             ConfigEvents( builder );
@@ -51,6 +52,18 @@ namespace Util.Ui.Zorro.Forms.Renders {
         }
 
         /// <summary>
+        /// 配置自动完成
+        /// </summary>
+        private void ConfigAutoComplete( TagBuilder builder ) {
+            var isAutoComplete = _config.GetValue<bool?>( UiConst.AutoComplete );
+            if ( isAutoComplete == true ) {
+                builder.AddAttribute( "autocomplete", "on" );
+                return;
+            }
+            builder.AddAttribute( "autocomplete", "off" );
+        }
+
+        /// <summary>
         /// 配置布局方式
         /// </summary>
         private void ConfigLayout( TagBuilder builder ) {
@@ -61,7 +74,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置标签
         /// </summary>
         private void ConfigLabel( TagBuilder builder ) {
-            builder.AddAttribute( "[nzNoColon]", (!_config.GetValue<bool?>( UiConst.ShowColon )).SafeString().ToLower() );
+            builder.AddAttribute( "[nzNoColon]", ( !_config.GetValue<bool?>( UiConst.ShowColon ) ).SafeString().ToLower() );
         }
 
         /// <summary>

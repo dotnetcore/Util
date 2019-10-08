@@ -78,7 +78,7 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         [Fact]
         public void TestType_Checkbox() {
             var attributes = new TagHelperAttributeList { { UiConst.Type, TableColumnType.Checkbox } };
-            var items = new Dictionary<object, object> { { TableConfig.TableShareKey, new TableShareConfig( "id" ) } };
+            var items = new Dictionary<object, object> { { typeof( TableShareConfig ), new TableShareConfig( "id" ) } };
             var result = new String();
             result.Append( "<th (nzCheckedChange)=\"id_wrapper.masterToggle()\" nzWidth=\"30px\" " );
             result.Append( "[nzChecked]=\"id_wrapper.isMasterChecked()\" " );

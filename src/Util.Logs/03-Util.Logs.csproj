@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../../build/version.props" />
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Util.Logs</RootNamespace>
     <AssemblyName>Util.Logs</AssemblyName>
     <Authors>何镇汐</Authors>
@@ -36,7 +36,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
   <ItemGroup>
     <PackageReference Include="Exceptionless" Version="4.3.2027" />
-    <PackageReference Include="NLog" Version="5.0.0-beta11" />
+    <PackageReference Include="NLog" Version="4.6.7" />
   </ItemGroup>
 
   <ItemGroup>

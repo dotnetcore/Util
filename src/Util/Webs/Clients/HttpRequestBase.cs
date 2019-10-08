@@ -361,9 +361,19 @@ namespace Util.Webs.Clients {
         /// </summary>
         /// <param name="client">Http客户端</param>
         protected virtual void InitHttpClient( HttpClient client ) {
+            InitToken();
             if ( string.IsNullOrWhiteSpace( _token ) )
                 return;
             client.SetBearerToken( _token );
+        }
+
+        /// <summary>
+        /// 初始化访问令牌
+        /// </summary>
+        protected virtual void InitToken() {
+            if( string.IsNullOrWhiteSpace( _token ) == false )
+                return;
+            _token = Web.AccessToken;
         }
 
         /// <summary>

@@ -124,7 +124,7 @@
     <value>浏览器</value>
   </data>
   <data name="BusinessId" xml:space="preserve">
-    <value>业务编号</value>
+    <value>业务标识</value>
   </data>
   <data name="Caption" xml:space="preserve">
     <value>标题</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="Host" xml:space="preserve">
     <value>主机</value>
+  </data>
+  <data name="LogId" xml:space="preserve">
+    <value>日志标识</value>
   </data>
   <data name="LogName" xml:space="preserve">
     <value>日志名称</value>
@@ -196,6 +199,6 @@
     <value>跟踪号</value>
   </data>
   <data name="UserId" xml:space="preserve">
-    <value>操作人编号</value>
+    <value>操作人标识</value>
   </data>
 </root>

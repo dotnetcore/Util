@@ -52,7 +52,10 @@ namespace Util.Ui.Zorro.Links.Renders {
         /// 配置按钮
         /// </summary>
         private void ConfigButton( TagBuilder builder ) {
-            builder.AddAttribute( "nz-button" );
+            var isButton = _config.GetValue<bool?>( UiConst.IsButton );
+            if( isButton == true || _config.Contains( UiConst.Color ) || _config.Contains( UiConst.Size )
+                || _config.Contains( UiConst.Shape ) || _config.Contains( UiConst.Block ) || _config.Contains( UiConst.Ghost ) )
+                builder.AddAttribute( "nz-button" );
         }
 
         /// <summary>

@@ -17,6 +17,10 @@ namespace Util.Ui.Zorro.Forms {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
+        /// [(ngModel)],模型绑定
+        /// </summary>
+        public string NgModel { get; set; }
+        /// <summary>
         /// 是否显示标签，默认值：false
         /// </summary>
         public bool ShowLabel { get; set; }
@@ -28,6 +32,10 @@ namespace Util.Ui.Zorro.Forms {
         /// 标签的栅格占位格数
         /// </summary>
         public int LabelSpan { get; set; }
+        /// <summary>
+        /// 是否flex布局，默认值：false
+        /// </summary>
+        public bool IsFlex { get; set; }
         /// <summary>
         /// name,控件名称
         /// </summary>
@@ -44,10 +52,6 @@ namespace Util.Ui.Zorro.Forms {
         /// [nzDisabled],禁用
         /// </summary>
         public string BindDisabled { get; set; }
-        /// <summary>
-        /// [(ngModel)],模型绑定
-        /// </summary>
-        public string Model { get; set; }
         /// <summary>
         /// nzSpan,24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
         /// </summary>

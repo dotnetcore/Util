@@ -35,9 +35,14 @@ namespace Util.Logs.Core {
         public virtual IContext Context => _context ?? ( _context = ContextFactory.Create() );
 
         /// <summary>
+        /// 日志标识
+        /// </summary>
+        public string LogId => $"{GetInfo().TraceId}-{++_orderId}";
+
+        /// <summary>
         /// 跟踪号
         /// </summary>
-        public string TraceId => $"{GetInfo().TraceId}-{++_orderId}";
+        public string TraceId => $"{GetInfo().TraceId}";
 
         /// <summary>
         /// 计时器

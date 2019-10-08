@@ -31,6 +31,24 @@ namespace Util.Tests.Maps {
         }
 
         /// <summary>
+        /// 测试映射
+        /// </summary>
+        [Fact]
+        public void TestMapTo_3() {
+            Sample sample = new Sample { StringValue = "a" };
+            Sample2 sample2 = sample.MapTo<Sample2>();
+            Assert.Equal( "a", sample2.StringValue );
+
+            sample2 = new Sample2 { StringValue = "b" };
+            sample = sample2.MapTo<Sample>();
+            Assert.Equal( "b", sample.StringValue );
+
+            sample = new Sample { StringValue = "c" };
+            sample2 = sample.MapTo<Sample2>();
+            Assert.Equal( "c", sample2.StringValue );
+        }
+
+        /// <summary>
         /// 测试映射集合
         /// </summary>
         [Fact]
@@ -126,6 +144,11 @@ namespace Util.Tests.Maps {
             proxy2.Name = "b";
             sample = proxy2.MapTo<EntitySample>();
             Assert.Equal( "b", sample.Name );
+
+            var sample2 = new DtoSample { Name = "c"};
+            var proxy3 = proxyGenerator.CreateClassProxy<EntitySample>();
+            sample2.MapTo( proxy3 );
+            Assert.Equal( "c", proxy3.Name );
         }
     }
 }

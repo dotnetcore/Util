@@ -17,7 +17,7 @@ namespace Util.Webs.Controllers {
     /// <typeparam name="TQuery">查询参数类型</typeparam>    
     public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
         where TQuery : IQueryParameter
-        where TDto : IResponse, new() {
+        where TDto : IDto, new() {
         /// <summary>
         /// 查询服务
         /// </summary>
@@ -113,7 +113,7 @@ namespace Util.Webs.Controllers {
         /// </summary>
         /// <param name="query">查询参数</param>
         [HttpGet( "Items" )]
-        public async Task<IActionResult> GetItemsAsync( TQuery query ) {
+        public virtual async Task<IActionResult> GetItemsAsync( TQuery query ) {
             if( query == null )
                 return Fail( WebResource.QueryIsEmpty );
             if( query.Order.IsEmpty() )

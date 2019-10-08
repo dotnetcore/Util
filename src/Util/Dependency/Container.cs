@@ -108,8 +108,7 @@ namespace Util.Dependency {
         /// <param name="configs">依赖配置</param>
         public IServiceProvider Register( IServiceCollection services, Action<ContainerBuilder> actionBefore, params IConfig[] configs ) {
             var builder = CreateBuilder( services, actionBefore, configs );
-            _container = builder.Build();
-            return new AutofacServiceProvider( _container );
+            return CreateServiceProvider( builder );
         }
 
         /// <summary>
@@ -125,9 +124,21 @@ namespace Util.Dependency {
                 foreach ( var config in configs )
                     builder.RegisterModule( config );
             }
-            if( services != null )
-                builder.Populate( services );
+            if ( services == null ) {
+                services = new ServiceCollection();
+                builder.AddSingleton( services );
+            }
+            builder.Populate( services );
             return builder;
+        }
+
+        /// <summary>
+        /// 创建服务提供器
+        /// </summary>
+        /// <param name="builder">容器生成器</param>
+        public IServiceProvider CreateServiceProvider( ContainerBuilder builder ) {
+            _container = builder.Build();
+            return new AutofacServiceProvider( _container );
         }
 
         /// <summary>

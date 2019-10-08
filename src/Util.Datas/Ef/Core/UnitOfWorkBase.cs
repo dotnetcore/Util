@@ -68,7 +68,7 @@ namespace Util.Datas.Ef.Core {
         protected UnitOfWorkBase( DbContextOptions options, IServiceProvider serviceProvider )
             : base( options ) {
             TraceId = Guid.NewGuid().ToString();
-            Session = Util.Security.Sessions.Session.Instance;
+            Session = Sessions.Session.Instance;
             _serviceProvider = serviceProvider ?? Ioc.Create<IServiceProvider>();
             RegisterToManager();
         }
@@ -187,7 +187,9 @@ namespace Util.Datas.Ef.Core {
         /// <summary>
         /// 获取映射接口类型
         /// </summary>
-        protected abstract Type GetMapType();
+        protected virtual Type GetMapType() {
+            return this.GetType();
+        }
 
         /// <summary>
         /// 从程序集获取映射配置列表

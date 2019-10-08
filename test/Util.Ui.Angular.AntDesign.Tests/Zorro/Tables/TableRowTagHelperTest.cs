@@ -57,11 +57,11 @@ namespace Util.Ui.Angular.AntDesign.Tests.Zorro.Tables {
         [Fact]
         public void TestSetTableId() {
             IDictionary<object, object> items = new Dictionary<object, object> {
-                { TableConfig.TableShareKey, new TableShareConfig( "a" ) }
+                { typeof( TableShareConfig ), new TableShareConfig( "a" ) }
             };
             var result = new String();
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of a.data\">" );
+            result.Append( "<tr *ngFor=\"let row of a.data;index as index\">" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             Assert.Equal( result.ToString(), GetResult( items: items ) );

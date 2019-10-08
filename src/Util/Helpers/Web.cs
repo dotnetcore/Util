@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Claims;
 using System.Text;
@@ -96,6 +97,25 @@ namespace Util.Helpers {
 
         #endregion
 
+        #region AccessToken(获取访问令牌)
+
+        /// <summary>
+        /// 获取访问令牌
+        /// </summary>
+        public static string AccessToken {
+            get {
+                var authorization = Request?.Headers["Authorization"].SafeString();
+                if ( string.IsNullOrWhiteSpace( authorization ) )
+                    return null;
+                var list = authorization.Split( ' ' );
+                if ( list.Length == 2 )
+                    return list[1];
+                return null;
+            }
+        }
+
+        #endregion
+
         #region Body(请求正文)
 
         /// <summary>
@@ -103,7 +123,7 @@ namespace Util.Helpers {
         /// </summary>
         public static string Body {
             get {
-                Request.EnableRewind();
+                Request.EnableBuffering();
                 return File.ToString( Request.Body, isCloseStream: false );
             }
         }
@@ -181,8 +201,8 @@ namespace Util.Helpers {
                     return _ip;
                 var list = new[] { "127.0.0.1", "::1" };
                 var result = HttpContext?.Connection?.RemoteIpAddress.SafeString();
-                if( string.IsNullOrWhiteSpace( result ) || list.Contains( result ) )
-                    result = GetLanIp();
+                if (string.IsNullOrWhiteSpace(result) || list.Contains(result))
+                    result = Common.IsWindows ? GetLanIp() : GetLanIp(NetworkInterfaceType.Ethernet);
                 return result;
             }
         }
@@ -195,6 +215,31 @@ namespace Util.Helpers {
                 if( hostAddress.AddressFamily == AddressFamily.InterNetwork )
                     return hostAddress.ToString();
             }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 获取局域网IP
+        /// </summary>
+        /// <param name="type">网络接口类型</param>
+        private static string GetLanIp(NetworkInterfaceType type) {
+            try {
+                foreach (var item in NetworkInterface.GetAllNetworkInterfaces()) {
+                    if(item.NetworkInterfaceType!=type || item.OperationalStatus!=OperationalStatus.Up)
+                        continue;
+                    var ipProperties = item.GetIPProperties();
+                    if(ipProperties.GatewayAddresses.FirstOrDefault() == null)
+                        continue;
+                    foreach (var ip in ipProperties.UnicastAddresses) {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                            return ip.Address.ToString();
+                    }
+                }
+            }
+            catch {
+                return string.Empty;
+            }
+
             return string.Empty;
         }
 

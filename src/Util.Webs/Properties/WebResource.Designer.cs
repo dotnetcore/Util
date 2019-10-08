@@ -88,6 +88,15 @@ namespace Util.Webs.Properties {
         }
         
         /// <summary>
+        ///   查找类似 参数不能为空 的本地化字符串。
+        /// </summary>
+        public static string RequestIsEmpty {
+            get {
+                return ResourceManager.GetString("RequestIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 修改参数不能为空 的本地化字符串。
         /// </summary>
         public static string UpdateRequestIsEmpty {

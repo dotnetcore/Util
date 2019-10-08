@@ -14,6 +14,7 @@ namespace Util.Ui.Zorro.Tables.Configs {
             Columns = new List<ColumnInfo>();
             AutoCreateRow = true;
             AutoCreateHead = true;
+            AutoCreateHeadRow = true;
             AutoCreateSort = true;
         }
 
@@ -21,6 +22,16 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// 表格包装器标识
         /// </summary>
         public string TableWrapperId => $"{TableId}_wrapper";
+
+        /// <summary>
+        /// 编辑表格标识
+        /// </summary>
+        public string EditTableId => $"{TableId}_edit";
+
+        /// <summary>
+        /// 表格行标识
+        /// </summary>
+        public string RowId => $"{TableId}_row";
 
         /// <summary>
         /// 表格标识
@@ -43,6 +54,11 @@ namespace Util.Ui.Zorro.Tables.Configs {
         public bool AutoCreateHead { get; set; }
 
         /// <summary>
+        /// 是否自动创建表头行
+        /// </summary>
+        public bool AutoCreateHeadRow { get; set; }
+
+        /// <summary>
         /// 是否自动创建排序列
         /// </summary>
         public bool AutoCreateSort { get; set; }
@@ -51,6 +67,11 @@ namespace Util.Ui.Zorro.Tables.Configs {
         /// 是否排序
         /// </summary>
         public bool IsSort { get; set; }
+
+        /// <summary>
+        /// 是否支持表格编辑
+        /// </summary>
+        public bool IsEdit { get; set; }
 
         /// <summary>
         /// 展开事件

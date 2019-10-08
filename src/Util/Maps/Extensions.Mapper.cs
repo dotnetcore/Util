@@ -1,7 +1,6 @@
 ﻿using System;
 using AutoMapper;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Reflection;
 
 namespace Util.Maps {
@@ -13,6 +12,10 @@ namespace Util.Maps {
         /// 同步锁
         /// </summary>
         private static readonly object Sync = new object();
+        /// <summary>
+        /// 配置提供器
+        /// </summary>
+        private static IConfigurationProvider _config;
 
         /// <summary>
         /// 将源对象映射到目标对象
@@ -44,16 +47,14 @@ namespace Util.Maps {
                 return default( TDestination );
             var sourceType = GetType( source );
             var destinationType = GetType( destination );
-            var map = GetMap( sourceType, destinationType );
-            if( map != null )
-                return Mapper.Map( source, destination );
+            if( Exists( sourceType, destinationType ) )
+                return GetResult( source, destination );
             lock( Sync ) {
-                map = GetMap( sourceType, destinationType );
-                if( map != null )
-                    return Mapper.Map( source, destination );
-                InitMaps( sourceType, destinationType );
+                if( Exists( sourceType, destinationType ) )
+                    return GetResult( source, destination );
+                Init( sourceType, destinationType );
             }
-            return Mapper.Map( source, destination );
+            return GetResult( source, destination );
         }
 
         /// <summary>
@@ -72,48 +73,31 @@ namespace Util.Maps {
         }
 
         /// <summary>
-        /// 获取映射配置
+        /// 是否已存在映射配置
         /// </summary>
-        private static TypeMap GetMap( Type sourceType, Type destinationType ) {
-            try {
-                return Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
-            }
-            catch( InvalidOperationException ) {
-                lock( Sync ) {
-                    try {
-                        return Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
-                    }
-                    catch( InvalidOperationException ) {
-                        InitMaps( sourceType, destinationType );
-                    }
-                    return Mapper.Configuration.FindTypeMapFor( sourceType, destinationType );
-                }
-            }
+        private static bool Exists( Type sourceType, Type destinationType ) {
+            return _config?.FindTypeMapFor( sourceType, destinationType ) != null;
         }
 
         /// <summary>
         /// 初始化映射配置
         /// </summary>
-        private static void InitMaps( Type sourceType, Type destinationType ) {
-            try {
-                var maps = Mapper.Configuration.GetAllTypeMaps();
-                ClearConfig();
-                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
-                foreach( var map in maps )
-                    Mapper.Configuration.RegisterTypeMap( map );
+        private static void Init( Type sourceType, Type destinationType ) {
+            if( _config == null ) {
+                _config = new MapperConfiguration( t => t.CreateMap( sourceType, destinationType ) );
+                return;
             }
-            catch( InvalidOperationException ) {
-                Mapper.Initialize( config => config.CreateMap( sourceType, destinationType ) );
-            }
+            var maps = _config.GetAllTypeMaps();
+            _config = new MapperConfiguration( t => t.CreateMap( sourceType, destinationType ) );
+            foreach( var map in maps )
+                _config.RegisterTypeMap( map );
         }
 
         /// <summary>
-        /// 清空配置
+        /// 获取映射结果
         /// </summary>
-        private static void ClearConfig() {
-            var typeMapper = typeof( Mapper ).GetTypeInfo();
-            var configuration = typeMapper.GetDeclaredField( "_configuration" );
-            configuration.SetValue( null, null, BindingFlags.Static, null, CultureInfo.CurrentCulture );
+        private static TDestination GetResult<TDestination>( object source, TDestination destination ) {
+            return new Mapper( _config ).Map( source, destination );
         }
 
         /// <summary>

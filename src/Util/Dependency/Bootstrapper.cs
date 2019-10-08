@@ -19,10 +19,6 @@ namespace Util.Dependency {
         /// </summary>
         private readonly IServiceCollection _services;
         /// <summary>
-        /// 依赖配置
-        /// </summary>
-        private readonly IConfig[] _configs;
-        /// <summary>
         /// 类型查找器
         /// </summary>
         private readonly IFind _finder;
@@ -43,12 +39,10 @@ namespace Util.Dependency {
         /// 初始化依赖引导器
         /// </summary>
         /// <param name="services">服务集合</param>
-        /// <param name="configs">依赖配置</param>
         /// <param name="aopConfigAction">Aop配置操作</param>
         /// <param name="finder">类型查找器</param>
-        public Bootstrapper( IServiceCollection services, IConfig[] configs, Action<IAspectConfiguration> aopConfigAction, IFind finder ) {
+        public Bootstrapper( IServiceCollection services, Action<IAspectConfiguration> aopConfigAction, IFind finder ) {
             _services = services ?? new ServiceCollection();
-            _configs = configs;
             _aopConfigAction = aopConfigAction;
             _finder = finder ?? new Finder();
         }
@@ -57,29 +51,26 @@ namespace Util.Dependency {
         /// 启动引导
         /// </summary>
         /// <param name="services">服务集合</param>
-        /// <param name="configs">依赖配置</param>
         /// <param name="aopConfigAction">Aop配置操作</param>
         /// <param name="finder">类型查找器</param>
-        public static IServiceProvider Run( IServiceCollection services = null, IConfig[] configs = null, 
-                Action<IAspectConfiguration> aopConfigAction=null, IFind finder = null ) {
-            return new Bootstrapper( services, configs, aopConfigAction, finder ).Bootstrap();
+        public static ContainerBuilder Run( IServiceCollection services = null,Action<IAspectConfiguration> aopConfigAction=null, IFind finder = null ) {
+            return new Bootstrapper( services, aopConfigAction, finder ).Bootstrap();
         }
 
         /// <summary>
         /// 启动引导
         /// </summary>
         /// <param name="services">服务集合</param>
-        /// <param name="configs">依赖配置</param>
-        public static IServiceProvider Run( IServiceCollection services, params IConfig[] configs ) {
-            return Run( services, configs, null );
+        public static ContainerBuilder Run( IServiceCollection services ) {
+            return Run( services, null );
         }
 
         /// <summary>
         /// 引导
         /// </summary>
-        public IServiceProvider Bootstrap() {
+        public ContainerBuilder Bootstrap() {
             _assemblies = _finder.GetAssemblies();
-            return Ioc.DefaultContainer.Register( _services, RegisterServices, _configs );
+            return Ioc.DefaultContainer.CreateBuilder( _services, RegisterServices );
         }
 
         /// <summary>

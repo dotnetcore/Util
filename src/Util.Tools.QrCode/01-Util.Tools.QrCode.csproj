@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../../build/version.props" />
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Util.Tools.QrCode</AssemblyName>
     <RootNamespace>Util.Tools.QrCode</RootNamespace>
     <Authors>何镇汐</Authors>
@@ -30,7 +30,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="QRCoder" Version="1.3.5" />
+    <PackageReference Include="QRCoder" Version="1.3.6" />
   </ItemGroup>
 
   <ItemGroup>

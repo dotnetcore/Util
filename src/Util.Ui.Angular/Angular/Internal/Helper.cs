@@ -36,16 +36,25 @@ namespace Util.Ui.Angular.Internal {
         /// <param name="config">配置</param>
         /// <param name="expression">属性表达式</param>
         /// <param name="member">成员</param>
-        public static void Init( IConfig config, ModelExpression expression, MemberInfo member ) {
+        /// <param name="isTableEdit">是否表格编辑</param>
+        public static void Init( IConfig config, ModelExpression expression, MemberInfo member,bool isTableEdit = false ) {
             Type modelType = expression.Metadata.ContainerType;
             var propertyName = expression.Name;
-            Init( config, modelType, member, propertyName );
+            Init( config, modelType, member, propertyName, isTableEdit );
         }
 
         /// <summary>
         /// 初始化基础配置
         /// </summary>
-        private static void Init( IConfig config, Type modelType, MemberInfo member, string propertyName ) {
+        private static void Init( IConfig config, Type modelType, MemberInfo member, string propertyName, bool isTableEdit = false ) {
+            if ( isTableEdit ) {
+                var model = GetModel( "row", GetPropertyName( member, propertyName ) );
+                if( string.IsNullOrWhiteSpace( model ) )
+                    return;
+                config.SetAttribute( UiConst.Model, model, false );
+                InitRequired( config, member );
+                return;
+            }
             config.SetAttribute( UiConst.Name, Util.Helpers.String.FirstLowerCase( propertyName ), false );
             var displayName = Reflection.GetDisplayNameOrDescription( member );
             config.SetAttribute( UiConst.Label, displayName, false );
@@ -276,7 +285,7 @@ namespace Util.Ui.Angular.Internal {
             if( attribute == null )
                 return;
             var message = attribute.ErrorMessage;
-            if( message.IsEmpty() )
+            if( message.IsEmpty() || message.Contains( "is not a valid phone number" ) )
                 message = LibraryResource.InvalidMobilePhone;
             InitRegex( config, ValidatePattern.MobilePhonePattern, message );
         }

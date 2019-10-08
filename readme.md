@@ -118,7 +118,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 > 如果没有标注版本号，则采用最新版本。
 
 1. 开发工具： 
-  - Visual Studio 2017
+  - Visual Studio 2019
   - [Resharper](https://www.jetbrains.com/resharper/)
 
 2. 数据库
@@ -138,8 +138,8 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - Docker
 
 6. SDK及Runtime
-  - 当前SDK 64位版本：[Sdk v2.2.104](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.104-windows-x64-installer)，开发机器安装
-  - 当前Runtime 64位版本：[Runtime v2.2.2](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.2-windows-hosting-bundle-installer)，服务器安装
+  - 当前SDK 64位版本：[Sdk v3.0.100](https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-3.0.100-windows-x64-installer)
+  - 当前Runtime 64位版本：[Runtime v3.0.0](https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-3.0.0-windows-x64-installer)
 
 7. 单元测试及模拟框架
   - XUnit
@@ -196,7 +196,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
   - 脚本语言
     - [TypeScript](https://www.tslang.cn)
   - 脚本框架
-    - [Angular 7](https://angular.cn/)
+    - [Angular](https://angular.cn/)
   - Css预处理器
     - [Less](http://lesscss.org)
     - [Sass](http://www.sass-lang.com)

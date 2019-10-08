@@ -46,9 +46,6 @@ namespace <%= Entity.GetNamespace(Namespace,"Domain","Models") %> {
         /// <param name="level">层级</param>
         public <%= SafeClassName %>( <%= Entity.GetKeyTypeString() %> id, string path, int level )
             : base( id, path, level ) {
-            <% foreach(var r in Entity.Relationships.Where(e => e.ThisCardinality == Cardinality.Many)) { %>
-            <%= r.ThisPropertyName.ToSafeName() %> = new List<<%= r.OtherEntity.ToSafeName() %>>();
-            <% } %>
         }
 
         <% foreach(Property p in Entity.Properties) { %>

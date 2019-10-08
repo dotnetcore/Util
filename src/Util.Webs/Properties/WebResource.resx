@@ -126,6 +126,9 @@
   <data name="QueryIsEmpty" xml:space="preserve">
     <value>查询参数不能为空</value>
   </data>
+  <data name="RequestIsEmpty" xml:space="preserve">
+    <value>参数不能为空</value>
+  </data>
   <data name="UpdateRequestIsEmpty" xml:space="preserve">
     <value>修改参数不能为空</value>
   </data>
