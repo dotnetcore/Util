@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Util.Datas.Sql.Builders.Core;
 using Util.Datas.Sql.Builders.Internal;
@@ -25,9 +26,9 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         private readonly IEntityAliasRegister _register;
         /// <summary>
-        /// 列集合
+        /// 列名集合
         /// </summary>
-        private readonly ColumnCollection _columns;
+        private readonly List<ColumnCollection> _columns;
         /// <summary>
         /// 是否排除重复记录
         /// </summary>
@@ -40,13 +41,13 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="dialect">方言</param>
         /// <param name="resolver">实体解析器</param>
         /// <param name="register">实体注册器</param>
-        /// <param name="columns">列集合</param>
-        public SelectClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, ColumnCollection columns = null ) {
+        /// <param name="columns">列名集合</param>
+        public SelectClause( ISqlBuilder sqlBuilder, IDialect dialect, IEntityResolver resolver, IEntityAliasRegister register, List<ColumnCollection> columns = null ) {
             _sqlBuilder = sqlBuilder;
             _dialect = dialect;
             _resolver = resolver;
             _register = register;
-            _columns = columns ?? new ColumnCollection();
+            _columns = columns ?? new List<ColumnCollection>();
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="builder">Sql生成器</param>
         /// <param name="register">实体别名注册器</param>
         public virtual ISelectClause Clone( ISqlBuilder builder, IEntityAliasRegister register ) {
-            return new SelectClause( builder, _dialect, _resolver, register, _columns.Clone() );
+            return new SelectClause( builder, _dialect, _resolver, register, new List<ColumnCollection>( _columns ) );
         }
 
         /// <summary>
@@ -70,7 +71,11 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         /// <param name="columnAlias">列别名</param>
         public void Count( string columnAlias = null ) {
-            Aggregate( "Count(*)", columnAlias );
+            if( string.IsNullOrWhiteSpace( columnAlias ) ) {
+                Aggregate( "Count(*)" );
+                return;
+            }
+            Aggregate( $"Count(*) As {_dialect.SafeName( columnAlias )}" );
         }
 
         /// <summary>
@@ -95,8 +100,9 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <summary>
         /// 聚合
         /// </summary>
-        private void Aggregate( string sql, string columnAlias ) {
-            _columns.AddAggregationColumn( sql, columnAlias );
+        /// <param name="sql">Sql语句</param>
+        private void Aggregate( string sql ) {
+            _columns.Add( new ColumnCollection( sql, isAggregation: true ) );
         }
 
         /// <summary>
@@ -112,7 +118,11 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// 聚合
         /// </summary>
         private void Aggregate( string fun, string column, string columnAlias ) {
-            Aggregate( $"{fun}({_dialect.SafeName( column )})", columnAlias );
+            if( string.IsNullOrWhiteSpace( columnAlias ) ) {
+                Aggregate( $"{fun}({_dialect.SafeName( column )})" );
+                return;
+            }
+            Aggregate( $"{fun}({_dialect.SafeName( column )}) As {_dialect.SafeName( columnAlias )}" );
         }
 
         /// <summary>
@@ -188,7 +198,9 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// <param name="columns">列名</param>
         /// <param name="tableAlias">表别名</param>
         public void Select( string columns, string tableAlias = null ) {
-            _columns.AddColumns( columns, tableAlias );
+            if( string.IsNullOrWhiteSpace( columns ) )
+                return;
+            _columns.Add( new ColumnCollection( columns, tableAlias ) );
         }
 
         /// <summary>
@@ -196,7 +208,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// </summary>
         /// <param name="propertyAsAlias">是否将属性名映射为列别名</param>
         public void Select<TEntity>( bool propertyAsAlias = false ) {
-            _columns.AddColumns( _resolver.GetColumns<TEntity>( propertyAsAlias ), typeof( TEntity ) );
+            _columns.Add( new ColumnCollection( _resolver.GetColumns<TEntity>( propertyAsAlias ), tableType: typeof( TEntity ) ) );
         }
 
         /// <summary>
@@ -207,7 +219,7 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public void Select<TEntity>( Expression<Func<TEntity, object[]>> expression, bool propertyAsAlias = false ) where TEntity : class {
             if( expression == null )
                 return;
-            _columns.AddColumns( _resolver.GetColumns( expression, propertyAsAlias ), typeof( TEntity ) );
+            _columns.Add( new ColumnCollection( _resolver.GetColumns( expression, propertyAsAlias ), tableType: typeof( TEntity ) ) );
         }
 
         /// <summary>
@@ -218,7 +230,12 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public void Select<TEntity>( Expression<Func<TEntity, object>> expression, string columnAlias = null ) where TEntity : class {
             if( expression == null )
                 return;
-            _columns.AddColumns( _resolver.GetColumn( expression ), typeof( TEntity ), columnAlias );
+            var column = _resolver.GetColumn( expression );
+            if( string.IsNullOrWhiteSpace( column ) )
+                return;
+            if( column.Contains( "As" ) == false && string.IsNullOrWhiteSpace( columnAlias ) == false )
+                column += $" As {columnAlias}";
+            _columns.Add( new ColumnCollection( column, tableType: typeof( TEntity ) ) );
         }
 
         /// <summary>
@@ -229,10 +246,10 @@ namespace Util.Datas.Sql.Builders.Clauses {
         public void Select( ISqlBuilder builder, string columnAlias ) {
             if( builder == null )
                 return;
-            var sql = builder.ToSql();
-            if ( string.IsNullOrWhiteSpace( columnAlias ) == false )
-                sql = $"({sql})";
-            AppendSql( sql, columnAlias );
+            var result = builder.ToSql();
+            if( string.IsNullOrWhiteSpace( columnAlias ) == false )
+                result = $"({result}) As {_dialect.SafeName( columnAlias )}";
+            AppendSql( result );
         }
 
         /// <summary>
@@ -252,41 +269,11 @@ namespace Util.Datas.Sql.Builders.Clauses {
         /// 添加到Select子句
         /// </summary>
         /// <param name="sql">Sql语句</param>
-        /// <param name="columnAlias">列别名</param>
-        public void AppendSql( string sql, string columnAlias = null ) {
+        public void AppendSql( string sql ) {
             if( string.IsNullOrWhiteSpace( sql ) )
                 return;
             sql = Helper.ResolveSql( sql, _dialect );
-            _columns.AddRawColumn( sql, columnAlias );
-        }
-
-        /// <summary>
-        /// 移除列名
-        /// </summary>
-        /// <param name="columns">列名</param>
-        /// <param name="tableAlias">表别名</param>
-        public void RemoveSelect( string columns, string tableAlias = null ) {
-            _columns.RemoveColumns( columns, tableAlias );
-        }
-
-        /// <summary>
-        /// 移除列名
-        /// </summary>
-        /// <param name="expression">列名表达式</param>
-        public void RemoveSelect<TEntity>( Expression<Func<TEntity, object[]>> expression ) where TEntity : class {
-            if( expression == null )
-                return;
-            _columns.RemoveColumns( _resolver.GetColumns( expression, false ), typeof( TEntity ) );
-        }
-
-        /// <summary>
-        /// 移除列名
-        /// </summary>
-        /// <param name="expression">列名表达式</param>
-        public void RemoveSelect<TEntity>( Expression<Func<TEntity, object>> expression ) where TEntity : class {
-            if( expression == null )
-                return;
-            _columns.RemoveColumns( _resolver.GetColumn( expression ), typeof( TEntity ) );
+            _columns.Add( new ColumnCollection( sql, raw: true ) );
         }
 
         /// <summary>
@@ -311,7 +298,13 @@ namespace Util.Datas.Sql.Builders.Clauses {
         protected virtual string GetColumns() {
             if( _columns.Count == 0 )
                 return "*";
-            return _columns.ToSql( _dialect, _register );
+            var result = string.Empty;
+            foreach( var item in _columns ) {
+                result += item.ToSql( _dialect, _register );
+                if( item.Raw == false )
+                    result += ",";
+            }
+            return result.TrimEnd( ',' );
         }
     }
 }

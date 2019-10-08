@@ -23,6 +23,16 @@ namespace Util.Datas.Dapper.Oracle {
         }
 
         /// <summary>
+        /// 创建Sql项
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="schema">架构名</param>
+        /// <param name="alias">别名</param>
+        protected override SqlItem CreateSqlItem( string table, string schema, string alias ) {
+            return new OracleSqlItem( table, schema, alias );
+        }
+
+        /// <summary>
         /// 复制From子句
         /// </summary>
         /// <param name="builder">Sql生成器</param>

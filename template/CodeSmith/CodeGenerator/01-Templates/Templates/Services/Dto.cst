@@ -34,7 +34,7 @@ using Util.Applications.Dtos;
 
 namespace <%= string.Format("{0}.Service.Dtos.{1}",Namespace,Entity.TableSchema) %> {
     /// <summary>
-    /// <%= Description %>参数
+    /// <%= Description %>数据传输对象
     /// </summary>
     public class <%= SafeClassName %>Dto : DtoBase {
         <% foreach(Property p in Entity.Properties) { %>

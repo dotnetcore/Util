@@ -11,10 +11,6 @@ namespace Util.Logs.Core {
         /// </summary>
         public static readonly ILogContext Instance = new NullLogContext();
         /// <summary>
-        /// 日志标识
-        /// </summary>
-        public string LogId => string.Empty;
-        /// <summary>
         /// 跟踪号
         /// </summary>
         public string TraceId => string.Empty;

@@ -47,7 +47,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.For ) == false )
                 return;
             var expression = _config.GetValue<ModelExpression>( UiConst.For );
-            TextBoxExpressionResolver.Init( expression, _config, IsTableEdit() );
+            TextBoxExpressionResolver.Init( expression, _config );
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigType( TagBuilder builder ) {
             var type = _config.GetValue<TextBoxType?>( UiConst.Type );
-            if( type == TextBoxType.Number )
+            if ( type == TextBoxType.Number )
                 return;
             builder.AddAttribute( UiConst.Type, type?.Description() );
         }

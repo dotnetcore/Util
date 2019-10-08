@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Util.Tests.Samples;
 using Util.Tests.XUnitHelpers;
 using Xunit;
@@ -213,7 +212,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetNames() {
-            var names = Util.Helpers.Enum.GetNames<EnumSample>().OrderBy( t => t ).ToList();
+            var names = Util.Helpers.Enum.GetNames<EnumSample>();
             Assert.Equal( 5, names.Count );
             Assert.Equal( "A", names[0] );
             Assert.Equal( "D", names[3] );

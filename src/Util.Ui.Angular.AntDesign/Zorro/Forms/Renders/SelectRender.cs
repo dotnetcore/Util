@@ -4,7 +4,6 @@ using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
 using Util.Ui.Helpers;
 using Util.Ui.Zorro.Forms.Base;
 using Util.Ui.Zorro.Forms.Builders;
@@ -46,7 +45,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             if( _config.Contains( UiConst.For ) == false )
                 return;
             var expression = _config.GetValue<ModelExpression>( UiConst.For );
-            SelectExpressionResolver.Init( expression, _config, IsTableEdit() );
+            SelectExpressionResolver.Init( expression, _config );
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
             ConfigUrl( builder );
             ConfigDataSource( builder );
             ConfigDefaultOption( builder );
-            ConfigMode( builder );
+            ConfigMultiple( builder );
             ConfigShowClear( builder );
             ConfigSearch( builder );
             ConfigShowArrow( builder );
@@ -78,7 +77,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// 配置Url
         /// </summary>
         private void ConfigUrl( SelectWrapperBuilder builder ) {
-            builder.AddAttribute( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
             builder.AddAttribute( UiConst.Url, _config.GetValue( UiConst.Url ) );
             builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
             builder.AddAttribute( "[queryParam]", _config.GetValue( UiConst.QueryParam ) );
@@ -109,16 +107,10 @@ namespace Util.Ui.Zorro.Forms.Renders {
         }
 
         /// <summary>
-        /// 配置多选模式
+        /// 配置多选
         /// </summary>
-        private void ConfigMode( SelectWrapperBuilder builder ) {
-            var mode = _config.GetValue<SelectMode?>( UiConst.Mode );
-            if( mode == SelectMode.Multiple )
-                _config.SetAttribute( UiConst.Multiple,true );
-            if( mode == SelectMode.Tags )
-                _config.SetAttribute( UiConst.Tags, true );
+        private void ConfigMultiple( SelectWrapperBuilder builder ) {
             builder.AddAttribute( "[multiple]", _config.GetBoolValue( UiConst.Multiple ) );
-            builder.AddAttribute( "[tags]", _config.GetBoolValue( UiConst.Tags ) );
             builder.AddAttribute( "[maxMultipleCount]", _config.GetValue( UiConst.MaxMultipleCount ) );
         }
 

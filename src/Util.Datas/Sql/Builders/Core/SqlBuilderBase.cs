@@ -56,10 +56,7 @@ namespace Util.Datas.Sql.Builders.Core {
         /// 是否已添加过滤器
         /// </summary>
         private bool _isAddFilters;
-        /// <summary>
-        /// 已排除过滤器集合
-        /// </summary>
-        private List<Type> _excludedFilters;
+
         #endregion
 
         #region 构造方法
@@ -79,7 +76,6 @@ namespace Util.Datas.Sql.Builders.Core {
             Pager = new Pager();
             UnionItems = new List<BuilderItem>();
             CteItems = new List<BuilderItem>();
-            _excludedFilters = new List<Type>();
         }
 
         #endregion
@@ -261,7 +257,6 @@ namespace Util.Datas.Sql.Builders.Core {
             LimitParam = sqlBuilder.LimitParam;
             UnionItems = sqlBuilder.UnionItems.Select( t => new BuilderItem( t.Name, t.Builder.Clone() ) ).ToList();
             CteItems = sqlBuilder.CteItems.Select( t => new BuilderItem( t.Name, t.Builder.Clone() ) ).ToList();
-            _excludedFilters = sqlBuilder._excludedFilters;
         }
 
         #endregion
@@ -451,23 +446,16 @@ namespace Util.Datas.Sql.Builders.Core {
         /// <summary>
         /// 创建CTE
         /// </summary>
-        protected virtual void CreateCte( StringBuilder result ) {
+        protected void CreateCte( StringBuilder result ) {
             if( CteItems.Count == 0 )
                 return;
             var cte = new StringBuilder();
-            cte.Append( $"{GetCteKeyWord()} " );
+            cte.Append( "With " );
             foreach( var item in CteItems ) {
                 cte.AppendLine( $"{Dialect.SafeName( item.Name )} " );
                 cte.AppendLine( $"As ({item.Builder.ToSql()})," );
             }
             result.AppendLine( cte.ToString().RemoveEnd( $",{Common.Line}" ) );
-        }
-
-        /// <summary>
-        /// 获取CTE关键字
-        /// </summary>
-        protected virtual string GetCteKeyWord() {
-            return "With";
         }
 
         /// <summary>
@@ -538,11 +526,7 @@ namespace Util.Datas.Sql.Builders.Core {
         protected void AddFilters() {
             _isAddFilters = true;
             var context = new SqlContext( Dialect, AliasRegister, EntityMatedata, ParameterManager, this );
-            SqlFilterCollection.Filters.ForEach(filter => {
-                if (_excludedFilters.Count > 0 && _excludedFilters.Exists(x => x == filter.GetType()))
-                    return;
-                filter.Filter(context);
-            });
+            SqlFilterCollection.Filters.ForEach( filter => filter.Filter( context ) );
         }
 
         /// <summary>
@@ -649,21 +633,6 @@ namespace Util.Datas.Sql.Builders.Core {
                 return this;
             Pager = pager;
             Skip( pager.GetSkipCount() ).Take( pager.PageSize );
-            return this;
-        }
-
-        #endregion
-
-        #region IgnoreFilter(忽略过滤器)
-
-        /// <summary>
-        /// 忽略过滤器
-        /// </summary>
-        /// <typeparam name="TSqlFilter">Sql过滤器类型</typeparam>
-        public virtual ISqlBuilder IgnoreFilter<TSqlFilter>() where TSqlFilter : ISqlFilter {
-            if (_excludedFilters.Exists(x => x == typeof(TSqlFilter)))
-                return this;
-            _excludedFilters.Add(typeof(TSqlFilter));
             return this;
         }
 

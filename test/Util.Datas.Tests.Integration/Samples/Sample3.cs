@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Util.Datas.Sql;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Util.Datas.Tests.Samples {
     /// <summary>
@@ -18,7 +18,7 @@ namespace Util.Datas.Tests.Samples {
         /// <summary>
         /// 跳过的属性
         /// </summary>
-        [Ignore]
+        [NotMapped]
         public bool Ignore { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Util.Helpers;
+using Util.Dependency;
 using Util.Schedulers.Quartz;
 
 namespace Util.Samples.Schedulers {
@@ -10,7 +10,7 @@ namespace Util.Samples.Schedulers {
         /// </summary>
         public static void Main( string[] args ) {
             Console.WriteLine( "调度器测试启动" );
-            Ioc.ScanRegister();
+            Bootstrapper.Run();
             Run().GetAwaiter().GetResult();
             Console.ReadKey();
         }

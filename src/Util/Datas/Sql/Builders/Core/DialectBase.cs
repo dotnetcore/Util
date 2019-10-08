@@ -48,13 +48,6 @@
         }
 
         /// <summary>
-        /// Select子句是否支持As关键字
-        /// </summary>
-        public virtual bool SupportSelectAs() {
-            return true;
-        }
-
-        /// <summary>
         /// 创建参数名
         /// </summary>
         /// <param name="paramIndex">参数索引</param>

@@ -139,7 +139,7 @@ namespace Util.Logs {
                 return Ioc.Create<ISession>();
             }
             catch {
-                return Sessions.Session.Instance;
+                return Util.Security.Sessions.Session.Instance;
             }
         }
     }

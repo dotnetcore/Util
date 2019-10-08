@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Maps;
 using Util.Ui.Angular.Base;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
-using Util.Ui.Extensions;
 using Util.Ui.Renders;
 using Util.Ui.TagHelpers;
-using Util.Ui.Zorro.Grid.Configs;
 using Util.Ui.Zorro.Grid.Renders;
 
 namespace Util.Ui.Zorro.Grid {
@@ -31,14 +28,6 @@ namespace Util.Ui.Zorro.Grid {
         /// nzJustify,水平排列方式
         /// </summary>
         public Justify Justify { get; set; }
-        /// <summary>
-        /// 栅格列的占位格数
-        /// </summary>
-        public int ColumnSpan { get; set; }
-        /// <summary>
-        /// 自动创建栅格列，默认值：false
-        /// </summary>
-        public bool AutoCreateColumn { get; set; }
 
         /// <summary>
         /// 获取渲染器
@@ -46,27 +35,6 @@ namespace Util.Ui.Zorro.Grid {
         /// <param name="context">上下文</param>
         protected override IRender GetRender( Context context ) {
             return new RowRender( new Config( context ) );
-        }
-
-        /// <summary>
-        /// 处理前操作
-        /// </summary>
-        /// <param name="context">上下文</param>
-        protected override void ProcessBefore( Context context ) {
-            var shareConfig = context.GetValueFromItems<GridShareConfig>();
-            var config = shareConfig.MapTo<GridShareConfig>() ?? new GridShareConfig();
-            InitShareConfig( context.TagHelperContext, config );
-            context.SetValueToItems( config );
-        }
-
-        /// <summary>
-        /// 初始化共享配置
-        /// </summary>
-        protected virtual void InitShareConfig( TagHelperContext context, GridShareConfig config ) {
-            if( context.AllAttributes.ContainsName( UiConst.ColumnSpan ) )
-                config.ColumnSpan = context.GetValueFromAttributes<string>( UiConst.ColumnSpan );
-            if( context.AllAttributes.ContainsName( UiConst.AutoCreateColumn ) )
-                config.AutoCreateColumn = context.GetValueFromAttributes<bool>( UiConst.AutoCreateColumn );
         }
     }
 }

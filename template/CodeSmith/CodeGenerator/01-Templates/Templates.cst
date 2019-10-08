@@ -158,53 +158,29 @@
 <%@ Register Name="IndexViewClass"
              Template="Templates\Presentation\Pages\IndexView.cst"
              MergeProperties="False" %>
-<%@ Register Name="DialogIndexViewClass"
-             Template="Templates\Presentation\Pages\DialogIndexView.cst"
-             MergeProperties="False" %>
 <%@ Register Name="QueryViewClass"
              Template="Templates\Presentation\Pages\QueryView.cst"
              MergeProperties="False" %>
 <%@ Register Name="EditViewClass"
              Template="Templates\Presentation\Pages\EditView.cst"
              MergeProperties="False" %>
-<%@ Register Name="DialogEditViewClass"
-             Template="Templates\Presentation\Pages\DialogEditView.cst"
-             MergeProperties="False" %>
 <%@ Register Name="DetailViewClass"
              Template="Templates\Presentation\Pages\DetailView.cst"
-             MergeProperties="False" %>
-<%@ Register Name="DialogDetailViewClass"
-             Template="Templates\Presentation\Pages\DialogDetailView.cst"
              MergeProperties="False" %>
 <%@ Register Name="IndexComponentClass"
              Template="Templates\Presentation\Typings\IndexComponent.cst"
              MergeProperties="False" %>
-<%@ Register Name="DialogIndexComponentClass"
-             Template="Templates\Presentation\Typings\DialogIndexComponent.cst"
-             MergeProperties="False" %>
 <%@ Register Name="EditComponentClass"
              Template="Templates\Presentation\Typings\EditComponent.cst"
-             MergeProperties="False" %>
-<%@ Register Name="DialogEditComponentClass"
-             Template="Templates\Presentation\Typings\DialogEditComponent.cst"
              MergeProperties="False" %>
 <%@ Register Name="DetailComponentClass"
              Template="Templates\Presentation\Typings\DetailComponent.cst"
              MergeProperties="False" %>
-<%@ Register Name="DialogDetailComponentClass"
-             Template="Templates\Presentation\Typings\DialogDetailComponent.cst"
-             MergeProperties="False" %>
 <%@ Register Name="ModuleClass"
              Template="Templates\Presentation\Typings\Module.cst"
              MergeProperties="False" %>
-<%@ Register Name="DialogModuleClass"
-             Template="Templates\Presentation\Typings\DialogModule.cst"
-             MergeProperties="False" %>
 <%@ Register Name="RoutingClass"
              Template="Templates\Presentation\Typings\Routing.cst"
-             MergeProperties="False" %>
-<%@ Register Name="DialogRoutingClass"
-             Template="Templates\Presentation\Typings\DialogRouting.cst"
              MergeProperties="False" %>
 <%@ Register Name="QueryModelClass"
              Template="Templates\Presentation\Typings\Query.cst"
@@ -311,38 +287,22 @@
         CreateApiController( context );
         //创建Index视图
         CreateIndexView( context );
-        //创建弹出层Index视图
-        CreateDialogIndexView( context );
         //创建Query视图
         CreateQueryView( context );
         //创建Edit视图
         CreateEditView( context );
-        //创建弹出层Edit视图
-        CreateDialogEditView( context );
         //创建Detail视图
         CreateDetailView( context );
-        //创建弹出层Detail视图
-        CreateDialogDetailView( context );
         //创建Index组件
         CreateIndexComponent( context );
-        //创建弹出层Index组件
-        CreateDialogIndexComponent( context );
         //创建Edit组件
         CreateEditComponent( context );
-        //创建弹出层Edit组件
-        CreateDialogEditComponent( context );
         //创建Detail组件
         CreateDetailComponent( context );
-        //创建弹出层Detail组件
-        CreateDialogDetailComponent( context );
         //创建angular模块
         CreateModule( context );
-        //创建弹出层angular模块
-        CreateDialogModule( context );
         //创建angular路由
         CreateRouting( context );
-        //创建弹出层angular路由
-        CreateDialogRouting( context );
         //创建angular查询参数
         CreateQueryModel( context );
         //创建angular视图模型
@@ -836,21 +796,6 @@
         }
     }
     
-    //创建弹出层Index视图
-    public void CreateDialogIndexView(EntityContext entityContext)
-    {
-        DialogIndexViewClass result = this.Create<DialogIndexViewClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = "Index";
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}\\Dialog\\", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
-        }
-    }
-    
     //创建Query视图
     public void CreateQueryView(EntityContext entityContext)
     {
@@ -881,21 +826,6 @@
         }
     }
     
-    //创建弹出层Edit视图
-    public void CreateDialogEditView(EntityContext entityContext)
-    {
-        DialogEditViewClass result = this.Create<DialogEditViewClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = "Edit";
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}\\Dialog\\", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
-        }
-    }
-    
     //创建Detail视图
     public void CreateDetailView(EntityContext entityContext)
     {
@@ -908,21 +838,6 @@
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
-        }
-    }
-    
-    //创建弹出层Detail视图
-    public void CreateDialogDetailView(EntityContext entityContext)
-    {
-        DialogDetailViewClass result = this.Create<DialogDetailViewClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = "Detail";
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Pages\\{0}\\{1}\\Dialog\\", GetSchema(entity),entity.ClassName ), "cshtml" ), true);
         }
     }
     
@@ -941,21 +856,6 @@
         }
     }
     
-    //创建弹出层Index组件
-    public void CreateDialogIndexComponent(EntityContext entityContext)
-    {
-        DialogIndexComponentClass result = this.Create<DialogIndexComponentClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = string.Format("{0}-list.component",entity.ClassName.ToCamelCase());
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}\\dialog\\", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
-        }
-    }
-    
     //创建Edit组件
     public void CreateEditComponent(EntityContext entityContext)
     {
@@ -971,21 +871,6 @@
         }
     }
     
-    //创建弹出层Edit组件
-    public void CreateDialogEditComponent(EntityContext entityContext)
-    {
-        DialogEditComponentClass result = this.Create<DialogEditComponentClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = string.Format("{0}-edit.component",entity.ClassName.ToCamelCase());
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}\\dialog\\", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
-        }
-    }
-    
     //创建Detail组件
     public void CreateDetailComponent(EntityContext entityContext)
     {
@@ -998,21 +883,6 @@
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
-        }
-    }
-    
-    //创建弹出层Detail组件
-    public void CreateDialogDetailComponent(EntityContext entityContext)
-    {
-        DialogDetailComponentClass result = this.Create<DialogDetailComponentClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = string.Format("{0}-detail.component",entity.ClassName.ToCamelCase());            
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\{1}\\dialog\\", GetSchema(entity).ToCamelCase(),entity.ClassName.ToCamelCase() ), "ts" ), true);
         }
     }
     
@@ -1032,22 +902,6 @@
         }
     }
     
-    //创建弹出层angular模块
-    public void CreateDialogModule(EntityContext entityContext)
-    {
-        DialogModuleClass result = this.Create<DialogModuleClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = string.Format("{0}.module",GetSchema(entity).ToSingular().ToCamelCase());
-            result.EntityContext = entityContext;
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\dialog\\", GetSchema(entity).ToCamelCase() ), "ts" ), true);
-        }
-    }
-    
     //创建angular路由
     public void CreateRouting(EntityContext entityContext)
     {
@@ -1061,22 +915,6 @@
             result.Entity = entity;
             result.Namespace = GetSchema(entity).ToLower();            
             result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}", GetSchema(entity).ToCamelCase() ), "ts" ), true);
-        }
-    }
-    
-    //创建弹出层angular路由
-    public void CreateDialogRouting(EntityContext entityContext)
-    {
-        DialogRoutingClass result = this.Create<DialogRoutingClass>();
-        this.CopyPropertiesTo(result);
-        
-        foreach(Entity entity in entityContext.Entities)
-        {
-            string className = string.Format("{0}-routing.module",GetSchema(entity).ToSingular().ToCamelCase());
-            result.EntityContext = entityContext;
-            result.Entity = entity;
-            result.Namespace = GetSchema(entity).ToLower();            
-            result.RenderToFile(GetPath(className,string.Format("Presentation\\Typings\\app\\{0}\\dialog\\", GetSchema(entity).ToCamelCase() ), "ts" ), true);
         }
     }
     

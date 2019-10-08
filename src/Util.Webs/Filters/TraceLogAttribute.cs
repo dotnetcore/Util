@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Util.Helpers;
@@ -94,7 +93,7 @@ namespace Util.Webs.Filters {
         private async Task AddFormParams( Microsoft.AspNetCore.Http.HttpRequest request, ILog log ) {
             if( IsMultipart( request.ContentType ) )
                 return;
-            request.EnableBuffering();
+            request.EnableRewind();
             var result = await File.ToStringAsync( request.Body, isCloseStream: false );
             if( string.IsNullOrWhiteSpace( result ) )
                 return;

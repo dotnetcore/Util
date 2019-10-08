@@ -14,14 +14,12 @@ namespace Util.Ui.Angular.Resolvers {
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        /// <param name="isTableEdit">是否表格编辑</param>
-        private ExpressionResolver( ModelExpression expression, IConfig config, bool isTableEdit ) {
+        private ExpressionResolver( ModelExpression expression, IConfig config ) {
             if( expression == null || config == null )
                 return;
             _expression = expression;
             _config = config;
             _memberInfo = expression.GetMemberInfo();
-            _isTableEdit = isTableEdit;
         }
 
         /// <summary>
@@ -38,25 +36,19 @@ namespace Util.Ui.Angular.Resolvers {
         private readonly MemberInfo _memberInfo;
 
         /// <summary>
-        /// 是否表格编辑
-        /// </summary>
-        private readonly bool _isTableEdit;
-
-        /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="expression">属性表达式</param>
         /// <param name="config">配置</param>
-        /// <param name="isTableEdit">是否表格编辑</param>
-        public static void Init( ModelExpression expression, IConfig config, bool isTableEdit = false ) {
-            new ExpressionResolver( expression, config, isTableEdit ).Init();
+        public static void Init( ModelExpression expression, IConfig config ) {
+            new ExpressionResolver( expression, config ).Init();
         }
 
         /// <summary>
         /// 初始化
         /// </summary>
         private void Init() {
-            Helper.Init( _config, _expression, _memberInfo, _isTableEdit );
+            Helper.Init( _config, _expression, _memberInfo );
         }
     }
 }

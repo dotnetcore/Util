@@ -1,8 +1,10 @@
-﻿namespace Util.Sessions {
+﻿using Util.Dependency;
+
+namespace Util.Sessions {
     /// <summary>
     /// 用户会话
     /// </summary>
-    public interface ISession {
+    public interface ISession : ISingletonDependency {
         /// <summary>
         /// 是否认证
         /// </summary>

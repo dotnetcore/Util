@@ -20,12 +20,12 @@ namespace Util {
         /// <param name="expression">表达式</param>
         /// <param name="propertyName">属性名,支持多级属性名，与句点分隔，范例：Customer.Name</param>
         public static Expression Property( this Expression expression, string propertyName ) {
-            if ( propertyName.All( t => t != '.' ) )
+            if( propertyName.All( t => t != '.' ) )
                 return Expression.Property( expression, propertyName );
             var propertyNameList = propertyName.Split( '.' );
             Expression result = null;
-            for ( int i = 0; i < propertyNameList.Length; i++ ) {
-                if ( i == 0 ) {
+            for( int i = 0; i < propertyNameList.Length; i++ ) {
+                if( i == 0 ) {
                     result = Expression.Property( expression, propertyNameList[0] );
                     continue;
                 }
@@ -53,9 +53,9 @@ namespace Util {
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
         public static Expression And( this Expression left, Expression right ) {
-            if ( left == null )
+            if( left == null )
                 return right;
-            if ( right == null )
+            if( right == null )
                 return left;
             return Expression.AndAlso( left, right );
         }
@@ -67,9 +67,9 @@ namespace Util {
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
         public static Expression<Func<T, bool>> And<T>( this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right ) {
-            if ( left == null )
+            if( left == null )
                 return right;
-            if ( right == null )
+            if( right == null )
                 return left;
             return left.Compose( right, Expression.AndAlso );
         }
@@ -84,9 +84,9 @@ namespace Util {
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
         public static Expression Or( this Expression left, Expression right ) {
-            if ( left == null )
+            if( left == null )
                 return right;
-            if ( right == null )
+            if( right == null )
                 return left;
             return Expression.OrElse( left, right );
         }
@@ -98,9 +98,9 @@ namespace Util {
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
         public static Expression<Func<T, bool>> Or<T>( this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right ) {
-            if ( left == null )
+            if( left == null )
                 return right;
-            if ( right == null )
+            if( right == null )
                 return left;
             return left.Compose( right, Expression.OrElse );
         }
@@ -299,7 +299,7 @@ namespace Util {
         /// <param name="operator">运算符</param>
         /// <param name="value">值</param>
         public static Expression Operation( this Expression left, Operator @operator, object value ) {
-            switch ( @operator ) {
+            switch( @operator ) {
                 case Operator.Equal:
                     return left.Equal( value );
                 case Operator.NotEqual:
@@ -329,7 +329,7 @@ namespace Util {
         /// <param name="operator">运算符</param>
         /// <param name="value">值</param>
         public static Expression Operation( this Expression left, Operator @operator, Expression value ) {
-            switch ( @operator ) {
+            switch( @operator ) {
                 case Operator.Equal:
                     return left.Equal( value );
                 case Operator.NotEqual:
@@ -357,24 +357,12 @@ namespace Util {
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
         public static Expression Call( this Expression instance, string methodName, params Expression[] values ) {
-            if ( instance == null )
+            if( instance == null )
                 throw new ArgumentNullException( nameof( instance ) );
-            if ( string.IsNullOrWhiteSpace( methodName ) )
-                throw new ArgumentNullException( nameof( methodName ) );
-            var methodInfo = GetMethodInfo( instance, methodName );
+            var methodInfo = instance.Type.GetMethod( methodName );
             if ( methodInfo == null )
                 return null;
             return Expression.Call( instance, methodInfo, values );
-        }
-
-        /// <summary>
-        /// 获取方法
-        /// </summary>
-        private static MethodInfo GetMethodInfo( Expression instance, string methodName ) {
-            var type = instance.Type;
-            if ( type == typeof( string ) && methodName.ToLower() == "contains" )
-                return instance.Type.GetMethod( methodName, new[] { typeof( string ) } );
-            return instance.Type.GetMethod( methodName );
         }
 
         /// <summary>
@@ -384,14 +372,12 @@ namespace Util {
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
         public static Expression Call( this Expression instance, string methodName, params object[] values ) {
-            if ( instance == null )
+            if( instance == null )
                 throw new ArgumentNullException( nameof( instance ) );
-            if ( string.IsNullOrWhiteSpace( methodName ) )
-                throw new ArgumentNullException( nameof( methodName ) );
-            var methodInfo = GetMethodInfo( instance, methodName );
-            if ( methodInfo == null )
+            var methodInfo = instance.Type.GetMethod( methodName );
+            if( methodInfo == null )
                 return null;
-            if ( values == null || values.Length == 0 )
+            if( values == null || values.Length == 0 )
                 return Expression.Call( instance, methodInfo );
             return Expression.Call( instance, methodInfo, values.Select( Expression.Constant ) );
         }
@@ -404,12 +390,12 @@ namespace Util {
         /// <param name="paramTypes">参数类型列表</param>
         /// <param name="values">参数值列表</param>
         public static Expression Call( this Expression instance, string methodName, Type[] paramTypes, params object[] values ) {
-            if ( instance == null )
+            if( instance == null )
                 throw new ArgumentNullException( nameof( instance ) );
             var methodInfo = instance.Type.GetMethod( methodName, paramTypes );
-            if ( methodInfo == null )
+            if( methodInfo == null )
                 return null;
-            if ( values == null || values.Length == 0 )
+            if( values == null || values.Length == 0 )
                 return Expression.Call( instance, methodInfo );
             return Expression.Call( instance, methodInfo, values.Select( Expression.Constant ) );
         }
@@ -443,7 +429,7 @@ namespace Util {
         /// <param name="body">表达式</param>
         /// <param name="parameters">参数列表</param>
         public static Expression<TDelegate> ToLambda<TDelegate>( this Expression body, params ParameterExpression[] parameters ) {
-            if ( body == null )
+            if( body == null )
                 return null;
             return Expression.Lambda<TDelegate>( body, parameters );
         }

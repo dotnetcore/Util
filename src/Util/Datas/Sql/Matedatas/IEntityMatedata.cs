@@ -1,10 +1,11 @@
 ﻿using System;
+using Util.Aspects;
 
 namespace Util.Datas.Sql.Matedatas {
     /// <summary>
     /// 实体元数据
     /// </summary>
-    [Util.Aspects.Ignore]
+    [Ignore]
     public interface IEntityMatedata {
         /// <summary>
         /// 获取表名

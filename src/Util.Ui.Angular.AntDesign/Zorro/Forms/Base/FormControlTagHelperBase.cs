@@ -23,10 +23,6 @@ namespace Util.Ui.Zorro.Forms.Base {
         /// </summary>
         public int LabelSpan { get; set; }
         /// <summary>
-        /// 是否flex布局，默认值：false
-        /// </summary>
-        public bool IsFlex { get; set; }
-        /// <summary>
         /// [(ngModel)],模型绑定
         /// </summary>
         public string NgModel { get; set; }

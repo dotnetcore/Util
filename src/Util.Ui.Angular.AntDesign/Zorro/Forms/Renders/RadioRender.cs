@@ -5,7 +5,6 @@ using Util.Ui.Angular.Forms.Configs;
 using Util.Ui.Angular.Resolvers;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
 using Util.Ui.Extensions;
 using Util.Ui.Zorro.Forms.Builders;
 using Util.Ui.Zorro.Forms.Helpers;
@@ -54,7 +53,6 @@ namespace Util.Ui.Zorro.Forms.Renders {
         private void Config( TagBuilder builder ) {
             ConfigId( builder );
             ConfigName( builder );
-            ConfigStyle( builder );
             ConfigLabel( builder );
             ConfigDisabled( builder );
             ConfigModel( builder );
@@ -69,13 +67,7 @@ namespace Util.Ui.Zorro.Forms.Renders {
         /// </summary>
         private void ConfigName( TagBuilder builder ) {
             builder.AddAttribute( UiConst.Name, _config.GetValue( UiConst.Name ) );
-        }
-
-        /// <summary>
-        /// 配置样式
-        /// </summary>
-        private void ConfigStyle( TagBuilder builder ) {
-            builder.AddAttribute( "buttonStyle", _config.GetValue<RadioButtonStyle?>( UiConst.ButtonStyle )?.Description() );
+            builder.AddAttribute( "[name]", _config.GetValue( AngularConst.BindName ) );
         }
 
         /// <summary>

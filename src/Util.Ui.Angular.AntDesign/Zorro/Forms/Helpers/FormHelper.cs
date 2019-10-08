@@ -13,18 +13,15 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// </summary>
         /// <param name="config">配置</param>
         public static bool EnableLabel( Config config ) {
-            var result = config.GetValue<bool?>( UiConst.ShowLabel );
-            if ( result != null )
-                return result.SafeValue();
-            if( config.Contains( UiConst.LabelText ) )
+            if( config.GetValue<bool?>( UiConst.ShowLabel ) == true )
+                return true;
+            if ( config.Contains( UiConst.LabelText ) )
                 return true;
             if( config.Contains( UiConst.LabelSpan ) )
                 return true;
             var shareConfig = GridHelper.GetShareConfig( config );
-            if( shareConfig == null )
+            if ( shareConfig == null )
                 return false;
-            if( shareConfig.ShowLabel )
-                return true;
             if( shareConfig.LabelSpan.IsEmpty() == false )
                 return true;
             return false;
@@ -36,31 +33,6 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// <param name="config">配置</param>
         /// <param name="controlBuilder">控件生成器</param>
         public static TagBuilder CreateFormItemBuilder( Config config, TagBuilder controlBuilder ) {
-            var builder = CreateBuilder( config, controlBuilder );
-            return CreateColumnBuilder( config, builder );
-        }
-
-        /// <summary>
-        /// 创建栅格列生成器
-        /// </summary>
-        private static TagBuilder CreateColumnBuilder( Config config,TagBuilder builder ) {
-            var shareConfig = GridHelper.GetShareConfig( config );
-            if( shareConfig == null )
-                return builder;
-            if( shareConfig.AutoCreateColumn == false )
-                return builder;
-            var result = new Util.Ui.Zorro.Grid.Builders.ColumnBuilder();
-            result.AddSpan( shareConfig.ColumnSpan );
-            result.AppendContent( builder );
-            return result;
-        }
-
-        /// <summary>
-        /// 创建表单项生成器
-        /// </summary>
-        /// <param name="config">配置</param>
-        /// <param name="controlBuilder">控件生成器</param>
-        private static TagBuilder CreateBuilder( Config config, TagBuilder controlBuilder ) {
             var formControlBuilder = CreateFormControlBuilder( config, controlBuilder );
             if( EnableLabel( config ) == false )
                 return formControlBuilder;
@@ -78,24 +50,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         public static FormItemBuilder CreateFormItemBuilder( Config config ) {
             var result = new FormItemBuilder();
             result.AddGutter( GridHelper.GetGutter( config ) );
-            if( FormItemFlex( config ) )
-                result.AddAttribute( "[nzFlex]", "true" );
             return result;
-        }
-
-        /// <summary>
-        /// 表单项是否浮动布局
-        /// </summary>
-        private static bool FormItemFlex( Config config ) {
-            var result = config.GetValue<bool?>( UiConst.IsFlex );
-            if ( result != null )
-                return result.SafeValue();
-            var shareConfig = GridHelper.GetShareConfig( config );
-            if( shareConfig == null )
-                return false;
-            if( shareConfig.FormItemFlex )
-                return true;
-            return false;
         }
 
         /// <summary>
@@ -104,7 +59,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// <param name="config">配置</param>
         public static FormLabelBuilder CreateFormLabelBuilder( Config config ) {
             var result = new FormLabelBuilder();
-            result.AppendContent( GetLabel( config ) );
+            result.AppendContent( GetLabel(config) );
             result.AddRequired( config.GetBoolValue( UiConst.Required ) );
             result.AddSpan( GridHelper.GetLabelSpan( config ) );
             return result;
@@ -115,7 +70,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// </summary>
         private static string GetLabel( Config config ) {
             var result = config.GetValue( UiConst.LabelText );
-            if( result.IsEmpty() )
+            if ( result.IsEmpty() )
                 result = config.GetValue( UiConst.Label );
             return result;
         }
@@ -125,7 +80,7 @@ namespace Util.Ui.Zorro.Forms.Helpers {
         /// </summary>
         /// <param name="config">配置</param>
         /// <param name="builder">配置</param>
-        public static TagBuilder CreateFormControlBuilder( Config config, TagBuilder builder ) {
+        public static TagBuilder CreateFormControlBuilder( Config config,TagBuilder builder ) {
             if( EnableLabel( config ) == false && GridHelper.EnabelGrid( config ) == false )
                 return builder;
             var result = new FormControlBuilder();

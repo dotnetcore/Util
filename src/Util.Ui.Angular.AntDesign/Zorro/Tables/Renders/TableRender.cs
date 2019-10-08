@@ -4,7 +4,7 @@ using Util.Ui.Angular.Base;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Enums;
+using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Builders;
 using Util.Ui.Zorro.Tables.Configs;
 using TableHeadColumnBuilder = Util.Ui.Zorro.Tables.Builders.TableHeadColumnBuilder;
@@ -49,14 +49,12 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected void ConfigTableWrapper( TagBuilder builder ) {
             ConfigWrapperId( builder );
-            ConfigEdit( builder );
             ConfigTableWrapperPage( builder );
             ConfigData( builder );
             ConfigUrl( builder );
             ConfigAutoLoad( builder );
             ConfigSort( builder );
             ConfigMultiple( builder );
-            ConfigKeys( builder );
             ConfigTableWrapperEvents( builder );
         }
 
@@ -65,6 +63,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected void ConfigWrapperId( TagBuilder builder ) {
             builder.AddAttribute( $"#{GetWrapperId()}" );
+            builder.AddAttribute( "key", _config.GetValue( UiConst.Key ) );
         }
 
         /// <summary>
@@ -72,24 +71,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         protected string GetWrapperId() {
             return _config.WrapperId;
-        }
-
-        /// <summary>
-        /// 配置编辑模式
-        /// </summary>
-        protected void ConfigEdit( TagBuilder builder ) {
-            if( _config.IsEdit == false )
-                return;
-            builder.AddAttribute( "x-edit-table" );
-            builder.AddAttribute( $"#{_config.EditTableId}", "utilEditTable" );
-            ConfigDoubleClickStartEdit( builder );
-        }
-
-        /// <summary>
-        /// 配置双击启动编辑
-        /// </summary>
-        protected void ConfigDoubleClickStartEdit( TagBuilder builder ) {
-            builder.AddAttribute( "[dblClickStartEdit]", _config.GetBoolValue( UiConst.DoubleClickStartEdit ) );
         }
 
         /// <summary>
@@ -117,11 +98,9 @@ namespace Util.Ui.Zorro.Tables.Renders {
             builder.AddAttribute( "baseUrl", _config.GetValue( UiConst.BaseUrl ) );
             builder.AddAttribute( "url", _config.GetValue( UiConst.Url ) );
             builder.AddAttribute( "deleteUrl", _config.GetValue( UiConst.DeleteUrl ) );
-            builder.AddAttribute( "saveUrl", _config.GetValue( UiConst.SaveUrl ) );
             builder.AddAttribute( "[baseUrl]", _config.GetValue( AngularConst.BindBaseUrl ) );
             builder.AddAttribute( "[url]", _config.GetValue( AngularConst.BindUrl ) );
             builder.AddAttribute( "[deleteUrl]", _config.GetValue( AngularConst.BindDeleteUrl ) );
-            builder.AddAttribute( "[saveUrl]", _config.GetValue( AngularConst.BindSaveUrl ) );
             builder.AddAttribute( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
         }
 
@@ -144,13 +123,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigMultiple( TagBuilder builder ) {
             builder.AddAttribute( "[multiple]", _config.GetValue( UiConst.Multiple ) );
-        }
-
-        /// <summary>
-        /// 配置标识列表
-        /// </summary>
-        private void ConfigKeys( TagBuilder builder ) {
-            builder.AddAttribute( "[checkedKeys]", _config.GetValue( UiConst.CheckedKeys ) );
         }
 
         /// <summary>
@@ -191,7 +163,6 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigStyle( TagBuilder tableBuilder ) {
             tableBuilder.AddAttribute( "nzBordered", _config.GetBoolValue( UiConst.ShowBorder ) );
-            tableBuilder.AddAttribute( "nzSize", _config.GetValue<TableSize?>( UiConst.Size )?.Description() );
         }
 
         /// <summary>
@@ -199,9 +170,9 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private void ConfigScroll( TagBuilder tableBuilder ) {
             var scroll = new ScrollInfo( _config.GetValue( UiConst.ScrollWidth ), _config.GetValue( UiConst.ScrollHeight ) );
-            if( scroll.IsNull )
+            if ( scroll.IsNull )
                 return;
-            tableBuilder.AddAttribute( "[nzScroll]", Json.ToJson( scroll, true ) );
+            tableBuilder.AddAttribute( "[nzScroll]", Json.ToJson( scroll,true ) );
         }
 
         /// <summary>
@@ -364,39 +335,18 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// 添加内容
         /// </summary>
         protected virtual void AddBody( TableBodyBuilder tableBodyBuilder ) {
-            var rowBuilder = new RowBuilder();
-            rowBuilder.ConfigIterationVar( _config.Id );
-            AddEditRow( rowBuilder );
+            var rowBuilder = new TableRowBuilder();
+            rowBuilder.NgFor( $"let row of {_config.Id}.data" );
             AddRowEvents( rowBuilder );
-            AddSelectedRowBackgroundColor( rowBuilder );
             rowBuilder.AppendContent( _config.Content );
             tableBodyBuilder.AppendContent( rowBuilder );
         }
 
         /// <summary>
-        /// 添加行编辑属性
-        /// </summary>
-        private void AddEditRow( RowBuilder rowBuilder ) {
-            if ( _config.IsEdit == false )
-                return;
-            rowBuilder.ConfigEdit( _config.EditTableId, _config.RowId );
-        }
-
-        /// <summary>
         /// 添加行事件
         /// </summary>
-        private void AddRowEvents( RowBuilder rowBuilder ) {
-            rowBuilder.Click( _config.GetValue( UiConst.OnClickRow ) );
-        }
-
-        /// <summary>
-        /// 添加选中行的背景色
-        /// </summary>
-        private void AddSelectedRowBackgroundColor( RowBuilder rowBuilder ) {
-            if ( _config.Contains( UiConst.SelectedRowBackgroundColor ) == false )
-                return;
-            rowBuilder.Click( $"{_config.WrapperId}.selectRowOnly(row)" );
-            rowBuilder.AddAttribute( "[style.background-color]", $"{_config.WrapperId}.isSelected(row)?{_config.GetValue( UiConst.SelectedRowBackgroundColor )}:''" );
+        private void AddRowEvents( TableRowBuilder rowBuilder ) {
+            rowBuilder.AddAttribute( "(click)", _config.GetValue( UiConst.OnClickRow ) );
         }
 
         /// <summary>
@@ -428,7 +378,7 @@ namespace Util.Ui.Zorro.Tables.Renders {
         /// </summary>
         private string GetTotalTemplate() {
             var result = _config.GetValue( UiConst.TotalTemplate );
-            if( result.IsEmpty() == false )
+            if ( result.IsEmpty() == false )
                 return result;
             return TableConfig.TotalTemplate;
         }

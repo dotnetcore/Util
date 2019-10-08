@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Util.Domains {
@@ -25,7 +26,7 @@ namespace Util.Domains {
         public override string ToString() {
             var result = new StringBuilder();
             foreach( var item in this )
-                result.Append( $"{item}," );
+                result.AppendLine( item.ToString() );
             return result.ToString();
         }
     }

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../../build/version.props" />
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Util.Tools.Offices</AssemblyName>
     <RootNamespace>Util.Tools.Offices</RootNamespace>
     <Authors>何镇汐</Authors>
@@ -31,7 +31,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
+    <PackageReference Include="DotNetCore.NPOI" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>

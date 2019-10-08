@@ -94,6 +94,8 @@ namespace Util.Tests {
             Assert.Equal( "1天2分", span.Description() );
             span = "2000-1-1 06:10:10.123".ToDate() - "2000-1-1 06:10:10.122".ToDate();
             Assert.Equal( "1毫秒", span.Description() );
+            span = "2000-1-1 06:10:10.1000001".ToDate() - "2000-1-1 06:10:10.1000000".ToDate();
+            Assert.Equal( "0.0001毫秒", span.Description() );
         }
     }
 }

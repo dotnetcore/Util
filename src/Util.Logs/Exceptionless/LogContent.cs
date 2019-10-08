@@ -11,7 +11,6 @@ namespace Util.Logs.Exceptionless {
         /// </summary>
         public List<Item> To() {
             return new List<Item> {
-                { new Item( LogResource.LogId, LogId,0) },
                 { new Item( LogResource.LogName, LogName,1) },
                 { new Item(LogResource.TraceId, TraceId,2) },
                 { new Item(LogResource.OperationTime, OperationTime,3) },

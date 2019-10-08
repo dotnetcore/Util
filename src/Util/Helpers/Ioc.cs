@@ -73,8 +73,8 @@ namespace Util.Helpers {
         /// 注册依赖
         /// </summary>
         /// <param name="configs">依赖配置</param>
-        public static IServiceProvider Register( params IConfig[] configs ) {
-            return DefaultContainer.Register( null, builder => builder.EnableAop(), configs );
+        public static void Register( params IConfig[] configs ) {
+            DefaultContainer.Register( null, builder => builder.EnableAop(), configs );
         }
 
         /// <summary>
@@ -84,15 +84,6 @@ namespace Util.Helpers {
         /// <param name="configs">依赖配置</param>
         public static IServiceProvider Register( IServiceCollection services, params IConfig[] configs ) {
             return DefaultContainer.Register( services, builder => builder.EnableAop(), configs );
-        }
-
-        /// <summary>
-        /// 扫描注册
-        /// </summary>
-        /// <param name="services">服务集合</param>
-        public static IServiceProvider ScanRegister( IServiceCollection services = null ) {
-            var builder = Bootstrapper.Run( services );
-            return DefaultContainer.CreateServiceProvider( builder );
         }
 
         /// <summary>

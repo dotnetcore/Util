@@ -29,7 +29,7 @@ if( Entity.IsTreeEntity() ){
 import { ViewModel } from '../../../../util';
 
 /**
- * <%=Entity.Description%>参数
+ * <%=Entity.Description%>视图模型
  */
 export class <%=SafeClassName%>ViewModel extends ViewModel {
     <% foreach(Property p in Entity.Properties) { %>

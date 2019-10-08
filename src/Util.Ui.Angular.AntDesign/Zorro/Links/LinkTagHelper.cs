@@ -21,10 +21,6 @@ namespace Util.Ui.Zorro.Links {
         /// </summary>
         public string BindText { get; set; }
         /// <summary>
-        /// 是否设置为按钮样式，默认值：false
-        /// </summary>
-        public bool IsButton { get; set; }
-        /// <summary>
         /// nzType,颜色
         /// </summary>
         public Color Color { get; set; }

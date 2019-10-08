@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using Util.Ui.Angular.Enums;
-using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Zorro.Tables.Builders;
+using Util.Ui.Extensions;
 using Util.Ui.Zorro.Tables.Configs;
-using TextColumnBuilder = Util.Ui.Zorro.TreeTables.Builders.TextColumnBuilder;
+using Util.Ui.Zorro.TreeTables.Builders;
 
 namespace Util.Ui.Zorro.TreeTables.Renders {
     /// <summary>
@@ -15,6 +14,10 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
         /// 配置
         /// </summary>
         private readonly Config _config;
+        /// <summary>
+        /// 共享配置
+        /// </summary>
+        private readonly TableShareConfig _shareConfig;
 
         /// <summary>
         /// 初始化树形表格列渲染器
@@ -22,38 +25,65 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
         /// <param name="config">配置</param>
         public ColumnRender( Config config ) : base( config ) {
             _config = config;
+            _shareConfig = _config.Context.GetValueFromItems<TableShareConfig>( TableConfig.TableShareKey );
         }
 
         /// <summary>
-        /// 创建列生成器
+        /// 获取标签生成器
         /// </summary>
-        protected override TagBuilder CreateColumnBuilder() {
-            var shareConfig = _config.GetValueFromItems<ColumnShareConfig>();
+        protected override Util.Ui.Builders.TagBuilder GetTagBuilder() {
+            var builder = new TreeTableColumnBuilder();
+            Config( builder );
+            return builder;
+        }
+
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private void Config( TreeTableColumnBuilder builder ) {
+            ConfigId( builder );
+            ConfigColumn( builder );
+            ConfigContent( builder );
+        }
+
+        /// <summary>
+        /// 配置列
+        /// </summary>
+        private void ConfigColumn( TreeTableColumnBuilder builder ) {
+            if( _config.Content.IsEmpty() == false )
+                return;
             var type = _config.GetValue<TreeTableColumnType?>( UiConst.Type );
-            var tableWrapperId = GetTableShareConfig()?.TableWrapperId;
-            var tableId = shareConfig?.TableId;
-            var editTableId = shareConfig?.EditTableId;
             var column = _config.GetValue( UiConst.Column );
-            var templateId = shareConfig?.TemplateId;
-            var format = _config.GetValue( UiConst.DateFormat );
-            var length = _config.GetValue<int?>( UiConst.Truncate );
-            var isEdit = ( shareConfig?.IsEdit ).SafeValue();
             switch( type ) {
                 case TreeTableColumnType.Bool:
-                    return new BoolColumnBuilder( column, _config.Content );
+                    AddBoolColumn( builder, column );
+                    return;
                 case TreeTableColumnType.Date:
-                    return new DateColumnBuilder( column, format, _config.Content );
+                    AddDateColumn( builder, column );
+                    return;
                 default:
-                    return new TextColumnBuilder( column, length, _config.Content, IsFirstColumn(), tableWrapperId );
+                    AddDefaultColumn( builder, column );
+                    return;
             }
         }
 
         /// <summary>
-        /// 获取表格共享配置
+        /// 添加默认列
         /// </summary>
-        private TableShareConfig GetTableShareConfig() {
-
-            return _config.GetValueFromItems<TableShareConfig>();
+        protected void AddDefaultColumn( TreeTableColumnBuilder builder, string column ) {
+            if( column.IsEmpty() )
+                return;
+            if ( IsFirstColumn() ) {
+                var tableWrapperId = _shareConfig?.TableWrapperId;
+                builder.SetColumn( tableWrapperId,$"row.{column}",20 );
+                return;
+            }
+            var length = _config.GetValue<int?>( UiConst.Truncate );
+            if( length == null ) {
+                builder.AppendContent( $"{{{{row.{column}}}}}" );
+                return;
+            }
+            builder.Truncate( column, length.SafeValue() );
         }
 
         /// <summary>
@@ -61,7 +91,7 @@ namespace Util.Ui.Zorro.TreeTables.Renders {
         /// </summary>
         private bool IsFirstColumn() {
             var column = _config.GetValue( UiConst.Column );
-            var firstColumn = GetTableShareConfig()?.Columns.FirstOrDefault();
+            var firstColumn = _shareConfig.Columns.FirstOrDefault();
             return column.IsEmpty() == false && column == firstColumn?.Column;
         }
     }
