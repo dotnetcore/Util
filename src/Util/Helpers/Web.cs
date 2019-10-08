@@ -123,7 +123,7 @@ namespace Util.Helpers {
         /// </summary>
         public static string Body {
             get {
-                Request.EnableRewind();
+                Request.EnableBuffering();
                 return File.ToString( Request.Body, isCloseStream: false );
             }
         }
