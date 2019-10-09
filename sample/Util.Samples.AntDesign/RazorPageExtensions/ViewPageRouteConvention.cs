@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace Util.Ui.Pages {
+namespace Util.Samples.RazorPageExtensions {
     /// <summary>
     /// 视图页面路由约定，将页面路由添加view前缀
     /// </summary>

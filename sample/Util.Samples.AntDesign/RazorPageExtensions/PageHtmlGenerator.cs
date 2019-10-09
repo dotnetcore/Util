@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 using Util.Helpers;
 using Util.Webs.Filters;
 
-namespace Util.Ui.Pages {
+namespace Util.Samples.RazorPageExtensions {
     /// <summary>
     /// Page静态Html生成器
     /// </summary>
@@ -40,15 +40,15 @@ namespace Util.Ui.Pages {
         public async Task BuildAsync() {
             var pageActionDescriptors = GetPageActionDescriptors();
             var requestUrl = $"{Web.Request.Scheme}://{Web.Request.Host}";
-            foreach( var actionDescriptor in pageActionDescriptors ) {
-                if( actionDescriptor.RelativePath.ToLower() == "/Pages/Index.cshtml".ToLower() ) {
+            foreach ( var actionDescriptor in pageActionDescriptors ) {
+                if ( actionDescriptor.RelativePath.ToLower() == "/Pages/Index.cshtml".ToLower() ) {
                     continue;
                 }
                 var compiledPage = _pageLoader.Load( actionDescriptor );
                 var path = actionDescriptor.ViewEnginePath;// Url访问路径：/Components/DataDisplay/Table
                 var htmlPath = GetHtmlPathAttribute( compiledPage );
-                if( htmlPath != null ) {
-                    if( htmlPath.Ignore ) {
+                if ( htmlPath != null ) {
+                    if ( htmlPath.Ignore ) {
                         continue;
                     }
                 }

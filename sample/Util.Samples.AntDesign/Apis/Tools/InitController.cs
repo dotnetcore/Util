@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Util.Ui.Pages;
+using Util.Samples.RazorPageExtensions;
 using Util.Webs.Controllers;
 
 namespace Util.Samples.Apis.Tools {

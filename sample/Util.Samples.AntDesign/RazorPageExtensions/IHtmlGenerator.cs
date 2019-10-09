@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Util.Dependency;
 
-namespace Util.Ui.Pages {
+namespace Util.Samples.RazorPageExtensions {
     /// <summary>
     /// Html生成器
     /// </summary>

@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Util.Ui.Pages {
+namespace Util.Samples.RazorPageExtensions {
     /// <summary>
     /// 相对路径视图位置扩展器
     /// </summary>

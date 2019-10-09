@@ -17,7 +17,7 @@ using Util.Logs;
 using Util.Logs.Extensions;
 using Util.Webs.Filters;
 
-namespace Util.Ui.Pages {
+namespace Util.Samples.RazorPageExtensions {
     /// <summary>
     /// 生成页面过滤器
     /// </summary>

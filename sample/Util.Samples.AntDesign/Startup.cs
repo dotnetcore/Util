@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 using Util.Datas.Ef;
 using Util.Logs.Extensions;
 using Util.Samples.Data;
-using Util.Ui.Extensions;
+using Util.Samples.RazorPageExtensions;
 using Util.Webs.Extensions;
 
 namespace Util.Samples {
@@ -57,10 +57,10 @@ namespace Util.Samples {
             //services.AddUnitOfWork<ISampleUnitOfWork, Util.Samples.Data.UnitOfWorks.MySql.SampleUnitOfWork>( Configuration.GetConnectionString( "MySqlConnection" ) );
 
             //Ìí¼ÓSwagger
-            //services.AddSwaggerGen( options => {
-            //    options.SwaggerDoc( "v1", new Info { Title = "Util Api Demo", Version = "v1" } );
-            //    options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.AntDesign.xml" ) );
-            //} );
+            services.AddSwaggerGen( options => {
+                options.SwaggerDoc( "v1", new OpenApiInfo { Title = "Util Api Demo", Version = "v1" } );
+                options.IncludeXmlComments( Path.Combine( AppContext.BaseDirectory, "Util.Samples.AntDesign.xml" ) );
+            } );
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Util.Samples {
             app.UseWebpackDevMiddleware( new WebpackDevMiddlewareOptions {
                 HotModuleReplacement = true
             } );
-            //app.UseSwaggerX();
+            app.UseSwaggerX();
             CommonConfig( app );
         }
 

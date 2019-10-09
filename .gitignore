@@ -18,6 +18,7 @@ BenchmarkDotNet.Artifacts/
 /sample/Util.Samples.AntDesign/Typings/app/components/**/*.html
 /sample/Util.Samples.AntDesign/Typings/app/demo/**/*.html
 /sample/Util.Samples.AntDesign/Typings/app/home/dashboard/**/*.html
+/sample/Util.Samples.AntDesign/Typings/app/home/html/*.html
 /template/CodeSmith/.vs/CodeGenerator/v15
 /template/CodeSmith/CodeGenerator/*.user
 /template/CodeSmith/*.suo

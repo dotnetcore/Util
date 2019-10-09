@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
-using Util.Ui.Pages;
 
-namespace Util.Ui.Extensions {
+namespace Util.Samples.RazorPageExtensions {
     /// <summary>
     /// Ui服务扩展
     /// </summary>
