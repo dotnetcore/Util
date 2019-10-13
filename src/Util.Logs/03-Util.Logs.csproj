@@ -2,6 +2,7 @@
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <IsPackable>true</IsPackable>
     <RootNamespace>Util.Logs</RootNamespace>
     <AssemblyName>Util.Logs</AssemblyName>
     <Authors>何镇汐</Authors>
@@ -9,7 +10,7 @@
     <Description>Util.Logs是Util应用框架的日志操作类库。
 Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。</Description>
     <Copyright>何镇汐</Copyright>
-    <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <RepositoryUrl>https://github.com/dotnetcore/Util</RepositoryUrl>
@@ -21,12 +22,12 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Logs.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.1\Util.Logs.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\output\release</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Logs.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.1\Util.Logs.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

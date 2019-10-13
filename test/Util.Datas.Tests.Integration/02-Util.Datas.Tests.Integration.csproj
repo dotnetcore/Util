@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <IsPackable>false</IsPackable>
     <AssemblyName>Util.Datas.Tests.Integration</AssemblyName>
     <RootNamespace>Util.Datas.Tests</RootNamespace>
     <Description />

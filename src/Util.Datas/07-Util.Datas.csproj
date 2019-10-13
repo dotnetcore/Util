@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../../build/version.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <IsPackable>true</IsPackable>
     <AssemblyName>Util.Datas</AssemblyName>
     <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
     <RootNamespace>Util.Datas</RootNamespace>
@@ -13,7 +14,7 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
     <Copyright>何镇汐</Copyright>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/dotnetcore/Util/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
     <RepositoryUrl>https://github.com/dotnetcore/Util</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -22,12 +23,12 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\output\release\</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Datas.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.1\Util.Datas.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\output\release\</OutputPath>
-    <DocumentationFile>..\..\output\release\netstandard2.0\Util.Datas.xml</DocumentationFile>
+    <DocumentationFile>..\..\output\release\netstandard2.1\Util.Datas.xml</DocumentationFile>
   </PropertyGroup>
    
 
