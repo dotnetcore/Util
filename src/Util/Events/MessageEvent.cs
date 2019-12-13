@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 
 namespace Util.Events {
     /// <summary>
@@ -33,7 +34,7 @@ namespace Util.Events {
                 result.AppendLine( $"消息名称:{Name}" );
             if( string.IsNullOrWhiteSpace( Callback ) == false )
                 result.AppendLine( $"回调名称:{Callback}" );
-            result.Append( $"事件数据：{Util.Helpers.Json.ToJson( Data )}" );
+            result.Append( $"事件数据：{Json.ToJson( Data )}" );
             return result.ToString();
         }
     }
