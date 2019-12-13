@@ -40,7 +40,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// 获取交易类型
         /// </summary>
         protected override string GetTradeType() {
-            return "JSAPI";
+            return "JSAPI2";
         }
 
         /// <summary>
