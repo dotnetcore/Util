@@ -71,6 +71,13 @@ namespace Util.Biz.Payments.Wechatpay.Configs {
         }
 
         /// <summary>
+        /// 获取关闭订单地址
+        /// </summary>
+        public string GetCloseOrderUrl() {
+            return Url.Combine( GatewayUrl, "pay/closeorder" );
+        }
+
+        /// <summary>
         /// 获取退款地址
         /// </summary>
         public string GetRefundUrl() {

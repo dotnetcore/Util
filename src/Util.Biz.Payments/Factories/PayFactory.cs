@@ -72,6 +72,13 @@ namespace Util.Biz.Payments.Factories {
         }
 
         /// <summary>
+        /// 创建支付宝交易撤消服务
+        /// </summary>
+        public IAlipayCancelService CreateAlipayCancelService() {
+            return new AlipayCancelService( _alipayConfigProvider );
+        }
+
+        /// <summary>
         /// 创建支付宝条码支付服务
         /// </summary>
         public IAlipayBarcodePayService CreateAlipayBarcodePayService() {
@@ -114,6 +121,20 @@ namespace Util.Biz.Payments.Factories {
         }
 
         /// <summary>
+        /// 创建微信退款服务
+        /// </summary>
+        public IWechatpayRefundService CreateWechatpayRefundService() {
+            return new WechatpayRefundService( _wechatpayConfigProvider );
+        }
+
+        /// <summary>
+        /// 创建微信关闭订单服务
+        /// </summary>
+        public IWechatpayCloseOrderService CreateWechatpayCloseOrderService() {
+            return new WechatpayCloseOrderService( _wechatpayConfigProvider );
+        }
+
+        /// <summary>
         /// 创建微信App支付服务
         /// </summary>
         public IWechatpayAppPayService CreateWechatpayAppPayService() {
@@ -132,13 +153,6 @@ namespace Util.Biz.Payments.Factories {
         /// </summary>
         public IWechatpayJsApiPayService CreateWechatpayJsApiPayService() {
             return new WechatpayJsApiPayService( _wechatpayConfigProvider );
-        }
-
-        /// <summary>
-        /// 创建微信退款服务
-        /// </summary>
-        public IWechatpayRefundService CreateWechatpayRefundService() {
-            return new WechatpayRefundService( _wechatpayConfigProvider );
         }
     }
 }

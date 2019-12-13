@@ -12,7 +12,7 @@ namespace Util.Biz.Payments.Alipay.Services {
     /// <summary>
     /// 支付宝手机网站支付服务
     /// </summary>
-    public class AlipayWapPayService : AlipayServiceBase, IAlipayWapPayService {
+    public class AlipayWapPayService : AlipayPayServiceBase, IAlipayWapPayService {
         /// <summary>
         /// 初始化支付宝手机网站支付服务
         /// </summary>
@@ -28,7 +28,7 @@ namespace Util.Biz.Payments.Alipay.Services {
             var config = await ConfigProvider.GetConfigAsync();
             Validate( config, param );
             var builder = new AlipayParameterBuilder( config );
-            Config( builder, param );
+            ConfigBuilder( builder, param );
             var form = GetForm( builder );
             WriteLog( config, builder, form );
             return new PayResult { Result = form };
@@ -68,13 +68,6 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// </summary>
         protected override string GetMethod() {
             return "alipay.trade.wap.pay";
-        }
-
-        /// <summary>
-        /// 获取支付方式
-        /// </summary>
-        protected override PayWay GetPayWay() {
-            return PayWay.AlipayWapPay;
         }
     }
 }

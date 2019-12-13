@@ -47,7 +47,7 @@ namespace Util.Biz.Payments.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -57,6 +57,15 @@ namespace Util.Biz.Payments.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 支付宝交易号和商户订单号不能同时为空 的本地化字符串。
+        /// </summary>
+        public static string AlipayCancelParamIsEmpty {
+            get {
+                return ResourceManager.GetString("AlipayCancelParamIsEmpty", resourceCulture);
             }
         }
         

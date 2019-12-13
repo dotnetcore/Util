@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Util.Biz.Payments.Alipay.Configs;
+using Util.Biz.Payments.Alipay.Parameters;
 
 namespace Util.Biz.Payments.Alipay.Results {
     /// <summary>
@@ -15,9 +16,17 @@ namespace Util.Biz.Payments.Alipay.Results {
         /// <summary>
         /// 初始化支付宝结果
         /// </summary>
+        public AlipayResult() {
+        }
+
+        /// <summary>
+        /// 初始化支付宝结果
+        /// </summary>
         /// <param name="response">json响应消息</param>
-        public AlipayResult( string response ) {
+        /// <param name="builder">支付宝参数生成器</param>
+        public AlipayResult( string response, AlipayParameterBuilder builder = null ) {
             Raw = response;
+            Builder = builder;
             _result = new Dictionary<string, string>();
             LoadJson( response );
         }
@@ -26,6 +35,14 @@ namespace Util.Biz.Payments.Alipay.Results {
         /// 支付宝原始响应
         /// </summary>
         public string Raw { get; }
+        /// <summary>
+        /// 支付宝参数生成器
+        /// </summary>
+        public AlipayParameterBuilder Builder { get; }
+        /// <summary>
+        /// 结果
+        /// </summary>
+        public string Result { get; set; }
 
         /// <summary>
         /// 加载json
@@ -56,7 +73,8 @@ namespace Util.Biz.Payments.Alipay.Results {
         /// </summary>
         private List<string> GetIgnoreItems() {
             return new List<string> {
-                "alipay_trade_pay_response"
+                "alipay_trade_pay_response",
+                "alipay_trade_cancel_response"
             };
         }
 
@@ -102,10 +120,17 @@ namespace Util.Biz.Payments.Alipay.Results {
         }
 
         /// <summary>
-        /// 获取支付订单号
+        /// 获取支付交易号
         /// </summary>
         public string GetTradeNo() {
             return GetValue( AlipayConst.TradeNo );
+        }
+
+        /// <summary>
+        /// 获取商户订单号
+        /// </summary>
+        public string GetOutTradeNo() {
+            return GetValue( AlipayConst.OutTradeNo );
         }
 
         /// <summary>

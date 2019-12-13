@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Util.Biz.Payments.Alipay.Abstractions;
 using Util.Biz.Payments.Alipay.Configs;
-using Util.Biz.Payments.Alipay.Parameters;
 using Util.Biz.Payments.Alipay.Parameters.Requests;
 using Util.Biz.Payments.Alipay.Results;
 using Util.Biz.Payments.Alipay.Services.Base;
@@ -11,7 +10,7 @@ namespace Util.Biz.Payments.Alipay.Services {
     /// <summary>
     /// 支付宝二维码支付服务
     /// </summary>
-    public class AlipayQrCodePayService : AlipayServiceBase, IAlipayQrCodePayService {
+    public class AlipayQrCodePayService : AlipayPayServiceBase, IAlipayQrCodePayService {
         /// <summary>
         /// 初始化支付宝二维码支付服务
         /// </summary>
@@ -36,18 +35,11 @@ namespace Util.Biz.Payments.Alipay.Services {
         }
 
         /// <summary>
-        /// 获取支付方式
-        /// </summary>
-        protected override PayWay GetPayWay() {
-            return PayWay.AlipayQrCodePay;
-        }
-
-        /// <summary>
         /// 创建结果
         /// </summary>
-        protected override PayResult CreateResult( AlipayParameterBuilder builder, AlipayResult result ) {
+        protected override PayResult CreateResult( AlipayResult result ) {
             return new PayResult( result.Success, result.GetTradeNo(), result.Raw ) {
-                Parameter = builder.ToString(),
+                Parameter = result.Builder.ToString(),
                 Message = result.GetMessage(),
                 Result = result.GetValue( AlipayConst.QrCode )
             };
