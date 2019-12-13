@@ -10,7 +10,7 @@ namespace Util.Helpers {
     /// <summary>
     /// 反射操作
     /// </summary>
-    public static class Reflection {
+    public static partial class Reflection {
         /// <summary>
         /// 获取类型描述，使用DescriptionAttribute设置描述
         /// </summary>

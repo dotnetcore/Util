@@ -5,7 +5,7 @@ namespace Util.Helpers {
     /// <summary>
     /// 随机数操作
     /// </summary>
-    public class Random {
+    public partial class Random {
         /// <summary>
         /// 随机数
         /// </summary>

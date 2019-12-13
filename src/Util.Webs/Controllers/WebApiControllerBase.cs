@@ -13,7 +13,7 @@ namespace Util.Webs.Controllers {
     [ExceptionHandler]
     [ErrorLog]
     [TraceLog]
-    public abstract class WebApiControllerBase : Controller {
+    public abstract partial class WebApiControllerBase : Controller {
         /// <summary>
         /// 日志
         /// </summary>

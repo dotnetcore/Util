@@ -14,7 +14,7 @@ namespace Util.Datas.Ef.Core {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TPo">持久化对象类型</typeparam>
-    public abstract class TreeCompactRepositoryBase<TEntity, TPo> 
+    public abstract partial class TreeCompactRepositoryBase<TEntity, TPo> 
         : TreeCompactRepositoryBase<TEntity, TPo, Guid, Guid?>, ITreeCompactRepository<TEntity>
         where TEntity : class, ITreeEntity<TEntity, Guid, Guid?>
         where TPo : class, IKey<Guid>, IVersion, IPath, IParentId<Guid?>, ISortId {
@@ -48,7 +48,7 @@ namespace Util.Datas.Ef.Core {
     /// <typeparam name="TPo">持久化对象类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public abstract class TreeCompactRepositoryBase<TEntity, TPo, TKey, TParentId> 
+    public abstract partial class TreeCompactRepositoryBase<TEntity, TPo, TKey, TParentId> 
         : CompactRepositoryBase<TEntity, TPo, TKey>, ITreeCompactRepository<TEntity, TKey, TParentId>
         where TEntity : class, ITreeEntity<TEntity, TKey, TParentId>
         where TPo : class, IKey<TKey>, IVersion, IPath {

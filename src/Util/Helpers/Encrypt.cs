@@ -11,7 +11,7 @@ namespace Util.Helpers {
     /// 1. AES加密整理自支付宝SDK
     /// 2. RSA加密采用 https://github.com/stulzq/DotnetCore.RSA/blob/master/DotnetCore.RSA/RSAHelper.cs
     /// </summary>
-    public static class Encrypt {
+    public static partial class Encrypt {
 
         #region Md5加密
 

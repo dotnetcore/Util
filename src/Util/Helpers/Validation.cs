@@ -2,7 +2,7 @@
     /// <summary>
     /// 验证操作
     /// </summary>
-    public class Validation {
+    public partial class Validation {
         /// <summary>
         /// 是否数字
         /// </summary>

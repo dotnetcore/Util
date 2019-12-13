@@ -13,7 +13,7 @@ namespace Util.Webs.Controllers {
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
-    public abstract class CrudControllerBase<TDto, TQuery> : CrudControllerBase<TDto, TDto, TDto, TQuery>
+    public abstract partial class CrudControllerBase<TDto, TQuery> : CrudControllerBase<TDto, TDto, TDto, TQuery>
         where TQuery : IQueryParameter
         where TDto : IDto, new() {
         /// <summary>
@@ -31,7 +31,7 @@ namespace Util.Webs.Controllers {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TRequest">参数类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
-    public abstract class CrudControllerBase<TDto, TRequest, TQuery> : CrudControllerBase<TDto, TRequest, TRequest, TQuery>
+    public abstract partial class CrudControllerBase<TDto, TRequest, TQuery> : CrudControllerBase<TDto, TRequest, TRequest, TQuery>
         where TQuery : IQueryParameter
         where TRequest : IRequest, IKey, new()
         where TDto : IDto, new() {
@@ -51,7 +51,7 @@ namespace Util.Webs.Controllers {
     /// <typeparam name="TCreateRequest">创建参数类型</typeparam>
     /// <typeparam name="TUpdateRequest">修改参数类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
-    public abstract class CrudControllerBase<TDto, TCreateRequest, TUpdateRequest, TQuery> : QueryControllerBase<TDto, TQuery>
+    public abstract partial class CrudControllerBase<TDto, TCreateRequest, TUpdateRequest, TQuery> : QueryControllerBase<TDto, TQuery>
         where TQuery : IQueryParameter
         where TCreateRequest : IRequest, new()
         where TUpdateRequest : IRequest, IKey, new()

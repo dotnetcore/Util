@@ -10,7 +10,7 @@ namespace Util.Webs.Controllers.Trees {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public abstract class ControllerBase<TDto, TQuery, TParentId> : WebApiControllerBase
+    public abstract partial class ControllerBase<TDto, TQuery, TParentId> : WebApiControllerBase
         where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter<TParentId> {
         /// <summary>

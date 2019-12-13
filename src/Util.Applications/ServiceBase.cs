@@ -5,7 +5,7 @@ namespace Util.Applications {
     /// <summary>
     /// 应用服务
     /// </summary>
-    public abstract class ServiceBase : IService {
+    public abstract partial class ServiceBase : IService {
         /// <summary>
         /// 日志
         /// </summary>

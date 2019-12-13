@@ -9,7 +9,7 @@ namespace Util.Helpers {
     /// <summary>
     /// Lambda表达式操作
     /// </summary>
-    public static class Lambda {
+    public static partial class Lambda {
 
         #region GetType(获取类型)
 

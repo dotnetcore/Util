@@ -18,7 +18,7 @@ namespace Util.Datas.Ef.Core {
     /// 查询存储器
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
-    public abstract class QueryStoreBase<TEntity> : QueryStoreBase<TEntity, Guid>, IQueryStore<TEntity> where TEntity : class, IKey<Guid> {
+    public abstract partial class QueryStoreBase<TEntity> : QueryStoreBase<TEntity, Guid>, IQueryStore<TEntity> where TEntity : class, IKey<Guid> {
         /// <summary>
         /// 初始化查询存储器
         /// </summary>
@@ -32,7 +32,7 @@ namespace Util.Datas.Ef.Core {
     /// </summary>
     /// <typeparam name="TEntity">对象类型</typeparam>
     /// <typeparam name="TKey">对象标识类型</typeparam>
-    public abstract class QueryStoreBase<TEntity, TKey> : IQueryStore<TEntity, TKey> where TEntity : class, IKey<TKey> {
+    public abstract partial class QueryStoreBase<TEntity, TKey> : IQueryStore<TEntity, TKey> where TEntity : class, IKey<TKey> {
         /// <summary>
         /// Sql查询对象
         /// </summary>

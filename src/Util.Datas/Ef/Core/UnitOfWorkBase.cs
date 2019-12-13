@@ -27,7 +27,7 @@ namespace Util.Datas.Ef.Core {
     /// <summary>
     /// 工作单元
     /// </summary>
-    public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IDatabase, IEntityMatedata {
+    public abstract partial class UnitOfWorkBase : DbContext, IUnitOfWork, IDatabase, IEntityMatedata {
 
         #region 字段
 

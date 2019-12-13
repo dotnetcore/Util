@@ -14,7 +14,7 @@ namespace Util.Applications {
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
-    public abstract class CrudServiceBase<TEntity, TDto, TQueryParameter> 
+    public abstract partial class CrudServiceBase<TEntity, TDto, TQueryParameter> 
         : CrudServiceBase<TEntity, TDto, TDto, TDto, TDto, TQueryParameter, Guid>, ICrudService<TDto, TQueryParameter>
         where TEntity : class, IAggregateRoot<TEntity, Guid>, new()
         where TDto : IDto, new()
@@ -35,7 +35,7 @@ namespace Util.Applications {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public abstract class CrudServiceBase<TEntity, TDto, TQueryParameter, TKey> 
+    public abstract partial class CrudServiceBase<TEntity, TDto, TQueryParameter, TKey> 
         : CrudServiceBase<TEntity, TDto, TDto, TQueryParameter, TKey>, ICrudService<TDto, TQueryParameter>
         where TEntity : class, IAggregateRoot<TEntity, TKey>, new()
         where TDto : IDto, new()
@@ -57,7 +57,7 @@ namespace Util.Applications {
     /// <typeparam name="TRequest">参数类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public abstract class CrudServiceBase<TEntity, TDto, TRequest, TQueryParameter, TKey>
+    public abstract partial class CrudServiceBase<TEntity, TDto, TRequest, TQueryParameter, TKey>
         : CrudServiceBase<TEntity, TDto, TRequest, TRequest, TRequest, TQueryParameter, TKey>,ICrudService<TDto, TRequest, TQueryParameter>
         where TEntity : class, IAggregateRoot<TEntity, TKey>, new()
         where TDto : IDto, new()

@@ -6,7 +6,7 @@ namespace Util.Helpers {
     /// <summary>
     /// 常用公共操作
     /// </summary>
-    public static class Common {
+    public static partial class Common {
         /// <summary>
         /// 获取类型
         /// </summary>

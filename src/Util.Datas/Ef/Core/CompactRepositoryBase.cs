@@ -13,7 +13,7 @@ namespace Util.Datas.Ef.Core {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TPo">持久化对象类型</typeparam>
-    public abstract class CompactRepositoryBase<TEntity, TPo> : CompactRepositoryBase<TEntity, TPo, Guid>, ICompactRepository<TEntity>
+    public abstract partial class CompactRepositoryBase<TEntity, TPo> : CompactRepositoryBase<TEntity, TPo, Guid>, ICompactRepository<TEntity>
         where TEntity : class, IAggregateRoot<Guid>
         where TPo : class, IKey<Guid> {
         /// <summary>
@@ -30,7 +30,7 @@ namespace Util.Datas.Ef.Core {
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TPo">持久化对象类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public abstract class CompactRepositoryBase<TEntity, TPo, TKey> : ICompactRepository<TEntity, TKey>
+    public abstract partial class CompactRepositoryBase<TEntity, TPo, TKey> : ICompactRepository<TEntity, TKey>
         where TEntity : class, IAggregateRoot<TKey>
         where TPo : class, IKey<TKey> {
         /// <summary>

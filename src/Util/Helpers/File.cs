@@ -6,7 +6,7 @@ namespace Util.Helpers {
     /// <summary>
     /// 文件和流操作
     /// </summary>
-    public static class File {
+    public static partial class File {
         /// <summary>
         /// 流转换为字节流
         /// </summary>

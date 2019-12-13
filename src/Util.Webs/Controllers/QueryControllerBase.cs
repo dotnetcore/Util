@@ -15,7 +15,7 @@ namespace Util.Webs.Controllers {
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>    
-    public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
+    public abstract partial class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
         where TQuery : IQueryParameter
         where TDto : IDto, new() {
         /// <summary>
