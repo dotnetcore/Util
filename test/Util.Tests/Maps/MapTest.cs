@@ -49,6 +49,16 @@ namespace Util.Tests.Maps {
         }
 
         /// <summary>
+        /// 测试映射 - 映射相同属性名的不同对象
+        /// </summary>
+        [Fact]
+        public void TestMapTo_4() {
+            Sample sample = new Sample { Test3 = new Sample3Copy { StringValue = "a" } };
+            Sample2 sample2 = sample.MapTo<Sample2>();
+            Assert.Equal( "a", sample2.Test3.StringValue );
+        }
+
+        /// <summary>
         /// 测试映射集合
         /// </summary>
         [Fact]
@@ -112,7 +122,7 @@ namespace Util.Tests.Maps {
                 var sample = new Sample { StringValue = "a" };
                 var sample2 = sample.MapTo<Sample2>();
                 Assert.Equal( "a", sample2.StringValue );
-            },20 );
+            }, 20 );
         }
 
         /// <summary>
@@ -120,7 +130,7 @@ namespace Util.Tests.Maps {
         /// </summary>
         [Fact]
         public void TestMapTo_Ignore() {
-            DtoSample sample2 = new DtoSample { Name = "a",IgnoreValue = "b"};
+            DtoSample sample2 = new DtoSample { Name = "a", IgnoreValue = "b" };
             EntitySample sample = sample2.MapTo<EntitySample>();
             Assert.Equal( "a", sample.Name );
             Assert.Null( sample.IgnoreValue );
@@ -145,7 +155,7 @@ namespace Util.Tests.Maps {
             sample = proxy2.MapTo<EntitySample>();
             Assert.Equal( "b", sample.Name );
 
-            var sample2 = new DtoSample { Name = "c"};
+            var sample2 = new DtoSample { Name = "c" };
             var proxy3 = proxyGenerator.CreateClassProxy<EntitySample>();
             sample2.MapTo( proxy3 );
             Assert.Equal( "c", proxy3.Name );

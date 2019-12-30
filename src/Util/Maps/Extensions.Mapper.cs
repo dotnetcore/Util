@@ -41,20 +41,18 @@ namespace Util.Maps {
         /// 将源对象映射到目标对象
         /// </summary>
         private static TDestination MapTo<TDestination>( object source, TDestination destination ) {
-            if( source == null )
-                return default( TDestination );
-            if( destination == null )
-                return default( TDestination );
-            var sourceType = GetType( source );
-            var destinationType = GetType( destination );
-            if( Exists( sourceType, destinationType ) )
-                return GetResult( source, destination );
-            lock( Sync ) {
-                if( Exists( sourceType, destinationType ) )
-                    return GetResult( source, destination );
-                Init( sourceType, destinationType );
+            try {
+                if( source == null )
+                    return default( TDestination );
+                if( destination == null )
+                    return default( TDestination );
+                var sourceType = GetType( source );
+                var destinationType = GetType( destination );
+                return GetResult( sourceType, destinationType, source, destination );
             }
-            return GetResult( source, destination );
+            catch( AutoMapperMappingException ex ) {
+                return GetResult( ex.MemberMap.SourceType, ex.MemberMap.DestinationType, source, destination );
+            }
         }
 
         /// <summary>
@@ -70,6 +68,20 @@ namespace Util.Maps {
             if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
                 throw new ArgumentException( "泛型类型参数不能为空" );
             return genericArgumentsTypes[0];
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        private static TDestination GetResult<TDestination>( Type sourceType, Type destinationType, object source, TDestination destination ) {
+            if( Exists( sourceType, destinationType ) )
+                return GetResult( source, destination );
+            lock( Sync ) {
+                if( Exists( sourceType, destinationType ) )
+                    return GetResult( source, destination );
+                Init( sourceType, destinationType );
+            }
+            return GetResult( source, destination );
         }
 
         /// <summary>
