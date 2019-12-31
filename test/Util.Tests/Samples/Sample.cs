@@ -163,6 +163,11 @@ namespace Util.Tests.Samples {
         public Sample3Copy Test3 { get; set; }
 
         /// <summary>
+        /// 导航属性
+        /// </summary>
+        public List<Sample3Copy> TestList { get; set; }
+
+        /// <summary>
         /// 静态属性
         /// </summary>
         public static string StaticString => "TestStaticString";

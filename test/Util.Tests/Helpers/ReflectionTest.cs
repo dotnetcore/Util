@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Util.Domains;
 using Util.Helpers;
@@ -177,6 +180,35 @@ namespace Util.Tests.Helpers {
             Assert.Contains( "Util.Domains.DomainBase", Reflection.GetTopBaseType<User>().FullName );
             Assert.Contains( "Util.Domains.DomainBase", Reflection.GetTopBaseType<Util.Domains.DomainBase<User>>().FullName );
             Assert.Contains( "Util.Domains.IEntity", Reflection.GetTopBaseType<IEntity>().FullName );
+        }
+
+        /// <summary>
+        /// 获取元素类型
+        /// </summary>
+        [Fact]
+        public void TestGetElementType_1() {
+            Sample sample = new Sample();
+            Assert.Equal( typeof( Sample ), Reflection.GetElementType( sample.GetType() ) );
+        }
+
+        /// <summary>
+        /// 获取元素类型 - 数组
+        /// </summary>
+        [Fact]
+        public void TestGetElementType_2() {
+            var list = new [] { new Sample() };
+            var type = list.GetType();
+            Assert.Equal( typeof( Sample ), Reflection.GetElementType( type ) );
+        }
+
+        /// <summary>
+        /// 获取元素类型 - 集合
+        /// </summary>
+        [Fact]
+        public void TestGetElementType_3() {
+            var list = new List<Sample> { new Sample() };
+            var type = list.GetType();
+            Assert.Equal( typeof( Sample ), Reflection.GetElementType( type ) );
         }
     }
 }

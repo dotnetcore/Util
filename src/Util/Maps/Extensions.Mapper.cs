@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using System.Collections.Generic;
-using System.Reflection;
+using Util.Helpers;
 
 namespace Util.Maps {
     /// <summary>
@@ -51,7 +51,7 @@ namespace Util.Maps {
                 return GetResult( sourceType, destinationType, source, destination );
             }
             catch( AutoMapperMappingException ex ) {
-                return GetResult( ex.MemberMap.SourceType, ex.MemberMap.DestinationType, source, destination );
+                return GetResult( GetType( ex.MemberMap.SourceType ), GetType( ex.MemberMap.DestinationType ), source, destination );
             }
         }
 
@@ -59,15 +59,14 @@ namespace Util.Maps {
         /// 获取类型
         /// </summary>
         private static Type GetType( object obj ) {
-            var type = obj.GetType();
-            if( ( obj is System.Collections.IEnumerable ) == false )
-                return type;
-            if( type.IsArray )
-                return type.GetElementType();
-            var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
-            if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
-                throw new ArgumentException( "泛型类型参数不能为空" );
-            return genericArgumentsTypes[0];
+            return GetType( obj.GetType() );
+        }
+
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        private static Type GetType( Type type ) {
+            return Reflection.GetElementType( type );
         }
 
         /// <summary>
