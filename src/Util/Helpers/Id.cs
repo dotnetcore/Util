@@ -45,5 +45,13 @@ namespace Util.Helpers {
         public static Guid GetGuid() {
             return string.IsNullOrWhiteSpace( _id ) ? System.Guid.NewGuid() : _id.ToGuid();
         }
+
+        /// <summary>
+        /// 获取包含时间和类型的Guid
+        /// </summary>
+        public static Guid GetTimedId(byte uType = 0)
+        {
+            return string.IsNullOrWhiteSpace(_id) ? Internal.TimedGuid.NewGuid(uType) : System.Guid.Empty;
+        }
     }
 }
