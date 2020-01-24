@@ -18,7 +18,7 @@ namespace Util.Helpers {
     /// <summary>
     /// Web操作
     /// </summary>
-    public static class Web {
+    public static partial class Web {
 
         #region 静态构造方法
 
@@ -72,9 +72,9 @@ namespace Util.Helpers {
         /// </summary>
         public static ClaimsPrincipal User {
             get {
-                if( HttpContext == null )
+                if ( HttpContext == null )
                     return UnauthenticatedPrincipal.Instance;
-                if( HttpContext.User is ClaimsPrincipal principal )
+                if ( HttpContext.User is ClaimsPrincipal principal )
                     return principal;
                 return UnauthenticatedPrincipal.Instance;
             }
@@ -89,7 +89,7 @@ namespace Util.Helpers {
         /// </summary>
         public static ClaimsIdentity Identity {
             get {
-                if( User.Identity is ClaimsIdentity identity )
+                if ( User.Identity is ClaimsIdentity identity )
                     return identity;
                 return UnauthenticatedIdentity.Instance;
             }
@@ -123,7 +123,7 @@ namespace Util.Helpers {
         /// </summary>
         public static string Body {
             get {
-                Request.EnableBuffering();
+                Request.EnableRewind();
                 return File.ToString( Request.Body, isCloseStream: false );
             }
         }
@@ -197,12 +197,12 @@ namespace Util.Helpers {
         /// </summary>
         public static string Ip {
             get {
-                if( string.IsNullOrWhiteSpace( _ip ) == false )
+                if ( string.IsNullOrWhiteSpace( _ip ) == false )
                     return _ip;
                 var list = new[] { "127.0.0.1", "::1" };
                 var result = HttpContext?.Connection?.RemoteIpAddress.SafeString();
-                if (string.IsNullOrWhiteSpace(result) || list.Contains(result))
-                    result = Common.IsWindows ? GetLanIp() : GetLanIp(NetworkInterfaceType.Ethernet);
+                if ( string.IsNullOrWhiteSpace( result ) || list.Contains( result ) )
+                    result = Common.IsWindows ? GetLanIp() : GetLanIp( NetworkInterfaceType.Ethernet );
                 return result;
             }
         }
@@ -211,8 +211,8 @@ namespace Util.Helpers {
         /// 获取局域网IP
         /// </summary>
         private static string GetLanIp() {
-            foreach( var hostAddress in Dns.GetHostAddresses( Dns.GetHostName() ) ) {
-                if( hostAddress.AddressFamily == AddressFamily.InterNetwork )
+            foreach ( var hostAddress in Dns.GetHostAddresses( Dns.GetHostName() ) ) {
+                if ( hostAddress.AddressFamily == AddressFamily.InterNetwork )
                     return hostAddress.ToString();
             }
             return string.Empty;
@@ -222,16 +222,16 @@ namespace Util.Helpers {
         /// 获取局域网IP
         /// </summary>
         /// <param name="type">网络接口类型</param>
-        private static string GetLanIp(NetworkInterfaceType type) {
+        private static string GetLanIp( NetworkInterfaceType type ) {
             try {
-                foreach (var item in NetworkInterface.GetAllNetworkInterfaces()) {
-                    if(item.NetworkInterfaceType!=type || item.OperationalStatus!=OperationalStatus.Up)
+                foreach ( var item in NetworkInterface.GetAllNetworkInterfaces() ) {
+                    if ( item.NetworkInterfaceType != type || item.OperationalStatus != OperationalStatus.Up )
                         continue;
                     var ipProperties = item.GetIPProperties();
-                    if(ipProperties.GatewayAddresses.FirstOrDefault() == null)
+                    if ( ipProperties.GatewayAddresses.FirstOrDefault() == null )
                         continue;
-                    foreach (var ip in ipProperties.UnicastAddresses) {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                    foreach ( var ip in ipProperties.UnicastAddresses ) {
+                        if ( ip.Address.AddressFamily == AddressFamily.InterNetwork )
                             return ip.Address.ToString();
                     }
                 }
@@ -257,10 +257,10 @@ namespace Util.Helpers {
         /// </summary>
         private static string GetClientHostName() {
             var address = GetRemoteAddress();
-            if( string.IsNullOrWhiteSpace( address ) )
+            if ( string.IsNullOrWhiteSpace( address ) )
                 return Dns.GetHostName();
             var result = Dns.GetHostEntry( IPAddress.Parse( address ) ).HostName;
-            if( result == "localhost.localdomain" )
+            if ( result == "localhost.localdomain" )
                 result = Dns.GetHostName();
             return result;
         }
@@ -309,7 +309,7 @@ namespace Util.Helpers {
         public static List<IFormFile> GetFiles() {
             var result = new List<IFormFile>();
             var files = Request.Form.Files;
-            if( files == null || files.Count == 0 )
+            if ( files == null || files.Count == 0 )
                 return result;
             result.AddRange( files.Where( file => file?.Length > 0 ) );
             return result;
@@ -341,15 +341,15 @@ namespace Util.Helpers {
             if ( Request == null )
                 return string.Empty;
             var result = string.Empty;
-            if( Request.Query != null )
+            if ( Request.Query != null )
                 result = Request.Query[name];
             if ( string.IsNullOrWhiteSpace( result ) == false )
                 return result;
-            if( Request.Form != null )
+            if ( Request.Form != null )
                 result = Request.Form[name];
-            if( string.IsNullOrWhiteSpace( result ) == false )
+            if ( string.IsNullOrWhiteSpace( result ) == false )
                 return result;
-            if( Request.Headers != null )
+            if ( Request.Headers != null )
                 result = Request.Headers[name];
             return result;
         }
@@ -386,7 +386,7 @@ namespace Util.Helpers {
         /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
         public static string UrlEncode( string url, Encoding encoding, bool isUpper = false ) {
             var result = HttpUtility.UrlEncode( url, encoding );
-            if( isUpper == false )
+            if ( isUpper == false )
                 return result;
             return GetUpperEncode( result );
         }
@@ -397,11 +397,11 @@ namespace Util.Helpers {
         private static string GetUpperEncode( string encode ) {
             var result = new StringBuilder();
             int index = int.MinValue;
-            for( int i = 0; i < encode.Length; i++ ) {
+            for ( int i = 0; i < encode.Length; i++ ) {
                 string character = encode[i].ToString();
-                if( character == "%" )
+                if ( character == "%" )
                     index = i;
-                if( i - index == 1 || i - index == 2 )
+                if ( i - index == 1 || i - index == 2 )
                     character = character.ToUpper();
                 result.Append( character );
             }
@@ -488,7 +488,7 @@ namespace Util.Helpers {
         /// <param name="fileName">文件名,包含扩展名</param>
         /// <param name="encoding">字符编码</param>
         public static async Task DownloadAsync( byte[] bytes, string fileName, Encoding encoding ) {
-            if( bytes == null || bytes.Length == 0 )
+            if ( bytes == null || bytes.Length == 0 )
                 return;
             fileName = fileName.Replace( " ", "" );
             fileName = UrlEncode( fileName, encoding );

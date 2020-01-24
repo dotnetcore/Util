@@ -3,13 +3,13 @@ using Util.Domains.Trees;
 
 namespace Util.Datas.Persistence {
     /// <summary>
-    /// 树型持久化对象
+    /// 树形持久化对象
     /// </summary>
     public abstract class TreePersistentObjectBase : TreePersistentObjectBase<Guid, Guid?> {
     }
 
     /// <summary>
-    /// 树型持久化对象
+    /// 树形持久化对象
     /// </summary>
     /// <typeparam name="TKey">标识类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
@@ -25,7 +25,7 @@ namespace Util.Datas.Persistence {
         public virtual string Path { get; set; }
 
         /// <summary>
-        /// 级数
+        /// 层级
         /// </summary>
         public int Level { get; set; }
 

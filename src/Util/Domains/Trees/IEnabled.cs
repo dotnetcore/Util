@@ -1,6 +1,6 @@
 ﻿namespace Util.Domains.Trees {
     /// <summary>
-    /// 树型节点启用
+    /// 树形节点启用
     /// </summary>
     public interface IEnabled {
         /// <summary>

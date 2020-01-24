@@ -22,6 +22,15 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         }
 
         /// <summary>
+        /// 设置支付宝交易号
+        /// </summary>
+        /// <param name="tradeId">支付宝交易号</param>
+        public AlipayContentBuilder TradeNo( string tradeId ) {
+            Add( AlipayConst.TradeNo, tradeId );
+            return this;
+        }
+
+        /// <summary>
         /// 设置商户订单号
         /// </summary>
         /// <param name="orderId">商户订单号</param>

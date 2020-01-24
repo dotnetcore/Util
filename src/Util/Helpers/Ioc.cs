@@ -8,7 +8,7 @@ namespace Util.Helpers {
     /// <summary>
     /// 容器
     /// </summary>
-    public static class Ioc {
+    public static partial class Ioc {
         /// <summary>
         /// 默认容器
         /// </summary>
@@ -73,8 +73,8 @@ namespace Util.Helpers {
         /// 注册依赖
         /// </summary>
         /// <param name="configs">依赖配置</param>
-        public static IServiceProvider Register( params IConfig[] configs ) {
-            return DefaultContainer.Register( null, builder => builder.EnableAop(), configs );
+        public static void Register( params IConfig[] configs ) {
+            DefaultContainer.Register( null, builder => builder.EnableAop(), configs );
         }
 
         /// <summary>

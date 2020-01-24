@@ -38,11 +38,17 @@ namespace Util.Biz.Payments.Wechatpay.Parameters {
         /// <summary>
         /// 初始化
         /// </summary>
+        public void Init() {
+            AppId( Config.AppId ).MerchantId( Config.MerchantId ).SignType( Config.SignType.Description() ).Add( "nonce_str", Id.Guid() );
+        }
+
+        /// <summary>
+        /// 初始化支付参数
+        /// </summary>
         public void Init( PayParam param ) {
             param.CheckNull( nameof( param ) );
             param.Init();
-            AppId( Config.AppId ).MerchantId( Config.MerchantId ).SignType( Config.SignType.Description() )
-                .Add( "nonce_str", Id.Guid() ).SpbillCreateIp( Web.Ip ).Body( param.Subject ).OutTradeNo( param.OrderId )
+            SpbillCreateIp( Web.Ip ).Body( param.Subject ).OutTradeNo( param.OrderId )
                 .TotalFee( param.Money ).NotifyUrl( param.NotifyUrl ).Attach( param.Attach );
         }
 

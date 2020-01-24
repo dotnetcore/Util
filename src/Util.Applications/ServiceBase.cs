@@ -14,7 +14,7 @@ namespace Util.Applications {
         /// <summary>
         /// 日志
         /// </summary>
-        public ILog Log => _log ?? (_log = GetLog() );
+        public ILog Log => _log ??= GetLog();
 
         /// <summary>
         /// 获取日志操作

@@ -14,7 +14,7 @@ namespace Util.Domains.Trees {
         /// </summary>
         /// <param name="id">标识</param>
         /// <param name="path">路径</param>
-        /// <param name="level">级数</param>
+        /// <param name="level">层级</param>
         protected TreeEntityBase( Guid id, string path, int level )
             : base( id, path, level ) {
         }
@@ -32,7 +32,7 @@ namespace Util.Domains.Trees {
         /// </summary>
         /// <param name="id">标识</param>
         /// <param name="path">路径</param>
-        /// <param name="level">级数</param>
+        /// <param name="level">层级</param>
         protected TreeEntityBase( TKey id, string path, int level )
             : base( id ) {
             Path = path;

@@ -15,7 +15,7 @@ namespace Util.Webs.Controllers {
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>    
-    public abstract class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
+    public abstract partial class QueryControllerBase<TDto, TQuery> : WebApiControllerBase
         where TQuery : IQueryParameter
         where TDto : IDto, new() {
         /// <summary>
@@ -114,9 +114,9 @@ namespace Util.Webs.Controllers {
         /// <param name="query">查询参数</param>
         [HttpGet( "Items" )]
         public virtual async Task<IActionResult> GetItemsAsync( TQuery query ) {
-            if( query == null )
+            if ( query == null )
                 return Fail( WebResource.QueryIsEmpty );
-            if( query.Order.IsEmpty() )
+            if ( query.Order.IsEmpty() )
                 query.Order = "CreationTime Desc";
             var list = await _service.PagerQueryAsync( query );
             var result = list.Data.Select( ToItem );

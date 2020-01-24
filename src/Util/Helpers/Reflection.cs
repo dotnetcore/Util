@@ -10,7 +10,7 @@ namespace Util.Helpers {
     /// <summary>
     /// 反射操作
     /// </summary>
-    public static class Reflection {
+    public static partial class Reflection {
         /// <summary>
         /// 获取类型描述，使用DescriptionAttribute设置描述
         /// </summary>
@@ -34,9 +34,9 @@ namespace Util.Helpers {
         /// <param name="type">类型</param>
         /// <param name="memberName">成员名称</param>
         public static string GetDescription( Type type, string memberName ) {
-            if( type == null )
+            if ( type == null )
                 return string.Empty;
-            if( string.IsNullOrWhiteSpace( memberName ) )
+            if ( string.IsNullOrWhiteSpace( memberName ) )
                 return string.Empty;
             return GetDescription( type.GetTypeInfo().GetMember( memberName ).FirstOrDefault() );
         }
@@ -46,7 +46,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="member">成员</param>
         public static string GetDescription( MemberInfo member ) {
-            if( member == null )
+            if ( member == null )
                 return string.Empty;
             return member.GetCustomAttribute<DescriptionAttribute>() is DescriptionAttribute attribute ? attribute.Description : member.Name;
         }
@@ -63,11 +63,11 @@ namespace Util.Helpers {
         /// 获取显示名称，使用DisplayAttribute或DisplayNameAttribute设置显示名称
         /// </summary>
         public static string GetDisplayName( MemberInfo member ) {
-            if( member == null )
+            if ( member == null )
                 return string.Empty;
-            if( member.GetCustomAttribute<DisplayAttribute>() is DisplayAttribute displayAttribute )
+            if ( member.GetCustomAttribute<DisplayAttribute>() is DisplayAttribute displayAttribute )
                 return displayAttribute.Name;
-            if( member.GetCustomAttribute<DisplayNameAttribute>() is DisplayNameAttribute displayNameAttribute )
+            if ( member.GetCustomAttribute<DisplayNameAttribute>() is DisplayNameAttribute displayNameAttribute )
                 return displayNameAttribute.DisplayName;
             return string.Empty;
         }
@@ -121,10 +121,10 @@ namespace Util.Helpers {
             try {
                 types = assembly.GetTypes();
             }
-            catch( ReflectionTypeLoadException ) {
+            catch ( ReflectionTypeLoadException ) {
                 return result;
             }
-            foreach( var type in types )
+            foreach ( var type in types )
                 AddType( result, findType, type );
             return result;
         }
@@ -133,9 +133,9 @@ namespace Util.Helpers {
         /// 添加类型
         /// </summary>
         private static void AddType( List<Type> result, Type findType, Type type ) {
-            if( type.IsInterface || type.IsAbstract )
+            if ( type.IsInterface || type.IsAbstract )
                 return;
-            if( findType.IsAssignableFrom( type ) == false && MatchGeneric( findType, type ) == false )
+            if ( findType.IsAssignableFrom( type ) == false && MatchGeneric( findType, type ) == false )
                 return;
             result.Add( type );
         }
@@ -144,11 +144,11 @@ namespace Util.Helpers {
         /// 泛型匹配
         /// </summary>
         private static bool MatchGeneric( Type findType, Type type ) {
-            if( findType.IsGenericTypeDefinition == false )
+            if ( findType.IsGenericTypeDefinition == false )
                 return false;
             var definition = findType.GetGenericTypeDefinition();
-            foreach( var implementedInterface in type.FindInterfaces( ( filter, criteria ) => true, null ) ) {
-                if( implementedInterface.IsGenericType == false )
+            foreach ( var implementedInterface in type.FindInterfaces( ( filter, criteria ) => true, null ) ) {
+                if ( implementedInterface.IsGenericType == false )
                     continue;
                 return definition.IsAssignableFrom( implementedInterface.GetGenericTypeDefinition() );
             }
@@ -188,9 +188,9 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="member">成员</param>
         public static bool IsBool( MemberInfo member ) {
-            if( member == null )
+            if ( member == null )
                 return false;
-            switch( member.MemberType ) {
+            switch ( member.MemberType ) {
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.Boolean";
                 case MemberTypes.Property:
@@ -211,9 +211,9 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="member">成员</param>
         public static bool IsEnum( MemberInfo member ) {
-            if( member == null )
+            if ( member == null )
                 return false;
-            switch( member.MemberType ) {
+            switch ( member.MemberType ) {
                 case MemberTypes.TypeInfo:
                     return ( (TypeInfo)member ).IsEnum;
                 case MemberTypes.Property:
@@ -226,10 +226,10 @@ namespace Util.Helpers {
         /// 是否枚举类型
         /// </summary>
         private static bool IsEnum( PropertyInfo property ) {
-            if( property.PropertyType.GetTypeInfo().IsEnum )
+            if ( property.PropertyType.GetTypeInfo().IsEnum )
                 return true;
             var value = Nullable.GetUnderlyingType( property.PropertyType );
-            if( value == null )
+            if ( value == null )
                 return false;
             return value.GetTypeInfo().IsEnum;
         }
@@ -239,9 +239,9 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="member">成员</param>
         public static bool IsDate( MemberInfo member ) {
-            if( member == null )
+            if ( member == null )
                 return false;
-            switch( member.MemberType ) {
+            switch ( member.MemberType ) {
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.DateTime";
                 case MemberTypes.Property:
@@ -254,9 +254,9 @@ namespace Util.Helpers {
         /// 是否日期类型
         /// </summary>
         private static bool IsDate( PropertyInfo property ) {
-            if( property.PropertyType == typeof( DateTime ) )
+            if ( property.PropertyType == typeof( DateTime ) )
                 return true;
-            if( property.PropertyType == typeof( DateTime? ) )
+            if ( property.PropertyType == typeof( DateTime? ) )
                 return true;
             return false;
         }
@@ -266,9 +266,9 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="member">成员</param>
         public static bool IsInt( MemberInfo member ) {
-            if( member == null )
+            if ( member == null )
                 return false;
-            switch( member.MemberType ) {
+            switch ( member.MemberType ) {
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.Int32" || member.ToString() == "System.Int16" || member.ToString() == "System.Int64";
                 case MemberTypes.Property:
@@ -281,17 +281,17 @@ namespace Util.Helpers {
         /// 是否整型
         /// </summary>
         private static bool IsInt( PropertyInfo property ) {
-            if( property.PropertyType == typeof( int ) )
+            if ( property.PropertyType == typeof( int ) )
                 return true;
-            if( property.PropertyType == typeof( int? ) )
+            if ( property.PropertyType == typeof( int? ) )
                 return true;
-            if( property.PropertyType == typeof( short ) )
+            if ( property.PropertyType == typeof( short ) )
                 return true;
-            if( property.PropertyType == typeof( short? ) )
+            if ( property.PropertyType == typeof( short? ) )
                 return true;
-            if( property.PropertyType == typeof( long ) )
+            if ( property.PropertyType == typeof( long ) )
                 return true;
-            if( property.PropertyType == typeof( long? ) )
+            if ( property.PropertyType == typeof( long? ) )
                 return true;
             return false;
         }
@@ -301,11 +301,11 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="member">成员</param>
         public static bool IsNumber( MemberInfo member ) {
-            if( member == null )
+            if ( member == null )
                 return false;
-            if( IsInt( member ) )
+            if ( IsInt( member ) )
                 return true;
-            switch( member.MemberType ) {
+            switch ( member.MemberType ) {
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.Double" || member.ToString() == "System.Decimal" || member.ToString() == "System.Single";
                 case MemberTypes.Property:
@@ -318,17 +318,17 @@ namespace Util.Helpers {
         /// 是否数值类型
         /// </summary>
         private static bool IsNumber( PropertyInfo property ) {
-            if( property.PropertyType == typeof( double ) )
+            if ( property.PropertyType == typeof( double ) )
                 return true;
-            if( property.PropertyType == typeof( double? ) )
+            if ( property.PropertyType == typeof( double? ) )
                 return true;
-            if( property.PropertyType == typeof( decimal ) )
+            if ( property.PropertyType == typeof( decimal ) )
                 return true;
-            if( property.PropertyType == typeof( decimal? ) )
+            if ( property.PropertyType == typeof( decimal? ) )
                 return true;
-            if( property.PropertyType == typeof( float ) )
+            if ( property.PropertyType == typeof( float ) )
                 return true;
-            if( property.PropertyType == typeof( float? ) )
+            if ( property.PropertyType == typeof( float? ) )
                 return true;
             return false;
         }
@@ -338,7 +338,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="type">类型</param>
         public static bool IsCollection( Type type ) {
-            if( type.IsArray )
+            if ( type.IsArray )
                 return true;
             return IsGenericCollection( type );
         }
@@ -348,7 +348,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="type">类型</param>
         public static bool IsGenericCollection( Type type ) {
-            if( !type.IsGenericType )
+            if ( !type.IsGenericType )
                 return false;
             var typeDefinition = type.GetGenericTypeDefinition();
             return typeDefinition == typeof( IEnumerable<> )
@@ -391,13 +391,28 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="type">类型</param>
         public static Type GetTopBaseType( Type type ) {
-            if( type == null )
+            if ( type == null )
                 return null;
             if ( type.IsInterface )
                 return type;
-            if( type.BaseType == typeof( object ) )
+            if ( type.BaseType == typeof( object ) )
                 return type;
             return GetTopBaseType( type.BaseType );
+        }
+
+        /// <summary>
+        /// 获取元素类型，如果是集合，返回集合的元素类型
+        /// </summary>
+        /// <param name="type">类型</param>
+        public static Type GetElementType( Type type ) {
+            if ( IsCollection( type ) == false )
+                return type;
+            if ( type.IsArray )
+                return type.GetElementType();
+            var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
+            if ( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
+                throw new ArgumentException( "泛型类型参数不能为空" );
+            return genericArgumentsTypes[0];
         }
     }
 }

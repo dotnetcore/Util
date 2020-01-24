@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Util.Biz.Payments.Wechatpay.Configs;
+using Util.Biz.Payments.Wechatpay.Parameters;
 using Util.Biz.Payments.Wechatpay.Signatures;
 using Util.Helpers;
 using Util.Logs;
@@ -15,10 +16,6 @@ namespace Util.Biz.Payments.Wechatpay.Results {
     /// </summary>
     public class WechatpayResult {
         /// <summary>
-        /// 配置提供器
-        /// </summary>
-        private readonly IWechatpayConfigProvider _configProvider;
-        /// <summary>
         /// 响应结果
         /// </summary>
         private readonly ParameterBuilder _builder;
@@ -26,23 +23,40 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// 签名
         /// </summary>
         private string _sign;
-        /// <summary>
-        /// 微信支付原始响应
-        /// </summary>
-        public string Raw { get; }
 
         /// <summary>
         /// 初始化微信支付结果
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
         /// <param name="response">xml响应消息</param>
-        public WechatpayResult( IWechatpayConfigProvider configProvider, string response ) {
+        /// <param name="config">配置</param>
+        /// <param name="parameterBuilder">参数生成器</param>
+        public WechatpayResult( IWechatpayConfigProvider configProvider, string response, WechatpayConfig config = null, WechatpayParameterBuilder parameterBuilder = null ) {
             configProvider.CheckNull( nameof( configProvider ) );
-            _configProvider = configProvider;
+            ConfigProvider = configProvider;
             Raw = response;
+            Config = config;
+            Builder = parameterBuilder;
             _builder = new ParameterBuilder();
             Resolve( response );
         }
+
+        /// <summary>
+        /// 微信支付原始响应
+        /// </summary>
+        public string Raw { get; }
+        /// <summary>
+        /// 配置提供器
+        /// </summary>
+        public IWechatpayConfigProvider ConfigProvider { get; }
+        /// <summary>
+        /// 配置
+        /// </summary>
+        public WechatpayConfig Config { get; }
+        /// <summary>
+        /// 参数生成器
+        /// </summary>
+        public WechatpayParameterBuilder Builder { get; }
 
         /// <summary>
         /// 解析响应
@@ -207,7 +221,7 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// 验证签名
         /// </summary>
         public async Task<bool> VerifySign() {
-            var config = await _configProvider.GetConfigAsync( _builder );
+            var config = await ConfigProvider.GetConfigAsync( _builder );
             return SignManagerFactory.Create( config, _builder ).Verify( GetSign() );
         }
     }

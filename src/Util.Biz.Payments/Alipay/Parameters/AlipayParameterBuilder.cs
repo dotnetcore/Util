@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Util.Biz.Payments.Alipay.Configs;
 using Util.Biz.Payments.Core;
 using Util.Helpers;
@@ -40,11 +39,17 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// <summary>
         /// 初始化
         /// </summary>
+        public void Init() {
+            AppId( Config.AppId ).Format( "json" ).Charset( Config.Charset ).SignType( "RSA2" ).Timestamp().Version( "1.0" );
+        }
+
+        /// <summary>
+        /// 初始化支付参数
+        /// </summary>
         public void Init( PayParam param ) {
             param.Init();
             Content.Init( param );
-            Format( "json" ).Charset( Config.Charset ).SignType( "RSA2" ).Timestamp().Version( "1.0" ).AppId( Config.AppId )
-                .ReturnUrl( param.ReturnUrl ).NotifyUrl( param.NotifyUrl );
+            ReturnUrl( param.ReturnUrl ).NotifyUrl( param.NotifyUrl );
         }
 
         /// <summary>

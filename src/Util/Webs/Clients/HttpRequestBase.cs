@@ -7,6 +7,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 using Util.Helpers;
 
 namespace Util.Webs.Clients {
@@ -364,7 +365,7 @@ namespace Util.Webs.Clients {
             InitToken();
             if ( string.IsNullOrWhiteSpace( _token ) )
                 return;
-            client.SetBearerToken( _token );
+            client.SetToken( "Bearer", _token );
         }
 
         /// <summary>

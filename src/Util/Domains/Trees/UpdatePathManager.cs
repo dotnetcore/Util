@@ -6,7 +6,7 @@ using Util.Properties;
 
 namespace Util.Domains.Trees {
     /// <summary>
-    /// 树型路径更新服务
+    /// 树形路径更新服务
     /// </summary>
     public class UpdatePathManager<TEntity, TKey, TParentId>
         where TEntity : class, ITreeEntity<TEntity, TKey, TParentId> {
@@ -16,7 +16,7 @@ namespace Util.Domains.Trees {
         private readonly ITreeCompactRepository<TEntity, TKey, TParentId> _repository;
 
         /// <summary>
-        /// 初始化树型路径更新服务
+        /// 初始化树形路径更新服务
         /// </summary>
         /// <param name="repository">仓储</param>
         public UpdatePathManager( ITreeCompactRepository<TEntity, TKey, TParentId> repository ) {

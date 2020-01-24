@@ -17,9 +17,9 @@ namespace Util.Applications {
         public virtual async Task<List<TDto>> SaveAsync( List<TDto> creationList, List<TDto> updateList,List<TDto> deleteList ) {
             if( creationList == null && updateList == null && deleteList == null )
                 return new List<TDto>();
-            creationList = creationList ?? new List<TDto>();
-            updateList = updateList ?? new List<TDto>();
-            deleteList = deleteList ?? new List<TDto>();
+            creationList ??= new List<TDto>();
+            updateList ??= new List<TDto>();
+            deleteList ??= new List<TDto>();
             FilterList( creationList, updateList, deleteList );
             var addEntities = ToEntities( creationList );
             var updateEntities = ToEntities( updateList );

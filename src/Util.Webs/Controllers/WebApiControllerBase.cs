@@ -13,7 +13,7 @@ namespace Util.Webs.Controllers {
     [ExceptionHandler]
     [ErrorLog]
     [TraceLog]
-    public abstract class WebApiControllerBase : Controller {
+    public abstract partial class WebApiControllerBase : Controller {
         /// <summary>
         /// 日志
         /// </summary>
@@ -47,7 +47,7 @@ namespace Util.Webs.Controllers {
         /// <param name="data">数据</param>
         /// <param name="message">消息</param>
         protected virtual IActionResult Success( dynamic data = null, string message = null ) {
-            if( message == null )
+            if ( message == null )
                 message = R.Success;
             return new Result( StateCode.Ok, message, data );
         }

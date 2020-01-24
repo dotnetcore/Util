@@ -5,11 +5,11 @@ using Util.Domains.Trees;
 
 namespace Util.Datas.Queries.Trees {
     /// <summary>
-    /// 树型查询条件
+    /// 树形查询条件
     /// </summary>
     public class TreeCriteria<TEntity> : TreeCriteria<TEntity, Guid?> where TEntity : IPath, IEnabled, IParentId<Guid?> {
         /// <summary>
-        /// 初始化树型查询条件
+        /// 初始化树形查询条件
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public TreeCriteria( ITreeQueryParameter parameter ) : base( parameter ) {
@@ -19,11 +19,11 @@ namespace Util.Datas.Queries.Trees {
     }
 
     /// <summary>
-    /// 树型查询条件
+    /// 树形查询条件
     /// </summary>
     public class TreeCriteria<TEntity, TParentId> : ICriteria<TEntity> where TEntity : IPath, IEnabled {
         /// <summary>
-        /// 初始化树型查询条件
+        /// 初始化树形查询条件
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public TreeCriteria( ITreeQueryParameter<TParentId> parameter ) {

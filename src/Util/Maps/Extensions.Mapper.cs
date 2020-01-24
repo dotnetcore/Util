@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using System.Collections.Generic;
-using System.Reflection;
+using Util.Helpers;
 
 namespace Util.Maps {
     /// <summary>
@@ -41,35 +41,46 @@ namespace Util.Maps {
         /// 将源对象映射到目标对象
         /// </summary>
         private static TDestination MapTo<TDestination>( object source, TDestination destination ) {
-            if( source == null )
-                return default( TDestination );
-            if( destination == null )
-                return default( TDestination );
-            var sourceType = GetType( source );
-            var destinationType = GetType( destination );
-            if( Exists( sourceType, destinationType ) )
-                return GetResult( source, destination );
-            lock( Sync ) {
-                if( Exists( sourceType, destinationType ) )
-                    return GetResult( source, destination );
-                Init( sourceType, destinationType );
+            try {
+                if ( source == null )
+                    return default( TDestination );
+                if ( destination == null )
+                    return default( TDestination );
+                var sourceType = GetType( source );
+                var destinationType = GetType( destination );
+                return GetResult( sourceType, destinationType, source, destination );
             }
-            return GetResult( source, destination );
+            catch ( AutoMapperMappingException ex ) {
+                return GetResult( GetType( ex.MemberMap.SourceType ), GetType( ex.MemberMap.DestinationType ), source, destination );
+            }
         }
 
         /// <summary>
         /// 获取类型
         /// </summary>
         private static Type GetType( object obj ) {
-            var type = obj.GetType();
-            if( ( obj is System.Collections.IEnumerable ) == false )
-                return type;
-            if( type.IsArray )
-                return type.GetElementType();
-            var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
-            if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
-                throw new ArgumentException( "泛型类型参数不能为空" );
-            return genericArgumentsTypes[0];
+            return GetType( obj.GetType() );
+        }
+
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        private static Type GetType( Type type ) {
+            return Reflection.GetElementType( type );
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        private static TDestination GetResult<TDestination>( Type sourceType, Type destinationType, object source, TDestination destination ) {
+            if ( Exists( sourceType, destinationType ) )
+                return GetResult( source, destination );
+            lock ( Sync ) {
+                if ( Exists( sourceType, destinationType ) )
+                    return GetResult( source, destination );
+                Init( sourceType, destinationType );
+            }
+            return GetResult( source, destination );
         }
 
         /// <summary>
@@ -83,13 +94,13 @@ namespace Util.Maps {
         /// 初始化映射配置
         /// </summary>
         private static void Init( Type sourceType, Type destinationType ) {
-            if( _config == null ) {
+            if ( _config == null ) {
                 _config = new MapperConfiguration( t => t.CreateMap( sourceType, destinationType ) );
                 return;
             }
             var maps = _config.GetAllTypeMaps();
             _config = new MapperConfiguration( t => t.CreateMap( sourceType, destinationType ) );
-            foreach( var map in maps )
+            foreach ( var map in maps )
                 _config.RegisterTypeMap( map );
         }
 

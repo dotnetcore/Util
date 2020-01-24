@@ -95,7 +95,7 @@ namespace Util.Reflections {
         /// <param name="findType">查找类型</param>
         /// <param name="assemblies">在指定的程序集列表中查找</param>
         public List<Type> Find( Type findType, List<Assembly> assemblies = null ) {
-            assemblies = assemblies ?? GetAssemblies();
+            assemblies ??= GetAssemblies();
             return Reflection.FindTypes( findType, assemblies.ToArray() );
         }
     }

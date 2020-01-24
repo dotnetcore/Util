@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Util.Tests.Samples {
@@ -10,7 +11,7 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 描述
         /// </summary>
-        [Description("描述")]
+        [Description( "描述" )]
         public string Description { get; set; }
         /// <summary>
         /// 显示名
@@ -20,7 +21,7 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 显示描述
         /// </summary>
-        [Display( Description= "显示描述" )]
+        [Display( Description = "显示描述" )]
         public string Display { get; set; }
         /// <summary>
         /// string值
@@ -42,5 +43,9 @@ namespace Util.Tests.Samples {
         /// 导航属性
         /// </summary>
         public Sample3 Test3 { get; set; }
+        /// <summary>
+        /// 导航属性
+        /// </summary>
+        public List<Sample3> TestList { get; set; }
     }
 }

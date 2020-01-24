@@ -13,7 +13,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
     /// <summary>
     /// 微信小程序支付服务
     /// </summary>
-    public class WechatpayMiniProgramPayService : WechatpayServiceBase, IWechatpayMiniProgramPayService {
+    public class WechatpayMiniProgramPayService : WechatpayPayServiceBase, IWechatpayMiniProgramPayService {
         /// <summary>
         /// 初始化微信小程序支付服务
         /// </summary>
@@ -27,13 +27,6 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <param name="request">支付参数</param>
         public async Task<PayResult> PayAsync( WechatpayMiniProgramPayRequest request ) {
             return await PayAsync( request.ToParam() );
-        }
-
-        /// <summary>
-        /// 获取支付方式
-        /// </summary>
-        protected override PayWay GetPayWay() {
-            return PayWay.WechatpayMiniProgramPay;
         }
 
         /// <summary>
@@ -64,16 +57,14 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <summary>
         /// 获取结果
         /// </summary>
-        /// <param name="config">支付配置</param>
-        /// <param name="builder">参数生成器</param>
         /// <param name="result">支付结果</param>
-        protected override string GetResult( WechatpayConfig config, WechatpayParameterBuilder builder, WechatpayResult result ) {
-            return new WechatpayParameterBuilder( config )
-                .Add( "appId", config.AppId )
+        protected override string GetResult( WechatpayResult result ) {
+            return new WechatpayParameterBuilder( result.Config )
+                .Add( "appId", result.Config.AppId )
                 .Add( "timeStamp", Time.GetUnixTimestamp().SafeString() )
                 .Add( "nonceStr", Id.Guid() )
                 .Package( $"prepay_id={result.GetPrepayId()}" )
-                .Add( "signType", config.SignType.Description() )
+                .Add( "signType", result.Config.SignType.Description() )
                 .ToJson();
         }
     }

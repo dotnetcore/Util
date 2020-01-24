@@ -1,4 +1,4 @@
-﻿using DotNetCore.CAP.Abstractions;
+﻿using DotNetCore.CAP.Internal;
 
 namespace Util.Events {
     /// <summary>
