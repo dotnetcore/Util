@@ -140,6 +140,35 @@ namespace Util.Search.ElasticSearch.Services {
         }
 
         /// <summary>
+        /// 嵌套属性排序
+        /// </summary>
+        /// <param name="path">排序路径</param>
+        /// <param name="expression">排序字段表达式</param>
+        /// <param name="desc">是否降序</param>
+        public Search<TResult> NestOrderBy<TProperty>( Expression<Func<TResult, TProperty>> path, Expression<Func<TResult, TProperty>> expression, bool desc = false ) {
+            _sorts.Add( new FieldSort {
+                Field = new Field( expression ),
+                Order = GetOrder( desc ),
+                Nested = new NestedSort {
+                    Path = new Field( path ),
+                    Filter = new MatchAllQuery()
+                }
+            } );
+            return this;
+        }
+
+        /// <summary>
+        /// 嵌套属性排序
+        /// </summary>
+        /// <param name="path">排序路径</param>
+        /// <param name="expression">排序字段表达式</param>
+        /// <param name="desc">是否降序</param>
+        /// <param name="condition">当值为true时添加排序</param>
+        public Search<TResult> NestOrderByIf<TProperty>( Expression<Func<TResult, TProperty>> path, Expression<Func<TResult, TProperty>> expression, bool desc, bool condition ) {
+            return condition ? NestOrderBy( path, expression, desc ) : this;
+        }
+
+        /// <summary>
         /// 获取排序方向
         /// </summary>
         private SortOrder GetOrder( bool desc ) {
