@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Applications\08-Util.Applications.csproj" />
+    <ProjectReference Include="..\..\src\Util.Applications\09-Util.Applications.csproj" />
     <ProjectReference Include="..\..\src\Util.Tools.Offices\03-Util.Tools.Offices.csproj" />
     <ProjectReference Include="..\..\src\Util.Ui.Angular\01-Util.Ui.Angular.csproj" />
     <ProjectReference Include="..\Util.Samples.Data\Util.Samples.Data.csproj" />

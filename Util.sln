@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Biz", "src\Util.Biz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Security", "src\Util.Security\02-Util.Security.csproj", "{83E78951-5FBE-43D5-A6BE-7735721E4C1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "08-Util.Applications", "src\Util.Applications\08-Util.Applications.csproj", "{7A5E9C1B-CE91-463D-B0D1-8117C9E29D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "09-Util.Applications", "src\Util.Applications\09-Util.Applications.csproj", "{7A5E9C1B-CE91-463D-B0D1-8117C9E29D30}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Events", "src\Util.Events\05-Util.Events.csproj", "{A93DFEEC-0DC7-4628-96F7-914A8053732B}"
 EndProject
@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Tools", "04-Tools", "{19
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Ui.Angular", "src\Util.Ui.Angular\01-Util.Ui.Angular.csproj", "{AD7CD285-D899-443D-A02C-D62C7C0A351F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "09-Util.Webs", "src\Util.Webs\09-Util.Webs.csproj", "{0A32F32B-49DF-49AB-8F3C-AFDD28517A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10-Util.Webs", "src\Util.Webs\10-Util.Webs.csproj", "{0A32F32B-49DF-49AB-8F3C-AFDD28517A89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Tools.QrCode", "src\Util.Tools.QrCode\01-Util.Tools.QrCode.csproj", "{ED44ED49-3F9E-4D14-A600-51D7792A3F64}"
 EndProject
@@ -85,6 +85,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Tools.Offices.Tests.Integration", "test\Util.Tools.Offices.Tests.Integration\Util.Tools.Offices.Tests.Integration.csproj", "{F65754FF-D699-40BF-B29F-46AD55E7FDF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Samples.AntDesign", "sample\Util.Samples.AntDesign\Util.Samples.AntDesign.csproj", "{8ACCC368-DF48-4B9F-8645-8C71280658C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "08-Util.Search", "src\Util.Search\08-Util.Search.csproj", "{10FAA4B1-CFF2-4355-B9B3-887BDC9A675D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,6 +202,10 @@ Global
 		{8ACCC368-DF48-4B9F-8645-8C71280658C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ACCC368-DF48-4B9F-8645-8C71280658C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ACCC368-DF48-4B9F-8645-8C71280658C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10FAA4B1-CFF2-4355-B9B3-887BDC9A675D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10FAA4B1-CFF2-4355-B9B3-887BDC9A675D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10FAA4B1-CFF2-4355-B9B3-887BDC9A675D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10FAA4B1-CFF2-4355-B9B3-887BDC9A675D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -244,6 +250,7 @@ Global
 		{8426424E-CC15-404D-B89D-E2CD50FC317D} = {1907A873-8368-4CFF-B5B3-98F04CD2E3A7}
 		{F65754FF-D699-40BF-B29F-46AD55E7FDF1} = {884F9933-2A36-4BD3-B048-DD770E9169DE}
 		{8ACCC368-DF48-4B9F-8645-8C71280658C4} = {3FAAA4DC-3245-4270-8BAF-C6333C79D516}
+		{10FAA4B1-CFF2-4355-B9B3-887BDC9A675D} = {3746073A-1C5C-40A7-9D50-CB2A94CA888A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA6E8E23-8AB6-4AB6-9B31-494CB7CE5E63}

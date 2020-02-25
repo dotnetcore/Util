@@ -21,9 +21,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.4">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Biz\01-Util.Biz.csproj" />
+    <ProjectReference Include="..\..\src\Util.Search\08-Util.Search.csproj" />
     <ProjectReference Include="..\..\src\Util.Ui.Angular.AntDesign\02-Util.Ui.Angular.AntDesign.csproj" />
     <ProjectReference Include="..\..\src\Util\01-Util.csproj" />
     <ProjectReference Include="..\Util.Samples.Service\Util.Samples.Service.csproj" />
@@ -41,5 +42,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <!-- 发布阶段打包 -->
+  <Target Name="Publish_RunWebpack" AfterTargets="ComputeFilesToPublish">
+    <Message Importance="high" Text="Webpack开始打包..." />
+    <Exec Command="npm run prod" />
+  </Target>
 
 </Project>

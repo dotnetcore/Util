@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<Import Project="../../build/version.props" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <AssemblyName>Util.Search</AssemblyName>
+    <PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
+    <RootNamespace>Util.Search</RootNamespace>
+    <Copyright>何镇汐</Copyright>
+    <Description>Util.Search是Util应用框架的搜索类库。
+Util是一个.net core平台下的应用框架，旨在提升小型团队的开发输出能力，由常用公共操作类(工具类)、分层架构基类、Ui组件，第三方组件封装，第三方业务接口封装，配套代码生成模板，权限等组成。
+</Description>
+    <Product>Util.Search</Product>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>何镇汐</Authors>
+    <Company>何镇汐</Company>
+    <PackageId>Util.Search</PackageId>
+    <PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dotnetcore/Util</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.1\Util.Search.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\output\release\</OutputPath>
+    <DocumentationFile>..\..\output\release\netstandard2.1\Util.Search.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NEST" Version="7.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Logs\03-Util.Logs.csproj" />
+  </ItemGroup>
+
+</Project>

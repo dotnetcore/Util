@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Applications\08-Util.Applications.csproj" />
+    <ProjectReference Include="..\..\src\Util.Applications\09-Util.Applications.csproj" />
     <ProjectReference Include="..\..\src\Util.Caches\04-Util.Caches.csproj" />
     <ProjectReference Include="..\..\src\Util.Datas\07-Util.Datas.csproj" />
     <ProjectReference Include="..\..\src\Util.Events\05-Util.Events.csproj" />
