@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Util.Webs.Clients {
     /// <summary>
@@ -35,6 +36,14 @@ namespace Util.Webs.Clients {
         /// <param name="url">地址</param>
         public IHttpRequest Delete( string url ) {
             return new HttpRequest( HttpMethod.Delete, url );
+        }
+
+        /// <summary>
+        /// 获取流
+        /// </summary>
+        /// <param name="url">地址</param>
+        public async Task<byte[]> GetStreamAsync( string url ) {
+            return await new HttpRequest( HttpMethod.Get, url ).GetStreamAsync(  );
         }
     }
 

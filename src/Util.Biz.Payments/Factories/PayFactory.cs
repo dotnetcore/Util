@@ -81,6 +81,13 @@ namespace Util.Biz.Payments.Factories {
         }
 
         /// <summary>
+        /// 创建支付宝下载对账单服务
+        /// </summary>
+        public IAlipayDownloadBillService CreateAlipayDownloadBillService() {
+            return new AlipayDownloadBillService( _alipayConfigProvider );
+        }
+
+        /// <summary>
         /// 创建支付宝条码支付服务
         /// </summary>
         public IAlipayBarcodePayService CreateAlipayBarcodePayService() {
@@ -134,6 +141,13 @@ namespace Util.Biz.Payments.Factories {
         /// </summary>
         public IWechatpayCloseOrderService CreateWechatpayCloseOrderService() {
             return new WechatpayCloseOrderService( _wechatpayConfigProvider );
+        }
+
+        /// <summary>
+        /// 创建微信下载对账单服务
+        /// </summary>
+        public IWechatpayDownloadBillService CreateWechatpayDownloadBillService() {
+            return new WechatpayDownloadBillService( _wechatpayConfigProvider );
         }
 
         /// <summary>

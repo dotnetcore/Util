@@ -25,6 +25,10 @@ namespace Util.Biz.Payments {
         /// </summary>
         IAlipayCancelService CreateAlipayCancelService();
         /// <summary>
+        /// 创建支付宝下载对账单服务
+        /// </summary>
+        IAlipayDownloadBillService CreateAlipayDownloadBillService();
+        /// <summary>
         /// 创建支付宝条码支付服务
         /// </summary>
         IAlipayBarcodePayService CreateAlipayBarcodePayService();
@@ -56,6 +60,10 @@ namespace Util.Biz.Payments {
         /// 创建微信关闭订单服务
         /// </summary>
         IWechatpayCloseOrderService CreateWechatpayCloseOrderService();
+        /// <summary>
+        /// 创建微信下载对账单服务
+        /// </summary>
+        IWechatpayDownloadBillService CreateWechatpayDownloadBillService();
         /// <summary>
         /// 创建微信App支付服务
         /// </summary>

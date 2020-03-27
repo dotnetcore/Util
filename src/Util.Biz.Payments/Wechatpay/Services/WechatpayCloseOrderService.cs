@@ -48,7 +48,6 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// <summary>
         /// 创建关闭订单结果
         /// </summary>
-        /// <param name="result">请求结果</param>
         private async Task<WechatpayCloseOrderResult> CreateResult( WechatpayResult result ) {
             var success = ( await result.ValidateAsync() ).IsValid;
             return new WechatpayCloseOrderResult( success, result );

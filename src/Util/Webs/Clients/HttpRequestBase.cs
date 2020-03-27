@@ -460,5 +460,23 @@ namespace Util.Webs.Clients {
         }
 
         #endregion
+
+        #region GetStreamAsync(获取流)
+
+        /// <summary>
+        /// 获取流
+        /// </summary>
+        public async Task<byte[]> GetStreamAsync() {
+            using( var client = new HttpClient() ) {
+                using( var result = await client.GetAsync( _url ) ) {
+                    if( result.IsSuccessStatusCode ) {
+                        return await result.Content.ReadAsByteArrayAsync();
+                    }
+                }
+            }
+            return null;
+        }
+
+        #endregion
     }
 }

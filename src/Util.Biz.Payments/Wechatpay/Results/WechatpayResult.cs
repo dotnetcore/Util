@@ -179,14 +179,23 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         /// 获取错误码
         /// </summary>
         public string GetErrorCode() {
-            return GetParam( WechatpayConst.ErrorCode );
+            var result = GetParam( "err_code" );
+            if( string.IsNullOrWhiteSpace( result ) == false )
+                return result;
+            return GetParam( "error_code" );
         }
 
         /// <summary>
         /// 获取错误码和描述
         /// </summary>
         public string GetErrorCodeDescription() {
-            return GetParam( WechatpayConst.ErrorCodeDescription );
+            var result = GetParam( WechatpayConst.ErrorCodeDescription );
+            if ( string.IsNullOrWhiteSpace( result ) == false )
+                return result;
+            result = GetParam( "return_msg" );
+            if( string.IsNullOrWhiteSpace( result ) == false )
+                return result;
+            return GetErrorCode();
         }
 
         /// <summary>

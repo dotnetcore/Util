@@ -83,5 +83,12 @@ namespace Util.Biz.Payments.Wechatpay.Configs {
         public string GetRefundUrl() {
             return Url.Combine( GatewayUrl, "secapi/pay/refund" );
         }
+
+        /// <summary>
+        /// 获取下载对账单地址
+        /// </summary>
+        public string GetDownloadBillUrl() {
+            return Url.Combine( GatewayUrl, "pay/downloadbill" );
+        }
     }
 }
