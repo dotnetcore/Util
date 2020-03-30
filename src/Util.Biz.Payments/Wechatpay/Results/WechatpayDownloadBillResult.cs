@@ -16,6 +16,7 @@ namespace Util.Biz.Payments.Wechatpay.Results {
             ErrorMessage = result.GetErrorCodeDescription();
             Raw = result.Raw;
             Parameter = result.Builder.ToString();
+            Bills = new List<WechatpayBillInfo>();
         }
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace Util.Biz.Payments.Wechatpay.Results {
         public WechatpayDownloadBillResult( bool success, string parameter, List<WechatpayBillInfo> bills ) {
             Success = success;
             Parameter = parameter;
-            Bills = bills;
+            Bills = bills ?? new List<WechatpayBillInfo>();
         }
 
         /// <summary>

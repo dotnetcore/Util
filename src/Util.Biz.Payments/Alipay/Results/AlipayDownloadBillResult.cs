@@ -17,7 +17,7 @@ namespace Util.Biz.Payments.Alipay.Results {
             Message = result.GetMessage();
             Parameter = result.Builder.ToString();
             DownloadUrl = url;
-            Bills = bills;
+            Bills = bills ?? new List<AlipayBillInfo>();
         }
 
         /// <summary>
