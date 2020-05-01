@@ -30,7 +30,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// </summary>
         /// <param name="request">下载对账单参数</param>
         public async Task<WechatpayDownloadBillResult> DownloadAsync( WechatpayDownloadBillRequest request ) {
-            var config = await ConfigProvider.GetConfigAsync();
+            var config = await ConfigProvider.GetConfigAsync( request );
             Validate( config, request );
             var builder = new WechatpayParameterBuilder( config );
             ConfigBuilder( builder, request );

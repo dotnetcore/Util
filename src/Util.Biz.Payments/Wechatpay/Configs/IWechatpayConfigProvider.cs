@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Util.Parameters;
 
 namespace Util.Biz.Payments.Wechatpay.Configs {
     /// <summary>
@@ -9,7 +8,7 @@ namespace Util.Biz.Payments.Wechatpay.Configs {
         /// <summary>
         /// 获取配置
         /// </summary>
-        /// <param name="parameters">参数服务</param>
-        Task<WechatpayConfig> GetConfigAsync( IParameterManager parameters = null );
+        /// <param name="parameter">参数</param>
+        Task<WechatpayConfig> GetConfigAsync( object parameter = null );
     }
 }
