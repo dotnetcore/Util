@@ -32,7 +32,7 @@ namespace Util.Biz.Payments.Wechatpay.Services.Base {
         /// </summary>
         /// <param name="param">请求参数</param>
         protected virtual async Task<WechatpayResult> Request( TRequest param ) {
-            var config = await ConfigProvider.GetConfigAsync();
+            var config = await ConfigProvider.GetConfigAsync( param );
             Validate( config, param );
             var builder = new WechatpayParameterBuilder( config );
             ConfigBuilder( builder, param );

@@ -38,7 +38,7 @@ namespace Util.Biz.Payments.Wechatpay.Services {
         /// </summary>
         /// <param name="request">退款参数</param>
         public async Task<RefundResult> RefundAsync( WechatRefundRequest request ) {
-            var config = await ConfigProvider.GetConfigAsync();
+            var config = await ConfigProvider.GetConfigAsync( request );
             Validate( config, request );
             var builder = new WechatpayRefundParameterBuilder( config );
             Config( builder, request );

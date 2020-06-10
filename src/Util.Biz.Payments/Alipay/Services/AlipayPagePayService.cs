@@ -25,7 +25,7 @@ namespace Util.Biz.Payments.Alipay.Services {
         /// </summary>
         /// <param name="param">支付参数</param>
         public override async Task<PayResult> PayAsync( PayParam param ) {
-            var config = await ConfigProvider.GetConfigAsync();
+            var config = await ConfigProvider.GetConfigAsync( param );
             Validate( config, param );
             var builder = new AlipayParameterBuilder( config );
             ConfigBuilder( builder, param );

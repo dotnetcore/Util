@@ -8,6 +8,7 @@ namespace Util.Biz.Payments.Alipay.Configs {
         /// <summary>
         /// 获取配置
         /// </summary>
-        Task<AlipayConfig> GetConfigAsync();
+        /// <param name="parameter">参数</param>
+        Task<AlipayConfig> GetConfigAsync( object parameter = null );
     }
 }

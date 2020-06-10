@@ -9,7 +9,7 @@ namespace Util.Biz.Tests.Integration.Payments.Alipay.Configs {
         /// <summary>
         /// 获取配置
         /// </summary>
-        public Task<AlipayConfig> GetConfigAsync() {
+        public Task<AlipayConfig> GetConfigAsync( object parameter = null ) {
             var config = new AlipayConfig {
                 GatewayUrl = "https://openapi.alipaydev.com/gateway.do",
                 AppId = "2016090800463464",

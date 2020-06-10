@@ -53,7 +53,7 @@ namespace Util.Biz.Tests.Integration.Payments.Wechatpay.Results {
         /// <summary>
         /// 获取配置
         /// </summary>
-        public Task<WechatpayConfig> GetConfigAsync( IParameterManager parameters = null ) {
+        public Task<WechatpayConfig> GetConfigAsync( object parameter = null ) {
             var config = new WechatpayConfig {
                 SignType = WechatpaySignType.Md5,
                 PrivateKey = "VVHZOaJEj44WbX0f3Lj7DHkfwEqvlURA",
