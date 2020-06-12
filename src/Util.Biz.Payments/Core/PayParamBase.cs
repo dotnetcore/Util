@@ -27,6 +27,10 @@ namespace Util.Biz.Payments.Core {
         /// 回调通知地址
         /// </summary>
         public string NotifyUrl { get; set; }
+        /// <summary>
+        /// 扩展参数
+        /// </summary>
+        public object Extend { get; set; }
 
         /// <summary>
         /// 初始化
