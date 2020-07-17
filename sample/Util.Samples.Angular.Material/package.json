@@ -39,7 +39,7 @@
     "primeng": "6.1.3",
     "primeicons": "1.0.0-beta.10",
     "moment": "2.22.2",
-    "lodash": "4.17.10",
+    "lodash": "4.17.19",
     "ng2-ckeditor": "1.2.2",
     "echarts-ng2": "5.0.0",
     "@types/jasmine": "2.8.8",
