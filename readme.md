@@ -280,7 +280,7 @@ Util应用框架面向的是*架构初学者*，但不是.net初学者。
 
 ## 核心开发团队
 
-[何镇汐](https://github.com/utilcore) [玄冰](https://github.com/jianxuanbing "简楚恩") [青成](https://github.com/nilpower "张青成")  [程序喵](https://github.com/program-meow "胡雲鹏")
+[何镇汐](https://github.com/utilcore) [玄冰](https://github.com/jianxuanbing "简楚恩") [青成](https://github.com/nilpower "张青成")  [程序喵](https://github.com/program-meow "胡雲鹏") [叶铭](ym8290321@163.com "叶铭")
 
 应用框架的开发工作量很大，个人显得力不从心，我也迫切希望找到一些志同道合的同学共同完成，同时也欢迎你的加入。
 
