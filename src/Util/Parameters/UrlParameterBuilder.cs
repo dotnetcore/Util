@@ -8,7 +8,7 @@ namespace Util.Parameters {
     /// <summary>
     /// Url参数生成器
     /// </summary>
-    public class UrlParameterBuilder {
+    public class UrlParameterBuilder : IParameterManager {
         /// <summary>
         /// 参数生成器
         /// </summary>

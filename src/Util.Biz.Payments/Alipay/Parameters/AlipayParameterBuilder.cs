@@ -25,7 +25,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// </summary>
         public AlipayContentBuilder Content { get; }
 
-        /// <summary>
+        /// <summary>z
         /// 初始化支付宝参数生成器
         /// </summary>
         /// <param name="config">配置</param>
@@ -127,7 +127,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// 获取回调通知地址
         /// </summary>
         private string GetNotifyUrl( string notifyUrl ) {
-            if( notifyUrl.IsEmpty() )
+            if ( notifyUrl.IsEmpty() )
                 return Config.NotifyUrl;
             return notifyUrl;
         }
@@ -163,7 +163,7 @@ namespace Util.Biz.Payments.Alipay.Parameters {
         /// </summary>
         private UrlParameterBuilder GetSignBuilder( bool isConvertToSingleQuotes = false ) {
             var builder = new UrlParameterBuilder( _builder );
-            if( Content.IsEmpty == false )
+            if ( Content.IsEmpty == false )
                 builder.Add( AlipayConst.BizContent, Content.ToJson( isConvertToSingleQuotes ) );
             builder.Add( AlipayConst.Sign, GetSign( builder ) );
             return builder;

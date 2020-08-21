@@ -127,7 +127,7 @@ namespace Util.Biz.Payments.Alipay.Services.Base {
         /// 验证签名
         /// </summary>
         private async Task<bool> VerifySign() {
-            var config = await _configProvider.GetConfigAsync();
+            var config = await _configProvider.GetConfigAsync( _builder );
             var signManager = new SignManager( new SignKey( config.PrivateKey, config.PublicKey ), CreateVerifyBuilder() );
             return signManager.Verify( Sign );
         }
