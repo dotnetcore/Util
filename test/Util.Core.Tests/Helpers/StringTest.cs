@@ -161,5 +161,19 @@ namespace Util.Tests.Helpers {
             var builder = new StringBuilder( value );
             Assert.Equal( result, Util.Helpers.String.RemoveEnd( builder, removeValue )?.ToString() );
         }
+
+        /// <summary>
+        /// 测试获取拼音简码
+        /// </summary>
+        [Theory]
+        [InlineData( null, "" )]
+        [InlineData( "", "" )]
+        [InlineData( "中国", "zg" )]
+        [InlineData( "a1宝藏b2", "a1bcb2" )]
+        [InlineData( "饕餮", "tt" )]
+        [InlineData( "爩", "y" )]
+        public void TestPinYin( string input, string result ) {
+            Assert.Equal( result, Util.Helpers.String.PinYin( input ) );
+        }
     }
 }

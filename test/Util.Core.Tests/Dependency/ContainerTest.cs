@@ -49,33 +49,5 @@ namespace Util.Tests.Dependency {
             var result = _container.GetService<ISample>(typeof( ISample ) );
             Assert.Equal( typeof( Sample ), result.GetType() );
         }
-
-        /// <summary>
-        /// 测试获取服务列表
-        /// </summary>
-        [Fact]
-        public void TestGetServiceList() {
-            var services = _container.GetServices();
-            services.AddSingleton<ISample, Sample>();
-            services.AddSingleton<ISample, SampleCopy>();
-            var result = _container.GetServiceList<ISample>();
-            Assert.Equal( 2, result.Count );
-            Assert.Equal( typeof( Sample ), result[0].GetType() );
-            Assert.Equal( typeof( SampleCopy ), result[1].GetType() );
-        }
-
-        /// <summary>
-        /// 测试获取服务列表 - 传入类型参数
-        /// </summary>
-        [Fact]
-        public void TestGetServiceList_Type() {
-            var services = _container.GetServices();
-            services.AddSingleton<ISample, Sample>();
-            services.AddSingleton<ISample, SampleCopy>();
-            var result = _container.GetServiceList<ISample>( typeof( ISample ) );
-            Assert.Equal( 2,result.Count );
-            Assert.Equal( typeof(Sample),result[0].GetType() );
-            Assert.Equal( typeof( SampleCopy ), result[1].GetType() );
-        }
     }
 }

@@ -83,18 +83,18 @@ namespace Util.Tests.Extensions {
         /// 转换为日期
         /// </summary>
         [Fact]
-        public void TestToDate() {
-            Assert.Equal( DateTime.MinValue, "".ToDate() );
-            Assert.Equal( new DateTime( 2000, 1, 1 ), "2000-1-1".ToDate() );
+        public void TestToDateTime() {
+            Assert.Equal( DateTime.MinValue, "".ToDateTime() );
+            Assert.Equal( new DateTime( 2000, 1, 1 ), "2000-1-1".ToDateTime() );
         }
 
         /// <summary>
         /// 转换为可空日期
         /// </summary>
         [Fact]
-        public void TestToDateOrNull() {
-            Assert.Null( "".ToDateOrNull() );
-            Assert.Equal( new DateTime( 2000, 1, 1 ), "2000-1-1".ToDateOrNull() );
+        public void TestToDateTimeOrNull() {
+            Assert.Null( "".ToDateTimeOrNull() );
+            Assert.Equal( new DateTime( 2000, 1, 1 ), "2000-1-1".ToDateTimeOrNull() );
         }
 
         /// <summary>

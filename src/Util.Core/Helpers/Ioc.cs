@@ -10,20 +10,19 @@ namespace Util.Helpers {
     /// </summary>
     public static class Ioc {
         /// <summary>
-        /// 服务集合
+        /// 容器
         /// </summary>
-        private static IServiceCollection _services;
+        private static readonly Container _container = Container.Instance;
         /// <summary>
         /// 获取服务提供器操作
         /// </summary>
         private static Func<IServiceProvider> _getServiceProviderAction;
 
         /// <summary>
-        /// 设置服务集合
+        /// 获取服务集合
         /// </summary>
-        /// <param name="services">服务集合</param>
-        public static void SetServiceCollection( IServiceCollection services ) {
-            _services = services;
+        public static IServiceCollection GetServices() {
+            return _container.GetServices();
         }
 
         /// <summary>
@@ -35,12 +34,13 @@ namespace Util.Helpers {
         }
 
         /// <summary>
-        /// 获取服务集合
+        /// 获取
         /// </summary>
-        public static IServiceCollection GetServices() {
-            if( _services != null )
-                return _services;
-            return Container.Instance.GetServices();
+        private static IServiceProvider GetServiceProvider() {
+            var provider = _getServiceProviderAction?.Invoke();
+            if ( provider != null )
+                return provider;
+            return _container.GetServiceProvider();
         }
 
         /// <summary>
@@ -70,9 +70,7 @@ namespace Util.Helpers {
         public static object Create( Type type ) {
             if( type == null )
                 return null;
-            var provider = _getServiceProviderAction?.Invoke();
-            if( provider == null )
-                return Container.Instance.GetService( type );
+            var provider = GetServiceProvider();
             return provider.GetService( type );
         }
 
@@ -95,6 +93,14 @@ namespace Util.Helpers {
             if( result == null )
                 return new List<T>();
             return ( (IEnumerable<T>)result ).ToList();
+        }
+
+        /// <summary>
+        /// 创建服务范围
+        /// </summary>
+        public static IServiceScope CreateScope() {
+            var provider = GetServiceProvider();
+            return provider.CreateScope();
         }
     }
 }

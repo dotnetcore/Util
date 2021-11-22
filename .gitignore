@@ -14,3 +14,5 @@ BenchmarkDotNet.Artifacts
 /sample/Util.Ui.NgZorro.Sample/ClientApp/*.lock
 /sample/Util.Ui.NgZorro.Sample/ClientApp/src/app/app.component.html
 /document/demo/*.pdb
+/document/Test/PowerDesigner/*.pdb
+/test/Util.Data.Dapper.SqlServer.Tests/Document/PowerDesigner/*.pdb

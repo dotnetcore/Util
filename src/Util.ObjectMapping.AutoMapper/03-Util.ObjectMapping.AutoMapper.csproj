@@ -8,6 +8,16 @@
 		<Description>Util.ObjectMapping.AutoMapper是Util应用框架的AutoMapper对象映射封装类库</Description>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.ObjectMapping.AutoMapper.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.ObjectMapping.AutoMapper.xml</DocumentationFile>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Include="..\..\build\icon.jpg">
 			<Pack>True</Pack>

@@ -1,5 +1,4 @@
 ﻿using System;
-using Util.Aop.AspectCore.Tests.Infrastructure;
 using Util.Aop.AspectCore.Tests.Samples;
 using Xunit;
 
@@ -7,15 +6,26 @@ namespace Util.Aop.AspectCore.Tests {
     /// <summary>
     /// 测试NotNullAttribute拦截器
     /// </summary>
-    public class NotNullAttributeTest : TestBase {
+    public class NotNullAttributeTest {
+        /// <summary>
+        /// 测试服务
+        /// </summary>
+        private readonly ITestService _service;
+
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
+        public NotNullAttributeTest( ITestService service ) {
+            _service = service;
+        }
+
         /// <summary>
         /// 测试传入null抛出异常
         /// </summary>
         [Fact]
         public void TestNotNull_1() {
-            var service = GetService<ITestService>();
             Assert.Throws<ArgumentNullException>( () => {
-                service.GetNotNullValue( null );
+                _service.GetNotNullValue( null );
             } );
         }
 
@@ -24,8 +34,7 @@ namespace Util.Aop.AspectCore.Tests {
         /// </summary>
         [Fact]
         public void TestNotNull_2() {
-            var service = GetService<ITestService>();
-            Assert.Equal( "", service.GetNotNullValue( "" ) );
+            Assert.Equal( "", _service.GetNotNullValue( "" ) );
         }
 
         /// <summary>
@@ -33,8 +42,7 @@ namespace Util.Aop.AspectCore.Tests {
         /// </summary>
         [Fact]
         public void TestNotNull_3() {
-            var service = GetService<ITestService>();
-            Assert.Equal( "a", service.GetNotNullValue( "a" ) );
+            Assert.Equal( "a", _service.GetNotNullValue( "a" ) );
         }
     }
 }

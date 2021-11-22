@@ -64,7 +64,7 @@ namespace Util.Tests.Samples {
                 nickname = "b",
                 FirstName = "c",
                 Value = null,
-                Date =  Util.Helpers.Convert.ToDate( "2012-1-1" ).ToString(),
+                Date =  Util.Helpers.Convert.ToDateTime( "2012-1-1" ).SafeString(),
                 Age = 1,
                 IsShow = true
             };

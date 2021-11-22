@@ -19,7 +19,7 @@ namespace Util.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UtilCoreResource {
@@ -61,6 +61,33 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 仅允许添加一个条件,条件：{0} 的本地化字符串。
+        /// </summary>
+        public static string CanOnlyOneCondition {
+            get {
+                return ResourceManager.GetString("CanOnlyOneCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前操作的数据已被其他人修改，请刷新后重试 的本地化字符串。
+        /// </summary>
+        public static string ConcurrencyExceptionMessage {
+            get {
+                return ResourceManager.GetString("ConcurrencyExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 天 的本地化字符串。
+        /// </summary>
+        public static string Days {
+            get {
+                return ResourceManager.GetString("Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 其他用户正在执行该操作,请稍后再试 的本地化字符串。
         /// </summary>
         public static string GlobalDuplicateRequest {
@@ -70,11 +97,47 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 小时 的本地化字符串。
+        /// </summary>
+        public static string Hours {
+            get {
+                return ResourceManager.GetString("Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 标识不能为空 的本地化字符串。
         /// </summary>
         public static string IdIsEmpty {
             get {
                 return ResourceManager.GetString("IdIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 毫秒 的本地化字符串。
+        /// </summary>
+        public static string Milliseconds {
+            get {
+                return ResourceManager.GetString("Milliseconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 分 的本地化字符串。
+        /// </summary>
+        public static string Minutes {
+            get {
+                return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 秒 的本地化字符串。
+        /// </summary>
+        public static string Seconds {
+            get {
+                return ResourceManager.GetString("Seconds", resourceCulture);
             }
         }
         

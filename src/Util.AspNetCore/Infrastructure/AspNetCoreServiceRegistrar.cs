@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Helpers;
+using Util.Http;
 using Util.Reflections;
 
 namespace Util.Infrastructure {
@@ -37,7 +38,7 @@ namespace Util.Infrastructure {
             services.AddHttpClient();
             RegisterServiceLocator();
             RegisterSession( services );
-            RegisterEnvironment( services );
+            RegisterHttpClient( services );
             return null;
         }
 
@@ -65,10 +66,10 @@ namespace Util.Infrastructure {
         }
 
         /// <summary>
-        /// 注册上下文环境
+        /// 注册Http客户端
         /// </summary>
-        private void RegisterEnvironment( IServiceCollection services ) {
-            services.TryAddSingleton<IEnvironment, Util.Helpers.Environment>();
+        private void RegisterHttpClient( IServiceCollection services ) {
+            services.TryAddSingleton<IHttpClient, HttpClientService>();
         }
     }
 }

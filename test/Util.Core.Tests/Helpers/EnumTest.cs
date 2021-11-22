@@ -79,16 +79,6 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
-        /// 测试获取枚举成员值 - 验证
-        /// </summary>
-        [Fact]
-        public void TestGetValue_Validate() {
-            AssertHelper.Throws<ArgumentNullException>( () => Util.Helpers.Enum.GetValue<EnumSample>( null ), "member" );
-            AssertHelper.Throws<ArgumentNullException>( () => Util.Helpers.Enum.GetValue<EnumSample>( string.Empty ), "member" );
-            AssertHelper.Throws<ArgumentNullException>( () => Util.Helpers.Enum.GetValue<Sample>( string.Empty ), "member" );
-        }
-
-        /// <summary>
         /// 测试获取枚举成员值
         /// </summary>
         [Theory]
@@ -108,6 +98,14 @@ namespace Util.Tests.Helpers {
         [InlineData( EnumSample.C, 3 )]
         public void TestGetValue_Nullable( object member, int value ) {
             Assert.Equal( value, Util.Helpers.Enum.GetValue<EnumSample?>( member ) );
+        }
+
+        /// <summary>
+        /// 测试获取枚举成员值 - 验证参数为空
+        /// </summary>
+        [Fact]
+        public void TestGetValue_Null() {
+            Assert.Null( Util.Helpers.Enum.GetValue<EnumSample?>( null ) );
         }
 
         /// <summary>

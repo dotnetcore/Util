@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Configs;
-using Util.Helpers;
 using Util.Infrastructure;
 
 namespace Util {
@@ -11,6 +10,14 @@ namespace Util {
     /// 服务扩展
     /// </summary>
     public static class ServiceCollectionExtensions {
+        /// <summary>
+        /// 获取配置实例
+        /// </summary>
+        /// <param name="services">服务集合</param>
+        public static IConfiguration GetConfiguration( this IServiceCollection services ) {
+            return services.GetSingletonInstance<IConfiguration>();
+        }
+
         /// <summary>
         /// 获取单例实例
         /// </summary>
@@ -44,13 +51,12 @@ namespace Util {
         }
 
         /// <summary>
-        /// 注册Util服务
+        /// 注册Util服务 
         /// </summary>
         /// <param name="services">服务集合</param>
         /// <param name="setupAction">服务配置操作</param>
         public static IServiceCollection AddUtil( this IServiceCollection services, Action<Options> setupAction = null ) {
-            Ioc.SetServiceCollection( services );
-            var configuration = services.GetSingletonInstance<IConfiguration>();
+            var configuration = services.GetConfiguration();
             Util.Helpers.Config.SetConfiguration( configuration );
             var bootstrapper = new Bootstrapper( services, setupAction, configuration );
             bootstrapper.Start();

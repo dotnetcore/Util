@@ -4,7 +4,7 @@ namespace Util.Events.Tests.Samples {
     /// <summary>
     /// 本地事件处理器样例
     /// </summary>
-    public class EventHandlerSample : EventHandler<EventSample> {
+    public class EventHandlerSample : EventHandlerBase<EventSample> {
         /// <summary>
         /// 处理事件
         /// </summary>
@@ -18,7 +18,7 @@ namespace Util.Events.Tests.Samples {
     /// <summary>
     /// 本地事件处理器样例2
     /// </summary>
-    public class EventHandlerSample2 : EventHandler<EventSample2> {
+    public class EventHandlerSample2 : EventHandlerBase<EventSample2> {
         /// <summary>
         /// 处理事件
         /// </summary>
@@ -32,7 +32,7 @@ namespace Util.Events.Tests.Samples {
     /// <summary>
     /// 本地事件处理器样例3
     /// </summary>
-    public class EventHandlerSample3 : EventHandler<EventSample2> {
+    public class EventHandlerSample3 : EventHandlerBase<EventSample2> {
         /// <summary>
         /// 处理事件
         /// </summary>
@@ -46,7 +46,7 @@ namespace Util.Events.Tests.Samples {
     /// <summary>
     /// 本地事件处理器样例4
     /// </summary>
-    public class EventHandlerSample4 : EventHandler<EventSample3> {
+    public class EventHandlerSample4 : EventHandlerBase<EventSample3> {
         /// <summary>
         /// 处理事件
         /// </summary>
@@ -65,7 +65,7 @@ namespace Util.Events.Tests.Samples {
     /// <summary>
     /// 本地事件处理器样例5
     /// </summary>
-    public class EventHandlerSample5: EventHandler<EventSample3> {
+    public class EventHandlerSample5: EventHandlerBase<EventSample3> {
         /// <summary>
         /// 处理事件
         /// </summary>
@@ -84,7 +84,7 @@ namespace Util.Events.Tests.Samples {
     /// <summary>
     /// 本地事件处理器样例6 - 禁用该事件处理器
     /// </summary>
-    public class EventHandlerSample6 : EventHandler<EventSample3> {
+    public class EventHandlerSample6 : EventHandlerBase<EventSample3> {
         /// <summary>
         /// 处理事件
         /// </summary>

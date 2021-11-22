@@ -1,5 +1,3 @@
-using Util.Dependency;
-using Util.ObjectMapping.AutoMapper.Tests.Infrastructure;
 using Util.ObjectMapping.AutoMapper.Tests.Samples;
 using Xunit;
 
@@ -7,7 +5,7 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
     /// <summary>
     /// 对象映射器测试
     /// </summary>
-    public class ObjectMapperTest : TestBase {
+    public class ObjectMapperTest {
         /// <summary>
         /// 对象映射器
         /// </summary>
@@ -16,8 +14,8 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public ObjectMapperTest() {
-            _mapper = Container.Instance.GetService<IObjectMapper>();
+        public ObjectMapperTest( IObjectMapper mapper ) {
+            _mapper = mapper;
         }
 
         /// <summary>

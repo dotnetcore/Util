@@ -30,7 +30,7 @@ namespace Util.Helpers {
         /// <param name="value">目标对象</param>
         /// <param name="options">序列化配置</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public static async Task<string> ToJsonAsyc<T>( T value, JsonSerializerOptions options = null, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public static async Task<string> ToJsonAsyc<T>( T value, JsonSerializerOptions options = null, CancellationToken cancellationToken = default ) {
             if ( value == null )
                 return string.Empty;
             await using var stream = new MemoryStream();
@@ -47,7 +47,7 @@ namespace Util.Helpers {
         /// <param name="options">序列化配置</param>
         public static T ToObject<T>( string json, JsonSerializerOptions options = null ) {
             if ( string.IsNullOrWhiteSpace( json ) )
-                return default( T );
+                return default;
             return JsonSerializer.Deserialize<T>( json, options );
         }
 
@@ -58,9 +58,9 @@ namespace Util.Helpers {
         /// <param name="options">序列化配置</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <param name="encoding">Json字符编码,默认UTF8</param>
-        public static async Task<T> ToObjectAsync<T>( string json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default( CancellationToken ),Encoding encoding = null ) {
+        public static async Task<T> ToObjectAsync<T>( string json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default,Encoding encoding = null ) {
             if ( string.IsNullOrWhiteSpace( json ) )
-                return default( T );
+                return default;
             encoding ??= Encoding.UTF8;
             byte[] bytes = encoding.GetBytes( json );
             await using var stream = new MemoryStream( bytes );
@@ -73,9 +73,9 @@ namespace Util.Helpers {
         /// <param name="json">Json流</param>
         /// <param name="options">序列化配置</param>
         /// <param name="cancellationToken">取消令牌</param>
-        public static async Task<T> ToObjectAsync<T>( Stream json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default( CancellationToken ) ) {
+        public static async Task<T> ToObjectAsync<T>( Stream json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default ) {
             if ( json == null )
-                return default( T );
+                return default;
             return await JsonSerializer.DeserializeAsync<T>( json, options, cancellationToken );
         }
     }

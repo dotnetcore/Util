@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Util.Events.Local;
 using Util.Infrastructure;
 using Util.Reflections;
 
@@ -43,8 +42,8 @@ namespace Util.Events.Infrastructure {
         /// 注册依赖
         /// </summary>
         private void RegisterDependency( IServiceCollection services ) {
-            services.TryAddSingleton<ILocalEventBus, LocalEventBus>();
-            services.TryAddSingleton<IEventBus, LocalEventBus>();
+            services.TryAddTransient<ILocalEventBus, LocalEventBus>();
+            services.TryAddTransient<IEventBus, LocalEventBus>();
         }
 
         /// <summary>

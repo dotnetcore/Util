@@ -1,5 +1,4 @@
-﻿using IdentityModel;
-using Util.Helpers;
+﻿using Util.Helpers;
 
 namespace Util.Sessions {
     /// <summary>
@@ -26,7 +25,7 @@ namespace Util.Sessions {
         /// </summary>
         public string UserId {
             get {
-                var result = Web.Identity.GetValue( JwtClaimTypes.Subject );
+                var result = Web.Identity.GetValue( "sub" );
                 return string.IsNullOrWhiteSpace( result ) ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.NameIdentifier ) : result;
             }
         }

@@ -55,7 +55,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <typeparam name="TEnum">枚举类型</typeparam>
         /// <param name="member">成员名、值、实例均可，范例:Enum1枚举有成员A=0,可传入"A"、0、Enum1.A，获取值0</param>
-        public static int GetValue<TEnum>( object member ) {
+        public static int? GetValue<TEnum>( object member ) {
             return GetValue( Common.GetType<TEnum>(), member );
         }
 
@@ -64,10 +64,10 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="type">枚举类型</param>
         /// <param name="member">成员名、值、实例均可</param>
-        public static int GetValue( Type type, object member ) {
+        public static int? GetValue( Type type, object member ) {
             string value = member.SafeString();
-            if( string.IsNullOrWhiteSpace( value ) )
-                throw new ArgumentNullException( nameof(member) );
+            if ( value.IsEmpty() )
+                return null;
             return (int)System.Enum.Parse( type, value, true );
         }
 

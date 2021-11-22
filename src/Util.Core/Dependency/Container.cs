@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Util.Dependency {
@@ -37,6 +35,13 @@ namespace Util.Dependency {
         }
 
         /// <summary>
+        /// 获取服务提供器
+        /// </summary>
+        public IServiceProvider GetServiceProvider() {
+            return _provider ??= _services.BuildServiceProvider();
+        }
+
+        /// <summary>
         /// 获取服务
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
@@ -59,31 +64,10 @@ namespace Util.Dependency {
         /// <summary>
         /// 获取服务
         /// </summary>
-        /// <typeparam name="T">返回对象类型</typeparam>
         /// <param name="type">对象类型</param>
         public object GetService( Type type ) {
-            _provider ??= _services.BuildServiceProvider();
-            return _provider.GetService( type );
-        }
-
-        /// <summary>
-        /// 获取服务列表
-        /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        public List<T> GetServiceList<T>() {
-            return GetServiceList<T>( typeof( T ) );
-        }
-
-        /// <summary>
-        /// 获取服务列表
-        /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        public List<T> GetServiceList<T>( Type type ) {
-            Type serviceType = typeof( IEnumerable<> ).MakeGenericType( type );
-            var result = GetService( serviceType );
-            if( result == null )
-                return new List<T>();
-            return ( (IEnumerable<T>)result ).ToList();
+            var provider = GetServiceProvider();
+            return provider.GetService( type );
         }
     }
 }

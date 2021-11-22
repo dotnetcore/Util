@@ -1,10 +1,10 @@
 <Project>
 	<Import Project="version.props" />
 	<PropertyGroup>
-		<NetTargetFramework>net5.0</NetTargetFramework>
+		<NetTargetFramework>net6.0</NetTargetFramework>
 	</PropertyGroup>
 	<PropertyGroup>
-		<Product>Util Framework</Product>
+		<Product>Util Application Framework</Product>
 		<Authors>ncc;何镇汐</Authors>
 		<Copyright>ncc;何镇汐</Copyright>
 		<MaintainerEmail>xiadao521@qq.com</MaintainerEmail>

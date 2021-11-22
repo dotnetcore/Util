@@ -1,0 +1,3 @@
+@using Util.Templates.Razor.Tests.Samples.Models
+@model TestModel
+@Model.Name,@await Html.PartialAsync( "~/Samples/Templates/Child/TestChildTemplate.cshtml",Model.Model2 )

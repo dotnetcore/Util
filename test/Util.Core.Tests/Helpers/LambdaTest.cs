@@ -371,7 +371,7 @@ namespace Util.Tests.Helpers {
         public void TestGetValue_DateTimeNow() {
             Expression<Func<Sample, bool>> expression = t => t.DateValue == DateTime.Now;
             var value = Lambda.GetValue( expression );
-            Assert.NotNull( Util.Helpers.Convert.ToDateOrNull( value ) );
+            Assert.NotNull( Util.Helpers.Convert.ToDateTimeOrNull( value ) );
         }
 
         /// <summary>

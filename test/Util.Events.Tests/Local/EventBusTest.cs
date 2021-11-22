@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Util.Events.Tests.Infrastructure;
 using Util.Events.Tests.Samples;
 using Xunit;
 
@@ -7,7 +6,7 @@ namespace Util.Events.Tests.Local {
     /// <summary>
     /// 事件总线测试
     /// </summary>
-    public class EventBusTest : TestBase {
+    public class EventBusTest {
         /// <summary>
         /// 事件总线
         /// </summary>
@@ -16,8 +15,8 @@ namespace Util.Events.Tests.Local {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public EventBusTest() {
-            _eventBus = GetService<IEventBus>();
+        public EventBusTest( IEventBus eventBus ) {
+            _eventBus = eventBus;
         }
 
         /// <summary>

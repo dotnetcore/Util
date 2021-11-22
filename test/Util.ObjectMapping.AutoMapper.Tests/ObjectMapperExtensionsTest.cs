@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Util.Helpers;
-using Util.ObjectMapping.AutoMapper.Tests.Infrastructure;
 using Util.ObjectMapping.AutoMapper.Tests.Samples;
 using Xunit;
 
@@ -8,7 +7,7 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
     /// <summary>
     /// 对象映射器测试
     /// </summary>
-    public class ObjectMapperExtensionsTest : TestBase {
+    public class ObjectMapperExtensionsTest {
         /// <summary>
         /// 测试映射 - Sample -> Sample2 已在配置类中配置映射关系
         /// </summary>

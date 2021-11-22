@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Util.Properties;
 
 namespace Util {
     /// <summary>
@@ -123,6 +124,37 @@ namespace Util {
             if( dateTime == null )
                 return string.Empty;
             return ToChineseDateTimeString( dateTime.Value, removeSecond );
+        }
+
+        /// <summary>
+        /// 获取描述
+        /// </summary>
+        /// <param name="timeSpan">时间间隔</param>
+        public static string Description( this TimeSpan timeSpan ) {
+            StringBuilder result = new StringBuilder();
+            if ( timeSpan.Days > 0 ) {
+                result.Append( timeSpan.Days );
+                result.Append( UtilCoreResource.Days );
+            }
+            if ( timeSpan.Hours > 0 ) {
+                result.Append( timeSpan.Hours );
+                result.Append( UtilCoreResource.Hours );
+            }
+            if ( timeSpan.Minutes > 0 ) {
+                result.Append( timeSpan.Minutes );
+                result.Append( UtilCoreResource.Minutes );
+            }
+            if ( timeSpan.Seconds > 0 ) {
+                result.Append( timeSpan.Seconds );
+                result.Append( UtilCoreResource.Seconds );
+            }
+            if ( timeSpan.Milliseconds > 0 ) {
+                result.Append( timeSpan.Milliseconds );
+                result.Append( UtilCoreResource.Milliseconds );
+            }
+            if ( result.Length > 0 )
+                return result.ToString();
+            return $"{timeSpan.TotalMilliseconds}{UtilCoreResource.Milliseconds}";
         }
     }
 }

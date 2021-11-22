@@ -123,4 +123,34 @@ namespace Util.Tests.Samples {
     /// </summary>
     public interface ITestService5 : ITestService4 {
     }
+
+    /// <summary>
+    /// 测试服务接口
+    /// </summary>
+    public interface ITestService6<T> : ISingletonDependency {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    public class TestService5<T> : ITestService6<T> {
+    }
+
+    /// <summary>
+    /// 测试服务接口
+    /// </summary>
+    public interface ITestService7 : ISingletonDependency {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    public class TestService7 : ITestService7 {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    public class TestService8 : ITestService7 {
+    }
 }

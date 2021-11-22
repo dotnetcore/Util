@@ -99,16 +99,16 @@ namespace Util {
         /// 转换为日期
         /// </summary>
         /// <param name="obj">数据</param>
-        public static DateTime ToDate( this string obj ) {
-            return Util.Helpers.Convert.ToDate( obj );
+        public static DateTime ToDateTime( this string obj ) {
+            return Util.Helpers.Convert.ToDateTime( obj );
         }
 
         /// <summary>
         /// 转换为可空日期
         /// </summary>
         /// <param name="obj">数据</param>
-        public static DateTime? ToDateOrNull( this string obj ) {
-            return Util.Helpers.Convert.ToDateOrNull( obj );
+        public static DateTime? ToDateTimeOrNull( this string obj ) {
+            return Util.Helpers.Convert.ToDateTimeOrNull( obj );
         }
 
         /// <summary>

@@ -207,8 +207,13 @@ namespace Util.Helpers {
                 return directInterfaceTypes;
             var result = new List<Type>();
             foreach ( var interfaceType in directInterfaceTypes ) {
-                if( interfaceType.GetInterfaces().Any( baseInterfaceTypes.Contains ) )
-                    result.Add( interfaceType );
+                if ( interfaceType.GetInterfaces().Any( baseInterfaceTypes.Contains ) == false )
+                    continue;
+                if ( interfaceType.IsGenericType && !interfaceType.IsGenericTypeDefinition && interfaceType.FullName == null ) {
+                    result.Add( interfaceType.GetGenericTypeDefinition() );
+                    continue;
+                }
+                result.Add( interfaceType );
             }
             return result;
         }
@@ -291,6 +296,32 @@ namespace Util.Helpers {
             if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
                 throw new ArgumentException( nameof( genericArgumentsTypes ) );
             return genericArgumentsTypes[0];
+        }
+
+        #endregion
+
+        #region GetTopBaseType(获取顶级基类)
+
+        /// <summary>
+        /// 获取顶级基类
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        public static Type GetTopBaseType<T>() {
+            return GetTopBaseType( typeof( T ) );
+        }
+
+        /// <summary>
+        /// 获取顶级基类
+        /// </summary>
+        /// <param name="type">类型</param>
+        public static Type GetTopBaseType( Type type ) {
+            if ( type == null )
+                return null;
+            if ( type.IsInterface )
+                return type;
+            if ( type.BaseType == typeof( object ) )
+                return type;
+            return GetTopBaseType( type.BaseType );
         }
 
         #endregion

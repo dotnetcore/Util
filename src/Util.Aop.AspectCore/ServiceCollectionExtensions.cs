@@ -3,6 +3,7 @@ using AspectCore.DynamicProxy.Parameters;
 using AspectCore.Extensions.AspectScope;
 using AspectCore.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Helpers;
 
 namespace Util.Aop {
     /// <summary>
@@ -14,16 +15,20 @@ namespace Util.Aop {
         /// </summary>
         /// <param name="services">服务集合</param>
         public static IServiceCollection AddAop( this IServiceCollection services ) {
-            RegisterParameterAspect( services );
+            ConfigureDynamicProxy( services );
             RegisterAspectScoped( services );
             return services;
         }
 
         /// <summary>
-        /// 注册参数拦截器
+        /// 配置拦截器
         /// </summary>
-        private static void RegisterParameterAspect( IServiceCollection services ) {
-            services.ConfigureDynamicProxy( t => t.EnableParameterAspect() );
+        private static void ConfigureDynamicProxy( IServiceCollection services ) {
+            services.ConfigureDynamicProxy( config => {
+                config.EnableParameterAspect();
+                config.NonAspectPredicates.Add( t => Reflection.GetTopBaseType( t.DeclaringType ).SafeString() == "Microsoft.EntityFrameworkCore.DbContext" );
+                config.NonAspectPredicates.Add( t => t.DeclaringType.SafeString().Contains( "Xunit.DependencyInjection.ITestOutputHelperAccessor" ) );
+            } );
         }
 
         /// <summary>

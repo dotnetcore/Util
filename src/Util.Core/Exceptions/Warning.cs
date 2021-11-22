@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.Logging;
-using Util.Properties;
 
 namespace Util.Exceptions {
     /// <summary>
@@ -102,16 +100,6 @@ namespace Util.Exceptions {
                 return;
             result.Add( exception );
             AddException( result, exception.InnerException );
-        }
-
-        /// <summary>
-        /// 获取友情提示
-        /// </summary>
-        /// <param name="level">日志级别</param>
-        public string GetPrompt( LogLevel level ) {
-            if( level == LogLevel.Error )
-                return R.SystemError;
-            return Message;
         }
     }
 }

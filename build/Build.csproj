@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -11,11 +11,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FlubuCore" Version="6.0.0-preview2" />
+		<PackageReference Include="FlubuCore" Version="6.3.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<DotNetCliToolReference Include="dotnet-flubu" Version="6.0.0-preview2" />
+		<DotNetCliToolReference Include="dotnet-flubu" Version="6.1.6" />
 	</ItemGroup>
 
 </Project>

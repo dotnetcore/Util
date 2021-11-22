@@ -17,7 +17,7 @@ namespace Util {
         /// 获取枚举值
         /// </summary>
         /// <param name="instance">枚举实例</param>
-        public static int Value( this System.Enum instance ) {
+        public static int? Value( this System.Enum instance ) {
             if( instance == null )
                 return 0;
             return Util.Helpers.Enum.GetValue( instance.GetType(), instance );
@@ -30,7 +30,7 @@ namespace Util {
         /// <param name="instance">枚举实例</param>
         public static TResult Value<TResult>( this System.Enum instance ) {
             if( instance == null )
-                return default( TResult );
+                return default;
             return Util.Helpers.Convert.To<TResult>( Value( instance ) );
         }
 

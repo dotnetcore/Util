@@ -2,7 +2,7 @@
     /// <summary>
     /// 本地事件样例
     /// </summary>
-    public class EventSample : Event{
+    public class EventSample : IEvent{
         /// <summary>
         /// 值
         /// </summary>
@@ -16,7 +16,7 @@
     /// <summary>
     /// 本地事件样例2
     /// </summary>
-    public class EventSample2 : Event {
+    public class EventSample2 : IEvent {
         /// <summary>
         /// 结果
         /// </summary>
@@ -26,7 +26,7 @@
     /// <summary>
     /// 本地事件样例3
     /// </summary>
-    public class EventSample3 : Event {
+    public class EventSample3 : IEvent {
         /// <summary>
         /// 结果
         /// </summary>

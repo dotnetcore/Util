@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Util.Http;
 using Util.Security.Authorization;
 
 namespace Util.Helpers {
@@ -54,6 +57,15 @@ namespace Util.Helpers {
 
         #endregion
 
+        #region Environment(主机环境)
+
+        /// <summary>
+        /// 主机环境
+        /// </summary>
+        public static IWebHostEnvironment Environment => ServiceProvider?.GetService<IWebHostEnvironment>();
+
+        #endregion
+
         #region User(当前用户安全主体)
 
         /// <summary>
@@ -81,6 +93,15 @@ namespace Util.Helpers {
                 return UnauthenticatedIdentity.Instance;
             }
         }
+
+        #endregion
+
+        #region Client(Http客户端)
+
+        /// <summary>
+        /// Http客户端
+        /// </summary>
+        public static IHttpClient Client => Ioc.Create<IHttpClient>();
 
         #endregion
     }

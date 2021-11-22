@@ -40,4 +40,22 @@ namespace Util.Tests.Samples {
         /// </summary>
         public int Order => 2;
     }
+
+    /// <summary>
+    /// 测试依赖注册器3
+    /// </summary>
+    public class TestDependencyRegistrar3 : IDependencyRegistrar {
+        /// <summary>
+        /// 注册服务
+        /// </summary>
+        /// <param name="services">服务集合</param>
+        public void Register( IServiceCollection services ) {
+            services.TryAddSingleton<ITestService7, TestService8>();
+        }
+
+        /// <summary>
+        /// 注册序号
+        /// </summary>
+        public int Order => 3;
+    }
 }

@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace Util.Helpers {
     /// <summary>
     /// 类型转换
     /// </summary>
     public static class Convert {
+
+        #region ToInt(转换为32位整型)
+
         /// <summary>
         /// 转换为32位整型
         /// </summary>
@@ -15,6 +21,10 @@ namespace Util.Helpers {
         public static int ToInt( object input ) {
             return ToIntOrNull( input ) ?? 0;
         }
+
+        #endregion
+
+        #region ToIntOrNull(转换为32位可空整型)
 
         /// <summary>
         /// 转换为32位可空整型
@@ -35,6 +45,10 @@ namespace Util.Helpers {
             }
         }
 
+        #endregion
+
+        #region ToLong(转换为64位整型)
+
         /// <summary>
         /// 转换为64位整型
         /// </summary>
@@ -42,6 +56,10 @@ namespace Util.Helpers {
         public static long ToLong( object input ) {
             return ToLongOrNull( input ) ?? 0;
         }
+
+        #endregion
+
+        #region ToLongOrNull(转换为64位可空整型)
 
         /// <summary>
         /// 转换为64位可空整型
@@ -62,6 +80,10 @@ namespace Util.Helpers {
             }
         }
 
+        #endregion
+
+        #region ToFloat(转换为32位浮点型)
+
         /// <summary>
         /// 转换为32位浮点型,并按指定小数位舍入
         /// </summary>
@@ -70,6 +92,10 @@ namespace Util.Helpers {
         public static float ToFloat( object input, int? digits = null ) {
             return ToFloatOrNull( input, digits ) ?? 0;
         }
+
+        #endregion
+
+        #region ToFloatOrNull(转换为32位可空浮点型)
 
         /// <summary>
         /// 转换为32位可空浮点型,并按指定小数位舍入
@@ -85,6 +111,10 @@ namespace Util.Helpers {
             return (float)Math.Round( result, digits.Value );
         }
 
+        #endregion
+
+        #region ToDouble(转换为64位浮点型)
+
         /// <summary>
         /// 转换为64位浮点型,并按指定小数位舍入
         /// </summary>
@@ -93,6 +123,10 @@ namespace Util.Helpers {
         public static double ToDouble( object input, int? digits = null ) {
             return ToDoubleOrNull( input, digits ) ?? 0;
         }
+
+        #endregion
+
+        #region ToDoubleOrNull(转换为64位可空浮点型)
 
         /// <summary>
         /// 转换为64位可空浮点型,并按指定小数位舍入
@@ -108,6 +142,10 @@ namespace Util.Helpers {
             return Math.Round( result, digits.Value );
         }
 
+        #endregion
+
+        #region ToDecimal(转换为128位浮点型)
+
         /// <summary>
         /// 转换为128位浮点型,并按指定小数位舍入
         /// </summary>
@@ -116,6 +154,10 @@ namespace Util.Helpers {
         public static decimal ToDecimal( object input, int? digits = null ) {
             return ToDecimalOrNull( input, digits ) ?? 0;
         }
+
+        #endregion
+
+        #region ToDecimalOrNull(转换为128位可空浮点型)
 
         /// <summary>
         /// 转换为128位可空浮点型,并按指定小数位舍入
@@ -131,6 +173,10 @@ namespace Util.Helpers {
             return Math.Round( result, digits.Value );
         }
 
+        #endregion
+
+        #region ToBool(转换为布尔值)
+
         /// <summary>
         /// 转换为布尔值
         /// </summary>
@@ -139,29 +185,45 @@ namespace Util.Helpers {
             return ToBoolOrNull( input ) ?? false;
         }
 
+        #endregion
+
+        #region ToBoolOrNull(转换为可空布尔值)
+
         /// <summary>
         /// 转换为可空布尔值
         /// </summary>
         /// <param name="input">输入值</param>
         public static bool? ToBoolOrNull( object input ) {
-            return bool.TryParse( input.SafeString(), out var result ) ? (bool?)result : null;
+            return bool.TryParse( input.SafeString(), out var result ) ? result : null;
         }
+
+        #endregion
+
+        #region ToDateTime(转换为日期)
 
         /// <summary>
         /// 转换为日期
         /// </summary>
         /// <param name="input">输入值</param>
-        public static DateTime ToDate( object input ) {
-            return ToDateOrNull( input ) ?? DateTime.MinValue;
+        public static DateTime ToDateTime( object input ) {
+            return ToDateTimeOrNull( input ) ?? DateTime.MinValue;
         }
+
+        #endregion
+
+        #region ToDateTimeOrNull(转换为可空日期)
 
         /// <summary>
         /// 转换为可空日期
         /// </summary>
         /// <param name="input">输入值</param>
-        public static DateTime? ToDateOrNull( object input ) {
-            return DateTime.TryParse( input.SafeString(), out var result ) ? (DateTime?)result : null;
+        public static DateTime? ToDateTimeOrNull( object input ) {
+            return DateTime.TryParse( input.SafeString(), out var result ) ? result : null;
         }
+
+        #endregion
+
+        #region ToGuid(转换为Guid)
 
         /// <summary>
         /// 转换为Guid
@@ -171,13 +233,21 @@ namespace Util.Helpers {
             return ToGuidOrNull( input ) ?? Guid.Empty;
         }
 
+        #endregion
+
+        #region ToGuidOrNull(转换为可空Guid)
+
         /// <summary>
         /// 转换为可空Guid
         /// </summary>
         /// <param name="input">输入值</param>
         public static Guid? ToGuidOrNull( object input ) {
-            return Guid.TryParse( input.SafeString(), out var result ) ? (Guid?)result : null;
+            return Guid.TryParse( input.SafeString(), out var result ) ? result : null;
         }
+
+        #endregion
+
+        #region ToGuidList(转换为Guid集合)
 
         /// <summary>
         /// 转换为Guid集合
@@ -187,47 +257,9 @@ namespace Util.Helpers {
             return ToList<Guid>( input );
         }
 
-        /// <summary>
-        /// 泛型集合转换
-        /// </summary>
-        /// <typeparam name="T">目标元素类型</typeparam>
-        /// <param name="input">以逗号分隔的元素集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
-        public static List<T> ToList<T>( string input ) {
-            var result = new List<T>();
-            if( string.IsNullOrWhiteSpace( input ) )
-                return result;
-            var array = input.Split( ',' );
-            result.AddRange( from each in array where !string.IsNullOrWhiteSpace( each ) select To<T>( each ) );
-            return result;
-        }
+        #endregion
 
-        /// <summary>
-        /// 通用泛型转换
-        /// </summary>
-        /// <typeparam name="T">目标类型</typeparam>
-        /// <param name="input">输入值</param>
-        public static T To<T>( object input ) {
-            if( input == null )
-                return default( T );
-            if( input is string && string.IsNullOrWhiteSpace( input.ToString() ) )
-                return default( T );
-            Type type = Common.GetType<T>();
-            var typeName = type.Name.ToLower();
-            try {
-                if( typeName == "string" )
-                    return (T)(object)input.ToString();
-                if( typeName == "guid" )
-                    return (T)(object)new Guid( input.ToString() );
-                if( type.IsEnum )
-                    return Enum.Parse<T>( input );
-                if( input is IConvertible )
-                    return (T)System.Convert.ChangeType( input, type );
-                return (T)input;
-            }
-            catch {
-                return default( T );
-            }
-        }
+        #region ToBytes(转换为字节数组)
 
         /// <summary>
         /// 转换为字节数组
@@ -245,5 +277,82 @@ namespace Util.Helpers {
         public static byte[] ToBytes( string input, Encoding encoding ) {
             return string.IsNullOrWhiteSpace( input ) ? new byte[] { } : encoding.GetBytes( input );
         }
+
+        #endregion
+
+        #region ToList(泛型集合转换)
+
+        /// <summary>
+        /// 泛型集合转换
+        /// </summary>
+        /// <typeparam name="T">目标元素类型</typeparam>
+        /// <param name="input">以逗号分隔的元素集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+        public static List<T> ToList<T>( string input ) {
+            var result = new List<T>();
+            if( string.IsNullOrWhiteSpace( input ) )
+                return result;
+            var array = input.Split( ',' );
+            result.AddRange( from each in array where !string.IsNullOrWhiteSpace( each ) select To<T>( each ) );
+            return result;
+        }
+
+        #endregion
+
+        #region To(通用泛型转换)
+
+        /// <summary>
+        /// 通用泛型转换
+        /// </summary>
+        /// <typeparam name="T">目标类型</typeparam>
+        /// <param name="input">输入值</param>
+        public static T To<T>( object input ) {
+            if( input == null )
+                return default;
+            if( input is string && string.IsNullOrWhiteSpace( input.ToString() ) )
+                return default;
+            Type type = Common.GetType<T>();
+            var typeName = type.Name.ToLower();
+            try {
+                if( typeName == "string" )
+                    return (T)(object)input.ToString();
+                if( typeName == "guid" )
+                    return (T)(object)new Guid( input.ToString() );
+                if( type.IsEnum )
+                    return Enum.Parse<T>( input );
+                if( input is IConvertible )
+                    return (T)System.Convert.ChangeType( input, type, CultureInfo.InvariantCulture );
+                if( input is JsonElement element ) {
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    return Json.ToObject<T>( element.GetRawText(), options );
+                }
+                return (T)input;
+            }
+            catch {
+                return default;
+            }
+        }
+
+        #endregion
+
+        #region ToDictionary(对象转换为属性名值对)
+
+        /// <summary>
+        /// 对象转换为属性名值对
+        /// </summary>
+        /// <param name="data">对象</param>
+        public static IDictionary<string, object> ToDictionary( object data ) {
+            if( data == null )
+                return null;
+            if ( data is IEnumerable<KeyValuePair<string, object>> dic )
+                return new Dictionary<string, object>( dic );
+            var result = new Dictionary<string, object>();
+            foreach ( PropertyDescriptor property in TypeDescriptor.GetProperties( data ) ) {
+                var value = property.GetValue( data );
+                result.Add( property.Name, value );
+            }
+            return result;
+        }
+
+        #endregion
     }
 }
