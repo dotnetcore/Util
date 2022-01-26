@@ -9,7 +9,7 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
     /// </summary>
     public class ObjectMapperExtensionsTest {
         /// <summary>
-        /// 测试映射 - Sample -> Sample2 已在配置类中配置映射关系
+        /// 测试映射 - Sample2 -> Sample 未在配置类中配置,将自动配置映射
         /// </summary>
         [Fact]
         public void TestMapTo_1() {
@@ -19,31 +19,10 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
         }
 
         /// <summary>
-        /// 测试映射- 已在配置类中配置映射关系 - 带参数重载
-        /// </summary>
-        [Fact]
-        public void TestMapTo_2() {
-            var sample = new Sample { StringValue = "a" };
-            var sample2 = new Sample2();
-            sample.MapTo( sample2 );
-            Assert.Equal( "a", sample2.StringValue );
-        }
-
-        /// <summary>
-        /// 测试映射 - Sample2 -> Sample 未在配置类中配置,将自动配置映射
-        /// </summary>
-        [Fact]
-        public void TestMapTo_3() {
-            var sample2 = new Sample2 { StringValue = "a" };
-            var sample = sample2.MapTo<Sample>();
-            Assert.Equal( "a", sample.StringValue );
-        }
-
-        /// <summary>
         /// 测试映射 - 映射相同属性名的不同对象
         /// </summary>
         [Fact]
-        public void TestMapTo_4() {
+        public void TestMapTo_2() {
             Sample sample = new Sample { Test3 = new Sample3Copy { StringValue = "a" } };
             Sample2 sample2 = sample.MapTo<Sample2>();
             Assert.Equal( "a", sample2.Test3.StringValue );
@@ -53,7 +32,7 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
         /// 测试映射 - 映射相同属性名的不同对象集合
         /// </summary>
         [Fact]
-        public void TestMapTo_5() {
+        public void TestMapTo_3() {
             Sample sample = new Sample { TestList = new List<Sample3Copy> { new() { StringValue = "a" }, new() { StringValue = "b" } } };
             Sample2 sample2 = sample.MapTo<Sample2>();
             Assert.Equal( 2, sample2.TestList.Count );
@@ -65,7 +44,7 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
         /// 测试映射集合
         /// </summary>
         [Fact]
-        public void TestMapTo_6() {
+        public void TestMapTo_4() {
             List<Sample> sampleList = new List<Sample> { new() { StringValue = "a" }, new() { StringValue = "b" } };
             List<Sample2> sample2List = new List<Sample2>();
             sampleList.MapTo( sample2List );
@@ -77,7 +56,7 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
         /// 测试映射集合
         /// </summary>
         [Fact]
-        public void TestMapTo_7() {
+        public void TestMapTo_5() {
             List<Sample> sampleList = new List<Sample> { new() { StringValue = "a" }, new() { StringValue = "b" } };
             List<Sample2> sample2List = sampleList.MapTo<List<Sample2>>();
             Assert.Equal( 2, sample2List.Count );
@@ -88,12 +67,69 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
         /// 并发测试
         /// </summary>
         [Fact]
-        public void TestMapTo_8() {
+        public void TestMapTo_6() {
             Thread.ParallelFor( () => {
                 var sample = new Sample { StringValue = "a" };
                 var sample2 = sample.MapTo<Sample2>();
                 Assert.Equal( "a", sample2.StringValue );
             }, 20 );
+        }
+
+        /// <summary>
+        /// 测试映射 - Sample -> Sample4 已在配置类中配置映射关系
+        /// </summary>
+        [Fact]
+        public void TestMapTo_7() {
+            var sample = new Sample { StringValue = "a" };
+            var sample4 = sample.MapTo<Sample4>();
+            Assert.Equal( "a-1", sample4.StringValue );
+        }
+
+        /// <summary>
+        /// 测试映射- 已在配置类中配置映射关系 - 带参数重载
+        /// </summary>
+        [Fact]
+        public void TestMapTo_8() {
+            var sample = new Sample { StringValue = "a" };
+            var sample4 = new Sample4();
+            sample.MapTo( sample4 );
+            Assert.Equal( "a-1", sample4.StringValue );
+        }
+
+        /// <summary>
+        /// 测试映射 - 多次执行预配置映射
+        /// </summary>
+        [Fact]
+        public void TestMapTo_9() {
+            var sample = new Sample { StringValue = "a" };
+            var sample4 = sample.MapTo<Sample4>();
+            Assert.Equal( "a-1", sample4.StringValue );
+
+            sample.StringValue = "b";
+            sample4 = sample.MapTo<Sample4>();
+            Assert.Equal( "b-1", sample4.StringValue );
+
+            sample.StringValue = "c";
+            sample4 = sample.MapTo<Sample4>();
+            Assert.Equal( "c-1", sample4.StringValue );
+        }
+
+        /// <summary>
+        /// 测试映射 - 预配置映射与自动配置映射混合执行
+        /// </summary>
+        [Fact]
+        public void TestMapTo_10() {
+            var sample = new Sample { StringValue = "a" };
+            var sample4 = sample.MapTo<Sample4>();
+            Assert.Equal( "a-1", sample4.StringValue );
+
+            sample.StringValue = "b";
+            var sample2 = sample.MapTo<Sample2>();
+            Assert.Equal( "b", sample2.StringValue );
+
+            sample.StringValue = "c";
+            sample4 = sample.MapTo<Sample4>();
+            Assert.Equal( "c-1", sample4.StringValue );
         }
 
         /// <summary>

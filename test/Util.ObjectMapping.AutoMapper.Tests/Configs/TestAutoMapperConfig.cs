@@ -11,8 +11,8 @@ namespace Util.ObjectMapping.AutoMapper.Tests.Configs {
         /// </summary>
         /// <param name="expression">配置映射表达式</param>
         public void Config( IMapperConfigurationExpression expression ) {
-            expression.CreateMap<Sample, Sample2>();
-            expression.CreateMap<Sample, Sample3>();
+            expression.CreateMap<Sample, Sample4>()
+                .ForMember( o => o.StringValue, o => o.MapFrom( ( s, d ) => s.StringValue + "-1" ) );
         }
     }
 }

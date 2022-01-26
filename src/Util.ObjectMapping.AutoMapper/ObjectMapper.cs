@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using AutoMapper.Internal;
 using Util.Helpers;
 
 namespace Util.ObjectMapping {
@@ -10,7 +11,11 @@ namespace Util.ObjectMapping {
         /// <summary>
         /// 同步锁
         /// </summary>
-        private static readonly object Sync = new object();
+        private static readonly object Sync = new();
+        /// <summary>
+        /// 配置表达式
+        /// </summary>
+        private readonly MapperConfigurationExpression _configExpression;
         /// <summary>
         /// 配置提供器
         /// </summary>
@@ -23,9 +28,10 @@ namespace Util.ObjectMapping {
         /// <summary>
         /// 初始化AutoMapper对象映射器
         /// </summary>
-        /// <param name="config">映射配置</param>
-        public ObjectMapper( IConfigurationProvider config ) {
-            _config = config ?? throw new ArgumentNullException( nameof( config ) );
+        /// <param name="expression">配置表达式</param>
+        public ObjectMapper( MapperConfigurationExpression expression ) {
+            _configExpression = expression ?? throw new ArgumentNullException( nameof( expression ) );
+            _config = new MapperConfiguration( expression );
             _mapper = _config.CreateMapper();
         }
 
@@ -48,13 +54,13 @@ namespace Util.ObjectMapping {
         /// <param name="destination">目标对象</param>
         public TDestination Map<TSource, TDestination>( TSource source, TDestination destination ) {
             try {
-                if( source == null )
+                if ( source == null )
                     return default;
                 var sourceType = GetType( source );
                 var destinationType = GetType( destination );
                 return GetResult( sourceType, destinationType, source, destination );
             }
-            catch( AutoMapperMappingException ex ) {
+            catch ( AutoMapperMappingException ex ) {
                 return GetResult( GetType( ex.MemberMap.SourceType ), GetType( ex.MemberMap.DestinationType ), source, destination );
             }
         }
@@ -63,7 +69,7 @@ namespace Util.ObjectMapping {
         /// 获取类型
         /// </summary>
         private Type GetType<T>( T obj ) {
-            if( obj == null )
+            if ( obj == null )
                 return GetType( typeof( T ) );
             return GetType( obj.GetType() );
         }
@@ -79,10 +85,10 @@ namespace Util.ObjectMapping {
         /// 获取结果
         /// </summary>
         private TDestination GetResult<TDestination>( Type sourceType, Type destinationType, object source, TDestination destination ) {
-            if( Exists( sourceType, destinationType ) )
+            if ( Exists( sourceType, destinationType ) )
                 return GetResult( source, destination );
-            lock( Sync ) {
-                if( Exists( sourceType, destinationType ) )
+            lock ( Sync ) {
+                if ( Exists( sourceType, destinationType ) )
                     return GetResult( source, destination );
                 ConfigMap( sourceType, destinationType );
             }
@@ -93,7 +99,7 @@ namespace Util.ObjectMapping {
         /// 是否已存在映射配置
         /// </summary>
         private bool Exists( Type sourceType, Type destinationType ) {
-            return _config.FindTypeMapFor( sourceType, destinationType ) != null;
+            return _config.Internal().FindTypeMapFor( sourceType, destinationType ) != null;
         }
 
         /// <summary>
@@ -104,15 +110,11 @@ namespace Util.ObjectMapping {
         }
 
         /// <summary>
-        /// 配置映射
+        /// 动态配置映射
         /// </summary>
         private void ConfigMap( Type sourceType, Type destinationType ) {
-            var maps = _config.GetAllTypeMaps();
-            _config = new MapperConfiguration( t => {
-                t.CreateMap( sourceType, destinationType );
-                foreach( var map in maps ) 
-                    t.CreateMap( map.SourceType, map.DestinationType );
-            } );
+            _configExpression.CreateMap( sourceType, destinationType );
+            _config = new MapperConfiguration( _configExpression );
             _mapper = _config.CreateMapper();
         }
     }

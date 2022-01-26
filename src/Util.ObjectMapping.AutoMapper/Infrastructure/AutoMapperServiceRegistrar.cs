@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using AutoMapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Helpers;
 using Util.Infrastructure;
@@ -38,8 +37,7 @@ namespace Util.ObjectMapping.Infrastructure {
             var instances = types.Select( type => Reflection.CreateInstance<IAutoMapperConfig>( type ) ).ToList();
             var expression = new MapperConfigurationExpression();
             instances.ForEach( t => t.Config( expression ) );
-            var config = new MapperConfiguration( expression );
-            var mapper = new ObjectMapper( config );
+            var mapper = new ObjectMapper( expression );
             ObjectMapperExtensions.SetMapper( mapper );
             services.AddSingleton<IObjectMapper>( mapper );
             return null;
