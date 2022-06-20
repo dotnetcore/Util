@@ -34,9 +34,6 @@ namespace Util.Data.Trees {
                 Condition = Condition.And( t => t.Level == parameter.Level );
             if( parameter.Enabled != null )
                 Condition = Condition.And( t => t.Enabled == parameter.Enabled );
-            var parentId = Util.Helpers.Convert.To<TParentId>( parameter.ParentId );
-            if( parameter.ParentId != null )
-                Condition = Condition.And( t => t.ParentId.Equals(parentId) );
         }
 
         /// <summary>

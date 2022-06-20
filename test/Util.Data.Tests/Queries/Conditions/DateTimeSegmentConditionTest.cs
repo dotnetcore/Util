@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
+using System.Threading;
 using Util.Data.Queries;
 using Util.Data.Queries.Conditions;
 using Util.Data.Tests.Samples;
@@ -14,6 +16,11 @@ namespace Util.Data.Tests.Queries.Conditions {
         /// 测试初始化
         /// </summary>
         public DateTimeSegmentConditionTest() {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo( "zh-CN" ) {
+                DateTimeFormat = new DateTimeFormatInfo {
+                    ShortDatePattern = "yyyy/M/d"
+                }
+            };
             _min = DateTime.Parse( "2000-1-1 10:10:10" );
             _max = DateTime.Parse( "2000-1-2 10:10:10" );
         }

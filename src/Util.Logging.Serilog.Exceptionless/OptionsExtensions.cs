@@ -7,12 +7,12 @@ namespace Util.Logging.Serilog {
     /// </summary>
     public static class OptionsExtensions {
         /// <summary>
-        /// 配置Serilog日志操作
+        /// 启用Serilog日志操作
         /// </summary>
         /// <param name="options">配置项</param>
         /// <param name="configAction">Exceptionless日志配置操作</param>
         /// <param name="isClearProviders">是否清除默认设置的日志提供程序</param>
-        public static Options UseSerilog( this Options options,Action<SerilogExceptionlessConfiguration> configAction, bool isClearProviders = true ) {
+        public static Options UseSerilog( this Options options,Action<SerilogExceptionlessConfiguration> configAction, bool isClearProviders = false ) {
             configAction.CheckNull( nameof( configAction ) );
             var config = new SerilogExceptionlessConfiguration();
             configAction( config );

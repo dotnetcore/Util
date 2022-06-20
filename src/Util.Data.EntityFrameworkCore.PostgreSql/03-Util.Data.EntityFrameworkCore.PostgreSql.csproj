@@ -5,17 +5,17 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Data.EntityFrameworkCore.PostgreSql</AssemblyName>
 		<RootNamespace>Util.Data.EntityFrameworkCore</RootNamespace>
-		<Description>Util.Data.EntityFrameworkCore.PostgreSql是Util应用框架针对PostgreSql数据库的EntityFrameworkCore封装类库</Description>
+		<Description>Util.Data.EntityFrameworkCore.PostgreSql是Util应用框架基于EntityFrameworkCore的数据访问封装类库,用于处理PostgreSql数据库</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Data.EntityFrameworkCore.SqlServer.xml</DocumentationFile>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Data.EntityFrameworkCore.PostgreSql.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Data.EntityFrameworkCore.SqlServer.xml</DocumentationFile>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Data.EntityFrameworkCore.PostgreSql.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />
+	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Util.Application.WebApi.PostgreSql.Tests.Integration": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:3603;http://localhost:3604"
+    }
+  }
+}

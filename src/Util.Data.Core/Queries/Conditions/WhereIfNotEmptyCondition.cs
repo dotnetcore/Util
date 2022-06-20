@@ -29,7 +29,7 @@ namespace Util.Data.Queries.Conditions {
             if( _condition == null )
                 return null;
             if( Lambda.GetConditionCount( _condition ) > 1 )
-                throw new InvalidOperationException( string.Format( UtilCoreResource.CanOnlyOneCondition, _condition ) );
+                throw new InvalidOperationException( string.Format( R.CanOnlyOneCondition, _condition ) );
             return _condition.Value().SafeString().IsEmpty() ? null : _condition;
         }
     }

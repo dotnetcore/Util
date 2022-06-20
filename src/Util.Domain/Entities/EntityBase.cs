@@ -118,7 +118,7 @@ namespace Util.Domain.Entities {
             if( typeof( TKey ) == typeof( int ) || typeof( TKey ) == typeof( long ) )
                 return;
             if( string.IsNullOrWhiteSpace( Id.SafeString() ) || Id.Equals( default( TKey ) ) )
-                results.Add( new ValidationResult( UtilCoreResource.IdIsEmpty ) );
+                results.Add( new ValidationResult( R.IdIsEmpty ) );
         }
     }
 }

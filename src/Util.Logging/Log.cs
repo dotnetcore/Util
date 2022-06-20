@@ -25,6 +25,15 @@ namespace Util.Logging {
 
         #endregion
 
+        #region Null(空日志操作实例)
+
+        /// <summary>
+        /// 空日志操作实例
+        /// </summary>
+        public static ILog<TCategoryName> Null = NullLog<TCategoryName>.Instance;
+
+        #endregion
+
         #region 属性
 
         /// <summary>

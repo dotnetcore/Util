@@ -8,12 +8,12 @@ namespace Util.Aop {
     /// </summary>
     public static class OptionsExtensions {
         /// <summary>
-        /// 配置拦截器
+        /// 启用AspectCore拦截器
         /// </summary>
         /// <param name="options">配置项</param>
-        /// <param name="configure">Aop配置</param>
-        public static Options UseAop( this Options options, Action<IAspectConfiguration> configure = null ) {
-            options.AddExtension( new AopOptionsExtension( configure ) );
+        /// <param name="setupAction">AspectCore拦截器配置操作</param>
+        public static Options UseAop( this Options options, Action<IAspectConfiguration> setupAction = null ) {
+            options.AddExtension( new AopOptionsExtension( setupAction ) );
             return options;
         }
     }

@@ -30,7 +30,7 @@
         /// </summary>
         /// <param name="properties">扩展属性集合</param>
         public TProperty GetProperty( ExtraPropertyDictionary properties ) {
-            _properties = properties;
+            _properties = properties ?? new ExtraPropertyDictionary();
             var property = _properties.GetProperty<TProperty>( _propertyName );
             if ( property == null )
                 return null;

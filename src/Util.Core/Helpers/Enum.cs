@@ -104,7 +104,7 @@ namespace Util.Helpers {
         public static List<Item> GetItems( Type type ) {
             type = Common.GetType( type );
             if( type.IsEnum == false )
-                throw new InvalidOperationException( string.Format( UtilCoreResource.TypeNotEnum,type ) );
+                throw new InvalidOperationException( string.Format( R.TypeNotEnum,type ) );
             var result = new List<Item>();
             foreach( var field in type.GetFields() )
                 AddItem( type, result, field );
@@ -137,7 +137,7 @@ namespace Util.Helpers {
         public static List<string> GetNames( Type type ) {
             type = Common.GetType( type );
             if( type.IsEnum == false )
-                throw new InvalidOperationException( string.Format( UtilCoreResource.TypeNotEnum, type ) );
+                throw new InvalidOperationException( string.Format( R.TypeNotEnum, type ) );
             var result = new List<string>();
             foreach ( var field in type.GetFields() ) {
                 if( !field.FieldType.IsEnum )

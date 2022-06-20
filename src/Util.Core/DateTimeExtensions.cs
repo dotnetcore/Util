@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Util.Helpers;
 using Util.Properties;
 
 namespace Util {
@@ -13,9 +14,20 @@ namespace Util {
         /// <param name="dateTime">日期</param>
         /// <param name="removeSecond">是否移除秒</param>
         public static string ToDateTimeString( this DateTime dateTime, bool removeSecond = false ) {
-            if( removeSecond )
+            dateTime = GetLocalDateTime( dateTime );
+            if ( removeSecond )
                 return dateTime.ToString( "yyyy-MM-dd HH:mm" );
             return dateTime.ToString( "yyyy-MM-dd HH:mm:ss" );
+        }
+
+        /// <summary>
+        /// 获取本地日期
+        /// </summary>
+        private static DateTime GetLocalDateTime( DateTime dateTime ) {
+            dateTime = Time.Normalize( dateTime );
+            if ( dateTime.Kind == DateTimeKind.Utc )
+                return dateTime.ToLocalTime();
+            return dateTime;
         }
 
         /// <summary>
@@ -34,6 +46,7 @@ namespace Util {
         /// </summary>
         /// <param name="dateTime">日期</param>
         public static string ToDateString( this DateTime dateTime ) {
+            dateTime = GetLocalDateTime( dateTime );
             return dateTime.ToString( "yyyy-MM-dd" );
         }
 
@@ -52,6 +65,7 @@ namespace Util {
         /// </summary>
         /// <param name="dateTime">日期</param>
         public static string ToTimeString( this DateTime dateTime ) {
+            dateTime = GetLocalDateTime( dateTime );
             return dateTime.ToString( "HH:mm:ss" );
         }
 
@@ -70,6 +84,7 @@ namespace Util {
         /// </summary>
         /// <param name="dateTime">日期</param>
         public static string ToMillisecondString( this DateTime dateTime ) {
+            dateTime = GetLocalDateTime( dateTime );
             return dateTime.ToString( "yyyy-MM-dd HH:mm:ss.fff" );
         }
 
@@ -88,6 +103,7 @@ namespace Util {
         /// </summary>
         /// <param name="dateTime">日期</param>
         public static string ToChineseDateString( this DateTime dateTime ) {
+            dateTime = GetLocalDateTime( dateTime );
             return $"{dateTime.Year}年{dateTime.Month}月{dateTime.Day}日";
         }
 
@@ -107,6 +123,7 @@ namespace Util {
         /// <param name="dateTime">日期</param>
         /// <param name="removeSecond">是否移除秒</param>
         public static string ToChineseDateTimeString( this DateTime dateTime, bool removeSecond = false ) {
+            dateTime = GetLocalDateTime( dateTime );
             StringBuilder result = new StringBuilder();
             result.AppendFormat( "{0}年{1}月{2}日", dateTime.Year, dateTime.Month, dateTime.Day );
             result.AppendFormat( " {0}时{1}分", dateTime.Hour, dateTime.Minute );
@@ -134,27 +151,27 @@ namespace Util {
             StringBuilder result = new StringBuilder();
             if ( timeSpan.Days > 0 ) {
                 result.Append( timeSpan.Days );
-                result.Append( UtilCoreResource.Days );
+                result.Append( R.Days );
             }
             if ( timeSpan.Hours > 0 ) {
                 result.Append( timeSpan.Hours );
-                result.Append( UtilCoreResource.Hours );
+                result.Append( R.Hours );
             }
             if ( timeSpan.Minutes > 0 ) {
                 result.Append( timeSpan.Minutes );
-                result.Append( UtilCoreResource.Minutes );
+                result.Append( R.Minutes );
             }
             if ( timeSpan.Seconds > 0 ) {
                 result.Append( timeSpan.Seconds );
-                result.Append( UtilCoreResource.Seconds );
+                result.Append( R.Seconds );
             }
             if ( timeSpan.Milliseconds > 0 ) {
                 result.Append( timeSpan.Milliseconds );
-                result.Append( UtilCoreResource.Milliseconds );
+                result.Append( R.Milliseconds );
             }
             if ( result.Length > 0 )
                 return result.ToString();
-            return $"{timeSpan.TotalMilliseconds}{UtilCoreResource.Milliseconds}";
+            return $"{timeSpan.TotalMilliseconds}{R.Milliseconds}";
         }
     }
 }

@@ -37,5 +37,35 @@ namespace Util.Applications {
                 return warning.GetMessage();
             return isProduction ? R.SystemError : exception.Message;
         }
+
+        /// <summary>
+        /// 获取Http状态码
+        /// </summary>
+        /// <param name="exception">异常</param>
+        public static int? GetHttpStatusCode( this Exception exception ) {
+            if ( exception == null )
+                return null;
+            exception = exception.GetRawException();
+            if ( exception == null )
+                return null;
+            if ( exception is Warning warning )
+                return warning.HttpStatusCode;
+            return null;
+        }
+
+        /// <summary>
+        /// 获取错误码
+        /// </summary>
+        /// <param name="exception">异常</param>
+        public static string GetErrorCode( this Exception exception ) {
+            if ( exception == null )
+                return null;
+            exception = exception.GetRawException();
+            if ( exception == null )
+                return null;
+            if ( exception is Warning warning )
+                return warning.Code;
+            return null;
+        }
     }
 }

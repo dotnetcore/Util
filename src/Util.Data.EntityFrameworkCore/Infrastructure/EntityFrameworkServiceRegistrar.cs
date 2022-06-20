@@ -1,6 +1,5 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Util.Data.EntityFrameworkCore.Filters;
 using Util.Domain;
 using Util.Infrastructure;
@@ -29,10 +28,9 @@ namespace Util.Data.EntityFrameworkCore.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="services">服务集合</param>
-        /// <param name="configuration">配置</param>
+        /// <param name="hostBuilder">主机生成器</param>
         /// <param name="finder">类型查找器</param>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
             FilterManager.AddFilterType<IDelete>();
             return null;
         }

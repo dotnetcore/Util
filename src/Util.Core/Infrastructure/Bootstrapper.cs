@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Util.Configs;
 using Util.Dependency;
 using Util.Helpers;
@@ -14,17 +13,13 @@ namespace Util.Infrastructure {
     /// </summary>
     public class Bootstrapper {
         /// <summary>
-        /// 服务集合
+        /// 主机生成器
         /// </summary>
-        private readonly IServiceCollection _services;
+        private readonly IHostBuilder _hostBuilder;
         /// <summary>
         /// 服务配置
         /// </summary>
         private readonly Action<Options> _setupAction;
-        /// <summary>
-        /// 配置
-        /// </summary>
-        private readonly IConfiguration _configuration;
         /// <summary>
         /// 类型查找器
         /// </summary>
@@ -37,13 +32,11 @@ namespace Util.Infrastructure {
         /// <summary>
         /// 初始化启动器
         /// </summary>
-        /// <param name="services">服务集合</param>
+        /// <param name="hostBuilder">主机生成器</param>
         /// <param name="setupAction">服务配置操作</param>
-        /// <param name="configuration">配置</param>
-        public Bootstrapper( IServiceCollection services, Action<Options> setupAction = null, IConfiguration configuration = null ) {
-            _services = services ?? throw new ArgumentNullException( nameof( services ) );
+        public Bootstrapper( IHostBuilder hostBuilder, Action<Options> setupAction = null ) {
+            _hostBuilder = hostBuilder ?? throw new ArgumentNullException( nameof( hostBuilder ) );
             _setupAction = setupAction;
-            _configuration = configuration;
             var assemblyFinder = new AppDomainAssemblyFinder { AssemblySkipPattern = BootstrapperConfig.AssemblySkipPattern };
             _finder = new AppDomainTypeFinder( assemblyFinder );
             _serviceActions = new List<Action>();
@@ -52,7 +45,8 @@ namespace Util.Infrastructure {
         /// <summary>
         /// 启动
         /// </summary>
-        public void Start() {
+        public virtual void Start() {
+            SetConfiguration();
             ResolveServiceRegistrar();
             ConfigOptions();
             ResolveDependencyRegistrar();
@@ -60,34 +54,45 @@ namespace Util.Infrastructure {
         }
 
         /// <summary>
+        /// 设置配置实例
+        /// </summary>
+        protected virtual void SetConfiguration() {
+            _hostBuilder.ConfigureServices( ( context, services ) => {
+                Util.Helpers.Config.SetConfiguration( context.Configuration );
+            } );
+        }
+
+        /// <summary>
         /// 解析服务注册器
         /// </summary>
-        private void ResolveServiceRegistrar() {
+        protected virtual void ResolveServiceRegistrar() {
             var types = _finder.Find<IServiceRegistrar>();
             var instances = types.Select( type => Reflection.CreateInstance<IServiceRegistrar>( type ) ).Where( t => t.Enabled ).OrderBy( t => t.Id ).ToList();
-            instances.ForEach( t => _serviceActions.Add( t.Register( _services, _configuration, _finder ) ) );
+            instances.ForEach( t => _serviceActions.Add( t.Register( _hostBuilder, _finder ) ) );
         }
 
         /// <summary>
         /// 注册配置项
         /// </summary>
-        private void ConfigOptions() {
-            _services.AddOptions( _setupAction );
+        protected virtual void ConfigOptions() {
+            _hostBuilder.AddOptions( _setupAction );
         }
 
         /// <summary>
         /// 解析依赖注册器
         /// </summary>
-        private void ResolveDependencyRegistrar() {
+        protected virtual void ResolveDependencyRegistrar() {
             var types = _finder.Find<IDependencyRegistrar>();
             var instances = types.Select( type => Reflection.CreateInstance<IDependencyRegistrar>( type ) ).OrderBy( t => t.Order ).ToList();
-            instances.ForEach( t => t.Register( _services ) );
+            _hostBuilder.ConfigureServices( ( context, services ) => {
+                instances.ForEach( t => t.Register( services ) );
+            } );
         }
 
         /// <summary>
         /// 执行延迟服务注册操作
         /// </summary>
-        private void ExecuteServiceActions() {
+        protected virtual void ExecuteServiceActions() {
             _serviceActions.ForEach( action => action?.Invoke() );
         }
     }

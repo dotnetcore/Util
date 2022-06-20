@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
@@ -9,10 +9,10 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
     /// </summary>
     public class Startup {
         /// <summary>
-        /// 配置服务
+        /// 配置主机
         /// </summary>
-        public void ConfigureServices( IServiceCollection services ) {
-            services.AddUtil();
+        public void ConfigureHost( IHostBuilder hostBuilder ) {
+            hostBuilder.AddUtil();
         }
 
         /// <summary>

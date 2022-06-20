@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Xunit.DependencyInjection;
@@ -13,14 +12,7 @@ namespace Util.Aop.AspectCore.Tests {
         /// 配置主机
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
-            hostBuilder.EnableAop();
-        }
-
-        /// <summary>
-        /// 配置服务
-        /// </summary>
-        public void ConfigureServices( IServiceCollection services ) {
-            services.AddUtil();
+            hostBuilder.AddUtil( t => t.UseAop() );
         }
 
         /// <summary>

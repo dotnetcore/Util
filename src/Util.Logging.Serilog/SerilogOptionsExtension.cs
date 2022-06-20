@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Util.Configs;
@@ -7,7 +8,7 @@ namespace Util.Logging.Serilog {
     /// <summary>
     /// Serilog日志操作配置扩展
     /// </summary>
-    public class SerilogOptionsExtension : IOptionsExtension {
+    public class SerilogOptionsExtension : OptionsExtensionBase {
         /// <summary>
         /// 是否清除日志提供程序
         /// </summary>
@@ -21,15 +22,12 @@ namespace Util.Logging.Serilog {
             _isClearProviders = isClearProviders;
         }
 
-        /// <summary>
-        /// 添加服务
-        /// </summary>
-        /// <param name="services">服务集合</param>
-        public void AddServices( IServiceCollection services ) {
+        /// <inheritdoc />
+        public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
+            var configuration = context.Configuration;
             services.AddLogging( loggingBuilder => {
-                if( _isClearProviders )
+                if ( _isClearProviders )
                     loggingBuilder.ClearProviders();
-                var configuration = services.GetConfiguration();
                 Log.Logger = new LoggerConfiguration()
                     .Enrich.FromLogContext()
                     .Enrich.WithLogLevel()

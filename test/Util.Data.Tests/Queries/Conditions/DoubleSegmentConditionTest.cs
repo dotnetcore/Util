@@ -8,7 +8,7 @@ namespace Util.Data.Tests.Queries.Conditions {
     /// <summary>
     /// 测试double范围过滤条件
     /// </summary>
-    public class DoubleSegmentConditionTest {
+    public class DoubleSegmentConditionTest  {
         /// <summary>
         /// 测试获取查询条件
         /// </summary>

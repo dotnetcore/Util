@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Util.Helpers;
 using Util.Http;
 using Util.Reflections;
@@ -30,15 +30,16 @@ namespace Util.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="services">服务集合</param>
-        /// <param name="configuration">配置</param>
+        /// <param name="hostBuilder">主机生成器</param>
         /// <param name="finder">类型查找器</param>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
-            RegisterHttpContextAccessor( services );
-            services.AddHttpClient();
-            RegisterServiceLocator();
-            RegisterSession( services );
-            RegisterHttpClient( services );
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+            hostBuilder.ConfigureServices( ( context, services ) => {
+                RegisterHttpContextAccessor( services );
+                services.AddHttpClient();
+                RegisterServiceLocator();
+                RegisterSession( services );
+                RegisterHttpClient( services );
+            } );
             return null;
         }
 

@@ -28,7 +28,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Util.Application\Util.Application.csproj" />
-		<ProjectReference Include="..\Util.AspNetCore\02-Util.AspNetCore.csproj" />
+		<ProjectReference Include="..\Util.AspNetCore\07-Util.AspNetCore.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

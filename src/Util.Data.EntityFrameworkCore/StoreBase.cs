@@ -11,7 +11,6 @@ using Util.Data.Queries;
 using Util.Data.Stores;
 using Util.Domain;
 using Util.Exceptions;
-using Convert = Util.Helpers.Convert;
 
 namespace Util.Data.EntityFrameworkCore {
     /// <summary>
@@ -34,6 +33,15 @@ namespace Util.Data.EntityFrameworkCore {
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterSwitch, ITrack where TEntity : class, IKey<TKey> {
+
+        #region 字段
+
+        /// <summary>
+        /// 是否已释放
+        /// </summary>
+        private bool _disposed;
+
+        #endregion
 
         #region 构造方法
 
@@ -105,7 +113,8 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public IQueryable<TEntity> Find() {
-            if( IsTracking )
+            ThrowIfDisposed();
+            if ( IsTracking )
                 return Set;
             var result = Set.AsNoTracking();
             IsTracking = true;
@@ -128,7 +137,8 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public TEntity FindById( object id ) {
-            if( id.SafeString().IsEmpty() )
+            ThrowIfDisposed();
+            if ( id.SafeString().IsEmpty() )
                 return null;
             var key = GetKey( id );
             if( IsTracking )
@@ -142,7 +152,7 @@ namespace Util.Data.EntityFrameworkCore {
         protected object GetKey( object id ) {
             if( id is TKey )
                 return id;
-            return Convert.To<TKey>( id );
+            return Util.Helpers.Convert.To<TKey>( id );
         }
 
         #endregion
@@ -151,7 +161,9 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public async Task<TEntity> FindByIdAsync( object id, CancellationToken cancellationToken = default ) {
-            if( id.SafeString().IsEmpty() )
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
+            if ( id.SafeString().IsEmpty() )
                 return null;
             var key = GetKey( id );
             if( IsTracking )
@@ -175,7 +187,7 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public virtual List<TEntity> FindByIds( string ids ) {
-            return FindByIds( Convert.ToList<TKey>( ids ) );
+            return FindByIds( Util.Helpers.Convert.ToList<TKey>( ids ) );
         }
 
         #endregion
@@ -189,12 +201,13 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public virtual async Task<List<TEntity>> FindByIdsAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
             return ids == null ? null : await Find( t => ids.Contains( t.Id ) ).ToListAsync( cancellationToken );
         }
 
         /// <inheritdoc />
         public virtual async Task<List<TEntity>> FindByIdsAsync( string ids, CancellationToken cancellationToken = default ) {
-            return await FindByIdsAsync( Convert.ToList<TKey>( ids ), cancellationToken );
+            return await FindByIdsAsync( Util.Helpers.Convert.ToList<TKey>( ids ), cancellationToken );
         }
 
         #endregion
@@ -219,12 +232,14 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public virtual async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> condition, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
             return await Find().FirstOrDefaultAsync( condition, cancellationToken );
         }
 
         /// <inheritdoc />
         public virtual async Task<TEntity> SingleAsync( Expression<Func<TEntity, bool>> condition, Func<IQueryable<TEntity>, IQueryable<TEntity>> action, CancellationToken cancellationToken = default ) {
-            if( action == null )
+            cancellationToken.ThrowIfCancellationRequested();
+            if ( action == null )
                 return await SingleAsync( condition, cancellationToken );
             return await action( Find() ).FirstOrDefaultAsync( condition, cancellationToken );
         }
@@ -244,7 +259,8 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public virtual async Task<List<TEntity>> FindAllAsync( Expression<Func<TEntity, bool>> condition = null, CancellationToken cancellationToken = default ) {
-            if( condition == null )
+            cancellationToken.ThrowIfCancellationRequested();
+            if ( condition == null )
                 return await Find().ToListAsync( cancellationToken );
             return await Find( condition ).ToListAsync( cancellationToken );
         }
@@ -274,6 +290,7 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public virtual async Task<bool> ExistsAsync( Expression<Func<TEntity, bool>> condition, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
             return condition != null && await Find().AnyAsync( condition, cancellationToken );
         }
 
@@ -292,31 +309,10 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public virtual async Task<int> CountAsync( Expression<Func<TEntity, bool>> condition = null, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
             return condition == null
                 ? await Find().CountAsync( cancellationToken )
                 : await Find().CountAsync( condition, cancellationToken );
-        }
-
-        #endregion
-
-        #region Add(添加实体)
-
-        /// <summary>
-        /// 添加实体
-        /// </summary>
-        /// <param name="entity">实体</param>
-        public virtual void Add( TEntity entity ) {
-            entity.CheckNull( nameof( entity ) );
-            Set.Add( entity );
-        }
-
-        /// <summary>
-        /// 添加实体集合
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        public virtual void Add( IEnumerable<TEntity> entities ) {
-            entities.CheckNull( nameof( entities ) );
-            Set.AddRange( entities );
         }
 
         #endregion
@@ -329,6 +325,8 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="entity">实体</param>
         /// <param name="cancellationToken">取消令牌</param>
         public virtual async Task AddAsync( TEntity entity, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
             entity.CheckNull( nameof( entity ) );
             await Set.AddAsync( entity, cancellationToken );
         }
@@ -339,16 +337,28 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="entities">实体集合</param>
         /// <param name="cancellationToken">取消令牌</param>
         public virtual async Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
             entities.CheckNull( nameof( entities ) );
             await Set.AddRangeAsync( entities, cancellationToken );
         }
 
         #endregion
 
-        #region Update(修改实体)
+        #region UpdateAsync(修改实体)
 
         /// <inheritdoc />
-        public virtual void Update( TEntity entity ) {
+        public virtual Task UpdateAsync( TEntity entity, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
+            Update( entity );
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        protected void Update( TEntity entity ) {
+            ThrowIfDisposed();
             entity.CheckNull( nameof( entity ) );
             var entry = UnitOfWork.Entry( entity );
             ValidateVersion( entry, entity );
@@ -359,15 +369,15 @@ namespace Util.Data.EntityFrameworkCore {
         /// 验证版本号
         /// </summary>
         protected void ValidateVersion( EntityEntry<TEntity> entry, TEntity entity ) {
-            if( entry.State == EntityState.Detached )
+            if ( entry.State == EntityState.Detached )
                 return;
-            if( entity is not IVersion current )
+            if ( entity is not IVersion current )
                 return;
-            if( current.Version == null )
+            if ( current.Version == null )
                 return;
             var oldVersion = entry.OriginalValues.GetValue<byte[]>( "Version" );
-            for( int i = 0; i < oldVersion.Length; i++ ) {
-                if( current.Version[i] != oldVersion[i] )
+            for ( int i = 0; i < oldVersion.Length; i++ ) {
+                if ( current.Version[i] != oldVersion[i] )
                     throw new ConcurrencyException( new Exception( $"Type:{typeof( TEntity )},Id:{entity.Id}" ) );
             }
         }
@@ -377,93 +387,30 @@ namespace Util.Data.EntityFrameworkCore {
         /// </summary>
         protected void UpdateEntity( EntityEntry<TEntity> entry, TEntity entity ) {
             var oldEntry = UnitOfWork.ChangeTracker.Entries<TEntity>().FirstOrDefault( t => t.Entity.Equals( entity ) );
-            if( oldEntry != null ) {
+            if ( oldEntry != null ) {
                 oldEntry.CurrentValues.SetValues( entity );
                 return;
             }
-            if( entry.State == EntityState.Detached )
+            if ( entry.State == EntityState.Detached )
                 UnitOfWork.Update( entity );
         }
 
         /// <inheritdoc />
-        public void Update( IEnumerable<TEntity> entities ) {
-            entities.CheckNull( nameof( entities ) );
-            foreach( var entity in entities )
-                Update( entity );
-        }
-
-        #endregion
-
-        #region UpdateAsync(修改实体)
-
-        /// <inheritdoc />
-        public virtual Task UpdateAsync( TEntity entity ) {
-            Update( entity );
-            return Task.CompletedTask;
-        }
-
-        /// <inheritdoc />
-        public virtual Task UpdateAsync( IEnumerable<TEntity> entities ) {
+        public virtual Task UpdateAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
             entities.CheckNull( nameof( entities ) );
             Update( entities );
             return Task.CompletedTask;
         }
 
-        #endregion
-
-        #region Remove(移除实体)
-
-        /// <inheritdoc />
-        public void Remove( object id ) {
-            var entity = FindById( id );
-            Delete( entity );
-        }
-
         /// <summary>
-        /// 删除
+        /// 更新实体集合
         /// </summary>
-        private void Delete( TEntity entity ) {
-            if( entity == null )
-                return;
-            if( entity is IDelete model ) {
-                model.IsDeleted = true;
-                return;
-            }
-            Set.Remove( entity );
-        }
-
-        /// <inheritdoc />
-        public void Remove( TEntity entity ) {
-            if( entity == null )
-                return;
-            Remove( entity.Id );
-        }
-
-        /// <inheritdoc />
-        public void Remove( IEnumerable<TKey> ids ) {
-            if( ids == null )
-                return;
-            var list = FindByIds( ids );
-            Delete( list );
-        }
-
-        /// <summary>
-        /// 删除实体集合
-        /// </summary>
-        private void Delete( List<TEntity> list ) {
-            if( list == null )
-                return;
-            if( !list.Any() )
-                return;
-            foreach( var entity in list )
-                Delete( entity );
-        }
-
-        /// <inheritdoc />
-        public void Remove( IEnumerable<TEntity> entities ) {
-            if( entities == null )
-                return;
-            Remove( entities.Select( t => t.Id ) );
+        protected void Update( IEnumerable<TEntity> entities ) {
+            ThrowIfDisposed();
+            entities.CheckNull( nameof( entities ) );
+            foreach ( var entity in entities )
+                Update( entity );
         }
 
         #endregion
@@ -472,30 +419,83 @@ namespace Util.Data.EntityFrameworkCore {
 
         /// <inheritdoc />
         public virtual async Task RemoveAsync( object id, CancellationToken cancellationToken = default ) {
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
             var entity = await FindByIdAsync( id, cancellationToken );
             Delete( entity );
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        private void Delete( TEntity entity ) {
+            if ( entity == null )
+                return;
+            if ( entity is IDelete model ) {
+                model.IsDeleted = true;
+                return;
+            }
+            Set.Remove( entity );
+        }
+
         /// <inheritdoc />
         public virtual async Task RemoveAsync( TEntity entity, CancellationToken cancellationToken = default ) {
-            if( entity == null )
+            if ( entity == null )
                 return;
             await RemoveAsync( entity.Id, cancellationToken );
         }
 
         /// <inheritdoc />
         public virtual async Task RemoveAsync( IEnumerable<TKey> ids, CancellationToken cancellationToken = default ) {
-            if( ids == null )
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
+            if ( ids == null )
                 return;
             var entities = await FindByIdsAsync( ids, cancellationToken );
             Delete( entities );
         }
 
+        /// <summary>
+        /// 删除实体集合
+        /// </summary>
+        private void Delete( List<TEntity> list ) {
+            if ( list == null )
+                return;
+            if ( !list.Any() )
+                return;
+            foreach ( var entity in list )
+                Delete( entity );
+        }
+
         /// <inheritdoc />
         public virtual async Task RemoveAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default ) {
-            if( entities == null )
+            if ( entities == null )
                 return;
             await RemoveAsync( entities.Select( t => t.Id ), cancellationToken );
+        }
+
+        #endregion
+
+        #region ThrowIfDisposed(已释放则抛出异常)
+
+        /// <summary>
+        /// 已释放则抛出异常
+        /// </summary>
+        protected void ThrowIfDisposed() {
+            if ( _disposed ) {
+                throw new ObjectDisposedException( GetType().Name );
+            }
+        }
+
+        #endregion
+
+        #region Dispose(释放)
+
+        /// <summary>
+        /// 释放
+        /// </summary>
+        public void Dispose() {
+            _disposed = true;
         }
 
         #endregion

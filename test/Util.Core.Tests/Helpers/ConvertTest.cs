@@ -248,10 +248,13 @@ namespace Util.Tests.Helpers {
         /// <param name="input">输入值</param>
         /// <param name="result">结果</param>
         [Theory]
-        [InlineData( null, false )]
-        [InlineData( "", false )]
+        [InlineData( null, null )]
         [InlineData( "false", false )]
         [InlineData( "true", true )]
+        [InlineData( 0, false )]
+        [InlineData( 1, true )]
+        [InlineData( "0", false )]
+        [InlineData( "1", true )]
         public void TestToBool( object input, bool result ) {
             Assert.Equal( result, Convert.ToBool( input ) );
         }
@@ -269,6 +272,10 @@ namespace Util.Tests.Helpers {
         [InlineData( null, null )]
         [InlineData( "false", false )]
         [InlineData( "true", true )]
+        [InlineData( 0, false )]
+        [InlineData( 1, true )]
+        [InlineData( "0", false )]
+        [InlineData( "1", true )]
         public void TestToBoolOrNull( object input, bool? result ) {
             Assert.Equal( result, Convert.ToBoolOrNull( input ) );
         }
@@ -465,12 +472,12 @@ namespace Util.Tests.Helpers {
         public void TestTo_3() {
             //序列化再反序列化字典
             var dic = new Dictionary<string, object> {
-                {"a", new Sample3 {StringValue = "a"}}, 
+                {"a", new Sample3 {StringValue = "a"}},
                 {"b", new Sample3 {StringValue = "b"}}
             };
             var json = Json.ToJson( dic );
             dic = Json.ToObject<Dictionary<string, object>>( json );
-            
+
             //从字典中获取元素并转换
             var element = dic["b"];
             var result = Convert.To<Sample3>( element );
@@ -496,11 +503,11 @@ namespace Util.Tests.Helpers {
                 Display = "Display",
                 NullableBoolValue = true,
                 DisplayName = "DisplayName",
-                Test3 = new Sample3 {StringValue = "a"},
-                TestList = new List<Sample3> {new() {StringValue = "a"}, new() {StringValue = "b"}}
+                Test3 = new Sample3 { StringValue = "a" },
+                TestList = new List<Sample3> { new() { StringValue = "a" }, new() { StringValue = "b" } }
             };
             var result = Convert.ToDictionary( sample );
-            Assert.Equal( 9,result.Count );
+            Assert.Equal( 9, result.Count );
             Assert.Equal( "Display", result["Display"] );
             Assert.Equal( 2, result["IntValue"] );
         }

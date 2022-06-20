@@ -16,8 +16,7 @@ namespace Util.Logging.Tests {
         [Fact]
         public void TestLogTrace_Message_Validate_Empty() {
             _log.Message( "" ).LogTrace();
-            _mockLogger.Verify( t => t.LogTrace( It.IsAny<EventId>(), It.IsAny<Exception>(), It.IsAny<string>() ),Times.Never );
-
+            _mockLogger.Verify( t => t.LogTrace( It.IsAny<EventId>(), It.IsAny<Exception>(), It.IsAny<string>() ), Times.Never );
         }
 
         /// <summary>

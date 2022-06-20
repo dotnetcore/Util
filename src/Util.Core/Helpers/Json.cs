@@ -1,8 +1,12 @@
 ﻿using System.IO;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Unicode;
 using System.Threading;
 using System.Threading.Tasks;
+using Util.SystemTextJson;
 
 namespace Util.Helpers {
     /// <summary>
@@ -18,10 +22,26 @@ namespace Util.Helpers {
         public static string ToJson<T>( T value, JsonSerializerOptions options = null,bool removeQuotationMarks = false ) {
             if ( value == null )
                 return string.Empty;
+            options = GetToJsonOptions( options );
             var result = JsonSerializer.Serialize( value, options );
             if ( removeQuotationMarks )
                 result = result.Replace( "\"","" );
             return result;
+        }
+
+        /// <summary>
+        /// 获取对象转换为Json字符串的序列化配置
+        /// </summary>
+        private static JsonSerializerOptions GetToJsonOptions( JsonSerializerOptions options ) {
+            if ( options != null )
+                return options;
+            return new JsonSerializerOptions {
+                Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+                Converters = {
+                    new DateTimeJsonConverter(),
+                    new NullableDateTimeJsonConverter()
+                }
+            };
         }
 
         /// <summary>
@@ -33,6 +53,7 @@ namespace Util.Helpers {
         public static async Task<string> ToJsonAsyc<T>( T value, JsonSerializerOptions options = null, CancellationToken cancellationToken = default ) {
             if ( value == null )
                 return string.Empty;
+            options = GetToJsonOptions( options );
             await using var stream = new MemoryStream();
             await JsonSerializer.SerializeAsync( stream, value, typeof( T ), options, cancellationToken );
             stream.Position = 0;
@@ -48,7 +69,25 @@ namespace Util.Helpers {
         public static T ToObject<T>( string json, JsonSerializerOptions options = null ) {
             if ( string.IsNullOrWhiteSpace( json ) )
                 return default;
+            options = GetToObjectOptions( options );
             return JsonSerializer.Deserialize<T>( json, options );
+        }
+
+        /// <summary>
+        /// 获取Json字符串转换为对象的序列化配置
+        /// </summary>
+        private static JsonSerializerOptions GetToObjectOptions( JsonSerializerOptions options ) {
+            if ( options != null )
+                return options;
+            return new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true,
+                NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+                Converters = {
+                    new DateTimeJsonConverter(),
+                    new NullableDateTimeJsonConverter()
+                }
+            };
         }
 
         /// <summary>
@@ -76,6 +115,7 @@ namespace Util.Helpers {
         public static async Task<T> ToObjectAsync<T>( Stream json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default ) {
             if ( json == null )
                 return default;
+            options = GetToObjectOptions( options );
             return await JsonSerializer.DeserializeAsync<T>( json, options, cancellationToken );
         }
     }

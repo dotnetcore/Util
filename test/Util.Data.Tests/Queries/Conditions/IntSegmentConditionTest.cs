@@ -7,7 +7,7 @@ namespace Util.Data.Tests.Queries.Conditions {
     /// <summary>
     /// 测试整数范围过滤条件
     /// </summary>
-    public class IntSegmentConditionTest {
+    public class IntSegmentConditionTest  {
         /// <summary>
         /// 测试获取查询条件
         /// </summary>

@@ -2,6 +2,7 @@
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using Util.Configs;
 
@@ -9,7 +10,7 @@ namespace Util.Data.EntityFrameworkCore {
     /// <summary>
     /// PostgreSql工作单元配置扩展
     /// </summary>
-    public class PgSqlOptionsExtension<TService, TImplementation> : IOptionsExtension 
+    public class PgSqlOptionsExtension<TService, TImplementation> : OptionsExtensionBase
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService {
         /// <summary>
@@ -43,18 +44,15 @@ namespace Util.Data.EntityFrameworkCore {
             _pgSqlSetupAction = pgSqlSetupAction;
         }
 
-        /// <summary>
-        /// 添加服务
-        /// </summary>
-        /// <param name="services">服务集合</param>
-        public void AddServices( IServiceCollection services ) {
+        /// <inheritdoc />
+        public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
             services.AddDbContext<TService, TImplementation>( options => {
                 _setupAction?.Invoke( options );
                 if ( _connectionString.IsEmpty() == false ) {
                     options.UseNpgsql( _connectionString, _pgSqlSetupAction );
                     return;
                 }
-                if( _connection != null ) {
+                if ( _connection != null ) {
                     options.UseNpgsql( _connection, _pgSqlSetupAction );
                 }
             } );

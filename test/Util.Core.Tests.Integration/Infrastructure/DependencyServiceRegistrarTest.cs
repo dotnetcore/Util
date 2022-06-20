@@ -1,4 +1,5 @@
-﻿using Util.Dependency;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Util.Infrastructure;
 using Util.Tests.Samples;
 using Xunit;
@@ -25,14 +26,15 @@ namespace Util.Tests.Infrastructure {
         /// </summary>
         [Fact]
         public void TestRegisterDependency_1() {
-            var container = new Container();
-            var bootstrapper = new Bootstrapper( container.GetServices() );
+            var builder = new HostBuilder();
+            var bootstrapper = new Bootstrapper( builder );
             bootstrapper.Start();
-            Assert.Equal( typeof( TestService4 ), container.GetService<ITestService5>().GetType() );
-            Assert.NotEqual( typeof( TestService4 ), container.GetService<ITestService2>()?.GetType() );
-            Assert.NotEqual( typeof( TestService4 ), container.GetService<ITestService3>()?.GetType() );
-            Assert.NotEqual( typeof( TestService4 ), container.GetService<ITestService4>()?.GetType() );
-            Assert.Equal( typeof( TestService5<A> ), container.GetService<ITestService6<A>>().GetType() );
+            var host = builder.Build();
+            Assert.Equal( typeof( TestService4 ), host.Services.GetService<ITestService5>()?.GetType() );
+            Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService2>()?.GetType() );
+            Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService3>()?.GetType() );
+            Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService4>()?.GetType() );
+            Assert.Equal( typeof( TestService5<A> ), host.Services.GetService<ITestService6<A>>()?.GetType() );
         }
 
         /// <summary>
@@ -40,10 +42,11 @@ namespace Util.Tests.Infrastructure {
         /// </summary>
         [Fact]
         public void TestRegisterDependency_2() {
-            var container = new Container();
-            var bootstrapper = new Bootstrapper( container.GetServices() );
+            var builder = new HostBuilder();
+            var bootstrapper = new Bootstrapper( builder );
             bootstrapper.Start();
-            Assert.Equal( typeof( TestService8 ), container.GetService<ITestService7>().GetType() );
+            var host = builder.Build();
+            Assert.Equal( typeof( TestService8 ), host.Services.GetService<ITestService7>()?.GetType() );
         }
 
         /// <summary>
@@ -52,10 +55,11 @@ namespace Util.Tests.Infrastructure {
         [Fact]
         public void TestDisableDependencyServiceRegistrar() {
             ServiceRegistrarConfig.Instance.DisableDependencyServiceRegistrar();
-            var container = new Container();
-            var bootstrapper = new Bootstrapper( container.GetServices() );
+            var builder = new HostBuilder();
+            var bootstrapper = new Bootstrapper( builder );
             bootstrapper.Start();
-            Assert.NotEqual( typeof( TestService4 ), container.GetService<ITestService5>()?.GetType() );
+            var host = builder.Build();
+            Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService5>()?.GetType() );
         }
     }
 }

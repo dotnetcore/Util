@@ -1,0 +1,19 @@
+{
+  "solution": {
+    "path": "..\\Util.sln",
+    "projects": [
+      "build\\Build.csproj",
+      "sample\\Util.WebApi.Sample\\Util.WebApi.Sample.csproj",
+      "src\\Util.Application.WebApi\\Util.Application.WebApi.csproj",
+      "src\\Util.Application\\Util.Application.csproj",
+      "src\\Util.AspNetCore\\07-Util.AspNetCore.csproj",
+      "src\\Util.Core\\01-Util.Core.csproj",
+      "src\\Util.Localization\\04-Util.Localization.csproj",
+      "src\\Util.Validation\\05-Util.Validation.csproj",
+      "test\\Util.Core.Tests.Integration\\Util.Core.Tests.Integration.csproj",
+      "test\\Util.Core.Tests\\Util.Core.Tests.csproj",
+      "test\\Util.Localization.Resources\\Util.Localization.Resources.csproj",
+      "test\\Util.Localization.Tests.Integration\\Util.Localization.Tests.Integration.csproj"
+    ]
+  }
+}

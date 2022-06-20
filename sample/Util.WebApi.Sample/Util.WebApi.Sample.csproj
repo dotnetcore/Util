@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<RootNamespace>Util.WebApi</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.MiddlewareAnalysis" Version="6.0.6" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Util.Application.WebApi\Util.Application.WebApi.csproj" />
+		<ProjectReference Include="..\..\src\Util.AspNetCore\07-Util.AspNetCore.csproj" />
+		<ProjectReference Include="..\..\src\Util.Localization\04-Util.Localization.csproj" />
+		<ProjectReference Include="..\..\src\Util.Logging.Serilog.Exceptionless\03-Util.Logging.Serilog.Exceptionless.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -194,7 +194,14 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="input">输入值</param>
         public static bool? ToBoolOrNull( object input ) {
-            return bool.TryParse( input.SafeString(), out var result ) ? result : null;
+            var value = input.SafeString();
+            switch ( value ) {
+                case "1":
+                    return true;
+                case "0":
+                    return false;
+            }
+            return bool.TryParse( value, out var result ) ? result : null;
         }
 
         #endregion
@@ -218,7 +225,10 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="input">输入值</param>
         public static DateTime? ToDateTimeOrNull( object input ) {
-            return DateTime.TryParse( input.SafeString(), out var result ) ? result : null;
+            var success = DateTime.TryParse( input.SafeString(), out var result );
+            if ( success == false )
+                return null;
+            return Time.Normalize( result );
         }
 
         #endregion
@@ -311,17 +321,15 @@ namespace Util.Helpers {
             if( input is string && string.IsNullOrWhiteSpace( input.ToString() ) )
                 return default;
             Type type = Common.GetType<T>();
-            var typeName = type.Name.ToLower();
+            var typeName = type.Name.ToUpperInvariant();
             try {
-                if( typeName == "string" )
-                    return (T)(object)input.ToString();
-                if( typeName == "guid" )
-                    return (T)(object)new Guid( input.ToString() );
-                if( type.IsEnum )
+                if( typeName == "STRING" || typeName == "GUID" )
+                    return (T)TypeDescriptor.GetConverter( typeof( T ) ).ConvertFromInvariantString( input.ToString() );
+                if ( type.IsEnum )
                     return Enum.Parse<T>( input );
-                if( input is IConvertible )
+                if ( input is IConvertible )
                     return (T)System.Convert.ChangeType( input, type, CultureInfo.InvariantCulture );
-                if( input is JsonElement element ) {
+                if ( input is JsonElement element ) {
                     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                     return Json.ToObject<T>( element.GetRawText(), options );
                 }

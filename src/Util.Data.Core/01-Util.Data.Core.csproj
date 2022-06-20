@@ -27,14 +27,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.14" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Util.Data.Abstractions\06-Util.Data.Abstractions.csproj" />
 	  <ProjectReference Include="..\Util.Domain\01-Util.Domain.csproj" />
 	  <ProjectReference Include="..\Util.Logging\01-Util.Logging.csproj" />
-	  <ProjectReference Include="..\Util.ObjectMapping.AutoMapper\03-Util.ObjectMapping.AutoMapper.csproj" />
+	  <ProjectReference Include="..\Util.ObjectMapping.AutoMapper\02-Util.ObjectMapping.AutoMapper.csproj" />
 	</ItemGroup>
 
 </Project>

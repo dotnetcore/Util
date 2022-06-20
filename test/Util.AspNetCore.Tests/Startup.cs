@@ -25,7 +25,8 @@ namespace Util.AspNetCore.Tests {
                             endpoints.MapControllers();
                         } );
                     } );
-            } );
+            } )
+            .AddUtil();
         }
 
         /// <summary>
@@ -38,7 +39,6 @@ namespace Util.AspNetCore.Tests {
                 client.SetHttpClient( t.GetService<IHost>().GetTestClient() );
                 return client;
             } );
-            services.AddUtil();
         }
 
         /// <summary>

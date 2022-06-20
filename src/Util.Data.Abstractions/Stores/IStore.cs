@@ -24,16 +24,6 @@ namespace Util.Data.Stores {
         /// 添加实体
         /// </summary>
         /// <param name="entity">实体</param>
-        void Add( [Valid] TEntity entity );
-        /// <summary>
-        /// 添加实体集合
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        void Add( [Valid] IEnumerable<TEntity> entities );
-        /// <summary>
-        /// 添加实体
-        /// </summary>
-        /// <param name="entity">实体</param>
         /// <param name="cancellationToken">取消令牌</param>
         Task AddAsync( [Valid] TEntity entity, CancellationToken cancellationToken = default );
         /// <summary>
@@ -46,42 +36,14 @@ namespace Util.Data.Stores {
         /// 修改实体
         /// </summary>
         /// <param name="entity">实体</param>
-        void Update( [Valid] TEntity entity );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task UpdateAsync( [Valid] TEntity entity, CancellationToken cancellationToken = default );
         /// <summary>
         /// 修改实体集合
         /// </summary>
         /// <param name="entities">实体集合</param>
-        void Update( [Valid] IEnumerable<TEntity> entities );
-        /// <summary>
-        /// 修改实体
-        /// </summary>
-        /// <param name="entity">实体</param>
-        Task UpdateAsync( [Valid] TEntity entity );
-        /// <summary>
-        /// 修改实体集合
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        Task UpdateAsync( [Valid] IEnumerable<TEntity> entities );
-        /// <summary>
-        /// 移除实体
-        /// </summary>
-        /// <param name="id">标识</param>
-        void Remove( object id );
-        /// <summary>
-        /// 移除实体
-        /// </summary>
-        /// <param name="entity">实体</param>
-        void Remove( TEntity entity );
-        /// <summary>
-        /// 移除实体集合
-        /// </summary>
-        /// <param name="ids">标识集合</param>
-        void Remove( IEnumerable<TKey> ids );
-        /// <summary>
-        /// 移除实体集合
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        void Remove( IEnumerable<TEntity> entities );
+        /// <param name="cancellationToken">取消令牌</param>
+        Task UpdateAsync( [Valid] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default );
         /// <summary>
         /// 移除实体
         /// </summary>

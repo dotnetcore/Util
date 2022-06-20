@@ -153,7 +153,7 @@ namespace Util.Applications {
         public virtual async Task UpdateAsync( TUpdateRequest request ) {
             request.CheckNull( nameof( request ) );
             if( request.Id.IsEmpty() )
-                throw new InvalidOperationException( UtilCoreResource.IdIsEmpty );
+                throw new InvalidOperationException( R.IdIsEmpty );
             var oldEntity = await FindOldEntityAsync( request.Id );
             oldEntity.CheckNull( nameof( oldEntity ) );
             var entity = ToEntity( oldEntity, request );

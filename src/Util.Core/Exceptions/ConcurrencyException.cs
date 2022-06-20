@@ -21,14 +21,6 @@ namespace Util.Exceptions {
         /// <summary>
         /// 初始化并发异常
         /// </summary>
-        /// <param name="message">错误消息</param>
-        public ConcurrencyException( string message )
-            : this( message, null ) {
-        }
-
-        /// <summary>
-        /// 初始化并发异常
-        /// </summary>
         /// <param name="exception">异常</param>
         public ConcurrencyException( Exception exception )
             : this( "", exception ) {
@@ -39,24 +31,16 @@ namespace Util.Exceptions {
         /// </summary>
         /// <param name="message">错误消息</param>
         /// <param name="exception">异常</param>
-        public ConcurrencyException( string message, Exception exception )
-            : this( message, exception, "" ) {
-        }
-
-        /// <summary>
-        /// 初始化并发异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        /// <param name="exception">异常</param>
         /// <param name="code">错误码</param>
-        public ConcurrencyException( string message, Exception exception, string code )
-            : base( message, code, exception ) {
+        /// <param name="httpStatusCode">Http状态码</param>
+        public ConcurrencyException( string message, Exception exception = null, string code = null, int? httpStatusCode = null )
+            : base( message, exception, code, httpStatusCode ) {
             _message = message;
         }
 
         /// <summary>
         /// 错误消息
         /// </summary>
-        public override string Message => $"{UtilCoreResource.ConcurrencyExceptionMessage}.{_message}";
+        public override string Message => $"{R.ConcurrencyExceptionMessage}.{_message}";
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FlubuCore.Context;
 using FlubuCore.Context.Attributes.BuildProperties;
 using FlubuCore.Context.FluentInterface.Interfaces;
@@ -38,7 +39,7 @@ namespace Build {
         /// </summary>
         public FullPath SourceDir => RootDirectory.CombineWith( "../src" );
         /// <summary>
-        /// 源代码目录
+        /// 测试目录
         /// </summary>
         public FullPath TestDir => RootDirectory.CombineWith( "../test" );
         /// <summary>
@@ -50,9 +51,24 @@ namespace Build {
         /// </summary>
         public List<FileFullPath> Projects { get; set; }
         /// <summary>
-        /// 测试项目文件列表
+        /// 单元测试项目文件列表
         /// </summary>
-        public List<FileFullPath> TestProjecs { get; set; }
+        public List<FileFullPath> UnitTestProjecs { get; set; }
+        /// <summary>
+        /// 集成测试项目文件列表
+        /// </summary>
+        public List<FileFullPath> IntegrationTestProjecs { get; set; }
+        /// <summary>
+        /// 忽略测试项目文件列表
+        /// </summary>
+        public List<FileFullPath> IgnoreTestProjecs { get; set; }
+
+        /// <summary>
+        /// 获取集成测试项目文件列表
+        /// </summary>
+        protected List<FileFullPath> GetIntegrationTestProjecs() {
+            return IntegrationTestProjecs.Where( t => IgnoreTestProjecs.Exists( p => p.FileName == t.FileName ) == false ).ToList();
+        }
 
         /// <summary>
         /// 构建前操作
@@ -60,7 +76,17 @@ namespace Build {
         /// <param name="context">构建任务上下文</param>
         protected override void BeforeBuildExecution( ITaskContext context ) {
             Projects = context.GetFiles( SourceDir, "*/*.csproj" );
-            TestProjecs = context.GetFiles( TestDir, "*/*.csproj" );
+            UnitTestProjecs = context.GetFiles( TestDir, "*/*.Tests.csproj" );
+            IntegrationTestProjecs = context.GetFiles( TestDir, "*/*.Tests.Integration.csproj" );
+            IgnoreTestProjecs = new List<FileFullPath>();
+            AddIgnoreTestProjecs( context );
+        }
+
+        /// <summary>
+        /// 添加忽略测试项目文件列表
+        /// </summary>
+        private void AddIgnoreTestProjecs( ITaskContext context ) {
+            IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/*.Oracle.Tests.Integration.csproj" ) );
         }
 
         /// <summary>
@@ -71,9 +97,9 @@ namespace Build {
             var clean = Clean( context );
             var restore = Restore( context, clean );
             var build = Build( context, restore );
+            var test = Test( context );
             var pack = Pack( context, clean );
             PublishNuGetPackage( context, pack );
-            Test( context );
         }
 
         /// <summary>
@@ -88,30 +114,65 @@ namespace Build {
         /// <summary>
         /// 还原包
         /// </summary>
-        private ITarget Restore( ITaskContext context, ITarget target ) {
+        private ITarget Restore( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "restore" )
                 .SetDescription( "Restore the solution." )
-                .DependsOn( target )
+                .DependsOn( dependTargets )
                 .AddCoreTask( t => t.Restore() );
         }
 
         /// <summary>
         /// 编译解决方案
         /// </summary>
-        private ITarget Build( ITaskContext context, ITarget target ) {
+        private ITarget Build( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "compile" )
                 .SetDescription( "Compiles the solution." )
-                .DependsOn( target )
+                .DependsOn( dependTargets )
                 .AddCoreTask( t => t.Build() );
+        }
+
+        /// <summary>
+        /// 运行测试
+        /// </summary>
+        private ITarget Test( ITaskContext context, params ITarget[] dependTargets ) {
+            var unitTest = UnitTest( context, dependTargets );
+            var integrationTest = IntegrationTest( context, dependTargets );
+            return context.CreateTarget( "test" )
+                .SetDescription( "Run all tests." )
+                .DependsOn( unitTest, integrationTest );
+        }
+
+        /// <summary>
+        /// 运行单元测试
+        /// </summary>
+        private ITarget UnitTest( ITaskContext context, params ITarget[] dependTargets ) {
+            return context.CreateTarget( "unit.test" )
+                .SetDescription( "Run unit tests." )
+                .DependsOn( dependTargets )
+                .ForEach( UnitTestProjecs, ( project, target ) => {
+                    target.AddCoreTask( t => t.Test().Project( project ) );
+                } );
+        }
+
+        /// <summary>
+        /// 运行集成测试
+        /// </summary>
+        private ITarget IntegrationTest( ITaskContext context, params ITarget[] dependTargets ) {
+            return context.CreateTarget( "integration.test" )
+                .SetDescription( "Run integration tests." )
+                .DependsOn( dependTargets )
+                .ForEach( GetIntegrationTestProjecs(), ( project, target ) => {
+                    target.AddCoreTask( t => t.Test().Project( project ) );
+                } );
         }
 
         /// <summary>
         /// 创建nuget包
         /// </summary>
-        private ITarget Pack( ITaskContext context, ITarget dependTarget ) {
+        private ITarget Pack( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "pack" )
                 .SetDescription( "Create nuget packages." )
-                .DependsOn( dependTarget )
+                .DependsOn( dependTargets )
                 .ForEach( Projects, ( project, target ) => {
                     target.AddCoreTask( t => t.Pack()
                         .Project( project )
@@ -123,10 +184,10 @@ namespace Build {
         /// <summary>
         /// 发布nuget包
         /// </summary>
-        private void PublishNuGetPackage( ITaskContext context, ITarget dependTarget ) {
+        private void PublishNuGetPackage( ITaskContext context, params ITarget[] dependTargets ) {
             context.CreateTarget( "nuget.publish" )
                 .SetDescription( "Publishes nuget packages" )
-                .DependsOn( dependTarget )
+                .DependsOn( dependTargets )
                 .Do( t => {
                     var packages = Directory.GetFiles( OutputDir, "*.nupkg" );
                     foreach ( var package in packages ) {
@@ -138,17 +199,6 @@ namespace Build {
                             .ApiKey( NugetApiKey )
                             .Execute( context );
                     }
-                } );
-        }
-
-        /// <summary>
-        /// 运行测试
-        /// </summary>
-        private void Test( ITaskContext context ) {
-            context.CreateTarget( "test" )
-                .SetDescription( "Run all tests." )
-                .ForEach( TestProjecs, ( project, target ) => {
-                    target.AddCoreTask( t => t.Test().Project( project ) );
                 } );
         }
     }

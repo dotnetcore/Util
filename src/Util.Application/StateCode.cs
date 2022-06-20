@@ -1,15 +1,15 @@
 ﻿namespace Util.Applications {
     /// <summary>
-    /// 状态码
+    /// 业务状态码
     /// </summary>
-    public enum StateCode {
+    public static class StateCode {
         /// <summary>
         /// 失败
         /// </summary>
-        Fail = 0,
+        public const string Fail = "0";
         /// <summary>
         /// 成功
         /// </summary>
-        Ok = 1
+        public const string Ok = "1";
     }
 }

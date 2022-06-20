@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Util.Configs;
 
 namespace Util.Tests.Samples {
@@ -19,8 +20,9 @@ namespace Util.Tests.Samples {
     /// <summary>
     /// 测试配置项扩展
     /// </summary>
-    public class TestOptionsExtension : IOptionsExtension {
-        public void AddServices( IServiceCollection services ) {
+    public class TestOptionsExtension : OptionsExtensionBase {
+        /// <inheritdoc />
+        public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
             var service = new TestService { Value = "Options" };
             services.TryAddSingleton<ITestService>( service );
 

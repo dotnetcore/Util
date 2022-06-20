@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.Aop.AspectCore\04-Util.Aop.AspectCore.csproj" />
+	  <ProjectReference Include="..\Util.Aop.AspectCore\03-Util.Aop.AspectCore.csproj" />
 	  <ProjectReference Include="..\Util.Core\01-Util.Core.csproj" />
 	</ItemGroup>
 

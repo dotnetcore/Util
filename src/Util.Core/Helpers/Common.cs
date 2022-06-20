@@ -8,7 +8,7 @@ namespace Util.Helpers {
         /// <summary>
         /// 换行符
         /// </summary>
-        public static string Line => Environment.NewLine;
+        public static string Line => System.Environment.NewLine;
 
         /// <summary>
         /// 获取类型

@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Util.Applications.Logging;
 using Util.Infrastructure;
 using Util.Logging;
@@ -30,12 +31,14 @@ namespace Util.Applications.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="services">服务集合</param>
-        /// <param name="configuration">配置</param>
+        /// <param name="hostBuilder">主机生成器</param>
         /// <param name="finder">类型查找器</param>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
-            services.AddSingleton<ILogContextAccessor, LogContextAccessor>();
-            services.AddSingleton<IStartupFilter, LogContextStartupFilter>();
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+            hostBuilder.ConfigureServices( ( context, services ) => {
+                services.AddSingleton<ILogContextAccessor, LogContextAccessor>();
+                services.AddSingleton<IStartupFilter, LogContextStartupFilter>();
+                services.Configure<ApiBehaviorOptions>( options => options.SuppressModelStateInvalidFilter = true );
+            } );
             return null;
         }
     }

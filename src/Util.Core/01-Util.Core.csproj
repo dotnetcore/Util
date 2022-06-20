@@ -27,12 +27,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
 	  <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
 	</ItemGroup>
@@ -43,21 +44,12 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>R.resx</DependentUpon>
 	  </Compile>
-	  <Compile Update="Properties\UtilCoreResource.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>UtilCoreResource.resx</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Update="Properties\R.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>R.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Properties\UtilCoreResource.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>UtilCoreResource.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 

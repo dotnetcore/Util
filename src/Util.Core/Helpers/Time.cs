@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Util.Dates;
 
 namespace Util.Helpers {
     /// <summary>
@@ -9,7 +10,15 @@ namespace Util.Helpers {
         /// <summary>
         /// 日期
         /// </summary>
-        private static AsyncLocal<DateTime?> _dateTime = new AsyncLocal<DateTime?>();
+        private static readonly AsyncLocal<DateTime?> _dateTime = new();
+        /// <summary>
+        /// 是否使用Utc日期
+        /// </summary>
+        private static readonly AsyncLocal<bool?> _isUseUtc = new();
+        /// <summary>
+        /// 是否使用Utc日期
+        /// </summary>
+        private static bool IsUseUtc => _isUseUtc.Value != null ? _isUseUtc.Value.SafeValue() : TimeOptions.IsUseUtc;
 
         /// <summary>
         /// 设置时间
@@ -24,30 +33,61 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="dateTime">时间</param>
         public static void SetTime( string dateTime ) {
-            SetTime( Util.Helpers.Convert.ToDateTimeOrNull( dateTime ) );
+            SetTime( Convert.ToDateTimeOrNull( dateTime ) );
         }
 
         /// <summary>
-        /// 重置时间
+        /// 设置使用Utc日期
+        /// </summary>
+        /// <param name="isUseUtc">是否使用Utc日期,默认值: true</param>
+        public static void UseUtc( bool? isUseUtc = true ) {
+            _isUseUtc.Value = isUseUtc;
+        }
+
+        /// <summary>
+        /// 重置时间和Utc标志
         /// </summary>
         public static void Reset() {
             _dateTime.Value = null;
+            _isUseUtc.Value = null;
         }
 
         /// <summary>
         /// 获取当前日期时间
         /// </summary>
-        public static DateTime GetDateTime() {
-            if ( _dateTime.Value == null )
-                return DateTime.Now;
-            return _dateTime.Value.Value;
+        public static DateTime Now {
+            get {
+                if ( _dateTime.Value != null )
+                    return _dateTime.Value.Value;
+                return IsUseUtc ? DateTime.UtcNow : DateTime.Now;
+            }
         }
 
         /// <summary>
-        /// 获取当前日期,不带时间
+        /// 转换为标准化日期
         /// </summary>
-        public static DateTime GetDate() {
-            return GetDateTime().Date;
+        /// <param name="date">日期</param>
+        public static DateTime Normalize( DateTime date ) {
+            if( date == DateTime.MinValue )
+                return DateTime.MinValue;
+            if ( IsUseUtc ) {
+                switch ( date.Kind ) {
+                    case DateTimeKind.Local:
+                        return date.ToUniversalTime();
+                    case DateTimeKind.Unspecified:
+                        return DateTime.SpecifyKind( date, DateTimeKind.Utc );
+                    default:
+                        return date;
+                }
+            }
+            switch ( date.Kind ) {
+                case DateTimeKind.Utc:
+                    return date.ToLocalTime();
+                case DateTimeKind.Unspecified:
+                    return DateTime.SpecifyKind( date, DateTimeKind.Local );
+                default:
+                    return date;
+            }
         }
 
         /// <summary>

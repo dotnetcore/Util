@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Util.Configs {
     /// <summary>
@@ -23,8 +22,7 @@ namespace Util.Configs {
         /// </summary>
         /// <param name="extension">配置项扩展</param>
         public void AddExtension( IOptionsExtension extension ) {
-            if( extension == null )
-                throw new ArgumentNullException( nameof( extension ) );
+            extension.CheckNull( nameof( extension ) );
             Extensions.Add( extension );
         }
     }

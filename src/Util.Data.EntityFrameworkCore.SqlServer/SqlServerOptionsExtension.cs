@@ -3,13 +3,14 @@ using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Util.Configs;
 
 namespace Util.Data.EntityFrameworkCore {
     /// <summary>
     /// Sql Server 工作单元配置扩展
     /// </summary>
-    public class SqlServerOptionsExtension<TService, TImplementation> : IOptionsExtension 
+    public class SqlServerOptionsExtension<TService, TImplementation> : OptionsExtensionBase
         where TService : class, IUnitOfWork
         where TImplementation : UnitOfWorkBase, TService {
         /// <summary>
@@ -43,18 +44,15 @@ namespace Util.Data.EntityFrameworkCore {
             _sqlServerSetupAction = sqlServerSetupAction;
         }
 
-        /// <summary>
-        /// 添加服务
-        /// </summary>
-        /// <param name="services">服务集合</param>
-        public void AddServices( IServiceCollection services ) {
+        /// <inheritdoc />
+        public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
             services.AddDbContext<TService, TImplementation>( options => {
                 _setupAction?.Invoke( options );
                 if ( _connectionString.IsEmpty() == false ) {
                     options.UseSqlServer( _connectionString, _sqlServerSetupAction );
                     return;
                 }
-                if( _connection != null ) {
+                if ( _connection != null ) {
                     options.UseSqlServer( _connection, _sqlServerSetupAction );
                 }
             } );

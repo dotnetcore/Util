@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Util.Data.EntityFrameworkCore.ValueComparers;
 using Util.Data.EntityFrameworkCore.ValueConverters;
 using Util.Data.Filters;
+using Util.Dates;
 using Util.Domain;
 using Util.Domain.Auditing;
 using Util.Domain.Events;
@@ -53,11 +55,11 @@ namespace Util.Data.EntityFrameworkCore {
         /// <summary>
         /// 服务提供器
         /// </summary>
-        public IServiceProvider ServiceProvider { get; }
+        protected IServiceProvider ServiceProvider { get; }
         /// <summary>
         /// 执行环境
         /// </summary>
-        public IHostEnvironment Environment { get; }
+        protected IHostEnvironment Environment { get; }
         /// <summary>
         /// 用户会话
         /// </summary>
@@ -111,7 +113,7 @@ namespace Util.Data.EntityFrameworkCore {
         /// </summary>
         /// <typeparam name="TFilterType">过滤器类型</typeparam>
         public IDisposable DisableFilter<TFilterType>() where TFilterType : class {
-            if( FilterManager == null )
+            if ( FilterManager == null )
                 return DisposeAction.Null;
             return FilterManager.DisableFilter<TFilterType>();
         }
@@ -152,11 +154,12 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="modelBuilder">模型生成器</param>
         protected override void OnModelCreating( ModelBuilder modelBuilder ) {
             ApplyConfigurations( modelBuilder );
-            foreach( var entityType in modelBuilder.Model.GetEntityTypes() ) {
+            foreach ( var entityType in modelBuilder.Model.GetEntityTypes() ) {
                 ApplyFilters( modelBuilder, entityType );
                 ApplyExtraProperties( modelBuilder, entityType );
                 ApplyVersion( modelBuilder, entityType );
                 ApplyIsDeleted( modelBuilder, entityType );
+                ApplyUtc( modelBuilder, entityType );
             }
         }
 
@@ -191,9 +194,9 @@ namespace Util.Data.EntityFrameworkCore {
         /// </summary>
         /// <param name="modelBuilder">模型生成器</param>
         protected virtual void ApplyFiltersImp<TEntity>( ModelBuilder modelBuilder ) where TEntity : class {
-            if( FilterManager == null )
+            if ( FilterManager == null )
                 return;
-            if( FilterManager.IsEntityEnabled<TEntity>() == false )
+            if ( FilterManager.IsEntityEnabled<TEntity>() == false )
                 return;
             modelBuilder.Entity<TEntity>().HasQueryFilter( GetFilterExpression<TEntity>() );
         }
@@ -212,7 +215,7 @@ namespace Util.Data.EntityFrameworkCore {
         /// <typeparam name="TEntity">实体类型</typeparam>
         protected virtual Expression<Func<TEntity, bool>> GetDeleteFilterExpression<TEntity>() where TEntity : class {
             var filter = FilterManager.GetFilter<IDelete>();
-            if( filter.IsEntityEnabled<TEntity>() == false )
+            if ( filter.IsEntityEnabled<TEntity>() == false )
                 return null;
             var expression = filter.GetExpression<TEntity>();
             Expression<Func<TEntity, bool>> result = entity => !IsDeleteFilterEnabled;
@@ -229,7 +232,7 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="modelBuilder">模型生成器</param>
         /// <param name="entityType">实体类型</param>
         protected virtual void ApplyExtraProperties( ModelBuilder modelBuilder, IMutableEntityType entityType ) {
-            if( typeof( IExtraProperties ).IsAssignableFrom( entityType.ClrType ) == false )
+            if ( typeof( IExtraProperties ).IsAssignableFrom( entityType.ClrType ) == false )
                 return;
             modelBuilder.Entity( entityType.ClrType )
                 .Property( "ExtraProperties" )
@@ -248,7 +251,7 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="modelBuilder">模型生成器</param>
         /// <param name="entityType">实体类型</param>
         protected virtual void ApplyVersion( ModelBuilder modelBuilder, IMutableEntityType entityType ) {
-            if( typeof( IVersion ).IsAssignableFrom( entityType.ClrType ) == false )
+            if ( typeof( IVersion ).IsAssignableFrom( entityType.ClrType ) == false )
                 return;
             modelBuilder.Entity( entityType.ClrType )
                 .Property( "Version" )
@@ -266,11 +269,33 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="modelBuilder">模型生成器</param>
         /// <param name="entityType">实体类型</param>
         protected virtual void ApplyIsDeleted( ModelBuilder modelBuilder, IMutableEntityType entityType ) {
-            if( typeof( IDelete ).IsAssignableFrom( entityType.ClrType ) == false )
+            if ( typeof( IDelete ).IsAssignableFrom( entityType.ClrType ) == false )
                 return;
             modelBuilder.Entity( entityType.ClrType )
                 .Property( "IsDeleted" )
                 .HasColumnName( "IsDeleted" );
+        }
+
+        #endregion
+
+        #region ApplyUtc(配置Utc日期)
+
+        /// <summary>
+        /// 配置Utc日期
+        /// </summary>
+        /// <param name="modelBuilder">模型生成器</param>
+        /// <param name="entityType">实体类型</param>
+        protected virtual void ApplyUtc( ModelBuilder modelBuilder, IMutableEntityType entityType ) {
+            if ( TimeOptions.IsUseUtc == false )
+                return;
+            var properties = entityType.ClrType.GetProperties()
+                .Where( property => ( property.PropertyType == typeof( DateTime ) || property.PropertyType == typeof( DateTime? ) ) && property.CanWrite )
+                .ToList();
+            properties.ForEach( property => {
+                modelBuilder.Entity( entityType.ClrType )
+                    .Property( property.Name )
+                    .HasConversion( new DateTimeValueConverter() );
+            } );
         }
 
         #endregion
@@ -284,16 +309,9 @@ namespace Util.Data.EntityFrameworkCore {
             try {
                 return SaveChanges();
             }
-            catch( DbUpdateConcurrencyException ex ) {
+            catch ( DbUpdateConcurrencyException ex ) {
                 throw new ConcurrencyException( ex );
             }
-        }
-
-        /// <summary>
-        /// 保存更改
-        /// </summary>
-        public override int SaveChanges() {
-            return SaveChangesAsync().GetAwaiter().GetResult();
         }
 
         #endregion
@@ -307,7 +325,7 @@ namespace Util.Data.EntityFrameworkCore {
             try {
                 return await SaveChangesAsync();
             }
-            catch( DbUpdateConcurrencyException ex ) {
+            catch ( DbUpdateConcurrencyException ex ) {
                 throw new ConcurrencyException( ex );
             }
         }
@@ -334,8 +352,8 @@ namespace Util.Data.EntityFrameworkCore {
         /// 保存前操作
         /// </summary>
         protected virtual void SaveChangesBefore() {
-            foreach( var entry in ChangeTracker.Entries() ) {
-                switch( entry.State ) {
+            foreach ( var entry in ChangeTracker.Entries() ) {
+                switch ( entry.State ) {
                     case EntityState.Added:
                         AddBefore( entry );
                         break;
@@ -418,10 +436,10 @@ namespace Util.Data.EntityFrameworkCore {
         /// 设置版本号
         /// </summary>
         protected virtual void SetVersion( object obj ) {
-            if( !( obj is IVersion entity ) )
+            if ( !( obj is IVersion entity ) )
                 return;
             var version = GetVersion();
-            if( version == null )
+            if ( version == null )
                 return;
             entity.Version = version;
         }
@@ -458,7 +476,7 @@ namespace Util.Data.EntityFrameworkCore {
         /// 添加实体创建事件
         /// </summary>
         protected virtual void AddEntityCreatedEvent( object entity ) {
-            var @event = CreateEntityEvent( typeof(EntityCreatedEvent<>), entity );
+            var @event = CreateEntityEvent( typeof( EntityCreatedEvent<> ), entity );
             Events.Add( @event );
             AddEntityChangedEvent( entity, EntityChangeType.Created );
         }
@@ -479,7 +497,7 @@ namespace Util.Data.EntityFrameworkCore {
         /// 添加实体修改事件
         /// </summary>
         protected virtual void AddEntityUpdatedEvent( object entity ) {
-            if ( entity is IDelete {IsDeleted: true} ) {
+            if ( entity is IDelete { IsDeleted: true } ) {
                 AddEntityDeletedEvent( entity );
                 return;
             }

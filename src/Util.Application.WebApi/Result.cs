@@ -1,6 +1,9 @@
-﻿using System.Net;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Util.SystemTextJson;
 
 namespace Util.Applications {
     /// <summary>
@@ -8,9 +11,9 @@ namespace Util.Applications {
     /// </summary>
     public class Result : JsonResult {
         /// <summary>
-        /// 状态码
+        /// 业务状态码
         /// </summary>
-        public StateCode Code { get; }
+        public string Code { get; }
         /// <summary>
         /// 消息
         /// </summary>
@@ -23,18 +26,23 @@ namespace Util.Applications {
         /// <summary>
         /// 初始化返回结果
         /// </summary>
-        /// <param name="code">状态码</param>
+        /// <param name="code">业务状态码</param>
         /// <param name="message">消息</param>
         /// <param name="data">数据</param>
         /// <param name="httpStatusCode">Http状态码</param>
-        public Result( StateCode code, string message, dynamic data = null, HttpStatusCode? httpStatusCode = null ) : base( null ) {
+        public Result( string code, string message, dynamic data, int? httpStatusCode ) : base( null ) {
             Code = code;
             Message = message;
             Data = data;
-            var statusCode = Util.Helpers.Enum.GetValue<HttpStatusCode?>( httpStatusCode );
-            if ( statusCode == null )
-                return;
-            StatusCode = statusCode;
+            SerializerSettings = new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+                Converters = { 
+                    new DateTimeJsonConverter(),
+                    new NullableDateTimeJsonConverter()
+                }
+            };
+            StatusCode = httpStatusCode;
         }
 
         /// <summary>
@@ -42,7 +50,7 @@ namespace Util.Applications {
         /// </summary>
         public override Task ExecuteResultAsync( ActionContext context ) {
             Value = new {
-                Code = Code.Value(),
+                Code,
                 Message,
                 Data
             };

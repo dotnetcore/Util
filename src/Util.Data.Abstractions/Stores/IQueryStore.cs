@@ -21,7 +21,7 @@ namespace Util.Data.Stores {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public interface IQueryStore<TEntity, in TKey> : IFilterOperation,IScopeDependency where TEntity : class, IKey<TKey> {
+    public interface IQueryStore<TEntity, in TKey> : IFilterOperation,IScopeDependency,IDisposable where TEntity : class, IKey<TKey> {
         /// <summary>
         /// 获取查询对象
         /// </summary>

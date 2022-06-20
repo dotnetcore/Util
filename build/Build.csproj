@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<DotNetCliToolReference Include="dotnet-flubu" Version="6.1.6" />
+		<DotNetCliToolReference Include="dotnet-flubu" Version="6.3.2" />
 	</ItemGroup>
 
 </Project>

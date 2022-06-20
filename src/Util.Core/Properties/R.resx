@@ -117,14 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CanOnlyOneCondition" xml:space="preserve">
+    <value>仅允许添加一个条件,条件：{0}</value>
+  </data>
+  <data name="ConcurrencyExceptionMessage" xml:space="preserve">
+    <value>当前操作的数据已被其他人修改，请刷新后重试</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>天</value>
+  </data>
   <data name="DeleteSuccess" xml:space="preserve">
     <value>删除成功</value>
+  </data>
+  <data name="GlobalDuplicateRequest" xml:space="preserve">
+    <value>其他用户正在执行该操作,请稍后再试</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="IdIsEmpty" xml:space="preserve">
+    <value>标识不能为空</value>
   </data>
   <data name="LineNumber" xml:space="preserve">
     <value>序号</value>
   </data>
+  <data name="Milliseconds" xml:space="preserve">
+    <value>毫秒</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>否</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>操作成功</value>
@@ -133,8 +160,14 @@
     <value>系统忙，请稍后再试</value>
     <comment>抛出系统异常时显示该消息</comment>
   </data>
+  <data name="TypeNotEnum" xml:space="preserve">
+    <value>类型 {0} 不是枚举</value>
+  </data>
   <data name="Upload" xml:space="preserve">
     <value>上传</value>
+  </data>
+  <data name="UserDuplicateRequest" xml:space="preserve">
+    <value>请不要重复提交</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是</value>

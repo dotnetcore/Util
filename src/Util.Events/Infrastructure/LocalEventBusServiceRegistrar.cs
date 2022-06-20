@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Util.Infrastructure;
 using Util.Reflections;
 
@@ -29,12 +29,13 @@ namespace Util.Events.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="services">服务集合</param>
-        /// <param name="configuration">配置</param>
+        /// <param name="hostBuilder">主机生成器</param>
         /// <param name="finder">类型查找器</param>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
-            RegisterDependency( services );
-            RegisterEventHandlers( services, finder );
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+            hostBuilder.ConfigureServices( ( context, services ) => {
+                RegisterDependency( services );
+                RegisterEventHandlers( services, finder );
+            } );
             return null;
         }
 

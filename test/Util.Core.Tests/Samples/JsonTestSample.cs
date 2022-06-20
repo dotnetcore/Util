@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Util.Tests.Samples {
     public class A {
@@ -44,7 +45,11 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 日期
         /// </summary>
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
+        /// <summary>
+        /// Utc日期
+        /// </summary>
+        public DateTime? UtcDate { get; set; }
         /// <summary>
         /// 测试整型，不添加引号
         /// </summary>
@@ -64,7 +69,8 @@ namespace Util.Tests.Samples {
                 nickname = "b",
                 FirstName = "c",
                 Value = null,
-                Date =  Util.Helpers.Convert.ToDateTime( "2012-1-1" ).SafeString(),
+                Date =  new DateTime( 2012,12,12,20,12,12, DateTimeKind.Local ),
+                UtcDate = new DateTime( 2012, 12, 12, 12, 12, 12,DateTimeKind.Utc ),
                 Age = 1,
                 IsShow = true
             };

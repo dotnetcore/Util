@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<AssemblyName>Util.Data.EntityFrameworkCore.Oracle</AssemblyName>
+		<RootNamespace>Util.Data.EntityFrameworkCore</RootNamespace>
+		<Description>Util.Data.EntityFrameworkCore.Oracle是Util应用框架基于EntityFrameworkCore的数据访问封装类库,用于处理Oracle数据库</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Data.EntityFrameworkCore.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Data.EntityFrameworkCore.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Oracle.EntityFrameworkCore" Version="6.21.61" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Util.Data.EntityFrameworkCore\01-Util.Data.EntityFrameworkCore.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -5,7 +5,7 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Data.EntityFrameworkCore</AssemblyName>
 		<RootNamespace>Util.Data.EntityFrameworkCore</RootNamespace>
-		<Description>Util.Data.EntityFrameworkCore是Util应用框架EntityFrameworkCore数据访问封装基础类库</Description>
+		<Description>Util.Data.EntityFrameworkCore是Util应用框架基于EntityFrameworkCore的数据访问封装基础类库</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,8 +27,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>

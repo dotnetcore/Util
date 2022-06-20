@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<IsPackable>false</IsPackable>
+		<RootNamespace>Util.Tests</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Util.Data.EntityFrameworkCore.PostgreSql\03-Util.Data.EntityFrameworkCore.PostgreSql.csproj" />
+		<ProjectReference Include="..\Util.TestShare\Util.TestShare.csproj" />
+	</ItemGroup>
+</Project>

@@ -16,3 +16,4 @@ BenchmarkDotNet.Artifacts
 /document/demo/*.pdb
 /document/Test/PowerDesigner/*.pdb
 /test/Util.Data.Dapper.SqlServer.Tests/Document/PowerDesigner/*.pdb
+/documents/PowerDesigner/*.pdb

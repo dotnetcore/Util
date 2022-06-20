@@ -21,7 +21,7 @@ namespace Util.Tests.Exceptions {
         /// </summary>
         [Fact]
         public void TestMessage_Null() {
-            Warning warning = new Warning( null, "A" );
+            Warning warning = new Warning( "" );
             Assert.Equal( string.Empty, warning.Message );
         }
 
@@ -30,7 +30,7 @@ namespace Util.Tests.Exceptions {
         /// </summary>
         [Fact]
         public void TestCode() {
-            Warning warning = new Warning( "", "B" );
+            Warning warning = new Warning( "", code:"B" );
             Assert.Equal( "B", warning.Code );
         }
 
@@ -49,7 +49,7 @@ namespace Util.Tests.Exceptions {
         /// </summary>
         [Fact]
         public void TestMessageAndException() {
-            Warning warning = new Warning( "A", "", new Exception( "C" ) );
+            Warning warning = new Warning( "A", new Exception( "C" ) );
             Assert.Equal( "A", warning.Message );
             Assert.Equal( $"A{Environment.NewLine}C", warning.GetMessage() );
         }
@@ -59,7 +59,7 @@ namespace Util.Tests.Exceptions {
         /// </summary>
         [Fact]
         public void TestException_2Layer() {
-            Warning warning = new Warning( "A", "",new Exception( "C", new NotImplementedException( "D" ) ) );
+            Warning warning = new Warning( "A", new Exception( "C", new NotImplementedException( "D" ) ) );
             Assert.Equal( 3, warning.GetExceptions().Count );
             Assert.Equal( typeof( Warning ), warning.GetExceptions()[0].GetType() );
             Assert.Equal( typeof( Exception ), warning.GetExceptions()[1].GetType() );

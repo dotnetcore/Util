@@ -5,9 +5,11 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using Util.Helpers;
+using Util.SystemTextJson;
 
 namespace Util.Http {
     /// <summary>
@@ -438,7 +440,7 @@ namespace Util.Http {
         /// 获取json内容值
         /// </summary>
         private string GetJsonContentValue() {
-            var options = new JsonSerializerOptions { IgnoreNullValues = true };
+            var options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
             if( Param != null && Params.Count > 0 )
                 return Json.ToJson( GetParameters(), options );
             if( Param != null )
@@ -582,7 +584,13 @@ namespace Util.Http {
             if( typeof( TResult ) == typeof( string ) )
                 return (TResult)(object)content;
             if( contentType.SafeString().ToLower() == "application/json" ) {
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var options = new JsonSerializerOptions {
+                    PropertyNameCaseInsensitive = true,
+                    Converters = {
+                        new DateTimeJsonConverter(),
+                        new NullableDateTimeJsonConverter()
+                    }
+                };
                 return Json.ToObject<TResult>( content, options );
             }
             return null;

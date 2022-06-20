@@ -23,35 +23,36 @@ namespace Util.Helpers {
         /// </summary>
         /// <typeparam name="TOptions">配置选项类型</typeparam>
         /// <param name="section">配置节</param>
-        /// <param name="configFileName">配置文件名,默认值: appsettings.json</param>
-        public static TOptions Get<TOptions>( string section,string configFileName = "appsettings.json" ) {
-            var configuration = GetConfiguration( configFileName );
-            return Get<TOptions>( configuration, section );
+        public static TOptions Get<TOptions>( string section ) {
+            return GetSection( section ).Get<TOptions>();
+        }
+
+        /// <summary>
+        /// 获取配置节
+        /// </summary>
+        /// <param name="section">配置节</param>
+        public static IConfigurationSection GetSection( string section ) {
+            return GetConfiguration().GetSection( section );
         }
 
         /// <summary>
         /// 获取配置
         /// </summary>
-        private static IConfiguration GetConfiguration( string configFileName ) {
-            if ( _configuration != null )
-                return _configuration;
-            return CreateConfiguration( configFileName );
+        private static IConfiguration GetConfiguration() {
+            return _configuration ??= CreateConfiguration();
         }
 
         /// <summary>
         /// 创建配置
         /// </summary>
-        private static IConfiguration CreateConfiguration( string configFileName ) {
-            var builder = new ConfigurationBuilder();
-            builder.SetBasePath( Platform.ApplicationBaseDirectory ).AddJsonFile( configFileName );
+        private static IConfiguration CreateConfiguration() {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath( Platform.ApplicationBaseDirectory )
+                .AddJsonFile( "appsettings.json", true, true );
+            var environment = Environment.GetEnvironmentName();
+            if ( environment.IsEmpty() == false )
+                builder.AddJsonFile( $"appsettings.{environment}.json", true, true );
             return builder.Build();
-        }
-
-        /// <summary>
-        /// 获取配置选项
-        /// </summary>
-        private static TOptions Get<TOptions>( IConfiguration configuration, string section ) {
-            return configuration.GetSection( section ).Get<TOptions>();
         }
 
         /// <summary>
@@ -59,8 +60,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="name">数据库连接字符串键名</param>
         public static string GetConnectionString( string name ) {
-            var configuration = GetConfiguration( "appsettings.json" );
-            return configuration.GetConnectionString( name );
+            return GetConfiguration().GetConnectionString( name );
         }
     }
 }

@@ -10,26 +10,9 @@ namespace Util.Exceptions {
         /// <summary>
         /// 初始化应用程序异常
         /// </summary>
-        /// <param name="message">错误消息</param>
-        public Warning( string message )
-            : this( message, null ) {
-        }
-
-        /// <summary>
-        /// 初始化应用程序异常
-        /// </summary>
         /// <param name="exception">异常</param>
         public Warning( Exception exception )
-            : this( null, null, exception ) {
-        }
-
-        /// <summary>
-        /// 初始化应用程序异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        /// <param name="code">错误码</param>
-        public Warning( string message, string code )
-            : this( message, code, null ) {
+            : this( null, exception ) {
         }
 
         /// <summary>
@@ -38,15 +21,22 @@ namespace Util.Exceptions {
         /// <param name="message">错误消息</param>
         /// <param name="code">错误码</param>
         /// <param name="exception">异常</param>
-        public Warning( string message, string code, Exception exception )
+        /// <param name="httpStatusCode">Http状态码</param>
+        public Warning( string message, Exception exception = null, string code = null, int? httpStatusCode = null )
             : base( message ?? "", exception ) {
             Code = code;
+            HttpStatusCode = httpStatusCode;
         }
 
         /// <summary>
         /// 错误码
         /// </summary>
         public string Code { get; set; }
+
+        /// <summary>
+        /// Http状态码
+        /// </summary>
+        public int? HttpStatusCode { get; set; }
 
         /// <summary>
         /// 获取错误消息

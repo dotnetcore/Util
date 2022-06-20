@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<AssemblyName>Util.ObjectMapping.AutoMapper</AssemblyName>
+		<RootNamespace>Util.ObjectMapping</RootNamespace>
+		<Description>Util.ObjectMapping.AutoMapper是Util应用框架的AutoMapper对象映射封装类库</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.ObjectMapping.AutoMapper.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.ObjectMapping.AutoMapper.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="AutoMapper" Version="11.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Util.Core\01-Util.Core.csproj" />
+	</ItemGroup>
+</Project>

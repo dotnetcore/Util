@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Util.Helpers;
 using Util.Infrastructure;
 using Util.Reflections;
@@ -29,17 +30,18 @@ namespace Util.ObjectMapping.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="services">服务集合</param>
-        /// <param name="configuration">配置</param>
+        /// <param name="hostBuilder">主机生成器</param>
         /// <param name="finder">类型查找器</param>
-        public Action Register( IServiceCollection services, Microsoft.Extensions.Configuration.IConfiguration configuration, ITypeFinder finder ) {
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
             var types = finder.Find<IAutoMapperConfig>();
             var instances = types.Select( type => Reflection.CreateInstance<IAutoMapperConfig>( type ) ).ToList();
             var expression = new MapperConfigurationExpression();
             instances.ForEach( t => t.Config( expression ) );
             var mapper = new ObjectMapper( expression );
             ObjectMapperExtensions.SetMapper( mapper );
-            services.AddSingleton<IObjectMapper>( mapper );
+            hostBuilder.ConfigureServices( ( context, services ) => {
+                services.AddSingleton<IObjectMapper>( mapper );
+            } );
             return null;
         }
     }

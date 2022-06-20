@@ -1,7 +1,6 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Util.Infrastructure;
 using Util.Reflections;
 
@@ -13,9 +12,11 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
             A a = new A { Value = "a" };
-            services.TryAddSingleton<IA>( a );
+            hostBuilder.ConfigureServices( ( context, services ) => {
+                services.TryAddSingleton<IA>( a );
+            } );
             return null;
         }
 
@@ -37,9 +38,11 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
             A a = new A { Value = "b" };
-            services.TryAddSingleton<IA>( a );
+            hostBuilder.ConfigureServices( ( context, services ) => {
+                services.TryAddSingleton<IA>( a );
+            } );
             return null;
         }
 
@@ -61,9 +64,11 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
             var service = new TestService2 { Value = "a" };
-            services.TryAddSingleton<ITestService2>( service );
+            hostBuilder.ConfigureServices( ( context, services ) => {
+                services.TryAddSingleton<ITestService2>( service );
+            } );
             return null;
         }
 
@@ -85,10 +90,12 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IServiceCollection services, IConfiguration configuration, ITypeFinder finder ) {
+        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
             return () => {
                 var service = new TestService3 { Value = "a" };
-                services.TryAddSingleton<ITestService3>( service );
+                hostBuilder.ConfigureServices( ( context, services ) => {
+                    services.TryAddSingleton<ITestService3>( service );
+                } );
             };
         }
 

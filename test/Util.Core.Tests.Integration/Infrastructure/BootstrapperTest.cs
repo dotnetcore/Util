@@ -1,4 +1,6 @@
-﻿using Util.Dependency;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Util.Dependency;
 using Util.Infrastructure;
 using Util.Tests.Samples;
 using Xunit;
@@ -17,11 +19,12 @@ namespace Util.Tests.Infrastructure {
         /// </summary>
         [Fact]
         public void TestStart_1() {
-            var container = new Container();
-            var bootstrapper = new Bootstrapper( container.GetServices() );
+            var builder = new HostBuilder();
+            var bootstrapper = new Bootstrapper( builder );
             bootstrapper.Start();
-            Assert.Equal( "a", container.GetService<IA>().Value );
-            Assert.Equal( "a", container.GetService<ITestService>().Value );
+            var host = builder.Build();
+            Assert.Equal( "a", host.Services.GetService<IA>()?.Value );
+            Assert.Equal( "a", host.Services.GetService<ITestService>()?.Value );
         }
 
         /// <summary>
@@ -33,10 +36,11 @@ namespace Util.Tests.Infrastructure {
         /// </summary>
         [Fact]
         public void TestStart_2() {
-            var container = new Container();
-            var bootstrapper = new Bootstrapper( container.GetServices(), options => options.UseTest() );
+            var builder = new HostBuilder();
+            var bootstrapper = new Bootstrapper( builder, options => options.UseTest() );
             bootstrapper.Start();
-            Assert.Equal( "Options", container.GetService<ITestService>().Value );
+            var host = builder.Build();
+            Assert.Equal( "Options", host.Services.GetService<ITestService>()?.Value );
         }
 
         /// <summary>
@@ -48,10 +52,11 @@ namespace Util.Tests.Infrastructure {
         /// </summary>
         [Fact]
         public void TestStart_3() {
-            var container = new Container();
-            var bootstrapper = new Bootstrapper( container.GetServices(), options => options.UseTest() );
+            var builder = new HostBuilder();
+            var bootstrapper = new Bootstrapper( builder, options => options.UseTest() );
             bootstrapper.Start();
-            Assert.Equal( "a", container.GetService<ITestService2>().Value );
+            var host = builder.Build();
+            Assert.Equal( "a", host.Services.GetService<ITestService2>()?.Value );
         }
 
         /// <summary>
@@ -63,10 +68,11 @@ namespace Util.Tests.Infrastructure {
         /// </summary>
         [Fact]
         public void TestStart_4() {
-            var container = new Container();
-            var bootstrapper = new Bootstrapper( container.GetServices(), options => options.UseTest() );
+            var builder = new HostBuilder();
+            var bootstrapper = new Bootstrapper( builder, options => options.UseTest() );
             bootstrapper.Start();
-            Assert.Equal( "Options", container.GetService<ITestService3>().Value );
+            var host = builder.Build();
+            Assert.Equal( "Options", host.Services.GetService<ITestService3>()?.Value );
         }
     }
 }

@@ -5,7 +5,7 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Events</AssemblyName>
 		<RootNamespace>Util.Events</RootNamespace>
-		<Description>Util.Events是Util应用框架的事件总线操作类库</Description>
+		<Description>Util.Events是Util应用框架的事件总线操作核心类库,包含了本地领域事件总线</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.AspNetCore\02-Util.AspNetCore.csproj" />
+	  <ProjectReference Include="..\Util.Core\01-Util.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

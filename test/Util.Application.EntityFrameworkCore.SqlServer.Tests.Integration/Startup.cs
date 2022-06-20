@@ -1,12 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Util.Aop;
-using Util.Applications.UnitOfWorks;
-using Util.Data.EntityFrameworkCore;
-using Util.Helpers;
 using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
+using Util.Aop;
+using Util.Data.EntityFrameworkCore;
+using Util.Helpers;
+using Util.Sessions;
+using Util.Tests.Infrastructure;
+using Util.Tests.UnitOfWorks;
 
 namespace Util.Applications {
     /// <summary>
@@ -17,16 +19,19 @@ namespace Util.Applications {
         /// 配置主机
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
-            hostBuilder.ConfigureDefaults( null ).UseEnvironment( "Development" ).EnableAop();
+            hostBuilder.ConfigureDefaults( null )
+                .AddUtil( options => {
+                    Environment.SetDevelopment();
+                    options.UseAop()
+                        .UseSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) );
+                } );
         }
 
         /// <summary>
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-            services.AddUtil( options => {
-                options.UseSqlServerUnitOfWork<ISqlServerUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) );
-            } );
+            services.AddSingleton<ISession, TestSession>();
             InitDatabase( services );
         }
 
@@ -34,7 +39,7 @@ namespace Util.Applications {
         /// 初始化数据库
         /// </summary>
         private void InitDatabase( IServiceCollection services ) {
-            var unitOfWork = services.BuildServiceProvider().GetService<ISqlServerUnitOfWork>();
+            var unitOfWork = services.BuildServiceProvider().GetService<ITestUnitOfWork>();
             unitOfWork.EnsureDeleted();
             unitOfWork.EnsureCreated();
         }
