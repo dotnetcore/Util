@@ -38,9 +38,14 @@ namespace Util.Exceptions {
             _message = message;
         }
 
-        /// <summary>
-        /// 错误消息
-        /// </summary>
+        /// <inheritdoc />
         public override string Message => $"{R.ConcurrencyExceptionMessage}.{_message}";
+
+        /// <inheritdoc />
+        public override string GetMessage( bool isProduction = true ) {
+            if ( isProduction )
+                return R.ConcurrencyExceptionMessage;
+            return GetMessage( this );
+        }
     }
 }

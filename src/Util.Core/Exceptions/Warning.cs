@@ -41,7 +41,8 @@ namespace Util.Exceptions {
         /// <summary>
         /// 获取错误消息
         /// </summary>
-        public string GetMessage() {
+        /// <param name="isProduction">是否生产环境</param>
+        public virtual string GetMessage( bool isProduction = true ) {
             return GetMessage( this );
         }
 
@@ -51,7 +52,7 @@ namespace Util.Exceptions {
         public static string GetMessage( Exception ex ) {
             var result = new StringBuilder();
             var list = GetExceptions( ex );
-            foreach( var exception in list )
+            foreach ( var exception in list )
                 AppendMessage( result, exception );
             return result.ToString().Trim( Environment.NewLine.ToCharArray() );
         }
@@ -60,7 +61,7 @@ namespace Util.Exceptions {
         /// 添加异常消息
         /// </summary>
         private static void AppendMessage( StringBuilder result, Exception exception ) {
-            if( exception == null )
+            if ( exception == null )
                 return;
             result.AppendLine( exception.Message );
         }
@@ -86,7 +87,7 @@ namespace Util.Exceptions {
         /// 添加内部异常
         /// </summary>
         private static void AddException( List<Exception> result, Exception exception ) {
-            if( exception == null )
+            if ( exception == null )
                 return;
             result.Add( exception );
             AddException( result, exception.InnerException );

@@ -24,7 +24,6 @@ using Util.Exceptions;
 using Util.Helpers;
 using Util.Sessions;
 
-
 namespace Util.Data.EntityFrameworkCore {
     /// <summary>
     /// 工作单元基类
@@ -296,22 +295,6 @@ namespace Util.Data.EntityFrameworkCore {
                     .Property( property.Name )
                     .HasConversion( new DateTimeValueConverter() );
             } );
-        }
-
-        #endregion
-
-        #region Commit(提交)
-
-        /// <summary>
-        /// 提交,返回影响的行数
-        /// </summary>
-        public int Commit() {
-            try {
-                return SaveChanges();
-            }
-            catch ( DbUpdateConcurrencyException ex ) {
-                throw new ConcurrencyException( ex );
-            }
         }
 
         #endregion
