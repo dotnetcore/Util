@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Util.Helpers;
 using Util.ObjectMapping.AutoMapper.Tests.Samples;
 using Xunit;
@@ -162,6 +164,33 @@ namespace Util.ObjectMapping.AutoMapper.Tests {
             List<Sample2> sample2List = sampleList.MapToList<Sample2>();
             Assert.Equal( 2, sample2List.Count );
             Assert.Equal( "a", sample2List[0].StringValue );
+        }
+
+        /// <summary>
+        /// 失败映射抛出异常
+        /// </summary>
+        [Fact]
+        public void TestMapTo_Throw() {
+            //成功映射
+            var parentId = Guid.NewGuid().SafeString();
+            var dto = new TreeEntityDto() {
+                Name = "Test1",
+                ParentId = parentId
+            };
+            var entity = dto.MapTo<TreeEntitySample>();
+            Assert.Equal( parentId, entity.ParentId.SafeString() );
+
+            //错误数据映射失败,抛出异常
+            var parentId2 = "/";
+            var dto2 = new TreeEntityDto() {
+                Name = "Test2",
+                ParentId = parentId2
+            };
+            Assert.Throws<AutoMapperMappingException>( () => dto2.MapTo<TreeEntitySample>() );
+
+            //成功映射,失败映射不影响之前的映射关系
+            var entity3 = dto.MapTo<TreeEntitySample>();
+            Assert.Equal( parentId, entity3.ParentId.SafeString() );
         }
     }
 }
