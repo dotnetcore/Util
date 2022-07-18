@@ -31,7 +31,7 @@ namespace Util.ObjectMapping {
         /// <param name="expression">配置表达式</param>
         public ObjectMapper( MapperConfigurationExpression expression ) {
             _configExpression = expression ?? throw new ArgumentNullException( nameof( expression ) );
-            _config = new MapperConfiguration( expression );
+            _config = new MapperConfiguration( expression ); 
             _mapper = _config.CreateMapper();
         }
 
@@ -54,14 +54,14 @@ namespace Util.ObjectMapping {
         /// <param name="destination">目标对象</param>
         public TDestination Map<TSource, TDestination>( TSource source, TDestination destination ) {
             try {
-                if ( source == null )
+                if( source == null )
                     return default;
                 var sourceType = GetType( source );
                 var destinationType = GetType( destination );
                 return GetResult( sourceType, destinationType, source, destination );
             }
-            catch ( AutoMapperMappingException ex ) {
-                if ( ex.InnerException != null && ex.InnerException.Message.StartsWith( "Missing type map configuration" ) )
+            catch( AutoMapperMappingException ex ) {
+                if( ex.InnerException != null && ex.InnerException.Message.StartsWith( "Missing type map configuration" ) )
                     return GetResult( GetType( ex.MemberMap.SourceType ), GetType( ex.MemberMap.DestinationType ), source, destination );
                 throw;
             }
@@ -71,7 +71,7 @@ namespace Util.ObjectMapping {
         /// 获取类型
         /// </summary>
         private Type GetType<T>( T obj ) {
-            if ( obj == null )
+            if( obj == null )
                 return GetType( typeof( T ) );
             return GetType( obj.GetType() );
         }
@@ -87,10 +87,10 @@ namespace Util.ObjectMapping {
         /// 获取结果
         /// </summary>
         private TDestination GetResult<TDestination>( Type sourceType, Type destinationType, object source, TDestination destination ) {
-            if ( Exists( sourceType, destinationType ) )
+            if( Exists( sourceType, destinationType ) )
                 return GetResult( source, destination );
-            lock ( Sync ) {
-                if ( Exists( sourceType, destinationType ) )
+            lock( Sync ) {
+                if( Exists( sourceType, destinationType ) )
                     return GetResult( source, destination );
                 ConfigMap( sourceType, destinationType );
             }

@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Util.Domain.Extending;
+﻿using Util.Domain.Extending;
 
 namespace Util.Domain {
     /// <summary>

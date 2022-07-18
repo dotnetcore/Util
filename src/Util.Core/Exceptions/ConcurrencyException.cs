@@ -43,9 +43,9 @@ namespace Util.Exceptions {
 
         /// <inheritdoc />
         public override string GetMessage( bool isProduction = true ) {
-            if ( isProduction )
+            if( isProduction )
                 return R.ConcurrencyExceptionMessage;
-            return GetMessage( this );
+            return GetMessage(this);
         }
     }
 }

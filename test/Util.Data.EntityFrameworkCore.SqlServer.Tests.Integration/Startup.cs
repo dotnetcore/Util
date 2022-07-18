@@ -8,7 +8,6 @@ using Util.Tests.Infrastructure;
 using Util.Tests.UnitOfWorks;
 using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
-using Environment = Util.Helpers.Environment;
 
 namespace Util.Data.EntityFrameworkCore {
     /// <summary>
@@ -21,7 +20,7 @@ namespace Util.Data.EntityFrameworkCore {
         public void ConfigureHost( IHostBuilder hostBuilder ) {
             hostBuilder.ConfigureDefaults( null )
                 .AddUtil( options => {
-                    Environment.SetDevelopment();
+                    Util.Helpers.Environment.SetDevelopment();
                     options.UseAop()
                         .UseSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) );
                 } );

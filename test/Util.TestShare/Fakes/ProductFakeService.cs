@@ -25,6 +25,8 @@ namespace Util.Tests.Fakes {
                 .RuleFor( t => t.Code, t => t.Random.String2( 1, 50 ) )
                 .RuleFor( t => t.Name, t => t.Random.String2( 1, 500 ) )
                 .RuleFor( t => t.IsDeleted, false )
+                .Ignore( t => t.CreationTime )
+                .Ignore( t => t.CreatorId )
                 .Ignore( t => t.TestProperty1 )
                 .Generate( count );
         }

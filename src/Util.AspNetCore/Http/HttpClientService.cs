@@ -38,30 +38,31 @@ namespace Util.Http {
         /// <param name="client">Http客户端</param>
         public void SetHttpClient( HttpClient client ) {
             _httpClient = client;
-        } 
+        }
         #endregion
 
         #region Get
 
         /// <inheritdoc />
         public IHttpRequest<string> Get( string url ) {
-            return new HttpRequest<string>( _httpClientFactory, _httpClient, HttpMethod.Get, url );
+            return Get<string>( url );
         }
 
         /// <inheritdoc />
         public IHttpRequest<string> Get( string url, object queryString ) {
-            var result = new HttpRequest<string>( _httpClientFactory, _httpClient, HttpMethod.Get, url );
-            return result.QueryString( queryString );
+            return Get<string>( url, queryString );
         }
 
         /// <inheritdoc />
         public IHttpRequest<TResult> Get<TResult>( string url ) where TResult : class {
-            return new HttpRequest<TResult>( _httpClientFactory, _httpClient, HttpMethod.Get, url );
+            return Get<TResult>( url, null );
         }
 
         /// <inheritdoc />
         public IHttpRequest<TResult> Get<TResult>( string url, object queryString ) where TResult : class {
             var result = new HttpRequest<TResult>( _httpClientFactory, _httpClient, HttpMethod.Get, url );
+            if ( queryString.SafeString().IsEmpty() )
+                return result;
             return result.QueryString( queryString );
         }
 
@@ -71,23 +72,24 @@ namespace Util.Http {
 
         /// <inheritdoc />
         public IHttpRequest<string> Post( string url ) {
-            return new HttpRequest<string>( _httpClientFactory, _httpClient, HttpMethod.Post, url );
+            return Post<string>( url );
         }
 
         /// <inheritdoc />
         public IHttpRequest<string> Post( string url, object content ) {
-            var result = new HttpRequest<string>( _httpClientFactory, _httpClient, HttpMethod.Post, url );
-            return result.Content( content );
+            return Post<string>( url, content );
         }
 
         /// <inheritdoc />
         public IHttpRequest<TResult> Post<TResult>( string url ) where TResult : class {
-            return new HttpRequest<TResult>( _httpClientFactory, _httpClient, HttpMethod.Post, url );
+            return Post<TResult>( url, null );
         }
 
         /// <inheritdoc />
         public IHttpRequest<TResult> Post<TResult>( string url, object content ) where TResult : class {
             var result = new HttpRequest<TResult>( _httpClientFactory, _httpClient, HttpMethod.Post, url );
+            if ( content == null )
+                return result;
             return result.Content( content );
         }
 
@@ -97,23 +99,24 @@ namespace Util.Http {
 
         /// <inheritdoc />
         public IHttpRequest<string> Put( string url ) {
-            return new HttpRequest<string>( _httpClientFactory, _httpClient, HttpMethod.Put, url );
+            return Put<string>( url );
         }
 
         /// <inheritdoc />
         public IHttpRequest<string> Put( string url, object content ) {
-            var result = new HttpRequest<string>( _httpClientFactory, _httpClient, HttpMethod.Put, url );
-            return result.Content( content );
+            return Put<string>( url, null );
         }
 
         /// <inheritdoc />
         public IHttpRequest<TResult> Put<TResult>( string url ) where TResult : class {
-            return new HttpRequest<TResult>( _httpClientFactory, _httpClient, HttpMethod.Put, url );
+            return Put<TResult>( url );
         }
 
         /// <inheritdoc />
         public IHttpRequest<TResult> Put<TResult>( string url, object content ) where TResult : class {
             var result = new HttpRequest<TResult>( _httpClientFactory, _httpClient, HttpMethod.Put, url );
+            if ( content == null )
+                return result;
             return result.Content( content );
         }
 
@@ -123,7 +126,7 @@ namespace Util.Http {
 
         /// <inheritdoc />
         public IHttpRequest<string> Delete( string url ) {
-            return new HttpRequest<string>( _httpClientFactory, _httpClient, HttpMethod.Delete, url );
+            return Delete<string>( url );
         }
 
         /// <inheritdoc />

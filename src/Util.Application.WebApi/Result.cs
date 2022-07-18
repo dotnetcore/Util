@@ -30,7 +30,7 @@ namespace Util.Applications {
         /// <param name="message">消息</param>
         /// <param name="data">数据</param>
         /// <param name="httpStatusCode">Http状态码</param>
-        public Result( string code, string message, dynamic data, int? httpStatusCode ) : base( null ) {
+        public Result( string code, string message, dynamic data = null, int? httpStatusCode = null ) : base( null ) {
             Code = code;
             Message = message;
             Data = data;

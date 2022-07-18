@@ -12,10 +12,10 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="exception">异常</param>
         public static Exception GetRawException( this Exception exception ) {
-            if ( exception == null )
+            if( exception == null )
                 return null;
-            if ( exception is AspectCore.DynamicProxy.AspectInvocationException aspectInvocationException ) {
-                if ( aspectInvocationException.InnerException == null )
+            if( exception is AspectCore.DynamicProxy.AspectInvocationException aspectInvocationException ) {
+                if( aspectInvocationException.InnerException == null )
                     return aspectInvocationException;
                 return GetRawException( aspectInvocationException.InnerException );
             }
@@ -28,12 +28,12 @@ namespace Util.Applications {
         /// <param name="exception">异常</param>
         /// <param name="isProduction">是否生产环境</param>
         public static string GetPrompt( this Exception exception, bool isProduction = false ) {
-            if ( exception == null )
+            if( exception == null )
                 return null;
             exception = exception.GetRawException();
-            if ( exception == null )
+            if( exception == null )
                 return null;
-            if ( exception is Warning warning )
+            if( exception is Warning warning )
                 return warning.GetMessage( isProduction );
             return isProduction ? R.SystemError : exception.Message;
         }

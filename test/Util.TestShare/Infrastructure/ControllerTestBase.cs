@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Util.Http;
 
 namespace Util.Tests.Infrastructure {
@@ -9,14 +10,21 @@ namespace Util.Tests.Infrastructure {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        protected ControllerTestBase( IHttpClient client ) {
+        protected ControllerTestBase( IHttpClient client, IHttpContextAccessor accessor = null ) {
             Client = client;
+            if ( accessor != null )
+                Context = accessor.HttpContext;
         }
 
         /// <summary>
         /// Http客户端
         /// </summary>
         protected IHttpClient Client { get; }
+
+        /// <summary>
+        /// Http上下文
+        /// </summary>
+        protected HttpContext Context { get; }
 
         /// <summary>
         /// Http Get操作
@@ -34,7 +42,7 @@ namespace Util.Tests.Infrastructure {
         /// <param name="url">服务地址</param>
         /// <param name="data">参数</param>
         protected async Task<WebApiResult<TResult>> GetAsync<TResult>( string url, object data = null ) {
-            return await Client.Get<WebApiResult<TResult>>( url, data ).GetResultAsync();
+            return await Client.Get<WebApiResult<TResult>>( url,data ).GetResultAsync();
         }
 
         /// <summary>
