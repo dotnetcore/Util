@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Util.Data.EntityFrameworkCore {
     /// <summary>
@@ -70,6 +72,17 @@ namespace Util.Data.EntityFrameworkCore {
                 return null;
             unitOfWork.ChangeTracker.DetectChanges();
             return unitOfWork.ChangeTracker.DebugView.LongView;
+        }
+
+        /// <summary>
+        /// 是否更改
+        /// </summary>
+        /// <param name="source">工作单元</param>
+        public static bool IsChange( this IUnitOfWork source ) {
+            source.CheckNull( nameof( source ) );
+            if ( source is not UnitOfWorkBase unitOfWork )
+                return false;
+            return unitOfWork.ChangeTracker.Entries().Any( t => t.State == EntityState.Modified );
         }
     }
 }

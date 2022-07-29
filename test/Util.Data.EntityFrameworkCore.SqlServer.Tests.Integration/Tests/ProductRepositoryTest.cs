@@ -1403,6 +1403,28 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             Assert.Equal( newName, result.TestProperty4.Name );
         }
 
+        /// <summary>
+        /// 测试扩展属性 - 读取对象扩展属性,不应该导致更新
+        /// </summary>
+        [Fact]
+        public async Task TestExtraProperties_13() {
+            //添加实体
+            var entity = new Product();
+            entity.Init();
+            entity.TestProperty4 = new ProductItem2( 3, "TestExtraProperties_13" );
+            await _repository.AddAsync( entity );
+            await UnitOfWork.CommitAsync();
+            UnitOfWork.ClearCache();
+
+            //读取对象扩展属性
+            var oldEntity = await _repository.FindByIdAsync( entity.Id );
+            var property = oldEntity.TestProperty4;
+            _log.WriteLine( UnitOfWork.GetChangeTrackerDebugView() );
+
+            //验证
+            Assert.False( UnitOfWork.IsChange() );
+        }
+
         #endregion
     }
 }
