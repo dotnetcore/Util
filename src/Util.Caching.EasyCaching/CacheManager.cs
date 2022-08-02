@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using EasyCaching.Core;
 
 namespace Util.Caching.EasyCaching {
@@ -36,6 +37,12 @@ namespace Util.Caching.EasyCaching {
         private TimeSpan GetExpiration( TimeSpan? expiration ) {
             expiration ??= TimeSpan.FromHours( 12 );
             return expiration.SafeValue();
+        }
+
+        /// <inheritdoc />
+        public async Task<T> GetAsync<T>( string key, Func<Task<T>> action, TimeSpan? expiration = null ) {
+            var result = await _provider.GetAsync( key, action, GetExpiration( expiration ) );
+            return result.Value;
         }
 
         /// <inheritdoc />
