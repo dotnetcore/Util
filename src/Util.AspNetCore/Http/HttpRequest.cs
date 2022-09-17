@@ -36,6 +36,10 @@ namespace Util.Http {
         /// 服务地址
         /// </summary>
         private readonly string _url;
+        /// <summary>
+        /// Json序列化配置
+        /// </summary>
+        private JsonSerializerOptions _jsonSerializerOptions;
 
         #endregion
 
@@ -163,6 +167,16 @@ namespace Util.Http {
         public IHttpRequest<TResult> Certificate( string path, string password ) {
             CertificatePath = path;
             CertificatePassword = password;
+            return this;
+        }
+
+        #endregion
+
+        #region JsonSerializerOptions(设置Json序列化配置)
+
+        /// <inheritdoc />
+        public IHttpRequest<TResult> JsonSerializerOptions( JsonSerializerOptions options ) {
+            _jsonSerializerOptions = options;
             return this;
         }
 
@@ -440,7 +454,7 @@ namespace Util.Http {
         /// 获取json内容值
         /// </summary>
         private string GetJsonContentValue() {
-            var options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
+            var options = GetJsonSerializerOptions();
             if( Param != null && Params.Count > 0 )
                 return Json.ToJson( GetParameters(), options );
             if( Param != null )
@@ -448,6 +462,21 @@ namespace Util.Http {
             if( Params.Count > 0 )
                 return Json.ToJson( Params, options );
             return null;
+        }
+
+        /// <summary>
+        /// 获取Json序列化配置
+        /// </summary>
+        protected virtual JsonSerializerOptions GetJsonSerializerOptions() {
+            if ( _jsonSerializerOptions != null )
+                return _jsonSerializerOptions;
+            return new JsonSerializerOptions {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                Converters = {
+                    new DateTimeJsonConverter(),
+                    new NullableDateTimeJsonConverter()
+                }
+            };
         }
 
         /// <summary>

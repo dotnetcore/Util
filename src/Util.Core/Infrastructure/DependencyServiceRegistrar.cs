@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
 using Util.Dependency;
 using Util.Reflections;
 
@@ -29,14 +28,13 @@ namespace Util.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="hostBuilder">主机生成器</param>
-        /// <param name="finder">类型查找器</param>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+        /// <param name="serviceContext">服务上下文</param>
+        public Action Register( ServiceContext serviceContext ) {
             return () => {
-                hostBuilder.ConfigureServices( ( context, services ) => {
-                    RegisterDependency<ISingletonDependency>( services, finder, ServiceLifetime.Singleton );
-                    RegisterDependency<IScopeDependency>( services, finder, ServiceLifetime.Scoped );
-                    RegisterDependency<ITransientDependency>( services, finder, ServiceLifetime.Transient );
+                serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
+                    RegisterDependency<ISingletonDependency>( services, serviceContext.TypeFinder, ServiceLifetime.Singleton );
+                    RegisterDependency<IScopeDependency>( services, serviceContext.TypeFinder, ServiceLifetime.Scoped );
+                    RegisterDependency<ITransientDependency>( services, serviceContext.TypeFinder, ServiceLifetime.Transient );
                 } );
             };
         }

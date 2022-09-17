@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Util.Http;
 using Util.Security.Authorization;
@@ -73,7 +74,7 @@ namespace Util.Helpers {
         /// </summary>
         public static ClaimsPrincipal User {
             get {
-                if( HttpContext?.User is { } principal )
+                if ( HttpContext?.User is { } principal )
                     return principal;
                 return UnauthenticatedPrincipal.Instance;
             }
@@ -88,7 +89,7 @@ namespace Util.Helpers {
         /// </summary>
         public static ClaimsIdentity Identity {
             get {
-                if( User.Identity is ClaimsIdentity identity )
+                if ( User.Identity is ClaimsIdentity identity )
                     return identity;
                 return UnauthenticatedIdentity.Instance;
             }
@@ -114,6 +115,15 @@ namespace Util.Helpers {
         public static string GetPhysicalPath( string relativePath ) {
             return Platform.GetPhysicalPath( relativePath, Environment.ContentRootPath );
         }
+
+        #endregion
+
+        #region Url(请求地址)
+
+        /// <summary>
+        /// 请求地址
+        /// </summary>
+        public static string Url => Request?.GetDisplayUrl();
 
         #endregion
     }

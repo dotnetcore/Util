@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Util.Configs;
 using Util.Dependency;
@@ -59,6 +60,7 @@ namespace Util.Infrastructure {
         protected virtual void SetConfiguration() {
             _hostBuilder.ConfigureServices( ( context, services ) => {
                 Util.Helpers.Config.SetConfiguration( context.Configuration );
+                services.TryAddSingleton( _finder );
             } );
         }
 
@@ -68,7 +70,7 @@ namespace Util.Infrastructure {
         protected virtual void ResolveServiceRegistrar() {
             var types = _finder.Find<IServiceRegistrar>();
             var instances = types.Select( type => Reflection.CreateInstance<IServiceRegistrar>( type ) ).Where( t => t.Enabled ).OrderBy( t => t.Id ).ToList();
-            instances.ForEach( t => _serviceActions.Add( t.Register( _hostBuilder, _finder ) ) );
+            instances.ForEach( t => _serviceActions.Add( t.Register( new ServiceContext( _hostBuilder, _finder ) ) ) );
         }
 
         /// <summary>

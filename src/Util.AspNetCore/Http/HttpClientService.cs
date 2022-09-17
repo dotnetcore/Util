@@ -104,12 +104,12 @@ namespace Util.Http {
 
         /// <inheritdoc />
         public IHttpRequest<string> Put( string url, object content ) {
-            return Put<string>( url, null );
+            return Put<string>( url, content );
         }
 
         /// <inheritdoc />
         public IHttpRequest<TResult> Put<TResult>( string url ) where TResult : class {
-            return Put<TResult>( url );
+            return Put<TResult>( url,null );
         }
 
         /// <inheritdoc />

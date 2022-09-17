@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Util.Applications.Logging;
 using Util.Infrastructure;
 using Util.Logging;
-using Util.Reflections;
 
 namespace Util.Applications.Infrastructure {
     /// <summary>
@@ -31,13 +30,25 @@ namespace Util.Applications.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="hostBuilder">主机生成器</param>
-        /// <param name="finder">类型查找器</param>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
-            hostBuilder.ConfigureServices( ( context, services ) => {
+        /// <param name="serviceContext">服务上下文</param>
+        public Action Register( ServiceContext serviceContext ) {
+            serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 services.AddSingleton<ILogContextAccessor, LogContextAccessor>();
                 services.AddSingleton<IStartupFilter, LogContextStartupFilter>();
-                services.Configure<ApiBehaviorOptions>( options => options.SuppressModelStateInvalidFilter = true );
+                services.Configure<ApiBehaviorOptions>( options => {
+                    options.SuppressModelStateInvalidFilter = false;
+                    var builtInFactory = options.InvalidModelStateResponseFactory;
+                    options.InvalidModelStateResponseFactory = actionContext => {
+                        var log = actionContext.HttpContext.RequestServices.GetRequiredService<ILogger<WebApiServiceRegistrar>>();
+                        if ( actionContext.ModelState.IsValid == false ) {
+                            foreach ( var state in actionContext.ModelState ) {
+                                foreach ( var error in state.Value.Errors )
+                                    log.LogError( error.Exception, "模型绑定失败,ErrorMessage: {ErrorMessage}", error.ErrorMessage );
+                            }
+                        }
+                        return builtInFactory( actionContext );
+                    };
+                } );
             } );
             return null;
         }

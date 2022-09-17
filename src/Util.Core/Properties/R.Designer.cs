@@ -124,6 +124,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 无效的身份证 的本地化字符串。
+        /// </summary>
+        public static string InvalidIdCard {
+            get {
+                return ResourceManager.GetString("InvalidIdCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 序号 的本地化字符串。
         /// </summary>
         public static string LineNumber {

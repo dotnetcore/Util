@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
 using Util.Infrastructure;
 using Util.Reflections;
 
@@ -29,12 +28,11 @@ namespace Util.Events.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="hostBuilder">主机生成器</param>
-        /// <param name="finder">类型查找器</param>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
-            hostBuilder.ConfigureServices( ( context, services ) => {
+        /// <param name="serviceContext">服务上下文</param>
+        public Action Register( ServiceContext serviceContext ) {
+            serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 RegisterDependency( services );
-                RegisterEventHandlers( services, finder );
+                RegisterEventHandlers( services, serviceContext.TypeFinder );
             } );
             return null;
         }

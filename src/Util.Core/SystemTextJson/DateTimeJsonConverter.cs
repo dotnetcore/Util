@@ -2,7 +2,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Util.Helpers;
-using Convert = Util.Helpers.Convert;
 
 namespace Util.SystemTextJson {
     /// <summary>
@@ -33,7 +32,7 @@ namespace Util.SystemTextJson {
         /// </summary>
         public override DateTime Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options ) {
             if ( reader.TokenType == JsonTokenType.String ) {
-                return Time.Normalize( Convert.ToDateTime( reader.GetString() ) );
+                return Time.Normalize( Util.Helpers.Convert.ToDateTime( reader.GetString() ) );
             }
             if ( reader.TryGetDateTime( out var date ) ) {
                 return Time.Normalize( date );

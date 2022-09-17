@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
 using Util.Helpers;
 using Util.Http;
-using Util.Reflections;
+using Util.SystemTextJson;
 
 namespace Util.Infrastructure {
     /// <summary>
@@ -30,15 +29,15 @@ namespace Util.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="hostBuilder">主机生成器</param>
-        /// <param name="finder">类型查找器</param>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
-            hostBuilder.ConfigureServices( ( context, services ) => {
+        /// <param name="serviceContext">服务上下文</param>
+        public Action Register( ServiceContext serviceContext ) {
+            serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 RegisterHttpContextAccessor( services );
                 services.AddHttpClient();
                 RegisterServiceLocator();
                 RegisterSession( services );
                 RegisterHttpClient( services );
+                ConfigJsonOptions( services );
             } );
             return null;
         }
@@ -71,6 +70,16 @@ namespace Util.Infrastructure {
         /// </summary>
         private void RegisterHttpClient( IServiceCollection services ) {
             services.TryAddSingleton<IHttpClient, HttpClientService>();
+        }
+
+        /// <summary>
+        /// 配置Json
+        /// </summary>
+        private void ConfigJsonOptions( IServiceCollection services ) {
+            services.Configure( (Microsoft.AspNetCore.Mvc.JsonOptions options) => {
+                options.JsonSerializerOptions.Converters.Add( new DateTimeJsonConverter() );
+                options.JsonSerializerOptions.Converters.Add( new NullableDateTimeJsonConverter() );
+            } );
         }
     }
 }

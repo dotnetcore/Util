@@ -1,12 +1,25 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Logging;
+using Util.Helpers;
+using Util.Logging;
 
 namespace Util.Ui.TagHelpers {
     /// <summary>
     /// TagHelper基类
     /// </summary>
     public abstract class TagHelperBase : TagHelper {
+        /// <summary>
+        /// 日志缓存列表,用于排除重复日志记录
+        /// </summary>
+        private static readonly ConcurrentDictionary<string, DateTime> _logs = new();
+        /// <summary>
+        /// 是否写跟踪日志
+        /// </summary>
+        public bool WriteLog { get; set; }
         /// <summary>
         /// 标识
         /// </summary>
@@ -29,6 +42,13 @@ namespace Util.Ui.TagHelpers {
         /// </summary>
         public TagHelperWrapper ToWrapper() {
             return new TagHelperWrapper( this );
+        }
+
+        /// <summary>
+        /// 转换为包装器
+        /// </summary>
+        public TagHelperWrapper<TModel> ToWrapper<TModel>() {
+            return new TagHelperWrapper<TModel>( this );
         }
 
         /// <summary>
@@ -67,6 +87,52 @@ namespace Util.Ui.TagHelpers {
         /// <param name="content">内容</param>
         /// <param name="render">渲染器</param>
         protected virtual void ProcessAfter( TagHelperContext context, TagHelperOutput output, TagHelperContent content, IHtmlContent render ) {
+            if ( WriteLog )
+                WriteTraceLog( render );
+        }
+
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        protected void WriteTraceLog( IHtmlContent render ) {
+            var log = GetLog();
+            if ( log.IsEnabled( LogLevel.Trace ) == false )
+                return;
+            if ( Web.HttpContext.Items["WriteLog"].SafeString() == "false" )
+                return;
+            var content = render?.ToString();
+            if ( content == null )
+                return;
+            var key = content.GetHashCode().ToString();
+            if ( IsIgnoreLog( key ) )
+                return;
+            log.AppendLine( $"Url: {Web.Url}" )
+                .AppendLine( $"TagHelper: {GetType().FullName}" )
+                .AppendLine( content )
+                .LogTrace();
+            _logs.AddOrUpdate( key, ( t ) => DateTime.Now, ( t1, t2 ) => DateTime.Now );
+        }
+
+        /// <summary>
+        /// 是否忽略日志记录
+        /// </summary>
+        private bool IsIgnoreLog( string key ) {
+            if ( _logs.ContainsKey( key ) == false )
+                return false;
+            var time = _logs[key];
+            return DateTime.Now - time < TimeSpan.FromSeconds( 5 );
+        }
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        private ILog<TagHelperBase> GetLog() {
+            try {
+                return Ioc.Create<ILog<TagHelperBase>>() ?? Log<TagHelperBase>.Null;
+            }
+            catch {
+                return Log<TagHelperBase>.Null;
+            }
         }
     }
 }

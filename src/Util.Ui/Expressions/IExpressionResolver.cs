@@ -2,7 +2,7 @@
 
 namespace Util.Ui.Expressions {
     /// <summary>
-    /// 表达式解析器
+    /// 模型表达式解析器
     /// </summary>
     public interface IExpressionResolver {
         /// <summary>

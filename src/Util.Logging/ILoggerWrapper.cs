@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using Util.Dependency;
 
 namespace Util.Logging {
     /// <summary>
     /// 日志记录包装器
     /// </summary>
     /// <typeparam name="TCategoryName">日志类别</typeparam>
-    public interface ILoggerWrapper<out TCategoryName> : ITransientDependency {
+    public interface ILoggerWrapper<out TCategoryName> {
         /// <summary>
         /// 是否启用
         /// </summary>

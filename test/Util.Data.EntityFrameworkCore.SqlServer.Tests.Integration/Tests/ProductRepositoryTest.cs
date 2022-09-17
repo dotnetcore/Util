@@ -36,7 +36,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public ProductRepositoryTest( ITestOutputHelperAccessor accessor, IProductRepository repository, ITestUnitOfWork unitOfWork ) :base(unitOfWork) {
+        public ProductRepositoryTest( ITestOutputHelperAccessor accessor, IProductRepository repository, ITestUnitOfWork unitOfWork ) : base( unitOfWork ) {
             _log = accessor.Output;
             _repository = repository;
         }
@@ -51,7 +51,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
         private async Task<Product> AddProductAsync( string name = null ) {
             var entity = ProductFakeService.GetProduct();
             entity.Init();
-            if( name != null )
+            if ( name != null )
                 entity.Name = name;
             await _repository.AddAsync( entity );
             await UnitOfWork.CommitAsync();
@@ -67,7 +67,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             var products = ProductFakeService.GetProducts( count );
             products.ForEach( product => {
                 product.Init();
-                if( name != null )
+                if ( name != null )
                     product.Name = name;
             } );
             await _repository.AddAsync( products );
@@ -844,7 +844,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             UnitOfWork.ClearCache();
 
             //使用工作单元禁用逻辑删除过滤器,可以查出
-            using( UnitOfWork.DisableDeleteFilter() ) {
+            using ( UnitOfWork.DisableDeleteFilter() ) {
                 var product = await _repository.FindByIdAsync( entity.Id );
                 Assert.True( product.IsDeleted );
                 Assert.Equal( entity.Code, product.Code );
@@ -871,7 +871,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             UnitOfWork.ClearCache();
 
             //使用仓储禁用逻辑删除过滤器,可以查出
-            using( _repository.DisableDeleteFilter() ) {
+            using ( _repository.DisableDeleteFilter() ) {
                 var product = await _repository.FindByIdAsync( entity.Id );
                 Assert.True( product.IsDeleted );
                 Assert.Equal( entity.Code, product.Code );
@@ -926,7 +926,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             UnitOfWork.ClearCache();
 
             //验证
-            using( _repository.DisableDeleteFilter() ) {
+            using ( _repository.DisableDeleteFilter() ) {
                 var result = await _repository.FindByIdsAsync( ids );
                 Assert.Equal( count, result.Count );
                 result.ForEach( t => Assert.True( t.IsDeleted ) );
@@ -956,7 +956,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             UnitOfWork.ClearCache();
 
             //验证
-            using( _repository.DisableDeleteFilter() ) {
+            using ( _repository.DisableDeleteFilter() ) {
                 var result = await _repository.FindByIdsAsync( products.Select( t => t.Id ) );
                 Assert.Equal( count, result.Count );
                 result.ForEach( t => Assert.True( t.IsDeleted ) );
@@ -1092,7 +1092,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             UnitOfWork.ClearCache();
 
             //验证
-            var result = _repository.FindById( entity.Id );
+            var result = await _repository.FindByIdAsync( entity.Id );
             Assert.Equal( code, result.TestProperty2.Code );
             Assert.Equal( name, result.TestProperty2.Name );
             Assert.Equal( enumValue, result.TestProperty2.EnumValue );
@@ -1277,7 +1277,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             oldEntity.TestProperty2.Name = newName;
             oldEntity.TestProperties[0].Name = newName;
             oldEntity.TestProperties[1].Name = newName;
-            oldEntity.TestProperties.Add( new ProductItem{ Code = code, Name = newName } );
+            oldEntity.TestProperties.Add( new ProductItem { Code = code, Name = newName } );
             await _repository.UpdateAsync( oldEntity );
             await UnitOfWork.CommitAsync();
             UnitOfWork.ClearCache();
@@ -1392,7 +1392,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             Assert.Equal( oldName, oldEntity.TestProperty4.Name );
 
             //修改实体
-            oldEntity.TestProperty4 =  new ProductItem2( code, newName );
+            oldEntity.TestProperty4 = new ProductItem2( code, newName );
             WriteTrackerDebug();
             await _repository.UpdateAsync( oldEntity );
             await UnitOfWork.CommitAsync();

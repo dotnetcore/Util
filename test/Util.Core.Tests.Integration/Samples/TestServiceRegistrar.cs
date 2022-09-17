@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
 using Util.Infrastructure;
-using Util.Reflections;
 
 namespace Util.Tests.Samples {
     /// <summary>
@@ -12,9 +10,9 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+        public Action Register( ServiceContext serviceContext ) {
             A a = new A { Value = "a" };
-            hostBuilder.ConfigureServices( ( context, services ) => {
+            serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 services.TryAddSingleton<IA>( a );
             } );
             return null;
@@ -38,9 +36,9 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+        public Action Register( ServiceContext serviceContext ) {
             A a = new A { Value = "b" };
-            hostBuilder.ConfigureServices( ( context, services ) => {
+            serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 services.TryAddSingleton<IA>( a );
             } );
             return null;
@@ -64,9 +62,9 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+        public Action Register( ServiceContext serviceContext ) {
             var service = new TestService2 { Value = "a" };
-            hostBuilder.ConfigureServices( ( context, services ) => {
+            serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 services.TryAddSingleton<ITestService2>( service );
             } );
             return null;
@@ -90,10 +88,10 @@ namespace Util.Tests.Samples {
         /// <summary>
         /// 注册服务
         /// </summary>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
+        public Action Register( ServiceContext serviceContext ) {
             return () => {
                 var service = new TestService3 { Value = "a" };
-                hostBuilder.ConfigureServices( ( context, services ) => {
+                serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                     services.TryAddSingleton<ITestService3>( service );
                 } );
             };

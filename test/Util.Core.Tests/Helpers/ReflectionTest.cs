@@ -72,6 +72,69 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
+        /// 测试是否枚举类型
+        /// </summary>
+        [Fact]
+        public void TestIsEnum() {
+            Assert.True( Util.Helpers.Reflection.IsEnum( _sample.EnumValue.GetType().GetTypeInfo() ), "EnumValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsEnum( _sample.GetType().GetMember( "EnumValue" )[0] ), "EnumValue" );
+            Assert.True( Util.Helpers.Reflection.IsEnum( _sample.GetType().GetMember( "NullableEnumValue" )[0] ), "NullableEnumValue" );
+            Assert.False( Util.Helpers.Reflection.IsEnum( _sample.GetType().GetMember( "BoolValue" )[0] ), "BoolValue" );
+            Assert.False( Util.Helpers.Reflection.IsEnum( _sample.GetType().GetMember( "NullableBoolValue" )[0] ), "NullableBoolValue" );
+        }
+
+        /// <summary>
+        /// 测试是否日期类型
+        /// </summary>
+        [Fact]
+        public void TestIsDate() {
+            Assert.True( Util.Helpers.Reflection.IsDate( _sample.DateValue.GetType().GetTypeInfo() ), "DateValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsDate( _sample.GetType().GetMember( "DateValue" )[0] ), "DateValue" );
+            Assert.True( Util.Helpers.Reflection.IsDate( _sample.GetType().GetMember( "NullableDateValue" )[0] ), "NullableDateValue" );
+            Assert.False( Util.Helpers.Reflection.IsDate( _sample.GetType().GetMember( "EnumValue" )[0] ), "EnumValue" );
+        }
+
+        /// <summary>
+        /// 测试是否整型
+        /// </summary>
+        [Fact]
+        public void TestIsInt() {
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.IntValue.GetType().GetTypeInfo() ), "IntValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.GetType().GetMember( "IntValue" )[0] ), "IntValue" );
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.GetType().GetMember( "NullableIntValue" )[0] ), "NullableIntValue" );
+
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.ShortValue.GetType().GetTypeInfo() ), "ShortValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.GetType().GetMember( "ShortValue" )[0] ), "ShortValue" );
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.GetType().GetMember( "NullableShortValue" )[0] ), "NullableShortValue" );
+
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.LongValue.GetType().GetTypeInfo() ), "LongValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.GetType().GetMember( "LongValue" )[0] ), "LongValue" );
+            Assert.True( Util.Helpers.Reflection.IsInt( _sample.GetType().GetMember( "NullableLongValue" )[0] ), "NullableLongValue" );
+        }
+
+        /// <summary>
+        /// 测试是否数值类型
+        /// </summary>
+        [Fact]
+        public void TestIsNumber() {
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.DoubleValue.GetType().GetTypeInfo() ), "DoubleValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "DoubleValue" )[0] ), "DoubleValue" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "NullableDoubleValue" )[0] ), "NullableDoubleValue" );
+
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.DecimalValue.GetType().GetTypeInfo() ), "DecimalValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "DecimalValue" )[0] ), "DecimalValue" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "NullableDecimalValue" )[0] ), "NullableDecimalValue" );
+
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.FloatValue.GetType().GetTypeInfo() ), "FloatValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "FloatValue" )[0] ), "FloatValue" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "NullableFloatValue" )[0] ), "NullableFloatValue" );
+
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.IntValue.GetType().GetTypeInfo() ), "IntValue GetType" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "IntValue" )[0] ), "IntValue" );
+            Assert.True( Util.Helpers.Reflection.IsNumber( _sample.GetType().GetMember( "NullableIntValue" )[0] ), "NullableIntValue" );
+        }
+
+        /// <summary>
         /// 测试获取直接接口列表
         /// </summary>
         [Fact]

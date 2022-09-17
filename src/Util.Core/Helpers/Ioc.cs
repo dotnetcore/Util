@@ -19,6 +19,11 @@ namespace Util.Helpers {
         private static Func<IServiceProvider> _getServiceProviderAction;
 
         /// <summary>
+        /// 服务范围工厂
+        /// </summary>
+        public static IServiceScopeFactory ServiceScopeFactory { get; set; }
+
+        /// <summary>
         /// 获取服务集合
         /// </summary>
         public static IServiceCollection GetServices() {

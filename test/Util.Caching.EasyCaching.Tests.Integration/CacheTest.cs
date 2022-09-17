@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Util.Caching.EasyCaching.Tests {
@@ -32,6 +33,22 @@ namespace Util.Caching.EasyCaching.Tests {
                 } );
             }
             Assert.Equal( 1,result );
+        }
+
+        /// <summary>
+        /// 测试从缓存中获取数据
+        /// </summary>
+        [Fact]
+        public async Task TestGetAsync() {
+            var result = 0;
+            var data = 0;
+            for ( int i = 0; i < 3; i++ ) {
+                result = await _cache.GetAsync( "a",async () => {
+                    data++;
+                    return await Task.FromResult( data );
+                } );
+            }
+            Assert.Equal( 1, result );
         }
 
         /// <summary>

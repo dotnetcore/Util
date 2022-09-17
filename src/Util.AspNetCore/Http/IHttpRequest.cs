@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Util.Http {
@@ -42,6 +43,11 @@ namespace Util.Http {
         /// <param name="path">证书路径</param>
         /// <param name="password">证书密码</param>
         IHttpRequest<TResult> Certificate( string path, string password );
+        /// <summary>
+        /// 设置Json序列化配置
+        /// </summary>
+        /// <param name="options">Json序列化配置</param>
+        IHttpRequest<TResult> JsonSerializerOptions( JsonSerializerOptions options );
         /// <summary>
         /// 设置请求头
         /// </summary>

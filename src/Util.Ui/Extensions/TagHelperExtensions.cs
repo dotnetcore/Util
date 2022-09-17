@@ -71,7 +71,16 @@ namespace Util.Ui.Extensions {
         public static string GetValueFromAttributes( this TagHelperContext context, string key ) {
             return context.GetValueFromAttributes<string>( key );
         }
-        
+
+        /// <summary>
+        /// 判断TagHelperContext AllAttributes是否存在指定项
+        /// </summary>
+        /// <param name="context">上下文</param>
+        /// <param name="key">键</param>
+        public static bool ContainsByAttributes( this TagHelperContext context, string key ) {
+            return context.AllAttributes.ContainsName( key );
+        }
+
         /// <summary>
         /// 从TagHelperContext AllAttributes里获取值
         /// </summary>

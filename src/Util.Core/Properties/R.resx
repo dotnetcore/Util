@@ -138,6 +138,9 @@
   <data name="IdIsEmpty" xml:space="preserve">
     <value>标识不能为空</value>
   </data>
+  <data name="InvalidIdCard" xml:space="preserve">
+    <value>无效的身份证</value>
+  </data>
   <data name="LineNumber" xml:space="preserve">
     <value>序号</value>
   </data>

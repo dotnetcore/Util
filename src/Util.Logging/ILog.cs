@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using Util.Dependency;
 
 namespace Util.Logging {
     /// <summary>
     /// 日志操作
     /// </summary>
     /// <typeparam name="TCategoryName">日志类别</typeparam>
-    public interface ILog<out TCategoryName> : ITransientDependency {
+    public interface ILog<out TCategoryName> {
         /// <summary>
         /// 设置日志事件标识
         /// </summary>

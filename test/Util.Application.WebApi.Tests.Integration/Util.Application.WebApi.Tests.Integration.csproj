@@ -13,10 +13,10 @@
 	  <PackageReference Include="Xunit.DependencyInjection" Version="8.5.0" />
 	  <PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.0.1" />
 	  <PackageReference Include="AutoBogus" Version="2.13.1" />
-	  <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.6" />
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
-	  <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+	  <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.8" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+	  <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.Application.WebApi\Util.Application.WebApi.csproj" />
-    <ProjectReference Include="..\..\src\Util.Caching.EasyCaching\Util.Caching.EasyCaching.csproj" />
+    <ProjectReference Include="..\..\src\Util.Caching.EasyCaching\02-Util.Caching.EasyCaching.csproj" />
     <ProjectReference Include="..\..\src\Util.Events\01-Util.Events.csproj" />
     <ProjectReference Include="..\Util.TestShare\Util.TestShare.csproj" />
   </ItemGroup>

@@ -1,6 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.Hosting;
-using Util.Reflections;
 
 namespace Util.Infrastructure {
     /// <summary>
@@ -24,8 +22,7 @@ namespace Util.Infrastructure {
         /// <summary>
         /// 注册服务,该操作在启动开始时执行,如果需要延迟执行某些操作,可在返回的Action中执行,它将在启动最后执行
         /// </summary>
-        /// <param name="hostBuilder">主机生成器</param>
-        /// <param name="finder">类型查找器</param>
-        Action Register( IHostBuilder hostBuilder, ITypeFinder finder );
+        /// <param name="context">服务上下文</param>
+        Action Register( ServiceContext context );
     }
 }

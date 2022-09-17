@@ -30,7 +30,7 @@ namespace Util.Ui.Razor {
         /// 选择操作
         /// </summary>
         public async Task OnPageHandlerSelectionAsync( PageHandlerSelectedContext context ) {
-            if( context.ActionDescriptor.ViewEnginePath == "/Error" )
+            if ( context.ActionDescriptor.ViewEnginePath == "/Error" )
                 return;
             var path = CreatePath( context );
             if( string.IsNullOrWhiteSpace( path ) )
@@ -79,18 +79,19 @@ namespace Util.Ui.Razor {
             dynamic model = System.Convert.ChangeType( context.HandlerInstance, context.HandlerInstance.GetType() );
             var actionContext = new ActionContext( context.HttpContext, model.RouteData, context.ActionDescriptor );
             var page = FindPage( engine, context.ActionDescriptor.RelativePath );
-            using( var stringWriter = new StringWriter() ) {
-                var view = new RazorView( engine, activator, new List<IRazorPage>(), page, HtmlEncoder.Default, new DiagnosticListener( "ViewRenderService" ) );
-                var viewContext = new ViewContext( actionContext, view, model?.ViewData, model?.TempData, stringWriter, new HtmlHelperOptions() ) {
-                    ExecutingFilePath = context.ActionDescriptor.RelativePath
-                };
-                var pageNormal = ( (Page)page );
-                pageNormal.PageContext = model.PageContext;
-                pageNormal.ViewContext = viewContext;
-                activator.Activate( pageNormal, viewContext );
-                await page.ExecuteAsync();
-                return stringWriter.ToString();
-            }
+            await using var stringWriter = new StringWriter();
+            var view = new RazorView( engine, activator, new List<IRazorPage>(), page, HtmlEncoder.Default, new DiagnosticListener( "ViewRenderService" ) );
+            var viewContext = new ViewContext( actionContext, view, model?.ViewData, model?.TempData, stringWriter, new HtmlHelperOptions() ) {
+                ExecutingFilePath = context.ActionDescriptor.RelativePath
+            };
+            var razorPage = (Page)page;
+            razorPage.PageContext = model.PageContext;
+            razorPage.ViewContext = viewContext;
+            activator.Activate( razorPage, viewContext );
+            context.HttpContext.Items["WriteLog"] = "false";
+            await page.ExecuteAsync();
+            context.HttpContext.Items["WriteLog"] = "true";
+            return stringWriter.ToString();
         }
 
         /// <summary>

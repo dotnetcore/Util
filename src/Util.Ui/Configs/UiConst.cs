@@ -44,6 +44,50 @@
         /// </summary>
         public const string Content = "content";
         /// <summary>
+        /// 首页
+        /// </summary>
+        public const string Home = "home";
+        /// <summary>
+        /// 首页链接
+        /// </summary>
+        public const string HomeLink = "home-link";
+        /// <summary>
+        /// 首页国际化
+        /// </summary>
+        public const string HomeI18n = "home-i18n";
+        /// <summary>
+        /// 面包屑
+        /// </summary>
+        public const string Breadcrumb = "breadcrumb";
+        /// <summary>
+        /// 自动面包屑
+        /// </summary>
+        public const string AutoBreadcrumb = "auto-breadcrumb";
+        /// <summary>
+        /// 递归面包屑
+        /// </summary>
+        public const string RecursiveBreadcrumb = "recursive-breadcrumb";
+        /// <summary>
+        /// 定宽
+        /// </summary>
+        public const string Wide = "wide";
+        /// <summary>
+        /// 固定
+        /// </summary>
+        public const string Fixed = "fixed";
+        /// <summary>
+        /// 固定偏移顶部
+        /// </summary>
+        public const string FixedOffsetTop = "fixed-offset-top";
+        /// <summary>
+        /// Logo
+        /// </summary>
+        public const string Logo = "logo";
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Tab = "tab";
+        /// <summary>
         /// 禁用
         /// </summary>
         public const string Disabled = "disabled";
@@ -64,7 +108,7 @@
         /// </summary>
         public const string OnClick = "on-click";
         /// <summary>
-        /// 变更事件
+        /// 变化事件
         /// </summary>
         public const string OnChange = "on-change";
         /// <summary>
@@ -168,7 +212,7 @@
         /// </summary>
         public const string Required = "required";
         /// <summary>
-        /// 必填项错误消息
+        /// 必填项验证消息
         /// </summary>
         public const string RequiredMessage = "required-message";
         /// <summary>
@@ -176,13 +220,17 @@
         /// </summary>
         public const string MinLength = "min-length";
         /// <summary>
-        /// 最小长度错误消息
+        /// 最小长度验证消息
         /// </summary>
         public const string MinLengthMessage = "min-length-message";
         /// <summary>
         /// 最大长度
         /// </summary>
         public const string MaxLength = "max-length";
+        /// <summary>
+        /// 最大长度验证消息
+        /// </summary>
+        public const string MaxLengthMessage = "max-length-message";
         /// <summary>
         /// 电子邮件错误消息
         /// </summary>
@@ -340,6 +388,14 @@
         /// </summary>
         public const string Subtitle = "subtitle";
         /// <summary>
+        /// 自动设置标题
+        /// </summary>
+        public const string AutoTitle = "auto-title";
+        /// <summary>
+        /// 同步标题
+        /// </summary>
+        public const string SyncTitle = "sync-title";
+        /// <summary>
         /// 查询参数
         /// </summary>
         public const string QueryParam = "query-param";
@@ -347,10 +403,6 @@
         /// 查询参数
         /// </summary>
         public const string QueryParams = "query-params";
-        /// <summary>
-        /// 基地址
-        /// </summary>
-        public const string BaseUrl = "base-url";
         /// <summary>
         /// 删除地址
         /// </summary>
@@ -568,7 +620,7 @@
         /// </summary>
         public const string Ghost = "ghost";
         /// <summary>
-        /// 排序变更事件
+        /// 排序变化事件
         /// </summary>
         public const string OnSortChange = "on-sort-change";
         /// <summary>
@@ -580,11 +632,11 @@
         /// </summary>
         public const string ShowSizeChanger = "show-size-changer";
         /// <summary>
-        /// 分页大小变更事件
+        /// 分页大小变化事件
         /// </summary>
         public const string OnPageSizeChange = "on-page-size-change";
         /// <summary>
-        /// 页索引变更事件
+        /// 页索引变化事件
         /// </summary>
         public const string OnPageIndexChange = "on-page-index-change";
         /// <summary>
@@ -756,7 +808,7 @@
         /// </summary>
         public const string Open = "open";
         /// <summary>
-        /// 打开变更事件
+        /// 打开变化事件
         /// </summary>
         public const string OnOpenChange = "on-open-change";
         /// <summary>
@@ -880,7 +932,7 @@
         /// </summary>
         public const string Actions = "actions";
         /// <summary>
-        /// 复选框变更事件
+        /// 复选框变化事件
         /// </summary>
         public const string OnCheckBoxChange = "on-check-box-change";
         /// <summary>
@@ -944,7 +996,7 @@
         /// </summary>
         public const string OnAfterClose = "on-after-close";
         /// <summary>
-        /// 选中变更事件
+        /// 选中变化事件
         /// </summary>
         public const string OnCheckedChange = "on-checked-change";
         /// <summary>
@@ -968,9 +1020,13 @@
         /// </summary>
         public const string ColumnSpan = "column-span";
         /// <summary>
-        /// 自动创建列
+        /// 启用自动创建
         /// </summary>
-        public const string AutoCreateColumn = "auto-create-column";
+        public const string EnableAutoCreate = "enable-auto-create";
+        /// <summary>
+        /// 启用扩展
+        /// </summary>
+        public const string EnableExtend = "enable-extend";
         /// <summary>
         /// 选中行背景色
         /// </summary>
@@ -1368,7 +1424,7 @@
         /// </summary>
         public const string ProgressDot = "progress-dot";
         /// <summary>
-        /// 索引变更事件
+        /// 索引变化事件
         /// </summary>
         public const string OnIndexChange = "on-index-change";
         /// <summary>
@@ -1468,7 +1524,7 @@
         /// </summary>
         public const string FormControlName = "form-control-name";
         /// <summary>
-        /// 模型变更事件
+        /// 模型变化事件
         /// </summary>
         public const string OnModelChange = "on-model-change";
         /// <summary>
@@ -1856,11 +1912,11 @@
         /// </summary>
         public const string OverlayStyle = "overlay-style";
         /// <summary>
-        /// 变更函数
+        /// 变化函数
         /// </summary>
         public const string ChangeOn = "change-on";
         /// <summary>
-        /// 选择变更
+        /// 选择变化
         /// </summary>
         public const string ChangeOnSelect = "change-on-select";
         /// <summary>
@@ -2016,7 +2072,7 @@
         /// </summary>
         public const string Tooltips = "tooltips";
         /// <summary>
-        /// 滑动变更事件
+        /// 滑动变化事件
         /// </summary>
         public const string OnHoverChange = "on-hover-change";
         /// <summary>

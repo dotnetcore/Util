@@ -6,35 +6,38 @@ namespace Util.Ui.Expressions {
     /// 表达式加载器
     /// </summary>
     public abstract class ExpressionLoaderBase : IExpressionLoader {
-        /// <summary>
-        /// 表达式解析器
-        /// </summary>
-        private readonly IExpressionResolver _resolver;
-
-        /// <summary>
-        /// 初始化表达式加载器
-        /// </summary>
-        /// <param name="resolver">表达式解析器</param>
-        protected ExpressionLoaderBase( IExpressionResolver resolver ) {
-            _resolver = resolver;
-        }
-
         /// <inheritdoc />
-        public void Load( Config config, string expressionPropertyName = "for" ) {
+        public virtual void Load( Config config, string expressionPropertyName = "for" ) {
             if ( config == null )
                 return;
             if ( config.Contains( expressionPropertyName ) == false )
                 return;
-            var expression = config.GetValue<ModelExpression>( expressionPropertyName );
-            var info =  _resolver.Resolve( expression );
-            LoadName( config, info );
+            var info = ResolveModelExpression( config, expressionPropertyName );
+            Load( config, info );
         }
 
         /// <summary>
-        /// 加载属性名
+        /// 解析模型表达式
         /// </summary>
-        protected virtual void LoadName( Config config, ModelExpressionInfo info ) {
-            config.SetAttribute( UiConst.Name,info.Name );
+        protected virtual ModelExpressionInfo ResolveModelExpression( Config config, string expressionPropertyName ) {
+            var expression = config.GetValue<ModelExpression>( expressionPropertyName );
+            var resolver = CreateExpressionResolver();
+            return resolver.Resolve( expression );
+        }
+
+        /// <summary>
+        /// 创建模型表达式解析器
+        /// </summary>
+        protected virtual IExpressionResolver CreateExpressionResolver() {
+            return new ExpressionResolver();
+        }
+
+        /// <summary>
+        /// 加载模型信息
+        /// </summary>
+        /// <param name="config">配置</param>
+        /// <param name="info">模型表达式信息</param>
+        protected virtual void Load( Config config, ModelExpressionInfo info ) {
         }
     }
 }

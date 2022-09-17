@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Util.Reflections {
     /// <summary>
@@ -49,7 +48,7 @@ namespace Util.Reflections {
         /// 获取需要加载的程序集文件列表
         /// </summary>
         protected virtual string[] GetLoadAssemblyFiles() {
-            return Directory.GetFiles( PlatformServices.Default.Application.ApplicationBasePath, "*.dll" );
+            return Directory.GetFiles( AppContext.BaseDirectory, "*.dll" );
         }
 
         /// <summary>
@@ -72,9 +71,10 @@ namespace Util.Reflections {
         /// 是否过滤程序集
         /// </summary>
         protected bool IsSkip( string assemblyName ) {
-            if( assemblyName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.Views" ) )
+            var applicationName = Assembly.GetEntryAssembly()?.GetName().Name;
+            if ( assemblyName.StartsWith( $"{applicationName}.Views" ) )
                 return true;
-            if( assemblyName.StartsWith( $"{PlatformServices.Default.Application.ApplicationName}.PrecompiledViews" ) )
+            if( assemblyName.StartsWith( $"{applicationName}.PrecompiledViews" ) )
                 return true;
             if ( string.IsNullOrWhiteSpace( AssemblySkipPattern ) )
                 return false;

@@ -281,6 +281,149 @@ namespace Util.Helpers {
 
         #endregion
 
+        #region IsEnum(是否枚举类型)
+
+        /// <summary>
+        /// 是否枚举类型
+        /// </summary>
+        /// <param name="member">成员</param>
+        public static bool IsEnum( MemberInfo member ) {
+            if ( member == null )
+                return false;
+            switch ( member.MemberType ) {
+                case MemberTypes.TypeInfo:
+                    return ( (TypeInfo)member ).IsEnum;
+                case MemberTypes.Property:
+                    return IsEnum( (PropertyInfo)member );
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 是否枚举类型
+        /// </summary>
+        private static bool IsEnum( PropertyInfo property ) {
+            if ( property.PropertyType.GetTypeInfo().IsEnum )
+                return true;
+            var value = Nullable.GetUnderlyingType( property.PropertyType );
+            if ( value == null )
+                return false;
+            return value.GetTypeInfo().IsEnum;
+        }
+
+        #endregion
+
+        #region IsDate(是否日期类型)
+
+        /// <summary>
+        /// 是否日期类型
+        /// </summary>
+        /// <param name="member">成员</param>
+        public static bool IsDate( MemberInfo member ) {
+            if ( member == null )
+                return false;
+            switch ( member.MemberType ) {
+                case MemberTypes.TypeInfo:
+                    return member.ToString() == "System.DateTime";
+                case MemberTypes.Property:
+                    return IsDate( (PropertyInfo)member );
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 是否日期类型
+        /// </summary>
+        private static bool IsDate( PropertyInfo property ) {
+            if ( property.PropertyType == typeof( DateTime ) )
+                return true;
+            if ( property.PropertyType == typeof( DateTime? ) )
+                return true;
+            return false;
+        }
+
+        #endregion
+
+        #region IsInt(是否整型)
+
+        /// <summary>
+        /// 是否整型
+        /// </summary>
+        /// <param name="member">成员</param>
+        public static bool IsInt( MemberInfo member ) {
+            if ( member == null )
+                return false;
+            switch ( member.MemberType ) {
+                case MemberTypes.TypeInfo:
+                    return member.ToString() == "System.Int32" || member.ToString() == "System.Int16" || member.ToString() == "System.Int64";
+                case MemberTypes.Property:
+                    return IsInt( (PropertyInfo)member );
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 是否整型
+        /// </summary>
+        private static bool IsInt( PropertyInfo property ) {
+            if ( property.PropertyType == typeof( int ) )
+                return true;
+            if ( property.PropertyType == typeof( int? ) )
+                return true;
+            if ( property.PropertyType == typeof( short ) )
+                return true;
+            if ( property.PropertyType == typeof( short? ) )
+                return true;
+            if ( property.PropertyType == typeof( long ) )
+                return true;
+            if ( property.PropertyType == typeof( long? ) )
+                return true;
+            return false;
+        }
+
+        #endregion
+
+        #region IsNumber(是否数值类型)
+
+        /// <summary>
+        /// 是否浮点型
+        /// </summary>
+        /// <param name="member">成员</param>
+        public static bool IsNumber( MemberInfo member ) {
+            if ( member == null )
+                return false;
+            if ( IsInt( member ) )
+                return true;
+            switch ( member.MemberType ) {
+                case MemberTypes.TypeInfo:
+                    return member.ToString() == "System.Double" || member.ToString() == "System.Decimal" || member.ToString() == "System.Single";
+                case MemberTypes.Property:
+                    return IsNumber( (PropertyInfo)member );
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 是否数值类型
+        /// </summary>
+        private static bool IsNumber( PropertyInfo property ) {
+            if ( property.PropertyType == typeof( double ) )
+                return true;
+            if ( property.PropertyType == typeof( double? ) )
+                return true;
+            if ( property.PropertyType == typeof( decimal ) )
+                return true;
+            if ( property.PropertyType == typeof( decimal? ) )
+                return true;
+            if ( property.PropertyType == typeof( float ) )
+                return true;
+            if ( property.PropertyType == typeof( float? ) )
+                return true;
+            return false;
+        }
+
+        #endregion
+
         #region GetElementType(获取元素类型)
 
         /// <summary>

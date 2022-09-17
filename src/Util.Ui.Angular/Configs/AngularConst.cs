@@ -40,6 +40,34 @@
         /// </summary>
         public const string BindLink = "bind-link";
         /// <summary>
+        /// 首页
+        /// </summary>
+        public const string BindHome = "bind-home";
+        /// <summary>
+        /// 首页链接
+        /// </summary>
+        public const string BindHomeLink = "bind-home-link";
+        /// <summary>
+        /// 首页国际化
+        /// </summary>
+        public const string BindHomeI18n = "bind-home-i18n";
+        /// <summary>
+        /// 自动面包屑
+        /// </summary>
+        public const string BindAutoBreadcrumb = "bind-auto-breadcrumb";
+        /// <summary>
+        /// 递归面包屑
+        /// </summary>
+        public const string BindRecursiveBreadcrumb = "bind-recursive-breadcrumb";
+        /// <summary>
+        /// 定宽
+        /// </summary>
+        public const string BindWide = "bind-wide";
+        /// <summary>
+        /// 固定
+        /// </summary>
+        public const string BindFixed = "bind-fixed";
+        /// <summary>
         /// 名称
         /// </summary>
         public const string BindName = "bind-name";
@@ -47,6 +75,14 @@
         /// 标题
         /// </summary>
         public const string BindTitle = "bind-title";
+        /// <summary>
+        /// 自动设置标题
+        /// </summary>
+        public const string BindAutoTitle = "bind-auto-title";
+        /// <summary>
+        /// 同步标题
+        /// </summary>
+        public const string BindSyncTitle = "bind-sync-title";
         /// <summary>
         /// 文本
         /// </summary>
@@ -75,10 +111,6 @@
         /// Material图标
         /// </summary>
         public const string BindMaterialIcon = "bind-material-icon";
-        /// <summary>
-        /// 基Url
-        /// </summary>
-        public const string BindBaseUrl = "bind-base-url";
         /// <summary>
         /// Url
         /// </summary>
@@ -1587,5 +1619,17 @@
         /// 排序
         /// </summary>
         public const string BindSort = "bind-sort";
+        /// <summary>
+        /// 必填项验证消息
+        /// </summary>
+        public const string BindRequiredMessage = "bind-required-message";
+        /// <summary>
+        /// 最小长度验证消息
+        /// </summary>
+        public const string BindMinLengthMessage = "bind-min-length-message";
+        /// <summary>
+        /// 最大长度验证消息
+        /// </summary>
+        public const string BindMaxLengthMessage = "bind-max-length-message";
     }
 }

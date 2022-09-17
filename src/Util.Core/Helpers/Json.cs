@@ -19,13 +19,16 @@ namespace Util.Helpers {
         /// <param name="value">目标对象</param>
         /// <param name="options">序列化配置</param>
         /// <param name="removeQuotationMarks">是否移除双引号</param>
-        public static string ToJson<T>( T value, JsonSerializerOptions options = null,bool removeQuotationMarks = false ) {
+        /// <param name="toSingleQuotes">是否将双引号转成单引号</param>
+        public static string ToJson<T>( T value, JsonSerializerOptions options = null,bool removeQuotationMarks = false, bool toSingleQuotes = false ) {
             if ( value == null )
                 return string.Empty;
             options = GetToJsonOptions( options );
             var result = JsonSerializer.Serialize( value, options );
             if ( removeQuotationMarks )
                 result = result.Replace( "\"","" );
+            if ( toSingleQuotes )
+                result = result.Replace( "\"", "'" );
             return result;
         }
 

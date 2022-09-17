@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using RazorEngineCore;
 using Util.Infrastructure;
 using Util.Reflections;
@@ -30,13 +29,12 @@ namespace Util.Templates.Infrastructure {
         /// <summary>
         /// 注册服务
         /// </summary>
-        /// <param name="hostBuilder">主机生成器</param>
-        /// <param name="finder">类型查找器</param>
-        public Action Register( IHostBuilder hostBuilder, ITypeFinder finder ) {
-            hostBuilder.ConfigureServices( ( context, services ) => {
+        /// <param name="serviceContext">服务上下文</param>
+        public Action Register( ServiceContext serviceContext ) {
+            serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 RegisterDependency( services );
             } );
-            RegisterAssemblyReference( finder );
+            RegisterAssemblyReference( serviceContext.TypeFinder );
             RegisterFilters();
             return null;
         }

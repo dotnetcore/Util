@@ -57,6 +57,7 @@ namespace Util.Logging.Serilog {
             ExceptionlessClient.Default.Startup();
             if ( _configAction != null ) {
                 _configAction( ExceptionlessClient.Default.Configuration );
+                ConfigLogLevel( configuration, ExceptionlessClient.Default.Configuration );
                 return;
             }
             ExceptionlessClient.Default.Configuration.ReadFromConfiguration( configuration );
