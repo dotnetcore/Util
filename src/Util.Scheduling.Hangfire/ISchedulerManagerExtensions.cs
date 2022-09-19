@@ -300,5 +300,17 @@ namespace Util.Scheduling {
         public static void Repeat<T>( this ISchedulerManager source, string id, Expression<Func<T, Task>> actionExpression, string cron, string queue = "default" ) {
             RecurringJob.AddOrUpdate( id, actionExpression, cron, queue: queue );
         }
+
+        /// <summary>
+        /// 删除任务
+        /// </summary>
+        /// <param name="source">后台任务调度管理器</param>
+        /// <param name="id">任务标识</param>
+        public static void Remove( this ISchedulerManager source, string id ) {
+            var result = BackgroundJob.Delete( id );
+            if ( result )
+                return;
+            RecurringJob.RemoveIfExists( id );
+        }
     }
 }

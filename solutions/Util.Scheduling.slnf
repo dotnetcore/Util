@@ -6,6 +6,8 @@
       "sample\\Util.Scheduling.Hangfire.Sample\\Util.Scheduling.Hangfire.Sample.csproj",
       "sample\\Util.Scheduling.Quartz.Sample\\Util.Scheduling.Quartz.Sample.csproj",
       "src\\Util.Core\\01-Util.Core.csproj",
+      "src\\Util.Logging.Serilog\\02-Util.Logging.Serilog.csproj",
+      "src\\Util.Logging\\01-Util.Logging.csproj",
       "src\\Util.Scheduling.Hangfire\\03-Util.Scheduling.Hangfire.csproj",
       "src\\Util.Scheduling.Quartz\\02-Util.Scheduling.Quartz.csproj",
       "src\\Util.Scheduling\\01-Util.Scheduling.csproj",

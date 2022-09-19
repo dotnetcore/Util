@@ -15,6 +15,10 @@ namespace Util.Scheduling {
         /// </summary>
         private IJobTrigger _trigger;
         /// <summary>
+        /// 任务标识
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
         /// 参数
         /// </summary>
         public object Data { get; set; }
@@ -25,8 +29,18 @@ namespace Util.Scheduling {
         public void Config() {
             _jobInfo = new HangfireJobInfo();
             _trigger = new HangfireTrigger();
+            ConfigId( _jobInfo );
             ConfigDetail( _jobInfo );
             ConfigTrigger( _trigger );
+        }
+
+        /// <summary>
+        /// 配置任务标识
+        /// </summary>
+        protected virtual void ConfigId( IJobInfo job ) {
+            if ( Id.IsEmpty() )
+                return;
+            job.Id( Id );
         }
 
         /// <summary>
