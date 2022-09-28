@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new DescriptionItemBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

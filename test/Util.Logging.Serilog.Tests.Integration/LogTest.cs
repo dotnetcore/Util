@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Util.Logging.Tests {
     /// <summary>
-    /// ExceptionLess日志操作测试
+    /// 日志操作测试
     /// </summary>
     public class LogTest{
         /// <summary>

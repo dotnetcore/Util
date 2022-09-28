@@ -12,6 +12,12 @@ namespace Util.Caching {
         /// <param name="key">缓存键</param>
         bool Exists( string key );
         /// <summary>
+        /// 从缓存中获取数据
+        /// </summary>
+        /// <typeparam name="T">缓存数据类型</typeparam>
+        /// <param name="key">缓存键</param>
+        T Get<T>( string key );
+        /// <summary>
         /// 从缓存中获取数据，如果不存在，则执行获取数据操作并添加到缓存中
         /// </summary>
         /// <typeparam name="T">缓存数据类型</typeparam>

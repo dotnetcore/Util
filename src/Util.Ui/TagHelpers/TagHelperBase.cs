@@ -13,6 +13,10 @@ namespace Util.Ui.TagHelpers {
     /// </summary>
     public abstract class TagHelperBase : TagHelper {
         /// <summary>
+        /// 跟踪日志分类
+        /// </summary>
+        public const string TraceLogCategory = "Util.Ui.TagHelper";
+        /// <summary>
         /// 日志缓存列表,用于排除重复日志记录
         /// </summary>
         private static readonly ConcurrentDictionary<string, DateTime> _logs = new();
@@ -98,9 +102,7 @@ namespace Util.Ui.TagHelpers {
             var log = GetLog();
             if ( log.IsEnabled( LogLevel.Trace ) == false )
                 return;
-            if ( Web.HttpContext.Items["WriteLog"].SafeString() == "false" )
-                return;
-            var content = render?.ToString();
+            var content = GetContent( render );
             if ( content == null )
                 return;
             var key = content.GetHashCode().ToString();
@@ -114,6 +116,29 @@ namespace Util.Ui.TagHelpers {
         }
 
         /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        private ILog GetLog() {
+            try {
+                var factory = Ioc.Create<ILogFactory>();
+                return factory?.CreateLog( TraceLogCategory ) ?? Log.Null;
+            }
+            catch {
+                return Log.Null;
+            }
+        }
+
+        /// <summary>
+        /// 获取内容
+        /// </summary>
+        private string GetContent( IHtmlContent render ) {
+            var result = render?.ToString();
+            if ( result == null )
+                return null;
+            return result.Replace( "{{", "{{{{" ).Replace( "}}", "}}}}" );
+        }
+
+        /// <summary>
         /// 是否忽略日志记录
         /// </summary>
         private bool IsIgnoreLog( string key ) {
@@ -121,18 +146,6 @@ namespace Util.Ui.TagHelpers {
                 return false;
             var time = _logs[key];
             return DateTime.Now - time < TimeSpan.FromSeconds( 5 );
-        }
-
-        /// <summary>
-        /// 获取日志操作
-        /// </summary>
-        private ILog<TagHelperBase> GetLog() {
-            try {
-                return Ioc.Create<ILog<TagHelperBase>>() ?? Log<TagHelperBase>.Null;
-            }
-            catch {
-                return Log<TagHelperBase>.Null;
-            }
         }
     }
 }

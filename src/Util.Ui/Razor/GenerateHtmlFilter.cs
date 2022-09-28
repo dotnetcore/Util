@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Util.Ui.Razor {
     /// <summary>
@@ -30,6 +31,8 @@ namespace Util.Ui.Razor {
         /// 选择操作
         /// </summary>
         public async Task OnPageHandlerSelectionAsync( PageHandlerSelectedContext context ) {
+            if ( IsGenerateHtml( context ) != true )
+                return;
             if ( context.ActionDescriptor.ViewEnginePath == "/Error" )
                 return;
             var path = CreatePath( context );
@@ -37,6 +40,16 @@ namespace Util.Ui.Razor {
                 return;
             var html = await GetHtml( context );
             await WriteFile( path, html );
+        }
+
+        /// <summary>
+        /// 是否生成html
+        /// </summary>
+        private bool IsGenerateHtml( PageHandlerSelectedContext context ) {
+            var options = context.HttpContext.RequestServices.GetService<IOptions<RazorOptions>>();
+            if ( options == null )
+                return false;
+            return options.Value.IsGenerateHtml;
         }
 
         /// <summary>
@@ -88,9 +101,7 @@ namespace Util.Ui.Razor {
             razorPage.PageContext = model.PageContext;
             razorPage.ViewContext = viewContext;
             activator.Activate( razorPage, viewContext );
-            context.HttpContext.Items["WriteLog"] = "false";
             await page.ExecuteAsync();
-            context.HttpContext.Items["WriteLog"] = "true";
             return stringWriter.ToString();
         }
 

@@ -8,6 +8,7 @@ namespace Util.Ui.Razor {
         /// <summary>
         /// 添加约定
         /// </summary>
+        /// <param name="builder">mvc生成器</param>
         public static IMvcBuilder AddConventions( this IMvcBuilder builder ) {
             return builder.AddRazorPagesOptions( options => {
                 options.Conventions.Add( new PageRouteConvention() );

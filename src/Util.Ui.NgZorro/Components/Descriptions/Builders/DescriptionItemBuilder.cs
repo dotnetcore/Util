@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
     /// <summary>
@@ -42,6 +43,26 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// </summary>
         public override void Config() {
             Title().Span();
+            ConfigContent();
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        private void ConfigContent() {
+            if ( _config.Content.IsEmpty() == false ) {
+                _config.Content.AppendTo( this );
+                return;
+            }
+            ConfigValue();
+        }
+
+        /// <summary>
+        /// 配置值
+        /// </summary>
+        private void ConfigValue() {
+            var value = _config.GetValue( UiConst.Value );
+            SetContent( value );
         }
     }
 }

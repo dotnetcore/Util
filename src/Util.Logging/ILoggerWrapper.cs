@@ -5,8 +5,7 @@ namespace Util.Logging {
     /// <summary>
     /// 日志记录包装器
     /// </summary>
-    /// <typeparam name="TCategoryName">日志类别</typeparam>
-    public interface ILoggerWrapper<out TCategoryName> {
+    public interface ILoggerWrapper {
         /// <summary>
         /// 是否启用
         /// </summary>

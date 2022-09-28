@@ -135,6 +135,9 @@
   <data name="Hours" xml:space="preserve">
     <value>小时</value>
   </data>
+  <data name="Id" xml:space="preserve">
+    <value>标识</value>
+  </data>
   <data name="IdIsEmpty" xml:space="preserve">
     <value>标识不能为空</value>
   </data>

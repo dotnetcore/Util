@@ -51,8 +51,7 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// 配置一行包含的描述列表项数量
         /// </summary>
         public DescriptionBuilder Column() {
-            AttributeIfNotEmpty( "nzColumn", _config.GetValue( UiConst.Column ) );
-            AttributeIfNotEmpty( "[nzColumn]", _config.GetValue( AngularConst.BindColumn ) );
+            AttributeIfNotEmpty( "[nzColumn]", _config.GetValue( UiConst.Column ) );
             return this;
         }
 

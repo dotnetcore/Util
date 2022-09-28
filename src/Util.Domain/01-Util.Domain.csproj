@@ -41,7 +41,7 @@
 
   <ItemGroup>
 	  <EmbeddedResource Update="Properties\DomainResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DomainResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

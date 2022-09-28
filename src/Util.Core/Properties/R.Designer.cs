@@ -115,6 +115,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 标识 的本地化字符串。
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 标识不能为空 的本地化字符串。
         /// </summary>
         public static string IdIsEmpty {

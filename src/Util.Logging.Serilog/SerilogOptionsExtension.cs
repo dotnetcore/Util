@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Util.Configs;
+using SerilogLog = Serilog.Log;
 
 namespace Util.Logging.Serilog {
     /// <summary>
@@ -24,13 +25,13 @@ namespace Util.Logging.Serilog {
 
         /// <inheritdoc />
         public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
-            services.AddTransient( typeof( ILog<> ), typeof( Log<> ) );
-            services.AddTransient( typeof( ILoggerWrapper<> ), typeof( LoggerWrapper<> ) );
+            services.AddTransient<ILogFactory, LogFactory>();
+            services.AddTransient( typeof( ILog<> ), typeof(Log<>) );
             var configuration = context.Configuration;
             services.AddLogging( loggingBuilder => {
                 if ( _isClearProviders )
                     loggingBuilder.ClearProviders();
-                Log.Logger = new LoggerConfiguration()
+                SerilogLog.Logger = new LoggerConfiguration()
                     .Enrich.FromLogContext()
                     .Enrich.WithLogLevel()
                     .Enrich.WithLogContext()

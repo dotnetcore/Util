@@ -122,18 +122,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestColumn() {
             _wrapper.SetContextAttribute( UiConst.Column, 1 );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions nzColumn=\"1\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行包含的描述列表项数量
-        /// </summary>
-        [Fact]
-        public void TestBindColumn() {
-            _wrapper.SetContextAttribute( AngularConst.BindColumn, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"a\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzColumn]=\"1\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

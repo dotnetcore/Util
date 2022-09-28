@@ -26,6 +26,12 @@ namespace Util.Caching.EasyCaching {
         }
 
         /// <inheritdoc />
+        public T Get<T>( string key ) {
+            var result = _provider.Get<T>( key );
+            return result.Value;
+        }
+
+        /// <inheritdoc />
         public T Get<T>( string key, Func<T> action, TimeSpan? expiration = null ) {
             var result = _provider.Get( key, action, GetExpiration( expiration ) );
             return result.Value;

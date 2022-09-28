@@ -6,6 +6,7 @@ using Util.Data;
 using Util.Data.Queries;
 using Util.Domain.Entities;
 using Util.Domain.Repositories;
+using Util.Helpers;
 using Util.Properties;
 
 namespace Util.Applications {
@@ -88,6 +89,7 @@ namespace Util.Applications {
         protected CrudServiceBase( IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IRepository<TEntity, TKey> repository ) : base( serviceProvider, repository ) {
             UnitOfWork = unitOfWork ?? throw new ArgumentNullException( nameof( unitOfWork ) );
             _repository = repository ?? throw new ArgumentNullException( nameof( repository ) );
+            EntityDescription = Reflection.GetDisplayNameOrDescription<TEntity>();
         }
 
         #endregion
@@ -98,6 +100,11 @@ namespace Util.Applications {
         /// 工作单元
         /// </summary>
         protected IUnitOfWork UnitOfWork { get; }
+
+        /// <summary>
+        /// 实体描述
+        /// </summary>
+        protected string EntityDescription { get; }
 
         #endregion
 

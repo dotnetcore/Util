@@ -10,30 +10,30 @@ namespace Util.Logging {
         /// <summary>
         /// 空日志操作实例
         /// </summary>
-        public static readonly  ILog<TCategoryName> Instance = new NullLog<TCategoryName>();
+        public static readonly ILog<TCategoryName> Instance = new NullLog<TCategoryName>();
 
         /// <inheritdoc />
-        public ILog<TCategoryName> EventId( EventId eventId ) {
+        public ILog EventId( EventId eventId ) {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> Exception( Exception exception ) {
+        public ILog Exception( Exception exception ) {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> Property( string propertyName, string propertyValue ) {
+        public ILog Property( string propertyName, string propertyValue ) {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> State( object state ) {
+        public ILog State( object state ) {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> Message( string message, params object[] args ) {
+        public ILog Message( string message, params object[] args ) {
             return this;
         }
 
@@ -48,32 +48,107 @@ namespace Util.Logging {
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> LogTrace() {
+        public ILog LogTrace() {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> LogDebug() {
+        public ILog LogDebug() {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> LogInformation() {
+        public ILog LogInformation() {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> LogWarning() {
+        public ILog LogWarning() {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> LogError() {
+        public ILog LogError() {
             return this;
         }
 
         /// <inheritdoc />
-        public ILog<TCategoryName> LogCritical() {
+        public ILog LogCritical() {
+            return this;
+        }
+    }
+
+    /// <summary>
+    /// 空日志操作
+    /// </summary>
+    public class NullLog : ILog {
+        /// <summary>
+        /// 空日志操作实例
+        /// </summary>
+        public static readonly  ILog Instance = new NullLog();
+
+        /// <inheritdoc />
+        public ILog EventId( EventId eventId ) {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog Exception( Exception exception ) {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog Property( string propertyName, string propertyValue ) {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog State( object state ) {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog Message( string message, params object[] args ) {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public bool IsEnabled( LogLevel logLevel ) {
+            return false;
+        }
+
+        /// <inheritdoc />
+        public IDisposable BeginScope<TState>( TState state ) {
+            return new DisposeAction( () => { } );
+        }
+
+        /// <inheritdoc />
+        public ILog LogTrace() {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog LogDebug() {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog LogInformation() {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog LogWarning() {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog LogError() {
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ILog LogCritical() {
             return this;
         }
     }

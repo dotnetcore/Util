@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 using Util.Helpers;
 
 namespace Util.Ui.Razor {
@@ -13,13 +14,25 @@ namespace Util.Ui.Razor {
         /// <summary>
         /// 生成Html
         /// </summary>
-        public static async Task GenerateAsync() {
+        public static async Task<List<string>> GenerateAsync() {
+            var result = new List<string>();
+            EnableGenerateHtml();
             var descriptors = GetPageActionDescriptors();
             var requestUrl = $"{Web.Request.Scheme}://{Web.Request.Host}";
             foreach( var descriptor in descriptors ) {
-                var path = descriptor.ViewEnginePath;
-                await Web.Client.Get( $"{requestUrl}/view{path}" ).GetResultAsync();
+                var path = $"{requestUrl}/view{descriptor.ViewEnginePath}";
+                result.Add( path );
+                await Web.Client.Get( path ).GetResultAsync();
             }
+            return result.Distinct().ToList();
+        }
+
+        /// <summary>
+        /// 启用Html自动生成
+        /// </summary>
+        private static void EnableGenerateHtml() {
+            var options = Ioc.Create<IOptions<RazorOptions>>();
+            options.Value.IsGenerateHtml = true;
         }
 
         /// <summary>

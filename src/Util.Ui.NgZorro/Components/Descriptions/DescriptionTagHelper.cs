@@ -36,13 +36,9 @@ namespace Util.Ui.NgZorro.Components.Descriptions {
         /// </summary>
         public string BindBordered { get; set; }
         /// <summary>
-        /// nzColumn,一行包含的描述列表项数量,可以是数字,也可以写成响应式对象,类型: number|object,范例：{ xs: 8, sm: 16, md: 24},默认值: { xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }
-        /// </summary>
-        public int Column { get; set; }
-        /// <summary>
         /// [nzColumn],一行包含的描述列表项数量,可以是数字,也可以写成响应式对象,类型: number|object,范例：{ xs: 8, sm: 16, md: 24},默认值: { xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }
         /// </summary>
-        public string BindColumn { get; set; }
+        public string Column { get; set; }
         /// <summary>
         /// nzSize,列表大小,只有设置 nzBordered 为 true 时生效,类型: 'default' | 'middle' | 'small',默认值: 'default'
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -70,10 +71,21 @@ namespace Util.Helpers {
         /// <param name="json">Json字符串</param>
         /// <param name="options">序列化配置</param>
         public static T ToObject<T>( string json, JsonSerializerOptions options = null ) {
+            var result = ToObject( json,typeof(T), options );
+            return Convert.To<T>( result );
+        }
+
+        /// <summary>
+        /// 将Json字符串转换为对象
+        /// </summary>
+        /// <param name="json">Json字符串</param>
+        /// <param name="options">序列化配置</param>
+        /// <param name="returnType">序列化配置</param>
+        public static object ToObject( string json, Type returnType, JsonSerializerOptions options = null ) {
             if ( string.IsNullOrWhiteSpace( json ) )
                 return default;
             options = GetToObjectOptions( options );
-            return JsonSerializer.Deserialize<T>( json, options );
+            return JsonSerializer.Deserialize( json, returnType, options );
         }
 
         /// <summary>

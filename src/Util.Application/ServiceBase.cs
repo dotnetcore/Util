@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Util.Logging;
 using Util.Sessions;
 
 namespace Util.Applications {
@@ -12,8 +13,10 @@ namespace Util.Applications {
         /// </summary>
         /// <param name="serviceProvider">服务提供器</param>
         protected ServiceBase( IServiceProvider serviceProvider ) {
-            ServiceProvider = serviceProvider;
+            ServiceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
             Session = serviceProvider.GetService<ISession>() ?? NullSession.Instance;
+            var logFactory = serviceProvider.GetService<ILogFactory>();
+            Log = logFactory?.CreateLog( GetType() ) ?? NullLog.Instance;
         }
 
         /// <summary>
@@ -25,5 +28,10 @@ namespace Util.Applications {
         /// 用户会话
         /// </summary>
         protected ISession Session { get; }
+
+        /// <summary>
+        /// 日志操作
+        /// </summary>
+        protected ILog Log { get; }
     }
 }
