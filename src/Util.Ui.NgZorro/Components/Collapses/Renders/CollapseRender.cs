@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Collapses.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Collapses.Renders {
     /// <summary>
     /// 折叠渲染器
     /// </summary>
-    public class CollapseRender : AngularRenderBase {
+    public class CollapseRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Collapses.Renders {
         /// 初始化折叠渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public CollapseRender( Config config ) : base( config ) {
+        public CollapseRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Collapses.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new CollapseBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

@@ -5,7 +5,7 @@ namespace Util.Domain.Entities {
     /// 聚合根
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public abstract class AggregateRoot<TEntity> : AggregateRoot<TEntity, Guid> where TEntity : IAggregateRoot {
+    public abstract class AggregateRoot<TEntity> : AggregateRoot<TEntity, Guid> where TEntity : IAggregateRoot<TEntity, Guid> {
         /// <summary>
         /// 初始化聚合根
         /// </summary>
@@ -19,7 +19,7 @@ namespace Util.Domain.Entities {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">标识类型</typeparam>
-    public abstract class AggregateRoot<TEntity, TKey> : EntityBase<TEntity, TKey>, IAggregateRoot<TEntity, TKey> where TEntity : IAggregateRoot {
+    public abstract class AggregateRoot<TEntity, TKey> : EntityBase<TEntity, TKey>, IAggregateRoot<TEntity, TKey> where TEntity : IAggregateRoot<TEntity, TKey> {
         /// <summary>
         /// 初始化聚合根
         /// </summary>

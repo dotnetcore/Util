@@ -1,14 +1,14 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Avatars.Builders;
 using Util.Ui.NgZorro.Components.Comments.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Avatars.Renders {
     /// <summary>
     /// 头像渲染器
     /// </summary>
-    public class AvatarRender : AngularRenderBase {
+    public class AvatarRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -18,7 +18,7 @@ namespace Util.Ui.NgZorro.Components.Avatars.Renders {
         /// 初始化头像渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public AvatarRender( Config config ) : base( config ) {
+        public AvatarRender( Config config ) {
             _config = config;
         }
 
@@ -29,7 +29,6 @@ namespace Util.Ui.NgZorro.Components.Avatars.Renders {
             var builder = new AvatarBuilder( _config );
             builder.Config();
             ConfigCommentAvatar( builder );
-            ConfigContent( builder );
             return builder;
         }
 

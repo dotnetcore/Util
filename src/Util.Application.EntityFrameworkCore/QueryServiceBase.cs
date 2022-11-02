@@ -126,19 +126,39 @@ namespace Util.Applications {
         #region QueryAsync(查询)
 
         /// <inheritdoc />
-        public virtual async Task<List<TDto>> QueryAsync( TQuery query ) {
-            if( query == null )
+        public virtual async Task<List<TDto>> QueryAsync( TQuery param ) {
+            if( param == null )
                 return new List<TDto>();
             var queryable = GetStore().Find();
-            queryable = Filter( queryable, query );
-            var result = await queryable.OrderBy( query ).ToListAsync();
+            queryable = AddConditions( queryable, param );
+            queryable = Filter( queryable, param );
+            var result = await queryable.OrderBy( param ).ToListAsync();
             return result.Select( ToDto ).ToList();
+        }
+
+        /// <summary>
+        /// 添加条件列表
+        /// </summary>
+        private IQueryable<TEntity> AddConditions( IQueryable<TEntity> queryable, TQuery param ) {
+            var conditions = GetConditions( param );
+            if ( conditions == null )
+                return queryable;
+            foreach ( var condition in conditions ) 
+                queryable = queryable.Where( condition );
+            return queryable;
+        }
+
+        /// <summary>
+        /// 获取条件列表
+        /// </summary>
+        protected virtual IEnumerable<ICondition<TEntity>> GetConditions( TQuery param ) {
+            return null;
         }
 
         /// <summary>
         /// 过滤
         /// </summary>
-        protected virtual IQueryable<TEntity> Filter( IQueryable<TEntity> queryable, TQuery query ) {
+        protected virtual IQueryable<TEntity> Filter( IQueryable<TEntity> queryable, TQuery param ) {
             return queryable;
         }
 
@@ -146,16 +166,14 @@ namespace Util.Applications {
 
         #region PageQueryAsync(分页查询)
 
-        /// <summary>
-        /// 分页查询
-        /// </summary>
-        /// <param name="query">查询参数</param>
-        public async Task<PageList<TDto>> PageQueryAsync( TQuery query ) {
-            if( query == null )
+        /// <inheritdoc />
+        public virtual async Task<PageList<TDto>> PageQueryAsync( TQuery param ) {
+            if( param == null )
                 return new PageList<TDto>();
             var queryable = GetStore().Find();
-            queryable = Filter( queryable, query );
-            var result = await queryable.ToPageListAsync( query );
+            queryable = AddConditions( queryable, param );
+            queryable = Filter( queryable, param );
+            var result = await queryable.ToPageListAsync( param );
             return result.Convert( ToDto );
         }
 

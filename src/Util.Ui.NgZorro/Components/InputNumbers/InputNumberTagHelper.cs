@@ -38,6 +38,18 @@ namespace Util.Ui.NgZorro.Components.InputNumbers {
         /// </summary>
         public string BindDisabled { get; set; }
         /// <summary>
+        /// [required],是否必填项
+        /// </summary>
+        public string Required { get; set; }
+        /// <summary>
+        /// 扩展属性 requiredMessage,必填项验证消息
+        /// </summary>
+        public string RequiredMessage { get; set; }
+        /// <summary>
+        /// 扩展属性 [requiredMessage],必填项验证消息
+        /// </summary>
+        public string BindRequiredMessage { get; set; }
+        /// <summary>
         /// nzMax,最大值
         /// </summary>
         public double Max { get; set; }

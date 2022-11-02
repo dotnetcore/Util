@@ -201,6 +201,7 @@ namespace Util.Ui.NgZorro.Components.TimePickers.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().AddOn().AllowEmpty().AutoFocus().ClearText().DefaultOpenValue()
                 .Disabled().DisabledHours().DisabledMinutes().DisabledSeconds()
                 .Format().HideDisabledOptions().HourStep().MinuteStep().SecondStep()

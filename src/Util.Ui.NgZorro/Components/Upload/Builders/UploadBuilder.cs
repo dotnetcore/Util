@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
@@ -8,7 +8,7 @@ namespace Util.Ui.NgZorro.Components.Upload.Builders {
     /// <summary>
     /// 上传标签生成器
     /// </summary>
-    public class UploadBuilder : TagBuilder {
+    public class UploadBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,8 @@ namespace Util.Ui.NgZorro.Components.Upload.Builders {
         /// <summary>
         /// 初始化上传标签生成器
         /// </summary>
-        public UploadBuilder( Config config ) : base( "nz-upload" ) {
+        /// <param name="config">配置</param>
+        public UploadBuilder( Config config ) : base( config,"nz-upload" ) {
             _config = config;
         }
 
@@ -280,6 +281,7 @@ namespace Util.Ui.NgZorro.Components.Upload.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             Accept().Action().Directory().BeforeUpload().CustomRequest()
                 .Data().Disabled().FileList().Limit().Size().FileType().Filter()
                 .Headers().ListType().Multiple().Name()

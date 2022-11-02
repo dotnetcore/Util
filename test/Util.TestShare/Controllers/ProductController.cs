@@ -83,8 +83,8 @@ namespace Util.Tests.Controllers {
         /// </summary>
         /// <param name="ids">标识列表，多个Id用逗号分隔，范例：1,2,3</param>
         [HttpPost( "delete" )]
-        public new async Task<IActionResult> BatchDeleteAsync( [FromBody] string ids ) {
-            return await base.BatchDeleteAsync( ids );
+        public async Task<IActionResult> BatchDeleteAsync( [FromBody] string ids ) {
+            return await base.DeleteAsync( ids );
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Grids.Helpers;
@@ -7,7 +8,7 @@ namespace Util.Ui.NgZorro.Components.Base {
     /// <summary>
     /// 栅格列标签生成器基类
     /// </summary>
-    public abstract class ColumnBuilderBase<TBuilder> : Util.Ui.Builders.TagBuilder where TBuilder : ColumnBuilderBase<TBuilder> {
+    public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBuilder : ColumnBuilderBase<TBuilder> {
         /// <summary>
         /// 配置
         /// </summary>
@@ -19,7 +20,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// <param name="config">配置</param>
         /// <param name="tagName">标签名称，范例：div</param>
         /// <param name="renderMode">渲染模式</param>
-        protected ColumnBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( tagName, renderMode ) {
+        protected ColumnBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config,tagName, renderMode ) {
             _config = config;
         }
 

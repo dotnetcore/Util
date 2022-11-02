@@ -308,9 +308,10 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         [Fact]
         public void TestIcon() {
             _wrapper.SetContextAttribute( UiConst.Icon, AntDesignIcon.Check );
+            _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\">" );
-            result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>" );
+            result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>a" );
             result.Append( "</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

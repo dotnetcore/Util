@@ -16,6 +16,7 @@ namespace Util.Ui.NgZorro.Components.Sliders.Builders {
         /// <summary>
         /// 初始化滑动输入条标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public SliderBuilder( Config config ) : base( config, "nz-slider" ) {
             _config = config;
         }
@@ -147,6 +148,7 @@ namespace Util.Ui.NgZorro.Components.Sliders.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Disabled().Dots().Included().Marks()
                 .Max().Min().Range().Step().TipFormatter().Vertical()
                 .Reverse().TooltipVisible().TooltipPlacement()

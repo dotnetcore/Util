@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tabs.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Tabs.Renders {
     /// <summary>
     /// 标签页渲染器
     /// </summary>
-    public class TabSetRender : AngularRenderBase {
+    public class TabSetRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Tabs.Renders {
         /// 初始化标签页渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TabSetRender( Config config ) : base( config ) {
+        public TabSetRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Tabs.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new TabSetBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

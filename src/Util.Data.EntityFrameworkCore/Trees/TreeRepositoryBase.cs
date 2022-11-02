@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Util.Domain.Trees;
 
 namespace Util.Data.EntityFrameworkCore.Trees {
@@ -29,6 +32,15 @@ namespace Util.Data.EntityFrameworkCore.Trees {
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
         protected TreeRepositoryBase( IUnitOfWork unitOfWork ) : base( unitOfWork ) {
+        }
+
+        /// <summary>
+        /// 获取全部下级实体
+        /// </summary>
+        /// <param name="parent">父实体</param>
+        public virtual async Task<List<TEntity>> GetAllChildrenAsync( TEntity parent ) {
+            var list = await FindAllAsync( t => t.Path.StartsWith( parent.Path ) );
+            return list.Where( t => !t.Id.Equals( parent.Id ) ).ToList();
         }
     }
 }

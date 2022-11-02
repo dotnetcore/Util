@@ -62,12 +62,12 @@ namespace Util.Ui.Configs {
         /// <summary>
         /// 全部属性集合
         /// </summary>
-        public TagHelperAttributeList AllAttributes { get; private set; }
+        public TagHelperAttributeList AllAttributes { get; set; }
 
         /// <summary>
         /// 输出属性集合，TagHelper中未明确定义的属性从该集合获取
         /// </summary>
-        public TagHelperAttributeList OutputAttributes { get; private set; }
+        public TagHelperAttributeList OutputAttributes { get; set; }
 
         /// <summary>
         /// 属性集合是否包含指定属性
@@ -109,9 +109,17 @@ namespace Util.Ui.Configs {
         /// <param name="value">值</param>
         /// <param name="replaceExisting">是否替换已存在的属性</param>
         public void SetAttribute( string name, object value, bool replaceExisting = true ) {
-            if( replaceExisting == false && Contains( name ) )
+            if ( replaceExisting == false && Contains( name ) )
                 return;
             AllAttributes.SetAttribute( new TagHelperAttribute( name, value ) );
+        }
+
+        /// <summary>
+        /// 移除属性
+        /// </summary>
+        /// <param name="name">属性名</param>
+        public void RemoveAttribute( string name ) {
+            AllAttributes.RemoveAll( name );
         }
 
         /// <summary>
@@ -137,7 +145,7 @@ namespace Util.Ui.Configs {
         /// <typeparam name="T">返回类型</typeparam>
         /// <param name="key">键</param>
         public T GetValueFromAttributes<T>( string key ) {
-            if( Context == null )
+            if ( Context == null )
                 return default( T );
             return Context.GetValueFromAttributes<T>( key );
         }
@@ -148,6 +156,18 @@ namespace Util.Ui.Configs {
         /// <param name="key">键</param>
         public string GetValueFromAttributes( string key ) {
             return GetValueFromAttributes<string>( key );
+        }
+
+        /// <summary>
+        /// 复制配置
+        /// </summary>
+        public Config Copy() {
+            return new Config {
+                Context = new TagHelperContext( AllAttributes, Context.Items, Util.Helpers.Id.Create() ),
+                AllAttributes = new TagHelperAttributeList( AllAttributes ),
+                OutputAttributes = new TagHelperAttributeList( OutputAttributes ),
+                Content = Content
+            };
         }
     }
 }

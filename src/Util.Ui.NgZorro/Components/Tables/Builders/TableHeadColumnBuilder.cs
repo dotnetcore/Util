@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
@@ -10,22 +10,30 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>
     /// 表头单元格标签生成器
     /// </summary>
-    public class TableHeadColumnBuilder : TagBuilder {
+    public class TableHeadColumnBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly Config _config;
         /// <summary>
-        /// 表格共享配置
+        /// 表头列共享配置
         /// </summary>
-        private readonly TableShareConfig _shareConfig;
+        private readonly TableHeadColumnShareConfig _shareConfig;
 
         /// <summary>
         /// 初始化表头单元格标签生成器
         /// </summary>
-        public TableHeadColumnBuilder( Config config ) : base( "th" ) {
+        /// <param name="config">配置</param>
+        public TableHeadColumnBuilder( Config config ) : base( config,"th" ) {
             _config = config;
-            _shareConfig = GetTableShareConfig();
+            _shareConfig = GetTableHeadColumnShareConfig();
+        }
+
+        /// <summary>
+        /// 获取表头列共享配置
+        /// </summary>
+        private TableHeadColumnShareConfig GetTableHeadColumnShareConfig() {
+            return _config.GetValueFromItems<TableHeadColumnShareConfig>() ?? new TableHeadColumnShareConfig( GetTableShareConfig() );
         }
 
         /// <summary>
@@ -265,43 +273,6 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
-        /// 配置序号标题
-        /// </summary>
-        public TableHeadColumnBuilder LineNumber() {
-            if ( GetColumnType() == TableColumnType.LineNumber )
-                Title( _shareConfig.GetLineNumberTitle() );
-            return this;
-        }
-
-        /// <summary>
-        /// 获取列类型
-        /// </summary>
-        private TableColumnType? GetColumnType() {
-            return _config.GetValue<TableColumnType?>( UiConst.Type );
-        }
-
-        /// <summary>
-        /// 配置复选框
-        /// </summary>
-        public TableHeadColumnBuilder CheckBox() {
-            return CheckBox( GetColumnType() == TableColumnType.Checkbox );
-        }
-
-        /// <summary>
-        /// 配置复选框
-        /// </summary>
-        protected TableHeadColumnBuilder CheckBox( bool isCheckBox ) {
-            if ( isCheckBox == false )
-                return this;
-            Attribute( "[nzShowCheckbox]", $"{_shareConfig.TableExtendId}.multiple" );
-            Attribute( "(nzCheckedChange)", $"{_shareConfig.TableExtendId}.masterToggle()" );
-            Attribute( "[nzChecked]", $"{_shareConfig.TableExtendId}.isMasterChecked()" );
-            Attribute( "[nzDisabled]", $"!{_shareConfig.TableExtendId}.dataSource.length" );
-            Attribute( "[nzIndeterminate]", $"{_shareConfig.TableExtendId}.isMasterIndeterminate()" );
-            return this;
-        }
-
-        /// <summary>
         /// 配置事件
         /// </summary>
         public TableHeadColumnBuilder Events() {
@@ -315,34 +286,121 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             ShowCheckbox().Disabled().Indeterminate().Checked()
                 .ShowRowSelection().Selections()
                 .ShowSort().SortFn().SortDirections().SortOrder()
                 .ShowFilter().FilterFn().Filters().FilterMultiple()
                 .Width().Left().Right().Align().BreakWord().Ellipsis()
                 .Colspan().Rowspan().ColumnKey()
-                .Title().LineNumber().CheckBox()
-                .Events();
+                .Title()
+                .Events()
+                .CheckBox().Radio().LineNumber();
         }
 
         /// <summary>
-        /// 添加表头单元格组件
+        /// 添加复选框
         /// </summary>
-        /// <param name="column">列</param>
-        public void AddComponents( ColumnInfo column ) {
-            Title( column.Title );
-            CheckBox( column.IsCheckbox );
-            AddWidth( column );
+        public TableHeadColumnBuilder CheckBox() {
+            if ( _shareConfig.IsShowCheckbox == false )
+                return this;
+            if ( _shareConfig.IsFirst == false )
+                return this;
+            AddCheckBox();
+            return this;
         }
 
         /// <summary>
-        /// 添加宽度
+        /// 添加复选框
         /// </summary>
-        private void AddWidth( ColumnInfo column ) {
-            if ( column.IsCheckbox || column.IsLineNumber ) {
-                BindWidth( column.Width );
+        protected virtual void AddCheckBox() {
+            var checkboxBuilder = new TableHeadColumnBuilder( _config );
+            checkboxBuilder.ConfigCheckBox();
+            PreBuilder = checkboxBuilder;
+        }
+
+        /// <summary>
+        /// 配置复选框
+        /// </summary>
+        public void ConfigCheckBox() {
+            Attribute( "[nzShowCheckbox]", "true" );
+            Attribute( "(nzCheckedChange)", $"{_shareConfig.TableExtendId}.masterToggle()" );
+            Attribute( "[nzChecked]", $"{_shareConfig.TableExtendId}.isMasterChecked()" );
+            Attribute( "[nzDisabled]", $"!{_shareConfig.TableExtendId}.dataSource.length" );
+            Attribute( "[nzIndeterminate]", $"{_shareConfig.TableExtendId}.isMasterIndeterminate()" );
+            BindWidth( $"{_shareConfig.TableExtendId}.config.table.checkboxWidth" );
+        }
+
+        /// <summary>
+        /// 添加单选框列头
+        /// </summary>
+        public TableHeadColumnBuilder Radio() {
+            if ( _shareConfig.IsShowCheckbox )
+                return this;
+            if ( _shareConfig.IsShowRadio == false )
+                return this;
+            if ( _shareConfig.IsFirst == false )
+                return this;
+            AddRadio();
+            return this;
+        }
+
+        /// <summary>
+        /// 添加单选框列头
+        /// </summary>
+        protected virtual void AddRadio() {
+            var radioBuilder = new TableHeadColumnBuilder( _config );
+            radioBuilder.BindWidth( $"{_shareConfig.TableExtendId}.config.table.radioWidth" );
+            PreBuilder = radioBuilder;
+        }
+
+        /// <summary>
+        /// 配置序号
+        /// </summary>
+        public TableHeadColumnBuilder LineNumber() {
+            if ( _shareConfig.IsShowLineNumber == false )
+                return this;
+            if ( _shareConfig.IsFirst == false )
+                return this;
+            AddLineNumber();
+            return this;
+        }
+
+        /// <summary>
+        /// 添加序号
+        /// </summary>
+        protected virtual void AddLineNumber() {
+            var lineNumberBuilder = new TableHeadColumnBuilder( _config );
+            lineNumberBuilder.ConfigLineNumber();
+            if ( PreBuilder == null ) {
+                PreBuilder = lineNumberBuilder;
                 return;
             }
+            PreBuilder.PostBuilder = lineNumberBuilder;
+        }
+
+        /// <summary>
+        /// 配置序号
+        /// </summary>
+        public void ConfigLineNumber() {
+            AppendContent( $"{{{{{_shareConfig.TableExtendId}.config.text.lineNumber}}}}" );
+            BindWidth( $"{_shareConfig.TableExtendId}.config.table.lineNumberWidth" );
+        }
+
+        /// <summary>
+        /// 添加表头单元格
+        /// </summary>
+        /// <param name="column">列</param>
+        public void AddColumn( ColumnInfo column ) {
+            if ( column.IsFirst ) {
+                if ( _shareConfig.IsShowCheckbox )
+                    AddCheckBox();
+                if ( _shareConfig.IsShowCheckbox == false && _shareConfig.IsShowRadio )
+                    AddRadio();
+                if ( _shareConfig.IsShowLineNumber )
+                    AddLineNumber();
+            }
+            Title( column.Title );
             this.Width( column.Width );
         }
     }

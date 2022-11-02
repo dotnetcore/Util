@@ -1,11 +1,11 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
     /// <summary>
     /// 树节点切换标签生成器
     /// </summary>
-    public class TreeNodeToggleBuilder : TagBuilder {
+    public class TreeNodeToggleBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -14,7 +14,8 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// <summary>
         /// 初始化树节点切换标签生成器
         /// </summary>
-        public TreeNodeToggleBuilder( Config config ) : base( "nz-tree-node-toggle" ) {
+        /// <param name="config">配置</param>
+        public TreeNodeToggleBuilder( Config config ) : base( config,"nz-tree-node-toggle" ) {
             _config = config;
         }
 
@@ -30,6 +31,7 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             TreeNodeNoopToggle();
         }
     }

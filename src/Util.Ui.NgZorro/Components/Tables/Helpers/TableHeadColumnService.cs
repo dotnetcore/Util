@@ -13,7 +13,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// <summary>
         /// 表格共享配置
         /// </summary>
-        private readonly TableShareConfig _tableShareConfig;
+        private TableHeadColumnShareConfig _shareConfig;
 
         /// <summary>
         /// 初始化表头单元格服务
@@ -21,7 +21,23 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// <param name="config">配置</param>
         public TableHeadColumnService( Config config ) {
             _config = config;
-            _tableShareConfig = GetTableShareConfig();
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public void Init() {
+            CreateTableHeadColumnShareConfig();
+            CancelAutoCreateHeadColumn();
+            SetIsFirst();
+        }
+
+        /// <summary>
+        /// 创建表头列共享配置
+        /// </summary>
+        private void CreateTableHeadColumnShareConfig() {
+            _shareConfig = new TableHeadColumnShareConfig( GetTableShareConfig());
+            _config.SetValueToItems( _shareConfig );
         }
 
         /// <summary>
@@ -32,17 +48,17 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         }
 
         /// <summary>
-        /// 初始化
-        /// </summary>
-        public void Init() {
-            CancelAutoCreateHeadColumn();
-        }
-
-        /// <summary>
         /// 取消自动创建表头单元格
         /// </summary>
         private void CancelAutoCreateHeadColumn() {
-            _tableShareConfig.IsAutoCreateHeadColumn = false;
+            _shareConfig.IsAutoCreateHeadColumn = false;
+        }
+
+        /// <summary>
+        /// 设置第一列标识
+        /// </summary>
+        public void SetIsFirst() {
+            _shareConfig.SetIsFirst();
         }
     }
 }

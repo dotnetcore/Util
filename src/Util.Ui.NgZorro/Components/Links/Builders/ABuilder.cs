@@ -51,6 +51,7 @@ namespace Util.Ui.NgZorro.Components.Links.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             ConfigButton().Href().Target().Rel().RouterLink().DropdownMenu().DropdownMenuPlacement();
         }
     }

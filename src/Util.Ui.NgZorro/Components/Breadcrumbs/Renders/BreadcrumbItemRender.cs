@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.BreadCrumbs.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Breadcrumbs.Renders {
     /// <summary>
     /// 面包屑项渲染器
     /// </summary>
-    public class BreadcrumbItemRender : AngularRenderBase {
+    public class BreadcrumbItemRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Breadcrumbs.Renders {
         /// 初始化面包屑项渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public BreadcrumbItemRender( Config config ) : base( config ) {
+        public BreadcrumbItemRender( Config config ) {
             _config = config;
         }
 
@@ -25,17 +25,9 @@ namespace Util.Ui.NgZorro.Components.Breadcrumbs.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new BreadcrumbItemBuilder();
-            ConfigOverlay( builder );
-            ConfigContent( builder );
+            var builder = new BreadcrumbItemBuilder( _config );
+            builder.Config();
             return builder;
-        }
-
-        /// <summary>
-        /// 配置弹出层
-        /// </summary>
-        private void ConfigOverlay( TagBuilder builder ) {
-            builder.AttributeIfNotEmpty( "[nzOverlay]", _config.GetValue( UiConst.Overlay ) );
         }
     }
 }

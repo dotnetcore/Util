@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
-using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers {
     /// <summary>
@@ -29,6 +28,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// </summary>
         public void Init() {
             CreateTableColumnShareConfig();
+            SetIsFirst();
+            EnableEdit();
             EnableEllipsis();
             LoadExpression();
             AddToColumns();
@@ -50,11 +51,27 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         }
 
         /// <summary>
+        /// 设置第一列标识
+        /// </summary>
+        public void SetIsFirst() {
+            _shareConfig.SetIsFirst();
+        }
+
+        /// <summary>
+        /// 启用编辑模式
+        /// </summary>
+        private void EnableEdit() {
+            var result = _config.GetValue<bool>( UiConst.IsEdit );
+            if( result )
+                _shareConfig.EnableEdit();
+        }
+
+        /// <summary>
         /// 启用自动省略
         /// </summary>
         private void EnableEllipsis() {
             var result = _config.GetValue<bool>( UiConst.Ellipsis );
-            if( result )
+            if ( result )
                 _shareConfig.EnableEllipsis();
         }
 
@@ -77,32 +94,20 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// 获取列信息
         /// </summary>
         private ColumnInfo GetColumnInfo() {
-            var type = GetColumnType();
             var result = new ColumnInfo {
-                Title = GetTitle( type ),
+                Title = GetTitle(),
                 Column = GetColumn(),
-                Width = GetWidth(type),
-                IsLineNumber = type == TableColumnType.LineNumber,
-                IsCheckbox = type == TableColumnType.Checkbox
+                Width = GetWidth(),
+                IsFirst = _shareConfig.IsFirst
             };
             return result;
         }
 
         /// <summary>
-        /// 获取列类型
-        /// </summary>
-        private TableColumnType? GetColumnType() {
-            return _config.GetValue<TableColumnType?>( UiConst.Type );
-        }
-
-        /// <summary>
         /// 获取标题
         /// </summary>
-        private string GetTitle( TableColumnType? type ) {
-            var result = _config.GetValue( UiConst.Title );
-            if ( result.IsEmpty() == false )
-                return result;
-            return type == TableColumnType.LineNumber ? _shareConfig.GetLineNumberTitle() : null;
+        private string GetTitle() {
+            return _config.GetValue( UiConst.Title );
         }
 
         /// <summary>
@@ -115,15 +120,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// <summary>
         /// 获取宽度
         /// </summary>
-        private string GetWidth( TableColumnType? type ) {
-            var result = _config.GetValue( UiConst.Width );
-            if ( result.IsEmpty() == false )
-                return result;
-            if ( type == TableColumnType.LineNumber )
-                return $"{_shareConfig.TableExtendId}.config.table.lineNumberWidth";
-            if ( type == TableColumnType.Checkbox )
-                return $"{_shareConfig.TableExtendId}.config.table.checkboxWidth";
-            return null;
+        private string GetWidth() {
+            return _config.GetValue( UiConst.Width );
         }
     }
 }

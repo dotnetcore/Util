@@ -1,15 +1,15 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Buttons.Builders;
 using Util.Ui.NgZorro.Components.Links.Builders;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Buttons.Renders {
     /// <summary>
     /// 按钮渲染器
     /// </summary>
-    public class ButtonRender : AngularRenderBase {
+    public class ButtonRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -19,7 +19,7 @@ namespace Util.Ui.NgZorro.Components.Buttons.Renders {
         /// 初始化按钮渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ButtonRender( Config config ) : base( config ) {
+        public ButtonRender( Config config ) {
             _config = config;
         }
 
@@ -30,7 +30,6 @@ namespace Util.Ui.NgZorro.Components.Buttons.Renders {
             var builder = CreateTagBuilder();
             builder.Attribute( "nz-button" );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
 

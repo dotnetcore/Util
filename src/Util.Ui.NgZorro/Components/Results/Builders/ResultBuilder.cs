@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Results.Builders {
     /// <summary>
     /// 结果标签生成器
     /// </summary>
-    public class ResultBuilder : TagBuilder {
+    public class ResultBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Results.Builders {
         /// <summary>
         /// 初始化结果标签生成器
         /// </summary>
-        public ResultBuilder( Config config ) : base( "nz-result" ) {
+        /// <param name="config">配置</param>
+        public ResultBuilder( Config config ) : base( config,"nz-result" ) {
             _config = config;
         }
 
@@ -68,6 +69,7 @@ namespace Util.Ui.NgZorro.Components.Results.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Title().SubTitle().Status().Icon().Extra();
         }
     }

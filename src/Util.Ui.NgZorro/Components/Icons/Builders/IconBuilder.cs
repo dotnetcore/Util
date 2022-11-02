@@ -1,6 +1,6 @@
-﻿using Util.Ui.Angular.Configs;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -9,7 +9,7 @@ namespace Util.Ui.NgZorro.Components.Icons.Builders {
     /// <summary>
     /// 图标标签生成器
     /// </summary>
-    public class IconBuilder : TagBuilder {
+    public class IconBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -19,7 +19,7 @@ namespace Util.Ui.NgZorro.Components.Icons.Builders {
         /// 初始化图标标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public IconBuilder( Config config ) : base( "i" ) {
+        public IconBuilder( Config config ) : base( config, "i" ) {
             base.Attribute( "nz-icon" );
             _config = config;
         }
@@ -147,6 +147,7 @@ namespace Util.Ui.NgZorro.Components.Icons.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Type().Theme().Color().Spin().Rotate().IconFont().Events();
         }
     }

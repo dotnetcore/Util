@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Comments.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Comments.Renders {
     /// <summary>
     /// 评论内容渲染器
     /// </summary>
-    public class CommentContentRender : AngularRenderBase {
+    public class CommentContentRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Comments.Renders {
         /// 初始化评论内容渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public CommentContentRender( Config config ) : base( config ) {
+        public CommentContentRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Comments.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new CommentContentBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

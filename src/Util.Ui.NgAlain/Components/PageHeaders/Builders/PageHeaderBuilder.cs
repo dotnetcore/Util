@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
     /// <summary>
     /// 页头标签生成器
     /// </summary>
-    public class PageHeaderBuilder : TagBuilder {
+    public class PageHeaderBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
         /// 初始化页头标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public PageHeaderBuilder( Config config ) : base( "page-header" ) {
+        public PageHeaderBuilder( Config config ) : base( config, "page-header" ) {
             _config = config;
         }
 
@@ -177,6 +177,7 @@ namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Title().AutoTitle().SyncTitle()
                 .Home().HomeLink().HomeI18n()
                 .AutoBreadcrumb().RecursiveBreadcrumb()

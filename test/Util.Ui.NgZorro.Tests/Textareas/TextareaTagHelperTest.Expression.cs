@@ -15,11 +15,14 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label [nzRequired]=\"true\">编码</nz-form-label>" );
-            result.Append( "<nz-form-control [nzErrorTip]=\"v_id.getErrorMessage()\">" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
             result.Append( "<textarea #v_id=\"xValidationExtend\" displayName=\"编码\" minLengthMessage=\"编码最小为10位\" " );
             result.Append( "name=\"code\" nz-input=\"\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" " );
             result.Append( "[(ngModel)]=\"model.code\" [maxlength]=\"100\" [minlength]=\"10\" [nzAutosize]=\"{minRows:3}\" [required]=\"true\">" );
             result.Append( "</textarea>" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );

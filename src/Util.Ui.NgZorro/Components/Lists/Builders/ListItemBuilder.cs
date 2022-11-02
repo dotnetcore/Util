@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Lists.Builders {
     /// <summary>
     /// 列表项标签生成器
     /// </summary>
-    public class ListItemBuilder : TagBuilder {
+    public class ListItemBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Lists.Builders {
         /// <summary>
         /// 初始化列表项标签生成器
         /// </summary>
-        public ListItemBuilder( Config config ) : base( "nz-list-item" ) {
+        public ListItemBuilder( Config config ) : base( config,"nz-list-item" ) {
             _config = config;
         }
 
@@ -40,6 +40,7 @@ namespace Util.Ui.NgZorro.Components.Lists.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             NoFlex().VirtualFor();
         }
     }

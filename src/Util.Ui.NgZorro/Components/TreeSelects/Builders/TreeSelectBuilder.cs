@@ -16,6 +16,7 @@ namespace Util.Ui.NgZorro.Components.TreeSelects.Builders {
         /// <summary>
         /// 初始化树选择标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public TreeSelectBuilder( Config config ) : base( config, "nz-tree-select" ) {
             _config = config;
         }
@@ -278,6 +279,7 @@ namespace Util.Ui.NgZorro.Components.TreeSelects.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().AllowClear().Placeholder().Disabled().ShowIcon()
                 .ShowSearch().NotFoundContent().DropdownMatchSelectWidth()
                 .DropdownStyle().DropdownClassName().Multiple()

@@ -23,6 +23,7 @@ namespace Util.Ui.NgZorro.Components.Buttons.Builders {
         /// </summary>
         public override void Config() {
             ConfigButton();
+            base.Config();
         }
     }
 }

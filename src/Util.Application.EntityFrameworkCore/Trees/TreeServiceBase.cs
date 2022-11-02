@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Util.Applications.Dtos;
 using Util.Data;
-using Util.Data.Stores;
 using Util.Data.Trees;
 using Util.Domain;
+using Util.Domain.Compare;
 using Util.Domain.Trees;
+using Util.Properties;
 
 namespace Util.Applications.Trees {
     /// <summary>
@@ -16,8 +17,8 @@ namespace Util.Applications.Trees {
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     public abstract class TreeServiceBase<TEntity, TDto, TQuery>
-        : TreeServiceBase<TEntity, TDto, TQuery, Guid, Guid?>
-        where TEntity : class, IParentId<Guid?>, IPath, IEnabled, ISortId, IKey<Guid>, IVersion, new()
+        : TreeServiceBase<TEntity, TDto, TDto, TDto, TQuery, Guid, Guid?>
+        where TEntity : class, ITreeEntity<TEntity, Guid, Guid?>, new()
         where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter {
         /// <summary>
@@ -25,8 +26,8 @@ namespace Util.Applications.Trees {
         /// </summary>
         /// <param name="serviceProvider">服务提供器</param>
         /// <param name="unitOfWork">工作单元</param>
-        /// <param name="store">存储器</param>
-        protected TreeServiceBase( IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IStore<TEntity, Guid> store ) : base( serviceProvider,unitOfWork, store ) {
+        /// <param name="repository">树形仓储</param>
+        protected TreeServiceBase( IServiceProvider serviceProvider, IUnitOfWork unitOfWork, ITreeRepository<TEntity, Guid, Guid?> repository ) : base( serviceProvider, unitOfWork, repository ) {
         }
     }
 
@@ -35,21 +36,50 @@ namespace Util.Applications.Trees {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
+    /// <typeparam name="TCreateRequest">创建参数类型</typeparam>
+    /// <typeparam name="TUpdateRequest">修改参数类型</typeparam>
+    /// <typeparam name="TQuery">查询参数类型</typeparam>
+    public abstract class TreeServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest, TQuery>
+        : TreeServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest, TQuery, Guid, Guid?>
+        where TEntity : class, ITreeEntity<TEntity, Guid, Guid?>, new()
+        where TDto : class, ITreeNode, new()
+        where TCreateRequest : class, IRequest, new()
+        where TUpdateRequest : class, IDto, new()
+        where TQuery : class, ITreeQueryParameter {
+        /// <summary>
+        /// 初始化树形服务
+        /// </summary>
+        /// <param name="serviceProvider">服务提供器</param>
+        /// <param name="unitOfWork">工作单元</param>
+        /// <param name="repository">树形仓储</param>
+        protected TreeServiceBase( IServiceProvider serviceProvider, IUnitOfWork unitOfWork, ITreeRepository<TEntity, Guid, Guid?> repository ) : base( serviceProvider, unitOfWork, repository ) {
+        }
+    }
+
+    /// <summary>
+    /// 树形服务
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <typeparam name="TDto">数据传输对象类型</typeparam>
+    /// <typeparam name="TCreateRequest">创建参数类型</typeparam>
+    /// <typeparam name="TUpdateRequest">修改参数类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
-    public abstract class TreeServiceBase<TEntity, TDto, TQuery, TKey, TParentId>
-        : QueryServiceBase<TEntity, TDto, TQuery, TKey>, ITreeService<TDto, TQuery>
-        where TEntity : class, IParentId<TParentId>, IPath, IEnabled, ISortId, IKey<TKey>, IVersion, new()
+    public abstract class TreeServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest, TQuery, TKey, TParentId>
+        : QueryServiceBase<TEntity, TDto, TQuery, TKey>, ITreeService<TDto, TCreateRequest, TUpdateRequest,TQuery>
+        where TEntity : class, ITreeEntity<TEntity, TKey, TParentId>, new()
         where TDto : class, ITreeNode, new()
+        where TCreateRequest : class,IRequest, new()
+        where TUpdateRequest : class, IDto, new()
         where TQuery : class, ITreeQueryParameter {
 
         #region 字段
 
         /// <summary>
-        /// 存储器
+        /// 树形仓储
         /// </summary>
-        private readonly IStore<TEntity, TKey> _store;
+        private readonly ITreeRepository<TEntity, TKey, TParentId> _repository;
 
         #endregion
 
@@ -60,10 +90,10 @@ namespace Util.Applications.Trees {
         /// </summary>
         /// <param name="serviceProvider">服务提供器</param>
         /// <param name="unitOfWork">工作单元</param>
-        /// <param name="store">存储器</param>
-        protected TreeServiceBase( IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IStore<TEntity, TKey> store ) : base( serviceProvider, store ) {
+        /// <param name="repository">树形仓储</param>
+        protected TreeServiceBase( IServiceProvider serviceProvider, IUnitOfWork unitOfWork, ITreeRepository<TEntity, TKey, TParentId> repository ) : base( serviceProvider, repository ) {
             UnitOfWork = unitOfWork;
-            _store = store;
+            _repository = repository;
         }
 
         #endregion
@@ -77,13 +107,185 @@ namespace Util.Applications.Trees {
 
         #endregion
 
-        #region Filter(过滤)
+        #region GetConditions(获取条件列表)
 
         /// <summary>
-        /// 过滤
+        /// 获取条件列表
         /// </summary>
-        protected override IQueryable<TEntity> Filter( IQueryable<TEntity> queryable, TQuery parameter ) {
-            return queryable.Where( new TreeCondition<TEntity, TParentId>( parameter ) );
+        protected override IEnumerable<ICondition<TEntity>> GetConditions( TQuery parameter ) {
+            return new[] { new TreeCondition<TEntity, TParentId>( parameter ) };
+        }
+
+        #endregion
+
+        #region CreateAsync(创建)
+
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="request">创建参数</param>
+        public virtual async Task<string> CreateAsync( TCreateRequest request ) {
+            var entity = ToEntity( request );
+            entity.CheckNull( nameof( entity ) );
+            await CreateAsync( entity );
+            await CommitAsync();
+            await CreateCommitAfterAsync( entity );
+            return entity.Id.ToString();
+        }
+
+        /// <summary>
+        /// 转换为实体
+        /// </summary>
+        /// <param name="request">创建参数</param>
+        protected virtual TEntity ToEntity( TCreateRequest request ) {
+            return request.MapTo<TEntity>();
+        }
+
+        /// <summary>
+        /// 创建实体
+        /// </summary>
+        private async Task CreateAsync( TEntity entity ) {
+            await CreateBeforeAsync( entity );
+            entity.Init();
+            var parent = await _repository.FindByIdAsync( entity.ParentId );
+            entity.InitPath( parent );
+            await _repository.AddAsync( entity );
+            await CreateAfterAsync( entity );
+        }
+
+        /// <summary>
+        /// 创建前操作
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected virtual Task CreateBeforeAsync( TEntity entity ) {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 创建后操作
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected virtual Task CreateAfterAsync( TEntity entity ) {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 提交工作单元
+        /// </summary>
+        protected virtual async Task CommitAsync() {
+            await UnitOfWork.CommitAsync();
+        }
+
+        /// <summary>
+        /// 创建提交后操作
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected virtual Task CreateCommitAfterAsync( TEntity entity ) {
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region UpdateAsync(修改)
+
+        /// <inheritdoc />
+        public virtual async Task UpdateAsync( TUpdateRequest request ) {
+            if ( request.Id.IsEmpty() )
+                throw new InvalidOperationException( R.IdIsEmpty );
+            var oldEntity = await FindOldEntityAsync( request.Id );
+            oldEntity.CheckNull( nameof( oldEntity ) );
+            var entity = ToEntity( oldEntity.Clone(), request );
+            entity.CheckNull( nameof( entity ) );
+            var changes = oldEntity.GetChanges( entity );
+            await UpdateAsync( entity );
+            await CommitAsync();
+            await UpdateCommitAfterAsync( entity, changes );
+        }
+
+        /// <summary>
+        /// 查找旧实体
+        /// </summary>
+        /// <param name="id">标识</param>
+        private async Task<TEntity> FindOldEntityAsync( object id ) {
+            return await _repository.FindByIdAsync( id );
+        }
+
+        /// <summary>
+        /// 转换为实体
+        /// </summary>
+        /// <param name="oldEntity">旧实体</param>
+        /// <param name="request">修改参数</param>
+        protected virtual TEntity ToEntity( TEntity oldEntity, TUpdateRequest request ) {
+            return request.MapTo( oldEntity );
+        }
+
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        private async Task UpdateAsync( TEntity entity ) {
+            await UpdateBeforeAsync( entity );
+            await _repository.UpdatePathAsync( entity );
+            await _repository.UpdateAsync( entity );
+            await UpdateAfterAsync( entity );
+        }
+
+        /// <summary>
+        /// 修改前操作
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected virtual Task UpdateBeforeAsync( TEntity entity ) {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 修改后操作
+        /// </summary>
+        /// <param name="entity">实体</param>
+        protected virtual Task UpdateAfterAsync( TEntity entity ) {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 修改提交后操作
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <param name="changeValues">变更值集合</param>
+        protected virtual Task UpdateCommitAfterAsync( TEntity entity, ChangeValueCollection changeValues ) {
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region DeleteAsync(删除)
+
+        /// <inheritdoc />
+        public virtual async Task DeleteAsync( string ids ) {
+            if ( ids.IsEmpty() )
+                return;
+            var entities = await _repository.FindByIdsAsync( ids );
+            if ( entities?.Count == 0 )
+                return;
+            await DeleteBeforeAsync( entities );
+            await _repository.RemoveAsync( entities );
+            await CommitAsync();
+            await DeleteAfterAsync( entities );
+        }
+
+        /// <summary>
+        /// 删除前操作
+        /// </summary>
+        /// <param name="entities">实体列表</param>
+        protected virtual Task DeleteBeforeAsync( List<TEntity> entities ) {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 删除后操作
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        protected virtual Task DeleteAfterAsync( List<TEntity> entities ) {
+            return Task.CompletedTask;
         }
 
         #endregion
@@ -102,18 +304,18 @@ namespace Util.Applications.Trees {
         /// 启用
         /// </summary>
         private async Task Enable( string ids, bool enabled ) {
-            if( ids.IsEmpty() == false )
+            if ( ids.IsEmpty() == false )
                 return;
-            var entities = await _store.FindByIdsAsync( ids );
-            if( entities == null )
+            var entities = await _repository.FindByIdsAsync( ids );
+            if ( entities == null )
                 return;
-            foreach( var entity in entities ) {
-                if( enabled && await AllowEnable( entity ) == false )
+            foreach ( var entity in entities ) {
+                if ( enabled && await AllowEnable( entity ) == false )
                     return;
-                if( enabled == false && await AllowDisable( entity ) == false )
+                if ( enabled == false && await AllowDisable( entity ) == false )
                     return;
                 entity.Enabled = enabled;
-                await _store.UpdateAsync( entity );
+                await _repository.UpdateAsync( entity );
             }
             await CommitAsync();
         }
@@ -134,13 +336,6 @@ namespace Util.Applications.Trees {
             return Task.FromResult( true );
         }
 
-        /// <summary>
-        /// 提交工作单元
-        /// </summary>
-        protected virtual async Task CommitAsync() {
-            await UnitOfWork.CommitAsync();
-        }
-
         #endregion
 
         #region DisableAsync(冻结)
@@ -151,39 +346,6 @@ namespace Util.Applications.Trees {
         /// <param name="ids">标识列表</param>
         public virtual Task DisableAsync( string ids ) {
             return Enable( ids, false );
-        }
-
-        #endregion
-
-        #region DeleteAsync(删除)
-
-        /// <inheritdoc />
-        public virtual async Task DeleteAsync( string ids ) {
-            if( ids.IsEmpty() )
-                return;
-            var entities = await _store.FindByIdsAsync( ids );
-            if( entities?.Count == 0 )
-                return;
-            await DeleteBeforeAsync( entities );
-            await _store.RemoveAsync( entities );
-            await CommitAsync();
-            await DeleteAfterAsync( entities );
-        }
-
-        /// <summary>
-        /// 删除前操作
-        /// </summary>
-        /// <param name="entities">实体列表</param>
-        protected virtual Task DeleteBeforeAsync( List<TEntity> entities ) {
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 删除后操作
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        protected virtual Task DeleteAfterAsync( List<TEntity> entities ) {
-            return Task.CompletedTask;
         }
 
         #endregion

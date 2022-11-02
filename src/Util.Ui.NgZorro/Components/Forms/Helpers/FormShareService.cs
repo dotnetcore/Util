@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
         /// <summary>
         /// 表单共享配置
         /// </summary>
-        private FormShareConfig _shareConfig;
+        private readonly FormShareConfig _shareConfig;
 
         /// <summary>
         /// 初始化表单共享服务

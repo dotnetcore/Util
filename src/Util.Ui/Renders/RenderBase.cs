@@ -3,18 +3,12 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
-using Util.Ui.Extensions;
 
 namespace Util.Ui.Renders {
     /// <summary>
     /// 渲染器
     /// </summary>
     public abstract class RenderBase : IHtmlContent {
-        /// <summary>
-        /// 配置
-        /// </summary>
-        private readonly Config _config;
         /// <summary>
         /// 标签生成器
         /// </summary>
@@ -23,9 +17,7 @@ namespace Util.Ui.Renders {
         /// <summary>
         /// 初始化渲染器
         /// </summary>
-        /// <param name="config">配置</param>
-        protected RenderBase( Config config ) {
-            _config = config;
+        protected RenderBase() {
         }
 
         /// <summary>
@@ -44,51 +36,7 @@ namespace Util.Ui.Renders {
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         public virtual void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
-            ConfigBuilder( Builder );
             Builder.WriteTo( writer, encoder );
-        }
-
-        /// <summary>
-        /// 配置标签生成器
-        /// </summary>
-        /// <param name="builder">标签生成器</param>
-        protected virtual void ConfigBuilder( TagBuilder builder ) {
-            ConfigStyle( builder );
-            ConfigClass( builder );
-            ConfigHidden( builder );
-            ConfigOutputAttributes( builder );
-        }
-
-        /// <summary>
-        /// 配置样式
-        /// </summary>
-        /// <param name="builder">标签生成器</param>
-        protected virtual void ConfigStyle( TagBuilder builder ) {
-            builder.Style( _config );
-        }
-
-        /// <summary>
-        /// 配置样式类
-        /// </summary>
-        /// <param name="builder">标签生成器</param>
-        protected virtual void ConfigClass( TagBuilder builder ) {
-            builder.Class( _config );
-        }
-
-        /// <summary>
-        /// 配置隐藏
-        /// </summary>
-        /// <param name="builder">标签生成器</param>
-        protected virtual void ConfigHidden( TagBuilder builder ) {
-            builder.Hidden( _config );
-        }
-
-        /// <summary>
-        /// 配置输出属性
-        /// </summary>
-        /// <param name="builder">标签生成器</param>
-        protected virtual void ConfigOutputAttributes( TagBuilder builder ) {
-            builder.Attributes( _config.OutputAttributes );
         }
 
         /// <summary>

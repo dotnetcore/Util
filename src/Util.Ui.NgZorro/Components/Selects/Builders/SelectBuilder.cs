@@ -16,6 +16,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// <summary>
         /// 初始化选择器标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public SelectBuilder( Config config ) : base( config, "nz-select" ) {
             _config = config;
         }
@@ -305,6 +306,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().CompareWith().AutoClearSearchValue().AllowClear()
                 .Borderless().Open().AutoFocus().Disabled()
                 .DropdownClassName().DropdownStyle().DropdownMatchSelectWidth()

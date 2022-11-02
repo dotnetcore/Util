@@ -20,7 +20,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 初始化表格行标签生成器
         /// </summary>
-        public TotalTemplateBuilder( Config config ){
+        public TotalTemplateBuilder( Config config ) : base( config ) {
             _config = config;
             _tableShareConfig = GetTableShareConfig();
         }

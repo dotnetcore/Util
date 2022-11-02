@@ -32,6 +32,7 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Disabled();
         }
     }

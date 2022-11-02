@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Cards.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Cards.Renders {
     /// <summary>
     /// 卡片渲染器
     /// </summary>
-    public class CardRender : AngularRenderBase {
+    public class CardRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Cards.Renders {
         /// 初始化卡片渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public CardRender( Config config ) : base( config ) {
+        public CardRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Cards.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new CardBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

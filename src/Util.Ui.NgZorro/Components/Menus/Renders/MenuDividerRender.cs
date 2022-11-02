@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Menus.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Menus.Renders {
     /// <summary>
     /// 菜单分隔线渲染器
     /// </summary>
-    public class MenuDividerRender : AngularRenderBase {
+    public class MenuDividerRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Menus.Renders {
         /// 初始化菜单分隔线渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public MenuDividerRender( Config config ) : base( config ) {
+        public MenuDividerRender( Config config ) {
             _config = config;
         }
 
@@ -25,8 +25,8 @@ namespace Util.Ui.NgZorro.Components.Menus.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new MenuDividerBuilder();
-            ConfigContent( builder );
+            var builder = new MenuDividerBuilder(_config);
+            builder.Config();
             return builder;
         }
     }

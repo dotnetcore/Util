@@ -32,10 +32,20 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         }
 
         /// <summary>
+        /// 初始化树形表格标识
+        /// </summary>
+        public void InitTreeTable() {
+            _shareConfig.IsTreeTable = true;
+        }
+
+        /// <summary>
         /// 初始化
         /// </summary>
         public void Init() {
             CreateShareConfig();
+            SetIsShowCheckbox();
+            SetIsShowRadio();
+            SetIsShowLineNumber();
             EnableExtend();
         }
 
@@ -55,24 +65,41 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         }
 
         /// <summary>
+        /// 设置是否显示复选框
+        /// </summary>
+        private void SetIsShowCheckbox() {
+            _shareConfig.IsShowCheckbox = _config.GetValue<bool>( UiConst.ShowCheckbox );
+        }
+
+        /// <summary>
+        /// 设置是否显示单选框
+        /// </summary>
+        private void SetIsShowRadio() {
+            _shareConfig.IsShowRadio = _config.GetValue<bool>( UiConst.ShowRadio );
+        }
+
+        /// <summary>
+        /// 设置是否显示序号
+        /// </summary>
+        private void SetIsShowLineNumber() {
+            _shareConfig.IsShowLineNumber = _config.GetValue<bool>( UiConst.ShowLineNumber );
+        }
+
+        /// <summary>
         /// 启用基础扩展
         /// </summary>
         private void EnableExtend() {
-            if ( GetEnableExtend() == true ) {
-                _shareConfig.IsEnableExtend = true;
-                return;
-            }
             if ( GetEnableExtend() == false ) {
                 _shareConfig.IsEnableExtend = false;
                 return;
             }
-            if ( GetUrl().IsEmpty() == false ) {
+            if ( GetEnableExtend() == true || 
+                 GetUrl().IsEmpty() == false ||
+                 GetBindUrl().IsEmpty() == false || 
+                 _shareConfig.IsShowCheckbox ||
+                 _shareConfig.IsShowRadio || 
+                 _shareConfig.IsShowLineNumber ) {
                 _shareConfig.IsEnableExtend = true;
-                return;
-            }
-            if ( GetBindUrl().IsEmpty() == false ) {
-                _shareConfig.IsEnableExtend = true;
-                return;
             }
         }
 

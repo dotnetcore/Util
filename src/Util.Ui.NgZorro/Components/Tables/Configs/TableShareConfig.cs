@@ -7,6 +7,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
     /// </summary>
     public class TableShareConfig {
         /// <summary>
+        /// 表格主体行标识
+        /// </summary>
+        private string _rowId;
+
+        /// <summary>
         /// 初始化表格共享配置
         /// </summary>
         /// <param name="id">表格标识</param>
@@ -29,6 +34,24 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         /// 表格扩展标识
         /// </summary>
         public string TableExtendId => $"x_{Id}";
+
+        /// <summary>
+        /// 表格编辑扩展标识
+        /// </summary>
+        public string TableEditId => $"e_{Id}";
+
+        /// <summary>
+        /// 表格主体行标识
+        /// </summary>
+        public string RowId => _rowId.IsEmpty() ? $"{Id}_row" : _rowId;
+
+        /// <summary>
+        /// 设置表格主体行标识
+        /// </summary>
+        /// <param name="rowId">行标识</param>
+        public void SetRowId( string rowId ) {
+            _rowId = rowId;
+        }
 
         /// <summary>
         /// 表格总行数模板标识
@@ -101,10 +124,28 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         public bool IsEnableEllipsis { get; set; }
 
         /// <summary>
-        /// 获取序号列标题
+        /// 是否启用编辑模式
         /// </summary>
-        public string GetLineNumberTitle() {
-            return $"{{{{{TableExtendId}.config.text.lineNumber}}}}";
-        }
+        public bool IsEnableEdit { get; set; }
+
+        /// <summary>
+        /// 是否显示复选框
+        /// </summary>
+        public bool IsShowCheckbox { get; set; }
+
+        /// <summary>
+        /// 是否显示单选框
+        /// </summary>
+        public bool IsShowRadio { get; set; }
+
+        /// <summary>
+        /// 是否显示序号
+        /// </summary>
+        public bool IsShowLineNumber { get; set; }
+
+        /// <summary>
+        /// 是否树形表格
+        /// </summary>
+        public bool IsTreeTable { get; set; }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +8,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
     /// <summary>
     /// 表单标签生成器
     /// </summary>
-    public class FormBuilder : TagBuilder {
+    public class FormBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +18,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// 初始化表单标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public FormBuilder( Config config ) : base( "form" ) {
+        public FormBuilder( Config config ) : base( config,"form" ) {
             base.Attribute( "nz-form" );
             _config = config;
         }
@@ -100,7 +101,17 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Layout().AutoTips().DisableAutoTips().NoColon().TooltipIcon().AutoComplete().FormGroup().Events();
+        }
+
+        /// <summary>
+        /// 配置标识
+        /// </summary>
+        protected override void ConfigId( Config config ) {
+            this.RawId( _config );
+            if ( config.Contains( UiConst.Id ) )
+                Attribute( $"#{_config.GetValue( UiConst.Id )}", "ngForm" );
         }
     }
 }

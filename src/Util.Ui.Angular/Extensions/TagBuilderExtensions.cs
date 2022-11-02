@@ -1,11 +1,10 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
 
 namespace Util.Ui.Angular.Extensions {
     /// <summary>
-    /// Angular扩展
+    /// Angular标签生成器扩展
     /// </summary>
     public static class TagBuilderExtensions {
         /// <summary>
@@ -216,21 +215,6 @@ namespace Util.Ui.Angular.Extensions {
         public static TBuilder Id<TBuilder>( this TBuilder builder, string name, string value = null ) where TBuilder : TagBuilder {
             if ( string.IsNullOrWhiteSpace( name ) == false )
                 builder.Attribute( $"#{name}", value );
-            return builder;
-        }
-
-        /// <summary>
-        /// 配置公共属性
-        /// </summary>
-        /// <typeparam name="TBuilder">生成器类型</typeparam>
-        /// <param name="builder">生成器实例</param>
-        /// <param name="config">配置</param>
-        public static TBuilder ConfigCommon<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
-            builder.Attributes( config.OutputAttributes );
-            builder.RawId( config ).Id( config );
-            builder.Style( config ).Class( config );
-            builder.Hidden( config );
-            builder.Angular( config );
             return builder;
         }
     }

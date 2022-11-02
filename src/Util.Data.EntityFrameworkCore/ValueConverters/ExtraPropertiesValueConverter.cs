@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Util.Domain.Extending;
 
@@ -19,8 +18,7 @@ namespace Util.Data.EntityFrameworkCore.ValueConverters {
         /// 扩展属性转换为json
         /// </summary>
         private static string PropertiesToJson( ExtraPropertyDictionary extraProperties ) {
-            var options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
-            return Util.Helpers.Json.ToJson( extraProperties, options );
+            return Util.Helpers.Json.ToJson( extraProperties );
         }
 
         /// <summary>

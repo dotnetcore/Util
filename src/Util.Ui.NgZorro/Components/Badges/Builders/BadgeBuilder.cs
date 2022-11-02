@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Badges.Builders {
     /// <summary>
     /// 徽标标签生成器
     /// </summary>
-    public class BadgeBuilder : TagBuilder {
+    public class BadgeBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Badges.Builders {
         /// <summary>
         /// 初始化徽标标签生成器
         /// </summary>
-        public BadgeBuilder( Config config ) : base( "nz-badge" ) {
+        public BadgeBuilder( Config config ) : base( config,"nz-badge" ) {
             _config = config;
         }
 
@@ -122,6 +122,7 @@ namespace Util.Ui.NgZorro.Components.Badges.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Standalone().Color().Count().Dot().ShowDot().OverflowCount()
                 .ShowZero().Status().Text().Title().Offset();
         }

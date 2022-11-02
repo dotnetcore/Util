@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Lists.Builders {
     /// <summary>
     /// 列表项元信息标签生成器
     /// </summary>
-    public class ListItemMetaBuilder : TagBuilder {
+    public class ListItemMetaBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Lists.Builders {
         /// <summary>
         /// 初始化列表项元信息标签生成器
         /// </summary>
-        public ListItemMetaBuilder( Config config ) : base( "nz-list-item-meta" ) {
+        public ListItemMetaBuilder( Config config ) : base( config,"nz-list-item-meta" ) {
             _config = config;
         }
 
@@ -50,6 +50,7 @@ namespace Util.Ui.NgZorro.Components.Lists.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Avatar().Description().Title();
         }
     }

@@ -1,4 +1,5 @@
-﻿using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 
@@ -17,6 +18,13 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// </summary>
         public TableHeadRowBuilder( Config config ) : base( config ) {
             _config = config;
+        }
+
+        /// <summary>
+        /// 创建表头单元格标签生成器
+        /// </summary>
+        public virtual TableHeadColumnBuilder CreateTableHeadColumnBuilder() {
+            return new TableHeadColumnBuilder( _config.CopyRemoveId() );
         }
 
         /// <summary>
@@ -40,7 +48,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置内容
         /// </summary>
         public void ConfigContent() {
-            if ( GetTableShareConfig().HeadColumnAutoCreated )
+            if ( TableShareConfig.HeadColumnAutoCreated )
                 return;
             _config.Content.AppendTo( this );
         }

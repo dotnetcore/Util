@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Avatars.Builders {
     /// <summary>
     /// 头像标签生成器
     /// </summary>
-    public class AvatarBuilder : TagBuilder {
+    public class AvatarBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Avatars.Builders {
         /// <summary>
         /// 初始化头像标签生成器
         /// </summary>
-        public AvatarBuilder( Config config ) : base( "nz-avatar" ) {
+        public AvatarBuilder( Config config ) : base( config,"nz-avatar" ) {
             _config = config;
         }
 
@@ -104,6 +104,7 @@ namespace Util.Ui.NgZorro.Components.Avatars.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Icon().Shape().Size().Gap().Src().SrcSet().Alt().Text().Events();
         }
     }

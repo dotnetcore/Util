@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Grids.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Grids.Renders {
     /// <summary>
     /// 栅格行渲染器
     /// </summary>
-    public class RowRender : AngularRenderBase {
+    public class RowRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Grids.Renders {
         /// 初始化栅格行渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public RowRender( Config config ) : base( config ) {
+        public RowRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Grids.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new RowBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

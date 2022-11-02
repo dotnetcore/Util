@@ -4,6 +4,7 @@ using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms;
 using Util.Ui.NgZorro.Components.Inputs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,14 +21,14 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// <summary>
         /// TagHelper包装器
         /// </summary>
-        private readonly TagHelperWrapper _wrapper;
+        private readonly TagHelperWrapper<Customer> _wrapper;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public FormLabelTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _wrapper = new FormLabelTagHelper().ToWrapper();
+            _wrapper = new FormLabelTagHelper().ToWrapper<Customer>();
         }
 
         /// <summary>
@@ -423,6 +424,15 @@ namespace Util.Ui.NgZorro.Tests.Forms {
             Assert.Equal( result.ToString(), GetResult() );
         }
 
-        
+        /// <summary>
+        /// 测试属性表达式
+        /// </summary>
+        [Fact]
+        public void TestFor() {
+            _wrapper.SetExpression( t => t.Code );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-label [nzRequired]=\"true\">编码</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

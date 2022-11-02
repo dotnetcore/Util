@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Util.Domain.Repositories;
 
 namespace Util.Domain.Trees {
@@ -16,6 +18,11 @@ namespace Util.Domain.Trees {
     /// <typeparam name="TKey">实体标识类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
     public interface ITreeRepository<TEntity, in TKey, in TParentId> : IRepository<TEntity, TKey>
-        where TEntity : class, ITreeEntity<TEntity, TKey, TParentId> {
+        where TEntity : class,ITreeEntity<TEntity, TKey, TParentId> {
+        /// <summary>
+        /// 获取全部下级实体
+        /// </summary>
+        /// <param name="parent">父实体</param>
+        Task<List<TEntity>> GetAllChildrenAsync( TEntity parent );
     }
 }

@@ -84,6 +84,7 @@ namespace Util.Ui.NgZorro.Components.Autocompletes.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Backfill().DataSource().DefaultActiveFirstOption().Width()
                 .OverlayClassName().OverlayStyle().CompareWith();
         }

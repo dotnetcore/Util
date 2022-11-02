@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
     /// <summary>
     /// 虚拟滚动树视图标签生成器
     /// </summary>
-    public class TreeVirtualScrollViewBuilder : TagBuilder {
+    public class TreeVirtualScrollViewBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// <summary>
         /// 初始化虚拟滚动树视图标签生成器
         /// </summary>
-        public TreeVirtualScrollViewBuilder( Config config ) : base( "nz-tree-virtual-scroll-view" ) {
+        /// <param name="config">配置</param>
+        public TreeVirtualScrollViewBuilder( Config config ) : base( config,"nz-tree-virtual-scroll-view" ) {
             _config = config;
         }
 
@@ -84,6 +85,7 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             TreeControl().DataSource().DirectoryTree().BlockNode()
                 .ItemSize().MaxBufferPx().MinBufferPx();
         }

@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Builders {
     /// <summary>
     /// 文本域计数标签生成器
     /// </summary>
-    public class TextareaCountBuilder : TagBuilder {
+    public class TextareaCountBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 初始化文本域计数标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public TextareaCountBuilder( Config config ) : base( "nz-textarea-count" ) {
+        public TextareaCountBuilder( Config config ) : base( config,"nz-textarea-count" ) {
             _config = config;
         }
 
@@ -41,6 +41,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             MaxCharacterCount().ComputeCharacterCount();
         }
     }

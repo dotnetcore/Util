@@ -1,12 +1,13 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Expressions;
+using Util.Ui.NgZorro.Expressions;
 
 namespace Util.Ui.NgZorro.Components.Checkboxes.Helpers {
     /// <summary>
     /// 复选框表达式加载器
     /// </summary>
-    public class CheckboxExpressionLoader : ExpressionLoaderBase {
+    public class CheckboxExpressionLoader : NgZorroExpressionLoaderBase {
         /// <summary>
         /// 加载模型信息
         /// </summary>

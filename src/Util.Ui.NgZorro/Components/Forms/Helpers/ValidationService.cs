@@ -29,8 +29,11 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
         /// </summary>
         public void Init() {
             InitFormItemShareConfig();
+            if ( IsExtend() == false )
+                return;
             EnableExtend();
             InitValidationExtendId();
+            InitValidationTempalteId();
             InitErrorTip();
         }
 
@@ -50,20 +53,11 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
         }
 
         /// <summary>
-        /// 启用验证扩展
-        /// </summary>
-        private void EnableExtend() {
-            if ( IsExtend() == false ) {
-                _shareConfig.IsValidationExtend = false;
-                return;
-            }
-            _shareConfig.IsValidationExtend = true;
-        }
-
-        /// <summary>
         /// 是否扩展
         /// </summary>
         private bool IsExtend() {
+            if ( _config.Contains( UiConst.ErrorTip ) || _config.Contains( AngularConst.BindErrorTip ) )
+                return false;
             if ( HasNgModel() == false )
                 return false;
             if ( HasRequired() )
@@ -103,6 +97,14 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
             return _config.Contains( UiConst.MaxLength );
         }
 
+
+        /// <summary>
+        /// 启用验证扩展
+        /// </summary>
+        private void EnableExtend() {
+            _shareConfig.IsValidationExtend = true;
+        }
+
         /// <summary>
         /// 初始化验证扩展标识
         /// </summary>
@@ -121,15 +123,27 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
         }
 
         /// <summary>
+        /// 初始化验证模板标识
+        /// </summary>
+        private void InitValidationTempalteId() {
+            _shareConfig.ValidationTempalteId = GetValidationTempalteId();
+        }
+
+        /// <summary>
+        /// 获取验证模板标识
+        /// </summary>
+        private string GetValidationTempalteId() {
+            var id = _config.GetValue( UiConst.Id );
+            if ( id.IsEmpty() )
+                id = Util.Helpers.Id.Create();
+            return $"vt_{id}";
+        }
+
+        /// <summary>
         /// 初始化错误提示
         /// </summary>
         private void InitErrorTip() {
-            if ( _config.Contains( UiConst.ErrorTip ) || _config.Contains( AngularConst.BindErrorTip ) )
-                return;
-            if ( IsExtend() == false )
-                return;
-            var value = $"{_shareConfig.ValidationExtendId}.getErrorMessage()";
-            _config.SetAttribute( AngularConst.BindErrorTip,value );
+            _config.SetAttribute( AngularConst.BindErrorTip, _shareConfig.ValidationTempalteId );
         }
     }
 }

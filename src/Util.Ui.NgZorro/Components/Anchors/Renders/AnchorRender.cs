@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Anchors.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Anchors.Renders {
     /// <summary>
     /// 锚点渲染器
     /// </summary>
-    public class AnchorRender : AngularRenderBase {
+    public class AnchorRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Anchors.Renders {
         /// 初始化锚点渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public AnchorRender( Config config ) : base( config ) {
+        public AnchorRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Anchors.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new AnchorBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

@@ -1,4 +1,5 @@
-﻿using Util.Ui.NgZorro.Components.Tables.Helpers;
+﻿using Util.Helpers;
+using Util.Ui.NgZorro.Components.Tables.Helpers;
 
 namespace Util.Ui.NgZorro.Components.Tables.Configs {
     /// <summary>
@@ -9,6 +10,10 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         /// 表格共享配置
         /// </summary>
         private readonly TableShareConfig _tableShareConfig;
+        /// <summary>
+        /// 编辑控件模板标识
+        /// </summary>
+        private string _controlTemplateId;
 
         /// <summary>
         /// 初始化表格列共享配置
@@ -16,6 +21,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         /// <param name="tableShareConfig">表格共享配置</param>
         public TableColumnShareConfig( TableShareConfig tableShareConfig ) {
             _tableShareConfig = tableShareConfig;
+            IsAutoCreateControl = true;
+            Column = Id.Create();
         }
 
         /// <summary>
@@ -24,10 +31,64 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         public string TableExtendId => _tableShareConfig.TableExtendId;
 
         /// <summary>
-        /// 获取序号列标题
+        /// 表格编辑扩展标识
         /// </summary>
-        public string GetLineNumberTitle() {
-            return _tableShareConfig.GetLineNumberTitle();
+        public string TableEditId => _tableShareConfig.TableEditId;
+
+        /// <summary>
+        /// 表格主体行标识
+        /// </summary>
+        public string RowId => _tableShareConfig.RowId;
+
+        /// <summary>
+        /// 列名
+        /// </summary>
+        public string Column { get; set; }
+
+        /// <summary>
+        /// 编辑控件模板标识
+        /// </summary>
+        public string ControlTemplateId => _controlTemplateId.IsEmpty() ? $"{TableEditId}_{Column}" : _controlTemplateId;
+
+        /// <summary>
+        /// 是否自动创建编辑列控件区域
+        /// </summary>
+        public bool IsAutoCreateControl { get; set; }
+
+        /// <summary>
+        /// 是否显示复选框
+        /// </summary>
+        public bool IsShowCheckbox => _tableShareConfig.IsShowCheckbox;
+
+        /// <summary>
+        /// 是否显示单选框
+        /// </summary>
+        public bool IsShowRadio => _tableShareConfig.IsShowRadio;
+
+        /// <summary>
+        /// 是否显示序号
+        /// </summary>
+        public bool IsShowLineNumber => _tableShareConfig.IsShowLineNumber;
+
+        /// <summary>
+        /// 是否第一列
+        /// </summary>
+        public bool IsFirst { get; set; }
+
+        /// <summary>
+        /// 设置第一列
+        /// </summary>
+        public void SetIsFirst() {
+            if ( _tableShareConfig.Columns.Count == 0 )
+                IsFirst = true;
+        }
+
+        /// <summary>
+        /// 设置编辑控件模板标识
+        /// </summary>
+        /// <param name="controlTemplateId">编辑控件模板标识</param>
+        public void SetControlTemplateId( string controlTemplateId ) {
+            _controlTemplateId = controlTemplateId;
         }
 
         /// <summary>
@@ -37,16 +98,15 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         public void AddColumn( ColumnInfo column ) {
             if ( column == null )
                 return;
+            Column = column.Column;
             _tableShareConfig.Columns.Add( column );
-            EnableExtend( column );
         }
 
         /// <summary>
-        /// 启用扩展
+        /// 启用编辑模式
         /// </summary>
-        private void EnableExtend( ColumnInfo column ) {
-            if( column.IsLineNumber || column.IsCheckbox )
-                _tableShareConfig.IsEnableExtend = true;
+        public void EnableEdit() {
+            _tableShareConfig.IsEnableEdit = true;
         }
 
         /// <summary>

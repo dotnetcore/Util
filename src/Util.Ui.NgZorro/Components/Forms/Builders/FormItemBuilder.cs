@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Components.Tables.Configs;
 
 namespace Util.Ui.NgZorro.Components.Forms.Builders {
     /// <summary>
@@ -62,7 +63,26 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigRow();
+            TableEdit();
+        }
+
+        /// <summary>
+        /// 配置表格编辑
+        /// </summary>
+        private void TableEdit() {
+            var config = GetTableColumnShareConfig();
+            if ( config == null )
+                return;
+            Class( "mb0" );
+        }
+
+        /// <summary>
+        /// 获取表格列共享配置
+        /// </summary>
+        public TableColumnShareConfig GetTableColumnShareConfig() {
+            return _config.GetValueFromItems<TableColumnShareConfig>();
         }
     }
 }

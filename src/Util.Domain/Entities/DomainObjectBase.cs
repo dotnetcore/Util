@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Linq.Expressions;
 using Util.Domain.Compare;
@@ -47,7 +48,7 @@ namespace Util.Domain.Entities {
         /// </summary>
         /// <param name="handler">验证处理器</param>
         public void SetValidationHandler( IValidationHandler handler ) {
-            if( handler == null )
+            if ( handler == null )
                 return;
             _handler = handler;
         }
@@ -57,9 +58,9 @@ namespace Util.Domain.Entities {
         /// </summary>
         /// <param name="rules">验证规则列表</param>
         public void AddValidationRules( IEnumerable<IValidationRule> rules ) {
-            if( rules == null )
+            if ( rules == null )
                 return;
-            foreach( var rule in rules )
+            foreach ( var rule in rules )
                 AddValidationRule( rule );
         }
 
@@ -68,7 +69,7 @@ namespace Util.Domain.Entities {
         /// </summary>
         /// <param name="rule">验证规则</param>
         public void AddValidationRule( IValidationRule rule ) {
-            if( rule == null )
+            if ( rule == null )
                 return;
             _rules.Add( rule );
         }
@@ -88,7 +89,7 @@ namespace Util.Domain.Entities {
         private ValidationResultCollection GetValidationResults() {
             var result = DataAnnotationValidation.Validate( this );
             Validate( result );
-            foreach( var rule in _rules )
+            foreach ( var rule in _rules )
                 result.Add( rule.Validate() );
             return result;
         }
@@ -104,7 +105,7 @@ namespace Util.Domain.Entities {
         /// 处理验证结果
         /// </summary>
         protected virtual void HandleValidationResults( ValidationResultCollection results ) {
-            if( results.IsValid )
+            if ( results.IsValid )
                 return;
             _handler.Handle( results );
         }
@@ -118,11 +119,19 @@ namespace Util.Domain.Entities {
         /// </summary>
         /// <param name="newEntity">新对象</param>
         public ChangeValueCollection GetChanges( T newEntity ) {
-            _changeValues = new ChangeValueCollection();
-            if( Equals( newEntity, null ) )
-                return _changeValues;
+            if ( Equals( newEntity, null ) )
+                return new ChangeValueCollection();
+            _changeValues = CreateChangeValueCollection( newEntity );
             AddChanges( newEntity );
             return _changeValues;
+        }
+
+        /// <summary>
+        /// 创建变更值集合
+        /// </summary>
+        protected virtual ChangeValueCollection CreateChangeValueCollection( T newEntity ) {
+            var description = Util.Helpers.Reflection.GetDisplayNameOrDescription( newEntity.GetType() );
+            return new ChangeValueCollection( newEntity.GetType().ToString(), description );
         }
 
         /// <summary>
@@ -153,11 +162,11 @@ namespace Util.Domain.Entities {
         /// <param name="oldValue">旧值,范例：this.Name</param>
         /// <param name="newValue">新值,范例：newEntity.Name</param>
         protected void AddChange<TValue>( string propertyName, string description, TValue oldValue, TValue newValue ) {
-            if( Equals( oldValue, newValue ) )
+            if ( Equals( oldValue, newValue ) )
                 return;
             string oldValueString = oldValue.SafeString().ToLower().Trim();
             string newValueString = newValue.SafeString().ToLower().Trim();
-            if( oldValueString == newValueString )
+            if ( oldValueString == newValueString )
                 return;
             _changeValues.Add( propertyName, description, oldValueString, newValueString );
         }
@@ -168,9 +177,9 @@ namespace Util.Domain.Entities {
         /// <param name="oldObject">旧对象</param>
         /// <param name="newObject">新对象</param>
         protected void AddChange<TDomainObject>( ICompareChange<TDomainObject> oldObject, TDomainObject newObject ) where TDomainObject : IDomainObject {
-            if( Equals( oldObject, null ) )
+            if ( Equals( oldObject, null ) )
                 return;
-            if( Equals( newObject, null ) )
+            if ( Equals( newObject, null ) )
                 return;
             _changeValues.AddRange( oldObject.GetChanges( newObject ) );
         }
@@ -181,14 +190,14 @@ namespace Util.Domain.Entities {
         /// <param name="oldObjects">旧对象列表</param>
         /// <param name="newObjects">新对象列表</param>
         protected void AddChange<TDomainObject>( IEnumerable<ICompareChange<TDomainObject>> oldObjects, IEnumerable<TDomainObject> newObjects ) where TDomainObject : IDomainObject {
-            if( Equals( oldObjects, null ) )
+            if ( Equals( oldObjects, null ) )
                 return;
-            if( Equals( newObjects, null ) )
+            if ( Equals( newObjects, null ) )
                 return;
             var oldList = oldObjects.ToList();
             var newList = newObjects.ToList();
-            for( int i = 0; i < oldList.Count; i++ ) {
-                if( newList.Count <= i )
+            for ( int i = 0; i < oldList.Count; i++ ) {
+                if ( newList.Count <= i )
                     return;
                 AddChange( oldList[i], newList[i] );
             }

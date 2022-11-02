@@ -60,7 +60,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
             if ( _shareConfig.IsAutoCreateHeadRow == false )
                 return;
             _shareConfig.HeadRowAutoCreated = true;
-            var rowBuilder = new TableHeadRowBuilder( _config );
+            var rowBuilder = _headBuilder.CreateTableHeadRowBuilder();
             _headBuilder.AppendContent( rowBuilder );
             rowBuilder.ConfigAutoCreate();
             rowBuilder.ConfigContent();

@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
     /// <summary>
     /// 描述列表标签生成器
     /// </summary>
-    public class DescriptionBuilder : TagBuilder {
+    public class DescriptionBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// <summary>
         /// 初始化描述列表标签生成器
         /// </summary>
-        public DescriptionBuilder( Config config ) : base( "nz-descriptions" ) {
+        /// <param name="config">配置</param>
+        public DescriptionBuilder( Config config ) : base( config,"nz-descriptions" ) {
             _config = config;
         }
 
@@ -77,6 +78,7 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Title().Extra().Bordered().Column().Size().Colon();
         }
     }

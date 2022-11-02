@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>
     /// 表头单元格过滤器触发按钮标签生成器
     /// </summary>
-    public class FilterTriggerBuilder : TagBuilder {
+    public class FilterTriggerBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 初始化表头单元格过滤器触发按钮标签生成器
         /// </summary>
-        public FilterTriggerBuilder( Config config ) : base( "nz-filter-trigger" ) {
+        /// <param name="config">配置</param>
+        public FilterTriggerBuilder( Config config ) : base( config,"nz-filter-trigger" ) {
             _config = config;
         }
 
@@ -67,6 +68,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             DropdownMenu().Visible().Active().HasBackdrop().Events();
         }
     }

@@ -1,18 +1,18 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Alerts.Builders;
 using Util.Ui.NgZorro.Components.Alerts.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Alerts.Renders {
     /// <summary>
     /// 警告提示渲染器
     /// </summary>
-    public class AlertRender : AngularRenderBase {
+    public class AlertRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -26,7 +26,7 @@ namespace Util.Ui.NgZorro.Components.Alerts.Renders {
         /// 初始化警告提示渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public AlertRender( Config config ) : base( config ) {
+        public AlertRender( Config config ) {
             _config = config;
             _shareConfig = GetShareConfig();
         }
@@ -53,7 +53,7 @@ namespace Util.Ui.NgZorro.Components.Alerts.Renders {
         /// </summary>
         private void SetContent( AlertBuilder alertBuilder ) {
             if ( IsAutoCreateTemplate() == false ) {
-                base.ConfigContent( alertBuilder );
+                _config.Content.AppendTo( alertBuilder );
                 return;
             }
             alertBuilder.BindMessage( _shareConfig.TemplateId );
@@ -81,7 +81,7 @@ namespace Util.Ui.NgZorro.Components.Alerts.Renders {
         private TagBuilder CreateTemplate() {
             if ( IsAutoCreateTemplate() == false )
                 return new EmptyContainerTagBuilder();
-            var result = new TemplateBuilder();
+            var result = new TemplateBuilder( _config );
             result.Id( _shareConfig.TemplateId );
             return result;
         }

@@ -39,7 +39,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestFor_3() {
             _wrapper.SetExpression( t => t.Birthday );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions-item nzTitle=\"出生日期\">{{model.birthday | date:\"yyyy-MM-dd\"}}</nz-descriptions-item>" );
+            result.Append( "<nz-descriptions-item nzTitle=\"出生日期\">{{model.birthday | date:\"yyyy-MM-dd HH:mm\"}}</nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

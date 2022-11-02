@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Comments.Builders {
     /// <summary>
     /// 评论标签生成器
     /// </summary>
-    public class CommentBuilder : TagBuilder {
+    public class CommentBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Comments.Builders {
         /// <summary>
         /// 初始化评论标签生成器
         /// </summary>
-        public CommentBuilder( Config config ) : base( "nz-comment" ) {
+        public CommentBuilder( Config config ) : base( config,"nz-comment" ) {
             _config = config;
         }
 
@@ -41,6 +41,7 @@ namespace Util.Ui.NgZorro.Components.Comments.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Author().Datetime();
         }
     }

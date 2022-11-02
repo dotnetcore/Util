@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
     /// <summary>
     /// 描述列表项标签生成器
     /// </summary>
-    public class DescriptionItemBuilder : TagBuilder {
+    public class DescriptionItemBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// <summary>
         /// 初始化描述列表项标签生成器
         /// </summary>
-        public DescriptionItemBuilder( Config config ) : base( "nz-descriptions-item" ) {
+        /// <param name="config">配置</param>
+        public DescriptionItemBuilder( Config config ) : base( config,"nz-descriptions-item" ) {
             _config = config;
         }
 
@@ -42,16 +43,16 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Title().Span();
-            ConfigContent();
         }
 
         /// <summary>
         /// 配置内容
         /// </summary>
-        private void ConfigContent() {
-            if ( _config.Content.IsEmpty() == false ) {
-                _config.Content.AppendTo( this );
+        protected override void ConfigContent( Config config ) {
+            if ( config.Content.IsEmpty() == false ) {
+                config.Content.AppendTo( this );
                 return;
             }
             ConfigValue();

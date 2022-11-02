@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Util.Helpers;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Extensions;
+using Config = Util.Ui.Configs.Config;
 
 namespace Util.Ui.NgZorro.Components.Base {
     /// <summary>
     /// 表单控件标签生成器基类
     /// </summary>
-    public abstract class FormControlBuilderBase<TBuilder> : Util.Ui.Builders.TagBuilder where TBuilder : FormControlBuilderBase<TBuilder> {
+    public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where TBuilder : FormControlBuilderBase<TBuilder> {
         /// <summary>
         /// 配置
         /// </summary>
@@ -25,7 +29,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// <param name="config">配置</param>
         /// <param name="tagName">标签名称，范例：div</param>
         /// <param name="renderMode">渲染模式</param>
-        protected FormControlBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( tagName, renderMode ) {
+        protected FormControlBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config,tagName, renderMode ) {
             _config = config;
             FormItemShareConfig = GetShareConfig();
         }
@@ -73,6 +77,14 @@ namespace Util.Ui.NgZorro.Components.Base {
         }
 
         /// <summary>
+        /// 配置模型变更事件
+        /// </summary>
+        public virtual TBuilder OnModelChange() {
+            AttributeIfNotEmpty( "(ngModelChange)", _config.GetValue( UiConst.OnModelChange ) );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
         /// 配置必填项验证
         /// </summary>
         public virtual TBuilder Required() {
@@ -115,29 +127,50 @@ namespace Util.Ui.NgZorro.Components.Base {
         }
 
         /// <summary>
-        /// 配置模型变更事件
+        /// 配置表单属性
         /// </summary>
-        public virtual TBuilder OnModelChange() {
-            AttributeIfNotEmpty( "(ngModelChange)", _config.GetValue( UiConst.OnModelChange ) );
+        protected TBuilder ConfigForm() {
+            return NgModel().FormControl().SpaceItem().OnModelChange()
+                .Required().RequiredMessage()
+                .MinLength().MinLengthMessage()
+                .MaxLength()
+                .TableEdit().ValidationExtend();
+        }
+
+        /// <summary>
+        /// 配置表格编辑
+        /// </summary>
+        private TBuilder TableEdit() {
+            var config = GetTableColumnShareConfig();
+            if ( config == null )
+                return (TBuilder)this;
+            var id = _config.GetValue( UiConst.Id );
+            if ( id.IsEmpty() ) {
+                id = $"c_{Id.Create()}";
+                this.Id( id );
+            }
+            Attribute( "[x-edit-control]", id );
+            Attribute( "[editRow]", config.RowId );
             return (TBuilder)this;
         }
 
         /// <summary>
-        /// 配置表单属性
+        /// 获取表格列共享配置
         /// </summary>
-        protected TBuilder ConfigForm() {
-            return NgModel().FormControl().SpaceItem().OnModelChange();
+        public TableColumnShareConfig GetTableColumnShareConfig() {
+            return _config.GetValueFromItems<TableColumnShareConfig>();
         }
 
         /// <summary>
         /// 配置验证扩展
         /// </summary>
-        protected void ValidationExtend() {
-            if ( FormItemShareConfig.IsValidationExtend == false )
-                return;
-            Attribute( "x-validation-extend" );
-            Attribute( $"#{FormItemShareConfig.ValidationExtendId}", "xValidationExtend" );
-            AttributeIfNotEmpty( "displayName", FormItemShareConfig.LabelText );
+        protected TBuilder ValidationExtend() {
+            if ( FormItemShareConfig.IsValidationExtend ) {
+                Attribute( "x-validation-extend" );
+                Attribute( $"#{FormItemShareConfig.ValidationExtendId}", "xValidationExtend" );
+                AttributeIfNotEmpty( "displayName", FormItemShareConfig.LabelText );
+            }
+            return (TBuilder)this;
         }
     }
 }

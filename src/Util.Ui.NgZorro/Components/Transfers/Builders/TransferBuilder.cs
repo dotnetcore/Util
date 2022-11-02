@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Transfers.Builders {
     /// <summary>
     /// 穿梭框标签生成器
     /// </summary>
-    public class TransferBuilder : TagBuilder {
+    public class TransferBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.Transfers.Builders {
         /// <summary>
         /// 初始化穿梭框标签生成器
         /// </summary>
-        public TransferBuilder( Config config ) : base( "nz-transfer" ) {
+        /// <param name="config">配置</param>
+        public TransferBuilder( Config config ) : base( config, "nz-transfer" ) {
             _config = config;
         }
 
@@ -175,6 +176,7 @@ namespace Util.Ui.NgZorro.Components.Transfers.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             Datasource().Disabled().Titles().Operations()
                 .ListStyle().ItemUnit().ItemsUnit()
                 .RenderList().Render().Footer()

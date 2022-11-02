@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Alerts.Builders {
     /// <summary>
     /// 警告提示标签生成器
     /// </summary>
-    public class AlertBuilder : TagBuilder {
+    public class AlertBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Alerts.Builders {
         /// <summary>
         /// 初始化警告提示标签生成器
         /// </summary>
-        public AlertBuilder( Config config ) : base( "nz-alert" ) {
+        public AlertBuilder( Config config ) : base( config, "nz-alert" ) {
             _config = config;
         }
 
@@ -112,6 +112,7 @@ namespace Util.Ui.NgZorro.Components.Alerts.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             Banner().Closeable().CloseText().Description()
                 .Message().ShowIcon().IconType().Type()
                 .Events();

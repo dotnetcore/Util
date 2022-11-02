@@ -1,11 +1,11 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.Tests.Samples.Containers.Builders {
     /// <summary>
     /// ng-container标签生成器
     /// </summary>
-    public class ContainerBuilder : TagBuilder {
+    public class ContainerBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.Tests.Samples.Containers.Builders {
         /// 初始化ng-container标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public ContainerBuilder( Config config ) : base( "ng-container" ) {
+        public ContainerBuilder( Config config ) : base( config,"ng-container" ) {
             _config = config;
         }
     }

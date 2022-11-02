@@ -67,7 +67,7 @@ namespace Util.Ui.Expressions {
         /// 获取模型名称
         /// </summary>
         protected virtual string GetModelName( ModelExplorer explorer ) {
-            var result = "model";
+            var result = GetDefaultModel();
             if ( explorer == null )
                 return result;
             if ( explorer.Container == null )
@@ -78,6 +78,13 @@ namespace Util.Ui.Expressions {
             if ( modelAttribute == null )
                 return result;
             return modelAttribute.Model;
+        }
+
+        /// <summary>
+        /// 获取默认模型名称
+        /// </summary>
+        protected virtual string GetDefaultModel() {
+            return "model";
         }
 
         /// <summary>

@@ -535,6 +535,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase(_config);
             ConfigColumn().ValidateStatus().HasFeedback().Extra()
                 .SuccessTip().WarningTip().ErrorTip().ValidatingTip()
                 .AutoTips().DisableAutoTips();

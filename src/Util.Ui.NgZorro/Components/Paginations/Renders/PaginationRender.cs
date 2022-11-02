@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Paginations.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Paginations.Renders {
     /// <summary>
     /// 分页渲染器
     /// </summary>
-    public class PaginationRender : AngularRenderBase {
+    public class PaginationRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Paginations.Renders {
         /// 初始化分页渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public PaginationRender( Config config ) : base( config ) {
+        public PaginationRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Paginations.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new PaginationBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

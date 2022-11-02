@@ -17,6 +17,6 @@
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">标识类型</typeparam>
-    public interface IAggregateRoot<in TEntity, out TKey> : IEntity<TEntity, TKey>, IAggregateRoot<TKey> where TEntity : IAggregateRoot {
+    public interface IAggregateRoot<TEntity, out TKey> : IEntity<TEntity, TKey>, IAggregateRoot<TKey> where TEntity : IAggregateRoot {
     }
 }

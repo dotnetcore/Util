@@ -1,11 +1,11 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.VirtualScrolls.Builders {
     /// <summary>
     /// 虚拟滚动标签生成器
     /// </summary>
-    public class VirtualScrollBuilder : TagBuilder {
+    public class VirtualScrollBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -14,7 +14,8 @@ namespace Util.Ui.NgZorro.Components.VirtualScrolls.Builders {
         /// <summary>
         /// 初始化虚拟滚动标签生成器
         /// </summary>
-        public VirtualScrollBuilder( Config config ) : base( "ng-template" ) {
+        /// <param name="config">配置</param>
+        public VirtualScrollBuilder( Config config ) : base( config,"ng-template" ) {
             _config = config;
             base.Attribute( "nz-virtual-scroll" );
         }
@@ -41,6 +42,7 @@ namespace Util.Ui.NgZorro.Components.VirtualScrolls.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             LetData().LetIndex();
         }
     }

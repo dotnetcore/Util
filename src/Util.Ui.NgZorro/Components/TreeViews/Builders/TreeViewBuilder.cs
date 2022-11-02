@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
     /// <summary>
     /// 树视图标签生成器
     /// </summary>
-    public class TreeViewBuilder : TagBuilder {
+    public class TreeViewBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// <summary>
         /// 初始化树视图标签生成器
         /// </summary>
-        public TreeViewBuilder( Config config ) : base( "nz-tree-view" ) {
+        public TreeViewBuilder( Config config ) : base( config,"nz-tree-view" ) {
             _config = config;
         }
 
@@ -57,6 +57,7 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             TreeControl().DataSource().DirectoryTree().BlockNode();
         }
     }

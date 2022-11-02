@@ -488,6 +488,10 @@
         /// </summary>
         public const string ShowCheckbox = "show-checkbox";
         /// <summary>
+        /// 显示单选框
+        /// </summary>
+        public const string ShowRadio = "show-radio";
+        /// <summary>
         /// 复选框
         /// </summary>
         public const string Checkbox = "checkbox";
@@ -731,6 +735,10 @@
         /// 显示线
         /// </summary>
         public const string ShowLine = "show-line";
+        /// <summary>
+        /// 显示序号
+        /// </summary>
+        public const string ShowLineNumber = "show-line-number";
         /// <summary>
         /// 显示标签
         /// </summary>

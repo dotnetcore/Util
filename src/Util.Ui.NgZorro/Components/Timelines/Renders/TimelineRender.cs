@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Timelines.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Timelines.Renders {
     /// <summary>
     /// 时间轴渲染器
     /// </summary>
-    public class TimelineRender : AngularRenderBase {
+    public class TimelineRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Timelines.Renders {
         /// 初始化时间轴渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TimelineRender( Config config ) : base( config ) {
+        public TimelineRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Timelines.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new TimelineBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

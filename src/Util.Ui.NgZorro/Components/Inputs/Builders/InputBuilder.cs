@@ -12,7 +12,6 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置
         /// </summary>
         private readonly Config _config;
-        
 
         /// <summary>
         /// 初始化输入框标签生成器
@@ -88,12 +87,9 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Name().Placeholder().Disabled().Readonly().Size()
-                .Type().Autocomplete().Events()
-                .Required().RequiredMessage()
-                .MinLength().MinLengthMessage()
-                .MaxLength()
-                .ValidationExtend();
+                .Type().Autocomplete().Events();
         }
     }
 }

@@ -73,5 +73,42 @@ namespace Util.Ui.Tests.Configs {
             config.SetAttribute( "a", 2, false );
             Assert.Equal( 1, config.GetValue<int>( "a" ) );
         }
+
+        /// <summary>
+        /// 测试移除属性
+        /// </summary>
+        [Fact]
+        public void TestRemoveAttribute() {
+            var config = CreateConfig();
+            Assert.Equal( 1, config.GetValue<int>( "a" ) );
+            config.RemoveAttribute( "a" );
+            Assert.Equal( 0, config.GetValue<int>( "a" ) );
+        }
+
+        /// <summary>
+        /// 测试复制配置 - 复制一个属性
+        /// </summary>
+        [Fact]
+        public void TestCopy_1() {
+            TagHelperAttributeList attributes = new TagHelperAttributeList { { "a", 1 } };
+            TagHelperContext context = new TagHelperContext( attributes, new Dictionary<object, object>(), Util.Helpers.Id.Create() );
+            var config = new Config( context, null );
+            var copy = config.Copy();
+            Assert.Equal( 1, copy.GetValue<int>( "a" ) );
+        }
+
+        /// <summary>
+        /// 测试复制配置 - 复制并修改一个属性,不会影响原配置
+        /// </summary>
+        [Fact]
+        public void TestCopy_2() {
+            TagHelperAttributeList attributes = new TagHelperAttributeList { { "a", 1 } };
+            TagHelperContext context = new TagHelperContext( attributes, new Dictionary<object, object>(), Util.Helpers.Id.Create() );
+            var config = new Config( context, null );
+            var copy = config.Copy();
+            copy.SetAttribute( "a",2 );
+            Assert.Equal( 1, config.GetValue<int>( "a" ) );
+            Assert.Equal( 2, copy.GetValue<int>( "a" ) );
+        }
     }
 }

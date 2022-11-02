@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,16 +7,17 @@ namespace Util.Ui.NgZorro.Components.Steps.Builders {
     /// <summary>
     /// 步骤标签生成器
     /// </summary>
-    public class StepBuilder : TagBuilder {
+    public class StepBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly Config _config;
-        
+
         /// <summary>
         /// 初始化步骤标签生成器
         /// </summary>
-        public StepBuilder( Config config ) : base( "nz-step" ) {
+        /// <param name="config">配置</param>
+        public StepBuilder( Config config ) : base( config,"nz-step" ) {
             _config = config;
         }
 
@@ -78,6 +79,7 @@ namespace Util.Ui.NgZorro.Components.Steps.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Title().Subtitle().Description().Icon().Status().Disabled();
         }
     }

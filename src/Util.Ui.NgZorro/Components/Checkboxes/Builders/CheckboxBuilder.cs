@@ -11,22 +11,14 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         /// 配置
         /// </summary>
         private readonly Config _config;
-        
+
         /// <summary>
         /// 初始化复选框标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public CheckboxBuilder( Config config ) : base( config,"label" ) {
             _config = config;
             base.Attribute( "nz-checkbox" );
-        }
-
-        /// <summary>
-        /// 配置名称
-        /// </summary>
-        public CheckboxBuilder Name() {
-            AttributeIfNotEmpty( "name", _config.GetValue( UiConst.Name ) );
-            AttributeIfNotEmpty( "[name]", _config.GetValue( AngularConst.BindName ) );
-            return this;
         }
 
         /// <summary>
@@ -90,6 +82,7 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Name().AutoFocus().Disabled().Indeterminate().Value()
                 .Label().Events();
         }

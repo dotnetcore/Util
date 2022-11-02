@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Avatars.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Avatars.Renders {
     /// <summary>
     /// 头像组渲染器
     /// </summary>
-    public class AvatarGroupRender : AngularRenderBase {
+    public class AvatarGroupRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Avatars.Renders {
         /// 初始化头像组渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public AvatarGroupRender( Config config ) : base( config ) {
+        public AvatarGroupRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Avatars.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new AvatarGroupBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

@@ -29,12 +29,12 @@ namespace Util.Applications {
         /// <summary>
         /// 查询
         /// </summary>
-        /// <param name="query">查询参数</param>
-        Task<List<TDto>> QueryAsync( TQuery query );
+        /// <param name="param">查询参数</param>
+        Task<List<TDto>> QueryAsync( TQuery param );
         /// <summary>
         /// 分页查询
         /// </summary>
-        /// <param name="query">查询参数</param>
-        Task<PageList<TDto>> PageQueryAsync( TQuery query );
+        /// <param name="param">查询参数</param>
+        Task<PageList<TDto>> PageQueryAsync( TQuery param );
     }
 }

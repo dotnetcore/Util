@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -19,16 +20,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// <summary>
         /// 表格行标签生成器
         /// </summary>
-        private readonly TableRowBuilder _rowBuilder;
+        private readonly TableHeadRowBuilder _rowBuilder;
 
         /// <summary>
         /// 初始化表头行嵌套结构自动创建服务
         /// </summary>
         /// <param name="rowBuilder">表格行标签生成器</param>
-        public TableHeadRowAutoCreateService( TableRowBuilder rowBuilder ) {
+        public TableHeadRowAutoCreateService( TableHeadRowBuilder rowBuilder ) {
             _rowBuilder = rowBuilder ?? throw new ArgumentNullException( nameof( rowBuilder ) );
             _config = _rowBuilder.GetConfig();
-            _shareConfig = _rowBuilder.GetTableShareConfig();
+            _shareConfig = _rowBuilder.TableShareConfig;
         }
 
         /// <summary>
@@ -59,8 +60,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
                 return;
             _shareConfig.HeadColumnAutoCreated = true;
             foreach ( var column in _shareConfig.Columns ) {
-                var columnBuilder = new TableHeadColumnBuilder( _config );
-                columnBuilder.AddComponents( column );
+                var columnBuilder = _rowBuilder.CreateTableHeadColumnBuilder();
+                columnBuilder.AddColumn( column );
                 _rowBuilder.AppendContent( columnBuilder );
             }
         }

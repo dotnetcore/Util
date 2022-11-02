@@ -3,6 +3,8 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Configs;
+using Util.Ui.Extensions;
 
 namespace Util.Ui.Builders {
     /// <summary>
@@ -37,6 +39,16 @@ namespace Util.Ui.Builders {
         /// 是否包含Html内容
         /// </summary>
         public virtual bool HasInnerHtml => _tagBuilder.HasInnerHtml;
+
+        /// <summary>
+        /// 前一个标签生成器
+        /// </summary>
+        public TagBuilder PreBuilder { get; set; }
+
+        /// <summary>
+        /// 后一个标签生成器
+        /// </summary>
+        public TagBuilder PostBuilder { get; set; }
 
         /// <summary>
         /// 添加class属性
@@ -152,18 +164,16 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
-        /// 配置
-        /// </summary>
-        public virtual void Config() {
-        }
-
-        /// <summary>
         /// 写入文本流
         /// </summary>
         /// <param name="writer">流写入器</param>
         /// <param name="encoder">编码</param>
         public virtual void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
+            if( PreBuilder != null )
+                PreBuilder.WriteTo( writer, NullHtmlEncoder.Default );
             _tagBuilder.WriteTo( writer, NullHtmlEncoder.Default );
+            if ( PostBuilder != null )
+                PostBuilder.WriteTo( writer, NullHtmlEncoder.Default );
         }
 
         /// <summary>
@@ -173,6 +183,55 @@ namespace Util.Ui.Builders {
             using var writer = new StringWriter();
             _tagBuilder.WriteTo( writer, NullHtmlEncoder.Default );
             return writer.ToString();
+        }
+
+        /// <summary>
+        /// 配置
+        /// </summary>
+        public virtual void Config() {
+        }
+
+        /// <summary>
+        /// 基础配置
+        /// </summary>
+        /// <param name="config">配置</param>
+        protected virtual void ConfigBase( Config config ) {
+            ConfigStyle( config );
+            ConfigClass( config );
+            ConfigHidden( config );
+            ConfigOutputAttributes( config );
+        }
+
+        /// <summary>
+        /// 配置样式
+        /// </summary>
+        /// <param name="config">配置</param>
+        protected virtual void ConfigStyle( Config config ) {
+            this.Style( config );
+        }
+
+        /// <summary>
+        /// 配置样式类
+        /// </summary>
+        /// <param name="config">配置</param>
+        protected virtual void ConfigClass( Config config ) {
+            this.Class( config );
+        }
+
+        /// <summary>
+        /// 配置隐藏
+        /// </summary>
+        /// <param name="config">配置</param>
+        protected virtual void ConfigHidden( Config config ) {
+            this.Hidden( config );
+        }
+
+        /// <summary>
+        /// 配置输出属性
+        /// </summary>
+        /// <param name="config">配置</param>
+        protected virtual void ConfigOutputAttributes( Config config ) {
+            this.Attributes( config.OutputAttributes );
         }
     }
 }

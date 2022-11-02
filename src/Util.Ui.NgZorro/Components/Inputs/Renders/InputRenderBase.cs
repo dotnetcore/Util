@@ -101,7 +101,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Renders {
         /// 获取输入框组合标签生成器
         /// </summary>
         private TagBuilder GetInputGroupBuilder() {
-            var builder = new InputGroupBuilder( _config );
+            var builder = new InputGroupBuilder( _config.CopyRemoveId() );
             builder.Config();
             builder.Class( GetInputGroupClass() );
             return builder;
@@ -162,7 +162,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Renders {
         private TagBuilder GetClearTemplate() {
             if( _config.Contains( UiConst.AllowClear ) == false )
                 return new EmptyTagBuilder();
-            var templateBuilder = new TemplateBuilder();
+            var templateBuilder = new TemplateBuilder( _config );
             templateBuilder.Id( GetClearTemplateId() );
             var iconBuilder = GetClearIconBuilder();
             templateBuilder.SetContent( iconBuilder );

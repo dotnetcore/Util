@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
     /// <summary>
     /// 树节点可选项标签生成器
     /// </summary>
-    public class TreeNodeOptionBuilder : TagBuilder {
+    public class TreeNodeOptionBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// <summary>
         /// 初始化树节点可选项标签生成器
         /// </summary>
-        public TreeNodeOptionBuilder( Config config ) : base( "nz-tree-node-option" ) {
+        /// <param name="config">配置</param>
+        public TreeNodeOptionBuilder( Config config ) : base( config,"nz-tree-node-option" ) {
             _config = config;
         }
 
@@ -49,6 +50,7 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Selected().Disabled().Events();
         }
     }

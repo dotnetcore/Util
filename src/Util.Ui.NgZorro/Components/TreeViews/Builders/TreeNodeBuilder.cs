@@ -1,11 +1,11 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
     /// <summary>
     /// 树节点标签生成器
     /// </summary>
-    public class TreeNodeBuilder : TagBuilder {
+    public class TreeNodeBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -14,7 +14,8 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// <summary>
         /// 初始化树节点标签生成器
         /// </summary>
-        public TreeNodeBuilder( Config config ) : base( "nz-tree-node" ) {
+        /// <param name="config">配置</param>
+        public TreeNodeBuilder( Config config ) : base( config,"nz-tree-node" ) {
             _config = config;
         }
 
@@ -46,6 +47,7 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             TreeNodeDef().TreeNodePadding().TreeNodeIndentLine();
         }
     }

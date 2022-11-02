@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Badges.Builders {
     /// <summary>
     /// 缎带徽标标签生成器
     /// </summary>
-    public class RibbonBuilder : TagBuilder {
+    public class RibbonBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Badges.Builders {
         /// <summary>
         /// 初始化缎带徽标标签生成器
         /// </summary>
-        public RibbonBuilder( Config config ) : base( "nz-ribbon" ) {
+        public RibbonBuilder( Config config ) : base( config,"nz-ribbon" ) {
             _config = config;
         }
 
@@ -51,6 +51,7 @@ namespace Util.Ui.NgZorro.Components.Badges.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Color().Placement().Text();
         }
     }

@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Images.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Images.Renders {
     /// <summary>
     /// 图片渲染器
     /// </summary>
-    public class ImageRender : AngularRenderBase {
+    public class ImageRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Images.Renders {
         /// 初始化图片渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ImageRender( Config config ) : base( config ) {
+        public ImageRender( Config config ) {
             _config = config;
         }
 

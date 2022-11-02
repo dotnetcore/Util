@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Collapses.Builders {
     /// <summary>
     /// 折叠面板标签生成器
     /// </summary>
-    public class CollapsePanelBuilder : TagBuilder {
+    public class CollapsePanelBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Collapses.Builders {
         /// <summary>
         /// 初始化折叠面板标签生成器
         /// </summary>
-        public CollapsePanelBuilder( Config config ) : base( "nz-collapse-panel" ) {
+        /// <param name="config">配置</param>
+        public CollapsePanelBuilder( Config config ) : base( config,"nz-collapse-panel" ) {
             _config = config;
         }
 
@@ -87,6 +88,7 @@ namespace Util.Ui.NgZorro.Components.Collapses.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Disabled().Header().ExpandedIcon().Extra().ShowArrow().Active().Events();
         }
     }

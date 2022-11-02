@@ -7,12 +7,13 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Selects.Configs;
+using Util.Ui.NgZorro.Expressions;
 
 namespace Util.Ui.NgZorro.Components.Selects.Helpers {
     /// <summary>
     /// 选择框表达式加载器
     /// </summary>
-    public class SelectExpressionLoader : ExpressionLoaderBase {
+    public class SelectExpressionLoader : NgZorroExpressionLoaderBase {
         /// <summary>
         /// 加载模型信息
         /// </summary>

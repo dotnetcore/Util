@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Builders;
@@ -88,7 +90,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         private TagBuilder GetFormItem() {
             TagBuilder builder = new EmptyContainerTagBuilder();
             if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormItem == true )
-                builder = new FormItemBuilder( _config );
+                builder = new FormItemBuilder( _config.CopyRemoveId() );
             builder.Config();
             return builder;
         }
@@ -98,7 +100,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// </summary>
         private TagBuilder GetFormLabel() {
             if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormLabel == true ) {
-                var builder = new FormLabelBuilder( _config );
+                var builder = new FormLabelBuilder( _config.CopyRemoveId() );
                 builder.Config();
                 builder.SetContent( _shareConfig.LabelText );
                 return builder;
@@ -112,9 +114,10 @@ namespace Util.Ui.NgZorro.Components.Base {
         private TagBuilder GetFormControl() {
             TagBuilder builder = new EmptyContainerTagBuilder();
             if( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormControl == true )
-                builder = new FormControlBuilder( _config );
+                builder = new FormControlBuilder( _config.CopyRemoveId() );
             builder.Config();
             AppendControl( builder );
+            AppendValidationTempalte( builder );
             return builder;
         }
 
@@ -122,6 +125,18 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// 添加表单控件
         /// </summary>
         protected virtual void AppendControl( TagBuilder formControlBuilder ) {
+        }
+
+        /// <summary>
+        /// 添加验证模板
+        /// </summary>
+        private void AppendValidationTempalte( TagBuilder formControlBuilder ) {
+            if ( _shareConfig.ValidationTempalteId.IsEmpty() )
+                return;
+            var templateBuilder = new TemplateBuilder( _config.CopyRemoveId() );
+            templateBuilder.Id( _shareConfig.ValidationTempalteId );
+            templateBuilder.SetContent( $"{{{{{_shareConfig.ValidationExtendId}.getErrorMessage()}}}}" );
+            formControlBuilder.AppendContent( templateBuilder );
         }
     }
 }

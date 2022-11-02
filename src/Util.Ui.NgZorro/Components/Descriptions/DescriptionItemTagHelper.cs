@@ -37,7 +37,7 @@ namespace Util.Ui.NgZorro.Components.Descriptions {
         /// </summary>
         public string BindSpan { get; set; }
         /// <summary>
-        /// 日期格式化字符串，默认值: yyyy-MM-dd ,仅在使用属性表达式For时有效,格式说明：
+        /// 日期格式化字符串，默认值: yyyy-MM-dd HH:mm,仅在使用属性表达式For时有效,格式说明：
         /// 1. 年 - yyyy
         /// 2. 月 - MM
         /// 3. 日 - dd
@@ -51,8 +51,15 @@ namespace Util.Ui.NgZorro.Components.Descriptions {
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
             _config = new Config( context, output );
-            var service = new DescriptionItemService( _config );
-            service.Init();
+            LoadExpression();
+        }
+
+        /// <summary>
+        /// 加载表达式
+        /// </summary>
+        private void LoadExpression() {
+            var loader = new DescriptionItemExpressionLoader();
+            loader.Load( _config );
         }
 
         /// <inheritdoc />

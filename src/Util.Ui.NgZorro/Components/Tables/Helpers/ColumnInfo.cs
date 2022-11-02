@@ -16,17 +16,13 @@
         /// </summary>
         public bool IsSort { get; set; }
         /// <summary>
-        /// 是否序号
-        /// </summary>
-        public bool IsLineNumber { get; set; }
-        /// <summary>
-        /// 是否复选框
-        /// </summary>
-        public bool IsCheckbox { get; set; }
-        /// <summary>
         /// 宽度
         /// </summary>
         public string Width { get; set; }
+        /// <summary>
+        /// 是否第一列
+        /// </summary>
+        public bool IsFirst { get; set; }
 
         /// <summary>
         /// 获取排序字段

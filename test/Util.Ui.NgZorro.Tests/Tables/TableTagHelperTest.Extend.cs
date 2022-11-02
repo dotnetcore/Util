@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
@@ -186,6 +187,17 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\" [url]=\"a\">" );
             result.Append( "</nz-table>" );
             AppendTotalTemplate( result );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自动加载
+        /// </summary>
+        [Fact]
+        public void TestAutoLoad() {
+            _wrapper.SetContextAttribute( UiConst.AutoLoad, false );
+            var result = new StringBuilder();
+            result.Append( "<nz-table [autoLoad]=\"false\"></nz-table>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

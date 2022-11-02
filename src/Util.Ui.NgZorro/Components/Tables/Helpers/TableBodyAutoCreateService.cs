@@ -57,7 +57,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
             if ( _shareConfig.IsAutoCreateBodyRow == false )
                 return;
             _shareConfig.BodyRowAutoCreated = true;
-            var rowBuilder = new TableBodyRowBuilder( _config );
+            var rowBuilder = _bodyBuilder.CreateTableBodyRowBuilder();
             _bodyBuilder.AppendContent( rowBuilder );
             rowBuilder.Config();
         }

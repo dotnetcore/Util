@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
@@ -11,10 +10,6 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
         /// 配置
         /// </summary>
         private readonly Config _config;
-        /// <summary>
-        /// 表单项共享配置
-        /// </summary>
-        private FormItemShareConfig _shareConfig;
 
         /// <summary>
         /// 初始化输入框服务

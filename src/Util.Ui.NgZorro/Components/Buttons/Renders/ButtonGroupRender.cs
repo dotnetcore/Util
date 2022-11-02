@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Buttons.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Buttons.Renders {
     /// <summary>
     /// 按钮组渲染器
     /// </summary>
-    public class ButtonGroupRender : AngularRenderBase {
+    public class ButtonGroupRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Buttons.Renders {
         /// 初始化按钮组渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ButtonGroupRender( Config config ) : base( config ) {
+        public ButtonGroupRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Buttons.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new ButtonGroupBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

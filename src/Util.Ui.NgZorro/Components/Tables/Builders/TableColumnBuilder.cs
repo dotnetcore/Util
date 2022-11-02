@@ -1,6 +1,7 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -8,24 +9,36 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>
     /// 表格单元格标签生成器
     /// </summary>
-    public class TableColumnBuilder : TagBuilder {
+    public class TableColumnBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
         private readonly Config _config;
+        /// <summary>
+        /// 表格列共享配置
+        /// </summary>
+        private readonly TableColumnShareConfig _shareConfig;
 
         /// <summary>
         /// 初始化表格单元格标签生成器
         /// </summary>
-        public TableColumnBuilder( Config config ) : base( "td" ) {
+        public TableColumnBuilder( Config config, TableColumnShareConfig shareConfig ) : base( config, "td" ) {
             _config = config;
+            _shareConfig = shareConfig;
         }
 
         /// <summary>
-        /// 获取表格共享配置
+        /// 获取配置
         /// </summary>
-        protected TableShareConfig GetTableShareConfig() {
-            return _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
+        public Config GetConfig() {
+            return _config;
+        }
+
+        /// <summary>
+        /// 获取表格列共享配置
+        /// </summary>
+        public TableColumnShareConfig GetTableColumnShareConfig() {
+            return _shareConfig;
         }
 
         /// <summary>
@@ -150,11 +163,38 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ShowCheckbox().Disabled().Indeterminate().Checked()
                 .ShowExpand().Expand()
                 .Left().Right().Align().BreakWord().Ellipsis()
                 .IndentSize()
                 .Events();
+            ConfigContent();
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected virtual void ConfigContent() {
+            var service = new TableColumnContentService( this );
+            service.Config();
+        }
+
+        /// <summary>
+        /// 添加复选框
+        /// </summary>
+        public virtual void AddCheckbox() {
+            Attribute( "[nzShowCheckbox]", "true" );
+            Attribute( "(click)", "$event.stopPropagation()" );
+            Attribute( "(nzCheckedChange)", $"{_shareConfig.TableExtendId}.toggle(row)" );
+            Attribute( "[nzChecked]", $"{_shareConfig.TableExtendId}.isChecked(row)" );
+        }
+
+        /// <summary>
+        /// 添加序号
+        /// </summary>
+        public void AddLineNumber() {
+            AppendContent( "{{row.lineNumber}}" );
         }
     }
 }

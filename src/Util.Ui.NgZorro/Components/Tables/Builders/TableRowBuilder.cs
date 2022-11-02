@@ -1,4 +1,4 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
@@ -6,7 +6,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>
     /// 表格行标签生成器
     /// </summary>
-    public class TableRowBuilder : TagBuilder {
+    public class TableRowBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -19,9 +19,9 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 初始化表格行标签生成器
         /// </summary>
-        public TableRowBuilder( Config config ) : base( "tr" ) {
+        /// <param name="config">配置</param>
+        public TableRowBuilder( Config config ) : base( config,"tr" ) {
             _config = config;
-            _tableShareConfig = GetTableShareConfig();
         }
 
         /// <summary>
@@ -34,9 +34,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 获取表格共享配置
         /// </summary>
-        public TableShareConfig GetTableShareConfig() {
-            return _tableShareConfig ??= _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
-        }
+        public TableShareConfig TableShareConfig => _tableShareConfig ??= _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
 
         /// <summary>
         /// 配置当前列是否展开
@@ -50,7 +48,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
-            base.Config();
+            base.ConfigBase(_config);
             Expand();
         }
     }

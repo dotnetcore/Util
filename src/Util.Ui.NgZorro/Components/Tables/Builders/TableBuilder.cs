@@ -1,5 +1,6 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -10,7 +11,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>
     /// 表格标签生成器
     /// </summary>
-    public class TableBuilder : TagBuilder {
+    public class TableBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -23,22 +24,49 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 初始化表格标签生成器
         /// </summary>
-        public TableBuilder( Config config ) : base( "nz-table" ) {
+        /// <param name="config">配置</param>
+        public TableBuilder( Config config ) : base( config, "nz-table" ) {
             _config = config;
             _shareConfig = GetShareConfig();
         }
 
         /// <summary>
+        /// 获取配置
+        /// </summary>
+        public Config GetConfig() {
+            return _config;
+        }
+
+        /// <summary>
         /// 获取表格共享配置
         /// </summary>
-        private TableShareConfig GetShareConfig() {
+        public TableShareConfig GetShareConfig() {
             return _shareConfig ??= _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
+        }
+
+        /// <summary>
+        /// 创建表头标签生成器
+        /// </summary>
+        public virtual TableHeadBuilder CreateTableHeadBuilder() {
+            return new TableHeadBuilder( _config.CopyRemoveId() );
+        }
+
+        /// <summary>
+        /// 创建表格主体标签生成器
+        /// </summary>
+        public virtual TableBodyBuilder CreateTableBodyBuilder() {
+            return new TableBodyBuilder( _config.CopyRemoveId() );
         }
 
         /// <summary>
         /// 表格扩展标识
         /// </summary>
         protected string ExtendId => _shareConfig.TableExtendId;
+
+        /// <summary>
+        /// 表格编辑扩展标识
+        /// </summary>
+        protected string EditId => _shareConfig.TableEditId;
 
         /// <summary>
         /// 配置数据
@@ -423,6 +451,14 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 配置自动加载
+        /// </summary>
+        public TableBuilder AutoLoad() {
+            AttributeIfNotEmpty( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         public TableBuilder Events() {
@@ -468,6 +504,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             Data().FrontPagination().Total().PageIndex().PageSize()
                 .ShowPagination().PaginationPosition().PaginationType()
                 .Bordered().OuterBordered().WidthConfig().Size()
@@ -477,10 +514,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
                 .ItemRender().HideOnSinglePage().Simple().TemplateMode()
                 .VirtualItemSize().VirtualMaxBufferPx().VirtualMinBufferPx().VirtualForTrackBy()
                 .Layout()
-                .QueryParam().Url().Sort()
+                .QueryParam().Url().Sort().AutoLoad()
                 .Events();
             ConfigAutoCreate();
             ConfigTableExted();
+            ConfigEdit();
             ConfigContent();
         }
 
@@ -488,7 +526,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置自动创建嵌套结构
         /// </summary>
         private void ConfigAutoCreate() {
-            var service = new TableAutoCreateService(this,_config,_shareConfig);
+            var service = new TableAutoCreateService(this);
             service.Init();
         }
 
@@ -513,9 +551,21 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 配置编辑模式
+        /// </summary>
+        private void ConfigEdit() {
+            if ( _shareConfig.IsEnableEdit == false )
+                return;
+            Attribute( "x-edit-table" );
+            Attribute( $"#{EditId}", "xEditTable" );
+        }
+
+        /// <summary>
         /// 配置内容
         /// </summary>
         private void ConfigContent() {
+            if ( _shareConfig.BodyAutoCreated )
+                return;
             if ( _shareConfig.BodyRowAutoCreated )
                 return;
             _config.Content.AppendTo( this );

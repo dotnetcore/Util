@@ -22,23 +22,23 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
-        /// 标题
+        /// 标题,扩展属性
         /// </summary>
         public string Title { get; set; }
         /// <summary>
-        /// 列名
+        /// 列名,扩展属性
         /// </summary>
         public string Column { get; set; }
         /// <summary>
-        /// 表格列类型
+        /// 是否编辑列,扩展属性,默认值：false
         /// </summary>
-        public TableColumnType Type { get; set; }
+        public bool IsEdit { get; set; }
         /// <summary>
         /// nzWidth,列宽度,表头未分组时可用,设置数值,则默认单位为px，范例：100，表示100px，也可以使用百分比,范例: 20%
         /// </summary>
         public string Width { get; set; }
         /// <summary>
-        /// [nzShowCheckbox],是否显示复选框
+        /// [nzShowCheckbox],是否显示复选框,注意:此属性为ng-zorro原生属性,未提供复选框联动功能,请设置表格上的show-checkbox属性
         /// </summary>
         public bool ShowCheckbox { get; set; }
         /// <summary>

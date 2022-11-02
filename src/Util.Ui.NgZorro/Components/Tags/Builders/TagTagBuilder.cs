@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Tags.Builders {
     /// <summary>
     /// 标签标签生成器
     /// </summary>
-    public class TagTagBuilder : TagBuilder {
+    public class TagTagBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Tags.Builders {
         /// <summary>
         /// 初始化标签标签生成器
         /// </summary>
-        public TagTagBuilder( Config config ) : base( "nz-tag" ) {
+        /// <param name="config">配置</param>
+        public TagTagBuilder( Config config ) : base( config,"nz-tag" ) {
             _config = config;
         }
 
@@ -62,6 +63,7 @@ namespace Util.Ui.NgZorro.Components.Tags.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Mode().Checked().Color().Events();
         }
     }

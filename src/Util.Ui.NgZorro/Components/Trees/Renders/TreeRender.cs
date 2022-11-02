@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Trees.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Trees.Renders {
     /// <summary>
     /// 树形控件渲染器
     /// </summary>
-    public class TreeRender : AngularRenderBase {
+    public class TreeRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Trees.Renders {
         /// 初始化树形控件渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TreeRender( Config config ) : base( config ) {
+        public TreeRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Trees.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new TreeBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

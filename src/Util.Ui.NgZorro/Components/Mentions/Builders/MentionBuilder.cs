@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Mentions.Builders {
     /// <summary>
     /// 提及标签生成器
     /// </summary>
-    public class MentionBuilder : TagBuilder {
+    public class MentionBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Mentions.Builders {
         /// <summary>
         /// 初始化提及标签生成器
         /// </summary>
-        public MentionBuilder( Config config ) : base( "nz-mention" ) {
+        public MentionBuilder( Config config ) : base( config,"nz-mention" ) {
             _config = config;
         }
 
@@ -83,6 +83,7 @@ namespace Util.Ui.NgZorro.Components.Mentions.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             Suggestions().Loading().ValueWith().Prefix().Placement()
                 .NotFoundContent().Events();
         }

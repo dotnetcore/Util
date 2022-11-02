@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Anchors.Builders {
     /// <summary>
     /// 锚点标签生成器
     /// </summary>
-    public class AnchorBuilder : TagBuilder {
+    public class AnchorBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Anchors.Builders {
         /// <summary>
         /// 初始化锚点标签生成器
         /// </summary>
-        public AnchorBuilder( Config config ) : base( "nz-anchor" ) {
+        public AnchorBuilder( Config config ) : base( config,"nz-anchor" ) {
             _config = config;
         }
 
@@ -77,6 +77,7 @@ namespace Util.Ui.NgZorro.Components.Anchors.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Affix().Bounds().OffsetTop().ShowInkInFixed().Container().Events();
         }
     }

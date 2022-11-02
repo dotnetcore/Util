@@ -55,5 +55,9 @@
         /// 验证扩展标识
         /// </summary>
         public string ValidationExtendId { get; set; }
+        /// <summary>
+        /// 验证模板标识
+        /// </summary>
+        public string ValidationTempalteId { get; set; }
     }
 }

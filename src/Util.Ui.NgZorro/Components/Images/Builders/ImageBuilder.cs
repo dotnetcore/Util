@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -7,7 +8,7 @@ namespace Util.Ui.NgZorro.Components.Images.Builders {
     /// <summary>
     /// 图片标签生成器
     /// </summary>
-    public class ImageBuilder : Util.Ui.Builders.TagBuilder {
+    public class ImageBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Images.Builders {
         /// <summary>
         /// 初始化图片标签生成器
         /// </summary>
-        public ImageBuilder( Config config ) : base( "img", TagRenderMode.SelfClosing ) {
+        public ImageBuilder( Config config ) : base( config,"img", TagRenderMode.SelfClosing ) {
             _config = config;
             base.Attribute( "nz-image" );
         }
@@ -110,6 +111,7 @@ namespace Util.Ui.NgZorro.Components.Images.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Src().Fallback().Placeholder().DisablePreview().CloseOnNavigation().Direction()
                 .Width().Height().Alt();
         }

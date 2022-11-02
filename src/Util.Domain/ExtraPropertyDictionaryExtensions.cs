@@ -18,7 +18,7 @@ namespace Util.Domain {
         }
 
         /// <summary>
-        /// 设置属性,如果存在则先移除旧属性
+        /// 设置属性,如果存在则先移除旧属性,当值为null时移除该属性
         /// </summary>
         /// <param name="source">扩展属性字典</param>
         /// <param name="name">属性名</param>
@@ -26,7 +26,8 @@ namespace Util.Domain {
         public static ExtraPropertyDictionary SetProperty( this ExtraPropertyDictionary source, string name, object value ) {
             source.CheckNull( nameof( source ) );
             source.RemoveProperty( name );
-            source[name] = value;
+            if ( value != null )
+                source[name] = value;
             return source;
         }
 

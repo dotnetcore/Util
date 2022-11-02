@@ -1,15 +1,15 @@
-﻿using System.Text;
-using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Forms.Builders;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Forms.Renders {
     /// <summary>
     /// 表单项渲染器
     /// </summary>
-    public class FormItemRender : AngularRenderBase {
+    public class FormItemRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -23,7 +23,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Renders {
         /// 初始化表单项渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public FormItemRender( Config config ) : base( config ) {
+        public FormItemRender( Config config ) {
             _config = config;
             _shareConfig = GetFormItemShareConfig();
         }
@@ -43,7 +43,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Renders {
             builder.Config();
             var formLabel = GetFormLabel();
             builder.AppendContent( formLabel );
-            ConfigContent( builder );
+            _config.Content.AppendTo( builder );
             return builder;
         }
 

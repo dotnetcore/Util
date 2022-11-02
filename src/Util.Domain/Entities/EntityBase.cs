@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Util.Domain.Compare;
 using Util.Domain.Extending;
 using Util.Properties;
 using Util.Validation;
@@ -9,7 +10,7 @@ namespace Util.Domain.Entities {
     /// 领域实体
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public abstract class EntityBase<TEntity> : EntityBase<TEntity, Guid> where TEntity : IEntity {
+    public abstract class EntityBase<TEntity> : EntityBase<TEntity, Guid> where TEntity : IEntity<TEntity, Guid> {
         /// <summary>
         /// 初始化领域实体
         /// </summary>
@@ -23,7 +24,7 @@ namespace Util.Domain.Entities {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">标识类型</typeparam>
-    public abstract class EntityBase<TEntity, TKey> : DomainObjectBase<TEntity>, IEntity<TEntity, TKey> where TEntity : IEntity {
+    public abstract class EntityBase<TEntity, TKey> : DomainObjectBase<TEntity>, IEntity<TEntity, TKey> where TEntity : IEntity<TEntity, TKey> {
         /// <summary>
         /// 初始化领域实体
         /// </summary>
@@ -42,7 +43,7 @@ namespace Util.Domain.Entities {
         /// <summary>
         /// 扩展属性集合
         /// </summary>
-        protected ExtraPropertyDictionary ExtraProperties { get; }
+        protected ExtraPropertyDictionary ExtraProperties { get; set; }
 
         /// <summary>
         /// 相等运算
@@ -78,6 +79,14 @@ namespace Util.Domain.Entities {
         /// </summary>
         public static bool operator !=( EntityBase<TEntity, TKey> left, EntityBase<TEntity, TKey> right ) {
             return !( left == right );
+        }
+
+        /// <summary>
+        /// 创建变更值集合
+        /// </summary>
+        protected override ChangeValueCollection CreateChangeValueCollection( TEntity newEntity ) {
+            var description = Util.Helpers.Reflection.GetDisplayNameOrDescription( newEntity.GetType() );
+            return new ChangeValueCollection( newEntity.GetType().ToString(), description,newEntity.Id.SafeString() );
         }
 
         /// <summary>
@@ -119,6 +128,13 @@ namespace Util.Domain.Entities {
                 return;
             if( string.IsNullOrWhiteSpace( Id.SafeString() ) || Id.Equals( default( TKey ) ) )
                 results.Add( new ValidationResult( R.IdIsEmpty ) );
+        }
+
+        /// <summary>
+        /// 克隆副本
+        /// </summary>
+        public virtual TEntity Clone() {
+            return this.MapTo<TEntity>();
         }
     }
 }

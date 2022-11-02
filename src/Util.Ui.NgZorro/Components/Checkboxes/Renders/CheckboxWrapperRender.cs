@@ -1,5 +1,4 @@
-﻿using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
@@ -28,7 +27,7 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Renders {
         /// </summary>
         protected override void AppendControl( TagBuilder formControlBuilder ) {
             var builder = new CheckboxWrapperBuilder( _config );
-            builder.ConfigCommon( _config ).Config();
+            builder.Config();
             _config.Content.AppendTo( builder );
             formControlBuilder.AppendContent( builder );
         }

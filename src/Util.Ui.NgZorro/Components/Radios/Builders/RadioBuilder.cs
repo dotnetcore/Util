@@ -21,6 +21,7 @@ namespace Util.Ui.NgZorro.Components.Radios.Builders {
         /// <summary>
         /// 初始化单选框标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public RadioBuilder( Config config ) : base( config,"label" ) {
             _config = config;
             _shareConfig = GetShareConfig();
@@ -96,6 +97,7 @@ namespace Util.Ui.NgZorro.Components.Radios.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Name().AutoFocus().Disabled().Value()
                 .Label().Events();
         }

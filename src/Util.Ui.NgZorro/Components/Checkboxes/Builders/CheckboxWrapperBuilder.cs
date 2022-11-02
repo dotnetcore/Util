@@ -1,11 +1,11 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
     /// <summary>
     /// 复选框包装器标签生成器
     /// </summary>
-    public class CheckboxWrapperBuilder : TagBuilder {
+    public class CheckboxWrapperBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -14,7 +14,8 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         /// <summary>
         /// 初始化复选框包装器标签生成器
         /// </summary>
-        public CheckboxWrapperBuilder( Config config ) : base( "nz-checkbox-wrapper" ) {
+        /// <param name="config">配置</param>
+        public CheckboxWrapperBuilder( Config config ) : base( config,"nz-checkbox-wrapper" ) {
             _config = config;
         }
 
@@ -30,6 +31,7 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             Events();
         }
     }

@@ -25,8 +25,9 @@ namespace Util.Logging.Serilog {
 
         /// <inheritdoc />
         public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
-            services.AddTransient<ILogFactory, LogFactory>();
+            services.AddSingleton<ILogFactory, LogFactory>();
             services.AddTransient( typeof( ILog<> ), typeof(Log<>) );
+            services.AddTransient( typeof( ILog ), t => t.GetService<ILogFactory>()?.CreateLog( "default" ) ?? NullLog.Instance );
             var configuration = context.Configuration;
             services.AddLogging( loggingBuilder => {
                 if ( _isClearProviders )

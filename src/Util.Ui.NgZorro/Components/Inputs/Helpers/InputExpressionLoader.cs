@@ -1,12 +1,13 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Expressions;
+using Util.Ui.NgZorro.Expressions;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
     /// <summary>
     /// 输入框表达式加载器
     /// </summary>
-    public class InputExpressionLoader : ExpressionLoaderBase {
+    public class InputExpressionLoader : NgZorroExpressionLoaderBase {
         /// <summary>
         /// 加载模型信息
         /// </summary>
@@ -20,6 +21,8 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
             LoadRequired( config, info );
             LoadMinLength( config, info );
             LoadMaxLength( config, info );
+            LoadMin( config, info );
+            LoadMax( config, info );
         }
 
         /// <summary>
@@ -78,6 +81,26 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
                 return;
             config.SetAttribute( UiConst.MaxLength, info.MaxLength, false );
             config.SetAttribute( UiConst.MaxLengthMessage, info.MaxLengthMessage, false );
+        }
+
+        /// <summary>
+        /// 加载最小值验证
+        /// </summary>
+        protected virtual void LoadMin( Config config, ModelExpressionInfo info ) {
+            if ( info.Min == null )
+                return;
+            config.SetAttribute( UiConst.Min, info.Min, false );
+            config.SetAttribute( UiConst.MinMessage, info.MinMessage, false );
+        }
+
+        /// <summary>
+        /// 加载最大值验证
+        /// </summary>
+        protected virtual void LoadMax( Config config, ModelExpressionInfo info ) {
+            if ( info.Max == null )
+                return;
+            config.SetAttribute( UiConst.Max, info.Max, false );
+            config.SetAttribute( UiConst.MaxMessage, info.MaxMessage, false );
         }
     }
 }

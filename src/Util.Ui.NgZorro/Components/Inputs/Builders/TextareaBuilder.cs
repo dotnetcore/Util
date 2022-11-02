@@ -100,6 +100,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Name().Placeholder().Disabled().Readonly().Size().Rows().Columns()
                 .Autosize().Size().Events()
                 .Required().RequiredMessage()

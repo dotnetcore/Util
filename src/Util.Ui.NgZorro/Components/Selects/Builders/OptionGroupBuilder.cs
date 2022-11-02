@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Selects.Builders {
     /// <summary>
     /// 选项组标签生成器
     /// </summary>
-    public class OptionGroupBuilder : TagBuilder {
+    public class OptionGroupBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// <summary>
         /// 初始化选项组标签生成器
         /// </summary>
-        public OptionGroupBuilder( Config config ) : base( "nz-option-group" ) {
+        /// <param name="config">配置</param>
+        public OptionGroupBuilder( Config config ) : base( config,"nz-option-group" ) {
             _config = config;
         }
 
@@ -32,6 +33,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Label();
         }
     }

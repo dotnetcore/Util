@@ -309,10 +309,45 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         }
 
         /// <summary>
-        /// 测试自动创建嵌套结构 - 添加一个列,取消自动创建
+        /// 测试自动创建嵌套结构 - 生成表头行,表头单元格,表格主体
         /// </summary>
         [Fact]
         public void TestAutoCreate_8() {
+            //创建表格主体行
+            var row = new TableRowTagHelper().ToWrapper();
+            row.SetContextAttribute( UiConst.Id, "rowId" );
+            _wrapper.AppendContent( row );
+
+            //创建列
+            var column = new TableColumnTagHelper().ToWrapper();
+            column.SetContextAttribute( UiConst.Title, "a" );
+            column.AppendContent( "b" );
+            row.AppendContent( column );
+
+            //结果
+            var result = new StringBuilder();
+            result.Append( "<nz-table>" );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th>a</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr #rowId=\"\">" );
+            result.Append( "<td>b</td>" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+
+            //验证
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自动创建嵌套结构 - 添加一个列,取消自动创建
+        /// </summary>
+        [Fact]
+        public void TestAutoCreate_9() {
             //取消自动创建
             _wrapper.SetContextAttribute( UiConst.EnableAutoCreate, "false" );
 

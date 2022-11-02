@@ -4,7 +4,7 @@ using Util.Domain.Trees;
 
 namespace Util.Data.Trees {
     /// <summary>
-    /// 树型查询条件
+    /// 树形查询条件
     /// </summary>
     public class TreeCondition<TEntity> : TreeCondition<TEntity, Guid?> where TEntity : IPath, IEnabled, IParentId<Guid?> {
         /// <summary>
@@ -22,7 +22,7 @@ namespace Util.Data.Trees {
     /// <typeparam name="TParentId">树形实体父标识类型</typeparam>
     public class TreeCondition<TEntity, TParentId> : ICondition<TEntity> where TEntity : IPath, IEnabled, IParentId<TParentId> {
         /// <summary>
-        /// 初始化树型查询条件
+        /// 初始化树形查询条件
         /// </summary>
         /// <param name="parameter">查询参数</param>
         public TreeCondition( ITreeQueryParameter parameter ) {

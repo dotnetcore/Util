@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Drawers.Builders {
     /// <summary>
     /// 抽屉标签生成器
     /// </summary>
-    public class DrawerBuilder : TagBuilder {
+    public class DrawerBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Drawers.Builders {
         /// <summary>
         /// 初始化抽屉标签生成器
         /// </summary>
-        public DrawerBuilder( Config config ) : base( "nz-drawer" ) {
+        /// <param name="config">配置</param>
+        public DrawerBuilder( Config config ) : base( config,"nz-drawer" ) {
             _config = config;
         }
 
@@ -193,6 +194,7 @@ namespace Util.Ui.NgZorro.Components.Drawers.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Closable().CloseIcon().MaskClosable().Mask().CloseOnNavigation()
                 .MaskStyle().Keyboard().BodyStyle().Title().Footer().Visible()
                 .Placement().Width().Height().OffsetX().OffsetY().WrapClassName()

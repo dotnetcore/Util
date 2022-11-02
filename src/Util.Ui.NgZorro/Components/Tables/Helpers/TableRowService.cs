@@ -32,22 +32,9 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         }
 
         /// <summary>
-        /// 初始化
+        /// 是否表头行
         /// </summary>
-        public void Init() {
-            CancelAutoCreateHeadRow();
-            CancelAutoCreateBodyRow();
-        }
-
-        /// <summary>
-        /// 取消自动创建表头行
-        /// </summary>
-        private void CancelAutoCreateHeadRow() {
-            var config = GetTableHeadShareConfig();
-            if ( config == null )
-                return;
-            _shareConfig.IsAutoCreateHeadRow = false;
-        }
+        public bool IsHeadRow => GetTableHeadShareConfig() != null;
 
         /// <summary>
         /// 获取表格头共享配置
@@ -57,20 +44,45 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         }
 
         /// <summary>
-        /// 取消自动创建表格主体行
-        /// </summary>
-        private void CancelAutoCreateBodyRow() {
-            var config = GetTableBodyShareConfig();
-            if ( config == null )
-                return;
-            _shareConfig.IsAutoCreateBodyRow = false;
-        }
-
-        /// <summary>
         /// 获取表格主体共享配置
         /// </summary>
         private TableBodyShareConfig GetTableBodyShareConfig() {
             return _config.GetValueFromItems<TableBodyShareConfig>();
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public void Init() {
+            ConfigRowId();
+            CancelAutoCreateHeadRow();
+            CancelAutoCreateBodyRow();
+        }
+
+        /// <summary>
+        /// 配置表格主体行标识
+        /// </summary>
+        private void ConfigRowId() {
+            if ( IsHeadRow )
+                return;
+            _shareConfig.SetRowId( _config.GetValue( UiConst.Id ) );
+        }
+
+        /// <summary>
+        /// 取消自动创建表头行
+        /// </summary>
+        private void CancelAutoCreateHeadRow() {
+            if ( IsHeadRow )
+                _shareConfig.IsAutoCreateHeadRow = false;
+        }
+
+        /// <summary>
+        /// 取消自动创建表格主体行
+        /// </summary>
+        private void CancelAutoCreateBodyRow() {
+            if ( IsHeadRow )
+                return;
+            _shareConfig.IsAutoCreateBodyRow = false;
         }
     }
 }

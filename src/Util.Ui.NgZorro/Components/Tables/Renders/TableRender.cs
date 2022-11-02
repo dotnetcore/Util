@@ -1,16 +1,16 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
-using Util.Ui.Angular.Renders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Tables.Renders {
     /// <summary>
     /// 表格渲染器
     /// </summary>
-    public class TableRender : AngularRenderBase {
+    public class TableRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -24,7 +24,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// 初始化表格渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableRender( Config config ) : base( config ) {
+        public TableRender( Config config ) {
             _config = config;
             _shareConfig = GetShareConfig();
         }

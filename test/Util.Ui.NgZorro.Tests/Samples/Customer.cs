@@ -50,6 +50,13 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         [MaxLength( 50 )]
         public int Phone { get; set; }
         /// <summary>
+        /// 年龄
+        ///</summary>
+        [Description( "年龄" )]
+        [Required]
+        [Range( 5.5,8.8 )]
+        public double Age { get; set; }
+        /// <summary>
         /// 电子邮件
         ///</summary>
         [Description( "电子邮件" )]

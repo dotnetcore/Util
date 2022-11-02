@@ -1,5 +1,4 @@
-﻿using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
@@ -35,7 +34,7 @@ namespace Util.Ui.NgZorro.Components.Cascaders.Renders {
         /// </summary>
         protected override void AppendControl( TagBuilder formControlBuilder ) {
             var builder = new CascaderBuilder( _config );
-            builder.ConfigCommon( _config ).Config();
+            builder.Config();
             _config.Content.AppendTo( builder );
             formControlBuilder.AppendContent( builder );
         }

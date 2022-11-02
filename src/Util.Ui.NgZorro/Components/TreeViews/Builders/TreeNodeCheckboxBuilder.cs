@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
     /// <summary>
     /// 树节点复选框标签生成器
     /// </summary>
-    public class TreeNodeCheckboxBuilder : TagBuilder {
+    public class TreeNodeCheckboxBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// <summary>
         /// 初始化树节点复选框标签生成器
         /// </summary>
-        public TreeNodeCheckboxBuilder( Config config ) : base( "nz-tree-node-checkbox" ) {
+        /// <param name="config">配置</param>
+        public TreeNodeCheckboxBuilder( Config config ) : base( config,"nz-tree-node-checkbox" ) {
             _config = config;
         }
 
@@ -57,6 +58,7 @@ namespace Util.Ui.NgZorro.Components.TreeViews.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Checked().Indeterminate().Disabled().Events();
         }
     }

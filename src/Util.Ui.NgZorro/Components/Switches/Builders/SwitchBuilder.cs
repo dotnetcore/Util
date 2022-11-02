@@ -17,17 +17,9 @@ namespace Util.Ui.NgZorro.Components.Switches.Builders {
         /// <summary>
         /// 初始化开关标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public SwitchBuilder( Config config ) : base( config, "nz-switch" ) {
             _config = config;
-        }
-
-        /// <summary>
-        /// 配置名称
-        /// </summary>
-        public SwitchBuilder Name() {
-            AttributeIfNotEmpty( "name", _config.GetValue( UiConst.Name ) );
-            AttributeIfNotEmpty( "[name]", _config.GetValue( AngularConst.BindName ) );
-            return this;
         }
 
         /// <summary>
@@ -95,6 +87,7 @@ namespace Util.Ui.NgZorro.Components.Switches.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Name().Disabled().CheckedChildren().UncheckedChildren()
                 .Size().Loading().Control().Events();
         }

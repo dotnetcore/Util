@@ -1,13 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Trees.Builders {
     /// <summary>
     /// 树形控件标签生成器
     /// </summary>
-    public class TreeBuilder : TagBuilder {
+    public class TreeBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.Trees.Builders {
         /// <summary>
         /// 初始化树形控件标签生成器
         /// </summary>
-        public TreeBuilder( Config config ) : base( "nz-tree" ) {
+        /// <param name="config">配置</param>
+        public TreeBuilder( Config config ) : base( config,"nz-tree" ) {
             _config = config;
         }
 
@@ -252,6 +252,7 @@ namespace Util.Ui.NgZorro.Components.Trees.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Data().BlockNode().Checkable().ShowExpand().ShowLine().ExpandedIcon().ShowIcon()
                 .AsyncData().Draggable().Multiple().HideUnMatched().CheckStrictly().TreeTemplate().ExpandAll()
                 .ExpandedKeys().CheckedKeys().SelectedKeys()

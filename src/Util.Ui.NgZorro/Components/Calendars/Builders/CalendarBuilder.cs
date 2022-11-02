@@ -1,6 +1,6 @@
-﻿using Util.Ui.Angular.Configs;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -8,7 +8,7 @@ namespace Util.Ui.NgZorro.Components.Calendars.Builders {
     /// <summary>
     /// 日历标签生成器
     /// </summary>
-    public class CalendarBuilder : TagBuilder {
+    public class CalendarBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Calendars.Builders {
         /// <summary>
         /// 初始化日历标签生成器
         /// </summary>
-        public CalendarBuilder( Config config ) : base( "nz-calendar" ) {
+        public CalendarBuilder( Config config ) : base( config, "nz-calendar" ) {
             _config = config;
         }
 
@@ -79,6 +79,7 @@ namespace Util.Ui.NgZorro.Components.Calendars.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             this.NgModel( _config );
             Mode().Fullscreen().DateCell().MonthCell().DisabledDate().Events();
         }

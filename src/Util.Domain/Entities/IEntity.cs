@@ -23,6 +23,10 @@ namespace Util.Domain.Entities {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">标识类型</typeparam>
-    public interface IEntity<in TEntity, out TKey> : ICompareChange<TEntity>, IEntity<TKey> where TEntity : IEntity {
+    public interface IEntity<TEntity, out TKey> : ICompareChange<TEntity>, IEntity<TKey> where TEntity : IEntity {
+        /// <summary>
+        /// 复制实体
+        /// </summary>
+        TEntity Clone();
     }
 }

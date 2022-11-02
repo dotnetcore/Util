@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Renders;
 using Util.Ui.Tests.Samples.Containers.Builders;
 
 namespace Util.Ui.Tests.Samples.Containers.Renders {
     /// <summary>
     /// ng-container容器渲染器
     /// </summary>
-    public class ContainerRender : AngularRenderBase {
+    public class ContainerRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.Tests.Samples.Containers.Renders {
         /// 初始化ng-container容器渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ContainerRender( Config config ) : base( config ) {
+        public ContainerRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.Tests.Samples.Containers.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new ContainerBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

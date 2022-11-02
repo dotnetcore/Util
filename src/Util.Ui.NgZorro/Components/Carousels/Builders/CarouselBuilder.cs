@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Carousels.Builders {
     /// <summary>
     /// 走马灯标签生成器
     /// </summary>
-    public class CarouselBuilder : TagBuilder {
+    public class CarouselBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Carousels.Builders {
         /// <summary>
         /// 初始化走马灯标签生成器
         /// </summary>
-        public CarouselBuilder( Config config ) : base( "nz-carousel" ) {
+        /// <param name="config">配置</param>
+        public CarouselBuilder( Config config ) : base( config,"nz-carousel" ) {
             _config = config;
         }
 
@@ -95,6 +96,7 @@ namespace Util.Ui.NgZorro.Components.Carousels.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             AutoPlay().AutoPlaySpeed().DotRender().DotPosition()
                 .Dots().Effect().EnableSwipe()
                 .Events();

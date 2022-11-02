@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
 using Util.Ui.NgZorro.Components.Forms.Renders;
@@ -16,6 +18,10 @@ namespace Util.Ui.NgZorro.Components.Forms {
         /// 配置
         /// </summary>
         private Config _config;
+        /// <summary>
+        /// 属性表达式
+        /// </summary>
+        public ModelExpression For { get; set; }
         /// <summary>
         /// [nzRequired],是否必填项，显示红色星号
         /// </summary>
@@ -63,6 +69,15 @@ namespace Util.Ui.NgZorro.Components.Forms {
             var service = new FormItemShareService( _config );
             service.Init();
             service.AutoCreateFormLabel( false );
+            LoadExpression();
+        }
+
+        /// <summary>
+        /// 加载表达式
+        /// </summary>
+        private void LoadExpression() {
+            var loader = new ExpressionLoader();
+            loader.Load( _config );
         }
 
         /// <inheritdoc />

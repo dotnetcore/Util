@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Empties.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Empties.Renders {
     /// <summary>
     /// 空状态渲染器
     /// </summary>
-    public class EmptyRender : AngularRenderBase {
+    public class EmptyRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Empties.Renders {
         /// 初始化空状态渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public EmptyRender( Config config ) : base( config ) {
+        public EmptyRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Empties.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new EmptyBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

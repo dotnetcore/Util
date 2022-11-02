@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Empties.Builders {
     /// <summary>
     /// 空状态标签生成器
     /// </summary>
-    public class EmptyBuilder : TagBuilder {
+    public class EmptyBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.Empties.Builders {
         /// <summary>
         /// 初始化空状态标签生成器
         /// </summary>
-        public EmptyBuilder( Config config ) : base( "nz-empty" ) {
+        /// <param name="config">配置</param>
+        public EmptyBuilder( Config config ) : base( config,"nz-empty" ) {
             _config = config;
         }
 
@@ -50,6 +51,7 @@ namespace Util.Ui.NgZorro.Components.Empties.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             NotFoundImage().NotFoundContent().NotFoundFooter();
         }
     }

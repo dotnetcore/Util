@@ -132,7 +132,4 @@
   <data name="UpdateRequestIsEmpty" xml:space="preserve">
     <value>修改参数不能为空</value>
   </data>
-  <data name="WebApiException" xml:space="preserve">
-    <value>WebApi全局异常</value>
-  </data>
 </root>

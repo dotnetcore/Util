@@ -37,6 +37,22 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// </summary>
         public string BindUrl { get; set; }
         /// <summary>
+        /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
+        /// </summary>
+        public bool AutoLoad { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示复选框,已提供复选框联动功能
+        /// </summary>
+        public bool ShowCheckbox { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示单选框
+        /// </summary>
+        public bool ShowRadio { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示序号
+        /// </summary>
+        public bool ShowLineNumber { get; set; }
+        /// <summary>
         /// order,排序条件,范例: creationTime desc
         /// </summary>
         public string Sort { get; set; }

@@ -1,14 +1,14 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
-using Util.Ui.Builders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Components.Inputs.Configs;
+using Util.Ui.Angular.Builders;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Builders {
     /// <summary>
     /// 输入框组合标签生成器
     /// </summary>
-    public class InputGroupBuilder : TagBuilder {
+    public class InputGroupBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -22,7 +22,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 初始化输入框组合标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public InputGroupBuilder( Config config ) : base( "nz-input-group" ) {
+        public InputGroupBuilder( Config config ) : base( config,"nz-input-group" ) {
             _config = config;
             _shareConfig = GetInputGroupShareConfig();
         }
@@ -153,6 +153,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             AddOnBefore().AddOnAfter().AddOnBeforeIcon().AddOnAfterIcon()
                 .Prefix().Suffix().PrefixIcon().SuffixIcon()
                 .Search().Size().Compact();

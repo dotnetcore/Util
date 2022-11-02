@@ -21,6 +21,7 @@ namespace Util.Ui.NgZorro.Components.Radios.Builders {
         /// <summary>
         /// 初始化单选框组合标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public RadioGroupBuilder( Config config ) : base( config, "nz-radio-group" ) {
             _config = config;
             _shareConfig = GetShareConfig();
@@ -75,6 +76,7 @@ namespace Util.Ui.NgZorro.Components.Radios.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().Name().Disabled().Size().ButtonStyle()
                 .Data().Url();
         }

@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Lists.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Lists.Renders {
     /// <summary>
     /// 列表头部渲染器
     /// </summary>
-    public class ListHeaderRender : AngularRenderBase {
+    public class ListHeaderRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Lists.Renders {
         /// 初始化列表头部渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public ListHeaderRender( Config config ) : base( config ) {
+        public ListHeaderRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Lists.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new ListHeaderBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

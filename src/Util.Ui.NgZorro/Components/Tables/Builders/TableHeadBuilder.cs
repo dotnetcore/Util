@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -8,7 +9,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>
     /// 表头标签生成器
     /// </summary>
-    public class TableHeadBuilder : TagBuilder {
+    public class TableHeadBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -21,7 +22,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 初始化表头标签生成器
         /// </summary>
-        public TableHeadBuilder( Config config ) : base( "thead" ) {
+        /// <param name="config">配置</param>
+        public TableHeadBuilder( Config config ) : base( config,"thead" ) {
             _config = config;
             _tableShareConfig = GetTableShareConfig();
         }
@@ -41,9 +43,17 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 创建表头行标签生成器
+        /// </summary>
+        public virtual TableHeadRowBuilder CreateTableHeadRowBuilder() {
+            return new TableHeadRowBuilder( _config.CopyRemoveId() );
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigAutoCreate();
             ConfigContent();
         }

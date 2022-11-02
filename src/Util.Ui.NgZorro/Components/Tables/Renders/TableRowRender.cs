@@ -1,14 +1,14 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Tables.Renders {
     /// <summary>
     /// 表格行渲染器
     /// </summary>
-    public class TableRowRender : AngularRenderBase {
+    public class TableRowRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -18,7 +18,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// 初始化表格行渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableRowRender( Config config ) : base( config ) {
+        public TableRowRender( Config config ) {
             _config = config;
         }
 

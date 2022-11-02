@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Modals.Builders {
     /// <summary>
     /// 对话框标签生成器
     /// </summary>
-    public class ModalBuilder : TagBuilder {
+    public class ModalBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Modals.Builders {
         /// <summary>
         /// 初始化对话框标签生成器
         /// </summary>
-        public ModalBuilder( Config config ) : base( "nz-modal" ) {
+        /// <param name="config">配置</param>
+        public ModalBuilder( Config config ) : base( config,"nz-modal" ) {
             _config = config;
         }
 
@@ -287,6 +288,7 @@ namespace Util.Ui.NgZorro.Components.Modals.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Mask().MaskClosable().CloseOnNavigation().Visible().Closable()
                 .OkLoading().OkDisabled().CancelLoading().CancelDisabled()
                 .Keyboard().Centered().Content().ComponentParams().Footer()

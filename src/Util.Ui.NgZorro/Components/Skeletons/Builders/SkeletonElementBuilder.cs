@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Skeletons.Builders {
     /// <summary>
     /// 骨架屏元素标签生成器
     /// </summary>
-    public class SkeletonElementBuilder : TagBuilder {
+    public class SkeletonElementBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Skeletons.Builders {
         /// <summary>
         /// 初始化骨架屏元素标签生成器
         /// </summary>
-        public SkeletonElementBuilder( Config config ) : base( "nz-skeleton-element" ) {
+        /// <param name="config">配置</param>
+        public SkeletonElementBuilder( Config config ) : base( config,"nz-skeleton-element" ) {
             _config = config;
         }
 
@@ -60,6 +61,7 @@ namespace Util.Ui.NgZorro.Components.Skeletons.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Type().Active().Size().Shape();
         }
     }

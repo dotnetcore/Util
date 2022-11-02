@@ -21,14 +21,15 @@ namespace Util.Ui.Expressions {
         /// </summary>
         protected virtual ModelExpressionInfo ResolveModelExpression( Config config, string expressionPropertyName ) {
             var expression = config.GetValue<ModelExpression>( expressionPropertyName );
-            var resolver = CreateExpressionResolver();
+            var resolver = CreateExpressionResolver( config );
             return resolver.Resolve( expression );
         }
 
         /// <summary>
         /// 创建模型表达式解析器
         /// </summary>
-        protected virtual IExpressionResolver CreateExpressionResolver() {
+        /// <param name="config">配置</param>
+        protected virtual IExpressionResolver CreateExpressionResolver( Config config ) {
             return new ExpressionResolver();
         }
 

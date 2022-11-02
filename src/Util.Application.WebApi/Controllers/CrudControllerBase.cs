@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Util.Applications.Dtos;
+using Util.Applications.Models;
 using Util.Applications.Properties;
 using Util.Data.Queries;
 
@@ -94,20 +96,25 @@ namespace Util.Applications.Controllers {
         }
 
         /// <summary>
-        /// 删除，注意：该方法用于删除单个实体，批量删除请使用POST提交，否则可能失败
+        /// 删除
         /// </summary>
-        /// <param name="id">标识</param>
-        protected async Task<IActionResult> DeleteAsync( string id ) {
-            await _service.DeleteAsync( id );
+        /// <param name="ids">标识列表</param>
+        protected async Task<IActionResult> DeleteAsync( string ids ) {
+            await _service.DeleteAsync( ids );
             return Success();
         }
 
         /// <summary>
-        /// 批量删除
+        /// 批量保存
         /// </summary>
-        /// <param name="ids">标识列表，多个Id用逗号分隔，范例：1,2,3</param>
-        protected async Task<IActionResult> BatchDeleteAsync( string ids ) {
-            await _service.DeleteAsync( ids );
+        /// <param name="request">保存参数</param>
+        protected async Task<IActionResult> SaveAsync( SaveModel request ) {
+            if ( request == null )
+                return Fail( WebApiResource.RequestIsEmpty );
+            var creationList = Util.Helpers.Json.ToObject<List<TDto>>( request.CreationList );
+            var updateList = Util.Helpers.Json.ToObject<List<TDto>>( request.UpdateList );
+            var deleteList = Util.Helpers.Json.ToObject<List<TDto>>( request.DeleteList );
+            await _service.SaveAsync( creationList, updateList, deleteList );
             return Success();
         }
     }

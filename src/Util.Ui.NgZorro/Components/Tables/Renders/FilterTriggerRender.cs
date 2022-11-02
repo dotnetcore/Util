@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Tables.Renders {
     /// <summary>
     /// 表头单元格过滤器触发按钮渲染器
     /// </summary>
-    public class FilterTriggerRender : AngularRenderBase {
+    public class FilterTriggerRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// 初始化表头单元格过滤器触发按钮渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public FilterTriggerRender( Config config ) : base( config ) {
+        public FilterTriggerRender( Config config ) {
             _config = config;
         }
 
@@ -27,7 +27,6 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         protected override TagBuilder GetTagBuilder() {
             var builder = new FilterTriggerBuilder( _config );
             builder.Config();
-            ConfigContent( builder );
             return builder;
         }
     }

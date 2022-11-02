@@ -1,5 +1,4 @@
-﻿using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
 
@@ -26,7 +25,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Renders {
         /// </summary>
         protected override TagBuilder GetInputBuilder() {
             var builder = new InputBuilder( _config );
-            builder.ConfigCommon( _config ).Config();
+            builder.Config();
             return builder;
         }
     }

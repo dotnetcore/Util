@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Statistics.Builders {
     /// <summary>
     /// 倒计时标签生成器
     /// </summary>
-    public class CountdownBuilder : TagBuilder {
+    public class CountdownBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.Statistics.Builders {
         /// <summary>
         /// 初始化倒计时标签生成器
         /// </summary>
-        public CountdownBuilder( Config config ) : base( "nz-countdown" ) {
+        /// <param name="config">配置</param>
+        public CountdownBuilder( Config config ) : base( config,"nz-countdown" ) {
             _config = config;
         }
 
@@ -84,6 +85,7 @@ namespace Util.Ui.NgZorro.Components.Statistics.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Format().Prefix().Suffix().Title().Value().ValueTemplate().Events();
         }
     }

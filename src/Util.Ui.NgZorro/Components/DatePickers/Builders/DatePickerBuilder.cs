@@ -28,7 +28,7 @@ namespace Util.Ui.NgZorro.Components.DatePickers.Builders {
             AttributeIfNotEmpty( "nzId", _config.GetValue( UiConst.InputId ) );
             return this;
         }
-        
+
         /// <summary>
         /// 配置允许清除
         /// </summary>
@@ -227,6 +227,7 @@ namespace Util.Ui.NgZorro.Components.DatePickers.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().InputId().AllowClear().AutoFocus().DefaultPickerValue()
                 .Disabled().DisabledDate().DisabledTime()
                 .DropdownClassName().PopupStyle().Format().InputReadonly().Locale().Mode()

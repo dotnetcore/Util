@@ -1,12 +1,13 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Autocompletes.Builders {
     /// <summary>
     /// 自动完成项标签生成器
     /// </summary>
-    public class AutoOptionBuilder : TagBuilder {
+    public class AutoOptionBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Autocompletes.Builders {
         /// <summary>
         /// 初始化自动完成项标签生成器
         /// </summary>
-        public AutoOptionBuilder( Config config ) : base( "nz-auto-option" ) {
+        public AutoOptionBuilder( Config config ) : base( config,"nz-auto-option" ) {
             _config = config;
         }
 
@@ -50,7 +51,27 @@ namespace Util.Ui.NgZorro.Components.Autocompletes.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Value().Label().Disabled();
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected override void ConfigContent(Config config) {
+            if ( config.Content.IsEmpty() == false ) {
+                config.Content.AppendTo( this );
+                return;
+            }
+            var label = config.GetValue( UiConst.Label );
+            if ( string.IsNullOrWhiteSpace( label ) == false ) {
+                AppendContent( label );
+                return;
+            }
+            var bindLabel = config.GetValue( AngularConst.BindLabel );
+            if ( string.IsNullOrWhiteSpace( bindLabel ) )
+                return;
+            AppendContent( $"{{{{{bindLabel}}}}}" );
         }
     }
 }

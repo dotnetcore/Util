@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -39,7 +40,7 @@ namespace Util.Applications.Filters {
             try {
                 isSuccess = @lock.Lock( key, GetExpiration() );
                 if ( isSuccess == false ) {
-                    context.Result = new Result( StateCode.Fail, GetFailMessage( context ) );
+                    context.Result = GetResult( context,StateCode.Fail, GetFailMessage( context ) );
                     return;
                 }
                 OnActionExecuting( context );
@@ -86,6 +87,16 @@ namespace Util.Applications.Filters {
             if ( Interval == 0 )
                 return null;
             return TimeSpan.FromSeconds( Interval );
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        private IActionResult GetResult( ActionExecutingContext context,string code, string message ) {
+            var resultFactory = context.HttpContext.RequestServices.GetService<IResultFactory>();
+            if ( resultFactory == null )
+                return new Result( code, message );
+            return resultFactory.CreateResult( code, message, null, null );
         }
 
         /// <summary>

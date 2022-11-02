@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Inputs;
 using Util.Ui.NgZorro.Components.Tables;
+using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Xunit;
@@ -97,10 +97,65 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         [Fact]
         public void TestColumn_2() {
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
-            var input = new InputTagHelper().ToWrapper();
-            _wrapper.AppendContent( input );
+            _wrapper.AppendContent( "b" );
             var result = new StringBuilder();
-            result.Append( "<td><input nz-input=\"\" /></td>" );
+            result.Append( "<td>b</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region Checkbox
+
+        /// <summary>
+        /// 测试设置复选框
+        /// </summary>
+        [Fact]
+        public void TestCheckbox() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowCheckbox = true } );
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            var result = new StringBuilder();
+            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
+            result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
+            result.Append( "[nzShowCheckbox]=\"true\">" );
+            result.Append( "</td>" );
+            result.Append( "<td>{{row.a}}</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region Radio
+
+        /// <summary>
+        /// 测试设置单选框
+        /// </summary>
+        [Fact]
+        public void TestRadio_1() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowRadio = true } );
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            var result = new StringBuilder();
+            result.Append( "<td>" );
+            result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
+            result.Append( "</label>" );
+            result.Append( "</td>" );
+            result.Append( "<td>{{row.a}}</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试设置单选框 - 如果已设置复选框,则单选框不生效
+        /// </summary>
+        [Fact]
+        public void TestRadio_2() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowCheckbox = true, IsShowRadio = true } );
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            var result = new StringBuilder();
+            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
+            result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
+            result.Append( "[nzShowCheckbox]=\"true\">" );
+            result.Append( "</td>" );
+            result.Append( "<td>{{row.a}}</td>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -109,29 +164,31 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         #region LineNumber
 
         /// <summary>
-        /// 测试行号
+        /// 测试序号
         /// </summary>
         [Fact]
-        public void TestType_LineNumber() {
-            _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.LineNumber );
+        public void TestLineNumber() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowLineNumber = true } );
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
             result.Append( "<td>{{row.lineNumber}}</td>" );
+            result.Append( "<td>{{row.a}}</td>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
         /// <summary>
-        /// 测试行号标题
+        /// 测试序号 - 带标题
         /// </summary>
         [Fact]
-        public void TestType_LineNumber_Title() {
+        public void TestLineNumber_Title() {
             //创建表格
             var table = new TableTagHelper().ToWrapper();
+            table.SetContextAttribute( UiConst.ShowLineNumber, true );
 
             //添加列
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            _wrapper.SetContextAttribute( UiConst.Title, "b" );
             table.AppendContent( _wrapper );
-
-            //设置行号类型
-            _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.LineNumber );
 
             //结果
             var result = new StringBuilder();
@@ -139,70 +196,13 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "<thead>" );
             result.Append( "<tr>" );
             result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
+            result.Append( "<th>b</th>" );
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
             result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
             result.Append( "<td>{{row.lineNumber}}</td>" );
-            result.Append( "</tr>" );
-            result.Append( "</tbody>" );
-            result.Append( "</nz-table>" );
-            AppendTotalTemplate( result );
-
-            //验证
-            Assert.Equal( result.ToString(), table.GetResult() );
-        }
-
-        #endregion
-
-        #region Checkbox
-
-        /// <summary>
-        /// 测试设置复选框类型
-        /// </summary>
-        [Fact]
-        public void TestType_Checkbox() {
-            _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Checkbox );
-            var result = new StringBuilder();
-            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.checkedSelection.toggle(row)\" " );
-            result.Append( "[nzChecked]=\"x_id.checkedSelection.isSelected(row)\" " );
-            result.Append( "[nzShowCheckbox]=\"x_id.multiple\">" );
-            result.Append( "</td>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试表头复选框
-        /// </summary>
-        [Fact]
-        public void TestType_Checkbox_Head() {
-            //创建表格
-            var table = new TableTagHelper().ToWrapper();
-
-            //添加列
-            table.AppendContent( _wrapper );
-
-            //设置复选框类型
-            _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Checkbox );
-
-            //结果
-            var result = new StringBuilder();
-            AppendExtendTable( result );
-            result.Append( "<thead>" );
-            result.Append( "<tr>" );
-            result.Append( "<th (nzCheckedChange)=\"x_id.masterToggle()\" " );
-            result.Append( "[nzChecked]=\"x_id.isMasterChecked()\" " );
-            result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
-            result.Append( "[nzShowCheckbox]=\"x_id.multiple\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
-            result.Append( "</th>" );
-            result.Append( "</tr>" );
-            result.Append( "</thead>" );
-            result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
-            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.checkedSelection.toggle(row)\" " );
-            result.Append( "[nzChecked]=\"x_id.checkedSelection.isSelected(row)\" " );
-            result.Append( "[nzShowCheckbox]=\"x_id.multiple\">" );
-            result.Append( "</td>" );
+            result.Append( "<td>{{row.a}}</td>" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
@@ -12,7 +13,7 @@ namespace Util.Ui.NgZorro.Components.Base {
     /// <summary>
     /// 按钮标签生成器基类
     /// </summary>
-    public abstract class ButtonBuilderBase<TBuilder> : Util.Ui.Builders.TagBuilder where TBuilder : ButtonBuilderBase<TBuilder> {
+    public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBuilder : ButtonBuilderBase<TBuilder> {
         /// <summary>
         /// 配置
         /// </summary>
@@ -24,7 +25,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// <param name="config">配置</param>
         /// <param name="tagName">标签名称，范例：div</param>
         /// <param name="renderMode">渲染模式</param>
-        protected ButtonBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( tagName, renderMode ) {
+        protected ButtonBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config, tagName, renderMode ) {
             _config = config;
         }
 
@@ -104,7 +105,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// 配置图标
         /// </summary>
         public TBuilder Icon() {
-            if( _config.Contains( UiConst.Icon ) == false )
+            if ( _config.Contains( UiConst.Icon ) == false )
                 return (TBuilder)this;
             var iconBuilder = new IconBuilder( _config );
             iconBuilder.Icon();
@@ -128,7 +129,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// </summary>
         public TBuilder DropdownMenu() {
             var menu = _config.GetValue( UiConst.DropdownMenu );
-            if( string.IsNullOrWhiteSpace( menu ) )
+            if ( string.IsNullOrWhiteSpace( menu ) )
                 return (TBuilder)this;
             Attribute( "nz-dropdown" ).Attribute( "[nzDropdownMenu]", menu );
             return (TBuilder)this;
@@ -361,7 +362,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// </summary>
         protected TBuilder ValidateForm() {
             var result = _config.GetValue<bool?>( UiConst.ValidateForm );
-            if( result == true )
+            if ( result == true )
                 Attribute( "x-button-extend" );
             return (TBuilder)this;
         }

@@ -1,15 +1,17 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Angular.Renders;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Typographies.Renders {
     /// <summary>
     /// 排版组件渲染器
     /// </summary>
-    public class TypographyRender : AngularRenderBase {
+    public class TypographyRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -24,7 +26,7 @@ namespace Util.Ui.NgZorro.Components.Typographies.Renders {
         /// </summary>
         /// <param name="config">配置</param>
         /// <param name="builder">标签生成器</param>
-        public TypographyRender( Config config, TagBuilder builder ) : base( config ) {
+        public TypographyRender( Config config, TagBuilder builder ) {
             _config = config;
             _builder = builder;
         }
@@ -52,6 +54,19 @@ namespace Util.Ui.NgZorro.Components.Typographies.Renders {
             _builder.Tooltip( _config );
             ConfigContent( _builder );
             return _builder;
+        }
+
+        /// <summary>
+        /// 基础配置
+        /// </summary>
+        /// <param name="config">配置</param>
+        protected virtual void ConfigBase( Config config ) {
+            _builder.Style( config );
+            _builder.Class( config );
+            _builder.Hidden( config );
+            _builder.Attributes( config.OutputAttributes );
+            _builder.RawId( config );
+            _builder.Id( config );
         }
 
         /// <summary>
@@ -181,6 +196,13 @@ namespace Util.Ui.NgZorro.Components.Typographies.Renders {
             _builder.AttributeIfNotEmpty( "(nzContentChange)", _config.GetValue( UiConst.OnContentChange ) );
             _builder.AttributeIfNotEmpty( "(nzExpandChange)", _config.GetValue( UiConst.OnExpandChange ) );
             _builder.AttributeIfNotEmpty( "(nzOnEllipsis)", _config.GetValue( UiConst.OnEllipsis ) );
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected virtual void ConfigContent( TagBuilder builder ) {
+            _config.Content.AppendTo( builder );
         }
     }
 }

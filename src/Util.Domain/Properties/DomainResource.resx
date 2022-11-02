@@ -121,4 +121,7 @@
     <value>{0}({1}),原始值:{2},新值:{3}</value>
     <comment>变更值ToString方法返回消息</comment>
   </data>
+  <data name="NotSupportMoveToChildren" xml:space="preserve">
+    <value>不允许将节点移动到自己或子节点下</value>
+  </data>
 </root>

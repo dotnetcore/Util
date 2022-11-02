@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Progresses.Builders {
     /// <summary>
     /// 进度条标签生成器
     /// </summary>
-    public class ProgressBuilder : TagBuilder {
+    public class ProgressBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Progresses.Builders {
         /// <summary>
         /// 初始化进度条标签生成器
         /// </summary>
-        public ProgressBuilder( Config config ) : base( "nz-progress" ) {
+        /// <param name="config">配置</param>
+        public ProgressBuilder( Config config ) : base( config,"nz-progress" ) {
             _config = config;
         }
 
@@ -140,6 +141,7 @@ namespace Util.Ui.NgZorro.Components.Progresses.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Type().Format().Percent().ShowInfo().Status().StrokeLinecap()
                 .StrokeColor().SuccessPercent().StrokeWidth().Steps().Width()
                 .GapDegree().GapPosition();

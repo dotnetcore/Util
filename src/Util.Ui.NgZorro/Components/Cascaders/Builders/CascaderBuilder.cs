@@ -16,6 +16,7 @@ namespace Util.Ui.NgZorro.Components.Cascaders.Builders {
         /// <summary>
         /// 初始化级联选择标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public CascaderBuilder( Config config ) : base( config, "nz-cascader" ) {
             _config = config;
         }
@@ -236,6 +237,7 @@ namespace Util.Ui.NgZorro.Components.Cascaders.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().AllowClear().AutoFocus().ChangeOn().ChangeOnSelect().ColumnClassName()
                 .Disabled().ExpandIcon().ExpandTrigger().LabelProperty().LabelRender().LoadData()
                 .MenuClassName().MenuStyle().NotFoundContent().OptionRender().Options()

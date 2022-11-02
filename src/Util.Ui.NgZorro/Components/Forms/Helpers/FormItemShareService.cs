@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Components.Tables.Configs;
 
 namespace Util.Ui.NgZorro.Components.Forms.Helpers {
     /// <summary>
@@ -77,6 +78,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
             SetErrorTip();
             SetValidatingTip();
             AutoCreateFormContainer();
+            DisableLabelForTableEdit();
         }
 
         /// <summary>
@@ -305,6 +307,23 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
             if ( _shareConfig.ControlXxlPush != null )
                 return true;
             return false;
+        }
+
+        /// <summary>
+        /// 表格编辑时禁用标签
+        /// </summary>
+        private void DisableLabelForTableEdit() {
+            var config = GetTableColumnShareConfig();
+            if ( config == null )
+                return;
+            _shareConfig.AutoCreateFormLabel = false;
+        }
+
+        /// <summary>
+        /// 获取表格列共享配置
+        /// </summary>
+        public TableColumnShareConfig GetTableColumnShareConfig() {
+            return _config.GetValueFromItems<TableColumnShareConfig>();
         }
     }
 }

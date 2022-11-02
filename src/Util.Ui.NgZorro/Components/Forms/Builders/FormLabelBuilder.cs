@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -510,7 +511,20 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             ConfigColumn().Required().NoColon().For().TooltipTitle().TooltipIcon();
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected override void ConfigContent( Config config ) {
+            if ( config.Content.IsEmpty() ) {
+                var title = config.GetValue( UiConst.Title );
+                SetContent( title );
+                return;
+            }
+            base.ConfigContent( config );
         }
     }
 }

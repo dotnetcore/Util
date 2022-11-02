@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Tables.Renders {
     /// <summary>
     /// 表格主体渲染器
     /// </summary>
-    public class TableBodyRender : AngularRenderBase {
+    public class TableBodyRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// 初始化表格主体渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableBodyRender( Config config ) : base( config ) {
+        public TableBodyRender( Config config ) {
             _config = config;
         }
 

@@ -17,6 +17,7 @@ namespace Util.Ui.NgZorro.Components.Grids.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             ConfigColumn();
         }
     }

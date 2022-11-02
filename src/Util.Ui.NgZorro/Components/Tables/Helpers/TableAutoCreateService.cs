@@ -1,4 +1,5 @@
 ﻿using System;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -25,12 +26,10 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// 初始化表格嵌套结构自动创建服务
         /// </summary>
         /// <param name="tableBuilder">表格标签生成器</param>
-        /// <param name="config">配置</param>
-        /// <param name="shareConfig">表格共享配置</param>
-        public TableAutoCreateService( TableBuilder tableBuilder, Config config, TableShareConfig shareConfig ) {
+        public TableAutoCreateService( TableBuilder tableBuilder ) {
             _tableBuilder = tableBuilder ?? throw new ArgumentNullException( nameof( tableBuilder ) );
-            _config = config;
-            _shareConfig = shareConfig;
+            _config = tableBuilder.GetConfig();
+            _shareConfig = tableBuilder.GetShareConfig();
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
             if ( _shareConfig.IsAutoCreateHead == false )
                 return;
             _shareConfig.HeadAutoCreated = true;
-            var headBuilder = new TableHeadBuilder( _config );
+            var headBuilder = _tableBuilder.CreateTableHeadBuilder();
             _tableBuilder.AppendContent( headBuilder );
             headBuilder.ConfigAutoCreate();
             headBuilder.ConfigContent();
@@ -78,7 +77,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
             if ( _shareConfig.IsAutoCreateBody == false )
                 return;
             _shareConfig.BodyAutoCreated = true;
-            var bodyBuilder = new TableBodyBuilder( _config );
+            var bodyBuilder = _tableBuilder.CreateTableBodyBuilder();
             _tableBuilder.AppendContent( bodyBuilder );
             bodyBuilder.ConfigAutoCreate();
             bodyBuilder.ConfigContent();

@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Tabs.Builders {
     /// <summary>
     /// 标签页标签生成器
     /// </summary>
-    public class TabSetBuilder : TagBuilder {
+    public class TabSetBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,8 @@ namespace Util.Ui.NgZorro.Components.Tabs.Builders {
         /// <summary>
         /// 初始化标签页标签生成器
         /// </summary>
-        public TabSetBuilder( Config config ) : base( "nz-tabset" ) {
+        /// <param name="config">配置</param>
+        public TabSetBuilder( Config config ) : base( config,"nz-tabset" ) {
             _config = config;
         }
 
@@ -168,6 +169,7 @@ namespace Util.Ui.NgZorro.Components.Tabs.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             SelectedIndex().Animated().Size().Type()
                 .TabBarExtraContent().TabBarStyle().TabPosition().TabBarGutter()
                 .HideAll().LinkRouter().LinkExact().CanDeactivate().Centered()

@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Anchors.Builders {
     /// <summary>
     /// 链接标签生成器
     /// </summary>
-    public class LinkBuilder : TagBuilder {
+    public class LinkBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Anchors.Builders {
         /// <summary>
         /// 初始化链接标签生成器
         /// </summary>
-        public LinkBuilder( Config config ) : base( "nz-link" ) {
+        public LinkBuilder( Config config ) : base( config, "nz-link" ) {
             _config = config;
         }
 
@@ -41,6 +41,7 @@ namespace Util.Ui.NgZorro.Components.Anchors.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Href().Title();
         }
     }

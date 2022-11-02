@@ -1,5 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -7,7 +7,7 @@ namespace Util.Ui.NgZorro.Components.Timelines.Builders {
     /// <summary>
     /// 时间轴节点标签生成器
     /// </summary>
-    public class TimelineItemBuilder : TagBuilder {
+    public class TimelineItemBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Components.Timelines.Builders {
         /// <summary>
         /// 初始化时间轴节点标签生成器
         /// </summary>
-        public TimelineItemBuilder( Config config ) : base( "nz-timeline-item" ) {
+        public TimelineItemBuilder( Config config ) : base( config,"nz-timeline-item" ) {
             _config = config;
         }
 
@@ -50,6 +50,7 @@ namespace Util.Ui.NgZorro.Components.Timelines.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Color().Dot().Position();
         }
     }

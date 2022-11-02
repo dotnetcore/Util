@@ -1,13 +1,13 @@
-﻿using Util.Ui.Angular.Renders;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Builders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Forms.Renders {
     /// <summary>
     /// 表单分隔符渲染器
     /// </summary>
-    public class FormSplitRender : AngularRenderBase {
+    public class FormSplitRender : RenderBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -17,7 +17,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Renders {
         /// 初始化表单分隔符渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public FormSplitRender( Config config ) : base( config ) {
+        public FormSplitRender( Config config ) {
             _config = config;
         }
 
@@ -25,8 +25,8 @@ namespace Util.Ui.NgZorro.Components.Forms.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new FormSplitBuilder();
-            ConfigContent( builder );
+            var builder = new FormSplitBuilder( _config );
+            builder.Config();
             return builder;
         }
     }

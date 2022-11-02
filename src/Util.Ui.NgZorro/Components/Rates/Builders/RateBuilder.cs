@@ -15,6 +15,7 @@ namespace Util.Ui.NgZorro.Components.Rates.Builders {
         /// <summary>
         /// 初始化评分标签生成器
         /// </summary>
+        /// <param name="config">配置</param>
         public RateBuilder( Config config ) : base( config, "nz-rate" ) {
             _config = config;
         }
@@ -95,6 +96,7 @@ namespace Util.Ui.NgZorro.Components.Rates.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.ConfigBase( _config );
             ConfigForm().AllowClear().AllowHalf().AutoFocus()
                 .Character().Count().Disabled().Tooltips().Events();
         }

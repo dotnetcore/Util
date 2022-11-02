@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.VirtualScrolls.Builders {
     /// <summary>
     /// 虚拟滚动窗口标签生成器
     /// </summary>
-    public class VirtualScrollViewportBuilder : TagBuilder {
+    public class VirtualScrollViewportBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.VirtualScrolls.Builders {
         /// <summary>
         /// 初始化虚拟滚动窗口标签生成器
         /// </summary>
-        public VirtualScrollViewportBuilder( Config config ) : base( "cdk-virtual-scroll-viewport" ) {
+        /// <param name="config">配置</param>
+        public VirtualScrollViewportBuilder( Config config ) : base( config,"cdk-virtual-scroll-viewport" ) {
             _config = config;
         }
 
@@ -32,6 +33,7 @@ namespace Util.Ui.NgZorro.Components.VirtualScrolls.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             ItemSize();
         }
     }

@@ -1,12 +1,12 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Cards.Builders {
     /// <summary>
     /// 卡片元信息标签生成器
     /// </summary>
-    public class CardMetaBuilder : TagBuilder {
+    public class CardMetaBuilder : AngularTagBuilder {
         /// <summary>
         /// 配置
         /// </summary>
@@ -15,7 +15,8 @@ namespace Util.Ui.NgZorro.Components.Cards.Builders {
         /// <summary>
         /// 初始化卡片元信息标签生成器
         /// </summary>
-        public CardMetaBuilder( Config config ) : base( "nz-card-meta" ) {
+        /// <param name="config">配置</param>
+        public CardMetaBuilder( Config config ) : base( config,"nz-card-meta" ) {
             _config = config;
         }
 
@@ -49,6 +50,7 @@ namespace Util.Ui.NgZorro.Components.Cards.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
+            base.Config();
             Title().Avatar().Description();
         }
     }

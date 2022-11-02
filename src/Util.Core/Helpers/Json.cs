@@ -71,8 +71,10 @@ namespace Util.Helpers {
         /// <param name="json">Json字符串</param>
         /// <param name="options">序列化配置</param>
         public static T ToObject<T>( string json, JsonSerializerOptions options = null ) {
-            var result = ToObject( json,typeof(T), options );
-            return Convert.To<T>( result );
+            if ( string.IsNullOrWhiteSpace( json ) )
+                return default;
+            options = GetToObjectOptions( options );
+            return JsonSerializer.Deserialize<T>( json, options );
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ namespace Util.Ui.Expressions {
         protected override void Load( Config config, ModelExpressionInfo info ) {
             LoadName( config, info );
             LoadDisplayName( config, info );
+            LoadRequired( config, info );
         }
 
         /// <summary>
@@ -27,6 +28,16 @@ namespace Util.Ui.Expressions {
         /// </summary>
         protected virtual void LoadDisplayName( Config config, ModelExpressionInfo info ) {
             config.SetAttribute( UiConst.Title, info.DisplayName );
+        }
+
+        /// <summary>
+        /// 加载必填项验证
+        /// </summary>
+        protected virtual void LoadRequired( Config config, ModelExpressionInfo info ) {
+            if ( info.IsRequired == false )
+                return;
+            config.SetAttribute( UiConst.Required, "true", false );
+            config.SetAttribute( UiConst.RequiredMessage, info.RequiredMessage, false );
         }
     }
 }

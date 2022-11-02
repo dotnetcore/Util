@@ -1,5 +1,4 @@
-﻿using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
+﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
@@ -73,7 +72,7 @@ namespace Util.Ui.NgZorro.Components.Radios.Renders {
         /// </summary>
         private TagBuilder GetRadioBuilder() {
             var builder = new RadioBuilder( _config );
-            builder.ConfigCommon( _config ).Config();
+            builder.Config();
             if ( _config.Content.IsEmpty() == false )
                 builder.SetContent( _config.Content );
             if ( _shareConfig.IsRadioExtend )
