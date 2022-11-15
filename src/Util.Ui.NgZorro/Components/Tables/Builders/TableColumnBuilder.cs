@@ -176,7 +176,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置内容
         /// </summary>
         protected virtual void ConfigContent() {
-            var service = new TableColumnContentService( this );
+            var service = new TableColumnContentService( this,new TableSelectCreateService() );
             service.Config();
         }
 

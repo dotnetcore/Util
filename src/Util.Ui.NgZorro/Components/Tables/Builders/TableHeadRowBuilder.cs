@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders {
@@ -24,7 +25,21 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 创建表头单元格标签生成器
         /// </summary>
         public virtual TableHeadColumnBuilder CreateTableHeadColumnBuilder() {
-            return new TableHeadColumnBuilder( _config.CopyRemoveId() );
+            return new TableHeadColumnBuilder( _config.CopyRemoveId(), GetTableHeadColumnShareConfig() );
+        }
+
+        /// <summary>
+        /// 获取表头列共享配置
+        /// </summary>
+        protected TableHeadColumnShareConfig GetTableHeadColumnShareConfig() {
+            return _config.GetValueFromItems<TableHeadColumnShareConfig>() ?? new TableHeadColumnShareConfig( GetTableShareConfig() );
+        }
+
+        /// <summary>
+        /// 获取表格共享配置
+        /// </summary>
+        private TableShareConfig GetTableShareConfig() {
+            return _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
         }
 
         /// <summary>

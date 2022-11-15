@@ -17,6 +17,11 @@
         }
 
         /// <summary>
+        /// 是否树形表格
+        /// </summary>
+        public bool IsTreeTable => _tableShareConfig.IsTreeTable;
+
+        /// <summary>
         /// 表格扩展标识
         /// </summary>
         public string TableExtendId => _tableShareConfig.TableExtendId;
@@ -58,8 +63,9 @@
         /// 设置第一列
         /// </summary>
         public void SetIsFirst() {
-            if ( _tableShareConfig.Columns.Count == 0 )
+            if ( _tableShareConfig.HeadColumnNumber == 0 )
                 IsFirst = true;
+            _tableShareConfig.HeadColumnNumber++;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Components.TreeTables.Builders;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Tables.Renders {
@@ -45,9 +46,18 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// 获取标签生成器
         /// </summary>
         protected override TagBuilder GetTagBuilder() {
-            var builder = new TableColumnBuilder( _config, _shareConfig );
+            var builder = CreateTableColumnBuilder();
             builder.Config();
             return builder;
+        }
+
+        /// <summary>
+        /// 创建表格单元格标签生成器
+        /// </summary>
+        private TableColumnBuilder CreateTableColumnBuilder() {
+            if( _shareConfig.IsTreeTable )
+                return new TreeTableColumnBuilder( _config, _shareConfig );
+            return new TableColumnBuilder( _config, _shareConfig );
         }
     }
 }

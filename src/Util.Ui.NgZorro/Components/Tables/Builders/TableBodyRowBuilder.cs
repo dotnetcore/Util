@@ -35,19 +35,24 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 行标识
         /// </summary>
-        public string RowId => _shareConfig.RowId;
+        protected string RowId => _shareConfig.RowId;
 
         /// <summary>
         /// 表格编辑扩展标识
         /// </summary>
-        public string EditId => _shareConfig.TableEditId;
+        protected string EditId => _shareConfig.TableEditId;
+
+        /// <summary>
+        /// 表格扩展标识
+        /// </summary>
+        protected string TableExtendId => TableShareConfig.TableExtendId;
 
         /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {
             base.Config();
-            ConfigTableExted();
+            ConfigTableExtend();
             ConfigEdit();
             ConfigContent();
         }
@@ -55,18 +60,25 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 配置表格主体行基础扩展属性
         /// </summary>
-        public void ConfigTableExted() {
+        protected void ConfigTableExtend() {
             if ( TableShareConfig.IsAutoCreateBodyRow == false )
                 return;
             if ( TableShareConfig.IsEnableExtend == false )
                 return;
-            this.NgFor( $"let row of {TableShareConfig.TableExtendId}.dataSource;index as index" );
+            ConfigDefault();
+        }
+
+        /// <summary>
+        /// 配置行默认属性
+        /// </summary>
+        protected virtual void ConfigDefault() {
+            this.NgFor( $"let row of {TableExtendId}.dataSource;index as index" );
         }
 
         /// <summary>
         /// 配置行编辑模式
         /// </summary>
-        public void ConfigEdit() {
+        protected void ConfigEdit() {
             if ( TableShareConfig.IsEnableEdit == false )
                 return;
             Attribute( "[x-edit-row]", "row" );
@@ -78,7 +90,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 配置内容
         /// </summary>
-        public void ConfigContent() {
+        protected void ConfigContent() {
             _config.Content.AppendTo( this );
         }
     }

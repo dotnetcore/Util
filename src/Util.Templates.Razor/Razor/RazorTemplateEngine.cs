@@ -51,7 +51,7 @@ namespace Util.Templates.Razor {
         /// </summary>
         /// <param name="filter">模板过滤器</param>
         public static void AddFilter( ITemplateFilter filter ) {
-            if( filter == null )
+            if ( filter == null )
                 return;
             _filters.TryAdd( filter.GetType().FullName, filter );
         }
@@ -102,7 +102,7 @@ namespace Util.Templates.Razor {
         /// <param name="data">模板数据</param>
         /// <param name="builderAction">模板编译配置操作</param>
         public string Render( string template, object data, Action<IRazorEngineCompilationOptionsBuilder> builderAction ) {
-            if( string.IsNullOrWhiteSpace( template ) )
+            if ( string.IsNullOrWhiteSpace( template ) )
                 return null;
             var compiledTemplate = GetCompiledTemplateFromCache( template, builderAction );
             return compiledTemplate?.Run( data );
@@ -122,7 +122,7 @@ namespace Util.Templates.Razor {
         /// 过滤模板
         /// </summary>
         private string FilterTemplate( string template ) {
-            foreach( var filter in _filters.Values )
+            foreach ( var filter in _filters.Values )
                 template = filter.Filter( template );
             return template;
         }
@@ -141,10 +141,11 @@ namespace Util.Templates.Razor {
         /// 加载程序集引用列表
         /// </summary>
         private void LoadAssemblies( IRazorEngineCompilationOptionsBuilder builder ) {
-            if( _isAutoLoadAssemblies == false )
+            if ( _isAutoLoadAssemblies == false )
                 return;
-            foreach( var assembly in _assemblies.Values )
+            foreach ( var assembly in _assemblies.Values ) {
                 builder.AddAssemblyReference( assembly );
+            }
         }
 
         /// <summary>
@@ -163,10 +164,10 @@ namespace Util.Templates.Razor {
         /// <param name="data">模板数据</param>
         /// <param name="builderAction">模板编译配置操作</param>
         public async Task<string> RenderAsync( string template, object data, Action<IRazorEngineCompilationOptionsBuilder> builderAction ) {
-            if( string.IsNullOrWhiteSpace( template ) )
+            if ( string.IsNullOrWhiteSpace( template ) )
                 return null;
             var compiledTemplate = GetCompiledTemplateFromCache( template, builderAction );
-            if( compiledTemplate == null )
+            if ( compiledTemplate == null )
                 return null;
             return await compiledTemplate.RunAsync( data );
         }

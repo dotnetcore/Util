@@ -28,11 +28,14 @@ namespace Util.Data.Trees {
         public TreeCondition( ITreeQueryParameter parameter ) {
             if ( parameter == null )
                 return;
-            if( parameter.Path.IsEmpty() == false )
+            var parentId = Util.Helpers.Convert.To<TParentId>( parameter.ParentId );
+            if ( parameter.ParentId.IsEmpty() == false )
+                Condition = Condition.And( t => t.ParentId.Equals( parentId ) );
+            if ( parameter.Path.IsEmpty() == false )
                 Condition = Condition.And( t => t.Path.StartsWith( parameter.Path ) );
-            if( parameter.Level != null )
+            if ( parameter.Level != null )
                 Condition = Condition.And( t => t.Level == parameter.Level );
-            if( parameter.Enabled != null )
+            if ( parameter.Enabled != null )
                 Condition = Condition.And( t => t.Enabled == parameter.Enabled );
         }
 

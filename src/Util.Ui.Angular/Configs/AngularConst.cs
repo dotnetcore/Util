@@ -120,6 +120,18 @@
         /// </summary>
         public const string BindDeleteUrl = "bind-delete-url";
         /// <summary>
+        /// 加载地址
+        /// </summary>
+        public const string BindLoadUrl = "bind-load-url";
+        /// <summary>
+        /// 查询地址
+        /// </summary>
+        public const string BindQueryUrl = "bind-query-url";
+        /// <summary>
+        /// 加载子节点地址
+        /// </summary>
+        public const string BindLoadChildrenUrl = "bind-load-children-url";
+        /// <summary>
         /// 上传Url
         /// </summary>
         public const string BindUploadUrl = "bind-upload-url";

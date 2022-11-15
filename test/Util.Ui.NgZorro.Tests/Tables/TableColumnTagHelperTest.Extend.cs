@@ -224,7 +224,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Bool );
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
-            result.Append( "<td>{{row.a?'x_id.config.text.yes':'x_id.config.text.no'}}</td>" );
+            result.Append( "<td>{{row.a?x_id.config.text.yes:x_id.config.text.no}}</td>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

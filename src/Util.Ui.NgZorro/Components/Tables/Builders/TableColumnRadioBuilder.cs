@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders {
@@ -11,12 +12,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// </summary>
         /// <param name="config">配置</param>
         /// <param name="tableExtendId">表格扩展标识</param>
-        public TableColumnRadioBuilder( Config config,string tableExtendId ) : base( config, "label" ) {
+        /// <param name="content">内容</param>
+        public TableColumnRadioBuilder( Config config,string tableExtendId, IHtmlContent content = null ) : base( config, "label" ) {
             base.Attribute( "nz-radio" );
             base.Attribute( "(click)", "$event.stopPropagation()" );
             base.Attribute( "name", $"r_{tableExtendId}" );
             base.Attribute( "[ngModel]", $"{tableExtendId}.isChecked(row)" );
             base.Attribute( "(ngModelChange)", $"{tableExtendId}.checkRowOnly(row)" );
+            if ( content == null )
+                return;
+            base.SetContent( content );
         }
     }
 }

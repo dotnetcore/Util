@@ -58,10 +58,10 @@ namespace Util.Applications.Controllers {
 
         #endregion
 
-        #region GetMaxPageSize(获取最大显示行数)
+        #region GetMaxPageSize(获取最大分页大小 )
 
         /// <summary>
-        /// 获取最大显示行数,默认值: 999
+        /// 获取最大分页大小,默认值: 999
         /// </summary>
         protected virtual int GetMaxPageSize() {
             return 999;
@@ -72,10 +72,35 @@ namespace Util.Applications.Controllers {
         #region GetLoadMode(获取加载模式)
 
         /// <summary>
-        /// 获取加载模式
+        /// 获取加载模式,默认值: 同步加载模式
         /// </summary>
         protected virtual LoadMode GetLoadMode() {
             return LoadMode.Sync;
+        }
+
+        #endregion
+
+        #region IsFirstLoad(是否首次加载)
+
+        /// <summary>
+        /// 是否首次加载
+        /// </summary>
+        protected virtual bool IsFirstLoad() {
+            var isSearch = Request.Query["is_search"].SafeString();
+            if( isSearch == "false" )
+                return true;
+            return false;
+        }
+
+        #endregion
+
+        #region IsExpandForRootAsync(根节点异步加载模式是否展开子节点列表)
+
+        /// <summary>
+        /// 根节点异步加载模式是否展开子节点列表,默认值: true
+        /// </summary>
+        protected virtual bool IsExpandForRootAsync() {
+            return true;
         }
 
         #endregion
@@ -101,7 +126,7 @@ namespace Util.Applications.Controllers {
         /// <param name="request">创建参数</param>
         protected async Task<IActionResult> CreateAsync( TCreateRequest request ) {
             if ( request == null )
-                return Fail( WebApiResource.CreateRequestIsEmpty );
+                return Fail( ApplicationResource.CreateRequestIsEmpty );
             CreateBefore( request );
             var id = await _service.CreateAsync( request );
             var result = await _service.GetByIdAsync( id );
@@ -126,9 +151,9 @@ namespace Util.Applications.Controllers {
         /// <param name="request">修改参数</param>
         protected async Task<IActionResult> UpdateAsync( string id, TUpdateRequest request ) {
             if ( request == null )
-                return Fail( WebApiResource.UpdateRequestIsEmpty );
+                return Fail( ApplicationResource.UpdateRequestIsEmpty );
             if ( id.IsEmpty() && request.Id.IsEmpty() )
-                return Fail( WebApiResource.IdIsEmpty );
+                return Fail( ApplicationResource.IdIsEmpty );
             if ( request.Id.IsEmpty() )
                 request.Id = id;
             UpdateBefore( request );
@@ -159,18 +184,26 @@ namespace Util.Applications.Controllers {
 
         #endregion
 
-        #region QueryAsync(查询)
+        #region QueryAsync(树形表格查询)
 
         /// <summary>
-        /// 查询
+        /// 树形表格查询
         /// </summary>
         /// <param name="query">查询参数</param>
-        protected async Task<IActionResult> QueryAsync( TQuery query ) {
-            query.CheckNull( nameof( query ) );
-            QueryBefore( query );
-            InitQueryParam( query );
-            var result = await GetQueryResult( query );
+        protected virtual async Task<IActionResult> QueryAsync( TQuery query ) {
+            var service = new TreeTableQueryService<TDto, TQuery>( _service, GetLoadMode(), GetOperation( query ),
+                GetMaxPageSize(), IsFirstLoad(), IsExpandForRootAsync(), QueryBefore, QueryAfter );
+            var result = await service.QueryAsync( query );
             return Success( result );
+        }
+
+        /// <summary>
+        /// 获取加载操作
+        /// </summary>
+        protected virtual LoadOperation GetOperation( TQuery query ) {
+            if ( query.ParentId.IsEmpty() )
+                return LoadOperation.Query;
+            return LoadOperation.LoadChildren;
         }
 
         /// <summary>
@@ -181,97 +214,11 @@ namespace Util.Applications.Controllers {
         }
 
         /// <summary>
-        /// 初始化查询参数
-        /// </summary>
-        /// <param name="query">查询参数</param>
-        protected virtual void InitQueryParam( TQuery query ) {
-            if ( query.Order.IsEmpty() )
-                query.Order = "SortId";
-            query.Path = null;
-            if ( GetOperation( query ) == LoadOperation.LoadChild )
-                return;
-            query.ParentId = null;
-        }
-
-        /// <summary>
-        /// 获取加载操作
-        /// </summary>
-        protected virtual LoadOperation? GetOperation( TQuery query ) {
-            return LoadOperation.FirstLoad;
-        }
-
-        /// <summary>
-        /// 获取查询结果
-        /// </summary>
-        protected virtual async Task<dynamic> GetQueryResult( TQuery query ) {
-            switch ( GetOperation( query ) ) {
-                case LoadOperation.FirstLoad:
-                    return await GetFirstLoadResult( query );
-                case LoadOperation.LoadChild:
-                    //return await LoadChildren( query );
-                    break;
-                default:
-                    //result = await Search( query );
-                    break;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 获取首次加载结果
-        /// </summary>
-        protected virtual async Task<dynamic> GetFirstLoadResult( TQuery query ) {
-            if ( GetLoadMode() == LoadMode.Sync )
-                return await SyncFirstLoad( query );
-            return await AsyncFirstLoad( query );
-        }
-
-        /// <summary>
-        /// 首次同步加载
-        /// </summary>
-        protected virtual async Task<dynamic> SyncFirstLoad( TQuery query ) {
-            var data = await SyncQuery( query );
-            ProcessData( data, query );
-            return ToResult( data );
-        }
-
-        /// <summary>
-        /// 同步查询
-        /// </summary>
-        protected virtual async Task<PageList<TDto>> SyncQuery( TQuery query ) {
-            query.PageSize = GetMaxPageSize();
-            return await _service.PageQueryAsync( query );
-        }
-
-        /// <summary>
-        /// 数据处理
+        /// 查询后操作
         /// </summary>
         /// <param name="data">数据列表</param>
         /// <param name="query">查询参数</param>
-        protected virtual void ProcessData( PageList<TDto> data, TQuery query ) {
-        }
-
-        /// <summary>
-        /// 转换为树形结果
-        /// </summary>
-        protected abstract dynamic ToResult( PageList<TDto> data, bool async = false );
-
-        /// <summary>
-        /// 首次异步加载
-        /// </summary>
-        protected virtual async Task<dynamic> AsyncFirstLoad( TQuery query ) {
-            query.Level = 1;
-            var data = await AsyncQuery( query );
-            ProcessData( data, query );
-            return ToResult( data, true );
-        }
-
-        /// <summary>
-        /// 异步查询
-        /// </summary>
-        protected virtual async Task<PageList<TDto>> AsyncQuery( TQuery query ) {
-            query.PageSize = GetMaxPageSize();
-            return await _service.PageQueryAsync( query );
+        protected virtual void QueryAfter( PageList<TDto> data, TQuery query ) {
         }
 
         #endregion

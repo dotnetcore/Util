@@ -31,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Util.Application.WebApi\Util.Application.WebApi.csproj" />
 	  <ProjectReference Include="..\Util.ObjectMapping.AutoMapper\02-Util.ObjectMapping.AutoMapper.csproj" />
 	  <ProjectReference Include="..\Util.Ui.Angular\02-Util.Ui.Angular.csproj" />
 	</ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Html;
-using Util.Ui.NgZorro.Components.Tables.Builders.Factories;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
     /// <summary>
@@ -9,8 +8,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
         /// <summary>
         /// 初始化编辑模式第一列内容加载器
         /// </summary>
-        /// <param name="factory">表格列选择框标签生成器工厂</param>
-        public EditFirstColumnContentLoader( ISelectBuilderFactory factory ) : base( factory ) {
+        /// <param name="service">表格列选择框创建服务</param>
+        public EditFirstColumnContentLoader( ISelectCreateService service ) : base( service ) {
         }
 
         /// <summary>

@@ -45,6 +45,17 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         }
 
         /// <summary>
+        /// 测试复选框选中的标识列表
+        /// </summary>
+        [Fact]
+        public void TestCheckedKeys() {
+            _wrapper.SetContextAttribute( UiConst.CheckedKeys, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-table [checkedKeys]=\"a\"></nz-table>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试Api地址
         /// </summary>
         [Fact]
@@ -191,6 +202,28 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         }
 
         /// <summary>
+        /// 测试删除地址
+        /// </summary>
+        [Fact]
+        public void TestDeleteUrl() {
+            _wrapper.SetContextAttribute( UiConst.DeleteUrl, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-table deleteUrl=\"a\"></nz-table>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试删除地址
+        /// </summary>
+        [Fact]
+        public void TestBindDeleteUrl() {
+            _wrapper.SetContextAttribute( AngularConst.BindDeleteUrl, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-table [deleteUrl]=\"a\"></nz-table>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试自动加载
         /// </summary>
         [Fact]
@@ -296,6 +329,17 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"a\">" );
             result.Append( "</nz-table>" );
             AppendTotalTemplate( result );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试数据加载完成事件
+        /// </summary>
+        [Fact]
+        public void TestOnLoad() {
+            _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-table (onLoad)=\"a\"></nz-table>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

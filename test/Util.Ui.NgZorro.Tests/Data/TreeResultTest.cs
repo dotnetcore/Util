@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Util.Applications.Trees;
-using Util.Ui.NgZorro.Data;
+using Util.Ui.NgZorro.Tests.Samples;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Data {
@@ -138,7 +137,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
         [Fact]
         public void TestGetResult_1() {
             var list = new List<TreeDto> { GetNode1() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
             Assert.Single( result.Nodes );
             var node = result.Nodes.First();
             Assert.Equal( Id, node.Key );
@@ -158,7 +157,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
         [Fact]
         public void TestGetResult_2() {
             var list = new List<TreeDto> { GetNode1(), GetNode2() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
 
             //根节点
             Assert.Single( result.Nodes );
@@ -193,7 +192,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
         [Fact]
         public void TestGetResult_3() {
             var list = new List<TreeDto> { GetNode1(), GetNode2(), GetNode3() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
 
             //根节点1
             Assert.Equal( 2, result.Nodes.Count );
@@ -241,7 +240,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
         [Fact]
         public void TestGetResult_4() {
             var list = new List<TreeDto> { GetNode1(), GetNode2(), GetNode3(), GetNode4() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
 
             //根节点
             Assert.Equal( 2, result.Nodes.Count );
@@ -273,7 +272,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
         [Fact]
         public void TestGetResult_5() {
             var list = new List<TreeDto> { GetNode1(), GetNode2(), GetNode3(), GetNode4(), GetNode5() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
 
             //根节点
             Assert.Equal( 2, result.Nodes.Count );
@@ -313,7 +312,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
             var node2 = GetNode2();
             node2.Expanded = false;
             var list = new List<TreeDto> { GetNode1(), node2, GetNode3(), GetNode4(), GetNode5() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
 
             Assert.Equal( Id, result.ExpandedKeys[0] );
             Assert.Equal( Id3, result.ExpandedKeys[1] );
@@ -328,7 +327,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
             var node2 = GetNode2();
             node2.Checked = false;
             var list = new List<TreeDto> { GetNode1(), node2, GetNode3(), GetNode4(), GetNode5() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
 
             Assert.Equal( Id, result.CheckedKeys[0] );
             Assert.Equal( Id3, result.CheckedKeys[1] );
@@ -343,7 +342,7 @@ namespace Util.Ui.NgZorro.Tests.Data {
             var node2 = GetNode2();
             node2.Selected = false;
             var list = new List<TreeDto> { GetNode1(), node2, GetNode3(), GetNode4(), GetNode5() };
-            var result = new TreeResult( list ).GetResult();
+            var result = list.ToTreeResult();
 
             Assert.Equal( Id, result.SelectedKeys[0] );
             Assert.Equal( Id3, result.SelectedKeys[1] );

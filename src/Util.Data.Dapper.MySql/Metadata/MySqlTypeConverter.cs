@@ -21,6 +21,8 @@ namespace Util.Data.Metadata {
                     return DbType.String;
                 case "tinyint":
                     return length == 1 ? DbType.Boolean : DbType.Byte;
+                case "bit":
+                    return DbType.Boolean;
                 case "smallint":
                     return DbType.Int16;
                 case "integer":

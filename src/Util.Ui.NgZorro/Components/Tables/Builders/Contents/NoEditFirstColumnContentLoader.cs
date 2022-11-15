@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Html;
 using Util.Ui.Extensions;
-using Util.Ui.NgZorro.Components.Tables.Builders.Factories;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
     /// <summary>
@@ -9,16 +8,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
     /// </summary>
     public class NoEditFirstColumnContentLoader : ITableColumnContentLoader {
         /// <summary>
-        /// 表格列选择框标签生成器工厂
+        /// 表格列选择框创建服务
         /// </summary>
-        private readonly ISelectBuilderFactory _factory;
+        private readonly ISelectCreateService _selectCreateService;
 
         /// <summary>
         /// 初始化非编辑模式第一列内容加载器
         /// </summary>
-        /// <param name="factory">表格列选择框标签生成器工厂</param>
-        public NoEditFirstColumnContentLoader( ISelectBuilderFactory factory ) {
-            _factory = factory ?? throw new ArgumentNullException( nameof( factory ) );
+        /// <param name="service">表格列选择框创建服务</param>
+        public NoEditFirstColumnContentLoader( ISelectCreateService service ) {
+            _selectCreateService = service ?? throw new ArgumentNullException( nameof( service ) );
         }
 
         /// <inheritdoc />
@@ -27,6 +26,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
             AddCheckbox( builder, displayContent );
             AddRadio( builder, displayContent );
             AddLineNumber( builder );
+            if ( _selectCreateService.IsAddContentToSelect( builder ) )
+                return;
             AddContent( builder, displayContent );
         }
 
@@ -46,8 +47,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
         protected virtual void AddCheckbox( TableColumnBuilder builder, IHtmlContent content ) {
             if ( builder.GetTableColumnShareConfig().IsShowCheckbox == false )
                 return;
-            var checkboxBuilder = _factory.CreateCheckbox( content );
-            builder.PreBuilder = checkboxBuilder;
+            _selectCreateService.CreateCheckbox( builder, content );
         }
 
         /// <summary>
@@ -58,8 +58,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
                 return;
             if ( builder.GetTableColumnShareConfig().IsShowRadio == false )
                 return;
-            var radiobBuilder = _factory.CreateRadio( content );
-            builder.PreBuilder = radiobBuilder;
+            _selectCreateService.CreateRadio( builder, content );
         }
 
         /// <summary>

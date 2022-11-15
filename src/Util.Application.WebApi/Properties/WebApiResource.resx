@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateRequestIsEmpty" xml:space="preserve">
-    <value>创建参数不能为空</value>
-  </data>
-  <data name="IdIsEmpty" xml:space="preserve">
-    <value>标识不能为空</value>
-  </data>
-  <data name="QueryIsEmpty" xml:space="preserve">
-    <value>查询参数不能为空</value>
-  </data>
-  <data name="RequestIsEmpty" xml:space="preserve">
-    <value>参数不能为空</value>
-  </data>
-  <data name="UpdateRequestIsEmpty" xml:space="preserve">
-    <value>修改参数不能为空</value>
-  </data>
 </root>

@@ -408,6 +408,26 @@
         /// </summary>
         public const string DeleteUrl = "delete-url";
         /// <summary>
+        /// 加载地址
+        /// </summary>
+        public const string LoadUrl = "load-url";
+        /// <summary>
+        /// 查询地址
+        /// </summary>
+        public const string QueryUrl = "query-url";
+        /// <summary>
+        /// 加载子节点地址
+        /// </summary>
+        public const string LoadChildrenUrl = "load-children-url";
+        /// <summary>
+        /// 子节点加载前事件
+        /// </summary>
+        public const string OnLoadChildrenBefore = "on-load-children-before";
+        /// <summary>
+        /// 子节点加载完成事件
+        /// </summary>
+        public const string OnLoadChildren = "on-load-children";
+        /// <summary>
         /// 排序
         /// </summary>
         public const string Sort = "sort";

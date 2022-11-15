@@ -41,5 +41,9 @@ namespace Util.ObjectMapping.AutoMapper.Tests.Samples {
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        public override string GetText() {
+            return Name;
+        }
     }
 }

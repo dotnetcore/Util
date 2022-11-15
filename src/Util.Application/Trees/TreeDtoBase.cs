@@ -57,11 +57,6 @@ namespace Util.Applications.Trees {
         [Display( Name = "是否展开" )]
         public bool? Expanded { get; set; }
         /// <summary>
-        /// 文本
-        /// </summary>
-        [Display( Name = "文本" )]
-        public string Text { get; set; }
-        /// <summary>
         /// 图标
         /// </summary>
         [Display( Name = "图标" )]
@@ -86,5 +81,9 @@ namespace Util.Applications.Trees {
         /// 是否叶节点
         /// </summary>
         public bool? Leaf { get; set; }
+        /// <summary>
+        /// 获取树节点显示文本
+        /// </summary>
+        public abstract string GetText();
     }
 }

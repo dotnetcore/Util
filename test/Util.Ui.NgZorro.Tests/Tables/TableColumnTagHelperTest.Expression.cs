@@ -40,5 +40,38 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             //验证
             Assert.Equal( result.ToString(), table.GetResult() );
         }
+
+        /// <summary>
+        /// 测试属性表达式 - 布尔类型
+        /// </summary>
+        [Fact]
+        public void TestFor_2() {
+            //创建表格
+            var table = new TableTagHelper().ToWrapper();
+
+            //添加列
+            table.AppendContent( _wrapper );
+
+            //设置表达式
+            _wrapper.SetExpression( UiConst.For, t => t.Enabled );
+
+            //结果
+            var result = new StringBuilder();
+            result.Append( "<nz-table>" );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th>启用</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr>" );
+            result.Append( "<td>{{row.enabled?x_id.config.text.yes:x_id.config.text.no}}</td>" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+
+            //验证
+            Assert.Equal( result.ToString(), table.GetResult() );
+        }
     }
 }

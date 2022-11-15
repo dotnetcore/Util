@@ -56,7 +56,7 @@ namespace Util.Applications.Controllers {
         /// <param name="request">创建参数</param>
         protected async Task<IActionResult> CreateAsync( TCreateRequest request ) {
             if( request == null )
-                return Fail( WebApiResource.CreateRequestIsEmpty );
+                return Fail( ApplicationResource.CreateRequestIsEmpty );
             CreateBefore( request );
             var id = await _service.CreateAsync( request );
             var result = await _service.GetByIdAsync( id );
@@ -77,9 +77,9 @@ namespace Util.Applications.Controllers {
         /// <param name="request">修改参数</param>
         protected async Task<IActionResult> UpdateAsync( string id, TUpdateRequest request ) {
             if( request == null )
-                return Fail( WebApiResource.UpdateRequestIsEmpty );
+                return Fail( ApplicationResource.UpdateRequestIsEmpty );
             if( id.IsEmpty() && request.Id.IsEmpty() )
-                return Fail( WebApiResource.IdIsEmpty );
+                return Fail( ApplicationResource.IdIsEmpty );
             if( request.Id.IsEmpty() )
                 request.Id = id;
             UpdateBefore( request );
@@ -110,7 +110,7 @@ namespace Util.Applications.Controllers {
         /// <param name="request">保存参数</param>
         protected async Task<IActionResult> SaveAsync( SaveModel request ) {
             if ( request == null )
-                return Fail( WebApiResource.RequestIsEmpty );
+                return Fail( ApplicationResource.RequestIsEmpty );
             var creationList = Util.Helpers.Json.ToObject<List<TDto>>( request.CreationList );
             var updateList = Util.Helpers.Json.ToObject<List<TDto>>( request.UpdateList );
             var deleteList = Util.Helpers.Json.ToObject<List<TDto>>( request.DeleteList );

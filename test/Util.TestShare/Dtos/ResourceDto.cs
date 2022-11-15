@@ -51,5 +51,9 @@ namespace Util.Tests.Dtos {
         ///</summary>
         [Display( Name = "版本号" )]
         public byte[] Version { get; set; }
+
+        public override string GetText() {
+            return Name;
+        }
     }
 }

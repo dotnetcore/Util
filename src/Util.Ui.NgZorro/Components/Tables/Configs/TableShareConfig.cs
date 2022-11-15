@@ -64,6 +64,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         public List<ColumnInfo> Columns { get; }
 
         /// <summary>
+        /// 表头列数
+        /// </summary>
+        public int HeadColumnNumber { get; set; }
+
+        /// <summary>
         /// 是否自动创建表头thead
         /// </summary>
         public bool IsAutoCreateHead { get; set; }
@@ -147,5 +152,10 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         /// 是否树形表格
         /// </summary>
         public bool IsTreeTable { get; set; }
+
+        /// <summary>
+        /// 是否仅能选择单选框叶节点
+        /// </summary>
+        public bool IsCheckLeafOnly { get; set; }
     }
 }

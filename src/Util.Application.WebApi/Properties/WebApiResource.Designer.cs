@@ -59,50 +59,5 @@ namespace Util.Applications.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找类似 创建参数不能为空 的本地化字符串。
-        /// </summary>
-        public static string CreateRequestIsEmpty {
-            get {
-                return ResourceManager.GetString("CreateRequestIsEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 标识不能为空 的本地化字符串。
-        /// </summary>
-        public static string IdIsEmpty {
-            get {
-                return ResourceManager.GetString("IdIsEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 查询参数不能为空 的本地化字符串。
-        /// </summary>
-        public static string QueryIsEmpty {
-            get {
-                return ResourceManager.GetString("QueryIsEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 参数不能为空 的本地化字符串。
-        /// </summary>
-        public static string RequestIsEmpty {
-            get {
-                return ResourceManager.GetString("RequestIsEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 修改参数不能为空 的本地化字符串。
-        /// </summary>
-        public static string UpdateRequestIsEmpty {
-            get {
-                return ResourceManager.GetString("UpdateRequestIsEmpty", resourceCulture);
-            }
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -45,7 +46,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 创建表格主体行标签生成器
         /// </summary>
-        public virtual TableBodyRowBuilder CreateTableBodyRowBuilder() {
+        public virtual TagBuilder CreateTableBodyRowBuilder() {
             return new TableBodyRowBuilder( _config.CopyRemoveId() );
         }
 

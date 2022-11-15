@@ -6,7 +6,7 @@ namespace Util.Ui.NgZorro.Data {
     /// <summary>
     /// 树形结果
     /// </summary>
-    public class TreeResult : TreeResultBase<TreeDto, NgZorroTreeNode, NgZorroTreeResult> {
+    public class TreeResult<TNode> : TreeResultBase<TNode, NgZorroTreeNode, NgZorroTreeResult> where TNode : TreeDtoBase<TNode> {
         /// <summary>
         /// 树形结果
         /// </summary>
@@ -18,17 +18,17 @@ namespace Util.Ui.NgZorro.Data {
         /// <param name="data">树形参数列表</param>
         /// <param name="async">是否异步加载</param>
         /// <param name="allExpand">所有节点是否全部展开</param>
-        public TreeResult( IEnumerable<TreeDto> data, bool async = false, bool allExpand = false ) : base( data, async, allExpand ) {
+        public TreeResult( IEnumerable<TNode> data, bool async = false, bool allExpand = false ) : base( data, async, allExpand ) {
             _result = new NgZorroTreeResult();
         }
 
         /// <summary>
         /// 转换为目标节点
         /// </summary>
-        protected override NgZorroTreeNode ToDestinationNode( TreeDto dto ) {
+        protected override NgZorroTreeNode ToDestinationNode( TNode dto ) {
             var result = new NgZorroTreeNode {
                 Key = dto.Id,
-                Title = dto.Text,
+                Title = dto.GetText(),
                 Icon = dto.Icon,
                 Disabled = !dto.Enabled.SafeValue(),
                 Expanded = dto.Expanded.SafeValue(),

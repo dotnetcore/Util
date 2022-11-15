@@ -37,6 +37,14 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// </summary>
         public string BindUrl { get; set; }
         /// <summary>
+        /// 扩展属性 deleteUrl,删除地址，注意：由于支持批量删除，所以采用Post提交，如果未设置该属性,则使用Url属性构造删除地址,范例：/api/test/delete
+        /// </summary>
+        public string DeleteUrl { get; set; }
+        /// <summary>
+        /// 扩展属性 [deleteUrl],删除地址，注意：由于支持批量删除，所以采用Post提交，如果未设置该属性,则使用Url属性构造删除地址,范例：/api/test/delete
+        /// </summary>
+        public string BindDeleteUrl { get; set; }
+        /// <summary>
         /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
         /// </summary>
         public bool AutoLoad { get; set; }
@@ -52,6 +60,10 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// 扩展属性,是否显示序号
         /// </summary>
         public bool ShowLineNumber { get; set; }
+        /// <summary>
+        /// 扩展属性 [checkedKeys],选中的标识列表，用于还原选中的复选框或单选框，可以是单个Id或Id数组，范例：'1' 或 ['1','2']
+        /// </summary>
+        public string CheckedKeys { get; set; }
         /// <summary>
         /// order,排序条件,范例: creationTime desc
         /// </summary>
@@ -300,6 +312,10 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// (nzQueryParams),查询参数变化事件,当服务端分页、筛选、排序时，用于获得参数，类型: EventEmitter&lt;NzTableQueryParams>
         /// </summary>
         public string OnQueryParams { get; set; }
+        /// <summary>
+        /// 扩展属性 (onLoad),数据加载完成事件,类型: EventEmitter&lt;any>,参数为服务端返回结果
+        /// </summary>
+        public string OnLoad { get; set; }
 
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

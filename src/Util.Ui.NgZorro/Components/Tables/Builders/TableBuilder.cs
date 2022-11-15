@@ -442,6 +442,15 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 配置删除地址
+        /// </summary>
+        public TableBuilder DeleteUrl() {
+            AttributeIfNotEmpty( "deleteUrl", _config.GetValue( UiConst.DeleteUrl ) );
+            AttributeIfNotEmpty( "[deleteUrl]", _config.GetValue( AngularConst.BindDeleteUrl ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置排序条件
         /// </summary>
         public TableBuilder Sort() {
@@ -459,13 +468,22 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 配置标识列表
+        /// </summary>
+        public TableBuilder ConfigKeys() {
+            AttributeIfNotEmpty( "[checkedKeys]", _config.GetValue( UiConst.CheckedKeys ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         public TableBuilder Events() {
             return OnPageIndexChange( _config.GetValue( UiConst.OnPageIndexChange ) )
                 .OnPageSizeChange( _config.GetValue( UiConst.OnPageSizeChange ) )
                 .OnCurrentPageDataChange( _config.GetValue( UiConst.OnCurrentPageDataChange ) )
-                .OnQueryParams( _config.GetValue( UiConst.OnQueryParams ) );
+                .OnQueryParams( _config.GetValue( UiConst.OnQueryParams ) )
+                .OnLoad( _config.GetValue( UiConst.OnLoad ) );
         }
 
         /// <summary>
@@ -501,6 +519,14 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 数据加载完成事件
+        /// </summary>
+        protected TableBuilder OnLoad( string value ) {
+            AttributeIfNotEmpty( "(onLoad)", value );
+            return this;
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {
@@ -514,10 +540,12 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
                 .ItemRender().HideOnSinglePage().Simple().TemplateMode()
                 .VirtualItemSize().VirtualMaxBufferPx().VirtualMinBufferPx().VirtualForTrackBy()
                 .Layout()
-                .QueryParam().Url().Sort().AutoLoad()
+                .QueryParam().Url().DeleteUrl()
+                .Sort().AutoLoad().ConfigKeys()
                 .Events();
             ConfigAutoCreate();
-            ConfigTableExted();
+            if ( _shareConfig.IsEnableExtend )
+                ConfigExtend();
             ConfigEdit();
             ConfigContent();
         }
@@ -533,11 +561,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 配置表格扩展指令及默认属性
         /// </summary>
-        protected void ConfigTableExted() {
-            if ( _shareConfig.IsEnableExtend == false )
-                return;
+        protected virtual void ConfigExtend() {
             Attribute( "x-table-extend" );
             Attribute( $"#{ExtendId}", "xTableExtend" );
+            ConfigDefault();
+        }
+
+        /// <summary>
+        /// 配置默认属性
+        /// </summary>
+        protected void ConfigDefault() {
             Loading( $"{ExtendId}.loading" );
             ShowSizeChanger( "true" );
             ShowQuickJumper( "true" );

@@ -26,6 +26,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         }
 
         /// <summary>
+        /// 是否树形表格
+        /// </summary>
+        public bool IsTreeTable => _tableShareConfig.IsTreeTable;
+
+        /// <summary>
+        /// 是否启用基础扩展
+        /// </summary>
+        public bool IsEnableExtend => _tableShareConfig.IsEnableExtend;
+
+        /// <summary>
         /// 表格扩展标识
         /// </summary>
         public string TableExtendId => _tableShareConfig.TableExtendId;
@@ -64,6 +74,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         /// 是否显示单选框
         /// </summary>
         public bool IsShowRadio => _tableShareConfig.IsShowRadio;
+
+        /// <summary>
+        /// 是否仅能选择单选框叶节点
+        /// </summary>
+        public bool IsCheckLeafOnly => _tableShareConfig.IsCheckLeafOnly;
 
         /// <summary>
         /// 是否显示序号

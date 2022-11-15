@@ -13,7 +13,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
             if ( column.IsEmpty() )
                 return null;
             var tableExtendId = builder.GetTableColumnShareConfig().TableExtendId;
-            return new StringHtmlContent( $"{{{{row.{column}?'{tableExtendId}.config.text.yes':'{tableExtendId}.config.text.no'}}}}" );
+            return new StringHtmlContent( $"{{{{row.{column}?{tableExtendId}.config.text.yes:{tableExtendId}.config.text.no}}}}" );
         }
     }
 }

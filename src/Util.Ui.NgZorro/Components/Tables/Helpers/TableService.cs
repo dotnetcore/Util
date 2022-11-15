@@ -45,6 +45,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
             CreateShareConfig();
             SetIsShowCheckbox();
             SetIsShowRadio();
+            SetIsCheckLeafOnly();
             SetIsShowLineNumber();
             EnableExtend();
         }
@@ -79,6 +80,13 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         }
 
         /// <summary>
+        /// 设置是否仅能选择单选框叶节点
+        /// </summary>
+        private void SetIsCheckLeafOnly() {
+            _shareConfig.IsCheckLeafOnly = _config.GetValue<bool>( UiConst.CheckLeafOnly );
+        }
+
+        /// <summary>
         /// 设置是否显示序号
         /// </summary>
         private void SetIsShowLineNumber() {
@@ -95,7 +103,13 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
             }
             if ( GetEnableExtend() == true || 
                  GetUrl().IsEmpty() == false ||
-                 GetBindUrl().IsEmpty() == false || 
+                 GetBindUrl().IsEmpty() == false ||
+                 GetLoadUrl().IsEmpty() == false ||
+                 GetBindLoadUrl().IsEmpty() == false ||
+                 GetQueryUrl().IsEmpty() == false ||
+                 GetBindQueryUrl().IsEmpty() == false ||
+                 GetLoadChildrenUrl().IsEmpty() == false ||
+                 GetBindLoadChildrenUrl().IsEmpty() == false ||
                  _shareConfig.IsShowCheckbox ||
                  _shareConfig.IsShowRadio || 
                  _shareConfig.IsShowLineNumber ) {
@@ -122,6 +136,48 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// </summary>
         private string GetBindUrl() {
             return _config.GetValue( AngularConst.BindUrl );
+        }
+
+        /// <summary>
+        /// 获取加载地址
+        /// </summary>
+        private string GetLoadUrl() {
+            return _config.GetValue( UiConst.LoadUrl );
+        }
+
+        /// <summary>
+        /// 获取加载地址
+        /// </summary>
+        private string GetBindLoadUrl() {
+            return _config.GetValue( AngularConst.BindLoadUrl );
+        }
+
+        /// <summary>
+        /// 获取查询地址
+        /// </summary>
+        private string GetQueryUrl() {
+            return _config.GetValue( UiConst.QueryUrl );
+        }
+
+        /// <summary>
+        /// 获取查询地址
+        /// </summary>
+        private string GetBindQueryUrl() {
+            return _config.GetValue( AngularConst.BindQueryUrl );
+        }
+
+        /// <summary>
+        /// 获取加载下级节点地址
+        /// </summary>
+        private string GetLoadChildrenUrl() {
+            return _config.GetValue( UiConst.LoadChildrenUrl );
+        }
+
+        /// <summary>
+        /// 获取加载下级节点地址
+        /// </summary>
+        private string GetBindLoadChildrenUrl() {
+            return _config.GetValue( AngularConst.BindLoadChildrenUrl );
         }
     }
 }

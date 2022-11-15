@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Util.Applications.Dtos;
 
 namespace Util.Applications.Trees {
     /// <summary>
     /// 树形表格结果
     /// </summary>
-    public class TreeTableResult : TreeTableResultBase<TreeDto, TreeDto, List<TreeDto>> {
-        public TreeTableResult( IEnumerable<TreeDto> data, bool async = false ) : base( data, async ) {
+    public class TestTreeTableResult : TreeTableResultBase<TreeDto, TreeDto, List<TreeDto>> {
+        public TestTreeTableResult( IEnumerable<TreeDto> data, bool async = false ) : base( data, async ) {
         }
 
         protected override TreeDto ToDestinationNode( TreeDto node ) {

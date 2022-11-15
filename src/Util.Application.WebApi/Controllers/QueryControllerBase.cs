@@ -60,7 +60,7 @@ namespace Util.Applications.Controllers {
         /// <param name="query">查询参数</param>
         protected async Task<IActionResult> QueryAsync( TQuery query ) {
             if ( query == null )
-                return Fail( WebApiResource.QueryIsEmpty );
+                return Fail( ApplicationResource.QueryIsEmpty );
             QueryBefore( query );
             var list = await _service.QueryAsync( query );
             var result = QueryAfter( list );
@@ -92,7 +92,7 @@ namespace Util.Applications.Controllers {
         /// <param name="query">查询参数</param>
         protected async Task<IActionResult> PageQueryAsync( TQuery query ) {
             if ( query == null )
-                return Fail( WebApiResource.QueryIsEmpty );
+                return Fail( ApplicationResource.QueryIsEmpty );
             PageQueryBefore( query );
             var pageList = await _service.PageQueryAsync( query );
             var result = PageQueryAfter( pageList );
@@ -124,7 +124,7 @@ namespace Util.Applications.Controllers {
         /// <param name="query">查询参数</param>
         protected async Task<IActionResult> GetItemsAsync( TQuery query ) {
             if ( query == null )
-                return Fail( WebApiResource.QueryIsEmpty );
+                return Fail( ApplicationResource.QueryIsEmpty );
             var pageList = await _service.PageQueryAsync( query );
             var result = pageList.Data.Select( ToItem );
             return Success( result );

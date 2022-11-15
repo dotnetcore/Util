@@ -24,23 +24,10 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 初始化表头单元格标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableHeadColumnBuilder( Config config ) : base( config,"th" ) {
+        /// <param name="shareConfig">表头列共享配置</param>
+        public TableHeadColumnBuilder( Config config, TableHeadColumnShareConfig shareConfig ) : base( config,"th" ) {
             _config = config;
-            _shareConfig = GetTableHeadColumnShareConfig();
-        }
-
-        /// <summary>
-        /// 获取表头列共享配置
-        /// </summary>
-        private TableHeadColumnShareConfig GetTableHeadColumnShareConfig() {
-            return _config.GetValueFromItems<TableHeadColumnShareConfig>() ?? new TableHeadColumnShareConfig( GetTableShareConfig() );
-        }
-
-        /// <summary>
-        /// 获取表格共享配置
-        /// </summary>
-        private TableShareConfig GetTableShareConfig() {
-            return _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
+            _shareConfig = shareConfig;
         }
 
         /// <summary>
@@ -266,10 +253,10 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置标题
         /// </summary>
         /// <param name="title">标题</param>
-        public TableHeadColumnBuilder Title( string title ) {
-            if ( title.IsEmpty() == false )
-                AppendContent( title );
-            return this;
+        public virtual void Title( string title ) {
+            if ( title.IsEmpty() )
+                return;
+            AppendContent( title );
         }
 
         /// <summary>
@@ -313,8 +300,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 添加复选框
         /// </summary>
-        protected virtual void AddCheckBox() {
-            var checkboxBuilder = new TableHeadColumnBuilder( _config );
+        protected virtual void AddCheckBox( string title = null ) {
+            var checkboxBuilder = new TableHeadColumnBuilder( _config, _shareConfig );
             checkboxBuilder.ConfigCheckBox();
             PreBuilder = checkboxBuilder;
         }
@@ -348,8 +335,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// <summary>
         /// 添加单选框列头
         /// </summary>
-        protected virtual void AddRadio() {
-            var radioBuilder = new TableHeadColumnBuilder( _config );
+        protected virtual void AddRadio( string title = null ) {
+            var radioBuilder = new TableHeadColumnBuilder( _config, _shareConfig );
             radioBuilder.BindWidth( $"{_shareConfig.TableExtendId}.config.table.radioWidth" );
             PreBuilder = radioBuilder;
         }
@@ -370,7 +357,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 添加序号
         /// </summary>
         protected virtual void AddLineNumber() {
-            var lineNumberBuilder = new TableHeadColumnBuilder( _config );
+            var lineNumberBuilder = new TableHeadColumnBuilder( _config, _shareConfig );
             lineNumberBuilder.ConfigLineNumber();
             if ( PreBuilder == null ) {
                 PreBuilder = lineNumberBuilder;
@@ -391,7 +378,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 添加表头单元格
         /// </summary>
         /// <param name="column">列</param>
-        public void AddColumn( ColumnInfo column ) {
+        public virtual void AddColumn( ColumnInfo column ) {
             if ( column.IsFirst ) {
                 if ( _shareConfig.IsShowCheckbox )
                     AddCheckBox();

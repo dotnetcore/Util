@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Html;
 using System;
 using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Tables.Builders.Factories;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -14,13 +13,19 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
         /// 配置
         /// </summary>
         private readonly Config _config;
+        /// <summary>
+        /// 表格列选择框创建服务
+        /// </summary>
+        private readonly ISelectCreateService _service;
 
         /// <summary>
         /// 初始化表格单元格内容
         /// </summary>
         /// <param name="builder">表格单元格标签生成器</param>
-        public TableColumnContentService( TableColumnBuilder builder ) {
+        /// <param name="service">表格列选择框创建服务</param>
+        public TableColumnContentService( TableColumnBuilder builder, ISelectCreateService service ) {
             Builder = builder ?? throw new ArgumentNullException( nameof( builder ) );
+            _service = service ?? throw new ArgumentNullException( nameof( service ) );
             _config = builder.GetConfig();
             ShareConfig = builder.GetTableColumnShareConfig();
         }
@@ -71,11 +76,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
         private ITableColumnContentLoader CreateContentLoader() {
             if ( IsEdit ) {
                 if ( ShareConfig.IsFirst )
-                    return new EditFirstColumnContentLoader( new TableSelectBuilderFactory( Builder ) );
+                    return new EditFirstColumnContentLoader( _service );
                 return new EditContentLoader();
             }
             if ( ShareConfig.IsFirst )
-                return new NoEditFirstColumnContentLoader( new TableSelectBuilderFactory( Builder ) );
+                return new NoEditFirstColumnContentLoader( _service );
             return new NoEditContentLoader();
         }
 

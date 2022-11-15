@@ -4,16 +4,12 @@
     /// </summary>
     public enum LoadOperation {
         /// <summary>
-        /// 首次加载
+        /// 查询
         /// </summary>
-        FirstLoad = 1,
+        Query,
         /// <summary>
-        /// 加载子节点
+        /// 加载子节点列表
         /// </summary>
-        LoadChild = 2,
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        Search = 3
+        LoadChildren
     }
 }

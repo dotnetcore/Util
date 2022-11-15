@@ -4,7 +4,6 @@ using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
-using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -82,14 +81,23 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// </summary>
         [Fact]
         public void TestCheckbox() {
-            _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowCheckbox = true,IsTreeTable = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true,IsShowCheckbox = true,IsTreeTable = true } );
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
-            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
+            result.Append( "<td " );
+            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
+            result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
+            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
+            result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
+            result.Append( ">" );
+            result.Append( "<label " );
+            result.Append( "(nzCheckedChange)=\"x_id.toggle(row)\" " );
+            result.Append( "nz-checkbox=\"\" " );
             result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
-            result.Append( "[nzShowCheckbox]=\"true\">" );
+            result.Append( "[nzIndeterminate]=\"x_id.isIndeterminate(row)\">" );
+            result.Append( "{{row.a}}" );
+            result.Append( "</label>" );
             result.Append( "</td>" );
-            result.Append( "<td>{{row.a}}</td>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -102,14 +110,19 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// </summary>
         [Fact]
         public void TestRadio_1() {
-            _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowRadio = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowRadio = true, IsTreeTable = true } );
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
-            result.Append( "<td>" );
+            result.Append( "<td " );
+            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
+            result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
+            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
+            result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
+            result.Append( ">" );
             result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
+            result.Append( "{{row.a}}" );
             result.Append( "</label>" );
             result.Append( "</td>" );
-            result.Append( "<td>{{row.a}}</td>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -118,70 +131,24 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// </summary>
         [Fact]
         public void TestRadio_2() {
-            _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowCheckbox = true, IsShowRadio = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowCheckbox = true, IsShowRadio = true, IsTreeTable = true } );
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
-            result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
+            result.Append( "<td " );
+            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
+            result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
+            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
+            result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
+            result.Append( ">" );
+            result.Append( "<label " );
+            result.Append( "(nzCheckedChange)=\"x_id.toggle(row)\" " );
+            result.Append( "nz-checkbox=\"\" " );
             result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
-            result.Append( "[nzShowCheckbox]=\"true\">" );
+            result.Append( "[nzIndeterminate]=\"x_id.isIndeterminate(row)\">" );
+            result.Append( "{{row.a}}" );
+            result.Append( "</label>" );
             result.Append( "</td>" );
-            result.Append( "<td>{{row.a}}</td>" );
             Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        #endregion
-
-        #region Bool
-
-        /// <summary>
-        /// 测试布尔类型列
-        /// </summary>
-        [Fact]
-        public void TestType_Bool() {
-            _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Bool );
-            _wrapper.SetContextAttribute( UiConst.Column, "a" );
-            var result = new StringBuilder();
-            result.Append( "<td>{{row.a?'x_id.config.text.yes':'x_id.config.text.no'}}</td>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        #endregion
-
-        #region Width
-
-        /// <summary>
-        /// 测试宽度
-        /// </summary>
-        [Fact]
-        public void TestWidth() {
-            //创建表格
-            var table = new TableTagHelper().ToWrapper();
-
-            //添加列
-            table.AppendContent( _wrapper );
-
-            //设置标题,内容,宽度
-            _wrapper.SetContextAttribute( UiConst.Title, "a" );
-            _wrapper.SetContextAttribute( UiConst.Width, "100" );
-            _wrapper.AppendContent( "b" );
-
-            //结果
-            var result = new StringBuilder();
-            result.Append( "<nz-table>" );
-            result.Append( "<thead>" );
-            result.Append( "<tr>" );
-            result.Append( "<th nzWidth=\"100px\">a</th>" );
-            result.Append( "</tr>" );
-            result.Append( "</thead>" );
-            result.Append( "<tbody>" );
-            result.Append( "<tr>" );
-            result.Append( "<td>b</td>" );
-            result.Append( "</tr>" );
-            result.Append( "</tbody>" );
-            result.Append( "</nz-table>" );
-
-            //验证
-            Assert.Equal( result.ToString(), table.GetResult() );
         }
 
         #endregion
