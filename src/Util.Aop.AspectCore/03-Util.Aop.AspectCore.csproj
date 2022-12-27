@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<AssemblyName>Util.Aop.AspectCore</AssemblyName>
+		<RootNamespace>Util.Aop</RootNamespace>
+		<Description>Util.Aop.AspectCore是Util应用框架基于 AspectCore 实现AOP拦截功能的库</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Aop.AspectCore.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Aop.AspectCore.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="AspectCore.Extensions.AspectScope" Version="2.3.0" />
+	  <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="2.3.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Util.Core\01-Util.Core.csproj" />
+	</ItemGroup>
+
+</Project>

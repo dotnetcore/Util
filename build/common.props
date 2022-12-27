@@ -1,0 +1,19 @@
+<Project>
+	<Import Project="version.props" />
+	<PropertyGroup>
+		<NetTargetFramework>net7.0</NetTargetFramework>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>Util Application Framework</Product>
+		<Authors>ncc;何镇汐</Authors>
+		<Copyright>ncc;何镇汐</Copyright>
+		<MaintainerEmail>xiadao521@qq.com</MaintainerEmail>
+		<PackageProjectUrl>https://github.com/dotnetcore/Util</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/dotnetcore/Util</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReleaseNotes>Util应用框架以MIT开源发布，可随意使用</PackageReleaseNotes>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIconUrl>https://avatars2.githubusercontent.com/u/19421630</PackageIconUrl>
+		<PackageTags>util;applicationframework;dotnetcore;aspnetcore;</PackageTags>
+	</PropertyGroup>
+</Project>

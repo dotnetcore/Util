@@ -1,0 +1,57 @@
+﻿using System.Text;
+using Xunit;
+
+namespace Util.Ui.NgZorro.Tests.Radios {
+    /// <summary>
+    /// 单选框组合测试 - 表达式解析测试
+    /// </summary>
+    public partial class RadioGroupTagHelperTest {
+        /// <summary>
+        /// 测试属性表达式 - 布尔值
+        /// </summary>
+        [Fact]
+        public void TestFor_1() {
+            _wrapper.SetExpression( t => t.Enabled );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>" );
+            result.Append( "启用" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-radio-group #x_id=\"xSelectExtend\" name=\"enabled\" nzName=\"enabled\" x-select-extend=\"\" [(ngModel)]=\"model.enabled\" " );
+            result.Append( "[data]=\"[{'text':x_id.config.text.yes,'value':true,'sortId':1},{'text':x_id.config.text.no,'value':false,'sortId':2}]\"" );
+            result.Append( ">" );
+            result.Append( "<label *ngFor=\"let item of x_id.options\" nz-radio=\"\" [nzDisabled]=\"item.disabled\" [nzValue]=\"item.value\">" );
+            result.Append( "{{item.text}}" );
+            result.Append( "</label>" );
+            result.Append( "</nz-radio-group>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试属性表达式 - 枚举值
+        /// </summary>
+        [Fact]
+        public void TestFor_2() {
+            _wrapper.SetExpression( t => t.Gender );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>" );
+            result.Append( "性别" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-radio-group #x_id=\"xSelectExtend\" name=\"gender\" nzName=\"gender\" x-select-extend=\"\" [(ngModel)]=\"model.gender\" " );
+            result.Append( "[data]=\"[{'text':'女','value':1,'sortId':1},{'text':'男','value':2,'sortId':2}]\"" );
+            result.Append( ">" );
+            result.Append( "<label *ngFor=\"let item of x_id.options\" nz-radio=\"\" [nzDisabled]=\"item.disabled\" [nzValue]=\"item.value\">" );
+            result.Append( "{{item.text}}" );
+            result.Append( "</label>" );
+            result.Append( "</nz-radio-group>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+    }
+}

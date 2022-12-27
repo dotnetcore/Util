@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<AssemblyName>Util.Logging.Serilog.Exceptionless</AssemblyName>
+		<RootNamespace>Util.Logging.Serilog</RootNamespace>
+		<Description>Util.Logging.Serilog.Exceptionless是Util应用框架集成封装Serilog日志操作类库,用于写入Exceptionless</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Logging.Serilog.Exceptionless.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Logging.Serilog.Exceptionless.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Exceptionless.Extensions.Hosting" Version="4.8.0" />
+    <PackageReference Include="Exceptionless.Extensions.Logging" Version="4.8.0" />
+    <PackageReference Include="Serilog.Sinks.Exceptionless" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Logging.Serilog\02-Util.Logging.Serilog.csproj" />
+  </ItemGroup>
+
+</Project>

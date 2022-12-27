@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="common.props" />
+		<None Remove="icon.jpg" />
+		<None Remove="version.props" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FlubuCore" Version="6.4.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<DotNetCliToolReference Include="dotnet-flubu" Version="6.3.2" />
+	</ItemGroup>
+
+</Project>

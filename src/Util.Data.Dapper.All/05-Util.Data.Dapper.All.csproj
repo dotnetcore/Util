@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<AssemblyName>Util.Data.Dapper.All</AssemblyName>
+		<RootNamespace>Util.Data</RootNamespace>
+		<Description>Util.Data.Dapper.All是Util应用框架基于Dapper的数据访问封装类库,包含所有支持的数据库实现</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Data.Dapper.All.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Data.Dapper.All.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Data.Dapper.MySql\04-Util.Data.Dapper.MySql.csproj" />
+    <ProjectReference Include="..\Util.Data.Dapper.PostgreSql\03-Util.Data.Dapper.PostgreSql.csproj" />
+    <ProjectReference Include="..\Util.Data.Dapper.SqlServer\02-Util.Data.Dapper.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>

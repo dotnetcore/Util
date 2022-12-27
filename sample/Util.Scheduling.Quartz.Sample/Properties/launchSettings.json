@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Util.Scheduling.Quartz.Sample": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
