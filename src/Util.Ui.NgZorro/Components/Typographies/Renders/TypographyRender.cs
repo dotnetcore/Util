@@ -1,8 +1,10 @@
-﻿using Util.Ui.Angular.Configs;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Components.Forms.Renders;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -203,6 +205,11 @@ namespace Util.Ui.NgZorro.Components.Typographies.Renders {
         /// </summary>
         protected virtual void ConfigContent( TagBuilder builder ) {
             _config.Content.AppendTo( builder );
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TypographyRender( _config.Copy(), _builder );
         }
     }
 }

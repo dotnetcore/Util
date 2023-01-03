@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
@@ -37,6 +38,11 @@ namespace Util.Ui.NgZorro.Components.DatePickers.Renders {
             builder.Config();
             _config.Content.AppendTo( builder );
             formControlBuilder.AppendContent( builder );
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new DatePickerRender( _config.Copy() );
         }
     }
 }

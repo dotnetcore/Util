@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Forms.Builders;
@@ -30,6 +31,11 @@ namespace Util.Ui.NgZorro.Components.Forms.Renders {
             builder.Config();
             _config.Content.AppendTo( builder );
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new FormControlRender( _config.Copy() );
         }
     }
 }

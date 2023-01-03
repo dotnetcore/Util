@@ -228,7 +228,7 @@ namespace Util.Ui.NgZorro.Components.DatePickers.Builders {
         /// </summary>
         public override void Config() {
             base.ConfigBase( _config );
-            ConfigForm().InputId().AllowClear().AutoFocus().DefaultPickerValue()
+            ConfigForm().Name().InputId().AllowClear().AutoFocus().DefaultPickerValue()
                 .Disabled().DisabledDate().DisabledTime()
                 .DropdownClassName().PopupStyle().Format().InputReadonly().Locale().Mode()
                 .Placeholder().RenderExtraFooter().Size().SuffixIcon().Borderless().DateRender()

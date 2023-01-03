@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Descriptions.Helpers;
 using Util.Ui.NgZorro.Components.Descriptions.Renders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Descriptions {
     /// <summary>
@@ -63,7 +63,7 @@ namespace Util.Ui.NgZorro.Components.Descriptions {
         }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             _config.Content = content;
             return new DescriptionItemRender( _config );
         }

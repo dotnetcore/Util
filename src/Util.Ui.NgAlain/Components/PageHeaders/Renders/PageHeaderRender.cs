@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgAlain.Components.PageHeaders.Builders;
 using Util.Ui.Renders;
@@ -28,6 +29,11 @@ namespace Util.Ui.NgAlain.Components.PageHeaders.Renders {
             var builder = new PageHeaderBuilder( _config );
             builder.Config();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new PageHeaderRender( _config.Copy() );
         }
     }
 }

@@ -149,7 +149,7 @@ namespace Util.Ui.NgZorro.Components.InputNumbers.Builders {
         /// </summary>
         public override void Config() {
             base.ConfigBase( _config );
-            ConfigForm().InputId().AutoFocus().Disabled().Max().Min().Formatter().Parser()
+            ConfigForm().Name().InputId().AutoFocus().Disabled().Max().Min().Formatter().Parser()
                 .Precision().PrecisionMode().Size().Step().InputMode().Placeholder()
                 .Events();
         }

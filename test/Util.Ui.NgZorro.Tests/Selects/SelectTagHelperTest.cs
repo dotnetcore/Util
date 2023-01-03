@@ -1,8 +1,10 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Selects;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,7 +13,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
     /// <summary>
     /// 选择器测试
     /// </summary>
-    public class SelectTagHelperTest {
+    public partial class SelectTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -19,14 +21,15 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// <summary>
         /// TagHelper包装器
         /// </summary>
-        private readonly TagHelperWrapper _wrapper;
+        private readonly TagHelperWrapper<Customer> _wrapper;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public SelectTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _wrapper = new SelectTagHelper().ToWrapper();
+            _wrapper = new SelectTagHelper().ToWrapper<Customer>();
+            Id.SetId( "id" );
         }
 
         /// <summary>

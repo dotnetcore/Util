@@ -24,8 +24,15 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置禁用
         /// </summary>
         public OptionBuilder Disabled() {
-            AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-            AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+            Disabled( _config.GetBoolValue( UiConst.Disabled ) );
+            return Disabled( _config.GetValue( AngularConst.BindDisabled ) );
+        }
+
+        /// <summary>
+        /// 配置禁用
+        /// </summary>
+        public OptionBuilder Disabled( string value ) {
+            AttributeIfNotEmpty( "[nzDisabled]", value );
             return this;
         }
 
@@ -33,8 +40,25 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置标签
         /// </summary>
         public OptionBuilder Label() {
-            AttributeIfNotEmpty( "nzLabel", _config.GetValue( UiConst.Label ) );
-            AttributeIfNotEmpty( "[nzLabel]", _config.GetValue( AngularConst.BindLabel ) );
+            Label( _config.GetValue( UiConst.Label ) );
+            return BindLabel( _config.GetValue( AngularConst.BindLabel ) );
+        }
+
+        /// <summary>
+        /// 配置标签
+        /// </summary>
+        public OptionBuilder Label( string value ) {
+            if ( string.IsNullOrEmpty( value ) )
+                return this;
+            Attribute( "nzLabel", value );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置标签
+        /// </summary>
+        public OptionBuilder BindLabel( string value ) {
+            AttributeIfNotEmpty( "[nzLabel]", value );
             return this;
         }
 
@@ -42,8 +66,23 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置值
         /// </summary>
         public OptionBuilder Value() {
-            AttributeIfNotEmpty( "nzValue", _config.GetValue( UiConst.Value ) );
-            AttributeIfNotEmpty( "[nzValue]", _config.GetValue( AngularConst.BindValue ) );
+            Value( _config.GetValue( UiConst.Value ) );
+            return BindValue( _config.GetValue( AngularConst.BindValue ) );
+        }
+
+        /// <summary>
+        /// 配置值
+        /// </summary>
+        public OptionBuilder Value( string value ) {
+            AttributeIfNotEmpty( "nzValue", value );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置值
+        /// </summary>
+        public OptionBuilder BindValue( string value ) {
+            AttributeIfNotEmpty( "[nzValue]", value );
             return this;
         }
 

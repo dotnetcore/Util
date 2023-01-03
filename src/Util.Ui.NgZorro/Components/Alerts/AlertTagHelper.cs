@@ -5,6 +5,7 @@ using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Alerts.Helpers;
 using Util.Ui.NgZorro.Components.Alerts.Renders;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Alerts {
     /// <summary>
@@ -97,7 +98,7 @@ namespace Util.Ui.NgZorro.Components.Alerts {
         }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             _config.Content = content;
             return new AlertRender( _config );
         }

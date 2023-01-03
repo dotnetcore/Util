@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
 
@@ -43,6 +44,11 @@ namespace Util.Ui.NgZorro.Components.Inputs.Renders {
         /// </summary>
         protected override string GetClearIconClass() {
             return "ant-input-textarea-clear-icon";
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TextareaRender( _config.Copy() );
         }
     }
 }

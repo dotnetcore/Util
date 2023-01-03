@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Html;
+using System;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -29,6 +30,11 @@ namespace Util.Ui.Angular.Renders {
             var builder = new TemplateBuilder( _config );
             builder.Config();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TemplateRender( _config.Copy() );
         }
     }
 }

@@ -186,11 +186,13 @@ namespace Util.Ui.TagHelpers {
         /// 获取结果
         /// </summary>
         public string GetResult() {
+            TagHelperContent content = new DefaultTagHelperContent();
+            _content.CopyTo( content );
             var context = new TagHelperContext( _contextAttributes, _items, Guid.NewGuid().ToString() );
             var output = new TagHelperOutput( "", _outputAttributes, ( useCachedResult, encoder ) => {
                 foreach ( var child in _children )
-                    _content.AppendHtml( child.GetContent( _items ) );
-                return Task.FromResult( _content );
+                    content.AppendHtml( child.GetContent( _items ) );
+                return Task.FromResult( content );
             } );
             _component.ProcessAsync( context, output ).GetAwaiter().GetResult();
             var writer = new StringWriter();
@@ -203,17 +205,19 @@ namespace Util.Ui.TagHelpers {
         /// </summary>
         /// <param name="items">上下文</param>
         public TagHelperContent GetContent( IDictionary<object, object> items ) {
+            TagHelperContent content = new DefaultTagHelperContent();
+            _content.CopyTo( content );
             IDictionary<object, object> newItems = items.ToDictionary( t => t.Key, t => t.Value );
             var context = new TagHelperContext( _contextAttributes, newItems, Guid.NewGuid().ToString() );
             var output = new TagHelperOutput( "", _outputAttributes, ( useCachedResult, encoder ) => {
                 foreach ( var child in _children )
-                    _content.AppendHtml( child.GetContent( newItems ) );
-                return Task.FromResult( _content );
+                    content.AppendHtml( child.GetContent( newItems ) );
+                return Task.FromResult( content );
             } );
             _component.ProcessAsync( context, output );
-            TagHelperContent content = new DefaultTagHelperContent();
-            content.AppendHtml( output );
-            return content;
+            var result = new DefaultTagHelperContent();
+            result.AppendHtml( output );
+            return result;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Html;
+using System.IO;
 using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Html;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
@@ -8,12 +8,13 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Builders;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Base {
     /// <summary>
     /// 表单控件渲染器基类
     /// </summary>
-    public abstract class FormControlRenderBase : IHtmlContent {
+    public abstract class FormControlRenderBase : IRender {
         /// <summary>
         /// 配置
         /// </summary>
@@ -138,5 +139,8 @@ namespace Util.Ui.NgZorro.Components.Base {
             templateBuilder.SetContent( $"{{{{{_shareConfig.ValidationExtendId}.getErrorMessage()}}}}" );
             formControlBuilder.AppendContent( templateBuilder );
         }
+
+        /// <inheritdoc />
+        public abstract IHtmlContent Clone();
     }
 }

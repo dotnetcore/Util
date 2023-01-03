@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.PageHeaders.Renders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.PageHeaders {
     /// <summary>
@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Components.PageHeaders {
     [HtmlTargetElement( "util-page-header-footer" )]
     public class PageHeaderFooterTagHelper : AngularTagHelperBase {
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             var config = new Config( context, output, content );
             return new PageHeaderFooterRender( config );
         }

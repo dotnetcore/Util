@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Buttons.Builders;
 using Util.Ui.NgZorro.Components.Links.Builders;
@@ -47,6 +48,11 @@ namespace Util.Ui.NgZorro.Components.Buttons.Renders {
         /// </summary>
         private string GetButtonType() {
             return _config.GetValue<ButtonType?>( UiConst.Type )?.Description();
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new ButtonRender( _config.Copy() );
         }
     }
 }

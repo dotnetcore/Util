@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Forms.Builders;
@@ -23,9 +24,10 @@ namespace Util.Ui.NgZorro.Components.Forms.Renders {
         /// 初始化表单项渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public FormItemRender( Config config ) {
+        /// <param name="shareConfig">共享配置</param>
+        public FormItemRender( Config config, FormItemShareConfig shareConfig = null ) {
             _config = config;
-            _shareConfig = GetFormItemShareConfig();
+            _shareConfig = shareConfig ?? GetFormItemShareConfig();
         }
 
         /// <summary>
@@ -59,6 +61,11 @@ namespace Util.Ui.NgZorro.Components.Forms.Renders {
                 return builder;
             }
             return new EmptyContainerTagBuilder();
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new FormItemRender( _config.Copy(), _shareConfig.MapTo<FormItemShareConfig>() );
         }
     }
 }

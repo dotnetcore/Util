@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Avatars.Builders;
 using Util.Ui.NgZorro.Components.Comments.Configs;
@@ -40,6 +41,11 @@ namespace Util.Ui.NgZorro.Components.Avatars.Renders {
             if( shareConfig == null )
                 return;
             builder.Attribute( "nz-comment-avatar" );
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new AvatarRender( _config.Copy() );
         }
     }
 }

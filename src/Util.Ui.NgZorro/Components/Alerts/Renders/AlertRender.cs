@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
@@ -84,6 +85,11 @@ namespace Util.Ui.NgZorro.Components.Alerts.Renders {
             var result = new TemplateBuilder( _config );
             result.Id( _shareConfig.TemplateId );
             return result;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new AlertRender( _config.Copy() );
         }
     }
 }

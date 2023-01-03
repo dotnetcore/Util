@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Helpers;
 using Util.Ui.NgZorro.Components.Radios.Renders;
 using Util.Ui.NgZorro.Components.Selects.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Radios {
     /// <summary>
@@ -70,7 +70,7 @@ namespace Util.Ui.NgZorro.Components.Radios {
         }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             _config.Content = content;
             return new RadioGroupRender( _config );
         }

@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Renders;
 using Util.Ui.Tests.Samples.Containers.Builders;
@@ -28,6 +29,11 @@ namespace Util.Ui.Tests.Samples.Containers.Renders {
             var builder = new ContainerBuilder( _config );
             builder.Config();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new ContainerRender( _config.Copy() );
         }
     }
 }

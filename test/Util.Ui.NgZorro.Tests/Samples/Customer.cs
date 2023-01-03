@@ -37,6 +37,7 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         /// 出生日期
         ///</summary>
         [Description( "出生日期" )]
+        [Required]
         public DateTime? Birthday { get; set; }
         /// <summary>
         /// 民族

@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
 using Util.Ui.Renders;
@@ -28,6 +29,11 @@ namespace Util.Ui.NgZorro.Components.Inputs.Renders {
             var builder = new TextareaCountBuilder( _config );
             builder.Config();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TextareaCountRender( _config.Copy() );
         }
     }
 }

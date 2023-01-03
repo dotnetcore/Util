@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
-using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.InputNumbers.Renders;
 using Util.Ui.NgZorro.Components.Inputs.Helpers;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.InputNumbers {
     /// <summary>
@@ -142,7 +141,7 @@ namespace Util.Ui.NgZorro.Components.InputNumbers {
         }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             _config.Content = content;
             return new InputNumberRender( _config );
         }

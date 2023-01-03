@@ -1,7 +1,9 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Forms.Renders;
 using Util.Ui.NgZorro.Components.Radios.Builders;
 using Util.Ui.NgZorro.Components.Radios.Configs;
 
@@ -78,6 +80,11 @@ namespace Util.Ui.NgZorro.Components.Radios.Renders {
             if ( _shareConfig.IsRadioExtend )
                 builder.Extend();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new RadioRender( _config.Copy() );
         }
     }
 }

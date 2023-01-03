@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.DatePickers.Renders;
+using Util.Ui.NgZorro.Components.Inputs.Helpers;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.DatePickers {
     /// <summary>
@@ -11,6 +12,10 @@ namespace Util.Ui.NgZorro.Components.DatePickers {
     /// </summary>
     [HtmlTargetElement( "util-date-picker" )]
     public class DatePickerTagHelper : FormControlTagHelperBase {
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private Config _config;
         /// <summary>
         /// nzId,组件内部 input 的 id 值
         /// </summary>
@@ -195,9 +200,16 @@ namespace Util.Ui.NgZorro.Components.DatePickers {
         public string OnOk { get; set; }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
-            var config = new Config( context, output, content );
-            return new DatePickerRender( config );
+        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+            _config = new Config( context, output );
+            var service = new InputService( _config );
+            service.Init();
+        }
+
+        /// <inheritdoc />
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+            _config.Content = content;
+            return new DatePickerRender( _config );
         }
     }
 }

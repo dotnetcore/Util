@@ -24,8 +24,23 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置组名
         /// </summary>
         public OptionGroupBuilder Label() {
-            AttributeIfNotEmpty( "nzLabel", _config.GetValue( UiConst.Label ) );
-            AttributeIfNotEmpty( "[nzLabel]", _config.GetValue( AngularConst.BindLabel ) );
+            Label( _config.GetValue( UiConst.Label ) );
+            return BindLabel( _config.GetValue( AngularConst.BindLabel ) );
+        }
+
+        /// <summary>
+        /// 配置组名
+        /// </summary>
+        public OptionGroupBuilder Label( string value ) {
+            AttributeIfNotEmpty( "nzLabel", value );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置组名
+        /// </summary>
+        public OptionGroupBuilder BindLabel( string value ) {
+            AttributeIfNotEmpty( "[nzLabel]", value );
             return this;
         }
 

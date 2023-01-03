@@ -27,6 +27,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
             LoadName( config, info );
             LoadNgModel( config, info );
             LoadData( selectConfig, info );
+            LoadRequired( config, info );
         }
 
         /// <summary>
@@ -94,6 +95,16 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
             };
             var result = Util.Helpers.Json.ToJson( items, options, toSingleQuotes: true );
             config.SetAttribute( UiConst.Data, result, false );
+        }
+
+        /// <summary>
+        /// 加载必填项验证
+        /// </summary>
+        protected virtual void LoadRequired( Config config, ModelExpressionInfo info ) {
+            if ( info.IsRequired == false )
+                return;
+            config.SetAttribute( UiConst.Required, "true", false );
+            config.SetAttribute( UiConst.RequiredMessage, info.RequiredMessage, false );
         }
     }
 }

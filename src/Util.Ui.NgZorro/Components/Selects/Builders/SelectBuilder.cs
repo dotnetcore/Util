@@ -1,6 +1,10 @@
-﻿using Util.Ui.Angular.Configs;
+﻿using System.Xml.Linq;
+using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Containers.Builders;
+using Util.Ui.NgZorro.Components.Selects.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Selects.Builders {
@@ -11,13 +15,13 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly Config _config;
+        private readonly SelectConfig _config;
 
         /// <summary>
         /// 初始化选择器标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public SelectBuilder( Config config ) : base( config, "nz-select" ) {
+        public SelectBuilder( SelectConfig config ) : base( config, "nz-select" ) {
             _config = config;
         }
 
@@ -243,7 +247,14 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置加载状态
         /// </summary>
         public SelectBuilder Loading() {
-            AttributeIfNotEmpty( "[nzLoading]", _config.GetValue( UiConst.Loading ) );
+            return Loading( _config.GetValue( UiConst.Loading ) );
+        }
+
+        /// <summary>
+        /// 配置加载状态
+        /// </summary>
+        public SelectBuilder Loading( string loading ) {
+            AttributeIfNotEmpty( "[nzLoading]", loading );
             return this;
         }
 
@@ -291,6 +302,48 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         }
 
         /// <summary>
+        /// 配置自动加载
+        /// </summary>
+        private SelectBuilder AutoLoad() {
+            AttributeIfNotEmpty( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置查询参数
+        /// </summary>
+        private SelectBuilder QueryParam() {
+            AttributeIfNotEmpty( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置排序条件
+        /// </summary>
+        private SelectBuilder Sort() {
+            AttributeIfNotEmpty( "order", _config.GetValue( UiConst.Sort ) );
+            AttributeIfNotEmpty( "[order]", _config.GetValue( AngularConst.BindSort ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置Api地址
+        /// </summary>
+        private SelectBuilder Url() {
+            AttributeIfNotEmpty( "url", _config.GetValue( UiConst.Url ) );
+            AttributeIfNotEmpty( "[url]", _config.GetValue( AngularConst.BindUrl ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置数据源
+        /// </summary>
+        private SelectBuilder Data() {
+            AttributeIfNotEmpty( "[data]", _config.GetValue( UiConst.Data ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         public SelectBuilder Events() {
@@ -307,7 +360,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// </summary>
         public override void Config() {
             base.ConfigBase( _config );
-            ConfigForm().CompareWith().AutoClearSearchValue().AllowClear()
+            ConfigForm().Name().CompareWith().AutoClearSearchValue().AllowClear()
                 .Borderless().Open().AutoFocus().Disabled()
                 .DropdownClassName().DropdownStyle().DropdownMatchSelectWidth()
                 .CustomTemplate().ServerSearch().FilterOption().MaxMultipleCount()
@@ -316,7 +369,123 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
                 .SuffixIcon().RemoveIcon().ClearIcon().MenuItemSelectedIcon()
                 .TokenSeparators().Loading().MaxTagCount().MaxTagPlaceholder()
                 .Options().OptionHeightPx().OptionOverflowSize()
+                .AutoLoad().QueryParam().Sort().Url().Data()
                 .Events();
+            ConfigDefaultOptionText();
+            EnableExtend();
+        }
+
+        /// <summary>
+        /// 配置默认项文本
+        /// </summary>
+        private void ConfigDefaultOptionText() {
+            var value = _config.AllAttributes[UiConst.DefaultOptionText]?.Value?.ToString();
+            if ( string.IsNullOrEmpty( value ) )
+                return;
+            var optionBuilder = new OptionBuilder( _config );
+            optionBuilder.Label( value );
+            _config.Content.AppendHtml( optionBuilder );
+        }
+
+        /// <summary>
+        /// 启用扩展
+        /// </summary>
+        public SelectBuilder EnableExtend() {
+            if ( IsEnableExtend() == false )
+                return this;
+            Attribute( $"#{_config.ExtendId}", "xSelectExtend" );
+            Attribute( "x-select-extend" );
+            EnableLoading();
+            ConfigOption();
+            ConfigOptionGroup();
+            return this;
+        }
+
+        /// <summary>
+        /// 是否启用基础扩展
+        /// </summary>
+        public bool IsEnableExtend() {
+            if ( GetEnableExtend() == false ) {
+                return false;
+            }
+            if ( GetEnableExtend() == true ||
+                 GetUrl().IsEmpty() == false ||
+                 GetBindUrl().IsEmpty() == false ||
+                 GetData().IsEmpty() == false ) {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 获取启用扩展属性
+        /// </summary>
+        private bool? GetEnableExtend() {
+            return _config.GetValue<bool?>( UiConst.EnableExtend );
+        }
+
+        /// <summary>
+        /// 获取地址
+        /// </summary>
+        private string GetUrl() {
+            return _config.GetValue( UiConst.Url );
+        }
+
+        /// <summary>
+        /// 获取地址
+        /// </summary>
+        private string GetBindUrl() {
+            return _config.GetValue( AngularConst.BindUrl );
+        }
+
+        /// <summary>
+        /// 获取数据源
+        /// </summary>
+        private string GetData() {
+            return _config.GetValue( UiConst.Data );
+        }
+
+        /// <summary>
+        /// 启用加载状态
+        /// </summary>
+        private void EnableLoading() {
+            if ( GetUrl().IsEmpty() && GetBindUrl().IsEmpty() )
+                return;
+            Loading( $"{_config.ExtendId}.loading" );
+        }
+
+        /// <summary>
+        /// 配置选项
+        /// </summary>
+        private void ConfigOption() {
+            var containerBuilder = new ContainerBuilder( _config );
+            containerBuilder.NgIf( $"!{_config.ExtendId}.isGroup" );
+            var optionBuilder = new OptionBuilder( _config );
+            containerBuilder.AppendContent( optionBuilder );
+            optionBuilder.NgFor( $"let item of {_config.ExtendId}.options" );
+            optionBuilder.BindLabel( "item.text" );
+            optionBuilder.BindValue( "item.value" );
+            optionBuilder.Disabled( "item.disabled" );
+            _config.Content.AppendHtml( containerBuilder );
+        }
+
+        /// <summary>
+        /// 配置选项组
+        /// </summary>
+        private void ConfigOptionGroup() {
+            var containerBuilder = new ContainerBuilder( _config );
+            containerBuilder.NgIf( $"{_config.ExtendId}.isGroup" );
+            var groupBuilder = new OptionGroupBuilder( _config );
+            containerBuilder.AppendContent( groupBuilder );
+            groupBuilder.NgFor( $"let group of {_config.ExtendId}.optionGroups" );
+            groupBuilder.BindLabel( "group.text" );
+            var optionBuilder = new OptionBuilder( _config );
+            groupBuilder.AppendContent( optionBuilder );
+            optionBuilder.NgFor( "let item of group.value" );
+            optionBuilder.BindLabel( "item.text" );
+            optionBuilder.BindValue( "item.value" );
+            optionBuilder.Disabled( "item.disabled" );
+            _config.Content.AppendHtml( containerBuilder );
         }
     }
 }

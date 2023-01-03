@@ -1,30 +1,12 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Html;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Logging;
-using Util.Helpers;
-using Util.Logging;
+using Util.Ui.Renders;
 
 namespace Util.Ui.TagHelpers {
     /// <summary>
     /// TagHelper基类
     /// </summary>
     public abstract class TagHelperBase : TagHelper {
-        /// <summary>
-        /// 跟踪日志分类
-        /// </summary>
-        public const string TraceLogCategory = "Util.Ui.TagHelper";
-        /// <summary>
-        /// 日志缓存列表,用于排除重复日志记录
-        /// </summary>
-        private static readonly ConcurrentDictionary<string, DateTime> _logs = new();
-        /// <summary>
-        /// 是否写跟踪日志
-        /// </summary>
-        public bool WriteLog { get; set; }
         /// <summary>
         /// 标识
         /// </summary>
@@ -65,7 +47,6 @@ namespace Util.Ui.TagHelpers {
             var render = GetRender( context, output, content );
             output.SuppressOutput();
             output.PostElement.SetHtmlContent( render );
-            ProcessAfter( context, output, content, render );
         }
 
         /// <summary>
@@ -82,73 +63,6 @@ namespace Util.Ui.TagHelpers {
         /// <param name="context">上下文</param>
         /// <param name="output">输出</param>
         /// <param name="content">内容</param>
-        protected abstract IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content );
-
-        /// <summary>
-        /// 渲染后操作
-        /// </summary>
-        /// <param name="context">上下文</param>
-        /// <param name="output">输出</param>
-        /// <param name="content">内容</param>
-        /// <param name="render">渲染器</param>
-        protected virtual void ProcessAfter( TagHelperContext context, TagHelperOutput output, TagHelperContent content, IHtmlContent render ) {
-            if ( WriteLog )
-                WriteTraceLog( render );
-        }
-
-        /// <summary>
-        /// 写日志
-        /// </summary>
-        protected void WriteTraceLog( IHtmlContent render ) {
-            var log = GetLog();
-            if ( log.IsEnabled( LogLevel.Trace ) == false )
-                return;
-            var content = GetContent( render );
-            if ( content == null )
-                return;
-            var key = content.GetHashCode().ToString();
-            if ( IsIgnoreLog( key ) )
-                return;
-            log.AppendLine( $"Url: {Web.Url}" )
-                .AppendLine( $"TagHelper: {GetType().FullName}" )
-                .AppendLine( content )
-                .LogTrace();
-            _logs.AddOrUpdate( key, ( t ) => DateTime.Now, ( t1, t2 ) => DateTime.Now );
-        }
-
-        /// <summary>
-        /// 获取日志操作
-        /// </summary>
-        private ILog GetLog() {
-            try {
-                var factory = Ioc.Create<ILogFactory>();
-                return factory?.CreateLog( TraceLogCategory ) ?? Log.Null;
-            }
-            catch {
-                return Log.Null;
-            }
-        }
-
-        /// <summary>
-        /// 获取内容
-        /// </summary>
-        private string GetContent( IHtmlContent render ) {
-            using var writer = new StringWriter();
-            render.WriteTo( writer, NullHtmlEncoder.Default );
-            var result = writer.ToString();
-            if ( result.IsEmpty() )
-                return null;
-            return result.Replace( "{{", "{{{{" ).Replace( "}}", "}}}}" );
-        }
-
-        /// <summary>
-        /// 是否忽略日志记录
-        /// </summary>
-        private bool IsIgnoreLog( string key ) {
-            if ( _logs.ContainsKey( key ) == false )
-                return false;
-            var time = _logs[key];
-            return DateTime.Now - time < TimeSpan.FromSeconds( 5 );
-        }
+        protected abstract IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content );
     }
 }

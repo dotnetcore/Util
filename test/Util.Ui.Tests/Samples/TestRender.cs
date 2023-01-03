@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Renders;
 
@@ -29,6 +30,11 @@ namespace Util.Ui.Tests.Samples {
             builder.AttributeIfNotEmpty( UiConst.Name, _config.GetValue( UiConst.Name ) );
             builder.AttributeIfNotEmpty( UiConst.Title, _config.GetValue( UiConst.Title ) );
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TestRender( _config.Copy() );
         }
     }
 }

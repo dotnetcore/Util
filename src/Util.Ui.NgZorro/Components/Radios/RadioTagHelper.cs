@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Helpers;
 using Util.Ui.NgZorro.Components.Radios.Renders;
 using Util.Ui.NgZorro.Components.Selects.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Radios {
     /// <summary>
@@ -70,14 +70,13 @@ namespace Util.Ui.NgZorro.Components.Radios {
 
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            base.ProcessBefore( context, output );
             _config = new SelectConfig( context, output );
             var service = new RadioService( _config );
             service.Init();
         }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             _config.Content = content;
             return new RadioRender( _config );
         }

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.Renders;
 using Util.Ui.Configs;
+using Util.Ui.Renders;
 
 namespace Util.Ui.Angular.TagHelpers {
     /// <summary>
@@ -10,7 +10,7 @@ namespace Util.Ui.Angular.TagHelpers {
     [HtmlTargetElement( "util-router-outlet" )]
     public class RouterOutletTagHelper : AngularTagHelperBase {
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             var config = new Config( context, output, content );
             return new RouterOutletRender( config );
         }

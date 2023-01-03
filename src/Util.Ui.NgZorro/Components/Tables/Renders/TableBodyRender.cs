@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.Renders;
@@ -28,6 +29,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
             var builder = new TableBodyBuilder( _config );
             builder.Config();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TableBodyRender( _config.Copy() );
         }
     }
 }

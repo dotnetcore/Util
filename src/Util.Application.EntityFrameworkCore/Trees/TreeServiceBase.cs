@@ -268,8 +268,9 @@ namespace Util.Applications.Trees {
                 return;
             await DeleteBeforeAsync( entities );
             await _repository.RemoveAsync( entities );
-            await CommitAsync();
             await DeleteAfterAsync( entities );
+            await CommitAsync();
+            await DeleteCommitAfterAsync( entities );
         }
 
         /// <summary>
@@ -285,6 +286,14 @@ namespace Util.Applications.Trees {
         /// </summary>
         /// <param name="entities">实体集合</param>
         protected virtual Task DeleteAfterAsync( List<TEntity> entities ) {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 删除提交后操作
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        protected virtual Task DeleteCommitAfterAsync( List<TEntity> entities ) {
             return Task.CompletedTask;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Html;
+using System.IO;
 using System.Text.Encodings.Web;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
@@ -24,9 +25,10 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// 初始化表格渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableRender( Config config ) {
+        /// <param name="shareConfig">共享配置</param>
+        public TableRender( Config config, TableShareConfig shareConfig = null ) {
             _config = config;
-            _shareConfig = GetShareConfig();
+            _shareConfig = shareConfig ?? GetShareConfig();
         }
 
         /// <summary>
@@ -60,6 +62,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
             var builder = new TotalTemplateBuilder( _config );
             builder.Config();
             builder.WriteTo( writer, encoder );
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TableRender( _config.Copy(), _shareConfig.MapTo<TableShareConfig>() );
         }
     }
 }

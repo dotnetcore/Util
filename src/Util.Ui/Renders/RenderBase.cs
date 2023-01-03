@@ -1,14 +1,13 @@
 ﻿using System.IO;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
 
 namespace Util.Ui.Renders {
     /// <summary>
     /// 渲染器
     /// </summary>
-    public abstract class RenderBase : IHtmlContent {
+    public abstract class RenderBase : IRender {
         /// <summary>
         /// 标签生成器
         /// </summary>
@@ -39,13 +38,7 @@ namespace Util.Ui.Renders {
             Builder.WriteTo( writer, encoder );
         }
 
-        /// <summary>
-        /// 输出组件Html
-        /// </summary>
-        public override string ToString() {
-            using var writer = new StringWriter();
-            WriteTo( writer, NullHtmlEncoder.Default );
-            return writer.ToString();
-        }
+        /// <inheritdoc />
+        public abstract IHtmlContent Clone();
     }
 }

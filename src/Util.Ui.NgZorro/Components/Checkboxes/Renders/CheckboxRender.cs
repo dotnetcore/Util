@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
@@ -38,6 +39,11 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Renders {
             if( _config.Content.IsEmpty() == false )
                 builder.SetContent( _config.Content );
             formControlBuilder.AppendContent( builder );
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new CheckboxRender( _config.Copy() );
         }
     }
 }

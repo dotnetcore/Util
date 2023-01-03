@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Renders;
 using Util.Ui.NgZorro.Components.TreeTables.Builders;
@@ -28,6 +29,11 @@ namespace Util.Ui.NgZorro.Components.TreeTables.Renders {
             var builder = new TreeTableBuilder( _config );
             builder.Config();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TreeTableRender( _config.Copy() );
         }
     }
 }

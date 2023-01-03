@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Extensions;
@@ -91,7 +92,7 @@ namespace Util.Ui.Configs {
         /// <typeparam name="T">目标类型</typeparam>
         /// <param name="name">属性名</param>
         public T GetValue<T>( string name ) {
-            return Contains( name ) ? Util.Helpers.Convert.To<T>( AllAttributes[name].Value ) : default( T );
+            return Contains( name ) ? Util.Helpers.Convert.To<T>( AllAttributes[name].Value ) : default;
         }
 
         /// <summary>
@@ -162,11 +163,13 @@ namespace Util.Ui.Configs {
         /// 复制配置
         /// </summary>
         public Config Copy() {
+            var content = new DefaultTagHelperContent();
+            Content?.CopyTo( content );
             return new Config {
                 Context = new TagHelperContext( AllAttributes, Context.Items, Util.Helpers.Id.Create() ),
                 AllAttributes = new TagHelperAttributeList( AllAttributes ),
                 OutputAttributes = new TagHelperAttributeList( OutputAttributes ),
-                Content = Content
+                Content = content
             };
         }
     }

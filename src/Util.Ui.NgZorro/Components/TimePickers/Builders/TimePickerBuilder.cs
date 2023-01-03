@@ -202,7 +202,7 @@ namespace Util.Ui.NgZorro.Components.TimePickers.Builders {
         /// </summary>
         public override void Config() {
             base.ConfigBase( _config );
-            ConfigForm().AddOn().AllowEmpty().AutoFocus().ClearText().DefaultOpenValue()
+            ConfigForm().Name().AddOn().AllowEmpty().AutoFocus().ClearText().DefaultOpenValue()
                 .Disabled().DisabledHours().DisabledMinutes().DisabledSeconds()
                 .Format().HideDisabledOptions().HourStep().MinuteStep().SecondStep()
                 .Open().Placeholder().PopupClassName().Use12Hours().SuffixIcon()

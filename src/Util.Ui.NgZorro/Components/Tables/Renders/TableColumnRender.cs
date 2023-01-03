@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -23,9 +24,10 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// 初始化表格单元格渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public TableColumnRender( Config config ) {
+        /// <param name="shareConfig">共享配置</param>
+        public TableColumnRender( Config config, TableColumnShareConfig shareConfig = null ) {
             _config = config;
-            _shareConfig = GetTableColumnShareConfig();
+            _shareConfig = shareConfig ?? GetTableColumnShareConfig();
         }
 
         /// <summary>
@@ -58,6 +60,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
             if( _shareConfig.IsTreeTable )
                 return new TreeTableColumnBuilder( _config, _shareConfig );
             return new TableColumnBuilder( _config, _shareConfig );
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TableColumnRender( _config.Copy(), new TableColumnShareConfig( GetTableShareConfig() ) );
         }
     }
 }

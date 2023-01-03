@@ -1,8 +1,10 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.DatePickers;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,7 +13,7 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
     /// <summary>
     /// 日期范围选择测试
     /// </summary>
-    public class RangePickerTagHelperTest {
+    public partial class RangePickerTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -19,14 +21,15 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// <summary>
         /// TagHelper包装器
         /// </summary>
-        private readonly TagHelperWrapper _wrapper;
+        private readonly TagHelperWrapper<Customer> _wrapper;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public RangePickerTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _wrapper = new RangePickerTagHelper().ToWrapper();
+            _wrapper = new RangePickerTagHelper().ToWrapper<Customer>();
+            Id.SetId( "id" );
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Html;
+using System;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Label.Builders;
@@ -29,6 +30,11 @@ namespace Util.Ui.NgZorro.Components.Label.Renders {
             var builder = new LabelBuilder( _config );
             builder.Config();
             return builder;
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new LabelRender( _config.Copy() );
         }
     }
 }

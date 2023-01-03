@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Microsoft.AspNetCore.Html;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -50,6 +51,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Renders {
         /// </summary>
         private TableHeadShareConfig GetTableHeadShareConfig() {
             return _config.GetValueFromItems<TableHeadShareConfig>();
+        }
+
+        /// <inheritdoc />
+        public override IHtmlContent Clone() {
+            return new TableRowRender( _config.Copy() );
         }
     }
 }

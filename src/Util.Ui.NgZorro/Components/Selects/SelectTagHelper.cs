@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Selects.Configs;
+using Util.Ui.NgZorro.Components.Selects.Helpers;
 using Util.Ui.NgZorro.Components.Selects.Renders;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Selects {
     /// <summary>
@@ -11,6 +12,46 @@ namespace Util.Ui.NgZorro.Components.Selects {
     /// </summary>
     [HtmlTargetElement( "util-select" )]
     public class SelectTagHelper : FormControlTagHelperBase {
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private SelectConfig _config;
+        /// <summary>
+        /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用,默认为 false
+        /// </summary>
+        public bool EnableExtend { get; set; }
+        /// <summary>
+        /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
+        /// </summary>
+        public bool AutoLoad { get; set; }
+        /// <summary>
+        /// 扩展属性[(queryParam)],查询参数
+        /// </summary>
+        public string QueryParam { get; set; }
+        /// <summary>
+        /// 扩展属性 order,排序条件,范例: creationTime desc
+        /// </summary>
+        public string Sort { get; set; }
+        /// <summary>
+        /// 扩展属性 [order],排序条件,范例: creationTime desc
+        /// </summary>
+        public string BindSort { get; set; }
+        /// <summary>
+        /// 扩展属性 url,Api地址
+        /// </summary>
+        public string Url { get; set; }
+        /// <summary>
+        /// 扩展属性 [url],Api地址
+        /// </summary>
+        public string BindUrl { get; set; }
+        /// <summary>
+        /// 扩展属性 [data],数据源
+        /// </summary>
+        public string Data { get; set; }
+        /// <summary>
+        /// 扩展属性,默认项文本，默认项显示在列表的第一行
+        /// </summary>
+        public string DefaultOptionText { get; set; }
         /// <summary>
         /// [compareWith],比较算法函数,函数定义:(o1: any, o2: any) => boolean
         /// </summary>
@@ -245,9 +286,16 @@ namespace Util.Ui.NgZorro.Components.Selects {
         public string OnBlur { get; set; }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
-            var config = new Config( context, output, content );
-            return new SelectRender( config );
+        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+            _config = new SelectConfig( context, output );
+            var service = new SelectService( _config );
+            service.Init();
+        }
+
+        /// <inheritdoc />
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+            _config.Content = content;
+            return new SelectRender( _config );
         }
     }
 }

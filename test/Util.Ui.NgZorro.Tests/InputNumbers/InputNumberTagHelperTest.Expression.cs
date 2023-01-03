@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label [nzRequired]=\"true\">年龄</nz-form-label>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<nz-input-number #v_id=\"xValidationExtend\" displayName=\"年龄\" " );
+            result.Append( "<nz-input-number #v_id=\"xValidationExtend\" displayName=\"年龄\" name=\"age\" " );
             result.Append( "nzMax=\"8.8\" nzMin=\"5.5\" " );
             result.Append( "x-validation-extend=\"\" [(ngModel)]=\"model.age\" [required]=\"true\">" );
             result.Append( "</nz-input-number>" );

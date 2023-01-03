@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.NgAlain.Components.PageHeaders.Renders;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgAlain.Components.PageHeaders {
     /// <summary>
@@ -124,7 +124,7 @@ namespace Util.Ui.NgAlain.Components.PageHeaders {
         public string Tab { get; set; }
 
         /// <inheritdoc />
-        protected override IHtmlContent GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
+        protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             var config = new Config( context, output, content );
             return new PageHeaderRender( config );
         }
