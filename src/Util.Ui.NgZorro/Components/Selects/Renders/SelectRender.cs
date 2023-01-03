@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Util.Ui.Builders;
-using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Selects.Builders;
 using Util.Ui.NgZorro.Components.Selects.Configs;
@@ -36,7 +35,6 @@ namespace Util.Ui.NgZorro.Components.Selects.Renders {
         protected override void AppendControl( TagBuilder formControlBuilder ) {
             var builder = new SelectBuilder( _config );
             builder.Config();
-            _config.Content.AppendTo( builder );
             formControlBuilder.AppendContent( builder );
         }
 

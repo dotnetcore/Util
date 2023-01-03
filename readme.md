@@ -11,4 +11,4 @@ Util是一个.net core平台下的应用框架，旨在提升小型团队的开�
 
 Util目前已升级到.net core 7.0,可用于开发web api,基于ng zorro的UI封装也即将推出.
 
-Util配套代码生成器地址: https://github.com/UtilCore/Util.Generator
+Util配套代码生成器地址: https://github.com/util-core/util.generator

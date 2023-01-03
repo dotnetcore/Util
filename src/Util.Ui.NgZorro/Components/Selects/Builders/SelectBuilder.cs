@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using Util.Ui.Angular.Configs;
+﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
@@ -359,7 +358,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置
         /// </summary>
         public override void Config() {
-            base.ConfigBase( _config );
+            base.Config();
             ConfigForm().Name().CompareWith().AutoClearSearchValue().AllowClear()
                 .Borderless().Open().AutoFocus().Disabled()
                 .DropdownClassName().DropdownStyle().DropdownMatchSelectWidth()
@@ -384,7 +383,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
                 return;
             var optionBuilder = new OptionBuilder( _config );
             optionBuilder.Label( value );
-            _config.Content.AppendHtml( optionBuilder );
+            AppendContent( optionBuilder );
         }
 
         /// <summary>
@@ -466,7 +465,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             optionBuilder.BindLabel( "item.text" );
             optionBuilder.BindValue( "item.value" );
             optionBuilder.Disabled( "item.disabled" );
-            _config.Content.AppendHtml( containerBuilder );
+            AppendContent( containerBuilder );
         }
 
         /// <summary>
@@ -485,7 +484,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             optionBuilder.BindLabel( "item.text" );
             optionBuilder.BindValue( "item.value" );
             optionBuilder.Disabled( "item.disabled" );
-            _config.Content.AppendHtml( containerBuilder );
+            AppendContent( containerBuilder );
         }
     }
 }
