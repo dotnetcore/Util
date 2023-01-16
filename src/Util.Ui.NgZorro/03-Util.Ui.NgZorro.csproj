@@ -27,7 +27,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="FlubuCore" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.2" />
 	</ItemGroup>
 
