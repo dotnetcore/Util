@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Forms.Helpers {
     /// <summary>
@@ -66,6 +67,12 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
                 return true;
             if ( HasMaxLength() )
                 return true;
+            if ( HasPattern() )
+                return true;
+            if ( HasBindPattern() )
+                return true;
+            if ( HasEmailType() )
+                return true;
             return false;
         }
 
@@ -91,12 +98,33 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
         }
 
         /// <summary>
+        /// 是否设置正则表达式属性
+        /// </summary>
+        private bool HasPattern() {
+            return _config.Contains( UiConst.Pattern );
+        }
+
+        /// <summary>
+        /// 是否设置正则表达式属性
+        /// </summary>
+        private bool HasBindPattern() {
+            return _config.Contains( AngularConst.BindPattern );
+        }
+
+        /// <summary>
         /// 是否设置最大长度属性
         /// </summary>
         private bool HasMaxLength() {
             return _config.Contains( UiConst.MaxLength );
         }
 
+        /// <summary>
+        /// 是否设置电子邮件类型属性
+        /// </summary>
+        private bool HasEmailType() {
+            var type = _config.GetValue<InputType?>( UiConst.Type );
+            return type == InputType.Email;
+        }
 
         /// <summary>
         /// 启用验证扩展

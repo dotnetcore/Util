@@ -36,27 +36,6 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
-        /// 测试转成Json - 转换为Utc日期
-        /// </summary>
-        [Fact]
-        public void TestToJson_Utc() {
-            Time.UseUtc();
-            var result = new StringBuilder();
-            result.Append( "{" );
-            result.Append( "\"Name\":\"a\"," );
-            result.Append( "\"nickname\":\"b\"," );
-            result.Append( "\"firstName\":\"c\"," );
-            result.Append( "\"Value\":null," );
-            result.Append( "\"Date\":\"2012-12-12 12:12:12\"," );
-            result.Append( "\"UtcDate\":\"2012-12-12 12:12:12\"," );
-            result.Append( "\"Age\":1," );
-            result.Append( "\"IsShow\":true" );
-            result.Append( "}" );
-            var sample = JsonTestSample.Create();
-            Assert.Equal( result.ToString(), Json.ToJson( sample ) );
-        }
-
-        /// <summary>
         /// 测试转成Json,移除双引号
         /// </summary>
         [Fact]

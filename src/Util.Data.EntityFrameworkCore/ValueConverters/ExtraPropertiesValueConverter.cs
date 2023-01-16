@@ -1,5 +1,8 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Util.Data.EntityFrameworkCore.ValueConverters.SystemTextJson;
 using Util.Domain.Extending;
 
 namespace Util.Data.EntityFrameworkCore.ValueConverters {
@@ -18,7 +21,14 @@ namespace Util.Data.EntityFrameworkCore.ValueConverters {
         /// 扩展属性转换为json
         /// </summary>
         private static string PropertiesToJson( ExtraPropertyDictionary extraProperties ) {
-            return Util.Helpers.Json.ToJson( extraProperties );
+            var options = new JsonSerializerOptions {
+                Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+                Converters = {
+                    new UtcDateTimeJsonConverter(),
+                    new UtcNullableDateTimeJsonConverter()
+                }
+            };
+            return Util.Helpers.Json.ToJson( extraProperties, options );
         }
 
         /// <summary>

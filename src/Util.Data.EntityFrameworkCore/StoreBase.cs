@@ -368,24 +368,31 @@ namespace Util.Data.EntityFrameworkCore {
         /// <summary>
         /// 验证版本号
         /// </summary>
-        protected void ValidateVersion( EntityEntry<TEntity> entry, TEntity entity ) {
-            if ( entry.State == EntityState.Detached )
-                return;
+        protected virtual void ValidateVersion( EntityEntry<TEntity> entry, TEntity entity ) {
             if ( entity is not IVersion current )
                 return;
-            if ( current.Version == null )
-                return;
+            if ( current.Version == null || current.Version.Length == 0 ) {
+	            ThrowConcurrencyException( entity );
+	            return;
+            }
             var oldVersion = entry.OriginalValues.GetValue<byte[]>( "Version" );
             for ( int i = 0; i < oldVersion.Length; i++ ) {
                 if ( current.Version[i] != oldVersion[i] )
-                    throw new ConcurrencyException( new Exception( $"Type:{typeof( TEntity )},Id:{entity.Id}" ) );
-            }
+					ThrowConcurrencyException( entity );
+			}
         }
 
         /// <summary>
-        /// 更新实体
+        /// 抛出并发异常
         /// </summary>
-        protected void UpdateEntity( EntityEntry<TEntity> entry, TEntity entity ) {
+        private void ThrowConcurrencyException( TEntity entity ) {
+	        throw new ConcurrencyException( new Exception( $"Type:{typeof( TEntity )},Id:{entity.Id}" ) );
+		}
+
+        /// <summary>
+		/// 更新实体
+		/// </summary>
+		protected void UpdateEntity( EntityEntry<TEntity> entry, TEntity entity ) {
             var oldEntry = UnitOfWork.ChangeTracker.Entries<TEntity>().FirstOrDefault( t => t.Entity.Equals( entity ) );
             if ( oldEntry != null ) {
                 oldEntry.CurrentValues.SetValues( entity );

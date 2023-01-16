@@ -22,7 +22,7 @@ namespace Util.Tests.EntityTypeConfigurations {
         /// 配置表
         /// </summary>
         private void ConfigTable( EntityTypeBuilder<Order> builder ) {
-            builder.ToTable( "Order", "Sales" ).HasComment( "订单" );
+            builder.ToTable( "Order", "Sales",t => t.HasComment( "订单" ) );
         }
 
         /// <summary>
@@ -52,8 +52,7 @@ namespace Util.Tests.EntityTypeConfigurations {
                 .HasDefaultValue( 0 );
             builder.Property( t => t.PlaceOrderTime )
                 .HasColumnName( "PlaceOrderTime" )
-                .HasComment( "下单时间" )
-                .HasDefaultValue( TestConfig.DateTimeValue );
+                .HasComment( "下单时间" );
             builder.Property( t => t.State )
                 .HasColumnName( "State" )
                 .HasComment( "订单状态" )

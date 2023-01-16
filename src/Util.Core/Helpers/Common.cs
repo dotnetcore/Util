@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Util.Helpers {
     /// <summary>
@@ -9,6 +10,14 @@ namespace Util.Helpers {
         /// 换行符
         /// </summary>
         public static string Line => System.Environment.NewLine;
+        /// <summary>
+        /// 是否Linux操作系统
+        /// </summary>
+        public static bool IsLinux => RuntimeInformation.IsOSPlatform( OSPlatform.Linux );
+        /// <summary>
+        /// 是否Windows操作系统
+        /// </summary>
+        public static bool IsWindows => RuntimeInformation.IsOSPlatform( OSPlatform.Windows );
 
         /// <summary>
         /// 获取类型

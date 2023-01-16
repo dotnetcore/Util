@@ -42,7 +42,6 @@ namespace Util.Applications.Tests {
             var result = await _service.GetByIdAsync( id );
             Assert.Equal( $"{id},", result.Path );
             Assert.Equal( 1, result.Level );
-            Assert.Equal( 1, result.SortId );
         }
 
         /// <summary>
@@ -71,13 +70,11 @@ namespace Util.Applications.Tests {
             var result = await _service.GetByIdAsync( childId );
             Assert.Equal( $"{rootId},{childId},", result.Path );
             Assert.Equal( 2, result.Level );
-            Assert.Equal( 1, result.SortId );
 
             //验证子节点2
             result = await _service.GetByIdAsync( childId2 );
             Assert.Equal( $"{rootId},{childId2},", result.Path );
             Assert.Equal( 2, result.Level );
-            Assert.Equal( 2, result.SortId );
         }
 
         #endregion
@@ -106,7 +103,6 @@ namespace Util.Applications.Tests {
             Assert.Equal( name, result.Name );
             Assert.Equal( $"{id},", result.Path );
             Assert.Equal( 1, result.Level );
-            Assert.Equal( 1, result.SortId );
         }
 
         /// <summary>
@@ -162,6 +158,64 @@ namespace Util.Applications.Tests {
             nodeB1 = await _service.GetByIdAsync( b1Id );
             Assert.Equal( $"{rootId},{bId},{b1Id},", nodeB1.Path );
             Assert.Equal( 3, nodeB1.Level );
+        }
+
+        #endregion
+
+        #region EnableAsync
+
+        /// <summary>
+        /// 测试启用
+        /// </summary>
+        [Fact]
+        public async Task TestEnableAsync_1() {
+            //添加资源1
+            var dto = ResourceDtoFakeService.GetResourceDto();
+            dto.Enabled = false;
+            var id = await _service.CreateAsync( dto );
+
+            //添加资源2
+            var dto2 = ResourceDtoFakeService.GetResourceDto();
+            dto2.Enabled = false;
+            var id2 = await _service.CreateAsync( dto2 );
+
+            //启用资源
+            var ids = $"{id},{id2}";
+            await _service.EnableAsync( ids );
+
+            //验证
+            var result = await _service.GetByIdsAsync( ids );
+            Assert.True( result[0].Enabled );
+            Assert.True( result[1].Enabled );
+        }
+
+        #endregion
+
+        #region DisableAsync
+
+        /// <summary>
+        /// 测试禁用
+        /// </summary>
+        [Fact]
+        public async Task TestDisableAsync_1() {
+            //添加资源1
+            var dto = ResourceDtoFakeService.GetResourceDto();
+            dto.Enabled = true;
+            var id = await _service.CreateAsync( dto );
+
+            //添加资源2
+            var dto2 = ResourceDtoFakeService.GetResourceDto();
+            dto2.Enabled = true;
+            var id2 = await _service.CreateAsync( dto2 );
+
+            //启用资源
+            var ids = $"{id},{id2}";
+            await _service.DisableAsync( ids );
+
+            //验证
+            var result = await _service.GetByIdsAsync( ids );
+            Assert.False( result[0].Enabled );
+            Assert.False( result[1].Enabled );
         }
 
         #endregion

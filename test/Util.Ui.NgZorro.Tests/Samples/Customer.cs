@@ -28,15 +28,21 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         [Description( "昵称" )]
         [MaxLength( 50 )]
         public string Nickname { get; set; }
+		/// <summary>
+		/// 密码
+		///</summary>
+		[Description( "密码" )]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
         /// <summary>
         /// 性别
         ///</summary>
         [Description( "性别" )]
         public Gender? Gender { get; set; }
-        /// <summary>
-        /// 出生日期
-        ///</summary>
-        [Description( "出生日期" )]
+		/// <summary>
+		/// 出生日期
+		///</summary>
+		[Description( "出生日期" )]
         [Required]
         public DateTime? Birthday { get; set; }
         /// <summary>
@@ -48,8 +54,14 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         /// 手机号
         ///</summary>
         [Description( "手机号" )]
-        [MaxLength( 50 )]
+        [Phone( ErrorMessage = "手机号错误" )]
         public int Phone { get; set; }
+        /// <summary>
+        /// 身份证
+        ///</summary>
+        [Description( "身份证" )]
+        [IdCard( ErrorMessage = "身份证错误" )]
+        public int IdCard { get; set; }
         /// <summary>
         /// 年龄
         ///</summary>
@@ -61,7 +73,7 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         /// 电子邮件
         ///</summary>
         [Description( "电子邮件" )]
-        [MaxLength( 500 )]
+        [EmailAddress(ErrorMessage = "email错误")]
         public string Email { get; set; }
         /// <summary>
         /// 启用

@@ -202,9 +202,19 @@ namespace Util.Ui.Tests.Expressions {
         }
 
         /// <summary>
-        /// 测试解析是否布尔类型
+        /// 测试解析是否密码类型
         /// </summary>
         [Fact]
+        public void TestResolve_IsPassword() {
+	        var expression = ModelExpressionHelper.Create<Customer, string>( "a", t => t.Password );
+	        var result = _resolver.Resolve( expression );
+	        Assert.True( result.IsPassword );
+        }
+
+		/// <summary>
+		/// 测试解析是否布尔类型
+		/// </summary>
+		[Fact]
         public void TestResolve_IsBool() {
             var expression = ModelExpressionHelper.Create<Customer, bool>( "a", t => t.Enabled );
             var result = _resolver.Resolve( expression );

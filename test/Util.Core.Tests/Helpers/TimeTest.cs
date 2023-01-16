@@ -195,14 +195,14 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestNormalize_6() {
-            //使用本地日期
+            //使用Utc日期
             Time.UseUtc();
 
             //转换本地日期为本地日期
             var result = Time.Normalize( _unspecifiedDate );
 
             //验证
-            AssertEqual( _testDateString, result );
+            Assert.Equal( _utcDate, result );
             Assert.Equal( DateTimeKind.Utc, result.Kind );
         }
 

@@ -129,6 +129,9 @@
   <data name="DeleteSuccess" xml:space="preserve">
     <value>删除成功</value>
   </data>
+  <data name="ExtraProperties" xml:space="preserve">
+    <value>扩展属性</value>
+  </data>
   <data name="GlobalDuplicateRequest" xml:space="preserve">
     <value>其他用户正在执行该操作,请稍后再试</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="InvalidIdCard" xml:space="preserve">
     <value>无效的身份证</value>
+  </data>
+  <data name="IsDeleted" xml:space="preserve">
+    <value>是否删除</value>
   </data>
   <data name="LineNumber" xml:space="preserve">
     <value>序号</value>
@@ -174,6 +180,9 @@
   </data>
   <data name="UserDuplicateRequest" xml:space="preserve">
     <value>请不要重复提交</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>版本号</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是</value>

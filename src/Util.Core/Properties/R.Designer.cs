@@ -97,6 +97,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 扩展属性 的本地化字符串。
+        /// </summary>
+        public static string ExtraProperties {
+            get {
+                return ResourceManager.GetString("ExtraProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 其他用户正在执行该操作,请稍后再试 的本地化字符串。
         /// </summary>
         public static string GlobalDuplicateRequest {
@@ -138,6 +147,15 @@ namespace Util.Properties {
         public static string InvalidIdCard {
             get {
                 return ResourceManager.GetString("InvalidIdCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否删除 的本地化字符串。
+        /// </summary>
+        public static string IsDeleted {
+            get {
+                return ResourceManager.GetString("IsDeleted", resourceCulture);
             }
         }
         
@@ -228,6 +246,15 @@ namespace Util.Properties {
         public static string UserDuplicateRequest {
             get {
                 return ResourceManager.GetString("UserDuplicateRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 版本号 的本地化字符串。
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

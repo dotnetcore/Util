@@ -313,10 +313,10 @@ namespace Util.Applications.Trees {
         /// 启用
         /// </summary>
         private async Task Enable( string ids, bool enabled ) {
-            if ( ids.IsEmpty() == false )
+            if ( ids.IsEmpty() )
                 return;
             var entities = await _repository.FindByIdsAsync( ids );
-            if ( entities == null )
+            if ( entities == null || entities.Count == 0 )
                 return;
             foreach ( var entity in entities ) {
                 if ( enabled && await AllowEnable( entity ) == false )
@@ -327,6 +327,11 @@ namespace Util.Applications.Trees {
                 await _repository.UpdateAsync( entity );
             }
             await CommitAsync();
+            if ( enabled ) {
+                await EnableCommitAfterAsync( entities );
+                return;
+            }
+            await DisableCommitAfterAsync( entities );
         }
 
         /// <summary>
@@ -345,12 +350,28 @@ namespace Util.Applications.Trees {
             return Task.FromResult( true );
         }
 
-        #endregion
-
-        #region DisableAsync(冻结)
+        /// <summary>
+        /// 启用提交后操作
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        protected virtual Task EnableCommitAfterAsync( List<TEntity> entities ) {
+            return Task.CompletedTask;
+        }
 
         /// <summary>
-        /// 冻结
+        /// 禁用提交后操作
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        protected virtual Task DisableCommitAfterAsync( List<TEntity> entities ) {
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region DisableAsync(禁用)
+
+        /// <summary>
+        /// 禁用
         /// </summary>
         /// <param name="ids">标识列表</param>
         public virtual Task DisableAsync( string ids ) {

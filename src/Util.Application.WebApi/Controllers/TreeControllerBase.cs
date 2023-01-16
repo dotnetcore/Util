@@ -205,6 +205,48 @@ namespace Util.Applications.Controllers {
 
         #endregion
 
+        #region EnableAsync(启用)
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        protected async Task<IActionResult> EnableAsync( string ids ) {
+            EnableBefore( ids );
+            await _service.EnableAsync( ids );
+            return Success();
+        }
+
+        /// <summary>
+        /// 启用前操作
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        protected virtual void EnableBefore( string ids ) {
+        }
+
+        #endregion
+
+        #region DisableAsync(禁用)
+
+        /// <summary>
+        /// 禁用
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        protected async Task<IActionResult> DisableAsync( string ids ) {
+            DisableBefore( ids );
+            await _service.DisableAsync( ids );
+            return Success();
+        }
+
+        /// <summary>
+        /// 禁用前操作
+        /// </summary>
+        /// <param name="ids">标识列表</param>
+        protected virtual void DisableBefore( string ids ) {
+        }
+
+        #endregion
+
         #region QueryAsync(树形表格查询)
 
         /// <summary>

@@ -3,27 +3,27 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Util.Helpers;
 
-namespace Util.SystemTextJson {
+namespace Util.Data.EntityFrameworkCore.ValueConverters.SystemTextJson {
     /// <summary>
-    /// 日期格式Json转换器
+    /// Utc日期格式Json转换器
     /// </summary>
-    public class DateTimeJsonConverter : JsonConverter<DateTime> {
+    public class UtcDateTimeJsonConverter : JsonConverter<DateTime> {
         /// <summary>
         /// 日期格式
         /// </summary>
         private readonly string _format;
 
         /// <summary>
-        /// 初始化日期格式Json转换器
+        /// 初始化Utc日期格式Json转换器
         /// </summary>
-        public DateTimeJsonConverter() : this( "yyyy-MM-dd HH:mm:ss" ) {
+        public UtcDateTimeJsonConverter() : this( "yyyy-MM-dd HH:mm:ss" ) {
         }
 
         /// <summary>
-        /// 初始化日期格式Json转换器
+        /// 初始化Utc日期格式Json转换器
         /// </summary>
         /// <param name="format">日期格式,默认值: yyyy-MM-dd HH:mm:ss</param>
-        public DateTimeJsonConverter( string format ) {
+        public UtcDateTimeJsonConverter( string format ) {
             _format = format;
         }
 
@@ -32,10 +32,10 @@ namespace Util.SystemTextJson {
         /// </summary>
         public override DateTime Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options ) {
             if ( reader.TokenType == JsonTokenType.String ) {
-                return Time.ToLocalTime( Util.Helpers.Convert.ToDateTime( reader.GetString() ) );
+                return Time.UtcToLocalTime( Util.Helpers.Convert.ToDateTime( reader.GetString() ) );
             }
             if ( reader.TryGetDateTime( out var date ) ) {
-                return Time.ToLocalTime( date );
+                return Time.UtcToLocalTime( date );
             }
             return DateTime.MinValue;
         }
@@ -44,7 +44,7 @@ namespace Util.SystemTextJson {
         /// 写入数据
         /// </summary>
         public override void Write( Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options ) {
-            var date = Time.ToLocalTime( value ).ToString( _format );
+            var date = Time.Normalize( value ).ToString( _format );
             writer.WriteStringValue( date );
         }
     }

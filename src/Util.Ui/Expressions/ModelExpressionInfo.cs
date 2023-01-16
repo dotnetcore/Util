@@ -40,9 +40,13 @@ namespace Util.Ui.Expressions {
         /// </summary>
         public string ModelName { get; set; } = "model";
         /// <summary>
-        /// 是否布尔类型
+        /// 是否密码类型
         /// </summary>
-        public bool IsBool { get; set; }
+        public bool IsPassword { get; set; }
+		/// <summary>
+		/// 是否布尔类型
+		/// </summary>
+		public bool IsBool { get; set; }
         /// <summary>
         /// 是否枚举类型
         /// </summary>

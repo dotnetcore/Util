@@ -1,8 +1,10 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Selects;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
@@ -13,7 +15,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
     /// <summary>
     /// 选择器测试
     /// </summary>
-    public partial class SelectTagHelperTest {
+    public partial class SelectTagHelperTest : IDisposable{
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -30,6 +32,13 @@ namespace Util.Ui.NgZorro.Tests.Selects {
             _output = output;
             _wrapper = new SelectTagHelper().ToWrapper<Customer>();
             Id.SetId( "id" );
+        }
+
+        /// <summary>
+        /// 测试清理
+        /// </summary>
+        public void Dispose() {
+            NgZorroOptionsService.ClearOptions();
         }
 
         /// <summary>

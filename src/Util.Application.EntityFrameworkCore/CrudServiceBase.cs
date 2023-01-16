@@ -62,6 +62,31 @@ namespace Util.Applications {
     /// <typeparam name="TCreateRequest">创建参数类型</typeparam>
     /// <typeparam name="TUpdateRequest">修改参数类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
+    public abstract class CrudServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest, TQuery> 
+            : CrudServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest, TQuery, Guid>
+        where TEntity : class, IAggregateRoot<TEntity, Guid>, new()
+        where TDto : class, IDto, new()
+        where TCreateRequest : class, IRequest, new()
+        where TUpdateRequest : class, IDto, new()
+        where TQuery : IPage {
+        /// <summary>
+        /// 初始化增删改查服务
+        /// </summary>
+        /// <param name="serviceProvider">服务提供器</param>
+        /// <param name="unitOfWork">工作单元</param>
+        /// <param name="repository">仓储</param>
+        protected CrudServiceBase( IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IRepository<TEntity, Guid> repository ) : base( serviceProvider, unitOfWork, repository ) {
+        }
+    }
+
+    /// <summary>
+    /// 增删改查服务
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <typeparam name="TDto">数据传输对象类型</typeparam>
+    /// <typeparam name="TCreateRequest">创建参数类型</typeparam>
+    /// <typeparam name="TUpdateRequest">修改参数类型</typeparam>
+    /// <typeparam name="TQuery">查询参数类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract class CrudServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest, TQuery, TKey>
         : QueryServiceBase<TEntity, TDto, TQuery, TKey>, ICrudService<TDto, TCreateRequest, TUpdateRequest, TQuery>

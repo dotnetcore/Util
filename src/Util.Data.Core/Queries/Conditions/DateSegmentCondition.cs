@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Util.Helpers;
 
 namespace Util.Data.Queries.Conditions {
     /// <summary>
@@ -26,6 +27,7 @@ namespace Util.Data.Queries.Conditions {
             var minValue = GetMinValue().SafeValue().Date;
             if( GetBoundary() == Boundary.Right || GetBoundary() == Boundary.Neither )
                 minValue = minValue.AddDays( 1 );
+            minValue = Time.Normalize( minValue );
             return CreateDateTimeExpression( minValue );
         }
 
@@ -36,6 +38,7 @@ namespace Util.Data.Queries.Conditions {
             var maxValue = GetMaxValue().SafeValue().Date;
             if ( GetBoundary() == Boundary.Right || GetBoundary() == Boundary.Both )
                 maxValue = maxValue.AddDays( 1 );
+            maxValue = Time.Normalize( maxValue );
             return CreateDateTimeExpression( maxValue );
         }
 

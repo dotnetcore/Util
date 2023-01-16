@@ -22,6 +22,7 @@ using Util.Domain.Extending;
 using Util.Events;
 using Util.Exceptions;
 using Util.Helpers;
+using Util.Properties;
 using Util.Sessions;
 
 namespace Util.Data.EntityFrameworkCore {
@@ -236,6 +237,7 @@ namespace Util.Data.EntityFrameworkCore {
             modelBuilder.Entity( entityType.ClrType )
                 .Property( "ExtraProperties" )
                 .HasColumnName( "ExtraProperties" )
+                .HasComment( R.ExtraProperties )
                 .HasConversion( new ExtraPropertiesValueConverter() )
                 .Metadata.SetValueComparer( new ExtraPropertyDictionaryValueComparer() );
         }
@@ -255,6 +257,7 @@ namespace Util.Data.EntityFrameworkCore {
             modelBuilder.Entity( entityType.ClrType )
                 .Property( "Version" )
                 .HasColumnName( "Version" )
+                .HasComment( R.Version )
                 .IsConcurrencyToken();
         }
 
@@ -272,7 +275,8 @@ namespace Util.Data.EntityFrameworkCore {
                 return;
             modelBuilder.Entity( entityType.ClrType )
                 .Property( "IsDeleted" )
-                .HasColumnName( "IsDeleted" );
+                .HasColumnName( "IsDeleted" )
+                .HasComment( R.IsDeleted );
         }
 
         #endregion

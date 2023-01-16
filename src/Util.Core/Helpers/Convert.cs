@@ -228,7 +228,7 @@ namespace Util.Helpers {
             var success = DateTime.TryParse( input.SafeString(), out var result );
             if ( success == false )
                 return null;
-            return Time.Normalize( result );
+            return result;
         }
 
         #endregion

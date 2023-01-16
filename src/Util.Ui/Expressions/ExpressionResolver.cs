@@ -25,8 +25,9 @@ namespace Util.Ui.Expressions {
             result.Property = property;
             result.LastPropertyName = GetLastPropertyName( property );
             result.DisplayName = GetDisplayName( property );
+            result.IsPassword = GetIsPassword( property );
             result.IsBool = GetIsBool( property );
-            result.IsEnum = GetIsEnum( property );
+			result.IsEnum = GetIsEnum( property );
             result.IsDate = GetIsDate( property );
             result.IsInt = GetIsInt( property );
             result.IsNumber = GetIsNumber( property );
@@ -102,9 +103,21 @@ namespace Util.Ui.Expressions {
         }
 
         /// <summary>
-        /// 获取是否布尔类型
+        /// 获取是否密码类型
         /// </summary>
-        protected virtual bool GetIsBool( MemberInfo property ) {
+        protected virtual bool GetIsPassword( MemberInfo property ) {
+	        var attribute = property.GetCustomAttribute<DataTypeAttribute>();
+	        if ( attribute == null )
+		        return false;
+	        if ( attribute.DataType == DataType.Password )
+		        return true;
+			return false;
+        }
+
+		/// <summary>
+		/// 获取是否布尔类型
+		/// </summary>
+		protected virtual bool GetIsBool( MemberInfo property ) {
             return Util.Helpers.Reflection.IsBool( property );
         }
 

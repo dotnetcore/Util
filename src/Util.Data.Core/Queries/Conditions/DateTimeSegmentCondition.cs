@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Util.Helpers;
 
 namespace Util.Data.Queries.Conditions {
     /// <summary>
@@ -42,14 +43,16 @@ namespace Util.Data.Queries.Conditions {
         /// 获取最小值
         /// </summary>
         protected override Expression GetMinValueExpression() {
-            return CreateDateTimeExpression( GetMinValue() );
+            var value = Time.Normalize( GetMinValue() );
+            return CreateDateTimeExpression( value );
         }
 
         /// <summary>
         /// 获取最大值
         /// </summary>
         protected override Expression GetMaxValueExpression() {
-            return CreateDateTimeExpression( GetMaxValue() );
+            var value = Time.Normalize( GetMaxValue() );
+            return CreateDateTimeExpression( value );
         }
     }
 }

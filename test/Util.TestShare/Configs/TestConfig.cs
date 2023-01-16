@@ -44,6 +44,6 @@ namespace Util.Tests.Configs {
         /// <summary>
         /// 测试日期值
         /// </summary>
-        public static DateTime DateTimeValue { get; } = "2012-12-12 12:12:12".ToDateTime();
+        public static DateTime? DateTimeValue { get; } = "2012-12-12 12:12:12".ToDateTime();
     }
 }

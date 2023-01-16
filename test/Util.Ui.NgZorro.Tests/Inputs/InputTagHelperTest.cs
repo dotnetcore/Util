@@ -166,6 +166,17 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试类型 - 电子邮件
+        /// </summary>
+        [Fact]
+        public void TestType_Email() {
+            _wrapper.SetContextAttribute( UiConst.Type, InputType.Email );
+            var result = new StringBuilder();
+            result.Append( "<input nz-input=\"\" type=\"email\" [email]=\"true\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试类型
         /// </summary>
         [Fact]

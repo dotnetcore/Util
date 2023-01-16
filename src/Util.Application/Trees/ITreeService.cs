@@ -48,7 +48,7 @@ namespace Util.Applications.Trees {
         /// <param name="ids">标识列表</param>
         Task EnableAsync( string ids );
         /// <summary>
-        /// 冻结
+        /// 禁用
         /// </summary>
         /// <param name="ids">标识列表</param>
         Task DisableAsync( string ids );

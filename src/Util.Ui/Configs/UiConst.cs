@@ -40,6 +40,14 @@
         /// </summary>
         public const string Text = "text";
         /// <summary>
+        /// ok
+        /// </summary>
+        public const string Ok = "ok";
+        /// <summary>
+        /// 取消
+        /// </summary>
+        public const string Cancel = "cancel";
+        /// <summary>
         /// 内容
         /// </summary>
         public const string Content = "content";
@@ -588,17 +596,17 @@
         /// </summary>
         public const string StickyHeader = "sticky-header";
         /// <summary>
-        /// 模式
-        /// </summary>
-        public const string Pattern = "pattern";
-        /// <summary>
         /// 正则表达式
         /// </summary>
         public const string Regex = "regex";
         /// <summary>
-        /// 正则表达式错误消息
+        /// 模式
         /// </summary>
-        public const string RegexMessage = "regex-message";
+        public const string Pattern = "pattern";
+        /// <summary>
+        /// 模式错误消息
+        /// </summary>
+        public const string PatternMessage = "pattern-message";
         /// <summary>
         /// 最小值
         /// </summary>
@@ -3223,5 +3231,13 @@
         /// 滚动事件
         /// </summary>
         public const string OnScroll = "on-scroll";
+        /// <summary>
+        /// 是否无效手机号
+        /// </summary>
+        public const string IsInvalidPhone = "is-invalid-phone";
+        /// <summary>
+        /// 是否无效身份证
+        /// </summary>
+        public const string IsInvalidIdCard = "is-invalid-id-card";
     }
 }

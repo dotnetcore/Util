@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Expressions;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Expressions;
+using Util.Validation.Validators;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
     /// <summary>
@@ -18,11 +20,15 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
             LoadName( config, info );
             LoadNgModel( config, info );
             LoadMinRows( config, info );
+            LoadPassword( config, info );
             LoadRequired( config, info );
             LoadMinLength( config, info );
             LoadMaxLength( config, info );
             LoadMin( config, info );
             LoadMax( config, info );
+            LoadEmail( config, info );
+            LoadPhone( config, info );
+            LoadIdCard( config, info );
         }
 
         /// <summary>
@@ -54,9 +60,18 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
         }
 
         /// <summary>
-        /// 加载必填项验证
+        /// 加载密码类型
         /// </summary>
-        protected virtual void LoadRequired( Config config, ModelExpressionInfo info ) {
+        protected virtual void LoadPassword( Config config, ModelExpressionInfo info ) {
+	        if ( info.IsPassword == false )
+		        return;
+	        config.SetAttribute( UiConst.Type, "password", false );
+        }
+
+		/// <summary>
+		/// 加载必填项验证
+		/// </summary>
+		protected virtual void LoadRequired( Config config, ModelExpressionInfo info ) {
             if ( info.IsRequired == false )
                 return;
             config.SetAttribute( UiConst.Required, "true", false );
@@ -101,6 +116,38 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
                 return;
             config.SetAttribute( UiConst.Max, info.Max, false );
             config.SetAttribute( UiConst.MaxMessage, info.MaxMessage, false );
+        }
+
+        /// <summary>
+        /// 加载电子邮件验证
+        /// </summary>
+        protected virtual void LoadEmail( Config config, ModelExpressionInfo info ) {
+            if ( info.IsEmail == false )
+                return;
+            config.SetAttribute( UiConst.Type, InputType.Email, false );
+            config.SetAttribute( UiConst.EmailMessage, info.EmailMessage, false );
+        }
+
+        /// <summary>
+        /// 加载手机号验证
+        /// </summary>
+        protected virtual void LoadPhone( Config config, ModelExpressionInfo info ) {
+            if ( info.IsPhone == false )
+                return;
+            config.SetAttribute( UiConst.IsInvalidPhone, true, false );
+            config.SetAttribute( UiConst.Pattern, ValidatePattern.MobilePhonePattern, false );
+            config.SetAttribute( UiConst.PatternMessage, info.PhoneMessage, false );
+        }
+
+        /// <summary>
+        /// 加载身份证验证
+        /// </summary>
+        protected virtual void LoadIdCard( Config config, ModelExpressionInfo info ) {
+            if ( info.IsIdCard == false )
+                return;
+            config.SetAttribute( UiConst.IsInvalidIdCard, true, false );
+            config.SetAttribute( UiConst.Pattern, ValidatePattern.IdCardPattern, false );
+            config.SetAttribute( UiConst.PatternMessage, info.IdCardMessage, false );
         }
     }
 }

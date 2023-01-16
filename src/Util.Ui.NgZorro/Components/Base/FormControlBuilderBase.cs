@@ -127,13 +127,34 @@ namespace Util.Ui.NgZorro.Components.Base {
         }
 
         /// <summary>
+        /// 配置电子邮件验证消息
+        /// </summary>
+        public virtual TBuilder EmailMessage() {
+            AttributeIfNotEmpty( "emailMessage", _config.GetValue( UiConst.EmailMessage ) );
+            AttributeIfNotEmpty( "[emailMessage]", _config.GetValue( AngularConst.BindEmailMessage ) );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置正则表达式验证
+        /// </summary>
+        public virtual TBuilder Pattern() {
+            AttributeIfNotEmpty( "pattern", _config.GetValue( UiConst.Pattern ) );
+            AttributeIfNotEmpty( "[pattern]", _config.GetValue( AngularConst.BindPattern ) );
+            AttributeIfNotEmpty( "patternMessage", _config.GetValue( UiConst.PatternMessage ) );
+            AttributeIfNotEmpty( "[patternMessage]", _config.GetValue( AngularConst.BindPatternMessage ) );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
         /// 配置表单属性
         /// </summary>
         protected TBuilder ConfigForm() {
             return NgModel().FormControl().SpaceItem().OnModelChange()
                 .Required().RequiredMessage()
                 .MinLength().MinLengthMessage()
-                .MaxLength()
+                .MaxLength().EmailMessage()
+                .Pattern()
                 .TableEdit().ValidationExtend();
         }
 

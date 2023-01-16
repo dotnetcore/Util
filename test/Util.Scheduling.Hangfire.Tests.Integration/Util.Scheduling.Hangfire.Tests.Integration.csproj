@@ -8,9 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Xunit.DependencyInjection" Version="8.6.1" />
+		<PackageReference Include="Xunit.DependencyInjection" Version="8.7.0" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

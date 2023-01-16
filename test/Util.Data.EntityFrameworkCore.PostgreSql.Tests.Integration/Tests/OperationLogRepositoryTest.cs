@@ -36,7 +36,7 @@ namespace Util.Data.EntityFrameworkCore.Tests {
 
             //验证
             Assert.True( entity.Id > 0 );
-            Assert.True( _repository.Exists( t => t.Id == entity.Id ) );
+            Assert.True( await _repository.ExistsAsync( t => t.Id == entity.Id ) );
         }
 
         /// <summary>

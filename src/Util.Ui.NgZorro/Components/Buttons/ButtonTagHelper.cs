@@ -12,6 +12,18 @@ namespace Util.Ui.NgZorro.Components.Buttons {
     [HtmlTargetElement( "util-button" )]
     public class ButtonTagHelper : ButtonTagHelperBase {
         /// <summary>
+        /// 扩展属性,内容文本,支持i18n
+        /// </summary>
+        public string Text { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示ok内容文本,默认文本为'Ok',i18n文本为'util.ok'
+        /// </summary>
+        public bool Ok { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示cancel内容文本,默认文本为'Cancel',i18n文本为'util.cancel'
+        /// </summary>
+        public bool Cancel { get; set; }
+        /// <summary>
         /// nzType,按钮类型,可选值: 'primary'|'dashed'|'link'|'text'
         /// </summary>
         public ButtonType Type { get; set; }

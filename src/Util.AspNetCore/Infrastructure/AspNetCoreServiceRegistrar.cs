@@ -76,7 +76,7 @@ namespace Util.Infrastructure {
         /// 配置Json
         /// </summary>
         private void ConfigJsonOptions( IServiceCollection services ) {
-            services.Configure( (Microsoft.AspNetCore.Mvc.JsonOptions options) => {
+            services.Configure( ( Microsoft.AspNetCore.Mvc.JsonOptions options ) => {
                 options.JsonSerializerOptions.Converters.Add( new DateTimeJsonConverter() );
                 options.JsonSerializerOptions.Converters.Add( new NullableDateTimeJsonConverter() );
             } );

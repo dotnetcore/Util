@@ -53,6 +53,30 @@ namespace Util.Ui.NgZorro.Components.Inputs {
         /// </summary>
         public string MaxLength { get; set; }
         /// <summary>
+        /// 扩展属性 emailMessage,电子邮件验证消息
+        /// </summary>
+        public string EmailMessage { get; set; }
+        /// <summary>
+        /// 扩展属性 [emailMessage],电子邮件验证消息
+        /// </summary>
+        public string BindEmailMessage { get; set; }
+        /// <summary>
+        /// pattern,正则表达式验证
+        /// </summary>
+        public string Pattern { get; set; }
+        /// <summary>
+        /// [pattern],正则表达式验证
+        /// </summary>
+        public string BindPattern { get; set; }
+        /// <summary>
+        /// 扩展属性 patternMessage,正则表达式错误消息
+        /// </summary>
+        public string PatternMessage { get; set; }
+        /// <summary>
+        /// 扩展属性 [patternMessage],正则表达式错误消息
+        /// </summary>
+        public string BindPatternMessage { get; set; }
+        /// <summary>
         /// placeholder,占位符提示信息
         /// </summary>
         public string Placeholder { get; set; }

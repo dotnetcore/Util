@@ -8,7 +8,10 @@ using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Builders;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 using Util.Ui.Renders;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Util.Ui.NgZorro.Components.Base {
     /// <summary>
@@ -103,10 +106,22 @@ namespace Util.Ui.NgZorro.Components.Base {
             if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormLabel == true ) {
                 var builder = new FormLabelBuilder( _config.CopyRemoveId() );
                 builder.Config();
-                builder.SetContent( _shareConfig.LabelText );
+                SetLabelText( builder );
                 return builder;
             }
             return new EmptyContainerTagBuilder();
+        }
+
+        /// <summary>
+        /// 设置表单标签文本
+        /// </summary>
+        private void SetLabelText( FormLabelBuilder builder ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                builder.AppendContentByI18n( _shareConfig.LabelText );
+                return;
+            }
+            builder.SetContent( _shareConfig.LabelText );
         }
 
         /// <summary>

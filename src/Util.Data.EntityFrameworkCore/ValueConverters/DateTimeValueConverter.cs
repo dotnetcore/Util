@@ -10,11 +10,22 @@ namespace Util.Data.EntityFrameworkCore.ValueConverters {
         /// <summary>
         /// 初始化日期值转换器
         /// </summary>
-        public DateTimeValueConverter( ConverterMappingHints mappingHints = null )
-            : base(
-                date => date.HasValue ? Time.Normalize( date.Value ) : date,
-                date => date.HasValue ? Time.Normalize( date.Value ) : date, mappingHints 
-            ) {
+        public DateTimeValueConverter()
+            : base( date => Normalize( date ), date => ToLocalTime( date ) ) {
+        }
+
+        /// <summary>
+        /// 转换为标准化日期
+        /// </summary>
+        public static DateTime? Normalize( DateTime? date ) {
+            return date.HasValue ? Time.Normalize( date.Value ) : null;
+        }
+
+        /// <summary>
+        /// 转换为本地化日期
+        /// </summary>
+        public static DateTime? ToLocalTime( DateTime? date ) {
+            return date.HasValue ? Time.UtcToLocalTime( date.Value ) : null;
         }
     }
 }

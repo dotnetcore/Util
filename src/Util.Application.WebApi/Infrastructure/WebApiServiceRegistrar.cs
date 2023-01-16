@@ -39,21 +39,28 @@ namespace Util.Applications.Infrastructure {
             serviceContext.HostBuilder.ConfigureServices( ( context, services ) => {
                 services.AddSingleton<ILogContextAccessor, LogContextAccessor>();
                 services.AddSingleton<IStartupFilter, LogContextStartupFilter>();
-                services.Configure<ApiBehaviorOptions>( options => {
-                    options.SuppressModelStateInvalidFilter = false;
-                    var builtInFactory = options.InvalidModelStateResponseFactory;
-                    options.InvalidModelStateResponseFactory = actionContext => {
-                        var log = actionContext.HttpContext.RequestServices.GetRequiredService<ILogger<WebApiServiceRegistrar>>();
-                        if ( actionContext.ModelState.IsValid )
-                            return builtInFactory( actionContext );
-                        var error = GetModelError( actionContext );
-                        log.LogError( error.Exception, "Model Binding Failed,ErrorMessage: {ErrorMessage}", error.ErrorMessage );
-                        var message = GetLocalizedMessages( actionContext.HttpContext, error.ErrorMessage );
-                        return GetResult( actionContext.HttpContext, StateCode.Fail, message, 200 );
-                    };
-                } );
+                ConfigApiBehaviorOptions( services );
             } );
             return null;
+        }
+
+        /// <summary>
+        /// 配置ApiBehavior
+        /// </summary>
+        private void ConfigApiBehaviorOptions( IServiceCollection services ) {
+            services.Configure<ApiBehaviorOptions>( options => {
+                options.SuppressModelStateInvalidFilter = false;
+                var builtInFactory = options.InvalidModelStateResponseFactory;
+                options.InvalidModelStateResponseFactory = actionContext => {
+                    var log = actionContext.HttpContext.RequestServices.GetRequiredService<ILogger<WebApiServiceRegistrar>>();
+                    if ( actionContext.ModelState.IsValid )
+                        return builtInFactory( actionContext );
+                    var error = GetModelError( actionContext );
+                    log.LogError( error.Exception, "Model Binding Failed,ErrorMessage: {ErrorMessage}", error.ErrorMessage );
+                    var message = GetLocalizedMessages( actionContext.HttpContext, error.ErrorMessage );
+                    return GetResult( actionContext.HttpContext, StateCode.Fail, message, 200 );
+                };
+            } );
         }
 
         /// <summary>

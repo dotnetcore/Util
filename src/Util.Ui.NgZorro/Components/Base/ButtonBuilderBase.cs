@@ -4,10 +4,12 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Icons.Builders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Directives.Popconfirms;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Util.Ui.NgZorro.Components.Base {
     /// <summary>
@@ -317,6 +319,54 @@ namespace Util.Ui.NgZorro.Components.Base {
         }
 
         /// <summary>
+        /// 配置Ok文本
+        /// </summary>
+        public TBuilder Ok() {
+            var value = _config.GetValue<bool?>( UiConst.Ok );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text,"util.ok" );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Ok" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Cancel文本
+        /// </summary>
+        public TBuilder Cancel() {
+            var value = _config.GetValue<bool?>( UiConst.Cancel );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, "util.cancel" );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Cancel" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置文本
+        /// </summary>
+        public TBuilder Text() {
+            var options = NgZorroOptionsService.GetOptions();
+            var text = _config.GetValue( UiConst.Text );
+            if ( text.IsEmpty() )
+                return (TBuilder)this;
+            if ( options.EnableI18n ) {
+                this.AppendContentByI18n( text );
+                return (TBuilder)this;
+            }
+            AppendContent( text );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
         /// 配置单击事件
         /// </summary>
         public TBuilder OnClick() {
@@ -351,8 +401,8 @@ namespace Util.Ui.NgZorro.Components.Base {
                 .PopoverTitle().PopoverContent().PopoverTrigger().PopoverPlacement().PopoverOrigin()
                 .PopoverVisible().PopoverMouseEnterDelay().PopoverMouseLeaveDelay()
                 .PopoverOverlayClassName().PopoverOverlayStyle().PopoverBackdrop()
-                .Tooltip( _config )
-                .Popconfirm( _config )
+                .Tooltip( _config ).Popconfirm( _config )
+                .Ok().Cancel().Text()
                 .OnClick().OnVisibleChange().OnPopoverVisibleChange()
                 .ValidateForm();
         }

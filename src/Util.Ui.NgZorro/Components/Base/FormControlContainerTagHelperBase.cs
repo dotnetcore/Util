@@ -4,7 +4,7 @@
     /// </summary>
     public abstract class FormControlContainerTagHelperBase : FormContainerTagHelperBase {
         /// <summary>
-        /// 标签文本,自动创建nz-form-label,nz-form-control,nz-form-item容器标签,并设置nz-form-label的内容
+        /// 标签文本,自动创建nz-form-label,nz-form-control,nz-form-item容器标签,并设置nz-form-label的内容,支持i18n
         /// </summary>
         public string LabelText { get; set; }
         /// <summary>

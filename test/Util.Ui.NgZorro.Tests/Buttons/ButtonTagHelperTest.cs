@@ -61,17 +61,6 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         }
 
         /// <summary>
-        /// 测试文本内容
-        /// </summary>
-        [Fact]
-        public void TestText() {
-            _wrapper.AppendContent( "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\">a</button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试按钮类型
         /// </summary>
         [Fact]
@@ -328,6 +317,17 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             result.Append( "<button nz-button=\"\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>" );
             result.Append( "</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试文本内容
+        /// </summary>
+        [Fact]
+        public void TestContent() {
+            _wrapper.AppendContent( "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">a</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

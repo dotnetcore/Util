@@ -24,10 +24,7 @@ namespace Util {
         /// 获取本地日期
         /// </summary>
         private static DateTime GetLocalDateTime( DateTime dateTime ) {
-            dateTime = Time.Normalize( dateTime );
-            if ( dateTime.Kind == DateTimeKind.Utc )
-                return dateTime.ToLocalTime();
-            return dateTime;
+            return Time.ToLocalTime( dateTime );
         }
 
         /// <summary>

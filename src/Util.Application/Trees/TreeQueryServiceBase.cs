@@ -196,6 +196,7 @@ namespace Util.Applications.Trees {
         /// </summary>
         protected virtual async Task<dynamic> SyncLoadQuery( TQuery query ) {
             var data = await SyncQuery( query );
+            await AddMissingParents( data );
             _queryAfter?.Invoke( data, query );
             return ToResult( data,false, _isExpandAll );
         }

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Selects {
@@ -173,11 +174,40 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// 测试默认项文本
         /// </summary>
         [Fact]
-        public void TestDefaultOptionText() {
+        public void TestDefaultOptionText_1() {
             _wrapper.SetContextAttribute( UiConst.DefaultOptionText, " " );
             var result = new StringBuilder();
             result.Append( "<nz-select>" );
             result.Append( "<nz-option nzLabel=\" \"></nz-option>" );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试默认项文本 - 启用默认项文本
+        /// </summary>
+        [Fact]
+        public void TestDefaultOptionText_2() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableDefaultOptionText = true } );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" x-select-extend=\"\">" );
+            result.Append( "<nz-option [nzLabel]=\"x_id.config.text.defaultOptionText\"></nz-option>" );
+            AppendOptions( result );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试默认项文本 - 启用默认项文本,覆盖
+        /// </summary>
+        [Fact]
+        public void TestDefaultOptionText_3() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableDefaultOptionText = true } );
+            _wrapper.SetContextAttribute( UiConst.DefaultOptionText, " " );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" x-select-extend=\"\">" );
+            result.Append( "<nz-option nzLabel=\" \"></nz-option>" );
+            AppendOptions( result );
             result.Append( "</nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

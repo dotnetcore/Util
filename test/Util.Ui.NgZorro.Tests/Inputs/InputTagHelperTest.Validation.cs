@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Enums;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Inputs {
@@ -171,6 +172,90 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
             result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [maxlength]=\"2\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试电子邮件验证消息
+        /// </summary>
+        [Fact]
+        public void TestEmailMessage() {
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            _wrapper.SetContextAttribute( UiConst.Type, InputType.Email );
+            _wrapper.SetContextAttribute( UiConst.EmailMessage, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" emailMessage=\"a\" nz-input=\"\" type=\"email\" x-validation-extend=\"\" " );
+            result.Append( "[(ngModel)]=\"model\" [email]=\"true\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试电子邮件验证消息
+        /// </summary>
+        [Fact]
+        public void TestBindEmailMessage() {
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            _wrapper.SetContextAttribute( UiConst.Type, InputType.Email );
+            _wrapper.SetContextAttribute( AngularConst.BindEmailMessage, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" type=\"email\" x-validation-extend=\"\" " );
+            result.Append( "[(ngModel)]=\"model\" [emailMessage]=\"a\" [email]=\"true\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试正则表达式验证
+        /// </summary>
+        [Fact]
+        public void TestPattern_PatternMessage() {
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            _wrapper.SetContextAttribute( UiConst.Pattern, "a" );
+            _wrapper.SetContextAttribute( UiConst.PatternMessage, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" pattern=\"a\" patternMessage=\"b\" " );
+            result.Append( "x-validation-extend=\"\" [(ngModel)]=\"model\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试正则表达式验证
+        /// </summary>
+        [Fact]
+        public void TestBindPattern_BindPatternMessage() {
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            _wrapper.SetContextAttribute( AngularConst.BindPattern, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindPatternMessage, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [patternMessage]=\"b\" " );
+            result.Append( "[pattern]=\"a\" />" );
             result.Append( "<ng-template #vt_id=\"\">" );
             result.Append( "{{v_id.getErrorMessage()}}" );
             result.Append( "</ng-template>" );

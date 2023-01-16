@@ -104,6 +104,10 @@
         /// </summary>
         public const string BindActive = "bind-active";
         /// <summary>
+        /// 模式
+        /// </summary>
+        public const string BindPattern = "bind-pattern";
+        /// <summary>
         /// FontAwesome图标
         /// </summary>
         public const string BindFontAwesomeIcon = "bind-font-awesome-icon";
@@ -1643,5 +1647,13 @@
         /// 最大长度验证消息
         /// </summary>
         public const string BindMaxLengthMessage = "bind-max-length-message";
+        /// <summary>
+        /// 电子邮件错误消息
+        /// </summary>
+        public const string BindEmailMessage = "bind-email-message";
+        /// <summary>
+        /// 模式错误消息
+        /// </summary>
+        public const string BindPatternMessage = "bind-pattern-message";
     }
 }

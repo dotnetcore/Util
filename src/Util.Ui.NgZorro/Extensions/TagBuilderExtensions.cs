@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using System.Text;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Extensions {
@@ -51,6 +52,23 @@ namespace Util.Ui.NgZorro.Extensions {
             if ( Util.Helpers.Validation.IsNumber( value ) )
                 return $"{value}px";
             return value;
+        }
+
+        /// <summary>
+        /// 添加到内容,支持i18n管道
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="value">值</param>
+        public static TBuilder AppendContentByI18n<TBuilder>( this TBuilder builder, string value ) where TBuilder : TagBuilder {
+            if ( value.IsEmpty() )
+                return builder;
+            var result = new StringBuilder();
+            result.Append( "{{" );
+            result.Append( $"'{value}'|i18n" );
+            result.Append( "}}" );
+            builder.AppendContent( result.ToString() );
+            return builder;
         }
     }
 }

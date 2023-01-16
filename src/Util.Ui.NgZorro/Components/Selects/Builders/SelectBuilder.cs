@@ -4,6 +4,7 @@ using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Containers.Builders;
 using Util.Ui.NgZorro.Components.Selects.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Selects.Builders {
@@ -379,11 +380,24 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// </summary>
         private void ConfigDefaultOptionText() {
             var value = _config.AllAttributes[UiConst.DefaultOptionText]?.Value?.ToString();
-            if ( string.IsNullOrEmpty( value ) )
-                return;
             var optionBuilder = new OptionBuilder( _config );
-            optionBuilder.Label( value );
+            if ( string.IsNullOrEmpty( value ) == false ) {
+                optionBuilder.Label( value );
+                AppendContent( optionBuilder );
+                return;
+            }
+            if ( IsEnableDefaultOptionText() == false )
+                return;
+            optionBuilder.BindLabel( $"{_config.ExtendId}.config.text.defaultOptionText" );
             AppendContent( optionBuilder );
+        }
+
+        /// <summary>
+        /// 是否启用默认项文本
+        /// </summary>
+        private bool IsEnableDefaultOptionText() {
+            var options = NgZorroOptionsService.GetOptions();
+            return options is { EnableDefaultOptionText: true };
         }
 
         /// <summary>
@@ -410,7 +424,8 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             if ( GetEnableExtend() == true ||
                  GetUrl().IsEmpty() == false ||
                  GetBindUrl().IsEmpty() == false ||
-                 GetData().IsEmpty() == false ) {
+                 GetData().IsEmpty() == false ||
+                 IsEnableDefaultOptionText() ) {
                 return true;
             }
             return false;

@@ -12,6 +12,14 @@
         /// </summary>
         public bool IsGenerateHtml { get; set; }
         /// <summary>
+        /// 是否启用默认项文本
+        /// </summary>
+        public bool EnableDefaultOptionText { get; set; }
+        /// <summary>
+        /// 是否启用国际化
+        /// </summary>
+        public bool EnableI18n { get; set; }
+        /// <summary>
         /// 表格分页总行数模板
         /// </summary>
         public string TableTotalTemplate { get; set; } = "{{ range[0] }}-{{ range[1] }} 共 {{ total }} 条";

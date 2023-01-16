@@ -30,10 +30,86 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
-        /// 测试解析表达式属性for - 手工设置容器组件
+        /// 测试解析表达式属性for - 密码类型
         /// </summary>
         [Fact]
         public void TestFor_2() {
+	        _wrapper.SetExpression( t => t.Password );
+	        var result = new StringBuilder();
+	        result.Append( "<nz-form-item>" );
+	        result.Append( "<nz-form-label>密码</nz-form-label>" );
+	        result.Append( "<nz-form-control>" );
+	        result.Append( "<input name=\"password\" nz-input=\"\" type=\"password\" [(ngModel)]=\"model.password\" />" );
+	        result.Append( "</nz-form-control>" );
+	        result.Append( "</nz-form-item>" );
+	        Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试解析表达式属性for - 电子邮件验证
+        /// </summary>
+        [Fact]
+        public void TestFor_3() {
+            _wrapper.SetExpression( t => t.Email );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>电子邮件</nz-form-label>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"电子邮件\" emailMessage=\"email错误\" name=\"email\" " );
+            result.Append( "nz-input=\"\" type=\"email\" x-validation-extend=\"\" [(ngModel)]=\"model.email\" [email]=\"true\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试解析表达式属性for - 手机号验证
+        /// </summary>
+        [Fact]
+        public void TestFor_4() {
+            _wrapper.SetExpression( t => t.Phone );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>手机号</nz-form-label>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"手机号\" name=\"phone\" nz-input=\"\" " );
+            result.Append( "pattern=\"^1[0-9]{10}$\" patternMessage=\"手机号错误\" x-validation-extend=\"\" [(ngModel)]=\"model.phone\" [isInvalidPhone]=\"true\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试解析表达式属性for - 身份证验证
+        /// </summary>
+        [Fact]
+        public void TestFor_5() {
+            _wrapper.SetExpression( t => t.IdCard );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>身份证</nz-form-label>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"身份证\" name=\"idCard\" nz-input=\"\" pattern=\"(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)\" " );
+            result.Append( "patternMessage=\"身份证错误\" x-validation-extend=\"\" [(ngModel)]=\"model.idCard\" [isInvalidIdCard]=\"true\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试解析表达式属性for - 手工设置容器组件
+        /// </summary>
+        [Fact]
+        public void TestFor_6() {
             var form = new FormTagHelper().ToWrapper();
             form.SetContextAttribute( UiConst.ControlSpan, 2 );
 

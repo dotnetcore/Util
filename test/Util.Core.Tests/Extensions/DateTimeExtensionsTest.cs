@@ -81,11 +81,11 @@ namespace Util.Tests.Extensions {
         [Fact]
         public void TestToDateTimeString_Utc() {
             Time.UseUtc();
-            Assert.Equal( _dateString2, _date.ToDateTimeString() );
-            Assert.Equal( _dateString4, _date.ToDateTimeString( true ) );
+            Assert.Equal( _dateString1, _date.ToDateTimeString() );
+            Assert.Equal( _dateString3, _date.ToDateTimeString( true ) );
             Assert.Equal( "", Convert.ToDateTimeOrNull( "" ).ToDateTimeString() );
-            Assert.Equal( _dateString2, _nullabledate.ToDateTimeString() );
-            Assert.Equal( _dateString4, _nullabledate.ToDateTimeString( true ) );
+            Assert.Equal( _dateString1, _nullabledate.ToDateTimeString() );
+            Assert.Equal( _dateString3, _nullabledate.ToDateTimeString( true ) );
             Assert.Equal( _dateString2, _utcDate.ToDateTimeString() );
             Assert.Equal( _dateString4, _utcDate.ToDateTimeString( true ) );
             Assert.Equal( _dateString2, _nullableUtcDate.ToDateTimeString() );

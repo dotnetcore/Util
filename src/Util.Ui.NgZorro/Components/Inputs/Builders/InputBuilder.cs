@@ -62,7 +62,11 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置输入框类型
         /// </summary>
         public InputBuilder Type() {
-            AttributeIfNotEmpty( "type", _config.GetValue<InputType?>( UiConst.Type )?.Description() );
+            var type = _config.GetValue<InputType?>( UiConst.Type );
+            if ( type == InputType.Email ) {
+                Attribute( "[email]", "true" );
+            }
+            AttributeIfNotEmpty( "type", type?.Description() );
             AttributeIfNotEmpty( "[type]", _config.GetValue( AngularConst.BindType ) );
             return this;
         }
@@ -72,6 +76,22 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// </summary>
         public InputBuilder Autocomplete() {
             AttributeIfNotEmpty( "[nzAutocomplete]", _config.GetValue( UiConst.Autocomplete ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置手机号验证
+        /// </summary>
+        public InputBuilder ValidatePhone() {
+            AttributeIfNotEmpty( "[isInvalidPhone]", _config.GetBoolValue( UiConst.IsInvalidPhone ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置身份证验证
+        /// </summary>
+        public InputBuilder ValidateIdCard() {
+            AttributeIfNotEmpty( "[isInvalidIdCard]", _config.GetBoolValue( UiConst.IsInvalidIdCard ) );
             return this;
         }
 
@@ -89,7 +109,9 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         public override void Config() {
             base.ConfigBase( _config );
             ConfigForm().Name().Placeholder().Disabled().Readonly().Size()
-                .Type().Autocomplete().Events();
+                .Type().Autocomplete()
+                .ValidatePhone().ValidateIdCard()
+                .Events();
         }
     }
 }

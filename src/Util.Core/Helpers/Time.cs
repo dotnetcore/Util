@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Util.Dates;
+using Util.Exceptions;
 
 namespace Util.Helpers {
     /// <summary>
@@ -63,23 +64,51 @@ namespace Util.Helpers {
             }
         }
 
+
+        /// <summary>
+        /// 转换为标准化日期
+        /// </summary>
+        /// <param name="date">日期</param>
+        public static DateTime? Normalize( DateTime? date ) {
+            if( date == null )
+                return null;
+            return Normalize( date.Value );
+        }
+
         /// <summary>
         /// 转换为标准化日期
         /// </summary>
         /// <param name="date">日期</param>
         public static DateTime Normalize( DateTime date ) {
-            if( date == DateTime.MinValue )
+            if ( IsUseUtc )
+                return ToUniversalTime( date );
+            return ToLocalTime( date );
+        }
+
+        /// <summary>
+        /// 转换为UTC日期
+        /// </summary>
+        /// <param name="date">日期</param>
+        public static DateTime ToUniversalTime( DateTime date ) {
+            if ( date == DateTime.MinValue )
                 return DateTime.MinValue;
-            if ( IsUseUtc ) {
-                switch ( date.Kind ) {
-                    case DateTimeKind.Local:
-                        return date.ToUniversalTime();
-                    case DateTimeKind.Unspecified:
-                        return DateTime.SpecifyKind( date, DateTimeKind.Utc );
-                    default:
-                        return date;
-                }
+            switch ( date.Kind ) {
+                case DateTimeKind.Local:
+                    return date.ToUniversalTime();
+                case DateTimeKind.Unspecified:
+                    return DateTime.SpecifyKind( date, DateTimeKind.Local ).ToUniversalTime();
+                default:
+                    return date;
             }
+        }
+
+        /// <summary>
+        /// 转换为本地化日期
+        /// </summary>
+        /// <param name="date">日期</param>
+        public static DateTime ToLocalTime( DateTime date ) {
+            if ( date == DateTime.MinValue )
+                return DateTime.MinValue;
             switch ( date.Kind ) {
                 case DateTimeKind.Utc:
                     return date.ToLocalTime();
@@ -88,6 +117,22 @@ namespace Util.Helpers {
                 default:
                     return date;
             }
+        }
+
+        /// <summary>
+        /// Utc日期转换为本地化日期
+        /// </summary>
+        /// <param name="date">日期</param>
+        public static DateTime UtcToLocalTime( DateTime date ) {
+            if ( date == DateTime.MinValue )
+                return DateTime.MinValue;
+            if( date.Kind == DateTimeKind.Utc )
+                return date.ToLocalTime();
+            if ( date.Kind == DateTimeKind.Local )
+                return date;
+            if ( IsUseUtc )
+                return DateTime.SpecifyKind( date, DateTimeKind.Utc ).ToLocalTime();
+            return date;
         }
 
         /// <summary>
