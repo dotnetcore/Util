@@ -11,19 +11,19 @@ namespace Util.Events.Infrastructure {
     /// </summary>
     public class LocalEventBusServiceRegistrar : IServiceRegistrar {
         /// <summary>
-        /// 获取标识
+        /// 获取服务名
         /// </summary>
-        public static int GetId() => 510;
+        public static string ServiceName => "Util.Events.Infrastructure.LocalEventBusServiceRegistrar";
 
         /// <summary>
-        /// 标识
+        /// 排序号
         /// </summary>
-        public int Id => GetId();
+        public int OrderId => 510;
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool Enabled => ServiceRegistrarConfig.Instance.IsEnabled( GetId() );
+        public bool Enabled => ServiceRegistrarConfig.IsEnabled( ServiceName );
 
         /// <summary>
         /// 注册服务

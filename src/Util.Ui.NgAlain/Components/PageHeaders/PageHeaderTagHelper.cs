@@ -11,7 +11,7 @@ namespace Util.Ui.NgAlain.Components.PageHeaders {
     [HtmlTargetElement( "util-page-header2" )]
     public class PageHeaderTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// title,标题
+        /// title,标题,支持i18n
         /// </summary>
         public string Title { get; set; }
         /// <summary>

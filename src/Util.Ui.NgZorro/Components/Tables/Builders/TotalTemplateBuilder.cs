@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
-using Util.Ui.NgZorro.Configs;
-using Config = Util.Ui.Configs.Config;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>
@@ -39,7 +38,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
             Attribute( $"#{_tableShareConfig.TotalTemplateId}" );
             Attribute( "let-range", "range" );
             Attribute( "let-total" );
-            SetContent( NgZorroOptionsService.GetOptions().TableTotalTemplate );
+            SetContent( "{{ 'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}" );
         }
     }
 }

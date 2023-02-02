@@ -70,5 +70,19 @@ namespace Util.Ui.NgZorro.Extensions {
             builder.AppendContent( result.ToString() );
             return builder;
         }
+
+        /// <summary>
+        /// 添加属性,支持i18n管道
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="name">属性名</param>
+        /// <param name="value">值</param>
+        public static TBuilder AttributeByI18n<TBuilder>( this TBuilder builder, string name, string value ) where TBuilder : TagBuilder {
+            if ( value.IsEmpty() )
+                return builder;
+            builder.Attribute( name, $"'{value}'|i18n" );
+            return builder;
+        }
     }
 }

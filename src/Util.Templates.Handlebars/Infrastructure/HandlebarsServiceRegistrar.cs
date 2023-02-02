@@ -9,19 +9,19 @@ namespace Util.Templates.Infrastructure {
     /// </summary>
     public class HandlebarsServiceRegistrar : IServiceRegistrar {
         /// <summary>
-        /// 获取标识
+        /// 获取服务名
         /// </summary>
-        public static int GetId() => 620;
+        public static string ServiceName => "Util.Templates.Infrastructure.HandlebarsServiceRegistrar";
 
         /// <summary>
-        /// 标识
+        /// 排序号
         /// </summary>
-        public int Id => GetId();
+        public int OrderId => 620;
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool Enabled => ServiceRegistrarConfig.Instance.IsEnabled( GetId() );
+        public bool Enabled => ServiceRegistrarConfig.IsEnabled( ServiceName );
 
         /// <summary>
         /// 注册服务

@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         /// <summary>
         /// 编码
         ///</summary>
-        [Description( "编码" )]
+        [Display( Name = "code" )]
         [MaxLength( 100 )]
         [MinLength( 10, ErrorMessage = "编码最小为10位" )]
         [Required(ErrorMessage = "编码不能是空值" )]
@@ -80,5 +80,11 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         ///</summary>
         [Description( "启用" )]
         public bool Enabled { get; set; }
+        /// <summary>
+        /// 正则表达式
+        ///</summary>
+        [Description( "正则表达式" )]
+        [RegularExpression( "a", ErrorMessage = "正则表达式错误" )]
+        public string Regex { get; set; }
     }
 }

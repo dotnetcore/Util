@@ -113,7 +113,7 @@ namespace Util.Templates.Razor.Tests {
         /// </summary>
         [Fact]
         public void TestSave() {
-            var filePath = Platform.GetPhysicalPath( "result/save.txt" );
+            var filePath = Common.GetPhysicalPath( "result/save.txt" );
             Util.Helpers.File.Delete( filePath );
             var model = new TestModel { Name = "util" };
             _templateEngine.Save( "hello @Model.Name", model, filePath );
@@ -126,7 +126,7 @@ namespace Util.Templates.Razor.Tests {
         /// </summary>
         [Fact]
         public async Task TestSaveAsync() {
-            var filePath = Platform.GetPhysicalPath( "result/saveasync.txt" );
+            var filePath = Common.GetPhysicalPath( "result/saveasync.txt" );
             Util.Helpers.File.Delete( filePath );
             var model = new TestModel { Name = "util" };
             await _templateEngine.SaveAsync( "hello @Model.Name", model, filePath );

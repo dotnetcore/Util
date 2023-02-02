@@ -3,6 +3,7 @@ using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -66,6 +67,27 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
             Assert.Equal( result.ToString(), GetResult() );
         }
 
+        /// <summary>
+        /// 测试表头复选框 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestCheckbox_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowCheckbox = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<th>" );
+            result.Append( "<label " );
+            result.Append( "(nzCheckedChange)=\"x_id.masterToggle()\" " );
+            result.Append( "nz-checkbox=\"\" " );
+            result.Append( "[nzChecked]=\"x_id.isMasterChecked()\" " );
+            result.Append( "[nzIndeterminate]=\"x_id.isMasterIndeterminate()\">" );
+            result.Append( "{{'a'|i18n}}" );
+            result.Append( "</label>" );
+            result.Append( "</th>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
         #endregion
 
         #region Radio
@@ -79,6 +101,19 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
             result.Append( "<th>a</th>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试表头单选框 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestRadio_i18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowRadio = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<th>{{'a'|i18n}}</th>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

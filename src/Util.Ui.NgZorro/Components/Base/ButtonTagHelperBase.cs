@@ -6,6 +6,54 @@ namespace Util.Ui.NgZorro.Components.Base {
     /// </summary>
     public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
         /// <summary>
+        /// 扩展属性,内容文本,支持i18n
+        /// </summary>
+        public string Text { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示ok文本,默认文本为'Ok',i18n文本为'util.ok'
+        /// </summary>
+        public bool TextOk { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示cancel文本,默认文本为'Cancel',i18n文本为'util.cancel'
+        /// </summary>
+        public bool TextCancel { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示create文本,默认文本为'Create',i18n文本为'util.create'
+        /// </summary>
+        public bool TextCreate { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示update文本,默认文本为'Update',i18n文本为'util.update'
+        /// </summary>
+        public bool TextUpdate { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示delete文本,默认文本为'Delete',i18n文本为'util.delete'
+        /// </summary>
+        public bool TextDelete { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示detail文本,默认文本为'Detail',i18n文本为'util.detail'
+        /// </summary>
+        public bool TextDetail { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示query文本,默认文本为'Query',i18n文本为'util.query'
+        /// </summary>
+        public bool TextQuery { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示refresh文本,默认文本为'Refresh',i18n文本为'util.refresh'
+        /// </summary>
+        public bool TextRefresh { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示save文本,默认文本为'Save',i18n文本为'util.save'
+        /// </summary>
+        public bool TextSave { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示enable文本,默认文本为'Enable',i18n文本为'util.enable'
+        /// </summary>
+        public bool TextEnable { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示disable文本,默认文本为'Disable',i18n文本为'util.disable'
+        /// </summary>
+        public bool TextDisable { get; set; }
+        /// <summary>
         /// routerLink,路由链接,当按钮类型为链接时可用
         /// </summary>
         public string RouterLink { get; set; }
@@ -173,9 +221,6 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// (nzPopoverVisibleChange),气泡卡片显示状态变化事件,类型: EventEmitter&lt;boolean>
         /// </summary>
         public string OnPopoverVisibleChange { get; set; }
-
-        #region 气泡确认框
-
         /// <summary>
         /// nzPopconfirmTitle,气泡确认框标题,类型: string | TemplateRef&lt;void>
         /// </summary>
@@ -308,7 +353,5 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// (nzOnConfirm),确认事件,点击确认按钮时触发,类型: EventEmitter&lt;void>
         /// </summary>
         public string OnPopconfirmConfirm { get; set; }
-
-        #endregion
     }
 }

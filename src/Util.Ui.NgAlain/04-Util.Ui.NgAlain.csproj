@@ -32,7 +32,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Util.ObjectMapping.AutoMapper\02-Util.ObjectMapping.AutoMapper.csproj" />
-		<ProjectReference Include="..\Util.Ui.Angular\02-Util.Ui.Angular.csproj" />
+		<ProjectReference Include="..\Util.Ui.NgZorro\03-Util.Ui.NgZorro.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -29,6 +29,10 @@ namespace Util.Data.EntityFrameworkCore {
         /// Sqlite配置操作
         /// </summary>
         private readonly Action<SqliteDbContextOptionsBuilder> _sqliteSetupAction;
+        /// <summary>
+        /// 条件
+        /// </summary>
+        private readonly bool? _condition;
 
         /// <summary>
         /// 初始化Sqlite工作单元配置扩展
@@ -37,15 +41,20 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="connection">数据库连接</param>
         /// <param name="setupAction">工作单元配置操作</param>
         /// <param name="sqliteSetupAction">Sqlite配置操作</param>
-        public SqliteOptionsExtension( string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction, Action<SqliteDbContextOptionsBuilder> sqliteSetupAction ) {
+        /// <param name="condition">条件</param>
+        public SqliteOptionsExtension( string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction, 
+            Action<SqliteDbContextOptionsBuilder> sqliteSetupAction, bool? condition ) {
             _connectionString = connectionString;
             _connection = connection;
             _setupAction = setupAction;
             _sqliteSetupAction = sqliteSetupAction;
+            _condition = condition;
         }
 
         /// <inheritdoc />
         public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
+            if ( _condition == false )
+                return;
             services.AddDbContext<TService, TImplementation>( options => {
                 _setupAction?.Invoke( options );
                 if ( _connectionString.IsEmpty() == false ) {

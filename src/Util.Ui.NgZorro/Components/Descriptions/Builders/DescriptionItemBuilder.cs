@@ -2,6 +2,8 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
     /// <summary>
@@ -25,9 +27,21 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// 配置标题
         /// </summary>
         public DescriptionItemBuilder Title() {
-            AttributeIfNotEmpty( "nzTitle", _config.GetValue( UiConst.Title ) );
+            SetTitle( _config.GetValue( UiConst.Title ) );
             AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
             return this;
+        }
+
+        /// <summary>
+        /// 设置表单标签文本
+        /// </summary>
+        private void SetTitle( string value ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                this.AttributeByI18n( "[nzTitle]", value );
+                return;
+            }
+            AttributeIfNotEmpty( "nzTitle", value );
         }
 
         /// <summary>

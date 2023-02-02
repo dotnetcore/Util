@@ -22,6 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Util.Domain.Biz\02-Util.Domain.Biz.csproj" />
 		<ProjectReference Include="..\..\src\Util.Ui.NgAlain\04-Util.Ui.NgAlain.csproj" />
 	</ItemGroup>
 

@@ -29,6 +29,10 @@ namespace Util.Data.EntityFrameworkCore {
         /// Sql Server配置操作
         /// </summary>
         private readonly Action<SqlServerDbContextOptionsBuilder> _sqlServerSetupAction;
+        /// <summary>
+        /// 条件
+        /// </summary>
+        private readonly bool? _condition;
 
         /// <summary>
         /// 初始化Sql Server 工作单元配置扩展
@@ -37,15 +41,20 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="connection">数据库连接</param>
         /// <param name="setupAction">工作单元配置操作</param>
         /// <param name="sqlServerSetupAction">Sql Server配置操作</param>
-        public SqlServerOptionsExtension( string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction, Action<SqlServerDbContextOptionsBuilder> sqlServerSetupAction ) {
+        /// <param name="condition">条件</param>
+        public SqlServerOptionsExtension( string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction, 
+            Action<SqlServerDbContextOptionsBuilder> sqlServerSetupAction, bool? condition ) {
             _connectionString = connectionString;
             _connection = connection;
             _setupAction = setupAction;
             _sqlServerSetupAction = sqlServerSetupAction;
+            _condition = condition;
         }
 
         /// <inheritdoc />
         public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
+            if ( _condition == false )
+                return;
             services.AddDbContext<TService, TImplementation>( options => {
                 _setupAction?.Invoke( options );
                 if ( _connectionString.IsEmpty() == false ) {

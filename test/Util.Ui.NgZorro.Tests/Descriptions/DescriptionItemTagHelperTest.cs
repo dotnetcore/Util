@@ -50,28 +50,6 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         }
 
         /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestTitle() {
-            _wrapper.SetContextAttribute( UiConst.Title, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions-item nzTitle=\"a\"></nz-descriptions-item>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestBindTitle() {
-            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions-item [nzTitle]=\"a\"></nz-descriptions-item>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试列跨度
         /// </summary>
         [Fact]

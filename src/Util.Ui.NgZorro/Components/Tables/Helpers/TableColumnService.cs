@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers {
     /// <summary>
@@ -107,7 +108,23 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// 获取标题
         /// </summary>
         private string GetTitle() {
-            return _config.GetValue( UiConst.Title );
+            var result = _config.GetValue( UiConst.Title );
+            if ( result.IsEmpty() == false )
+                return result;
+            return GetOperationTitle();
+        }
+
+        /// <summary>
+        /// 获取Operation标题
+        /// </summary>
+        private string GetOperationTitle() {
+            var value = _config.GetValue<bool?>( UiConst.TitleOperation );
+            if ( value != true )
+                return null;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n )
+                return "util.operation";
+            return "Operation";
         }
 
         /// <summary>

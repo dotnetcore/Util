@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E6328DC1-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmark", "benchmark", "{199A0EFE-EE81-4A0E-9F2E-298CDDA49D26}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{3E5A39C2-EEF3-40E4-A997-68D4BD65E3B1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Ui", "10-Ui", "{354B3720-D050-487D-A46A-22BCFEE56D43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Ui", "src\Util.Ui\01-Util.Ui.csproj", "{5F7ACBE4-A1D8-4680-AA86-B87F8494BAC2}"
@@ -248,10 +246,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Scheduling.Hangfire", "src\Util.Scheduling.Hangfire\03-Util.Scheduling.Hangfire.csproj", "{E0D77981-E412-477D-B866-E43F055CAAFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Scheduling.Hangfire.Tests.Integration", "test\Util.Scheduling.Hangfire.Tests.Integration\Util.Scheduling.Hangfire.Tests.Integration.csproj", "{66B96C01-6A08-4C7A-B5F5-A0489D8BBB47}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Scheduling.Quartz.Sample", "sample\Util.Scheduling.Quartz.Sample\Util.Scheduling.Quartz.Sample.csproj", "{A6795B05-57B4-46DF-A925-D876EAEBF872}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Scheduling.Hangfire.Sample", "sample\Util.Scheduling.Hangfire.Sample\Util.Scheduling.Hangfire.Sample.csproj", "{5FF4EC81-193B-459E-9994-D1FE2598ED8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -623,14 +617,6 @@ Global
 		{66B96C01-6A08-4C7A-B5F5-A0489D8BBB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B96C01-6A08-4C7A-B5F5-A0489D8BBB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B96C01-6A08-4C7A-B5F5-A0489D8BBB47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6795B05-57B4-46DF-A925-D876EAEBF872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6795B05-57B4-46DF-A925-D876EAEBF872}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6795B05-57B4-46DF-A925-D876EAEBF872}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6795B05-57B4-46DF-A925-D876EAEBF872}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FF4EC81-193B-459E-9994-D1FE2598ED8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FF4EC81-193B-459E-9994-D1FE2598ED8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FF4EC81-193B-459E-9994-D1FE2598ED8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FF4EC81-193B-459E-9994-D1FE2598ED8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -752,8 +738,6 @@ Global
 		{1272E006-8D8B-46B5-AD18-2E31CA9C6CBD} = {76AA6040-AA3A-43DD-BD4B-7F931271BFD6}
 		{E0D77981-E412-477D-B866-E43F055CAAFC} = {76AA6040-AA3A-43DD-BD4B-7F931271BFD6}
 		{66B96C01-6A08-4C7A-B5F5-A0489D8BBB47} = {6493D592-7930-4979-A07D-B7CAA751C7BE}
-		{A6795B05-57B4-46DF-A925-D876EAEBF872} = {3E5A39C2-EEF3-40E4-A997-68D4BD65E3B1}
-		{5FF4EC81-193B-459E-9994-D1FE2598ED8E} = {3E5A39C2-EEF3-40E4-A997-68D4BD65E3B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94347832-A36D-4C42-9C4D-B848BD4F5DA9}

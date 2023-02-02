@@ -31,7 +31,7 @@ namespace Util.Applications.Trees {
         /// <summary>
         /// 父名称
         /// </summary>
-        [Display( Name = "父名称" )]
+        [Display( Name = "util.parentName" )]
         public string ParentName { get; set; }
         /// <summary>
         /// 路径
@@ -44,22 +44,22 @@ namespace Util.Applications.Trees {
         /// <summary>
         /// 启用
         /// </summary>
-        [Display( Name = "启用" )]
+        [Display( Name = "util.enabled" )]
         public bool? Enabled { get; set; } = true;
         /// <summary>
         /// 排序号
         /// </summary>
-        [Display( Name = "排序号" )]
+        [Display( Name = "util.sortId" )]
         public int? SortId { get; set; }
         /// <summary>
         /// 是否展开
         /// </summary>
-        [Display( Name = "是否展开" )]
+        [Display( Name = "util.expanded" )]
         public bool? Expanded { get; set; }
         /// <summary>
         /// 图标
         /// </summary>
-        [Display( Name = "图标" )]
+        [Display( Name = "util.icon" )]
         public string Icon { get; set; }
         /// <summary>
         /// 是否禁用复选框

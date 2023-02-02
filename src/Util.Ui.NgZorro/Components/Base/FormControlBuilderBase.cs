@@ -161,7 +161,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// <summary>
         /// 配置表格编辑
         /// </summary>
-        private TBuilder TableEdit() {
+        protected TBuilder TableEdit() {
             var config = GetTableColumnShareConfig();
             if ( config == null )
                 return (TBuilder)this;

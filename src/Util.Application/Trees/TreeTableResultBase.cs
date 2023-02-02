@@ -95,17 +95,8 @@ namespace Util.Applications.Trees {
         /// 初始化节点
         /// </summary>
         protected void InitNode( TSourceNode node ) {
-            InitExpanded( node );
             InitLeaf( node );
-        }
-
-        /// <summary>
-        /// 初始化节点展开状态
-        /// </summary>
-        protected virtual void InitExpanded( TSourceNode node ) {
-            if ( _allExpand ) {
-                node.Expanded = true;
-            }
+            InitExpanded( node );
         }
 
         /// <summary>
@@ -124,6 +115,22 @@ namespace Util.Applications.Trees {
         /// </summary>
         protected virtual bool IsLeaf( TSourceNode node ) {
             return _data.All( t => t.ParentId != node.Id );
+        }
+
+        /// <summary>
+        /// 初始化节点展开状态
+        /// </summary>
+        protected virtual void InitExpanded( TSourceNode node ) {
+            if ( _allExpand == false )
+                return;
+            if ( _async == false ) {
+                node.Expanded = true;
+                return;
+            }
+            if ( _data.All( t => t.Level == 1 ) )
+                return;
+            if( node.Leaf == false )
+                node.Expanded = true;
         }
 
         /// <summary>

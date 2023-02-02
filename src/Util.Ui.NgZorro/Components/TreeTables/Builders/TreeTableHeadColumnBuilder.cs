@@ -2,6 +2,7 @@
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.TreeTables.Builders {
@@ -70,16 +71,28 @@ namespace Util.Ui.NgZorro.Components.TreeTables.Builders {
 
         /// <inheritdoc />
         protected override void AddCheckBox( string title = null ) {
-            title ??= _config.GetValue( UiConst.Title );
+            title = GetTitle( title );
             if ( title.IsEmpty() )
                 title = _config.Content?.GetContent();
             var checkboxBuilder = new TreeTableMasterCheckBoxBuilder( _shareConfig.TableExtendId, title );
             SetContent( checkboxBuilder );
         }
 
+        /// <summary>
+        /// 获取标题
+        /// </summary>
+        /// <param name="title">标题</param>
+        private string GetTitle( string title ) {
+            title ??= _config.GetValue( UiConst.Title );
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n )
+                return "{{" + $"'{title}'|i18n" + "}}";
+            return title;
+        }
+
         /// <inheritdoc />
         protected override void AddRadio( string title = null ) {
-            title ??= _config.GetValue( UiConst.Title );
+            title = GetTitle( title );
             if ( title.IsEmpty() )
                 title = _config.Content?.GetContent();
             SetContent( title );

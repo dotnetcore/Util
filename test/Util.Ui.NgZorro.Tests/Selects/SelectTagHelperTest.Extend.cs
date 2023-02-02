@@ -191,7 +191,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableDefaultOptionText = true } );
             var result = new StringBuilder();
             result.Append( "<nz-select #x_id=\"xSelectExtend\" x-select-extend=\"\">" );
-            result.Append( "<nz-option [nzLabel]=\"x_id.config.text.defaultOptionText\"></nz-option>" );
+            result.Append( "<nz-option [nzLabel]=\"'util.defaultOptionText'|i18n\"></nz-option>" );
             AppendOptions( result );
             result.Append( "</nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Xunit;
 
@@ -21,6 +22,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         }
 
         /// <summary>
+        /// 测试提示文字 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TooltipTitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipTitle]=\"'a'|i18n\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试提示文字
         /// </summary>
         [Fact]
@@ -28,6 +41,75 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             _wrapper.SetContextAttribute( AngularConst.BindTooltipTitle, "a" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipTitle]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字显示update
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitleUpdate() {
+            _wrapper.SetContextAttribute( UiConst.TooltipTitleUpdate, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"Update\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字显示update - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitleUpdate_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TooltipTitleUpdate, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipTitle]=\"'util.update'|i18n\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字显示delete
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitleDelete() {
+            _wrapper.SetContextAttribute( UiConst.TooltipTitleDelete, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"Delete\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字显示update - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitleDelete_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TooltipTitleDelete, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipTitle]=\"'util.delete'|i18n\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字显示detail
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitleDetail() {
+            _wrapper.SetContextAttribute( UiConst.TooltipTitleDetail, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"Detail\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字显示detail - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitleDetail_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TooltipTitleDetail, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipTitle]=\"'util.detail'|i18n\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

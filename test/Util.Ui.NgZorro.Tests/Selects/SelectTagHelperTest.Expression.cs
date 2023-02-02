@@ -14,9 +14,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
-            result.Append( "<nz-form-label [nzRequired]=\"true\">编码</nz-form-label>" );
+            result.Append( "<nz-form-label [nzRequired]=\"true\">code</nz-form-label>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<nz-select #v_id=\"xValidationExtend\" displayName=\"编码\" " );
+            result.Append( "<nz-select #v_id=\"xValidationExtend\" displayName=\"code\" " );
             result.Append( "name=\"code\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );
             result.Append( "[required]=\"true\">" );
             result.Append( "</nz-select>" );

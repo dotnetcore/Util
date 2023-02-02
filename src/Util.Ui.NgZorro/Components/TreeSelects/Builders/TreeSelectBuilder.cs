@@ -312,6 +312,14 @@ namespace Util.Ui.NgZorro.Components.TreeSelects.Builders {
         }
 
         /// <summary>
+        /// 配置加载标识列表
+        /// </summary>
+        public TreeSelectBuilder LoadKeys() {
+            AttributeIfNotEmpty( "[loadKeys]", _config.GetValue( UiConst.LoadKeys ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         public TreeSelectBuilder Events() {
@@ -339,7 +347,7 @@ namespace Util.Ui.NgZorro.Components.TreeSelects.Builders {
                 .DefaultExpandAll().ExpandedKeys().DisplayWith()
                 .MaxTagCount().MaxTagPlaceholder().TreeTemplate()
                 .VirtualHeight().VirtualItemSize().VirtualMaxBufferPx().VirtualMinBufferPx()
-                .Width()
+                .Width().LoadKeys()
                 .Events();
             base.ConfigBase( _config );
             _service.ConfigBuilder( this );

@@ -23,10 +23,10 @@ namespace Util.Applications.Trees {
         /// <param name="isExpandForRoot">根节点异步加载模式是否展开子节点列表</param>
         /// <param name="queryBefore">查询前操作</param>
         /// <param name="processData">数据处理操作</param>
-        public TreeTableQueryService( IQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
+        public TreeTableQueryService( ITreeQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
             int maxPageSize, bool isFirstLoad, bool isExpandAll, bool isExpandForRoot, 
             Action<TQuery> queryBefore, Action<PageList<TDto>, TQuery> processData ) 
-            : base( service, loadMode, loadOperation, maxPageSize, isFirstLoad, isExpandAll,isExpandForRoot, queryBefore, processData ) {
+            : base( service, loadMode, loadOperation, maxPageSize, isFirstLoad, isExpandAll,isExpandForRoot,null, queryBefore, processData ) {
         }
 
         /// <summary>

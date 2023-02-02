@@ -69,7 +69,7 @@ namespace Util.Infrastructure {
         /// </summary>
         protected virtual void ResolveServiceRegistrar() {
             var types = _finder.Find<IServiceRegistrar>();
-            var instances = types.Select( type => Reflection.CreateInstance<IServiceRegistrar>( type ) ).Where( t => t.Enabled ).OrderBy( t => t.Id ).ToList();
+            var instances = types.Select( type => Reflection.CreateInstance<IServiceRegistrar>( type ) ).Where( t => t.Enabled ).OrderBy( t => t.OrderId ).ToList();
             instances.ForEach( t => _serviceActions.Add( t.Register( new ServiceContext( _hostBuilder, _finder ) ) ) );
         }
 

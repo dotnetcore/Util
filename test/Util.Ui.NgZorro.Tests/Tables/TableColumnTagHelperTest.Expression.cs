@@ -27,7 +27,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "<nz-table>" );
             result.Append( "<thead>" );
             result.Append( "<tr>" );
-            result.Append( "<th>编码</th>" );
+            result.Append( "<th>code</th>" );
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
@@ -65,7 +65,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
             result.Append( "<tr>" );
-            result.Append( "<td>{{row.enabled?x_id.config.text.yes:x_id.config.text.no}}</td>" );
+            result.Append( "<td>{{row.enabled?'是':'否'}}</td>" );
             result.Append( "</tr>" );
             result.Append( "</tbody>" );
             result.Append( "</nz-table>" );

@@ -11,19 +11,19 @@ namespace Util.ObjectMapping.Infrastructure {
     /// </summary>
     public class AutoMapperServiceRegistrar : IServiceRegistrar {
         /// <summary>
-        /// 获取标识
+        /// 获取服务名
         /// </summary>
-        public static int GetId() => 300;
+        public static string ServiceName => "Util.ObjectMapping.Infrastructure.AutoMapperServiceRegistrar";
 
         /// <summary>
-        /// 标识
+        /// 排序号
         /// </summary>
-        public int Id => GetId();
+        public int OrderId => 300;
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool Enabled => ServiceRegistrarConfig.Instance.IsEnabled( GetId() );
+        public bool Enabled => ServiceRegistrarConfig.IsEnabled( ServiceName );
 
         /// <summary>
         /// 注册服务

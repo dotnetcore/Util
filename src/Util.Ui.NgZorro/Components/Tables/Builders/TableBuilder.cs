@@ -160,8 +160,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置是否显示分页
         /// </summary>
         public TableBuilder ShowPagination() {
-            AttributeIfNotEmpty( "[nzShowPagination]", _config.GetBoolValue( UiConst.ShowPagination ) );
-            AttributeIfNotEmpty( "[nzShowPagination]", _config.GetValue( AngularConst.BindShowPagination ) );
+            ShowPagination( _config.GetBoolValue( UiConst.ShowPagination ) );
+            ShowPagination( _config.GetValue( AngularConst.BindShowPagination ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置是否显示分页
+        /// </summary>
+        public TableBuilder ShowPagination( string value ) {
+            AttributeIfNotEmpty( "[nzShowPagination]", value );
             return this;
         }
 

@@ -3,6 +3,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
@@ -242,6 +243,22 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 配置Operation标题
+        /// </summary>
+        public TableHeadColumnBuilder TitleOperation() {
+            var value = _config.GetValue<bool?>( UiConst.TitleOperation );
+            if ( value != true )
+                return this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Title, I18nKeys.Operation );
+                return this;
+            }
+            _config.SetAttribute( UiConst.Title, "Operation" );
+            return this;
+        }
+
+        /// <summary>
         /// 配置标题
         /// </summary>
         public TableHeadColumnBuilder Title() {
@@ -254,8 +271,13 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// </summary>
         /// <param name="title">标题</param>
         public virtual void Title( string title ) {
+            var options = NgZorroOptionsService.GetOptions();
             if ( title.IsEmpty() )
                 return;
+            if ( options.EnableI18n ) {
+                this.AppendContentByI18n( title );
+                return;
+            }
             AppendContent( title );
         }
 
@@ -280,7 +302,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
                 .ShowFilter().FilterFn().Filters().FilterMultiple()
                 .Width().Left().Right().Align().BreakWord().Ellipsis()
                 .Colspan().Rowspan().ColumnKey()
-                .Title()
+                .TitleOperation().Title()
                 .Events()
                 .CheckBox().Radio().LineNumber();
         }
@@ -370,7 +392,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置序号
         /// </summary>
         public void ConfigLineNumber() {
-            AppendContent( $"{{{{{_shareConfig.TableExtendId}.config.text.lineNumber}}}}" );
+            var options = NgZorroOptionsService.GetOptions();
+            Title( options.EnableI18n ? "util.lineNumber" : "序号" );
             BindWidth( $"{_shareConfig.TableExtendId}.config.table.lineNumberWidth" );
         }
 

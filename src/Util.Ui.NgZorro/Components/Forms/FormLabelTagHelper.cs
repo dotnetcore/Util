@@ -19,7 +19,11 @@ namespace Util.Ui.NgZorro.Components.Forms {
         /// </summary>
         private Config _config;
         /// <summary>
-        /// 属性表达式
+        /// 扩展属性,内容文本,支持i18n
+        /// </summary>
+        public string Text { get; set; }
+        /// <summary>
+        /// 扩展属性,属性表达式
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>

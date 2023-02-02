@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Tests.Cards {
     /// <summary>
     /// 卡片测试
     /// </summary>
-    public class CardTagHelperTest {
+    public partial class CardTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -45,28 +45,6 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         public void TestDefault() {
             var result = new StringBuilder();
             result.Append( "<nz-card></nz-card>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestTitle() {
-            _wrapper.SetContextAttribute( UiConst.Title, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-card nzTitle=\"a\"></nz-card>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestBindTitle() {
-            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-card [nzTitle]=\"a\"></nz-card>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

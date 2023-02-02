@@ -34,8 +34,35 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// <param name="result">结果</param>
         private void AppendTotalTemplate( StringBuilder result ) {
             result.Append( "<ng-template #total_id=\"\" let-range=\"range\" let-total=\"\">" );
-            result.Append( NgZorroOptionsService.GetOptions().TableTotalTemplate );
+            result.Append( "{{ 'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}" );
             result.Append( "</ng-template>" );
+        }
+
+        #endregion
+
+        #region Column
+
+        /// <summary>
+        /// 测试列名
+        /// </summary>
+        [Fact]
+        public void TestColumn() {
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            var result = new StringBuilder();
+            result.Append( "<td>{{row.a}}</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试列名
+        /// </summary>
+        [Fact]
+        public void TestColumn_2() {
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            _wrapper.AppendContent( "b" );
+            var result = new StringBuilder();
+            result.Append( "<td>b</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
         }
 
         #endregion
@@ -76,31 +103,116 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             Assert.Equal( result.ToString(), table.GetResult() );
         }
 
-        #endregion
-
-        #region Column
-
         /// <summary>
-        /// 测试列名
+        /// 测试标题 - 多语言
         /// </summary>
         [Fact]
-        public void TestColumn() {
-            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+        public void TestTitle_I18n() {
+            //启用多语言
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+
+            //创建表格
+            var table = new TableTagHelper().ToWrapper();
+
+            //添加列
+            table.AppendContent( _wrapper );
+
+            //设置标题和内容
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            _wrapper.AppendContent( "b" );
+
+            //结果
             var result = new StringBuilder();
-            result.Append( "<td>{{row.a}}</td>" );
-            Assert.Equal( result.ToString(), GetResult() );
+            result.Append( "<nz-table>" );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th>{{'a'|i18n}}</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr>" );
+            result.Append( "<td>b</td>" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+
+            //验证
+            Assert.Equal( result.ToString(), table.GetResult() );
+        }
+
+        #endregion
+
+        #region TitleOperation
+
+        /// <summary>
+        /// 测试Operation标题
+        /// </summary>
+        [Fact]
+        public void TestTitleOperation() {
+            //创建表格
+            var table = new TableTagHelper().ToWrapper();
+
+            //添加列
+            table.AppendContent( _wrapper );
+
+            //设置标题和内容
+            _wrapper.SetContextAttribute( UiConst.TitleOperation, true );
+            _wrapper.AppendContent( "b" );
+
+            //结果
+            var result = new StringBuilder();
+            result.Append( "<nz-table>" );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th>Operation</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr>" );
+            result.Append( "<td>b</td>" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+
+            //验证
+            Assert.Equal( result.ToString(), table.GetResult() );
         }
 
         /// <summary>
-        /// 测试列名
+        /// 测试Operation标题 - 多语言
         /// </summary>
         [Fact]
-        public void TestColumn_2() {
-            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+        public void TestTitleOperation_I18n() {
+            //启用多语言
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+
+            //创建表格
+            var table = new TableTagHelper().ToWrapper();
+
+            //添加列
+            table.AppendContent( _wrapper );
+
+            //设置标题和内容
+            _wrapper.SetContextAttribute( UiConst.TitleOperation, true );
             _wrapper.AppendContent( "b" );
+
+            //结果
             var result = new StringBuilder();
+            result.Append( "<nz-table>" );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th>{{'util.operation'|i18n}}</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr>" );
             result.Append( "<td>b</td>" );
-            Assert.Equal( result.ToString(), GetResult() );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+
+            //验证
+            Assert.Equal( result.ToString(), table.GetResult() );
         }
 
         #endregion
@@ -195,8 +307,47 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             AppendExtendTable( result );
             result.Append( "<thead>" );
             result.Append( "<tr>" );
-            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">序号</th>" );
             result.Append( "<th>b</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+            result.Append( "<td>{{row.lineNumber}}</td>" );
+            result.Append( "<td>{{row.a}}</td>" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            AppendTotalTemplate( result );
+
+            //验证
+            Assert.Equal( result.ToString(), table.GetResult() );
+        }
+
+        /// <summary>
+        /// 测试序号 - 带标题,多语言支持
+        /// </summary>
+        [Fact]
+        public void TestLineNumber_Title_I18n() {
+            //启用多语言
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+
+            //创建表格
+            var table = new TableTagHelper().ToWrapper();
+            table.SetContextAttribute( UiConst.ShowLineNumber, true );
+
+            //添加列
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            _wrapper.SetContextAttribute( UiConst.Title, "b" );
+            table.AppendContent( _wrapper );
+
+            //结果
+            var result = new StringBuilder();
+            AppendExtendTable( result );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
+            result.Append( "<th>{{'b'|i18n}}</th>" );
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
@@ -224,7 +375,20 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Bool );
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
-            result.Append( "<td>{{row.a?x_id.config.text.yes:x_id.config.text.no}}</td>" );
+            result.Append( "<td>{{row.a?'是':'否'}}</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试布尔类型列 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestType_Bool_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Bool );
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            var result = new StringBuilder();
+            result.Append( "<td>{{(row.a?'util.yes':'util.no')|i18n}}</td>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

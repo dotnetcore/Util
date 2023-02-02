@@ -12,19 +12,19 @@ namespace Util.Infrastructure {
     /// </summary>
     public class AspNetCoreServiceRegistrar : IServiceRegistrar {
         /// <summary>
-        /// 获取标识
+        /// 获取服务名
         /// </summary>
-        public static int GetId() => 200;
+        public static string ServiceName => "Util.Infrastructure.AspNetCoreServiceRegistrar";
 
         /// <summary>
-        /// 标识
+        /// 排序号
         /// </summary>
-        public int Id => GetId();
+        public int OrderId => 200;
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool Enabled => ServiceRegistrarConfig.Instance.IsEnabled( GetId() );
+        public bool Enabled => ServiceRegistrarConfig.IsEnabled( ServiceName );
 
         /// <summary>
         /// 注册服务

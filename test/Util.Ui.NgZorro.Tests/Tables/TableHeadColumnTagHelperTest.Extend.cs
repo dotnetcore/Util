@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Configs;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Tables {
@@ -8,21 +9,6 @@ namespace Util.Ui.NgZorro.Tests.Tables {
     /// 表头单元格测试  - 指令扩展测试
     /// </summary>
     public partial class TableHeadColumnTagHelperTest {
-
-        #region Title
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestTitle() {
-            _wrapper.SetContextAttribute( UiConst.Title, "a" );
-            var result = new StringBuilder();
-            result.Append( "<th>a</th>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        #endregion
 
         #region Checkbox
 
@@ -86,11 +72,12 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// </summary>
         [Fact]
         public void TestLineNumber_1() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetItem( new TableShareConfig( "id" ) { IsShowLineNumber = true } );
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
-            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
-            result.Append( "<th>a</th>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
+            result.Append( "<th>{{'a'|i18n}}</th>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -99,6 +86,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// </summary>
         [Fact]
         public void TestLineNumber_2() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetItem( new TableShareConfig( "id" ) {
                 IsShowCheckbox = true,
                 IsShowLineNumber = true
@@ -110,8 +98,8 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
             result.Append( "[nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
             result.Append( "</th>" );
-            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
-            result.Append( "<th>a</th>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
+            result.Append( "<th>{{'a'|i18n}}</th>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

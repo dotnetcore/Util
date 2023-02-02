@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Directives.Tooltips {
     /// <summary>
@@ -15,6 +17,9 @@ namespace Util.Ui.NgZorro.Directives.Tooltips {
         /// <param name="builder">生成器实例</param>
         /// <param name="config">配置</param>
         public static TBuilder Tooltip<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
+            TooltipTitleUpdate( builder,config );
+            TooltipTitleDelete( builder, config );
+            TooltipTitleDetail( builder, config );
             builder.TooltipTitle( config.GetValue( UiConst.TooltipTitle ) );
             builder.BindTooltipTitle( config.GetValue( AngularConst.BindTooltipTitle ) );
             builder.TooltipTrigger( config.GetValue<TooltipTrigger?>( UiConst.TooltipTrigger )?.Description() );
@@ -38,6 +43,57 @@ namespace Util.Ui.NgZorro.Directives.Tooltips {
         }
 
         /// <summary>
+        /// 设置nzTooltipTitle为update
+        /// </summary>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        private static void TooltipTitleUpdate( TagBuilder builder, Config config ) {
+            var value = config.GetValue<bool?>( UiConst.TooltipTitleUpdate );
+            if ( value != true )
+                return;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                builder.TooltipTitle( I18nKeys.Update );
+                return;
+            }
+            builder.TooltipTitle( "Update" );
+        }
+
+        /// <summary>
+        /// 设置nzTooltipTitle为delete
+        /// </summary>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        private static void TooltipTitleDelete( TagBuilder builder, Config config ) {
+            var value = config.GetValue<bool?>( UiConst.TooltipTitleDelete );
+            if ( value != true )
+                return;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                builder.TooltipTitle( I18nKeys.Delete );
+                return;
+            }
+            builder.TooltipTitle( "Delete" );
+        }
+
+        /// <summary>
+        /// 设置nzTooltipTitle为detail
+        /// </summary>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        private static void TooltipTitleDetail( TagBuilder builder, Config config ) {
+            var value = config.GetValue<bool?>( UiConst.TooltipTitleDetail );
+            if ( value != true )
+                return;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                builder.TooltipTitle( I18nKeys.Detail );
+                return;
+            }
+            builder.TooltipTitle( "Detail" );
+        }
+
+        /// <summary>
         /// nzTooltipTitle,提示文字
         /// </summary>
         /// <typeparam name="TBuilder">生成器类型</typeparam>
@@ -45,8 +101,20 @@ namespace Util.Ui.NgZorro.Directives.Tooltips {
         /// <param name="value">值</param>
         public static TBuilder TooltipTitle<TBuilder>( this TBuilder builder, string value ) where TBuilder : TagBuilder {
             builder.AttributeIf( "nz-tooltip",string.IsNullOrWhiteSpace( value ) == false );
-            builder.AttributeIfNotEmpty( "nzTooltipTitle", value );
+            SetTooltipTitle( builder, value );
             return builder;
+        }
+
+        /// <summary>
+        /// 设置标题
+        /// </summary>
+        private static void SetTooltipTitle( TagBuilder builder,string value ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                builder.AttributeByI18n( "[nzTooltipTitle]", value );
+                return;
+            }
+            builder.AttributeIfNotEmpty( "nzTooltipTitle", value );
         }
 
         /// <summary>

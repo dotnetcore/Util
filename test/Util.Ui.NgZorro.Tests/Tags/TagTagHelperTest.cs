@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Tests.Tags {
     /// <summary>
     /// 标签测试
     /// </summary>
-    public class TagTagHelperTest {
+    public partial class TagTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>

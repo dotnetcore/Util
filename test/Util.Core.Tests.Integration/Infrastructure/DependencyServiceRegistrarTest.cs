@@ -10,13 +10,6 @@ namespace Util.Tests.Infrastructure {
     /// </summary>
     public class DependencyServiceRegistrarTest {
         /// <summary>
-        /// 测试初始化
-        /// </summary>
-        public DependencyServiceRegistrarTest() {
-            ServiceRegistrarConfig.Instance.Init();
-        }
-
-        /// <summary>
         /// 测试注册服务
         /// 说明:
         /// 1. 测试类TestService4实现了两个接口ITestService2,ITestService5
@@ -60,6 +53,7 @@ namespace Util.Tests.Infrastructure {
             bootstrapper.Start();
             var host = builder.Build();
             Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService5>()?.GetType() );
+            ServiceRegistrarConfig.Instance.EnableDependencyServiceRegistrar();
         }
     }
 }

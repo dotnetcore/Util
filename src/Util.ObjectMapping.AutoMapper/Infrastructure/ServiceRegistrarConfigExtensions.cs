@@ -10,7 +10,7 @@ namespace Util.ObjectMapping.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableAutoMapperServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( AutoMapperServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( AutoMapperServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -19,7 +19,7 @@ namespace Util.ObjectMapping.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableAutoMapperServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( AutoMapperServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( AutoMapperServiceRegistrar.ServiceName );
             return config;
         }
     }

@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Cards {
     [HtmlTargetElement( "util-card")]
     public class CardTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// nzTitle,标题,类型: string|TemplateRef&lt;void>
+        /// nzTitle,标题,支持i18n
         /// </summary>
         public string Title { get; set; }
         /// <summary>

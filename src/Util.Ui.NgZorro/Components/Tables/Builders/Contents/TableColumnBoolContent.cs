@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using System.Text;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
     /// <summary>
@@ -12,8 +14,15 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
             var column = builder.GetConfig().GetValue( UiConst.Column );
             if ( column.IsEmpty() )
                 return null;
-            var tableExtendId = builder.GetTableColumnShareConfig().TableExtendId;
-            return new StringHtmlContent( $"{{{{row.{column}?{tableExtendId}.config.text.yes:{tableExtendId}.config.text.no}}}}" );
+            var options = NgZorroOptionsService.GetOptions();
+            var result = new StringBuilder();
+            result.Append( "{{" );
+            if( options.EnableI18n )
+                result.Append( $"(row.{column}?'{I18nKeys.Yes}':'{I18nKeys.No}')|i18n" );
+            else
+                result.Append( $"row.{column}?'是':'否'" );
+            result.Append( "}}" );
+            return new StringHtmlContent( result.ToString() );
         }
     }
 }

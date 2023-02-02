@@ -17,19 +17,19 @@ namespace Util.Applications.Infrastructure {
     /// </summary>
     public class WebApiServiceRegistrar : IServiceRegistrar {
         /// <summary>
-        /// 获取标识
+        /// 获取服务名
         /// </summary>
-        public static int GetId() => 1210;
+        public static string ServiceName => "Util.Applications.Infrastructure.WebApiServiceRegistrar";
 
         /// <summary>
-        /// 标识
+        /// 排序号
         /// </summary>
-        public int Id => GetId();
+        public int OrderId => 1210;
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool Enabled => ServiceRegistrarConfig.Instance.IsEnabled( GetId() );
+        public bool Enabled => ServiceRegistrarConfig.IsEnabled( ServiceName );
 
         /// <summary>
         /// 注册服务

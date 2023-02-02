@@ -18,6 +18,10 @@ namespace Util.Ui.NgZorro.Components.Label {
         /// </summary>
         private Config _config;
         /// <summary>
+        /// 内容文本,支持i18n
+        /// </summary>
+        public string Text { get; set; }
+        /// <summary>
         /// 标签类型,用于指定显示标题还是显示值,默认显示值
         /// </summary>
         public LabelType Type { get; set; }

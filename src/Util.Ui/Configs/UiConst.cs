@@ -28,17 +28,105 @@
         /// </summary>
         public const string BackgroundColor = "background-color";
         /// <summary>
+        /// 粘贴图片
+        /// </summary>
+        public const string PasteDataImages = "paste-data-images";
+        /// <summary>
+        /// 工具栏模式
+        /// </summary>
+        public const string ToolbarMode = "toolbar-mode";
+        /// <summary>
         /// 类型
         /// </summary>
         public const string Type = "type";
+        /// <summary>
+        /// 参数
+        /// </summary>
+        public const string Param = "param";
+        /// <summary>
+        /// 插件列表
+        /// </summary>
+        public const string Plugins = "plugins";
+        /// <summary>
+        /// 工具栏
+        /// </summary>
+        public const string Toolbar = "toolbar";
         /// <summary>
         /// 标识
         /// </summary>
         public const string Id = "id";
         /// <summary>
+        /// 菜单栏
+        /// </summary>
+        public const string Menubar = "menubar";
+        /// <summary>
         /// 文本
         /// </summary>
         public const string Text = "text";
+        /// <summary>
+        /// ok文本
+        /// </summary>
+        public const string TextOk = "text-ok";
+        /// <summary>
+        /// cancel文本
+        /// </summary>
+        public const string TextCancel = "text-cancel";
+        /// <summary>
+        /// create文本
+        /// </summary>
+        public const string TextCreate = "text-create";
+        /// <summary>
+        /// update文本
+        /// </summary>
+        public const string TextUpdate = "text-update";
+        /// <summary>
+        /// delete文本
+        /// </summary>
+        public const string TextDelete = "text-delete";
+        /// <summary>
+        /// detail文本
+        /// </summary>
+        public const string TextDetail = "text-detail";
+        /// <summary>
+        /// query文本
+        /// </summary>
+        public const string TextQuery = "text-query";
+        /// <summary>
+        /// refresh文本
+        /// </summary>
+        public const string TextRefresh = "text-refresh";
+        /// <summary>
+        /// save文本
+        /// </summary>
+        public const string TextSave = "text-save";
+        /// <summary>
+        /// enabled文本
+        /// </summary>
+        public const string TextEnabled = "text-enabled";
+        /// <summary>
+        /// not-enabled文本
+        /// </summary>
+        public const string TextNotEnabled = "text-not-enabled";
+        /// <summary>
+        /// enable文本
+        /// </summary>
+        public const string TextEnable = "text-enable";
+        /// <summary>
+        /// disable文本
+        /// </summary>
+        public const string TextDisable = "text-disable";
+        /// <summary>
+        /// 加载标识列表
+        /// </summary>
+        public const string LoadKeys = "load-keys";
+        /// <summary>
+        /// 配置
+        /// </summary>
+        public const string Config = "config";
+        /// <summary>
+        /// 品牌
+        /// </summary>
+        public const string Branding = "branding";
         /// <summary>
         /// ok
         /// </summary>
@@ -395,6 +483,10 @@
         /// 标题
         /// </summary>
         public const string Title = "title";
+        /// <summary>
+        /// operation标题
+        /// </summary>
+        public const string TitleOperation = "title-operation";
         /// <summary>
         /// 副标题
         /// </summary>
@@ -1523,6 +1615,18 @@
         /// 提示信息
         /// </summary>
         public const string TooltipTitle = "tooltip-title";
+        /// <summary>
+        /// update提示信息
+        /// </summary>
+        public const string TooltipTitleUpdate = "tooltip-title-update";
+        /// <summary>
+        /// delete提示信息
+        /// </summary>
+        public const string TooltipTitleDelete = "tooltip-title-delete";
+        /// <summary>
+        /// detail提示信息
+        /// </summary>
+        public const string TooltipTitleDetail = "tooltip-title-detail";
         /// <summary>
         /// 校验状态
         /// </summary>

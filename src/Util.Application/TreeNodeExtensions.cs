@@ -36,7 +36,7 @@ namespace Util.Applications {
                     return;
                 result.AddRange( entity.GetParentIdsFromPath().Select( t => t.SafeString() ) );
             } );
-            var ids = list.Select( t => t?.Id.SafeString() );
+            var ids = list.DistinctBy( t => t.Id ).Select( t => t?.Id.SafeString() );
             return result.Except( ids ).ToList();
         }
     }

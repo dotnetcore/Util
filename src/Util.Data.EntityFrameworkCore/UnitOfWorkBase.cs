@@ -139,6 +139,8 @@ namespace Util.Data.EntityFrameworkCore {
         /// </summary>
         /// <param name="optionsBuilder">配置生成器</param>
         protected virtual void ConfigLog( DbContextOptionsBuilder optionsBuilder ) {
+            if ( Environment == null )
+                return;
             if ( Environment.IsProduction() )
                 return;
             optionsBuilder.EnableDetailedErrors().EnableSensitiveDataLogging();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Util.Applications;
 using Util.Applications.Trees;
 using Util.Data;
 using Util.Data.Trees;
@@ -17,7 +16,7 @@ namespace Util.Ui.NgZorro.Services {
         /// <summary>
         /// 查询服务
         /// </summary>
-        private readonly IQueryService<TDto, TQuery> _service;
+        private readonly ITreeQueryService<TDto, TQuery> _service;
         /// <summary>
         /// 最大分页大小
         /// </summary>
@@ -32,12 +31,13 @@ namespace Util.Ui.NgZorro.Services {
         /// <param name="isFirstLoad">是否首次加载</param>
         /// <param name="isExpandAll">是否展开所有节点</param>
         /// <param name="isExpandForRoot">根节点异步加载模式是否展开子节点列表</param>
+        /// <param name="loadKeys">需要加载的标识列表</param>
         /// <param name="queryBefore">查询前操作</param>
         /// <param name="processData">数据处理操作</param>
-        public TreeQueryService( IQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
-            int maxPageSize, bool isFirstLoad, bool isExpandAll, bool isExpandForRoot, 
+        public TreeQueryService( ITreeQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
+            int maxPageSize, bool isFirstLoad, bool isExpandAll, bool isExpandForRoot, string loadKeys,
             Action<TQuery> queryBefore, Action<PageList<TDto>, TQuery> processData ) 
-            : base( service, loadMode, loadOperation, maxPageSize, isFirstLoad, isExpandAll, isExpandForRoot, queryBefore, processData ) {
+            : base( service, loadMode, loadOperation, maxPageSize, isFirstLoad, isExpandAll, isExpandForRoot, loadKeys, queryBefore, processData ) {
             _service = service;
             _maxPageSize = maxPageSize;
         }

@@ -7,13 +7,25 @@ namespace Util.Ui.NgZorro.Components.Base {
     /// </summary>
     public abstract class TooltipTagHelperBase : AngularTagHelperBase {
         /// <summary>
-        /// nzTooltipTitle,提示文字,类型: string | TemplateRef&lt;void>
+        /// nzTooltipTitle,提示文字,支持i18n
         /// </summary>
         public string TooltipTitle { get; set; }
         /// <summary>
         /// [nzTooltipTitle],提示文字,类型: string | TemplateRef&lt;void>
         /// </summary>
         public string BindTooltipTitle { get; set; }
+        /// <summary>
+        /// 扩展属性,nzTooltipTitle是否显示update文本,默认文本为'Update',i18n文本为'util.update'
+        /// </summary>
+        public bool TooltipTitleUpdate { get; set; }
+        /// <summary>
+        /// 扩展属性,nzTooltipTitle是否显示delete文本,默认文本为'Delete',i18n文本为'util.delete'
+        /// </summary>
+        public bool TooltipTitleDelete { get; set; }
+        /// <summary>
+        /// 扩展属性,nzTooltipTitle是否显示detail文本,默认文本为'Detail',i18n文本为'util.detail'
+        /// </summary>
+        public bool TooltipTitleDetail { get; set; }
         /// <summary>
         /// nzTooltipTrigger,文字提示触发行为,可选值: 'click' | 'focus' | 'hover' | null,为 null 时不响应光标事件,默认值: 'hover'
         /// </summary>

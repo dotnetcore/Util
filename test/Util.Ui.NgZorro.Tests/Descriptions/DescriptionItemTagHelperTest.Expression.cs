@@ -14,7 +14,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestFor_1() {
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions-item nzTitle=\"编码\">{{model.code}}</nz-descriptions-item>" );
+            result.Append( "<nz-descriptions-item nzTitle=\"code\">{{model.code}}</nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

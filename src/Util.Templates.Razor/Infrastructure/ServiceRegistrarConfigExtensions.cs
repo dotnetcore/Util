@@ -10,7 +10,7 @@ namespace Util.Templates.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableRazorServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( RazorServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( RazorServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -19,7 +19,7 @@ namespace Util.Templates.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableRazorServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( RazorServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( RazorServiceRegistrar.ServiceName );
             return config;
         }
     }

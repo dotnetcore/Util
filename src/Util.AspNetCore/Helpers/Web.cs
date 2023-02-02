@@ -113,7 +113,7 @@ namespace Util.Helpers {
         /// </summary>
         /// <param name="relativePath">相对路径,范例:"test/a.txt" 或 "/test/a.txt"</param>
         public static string GetPhysicalPath( string relativePath ) {
-            return Platform.GetPhysicalPath( relativePath, Environment.ContentRootPath );
+            return Common.GetPhysicalPath( relativePath, Environment.ContentRootPath );
         }
 
         #endregion

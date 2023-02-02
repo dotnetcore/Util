@@ -3,7 +3,6 @@ using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
 using Util.Ui.NgZorro.Components.Tables.Configs;
-using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -68,7 +67,7 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// <param name="result">结果</param>
         private void AppendTotalTemplate( StringBuilder result ) {
             result.Append( "<ng-template #total_id=\"\" let-range=\"range\" let-total=\"\">" );
-            result.Append( NgZorroOptionsService.GetOptions().TableTotalTemplate );
+            result.Append( "{{ 'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}" );
             result.Append( "</ng-template>" );
         }
 

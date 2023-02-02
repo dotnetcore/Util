@@ -87,7 +87,7 @@ namespace Util.Localization.Tests {
         /// </summary>
         [Fact]
         public void TestGetJsonResourcePath() {
-            var result = Path.Combine( Platform.ApplicationBaseDirectory, "Resources", "Tests.PathResolverTest.zh-CN.json" );
+            var result = Path.Combine( Common.ApplicationBaseDirectory, "Resources", "Tests.PathResolverTest.zh-CN.json" );
             var path = _resolver.GetJsonResourcePath( "Resources", "Tests.PathResolverTest", new CultureInfo( "zh-CN" ) );
             _output.WriteLine( path );
             Assert.Equal( result,path );
@@ -98,7 +98,7 @@ namespace Util.Localization.Tests {
         /// </summary>
         [Fact]
         public void TestGetJsonResourcePath_InnerClass() {
-            var result = Path.Combine( Platform.ApplicationBaseDirectory, "Resources", "ResourceTypes.Resource4.Resource41.zh-CN.json" );
+            var result = Path.Combine( Common.ApplicationBaseDirectory, "Resources", "ResourceTypes.Resource4.Resource41.zh-CN.json" );
             var path = _resolver.GetJsonResourcePath( "Resources", "ResourceTypes.Resource4+Resource41", new CultureInfo( "zh-CN" ) );
             _output.WriteLine( path );
             Assert.Equal( result, path );
@@ -109,7 +109,7 @@ namespace Util.Localization.Tests {
         /// </summary>
         [Fact]
         public void TestGetJsonResourcePath_NullBaseName() {
-            var result = Path.Combine( Platform.ApplicationBaseDirectory, "Resources", "zh-CN.json" );
+            var result = Path.Combine( Common.ApplicationBaseDirectory, "Resources", "zh-CN.json" );
             var path = _resolver.GetJsonResourcePath( "Resources", null, new CultureInfo( "zh-CN" ) );
             _output.WriteLine( path );
             Assert.Equal( result, path );

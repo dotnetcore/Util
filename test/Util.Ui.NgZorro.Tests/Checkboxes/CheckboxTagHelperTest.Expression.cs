@@ -14,7 +14,7 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
-            result.Append( "<nz-form-label>编码</nz-form-label>" );
+            result.Append( "<nz-form-label>code</nz-form-label>" );
             result.Append( "<nz-form-control>" );
             result.Append( "<label name=\"code\" nz-checkbox=\"\" [(ngModel)]=\"model.code\"></label>" );
             result.Append( "</nz-form-control>" );

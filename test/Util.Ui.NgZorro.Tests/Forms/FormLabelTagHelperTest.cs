@@ -3,6 +3,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms;
 using Util.Ui.NgZorro.Components.Inputs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
@@ -425,13 +426,48 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         }
 
         /// <summary>
+        /// 测试文本
+        /// </summary>
+        [Fact]
+        public void TestText() {
+            _wrapper.SetContextAttribute( UiConst.Text, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-label>a</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试文本 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestText_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Text, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-label>{{'a'|i18n}}</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试属性表达式
         /// </summary>
         [Fact]
         public void TestFor() {
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzRequired]=\"true\">编码</nz-form-label>" );
+            result.Append( "<nz-form-label [nzRequired]=\"true\">code</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试属性表达式 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestFor_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetExpression( t => t.Code );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-label [nzRequired]=\"true\">{{'code'|i18n}}</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

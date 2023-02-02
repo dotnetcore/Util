@@ -2,6 +2,7 @@
 using Util.Ui.Configs;
 using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Icons.Builders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Expressions;
 
@@ -34,6 +35,11 @@ namespace Util.Ui.NgZorro.Components.Label.Helpers {
         /// 加载标题
         /// </summary>
         protected virtual void LoadTitle( Config config, ModelExpressionInfo info ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                config.SetAttribute( UiConst.Value, "{{" + $"'{info.DisplayName}'|i18n" + "}}", false );
+                return;
+            }
             config.SetAttribute( UiConst.Value, info.DisplayName, false );
         }
 

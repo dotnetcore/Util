@@ -30,6 +30,10 @@ namespace Util.Data.EntityFrameworkCore {
         /// MySql配置操作
         /// </summary>
         private readonly Action<MySqlDbContextOptionsBuilder> _mySqlSetupAction;
+        /// <summary>
+        /// 条件
+        /// </summary>
+        private readonly bool? _condition;
 
         /// <summary>
         /// 初始化PostgreSql工作单元配置扩展
@@ -38,15 +42,20 @@ namespace Util.Data.EntityFrameworkCore {
         /// <param name="connection">数据库连接</param>
         /// <param name="setupAction">工作单元配置操作</param>
         /// <param name="mySqlSetupAction">MySql配置操作</param>
-        public MySqlOptionsExtension( string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction, Action<MySqlDbContextOptionsBuilder> mySqlSetupAction ) {
+        /// <param name="condition">条件</param>
+        public MySqlOptionsExtension( string connectionString, DbConnection connection, Action<DbContextOptionsBuilder> setupAction, 
+            Action<MySqlDbContextOptionsBuilder> mySqlSetupAction, bool? condition ) {
             _connectionString = connectionString;
             _connection = connection;
             _setupAction = setupAction;
             _mySqlSetupAction = mySqlSetupAction;
+            _condition = condition;
         }
 
         /// <inheritdoc />
         public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
+            if ( _condition == false )
+                return;
             services.AddDbContext<TService, TImplementation>( options => {
                 _setupAction?.Invoke( options );
                 if ( _connectionString.IsEmpty() == false ) {

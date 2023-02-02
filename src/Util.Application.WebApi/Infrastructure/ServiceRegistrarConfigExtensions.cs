@@ -10,7 +10,7 @@ namespace Util.Applications.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableWebApiServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( WebApiServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( WebApiServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -19,7 +19,7 @@ namespace Util.Applications.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableWebApiServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( WebApiServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( WebApiServiceRegistrar.ServiceName );
             return config;
         }
     }

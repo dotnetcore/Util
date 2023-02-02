@@ -14,7 +14,7 @@ namespace Util.Ui.NgZorro.Tests.Switches {
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
-            result.Append( "<nz-form-label>编码</nz-form-label>" );
+            result.Append( "<nz-form-label>code</nz-form-label>" );
             result.Append( "<nz-form-control>" );
             result.Append( "<nz-switch name=\"code\" [(ngModel)]=\"model.code\"></nz-switch>" );
             result.Append( "</nz-form-control>" );

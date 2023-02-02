@@ -10,7 +10,7 @@ namespace Util.Templates.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableHandlebarsServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( HandlebarsServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( HandlebarsServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -19,7 +19,7 @@ namespace Util.Templates.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableHandlebarsServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( HandlebarsServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( HandlebarsServiceRegistrar.ServiceName );
             return config;
         }
     }

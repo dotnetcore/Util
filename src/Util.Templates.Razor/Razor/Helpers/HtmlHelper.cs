@@ -20,7 +20,7 @@
         /// 引用部分视图
         /// </summary>
         public string Partial( string partialViewName, object model ) {
-            var path = Util.Helpers.Platform.GetPhysicalPath( partialViewName );
+            var path = Util.Helpers.Common.GetPhysicalPath( partialViewName );
             return _engine.RenderByPath( path, model );
         }
 

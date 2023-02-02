@@ -22,7 +22,7 @@ namespace Util.Applications.Trees {
     /// <typeparam name="TCreateRequest">创建参数类型</typeparam>
     /// <typeparam name="TUpdateRequest">修改参数类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
-    public interface ITreeService<TDto, in TCreateRequest, in TUpdateRequest, in TQuery> : IQueryService<TDto, TQuery>
+    public interface ITreeService<TDto, in TCreateRequest, in TUpdateRequest, in TQuery> : ITreeQueryService<TDto, TQuery>
         where TDto : ITreeNode, new()
         where TCreateRequest : IRequest, new()
         where TUpdateRequest : IDto,new()

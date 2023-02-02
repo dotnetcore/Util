@@ -388,7 +388,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             }
             if ( IsEnableDefaultOptionText() == false )
                 return;
-            optionBuilder.BindLabel( $"{_config.ExtendId}.config.text.defaultOptionText" );
+            optionBuilder.BindLabel( $"'{I18nKeys.DefaultOptionText}'|i18n" );
             AppendContent( optionBuilder );
         }
 

@@ -33,9 +33,9 @@ namespace Util.Localization.Json {
         /// <inheritdoc />
         public string GetJsonResourcePath( string rootPath, string baseName, CultureInfo culture ) {
             if( baseName.IsEmpty() )
-                return Path.Combine( Platform.ApplicationBaseDirectory, rootPath, $"{culture.Name}.json" );
+                return Path.Combine( Common.ApplicationBaseDirectory, rootPath, $"{culture.Name}.json" );
             baseName = FixInnerClassPath( baseName );
-            return Path.Combine( Platform.ApplicationBaseDirectory, rootPath, $"{baseName}.{culture.Name}.json" );
+            return Path.Combine( Common.ApplicationBaseDirectory, rootPath, $"{baseName}.{culture.Name}.json" );
         }
 
         /// <summary>

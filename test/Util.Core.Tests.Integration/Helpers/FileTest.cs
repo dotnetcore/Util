@@ -12,7 +12,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestReadToString() {
-            var filePath = Util.Helpers.Platform.GetPhysicalPath( "/Samples/FileSample.txt" );
+            var filePath = Util.Helpers.Common.GetPhysicalPath( "/Samples/FileSample.txt" );
             Assert.Equal( "test", File.ReadToString( filePath ) );
         }
 
@@ -21,7 +21,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public async Task TestReadToStringAsync() {
-            var filePath = Util.Helpers.Platform.GetPhysicalPath( "/Samples/FileSample.txt" );
+            var filePath = Util.Helpers.Common.GetPhysicalPath( "/Samples/FileSample.txt" );
             Assert.Equal( "test",await File.ReadToStringAsync( filePath ) );
         }
     }

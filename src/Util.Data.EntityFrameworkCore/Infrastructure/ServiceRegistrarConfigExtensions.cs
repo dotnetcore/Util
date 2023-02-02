@@ -10,7 +10,7 @@ namespace Util.Data.EntityFrameworkCore.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableEntityFrameworkServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( EntityFrameworkServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( EntityFrameworkServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -19,7 +19,7 @@ namespace Util.Data.EntityFrameworkCore.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableEntityFrameworkServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( EntityFrameworkServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( EntityFrameworkServiceRegistrar.ServiceName );
             return config;
         }
     }

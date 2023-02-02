@@ -63,7 +63,10 @@ namespace Util.Ui.NgZorro.Components.TreeTables.Builders {
         /// 配置加载模式
         /// </summary>
         public TreeTableBuilder LoadMode() {
-            AttributeIfNotEmpty( "loadMode", _config.GetValue<LoadMode?>( UiConst.LoadMode )?.Value().SafeString() );
+            var mode = _config.GetValue<LoadMode?>( UiConst.LoadMode );
+            if ( mode == Applications.Trees.LoadMode.Sync )
+                ShowPagination( "false" );
+            AttributeIfNotEmpty( "loadMode", mode?.Value().SafeString() );
             return this;
         }
 

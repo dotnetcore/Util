@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Label;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
@@ -49,6 +50,33 @@ namespace Util.Ui.NgZorro.Tests.Label {
         }
 
         /// <summary>
+        /// 测试文本
+        /// </summary>
+        [Fact]
+        public void TestText() {
+            _wrapper.SetContextAttribute( UiConst.Text, "a" );
+            var result = new StringBuilder();
+            result.Append( "<span>" );
+            result.Append( "a" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试文本
+        /// </summary>
+        [Fact]
+        public void TestText_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Text, "a" );
+            var result = new StringBuilder();
+            result.Append( "<span>" );
+            result.Append( "{{'a'|i18n}}" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试设置内容
         /// </summary>
         [Fact]
@@ -69,7 +97,7 @@ namespace Util.Ui.NgZorro.Tests.Label {
             _wrapper.SetContextAttribute( UiConst.Type, LabelType.Title );
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
-            result.Append( "<span>编码</span>" );
+            result.Append( "<span>code</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

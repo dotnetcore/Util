@@ -79,7 +79,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// <param name="result">结果</param>
         private void AppendTotalTemplate( StringBuilder result ) {
             result.Append( "<ng-template #total_id=\"\" let-range=\"range\" let-total=\"\">" );
-            result.Append( NgZorroOptionsService.GetOptions().TableTotalTemplate );
+            result.Append( "{{ 'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}" );
             result.Append( "</ng-template>" );
         }
 

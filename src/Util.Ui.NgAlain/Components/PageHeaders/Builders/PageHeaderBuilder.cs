@@ -1,6 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
     /// <summary>
@@ -23,9 +25,21 @@ namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
         /// 配置标题
         /// </summary>
         public PageHeaderBuilder Title() {
-            AttributeIfNotEmpty( "title", _config.GetValue( UiConst.Title ) );
+            SetTitle( _config.GetValue( UiConst.Title ) );
             AttributeIfNotEmpty( "[title]", _config.GetValue( AngularConst.BindTitle ) );
             return this;
+        }
+
+        /// <summary>
+        /// 设置标题
+        /// </summary>
+        private void SetTitle( string value ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                this.AttributeByI18n( "[title]", value );
+                return;
+            }
+            AttributeIfNotEmpty( "title", value );
         }
 
         /// <summary>

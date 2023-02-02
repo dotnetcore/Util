@@ -10,7 +10,7 @@ namespace Util.Data.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableDapperServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( DapperServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( DapperServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -19,7 +19,7 @@ namespace Util.Data.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableDapperServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( DapperServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( DapperServiceRegistrar.ServiceName );
             return config;
         }
     }

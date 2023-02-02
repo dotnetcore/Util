@@ -5,7 +5,6 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
 using Util.Ui.NgZorro.Components.TreeTables;
-using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -51,7 +50,7 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// <param name="result">结果</param>
         private void AppendTotalTemplate( StringBuilder result ) {
             result.Append( "<ng-template #total_id=\"\" let-range=\"range\" let-total=\"\">" );
-            result.Append( NgZorroOptionsService.GetOptions().TableTotalTemplate );
+            result.Append( "{{ 'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}" );
             result.Append( "</ng-template>" );
         }
 
@@ -109,6 +108,22 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
             //结果
             var result = new StringBuilder();
             result.Append( "<nz-table loadMode=\"2\">" );
+            result.Append( "</nz-table>" );
+
+            //验证
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试加载模式 - 同步加载时关闭分页
+        /// </summary>
+        [Fact]
+        public void TestLoadMode_Sync() {
+            _wrapper.SetContextAttribute( UiConst.LoadMode, LoadMode.Sync );
+
+            //结果
+            var result = new StringBuilder();
+            result.Append( "<nz-table loadMode=\"0\" [nzShowPagination]=\"false\">" );
             result.Append( "</nz-table>" );
 
             //验证

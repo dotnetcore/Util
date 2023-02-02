@@ -19,7 +19,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
             result.Append( "</nz-form-label>" );
             result.Append( "<nz-form-control>" );
             result.Append( "<nz-radio-group #x_id=\"xSelectExtend\" name=\"enabled\" nzName=\"enabled\" x-select-extend=\"\" [(ngModel)]=\"model.enabled\" " );
-            result.Append( "[data]=\"[{'text':x_id.config.text.yes,'value':true,'sortId':1},{'text':x_id.config.text.no,'value':false,'sortId':2}]\"" );
+            result.Append( "[data]=\"[{'text':'util.yes'|i18n,'value':true,'sortId':1},{'text':'util.no'|i18n,'value':false,'sortId':2}]\"" );
             result.Append( ">" );
             result.Append( "<label *ngFor=\"let item of x_id.options\" nz-radio=\"\" [nzDisabled]=\"item.disabled\" [nzValue]=\"item.value\">" );
             result.Append( "{{item.text}}" );

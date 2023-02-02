@@ -2,6 +2,8 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgAlain.Components.PageHeaders;
+using Util.Ui.NgZorro;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -55,6 +57,18 @@ namespace Util.Ui.NgAlain.Tests.PageHeaders {
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
             result.Append( "<page-header title=\"a\"></page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions{EnableI18n = true} );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<page-header [title]=\"'a'|i18n\"></page-header>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

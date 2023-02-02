@@ -9,7 +9,6 @@ using Util.Ui.NgZorro.Directives.Popconfirms;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Util.Ui.NgZorro.Components.Base {
     /// <summary>
@@ -321,13 +320,13 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// <summary>
         /// 配置Ok文本
         /// </summary>
-        public TBuilder Ok() {
-            var value = _config.GetValue<bool?>( UiConst.Ok );
+        public TBuilder TextOk() {
+            var value = _config.GetValue<bool?>( UiConst.TextOk );
             if ( value != true )
                 return (TBuilder)this;
             var options = NgZorroOptionsService.GetOptions();
             if ( options.EnableI18n ) {
-                _config.SetAttribute( UiConst.Text,"util.ok" );
+                _config.SetAttribute( UiConst.Text, I18nKeys.Ok );
                 return (TBuilder)this;
             }
             _config.SetAttribute( UiConst.Text, "Ok" );
@@ -337,16 +336,160 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// <summary>
         /// 配置Cancel文本
         /// </summary>
-        public TBuilder Cancel() {
-            var value = _config.GetValue<bool?>( UiConst.Cancel );
+        public TBuilder TextCancel() {
+            var value = _config.GetValue<bool?>( UiConst.TextCancel );
             if ( value != true )
                 return (TBuilder)this;
             var options = NgZorroOptionsService.GetOptions();
             if ( options.EnableI18n ) {
-                _config.SetAttribute( UiConst.Text, "util.cancel" );
+                _config.SetAttribute( UiConst.Text, I18nKeys.Cancel );
                 return (TBuilder)this;
             }
             _config.SetAttribute( UiConst.Text, "Cancel" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Create文本
+        /// </summary>
+        public TBuilder TextCreate() {
+            var value = _config.GetValue<bool?>( UiConst.TextCreate );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Create );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Create" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Update文本
+        /// </summary>
+        public TBuilder TextUpdate() {
+            var value = _config.GetValue<bool?>( UiConst.TextUpdate );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Update );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Update" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Delete文本
+        /// </summary>
+        public TBuilder TextDelete() {
+            var value = _config.GetValue<bool?>( UiConst.TextDelete );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Delete );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Delete" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Detail文本
+        /// </summary>
+        public TBuilder TextDetail() {
+            var value = _config.GetValue<bool?>( UiConst.TextDetail );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Detail );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Detail" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Query文本
+        /// </summary>
+        public TBuilder TextQuery() {
+            var value = _config.GetValue<bool?>( UiConst.TextQuery );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Query );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Query" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Refresh文本
+        /// </summary>
+        public TBuilder TextRefresh() {
+            var value = _config.GetValue<bool?>( UiConst.TextRefresh );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Refresh );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Refresh" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Save文本
+        /// </summary>
+        public TBuilder TextSave() {
+            var value = _config.GetValue<bool?>( UiConst.TextSave );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Save );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Save" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Enable文本
+        /// </summary>
+        public TBuilder TextEnable() {
+            var value = _config.GetValue<bool?>( UiConst.TextEnable );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Enable );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Enable" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Disable文本
+        /// </summary>
+        public TBuilder TextDisable() {
+            var value = _config.GetValue<bool?>( UiConst.TextDisable );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.Disable );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Disable" );
             return (TBuilder)this;
         }
 
@@ -402,7 +545,9 @@ namespace Util.Ui.NgZorro.Components.Base {
                 .PopoverVisible().PopoverMouseEnterDelay().PopoverMouseLeaveDelay()
                 .PopoverOverlayClassName().PopoverOverlayStyle().PopoverBackdrop()
                 .Tooltip( _config ).Popconfirm( _config )
-                .Ok().Cancel().Text()
+                .TextOk().TextCancel().TextCreate().TextUpdate().TextDelete()
+                .TextDetail().TextQuery().TextRefresh().TextSave().TextEnable()
+                .TextDisable().Text()
                 .OnClick().OnVisibleChange().OnPopoverVisibleChange()
                 .ValidateForm();
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
@@ -46,8 +47,11 @@ namespace Util.Scheduling {
         }
 
         /// <inheritdoc />
-        public async Task ScanJobsAsync() {
-            var types = _typeFinder.Find<IJob>();
+        public async Task ScanJobsAsync( bool isScanAllJobs = true ) {
+            var types = _typeFinder.Find<IScan>() ?? new List<Type>();
+            if ( isScanAllJobs ) {
+                types.AddRange( _typeFinder.Find<IJob>() );
+            }
             foreach ( var type in types ) {
                 var job = Reflection.CreateInstance<IJob>( type );
                 if ( job == null )

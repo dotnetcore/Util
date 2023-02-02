@@ -37,8 +37,7 @@ namespace Util.Scheduling {
         /// 启动服务
         /// </summary>
         public async Task StartAsync( CancellationToken cancellationToken ) {
-            if ( _options.IsScanJobs )
-                await _manager.ScanJobsAsync();
+            await _manager.ScanJobsAsync( _options.IsScanJobs );
             _scheduler = await _manager.GetSchedulerAsync();
             await _scheduler.StartAsync();
         }

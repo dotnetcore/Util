@@ -4,7 +4,7 @@ using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tags.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
-using TagMode = Microsoft.AspNetCore.Razor.TagHelpers.TagMode;
+using TagMode = Util.Ui.NgZorro.Enums.TagMode;
 
 namespace Util.Ui.NgZorro.Components.Tags {
     /// <summary>
@@ -12,6 +12,18 @@ namespace Util.Ui.NgZorro.Components.Tags {
     /// </summary>
     [HtmlTargetElement( "util-tag" )]
     public class TagTagHelper : AngularTagHelperBase {
+        /// <summary>
+        /// 扩展属性,内容文本,支持i18n
+        /// </summary>
+        public string Text { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示Enabled文本,默认文本为'Enabled',i18n文本为'util.enabled'
+        /// </summary>
+        public bool TextEnabled { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示Not Enabled文本,默认文本为'Not Enabled',i18n文本为'util.notEnabled'
+        /// </summary>
+        public bool TextNotEnabled { get; set; }
         /// <summary>
         /// nzMode,模式,可选值: 'closeable' | 'default' | 'checkable',默认值: 'default'
         /// </summary>

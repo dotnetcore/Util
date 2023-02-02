@@ -22,9 +22,13 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
-        /// 标题,扩展属性
+        /// 标题,扩展属性,支持i18n
         /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// operation标题,扩展属性,是否显示operation标题文本,默认文本为'Operation',i18n文本为'util.operation'
+        /// </summary>
+        public bool TitleOperation { get; set; }
         /// <summary>
         /// 列名,扩展属性
         /// </summary>

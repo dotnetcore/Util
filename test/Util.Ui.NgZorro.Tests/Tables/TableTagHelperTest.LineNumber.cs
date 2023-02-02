@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
+using Util.Ui.NgZorro.Configs;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Tables {
@@ -13,6 +14,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// </summary>
         [Fact]
         public void TestShowLineNumber_1() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.ShowLineNumber, true );
 
             //创建列
@@ -31,8 +33,8 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
             result.Append( "<thead>" );
             result.Append( "<tr>" );
-            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
-            result.Append( "<th>a</th>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
+            result.Append( "<th>{{'a'|i18n}}</th>" );
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
@@ -53,6 +55,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// </summary>
         [Fact]
         public void TestShowLineNumber_2() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
             _wrapper.SetContextAttribute( UiConst.ShowLineNumber, true );
 
@@ -77,8 +80,8 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
             result.Append( "[nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
             result.Append( "</th>" );
-            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
-            result.Append( "<th>a</th>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
+            result.Append( "<th>{{'a'|i18n}}</th>" );
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
@@ -103,6 +106,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// </summary>
         [Fact]
         public void TestShowLineNumber_3() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.ShowLineNumber, true );
 
             //创建表头
@@ -141,7 +145,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
             result.Append( "<thead>" );
             result.Append( "<tr>" );
-            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
             result.Append( "<th>a</th>" );
             result.Append( "</tr>" );
             result.Append( "</thead>" );
@@ -163,6 +167,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// </summary>
         [Fact]
         public void TestShowLineNumber_4() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
             _wrapper.SetContextAttribute( UiConst.ShowLineNumber, true );
 
@@ -207,7 +212,7 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
             result.Append( "[nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
             result.Append( "</th>" );
-            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{x_id.config.text.lineNumber}}</th>" );
+            result.Append( "<th [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
             result.Append( "<th>a</th>" );
             result.Append( "</tr>" );
             result.Append( "</thead>" );

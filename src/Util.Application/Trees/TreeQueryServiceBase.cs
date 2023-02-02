@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Util.Applications.Properties;
@@ -14,10 +15,13 @@ namespace Util.Applications.Trees {
     public abstract class TreeQueryServiceBase<TDto, TQuery>
         where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter {
+
+        #region 字段
+
         /// <summary>
         /// 查询服务
         /// </summary>
-        private readonly IQueryService<TDto, TQuery> _service;
+        private readonly ITreeQueryService<TDto, TQuery> _service;
         /// <summary>
         /// 加载模式
         /// </summary>
@@ -43,6 +47,10 @@ namespace Util.Applications.Trees {
         /// </summary>
         private readonly bool _isExpandForRootAsync;
         /// <summary>
+        /// 需要加载的标识列表
+        /// </summary>
+        private readonly string _loadKeys;
+        /// <summary>
         /// 查询前操作
         /// </summary>
         private readonly Action<TQuery> _queryBefore;
@@ -50,6 +58,10 @@ namespace Util.Applications.Trees {
         /// 数据处理操作
         /// </summary>
         private readonly Action<PageList<TDto>, TQuery> _queryAfter;
+
+        #endregion
+
+        #region 构造方法
 
         /// <summary>
         /// 初始化树形查询服务
@@ -61,21 +73,27 @@ namespace Util.Applications.Trees {
         /// <param name="isFirstLoad">是否首次加载</param>
         /// <param name="isExpandAll">是否展开所有节点</param>
         /// <param name="isExpandForRootAsync">根节点异步加载模式是否展开子节点列表</param>
+        /// <param name="loadKeys">需要加载的标识列表</param>
         /// <param name="queryBefore">查询前操作</param>
         /// <param name="queryAfter">查询后操作</param>
-        protected TreeQueryServiceBase( IQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
-            int maxPageSize, bool isFirstLoad, bool isExpandAll, bool isExpandForRootAsync, 
+        protected TreeQueryServiceBase( ITreeQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
+            int maxPageSize, bool isFirstLoad, bool isExpandAll, bool isExpandForRootAsync,string loadKeys,
             Action<TQuery> queryBefore, Action<PageList<TDto>, TQuery> queryAfter ) {
-            _service = service ?? throw new ArgumentNullException( nameof(service) );
+            _service = service ?? throw new ArgumentNullException( nameof( service ) );
             _loadMode = loadMode;
             _loadOperation = loadOperation;
             _maxPageSize = maxPageSize;
             _isFirstLoad = isFirstLoad;
             _isExpandAll = isExpandAll;
             _isExpandForRootAsync = isExpandForRootAsync;
+            _loadKeys = loadKeys;
             _queryBefore = queryBefore;
             _queryAfter = queryAfter;
         }
+
+        #endregion
+
+        #region QueryAsync
 
         /// <summary>
         /// 查询
@@ -110,36 +128,9 @@ namespace Util.Applications.Trees {
             return await LoadQuery( query );
         }
 
-        /// <summary>
-        /// 加载子节点列表
-        /// </summary>
-        protected virtual async Task<dynamic> LoadChildren( TQuery query ) {
-            if ( query.ParentId.IsEmpty() )
-                throw new InvalidOperationException( ApplicationResource.ParentIdIsEmpty );
-            if ( _loadMode == LoadMode.RootAsync )
-                return await SyncLoadChildren( query );
-            return await AsyncLoadChildren( query );
-        }
+        #endregion
 
-        /// <summary>
-        /// 异步加载子节点列表
-        /// </summary>
-        protected virtual async Task<dynamic> AsyncLoadChildren( TQuery query ) {
-            var queryParam = await InitAsyncLoadChildrenQuery( query );
-            var data = await SyncQuery( queryParam );
-            _queryAfter?.Invoke( data, query );
-            return ToResult( data, true );
-        }
-
-        /// <summary>
-        /// 初始化异步加载子节点查询参数
-        /// </summary>
-        /// <param name="query">查询参数</param>
-        protected virtual Task<TQuery> InitAsyncLoadChildrenQuery( TQuery query ) {
-            query.Level = null;
-            query.Path = null;
-            return Task.FromResult( query );
-        }
+        #region SyncQuery
 
         /// <summary>
         /// 同步查询
@@ -149,6 +140,21 @@ namespace Util.Applications.Trees {
             return await _service.PageQueryAsync( query );
         }
 
+        #endregion
+
+        #region AsyncQuery
+
+        /// <summary>
+        /// 异步查询
+        /// </summary>
+        protected virtual async Task<PageList<TDto>> AsyncQuery( TQuery query ) {
+            return await _service.PageQueryAsync( query );
+        }
+
+        #endregion
+
+        #region ToResult
+
         /// <summary>
         /// 转换为树形结果
         /// </summary>
@@ -156,6 +162,22 @@ namespace Util.Applications.Trees {
         /// <param name="async">是否异步加载</param>
         /// <param name="allExpand">所有节点是否全部展开</param>
         protected abstract dynamic ToResult( PageList<TDto> data, bool async = false, bool allExpand = false );
+
+        #endregion
+
+        #region LoadChildren
+
+        /// <summary>
+        /// 加载子节点列表
+        /// </summary>
+        protected virtual async Task<dynamic> LoadChildren( TQuery query ) {
+            if ( query.ParentId.IsEmpty() )
+                throw new InvalidOperationException( ApplicationResource.ParentIdIsEmpty );
+            query.Page = 1;
+            if ( _loadMode == LoadMode.RootAsync )
+                return await SyncLoadChildren( query );
+            return await AsyncLoadChildren( query );
+        }
 
         /// <summary>
         /// 同步加载子节点列表 - 用于根节点异步加载模式
@@ -183,6 +205,30 @@ namespace Util.Applications.Trees {
         }
 
         /// <summary>
+        /// 异步加载子节点列表
+        /// </summary>
+        protected virtual async Task<dynamic> AsyncLoadChildren( TQuery query ) {
+            var queryParam = await InitAsyncLoadChildrenQuery( query );
+            var data = await SyncQuery( queryParam );
+            _queryAfter?.Invoke( data, query );
+            return ToResult( data, true, _isExpandAll );
+        }
+
+        /// <summary>
+        /// 初始化异步加载子节点查询参数
+        /// </summary>
+        /// <param name="query">查询参数</param>
+        protected virtual Task<TQuery> InitAsyncLoadChildrenQuery( TQuery query ) {
+            query.Level = null;
+            query.Path = null;
+            return Task.FromResult( query );
+        }
+
+        #endregion
+
+        #region LoadQuery
+
+        /// <summary>
         /// 加载查询结果
         /// </summary>
         protected virtual async Task<dynamic> LoadQuery( TQuery query ) {
@@ -192,25 +238,13 @@ namespace Util.Applications.Trees {
         }
 
         /// <summary>
-        /// 同步加载查询结果
+        /// 同步查询
         /// </summary>
         protected virtual async Task<dynamic> SyncLoadQuery( TQuery query ) {
             var data = await SyncQuery( query );
             await AddMissingParents( data );
             _queryAfter?.Invoke( data, query );
-            return ToResult( data,false, _isExpandAll );
-        }
-
-        /// <summary>
-        /// 异步加载查询结果
-        /// </summary>
-        protected virtual async Task<dynamic> AsyncLoadQuery( TQuery query ) {
-            if ( _isFirstLoad )
-                query.Level = 1;
-            var data = await AsyncQuery( query );
-            await AddMissingParents( data );
-            _queryAfter?.Invoke( data, query );
-            return ToResult( data, true );
+            return ToResult( data, false, _isExpandAll );
         }
 
         /// <summary>
@@ -221,14 +255,63 @@ namespace Util.Applications.Trees {
                 return;
             var ids = data.Data.GetMissingParentIds();
             var list = await _service.GetByIdsAsync( ids.Join() );
-            data.Data.AddRange( list );
+            data.Data.AddRange( list.DistinctBy( t => t.Id ) );
         }
 
         /// <summary>
         /// 异步查询
         /// </summary>
-        protected virtual async Task<PageList<TDto>> AsyncQuery( TQuery query ) {
-            return await _service.PageQueryAsync( query );
+        protected virtual async Task<dynamic> AsyncLoadQuery( TQuery query ) {
+            if ( _isFirstLoad )
+                return await AsyncFirstLoadQuery( query );
+            query.PageSize = _maxPageSize;
+            var data = await AsyncQuery( query );
+            await AddMissingParents( data );
+            _queryAfter?.Invoke( data, query );
+            return ToResult( data, true, _isExpandAll );
         }
+
+        /// <summary>
+        /// 异步首次加载
+        /// </summary>
+        protected virtual async Task<dynamic> AsyncFirstLoadQuery( TQuery query ) {
+            query.Level = 1;
+            var data = await AsyncQuery( query );
+            if ( _loadKeys.IsEmpty() == false ) {
+                var parentIds = await GetLoadParentIds( _loadKeys );
+                var nodes = await GetLoadNodes( parentIds.Join() );
+                data.Data.AddRange( nodes );
+                ExpandParentNodes( data, parentIds );
+            }
+            _queryAfter?.Invoke( data, query );
+            return ToResult( data, true, _isExpandAll );
+        }
+
+        /// <summary>
+        /// 获取需要加载的父标识列表
+        /// </summary>
+        protected virtual async Task<List<string>> GetLoadParentIds( string keys ) {
+            var result = new List<string>();
+            var selectedNodes = await _service.GetByIdsAsync( keys );
+            selectedNodes.ForEach( t => result.AddRange( t.GetParentIdsFromPath( false ) ) );
+            return result;
+        }
+
+        /// <summary>
+        /// 根据父标识列表加载节点
+        /// </summary>
+        protected virtual async Task<List<TDto>> GetLoadNodes( string parentIds ) {
+            return await _service.GetByParentIds( parentIds );
+        }
+
+        /// <summary>
+        /// 展开父节点
+        /// </summary>
+        protected virtual void ExpandParentNodes( PageList<TDto> data, List<string> parentIds ) {
+            var nodes = data.Data.FindAll( node => parentIds.Any( id => node.Id == id ) );
+            nodes.ForEach( t => t.Expanded = true );
+        }
+
+        #endregion
     }
 }

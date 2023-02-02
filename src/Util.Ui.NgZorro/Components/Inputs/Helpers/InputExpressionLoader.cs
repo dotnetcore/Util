@@ -20,6 +20,8 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
             LoadName( config, info );
             LoadNgModel( config, info );
             LoadMinRows( config, info );
+            LoadVirtualHeight( config, info );
+            LoadKeys( config, info );
             LoadPassword( config, info );
             LoadRequired( config, info );
             LoadMinLength( config, info );
@@ -27,6 +29,7 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
             LoadMin( config, info );
             LoadMax( config, info );
             LoadEmail( config, info );
+            LoadRegex( config, info );
             LoadPhone( config, info );
             LoadIdCard( config, info );
         }
@@ -57,6 +60,20 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
         /// </summary>
         protected virtual void LoadMinRows( Config config, ModelExpressionInfo info ) {
             config.SetAttribute( UiConst.MinRows, 3, false );
+        }
+
+        /// <summary>
+        /// 加载下拉树虚拟高度
+        /// </summary>
+        protected virtual void LoadVirtualHeight( Config config, ModelExpressionInfo info ) {
+            config.SetAttribute( UiConst.VirtualHeight, "300px", false );
+        }
+
+        /// <summary>
+        /// 加载下拉树标识列表
+        /// </summary>
+        protected virtual void LoadKeys( Config config, ModelExpressionInfo info ) {
+            config.SetAttribute( UiConst.LoadKeys, info.SafePropertyName, false );
         }
 
         /// <summary>
@@ -128,6 +145,16 @@ namespace Util.Ui.NgZorro.Components.Inputs.Helpers {
             config.SetAttribute( UiConst.EmailMessage, info.EmailMessage, false );
         }
 
+        /// <summary>
+        /// 加载正则表达式验证
+        /// </summary>
+        protected virtual void LoadRegex( Config config, ModelExpressionInfo info ) {
+            if ( info.IsRegularExpression == false )
+                return;
+            config.SetAttribute( UiConst.Pattern, info.Pattern, false );
+            config.SetAttribute( UiConst.PatternMessage, info.RegularExpressionMessage, false );
+
+        }
         /// <summary>
         /// 加载手机号验证
         /// </summary>

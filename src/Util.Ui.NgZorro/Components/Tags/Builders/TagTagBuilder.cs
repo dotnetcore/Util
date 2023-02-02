@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Tags.Builders {
     /// <summary>
@@ -60,11 +62,60 @@ namespace Util.Ui.NgZorro.Components.Tags.Builders {
         }
 
         /// <summary>
+        /// 配置Enabled文本
+        /// </summary>
+        public TagTagBuilder TextEnabled() {
+            var value = _config.GetValue<bool?>( UiConst.TextEnabled );
+            if ( value != true )
+                return this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, "util.enabled" );
+                return this;
+            }
+            _config.SetAttribute( UiConst.Text, "Enabled" );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置Not Enabled文本
+        /// </summary>
+        public TagTagBuilder TextNotEnabled() {
+            var value = _config.GetValue<bool?>( UiConst.TextNotEnabled );
+            if ( value != true )
+                return this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, "util.notEnabled" );
+                return this;
+            }
+            _config.SetAttribute( UiConst.Text, "Not Enabled" );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置文本
+        /// </summary>
+        public TagTagBuilder Text() {
+            var options = NgZorroOptionsService.GetOptions();
+            var text = _config.GetValue( UiConst.Text );
+            if ( text.IsEmpty() )
+                return this;
+            if ( options.EnableI18n ) {
+                this.AppendContentByI18n( text );
+                return this;
+            }
+            AppendContent( text );
+            return this;
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {
             base.Config();
             Mode().Checked().Color().Events();
+            TextEnabled().TextNotEnabled().Text();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetPhysicalPath_1() {
-            var path = Util.Helpers.Platform.GetPhysicalPath( "a/b.txt" );
+            var path = Util.Helpers.Common.GetPhysicalPath( "a/b.txt" );
             var result = $"{System.AppContext.BaseDirectory}a/b.txt";
             Assert.Equal( result,path );
         }
@@ -20,7 +20,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetPhysicalPath_2() {
-            var path = Util.Helpers.Platform.GetPhysicalPath( "/a/b.txt" );
+            var path = Util.Helpers.Common.GetPhysicalPath( "/a/b.txt" );
             var result = $"{System.AppContext.BaseDirectory}a/b.txt";
             Assert.Equal( result, path );
         }
@@ -30,7 +30,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetPhysicalPath_3() {
-            var path = Util.Helpers.Platform.GetPhysicalPath( "\\a\\b.txt" );
+            var path = Util.Helpers.Common.GetPhysicalPath( "\\a\\b.txt" );
             var result = $"{System.AppContext.BaseDirectory}a\\b.txt";
             Assert.Equal( result, path );
         }
@@ -40,7 +40,7 @@ namespace Util.Tests.Helpers {
         /// </summary>
         [Fact]
         public void TestGetPhysicalPath_4() {
-            var path = Util.Helpers.Platform.GetPhysicalPath( "~/a/b.txt" );
+            var path = Util.Helpers.Common.GetPhysicalPath( "~/a/b.txt" );
             var result = $"{System.AppContext.BaseDirectory}a/b.txt";
             Assert.Equal( result, path );
         }

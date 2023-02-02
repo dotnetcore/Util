@@ -6,11 +6,9 @@ namespace Util.Infrastructure {
     /// </summary>
     public interface IServiceRegistrar {
         /// <summary>
-        /// 标识
+        /// 排序号
         /// </summary>
-        int Id {
-            get;
-        }
+        int OrderId { get; }
 
         /// <summary>
         /// 是否启用

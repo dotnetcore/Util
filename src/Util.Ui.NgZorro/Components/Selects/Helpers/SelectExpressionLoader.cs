@@ -7,6 +7,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Selects.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Expressions;
 
 namespace Util.Ui.NgZorro.Components.Selects.Helpers {
@@ -65,19 +66,19 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
         protected virtual void LoadBool( SelectConfig config, ModelExpressionInfo info ) {
             if ( info.IsBool == false )
                 return;
-            config.SetAttribute( UiConst.Data, GetBoolData( config ), false );
+            config.SetAttribute( UiConst.Data, GetBoolData(), false );
         }
 
         /// <summary>
         /// 获取布尔类型数据
         /// </summary>
-        private string GetBoolData( SelectConfig config ) {
+        private string GetBoolData() {
             var result = new StringBuilder();
             result.Append( "[{" );
-            result.Append( $"'text':{config.ExtendId}.config.text.yes,'value':true,'sortId':1" );
+            result.Append( $"'text':'{I18nKeys.Yes}'|i18n,'value':true,'sortId':1" );
             result.Append( "}," );
             result.Append( "{" );
-            result.Append( $"'text':{config.ExtendId}.config.text.no,'value':false,'sortId':2" );
+            result.Append( $"'text':'{I18nKeys.No}'|i18n,'value':false,'sortId':2" );
             result.Append( "}]" );
             return result.ToString();
         }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,29 @@ namespace Util.Data.EntityFrameworkCore {
     /// 工作单元扩展
     /// </summary>
     public static class UnitOfWorkExtensions {
+        /// <summary>
+        /// 获取迁移列表
+        /// </summary>
+        /// <param name="source">工作单元</param>
+        public static List<string> GetMigrations( this IUnitOfWork source ) {
+            source.CheckNull( nameof( source ) );
+            if ( source is not UnitOfWorkBase unitOfWork )
+                return new List<string>();
+            return unitOfWork.Database.GetMigrations().ToList();
+        }
+
+        /// <summary>
+        /// 应用迁移
+        /// </summary>
+        /// <param name="source">工作单元</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        public static async Task MigrateAsync( this IUnitOfWork source, CancellationToken cancellationToken = default ) {
+            source.CheckNull( nameof( source ) );
+            if ( source is not UnitOfWorkBase unitOfWork )
+                return;
+            await unitOfWork.Database.MigrateAsync( cancellationToken );
+        }
+
         /// <summary>
         /// 创建数据库架构
         /// </summary>

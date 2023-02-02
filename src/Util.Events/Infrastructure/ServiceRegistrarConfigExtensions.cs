@@ -10,7 +10,7 @@ namespace Util.Events.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableLocalEventBusServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( LocalEventBusServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( LocalEventBusServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -19,7 +19,7 @@ namespace Util.Events.Infrastructure {
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableLocalEventBusServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( LocalEventBusServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( LocalEventBusServiceRegistrar.ServiceName );
             return config;
         }
     }

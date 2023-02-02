@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig EnableDependencyServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Enable( DependencyServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Enable( DependencyServiceRegistrar.ServiceName );
             return config;
         }
 
@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="config">服务注册器配置</param>
         public static ServiceRegistrarConfig DisableDependencyServiceRegistrar( this ServiceRegistrarConfig config ) {
-            config.Disable( DependencyServiceRegistrar.GetId() );
+            ServiceRegistrarConfig.Disable( DependencyServiceRegistrar.ServiceName );
             return config;
         }
     }

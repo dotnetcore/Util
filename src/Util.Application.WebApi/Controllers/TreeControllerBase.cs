@@ -126,6 +126,18 @@ namespace Util.Applications.Controllers {
 
         #endregion
 
+        #region GetLoadKeys(获取需要加载的标识列表)
+
+        /// <summary>
+        /// 获取需要加载的标识列表,当异步模式首次加载时,将选中节点的相关父节点加载回来,标识列表以逗号分隔
+        /// </summary>
+        /// <param name="query">查询参数</param>
+        protected virtual string GetLoadKeys( TQuery query ) {
+            return Request.Query["load_keys"].SafeString();
+        }
+
+        #endregion
+
         #region GetAsync(获取单个实体)
 
         /// <summary>

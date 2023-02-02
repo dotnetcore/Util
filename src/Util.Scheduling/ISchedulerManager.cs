@@ -18,7 +18,8 @@ namespace Util.Scheduling {
         /// <summary>
         /// 扫描添加任务
         /// </summary>
-        Task ScanJobsAsync();
+        /// <param name="isScanAllJobs">是否扫描所有任务</param>
+        Task ScanJobsAsync( bool isScanAllJobs = true );
         /// <summary>
         /// 获取后台任务调度器
         /// </summary>

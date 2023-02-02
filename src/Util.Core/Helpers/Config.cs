@@ -19,6 +19,22 @@ namespace Util.Helpers {
         }
 
         /// <summary>
+        /// 获取配置值
+        /// </summary>
+        /// <param name="key">配置键</param>
+        public static string GetValue( string key ) {
+            return GetValue<string>( key );
+        }
+
+        /// <summary>
+        /// 获取配置值
+        /// </summary>
+        /// <param name="key">配置键</param>
+        public static T GetValue<T>( string key ) {
+            return GetConfiguration().GetValue<T>( key );
+        }
+
+        /// <summary>
         /// 获取配置选项
         /// </summary>
         /// <typeparam name="TOptions">配置选项类型</typeparam>
@@ -45,9 +61,11 @@ namespace Util.Helpers {
         /// <summary>
         /// 创建配置
         /// </summary>
-        private static IConfiguration CreateConfiguration() {
+        /// <param name="basePath">配置基地址</param>
+        public static IConfiguration CreateConfiguration( string basePath = null ) {
+            basePath ??= Common.ApplicationBaseDirectory;
             var builder = new ConfigurationBuilder()
-                .SetBasePath( Platform.ApplicationBaseDirectory )
+                .SetBasePath( basePath )
                 .AddJsonFile( "appsettings.json", true, true );
             var environment = Environment.GetEnvironmentName();
             if ( environment.IsEmpty() == false )

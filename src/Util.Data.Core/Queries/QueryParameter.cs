@@ -1,4 +1,5 @@
-﻿using Util.Ui;
+﻿using System.ComponentModel.DataAnnotations;
+using Util.Ui;
 
 namespace Util.Data.Queries {
     /// <summary>
@@ -9,6 +10,7 @@ namespace Util.Data.Queries {
         /// <summary>
         /// 搜索关键字
         /// </summary>
+        [Display( Name = "util.keyword" )]
         public string Keyword { get; set; }
     }
 }
