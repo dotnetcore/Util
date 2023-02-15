@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
@@ -16,6 +17,14 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// 配置
         /// </summary>
         private Config _config;
+        /// <summary>
+        /// 属性表达式
+        /// </summary>
+        public ModelExpression For { get; set; }
+        /// <summary>
+        /// 扩展属性,设置排序属性
+        /// </summary>
+        public string Sort { get; set; }
         /// <summary>
         /// 标题,扩展属性,支持i18n
         /// </summary>

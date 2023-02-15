@@ -69,7 +69,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// <summary>
         /// 配置危险按钮
         /// </summary>
-        public TBuilder Danger() {
+        public virtual TBuilder Danger() {
             AttributeIfNotEmpty( "[nzDanger]", _config.GetBoolValue( UiConst.Danger ) );
             AttributeIfNotEmpty( "[nzDanger]", _config.GetValue( AngularConst.BindDanger ) );
             return (TBuilder)this;

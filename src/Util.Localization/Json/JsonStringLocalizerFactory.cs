@@ -53,6 +53,7 @@ namespace Util.Localization.Json {
         /// <param name="baseName">资源名称</param>
         /// <param name="location">资源位置</param>
         public IStringLocalizer Create( string baseName, string location ) {
+            location ??= new AssemblyName( GetType().Assembly.FullName ).Name;
             var assemblyName = new AssemblyName( location );
             var assembly = Assembly.Load( assemblyName );
             var rootPath = _pathResolver.GetResourcesRootPath( assembly, _rootPath );

@@ -16,5 +16,27 @@ namespace Util.Ui.NgZorro {
             options.AddExtension( new NgZorroOptionsExtension( setupAction ) );
             return options;
         }
+
+        /// <summary>
+        /// 是否启用默认项文本
+        /// </summary>
+        /// <param name="options">配置项</param>
+        /// <param name="isEnableDefaultOptionText">是否启用默认项文本,默认值: true</param>
+        public static NgZorroOptions EnableDefaultOptionText( this NgZorroOptions options, bool isEnableDefaultOptionText = true ) {
+            options.CheckNull( nameof( options ) );
+            options.EnableDefaultOptionText = isEnableDefaultOptionText;
+            return options;
+        }
+
+        /// <summary>
+        /// 是否启用多语言
+        /// </summary>
+        /// <param name="options">配置项</param>
+        /// <param name="isEnableI18n">是否启用多语言,默认值: true</param>
+        public static NgZorroOptions EnableI18n( this NgZorroOptions options, bool isEnableI18n = true ) {
+            options.CheckNull( nameof( options ) );
+            options.EnableI18n = isEnableI18n;
+            return options;
+        }
     }
 }

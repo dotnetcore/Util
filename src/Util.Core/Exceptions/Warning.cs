@@ -26,6 +26,7 @@ namespace Util.Exceptions {
             : base( message ?? "", exception ) {
             Code = code;
             HttpStatusCode = httpStatusCode;
+            IsLocalization = true;
         }
 
         /// <summary>
@@ -37,6 +38,11 @@ namespace Util.Exceptions {
         /// Http状态码
         /// </summary>
         public int? HttpStatusCode { get; set; }
+
+        /// <summary>
+        /// 是否本地化异常消息
+        /// </summary>
+        public bool IsLocalization { get; set; }
 
         /// <summary>
         /// 获取错误消息

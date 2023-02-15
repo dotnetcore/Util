@@ -15,6 +15,14 @@ namespace Util.Ui.NgAlain.Components.PageHeaders {
         /// </summary>
         public string Title { get; set; }
         /// <summary>
+        /// 扩展属性,设置创建标题,支持i18n
+        /// </summary>
+        public string TitleCreate { get; set; }
+        /// <summary>
+        /// 扩展属性,设置修改标题,支持i18n
+        /// </summary>
+        public string TitleUpdate { get; set; }
+        /// <summary>
         /// [title],标题
         /// </summary>
         public string BindTitle { get; set; }

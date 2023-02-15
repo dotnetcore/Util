@@ -166,6 +166,29 @@ namespace Util.Ui.NgZorro.Tests.Selects {
             Assert.Equal( result.ToString(), GetResult() );
         }
 
+        /// <summary>
+        /// 测试数据源 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestData_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Data, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" x-select-extend=\"\" [data]=\"a\">" );
+            result.Append( "<ng-container *ngIf=\"!x_id.isGroup\">" );
+            result.Append( "<nz-option *ngFor=\"let item of x_id.options\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
+            result.Append( "</nz-option>" );
+            result.Append( "</ng-container>" );
+            result.Append( "<ng-container *ngIf=\"x_id.isGroup\">" );
+            result.Append( "<nz-option-group *ngFor=\"let group of x_id.optionGroups\" [nzLabel]=\"group.text\">" );
+            result.Append( "<nz-option *ngFor=\"let item of group.value\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
+            result.Append( "</nz-option>" );
+            result.Append( "</nz-option-group>" );
+            result.Append( "</ng-container>" );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
         #endregion
 
         #region DefaultOptionText

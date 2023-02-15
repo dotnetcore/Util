@@ -37,6 +37,7 @@ namespace Util.Ui.NgZorro.Data {
                 Selectable = dto.Selectable.SafeValue(),
                 Selected = dto.Selected.SafeValue(),
                 IsLeaf = dto.Leaf.SafeValue(),
+                OriginalNode = dto,
                 Children = dto.Children.Select( ToDestinationNode ).ToList()
             };
             return result;

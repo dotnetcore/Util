@@ -681,6 +681,11 @@ namespace Util.Ui.NgZorro.Enums {
         [Description( "mobile" )]
         Mobile,
         ///<summary>
+        ///more
+        ///</summary>
+        [Description( "more" )]
+        More,
+        ///<summary>
         ///notification
         ///</summary>
         [Description( "notification" )]

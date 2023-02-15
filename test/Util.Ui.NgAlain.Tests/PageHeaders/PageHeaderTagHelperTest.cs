@@ -73,6 +73,77 @@ namespace Util.Ui.NgAlain.Tests.PageHeaders {
         }
 
         /// <summary>
+        /// 测试创建标题
+        /// </summary>
+        [Fact]
+        public void TestTitle_Create() {
+            _wrapper.SetContextAttribute( UiConst.TitleCreate, "a" );
+            var result = new StringBuilder();
+            result.Append( "<page-header title=\"a\"></page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试创建标题 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_Create_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TitleCreate, "a" );
+            var result = new StringBuilder();
+            result.Append( "<page-header [title]=\"'a'|i18n\"></page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试修改标题
+        /// </summary>
+        [Fact]
+        public void TestTitle_Update() {
+            _wrapper.SetContextAttribute( UiConst.TitleUpdate, "a" );
+            var result = new StringBuilder();
+            result.Append( "<page-header title=\"a\"></page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试修改标题 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_Update_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TitleUpdate, "a" );
+            var result = new StringBuilder();
+            result.Append( "<page-header [title]=\"'a'|i18n\"></page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 同时设置创建和修改标题
+        /// </summary>
+        [Fact]
+        public void TestTitle_Create_Update() {
+            _wrapper.SetContextAttribute( UiConst.TitleCreate, "a" );
+            _wrapper.SetContextAttribute( UiConst.TitleUpdate, "b" );
+            var result = new StringBuilder();
+            result.Append( "<page-header [title]=\"isNew?'a':'b'\"></page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 同时设置创建和修改标题 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_Create_Update_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TitleCreate, "a" );
+            _wrapper.SetContextAttribute( UiConst.TitleUpdate, "b" );
+            var result = new StringBuilder();
+            result.Append( "<page-header [title]=\"(isNew?'a':'b')|i18n\"></page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试标题
         /// </summary>
         [Fact]

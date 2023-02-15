@@ -431,6 +431,26 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
+        /// 测试获取成员值 - 扩展方法
+        /// </summary>
+        [Fact]
+        public void TestGetValue_ExtensionMethod() {
+            var test = new Sample { Email = "a" };
+            Expression<Func<Sample, bool>> expression = t => t.TestList.Any( a => a.StringValue == test.Email );
+            Assert.Equal( "a", Lambda.GetValue( expression ) );
+        }
+
+        /// <summary>
+        /// 测试获取成员值 - 扩展方法 - 值为null
+        /// </summary>
+        [Fact]
+        public void TestGetValue_ExtensionMethod_Null() {
+            var test = new Sample { Email = null };
+            Expression<Func<Sample, bool>> expression = t => t.TestList.Any( a => a.StringValue == test.Email );
+            Assert.Null( Lambda.GetValue( expression ) );
+        }
+
+        /// <summary>
         /// 测试获取成员值 - 实例
         /// </summary>
         [Fact]

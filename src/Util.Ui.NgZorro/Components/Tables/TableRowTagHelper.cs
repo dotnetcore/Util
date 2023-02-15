@@ -23,6 +23,10 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// [nzExpand],当前列是否展开，与 td 上的 nzExpand 属性配合使用
         /// </summary>
         public string Expand { get; set; }
+        /// <summary>
+        /// (click),行单击事件，使用row访问行对象，范例：on-click="click(row)"
+        /// </summary>
+        public string OnClick { get; set; }
 
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
     /// <summary>
     /// 标签测试
     /// </summary>
-    public class TabTagHelperTest {
+    public partial class TabTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -45,28 +45,6 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         public void TestDefault() {
             var result = new StringBuilder();
             result.Append( "<nz-tab></nz-tab>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestTitle() {
-            _wrapper.SetContextAttribute( UiConst.Title, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tab nzTitle=\"a\"></nz-tab>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestBindTitle() {
-            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tab [nzTitle]=\"a\"></nz-tab>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

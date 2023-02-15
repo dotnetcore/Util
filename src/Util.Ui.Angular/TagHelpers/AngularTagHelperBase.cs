@@ -22,6 +22,10 @@ namespace Util.Ui.Angular.TagHelpers {
         /// </summary>
         public string NgSwitchCase { get; set; }
         /// <summary>
+        /// *ngSwitchDefault
+        /// </summary>
+        public bool NgSwitchDefault { get; set; }
+        /// <summary>
         /// *ngFor,范例：let item of items
         /// </summary>
         public string NgFor { get; set; }

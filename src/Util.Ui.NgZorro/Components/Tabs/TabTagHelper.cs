@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Tabs {
     [HtmlTargetElement( "util-tab" )]
     public class TabTagHelper : AngularTagHelperBase {
         /// <summary>
-        /// nzTitle,标题,类型: string | TemplateRef&lt;TabTemplateContext>
+        /// nzTitle,标题,支持i18n
         /// </summary>
         public string Title { get; set; }
         /// <summary>

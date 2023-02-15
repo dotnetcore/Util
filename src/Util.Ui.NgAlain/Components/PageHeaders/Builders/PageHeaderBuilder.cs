@@ -27,6 +27,7 @@ namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
         public PageHeaderBuilder Title() {
             SetTitle( _config.GetValue( UiConst.Title ) );
             AttributeIfNotEmpty( "[title]", _config.GetValue( AngularConst.BindTitle ) );
+            SetCreateUpdateTitle();
             return this;
         }
 
@@ -40,6 +41,25 @@ namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
                 return;
             }
             AttributeIfNotEmpty( "title", value );
+        }
+
+        /// <summary>
+        /// 设置创建修改标题
+        /// </summary>
+        private void SetCreateUpdateTitle() {
+            var createTitle = _config.GetValue( UiConst.TitleCreate );
+            var updateTitle = _config.GetValue( UiConst.TitleUpdate );
+            if ( createTitle.IsEmpty() == false && updateTitle.IsEmpty() == false ) {
+                var options = NgZorroOptionsService.GetOptions();
+                if ( options.EnableI18n ) {
+                    Attribute( "[title]", ( $"(isNew?'{createTitle}':'{updateTitle}')|i18n" ) );
+                    return;
+                }
+                Attribute( "[title]", ( $"isNew?'{createTitle}':'{updateTitle}'" ) );
+                return;
+            }
+            SetTitle( createTitle );
+            SetTitle( updateTitle );
         }
 
         /// <summary>
@@ -192,7 +212,8 @@ namespace Util.Ui.NgAlain.Components.PageHeaders.Builders {
         /// </summary>
         public override void Config() {
             base.Config();
-            Title().AutoTitle().SyncTitle()
+            Title()
+                .AutoTitle().SyncTitle()
                 .Home().HomeLink().HomeI18n()
                 .AutoBreadcrumb().RecursiveBreadcrumb()
                 .Loading().Wide().Fixed().FixedOffsetTop()

@@ -116,6 +116,17 @@ namespace Util.Ui.NgZorro.Tests.Links {
         }
 
         /// <summary>
+        /// 测试危险状态
+        /// </summary>
+        [Fact]
+        public void TestDanger() {
+            _wrapper.SetContextAttribute( UiConst.Danger, true );
+            var result = new StringBuilder();
+            result.Append( "<a class=\"ant-btn-dangerous\"></a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试路由链接
         /// </summary>
         [Fact]

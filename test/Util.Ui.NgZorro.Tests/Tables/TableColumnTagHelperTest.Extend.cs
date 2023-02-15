@@ -432,5 +432,44 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         }
 
         #endregion
+
+        #region Sort
+
+        /// <summary>
+        /// 测试排序
+        /// </summary>
+        [Fact]
+        public void TestSort() {
+            //创建表格
+            var table = new TableTagHelper().ToWrapper();
+            table.SetContextAttribute( UiConst.EnableExtend, true );
+
+            //添加列
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            _wrapper.SetContextAttribute( UiConst.Title, "b" );
+            _wrapper.SetContextAttribute( UiConst.Sort, true );
+            table.AppendContent( _wrapper );
+
+            //结果
+            var result = new StringBuilder();
+            AppendExtendTable( result );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th (nzSortOrderChange)=\"x_id.sortChange('a',$event)\" [nzShowSort]=\"true\" [nzSortFn]=\"true\">b</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+            result.Append( "<td>{{row.a}}</td>" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+            AppendTotalTemplate( result );
+
+            //验证
+            Assert.Equal( result.ToString(), table.GetResult() );
+        }
+
+        #endregion
     }
 }

@@ -488,6 +488,14 @@
         /// </summary>
         public const string TitleOperation = "title-operation";
         /// <summary>
+        /// 创建标题
+        /// </summary>
+        public const string TitleCreate = "title-create";
+        /// <summary>
+        /// 修改标题
+        /// </summary>
+        public const string TitleUpdate = "title-update";
+        /// <summary>
         /// 副标题
         /// </summary>
         public const string Subtitle = "subtitle";

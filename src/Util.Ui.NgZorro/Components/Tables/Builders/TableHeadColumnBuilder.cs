@@ -88,8 +88,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置是否显示排序
         /// </summary>
         public TableHeadColumnBuilder ShowSort() {
-            AttributeIfNotEmpty( "[nzShowSort]", _config.GetBoolValue( UiConst.ShowSort ) );
-            AttributeIfNotEmpty( "[nzShowSort]", _config.GetValue( AngularConst.BindShowSort ) );
+            ShowSort( _config.GetBoolValue( UiConst.ShowSort ) );
+            ShowSort( _config.GetValue( AngularConst.BindShowSort ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置是否显示排序
+        /// </summary>
+        public TableHeadColumnBuilder ShowSort( string value ) {
+            AttributeIfNotEmpty( "[nzShowSort]", value );
             return this;
         }
 
@@ -97,7 +105,15 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置排序函数
         /// </summary>
         public TableHeadColumnBuilder SortFn() {
-            AttributeIfNotEmpty( "[nzSortFn]", _config.GetValue( UiConst.SortFn ) );
+            SortFn( _config.GetValue( UiConst.SortFn ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置排序函数
+        /// </summary>
+        public TableHeadColumnBuilder SortFn( string value ) {
+            AttributeIfNotEmpty( "[nzSortFn]", value );
             return this;
         }
 
@@ -117,6 +133,25 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
             AttributeIfNotEmpty( "[nzSortOrder]", _config.GetValue( AngularConst.BindSortOrder ) );
             AttributeIfNotEmpty( "[(nzSortOrder)]", _config.GetValue( AngularConst.BindonSortOrder ) );
             return this;
+        }
+
+        /// <summary>
+        /// 配置排序
+        /// </summary>
+        public TableHeadColumnBuilder Sort() {
+            Sort( _config.GetValue( UiConst.Sort ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        private void Sort( string order ) {
+            if ( order.IsEmpty() )
+                return;
+            ShowSort( "true" );
+            SortFn( "true" );
+            OnSortOrderChange( $"{_shareConfig.TableExtendId}.sortChange('{order}',$event)" );
         }
 
         /// <summary>
@@ -286,8 +321,16 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// </summary>
         public TableHeadColumnBuilder Events() {
             AttributeIfNotEmpty( "(nzCheckedChange)", _config.GetValue( UiConst.OnCheckedChange ) );
-            AttributeIfNotEmpty( "(nzSortOrderChange)", _config.GetValue( UiConst.OnSortOrderChange ) );
             AttributeIfNotEmpty( "(nzFilterChange)", _config.GetValue( UiConst.OnFilterChange ) );
+            OnSortOrderChange( _config.GetValue( UiConst.OnSortOrderChange ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 排序事件
+        /// </summary>
+        public TableHeadColumnBuilder OnSortOrderChange( string value ) {
+            AttributeIfNotEmpty( "(nzSortOrderChange)", value );
             return this;
         }
 
@@ -298,7 +341,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
             base.Config();
             ShowCheckbox().Disabled().Indeterminate().Checked()
                 .ShowRowSelection().Selections()
-                .ShowSort().SortFn().SortDirections().SortOrder()
+                .ShowSort().SortFn().SortDirections().SortOrder().Sort()
                 .ShowFilter().FilterFn().Filters().FilterMultiple()
                 .Width().Left().Right().Align().BreakWord().Ellipsis()
                 .Colspan().Rowspan().ColumnKey()
@@ -410,6 +453,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
                 if ( _shareConfig.IsShowLineNumber )
                     AddLineNumber();
             }
+            if ( column.IsSort )
+                Sort( column.Column );
             Title( column.Title );
             this.Width( column.Width );
         }

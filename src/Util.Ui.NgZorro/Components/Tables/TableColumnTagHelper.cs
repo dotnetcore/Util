@@ -22,6 +22,10 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
+        /// 扩展属性,是否启用排序
+        /// </summary>
+        public bool Sort { get; set; }
+        /// <summary>
         /// 标题,扩展属性,支持i18n
         /// </summary>
         public string Title { get; set; }

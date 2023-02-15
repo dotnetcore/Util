@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Hangfire.SqlServer" Version="1.7.32" />
+		<PackageReference Include="Hangfire.SqlServer" Version="1.7.33" />
 		<ProjectReference Include="..\..\src\Util.Scheduling.Hangfire\03-Util.Scheduling.Hangfire.csproj" />
 		<ProjectReference Include="..\Util.TestShare.SqlServer\Util.TestShare.SqlServer.csproj" />
 		<ProjectReference Include="..\Util.TestShare\Util.TestShare.csproj" />

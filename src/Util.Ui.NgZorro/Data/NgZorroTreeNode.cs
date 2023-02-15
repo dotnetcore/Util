@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Util.Helpers;
 
 namespace Util.Ui.NgZorro.Data {
     /// <summary>
@@ -46,8 +47,20 @@ namespace Util.Ui.NgZorro.Data {
         /// </summary>
         public bool Selected { get; set; }
         /// <summary>
+        /// 原始节点
+        /// </summary>
+        public object OriginalNode { get; set; }
+        /// <summary>
         /// 子节点列表
         /// </summary>
         public List<NgZorroTreeNode> Children { get; set; }
+
+        /// <summary>
+        /// 获取原始节点
+        /// </summary>
+        /// <typeparam name="TNode">原始节点类型</typeparam>
+        public TNode GetOriginalNode<TNode>() {
+            return Convert.To<TNode>( OriginalNode );
+        }
     }
 }

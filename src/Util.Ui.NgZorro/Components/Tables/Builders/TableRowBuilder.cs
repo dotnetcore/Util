@@ -1,5 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Grids.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders {
@@ -45,11 +47,20 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         }
 
         /// <summary>
+        /// 配置事件
+        /// </summary>
+        public TableRowBuilder Events() {
+            this.OnClick( _config.GetValue( UiConst.OnClick ) );
+            this.OnClick( _config.GetValue( UiConst.OnClickRow ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {
             base.ConfigBase(_config);
-            Expand();
+            Expand().Events();
         }
     }
 }

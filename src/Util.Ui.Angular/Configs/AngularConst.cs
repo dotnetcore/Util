@@ -20,6 +20,10 @@
         /// </summary>
         public const string NgSwitchCase = "ng-switch-case";
         /// <summary>
+        /// *ngSwitchDefault指令
+        /// </summary>
+        public const string NgSwitchDefault = "ng-switch-default";
+        /// <summary>
         /// ngFor指令
         /// </summary>
         public const string NgFor = "ng-for";

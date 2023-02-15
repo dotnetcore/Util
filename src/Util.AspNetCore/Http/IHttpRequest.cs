@@ -139,5 +139,10 @@ namespace Util.Http {
         /// 获取流
         /// </summary>
         Task<byte[]> GetStreamAsync();
+        /// <summary>
+        /// 写入文件
+        /// </summary>
+        /// <param name="filePath">文件绝对路径</param>
+        Task WriteAsync( string filePath );
     }
 }

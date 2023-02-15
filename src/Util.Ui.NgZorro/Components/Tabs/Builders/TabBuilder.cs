@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Tabs.Builders {
     /// <summary>
@@ -24,9 +26,21 @@ namespace Util.Ui.NgZorro.Components.Tabs.Builders {
         /// 配置标题
         /// </summary>
         public TabBuilder Title() {
-            AttributeIfNotEmpty( "nzTitle", _config.GetValue( UiConst.Title ) );
+            SetTitle( _config.GetValue( UiConst.Title ) );
             AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
             return this;
+        }
+
+        /// <summary>
+        /// 设置标题
+        /// </summary>
+        private void SetTitle( string value ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                this.AttributeByI18n( "[nzTitle]", value );
+                return;
+            }
+            AttributeIfNotEmpty( "nzTitle", value );
         }
 
         /// <summary>

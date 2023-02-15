@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Text;
+﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
-using Util.Ui.NgZorro.Configs;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Tables {
@@ -340,6 +338,37 @@ namespace Util.Ui.NgZorro.Tests.Tables {
             _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-table (onLoad)=\"a\"></nz-table>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试行单击事件
+        /// </summary>
+        [Fact]
+        public void TestOnClickRow() {
+            //创建列
+            var column = new TableColumnTagHelper().ToWrapper();
+            column.SetContextAttribute( UiConst.Title, "a" );
+            column.AppendContent( "b" );
+            _wrapper.SetContextAttribute( UiConst.OnClickRow, "c" );
+            _wrapper.AppendContent( column );
+
+            //结果
+            var result = new StringBuilder();
+            result.Append( "<nz-table>" );
+            result.Append( "<thead>" );
+            result.Append( "<tr>" );
+            result.Append( "<th>a</th>" );
+            result.Append( "</tr>" );
+            result.Append( "</thead>" );
+            result.Append( "<tbody>" );
+            result.Append( "<tr (click)=\"c\">" );
+            result.Append( "<td>b</td>" );
+            result.Append( "</tr>" );
+            result.Append( "</tbody>" );
+            result.Append( "</nz-table>" );
+
+            //验证
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

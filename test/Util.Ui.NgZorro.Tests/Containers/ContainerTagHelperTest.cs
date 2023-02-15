@@ -158,6 +158,17 @@ namespace Util.Ui.NgZorro.Tests.Containers {
         }
 
         /// <summary>
+        /// 测试*ngSwitchDefault
+        /// </summary>
+        [Fact]
+        public void TestNgSwitchDefault() {
+            _wrapper.SetContextAttribute( AngularConst.NgSwitchDefault, true );
+            var result = new StringBuilder();
+            result.Append( "<ng-container *ngSwitchDefault=\"\"></ng-container>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试ngClass
         /// </summary>
         [Fact]

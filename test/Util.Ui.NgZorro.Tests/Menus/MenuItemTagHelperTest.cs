@@ -10,7 +10,7 @@ namespace Util.Ui.NgZorro.Tests.Menus {
     /// <summary>
     /// 菜单项测试
     /// </summary>
-    public class MenuItemTagHelperTest {
+    public partial class MenuItemTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>

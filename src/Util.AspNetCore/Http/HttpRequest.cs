@@ -679,5 +679,15 @@ namespace Util.Http {
         }
 
         #endregion
+
+        #region WriteAsync(写入文件)
+
+        /// <inheritdoc />
+        public async Task WriteAsync( string filePath ) {
+            var bytes = await GetStreamAsync();
+            await File.WriteAsync( filePath, bytes );
+        }
+
+        #endregion
     }
 }

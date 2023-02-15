@@ -23,14 +23,5 @@
         /// 是否第一列
         /// </summary>
         public bool IsFirst { get; set; }
-
-        /// <summary>
-        /// 获取排序字段
-        /// </summary>
-        public string GetOrder() {
-            if( IsSort )
-                return Column;
-            return null;
-        }
     }
 }

@@ -4,6 +4,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,14 +21,14 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         /// <summary>
         /// TagHelper包装器
         /// </summary>
-        private readonly TagHelperWrapper _wrapper;
+        private readonly TagHelperWrapper<Customer> _wrapper;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public TableHeadColumnTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _wrapper = new TableHeadColumnTagHelper().ToWrapper();
+            _wrapper = new TableHeadColumnTagHelper().ToWrapper<Customer>();
             Id.SetId( "id" );
         }
 

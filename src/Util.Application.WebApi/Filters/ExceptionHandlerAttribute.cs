@@ -1,10 +1,10 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Util.Helpers;
+using Util.Exceptions;
 
 namespace Util.Applications.Filters {
     /// <summary>
@@ -27,11 +27,13 @@ namespace Util.Applications.Filters {
         /// 获取本地化异常消息
         /// </summary>
         protected virtual string GetLocalizedMessages( ExceptionContext context, string message ) {
+            var exception = context.Exception.GetRawException();
+            if ( exception is Warning { IsLocalization: false } ) 
+                return message;
             var stringLocalizerFactory = context.HttpContext.RequestServices.GetService<IStringLocalizerFactory>();
             if ( stringLocalizerFactory == null )
                 return message;
-            var assemblyName = new AssemblyName( GetType().Assembly.FullName );
-            var stringLocalizer = stringLocalizerFactory.Create( "Warning", assemblyName.Name );
+            var stringLocalizer = stringLocalizerFactory.Create( "Warning",null );
             var localizedString = stringLocalizer[message];
             if ( localizedString.ResourceNotFound == false )
                 return localizedString.Value;

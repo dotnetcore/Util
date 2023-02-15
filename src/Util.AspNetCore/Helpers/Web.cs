@@ -1,5 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -124,6 +128,151 @@ namespace Util.Helpers {
         /// 请求地址
         /// </summary>
         public static string Url => Request?.GetDisplayUrl();
+
+        #endregion
+
+        #region UrlEncode(Url编码)
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, bool isUpper = false ) {
+            return UrlEncode( url, Encoding.UTF8, isUpper );
+        }
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, string encoding, bool isUpper = false ) {
+            encoding = string.IsNullOrWhiteSpace( encoding ) ? "UTF-8" : encoding;
+            return UrlEncode( url, Encoding.GetEncoding( encoding ), isUpper );
+        }
+
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        public static string UrlEncode( string url, Encoding encoding, bool isUpper = false ) {
+            var result = HttpUtility.UrlEncode( url, encoding );
+            if ( isUpper == false )
+                return result;
+            return GetUpperEncode( result );
+        }
+
+        /// <summary>
+        /// 获取大写编码字符串
+        /// </summary>
+        private static string GetUpperEncode( string encode ) {
+            var result = new StringBuilder();
+            int index = int.MinValue;
+            for ( int i = 0; i < encode.Length; i++ ) {
+                string character = encode[i].ToString();
+                if ( character == "%" )
+                    index = i;
+                if ( i - index == 1 || i - index == 2 )
+                    character = character.ToUpper();
+                result.Append( character );
+            }
+            return result.ToString();
+        }
+
+        #endregion
+
+        #region UrlDecode(Url解码)
+
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="url">url</param>
+        public static string UrlDecode( string url ) {
+            return HttpUtility.UrlDecode( url );
+        }
+
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="encoding">字符编码</param>
+        public static string UrlDecode( string url, Encoding encoding ) {
+            return HttpUtility.UrlDecode( url, encoding );
+        }
+
+        #endregion
+
+        #region DownloadAsync(下载)
+
+        /// <summary>
+        /// 下载文件
+        /// </summary>
+        /// <param name="filePath">文件绝对路径</param>
+        /// <param name="fileName">文件名,包含扩展名</param>
+        public static async Task DownloadFileAsync( string filePath, string fileName ) {
+            await DownloadFileAsync( filePath, fileName, Encoding.UTF8 );
+        }
+
+        /// <summary>
+        /// 下载文件
+        /// </summary>
+        /// <param name="filePath">文件绝对路径</param>
+        /// <param name="fileName">文件名,包含扩展名</param>
+        /// <param name="encoding">字符编码</param>
+        public static async Task DownloadFileAsync( string filePath, string fileName, Encoding encoding ) {
+            var bytes = File.ReadFile( filePath );
+            await DownloadAsync( bytes, fileName, encoding );
+        }
+
+        /// <summary>
+        /// 下载
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <param name="fileName">文件名,包含扩展名</param>
+        public static async Task DownloadAsync( Stream stream, string fileName ) {
+            await DownloadAsync( stream, fileName, Encoding.UTF8 );
+        }
+
+        /// <summary>
+        /// 下载
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <param name="fileName">文件名,包含扩展名</param>
+        /// <param name="encoding">字符编码</param>
+        public static async Task DownloadAsync( Stream stream, string fileName, Encoding encoding ) {
+            var bytes = await File.ToBytesAsync( stream );
+            await DownloadAsync( bytes, fileName, encoding );
+        }
+
+        /// <summary>
+        /// 下载
+        /// </summary>
+        /// <param name="bytes">字节流</param>
+        /// <param name="fileName">文件名,包含扩展名</param>
+        public static async Task DownloadAsync( byte[] bytes, string fileName ) {
+            await DownloadAsync( bytes, fileName, Encoding.UTF8 );
+        }
+
+        /// <summary>
+        /// 下载
+        /// </summary>
+        /// <param name="bytes">字节流</param>
+        /// <param name="fileName">文件名,包含扩展名</param>
+        /// <param name="encoding">字符编码</param>
+        public static async Task DownloadAsync( byte[] bytes, string fileName, Encoding encoding ) {
+            if ( bytes == null || bytes.Length == 0 )
+                return;
+            fileName = fileName.Replace( " ", "" );
+            fileName = UrlEncode( fileName, encoding );
+            Response.ContentType = "application/octet-stream";
+            Response.Headers.Add( "Content-Disposition", $"attachment; filename={fileName}" );
+            Response.Headers.Add( "Content-Length", bytes.Length.ToString() );
+            await Response.Body.WriteAsync( bytes, 0, bytes.Length );
+        }
 
         #endregion
     }

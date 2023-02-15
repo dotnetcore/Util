@@ -247,7 +247,9 @@ namespace Util.Helpers {
             var value = GetValue( methodCallExpression.Arguments.FirstOrDefault() );
             if( value != null )
                 return value;
-            if( methodCallExpression.Object == null )
+            if( methodCallExpression.Arguments.Count > 1 )
+                return GetValue( methodCallExpression.Arguments[1] );
+            if ( methodCallExpression.Object == null )
                 return methodCallExpression.Type.InvokeMember( methodCallExpression.Method.Name, BindingFlags.InvokeMethod, null, null, null );
             return GetValue( methodCallExpression.Object );
         }

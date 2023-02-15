@@ -316,6 +316,10 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// 扩展属性 (onLoad),数据加载完成事件,类型: EventEmitter&lt;any>,参数为服务端返回结果
         /// </summary>
         public string OnLoad { get; set; }
+        /// <summary>
+        /// 扩展事件,行单击事件，使用row访问行对象，范例：on-click-row="click(row)"
+        /// </summary>
+        public string OnClickRow { get; set; }
 
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

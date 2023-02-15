@@ -11,6 +11,30 @@ namespace Util.Ui.NgZorro.Components.Menus {
     [HtmlTargetElement( "util-menu-item")]
     public class MenuItemTagHelper : AngularTagHelperBase {
         /// <summary>
+        /// 扩展属性,内容文本,支持i18n
+        /// </summary>
+        public string Text { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示update文本,默认文本为'Update',i18n文本为'util.update'
+        /// </summary>
+        public bool TextUpdate { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示delete文本,默认文本为'Delete',i18n文本为'util.delete'
+        /// </summary>
+        public bool TextDelete { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示detail文本,默认文本为'Detail',i18n文本为'util.detail'
+        /// </summary>
+        public bool TextDetail { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示enable文本,默认文本为'Enable',i18n文本为'util.enable'
+        /// </summary>
+        public bool TextEnable { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示disable文本,默认文本为'Disable',i18n文本为'util.disable'
+        /// </summary>
+        public bool TextDisable { get; set; }
+        /// <summary>
         /// [nzDisabled],是否禁用
         /// </summary>
         public bool Disabled { get; set; }

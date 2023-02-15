@@ -5,7 +5,6 @@ namespace Util.Ui.NgZorro.Tests.Samples {
     /// 树形参数
     /// </summary>
     public class TreeDto : TreeDtoBase<TreeDto> {
-
         public string Text { get; set; }
 
         public override string GetText() {

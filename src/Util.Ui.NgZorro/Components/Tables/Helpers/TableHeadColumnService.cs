@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Configs;
+using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers {
@@ -30,6 +31,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
             CreateTableHeadColumnShareConfig();
             CancelAutoCreateHeadColumn();
             SetIsFirst();
+            LoadExpression();
         }
 
         /// <summary>
@@ -59,6 +61,14 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// </summary>
         public void SetIsFirst() {
             _shareConfig.SetIsFirst();
+        }
+
+        /// <summary>
+        /// 加载表达式
+        /// </summary>
+        private void LoadExpression() {
+            var expressionLoader = new ExpressionLoader();
+            expressionLoader.Load( _config );
         }
     }
 }

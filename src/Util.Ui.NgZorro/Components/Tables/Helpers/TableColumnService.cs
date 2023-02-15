@@ -99,6 +99,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
                 Title = GetTitle(),
                 Column = GetColumn(),
                 Width = GetWidth(),
+                IsSort = GetSort(),
                 IsFirst = _shareConfig.IsFirst
             };
             return result;
@@ -139,6 +140,13 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
         /// </summary>
         private string GetWidth() {
             return _config.GetValue( UiConst.Width );
+        }
+
+        /// <summary>
+        /// 获取是否排序
+        /// </summary>
+        private bool GetSort() {
+            return _config.GetValue<bool>( UiConst.Sort );
         }
     }
 }

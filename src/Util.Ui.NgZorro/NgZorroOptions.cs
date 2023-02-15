@@ -10,13 +10,13 @@
         /// <summary>
         /// 是否生成html
         /// </summary>
-        public bool IsGenerateHtml { get; set; }
+        internal bool IsGenerateHtml { get; set; }
         /// <summary>
         /// 是否启用默认项文本
         /// </summary>
         public bool EnableDefaultOptionText { get; set; }
         /// <summary>
-        /// 是否启用国际化
+        /// 是否启用多语言
         /// </summary>
         public bool EnableI18n { get; set; }
     }

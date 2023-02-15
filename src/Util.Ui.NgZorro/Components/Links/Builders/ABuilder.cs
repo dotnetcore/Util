@@ -48,6 +48,17 @@ namespace Util.Ui.NgZorro.Components.Links.Builders {
         }
 
         /// <summary>
+        /// 配置危险按钮
+        /// </summary>
+        public override ABuilder Danger() {
+            var result = _config.GetValue<bool?>( UiConst.Danger );
+            if ( result == true ) {
+                Class( "ant-btn-dangerous" );
+            }
+            return this;
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {

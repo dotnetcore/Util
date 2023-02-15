@@ -75,12 +75,28 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
         private string GetBoolData() {
             var result = new StringBuilder();
             result.Append( "[{" );
-            result.Append( $"'text':'{I18nKeys.Yes}'|i18n,'value':true,'sortId':1" );
+            result.Append( $"'text':'{GetYes()}','value':true,'sortId':1" );
             result.Append( "}," );
             result.Append( "{" );
-            result.Append( $"'text':'{I18nKeys.No}'|i18n,'value':false,'sortId':2" );
+            result.Append( $"'text':'{GetNo()}','value':false,'sortId':2" );
             result.Append( "}]" );
             return result.ToString();
+        }
+
+        /// <summary>
+        /// 获取yes文本
+        /// </summary>
+        private string GetYes() {
+            var options = NgZorroOptionsService.GetOptions();
+            return options.EnableI18n ? I18nKeys.Yes : "是";
+        }
+
+        /// <summary>
+        /// 获取no文本
+        /// </summary>
+        private string GetNo() {
+            var options = NgZorroOptionsService.GetOptions();
+            return options.EnableI18n ? I18nKeys.No : "否";
         }
 
         /// <summary>

@@ -3,6 +3,8 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Configs;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Radios.Builders {
     /// <summary>
@@ -118,6 +120,11 @@ namespace Util.Ui.NgZorro.Components.Radios.Builders {
             this.NgFor( $"let item of {_shareConfig.ExtendId}.options" );
             Attribute( "[nzValue]", "item.value" );
             Attribute( "[nzDisabled]", "item.disabled" );
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                SetContent( "{{item.text|i18n}}" );
+                return;
+            }
             SetContent( "{{item.text}}" );
         }
 

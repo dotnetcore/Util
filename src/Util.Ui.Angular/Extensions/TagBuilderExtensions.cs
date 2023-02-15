@@ -14,7 +14,10 @@ namespace Util.Ui.Angular.Extensions {
         /// <param name="builder">生成器实例</param>
         /// <param name="config">配置</param>
         public static TBuilder Angular<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
-            builder.NgIf( config ).NgSwitch( config ).NgSwitchCase( config ).NgFor( config ).NgClass( config ).NgStyle( config );
+            builder.NgIf( config )
+                .NgSwitch( config ).NgSwitchCase( config ).NgSwitchDefault( config )
+                .NgFor( config )
+                .NgClass( config ).NgStyle( config );
             return builder;
         }
 
@@ -82,6 +85,28 @@ namespace Util.Ui.Angular.Extensions {
         public static TBuilder NgSwitchCase<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
             builder.NgSwitchCase( config.GetValue( AngularConst.NgSwitchCase ) );
             return builder;
+        }
+
+        /// <summary>
+        /// *ngSwitchDefault
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="value">值,为true时添加指令</param>
+        public static TBuilder NgSwitchDefault<TBuilder>( this TBuilder builder, bool? value ) where TBuilder : TagBuilder {
+            if( value == true )
+                builder.Attribute( "*ngSwitchDefault" );
+            return builder;
+        }
+
+        /// <summary>
+        /// *ngSwitchDefault
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        public static TBuilder NgSwitchDefault<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
+            return builder.NgSwitchDefault( config.GetValue<bool?>( AngularConst.NgSwitchDefault ) );
         }
 
         /// <summary>

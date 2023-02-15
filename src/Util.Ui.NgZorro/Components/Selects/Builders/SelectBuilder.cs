@@ -1,4 +1,5 @@
-﻿using Util.Ui.Angular.Configs;
+﻿using Microsoft.Extensions.Options;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
@@ -477,10 +478,22 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             var optionBuilder = new OptionBuilder( _config );
             containerBuilder.AppendContent( optionBuilder );
             optionBuilder.NgFor( $"let item of {_config.ExtendId}.options" );
-            optionBuilder.BindLabel( "item.text" );
+            ConfigBindLabel( optionBuilder );
             optionBuilder.BindValue( "item.value" );
             optionBuilder.Disabled( "item.disabled" );
             AppendContent( containerBuilder );
+        }
+
+        /// <summary>
+        /// 配置标签文本
+        /// </summary>
+        private void ConfigBindLabel( OptionBuilder optionBuilder ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                optionBuilder.BindLabel( "item.text|i18n" );
+                return;
+            }
+            optionBuilder.BindLabel( "item.text" );
         }
 
         /// <summary>
@@ -496,7 +509,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             var optionBuilder = new OptionBuilder( _config );
             groupBuilder.AppendContent( optionBuilder );
             optionBuilder.NgFor( "let item of group.value" );
-            optionBuilder.BindLabel( "item.text" );
+            ConfigBindLabel( optionBuilder );
             optionBuilder.BindValue( "item.value" );
             optionBuilder.Disabled( "item.disabled" );
             AppendContent( containerBuilder );

@@ -35,6 +35,10 @@ namespace Util.Ui.NgZorro.Components.Links {
         /// [rel],指定当前文档与被链接文档的关系
         /// </summary>
         public string BindRel { get; set; }
+        /// <summary>
+        /// 扩展属性,是否危险状态
+        /// </summary>
+        public bool Danger { get; set; }
 
         /// <inheritdoc />
         protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

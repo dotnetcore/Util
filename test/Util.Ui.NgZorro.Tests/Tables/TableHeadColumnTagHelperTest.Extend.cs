@@ -104,5 +104,21 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         }
 
         #endregion
+
+        #region Sort
+
+        /// <summary>
+        /// 测试排序
+        /// </summary>
+        [Fact]
+        public void TestSort() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) );
+            _wrapper.SetContextAttribute( UiConst.Sort, "a" );
+            var result = new StringBuilder();
+            result.Append( "<th (nzSortOrderChange)=\"x_id.sortChange('a',$event)\" [nzShowSort]=\"true\" [nzSortFn]=\"true\"></th>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
     }
 }
