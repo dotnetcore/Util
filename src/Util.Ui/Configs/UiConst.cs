@@ -36,6 +36,10 @@
         /// </summary>
         public const string ToolbarMode = "toolbar-mode";
         /// <summary>
+        /// 下拉渲染
+        /// </summary>
+        public const string DropdownRender = "dropdown-render";
+        /// <summary>
         /// 类型
         /// </summary>
         public const string Type = "type";
@@ -280,6 +284,14 @@
         /// </summary>
         public const string ChildClass = "child-class";
         /// <summary>
+        /// 搜索关键字
+        /// </summary>
+        public const string SearchKeyword = "search-keyword";
+        /// <summary>
+        /// 搜索延迟
+        /// </summary>
+        public const string SearchDelay = "search-delay";
+        /// <summary>
         /// Url
         /// </summary>
         public const string Url = "url";
@@ -435,6 +447,10 @@
         /// 展开
         /// </summary>
         public const string Expanded = "expanded";
+        /// <summary>
+        /// 枚举内容
+        /// </summary>
+        public const string EnumContent = "enum-content";
         /// <summary>
         /// 列
         /// </summary>

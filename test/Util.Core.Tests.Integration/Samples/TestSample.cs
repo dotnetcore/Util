@@ -145,12 +145,65 @@ namespace Util.Tests.Samples {
     /// <summary>
     /// 测试服务
     /// </summary>
+    [Ioc( -2 )]
     public class TestService7 : ITestService7 {
     }
 
     /// <summary>
     /// 测试服务
     /// </summary>
+    [Ioc( -1 )]
     public class TestService8 : ITestService7 {
+    }
+
+    /// <summary>
+    /// 测试服务接口
+    /// </summary>
+    public interface ITestService70 : ISingletonDependency {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    [Ioc( 2 )]
+    public class TestService70 : ITestService70 {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    [Ioc( 1 )]
+    public class TestService80 : ITestService70 {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    public class TestService90 : ITestService70 {
+    }
+
+    /// <summary>
+    /// 测试服务接口
+    /// </summary>
+    public interface ITestService8 : ISingletonDependency {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    public class TestService9 : ITestService8 {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    public class TestService10 : ITestService8 {
+    }
+
+    /// <summary>
+    /// 测试服务
+    /// </summary>
+    [Ioc( 2 )]
+    public class TestService11 : ITestService8 {
     }
 }

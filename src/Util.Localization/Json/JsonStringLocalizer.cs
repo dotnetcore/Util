@@ -122,7 +122,7 @@ namespace Util.Localization.Json {
             if ( File.Exists( path ) == false )
                 return null;
             var builder = new ConfigurationBuilder()
-                .AddJsonFile( path, optional: false, reloadOnChange: true );
+                .AddJsonFile( path, optional: false, reloadOnChange: false );
             var config = builder.Build();
             return config.AsEnumerable();
         }

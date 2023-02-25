@@ -69,7 +69,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
             result.Append( "</nz-form-label>" );
             result.Append( "<nz-form-control>" );
             result.Append( "<nz-radio-group #x_id=\"xSelectExtend\" name=\"gender\" nzName=\"gender\" x-select-extend=\"\" [(ngModel)]=\"model.gender\" " );
-            result.Append( "[data]=\"[{'text':'女','value':1,'sortId':1},{'text':'男','value':2,'sortId':2}]\"" );
+            result.Append( "[data]=\"[{'text':'util.female','value':1,'sortId':1},{'text':'util.male','value':2,'sortId':2}]\"" );
             result.Append( ">" );
             result.Append( "<label *ngFor=\"let item of x_id.options\" nz-radio=\"\" [nzDisabled]=\"item.disabled\" [nzValue]=\"item.value\">" );
             result.Append( "{{item.text}}" );
@@ -94,7 +94,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
             result.Append( "</nz-form-label>" );
             result.Append( "<nz-form-control>" );
             result.Append( "<nz-radio-group #x_id=\"xSelectExtend\" name=\"gender\" nzName=\"gender\" x-select-extend=\"\" [(ngModel)]=\"model.gender\" " );
-            result.Append( "[data]=\"[{'text':'女','value':1,'sortId':1},{'text':'男','value':2,'sortId':2}]\"" );
+            result.Append( "[data]=\"[{'text':'util.female','value':1,'sortId':1},{'text':'util.male','value':2,'sortId':2}]\"" );
             result.Append( ">" );
             result.Append( "<label *ngFor=\"let item of x_id.options\" nz-radio=\"\" [nzDisabled]=\"item.disabled\" [nzValue]=\"item.value\">" );
             result.Append( "{{item.text|i18n}}" );

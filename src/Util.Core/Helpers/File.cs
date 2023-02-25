@@ -10,6 +10,48 @@ namespace Util.Helpers {
     /// </summary>
     public static class File {
 
+        #region ExistsByFile
+
+        /// <summary>
+        /// 判断文件是否存在
+        /// </summary>
+        /// <param name="path">文件绝对路径</param>
+        public static bool ExistsByFile( string path ) {
+            return System.IO.File.Exists( path );
+        }
+
+        #endregion
+
+        #region ExistsByDirectory
+
+        /// <summary>
+        /// 判断目录是否存在
+        /// </summary>
+        /// <param name="path">目录绝对路径</param>
+        public static bool ExistsByDirectory( string path ) {
+            return Directory.Exists( path );
+        }
+
+        #endregion
+
+        #region CreateDirectory
+
+        /// <summary>
+        /// 创建目录
+        /// </summary>
+        /// <param name="path">文件或目录绝对路径</param>
+        public static void CreateDirectory( string path ) {
+            if ( path.IsEmpty() )
+                return;
+            var file = new FileInfo( path );
+            var directoryPath = file.Directory?.FullName;
+            if ( Directory.Exists( directoryPath ) )
+                return;
+            Directory.CreateDirectory( directoryPath );
+        }
+
+        #endregion
+
         #region ToBytesAsync
 
         /// <summary>
@@ -146,16 +188,6 @@ namespace Util.Helpers {
                 return;
             CreateDirectory( filePath );
             System.IO.File.WriteAllBytes( filePath, content );
-        }
-
-        /// <summary>
-        /// 创建目录
-        /// </summary>
-        private static void CreateDirectory( string filePath ) {
-            var file = new FileInfo( filePath );
-            if ( file.Directory?.Exists == true )
-                return;
-            System.IO.Directory.CreateDirectory( file.DirectoryName );
         }
 
         #endregion

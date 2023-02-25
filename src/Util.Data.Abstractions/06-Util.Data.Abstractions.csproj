@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.Validation\05-Util.Validation.csproj" />
+	  <ProjectReference Include="..\Util.Validation\04-Util.Validation.csproj" />
 	</ItemGroup>
 
 </Project>

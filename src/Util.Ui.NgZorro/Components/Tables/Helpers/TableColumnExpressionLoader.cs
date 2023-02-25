@@ -1,5 +1,7 @@
-﻿using Util.Ui.Configs;
+﻿using System.Text;
+using Util.Ui.Configs;
 using Util.Ui.Expressions;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers {
@@ -40,6 +42,34 @@ namespace Util.Ui.NgZorro.Components.Tables.Helpers {
                 config.SetAttribute( UiConst.Type, TableColumnType.Bool );
                 return;
             }
+            if ( info.IsEnum ) {
+                config.SetAttribute( UiConst.Type, TableColumnType.Enum );
+                config.SetAttribute( UiConst.EnumContent, GetEnumContent( config, info ) );
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 获取枚举内容
+        /// </summary>
+        private string GetEnumContent( Config config, ModelExpressionInfo info ) {
+            var options = NgZorroOptionsService.GetOptions();
+            var result = new StringBuilder();
+            var column = config.GetValue( UiConst.Column );
+            var items = Util.Helpers.Enum.GetItems( info.ModelType );
+            items.ForEach( item => {
+                result.Append( $"<ng-container *ngIf=\"row.{column}==={item.Value}\">" );
+                if ( options.EnableI18n ) {
+                    result.Append( "{{" );
+                    result.Append( $"'{item.Text}'|i18n" );
+                    result.Append( "}}" );
+                }
+                else {
+                    result.Append( item.Text );
+                }
+                result.Append( "</ng-container>" );
+            } );
+            return result.ToString();
         }
     }
 }

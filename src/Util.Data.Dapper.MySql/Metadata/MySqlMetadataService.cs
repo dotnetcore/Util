@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Util.Data.Sql;
 
 namespace Util.Data.Metadata {
@@ -24,36 +25,37 @@ namespace Util.Data.Metadata {
         /// <summary>
         /// 获取数据库信息
         /// </summary>
-        public DatabaseInfo GetDatabaseInfo() {
-            var result = GetDatabase();
-            result.Tables.AddRange( GetTables() );
+        public async Task<DatabaseInfo> GetDatabaseInfoAsync() {
+            var result = await GetDatabase();
+            var tables = await GetTables();
+            result.Tables.AddRange( tables );
             return result;
         }
 
         /// <summary>
         /// 获取数据库信息
         /// </summary>
-        private DatabaseInfo GetDatabase() {
-            return _sqlQuery
+        private async Task<DatabaseInfo> GetDatabase() {
+            return await _sqlQuery
                 .AppendSelect( "Database() [Id],Database() [Name]" )
-                .ToEntity<DatabaseInfo>();
+                .ToEntityAsync<DatabaseInfo>();
         }
 
         /// <summary>
         /// 获取表信息
         /// </summary>
-        private List<TableInfo> GetTables() {
+        private async Task<List<TableInfo>> GetTables() {
             SetGetTablesSql();
             var dic = new Dictionary<string, TableInfo>();
-            var tables = _sqlQuery.ToList<TableInfo, ColumnInfo, TableInfo>( ( table, column ) => {
-                if( table == null || column == null )
+            var tables = ( await _sqlQuery.ToListAsync<TableInfo, ColumnInfo, TableInfo>( ( table, column ) => {
+                if ( table == null || column == null )
                     return null;
-                if( dic.ContainsKey( table.Id ) == false )
+                if ( dic.ContainsKey( table.Id ) == false )
                     dic.Add( table.Id, table );
                 TableInfo result = dic[table.Id];
                 result.Columns.Add( column );
                 return result;
-            } ).Distinct().ToList();
+            } ) ).Distinct().ToList();
             return tables;
         }
 

@@ -38,6 +38,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Util.Core\01-Util.Core.csproj" />
+	  <ProjectReference Include="..\Util.Security\05-Util.Security.csproj" />
 	</ItemGroup>
 
 </Project>

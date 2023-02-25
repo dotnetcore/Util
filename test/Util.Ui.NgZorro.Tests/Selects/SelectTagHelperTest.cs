@@ -655,6 +655,17 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         }
 
         /// <summary>
+        /// 测试设置下拉扩展模板
+        /// </summary>
+        [Fact]
+        public void TestDropdownRender() {
+            _wrapper.SetContextAttribute( UiConst.DropdownRender, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-select [nzDropdownRender]=\"a\"></nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]

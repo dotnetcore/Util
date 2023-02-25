@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Handlebars.Net" Version="2.1.2" />
+	  <PackageReference Include="Handlebars.Net" Version="2.1.3" />
 	</ItemGroup>
 
 	<ItemGroup>

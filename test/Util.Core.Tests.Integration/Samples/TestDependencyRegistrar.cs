@@ -50,7 +50,7 @@ namespace Util.Tests.Samples {
         /// </summary>
         /// <param name="services">服务集合</param>
         public void Register( IServiceCollection services ) {
-            services.TryAddSingleton<ITestService7, TestService8>();
+            services.TryAddSingleton<ITestService8, TestService10>();
         }
 
         /// <summary>

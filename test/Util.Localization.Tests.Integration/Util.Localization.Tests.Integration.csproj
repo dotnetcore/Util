@@ -9,10 +9,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 		<PackageReference Include="Xunit.DependencyInjection" Version="8.7.0" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.3" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
 		<PackageReference Include="xunit" Version="2.4.2" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -27,7 +27,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Util.AspNetCore\07-Util.AspNetCore.csproj" />
-		<ProjectReference Include="..\..\src\Util.Localization\04-Util.Localization.csproj" />
+		<ProjectReference Include="..\..\src\Util.Localization\01-Util.Localization.csproj" />
 		<ProjectReference Include="..\Util.Localization.Resources\Util.Localization.Resources.csproj" />
 	</ItemGroup>
 

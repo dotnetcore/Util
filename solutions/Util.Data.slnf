@@ -7,7 +7,6 @@
       "build\\Build.csproj",
       "src\\Util.Aop.AspectCore\\03-Util.Aop.AspectCore.csproj",
       "src\\Util.Core\\01-Util.Core.csproj",
-      "src\\Util.Data.Abstractions\\05-Util.Data.Abstractions.csproj",
       "src\\Util.Data.Core\\01-Util.Data.Core.csproj",
       "src\\Util.Data.Dapper.All\\05-Util.Data.Dapper.All.csproj",
       "src\\Util.Data.Dapper.Core\\01-Util.Data.Dapper.Core.csproj",

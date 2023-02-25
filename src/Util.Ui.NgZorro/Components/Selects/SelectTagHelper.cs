@@ -53,6 +53,18 @@ namespace Util.Ui.NgZorro.Components.Selects {
         /// </summary>
         public string DefaultOptionText { get; set; }
         /// <summary>
+        /// 扩展属性,是否启用服务端搜索关键字,在搜索框输入时,设置查询参数的Keyword属性并发送请求,默认值：false
+        /// </summary>
+        public bool SearchKeyword { get; set; }
+        /// <summary>
+        /// 扩展属性 [searchDelay],搜索关键字延迟时间,单位:毫秒,默认值: 500
+        /// </summary>
+        public int SearchDelay { get; set; }
+        /// <summary>
+        /// 扩展属性 [isScrollLoad],滚动到底部是否自动加载，默认值：false
+        /// </summary>
+        public bool ScrollLoad { get; set; }
+        /// <summary>
         /// [compareWith],比较算法函数,函数定义:(o1: any, o2: any) => boolean
         /// </summary>
         public string CompareWith { get; set; }
@@ -264,6 +276,10 @@ namespace Util.Ui.NgZorro.Components.Selects {
         /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
         /// </summary>
         public bool SpaceItem { get; set; }
+        /// <summary>
+        /// [nzDropdownRender],设置下拉扩展模板,类型: TemplateRef
+        /// </summary>
+        public string DropdownRender { get; set; }
         /// <summary>
         /// (nzOpenChange),下拉菜单打开状态变更事件,类型: EventEmitter&lt;boolean&gt;
         /// </summary>

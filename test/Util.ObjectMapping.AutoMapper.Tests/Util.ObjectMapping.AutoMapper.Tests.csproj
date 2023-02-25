@@ -7,7 +7,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 		<PackageReference Include="Xunit.DependencyInjection" Version="8.7.0" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.0.1" />
 		<PackageReference Include="xunit" Version="2.4.2" />
@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Util.Application\Util.Application.csproj" />
+		<ProjectReference Include="..\..\src\Util.Application\01-Util.Application.csproj" />
 		<ProjectReference Include="..\..\src\Util.Domain\01-Util.Domain.csproj" />
 		<ProjectReference Include="..\..\src\Util.ObjectMapping.AutoMapper\02-Util.ObjectMapping.AutoMapper.csproj" />
 	</ItemGroup>

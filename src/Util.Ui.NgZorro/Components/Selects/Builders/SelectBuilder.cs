@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
+using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Containers.Builders;
 using Util.Ui.NgZorro.Components.Selects.Configs;
+using Util.Ui.NgZorro.Components.Spins.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -127,8 +129,16 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置服务端搜索
         /// </summary>
         public SelectBuilder ServerSearch() {
-            AttributeIfNotEmpty( "[nzServerSearch]", _config.GetBoolValue( UiConst.ServerSearch ) );
-            AttributeIfNotEmpty( "[nzServerSearch]", _config.GetValue( AngularConst.BindServerSearch ) );
+            ServerSearch( _config.GetBoolValue( UiConst.ServerSearch ) );
+            ServerSearch( _config.GetValue( AngularConst.BindServerSearch ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置服务端搜索
+        /// </summary>
+        public SelectBuilder ServerSearch( string value ) {
+            AttributeIfNotEmpty( "[nzServerSearch]", value );
             return this;
         }
 
@@ -189,8 +199,32 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置显示搜索
         /// </summary>
         public SelectBuilder ShowSearch() {
-            AttributeIfNotEmpty( "[nzShowSearch]", _config.GetBoolValue( UiConst.ShowSearch ) );
-            AttributeIfNotEmpty( "[nzShowSearch]", _config.GetValue( AngularConst.BindShowSearch ) );
+            ShowSearch( _config.GetBoolValue( UiConst.ShowSearch ) );
+            ShowSearch( _config.GetValue( AngularConst.BindShowSearch ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置显示搜索
+        /// </summary>
+        public SelectBuilder ShowSearch( string value ) {
+            AttributeIfNotEmpty( "[nzShowSearch]", value );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置下拉扩展模板
+        /// </summary>
+        public SelectBuilder DropdownRender() {
+            DropdownRender( _config.GetValue( UiConst.DropdownRender ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置下拉扩展模板
+        /// </summary>
+        public SelectBuilder DropdownRender( string value ) {
+            AttributeIfNotEmpty( "[nzDropdownRender]", value );
             return this;
         }
 
@@ -348,11 +382,27 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置事件
         /// </summary>
         public SelectBuilder Events() {
+            OnSearch( _config.GetValue( UiConst.OnSearch ) );
+            OnScrollToBottom( _config.GetValue( UiConst.OnScrollToBottom ) );
             AttributeIfNotEmpty( "(nzOpenChange)", _config.GetValue( UiConst.OnOpenChange ) );
-            AttributeIfNotEmpty( "(nzScrollToBottom)", _config.GetValue( UiConst.OnScrollToBottom ) );
-            AttributeIfNotEmpty( "(nzOnSearch)", _config.GetValue( UiConst.OnSearch ) );
             AttributeIfNotEmpty( "(nzFocus)", _config.GetValue( UiConst.OnFocus ) );
             AttributeIfNotEmpty( "(nzBlur)", _config.GetValue( UiConst.OnBlur ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置搜索事件
+        /// </summary>
+        public SelectBuilder OnSearch( string value ) {
+            AttributeIfNotEmpty( "(nzOnSearch)", value );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置滚动事件
+        /// </summary>
+        public SelectBuilder OnScrollToBottom( string value ) {
+            AttributeIfNotEmpty( "(nzScrollToBottom)", value );
             return this;
         }
 
@@ -366,7 +416,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
                 .DropdownClassName().DropdownStyle().DropdownMatchSelectWidth()
                 .CustomTemplate().ServerSearch().FilterOption().MaxMultipleCount()
                 .Mode().NotFoundContent().Placeholder()
-                .ShowArrow().ShowSearch().Size()
+                .ShowArrow().ShowSearch().Size().DropdownRender()
                 .SuffixIcon().RemoveIcon().ClearIcon().MenuItemSelectedIcon()
                 .TokenSeparators().Loading().MaxTagCount().MaxTagPlaceholder()
                 .Options().OptionHeightPx().OptionOverflowSize()
@@ -410,6 +460,8 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             Attribute( $"#{_config.ExtendId}", "xSelectExtend" );
             Attribute( "x-select-extend" );
             EnableLoading();
+            EnableSearchKeyword();
+            EnableScrollLoad();
             ConfigOption();
             ConfigOptionGroup();
             return this;
@@ -467,6 +519,46 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             if ( GetUrl().IsEmpty() && GetBindUrl().IsEmpty() )
                 return;
             Loading( $"{_config.ExtendId}.loading" );
+        }
+
+        /// <summary>
+        /// 启用搜索关键字
+        /// </summary>
+        private void EnableSearchKeyword() {
+            var result = _config.GetValue<bool?>( UiConst.SearchKeyword );
+            if ( result != true )
+                return;
+            ShowSearch( "true" );
+            ServerSearch( "true" );
+            OnSearch( $"{_config.ExtendId}.search($event)" );
+            AttributeIfNotEmpty( "[searchDelay]", _config.GetValue( UiConst.SearchDelay ) );
+        }
+
+        /// <summary>
+        /// 启用滚动加载
+        /// </summary>
+        private void EnableScrollLoad() {
+            var result = _config.GetValue<bool?>( UiConst.ScrollLoad );
+            if ( result != true )
+                return;
+            ServerSearch( "true" );
+            OnScrollToBottom( $"{_config.ExtendId}.scrollToBottom()" );
+            AttributeIfNotEmpty( "[isScrollLoad]", "true" );
+            ConfigDropdownTemplate();
+        }
+
+        /// <summary>
+        /// 配置下拉加载图标
+        /// </summary>
+        private void ConfigDropdownTemplate() {
+            var templateId = $"tpl_{_config.ExtendId}";
+            DropdownRender( templateId );
+            var templateBuilder = new TemplateBuilder( _config );
+            templateBuilder.Id( templateId );
+            var spinBuilder = new SpinBuilder( _config );
+            spinBuilder.NgIf( $"{_config.ExtendId}.loading" );
+            templateBuilder.AppendContent( spinBuilder );
+            PostBuilder = templateBuilder;
         }
 
         /// <summary>

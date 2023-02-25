@@ -122,7 +122,7 @@ namespace Util.Applications.Controllers {
         /// 获取项列表
         /// </summary>
         /// <param name="query">查询参数</param>
-        protected async Task<IActionResult> GetItemsAsync( TQuery query ) {
+        protected virtual async Task<IActionResult> GetItemsAsync( TQuery query ) {
             if ( query == null )
                 return Fail( ApplicationResource.QueryIsEmpty );
             var pageList = await _service.PageQueryAsync( query );

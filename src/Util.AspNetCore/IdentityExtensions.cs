@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using Util.Security.Authorization;
+using Util.Security.Authentication;
 
 namespace Util {
     /// <summary>

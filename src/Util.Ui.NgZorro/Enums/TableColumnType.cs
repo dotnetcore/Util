@@ -4,16 +4,16 @@
     /// </summary>
     public enum TableColumnType {
         /// <summary>
-        /// 单选框
-        /// </summary>
-        Radio,
-        /// <summary>
         /// 布尔
         /// </summary>
         Bool,
         /// <summary>
         /// 日期
         /// </summary>
-        Date
+        Date,
+        /// <summary>
+        /// 枚举
+        /// </summary>
+        Enum
     }
 }

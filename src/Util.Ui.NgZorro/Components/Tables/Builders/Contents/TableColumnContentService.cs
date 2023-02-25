@@ -65,6 +65,8 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents {
             switch ( type ) {
                 case TableColumnType.Bool:
                     return new TableColumnBoolContent();
+                case TableColumnType.Enum:
+                    return new TableColumnEnumContent();
                 default:
                     return new TableColumnTextContent();
             }

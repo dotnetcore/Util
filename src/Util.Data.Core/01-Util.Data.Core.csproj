@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.24" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.25" />
 	</ItemGroup>
 
 	<ItemGroup>

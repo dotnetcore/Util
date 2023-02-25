@@ -1,4 +1,6 @@
-﻿namespace Util.Data.Metadata {
+﻿using System.Threading.Tasks;
+
+namespace Util.Data.Metadata {
     /// <summary>
     /// 数据库元数据服务
     /// </summary>
@@ -6,6 +8,6 @@
         /// <summary>
         /// 获取数据库信息
         /// </summary>
-        DatabaseInfo GetDatabaseInfo();
+        Task<DatabaseInfo> GetDatabaseInfoAsync();
     }
 }

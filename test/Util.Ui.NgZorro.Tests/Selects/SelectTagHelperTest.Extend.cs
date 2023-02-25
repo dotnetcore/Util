@@ -236,5 +236,66 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         }
 
         #endregion
+
+        #region SearchKeyword
+
+        /// <summary>
+        /// 测试搜索关键字
+        /// </summary>
+        [Fact]
+        public void TestSearchKeyword() {
+            _wrapper.SetContextAttribute( UiConst.Url, "a" );
+            _wrapper.SetContextAttribute( UiConst.SearchKeyword, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" (nzOnSearch)=\"x_id.search($event)\" url=\"a\" x-select-extend=\"\" " );
+            result.Append( "[nzLoading]=\"x_id.loading\" [nzServerSearch]=\"true\" [nzShowSearch]=\"true\">" );
+            AppendOptions( result );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region SearchDelay
+
+        /// <summary>
+        /// 测试搜索延迟
+        /// </summary>
+        [Fact]
+        public void TestSearchDelay() {
+            _wrapper.SetContextAttribute( UiConst.Url, "a" );
+            _wrapper.SetContextAttribute( UiConst.SearchKeyword, true );
+            _wrapper.SetContextAttribute( UiConst.SearchDelay, 100 );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" (nzOnSearch)=\"x_id.search($event)\" url=\"a\" x-select-extend=\"\" " );
+            result.Append( "[nzLoading]=\"x_id.loading\" [nzServerSearch]=\"true\" [nzShowSearch]=\"true\" [searchDelay]=\"100\">" );
+            AppendOptions( result );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region ScrollLoad
+
+        /// <summary>
+        /// 测试滚动加载
+        /// </summary>
+        [Fact]
+        public void TestScrollLoad() {
+            _wrapper.SetContextAttribute( UiConst.Url, "a" );
+            _wrapper.SetContextAttribute( UiConst.ScrollLoad, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" (nzScrollToBottom)=\"x_id.scrollToBottom()\" url=\"a\" x-select-extend=\"\" " );
+            result.Append( "[isScrollLoad]=\"true\" [nzDropdownRender]=\"tpl_x_id\" [nzLoading]=\"x_id.loading\" [nzServerSearch]=\"true\">" );
+            AppendOptions( result );
+            result.Append( "</nz-select>" );
+            result.Append( "<ng-template #tpl_x_id=\"\">" );
+            result.Append( "<nz-spin *ngIf=\"x_id.loading\"></nz-spin>" );
+            result.Append( "</ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
     }
 }

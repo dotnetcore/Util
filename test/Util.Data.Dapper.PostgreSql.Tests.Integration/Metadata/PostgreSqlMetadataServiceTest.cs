@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Util.Data.Metadata;
 using Xunit;
 
@@ -8,31 +9,33 @@ namespace Util.Data.Dapper.Tests.Metadata {
     /// </summary>
     public class PostgreSqlMetadataServiceTest {
         /// <summary>
-        /// 数据库元信息
+        /// 数据库元信息服务
         /// </summary>
-        private readonly DatabaseInfo _databaseInfo;
+        private readonly IMetadataService _metadataService;
 
         /// <summary>
         /// 初始化
         /// </summary>
         public PostgreSqlMetadataServiceTest( IMetadataService service ) {
-            _databaseInfo = service.GetDatabaseInfo();
+            _metadataService = service;
         }
 
         /// <summary>
         /// 测试获取数据库名称
         /// </summary>
         [Fact]
-        public void TestDatabaseName() {
-            Assert.Equal( "Util.Data.Dapper.Test", _databaseInfo.Name );
+        public async Task TestDatabaseName() {
+            var info = await _metadataService.GetDatabaseInfoAsync();
+            Assert.Equal( "Util.Data.Dapper.Test", info.Name );
         }
 
         /// <summary>
         /// 测试获取表信息
         /// </summary>
         [Fact]
-        public void TestTableInfo() {
-            var table = _databaseInfo.Tables.FirstOrDefault( t => t.Name == "Product" );
+        public async Task TestTableInfo() {
+            var info = await _metadataService.GetDatabaseInfoAsync();
+            var table = info.Tables.FirstOrDefault( t => t.Name == "Product" );
             Assert.NotNull( table );
             Assert.Equal( "Products", table.Schema );
             Assert.Equal( "产品", table.Comment );
@@ -42,8 +45,9 @@ namespace Util.Data.Dapper.Tests.Metadata {
         /// 测试获取主键信息
         /// </summary>
         [Fact]
-        public void TestPrimaryKey() {
-            var table = _databaseInfo.Tables.First( t => t.Name == "OrderItem" );
+        public async Task TestPrimaryKey() {
+            var info = await _metadataService.GetDatabaseInfoAsync();
+            var table = info.Tables.First( t => t.Name == "OrderItem" );
             var pkColumn = table.Columns.FirstOrDefault( t => t.Name == "OrderItemId" );
             Assert.NotNull( pkColumn );
             Assert.True( pkColumn.IsPrimaryKey );
@@ -56,8 +60,9 @@ namespace Util.Data.Dapper.Tests.Metadata {
         /// 测试获取自增信息
         /// </summary>
         [Fact]
-        public void TestAutoIncrement() {
-            var table = _databaseInfo.Tables.FirstOrDefault( t => t.Name == "Customer" );
+        public async Task TestAutoIncrement() {
+            var info = await _metadataService.GetDatabaseInfoAsync();
+            var table = info.Tables.FirstOrDefault( t => t.Name == "Customer" );
             Assert.NotNull( table );
             var column = table.Columns.FirstOrDefault( t => t.Name == "CustomerId" );
             Assert.NotNull( column );
@@ -69,8 +74,9 @@ namespace Util.Data.Dapper.Tests.Metadata {
         /// 测试获取数值精度信息
         /// </summary>
         [Fact]
-        public void TestPrecision() {
-            var table = _databaseInfo.Tables.FirstOrDefault( t => t.Name == "Product" );
+        public async Task TestPrecision() {
+            var info = await _metadataService.GetDatabaseInfoAsync();
+            var table = info.Tables.FirstOrDefault( t => t.Name == "Product" );
             Assert.NotNull( table );
             var column = table.Columns.FirstOrDefault( t => t.Name == "Price" );
             Assert.NotNull( column );
@@ -82,8 +88,9 @@ namespace Util.Data.Dapper.Tests.Metadata {
         /// 测试获取字符串列信息
         /// </summary>
         [Fact]
-        public void TestStringInfo() {
-            var table = _databaseInfo.Tables.FirstOrDefault( t => t.Name == "Product" );
+        public async Task TestStringInfo() {
+            var info = await _metadataService.GetDatabaseInfoAsync();
+            var table = info.Tables.FirstOrDefault( t => t.Name == "Product" );
             Assert.NotNull( table );
             var count = table.Columns.Count( t => t.Name == "Code" );
             Assert.Equal( 1, count );

@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.Application\Util.Application.csproj" />
+    <ProjectReference Include="..\..\src\Util.Application\01-Util.Application.csproj" />
     <ProjectReference Include="..\..\src\Util.Domain.Biz\02-Util.Domain.Biz.csproj" />
     <ProjectReference Include="..\..\src\Util.Domain\01-Util.Domain.csproj" />
   </ItemGroup>
