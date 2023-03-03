@@ -1,6 +1,6 @@
-﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Components.Templates.Builders;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders {
     /// <summary>

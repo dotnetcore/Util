@@ -15,7 +15,7 @@ namespace Util.Ui.NgAlain.Components.I18n.Builders {
         /// 初始化i18n多语言标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public I18nBuilder( Config config ) : base( config, "div" ) {
+        public I18nBuilder( Config config ) : base( config, "span" ) {
             _config = config;
         }
 

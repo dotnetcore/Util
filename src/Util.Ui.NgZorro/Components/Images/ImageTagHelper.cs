@@ -60,19 +60,19 @@ namespace Util.Ui.NgZorro.Components.Images {
         /// </summary>
         public string BindDirection { get; set; }
         /// <summary>
-        /// width,宽度,单位:像素
+        /// width,宽度
         /// </summary>
-        public double Width { get; set; }
+        public string Width { get; set; }
         /// <summary>
-        /// [width],宽度,范例: '100px'
+        /// [width],宽度
         /// </summary>
         public string BindWidth { get; set; }
         /// <summary>
-        /// height,高度,单位:像素
+        /// height,高度
         /// </summary>
-        public double Height { get; set; }
+        public string Height { get; set; }
         /// <summary>
-        /// [height],高度,单位:像素
+        /// [height],高度
         /// </summary>
         public string BindHeight { get; set; }
         /// <summary>

@@ -34,7 +34,7 @@ namespace Util.Ui.Angular.Builders {
         /// 基础配置
         /// </summary>
         /// <param name="config">配置</param>
-        protected override void ConfigBase( Config config ) {
+        public override void ConfigBase( Config config ) {
             base.ConfigBase( config );
             this.Angular( config );
             ConfigId( config );

@@ -16,6 +16,10 @@ namespace Util.Data.EntityFrameworkCore.Migrations {
         /// </summary>
         private readonly ILogger<MigrationService> _logger;
         /// <summary>
+        /// 迁移文件服务
+        /// </summary>
+        private readonly IMigrationFileService _migrationFileService;
+        /// <summary>
         /// 数据上下文项目根目录绝对路径
         /// </summary>
         private string _dbContextRootPath;
@@ -27,13 +31,19 @@ namespace Util.Data.EntityFrameworkCore.Migrations {
         /// 迁移名称
         /// </summary>
         private string _migrationName;
+        /// <summary>
+        /// 是否移除所有外键
+        /// </summary>
+        private bool _isRemoveForeignKeys;
 
         /// <summary>
         /// 初始化迁移服务
         /// </summary>
         /// <param name="logger">日志</param>
-        public MigrationService( ILogger<MigrationService> logger ) {
+        /// <param name="migrationFileService">迁移文件服务</param>
+        public MigrationService( ILogger<MigrationService> logger, IMigrationFileService migrationFileService ) {
             _logger = logger ?? NullLogger<MigrationService>.Instance;
+            _migrationFileService = migrationFileService ?? throw new ArgumentNullException( nameof(migrationFileService) );
         }
 
         /// <inheritdoc />
@@ -55,10 +65,18 @@ namespace Util.Data.EntityFrameworkCore.Migrations {
         }
 
         /// <inheritdoc />
+        public IMigrationService RemoveForeignKeys() {
+            _isRemoveForeignKeys = true;
+            return this;
+        }
+
+        /// <inheritdoc />
         public async Task MigrateAsync( CancellationToken cancellationToken = default ) {
             if ( Validate() == false )
                 return;
             AddMigration();
+            if( _isRemoveForeignKeys )
+                await RemoveMigrationFileForeignKeys();
             await UpdateDatabase( cancellationToken );
         }
 
@@ -84,6 +102,19 @@ namespace Util.Data.EntityFrameworkCore.Migrations {
                 .WorkingDirectory( _dbContextRootPath )
                 .ExecuteResult();
             _logger.LogTrace( $"添加迁移: {result}" );
+        }
+
+        /// <summary>
+        /// 删除迁移文件中的外键设置
+        /// </summary>
+        private async Task RemoveMigrationFileForeignKeys() {
+            _logger.LogTrace( "准备移除迁移文件中的外键设置." );
+            var migrationsPath = Common.JoinPath( _dbContextRootPath, "Migrations" );
+            await _migrationFileService
+                .MigrationsPath( migrationsPath )
+                .MigrationName( _migrationName )
+                .RemoveForeignKeys()
+                .SaveAsync();
         }
 
         /// <summary>

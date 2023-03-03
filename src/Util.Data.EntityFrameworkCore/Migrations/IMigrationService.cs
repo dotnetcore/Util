@@ -23,6 +23,10 @@ namespace Util.Data.EntityFrameworkCore.Migrations {
         /// <param name="name">迁移名称,范例: init</param>
         IMigrationService MigrationName( string name );
         /// <summary>
+        /// 是否移除所有外键,将删除迁移文件中的外键设置
+        /// </summary>
+        IMigrationService RemoveForeignKeys();
+        /// <summary>
         /// 执行迁移
         /// </summary>
         /// <param name="cancellationToken">取消令牌</param>

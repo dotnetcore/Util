@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
-using Util.Ui.NgZorro.Components.Forms.Renders;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -54,21 +52,9 @@ namespace Util.Ui.NgZorro.Components.Typographies.Renders {
             ConfigSuffix();
             ConfigEvents();
             _builder.Tooltip( _config );
+            _builder.ConfigBase(_config);
             ConfigContent( _builder );
             return _builder;
-        }
-
-        /// <summary>
-        /// 基础配置
-        /// </summary>
-        /// <param name="config">配置</param>
-        protected virtual void ConfigBase( Config config ) {
-            _builder.Style( config );
-            _builder.Class( config );
-            _builder.Hidden( config );
-            _builder.Attributes( config.OutputAttributes );
-            _builder.RawId( config );
-            _builder.Id( config );
         }
 
         /// <summary>

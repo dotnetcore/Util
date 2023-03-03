@@ -8,6 +8,16 @@
 		<Description>Util.Generators.Razor是Util应用框架基于Razor模板的代码生成类库</Description>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Generators.Razor.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Generators.Razor.xml</DocumentationFile>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Include="..\..\build\icon.jpg">
 			<Pack>True</Pack>

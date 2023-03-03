@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Util.Applications.Dtos;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
@@ -80,20 +81,29 @@ namespace Util.Ui.NgZorro.Components.Images.Builders {
         /// 配置宽度
         /// </summary>
         public ImageBuilder Width() {
-            var width = _config.GetValue( UiConst.Width );
-            if( string.IsNullOrWhiteSpace( width ) == false )
-                Attribute( "width", $"{width}px" );
+            var width = GetValue( _config.GetValue( UiConst.Width ) );
+            AttributeIfNotEmpty( "width", width );
             AttributeIfNotEmpty( "[width]", _config.GetValue( AngularConst.BindWidth ) );
             return this;
+        }
+
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        private string GetValue( string value ) {
+            if ( string.IsNullOrWhiteSpace( value ) )
+                return null;
+            if( Util.Helpers.Validation.IsNumber( value ) )
+                return $"{value}px";
+            return value;
         }
 
         /// <summary>
         /// 配置高度
         /// </summary>
         public ImageBuilder Height() {
-            var height = _config.GetValue( UiConst.Height );
-            if( string.IsNullOrWhiteSpace( height ) == false )
-                Attribute( "height", $"{height}px" );
+            var height = GetValue( _config.GetValue( UiConst.Height ));
+            AttributeIfNotEmpty( "height", height );
             AttributeIfNotEmpty( "[height]", _config.GetValue( AngularConst.BindHeight ) );
             return this;
         }

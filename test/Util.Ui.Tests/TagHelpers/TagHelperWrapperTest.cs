@@ -5,6 +5,7 @@ using Util.Ui.Configs;
 using Util.Ui.TagHelpers;
 using Util.Ui.Tests.Samples;
 using Util.Ui.Tests.Samples.Containers;
+using Util.Ui.Tests.Samples.Templates;
 using Xunit;
 using Xunit.Abstractions;
 

@@ -181,13 +181,35 @@ namespace Util.Ui.NgZorro.Tests.Images {
         }
 
         /// <summary>
-        /// 测试宽度
+        /// 测试宽度 - 像素
         /// </summary>
         [Fact]
-        public void TestWidth() {
+        public void TestWidth_1() {
             _wrapper.SetContextAttribute( UiConst.Width, 1 );
             var result = new StringBuilder();
             result.Append( "<img nz-image=\"\" width=\"1px\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试宽度 - 像素
+        /// </summary>
+        [Fact]
+        public void TestWidth_2() {
+            _wrapper.SetContextAttribute( UiConst.Width, "10px" );
+            var result = new StringBuilder();
+            result.Append( "<img nz-image=\"\" width=\"10px\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试宽度 - 百分比
+        /// </summary>
+        [Fact]
+        public void TestWidth_3() {
+            _wrapper.SetContextAttribute( UiConst.Width, "10%" );
+            var result = new StringBuilder();
+            result.Append( "<img nz-image=\"\" width=\"10%\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

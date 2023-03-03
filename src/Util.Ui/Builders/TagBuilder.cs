@@ -195,7 +195,7 @@ namespace Util.Ui.Builders {
         /// 基础配置
         /// </summary>
         /// <param name="config">配置</param>
-        protected virtual void ConfigBase( Config config ) {
+        public virtual void ConfigBase( Config config ) {
             ConfigStyle( config );
             ConfigClass( config );
             ConfigHidden( config );

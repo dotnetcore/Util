@@ -1,10 +1,11 @@
 ﻿using System.Text;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Templates;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Util.Ui.Tests.TagHelpers {
+namespace Util.Ui.NgZorro.Tests.Templates {
     /// <summary>
     /// ng-template模板测试
     /// </summary>
@@ -42,6 +43,17 @@ namespace Util.Ui.Tests.TagHelpers {
         public void TestDefault() {
             var result = new StringBuilder();
             result.Append( "<ng-template></ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试延迟加载选项卡
+        /// </summary>
+        [Fact]
+        public void TestTab() {
+            _wrapper.SetContextAttribute( UiConst.Tab, true );
+            var result = new StringBuilder();
+            result.Append( "<ng-template nz-tab=\"\"></ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

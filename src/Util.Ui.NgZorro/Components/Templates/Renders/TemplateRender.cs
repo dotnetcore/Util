@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Html;
-using System;
-using Util.Ui.Angular.Builders;
+﻿using System;
+using Microsoft.AspNetCore.Html;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Templates.Builders;
 using Util.Ui.Renders;
 
-namespace Util.Ui.Angular.Renders {
+namespace Util.Ui.NgZorro.Components.Templates.Renders {
     /// <summary>
     /// ng-template模板渲染器
     /// </summary>

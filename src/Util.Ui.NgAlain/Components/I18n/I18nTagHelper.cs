@@ -6,7 +6,7 @@ using Util.Ui.Renders;
 
 namespace Util.Ui.NgAlain.Components.I18n {
     /// <summary>
-    /// i18n多语言显示组件,支持显示html标签,生成的标签为&lt;div&gt;&lt;/div&gt;
+    /// i18n多语言显示组件,支持显示html标签,生成的标签为&lt;span&gt;&lt;/span&gt;
     /// </summary>
     [HtmlTargetElement( "util-i18n", TagStructure = TagStructure.WithoutEndTag )]
     public class I18nTagHelper : AngularTagHelperBase {

@@ -8,6 +8,16 @@
 		<Description>Util.Generators是Util应用框架代码生成基础类库</Description>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Generators.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Generators.xml</DocumentationFile>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Include="..\..\build\icon.jpg">
 			<Pack>True</Pack>

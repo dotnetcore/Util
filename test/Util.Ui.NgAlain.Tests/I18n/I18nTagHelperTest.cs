@@ -42,7 +42,7 @@ namespace Util.Ui.NgAlain.Tests.I18n {
         [Fact]
         public void TestDefault() {
             var result = new StringBuilder();
-            result.Append( "<div></div>" );
+            result.Append( "<span></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -53,7 +53,7 @@ namespace Util.Ui.NgAlain.Tests.I18n {
         public void TestKey() {
             _wrapper.SetContextAttribute( UiConst.Key, "a" );
             var result = new StringBuilder();
-            result.Append( "<div [innerHTML]=\"'a'|i18n\"></div>" );
+            result.Append( "<span [innerHTML]=\"'a'|i18n\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -65,7 +65,7 @@ namespace Util.Ui.NgAlain.Tests.I18n {
             _wrapper.SetContextAttribute( UiConst.Key, "a" );
             _wrapper.SetContextAttribute( UiConst.Param, " {id:1}" );
             var result = new StringBuilder();
-            result.Append( "<div [innerHTML]=\"'a'|i18n:{id:1}\"></div>" );
+            result.Append( "<span [innerHTML]=\"'a'|i18n:{id:1}\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -77,7 +77,7 @@ namespace Util.Ui.NgAlain.Tests.I18n {
             _wrapper.SetContextAttribute( UiConst.Key, "a" );
             _wrapper.SetContextAttribute( UiConst.Param, "  id:1,name:'a' " );
             var result = new StringBuilder();
-            result.Append( "<div [innerHTML]=\"'a'|i18n:{id:1,name:'a'}\"></div>" );
+            result.Append( "<span [innerHTML]=\"'a'|i18n:{id:1,name:'a'}\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

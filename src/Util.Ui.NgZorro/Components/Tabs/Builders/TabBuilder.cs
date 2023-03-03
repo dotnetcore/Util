@@ -1,6 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Components.Templates.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
@@ -18,7 +20,7 @@ namespace Util.Ui.NgZorro.Components.Tabs.Builders {
         /// <summary>
         /// 初始化标签标签生成器
         /// </summary>
-        public TabBuilder( Config config ) : base( config,"nz-tab" ) {
+        public TabBuilder( Config config ) : base( config, "nz-tab" ) {
             _config = config;
         }
 
@@ -97,6 +99,21 @@ namespace Util.Ui.NgZorro.Components.Tabs.Builders {
             base.Config();
             Title().ForceRender().Disabled().Closable().CloseIcon()
                 .Events();
+        }
+
+        /// <summary>
+        /// 配置内容
+        /// </summary>
+        protected override void ConfigContent( Config config ) {
+            var isLazy = _config.GetValue<bool?>( UiConst.Lazy );
+            if ( isLazy != true ) {
+                base.ConfigContent( config );
+                return;
+            }
+            var templateBuilder = new TemplateBuilder( _config );
+            templateBuilder.Tab( true );
+            config.Content.AppendTo( templateBuilder );
+            SetContent( templateBuilder );
         }
     }
 }
