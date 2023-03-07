@@ -265,7 +265,7 @@ namespace Util.Applications.Controllers {
         /// 树形表格查询
         /// </summary>
         /// <param name="query">查询参数</param>
-        protected virtual async Task<IActionResult> QueryAsync( TQuery query ) {
+        protected async Task<IActionResult> QueryAsync( TQuery query ) {
             var service = new TreeTableQueryService<TDto, TQuery>( _service, GetLoadMode(), GetOperation( query ),
                 GetMaxPageSize(), IsFirstLoad(), IsExpandAll(), IsExpandForRootAsync(), QueryBefore, QueryAfter );
             var result = await service.QueryAsync( query );

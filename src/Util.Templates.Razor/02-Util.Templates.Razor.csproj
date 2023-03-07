@@ -38,6 +38,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="6.0.14" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
 	</ItemGroup>
 </Project>

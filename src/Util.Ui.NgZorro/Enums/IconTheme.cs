@@ -2,7 +2,7 @@
 
 namespace Util.Ui.NgZorro.Enums {
     /// <summary>
-    /// 图标主题
+    /// 图标主题风格
     /// </summary>
     public enum IconTheme {
         /// <summary>

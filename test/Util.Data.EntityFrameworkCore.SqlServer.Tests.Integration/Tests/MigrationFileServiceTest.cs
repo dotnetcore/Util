@@ -17,7 +17,6 @@ namespace Util.Data.EntityFrameworkCore.Tests {
         /// 测试消息输出
         /// </summary>
         private readonly ITestOutputHelper _testOutputHelper;
-
         /// <summary>
         /// 迁移目录路径
         /// </summary>

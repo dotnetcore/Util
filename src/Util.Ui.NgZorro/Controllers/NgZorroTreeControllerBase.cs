@@ -52,7 +52,7 @@ namespace Util.Ui.NgZorro.Controllers {
         /// 树形查询
         /// </summary>
         /// <param name="query">查询参数</param>
-        protected virtual async Task<IActionResult> TreeQueryAsync( TQuery query ) {
+        protected async Task<IActionResult> TreeQueryAsync( TQuery query ) {
             var service = new TreeQueryService<TDto, TQuery>( _service, GetLoadMode(), GetOperation( query ),
                 GetMaxPageSize(), IsFirstLoad(), IsExpandAll(), IsExpandForRootAsync(), GetLoadKeys( query ), QueryBefore, QueryAfter );
             var result = await service.QueryAsync( query );

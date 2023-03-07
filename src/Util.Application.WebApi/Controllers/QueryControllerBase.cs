@@ -122,12 +122,21 @@ namespace Util.Applications.Controllers {
         /// 获取项列表
         /// </summary>
         /// <param name="query">查询参数</param>
-        protected virtual async Task<IActionResult> GetItemsAsync( TQuery query ) {
+        protected async Task<IActionResult> GetItemsAsync( TQuery query ) {
             if ( query == null )
                 return Fail( ApplicationResource.QueryIsEmpty );
             var pageList = await _service.PageQueryAsync( query );
-            var result = pageList.Data.Select( ToItem );
+            var result = pageList.Data.Select( dto => ToItem( dto, query ) );
             return Success( result );
+        }
+
+        /// <summary>
+        /// 将Dto转换为列表项
+        /// </summary>
+        /// <param name="dto">数据传输对象</param>
+        /// <param name="query">查询参数</param>
+        protected virtual Item ToItem( TDto dto, TQuery query ) {
+            return ToItem( dto );
         }
 
         /// <summary>
