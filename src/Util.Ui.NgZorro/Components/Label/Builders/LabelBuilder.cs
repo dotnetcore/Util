@@ -1,7 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
-using Util.Ui.Extensions;
-using Util.Ui.NgZorro.Components.Forms.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Extensions;
 
@@ -31,6 +29,13 @@ namespace Util.Ui.NgZorro.Components.Label.Builders {
         }
 
         /// <summary>
+        /// 配置标题
+        /// </summary>
+        public LabelBuilder Title() {
+            return SetText( _config.GetValue( UiConst.Title ) );
+        }
+
+        /// <summary>
         /// 配置内容
         /// </summary>
         private LabelBuilder SetText( string value ) {
@@ -48,26 +53,7 @@ namespace Util.Ui.NgZorro.Components.Label.Builders {
         /// <inheritdoc />
         public override void Config() {
             base.Config();
-            Text();
-        }
-
-        /// <summary>
-        /// 配置内容
-        /// </summary>
-        protected override void ConfigContent( Config config ) {
-            if ( config.Content.IsEmpty() == false ) {
-                config.Content.AppendTo( this );
-                return;
-            }
-            ConfigValue();
-        }
-
-        /// <summary>
-        /// 配置值
-        /// </summary>
-        private void ConfigValue() {
-            var value = _config.GetValue( UiConst.Value );
-            SetContent( value );
+            Text().Title();
         }
     }
 }

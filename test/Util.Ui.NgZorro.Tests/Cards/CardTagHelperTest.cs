@@ -214,6 +214,17 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         }
 
         /// <summary>
+        /// 测试单击事件
+        /// </summary>
+        [Fact]
+        public void TestOnClick() {
+            _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-card (click)=\"a\"></nz-card>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]

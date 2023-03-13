@@ -2,7 +2,9 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Menus.Builders {
@@ -158,6 +160,19 @@ namespace Util.Ui.NgZorro.Components.Menus.Builders {
         }
 
         /// <summary>
+        /// 配置图标
+        /// </summary>
+        public MenuItemBuilder Icon() {
+            if ( _config.Contains( UiConst.Icon ) == false )
+                return this;
+            var iconBuilder = new IconBuilder( _config );
+            iconBuilder.Class( "mr-sm" );
+            iconBuilder.Icon();
+            AppendContent( iconBuilder );
+            return this;
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         public MenuItemBuilder Events() {
@@ -170,6 +185,7 @@ namespace Util.Ui.NgZorro.Components.Menus.Builders {
         /// </summary>
         public override void Config() {
             base.Config();
+            Icon();
             TextUpdate().TextDelete().TextDetail().TextEnable().TextDisable().Text().
             Disabled().Selected().Danger().MatchRouter().Events();
         }

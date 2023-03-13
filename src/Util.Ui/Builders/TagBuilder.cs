@@ -96,6 +96,21 @@ namespace Util.Ui.Builders {
         }
 
         /// <summary>
+        /// 添加属性,当条件为true时添加
+        /// </summary>
+        /// <param name="name">属性名</param>
+        /// <param name="value">属性值</param>
+        /// <param name="condition">该值为true时添加，否则忽略</param>
+        /// <param name="replaceExisting">是否替换已存在的属性</param>
+        /// <param name="append">相同名称的属性值是否累加</param>
+        public virtual TagBuilder AttributeIf( string name, string value, bool condition, bool replaceExisting = false, bool append = false ) {
+            if ( condition == false )
+                return this;
+            Attribute( name, value, replaceExisting, append );
+            return this;
+        }
+
+        /// <summary>
         /// 添加属性,当值为空时忽略
         /// </summary>
         /// <param name="name">属性名</param>
@@ -103,9 +118,7 @@ namespace Util.Ui.Builders {
         /// <param name="replaceExisting">是否替换已存在的属性</param>
         /// <param name="append">相同名称的属性值是否累加</param>
         public virtual TagBuilder AttributeIfNotEmpty( string name, string value, bool replaceExisting = false, bool append = false ) {
-            if( string.IsNullOrWhiteSpace( value ) )
-                return this;
-            Attribute( name, value, replaceExisting, append );
+            AttributeIf( name, value, !string.IsNullOrWhiteSpace( value ), replaceExisting, append );
             return this;
         }
 

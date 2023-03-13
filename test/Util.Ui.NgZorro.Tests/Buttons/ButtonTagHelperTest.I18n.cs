@@ -283,5 +283,51 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             result.Append( "<button nz-button=\"\">{{'util.disable'|i18n}}</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试Select All文本
+        /// </summary>
+        [Fact]
+        public void TestTextSelectAll() {
+            _wrapper.SetContextAttribute( UiConst.TextSelectAll, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">Select All</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Select All文本 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTextSelectAll_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TextSelectAll, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">{{'util.selectAll'|i18n}}</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Deselect All文本
+        /// </summary>
+        [Fact]
+        public void TestTextDeselectAll() {
+            _wrapper.SetContextAttribute( UiConst.TextDeselectAll, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">Deselect All</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Deselect All文本 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTextDeselectAll_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TextDeselectAll, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">{{'util.deselectAll'|i18n}}</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

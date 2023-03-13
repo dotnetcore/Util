@@ -79,6 +79,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
             SetValidatingTip();
             AutoCreateFormContainer();
             DisableLabelForTableEdit();
+            SetNgIf();
         }
 
         /// <summary>
@@ -324,6 +325,19 @@ namespace Util.Ui.NgZorro.Components.Forms.Helpers {
         /// </summary>
         public TableColumnShareConfig GetTableColumnShareConfig() {
             return _config.GetValueFromItems<TableColumnShareConfig>();
+        }
+
+        /// <summary>
+        /// 设置ngIf*
+        /// </summary>
+        private void SetNgIf() {
+            var value = _config.GetValueFromAttributes( AngularConst.NgIf );
+            if ( value.IsEmpty() )
+                return;
+            if ( _shareConfig.AutoCreateFormItem != true )
+                return;
+            _shareConfig.NgIf = value;
+            _config.RemoveAttribute( AngularConst.NgIf );
         }
     }
 }

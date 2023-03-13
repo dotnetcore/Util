@@ -44,6 +44,10 @@
         /// </summary>
         public const string Type = "type";
         /// <summary>
+        /// 数据类型
+        /// </summary>
+        public const string DataType = "data-type";
+        /// <summary>
         /// 参数
         /// </summary>
         public const string Param = "param";
@@ -120,6 +124,14 @@
         /// </summary>
         public const string TextDisable = "text-disable";
         /// <summary>
+        /// select-all文本
+        /// </summary>
+        public const string TextSelectAll = "text-select-all";
+        /// <summary>
+        /// deselect-all文本
+        /// </summary>
+        public const string TextDeselectAll = "text-deselect-all";
+        /// <summary>
         /// 加载标识列表
         /// </summary>
         public const string LoadKeys = "load-keys";
@@ -131,6 +143,10 @@
         /// 品牌
         /// </summary>
         public const string Branding = "branding";
+        /// <summary>
+        /// 是否提交
+        /// </summary>
+        public const string IsSubmit = "is-submit";
         /// <summary>
         /// ok
         /// </summary>

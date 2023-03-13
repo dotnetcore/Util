@@ -1,4 +1,5 @@
-﻿using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -60,12 +61,21 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         }
 
         /// <summary>
+        /// ngIf
+        /// </summary>
+        public FormItemBuilder AngularIf() {
+            if ( _shareConfig.NgIf.IsEmpty() == false )
+                this.NgIf( _shareConfig.NgIf );
+            return this;
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {
             base.ConfigBase( _config );
-            ConfigRow();
-            TableEdit();
+            AngularIf()
+                .ConfigRow().TableEdit();
         }
 
         /// <summary>

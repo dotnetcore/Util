@@ -48,6 +48,14 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         }
 
         /// <summary>
+        /// 配置选中状态
+        /// </summary>
+        public CheckboxBuilder Checked() {
+            AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( UiConst.Checked ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置值
         /// </summary>
         public CheckboxBuilder Value() {
@@ -75,6 +83,7 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         /// 配置事件
         /// </summary>
         public CheckboxBuilder Events() {
+            AttributeIfNotEmpty( "(nzCheckedChange)", _config.GetValue( UiConst.OnCheckedChange ) );
             return this;
         }
 
@@ -83,8 +92,8 @@ namespace Util.Ui.NgZorro.Components.Checkboxes.Builders {
         /// </summary>
         public override void Config() {
             base.ConfigBase( _config );
-            ConfigForm().Name().AutoFocus().Disabled().Indeterminate().Value()
-                .Label().Events();
+            ConfigForm().Name().AutoFocus().Disabled().Indeterminate().Checked()
+                .Value().Label().Events();
         }
     }
 }

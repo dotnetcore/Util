@@ -239,5 +239,27 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
             result.Append( "<label *nzSpaceItem=\"\" nz-checkbox=\"\"></label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试选中
+        /// </summary>
+        [Fact]
+        public void TestChecked() {
+            _wrapper.SetContextAttribute( UiConst.Checked, "a" );
+            var result = new StringBuilder();
+            result.Append( "<label nz-checkbox=\"\" [nzChecked]=\"a\"></label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试选中状态变化事件
+        /// </summary>
+        [Fact]
+        public void TestOnCheckedChange() {
+            _wrapper.SetContextAttribute( UiConst.OnCheckedChange, "a" );
+            var result = new StringBuilder();
+            result.Append( "<label (nzCheckedChange)=\"a\" nz-checkbox=\"\"></label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

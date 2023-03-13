@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Descriptions.Renders;
+using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Display.Helpers;
+using Util.Ui.NgZorro.Components.Display.Renders;
+using Util.Ui.NgZorro.Components.Forms.Helpers;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Descriptions {
+namespace Util.Ui.NgZorro.Components.Display {
     /// <summary>
-    /// 描述列表项,生成的标签为&lt;nz-descriptions-item>&lt;/nz-descriptions-item>
+    /// 数据项展示,生成的标签为&lt;span&gt;&lt;/span&gt;
     /// </summary>
-    [HtmlTargetElement( "util-descriptions-item" )]
-    public class DescriptionItemTagHelper : AngularTagHelperBase {
+    [HtmlTargetElement( "util-display" )]
+    public class DisplayTagHelper : FormContainerTagHelperBase {
         /// <summary>
         /// 配置
         /// </summary>
@@ -21,21 +22,13 @@ namespace Util.Ui.NgZorro.Components.Descriptions {
         /// </summary>
         public ModelExpression For { get; set; }
         /// <summary>
-        /// nzTitle,标题,支持i18n
+        /// 值,范例: 设置 a,结果为 {{a}}
         /// </summary>
-        public string Title { get; set; }
+        public string Value { get; set; }
         /// <summary>
-        /// [nzTitle],标题,类型: string|TemplateRef&lt;void>
+        /// 是否显示左侧的标签,默认不显示,注意:设置For属性时生效
         /// </summary>
-        public string BindTitle { get; set; }
-        /// <summary>
-        /// nzSpan,包含列的数量,默认值: 1
-        /// </summary>
-        public int Span { get; set; }
-        /// <summary>
-        /// [nzSpan],包含列的数量,默认值: 1
-        /// </summary>
-        public string BindSpan { get; set; }
+        public bool ShowLabel { get; set; }
         /// <summary>
         /// 日期格式化字符串，默认值: yyyy-MM-dd HH:mm,仅在使用属性表达式For时有效,格式说明：
         /// 1. 年 - yyyy
@@ -52,6 +45,8 @@ namespace Util.Ui.NgZorro.Components.Descriptions {
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
             _config = new Config( context, output );
             LoadExpression();
+            InitFormShareService();
+            InitFormItemShareService();
         }
 
         /// <summary>
@@ -62,10 +57,27 @@ namespace Util.Ui.NgZorro.Components.Descriptions {
             loader.Load( _config );
         }
 
+        /// <summary>
+        /// 初始化表单共享服务
+        /// </summary>
+        private void InitFormShareService() {
+            var service = new FormShareService( _config );
+            service.Init();
+        }
+
+        /// <summary>
+        /// 初始化表单项共享服务
+        /// </summary>
+        private void InitFormItemShareService() {
+            var service = new FormItemShareService( _config );
+            service.Init();
+            service.InitId();
+        }
+
         /// <inheritdoc />
         protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
             _config.Content = content;
-            return new DescriptionItemRender( _config );
+            return new DisplayRender( _config );
         }
     }
 }

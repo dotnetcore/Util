@@ -2,6 +2,7 @@
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Menus.Renders;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Menus {
@@ -34,6 +35,10 @@ namespace Util.Ui.NgZorro.Components.Menus {
         /// 扩展属性,是否显示disable文本,默认文本为'Disable',i18n文本为'util.disable'
         /// </summary>
         public bool TextDisable { get; set; }
+        /// <summary>
+        /// 扩展属性,设置图标
+        /// </summary>
+        public AntDesignIcon Icon { get; set; }
         /// <summary>
         /// [nzDisabled],是否禁用
         /// </summary>

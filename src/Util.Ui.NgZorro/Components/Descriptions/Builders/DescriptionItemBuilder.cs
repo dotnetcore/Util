@@ -2,7 +2,9 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
@@ -76,8 +78,37 @@ namespace Util.Ui.NgZorro.Components.Descriptions.Builders {
         /// 配置值
         /// </summary>
         private void ConfigValue() {
+            var dataType = _config.GetValue<DataType?>( UiConst.DataType );
             var value = _config.GetValue( UiConst.Value );
-            SetContent( value );
+            if ( value.IsEmpty() )
+                return;
+            if ( dataType == DataType.Bool ) {
+                LoadBool(value);
+                return;
+            }
+            if ( dataType == DataType.Date ) {
+                LoadDate( value );
+                return;
+            }
+            SetContent( "{{" + value + "}}");
+        }
+
+        /// <summary>
+        /// 加载布尔值
+        /// </summary>
+        protected void LoadBool( string value ) {
+            AppendContent( new IconBuilder( _config ).Type( AntDesignIcon.Check.Description() ).Attribute( "*ngIf", $"{value}" ) );
+            AppendContent( new IconBuilder( _config ).Type( AntDesignIcon.Close.Description() ).Attribute( "*ngIf", $"!({value})" ) );
+        }
+
+        /// <summary>
+        /// 加载日期值
+        /// </summary>
+        protected void LoadDate( string value ) {
+            var format = _config.GetValue( UiConst.DateFormat );
+            if ( format.IsEmpty() )
+                format = "yyyy-MM-dd HH:mm";
+            SetContent( $"{{{{{value}|date:\"{format}\"}}}}" );
         }
     }
 }

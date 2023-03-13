@@ -63,6 +63,14 @@ namespace Util.Ui.NgZorro.Components.Checkboxes {
         /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
         /// </summary>
         public bool SpaceItem { get; set; }
+        /// <summary>
+        /// [nzChecked],是否选中
+        /// </summary>
+        public string Checked { get; set; }
+        /// <summary>
+        /// (nzCheckedChange),选中状态变更事件
+        /// </summary>
+        public string OnCheckedChange { get; set; }
 
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

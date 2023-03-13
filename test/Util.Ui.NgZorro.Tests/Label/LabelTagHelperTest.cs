@@ -2,7 +2,6 @@
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Label;
 using Util.Ui.NgZorro.Configs;
-using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -63,7 +62,7 @@ namespace Util.Ui.NgZorro.Tests.Label {
         }
 
         /// <summary>
-        /// 测试文本
+        /// 测试文本 - 多语言
         /// </summary>
         [Fact]
         public void TestText_I18n() {
@@ -90,62 +89,27 @@ namespace Util.Ui.NgZorro.Tests.Label {
         }
 
         /// <summary>
-        /// 测试属性表达式 - 显示标题
+        /// 测试属性表达式
         /// </summary>
         [Fact]
-        public void TestFor_1() {
-            _wrapper.SetContextAttribute( UiConst.Type, LabelType.Title );
-            _wrapper.SetExpression( t => t.Code );
+        public void TestFor() {
+            _wrapper.SetExpression( t => t.Nickname );
             var result = new StringBuilder();
-            result.Append( "<span>code</span>" );
+            result.Append( "<span>a.nickname</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
         /// <summary>
-        /// 测试属性表达式 - 显示值 - 文本类型
+        /// 测试属性表达式 - 多语言
         /// </summary>
         [Fact]
-        public void TestFor_2() {
-            _wrapper.SetExpression( t => t.Code );
-            var result = new StringBuilder();
-            result.Append( "<span>{{model.code}}</span>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试属性表达式 - 显示值 - 布尔类型
-        /// </summary>
-        [Fact]
-        public void TestFor_3() {
-            _wrapper.SetExpression( t => t.Enabled );
+        public void TestFor_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetExpression( t => t.Nickname );
             var result = new StringBuilder();
             result.Append( "<span>" );
-            result.Append( "<i *ngIf=\"model.enabled\" nz-icon=\"\" nzType=\"check\"></i>" );
-            result.Append( "<i *ngIf=\"!(model.enabled)\" nz-icon=\"\" nzType=\"close\"></i>" );
+            result.Append( "{{'a.nickname'|i18n}}" );
             result.Append( "</span>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试属性表达式 - 显示值 - 日期类型
-        /// </summary>
-        [Fact]
-        public void TestFor_4() {
-            _wrapper.SetExpression( t => t.Birthday );
-            var result = new StringBuilder();
-            result.Append( "<span>{{model.birthday | date:\"yyyy-MM-dd HH:mm\"}}</span>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试属性表达式 - 显示值 - 日期类型 - 设置日期格式
-        /// </summary>
-        [Fact]
-        public void TestFor_5() {
-            _wrapper.SetContextAttribute( UiConst.DateFormat, "yyyy-MM" );
-            _wrapper.SetExpression( t => t.Birthday );
-            var result = new StringBuilder();
-            result.Append( "<span>{{model.birthday | date:\"yyyy-MM\"}}</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

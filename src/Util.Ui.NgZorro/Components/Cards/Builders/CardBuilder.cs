@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -124,12 +125,21 @@ namespace Util.Ui.NgZorro.Components.Cards.Builders {
         }
 
         /// <summary>
+        /// 配置事件
+        /// </summary>
+        public CardBuilder Event() {
+            this.OnClick( _config );
+            return this;
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         public override void Config() {
             base.Config();
             Title().Actions().BodyStyle().Borderless().Cover().Extra()
-                .Hoverable().Loading().Type().Size();
+                .Hoverable().Loading().Type().Size()
+                .Event();
         }
     }
 }

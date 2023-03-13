@@ -5,7 +5,7 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Images.Avatar</AssemblyName>
 		<RootNamespace>Util.Images</RootNamespace>
-		<Description>Util.Images.Avatar是Util应用框架的头像生成封装类库</Description>
+		<Description>Util.Images.Avatar是Util应用框架的头像生成操作类库</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

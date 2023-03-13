@@ -59,5 +59,9 @@
         /// 验证模板标识
         /// </summary>
         public string ValidationTempalteId { get; set; }
+        /// <summary>
+        /// ngIf*
+        /// </summary>
+        public string NgIf { get; set; }
     }
 }

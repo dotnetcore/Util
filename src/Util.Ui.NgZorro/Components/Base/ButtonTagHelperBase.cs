@@ -54,6 +54,14 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// </summary>
         public bool TextDisable { get; set; }
         /// <summary>
+        /// 扩展属性,是否显示select all文本,默认文本为'Select All',i18n文本为'util.selectAll'
+        /// </summary>
+        public bool TextSelectAll { get; set; }
+        /// <summary>
+        /// 扩展属性,是否显示deselect all文本,默认文本为'Deselect All',i18n文本为'util.deselectAll'
+        /// </summary>
+        public bool TextDeselectAll { get; set; }
+        /// <summary>
         /// routerLink,路由链接,当按钮类型为链接时可用
         /// </summary>
         public string RouterLink { get; set; }

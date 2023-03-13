@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Util.Domain.Entities;
 
@@ -48,7 +47,6 @@ namespace Util.Domain.Trees {
         /// <summary>
         /// 路径
         /// </summary>
-        [Required]
         public virtual string Path { get;private set; }
 
         /// <summary>

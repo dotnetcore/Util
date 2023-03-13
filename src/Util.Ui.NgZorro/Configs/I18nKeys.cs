@@ -60,6 +60,14 @@
         /// </summary>
         public const string Disable = "util.disable";
         /// <summary>
+        /// util.selectAll
+        /// </summary>
+        public const string SelectAll = "util.selectAll";
+        /// <summary>
+        /// util.deselectAll
+        /// </summary>
+        public const string DeselectAll = "util.deselectAll";
+        /// <summary>
         /// util.defaultOptionText
         /// </summary>
         public const string DefaultOptionText = "util.defaultOptionText";

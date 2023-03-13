@@ -75,6 +75,10 @@ namespace Util.Ui.NgZorro.Components.Cards {
         /// [nzSize],卡片大小，可选值: 'default'|'small',默认值: 'default'
         /// </summary>
         public string BindSize { get; set; }
+        /// <summary>
+        /// (click),单击事件
+        /// </summary>
+        public string OnClick { get; set; }
 
         /// <inheritdoc />
         protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

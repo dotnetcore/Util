@@ -97,17 +97,6 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
-        /// 测试*ngIf
-        /// </summary>
-        [Fact]
-        public void TestNgIf() {
-            _wrapper.SetContextAttribute( AngularConst.NgIf, "a" );
-            var result = new StringBuilder();
-            result.Append( "<input *ngIf=\"a\" nz-input=\"\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试模型绑定
         /// </summary>
         [Fact]

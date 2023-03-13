@@ -83,6 +83,10 @@ namespace Util.Ui.NgZorro.Components.Buttons {
         /// 是否验证表单,设置为true则表单无效时禁用按钮
         /// </summary>
         public bool ValidateForm { get; set; }
+        /// <summary>
+        /// 是否提交表单,true设置为type='submit'
+        /// </summary>
+        public bool IsSubmit { get; set; }
 
         /// <inheritdoc />
         protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

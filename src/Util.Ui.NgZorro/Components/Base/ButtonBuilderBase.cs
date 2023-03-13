@@ -494,6 +494,38 @@ namespace Util.Ui.NgZorro.Components.Base {
         }
 
         /// <summary>
+        /// 配置Select All文本
+        /// </summary>
+        public TBuilder TextSelectAll() {
+            var value = _config.GetValue<bool?>( UiConst.TextSelectAll );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.SelectAll );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Select All" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// 配置Deselect All文本
+        /// </summary>
+        public TBuilder TextDeselectAll() {
+            var value = _config.GetValue<bool?>( UiConst.TextDeselectAll );
+            if ( value != true )
+                return (TBuilder)this;
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                _config.SetAttribute( UiConst.Text, I18nKeys.DeselectAll );
+                return (TBuilder)this;
+            }
+            _config.SetAttribute( UiConst.Text, "Deselect All" );
+            return (TBuilder)this;
+        }
+
+        /// <summary>
         /// 配置文本
         /// </summary>
         public TBuilder Text() {
@@ -547,7 +579,7 @@ namespace Util.Ui.NgZorro.Components.Base {
                 .Tooltip( _config ).Popconfirm( _config )
                 .TextOk().TextCancel().TextCreate().TextUpdate().TextDelete()
                 .TextDetail().TextQuery().TextRefresh().TextSave().TextEnable()
-                .TextDisable().Text()
+                .TextDisable().TextSelectAll().TextDeselectAll().Text()
                 .OnClick().OnVisibleChange().OnPopoverVisibleChange()
                 .ValidateForm();
         }

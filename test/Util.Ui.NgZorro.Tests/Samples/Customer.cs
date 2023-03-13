@@ -25,7 +25,7 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         /// <summary>
         /// 昵称
         ///</summary>
-        [Description( "昵称" )]
+        [Description( "a.nickname" )]
         [MaxLength( 50 )]
         public string Nickname { get; set; }
 		/// <summary>
