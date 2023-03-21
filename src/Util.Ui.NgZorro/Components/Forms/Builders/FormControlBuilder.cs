@@ -2,6 +2,8 @@
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Forms.Builders {
     /// <summary>
@@ -48,9 +50,21 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// 配置额外提示
         /// </summary>
         public FormControlBuilder Extra() {
-            AttributeIfNotEmpty( "nzExtra", _config.GetValue( UiConst.Extra ) );
+            Extra( _config.GetValue( UiConst.Extra ) );
             AttributeIfNotEmpty( "[nzExtra]", _config.GetValue( AngularConst.BindExtra ) );
             return this;
+        }
+
+        /// <summary>
+        /// 配置额外提示
+        /// </summary>
+        private void Extra( string value ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableI18n ) {
+                this.AttributeByI18n( "[nzExtra]", value );
+                return;
+            }
+            AttributeIfNotEmpty( "nzExtra", value );
         }
 
         /// <summary>

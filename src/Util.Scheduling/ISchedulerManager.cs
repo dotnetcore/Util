@@ -9,12 +9,12 @@ namespace Util.Scheduling {
         /// 添加任务
         /// </summary>
         /// <typeparam name="TJob">任务类型</typeparam>
-        Task AddJobAsync<TJob>() where TJob : IJob, new();
+        Task<string> AddJobAsync<TJob>() where TJob : IJob, new();
         /// <summary>
         /// 添加任务
         /// </summary>
         /// <param name="job">任务</param>
-        Task AddJobAsync( IJob job );
+        Task<string> AddJobAsync( IJob job );
         /// <summary>
         /// 扫描添加任务
         /// </summary>

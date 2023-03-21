@@ -5,7 +5,7 @@ namespace Util.Sessions {
     /// <summary>
     /// 用户会话
     /// </summary>
-    public class Session : ISession {
+    public class UserSession : ISession {
         /// <summary>
         /// 空用户会话
         /// </summary>
@@ -14,7 +14,7 @@ namespace Util.Sessions {
         /// <summary>
         /// 用户会话
         /// </summary>
-        public static readonly ISession Instance = new Session();
+        public static readonly ISession Instance = new UserSession();
 
         /// <summary>
         /// 是否认证

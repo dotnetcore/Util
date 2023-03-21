@@ -26,20 +26,20 @@ namespace Util.Scheduling {
         }
 
         /// <inheritdoc />
-        public override Task AddJobAsync( IJob job ) {
+        public override Task<string> AddJobAsync( IJob job ) {
             if ( job == null )
-                return Task.CompletedTask;
+                return null;
             job.Config();
-            ScheduleJob( job as JobBase );
-            return Task.CompletedTask;
+            var result = ScheduleJob( job as JobBase );
+            return Task.FromResult( result );
         }
 
         /// <summary>
         /// 调度任务
         /// </summary>
-        private void ScheduleJob( JobBase job ) {
+        private string ScheduleJob( JobBase job ) {
             if ( job == null )
-                return;
+                return null;
             var jobInfo = job.GetJobInfo();
             var trigger = job.GetTrigger();
             if ( trigger.GetCron().IsEmpty() == false ) {
@@ -48,13 +48,9 @@ namespace Util.Scheduling {
                     RecurringJob.AddOrUpdate( () => job.Execute( job.Data ), trigger.GetCron(),queue:jobInfo.GetQueue() );
                 else 
                     RecurringJob.AddOrUpdate( id, () => job.Execute( job.Data ), trigger.GetCron(), queue: jobInfo.GetQueue() );
-                return;
+                return id;
             }
-            if ( trigger.GetDelay() != null ) {
-                BackgroundJob.Schedule( () => job.Execute( job.Data ), trigger.GetDelay().SafeValue() );
-                return;
-            }
-            BackgroundJob.Enqueue( () => job.Execute( job.Data ) );
+            return trigger.GetDelay() == null ? BackgroundJob.Enqueue( () => job.Execute( job.Data ) ) : BackgroundJob.Schedule( () => job.Execute( job.Data ), trigger.GetDelay().SafeValue() );
         }
 
         /// <inheritdoc />

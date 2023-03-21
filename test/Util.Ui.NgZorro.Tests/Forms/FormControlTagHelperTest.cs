@@ -3,6 +3,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms;
 using Util.Ui.NgZorro.Components.Inputs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -80,6 +81,19 @@ namespace Util.Ui.NgZorro.Tests.Forms {
             _wrapper.SetContextAttribute( UiConst.Extra, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-form-control nzExtra=\"a\">" );
+            result.Append( "</nz-form-control>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试额外提示 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestExtra_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Extra, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-control [nzExtra]=\"'a'|i18n\">" );
             result.Append( "</nz-form-control>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

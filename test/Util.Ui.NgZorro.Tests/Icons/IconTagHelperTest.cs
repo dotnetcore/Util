@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
     /// <summary>
     /// 图标测试
     /// </summary>
-    public class IconTagHelperTest {
+    public partial class IconTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>

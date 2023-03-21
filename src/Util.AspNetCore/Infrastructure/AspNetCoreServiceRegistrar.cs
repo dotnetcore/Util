@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Util.Helpers;
 using Util.Http;
+using Util.Sessions;
 using Util.SystemTextJson;
 
 namespace Util.Infrastructure {
@@ -62,7 +63,7 @@ namespace Util.Infrastructure {
         /// 注册用户会话
         /// </summary>
         private void RegisterSession( IServiceCollection services ) {
-            services.TryAddSingleton<Util.Sessions.ISession, Util.Sessions.Session>();
+            services.TryAddSingleton<Util.Sessions.ISession, UserSession>();
         }
 
         /// <summary>

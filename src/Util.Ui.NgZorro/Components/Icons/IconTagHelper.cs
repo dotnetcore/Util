@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Icons.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -10,7 +10,7 @@ namespace Util.Ui.NgZorro.Components.Icons {
     /// 图标,生成的标签为&lt;i nz-icon&gt;&lt;/i&gt;
     /// </summary>
     [HtmlTargetElement( "util-icon" )]
-    public class IconTagHelper : AngularTagHelperBase {
+    public class IconTagHelper : TooltipTagHelperBase {
         /// <summary>
         /// nzType,图标类型
         /// </summary>

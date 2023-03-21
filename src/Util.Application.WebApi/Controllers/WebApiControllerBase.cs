@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 using Util.Applications.Filters;
+using Util.Helpers;
+using Util.Logging;
 using Util.Properties;
+using Util.Sessions;
 
 namespace Util.Applications.Controllers {
     /// <summary>
@@ -12,6 +16,24 @@ namespace Util.Applications.Controllers {
     [ExceptionHandler]
     [ErroLogFilter]
     public abstract class WebApiControllerBase : ControllerBase {
+        /// <summary>
+        /// 会话
+        /// </summary>
+        protected virtual ISession Session => UserSession.Instance;
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        protected virtual ILog GetLog() {
+            try {
+                var logFactory = Ioc.Create<ILogFactory>();
+                return logFactory.CreateLog( GetType() );
+            }
+            catch {
+                return NullLog.Instance;
+            }
+        }
+
         /// <summary>
         /// 返回成功消息
         /// </summary>
@@ -40,6 +62,22 @@ namespace Util.Applications.Controllers {
         /// <param name="statusCode">Http状态码</param>
         protected virtual IActionResult Fail( string message, int? statusCode = 200 ) {
             return GetResult( StateCode.Fail, message, null, statusCode );
+        }
+
+        /// <summary>
+        /// 获取文件流结果,内容类型设置为 application/octet-stream
+        /// </summary>
+        /// <param name="stream">文件流</param>
+        protected IActionResult GetStreamResult( Stream stream ) {
+            return new FileStreamResult( stream, "application/octet-stream" );
+        }
+
+        /// <summary>
+        /// 获取文件流结果,内容类型设置为 application/octet-stream
+        /// </summary>
+        /// <param name="stream">文件流</param>
+        protected IActionResult GetStreamResult( byte[] stream ) {
+            return GetStreamResult( new MemoryStream( stream ) );
         }
     }
 }

@@ -8,6 +8,10 @@
         /// </summary>
         public static string UserId { get; set; } = "sub";
         /// <summary>
+        /// name,姓名
+        /// </summary>
+        public static string Name { get; set; } = "name";
+        /// <summary>
         /// email,电子邮件
         /// </summary>
         public static string Email { get; set; } = "email";
@@ -15,10 +19,6 @@
         /// phone_number,手机号
         /// </summary>
         public static string PhoneNumber { get; set; } = "phone_number";
-        /// <summary>
-        /// name,姓名
-        /// </summary>
-        public static string FullName { get; set; } = "name";
         /// <summary>
         /// application_id,应用程序标识
         /// </summary>

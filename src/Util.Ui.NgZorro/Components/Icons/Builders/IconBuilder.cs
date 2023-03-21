@@ -3,6 +3,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Icons.Builders {
@@ -148,6 +149,7 @@ namespace Util.Ui.NgZorro.Components.Icons.Builders {
         /// </summary>
         public override void Config() {
             base.Config();
+            this.Tooltip( _config );
             Type().Theme().Color().Spin().Rotate().IconFont().Events();
         }
     }

@@ -26,12 +26,14 @@ namespace Util.Scheduling {
         }
 
         /// <inheritdoc />
-        public override async Task AddJobAsync( IJob job ) {
+        public override async Task<string> AddJobAsync( IJob job ) {
             if ( job == null )
-                return;
+                return null;
             job.Config();
             var scheduler = await _factory.GetScheduler();
-            await scheduler.ScheduleJob( job.GetDetail(), job.GetTrigger() );
+            var detail = job.GetDetail();
+            await scheduler.ScheduleJob( detail, job.GetTrigger() );
+            return null;
         }
 
         /// <inheritdoc />

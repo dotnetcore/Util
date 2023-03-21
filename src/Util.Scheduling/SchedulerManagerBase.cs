@@ -27,12 +27,12 @@ namespace Util.Scheduling {
         }
 
         /// <inheritdoc />
-        public virtual async Task AddJobAsync<TJob>() where TJob : IJob, new() {
-            await AddJobAsync( new TJob() );
+        public virtual async Task<string> AddJobAsync<TJob>() where TJob : IJob, new() {
+            return await AddJobAsync( new TJob() );
         }
 
         /// <inheritdoc />
-        public abstract Task AddJobAsync( IJob job );
+        public abstract Task<string> AddJobAsync( IJob job );
 
         /// <inheritdoc />
         public virtual async Task ScanJobsAsync( bool isScanAllJobs = true ) {
