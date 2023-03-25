@@ -1,4 +1,7 @@
-﻿using Util.Domain.Extending;
+﻿using System;
+using Util.Dates;
+using Util.Domain.Extending;
+using Util.Helpers;
 
 namespace Util.Domain {
     /// <summary>
@@ -14,7 +17,10 @@ namespace Util.Domain {
             source.CheckNull( nameof( source ) );
             if( source.ContainsKey( name ) == false )
                 return default;
-            return Util.Helpers.Convert.To<TProperty>( source[name] );
+            var value = source[name];
+            if ( value is DateTime dateValue && TimeOptions.IsUseUtc )
+                value = Time.UtcToLocalTime( dateValue );
+            return Util.Helpers.Convert.To<TProperty>( value );
         }
 
         /// <summary>
@@ -26,9 +32,21 @@ namespace Util.Domain {
         public static ExtraPropertyDictionary SetProperty( this ExtraPropertyDictionary source, string name, object value ) {
             source.CheckNull( nameof( source ) );
             source.RemoveProperty( name );
-            if ( value != null )
-                source[name] = value;
+            if ( value == null )
+                return source;
+            source[name] = GetPropertyValue(source,value);
             return source;
+        }
+
+        /// <summary>
+        /// 获取属性值
+        /// </summary>
+        private static object GetPropertyValue( ExtraPropertyDictionary source, object value ) {
+            if ( value is string && source.IsTrimString )
+                return value.SafeString();
+            if ( value is DateTime dateValue && TimeOptions.IsUseUtc )
+                return Time.Normalize( dateValue );
+            return value;
         }
 
         /// <summary>

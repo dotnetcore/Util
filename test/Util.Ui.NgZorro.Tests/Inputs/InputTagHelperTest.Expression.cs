@@ -20,7 +20,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
             result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"code\" minLengthMessage=\"编码最小为10位\" " );
             result.Append( "name=\"code\" nz-input=\"\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );
-            result.Append( "[maxlength]=\"100\" [minlength]=\"10\" [required]=\"true\" />" );
+            result.Append( "[maxlength]=\"100\" [minlength]=\"10\" [x-required-extend]=\"true\" />" );
             result.Append( "<ng-template #vt_id=\"\">" );
             result.Append( "{{v_id.getErrorMessage()}}" );
             result.Append( "</ng-template>" );
@@ -158,7 +158,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<nz-form-control [nzSpan]=\"3\">" );
             result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"code\" minLengthMessage=\"编码最小为10位\" " );
             result.Append( "name=\"code\" nz-input=\"\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );
-            result.Append( "[maxlength]=\"100\" [minlength]=\"10\" [required]=\"true\" />" );
+            result.Append( "[maxlength]=\"100\" [minlength]=\"10\" [x-required-extend]=\"true\" />" );
             result.Append( "<ng-template #vt_id=\"\">" );
             result.Append( "{{v_id.getErrorMessage()}}" );
             result.Append( "</ng-template>" );

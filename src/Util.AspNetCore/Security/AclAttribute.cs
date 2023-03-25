@@ -3,7 +3,7 @@ using Util.Security.Authorization;
 
 namespace Util.Security {
     /// <summary>
-    /// 权限控制
+    /// 访问控制
     /// </summary>
     public class AclAttribute : AuthorizeAttribute {
         /// <summary>
@@ -16,14 +16,14 @@ namespace Util.Security {
         private string _resourceUri;
 
         /// <summary>
-        /// 初始化权限控制
+        /// 初始化访问控制
         /// </summary>
         public AclAttribute() {
             Policy = AclPolicyHelper.GetPolicy( null, false );
         }
 
         /// <summary>
-        /// 初始化权限控制
+        /// 初始化访问控制
         /// </summary>
         /// <param name="resourceUri">资源标识</param>
         public AclAttribute( string resourceUri ) {

@@ -49,6 +49,10 @@ namespace Util.Ui.NgZorro.Components.Selects {
         /// </summary>
         public string Data { get; set; }
         /// <summary>
+        /// 扩展属性,是否显示默认项，默认项显示在列表的第一行
+        /// </summary>
+        public bool ShowDefaultOption { get; set; }
+        /// <summary>
         /// 扩展属性,默认项文本，默认项显示在列表的第一行
         /// </summary>
         public string DefaultOptionText { get; set; }

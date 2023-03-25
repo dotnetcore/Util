@@ -18,7 +18,7 @@ namespace Util.Security.Authorization {
                 return;
             if ( requirement == null )
                 return;
-            var httpContext = context.Resource as DefaultHttpContext;
+            var httpContext = GetHttpContext( context.Resource );
             if ( httpContext == null )
                 return;
             if ( httpContext.GetIdentity().IsAuthenticated == false )
@@ -39,6 +39,16 @@ namespace Util.Security.Authorization {
                 return;
             }
             context.Fail( new AuthorizationFailureReason( this, $"没有访问资源 {uri} 的权限" ) );
+        }
+
+        /// <summary>
+        /// 获取Http上下文
+        /// </summary>
+        /// <param name="resource">资源</param>
+        private HttpContext GetHttpContext( dynamic resource ) {
+            if ( resource is DefaultHttpContext httpContext )
+                return httpContext;
+            return resource.HttpContext;
         }
 
         /// <summary>

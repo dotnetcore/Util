@@ -18,7 +18,7 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
             result.Append( "<textarea #v_id=\"xValidationExtend\" displayName=\"code\" minLengthMessage=\"编码最小为10位\" " );
             result.Append( "name=\"code\" nz-input=\"\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" " );
-            result.Append( "[(ngModel)]=\"model.code\" [maxlength]=\"100\" [minlength]=\"10\" [nzAutosize]=\"{minRows:3}\" [required]=\"true\">" );
+            result.Append( "[(ngModel)]=\"model.code\" [maxlength]=\"100\" [minlength]=\"10\" [nzAutosize]=\"{minRows:3}\" [x-required-extend]=\"true\">" );
             result.Append( "</textarea>" );
             result.Append( "<ng-template #vt_id=\"\">" );
             result.Append( "{{v_id.getErrorMessage()}}" );

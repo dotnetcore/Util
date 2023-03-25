@@ -19,7 +19,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [required]=\"true\" />" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"true\" />" );
             result.Append( "<ng-template #vt_id=\"\">" );
             result.Append( "{{v_id.getErrorMessage()}}" );
             result.Append( "</ng-template>" );
@@ -39,7 +39,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-control nzErrorTip=\"a\">" );
-            result.Append( "<input nz-input=\"\" [(ngModel)]=\"model\" [required]=\"true\" />" );
+            result.Append( "<input nz-input=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"true\" />" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -56,7 +56,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"a\">" );
-            result.Append( "<input nz-input=\"\" [(ngModel)]=\"model\" [required]=\"true\" />" );
+            result.Append( "<input nz-input=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"true\" />" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -73,7 +73,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" requiredMessage=\"a\" x-validation-extend=\"\" [(ngModel)]=\"model\" [required]=\"true\" />" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" requiredMessage=\"a\" x-validation-extend=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"true\" />" );
             result.Append( "<ng-template #vt_id=\"\">" );
             result.Append( "{{v_id.getErrorMessage()}}" );
             result.Append( "</ng-template>" );
@@ -93,7 +93,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [requiredMessage]=\"a\" [required]=\"true\" />" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [requiredMessage]=\"a\" [x-required-extend]=\"true\" />" );
             result.Append( "<ng-template #vt_id=\"\">" );
             result.Append( "{{v_id.getErrorMessage()}}" );
             result.Append( "</ng-template>" );

@@ -2,7 +2,7 @@
 
 namespace Util.Security.Authorization {
     /// <summary>
-    /// 权限服务
+    /// 权限管理器
     /// </summary>
     public interface IPermissionManager {
         /// <summary>

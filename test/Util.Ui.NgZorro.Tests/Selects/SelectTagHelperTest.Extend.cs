@@ -237,6 +237,39 @@ namespace Util.Ui.NgZorro.Tests.Selects {
 
         #endregion
 
+        #region ShowDefaultOption
+
+        /// <summary>
+        /// 测试是否显示默认项 - 显示
+        /// </summary>
+        [Fact]
+        public void TestShowDefaultOption_1() {
+            _wrapper.SetContextAttribute( UiConst.ShowDefaultOption, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" x-select-extend=\"\">" );
+            result.Append( "<nz-option [nzLabel]=\"'util.defaultOptionText'|i18n\"></nz-option>" );
+            AppendOptions( result );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试是否显示默认项 - 不显示,覆盖全局配置
+        /// </summary>
+        [Fact]
+        public void TestShowDefaultOption_2() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableDefaultOptionText = true } );
+            _wrapper.SetContextAttribute( UiConst.ShowDefaultOption, false );
+            _wrapper.SetContextAttribute( UiConst.Data, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-select #x_id=\"xSelectExtend\" x-select-extend=\"\" [data]=\"a\">" );
+            AppendOptions( result );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
         #region SearchKeyword
 
         /// <summary>

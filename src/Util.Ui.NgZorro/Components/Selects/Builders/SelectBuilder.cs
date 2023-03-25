@@ -378,6 +378,14 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         }
 
         /// <summary>
+        /// 配置必填项验证
+        /// </summary>
+        public override SelectBuilder Required() {
+            AttributeIfNotEmpty( "[x-required-extend]", _config.GetValue( UiConst.Required ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         public SelectBuilder Events() {
@@ -446,6 +454,9 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 是否启用默认项文本
         /// </summary>
         private bool IsEnableDefaultOptionText() {
+            var showDefaultOption = _config.GetValue<bool?>( UiConst.ShowDefaultOption );
+            if ( showDefaultOption != null )
+                return showDefaultOption.SafeValue();
             var options = NgZorroOptionsService.GetOptions();
             return options is { EnableDefaultOptionText: true };
         }

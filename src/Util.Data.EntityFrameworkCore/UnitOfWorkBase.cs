@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -80,6 +81,10 @@ namespace Util.Data.EntityFrameworkCore {
         /// 事件集合
         /// </summary>
         protected List<IEvent> Events { get; }
+        /// <summary>
+        /// 是否清除字符串两端的空白,默认为true
+        /// </summary>
+        protected virtual bool IsTrimString => true;
 
         #endregion
 
@@ -162,6 +167,7 @@ namespace Util.Data.EntityFrameworkCore {
                 ApplyVersion( modelBuilder, entityType );
                 ApplyIsDeleted( modelBuilder, entityType );
                 ApplyUtc( modelBuilder, entityType );
+                ApplyTrimString( modelBuilder, entityType );
             }
         }
 
@@ -294,12 +300,36 @@ namespace Util.Data.EntityFrameworkCore {
             if ( TimeOptions.IsUseUtc == false )
                 return;
             var properties = entityType.ClrType.GetProperties()
-                .Where( property => ( property.PropertyType == typeof( DateTime ) || property.PropertyType == typeof( DateTime? ) ) && property.CanWrite )
+                .Where( property => ( property.PropertyType == typeof( DateTime ) || property.PropertyType == typeof( DateTime? ) ) && property.CanWrite &&
+                                    property.GetCustomAttribute<NotMappedAttribute>() == null )
                 .ToList();
             properties.ForEach( property => {
                 modelBuilder.Entity( entityType.ClrType )
                     .Property( property.Name )
                     .HasConversion( new DateTimeValueConverter() );
+            } );
+        }
+
+        #endregion
+
+        #region ApplyTrimString(配置清除空白字符串)
+
+        /// <summary>
+        /// 配置清除空白字符串
+        /// </summary>
+        /// <param name="modelBuilder">模型生成器</param>
+        /// <param name="entityType">实体类型</param>
+        protected virtual void ApplyTrimString( ModelBuilder modelBuilder, IMutableEntityType entityType ) {
+            if ( IsTrimString == false )
+                return;
+            var properties = entityType.ClrType.GetProperties()
+                .Where( property => property.PropertyType == typeof( string ) && property.CanWrite &&
+                        property.GetCustomAttribute<NotMappedAttribute>() == null )
+                .ToList();
+            properties.ForEach( property => {
+                modelBuilder.Entity( entityType.ClrType )
+                    .Property( property.Name )
+                    .HasConversion( new TrimStringValueConverter() );
             } );
         }
 

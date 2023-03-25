@@ -760,6 +760,10 @@
         /// </summary>
         public const string DefaultOptionText = "default-option-text";
         /// <summary>
+        /// 是否显示默认项
+        /// </summary>
+        public const string ShowDefaultOption = "show-default-option";
+        /// <summary>
         /// 最小行数
         /// </summary>
         public const string MinRows = "min-rows";

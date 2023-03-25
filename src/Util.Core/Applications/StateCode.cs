@@ -11,5 +11,9 @@
         /// 成功
         /// </summary>
         public const string Ok = "1";
+        /// <summary>
+        /// 未授权
+        /// </summary>
+        public const string Unauthorized = "2";
     }
 }

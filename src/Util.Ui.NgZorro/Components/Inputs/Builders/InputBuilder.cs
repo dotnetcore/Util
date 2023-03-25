@@ -96,6 +96,14 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         }
 
         /// <summary>
+        /// 配置必填项验证
+        /// </summary>
+        public override InputBuilder Required() {
+            AttributeIfNotEmpty( "[x-required-extend]", _config.GetValue( UiConst.Required ) );
+            return this;
+        }
+
+        /// <summary>
         /// 配置事件
         /// </summary>
         public InputBuilder Events() {

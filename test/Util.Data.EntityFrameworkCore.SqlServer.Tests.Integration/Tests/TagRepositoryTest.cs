@@ -23,19 +23,22 @@ namespace Util.Data.EntityFrameworkCore.Tests {
         }
 
         /// <summary>
-        /// 测试添加实体
+        /// 测试添加实体 - 自动清除字符串两端空白
         /// </summary>
         [Fact]
         public async Task TestAddAsync() {
             //添加实体
             var entity = TagFakeService.GetTag();
             entity.Init();
+            entity.Name = "                         a                                ";
             await _repository.AddAsync( entity );
             await UnitOfWork.CommitAsync();
             UnitOfWork.ClearCache();
 
             //验证
-            Assert.True( await _repository.ExistsAsync( t => t.Id == entity.Id ) );
+            var result = await _repository.FindByIdAsync( entity.Id );
+            Assert.True( result != null );
+            Assert.Equal( "a",result.Name );
         }
     }
 }

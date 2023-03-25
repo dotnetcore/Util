@@ -17,5 +17,10 @@ namespace Util.Domain.Extending {
         /// <param name="dictionary">字典</param>
         public ExtraPropertyDictionary( IDictionary<string, object> dictionary ) : base( dictionary ) {
         }
+
+        /// <summary>
+        /// 是否清除字符串两端的空白,默认为true
+        /// </summary>
+        public bool IsTrimString { get; set; } = true;
     }
 }
