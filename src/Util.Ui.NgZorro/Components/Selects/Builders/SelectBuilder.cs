@@ -3,7 +3,6 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Containers.Builders;
-using Util.Ui.NgZorro.Components.Selects.Configs;
 using Util.Ui.NgZorro.Components.Spins.Builders;
 using Util.Ui.NgZorro.Components.Templates.Builders;
 using Util.Ui.NgZorro.Configs;
@@ -17,14 +16,35 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly SelectConfig _config;
+        private readonly Config _config;
+        /// <summary>
+        /// 标识
+        /// </summary>
+        private string _id;
 
         /// <summary>
         /// 初始化选择器标签生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public SelectBuilder( SelectConfig config ) : base( config, "nz-select" ) {
+        public SelectBuilder( Config config ) : base( config, "nz-select" ) {
             _config = config;
+        }
+
+        /// <summary>
+        /// 扩展标识
+        /// </summary>
+        protected string ExtendId => $"x_{GetId()}";
+
+        /// <summary>
+        /// 获取标识
+        /// </summary>
+        private string GetId() {
+            if ( _id.IsEmpty() == false )
+                return _id;
+            _id = _config.GetValue( UiConst.Id );
+            if ( _id.IsEmpty() )
+                _id = Util.Helpers.Id.Create();
+            return _id;
         }
 
         /// <summary>
@@ -454,6 +474,9 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 是否启用默认项文本
         /// </summary>
         private bool IsEnableDefaultOptionText() {
+            var mode = _config.GetValue<SelectMode?>( UiConst.Mode );
+            if ( mode == SelectMode.Multiple || mode == SelectMode.Tags )
+                return false;
             var showDefaultOption = _config.GetValue<bool?>( UiConst.ShowDefaultOption );
             if ( showDefaultOption != null )
                 return showDefaultOption.SafeValue();
@@ -467,7 +490,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         public SelectBuilder EnableExtend() {
             if ( IsEnableExtend() == false )
                 return this;
-            Attribute( $"#{_config.ExtendId}", "xSelectExtend" );
+            Attribute( $"#{ExtendId}", "xSelectExtend" );
             Attribute( "x-select-extend" );
             EnableLoading();
             EnableSearchKeyword();
@@ -528,7 +551,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         private void EnableLoading() {
             if ( GetUrl().IsEmpty() && GetBindUrl().IsEmpty() )
                 return;
-            Loading( $"{_config.ExtendId}.loading" );
+            Loading( $"{ExtendId}.loading" );
         }
 
         /// <summary>
@@ -540,7 +563,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
                 return;
             ShowSearch( "true" );
             ServerSearch( "true" );
-            OnSearch( $"{_config.ExtendId}.search($event)" );
+            OnSearch( $"{ExtendId}.search($event)" );
             AttributeIfNotEmpty( "[searchDelay]", _config.GetValue( UiConst.SearchDelay ) );
         }
 
@@ -552,7 +575,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
             if ( result != true )
                 return;
             ServerSearch( "true" );
-            OnScrollToBottom( $"{_config.ExtendId}.scrollToBottom()" );
+            OnScrollToBottom( $"{ExtendId}.scrollToBottom()" );
             AttributeIfNotEmpty( "[isScrollLoad]", "true" );
             ConfigDropdownTemplate();
         }
@@ -561,12 +584,12 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// 配置下拉加载图标
         /// </summary>
         private void ConfigDropdownTemplate() {
-            var templateId = $"tpl_{_config.ExtendId}";
+            var templateId = $"tpl_{ExtendId}";
             DropdownRender( templateId );
             var templateBuilder = new TemplateBuilder( _config );
             templateBuilder.Id( templateId );
             var spinBuilder = new SpinBuilder( _config );
-            spinBuilder.NgIf( $"{_config.ExtendId}.loading" );
+            spinBuilder.NgIf( $"{ExtendId}.loading" );
             templateBuilder.AppendContent( spinBuilder );
             PostBuilder = templateBuilder;
         }
@@ -576,10 +599,10 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// </summary>
         private void ConfigOption() {
             var containerBuilder = new ContainerBuilder( _config );
-            containerBuilder.NgIf( $"!{_config.ExtendId}.isGroup" );
+            containerBuilder.NgIf( $"!{ExtendId}.isGroup" );
             var optionBuilder = new OptionBuilder( _config );
             containerBuilder.AppendContent( optionBuilder );
-            optionBuilder.NgFor( $"let item of {_config.ExtendId}.options" );
+            optionBuilder.NgFor( $"let item of {ExtendId}.options" );
             ConfigBindLabel( optionBuilder );
             optionBuilder.BindValue( "item.value" );
             optionBuilder.Disabled( "item.disabled" );
@@ -603,10 +626,10 @@ namespace Util.Ui.NgZorro.Components.Selects.Builders {
         /// </summary>
         private void ConfigOptionGroup() {
             var containerBuilder = new ContainerBuilder( _config );
-            containerBuilder.NgIf( $"{_config.ExtendId}.isGroup" );
+            containerBuilder.NgIf( $"{ExtendId}.isGroup" );
             var groupBuilder = new OptionGroupBuilder( _config );
             containerBuilder.AppendContent( groupBuilder );
-            groupBuilder.NgFor( $"let group of {_config.ExtendId}.optionGroups" );
+            groupBuilder.NgFor( $"let group of {ExtendId}.optionGroups" );
             groupBuilder.BindLabel( "group.text" );
             var optionBuilder = new OptionBuilder( _config );
             groupBuilder.AppendContent( optionBuilder );

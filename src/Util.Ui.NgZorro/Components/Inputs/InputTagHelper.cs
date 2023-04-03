@@ -189,6 +189,10 @@ namespace Util.Ui.NgZorro.Components.Inputs {
         /// </summary>
         public string Autocomplete { get; set; }
         /// <summary>
+        /// 扩展属性,自动完成是否启用服务端搜索关键字,在搜索框输入时,设置查询参数的Keyword属性并发送请求,默认值：false
+        /// </summary>
+        public bool AutocompleteSearchKeyword { get; set; }
+        /// <summary>
         /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
         /// </summary>
         public bool SpaceItem { get; set; }

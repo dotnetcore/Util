@@ -1,10 +1,11 @@
-using Microsoft.Extensions.DependencyInjection;
+using EasyCaching.Core.Configurations;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Util.Aop;
 using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
-namespace Util.Caching.EasyCaching.Tests {
+namespace Util.Caching.EasyCaching {
     /// <summary>
     /// ∆Ù∂Ø≈‰÷√
     /// </summary>
@@ -16,7 +17,14 @@ namespace Util.Caching.EasyCaching.Tests {
             hostBuilder.ConfigureDefaults( null )
                 .AddUtil( options => {
                     Util.Helpers.Environment.SetDevelopment();
-                    options.UseEasyCaching( easyCachingOptions => easyCachingOptions.UseInMemory() );
+                    options.UseAop()
+                        .UseRedisCache( t => {
+                        t.MaxRdSecond = 0;
+                        t.DBConfig.AllowAdmin = true;
+                        t.DBConfig.KeyPrefix = "test:";
+                        t.DBConfig.Endpoints.Add( new ServerEndPoint( "192.168.31.157", 6379 ) );
+                    } );
+                    options.UseMemoryCache( t => t.MaxRdSecond = 0 );
                 } );
         }
 

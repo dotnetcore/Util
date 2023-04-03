@@ -2,7 +2,6 @@
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
 using Util.Ui.NgZorro.Components.Radios.Configs;
-using Util.Ui.NgZorro.Components.Selects.Configs;
 using Util.Ui.NgZorro.Components.Selects.Helpers;
 
 namespace Util.Ui.NgZorro.Components.Radios.Helpers {
@@ -13,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Radios.Helpers {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly SelectConfig _config;
+        private readonly Config _config;
         /// <summary>
         /// 单选框组合共享配置
         /// </summary>
@@ -23,7 +22,7 @@ namespace Util.Ui.NgZorro.Components.Radios.Helpers {
         /// 初始化单选框服务
         /// </summary>
         /// <param name="config">配置</param>
-        public RadioService( SelectConfig config ) {
+        public RadioService( Config config ) {
             _config = config;
         }
 
@@ -32,7 +31,6 @@ namespace Util.Ui.NgZorro.Components.Radios.Helpers {
         /// </summary>
         public void Init() {
             InitShareConfig();
-            InitSelectConfig();
             LoadExpression();
             InitValidationService();
             InitFormShareService();
@@ -65,13 +63,6 @@ namespace Util.Ui.NgZorro.Components.Radios.Helpers {
         /// </summary>
         private RadioGroupShareConfig GetShareConfig() {
             return _config.GetValueFromItems<RadioGroupShareConfig>();
-        }
-
-        /// <summary>
-        /// 初始化共享配置
-        /// </summary>
-        private void InitSelectConfig() {
-            _config.ExtendId = _shareConfig.ExtendId;
         }
 
         /// <summary>

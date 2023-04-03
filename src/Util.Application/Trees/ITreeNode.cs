@@ -33,6 +33,10 @@ namespace Util.Applications.Trees {
         /// </summary>
         bool? Expanded { get; set; }
         /// <summary>
+        /// 复选框是否被勾选
+        /// </summary>
+        bool? Checked { get; set; }
+        /// <summary>
         /// 排序号
         /// </summary>
         int? SortId { get; set; }
@@ -40,5 +44,9 @@ namespace Util.Applications.Trees {
         /// 是否叶节点
         /// </summary>
         bool? Leaf { get; set; }
+        /// <summary>
+        /// 是否隐藏
+        /// </summary>
+        bool? Hide { get; set; }
     }
 }

@@ -33,5 +33,13 @@ namespace Util.Ui.Angular.TagHelpers {
         /// [ngClass]
         /// </summary>
         public string NgClass { get; set; }
+        /// <summary>
+        /// *aclIf,访问控制,设置资源标识
+        /// </summary>
+        public string Acl { get; set; }
+        /// <summary>
+        /// [acl],访问控制
+        /// </summary>
+        public string BindAcl { get; set; }
     }
 }

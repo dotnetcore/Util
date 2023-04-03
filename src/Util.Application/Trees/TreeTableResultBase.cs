@@ -114,7 +114,12 @@ namespace Util.Applications.Trees {
         /// 是否叶节点
         /// </summary>
         protected virtual bool IsLeaf( TSourceNode node ) {
-            return _data.All( t => t.ParentId != node.Id );
+            if ( _data.All( t => t.ParentId != node.Id ) )
+                return true;
+            var children = _data.FindAll( t => t.ParentId == node.Id );
+            if ( children.All( t => t.Hide == true ) )
+                return true;
+            return false;
         }
 
         /// <summary>

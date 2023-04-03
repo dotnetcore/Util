@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Selects {
@@ -221,10 +222,36 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         }
 
         /// <summary>
-        /// 测试默认项文本 - 启用默认项文本,覆盖
+        /// 测试默认项文本 - 多选模式不启用默认项文本
         /// </summary>
         [Fact]
         public void TestDefaultOptionText_3() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableDefaultOptionText = true } );
+            _wrapper.SetContextAttribute( UiConst.Mode, SelectMode.Multiple );
+            var result = new StringBuilder();
+            result.Append( "<nz-select nzMode=\"multiple\">" );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试默认项文本 - 标签模式不启用默认项文本
+        /// </summary>
+        [Fact]
+        public void TestDefaultOptionText_4() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableDefaultOptionText = true } );
+            _wrapper.SetContextAttribute( UiConst.Mode, SelectMode.Tags );
+            var result = new StringBuilder();
+            result.Append( "<nz-select nzMode=\"tags\">" );
+            result.Append( "</nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试默认项文本 - 启用默认项文本,覆盖
+        /// </summary>
+        [Fact]
+        public void TestDefaultOptionText_5() {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableDefaultOptionText = true } );
             _wrapper.SetContextAttribute( UiConst.DefaultOptionText, " " );
             var result = new StringBuilder();

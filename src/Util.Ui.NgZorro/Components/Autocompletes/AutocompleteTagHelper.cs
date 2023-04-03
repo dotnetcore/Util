@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Autocompletes.Helpers;
 using Util.Ui.NgZorro.Components.Autocompletes.Renders;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.Renders;
@@ -10,6 +11,42 @@ namespace Util.Ui.NgZorro.Components.Autocompletes {
     /// </summary>
     [HtmlTargetElement( "util-autocomplete" )]
     public class AutocompleteTagHelper : FormControlTagHelperBase {
+        /// <summary>
+        /// 配置
+        /// </summary>
+        private Config _config;
+        /// <summary>
+        /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用,默认为 false
+        /// </summary>
+        public bool EnableExtend { get; set; }
+        /// <summary>
+        /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
+        /// </summary>
+        public bool AutoLoad { get; set; }
+        /// <summary>
+        /// 扩展属性 [(queryParam)],查询参数
+        /// </summary>
+        public string QueryParam { get; set; }
+        /// <summary>
+        /// 扩展属性 order,排序条件,范例: creationTime desc
+        /// </summary>
+        public string Sort { get; set; }
+        /// <summary>
+        /// 扩展属性 [order],排序条件,范例: creationTime desc
+        /// </summary>
+        public string BindSort { get; set; }
+        /// <summary>
+        /// 扩展属性 url,Api地址
+        /// </summary>
+        public string Url { get; set; }
+        /// <summary>
+        /// 扩展属性 [url],Api地址
+        /// </summary>
+        public string BindUrl { get; set; }
+        /// <summary>
+        /// 扩展属性 [data],数据源
+        /// </summary>
+        public string Data { get; set; }
         /// <summary>
         /// [nzBackfill],使用键盘选择选项时，是否把当前高亮项的值即时回填到输入框中
         /// </summary>
@@ -58,12 +95,18 @@ namespace Util.Ui.NgZorro.Components.Autocompletes {
         /// [compareWith],比较算法函数,函数定义:(o1: any, o2: any) => boolean
         /// </summary>
         public string CompareWith { get; set; }
-        
+
+        /// <inheritdoc />
+        protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+            _config = new Config( context, output );
+            var service = new AutocompleteService( _config );
+            service.Init();
+        }
 
         /// <inheritdoc />
         protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
-            var config = new Config( context, output, content );
-            return new AutocompleteRender( config );
+            _config.Content = content;
+            return new AutocompleteRender( _config );
         }
     }
 }

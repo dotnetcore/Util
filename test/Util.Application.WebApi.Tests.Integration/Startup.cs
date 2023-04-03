@@ -39,7 +39,7 @@ namespace Util.Applications {
                 .AddUtil( options => {
                     Environment.SetDevelopment();
                     options.UseLock()
-                        .UseEasyCaching( easyCachingOptions => easyCachingOptions.UseInMemory() );
+                        .UseMemoryCache();
                 } );
         }
 

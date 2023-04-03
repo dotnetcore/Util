@@ -27,7 +27,7 @@ namespace Util.Ui.Expressions {
             result.DisplayName = GetDisplayName( property );
             result.IsPassword = GetIsPassword( property );
             result.IsBool = GetIsBool( property );
-			result.IsEnum = GetIsEnum( property );
+            result.IsEnum = GetIsEnum( property );
             result.IsDate = GetIsDate( property );
             result.IsInt = GetIsInt( property );
             result.IsNumber = GetIsNumber( property );
@@ -61,7 +61,7 @@ namespace Util.Ui.Expressions {
             if ( originalPropertyName.IsEmpty() )
                 return null;
             var array = originalPropertyName.Split( '.' );
-            return array.Select( Util.Helpers.String.FirstLowerCase ).Join( separator: "." );
+            return array.Select( ModelExpressionHelper.ConvertName ).Join( separator: "." );
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Util.Ui.Expressions {
         /// 获取最后一级属性名
         /// </summary>
         protected virtual string GetLastPropertyName( MemberInfo property ) {
-            return Util.Helpers.String.FirstLowerCase(property.Name);
+            return ModelExpressionHelper.ConvertName( property.Name );
         }
 
         /// <summary>
@@ -106,18 +106,18 @@ namespace Util.Ui.Expressions {
         /// 获取是否密码类型
         /// </summary>
         protected virtual bool GetIsPassword( MemberInfo property ) {
-	        var attribute = property.GetCustomAttribute<DataTypeAttribute>();
-	        if ( attribute == null )
-		        return false;
-	        if ( attribute.DataType == DataType.Password )
-		        return true;
-			return false;
+            var attribute = property.GetCustomAttribute<DataTypeAttribute>();
+            if ( attribute == null )
+                return false;
+            if ( attribute.DataType == DataType.Password )
+                return true;
+            return false;
         }
 
-		/// <summary>
-		/// 获取是否布尔类型
-		/// </summary>
-		protected virtual bool GetIsBool( MemberInfo property ) {
+        /// <summary>
+        /// 获取是否布尔类型
+        /// </summary>
+        protected virtual bool GetIsBool( MemberInfo property ) {
             return Util.Helpers.Reflection.IsBool( property );
         }
 

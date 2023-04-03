@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Util.Caching;
 
 namespace Util.Applications.Locks {
@@ -15,7 +16,7 @@ namespace Util.Applications.Locks {
         /// </summary>
         private string _key;
         /// <summary>
-        /// 延迟执行时间
+        /// 锁定时间间隔
         /// </summary>
         private TimeSpan? _expiration;
 
@@ -33,16 +34,34 @@ namespace Util.Applications.Locks {
             _expiration = expiration;
             if ( _cache.Exists( key ) )
                 return false;
-            return _cache.TryAdd( key, 1, expiration );
+            return _cache.TrySet( key, 1, new CacheOptions { Expiration = expiration } );
+        }
+
+        /// <inheritdoc />
+        public async Task<bool> LockAsync( string key, TimeSpan? expiration = null ) {
+            _key = key;
+            _expiration = expiration;
+            if ( await _cache.ExistsAsync( key ) )
+                return false;
+            return await _cache.TrySetAsync( key, 1, new CacheOptions { Expiration = expiration } );
         }
 
         /// <inheritdoc />
         public void UnLock() {
             if ( _expiration != null )
                 return;
-            if( _cache.Exists( _key ) == false )
+            if ( _cache.Exists( _key ) == false )
                 return;
             _cache.Remove( _key );
+        }
+
+        /// <inheritdoc />
+        public async Task UnLockAsync() {
+            if ( _expiration != null )
+                return;
+            if ( await _cache.ExistsAsync( _key ) == false )
+                return;
+            await _cache.RemoveAsync( _key );
         }
     }
 }

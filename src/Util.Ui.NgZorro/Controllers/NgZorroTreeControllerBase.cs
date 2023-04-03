@@ -53,9 +53,9 @@ namespace Util.Ui.NgZorro.Controllers {
         /// </summary>
         /// <param name="query">查询参数</param>
         protected async Task<IActionResult> TreeQueryAsync( TQuery query ) {
-            var service = new TreeQueryService<TDto, TQuery>( _service, GetLoadMode(), GetOperation( query ),
+            var action = new NgZorroTreeQueryAction<TDto, TQuery>( _service, GetLoadMode(), GetOperation( query ),
                 GetMaxPageSize(), IsFirstLoad(), IsExpandAll(), IsExpandForRootAsync(), GetLoadKeys( query ), QueryBefore, QueryAfter );
-            var result = await service.QueryAsync( query );
+            var result = await action.QueryAsync( query );
             return Success( result );
         }
     }

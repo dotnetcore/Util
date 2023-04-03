@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Util.Applications.Locks {
     /// <summary>
@@ -16,7 +17,17 @@ namespace Util.Applications.Locks {
         }
 
         /// <inheritdoc />
+        public Task<bool> LockAsync( string key, TimeSpan? expiration = null ) {
+            return Task.FromResult( true );
+        }
+
+        /// <inheritdoc />
         public void UnLock() {
+        }
+
+        /// <inheritdoc />
+        public Task UnLockAsync() {
+            return Task.CompletedTask;
         }
     }
 }

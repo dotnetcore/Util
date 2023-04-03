@@ -30,6 +30,7 @@
     <ProjectReference Include="..\..\src\Util.Application.WebApi\03-Util.Application.WebApi.csproj" />
     <ProjectReference Include="..\..\src\Util.Caching.EasyCaching\02-Util.Caching.EasyCaching.csproj" />
     <ProjectReference Include="..\..\src\Util.Events\01-Util.Events.csproj" />
+    <ProjectReference Include="..\..\src\Util.Logging.Serilog\02-Util.Logging.Serilog.csproj" />
     <ProjectReference Include="..\Util.TestShare\Util.TestShare.csproj" />
   </ItemGroup>
 

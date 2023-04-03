@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<IsPackable>false</IsPackable>
-		<RootNamespace>Util.Caching.EasyCaching.Tests</RootNamespace>
-		<XunitStartupFullName>Util.Caching.EasyCaching.Tests.Startup</XunitStartupFullName>
+		<RootNamespace>Util.Caching.EasyCaching</RootNamespace>
+		<XunitStartupFullName>Util.Caching.EasyCaching.Startup</XunitStartupFullName>
 	</PropertyGroup>
 
 	<ItemGroup>

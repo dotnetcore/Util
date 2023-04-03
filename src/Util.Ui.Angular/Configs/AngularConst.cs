@@ -44,6 +44,10 @@
         /// </summary>
         public const string BindLink = "bind-link";
         /// <summary>
+        /// 访问控制
+        /// </summary>
+        public const string BindAcl = "bind-acl";
+        /// <summary>
         /// 首页
         /// </summary>
         public const string BindHome = "bind-home";

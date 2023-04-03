@@ -82,6 +82,10 @@ namespace Util.Applications.Trees {
         /// </summary>
         public bool? Leaf { get; set; }
         /// <summary>
+        /// 是否隐藏
+        /// </summary>
+        public bool? Hide { get; set; }
+        /// <summary>
         /// 获取树节点显示文本
         /// </summary>
         public abstract string GetText();

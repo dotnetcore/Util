@@ -40,6 +40,10 @@
         /// </summary>
         public const string DropdownRender = "dropdown-render";
         /// <summary>
+        /// 访问控制
+        /// </summary>
+        public const string Acl = "acl";
+        /// <summary>
         /// 类型
         /// </summary>
         public const string Type = "type";
@@ -1148,10 +1152,6 @@
         /// </summary>
         public const string IsButton = "is-button";
         /// <summary>
-        /// 自动完成
-        /// </summary>
-        public const string AutoComplete = "autocomplete";
-        /// <summary>
         /// 选中索引变化事件
         /// </summary>
         public const string OnSelectedIndexChange = "on-selected-index-change";
@@ -2087,6 +2087,10 @@
         /// 自动完成
         /// </summary>
         public const string Autocomplete = "autocomplete";
+        /// <summary>
+        /// 自动完成搜索关键字
+        /// </summary>
+        public const string AutocompleteSearchKeyword = "autocomplete-search-keyword";
         /// <summary>
         /// 回填
         /// </summary>

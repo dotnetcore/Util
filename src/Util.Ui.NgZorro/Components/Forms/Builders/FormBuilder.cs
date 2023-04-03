@@ -70,7 +70,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// 配置自动完成
         /// </summary>
         public FormBuilder AutoComplete() {
-            var isAutoComplete = _config.GetValue<bool?>( UiConst.AutoComplete );
+            var isAutoComplete = _config.GetValue<bool?>( UiConst.Autocomplete );
             if ( isAutoComplete == null )
                 return this;
             if( isAutoComplete == true ) {

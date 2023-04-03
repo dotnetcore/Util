@@ -370,6 +370,28 @@ namespace Util.Ui.NgZorro.Tests.Tables {
         }
 
         /// <summary>
+        /// 测试滚动高度
+        /// </summary>
+        [Fact]
+        public void TestScrollHeight() {
+            _wrapper.SetContextAttribute( UiConst.ScrollHeight, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-table [nzScroll]=\"{'y':'a'}\"></nz-table>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试滚动宽度
+        /// </summary>
+        [Fact]
+        public void TestScrollWidth() {
+            _wrapper.SetContextAttribute( UiConst.ScrollWidth, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-table [nzScroll]=\"{'x':'a'}\"></nz-table>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试标题
         /// </summary>
         [Fact]

@@ -9,11 +9,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using Util.SystemTextJson;
 
-namespace Util.Helpers {
+namespace Util.Helpers
+{
     /// <summary>
     /// Json操作
     /// </summary>
     public static class Json {
+        /// <summary>
+        /// 将对象转换为Json字符串
+        /// </summary>
+        /// <param name="value">目标对象</param>
+        /// <param name="options">Json配置</param>
+        public static string ToJson<T>( T value, JsonOptions options ) {
+            options ??= new JsonOptions();
+            var jsonSerializerOptions = new JsonSerializerOptions();
+            if ( options.IgnoreNullValues )
+                jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            return ToJson( value, jsonSerializerOptions, options.RemoveQuotationMarks, options.ToSingleQuotes );
+        }
+
         /// <summary>
         /// 将对象转换为Json字符串
         /// </summary>
@@ -62,7 +76,7 @@ namespace Util.Helpers {
             await JsonSerializer.SerializeAsync( stream, value, typeof( T ), options, cancellationToken );
             stream.Position = 0;
             using var reader = new StreamReader( stream );
-            return await reader.ReadToEndAsync();
+            return await reader.ReadToEndAsync( cancellationToken );
         }
 
         /// <summary>

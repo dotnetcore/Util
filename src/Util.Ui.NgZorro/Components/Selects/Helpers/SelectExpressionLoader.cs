@@ -6,7 +6,6 @@ using System.Text.Unicode;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Expressions;
-using Util.Ui.NgZorro.Components.Selects.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Expressions;
 
@@ -21,13 +20,10 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
         /// <param name="config">配置</param>
         /// <param name="info">模型表达式信息</param>
         protected override void Load( Config config, ModelExpressionInfo info ) {
-            var selectConfig = config as SelectConfig;
-            if ( selectConfig == null )
-                return;
             LoadLabel( config, info );
             LoadName( config, info );
             LoadNgModel( config, info );
-            LoadData( selectConfig, info );
+            LoadData( config, info );
             LoadRequired( config, info );
         }
 
@@ -55,7 +51,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
         /// <summary>
         /// 加载数据源
         /// </summary>
-        protected virtual void LoadData( SelectConfig config, ModelExpressionInfo info ) {
+        protected virtual void LoadData( Config config, ModelExpressionInfo info ) {
             LoadBool( config, info );
             LoadEnum( config, info );
         }
@@ -63,7 +59,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
         /// <summary>
         /// 加载布尔值
         /// </summary>
-        protected virtual void LoadBool( SelectConfig config, ModelExpressionInfo info ) {
+        protected virtual void LoadBool( Config config, ModelExpressionInfo info ) {
             if ( info.IsBool == false )
                 return;
             config.SetAttribute( UiConst.Data, GetBoolData(), false );
@@ -102,7 +98,7 @@ namespace Util.Ui.NgZorro.Components.Selects.Helpers {
         /// <summary>
         /// 加载枚举值
         /// </summary>
-        protected virtual void LoadEnum( SelectConfig config, ModelExpressionInfo info ) {
+        protected virtual void LoadEnum( Config config, ModelExpressionInfo info ) {
             if ( info.IsEnum == false )
                 return;
             var items = Util.Helpers.Enum.GetItems( info.ModelType );

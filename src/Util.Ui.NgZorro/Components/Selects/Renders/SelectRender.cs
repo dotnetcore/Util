@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Util.Ui.Builders;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Selects.Builders;
-using Util.Ui.NgZorro.Components.Selects.Configs;
 
 namespace Util.Ui.NgZorro.Components.Selects.Renders {
     /// <summary>
@@ -12,13 +12,13 @@ namespace Util.Ui.NgZorro.Components.Selects.Renders {
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly SelectConfig _config;
+        private readonly Config _config;
 
         /// <summary>
         /// 初始化选择器渲染器
         /// </summary>
         /// <param name="config">配置</param>
-        public SelectRender( SelectConfig config ) : base( config ) {
+        public SelectRender( Config config ) : base( config ) {
             _config = config;
         }
 

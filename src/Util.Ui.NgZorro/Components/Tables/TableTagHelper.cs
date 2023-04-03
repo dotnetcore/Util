@@ -185,6 +185,14 @@ namespace Util.Ui.NgZorro.Components.Tables {
         /// </summary>
         public string Scroll { get; set; }
         /// <summary>
+        /// 扩展属性 [nzScroll], 内容区滚动高度,用于支持固定表头，范例：400，表示 [nzScroll]="{ y: '400px' }"
+        /// </summary>
+        public string ScrollHeight { get; set; }
+        /// <summary>
+        /// 扩展属性 [nzScroll], 滚动宽度,用于支持固定列，范例：400，表示 [nzScroll]="{ x: '400px' }"
+        /// </summary>
+        public string ScrollWidth { get; set; }
+        /// <summary>
         /// nzTitle,表格标题,类型: string | TemplateRef&lt;void>
         /// </summary>
         public string Title { get; set; }

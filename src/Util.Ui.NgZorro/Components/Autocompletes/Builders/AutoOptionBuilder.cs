@@ -25,7 +25,15 @@ namespace Util.Ui.NgZorro.Components.Autocompletes.Builders {
         /// </summary>
         public AutoOptionBuilder Value() {
             AttributeIfNotEmpty( "nzValue", _config.GetValue( UiConst.Value ) );
-            AttributeIfNotEmpty( "[nzValue]", _config.GetValue( AngularConst.BindValue ) );
+            BindValue( _config.GetValue( AngularConst.BindValue ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置值
+        /// </summary>
+        public AutoOptionBuilder BindValue( string value ) {
+            AttributeIfNotEmpty( "[nzValue]", value );
             return this;
         }
 
@@ -34,7 +42,15 @@ namespace Util.Ui.NgZorro.Components.Autocompletes.Builders {
         /// </summary>
         public AutoOptionBuilder Label() {
             AttributeIfNotEmpty( "nzLabel", _config.GetValue( UiConst.Label ) );
-            AttributeIfNotEmpty( "[nzLabel]", _config.GetValue( AngularConst.BindLabel ) );
+            BindLabel( _config.GetValue( AngularConst.BindLabel ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置标签
+        /// </summary>
+        public AutoOptionBuilder BindLabel( string value ) {
+            AttributeIfNotEmpty( "[nzLabel]", value );
             return this;
         }
 
@@ -42,8 +58,16 @@ namespace Util.Ui.NgZorro.Components.Autocompletes.Builders {
         /// 配置禁用
         /// </summary>
         public AutoOptionBuilder Disabled() {
-            AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-            AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+            Disabled( _config.GetBoolValue( UiConst.Disabled ) );
+            Disabled( _config.GetValue( AngularConst.BindDisabled ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置禁用
+        /// </summary>
+        public AutoOptionBuilder Disabled( string value ) {
+            AttributeIfNotEmpty( "[nzDisabled]", value );
             return this;
         }
 

@@ -27,7 +27,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Util.Core\01-Util.Core.csproj" />
+	  <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Util.Aop.AspectCore\03-Util.Aop.AspectCore.csproj" />
 	</ItemGroup>
 
 </Project>

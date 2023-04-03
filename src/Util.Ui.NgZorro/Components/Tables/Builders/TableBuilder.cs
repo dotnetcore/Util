@@ -262,7 +262,18 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置滚动
         /// </summary>
         public TableBuilder Scroll() {
-            AttributeIfNotEmpty( "[nzScroll]", _config.GetValue( UiConst.Scroll ) );
+            Scroll( _config.GetValue( UiConst.Scroll ) );
+            var scroll = new ScrollInfo( _config.GetValue( UiConst.ScrollWidth ), _config.GetValue( UiConst.ScrollHeight ) );
+            if ( scroll.IsNull == false )
+                Scroll( Util.Helpers.Json.ToJson( scroll, new JsonOptions { IgnoreNullValues = true, ToSingleQuotes = true } ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 配置滚动
+        /// </summary>
+        public TableBuilder Scroll( string value ) {
+            AttributeIfNotEmpty( "[nzScroll]", value );
             return this;
         }
 
@@ -428,7 +439,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
                 _config.SetAttribute( UiConst.Layout, TableLayout.Fixed.Description() );
             AttributeIfNotEmpty( "nzTableLayout", _config.GetValue<TableLayout?>( UiConst.Layout )?.Description() );
             AttributeIfNotEmpty( "[nzTableLayout]", _config.GetValue( AngularConst.BindLayout ) );
-            
+
             return this;
         }
 
@@ -562,7 +573,7 @@ namespace Util.Ui.NgZorro.Components.Tables.Builders {
         /// 配置自动创建嵌套结构
         /// </summary>
         private void ConfigAutoCreate() {
-            var service = new TableAutoCreateService(this);
+            var service = new TableAutoCreateService( this );
             service.Init();
         }
 

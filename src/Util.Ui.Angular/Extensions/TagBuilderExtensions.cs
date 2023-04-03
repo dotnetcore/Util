@@ -17,7 +17,10 @@ namespace Util.Ui.Angular.Extensions {
             builder.NgIf( config )
                 .NgSwitch( config ).NgSwitchCase( config ).NgSwitchDefault( config )
                 .NgFor( config )
-                .NgClass( config ).NgStyle( config );
+                .NgClass( config )
+                .NgStyle( config )
+                .Acl( config )
+                .BindAcl( config );
             return builder;
         }
 
@@ -150,6 +153,31 @@ namespace Util.Ui.Angular.Extensions {
         /// <param name="config">配置</param>
         public static TBuilder NgStyle<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
             builder.AttributeIfNotEmpty( "[ngStyle]", config.GetValue( AngularConst.NgStyle ) );
+            return builder;
+        }
+
+        /// <summary>
+        /// *aclIf,设置访问控制
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        public static TBuilder Acl<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
+            var value = config.GetValue( UiConst.Acl );
+            if ( value.IsEmpty() )
+                return builder;
+            builder.Attribute( "*aclIf", $"'{value}'" );
+            return builder;
+        }
+
+        /// <summary>
+        /// [acl],设置访问控制
+        /// </summary>
+        /// <typeparam name="TBuilder">生成器类型</typeparam>
+        /// <param name="builder">生成器实例</param>
+        /// <param name="config">配置</param>
+        public static TBuilder BindAcl<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
+            builder.AttributeIfNotEmpty( "[acl]", config.GetValue( AngularConst.BindAcl ) );
             return builder;
         }
 

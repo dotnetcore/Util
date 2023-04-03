@@ -1,7 +1,9 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Autocompletes;
+using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,7 +12,7 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
     /// <summary>
     /// 自动完成测试
     /// </summary>
-    public class AutocompleteTagHelperTest {
+    public partial class AutocompleteTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -18,14 +20,15 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// <summary>
         /// TagHelper包装器
         /// </summary>
-        private readonly TagHelperWrapper _wrapper;
+        private readonly TagHelperWrapper<Customer> _wrapper;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public AutocompleteTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _wrapper = new AutocompleteTagHelper().ToWrapper();
+            _wrapper = new AutocompleteTagHelper().ToWrapper<Customer>();
+            Id.SetId( "id" );
         }
 
         /// <summary>

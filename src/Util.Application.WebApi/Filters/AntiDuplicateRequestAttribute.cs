@@ -38,7 +38,7 @@ namespace Util.Applications.Filters {
             var key = GetKey( context );
             var isSuccess = false;
             try {
-                isSuccess = @lock.Lock( key, GetExpiration() );
+                isSuccess = await @lock.LockAsync( key, GetExpiration() );
                 if ( isSuccess == false ) {
                     context.Result = GetResult( context,StateCode.Fail, GetFailMessage( context ) );
                     return;
@@ -50,8 +50,9 @@ namespace Util.Applications.Filters {
                 OnActionExecuted( executedContext );
             }
             finally {
-                if ( isSuccess )
-                    @lock.UnLock();
+                if ( isSuccess ) {
+                    await @lock.UnLockAsync();
+                }
             }
         }
 

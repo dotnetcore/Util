@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Helpers;
 using Util.Ui.NgZorro.Components.Radios.Renders;
-using Util.Ui.NgZorro.Components.Selects.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Radios {
         /// <summary>
         /// 配置
         /// </summary>
-        private SelectConfig _config;
+        private Config _config;
         /// <summary>
         /// nzName,单选框组合中的所有单选按钮的 name 属性
         /// </summary>
@@ -64,7 +64,7 @@ namespace Util.Ui.NgZorro.Components.Radios {
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
             base.ProcessBefore( context, output );
-            _config = new SelectConfig( context, output );
+            _config = new Config( context, output );
             var service = new RadioGroupService( _config );
             service.Init();
         }

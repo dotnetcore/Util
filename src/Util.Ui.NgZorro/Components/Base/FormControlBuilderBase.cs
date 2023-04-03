@@ -163,7 +163,7 @@ namespace Util.Ui.NgZorro.Components.Base {
         /// </summary>
         protected TBuilder TableEdit() {
             var config = GetTableColumnShareConfig();
-            if ( config == null )
+            if ( config == null || config.IsEnableEdit == false )
                 return (TBuilder)this;
             var id = _config.GetValue( UiConst.Id );
             if ( id.IsEmpty() ) {

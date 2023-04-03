@@ -64,5 +64,37 @@ namespace Util.Ui.Expressions {
             var modelExplorer = new ModelExplorer( provider, containerModelExplorer, metadata, null );
             return new ModelExpression( name, modelExplorer );
         }
+
+        /// <summary>
+        /// 按System.Text.Json转换命名
+        /// </summary>
+        /// <param name="name">属性名</param>
+        public static string ConvertName( string name ) {
+            if ( string.IsNullOrEmpty( name ) || !char.IsUpper( name[0] ) ) {
+                return name;
+            }
+            return string.Create( name.Length, name, ( chars, name2 ) => {
+                name2.AsSpan().CopyTo( chars );
+                FixCasing( chars );
+            } );
+        }
+
+        /// <summary>
+        /// 修复小写
+        /// </summary>
+        private static void FixCasing( Span<char> chars ) {
+            for ( int i = 0; i < chars.Length; i++ ) {
+                if ( i == 1 && !char.IsUpper( chars[i] ) )
+                    break;
+                bool hasNext = ( i + 1 < chars.Length );
+                if ( i > 0 && hasNext && !char.IsUpper( chars[i + 1] ) ) {
+                    if ( chars[i + 1] == ' ' ) {
+                        chars[i] = char.ToLowerInvariant( chars[i] );
+                    }
+                    break;
+                }
+                chars[i] = char.ToLowerInvariant( chars[i] );
+            }
+        }
     }
 }

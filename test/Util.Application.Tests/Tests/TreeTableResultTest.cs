@@ -28,6 +28,18 @@ namespace Util.Applications.Tests {
         /// 标识5
         /// </summary>
         public const string Id5 = "5";
+        /// <summary>
+        /// 标识6
+        /// </summary>
+        public const string Id6 = "6";
+        /// <summary>
+        /// 标识7
+        /// </summary>
+        public const string Id7 = "7";
+        /// <summary>
+        /// 标识8
+        /// </summary>
+        public const string Id8 = "8";
 
         /// <summary>
         /// 获取根节点1
@@ -91,6 +103,48 @@ namespace Util.Applications.Tests {
                 Id = Id5,
                 ParentId = Id4,
                 Path = $"{Id},{Id4},{Id5},",
+            };
+        }
+
+        /// <summary>
+        /// 获取子节点6,父节点为根节点1
+        /// </summary>
+        private TreeDto GetNode6() {
+            return new TreeDto {
+                Id = Id6,
+                ParentId = Id,
+                Path = $"{Id},{Id6},",
+                Level = 2,
+                Expanded = true,
+                SortId = 2
+            };
+        }
+
+        /// <summary>
+        /// 获取子节点7,父节点为节点6
+        /// </summary>
+        private TreeDto GetNode7() {
+            return new TreeDto {
+                Id = Id7,
+                ParentId = Id6,
+                Path = $"{Id},{Id6},{Id7},",
+                Level = 3,
+                Hide = true,
+                SortId = 3
+            };
+        }
+
+        /// <summary>
+        /// 获取子节点8,父节点为节点6
+        /// </summary>
+        private TreeDto GetNode8() {
+            return new TreeDto {
+                Id = Id8,
+                ParentId = Id6,
+                Path = $"{Id},{Id6},{Id8},",
+                Level = 3,
+                Hide = true,
+                SortId = 4
             };
         }
 
@@ -197,6 +251,19 @@ namespace Util.Applications.Tests {
 
             var node3 = result[4];
             Assert.Equal( Id3, node3.Id );
+        }
+
+        /// <summary>
+        /// 测试隐藏属性 - 下级节点全部隐藏时,应设置为叶节点
+        /// </summary>
+        [Fact]
+        public void TestGetResult_6() {
+            var list = new List<TreeDto> { GetNode1(), GetNode6(), GetNode7(), GetNode8() };
+            var result = new TestTreeTableResult( list ).GetResult();
+
+            var node6 = result[1];
+            Assert.Equal( Id6,node6.Id );
+            Assert.True( node6.Leaf );
         }
     }
 }

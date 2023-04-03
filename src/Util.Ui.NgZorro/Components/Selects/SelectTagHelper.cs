@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
-using Util.Ui.NgZorro.Components.Selects.Configs;
 using Util.Ui.NgZorro.Components.Selects.Helpers;
 using Util.Ui.NgZorro.Components.Selects.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -15,7 +15,7 @@ namespace Util.Ui.NgZorro.Components.Selects {
         /// <summary>
         /// 配置
         /// </summary>
-        private SelectConfig _config;
+        private Config _config;
         /// <summary>
         /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用,默认为 false
         /// </summary>
@@ -25,7 +25,7 @@ namespace Util.Ui.NgZorro.Components.Selects {
         /// </summary>
         public bool AutoLoad { get; set; }
         /// <summary>
-        /// 扩展属性[(queryParam)],查询参数
+        /// 扩展属性 [(queryParam)],查询参数
         /// </summary>
         public string QueryParam { get; set; }
         /// <summary>
@@ -307,7 +307,7 @@ namespace Util.Ui.NgZorro.Components.Selects {
 
         /// <inheritdoc />
         protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
-            _config = new SelectConfig( context, output );
+            _config = new Config( context, output );
             var service = new SelectService( _config );
             service.Init();
         }

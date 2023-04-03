@@ -17,6 +17,18 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<input nz-input=\"\" [nzAutocomplete]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试自动完成搜索关键字
+        /// </summary>
+        [Fact]
+        public void TestAutocompleteSearchKeyword() {
+            _wrapper.SetContextAttribute( UiConst.Autocomplete, "a" );
+            _wrapper.SetContextAttribute( UiConst.AutocompleteSearchKeyword, true );
+            var result = new StringBuilder();
+            result.Append( "<input (input)=\"x_a.search($event.target.value)\" nz-input=\"\" [nzAutocomplete]=\"a\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }
 

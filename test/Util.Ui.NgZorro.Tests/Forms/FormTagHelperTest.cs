@@ -164,7 +164,7 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestAutoComplete_On() {
-            _wrapper.SetContextAttribute( UiConst.AutoComplete, true );
+            _wrapper.SetContextAttribute( UiConst.Autocomplete, true );
             var result = new StringBuilder();
             result.Append( "<form autocomplete=\"on\" nz-form=\"\">" );
             result.Append( "</form>" );
@@ -176,7 +176,7 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestAutoComplete_Off() {
-            _wrapper.SetContextAttribute( UiConst.AutoComplete, false );
+            _wrapper.SetContextAttribute( UiConst.Autocomplete, false );
             var result = new StringBuilder();
             result.Append( "<form autocomplete=\"off\" nz-form=\"\">" );
             result.Append( "</form>" );

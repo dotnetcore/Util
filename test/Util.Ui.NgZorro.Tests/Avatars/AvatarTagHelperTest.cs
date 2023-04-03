@@ -50,6 +50,28 @@ namespace Util.Ui.NgZorro.Tests.Avatars {
         }
 
         /// <summary>
+        /// 测试访问控制
+        /// </summary>
+        [Fact]
+        public void TestAcl() {
+            _wrapper.SetContextAttribute( UiConst.Acl, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"'a'\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制
+        /// </summary>
+        [Fact]
+        public void TestBindAcl() {
+            _wrapper.SetContextAttribute( AngularConst.BindAcl, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar [acl]=\"a\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试图标
         /// </summary>
         [Fact]

@@ -8,11 +8,11 @@ using Util.Data.Trees;
 
 namespace Util.Applications.Trees {
     /// <summary>
-    /// 树形查询服务
+    /// 树形查询操作
     /// </summary>
     /// <typeparam name="TDto">参数类型</typeparam>
     /// <typeparam name="TQuery">查询参数类型</typeparam>
-    public abstract class TreeQueryServiceBase<TDto, TQuery>
+    public abstract class TreeQueryActionBase<TDto, TQuery>
         where TDto : class, ITreeNode, new()
         where TQuery : class, ITreeQueryParameter {
 
@@ -64,7 +64,7 @@ namespace Util.Applications.Trees {
         #region 构造方法
 
         /// <summary>
-        /// 初始化树形查询服务
+        /// 初始化树形查询操作
         /// </summary>
         /// <param name="service">查询服务</param>
         /// <param name="loadMode">加载模式</param>
@@ -76,7 +76,7 @@ namespace Util.Applications.Trees {
         /// <param name="loadKeys">需要加载的标识列表</param>
         /// <param name="queryBefore">查询前操作</param>
         /// <param name="queryAfter">查询后操作</param>
-        protected TreeQueryServiceBase( ITreeQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
+        protected TreeQueryActionBase( ITreeQueryService<TDto, TQuery> service, LoadMode loadMode, LoadOperation loadOperation,
             int maxPageSize, bool isFirstLoad, bool isExpandAll, bool isExpandForRootAsync,string loadKeys,
             Action<TQuery> queryBefore, Action<PageList<TDto>, TQuery> queryAfter ) {
             _service = service ?? throw new ArgumentNullException( nameof( service ) );

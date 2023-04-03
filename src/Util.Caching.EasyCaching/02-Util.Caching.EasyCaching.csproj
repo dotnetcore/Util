@@ -5,7 +5,7 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Caching.EasyCaching</AssemblyName>
 		<RootNamespace>Util.Caching.EasyCaching</RootNamespace>
-		<Description>Util.Caching.EasyCaching是Util应用框架基于EasyCaching缓存操作基础类库,包含内存本地缓存实现</Description>
+		<Description>Util.Caching.EasyCaching是Util应用框架基于EasyCaching的缓存操作类库,默认引入内存缓存和Redis缓存实现</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -28,6 +28,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="EasyCaching.InMemory" Version="1.9.0" />
+	  <PackageReference Include="EasyCaching.Redis" Version="1.9.0" />
+	  <PackageReference Include="EasyCaching.Serialization.SystemTextJson" Version="1.9.0" />
 	</ItemGroup>
 
 	<ItemGroup>

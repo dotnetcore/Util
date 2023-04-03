@@ -36,6 +36,11 @@ namespace Util.Ui.NgZorro.Components.Tables.Configs {
         public bool IsEnableExtend => _tableShareConfig.IsEnableExtend;
 
         /// <summary>
+        /// 是否启用编辑模式
+        /// </summary>
+        public bool IsEnableEdit => _tableShareConfig.IsEnableEdit;
+
+        /// <summary>
         /// 表格扩展标识
         /// </summary>
         public string TableExtendId => _tableShareConfig.TableExtendId;

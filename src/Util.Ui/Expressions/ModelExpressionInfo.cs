@@ -159,7 +159,7 @@ namespace Util.Ui.Expressions {
             var temp = new List<string> { model };
             var array = OriginalPropertyName.Split( '.' );
             foreach ( var item in array ) {
-                temp.Add( Util.Helpers.String.FirstLowerCase( item ) );
+                temp.Add( ModelExpressionHelper.ConvertName( item ) );
                 result.Add( temp.Join( separator: "." ) );
             }
             return result.Join( separator: "&&" );

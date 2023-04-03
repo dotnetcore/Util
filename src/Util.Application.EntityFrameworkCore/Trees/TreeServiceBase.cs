@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Util.Applications.Dtos;
 using Util.Data;
@@ -68,7 +67,7 @@ namespace Util.Applications.Trees {
     /// <typeparam name="TKey">实体标识类型</typeparam>
     /// <typeparam name="TParentId">父标识类型</typeparam>
     public abstract class TreeServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest, TQuery, TKey, TParentId>
-        : QueryServiceBase<TEntity, TDto, TQuery, TKey>, ITreeService<TDto, TCreateRequest, TUpdateRequest,TQuery>
+        : TreeQueryServiceBase<TEntity, TDto, TQuery, TKey, TParentId>, ITreeService<TDto, TCreateRequest, TUpdateRequest,TQuery>
         where TEntity : class, ITreeEntity<TEntity, TKey, TParentId>, new()
         where TDto : class, ITreeNode, new()
         where TCreateRequest : class,IRequest, new()
@@ -105,31 +104,6 @@ namespace Util.Applications.Trees {
         /// 工作单元
         /// </summary>
         protected IUnitOfWork UnitOfWork { get; }
-
-        #endregion
-
-        #region GetConditions(获取条件列表)
-
-        /// <summary>
-        /// 获取条件列表
-        /// </summary>
-        protected override IEnumerable<ICondition<TEntity>> GetConditions( TQuery parameter ) {
-            return new[] { new TreeCondition<TEntity, TParentId>( parameter ) };
-        }
-
-        #endregion
-
-        #region GetByParentIds(通过父标识列表获取节点集合)
-
-        /// <summary>
-        /// 通过父标识列表获取节点集合
-        /// </summary>
-        /// <param name="parentIds">父标识列表,以逗号分隔标识</param>
-        public virtual async Task<List<TDto>> GetByParentIds( string parentIds ) {
-            var keys = Util.Helpers.Convert.ToList<TParentId>( parentIds );
-            var entities = await _repository.FindAllAsync( t => keys.Contains( t.ParentId ) );
-            return entities.Select( ToDto ).ToList();
-        }
 
         #endregion
 

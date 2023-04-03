@@ -82,6 +82,16 @@ namespace Util.Ui.Tests.Expressions {
         }
 
         /// <summary>
+        /// 测试解析属性名 - 修正缩写大小写
+        /// </summary>
+        [Fact]
+        public void TestResolve_PropertyName_5() {
+            var expression = ModelExpressionHelper.Create<Customer>( "UIName" );
+            var result = _resolver.Resolve( expression );
+            Assert.Equal( "uiName", result.PropertyName );
+        }
+
+        /// <summary>
         /// 测试解析最后一级属性名
         /// </summary>
         [Fact]
@@ -139,6 +149,16 @@ namespace Util.Ui.Tests.Expressions {
             var expression = ModelExpressionHelper.Create<Customer>( "Employee.Department.Customer.UserName" );
             var result = _resolver.Resolve( expression );
             Assert.Equal( "model.employee&&model.employee.department&&model.employee.department.customer&&model.employee.department.customer.userName", result.GetSafePropertyName() );
+        }
+
+        /// <summary>
+        /// 测试解析安全属性名 - 转换名称大小写
+        /// </summary>
+        [Fact]
+        public void TestResolve_GetSafePropertyName_5() {
+            var expression = ModelExpressionHelper.Create<Customer>( "UIName" );
+            var result = _resolver.Resolve( expression );
+            Assert.Equal( "model.uiName", result.GetSafePropertyName() );
         }
 
         /// <summary>

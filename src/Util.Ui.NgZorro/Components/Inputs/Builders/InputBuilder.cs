@@ -75,7 +75,13 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置自动完成
         /// </summary>
         public InputBuilder Autocomplete() {
-            AttributeIfNotEmpty( "[nzAutocomplete]", _config.GetValue( UiConst.Autocomplete ) );
+            var autocompleteId = _config.GetValue( UiConst.Autocomplete );
+            if ( autocompleteId.IsEmpty() )
+                return this;
+            AttributeIfNotEmpty( "[nzAutocomplete]", autocompleteId );
+            var autocompleteSearchKeyword = _config.GetValue<bool?>( UiConst.AutocompleteSearchKeyword );
+            if ( autocompleteSearchKeyword == true )
+                OnInput($"x_{autocompleteId}.search($event.target.value)" );
             return this;
         }
 
@@ -107,7 +113,15 @@ namespace Util.Ui.NgZorro.Components.Inputs.Builders {
         /// 配置事件
         /// </summary>
         public InputBuilder Events() {
-            AttributeIfNotEmpty( "(input)", _config.GetValue( UiConst.OnInput ) );
+            OnInput( _config.GetValue( UiConst.OnInput ) );
+            return this;
+        }
+
+        /// <summary>
+        /// 输入事件
+        /// </summary>
+        public InputBuilder OnInput( string value ) {
+            AttributeIfNotEmpty( "(input)", value );
             return this;
         }
 

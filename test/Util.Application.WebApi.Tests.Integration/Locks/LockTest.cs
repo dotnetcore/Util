@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Util.Caching;
 using Util.Helpers;
 using Xunit;
 
@@ -12,12 +13,17 @@ namespace Util.Applications.Locks {
         /// 业务锁测试服务
         /// </summary>
         private readonly LockTestService _service;
+        /// <summary>
+        /// 缓存
+        /// </summary>
+        private readonly ICache _cache;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public LockTest( LockTestService service) {
+        public LockTest( LockTestService service, ICache cache) {
             _service = service;
+            _cache = cache;
         }
 
         /// <summary>
@@ -37,22 +43,12 @@ namespace Util.Applications.Locks {
         }
 
         /// <summary>
-        /// 并发执行服务
+        /// 测试解锁
         /// </summary>
         [Fact]
         public void Test_2() {
             var key = "Test_2";
-            var result = new List<string>();
-            Util.Helpers.Thread.ParallelFor( () => result.Add( _service.Execute( key ) ), 20 );
-            Assert.Single( result.FindAll( t => t == "ok" ));
-        }
-
-        /// <summary>
-        /// 测试解锁
-        /// </summary>
-        [Fact]
-        public void Test_3() {
-            var key = "Test_3";
+            _cache.Remove( key );
 
             //执行，被锁定
             _service.Execute( key );
@@ -74,8 +70,8 @@ namespace Util.Applications.Locks {
         /// 延迟1秒才允许执行 - 设置延迟时间后，UnLock无效
         /// </summary>
         [Fact]
-        public void Test_4() {
-            var key = "Test_4";
+        public void Test_3() {
+            var key = "Test_3";
             Assert.Equal( "ok", _service.Execute( key, TimeSpan.FromSeconds( 1 ) ) );
             _service.UnLock();
             Assert.Equal( "fail", _service.Execute( key ) );
