@@ -1425,11 +1425,44 @@ namespace Util.Data.EntityFrameworkCore.Tests {
             Assert.False( UnitOfWork.IsChange() );
         }
 
+
+        /// <summary>
+        /// 测试扩展属性 - 读取对象扩展属性,不应该导致更新
+        /// </summary>
+        [Fact]
+        public async Task TestExtraProperties_14() {
+            //添加实体
+            var entity = new Product();
+            entity.Init();
+            entity.TestProperty5 = new ApplicationExtend() {
+                ApplicationType = 2,
+                Client = new Client() {
+                    RedirectUris = new List<string>()
+                    {
+                        "http://util.com",
+                        "http://baidu.com",
+                    }
+                },
+                IsClient = true
+            };
+            await _repository.AddAsync( entity );
+            await UnitOfWork.CommitAsync();
+            UnitOfWork.ClearCache();
+
+            //读取对象扩展属性
+            var oldEntity = await _repository.FindByIdAsync( entity.Id );
+            var property5 = oldEntity.TestProperty5.Client.RedirectUris;
+            _log.WriteLine( UnitOfWork.GetChangeTrackerDebugView() );
+
+            //验证
+            Assert.False( UnitOfWork.IsChange() );
+        }
+
         /// <summary>
         /// 测试扩展属性 - 清除字符串属性两端空白
         /// </summary>
         [Fact]
-        public async Task TestExtraProperties_14() {
+        public async Task TestExtraProperties_15() {
             //常量
             var value = "                   a                       ";
 

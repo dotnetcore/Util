@@ -167,12 +167,6 @@ namespace Util.Caching.EasyCaching {
         #region GetByPrefix
 
         /// <inheritdoc />
-        public List<T> GetByPrefix<T>( CacheKey key ) {
-            var prefix = key.GetPrefix();
-            return GetByPrefix<T>( prefix );
-        }
-
-        /// <inheritdoc />
         public List<T> GetByPrefix<T>( string prefix ) {
             if ( prefix.IsEmpty() )
                 return new List<T>();
@@ -182,12 +176,6 @@ namespace Util.Caching.EasyCaching {
         #endregion
 
         #region GetByPrefixAsync
-
-        /// <inheritdoc />
-        public async Task<List<T>> GetByPrefixAsync<T>( CacheKey key, CancellationToken cancellationToken = default ) {
-            var prefix = key.GetPrefix();
-            return await GetByPrefixAsync<T>( prefix, cancellationToken );
-        }
 
         /// <inheritdoc />
         public async Task<List<T>> GetByPrefixAsync<T>( string prefix, CancellationToken cancellationToken = default ) {
@@ -342,12 +330,6 @@ namespace Util.Caching.EasyCaching {
 
         #region RemoveByPrefix
 
-        /// <inheritdoc />
-        public void RemoveByPrefix( CacheKey key ) {
-            var prefix = key.GetPrefix();
-            RemoveByPrefix( prefix );
-        }
-
         /// <summary>
         /// 通过缓存键前缀移除缓存
         /// </summary>
@@ -361,14 +343,6 @@ namespace Util.Caching.EasyCaching {
         #endregion
 
         #region RemoveByPrefixAsync
-
-        /// <inheritdoc />
-        public async Task RemoveByPrefixAsync( CacheKey key, CancellationToken cancellationToken = default ) {
-            var prefix = key.GetPrefix();
-            if ( prefix.IsEmpty() )
-                return;
-            await RemoveByPrefixAsync( prefix, cancellationToken );
-        }
 
         /// <inheritdoc />
         public async Task RemoveByPrefixAsync( string prefix, CancellationToken cancellationToken = default ) {

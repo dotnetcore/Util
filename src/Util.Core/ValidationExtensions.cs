@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Util {
@@ -21,7 +22,7 @@ namespace Util {
         /// 是否为空
         /// </summary>
         /// <param name="value">值</param>
-        public static bool IsEmpty( this string value ) {
+        public static bool IsEmpty( [NotNullWhen( false )] this string? value ) {
             return string.IsNullOrWhiteSpace( value );
         }
 
@@ -37,7 +38,7 @@ namespace Util {
         /// 是否为空
         /// </summary>
         /// <param name="value">值</param>
-        public static bool IsEmpty( this Guid? value ) {
+        public static bool IsEmpty( [NotNullWhen( false )] this Guid? value ) {
             if( value == null )
                 return true;
             return value == Guid.Empty;

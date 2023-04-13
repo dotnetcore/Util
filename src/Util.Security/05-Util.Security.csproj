@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
-		<RootNamespace>Util.Security</RootNamespace>
+		<RootNamespace>Util</RootNamespace>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<Description>Util.Security是Util应用框架的安全相关类库</Description>
 		<AssemblyName>Util.Security</AssemblyName>
@@ -24,6 +24,10 @@
 			<Visible>False</Visible>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="RSAExtensions" Version="1.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>

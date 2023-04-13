@@ -19,12 +19,12 @@ namespace Util.Caching.EasyCaching {
                     Util.Helpers.Environment.SetDevelopment();
                     options.UseAop()
                         .UseRedisCache( t => {
-                        t.MaxRdSecond = 0;
-                        t.DBConfig.AllowAdmin = true;
-                        t.DBConfig.KeyPrefix = "test:";
-                        t.DBConfig.Endpoints.Add( new ServerEndPoint( "192.168.31.157", 6379 ) );
-                    } );
-                    options.UseMemoryCache( t => t.MaxRdSecond = 0 );
+                            t.MaxRdSecond = 0;
+                            t.DBConfig.AllowAdmin = true;
+                            t.DBConfig.KeyPrefix = "test:";
+                            t.DBConfig.Endpoints.Add( new ServerEndPoint( "192.168.31.157", 6379 ) );
+                        } )
+                        .UseMemoryCache( t => t.MaxRdSecond = 0 );
                 } );
         }
 

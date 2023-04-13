@@ -1,5 +1,6 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Util.Data.EntityFrameworkCore.ValueConverters.SystemTextJson;
@@ -22,6 +23,7 @@ namespace Util.Data.EntityFrameworkCore.ValueConverters {
         /// </summary>
         private static string PropertiesToJson( ExtraPropertyDictionary extraProperties ) {
             var options = new JsonSerializerOptions {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                 Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
                 Converters = {
                     new UtcDateTimeJsonConverter(),

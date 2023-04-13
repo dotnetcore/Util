@@ -58,6 +58,21 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试额外提示
+        /// </summary>
+        [Fact]
+        public void TestBindExtra() {
+            _wrapper.SetContextAttribute( AngularConst.BindExtra, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzExtra]=\"a\">" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试校验成功状态提示
         /// </summary>
         [Fact]

@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Hangfire.AspNetCore" Version="1.7.33" />
+	  <PackageReference Include="Hangfire.AspNetCore" Version="1.7.34" />
 	</ItemGroup>
 
 	<ItemGroup>

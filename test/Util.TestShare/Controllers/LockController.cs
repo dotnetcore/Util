@@ -22,7 +22,7 @@ namespace Util.Tests.Controllers {
         /// 设置防重复过滤器 - 全局锁
         /// </summary>
         [HttpGet( "GlobalLock" )]
-        [AntiDuplicateRequest(Type = LockType.Global)]
+        [Lock(Type = LockType.Global)]
         public IActionResult Get2Async() {
             Thread.Sleep( 100 );
             return Success( "ok" );
@@ -32,7 +32,7 @@ namespace Util.Tests.Controllers {
         /// 设置防重复过滤器 - 用户锁
         /// </summary>
         [HttpGet( "UserLock" )]
-        [AntiDuplicateRequest( Type = LockType.User )]
+        [Lock( Type = LockType.User )]
         public IActionResult Get3Async() {
             Thread.Sleep( 100 );
             return Success( "ok" );

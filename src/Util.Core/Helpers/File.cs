@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Util.Helpers {
@@ -50,10 +51,11 @@ namespace Util.Helpers {
         /// 流转换为字节数组
         /// </summary>
         /// <param name="stream">流</param>
-        public static async Task<byte[]> ToBytesAsync( Stream stream ) {
+        /// <param name="cancellationToken">取消令牌</param>
+        public static async Task<byte[]> ToBytesAsync( Stream stream, CancellationToken cancellationToken = default ) {
             stream.Seek( 0, SeekOrigin.Begin );
             var buffer = new byte[stream.Length];
-            await stream.ReadAsync( buffer, 0, buffer.Length );
+            await stream.ReadAsync( buffer, 0, buffer.Length, cancellationToken );
             return buffer;
         }
 
@@ -172,13 +174,25 @@ namespace Util.Helpers {
 
         #endregion
 
-        #region ReadFile
+        #region ReadToStream
+
+        /// <summary>
+        /// 读取文件流
+        /// </summary>
+        /// <param name="filePath">文件绝对路径</param>
+        public static Stream ReadToStream( string filePath ) {
+            return new FileStream( filePath, FileMode.Open );
+        }
+
+        #endregion
+
+        #region ReadToBytes
 
         /// <summary>
         /// 将文件读取到字节流中
         /// </summary>
         /// <param name="filePath">文件的绝对路径</param>
-        public static byte[] ReadFile( string filePath ) {
+        public static byte[] ReadToBytes( string filePath ) {
             if ( !System.IO.File.Exists( filePath ) )
                 return null;
             var fileInfo = new FileInfo( filePath );

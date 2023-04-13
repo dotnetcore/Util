@@ -9,13 +9,13 @@ using Xunit;
 
 namespace Util.Applications.Locks {
     /// <summary>
-    /// 防止重复提交过滤器测试
+    /// 请求锁过滤器测试
     /// </summary>
-    public class AntiDuplicateRequestAttributeTest : ControllerTestBase {
+    public class LockAttributeTest : ControllerTestBase {
         /// <summary>
         /// 测试初始化
         /// </summary>
-        public AntiDuplicateRequestAttributeTest( IHttpClient client, IHttpContextAccessor accessor ) : base(client, accessor ) {
+        public LockAttributeTest( IHttpClient client, IHttpContextAccessor accessor ) : base(client, accessor ) {
         }
 
         /// <summary>

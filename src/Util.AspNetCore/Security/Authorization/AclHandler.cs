@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Util.Helpers;
 
 namespace Util.Security.Authorization {
     /// <summary>
@@ -57,7 +60,17 @@ namespace Util.Security.Authorization {
         private string GetResourceUri( AclRequirement requirement,HttpContext httpContext ) {
             if ( requirement.Uri.IsEmpty() == false )
                 return requirement.Uri;
-            return httpContext.Request.Path;
+            return GetResourceUri( httpContext.Request.Path, httpContext.Request.Method );
+        }
+
+        /// <summary>
+        /// 获取资源标识
+        /// </summary>
+        private string GetResourceUri( string path, string httpMethod ) {
+            if ( path.IsEmpty() )
+                return null;
+            var result = $"{path}#{httpMethod}";
+            return result.ToLower( CultureInfo.InvariantCulture );
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using EasyCaching.Core.Interceptor;
 using EasyCaching.Serialization.SystemTextJson.Configurations;
 using Microsoft.Extensions.DependencyInjection;
@@ -79,7 +81,7 @@ namespace Util.Caching.EasyCaching {
         /// 配置Redis序列化
         /// </summary>
         private void ConfigRedisSerializer( EasyCachingConfig.EasyCachingOptions options ) {
-            options.WithSystemTextJson( CacheProviderKey.RedisCache );
+            options.WithSystemTextJson( t => t.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, CacheProviderKey.RedisCache );
         }
     }
 }

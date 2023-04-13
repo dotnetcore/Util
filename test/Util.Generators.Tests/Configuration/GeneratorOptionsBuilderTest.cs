@@ -77,6 +77,7 @@ namespace Util.Generators.Tests.Configuration {
         [Fact]
         public void TestMessages() {
             Assert.Equal( "RequiredMessage", _options.Messages.RequiredMessage );
+            Assert.Equal( "MaxLengthMessage", _options.Messages.MaxLengthMessage );
         }
     }
 }

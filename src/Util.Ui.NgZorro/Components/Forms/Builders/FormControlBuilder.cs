@@ -51,7 +51,7 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
         /// </summary>
         public FormControlBuilder Extra() {
             Extra( _config.GetValue( UiConst.Extra ) );
-            AttributeIfNotEmpty( "[nzExtra]", _config.GetValue( AngularConst.BindExtra ) );
+            BindExtra( _config.GetValue( AngularConst.BindExtra ) );
             return this;
         }
 
@@ -65,6 +65,13 @@ namespace Util.Ui.NgZorro.Components.Forms.Builders {
                 return;
             }
             AttributeIfNotEmpty( "nzExtra", value );
+        }
+
+        /// <summary>
+        /// 配置额外提示
+        /// </summary>
+        private void BindExtra( string value ) {
+            AttributeIfNotEmpty( "[nzExtra]", value );
         }
 
         /// <summary>

@@ -197,6 +197,19 @@ namespace Util.Tests.Helpers {
         }
 
         /// <summary>
+        /// 测试获取项集合 - 基础类型为byte的枚举
+        /// </summary>
+        [Fact]
+        public void TestGetItems_Byte() {
+            var items = Util.Helpers.Enum.GetItems( typeof( HttpMethod ) );
+            Assert.Equal( 11, items.Count );
+            Assert.Equal( "Get", items[0].Text );
+            Assert.Equal( 0, items[0].Value );
+            Assert.Equal( "Put", items[1].Text );
+            Assert.Equal( 1, items[1].Value );
+        }
+
+        /// <summary>
         /// 测试获取项集合 - 验证枚举类型
         /// </summary>
         [Fact]

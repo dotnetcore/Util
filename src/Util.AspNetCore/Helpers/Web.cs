@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -122,6 +124,56 @@ namespace Util.Helpers {
 
         #endregion
 
+        #region GetFiles(获取客户端文件集合)
+
+        /// <summary>
+        /// 获取客户端文件集合
+        /// </summary>
+        public static List<IFormFile> GetFiles() {
+            var result = new List<IFormFile>();
+            var files = Request.Form.Files;
+            if ( files.Count == 0 )
+                return result;
+            result.AddRange( files.Where( file => file?.Length > 0 ) );
+            return result;
+        }
+
+        #endregion
+
+        #region GetFile(获取客户端文件)
+
+        /// <summary>
+        /// 获取客户端文件
+        /// </summary>
+        public static IFormFile GetFile() {
+            var files = GetFiles();
+            return files.Count == 0 ? null : files[0];
+        }
+
+        #endregion
+
+        #region GetParam(获取请求参数)
+
+        /// <summary>
+        /// 获取请求参数，搜索路径：查询参数->表单参数->请求头
+        /// </summary>
+        /// <param name="name">参数名</param>
+        public static string GetParam( string name ) {
+            if ( name.IsEmpty() )
+                return string.Empty;
+            if ( Request == null )
+                return string.Empty;
+            string result = Request.Query[name];
+            if ( result.IsEmpty() == false )
+                return result;
+            result = Request.Form[name];
+            if ( result.IsEmpty() == false )
+                return result;
+            return Request.Headers[name];
+        }
+
+        #endregion
+
         #region Url(请求地址)
 
         /// <summary>
@@ -224,7 +276,7 @@ namespace Util.Helpers {
         /// <param name="fileName">文件名,包含扩展名</param>
         /// <param name="encoding">字符编码</param>
         public static async Task DownloadFileAsync( string filePath, string fileName, Encoding encoding ) {
-            var bytes = File.ReadFile( filePath );
+            var bytes = File.ReadToBytes( filePath );
             await DownloadAsync( bytes, fileName, encoding );
         }
 

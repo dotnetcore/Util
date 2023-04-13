@@ -312,25 +312,6 @@ namespace Util.Caching.EasyCaching.Tests {
             Assert.Equal( 2, result[1] );
         }
 
-        /// <summary>
-        /// 测试通过缓存键前缀获取数据 - 设置缓存键对象
-        /// </summary>
-        [Fact]
-        public void TestGetByPrefix_2() {
-            //变量定义
-            var key = new CacheKey( "TestGetByPrefix_21" ) { Prefix = "TestGetByPrefix_2" };
-            var key2 = new CacheKey( "TestGetByPrefix_22" ) { Prefix = "TestGetByPrefix_2" };
-
-            //设置缓存
-            _cache.Set( key, 1 );
-            _cache.Set( key2, 2 );
-
-            //验证
-            var result = _cache.GetByPrefix<int?>( key ).OrderBy( t => t ).ToList();
-            Assert.Equal( 1, result[0] );
-            Assert.Equal( 2, result[1] );
-        }
-
         #endregion
 
         #region GetByPrefixAsync
@@ -350,25 +331,6 @@ namespace Util.Caching.EasyCaching.Tests {
 
             //验证
             var result = (await _cache.GetByPrefixAsync<int?>( "abc:" )).OrderBy( t => t ).ToList();
-            Assert.Equal( 1, result[0] );
-            Assert.Equal( 2, result[1] );
-        }
-
-        /// <summary>
-        /// 测试通过缓存键前缀获取数据 - 设置缓存键对象
-        /// </summary>
-        [Fact]
-        public async Task TestGetByPrefixAsync_2() {
-            //变量定义
-            var key = new CacheKey( "ef:TestGetByPrefixAsync_21" ) { Prefix = "ef:" };
-            var key2 = new CacheKey( "ef:TestGetByPrefixAsync_22" ) { Prefix = "ef:" };
-
-            //设置缓存
-            await _cache.SetAsync( key, 1 );
-            await _cache.SetAsync( key2, 2 );
-
-            //验证
-            var result = ( await _cache.GetByPrefixAsync<int?>( key ) ).OrderBy( t => t ).ToList();
             Assert.Equal( 1, result[0] );
             Assert.Equal( 2, result[1] );
         }
@@ -910,29 +872,12 @@ namespace Util.Caching.EasyCaching.Tests {
             _cache.Set( key, 1 );
             _cache.Set( key2, 2 );
 
+            //验证
+            Assert.True( _cache.Exists( key ) );
+            Assert.True( _cache.Exists( key2 ) );
+
             //移除缓存
             _cache.RemoveByPrefix( "RemoveByPrefix" );
-
-            //验证
-            Assert.False( _cache.Exists( key ) );
-            Assert.False( _cache.Exists( key2 ) );
-        }
-
-        /// <summary>
-        /// 测试通过缓存键前缀移除缓存- 设置缓存键对象
-        /// </summary>
-        [Fact]
-        public void RemoveByPrefix_2() {
-            //变量定义
-            var key = new CacheKey( "RemoveByPrefix_21" ) { Prefix = "RemoveByPrefix" };
-            var key2 = new CacheKey( "RemoveByPrefix_22" ) { Prefix = "RemoveByPrefix" };
-
-            //设置缓存
-            _cache.Set( key, 1 );
-            _cache.Set( key2, 2 );
-
-            //移除缓存
-            _cache.RemoveByPrefix( key );
 
             //验证
             Assert.False( _cache.Exists( key ) );
@@ -958,27 +903,6 @@ namespace Util.Caching.EasyCaching.Tests {
 
             //移除缓存
             await _cache.RemoveByPrefixAsync( "RemoveByPrefix" );
-
-            //验证
-            Assert.False( await _cache.ExistsAsync( key ) );
-            Assert.False( await _cache.ExistsAsync( key2 ) );
-        }
-
-        /// <summary>
-        /// 测试通过缓存键前缀移除缓存- 设置缓存键对象
-        /// </summary>
-        [Fact]
-        public async Task RemoveByPrefixAsync_2() {
-            //变量定义
-            var key = new CacheKey( "RemoveByPrefix_21" ) { Prefix = "RemoveByPrefix" };
-            var key2 = new CacheKey( "RemoveByPrefix_22" ) { Prefix = "RemoveByPrefix" };
-
-            //设置缓存
-            await _cache.SetAsync( key, 1 );
-            await _cache.SetAsync( key2, 2 );
-
-            //移除缓存
-            await _cache.RemoveByPrefixAsync( key );
 
             //验证
             Assert.False( await _cache.ExistsAsync( key ) );

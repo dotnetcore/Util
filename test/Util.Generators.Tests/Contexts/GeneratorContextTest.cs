@@ -17,7 +17,8 @@ namespace Util.Generators.Tests.Contexts {
                 TemplateRootPath = "a",
                 OutputRootPath = "b",
                 Message = new MessageOptions {
-                    RequiredMessage = "RequiredMessage"
+                    RequiredMessage = "RequiredMessage",
+                    MaxLengthMessage = "MaxLengthMessage"
                 }
             };
 
@@ -62,6 +63,7 @@ namespace Util.Generators.Tests.Contexts {
             Assert.Equal( context.TemplateRootPath, clone.TemplateRootPath );
             Assert.Equal( context.OutputRootPath, clone.OutputRootPath );
             Assert.Equal( context.Message.RequiredMessage, clone.Message.RequiredMessage );
+            Assert.Equal( context.Message.MaxLengthMessage, clone.Message.MaxLengthMessage );
 
             //验证项目上下文
             Assert.Equal( 2, clone.Projects.Count );

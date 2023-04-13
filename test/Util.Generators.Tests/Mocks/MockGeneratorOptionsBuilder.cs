@@ -16,7 +16,8 @@ namespace Util.Generators.Tests.Mocks {
                 TemplatePath = "Templates",
                 OutputPath = "Output",
                 Messages = new MessageOptions {
-                    RequiredMessage = "Required_Message"
+                    RequiredMessage = "Required_Message",
+                    MaxLengthMessage = "MaxLength_Message"
                 },
                 Projects = new Dictionary<string, ProjectOptions> {
                     {"Test",new ProjectOptions {

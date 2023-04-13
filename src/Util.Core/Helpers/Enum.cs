@@ -68,7 +68,8 @@ namespace Util.Helpers {
             string value = member.SafeString();
             if ( value.IsEmpty() )
                 return null;
-            return (int)System.Enum.Parse( type, value, true );
+            var result = System.Enum.Parse( type, value, true );
+            return Convert.To<int?>( result );
         }
 
         /// <summary>

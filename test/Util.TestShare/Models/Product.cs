@@ -146,6 +146,16 @@ namespace Util.Tests.Models {
             set => _properties.SetProperty( ExtraProperties,value );
         }
 
+        private readonly ExtraProperty<ApplicationExtend> _property5 = new( nameof( TestProperty5 ) );
+        /// <summary>
+        /// 不可变对象扩展属性
+        /// </summary>
+        [NotMapped]
+        public ApplicationExtend TestProperty5 {
+            get => _property5.GetProperty( ExtraProperties );
+            set => _property5.SetProperty( ExtraProperties, value );
+        }
+
         /// <summary>
         /// 添加变更列表
         /// </summary>

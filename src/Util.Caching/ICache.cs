@@ -128,20 +128,7 @@ namespace Util.Caching {
         /// </summary>
         /// <typeparam name="T">缓存数据类型</typeparam>
         /// <param name="prefix">缓存键前缀</param>
-        List<T> GetByPrefix<T>( CacheKey prefix );
-        /// <summary>
-        /// 通过缓存键前缀获取数据
-        /// </summary>
-        /// <typeparam name="T">缓存数据类型</typeparam>
-        /// <param name="prefix">缓存键前缀</param>
         List<T> GetByPrefix<T>( string prefix );
-        /// <summary>
-        /// 通过缓存键前缀获取数据
-        /// </summary>
-        /// <typeparam name="T">缓存数据类型</typeparam>
-        /// <param name="prefix">缓存键前缀</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        Task<List<T>> GetByPrefixAsync<T>( CacheKey prefix, CancellationToken cancellationToken = default );
         /// <summary>
         /// 通过缓存键前缀获取数据
         /// </summary>
@@ -295,18 +282,7 @@ namespace Util.Caching {
         /// 通过缓存键前缀移除缓存
         /// </summary>
         /// <param name="prefix">缓存键前缀</param>
-        void RemoveByPrefix( CacheKey prefix );
-        /// <summary>
-        /// 通过缓存键前缀移除缓存
-        /// </summary>
-        /// <param name="prefix">缓存键前缀</param>
         void RemoveByPrefix( string prefix );
-        /// <summary>
-        /// 通过缓存键前缀移除缓存
-        /// </summary>
-        /// <param name="prefix">缓存键前缀</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        Task RemoveByPrefixAsync( CacheKey prefix, CancellationToken cancellationToken = default );
         /// <summary>
         /// 通过缓存键前缀移除缓存
         /// </summary>

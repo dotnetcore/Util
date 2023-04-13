@@ -12,6 +12,10 @@
         /// </summary>
         public string Extra { get; set; }
         /// <summary>
+        /// 显示额外提示信息,自动创建nz-form-control,nz-form-item容器标签,并设置nz-form-control的 [nzExtra] 属性
+        /// </summary>
+        public string BindExtra { get; set; }
+        /// <summary>
         /// 校验状态为成功时的提示信息,自动创建nz-form-control,nz-form-item容器标签,并设置nz-form-control的 nzSuccessTip 属性
         /// </summary>
         public string SuccessTip { get; set; }

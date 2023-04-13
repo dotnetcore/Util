@@ -393,6 +393,7 @@ namespace Util.Generators.Tests.Contexts {
         [Fact]
         public void TestGeneratorContext_Message() {
             Assert.Equal( "Required_Message", _context.Message.RequiredMessage );
+            Assert.Equal( "MaxLength_Message", _context.Message.MaxLengthMessage );
         }
     }
 }

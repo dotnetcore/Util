@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E6328DC1-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmark", "benchmark", "{199A0EFE-EE81-4A0E-9F2E-298CDDA49D26}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Ui", "12-Ui", "{354B3720-D050-487D-A46A-22BCFEE56D43}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Ui", "13-Ui", "{354B3720-D050-487D-A46A-22BCFEE56D43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Ui", "src\Util.Ui\01-Util.Ui.csproj", "{5F7ACBE4-A1D8-4680-AA86-B87F8494BAC2}"
 EndProject
@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Ui.NgZorro.Tests", "te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{9BFB5DBE-8F64-45A9-BDB2-BAD91D44A4C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Ui", "13-Ui", "{DE39BB20-AE82-47C3-9141-8CFD4C673217}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14-Ui", "14-Ui", "{DE39BB20-AE82-47C3-9141-8CFD4C673217}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Ui.Tests", "test\Util.Ui.Tests\Util.Ui.Tests.csproj", "{766CAB38-F064-419F-837B-D6DA8B61AF66}"
 EndProject
@@ -51,7 +51,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Aop.AspectCore", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Aop.AspectCore.Tests", "test\Util.Aop.AspectCore.Tests\Util.Aop.AspectCore.Tests.csproj", "{B8825802-81F7-4671-82E8-3A6E3A21F570}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-Domain", "09-Domain", "{7AB71D86-D351-4009-A789-24097897E74A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Domain", "10-Domain", "{7AB71D86-D351-4009-A789-24097897E74A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Validation", "src\Util.Validation\04-Util.Validation.csproj", "{1DE277C2-EE56-4F4D-BB89-71107DE0E4C6}"
 EndProject
@@ -59,7 +59,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Validation.Tests", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Domain", "src\Util.Domain\01-Util.Domain.csproj", "{61982C8D-5376-45EE-BCC3-D4F9E90AF3B0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08-Domain", "08-Domain", "{FC5E00D1-ABA5-4168-8B8F-FA2A26D84068}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-Domain", "09-Domain", "{FC5E00D1-ABA5-4168-8B8F-FA2A26D84068}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Domain.Tests", "test\Util.Domain.Tests\Util.Domain.Tests.csproj", "{7CA38535-297B-4DA9-AFF5-3199268EEAF6}"
 EndProject
@@ -67,9 +67,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Events", "src\Util.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Events.Tests", "test\Util.Events.Tests\Util.Events.Tests.csproj", "{3073C231-6AE2-42FE-90CE-FFA2A58CA7FD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Data", "10-Data", "{66A85767-2877-4B99-84F1-EEABC6DC5247}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Data", "11-Data", "{66A85767-2877-4B99-84F1-EEABC6DC5247}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Data", "11-Data", "{CC492CA2-5D86-4DB8-AB15-B118DF27C344}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Data", "12-Data", "{CC492CA2-5D86-4DB8-AB15-B118DF27C344}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Data.Tests", "test\Util.Data.Tests\Util.Data.Tests.csproj", "{4D40321F-2C3F-4ACB-8AE0-7A228DF0551B}"
 EndProject
@@ -113,11 +113,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Data.Dapper.Benchmark"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Domain.Biz", "src\Util.Domain.Biz\02-Util.Domain.Biz.csproj", "{AFB629C5-00C2-492C-8787-C66D810A24DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Application", "11-Application", "{648CE3E3-CEC4-4F91-8696-6A3FB2F91220}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Application", "12-Application", "{648CE3E3-CEC4-4F91-8696-6A3FB2F91220}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Application", "src\Util.Application\01-Util.Application.csproj", "{9404B5FE-3431-4EC0-BCC6-42525FC5D1B8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Application", "12-Application", "{BB24822F-F104-4D8E-9CB5-0A94DEF04BAB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Application", "13-Application", "{BB24822F-F104-4D8E-9CB5-0A94DEF04BAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Application.Tests", "test\Util.Application.Tests\Util.Application.Tests.csproj", "{EF7BDA1B-22E7-4F3D-97E0-16C9C10AA1B0}"
 EndProject
@@ -153,7 +153,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Logging.Serilog", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Logging.Serilog.Exceptionless", "src\Util.Logging.Serilog.Exceptionless\03-Util.Logging.Serilog.Exceptionless.csproj", "{9960FA8A-98C1-45FB-8A09-33CA183AA140}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-Share", "09-Share", "{E3414144-C19E-40C0-A73A-2FD41AE514D1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Share", "10-Share", "{E3414144-C19E-40C0-A73A-2FD41AE514D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.TestShare", "test\Util.TestShare\Util.TestShare.csproj", "{1855CAB7-6379-47A4-A0A4-F890C6C46403}"
 EndProject
@@ -233,7 +233,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.AspNetCore.Tests.Integ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-Scheduling", "06-Scheduling", "{76AA6040-AA3A-43DD-BD4B-7F931271BFD6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Scheduling", "10-Scheduling", "{6493D592-7930-4979-A07D-B7CAA751C7BE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Scheduling", "11-Scheduling", "{6493D592-7930-4979-A07D-B7CAA751C7BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Scheduling.Quartz", "src\Util.Scheduling.Quartz\02-Util.Scheduling.Quartz.csproj", "{4E12B03E-D607-492E-BB28-96235993A39F}"
 EndProject
@@ -271,17 +271,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Images.Avatar", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Images.Avatar.Tests.Integration", "test\Util.Images.Avatar.Tests.Integration\Util.Images.Avatar.Tests.Integration.csproj", "{75A31AAB-B7E6-4F13-9B7A-B74216B2EDDE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Generators", "13-Generators", "{411247A4-4665-4BE6-8E5C-08F6D0BA2213}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14-Generators", "14-Generators", "{411247A4-4665-4BE6-8E5C-08F6D0BA2213}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Generators", "src\Util.Generators\01-Util.Generators.csproj", "{36990D32-6F41-44A6-BB88-A3F15E12C35B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Generators.Razor", "src\Util.Generators.Razor\02-Util.Generators.Razor.csproj", "{21831A4F-B3C9-40E7-855B-75F9D679FF55}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14-Generators", "14-Generators", "{F7D4E7CB-468D-4570-8D82-D065F08BE40D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15-Generators", "15-Generators", "{F7D4E7CB-468D-4570-8D82-D065F08BE40D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Generators.Tests", "test\Util.Generators.Tests\Util.Generators.Tests.csproj", "{5996F536-14B9-4F95-A18B-716E5F7EE478}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Generators.Razor.Tests", "test\Util.Generators.Razor.Tests\Util.Generators.Razor.Tests.csproj", "{89ADBA29-42CD-4D17-8987-4D1233C1083C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-FileStorage", "09-FileStorage", "{E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.FileStorage", "src\Util.FileStorage\01-Util.FileStorage.csproj", "{6FC29D15-7581-4E29-9897-76DC5AEF2042}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.FileStorage.Minio", "src\Util.FileStorage.Minio\02-Util.FileStorage.Minio.csproj", "{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08-FileStorage", "08-FileStorage", "{16175228-03CA-414A-8786-E5BA844110C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.FileStorage.Minio.Tests.Integration", "test\Util.FileStorage.Minio.Tests.Integration\Util.FileStorage.Minio.Tests.Integration.csproj", "{AB2D6B9A-0EC8-402B-849A-95E826B09AB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -693,6 +703,18 @@ Global
 		{89ADBA29-42CD-4D17-8987-4D1233C1083C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89ADBA29-42CD-4D17-8987-4D1233C1083C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89ADBA29-42CD-4D17-8987-4D1233C1083C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FC29D15-7581-4E29-9897-76DC5AEF2042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FC29D15-7581-4E29-9897-76DC5AEF2042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FC29D15-7581-4E29-9897-76DC5AEF2042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FC29D15-7581-4E29-9897-76DC5AEF2042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB2D6B9A-0EC8-402B-849A-95E826B09AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB2D6B9A-0EC8-402B-849A-95E826B09AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB2D6B9A-0EC8-402B-849A-95E826B09AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB2D6B9A-0EC8-402B-849A-95E826B09AB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -832,6 +854,11 @@ Global
 		{F7D4E7CB-468D-4570-8D82-D065F08BE40D} = {E6328DC1-C8F0-4DC6-941F-C6CAFFF783DF}
 		{5996F536-14B9-4F95-A18B-716E5F7EE478} = {F7D4E7CB-468D-4570-8D82-D065F08BE40D}
 		{89ADBA29-42CD-4D17-8987-4D1233C1083C} = {F7D4E7CB-468D-4570-8D82-D065F08BE40D}
+		{E069CEB0-8092-4907-BC9D-C6B8BDE20AD2} = {C01B9930-D67F-41C5-90C9-C87DC53F39CB}
+		{6FC29D15-7581-4E29-9897-76DC5AEF2042} = {E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}
+		{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646} = {E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}
+		{16175228-03CA-414A-8786-E5BA844110C4} = {E6328DC1-C8F0-4DC6-941F-C6CAFFF783DF}
+		{AB2D6B9A-0EC8-402B-849A-95E826B09AB3} = {16175228-03CA-414A-8786-E5BA844110C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94347832-A36D-4C42-9C4D-B848BD4F5DA9}

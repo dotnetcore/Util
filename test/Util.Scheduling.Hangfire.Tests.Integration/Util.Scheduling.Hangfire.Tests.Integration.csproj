@@ -10,7 +10,7 @@
 	<ItemGroup>
 		<PackageReference Include="Xunit.DependencyInjection" Version="8.7.1" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Hangfire.SqlServer" Version="1.7.33" />
+		<PackageReference Include="Hangfire.SqlServer" Version="1.7.34" />
 		<ProjectReference Include="..\..\src\Util.Scheduling.Hangfire\03-Util.Scheduling.Hangfire.csproj" />
 		<ProjectReference Include="..\Util.TestShare.SqlServer\Util.TestShare.SqlServer.csproj" />
 		<ProjectReference Include="..\Util.TestShare\Util.TestShare.csproj" />

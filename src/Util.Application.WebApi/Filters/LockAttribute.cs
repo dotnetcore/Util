@@ -11,10 +11,10 @@ using Util.Sessions;
 
 namespace Util.Applications.Filters {
     /// <summary>
-    /// 防止重复提交过滤器
+    /// 请求锁过滤器,用于防止重复提交
     /// </summary>
     [AttributeUsage( AttributeTargets.Method )]
-    public class AntiDuplicateRequestAttribute : ActionFilterAttribute {
+    public class LockAttribute : ActionFilterAttribute {
         /// <summary>
         /// 业务标识
         /// </summary>

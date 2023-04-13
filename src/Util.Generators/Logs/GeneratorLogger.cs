@@ -38,6 +38,7 @@ namespace Util.Generators.Logs {
                 .AppendLine( $"   输出根路径: {options.OutputPath}," )
                 .AppendLine( $"   消息配置:" )
                 .AppendLine( $"       必填项消息: {options.Messages.RequiredMessage}" )
+                .AppendLine( $"       最大长度消息: {options.Messages.MaxLengthMessage}" )
                 .AppendLine( $"   项目配置:" );
             foreach ( var project in options.Projects.Values ) {
                 _logger.AppendLine( $"       项目名称: {project.Name}" )
@@ -62,6 +63,7 @@ namespace Util.Generators.Logs {
                 .AppendLine( $"   输出根路径: {context.OutputRootPath}," )
                 .AppendLine( $"   消息上下文信息:" )
                 .AppendLine( $"       必填项消息: {context.Message.RequiredMessage}" )
+                .AppendLine( $"       最大长度消息: {context.Message.MaxLengthMessage}" )
                 .LogDebug();
         }
 
