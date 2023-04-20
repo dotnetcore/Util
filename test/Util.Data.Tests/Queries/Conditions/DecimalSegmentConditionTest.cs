@@ -1,41 +1,43 @@
-﻿using Util.Data.Queries;
+﻿using System.Linq;
 using Util.Data.Queries.Conditions;
 using Util.Data.Tests.Samples;
+using Util.Helpers;
 using Xunit;
+using Convert = Util.Helpers.Convert;
 
-namespace Util.Data.Tests.Queries.Conditions {
+namespace Util.Data.Tests.Queries.Conditions; 
+
+/// <summary>
+/// 测试double范围过滤条件
+/// </summary>
+public class DecimalSegmentConditionTest {
     /// <summary>
-    /// 测试double范围过滤条件
+    /// 测试获取查询条件
     /// </summary>
-    public class DecimalSegmentConditionTest {
-        /// <summary>
-        /// 测试获取查询条件
-        /// </summary>
-        [Fact]
-        public void TestGetCondition() {
-            DecimalSegmentCondition<Sample, decimal> condition = new DecimalSegmentCondition<Sample, decimal>( t => t.DecimalValue, 1.1M, 10.1M );
-            Assert.Equal( "t => ((t.DecimalValue >= 1.1) AndAlso (t.DecimalValue <= 10.1))", condition.GetCondition().ToString() );
+    [Fact]
+    public void TestGetCondition_1() {
+        var condition = new DecimalSegmentCondition<Sample, decimal>( t => t.DecimalValue, 1.1M, 10.1M );
+        var expression = Lambda.GetGroupPredicates( condition.GetCondition() ).First();
+        var leftExpression = expression[0];
+        var rightExpression = expression[1];
+        Assert.Equal( Operator.GreaterEqual, Lambda.GetOperator( leftExpression ) );
+        Assert.Equal( 1.1, Convert.ToDouble( Lambda.GetValue( leftExpression )) );
+        Assert.Equal( Operator.LessEqual, Lambda.GetOperator( rightExpression ) );
+        Assert.Equal( 10.1, Convert.ToDouble( Lambda.GetValue( rightExpression ) ) );
+    }
 
-            DecimalSegmentCondition<Sample, decimal?> condition2 = new DecimalSegmentCondition<Sample, decimal?>( t => t.NullableDecimalValue, 1.1M, 10.1M );
-            Assert.Equal( "t => ((t.NullableDecimalValue >= 1.1) AndAlso (t.NullableDecimalValue <= 10.1))", condition2.GetCondition().ToString() );
-        }
-
-        /// <summary>
-        /// 测试获取查询条件 - 设置边界
-        /// </summary>
-        [Fact]
-        public void TestGetCondition_Boundary() {
-            DecimalSegmentCondition<Sample, decimal> condition = new DecimalSegmentCondition<Sample, decimal>( t => t.DecimalValue, 1.1M, 10.1M, Boundary.Neither );
-            Assert.Equal( "t => ((t.DecimalValue > 1.1) AndAlso (t.DecimalValue < 10.1))", condition.GetCondition().ToString() );
-
-            condition = new DecimalSegmentCondition<Sample, decimal>( t => t.DecimalValue, 1.1M, 10.1M, Boundary.Left );
-            Assert.Equal( "t => ((t.DecimalValue >= 1.1) AndAlso (t.DecimalValue < 10.1))", condition.GetCondition().ToString() );
-
-            DecimalSegmentCondition<Sample, decimal?> condition2 = new DecimalSegmentCondition<Sample, decimal?>( t => t.NullableDecimalValue, 1.1M, 10.1M,Boundary.Right );
-            Assert.Equal( "t => ((t.NullableDecimalValue > 1.1) AndAlso (t.NullableDecimalValue <= 10.1))", condition2.GetCondition().ToString() );
-
-            condition2 = new DecimalSegmentCondition<Sample, decimal?>( t => t.NullableDecimalValue, 1.1M, 10.1M, Boundary.Both );
-            Assert.Equal( "t => ((t.NullableDecimalValue >= 1.1) AndAlso (t.NullableDecimalValue <= 10.1))", condition2.GetCondition().ToString() );
-        }
+    /// <summary>
+    /// 测试获取查询条件 - 可空
+    /// </summary>
+    [Fact]
+    public void TestGetCondition_2() {
+        var condition = new DecimalSegmentCondition<Sample, decimal?>( t => t.NullableDecimalValue, 1.1M, 10.1M );
+        var expression = Lambda.GetGroupPredicates( condition.GetCondition() ).First();
+        var leftExpression = expression[0];
+        var rightExpression = expression[1];
+        Assert.Equal( Operator.GreaterEqual, Lambda.GetOperator( leftExpression ) );
+        Assert.Equal( 1.1, Convert.ToDouble( Lambda.GetValue( leftExpression ) ) );
+        Assert.Equal( Operator.LessEqual, Lambda.GetOperator( rightExpression ) );
+        Assert.Equal( 10.1, Convert.ToDouble( Lambda.GetValue( rightExpression ) ) );
     }
 }

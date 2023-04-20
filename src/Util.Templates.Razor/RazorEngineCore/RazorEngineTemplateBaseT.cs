@@ -1,7 +1,6 @@
-﻿namespace RazorEngineCore
+﻿namespace RazorEngineCore; 
+
+public abstract class RazorEngineTemplateBase<T> : RazorEngineTemplateBase
 {
-    public abstract class RazorEngineTemplateBase<T> : RazorEngineTemplateBase
-    {
-        public new T Model { get; set; }
-    }
-}   
+    public new T Model { get; set; }
+}

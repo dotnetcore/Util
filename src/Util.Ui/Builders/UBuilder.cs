@@ -1,12 +1,12 @@
-﻿namespace Util.Ui.Builders {
+﻿namespace Util.Ui.Builders; 
+
+/// <summary>
+/// u标签生成器
+/// </summary>
+public class UBuilder : TagBuilder {
     /// <summary>
-    /// u标签生成器
+    /// 初始化u标签生成器
     /// </summary>
-    public class UBuilder : TagBuilder {
-        /// <summary>
-        /// 初始化u标签生成器
-        /// </summary>
-        public UBuilder() : base( "u" ) {
-        }
+    public UBuilder() : base( "u" ) {
     }
 }

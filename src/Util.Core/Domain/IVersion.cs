@@ -1,11 +1,11 @@
-﻿namespace Util.Domain {
+﻿namespace Util.Domain; 
+
+/// <summary>
+/// 乐观锁
+/// </summary>
+public interface IVersion {
     /// <summary>
-    /// 乐观锁
+    /// 版本号
     /// </summary>
-    public interface IVersion {
-        /// <summary>
-        /// 版本号
-        /// </summary>
-        byte[] Version { get; set; }
-    }
+    byte[] Version { get; set; }
 }

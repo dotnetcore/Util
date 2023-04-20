@@ -1,11 +1,11 @@
-﻿namespace Util.Domain.Trees {
+﻿namespace Util.Domain.Trees; 
+
+/// <summary>
+/// 启用
+/// </summary>
+public interface IEnabled {
     /// <summary>
-    /// 启用
+    /// 是否启用
     /// </summary>
-    public interface IEnabled {
-        /// <summary>
-        /// 是否启用
-        /// </summary>
-        bool Enabled { get; set; }
-    }
+    bool Enabled { get; set; }
 }

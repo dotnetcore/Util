@@ -1,11 +1,11 @@
-﻿namespace Util.Domain {
+﻿namespace Util.Domain; 
+
+/// <summary>
+/// 逻辑删除
+/// </summary>
+public interface IDelete {
     /// <summary>
-    /// 逻辑删除
+    /// 是否删除
     /// </summary>
-    public interface IDelete {
-        /// <summary>
-        /// 是否删除
-        /// </summary>
-        bool IsDeleted { get; set; }
-    }
+    bool IsDeleted { get; set; }
 }

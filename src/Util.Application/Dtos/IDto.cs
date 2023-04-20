@@ -1,11 +1,11 @@
-﻿namespace Util.Applications.Dtos {
+﻿namespace Util.Applications.Dtos; 
+
+/// <summary>
+/// 数据传输对象
+/// </summary>
+public interface IDto : IRequest {
     /// <summary>
-    /// 数据传输对象
+    /// 标识
     /// </summary>
-    public interface IDto : IRequest {
-        /// <summary>
-        /// 标识
-        /// </summary>
-        string Id { get; set; }
-    }
+    string Id { get; set; }
 }

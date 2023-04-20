@@ -1,12 +1,12 @@
-﻿namespace Util.Ui.Builders {
+﻿namespace Util.Ui.Builders; 
+
+/// <summary>
+/// span生成器
+/// </summary>
+public class SpanBuilder : TagBuilder {
     /// <summary>
-    /// span生成器
+    /// 初始化span生成器
     /// </summary>
-    public class SpanBuilder : TagBuilder {
-        /// <summary>
-        /// 初始化span生成器
-        /// </summary>
-        public SpanBuilder() : base( "span" ) {
-        }
+    public SpanBuilder() : base( "span" ) {
     }
 }

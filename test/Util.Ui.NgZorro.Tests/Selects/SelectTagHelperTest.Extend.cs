@@ -357,5 +357,20 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         }
 
         #endregion
+
+        #region OnLoad
+
+        /// <summary>
+        /// 测试数据加载完成事件
+        /// </summary>
+        [Fact]
+        public void TestOnLoad() {
+            _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-select (onLoad)=\"a\"></nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
     }
 }

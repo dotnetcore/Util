@@ -1,11 +1,11 @@
-﻿namespace Util.Scheduling {
+﻿namespace Util.Scheduling; 
+
+/// <summary>
+/// 后台任务
+/// </summary>
+public interface IJob {
     /// <summary>
-    /// 后台任务
+    /// 配置
     /// </summary>
-    public interface IJob {
-        /// <summary>
-        /// 配置
-        /// </summary>
-        void Config();
-    }
+    void Config();
 }

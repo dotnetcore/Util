@@ -25,7 +25,7 @@ namespace Util.Applications.Locks {
         public async Task Test_1() {
             var url = "/api/lock/nolock";
             var bag = new ConcurrentBag<WebApiResult<string>>();
-            await Thread.ParallelForAync( async () => {
+            await Thread.ParallelForAsync( async () => {
                 var result = await GetAsync<string>( url );
                 bag.Add( result );
             }, 20 );
@@ -39,7 +39,7 @@ namespace Util.Applications.Locks {
         public async Task Test_2() {
             var url = "/api/lock/GlobalLock";
             var bag = new ConcurrentBag<WebApiResult<string>>();
-            await Thread.ParallelForAync( async () => {
+            await Thread.ParallelForAsync( async () => {
                 var result = await GetAsync<string>( url );
                 bag.Add( result );
             }, 20 );
@@ -53,9 +53,9 @@ namespace Util.Applications.Locks {
         public async Task Test_3() {
             var url = "/api/lock/UserLock";
             var bag = new ConcurrentBag<WebApiResult<string>>();
-            await Thread.ParallelForAync( async () => {
+            await Thread.ParallelForAsync( async () => {
                 var userId = Id.Create();
-                await Thread.ParallelForAync( async () => {
+                await Thread.ParallelForAsync( async () => {
                     var result = await Client.Get<WebApiResult<string>>( url ).Header( "user-id",userId ).GetResultAsync();
                     bag.Add( result );
                 }, 5 );

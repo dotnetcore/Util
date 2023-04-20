@@ -1,20 +1,19 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace RazorEngineCore
+namespace RazorEngineCore; 
+
+public interface IRazorEngineCompiledTemplate
 {
-    public interface IRazorEngineCompiledTemplate
-    {
-        void SaveToStream(Stream stream);
+    void SaveToStream(Stream stream);
         
-        Task SaveToStreamAsync(Stream stream);
+    Task SaveToStreamAsync(Stream stream);
         
-        void SaveToFile(string fileName);
+    void SaveToFile(string fileName);
         
-        Task SaveToFileAsync(string fileName);
+    Task SaveToFileAsync(string fileName);
         
-        string Run(object model = null);
+    string Run(object model = null);
         
-        Task<string> RunAsync(object model = null);
-    }
+    Task<string> RunAsync(object model = null);
 }

@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RazorEngineCore
+namespace RazorEngineCore; 
+
+public class RazorEngineException : Exception
 {
-    public class RazorEngineException : Exception
+    public RazorEngineException()
     {
-        public RazorEngineException()
-        {
-        }
+    }
 
-        protected RazorEngineException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+    protected RazorEngineException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
 
-        public RazorEngineException(string message) : base(message)
-        {
-        }
+    public RazorEngineException(string message) : base(message)
+    {
+    }
 
-        public RazorEngineException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+    public RazorEngineException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

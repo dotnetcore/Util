@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 
-namespace Util.Generators {
+namespace Util.Generators; 
+
+/// <summary>
+/// 生成器
+/// </summary>
+public interface IGenerator {
     /// <summary>
-    /// 生成器
+    /// 生成
     /// </summary>
-    public interface IGenerator {
-        /// <summary>
-        /// 生成
-        /// </summary>
-        Task GenerateAsync();
-    }
+    Task GenerateAsync();
 }

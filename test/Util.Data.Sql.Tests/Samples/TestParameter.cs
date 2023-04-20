@@ -1,11 +1,11 @@
-﻿namespace Util.Data.Sql.Tests.Samples {
+﻿namespace Util.Data.Sql.Tests.Samples; 
+
+/// <summary>
+/// 测试参数
+/// </summary>
+public class TestParameter {
     /// <summary>
-    /// 测试参数
+    /// 编码
     /// </summary>
-    public class TestParameter {
-        /// <summary>
-        /// 编码
-        /// </summary>
-        public string Code { get; set; }
-    }
+    public string Code { get; set; }
 }

@@ -1,11 +1,11 @@
-﻿namespace Util.Domain.Trees {
+﻿namespace Util.Domain.Trees; 
+
+/// <summary>
+/// 排序号
+/// </summary>
+public interface ISortId {
     /// <summary>
     /// 排序号
     /// </summary>
-    public interface ISortId {
-        /// <summary>
-        /// 排序号
-        /// </summary>
-        int? SortId { get; set; }
-    }
+    int? SortId { get; set; }
 }

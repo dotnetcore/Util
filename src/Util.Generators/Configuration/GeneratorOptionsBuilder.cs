@@ -1,17 +1,17 @@
 ﻿using System.Threading.Tasks;
 using Util.Helpers;
 
-namespace Util.Generators.Configuration {
+namespace Util.Generators.Configuration; 
+
+/// <summary>
+/// 生成器配置项构建器
+/// </summary>
+public class GeneratorOptionsBuilder : IGeneratorOptionsBuilder {
     /// <summary>
-    /// 生成器配置项构建器
+    /// 构建生成器配置项
     /// </summary>
-    public class GeneratorOptionsBuilder : IGeneratorOptionsBuilder {
-        /// <summary>
-        /// 构建生成器配置项
-        /// </summary>
-        public Task<GeneratorOptions> BuildAsync() {
-            var result = Config.Get<GeneratorOptions>( "Generator" );
-            return Task.FromResult( result );
-        }
+    public Task<GeneratorOptions> BuildAsync() {
+        var result = Config.Get<GeneratorOptions>( "Generator" );
+        return Task.FromResult( result );
     }
 }

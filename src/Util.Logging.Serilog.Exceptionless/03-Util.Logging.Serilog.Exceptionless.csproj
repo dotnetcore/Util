@@ -29,7 +29,7 @@
   <ItemGroup>
     <PackageReference Include="Exceptionless.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Exceptionless.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Serilog.Sinks.Exceptionless" Version="3.1.5" />
+    <PackageReference Include="Serilog.Sinks.Exceptionless" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,11 +1,11 @@
-﻿namespace Util.Data.Queries {
+﻿namespace Util.Data.Queries; 
+
+/// <summary>
+/// 跟踪
+/// </summary>
+public interface ITrack {
     /// <summary>
-    /// 跟踪
+    /// 设置为不跟踪实体
     /// </summary>
-    public interface ITrack {
-        /// <summary>
-        /// 设置为不跟踪实体
-        /// </summary>
-        void NoTracking();
-    }
+    void NoTracking();
 }

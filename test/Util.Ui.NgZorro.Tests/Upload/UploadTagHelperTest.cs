@@ -1,8 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Upload;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,7 +14,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
     /// <summary>
     /// 上传测试
     /// </summary>
-    public class UploadTagHelperTest {
+    public partial class UploadTagHelperTest : IDisposable {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -19,14 +22,22 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// <summary>
         /// TagHelper包装器
         /// </summary>
-        private readonly TagHelperWrapper _wrapper;
+        private readonly TagHelperWrapper<Customer> _wrapper;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public UploadTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _wrapper = new UploadTagHelper().ToWrapper();
+            _wrapper = new UploadTagHelper().ToWrapper<Customer>();
+            Id.SetId( "id" );
+        }
+
+        /// <summary>
+        /// 测试清理
+        /// </summary>
+        public void Dispose() {
+            Id.Reset();
         }
 
         /// <summary>
@@ -39,12 +50,24 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         }
 
         /// <summary>
+        /// 获取按钮
+        /// </summary>
+        private string GetButton() {
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "{{'util.upload'|i18n}}" );
+            result.Append( "</button>" );
+            return result.ToString();
+        }
+
+        /// <summary>
         /// 测试默认输出
         /// </summary>
         [Fact]
         public void TestDefault() {
             var result = new StringBuilder();
-            result.Append( "<nz-upload></nz-upload>" );
+            result.Append( $"<nz-upload>{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -55,7 +78,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestId() {
             _wrapper.SetContextAttribute( UiConst.Id, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload #a=\"\"></nz-upload>" );
+            result.Append( $"<nz-upload #a=\"\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -66,7 +89,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestAccept() {
             _wrapper.SetContextAttribute( UiConst.Accept, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload nzAccept=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload nzAccept=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -77,7 +100,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindAccept() {
             _wrapper.SetContextAttribute( AngularConst.BindAccept, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzAccept]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzAccept]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -88,7 +111,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestAction() {
             _wrapper.SetContextAttribute( UiConst.Action, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload nzAction=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload nzAction=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -99,7 +122,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindAction() {
             _wrapper.SetContextAttribute( AngularConst.BindAction, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzAction]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzAction]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -110,7 +133,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestDirectory() {
             _wrapper.SetContextAttribute( UiConst.Directory, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzDirectory]=\"true\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzDirectory]=\"true\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -121,7 +144,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindDirectory() {
             _wrapper.SetContextAttribute( AngularConst.BindDirectory, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzDirectory]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzDirectory]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -132,7 +155,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBeforeUpload() {
             _wrapper.SetContextAttribute( UiConst.BeforeUpload, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzBeforeUpload]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzBeforeUpload]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -143,7 +166,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestCustomRequest() {
             _wrapper.SetContextAttribute( UiConst.CustomRequest, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzCustomRequest]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzCustomRequest]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -154,7 +177,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestData() {
             _wrapper.SetContextAttribute( UiConst.Data, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzData]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzData]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -165,7 +188,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestDisabled() {
             _wrapper.SetContextAttribute( UiConst.Disabled, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzDisabled]=\"true\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzDisabled]=\"true\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -176,7 +199,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindDisabled() {
             _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzDisabled]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzDisabled]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -187,7 +210,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestFileList() {
             _wrapper.SetContextAttribute( UiConst.FileList, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzFileList]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzFileList]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -198,7 +221,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindonFileList() {
             _wrapper.SetContextAttribute( AngularConst.BindonFileList, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [(nzFileList)]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [(nzFileList)]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -209,7 +232,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestLimit() {
             _wrapper.SetContextAttribute( UiConst.Limit, 1 );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzLimit]=\"1\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzLimit]=\"1\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -220,7 +243,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindLimit() {
             _wrapper.SetContextAttribute( AngularConst.BindLimit, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzLimit]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzLimit]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -231,7 +254,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestSize() {
             _wrapper.SetContextAttribute( UiConst.Size, 1 );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzSize]=\"1\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzSize]=\"1\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -242,7 +265,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindSize() {
             _wrapper.SetContextAttribute( AngularConst.BindSize, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzSize]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzSize]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -253,7 +276,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestFileType() {
             _wrapper.SetContextAttribute( UiConst.FileType, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload nzFileType=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload nzFileType=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -264,7 +287,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindFileType() {
             _wrapper.SetContextAttribute( AngularConst.BindFileType, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzFileType]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzFileType]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -275,7 +298,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestFilter() {
             _wrapper.SetContextAttribute( UiConst.Filter, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzFilter]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzFilter]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -286,7 +309,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestHeaders() {
             _wrapper.SetContextAttribute( UiConst.Headers, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzHeaders]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzHeaders]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -297,7 +320,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestListType() {
             _wrapper.SetContextAttribute( UiConst.ListType, UploadListType.PictureCard );
             var result = new StringBuilder();
-            result.Append( "<nz-upload nzListType=\"picture-card\"></nz-upload>" );
+            result.Append( $"<nz-upload nzListType=\"picture-card\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -308,7 +331,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindListType() {
             _wrapper.SetContextAttribute( AngularConst.BindListType, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzListType]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzListType]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -319,7 +342,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestMultiple() {
             _wrapper.SetContextAttribute( UiConst.Multiple, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzMultiple]=\"true\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzMultiple]=\"true\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -330,7 +353,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindMultiple() {
             _wrapper.SetContextAttribute( AngularConst.BindMultiple, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzMultiple]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzMultiple]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -341,7 +364,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestName() {
             _wrapper.SetContextAttribute( UiConst.Name, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload nzName=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload nzName=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -352,7 +375,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindName() {
             _wrapper.SetContextAttribute( AngularConst.BindName, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzName]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzName]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -363,7 +386,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestShowUploadList() {
             _wrapper.SetContextAttribute( UiConst.ShowUploadList, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzShowUploadList]=\"true\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzShowUploadList]=\"true\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -374,7 +397,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindShowUploadList() {
             _wrapper.SetContextAttribute( AngularConst.BindShowUploadList, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzShowUploadList]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzShowUploadList]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -385,7 +408,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestShowButton() {
             _wrapper.SetContextAttribute( UiConst.ShowButton, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzShowButton]=\"true\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzShowButton]=\"true\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -396,7 +419,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindShowButton() {
             _wrapper.SetContextAttribute( AngularConst.BindShowButton, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzShowButton]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzShowButton]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -407,7 +430,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestWithCredentials() {
             _wrapper.SetContextAttribute( UiConst.WithCredentials, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzWithCredentials]=\"true\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzWithCredentials]=\"true\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -418,7 +441,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindWithCredentials() {
             _wrapper.SetContextAttribute( AngularConst.BindWithCredentials, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzWithCredentials]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzWithCredentials]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -429,7 +452,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestOpenFileDialogOnClick() {
             _wrapper.SetContextAttribute( UiConst.OpenFileDialogOnClick, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzOpenFileDialogOnClick]=\"true\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzOpenFileDialogOnClick]=\"true\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -440,7 +463,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestBindOpenFileDialogOnClick() {
             _wrapper.SetContextAttribute( AngularConst.BindOpenFileDialogOnClick, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzOpenFileDialogOnClick]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzOpenFileDialogOnClick]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -451,7 +474,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestPreview() {
             _wrapper.SetContextAttribute( UiConst.Preview, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzPreview]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzPreview]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -462,7 +485,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestPreviewFile() {
             _wrapper.SetContextAttribute( UiConst.PreviewFile, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzPreviewFile]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzPreviewFile]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -473,7 +496,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestPreviewIsImage() {
             _wrapper.SetContextAttribute( UiConst.PreviewIsImage, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzPreviewIsImage]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzPreviewIsImage]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -484,7 +507,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestRemove() {
             _wrapper.SetContextAttribute( UiConst.Remove, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzRemove]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzRemove]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -495,7 +518,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestDownload() {
             _wrapper.SetContextAttribute( UiConst.Download, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzDownload]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzDownload]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -506,7 +529,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestTransformFile() {
             _wrapper.SetContextAttribute( UiConst.TransformFile, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzTransformFile]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzTransformFile]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -517,7 +540,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestIconRender() {
             _wrapper.SetContextAttribute( UiConst.IconRender, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzIconRender]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzIconRender]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -528,7 +551,29 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestFileListRender() {
             _wrapper.SetContextAttribute( UiConst.FileListRender, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload [nzFileListRender]=\"a\"></nz-upload>" );
+            result.Append( $"<nz-upload [nzFileListRender]=\"a\">{GetButton()}</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试上传文件改变事件
+        /// </summary>
+        [Fact]
+        public void TestOnChange() {
+            _wrapper.SetContextAttribute( UiConst.OnChange, "a" );
+            var result = new StringBuilder();
+            result.Append( $"<nz-upload (nzChange)=\"a\">{GetButton()}</nz-upload>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( $"<nz-upload *nzSpaceItem=\"\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -540,28 +585,6 @@ namespace Util.Ui.NgZorro.Tests.Upload {
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
             result.Append( "<nz-upload>a</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试上传文件改变事件
-        /// </summary>
-        [Fact]
-        public void TestOnChange() {
-            _wrapper.SetContextAttribute( UiConst.OnChange, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-upload (nzChange)=\"a\"></nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试间距项
-        /// </summary>
-        [Fact]
-        public void TestSpaceItem() {
-            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
-            var result = new StringBuilder();
-            result.Append( "<nz-upload *nzSpaceItem=\"\"></nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

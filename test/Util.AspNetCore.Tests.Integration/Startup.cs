@@ -8,16 +8,17 @@ using Util.Http;
 using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
-namespace Util.AspNetCore.Tests {
+namespace Util.AspNetCore.Tests; 
+
+/// <summary>
+/// 启动配置
+/// </summary>
+public class Startup {
     /// <summary>
-    /// 启动配置
+    /// 配置主机
     /// </summary>
-    public class Startup {
-        /// <summary>
-        /// 配置主机
-        /// </summary>
-        public void ConfigureHost( IHostBuilder hostBuilder ) {
-            hostBuilder.ConfigureWebHostDefaults( webHostBuilder => {
+    public void ConfigureHost( IHostBuilder hostBuilder ) {
+        hostBuilder.ConfigureWebHostDefaults( webHostBuilder => {
                 webHostBuilder.UseTestServer()
                     .Configure( t => {
                         t.UseRouting();
@@ -27,25 +28,24 @@ namespace Util.AspNetCore.Tests {
                     } );
             } )
             .AddUtil();
-        }
+    }
 
-        /// <summary>
-        /// 配置服务
-        /// </summary>
-        public void ConfigureServices( IServiceCollection services ) {
-            services.AddControllers();
-            services.AddTransient<IHttpClient>( t => {
-                var client = new HttpClientService();
-                client.SetHttpClient( t.GetService<IHost>().GetTestClient() );
-                return client;
-            } );
-        }
+    /// <summary>
+    /// 配置服务
+    /// </summary>
+    public void ConfigureServices( IServiceCollection services ) {
+        services.AddControllers();
+        services.AddTransient<IHttpClient>( t => {
+            var client = new HttpClientService();
+            client.SetHttpClient( t.GetService<IHost>().GetTestClient() );
+            return client;
+        } );
+    }
 
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor ) );
-        }
+    /// <summary>
+    /// 配置日志提供程序
+    /// </summary>
+    public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
+        loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor ) );
     }
 }

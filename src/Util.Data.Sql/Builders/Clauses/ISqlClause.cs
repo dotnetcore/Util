@@ -1,11 +1,11 @@
-﻿namespace Util.Data.Sql.Builders.Clauses {
+﻿namespace Util.Data.Sql.Builders.Clauses; 
+
+/// <summary>
+/// Sql子句
+/// </summary>
+public interface ISqlClause : ISqlContent {
     /// <summary>
-    /// Sql子句
+    /// 验证
     /// </summary>
-    public interface ISqlClause : ISqlContent {
-        /// <summary>
-        /// 验证
-        /// </summary>
-        bool Validate();
-    }
+    bool Validate();
 }
