@@ -210,8 +210,25 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置左侧距离
     /// </summary>
     public TableHeadColumnBuilder Left() {
-        AttributeIfNotEmpty( "[nzLeft]", _config.GetBoolValue( UiConst.Left ) );
-        AttributeIfNotEmpty( "[nzLeft]", _config.GetValue( AngularConst.BindLeft ) );
+        Left( _config.GetBoolValue( UiConst.Left ) );
+        Left( _config.GetValue( AngularConst.BindLeft ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置左侧距离
+    /// </summary>
+    public TableHeadColumnBuilder Left( string value ) {
+        AttributeIfNotEmpty( "[nzLeft]", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置左侧距离
+    /// </summary>
+    public TableHeadColumnBuilder Left( bool value ) {
+        if ( value )
+            Left( "true" );
         return this;
     }
 
@@ -219,8 +236,25 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置右侧距离
     /// </summary>
     public TableHeadColumnBuilder Right() {
-        AttributeIfNotEmpty( "[nzRight]", _config.GetBoolValue( UiConst.Right ) );
-        AttributeIfNotEmpty( "[nzRight]", _config.GetValue( AngularConst.BindRight ) );
+        Right( _config.GetBoolValue( UiConst.Right ) );
+        Right( _config.GetValue( AngularConst.BindRight ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置右侧距离
+    /// </summary>
+    public TableHeadColumnBuilder Right( string value ) {
+        AttributeIfNotEmpty( "[nzRight]", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置右侧距离
+    /// </summary>
+    public TableHeadColumnBuilder Right( bool value ) {
+        if ( value )
+            Right( "true" );
         return this;
     }
 
@@ -382,6 +416,8 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         Attribute( "[nzDisabled]", $"!{_shareConfig.TableExtendId}.dataSource.length" );
         Attribute( "[nzIndeterminate]", $"{_shareConfig.TableExtendId}.isMasterIndeterminate()" );
         BindWidth( $"{_shareConfig.TableExtendId}.config.table.checkboxWidth" );
+        if ( _shareConfig.IsCheckboxLeft )
+            Left( true );
     }
 
     /// <summary>
@@ -403,6 +439,8 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// </summary>
     protected virtual void AddRadio( string title = null ) {
         var radioBuilder = new TableHeadColumnBuilder( _config, _shareConfig );
+        if ( _shareConfig.IsRadioLeft )
+            radioBuilder.Left( true );
         radioBuilder.BindWidth( $"{_shareConfig.TableExtendId}.config.table.radioWidth" );
         PreBuilder = radioBuilder;
     }
@@ -439,6 +477,8 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         var options = NgZorroOptionsService.GetOptions();
         Title( options.EnableI18n ? "util.lineNumber" : "序号" );
         BindWidth( $"{_shareConfig.TableExtendId}.config.table.lineNumberWidth" );
+        if ( _shareConfig.IsLineNumberLeft )
+            Left( true );
     }
 
     /// <summary>
@@ -458,5 +498,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
             Sort( column.Column );
         Title( column.Title );
         this.Width( column.Width );
+        Left( column.IsLeft );
+        Right( column.IsRight );
     }
 }

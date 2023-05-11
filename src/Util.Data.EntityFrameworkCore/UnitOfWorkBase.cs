@@ -47,6 +47,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
         FilterManager = ServiceProvider.GetService<IFilterManager>();
         Session = serviceProvider.GetService<ISession>() ?? NullSession.Instance;
         EventBus = serviceProvider.GetService<ILocalEventBus>() ?? NullEventBus.Instance;
+        ActionManager = serviceProvider.GetService<IUnitOfWorkActionManager>() ?? NullUnitOfWorkActionManager.Instance;
         Events = new List<IEvent>();
     }
 
@@ -78,6 +79,10 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// 事件总线
     /// </summary>
     protected IEventBus EventBus { get; }
+    /// <summary>
+    /// 工作单元操作管理器
+    /// </summary>
+    protected IUnitOfWorkActionManager ActionManager { get; }
     /// <summary>
     /// 事件集合
     /// </summary>
@@ -548,6 +553,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     protected virtual async Task SaveChangesAfter() {
         await PublishEventsAsync();
+        await ExecuteActionsAsync();
     }
 
     #endregion
@@ -561,6 +567,17 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
         var events = new List<IEvent>( Events );
         Events.Clear();
         await EventBus.PublishAsync( events );
+    }
+
+    #endregion
+
+    #region ExecuteActionsAsync(执行工作单元操作集合)
+
+    /// <summary>
+    /// 执行工作单元操作集合
+    /// </summary>
+    protected virtual async Task ExecuteActionsAsync() {
+        await ActionManager.ExecuteAsync();
     }
 
     #endregion

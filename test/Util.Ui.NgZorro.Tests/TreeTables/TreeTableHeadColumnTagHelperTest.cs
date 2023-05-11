@@ -138,5 +138,45 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         }
 
         #endregion
+
+        #region CheckboxLeft
+
+        /// <summary>
+        /// 测试表头复选框
+        /// </summary>
+        [Fact]
+        public void TestCheckboxLeft() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowCheckbox = true, IsCheckboxLeft = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<th [nzLeft]=\"true\">" );
+            result.Append( "<label " );
+            result.Append( "(nzCheckedChange)=\"x_id.masterToggle()\" " );
+            result.Append( "nz-checkbox=\"\" " );
+            result.Append( "[nzChecked]=\"x_id.isMasterChecked()\" " );
+            result.Append( "[nzIndeterminate]=\"x_id.isMasterIndeterminate()\">" );
+            result.Append( "a" );
+            result.Append( "</label>" );
+            result.Append( "</th>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region RadioLeft
+
+        /// <summary>
+        /// 测试表头单选框
+        /// </summary>
+        [Fact]
+        public void TestRadioLeft() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowRadio = true, IsRadioLeft = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<th [nzLeft]=\"true\">a</th>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
     }
 }

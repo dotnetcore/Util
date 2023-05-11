@@ -62,6 +62,18 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     public bool ShowLineNumber { get; set; }
     /// <summary>
+    /// 扩展属性,是否固定左侧复选框列,当设置ShowCheckbox为true有效
+    /// </summary>
+    public bool CheckboxLeft { get; set; }
+    /// <summary>
+    /// 扩展属性,是否固定左侧单选框列,当设置ShowRadio为true有效
+    /// </summary>
+    public bool RadioLeft { get; set; }
+    /// <summary>
+    /// 扩展属性,是否固定左侧序号列,当设置ShowLineNumber为true有效
+    /// </summary>
+    public bool LineNumberLeft { get; set; }
+    /// <summary>
     /// 扩展属性 [checkedKeys],选中的标识列表，用于还原选中的复选框或单选框，可以是单个Id或Id数组，范例：'1' 或 ['1','2']
     /// </summary>
     public string CheckedKeys { get; set; }
@@ -73,6 +85,14 @@ public class TableTagHelper : AngularTagHelperBase {
     /// 扩展属性 [order],排序条件,范例: creationTime desc
     /// </summary>
     public string BindSort { get; set; }
+    /// <summary>
+    /// 扩展属性,点击表格行时是否选中该行,可同时选中多行,选中行被添加名为 table-row-selected 的 class类名
+    /// </summary>
+    public bool SelectOnClickRow { get; set; }
+    /// <summary>
+    /// 扩展属性,点击表格行时是否选中该行,仅选中该行,取消其它选中的行,选中行被添加名为 table-row-selected 的 class类名
+    /// </summary>
+    public bool SelectOnlyOnClickRow { get; set; }
     /// <summary>
     /// [nzData],数据,类型: any[]
     /// </summary>

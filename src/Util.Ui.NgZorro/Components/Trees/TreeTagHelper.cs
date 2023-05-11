@@ -300,6 +300,10 @@ public class TreeTagHelper : AngularTagHelperBase {
     /// 扩展事件 (onCollapse),节点折叠事件,参数为 NzTreeNode
     /// </summary>
     public string OnCollapse { get; set; }
+    /// <summary>
+    /// 扩展事件 (onLoad),数据加载完成事件,参数为服务端返回结果
+    /// </summary>
+    public string OnLoad { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

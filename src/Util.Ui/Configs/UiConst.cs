@@ -81,6 +81,14 @@ public static class UiConst {
     /// </summary>
     public const string Text = "text";
     /// <summary>
+    /// upload文本
+    /// </summary>
+    public const string TextUpload = "text-upload";
+    /// <summary>
+    /// download文本
+    /// </summary>
+    public const string TextDownload = "text-download";
+    /// <summary>
     /// ok文本
     /// </summary>
     public const string TextOk = "text-ok";
@@ -140,6 +148,42 @@ public static class UiConst {
     /// deselect-all文本
     /// </summary>
     public const string TextDeselectAll = "text-deselect-all";
+    /// <summary>
+    /// publish文本
+    /// </summary>
+    public const string TextPublish = "text-publish";
+    /// <summary>
+    /// run文本
+    /// </summary>
+    public const string TextRun = "text-run";
+    /// <summary>
+    /// start文本
+    /// </summary>
+    public const string TextStart = "text-start";
+    /// <summary>
+    /// stop文本
+    /// </summary>
+    public const string TextStop = "text-stop";
+    /// <summary>
+    /// add文本
+    /// </summary>
+    public const string TextAdd = "text-add";
+    /// <summary>
+    /// remove文本
+    /// </summary>
+    public const string TextRemove = "text-remove";
+    /// <summary>
+    /// open文本
+    /// </summary>
+    public const string TextOpen = "text-open";
+    /// <summary>
+    /// close文本
+    /// </summary>
+    public const string TextClose = "text-close";
+    /// <summary>
+    /// send文本
+    /// </summary>
+    public const string TextSend = "text-send";
     /// <summary>
     /// 加载标识列表
     /// </summary>
@@ -276,6 +320,22 @@ public static class UiConst {
     /// 滚动到底部事件
     /// </summary>
     public const string OnScrollToBottom = "on-scroll-to-bottom";
+    /// <summary>
+    /// 单击选中行
+    /// </summary>
+    public const string SelectOnClick = "select-on-click";
+    /// <summary>
+    /// 单击仅选中行
+    /// </summary>
+    public const string SelectOnlyOnClick = "select-only-on-click";
+    /// <summary>
+    /// 单击选中行
+    /// </summary>
+    public const string SelectOnClickRow = "select-on-click-row";
+    /// <summary>
+    /// 单击仅选中行
+    /// </summary>
+    public const string SelectOnlyOnClickRow = "select-only-on-click-row";
     /// <summary>
     /// 图标
     /// </summary>
@@ -669,9 +729,17 @@ public static class UiConst {
     /// </summary>
     public const string Checkbox = "checkbox";
     /// <summary>
+    /// 固定复选框到左侧
+    /// </summary>
+    public const string CheckboxLeft = "checkbox-left";
+    /// <summary>
     /// 单选框
     /// </summary>
     public const string Radio = "radio";
+    /// <summary>
+    /// 固定单选框到左侧
+    /// </summary>
+    public const string RadioLeft = "radio-left";
     /// <summary>
     /// 选中
     /// </summary>
@@ -916,6 +984,10 @@ public static class UiConst {
     /// 显示序号
     /// </summary>
     public const string ShowLineNumber = "show-line-number";
+    /// <summary>
+    /// 固定序号到左侧
+    /// </summary>
+    public const string LineNumberLeft = "line-number-left";
     /// <summary>
     /// 显示标签
     /// </summary>

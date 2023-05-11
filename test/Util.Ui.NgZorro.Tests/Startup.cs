@@ -19,7 +19,7 @@ namespace Util.Ui.NgZorro.Tests {
         /// 配置日志提供程序
         /// </summary>
         public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor,(s,logLevel) => logLevel >= LogLevel.Trace ) );
+            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor, ( s, logLevel ) => logLevel >= LogLevel.Trace ) );
         }
     }
 }

@@ -24,4 +24,12 @@ public class ColumnInfo {
     /// 是否第一列
     /// </summary>
     public bool IsFirst { get; set; }
+    /// <summary>
+    /// 是否左侧固定
+    /// </summary>
+    public bool IsLeft { get; set; }
+    /// <summary>
+    /// 是否右侧固定
+    /// </summary>
+    public bool IsRight { get; set; }
 }

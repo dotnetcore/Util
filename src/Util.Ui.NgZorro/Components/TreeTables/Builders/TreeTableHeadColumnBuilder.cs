@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Radios.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
@@ -77,6 +78,8 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
             title = _config.Content?.GetContent();
         var checkboxBuilder = new TreeTableMasterCheckBoxBuilder( _shareConfig.TableExtendId, title );
         SetContent( checkboxBuilder );
+        if ( _shareConfig.IsCheckboxLeft )
+            Left( "true" );
     }
 
     /// <summary>
@@ -97,5 +100,7 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
         if ( title.IsEmpty() )
             title = _config.Content?.GetContent();
         SetContent( title );
+        if ( _shareConfig.IsRadioLeft )
+            Left( "true" );
     }
 }

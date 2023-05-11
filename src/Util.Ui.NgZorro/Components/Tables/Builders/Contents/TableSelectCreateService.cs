@@ -16,8 +16,7 @@ public class TableSelectCreateService : ISelectCreateService {
     /// <inheritdoc />
     public void CreateRadio( TableColumnBuilder builder, IHtmlContent content ) {
         var columnBuilder = new TableColumnBuilder( builder.GetConfig(), builder.GetTableColumnShareConfig() );
-        var radioBuilder = new TableColumnRadioBuilder( builder.GetConfig(), builder.GetTableColumnShareConfig().TableExtendId );
-        columnBuilder.AppendContent( radioBuilder );
+        columnBuilder.AddRadio();
         builder.PreBuilder = columnBuilder;
     }
 

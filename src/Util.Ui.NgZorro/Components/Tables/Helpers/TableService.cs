@@ -48,6 +48,7 @@ public class TableService {
         SetIsShowRadio();
         SetIsCheckLeafOnly();
         SetIsShowLineNumber();
+        SetOnClickRow();
         EnableExtend();
     }
 
@@ -71,6 +72,7 @@ public class TableService {
     /// </summary>
     private void SetIsShowCheckbox() {
         _shareConfig.IsShowCheckbox = _config.GetValue<bool>( UiConst.ShowCheckbox );
+        _shareConfig.IsCheckboxLeft = _config.GetValue<bool>( UiConst.CheckboxLeft );
     }
 
     /// <summary>
@@ -78,6 +80,7 @@ public class TableService {
     /// </summary>
     private void SetIsShowRadio() {
         _shareConfig.IsShowRadio = _config.GetValue<bool>( UiConst.ShowRadio );
+        _shareConfig.IsRadioLeft = _config.GetValue<bool>( UiConst.RadioLeft );
     }
 
     /// <summary>
@@ -92,6 +95,16 @@ public class TableService {
     /// </summary>
     private void SetIsShowLineNumber() {
         _shareConfig.IsShowLineNumber = _config.GetValue<bool>( UiConst.ShowLineNumber );
+        _shareConfig.IsLineNumberLeft = _config.GetValue<bool>( UiConst.LineNumberLeft );
+    }
+
+    /// <summary>
+    /// 设置单击行事件
+    /// </summary>
+    private void SetOnClickRow() {
+        _shareConfig.OnClickRow = _config.GetValue( UiConst.OnClickRow );
+        _shareConfig.SelectOnClickRow = _config.GetValue<bool>( UiConst.SelectOnClickRow );
+        _shareConfig.SelectOnlyOnClickRow = _config.GetValue<bool>( UiConst.SelectOnlyOnClickRow );
     }
 
     /// <summary>

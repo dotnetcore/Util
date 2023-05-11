@@ -307,6 +307,7 @@ public class TreeBuilder : AngularTagBuilder {
         AttributeIfNotEmpty( "(nzOnDragLeave)", _config.GetValue( UiConst.OnDragLeave ) );
         AttributeIfNotEmpty( "(nzOnDrop)", _config.GetValue( UiConst.OnDrop ) );
         AttributeIfNotEmpty( "(nzOnDragEnd)", _config.GetValue( UiConst.OnDragEnd ) );
+        AttributeIfNotEmpty( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
         return this;
     }
 

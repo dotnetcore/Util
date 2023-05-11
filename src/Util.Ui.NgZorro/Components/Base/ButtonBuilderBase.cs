@@ -537,6 +537,182 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     }
 
     /// <summary>
+    /// 配置Upload文本
+    /// </summary>
+    public TBuilder TextUpload() {
+        var value = _config.GetValue<bool?>( UiConst.TextUpload );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Upload );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Upload" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Download文本
+    /// </summary>
+    public TBuilder TextDownload() {
+        var value = _config.GetValue<bool?>( UiConst.TextDownload );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Download );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Download" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Publish文本
+    /// </summary>
+    public TBuilder TextPublish() {
+        var value = _config.GetValue<bool?>( UiConst.TextPublish );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Publish );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Publish" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Run文本
+    /// </summary>
+    public TBuilder TextRun() {
+        var value = _config.GetValue<bool?>( UiConst.TextRun );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Run );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Run" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Start文本
+    /// </summary>
+    public TBuilder TextStart() {
+        var value = _config.GetValue<bool?>( UiConst.TextStart );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Start );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Start" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Stop文本
+    /// </summary>
+    public TBuilder TextStop() {
+        var value = _config.GetValue<bool?>( UiConst.TextStop );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Stop );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Stop" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Add文本
+    /// </summary>
+    public TBuilder TextAdd() {
+        var value = _config.GetValue<bool?>( UiConst.TextAdd );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Add );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Add" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Remove文本
+    /// </summary>
+    public TBuilder TextRemove() {
+        var value = _config.GetValue<bool?>( UiConst.TextRemove );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Remove );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Remove" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Open文本
+    /// </summary>
+    public TBuilder TextOpen() {
+        var value = _config.GetValue<bool?>( UiConst.TextOpen );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Open );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Open" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Close文本
+    /// </summary>
+    public TBuilder TextClose() {
+        var value = _config.GetValue<bool?>( UiConst.TextClose );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Close );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Close" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Send文本
+    /// </summary>
+    public TBuilder TextSend() {
+        var value = _config.GetValue<bool?>( UiConst.TextSend );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Send );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Send" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
     /// 配置文本
     /// </summary>
     public TBuilder Text() {
@@ -590,8 +766,11 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
             .Tooltip( _config ).Popconfirm( _config )
             .TextOk().TextCancel().TextCreate().TextUpdate().TextDelete()
             .TextDetail().TextQuery().TextRefresh().TextSave().TextEnable()
-            .TextDisable().TextSelectAll().TextDeselectAll().Text()
-            .OnClick().OnVisibleChange().OnPopoverVisibleChange()
+            .TextDisable().TextSelectAll().TextDeselectAll()
+            .TextUpload().TextDownload().TextPublish().TextRun()
+            .TextStart().TextStop().TextAdd().TextRemove()
+            .TextOpen().TextClose().TextSend()
+            .Text().OnClick().OnVisibleChange().OnPopoverVisibleChange()
             .ValidateForm();
     }
 

@@ -48,6 +48,21 @@ public class TableHeadColumnShareConfig {
     public bool IsShowLineNumber => _tableShareConfig.IsShowLineNumber;
 
     /// <summary>
+    /// 是否固定复选框到左侧
+    /// </summary>
+    public bool IsCheckboxLeft => _tableShareConfig.IsCheckboxLeft;
+
+    /// <summary>
+    /// 是否固定单选框到左侧
+    /// </summary>
+    public bool IsRadioLeft => _tableShareConfig.IsRadioLeft;
+
+    /// <summary>
+    /// 是否固定序号到左侧
+    /// </summary>
+    public bool IsLineNumberLeft => _tableShareConfig.IsLineNumberLeft;
+
+    /// <summary>
     /// 是否自动创建表头单元格th
     /// </summary>
     public bool IsAutoCreateHeadColumn {

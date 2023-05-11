@@ -70,6 +70,18 @@ public class SelectTagHelper : FormControlTagHelperBase {
     /// </summary>
     public bool ScrollLoad { get; set; }
     /// <summary>
+    /// [required],是否必填项
+    /// </summary>
+    public string Required { get; set; }
+    /// <summary>
+    /// 扩展属性 requiredMessage,必填项验证消息
+    /// </summary>
+    public string RequiredMessage { get; set; }
+    /// <summary>
+    /// 扩展属性 [requiredMessage],必填项验证消息
+    /// </summary>
+    public string BindRequiredMessage { get; set; }
+    /// <summary>
     /// [compareWith],比较算法函数,函数定义:(o1: any, o2: any) => boolean
     /// </summary>
     public string CompareWith { get; set; }

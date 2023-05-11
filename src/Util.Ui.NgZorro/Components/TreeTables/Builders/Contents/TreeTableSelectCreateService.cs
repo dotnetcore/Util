@@ -14,7 +14,7 @@ public class TreeTableSelectCreateService : ISelectCreateService {
     public void CreateCheckbox( TableColumnBuilder builder, IHtmlContent content ) {
         var checkBoxBuilder = new TreeTableCheckBoxBuilder( builder.GetTableColumnShareConfig().TableExtendId );
         checkBoxBuilder.AppendContent( content );
-        builder.AppendContent( checkBoxBuilder );
+        builder.AddCheckbox( checkBoxBuilder );
     }
 
     /// <inheritdoc />
@@ -23,11 +23,11 @@ public class TreeTableSelectCreateService : ISelectCreateService {
         var shareConfig = builder.GetTableColumnShareConfig();
         var tableExtendId = shareConfig.TableExtendId;
         if ( shareConfig.IsCheckLeafOnly == false ) {
-            builder.AppendContent( new TableColumnRadioBuilder( config, tableExtendId, content ) );
+            builder.AddRadio( new TableColumnRadioBuilder( config, tableExtendId, content ) );
             return;
         }
         var radioBuilder = new TreeTableColumnRadioBuilder( config, tableExtendId, content );
-        builder.AppendContent( radioBuilder );
+        builder.AddRadio( radioBuilder );
         var containerBuilder = new ContainerBuilder( config );
         containerBuilder.NgIf( $"!{tableExtendId}.isShowRadio(row)" );
         containerBuilder.SetContent( content );

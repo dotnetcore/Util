@@ -150,6 +150,21 @@ public class TableShareConfig {
     public bool IsShowLineNumber { get; set; }
 
     /// <summary>
+    /// 是否固定复选框到左侧
+    /// </summary>
+    public bool IsCheckboxLeft { get; set; }
+
+    /// <summary>
+    /// 是否固定单选框到左侧
+    /// </summary>
+    public bool IsRadioLeft { get; set; }
+
+    /// <summary>
+    /// 是否固定序号到左侧
+    /// </summary>
+    public bool IsLineNumberLeft { get; set; }
+
+    /// <summary>
     /// 是否树形表格
     /// </summary>
     public bool IsTreeTable { get; set; }
@@ -158,4 +173,19 @@ public class TableShareConfig {
     /// 是否仅能选择单选框叶节点
     /// </summary>
     public bool IsCheckLeafOnly { get; set; }
+
+    /// <summary>
+    /// 行单击事件
+    /// </summary>
+    public string OnClickRow { get; set; }
+
+    /// <summary>
+    /// 点击是否选中行
+    /// </summary>
+    public bool SelectOnClickRow { get; set; }
+
+    /// <summary>
+    /// 点击是否仅选中该行
+    /// </summary>
+    public bool SelectOnlyOnClickRow { get; set; }
 }

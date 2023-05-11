@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
@@ -101,8 +102,16 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置左侧距离
     /// </summary>
     public TableColumnBuilder Left() {
-        AttributeIfNotEmpty( "[nzLeft]", _config.GetBoolValue( UiConst.Left ) );
-        AttributeIfNotEmpty( "[nzLeft]", _config.GetValue( AngularConst.BindLeft ) );
+        Left( _config.GetBoolValue( UiConst.Left ) );
+        Left( _config.GetValue( AngularConst.BindLeft ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置左侧距离
+    /// </summary>
+    public TableColumnBuilder Left( string value ) {
+        AttributeIfNotEmpty( "[nzLeft]", value );
         return this;
     }
 
@@ -189,6 +198,35 @@ public class TableColumnBuilder : AngularTagBuilder {
         Attribute( "(click)", "$event.stopPropagation()" );
         Attribute( "(nzCheckedChange)", $"{_shareConfig.TableExtendId}.toggle(row)" );
         Attribute( "[nzChecked]", $"{_shareConfig.TableExtendId}.isChecked(row)" );
+        if ( _shareConfig.IsCheckboxLeft )
+            Left( "true" );
+    }
+
+    /// <summary>
+    /// 添加复选框
+    /// </summary>
+    /// <param name="checkBoxBuilder">复选框生成器</param>
+    public virtual void AddCheckbox( TagBuilder checkBoxBuilder ) {
+        AppendContent( checkBoxBuilder );
+        if ( _shareConfig.IsCheckboxLeft )
+            Left( "true" );
+    }
+
+    /// <summary>
+    /// 添加单选框
+    /// </summary>
+    public virtual void AddRadio() {
+        var radioBuilder = new TableColumnRadioBuilder( _config, _shareConfig.TableExtendId );
+        AddRadio( radioBuilder );
+    }
+
+    /// <summary>
+    /// 添加单选框
+    /// </summary>
+    public virtual void AddRadio( TagBuilder radioBuilder ) {
+        AppendContent( radioBuilder );
+        if ( _shareConfig.IsRadioLeft )
+            Left( "true" );
     }
 
     /// <summary>
@@ -196,5 +234,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// </summary>
     public void AddLineNumber() {
         AppendContent( "{{row.lineNumber}}" );
+        if ( _shareConfig.IsLineNumberLeft )
+            Left( "true" );
     }
 }

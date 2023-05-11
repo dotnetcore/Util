@@ -63,6 +63,50 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// </summary>
     public bool TextDeselectAll { get; set; }
     /// <summary>
+    /// 扩展属性,是否显示upload文本,默认文本为'Upload',i18n文本为'util.upload'
+    /// </summary>
+    public bool TextUpload { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示download文本,默认文本为'Download',i18n文本为'util.download'
+    /// </summary>
+    public bool TextDownload { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示publish文本,默认文本为'Publish',i18n文本为'util.publish'
+    /// </summary>
+    public bool TextPublish { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示run文本,默认文本为'Run',i18n文本为'util.run'
+    /// </summary>
+    public bool TextRun { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示start文本,默认文本为'Start',i18n文本为'util.start'
+    /// </summary>
+    public bool TextStart { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示stop文本,默认文本为'Stop',i18n文本为'util.stop'
+    /// </summary>
+    public bool TextStop { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示add文本,默认文本为'Add',i18n文本为'util.add'
+    /// </summary>
+    public bool TextAdd { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示remove文本,默认文本为'Remove',i18n文本为'util.remove'
+    /// </summary>
+    public bool TextRemove { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示open文本,默认文本为'Open',i18n文本为'util.open'
+    /// </summary>
+    public bool TextOpen { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示close文本,默认文本为'Close',i18n文本为'util.close'
+    /// </summary>
+    public bool TextClose { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示send文本,默认文本为'Send',i18n文本为'util.send'
+    /// </summary>
+    public bool TextSend { get; set; }
+    /// <summary>
     /// routerLink,路由链接,当按钮类型为链接时可用
     /// </summary>
     public string RouterLink { get; set; }

@@ -98,10 +98,12 @@ public class TableColumnService {
     private ColumnInfo GetColumnInfo() {
         var result = new ColumnInfo {
             Title = GetTitle(),
-            Column = GetColumn(),
-            Width = GetWidth(),
-            IsSort = GetSort(),
-            IsFirst = _shareConfig.IsFirst
+            Column = _config.GetValue( UiConst.Column ),
+            Width = _config.GetValue( UiConst.Width ),
+            IsSort = _config.GetValue<bool>( UiConst.Sort ),
+            IsFirst = _shareConfig.IsFirst,
+            IsLeft = _config.GetValue<bool>( UiConst.Left ),
+            IsRight = _config.GetValue<bool>( UiConst.Right )
         };
         return result;
     }
@@ -127,26 +129,5 @@ public class TableColumnService {
         if ( options.EnableI18n )
             return "util.operation";
         return "Operation";
-    }
-
-    /// <summary>
-    /// 获取列名
-    /// </summary>
-    private string GetColumn() {
-        return _config.GetValue( UiConst.Column );
-    }
-
-    /// <summary>
-    /// 获取宽度
-    /// </summary>
-    private string GetWidth() {
-        return _config.GetValue( UiConst.Width );
-    }
-
-    /// <summary>
-    /// 获取是否排序
-    /// </summary>
-    private bool GetSort() {
-        return _config.GetValue<bool>( UiConst.Sort );
     }
 }

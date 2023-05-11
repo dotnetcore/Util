@@ -151,5 +151,59 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         }
 
         #endregion
+
+        #region CheckboxLeft
+
+        /// <summary>
+        /// 测试固定复选框
+        /// </summary>
+        [Fact]
+        public void TestCheckboxLeft() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowCheckbox = true, IsCheckboxLeft = true, IsTreeTable = true } );
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            var result = new StringBuilder();
+            result.Append( "<td " );
+            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
+            result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
+            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"true\" " );
+            result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
+            result.Append( ">" );
+            result.Append( "<label " );
+            result.Append( "(nzCheckedChange)=\"x_id.toggle(row)\" " );
+            result.Append( "nz-checkbox=\"\" " );
+            result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
+            result.Append( "[nzIndeterminate]=\"x_id.isIndeterminate(row)\">" );
+            result.Append( "{{row.a}}" );
+            result.Append( "</label>" );
+            result.Append( "</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region RadioLeft
+
+        /// <summary>
+        /// 测试固定单选框
+        /// </summary>
+        [Fact]
+        public void TestRadioLeft() {
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowRadio = true,IsRadioLeft = true,IsTreeTable = true } );
+            _wrapper.SetContextAttribute( UiConst.Column, "a" );
+            var result = new StringBuilder();
+            result.Append( "<td " );
+            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
+            result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
+            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"true\" " );
+            result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
+            result.Append( ">" );
+            result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
+            result.Append( "{{row.a}}" );
+            result.Append( "</label>" );
+            result.Append( "</td>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
     }
 }

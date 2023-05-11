@@ -76,5 +76,44 @@ public class I18nKeys {
     /// util.upload
     /// </summary>
     public const string Upload = "util.upload";
-        
+    /// <summary>
+    /// util.download
+    /// </summary>
+    public const string Download = "util.download";
+    /// <summary>
+    /// util.publish
+    /// </summary>
+    public const string Publish = "util.publish";
+    /// <summary>
+    /// util.run
+    /// </summary>
+    public const string Run = "util.run";
+    /// <summary>
+    /// util.start
+    /// </summary>
+    public const string Start = "util.start";
+    /// <summary>
+    /// util.stop
+    /// </summary>
+    public const string Stop = "util.stop";
+    /// <summary>
+    /// util.add
+    /// </summary>
+    public const string Add = "util.add";
+    /// <summary>
+    /// util.remove
+    /// </summary>
+    public const string Remove = "util.remove";
+    /// <summary>
+    /// util.open
+    /// </summary>
+    public const string Open = "util.open";
+    /// <summary>
+    /// util.close
+    /// </summary>
+    public const string Close = "util.close";
+    /// <summary>
+    /// util.send
+    /// </summary>
+    public const string Send = "util.send";
 }

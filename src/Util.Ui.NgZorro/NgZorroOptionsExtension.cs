@@ -55,7 +55,7 @@ public class NgZorroOptionsExtension : OptionsExtensionBase {
     }
 
     /// <summary>
-    /// 配置Ngzor
+    /// 配置NgZorro
     /// </summary>
     private void ConfigNgZorroOptions( IServiceCollection services ) {
         if ( _setupAction != null )

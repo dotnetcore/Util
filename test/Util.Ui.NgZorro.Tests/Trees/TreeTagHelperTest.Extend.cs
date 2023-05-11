@@ -363,5 +363,20 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         }
 
         #endregion
+
+        #region OnLoad
+
+        /// <summary>
+        /// 测试数据加载完成事件
+        /// </summary>
+        [Fact]
+        public void TestOnLoad() {
+            _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree (onLoad)=\"a\"></nz-tree>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
     }
 }
