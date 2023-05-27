@@ -17,7 +17,7 @@ namespace Util.Generators.Tests.Contexts {
                 FileNameNoExtension = "e",
                 Extension = ".cs"
             };
-            Assert.Equal( @"c:\a\b\e.cs", output.Path );
+            Assert.Equal( @"c:/a/b/e.cs", output.Path );
         }
 
         /// <summary>

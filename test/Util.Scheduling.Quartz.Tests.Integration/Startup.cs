@@ -1,10 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util.Data.EntityFrameworkCore;
 using Util.Helpers;
 using Util.Tests.UnitOfWorks;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Scheduling.Quartz.Tests {
@@ -28,7 +26,8 @@ namespace Util.Scheduling.Quartz.Tests {
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-            InitDatabase( services );
+	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+			InitDatabase( services );
         }
 
         /// <summary>
@@ -38,13 +37,6 @@ namespace Util.Scheduling.Quartz.Tests {
             var unitOfWork = services.BuildServiceProvider().GetService<ITestUnitOfWork>();
             unitOfWork.EnsureDeleted();
             unitOfWork.EnsureCreated();
-        }
-
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor, ( s, logLevel ) => logLevel >= LogLevel.Trace ) );
         }
     }
 }

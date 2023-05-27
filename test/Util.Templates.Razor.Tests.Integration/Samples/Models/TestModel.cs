@@ -1,4 +1,4 @@
-﻿namespace Util.Templates.Razor.Tests.Samples.Models; 
+﻿namespace Util.Templates.Razor.Tests.Integration.Samples.Models; 
 
 /// <summary>
 /// 测试模型

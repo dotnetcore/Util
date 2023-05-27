@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Util.Templates.Handlebars.Tests; 
+namespace Util.Templates.Handlebars.Tests.Integration; 
 
 /// <summary>
 /// RazorÄ£°åÒıÇæ²âÊÔ - äÖÈ¾Ä£°å×Ö·û´®

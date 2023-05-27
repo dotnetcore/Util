@@ -231,12 +231,20 @@ namespace Util.Generators.Tests.Contexts {
         [Fact]
         public void TestEntityContext_RootPath() {
             var projectContext = _context.Projects[0];
-            Assert.Equal( @$"{AppContext.BaseDirectory}Output\Test", projectContext.Entities[0].Output.RootPath );
-            Assert.Equal( @$"{AppContext.BaseDirectory}Output\Test", projectContext.Entities[1].Output.RootPath );
+            Assert.Equal( @$"{GetBaseDirectory()}Output/Test", projectContext.Entities[0].Output.RootPath.Replace( "\\", "/" ) );
+            Assert.Equal( @$"{GetBaseDirectory()}Output/Test", projectContext.Entities[1].Output.RootPath.Replace( "\\", "/" ) );
 
             var projectContext2 = _context.Projects[1];
-            Assert.Equal( @$"{AppContext.BaseDirectory}Output\Test2", projectContext2.Entities[0].Output.RootPath );
-            Assert.Equal( @$"{AppContext.BaseDirectory}Output\Test2", projectContext2.Entities[1].Output.RootPath );
+            Assert.Equal( @$"{GetBaseDirectory()}Output/Test2", projectContext2.Entities[0].Output.RootPath.Replace( "\\", "/" ) );
+            Assert.Equal( @$"{GetBaseDirectory()}Output/Test2", projectContext2.Entities[1].Output.RootPath.Replace( "\\", "/" ) );
+        }
+
+        /// <summary>
+        /// 获取基路径
+        /// </summary>
+        private string GetBaseDirectory() {
+	        return AppContext.BaseDirectory.Replace( "\\", "/" );
+
         }
 
         /// <summary>
@@ -263,13 +271,13 @@ namespace Util.Generators.Tests.Contexts {
             entityContext.Output.FileNameNoExtension = "testName";
             entityContext.Output.Extension = ".ts";
             entityContext.Output.NamingConvention = NamingConvention.PascalCase;
-            Assert.Equal( @$"{AppContext.BaseDirectory}Output\Test\TestName.ts", entityContext.Output.Path );
+            Assert.Equal( @$"{GetBaseDirectory()}Output/Test/TestName.ts", entityContext.Output.Path.Replace( "\\","/" ) );
 
             var entityContext2 = projectContext.Entities[1];
             entityContext2.Output.FileNameNoExtension = "TestName";
             entityContext2.Output.Extension = ".ts";
             entityContext2.Output.NamingConvention = NamingConvention.CamelCase;
-            Assert.Equal( @$"{AppContext.BaseDirectory}Output\Test\testName.ts", entityContext2.Output.Path );
+            Assert.Equal( @$"{GetBaseDirectory()}Output/Test/testName.ts", entityContext2.Output.Path.Replace( "\\", "/" ) );
         }
 
         /// <summary>

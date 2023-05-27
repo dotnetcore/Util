@@ -39,7 +39,8 @@ namespace Util.Data.Dapper.Tests {
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-            services.AddSingleton<ISession, TestSession>();
+	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+			services.AddSingleton<ISession, TestSession>();
             InitDatabase( services );
         }
 
@@ -51,13 +52,6 @@ namespace Util.Data.Dapper.Tests {
             unitOfWork.EnsureDeleted();
             unitOfWork.EnsureCreated();
             DatabaseScript.InitProcedures( unitOfWork?.Database );
-        }
-
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor, ( s, logLevel ) => logLevel >= LogLevel.Trace ) );
         }
     }
 }

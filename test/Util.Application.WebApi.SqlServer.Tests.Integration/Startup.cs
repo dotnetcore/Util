@@ -3,13 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util.Aop;
 using Util.Data.EntityFrameworkCore;
 using Util.Helpers;
 using Util.Http;
 using Util.Tests.UnitOfWorks;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Applications {
@@ -42,7 +40,8 @@ namespace Util.Applications {
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-            services.AddControllers();
+	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+			services.AddControllers();
             services.AddTransient<IHttpClient>( t => {
                 var client = new HttpClientService();
                 client.SetHttpClient( t.GetService<IHost>().GetTestClient() );
@@ -58,13 +57,6 @@ namespace Util.Applications {
             var unitOfWork = services.BuildServiceProvider().GetService<ITestUnitOfWork>();
             unitOfWork.EnsureDeleted();
             unitOfWork.EnsureCreated();
-        }
-
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor ) );
         }
     }
 }

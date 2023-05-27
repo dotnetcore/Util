@@ -44,13 +44,13 @@ public static class Thread {
         Parallel.For( 0, count, options, i => action() );
     }
 
-    /// <summary>
-    /// 循环并发执行操作
-    /// </summary>
-    /// <param name="action">操作</param>
-    /// <param name="count">执行次数</param>
-    /// <param name="options">并发执行配置</param>
-    public static async Task ParallelForAsync( Func<ValueTask> action, int count = 1, ParallelOptions options = null ) {
+	/// <summary>
+	/// 循环并发执行操作
+	/// </summary>
+	/// <param name="action">操作</param>
+	/// <param name="count">执行次数</param>
+	/// <param name="options">并发执行配置</param>
+	public static async Task ParallelForAsync( Func<ValueTask> action, int count = 1, ParallelOptions options = null ) {
         if ( options == null ) {
             await Parallel.ForEachAsync( Enumerable.Range( 1, count ), async ( i, token ) => await action() );
             return;

@@ -1,8 +1,7 @@
 using EasyCaching.Core.Configurations;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util.Aop;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Caching.EasyCaching; 
@@ -18,21 +17,22 @@ public class Startup {
         hostBuilder.ConfigureDefaults( null )
             .AddUtil( options => {
                 Util.Helpers.Environment.SetDevelopment();
+                var redisEndpoint = Util.Helpers.Environment.IsDevelopment() ? "192.168.31.157" : "redis.common";
                 options.UseAop()
                     .UseRedisCache( t => {
                         t.MaxRdSecond = 0;
                         t.DBConfig.AllowAdmin = true;
                         t.DBConfig.KeyPrefix = "test:";
-                        t.DBConfig.Endpoints.Add( new ServerEndPoint( "192.168.31.157", 6379 ) );
+                        t.DBConfig.Endpoints.Add( new ServerEndPoint( redisEndpoint, 6379 ) );
                     } )
                     .UseMemoryCache( t => t.MaxRdSecond = 0 );
             } );
     }
 
     /// <summary>
-    /// 配置日志提供程序
+    /// 配置服务
     /// </summary>
-    public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-        loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor, ( s, logLevel ) => logLevel >= LogLevel.Trace ) );
+    public void ConfigureServices( IServiceCollection services ) {
+	    services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
     }
 }

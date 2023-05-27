@@ -14,7 +14,7 @@ public class TimeTest : IDisposable {
     /// <summary>
     /// 日期格式
     /// </summary>
-    private static string _dateFormat = "yyyy-MM-dd HH:mm:ss";
+    private static readonly string _dateFormat = "yyyy-MM-dd HH:mm:ss";
     /// <summary>
     /// 测试日期时间字符串,2012-12-12 12:12:12
     /// </summary>
@@ -26,23 +26,23 @@ public class TimeTest : IDisposable {
     /// <summary>
     /// 本地日期时间,2012-12-12 12:12:12
     /// </summary>
-    private static readonly DateTime _localDate = new DateTime( 2012, 12, 12, 12, 12, 12, DateTimeKind.Local );
+    private static readonly DateTime _localDate = new( 2012, 12, 12, 12, 12, 12, DateTimeKind.Local );
     /// <summary>
     /// 本地日期时间,2012-12-12 20:12:12
     /// </summary>
-    private static readonly DateTime _localDate2 = new DateTime( 2012, 12, 12, 20, 12, 12, DateTimeKind.Local );
+    private static readonly DateTime _localDate2 = new( 2012, 12, 12, 20, 12, 12, DateTimeKind.Local );
     /// <summary>
     /// utc日期时间,2012-12-12 4:12:12
     /// </summary>
-    private static readonly DateTime _utcDate = new DateTime( 2012, 12, 12, 4, 12, 12, DateTimeKind.Utc );
+    private static readonly DateTime _utcDate = new( 2012, 12, 12, 4, 12, 12, DateTimeKind.Utc );
     /// <summary>
     /// utc日期时间,2012-12-12 12:12:12
     /// </summary>
-    private static readonly DateTime _utcDate2 = new DateTime( 2012, 12, 12, 12, 12, 12, DateTimeKind.Utc );
+    private static readonly DateTime _utcDate2 = new( 2012, 12, 12, 12, 12, 12, DateTimeKind.Utc );
     /// <summary>
     /// 未指定日期时间,2012-12-12 12:12:12
     /// </summary>
-    private static readonly DateTime _unspecifiedDate = new DateTime( 2012, 12, 12, 12, 12, 12, DateTimeKind.Unspecified );
+    private static readonly DateTime _unspecifiedDate = new( 2012, 12, 12, 12, 12, 12, DateTimeKind.Unspecified );
 
     #endregion
 

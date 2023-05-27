@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Util.Applications.Locks {
     /// <summary>
@@ -20,16 +21,16 @@ namespace Util.Applications.Locks {
         /// <summary>
         /// 执行
         /// </summary>
-        public string Execute( string key, TimeSpan? expiration = null ) {
-            var result = _lock.Lock( key, expiration );
+        public async Task<string> ExecuteAsync( string key, TimeSpan? expiration = null ) {
+            var result = await _lock.LockAsync( key, expiration );
             return result ? "ok" : "fail";
         }
 
         /// <summary>
         /// 解锁
         /// </summary>
-        public void UnLock() {
-            _lock.UnLock();
+        public async Task UnLockAsync() {
+            await _lock.UnLockAsync();
         }
     }
 }

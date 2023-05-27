@@ -68,7 +68,7 @@ public class RazorTemplate : ITemplate {
     /// </summary>
     /// <param name="context">实体上下文</param>
     protected string GetRelativeRootPath( EntityContext context ) {
-        return TemplateFile.DirectoryName.RemoveStart( context.ProjectContext.GeneratorContext.TemplateRootPath ).RemoveStart( "\\" );
+        return TemplateFile.DirectoryName.RemoveStart( context.ProjectContext.GeneratorContext.TemplateRootPath ).RemoveStart( "\\" ).RemoveStart( "/" );
     }
 
     /// <summary>

@@ -2,7 +2,7 @@
 using Util.Templates.Razor.Filters;
 using Xunit;
 
-namespace Util.Templates.Razor.Tests.Filters; 
+namespace Util.Templates.Razor.Tests.Integration.Filters; 
 
 /// <summary>
 /// 模型过滤器测试

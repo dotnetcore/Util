@@ -3,7 +3,7 @@ using Util.Generators.Contexts;
 using Util.Generators.Templates;
 using Xunit;
 
-namespace Util.Generators.Razor.Tests {
+namespace Util.Generators.Razor.Tests.Integration {
     /// <summary>
     /// Razor模板查找器测试
     /// </summary>

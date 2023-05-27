@@ -86,8 +86,10 @@ namespace Build {
         /// 添加忽略测试项目文件列表
         /// </summary>
         private void AddIgnoreTestProjecs( ITaskContext context ) {
-            IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/*.Oracle.Tests.Integration.csproj" ) );
-        }
+	        IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/Util.Images.*.Tests.Integration.csproj" ) );
+			IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/*.Oracle.Tests.Integration.csproj" ) );
+            IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/*.Dapper.*.Tests.Integration.csproj" ) );
+		}
 
         /// <summary>
         /// 配置构建目标

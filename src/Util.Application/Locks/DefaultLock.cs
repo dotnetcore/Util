@@ -30,30 +30,12 @@ public class DefaultLock : ILock {
     }
 
     /// <inheritdoc />
-    public bool Lock( string key, TimeSpan? expiration = null ) {
-        _key = key;
-        _expiration = expiration;
-        if ( _cache.Exists( key ) )
-            return false;
-        return _cache.TrySet( key, 1, new CacheOptions { Expiration = expiration } );
-    }
-
-    /// <inheritdoc />
     public async Task<bool> LockAsync( string key, TimeSpan? expiration = null ) {
         _key = key;
         _expiration = expiration;
         if ( await _cache.ExistsAsync( key ) )
             return false;
         return await _cache.TrySetAsync( key, 1, new CacheOptions { Expiration = expiration } );
-    }
-
-    /// <inheritdoc />
-    public void UnLock() {
-        if ( _expiration != null )
-            return;
-        if ( _cache.Exists( _key ) == false )
-            return;
-        _cache.Remove( _key );
     }
 
     /// <inheritdoc />

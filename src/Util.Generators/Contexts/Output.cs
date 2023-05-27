@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+using Util.Helpers;
 
 namespace Util.Generators.Contexts; 
 
@@ -33,8 +34,8 @@ public class Output {
     public string Path {
         get {
             if( RelativeRootPath.IsEmpty() )
-                return System.IO.Path.Combine( RootPath, GetFileName() );
-            return System.IO.Path.Combine( RootPath, RelativeRootPath, GetFileName() );
+                return Common.JoinPath( RootPath, GetFileName() );
+            return Common.JoinPath( RootPath, RelativeRootPath, GetFileName() );
         }
     }
 

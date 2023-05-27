@@ -57,4 +57,17 @@ public static class Environment {
         SetEnvironmentVariable( DOTNET_ENVIRONMENT, Development );
         SetEnvironmentVariable( ASPNETCORE_ENVIRONMENT, Development );
     }
+
+    /// <summary>
+    /// 是否开发环境
+    /// </summary>
+    public static bool IsDevelopment() {
+	    var environment = GetEnvironmentVariable( DOTNET_ENVIRONMENT );
+	    if ( environment == Development )
+		    return true;
+	    environment = GetEnvironmentVariable( ASPNETCORE_ENVIRONMENT );
+	    if ( environment == Development )
+		    return true;
+	    return false;
+    }
 }

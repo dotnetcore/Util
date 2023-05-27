@@ -1,10 +1,10 @@
 using System.Text;
 using System.Threading.Tasks;
 using Util.Helpers;
-using Util.Templates.Razor.Tests.Samples.Models;
+using Util.Templates.Razor.Tests.Integration.Samples.Models;
 using Xunit;
 
-namespace Util.Templates.Razor.Tests; 
+namespace Util.Templates.Razor.Tests.Integration; 
 
 /// <summary>
 /// RazorÄ£°åÒýÇæ²âÊÔ - äÖÈ¾Ä£°å×Ö·û´®
@@ -58,7 +58,7 @@ public partial class RazorTemplateEngineTest {
     public void TestRender_4() {
         RazorTemplateEngine.DisableAutoLoadAssemblies();
         var template = new StringBuilder();
-        template.Append( "@using Util.Templates.Razor.Tests.Samples.Models\n" );
+        template.Append( "@using Util.Templates.Razor.Tests.Integration.Samples.Models\n" );
         template.Append( "@inherits RazorEngineCore.RazorEngineTemplateBase<TestModel>\n" );
         template.Append( "hello,@Model.Name" );
         var model = new TestModel { Name = "util" };
@@ -101,7 +101,7 @@ public partial class RazorTemplateEngineTest {
     public async Task TestRenderAsync_4() {
         RazorTemplateEngine.DisableAutoLoadAssemblies();
         var template = new StringBuilder();
-        template.Append( "@using Util.Templates.Razor.Tests.Samples.Models\n" );
+        template.Append( "@using Util.Templates.Razor.Tests.Integration.Samples.Models\n" );
         template.Append( "@inherits RazorEngineCore.RazorEngineTemplateBase<TestModel>\n" );
         template.Append( "hello,@Model.Name" );
         var model = new TestModel { Name = "util" };

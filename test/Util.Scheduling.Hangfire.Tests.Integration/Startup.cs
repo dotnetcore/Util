@@ -4,12 +4,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util.Data.EntityFrameworkCore;
 using Util.Helpers;
-using Util.Tests.Middlewares;
 using Util.Tests.UnitOfWorks;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 using Environment = Util.Helpers.Environment;
 
@@ -47,7 +44,8 @@ namespace Util.Scheduling.Hangfire.Tests {
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-            services.AddMvc();
+	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+			services.AddMvc();
             InitDatabase( services );
         }
 
@@ -58,13 +56,6 @@ namespace Util.Scheduling.Hangfire.Tests {
             var unitOfWork = services.BuildServiceProvider().GetService<ITestUnitOfWork>();
             unitOfWork.EnsureDeleted();
             unitOfWork.EnsureCreated();
-        }
-
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor, ( s, logLevel ) => logLevel >= LogLevel.Trace ) );
         }
     }
 }

@@ -1,6 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Ui.NgZorro.Tests {
@@ -15,11 +14,11 @@ namespace Util.Ui.NgZorro.Tests {
             hostBuilder.ConfigureDefaults( null ).AddUtil();
         }
 
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor, ( s, logLevel ) => logLevel >= LogLevel.Trace ) );
-        }
-    }
+		/// <summary>
+		/// 配置服务
+		/// </summary>
+		public void ConfigureServices( IServiceCollection services ) {
+			services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+		}
+	}
 }

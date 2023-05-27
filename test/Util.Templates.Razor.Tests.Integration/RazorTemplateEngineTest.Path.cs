@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Util.Helpers;
-using Util.Templates.Razor.Tests.Samples.Models;
+using Util.Templates.Razor.Tests.Integration.Samples.Models;
 using Xunit;
 
-namespace Util.Templates.Razor.Tests; 
+namespace Util.Templates.Razor.Tests.Integration; 
 
 /// <summary>
 /// Razor模板引擎测试 - 渲染模板文件

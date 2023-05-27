@@ -1,9 +1,9 @@
+using EasyCaching.Core.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util.Applications.Locks;
 using Util.Caching.EasyCaching;
 using Util.Events.Infrastructure;
@@ -11,7 +11,6 @@ using Util.Helpers;
 using Util.Http;
 using Util.Infrastructure;
 using Util.Tests.Middlewares;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Applications {
@@ -38,8 +37,18 @@ namespace Util.Applications {
                 } )
                 .AddUtil( options => {
                     Environment.SetDevelopment();
-                    options.UseLock()
-                        .UseMemoryCache();
+                    options = options.UseLock();
+                    if ( Environment.IsDevelopment() ) {
+	                    options.UseMemoryCache( t => t.MaxRdSecond = 0 );
+                    }
+                    else {
+	                    options.UseRedisCache( t => {
+		                    t.MaxRdSecond = 0;
+							t.DBConfig.AllowAdmin = true;
+		                    t.DBConfig.KeyPrefix = "util.lock.test:";
+		                    t.DBConfig.Endpoints.Add( new ServerEndPoint( "redis.common", 6379 ) );
+	                    } );
+                    }
                 } );
         }
 
@@ -47,6 +56,7 @@ namespace Util.Applications {
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
+	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
             services.AddControllers();
             services.AddTransient<LockTestService>();
             services.AddTransient<IHttpClient>( t => {
@@ -54,13 +64,6 @@ namespace Util.Applications {
                 client.SetHttpClient( t.GetService<IHost>().GetTestClient() );
                 return client;
             } );
-        }
-
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor ) );
         }
     }
 }

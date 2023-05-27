@@ -61,6 +61,7 @@ public class MemoryCacheManagerTest {
         var value = 1;
 
         //获取缓存,结果为空
+        _cache.Remove( key );
         var result = _cache.Get<int?>( key );
         Assert.Null( result );
 
@@ -193,6 +194,7 @@ public class MemoryCacheManagerTest {
         var value = 1;
 
         //获取缓存,结果为空
+        await _cache.RemoveAsync( key );
         var result = await _cache.GetAsync<int?>( key );
         Assert.Null( result );
 

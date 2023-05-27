@@ -5,7 +5,7 @@ using Util.Helpers;
 using Util.Templates;
 using Xunit;
 
-namespace Util.Generators.Razor.Tests {
+namespace Util.Generators.Razor.Tests.Integration {
     /// <summary>
     /// Razor模板测试
     /// </summary>

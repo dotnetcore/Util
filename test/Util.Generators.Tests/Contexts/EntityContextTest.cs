@@ -35,7 +35,7 @@ namespace Util.Generators.Tests.Contexts {
             Assert.Equal( context.Description, clone.Description );
 
             //验证输出
-            Assert.Equal( @"Output\Project", clone.Output.RootPath );
+            Assert.Equal( @"Output/Project", clone.Output.RootPath.Replace( "\\","/" ) );
             Assert.Equal( ".txt", clone.Output.Extension );
         }
     }

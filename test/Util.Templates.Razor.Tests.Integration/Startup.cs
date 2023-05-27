@@ -1,9 +1,8 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
-namespace Util.Templates.Handlebars.Tests; 
+namespace Util.Templates.Razor.Tests.Integration; 
 
 /// <summary>
 /// 启动配置
@@ -17,9 +16,9 @@ public class Startup {
     }
 
     /// <summary>
-    /// 配置日志提供程序
+    /// 配置服务
     /// </summary>
-    public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-        loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor ) );
+    public void ConfigureServices( IServiceCollection services ) {
+	    services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
     }
 }

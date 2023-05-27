@@ -1,12 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util.Aop;
 using Util.Helpers;
 using Util.Sessions;
 using Util.Tests.Infrastructure;
 using Util.Tests.UnitOfWorks;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Data.EntityFrameworkCore {
@@ -30,7 +28,8 @@ namespace Util.Data.EntityFrameworkCore {
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-            services.AddSingleton<ISession, TestSession>();
+	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+			services.AddSingleton<ISession, TestSession>();
             InitDatabase( services );
         }
 
@@ -41,13 +40,6 @@ namespace Util.Data.EntityFrameworkCore {
             var unitOfWork = services.BuildServiceProvider().GetService<ITestUnitOfWork>();
             unitOfWork.EnsureDeleted();
             unitOfWork.EnsureCreated();
-        }
-
-        /// <summary>
-        /// 配置日志提供程序
-        /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor, ( s, logLevel ) => logLevel >= LogLevel.Trace ) );
         }
     }
 }
