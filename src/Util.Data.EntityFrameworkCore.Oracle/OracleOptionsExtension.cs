@@ -54,9 +54,7 @@ public class OracleOptionsExtension<TService, TImplementation> : OptionsExtensio
 
     /// <inheritdoc />
     public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
-        if ( _condition == false )
-            return;
-        services.AddDbContext<TService, TImplementation>( options => {
+        void Action( DbContextOptionsBuilder options ) {
             _setupAction?.Invoke( options );
             if ( _connectionString.IsEmpty() == false ) {
                 options.UseOracle( _connectionString, _oracleSetupAction );
@@ -65,6 +63,10 @@ public class OracleOptionsExtension<TService, TImplementation> : OptionsExtensio
             if ( _connection != null ) {
                 options.UseOracle( _connection, _oracleSetupAction );
             }
-        } );
+        }
+        services.AddDbContext<TImplementation>( Action );
+        if ( _condition == false )
+            return;
+        services.AddDbContext<TService, TImplementation>( Action );
     }
 }

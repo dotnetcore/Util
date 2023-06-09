@@ -1,7 +1,8 @@
 ﻿using System;
 using Util.Configs;
+using Util.Data.Sql;
 
-namespace Util.Data.Sql; 
+namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// MySql数据库操作扩展

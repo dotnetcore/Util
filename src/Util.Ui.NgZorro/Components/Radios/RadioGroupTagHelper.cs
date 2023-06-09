@@ -20,11 +20,11 @@ public class RadioGroupTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// nzName,单选框组合中的所有单选按钮的 name 属性
     /// </summary>
-    public string Name { get; set; }
+    public new string Name { get; set; }
     /// <summary>
     /// [nzName],单选框组合中的所有单选按钮的 name 属性
     /// </summary>
-    public string BindName { get; set; }
+    public new string BindName { get; set; }
     /// <summary>
     /// nzSize,尺寸,可选值: 'large' | 'small' | 'default'
     /// </summary>

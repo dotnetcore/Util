@@ -23,7 +23,7 @@ namespace Util.Tests.EntityTypeConfigurations {
         /// 配置表
         /// </summary>
         private void ConfigTable( EntityTypeBuilder<Customer> builder ) {
-            builder.ToTable( "Customer", "Customers" ).HasComment( "客户" );
+            builder.ToTable( "Customer", "Customers", t => t.HasComment( "客户" ) );
         }
 
         /// <summary>

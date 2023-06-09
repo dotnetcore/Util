@@ -54,9 +54,7 @@ public class SqliteOptionsExtension<TService, TImplementation> : OptionsExtensio
 
     /// <inheritdoc />
     public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
-        if ( _condition == false )
-            return;
-        services.AddDbContext<TService, TImplementation>( options => {
+        void Action( DbContextOptionsBuilder options ) {
             _setupAction?.Invoke( options );
             if ( _connectionString.IsEmpty() == false ) {
                 options.UseSqlite( _connectionString, _sqliteSetupAction );
@@ -65,6 +63,10 @@ public class SqliteOptionsExtension<TService, TImplementation> : OptionsExtensio
             if ( _connection != null ) {
                 options.UseSqlite( _connection, _sqliteSetupAction );
             }
-        } );
+        }
+        services.AddDbContext<TImplementation>( Action );
+        if ( _condition == false )
+            return;
+        services.AddDbContext<TService, TImplementation>( Action );
     }
 }

@@ -55,9 +55,7 @@ public class MySqlOptionsExtension<TService, TImplementation> : OptionsExtension
 
     /// <inheritdoc />
     public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
-        if ( _condition == false )
-            return;
-        services.AddDbContext<TService, TImplementation>( options => {
+        void Action( DbContextOptionsBuilder options ) {
             _setupAction?.Invoke( options );
             if ( _connectionString.IsEmpty() == false ) {
                 options.UseMySql( _connectionString, ServerVersion.AutoDetect( _connectionString ), _mySqlSetupAction );
@@ -66,6 +64,10 @@ public class MySqlOptionsExtension<TService, TImplementation> : OptionsExtension
             if ( _connection != null ) {
                 options.UseMySql( _connection, ServerVersion.AutoDetect( (MySqlConnection)_connection ), _mySqlSetupAction );
             }
-        } );
+        }
+        services.AddDbContext<TImplementation>( Action );
+        if ( _condition == false )
+            return;
+        services.AddDbContext<TService, TImplementation>( Action );
     }
 }

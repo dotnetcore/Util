@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<VersionMajor>7</VersionMajor>
 		<VersionMinor>0</VersionMinor>
-		<VersionPatch>57</VersionPatch>
+		<VersionPatch>61</VersionPatch>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 	</PropertyGroup>

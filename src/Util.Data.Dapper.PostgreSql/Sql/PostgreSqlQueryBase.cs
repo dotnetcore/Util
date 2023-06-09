@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data;
+using Util.Data.Dapper.Sql.Builders;
+using Util.Data.Sql;
 using Util.Data.Sql.Builders;
 using Util.Data.Sql.Builders.Core;
 
-namespace Util.Data.Sql; 
+namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// PostgreSql Sql查询对象

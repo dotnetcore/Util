@@ -1,7 +1,9 @@
 ﻿using System;
+using Util.Data.Dapper.Sql;
+using Util.Data.Metadata;
 using Util.Data.Sql;
 
-namespace Util.Data.Metadata; 
+namespace Util.Data.Dapper.Metadata; 
 
 /// <summary>
 /// 数据库元数据服务工厂

@@ -2,8 +2,9 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Util.Configs;
+using Util.Data.Sql;
 
-namespace Util.Data.Sql; 
+namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// Sql Server Sql查询对象配置扩展

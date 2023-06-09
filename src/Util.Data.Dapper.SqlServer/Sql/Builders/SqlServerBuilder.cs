@@ -1,7 +1,9 @@
-﻿using Util.Data.Sql.Builders.Caches;
+﻿using Util.Data.Sql;
+using Util.Data.Sql.Builders;
+using Util.Data.Sql.Builders.Caches;
 using Util.Data.Sql.Builders.Params;
 
-namespace Util.Data.Sql.Builders; 
+namespace Util.Data.Dapper.Sql.Builders; 
 
 /// <summary>
 /// Sql Server Sql生成器

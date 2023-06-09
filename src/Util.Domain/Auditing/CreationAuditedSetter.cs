@@ -1,7 +1,7 @@
 ﻿using System;
 using Util.Helpers;
 
-namespace Util.Domain.Auditing; 
+namespace Util.Domain.Auditing;
 
 /// <summary>
 /// 创建操作审计设置器
@@ -41,40 +41,62 @@ public class CreationAuditedSetter {
     public void Init() {
         if ( _entity == null )
             return;
-        if( _entity is ICreationAudited<Guid> entity ) {
-            entity.CreationTime = Time.Now;
-            entity.CreatorId = _userId.ToGuid();
+        InitCreationTime();
+        if ( _userId.IsEmpty() )
+            return;
+        if ( _entity is ICreationAudited<Guid> entity ) {
+            if ( IsEmpty( entity.CreatorId ) )
+                entity.CreatorId = _userId.ToGuid();
             return;
         }
-        if( _entity is ICreationAudited<Guid?> entity2 ) {
-            entity2.CreationTime = Time.Now;
-            entity2.CreatorId = _userId.ToGuidOrNull();
+        if ( _entity is ICreationAudited<Guid?> entity2 ) {
+            if ( IsEmpty( entity2.CreatorId ) )
+                entity2.CreatorId = _userId.ToGuidOrNull();
             return;
         }
-        if( _entity is ICreationAudited<int> entity3 ) {
-            entity3.CreationTime = Time.Now;
-            entity3.CreatorId = _userId.ToInt();
+        if ( _entity is ICreationAudited<int> entity3 ) {
+            if ( IsEmpty( entity3.CreatorId ) )
+                entity3.CreatorId = _userId.ToInt();
             return;
         }
-        if( _entity is ICreationAudited<int?> entity4 ) {
-            entity4.CreationTime = Time.Now;
-            entity4.CreatorId = _userId.ToIntOrNull();
+        if ( _entity is ICreationAudited<int?> entity4 ) {
+            if ( IsEmpty( entity4.CreatorId ) )
+                entity4.CreatorId = _userId.ToIntOrNull();
             return;
         }
-        if( _entity is ICreationAudited<string> entity5 ) {
-            entity5.CreationTime = Time.Now;
-            entity5.CreatorId = _userId.SafeString();
+        if ( _entity is ICreationAudited<string> entity5 ) {
+            if ( IsEmpty( entity5.CreatorId ) )
+                entity5.CreatorId = _userId.SafeString();
             return;
         }
-        if( _entity is ICreationAudited<long> entity6 ) {
-            entity6.CreationTime = Time.Now;
-            entity6.CreatorId = _userId.ToLong();
+        if ( _entity is ICreationAudited<long> entity6 ) {
+            if ( IsEmpty( entity6.CreatorId ) )
+                entity6.CreatorId = _userId.ToLong();
             return;
         }
-        if( _entity is ICreationAudited<long?> entity7 ) {
-            entity7.CreationTime = Time.Now;
-            entity7.CreatorId = _userId.ToLongOrNull();
+        if ( _entity is ICreationAudited<long?> entity7 ) {
+            if ( IsEmpty( entity7.CreatorId ) )
+                entity7.CreatorId = _userId.ToLongOrNull();
             return;
         }
+    }
+
+    /// <summary>
+    /// 初始化创建时间
+    /// </summary>
+    private void InitCreationTime() {
+        if ( _entity is ICreationTime entity ) 
+            entity.CreationTime ??= Time.Now;
+    }
+
+    /// <summary>
+    /// 创建时间是否为空
+    /// </summary>
+    private bool IsEmpty<T>( T creatorId ) {
+        if ( creatorId == null )
+            return true;
+        if ( creatorId.Equals( default(T) ) )
+            return true;
+        return false;
     }
 }

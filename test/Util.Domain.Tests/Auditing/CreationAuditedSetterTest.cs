@@ -42,6 +42,21 @@ public class CreationAuditedSetterTest : IDisposable {
     }
 
     /// <summary>
+    /// 测试设置Guid创建人标识 - 已设置则跳过
+    /// </summary>
+    [Fact]
+    public void TestSet_Guid_2() {
+        var value = Guid.NewGuid().ToString();
+        var value2 = Guid.NewGuid();
+        var entity = new GuidAuditedEntity {
+            CreatorId = value2
+        };
+        CreationAuditedSetter.Set( entity, value );
+        Assert.Equal( _date, entity.CreationTime );
+        Assert.Equal( value2, entity.CreatorId );
+    }
+
+    /// <summary>
     /// 测试设置可空Guid创建人标识
     /// </summary>
     [Fact]

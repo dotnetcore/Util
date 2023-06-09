@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Dapper;
+using Util.Data.Sql;
 
-namespace Util.Data.Sql; 
+namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// Sql执行器

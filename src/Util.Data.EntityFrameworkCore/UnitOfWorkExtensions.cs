@@ -11,14 +11,15 @@ namespace Util.Data.EntityFrameworkCore;
 /// </summary>
 public static class UnitOfWorkExtensions {
     /// <summary>
-    /// 获取迁移列表
+    /// 获取已应用的迁移列表
     /// </summary>
     /// <param name="source">工作单元</param>
-    public static List<string> GetMigrations( this IUnitOfWork source ) {
+    public static async Task<List<string>> GetAppliedMigrationsAsync( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
         if ( source is not UnitOfWorkBase unitOfWork )
             return new List<string>();
-        return unitOfWork.Database.GetMigrations().ToList();
+        var result = await unitOfWork.Database.GetAppliedMigrationsAsync();
+        return result.ToList();
     }
 
     /// <summary>

@@ -18,14 +18,6 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// name,名称
-    /// </summary>
-    public string Name { get; set; }
-    /// <summary>
-    /// [name],名称
-    /// </summary>
-    public string BindName { get; set; }
-    /// <summary>
     /// [required],是否必填项
     /// </summary>
     public string Required { get; set; }

@@ -983,6 +983,20 @@ public partial class ProductRepositoryTest : TestBase {
     }
 
     /// <summary>
+    /// 测试设置创建审计属性 - 手工赋值
+    /// </summary>
+    [Fact]
+    public async Task TestCreationAudit_2() {
+        var entity = ProductFakeService.GetProduct();
+        entity.Init();
+        await _repository.AddAsync( entity );
+        entity.CreatorId = TestSession.TestUserId2;
+        await UnitOfWork.CommitAsync();
+        Assert.Equal( TestSession.TestUserId2, entity.CreatorId );
+        Assert.Equal( TestSession.TestUserId, entity.LastModifierId );
+    }
+
+    /// <summary>
     /// 测试设置修改审计属性
     /// </summary>
     [Fact]

@@ -54,9 +54,7 @@ public class PgSqlOptionsExtension<TService, TImplementation> : OptionsExtension
 
     /// <inheritdoc />
     public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
-        if ( _condition == false )
-            return;
-        services.AddDbContext<TService, TImplementation>( options => {
+        void Action( DbContextOptionsBuilder options ) {
             _setupAction?.Invoke( options );
             if ( _connectionString.IsEmpty() == false ) {
                 options.UseNpgsql( _connectionString, _pgSqlSetupAction );
@@ -65,6 +63,10 @@ public class PgSqlOptionsExtension<TService, TImplementation> : OptionsExtension
             if ( _connection != null ) {
                 options.UseNpgsql( _connection, _pgSqlSetupAction );
             }
-        } );
+        }
+        services.AddDbContext<TImplementation>( Action );
+        if ( _condition == false )
+            return;
+        services.AddDbContext<TService, TImplementation>( Action );
     }
 }

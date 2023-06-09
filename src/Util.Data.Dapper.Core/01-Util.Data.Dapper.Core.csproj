@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Data.Dapper.Core</AssemblyName>
-		<RootNamespace>Util.Data</RootNamespace>
+		<RootNamespace>Util.Data.Dapper</RootNamespace>
 		<Description>Util.Data.Dapper.Core是Util应用框架基于Dapper的数据访问封装基础类库</Description>
 	</PropertyGroup>
 

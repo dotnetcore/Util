@@ -34,4 +34,12 @@ public abstract class FormControlTagHelperBase : FormControlContainerTagHelperBa
     /// (ngModelChange),模型变更事件
     /// </summary>
     public string OnModelChange { get; set; }
+    /// <summary>
+    /// name,名称
+    /// </summary>
+    public string Name { get; set; }
+    /// <summary>
+    /// [name],名称
+    /// </summary>
+    public string BindName { get; set; }
 }

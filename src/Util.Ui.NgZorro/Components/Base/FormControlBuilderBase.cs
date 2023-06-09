@@ -46,8 +46,12 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
     /// 配置名称
     /// </summary>
     public virtual TBuilder Name() {
+        var bindName = _config.GetValue( AngularConst.BindName );
+        if ( bindName.IsEmpty() == false ) {
+            Attribute( "[name]", bindName );
+            return (TBuilder)this;
+        }
         Name( _config.GetValue( UiConst.Name ) );
-        AttributeIfNotEmpty( "[name]", _config.GetValue( AngularConst.BindName ) );
         return (TBuilder)this;
     }
 

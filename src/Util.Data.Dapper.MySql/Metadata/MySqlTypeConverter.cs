@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data;
+using Util.Data.Metadata;
 
-namespace Util.Data.Metadata; 
+namespace Util.Data.Dapper.Metadata; 
 
 /// <summary>
 /// MySql数据类型转换器

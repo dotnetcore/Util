@@ -8,7 +8,8 @@ using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Util.Data.Properties;
+using Util.Data.Dapper.Properties;
+using Util.Data.Sql;
 using Util.Data.Sql.Builders;
 using Util.Data.Sql.Builders.Clauses;
 using Util.Data.Sql.Builders.Core;
@@ -18,7 +19,7 @@ using Util.Data.Sql.Configs;
 using Util.Data.Sql.Database;
 using Util.Helpers;
 
-namespace Util.Data.Sql; 
+namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// Sql查询对象

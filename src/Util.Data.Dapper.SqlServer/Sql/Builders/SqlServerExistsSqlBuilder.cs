@@ -1,6 +1,8 @@
 ﻿using System.Text;
+using Util.Data.Sql;
+using Util.Data.Sql.Builders;
 
-namespace Util.Data.Sql.Builders; 
+namespace Util.Data.Dapper.Sql.Builders; 
 
 /// <summary>
 /// 判断是否存在Sql生成器

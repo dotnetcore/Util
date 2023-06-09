@@ -54,9 +54,7 @@ public class SqlServerOptionsExtension<TService, TImplementation> : OptionsExten
 
     /// <inheritdoc />
     public override void ConfigureServices( HostBuilderContext context, IServiceCollection services ) {
-        if ( _condition == false )
-            return;
-        services.AddDbContext<TService, TImplementation>( options => {
+        void Action( DbContextOptionsBuilder options ) {
             _setupAction?.Invoke( options );
             if ( _connectionString.IsEmpty() == false ) {
                 options.UseSqlServer( _connectionString, _sqlServerSetupAction );
@@ -65,6 +63,10 @@ public class SqlServerOptionsExtension<TService, TImplementation> : OptionsExten
             if ( _connection != null ) {
                 options.UseSqlServer( _connection, _sqlServerSetupAction );
             }
-        } );
+        }
+        services.AddDbContext<TImplementation>( Action );
+        if ( _condition == false )
+            return;
+        services.AddDbContext<TService, TImplementation>( Action );
     }
 }

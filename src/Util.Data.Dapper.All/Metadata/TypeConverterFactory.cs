@@ -1,6 +1,7 @@
 ﻿using System;
+using Util.Data.Metadata;
 
-namespace Util.Data.Metadata; 
+namespace Util.Data.Dapper.Metadata; 
 
 /// <summary>
 /// 数据类型转换器工厂

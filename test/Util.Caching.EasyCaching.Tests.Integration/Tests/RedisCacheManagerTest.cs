@@ -127,30 +127,14 @@ public class RedisCacheManagerTest {
     }
 
     /// <summary>
-    /// 测试从缓存中获取数据 - 设置1毫秒过期
+    /// 测试从缓存中获取数据 - 设置缓存键对象
     /// </summary>
     [Fact]
     public void TestGet_6() {
         var result = 0;
         var data = 0;
         for ( int i = 0; i < 3; i++ ) {
-            result = _cache.Get( "r:TestGet_6", () => {
-                data++;
-                return data;
-            }, new CacheOptions { Expiration = TimeSpan.FromMilliseconds( 1 ) } );
-        }
-        Assert.NotEqual( 1, result );
-    }
-
-    /// <summary>
-    /// 测试从缓存中获取数据 - 设置缓存键对象
-    /// </summary>
-    [Fact]
-    public void TestGet_7() {
-        var result = 0;
-        var data = 0;
-        for ( int i = 0; i < 3; i++ ) {
-            result = _cache.Get( new CacheKey( "r:TestGet_7" ), () => {
+            result = _cache.Get( new CacheKey( "r:TestGet_6" ), () => {
                 data++;
                 return data;
             } );

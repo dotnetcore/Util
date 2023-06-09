@@ -17,14 +17,6 @@ public class CheckboxTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// name,名称
-    /// </summary>
-    public string Name { get; set; }
-    /// <summary>
-    /// [name],名称
-    /// </summary>
-    public string BindName { get; set; }
-    /// <summary>
     /// [nzAutoFocus],是否自动获取焦点
     /// </summary>
     public bool AutoFocus { get; set; }

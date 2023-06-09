@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Util.Data.Metadata;
 using Util.Data.Sql;
 
-namespace Util.Data.Metadata {
+namespace Util.Data.Dapper.Metadata {
     /// <summary>
     /// Sql Server数据库元数据服务
     /// </summary>
@@ -52,8 +53,7 @@ namespace Util.Data.Metadata {
             var tables = ( await _sqlQuery.ToListAsync<TableInfo, ColumnInfo, TableInfo>( ( table, column ) => {
                 if ( table == null || column == null )
                     return null;
-                if ( dic.ContainsKey( table.Id ) == false )
-                    dic.Add( table.Id, table );
+                dic.TryAdd( table.Id, table );
                 TableInfo result = dic[table.Id];
                 result.Columns.Add( column );
                 return result;

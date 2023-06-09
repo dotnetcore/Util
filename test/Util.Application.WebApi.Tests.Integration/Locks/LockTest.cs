@@ -40,7 +40,7 @@ namespace Util.Applications.Locks {
         /// </summary>
         [Fact]
         public async Task Test_1() {
-            Assert.Equal( "ok",await _service.ExecuteAsync( "Test_1" ) );
+            Assert.Equal( "ok",await _service.ExecuteAsync( "lock:Test_1" ) );
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Util.Applications.Locks {
         /// </summary>
         [Fact]
         public async Task Test_2() {
-            var key = "Test_2";
+            var key = "lock:Test_2";
             await _cache.RemoveAsync( key );
 
             //执行，被锁定
@@ -72,11 +72,11 @@ namespace Util.Applications.Locks {
         /// </summary>
         [Fact]
         public async Task Test_3() {
-            var key = "Test_3";
+            var key = "lock:Test_3";
             Assert.Equal( "ok", await _service.ExecuteAsync( key, TimeSpan.FromSeconds( 1 ) ) );
             await _service.UnLockAsync();
             Assert.Equal( "fail",await _service.ExecuteAsync( key ) );
-            System.Threading.Thread.Sleep( 1100 );
+            await Task.Delay( 1500 );
             Assert.Equal( "ok",await _service.ExecuteAsync( key ) );
         }
     }

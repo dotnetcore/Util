@@ -73,7 +73,7 @@ public class MigrationService : IMigrationService {
 
     /// <inheritdoc />
     public async Task MigrateAsync( CancellationToken cancellationToken = default ) {
-        if ( Validate() == false )
+        if ( await Validate() == false )
             return;
         AddMigration();
         if( _isRemoveForeignKeys )
@@ -84,10 +84,12 @@ public class MigrationService : IMigrationService {
     /// <summary>
     /// 验证
     /// </summary>
-    private bool Validate() {
+    private async Task<bool> Validate() {
         if ( _migrationName.IsEmpty() )
             throw new ArgumentException( "必须设置迁移名称" );
-        var migrations = _dbcontext?.GetMigrations();
+        if ( _dbcontext == null )
+            return true;
+        var migrations = await _dbcontext.GetAppliedMigrationsAsync();
         if ( migrations == null )
             return true;
         if ( migrations.Any( t => t.EndsWith( $"_{_migrationName}" ) ) )

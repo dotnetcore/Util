@@ -38,7 +38,7 @@ namespace Util.Applications {
                 .AddUtil( options => {
                     Environment.SetDevelopment();
                     options = options.UseLock();
-                    if ( Environment.IsDevelopment() ) {
+                    if ( !Environment.IsDevelopment() ) {
 	                    options.UseMemoryCache( t => t.MaxRdSecond = 0 );
                     }
                     else {
@@ -46,7 +46,7 @@ namespace Util.Applications {
 		                    t.MaxRdSecond = 0;
 							t.DBConfig.AllowAdmin = true;
 		                    t.DBConfig.KeyPrefix = "util.lock.test:";
-		                    t.DBConfig.Endpoints.Add( new ServerEndPoint( "redis.common", 6379 ) );
+		                    t.DBConfig.Endpoints.Add( new ServerEndPoint( "192.168.31.157", 6379 ) );
 	                    } );
                     }
                 } );

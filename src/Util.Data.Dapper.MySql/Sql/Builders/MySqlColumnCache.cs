@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using Util.Data.Sql.Builders.Caches;
 
-namespace Util.Data.Sql.Builders; 
+namespace Util.Data.Dapper.Sql.Builders; 
 
 /// <summary>
 /// MySql列缓存

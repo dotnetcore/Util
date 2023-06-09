@@ -55,7 +55,7 @@ public class CacheManagerTest {
     [Fact]
     public void TestGet_2() {
         //变量定义
-        var key = new CacheKey( "TestGet_2" );
+        var key = new CacheKey( "c:TestGet_2" );
         var value = 1;
 
         //获取缓存,结果为空
@@ -76,8 +76,8 @@ public class CacheManagerTest {
     [Fact]
     public void TestGet_3() {
         //变量定义
-        var key = "TestGet_31";
-        var key2 = "TestGet_32";
+        var key = "c:TestGet_31";
+        var key2 = "c:TestGet_32";
 
         //设置缓存
         _cache.Set( key, 1 );
@@ -95,8 +95,8 @@ public class CacheManagerTest {
     [Fact]
     public void TestGet_4() {
         //变量定义
-        var key = new CacheKey( "TestGet_41" );
-        var key2 = new CacheKey( "TestGet_42" );
+        var key = new CacheKey( "c:TestGet_41" );
+        var key2 = new CacheKey( "c:TestGet_42" );
 
         //设置缓存
         _cache.Set( key, 1 );
@@ -132,7 +132,7 @@ public class CacheManagerTest {
         var result = 0;
         var data = 0;
         for ( int i = 0; i < 3; i++ ) {
-            result = _cache.Get( "TestGet_6", () => {
+            result = _cache.Get( "c:TestGet_6", () => {
                 data++;
                 return data;
             }, new CacheOptions { Expiration = TimeSpan.FromMicroseconds( 1 ) } );
@@ -148,7 +148,7 @@ public class CacheManagerTest {
         var result = 0;
         var data = 0;
         for ( int i = 0; i < 3; i++ ) {
-            result = _cache.Get( new CacheKey( "TestGet_7" ), () => {
+            result = _cache.Get( new CacheKey( "c:TestGet_7" ), () => {
                 data++;
                 return data;
             } );
@@ -187,7 +187,7 @@ public class CacheManagerTest {
     [Fact]
     public async Task TestGetAsync_2() {
         //变量定义
-        var key = new CacheKey( "TestGetAsync_2" );
+        var key = new CacheKey( "c:TestGetAsync_2" );
         var value = 1;
 
         //获取缓存,结果为空
@@ -208,8 +208,8 @@ public class CacheManagerTest {
     [Fact]
     public async Task TestGetAsync_3() {
         //变量定义
-        var key = "TestGetAsync_31";
-        var key2 = "TestGetAsync_32";
+        var key = "c:TestGetAsync_31";
+        var key2 = "c:TestGetAsync_32";
 
         //设置缓存
         await _cache.SetAsync( key, 1 );
@@ -227,8 +227,8 @@ public class CacheManagerTest {
     [Fact]
     public async Task TestGetAsync_4() {
         //变量定义
-        var key = new CacheKey( "TestGetAsync_41" );
-        var key2 = new CacheKey( "TestGetAsync_42" );
+        var key = new CacheKey( "c:TestGetAsync_41" );
+        var key2 = new CacheKey( "c:TestGetAsync_42" );
 
         //设置缓存
         await _cache.SetAsync( key, 1 );
@@ -248,7 +248,7 @@ public class CacheManagerTest {
         var result = 0;
         var data = 0;
         for ( int i = 0; i < 3; i++ ) {
-            result = await _cache.GetAsync( "TestGetAsync_5", async () => {
+            result = await _cache.GetAsync( "c:TestGetAsync_5", async () => {
                 data++;
                 return await Task.FromResult( data );
             } );
@@ -264,7 +264,7 @@ public class CacheManagerTest {
         var result = 0;
         var data = 0;
         for ( int i = 0; i < 3; i++ ) {
-            result = await _cache.GetAsync( "TestGetAsync_6", async () => {
+            result = await _cache.GetAsync( "c:TestGetAsync_6", async () => {
                 data++;
                 return await Task.FromResult( data );
             }, new CacheOptions { Expiration = TimeSpan.FromMicroseconds( 1 ) } );
@@ -280,7 +280,7 @@ public class CacheManagerTest {
         var result = 0;
         var data = 0;
         for ( int i = 0; i < 3; i++ ) {
-            result = await _cache.GetAsync( new CacheKey( "TestGetAsync_7" ), async () => {
+            result = await _cache.GetAsync( new CacheKey( "c:TestGetAsync_7" ), async () => {
                 data++;
                 return await Task.FromResult( data );
             }, new CacheOptions { Expiration = TimeSpan.FromMicroseconds( 1 ) } );

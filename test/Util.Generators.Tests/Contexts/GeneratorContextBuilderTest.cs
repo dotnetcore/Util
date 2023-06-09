@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using Util.Data;
-using Util.Data.Metadata;
+using Util.Data.Dapper.Metadata;
 using Util.Generators.Configuration;
 using Util.Generators.Contexts;
 using Util.Generators.Logs;

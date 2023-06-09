@@ -1,16 +1,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util.Aop;
+using Util.Data.Dapper.Metadata;
+using Util.Data.Dapper.Sql;
 using Util.Data.Dapper.Tests.Infrastructure;
 using Util.Data.EntityFrameworkCore;
 using Util.Data.Metadata;
-using Util.Data.Sql;
 using Util.Helpers;
 using Util.Sessions;
 using Util.Tests.Infrastructure;
 using Util.Tests.UnitOfWorks;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Data.Dapper.Tests {

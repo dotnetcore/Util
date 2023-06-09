@@ -18,14 +18,6 @@ public class SwitchTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// name,名称
-    /// </summary>
-    public string Name { get; set; }
-    /// <summary>
-    /// [name],名称
-    /// </summary>
-    public string BindName { get; set; }
-    /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
     public bool Disabled { get; set; }

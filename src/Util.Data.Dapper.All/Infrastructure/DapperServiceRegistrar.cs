@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Util.Data.Dapper.Metadata;
 using Util.Data.Metadata;
 using Util.Infrastructure;
 
-namespace Util.Data.Infrastructure; 
+namespace Util.Data.Dapper.Infrastructure; 
 
 /// <summary>
 /// Dapper服务注册器

@@ -1,7 +1,9 @@
 ﻿using System;
+using Util.Data.Dapper.Sql.Builders;
+using Util.Data.Sql;
 using Util.Data.Sql.Builders;
 
-namespace Util.Data.Sql; 
+namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// Sql Server Sql执行器

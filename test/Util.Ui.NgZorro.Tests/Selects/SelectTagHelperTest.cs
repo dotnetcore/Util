@@ -72,6 +72,40 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         }
 
         /// <summary>
+        /// 测试添加名称
+        /// </summary>
+        [Fact]
+        public void TestName() {
+            _wrapper.SetContextAttribute( UiConst.Name, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-select name=\"a\"></nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试添加名称
+        /// </summary>
+        [Fact]
+        public void TestBindName() {
+            _wrapper.SetContextAttribute( AngularConst.BindName, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-select [name]=\"a\"></nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试添加名称 - 同时添加name和[name]
+        /// </summary>
+        [Fact]
+        public void TestBindName_2() {
+            _wrapper.SetContextAttribute( UiConst.Name, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindName, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-select [name]=\"b\"></nz-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试模型绑定
         /// </summary>
         [Fact]

@@ -4,7 +4,7 @@
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Data.Dapper.All</AssemblyName>
-		<RootNamespace>Util.Data</RootNamespace>
+		<RootNamespace>Util.Data.Dapper</RootNamespace>
 		<Description>Util.Data.Dapper.All是Util应用框架基于Dapper的数据访问封装类库,包含所有支持的数据库实现</Description>
 	</PropertyGroup>
 

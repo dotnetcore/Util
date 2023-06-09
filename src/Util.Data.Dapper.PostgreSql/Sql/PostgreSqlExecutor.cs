@@ -1,6 +1,7 @@
 ﻿using System;
+using Util.Data.Sql;
 
-namespace Util.Data.Sql; 
+namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// PostgreSql Sql执行器

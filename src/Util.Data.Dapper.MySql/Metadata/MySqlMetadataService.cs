@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Util.Data.Metadata;
 using Util.Data.Sql;
 
-namespace Util.Data.Metadata; 
+namespace Util.Data.Dapper.Metadata; 
 
 /// <summary>
 /// MySql数据库元数据服务

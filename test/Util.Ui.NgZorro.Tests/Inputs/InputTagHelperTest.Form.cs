@@ -27,6 +27,22 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试垂直对齐方式 - 设置name
+        /// </summary>
+        [Fact]
+        public void TestAlign_Name() {
+            _wrapper.SetContextAttribute( UiConst.Align, Align.Middle );
+            _wrapper.SetOutputAttribute( UiConst.Name, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item nzAlign=\"middle\">" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<input name=\"a\" nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试额外提示
         /// </summary>
         [Fact]

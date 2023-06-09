@@ -25,6 +25,27 @@ public class ImageManager : IImageManager {
     }
 
     /// <summary>
+    /// 加载字体集合
+    /// </summary>
+    /// <param name="path">字体文件目录的绝对路径</param>
+    public static void LoadFonts( string path ) {
+        if ( Util.Helpers.File.ExistsByDirectory( path ) == false )
+            return;
+        LoadTtfFonts( path );
+    }
+
+    /// <summary>
+    /// 加载ttf字体
+    /// </summary>
+    private static void LoadTtfFonts( string path ) {
+        var files = Util.Helpers.File.GetAllFiles( path, "*.ttf" );
+        foreach ( var file in files ) {
+            var name = System.IO.Path.GetFileNameWithoutExtension( file.Name );
+            LoadFont( name, file.FullName );
+        }
+    }
+
+    /// <summary>
     /// 加载字体
     /// </summary>
     /// <param name="name">字体名称</param>

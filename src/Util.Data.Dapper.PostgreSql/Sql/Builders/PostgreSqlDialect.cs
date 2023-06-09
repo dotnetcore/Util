@@ -1,6 +1,7 @@
-﻿using Util.Data.Sql.Builders.Core;
+﻿using Util.Data.Sql.Builders;
+using Util.Data.Sql.Builders.Core;
 
-namespace Util.Data.Sql.Builders; 
+namespace Util.Data.Dapper.Sql.Builders; 
 
 /// <summary>
 /// PostgreSql方言
