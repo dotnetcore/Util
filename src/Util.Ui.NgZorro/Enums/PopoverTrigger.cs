@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Util.Ui.NgZorro.Enums; 
+﻿namespace Util.Ui.NgZorro.Enums; 
 
 /// <summary>
 /// 气泡框触发行为

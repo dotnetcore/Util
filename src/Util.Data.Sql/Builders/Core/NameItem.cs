@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Data.Sql.Builders.Core; 
+﻿namespace Util.Data.Sql.Builders.Core; 
 
 /// <summary>
 /// 名称项,用于拆分列名或表名

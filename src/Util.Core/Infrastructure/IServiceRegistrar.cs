@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Infrastructure; 
+﻿namespace Util.Infrastructure; 
 
 /// <summary>
 /// 服务注册器

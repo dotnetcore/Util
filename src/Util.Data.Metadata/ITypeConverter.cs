@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Util.Data.Metadata; 
+﻿namespace Util.Data.Metadata; 
 
 /// <summary>
 /// 数据类型转换器

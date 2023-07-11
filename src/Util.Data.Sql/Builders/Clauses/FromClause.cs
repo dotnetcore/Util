@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using Util.Data.Sql.Builders.Core;
+﻿using Util.Data.Sql.Builders.Core;
 
 namespace Util.Data.Sql.Builders.Clauses; 
 

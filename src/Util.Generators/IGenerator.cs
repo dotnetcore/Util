@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Util.Generators; 
+﻿namespace Util.Generators; 
 
 /// <summary>
 /// 生成器

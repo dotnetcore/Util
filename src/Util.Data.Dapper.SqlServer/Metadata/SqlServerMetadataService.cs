@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Util.Data.Metadata;
+﻿using Util.Data.Metadata;
 using Util.Data.Sql;
 
 namespace Util.Data.Dapper.Metadata {

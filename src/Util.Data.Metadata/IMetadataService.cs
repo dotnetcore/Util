@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Util.Data.Metadata; 
+﻿namespace Util.Data.Metadata; 
 
 /// <summary>
 /// 数据库元数据服务

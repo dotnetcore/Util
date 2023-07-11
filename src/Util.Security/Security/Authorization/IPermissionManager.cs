@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Util.Security.Authorization; 
+﻿namespace Util.Security.Authorization; 
 
 /// <summary>
 /// 权限管理器

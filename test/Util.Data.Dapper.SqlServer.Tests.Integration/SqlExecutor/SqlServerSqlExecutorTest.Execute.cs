@@ -4,25 +4,25 @@ using Util.Data.Sql;
 using Util.Tests.Configs;
 using Xunit;
 
-namespace Util.Data.Dapper.Tests.SqlExecutor {
+namespace Util.Data.Dapper.Tests.SqlExecutor; 
+
+/// <summary>
+/// Sql Server Sql执行器测试 - 执行Sql测试
+/// </summary>
+public partial class SqlServerSqlExecutorTest {
     /// <summary>
-    /// Sql Server Sql执行器测试 - 执行Sql测试
+    /// 测试执行Sql增删改操作
     /// </summary>
-    public partial class SqlServerSqlExecutorTest {
-        /// <summary>
-        /// 测试执行Sql增删改操作
-        /// </summary>
-        [Fact]
-        public async Task TestExecuteAsync() {
-            var id = Guid.NewGuid();
-            await _sqlExecutor
-                .AppendLine( "Insert Products.Product(ProductId,Code) " )
-                .Append( "Values(@ProductId,@Code)" )
-                .AddParam( "@ProductId", id )
-                .AddParam( "Code", TestConfig.Value )
-                .ExecuteAsync();
-            var result = await _sqlExecutor.Select( "Code" ).From( "Products.Product" ).Where( "ProductId", id ).ToStringAsync();
-            Assert.Equal( TestConfig.Value, result );
-        }
+    [Fact]
+    public async Task TestExecuteAsync() {
+        var id = Guid.NewGuid();
+        await _sqlExecutor
+            .AppendLine( "Insert Products.Product(ProductId,Code) " )
+            .Append( "Values(@ProductId,@Code)" )
+            .AddParam( "@ProductId", id )
+            .AddParam( "Code", TestConfig.Value )
+            .ExecuteAsync();
+        var result = await _sqlExecutor.Select( "Code" ).From( "Products.Product" ).Where( "ProductId", id ).ToStringAsync();
+        Assert.Equal( TestConfig.Value, result );
     }
 }

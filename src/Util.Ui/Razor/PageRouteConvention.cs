@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-
-namespace Util.Ui.Razor; 
+﻿namespace Util.Ui.Razor; 
 
 /// <summary>
 /// 页面默认路由添加view前缀

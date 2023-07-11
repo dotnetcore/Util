@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Data.Queries;
+﻿using Util.Data.Queries;
 
 namespace Util.Data.Sql.Builders.Clauses; 
 

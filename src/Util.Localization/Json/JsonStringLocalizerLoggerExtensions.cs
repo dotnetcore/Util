@@ -1,8 +1,4 @@
-﻿using System;
-using System.Globalization;
-using Microsoft.Extensions.Logging;
-
-namespace Util.Localization.Json; 
+﻿namespace Util.Localization.Json; 
 
 /// <summary>
 /// Json本地化日志扩展

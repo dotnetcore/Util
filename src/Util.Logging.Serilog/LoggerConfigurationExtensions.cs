@@ -1,9 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Serilog;
-using Serilog.Core;
-using Serilog.Events;
-
-namespace Util.Logging.Serilog; 
+﻿namespace Util.Logging.Serilog; 
 
 /// <summary>
 /// Serilog日志配置操作扩展

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using AutoMapper;
-
-namespace Util.ObjectMapping; 
+﻿namespace Util.ObjectMapping; 
 
 /// <summary>
 /// AutoMapper配置表达式扩展

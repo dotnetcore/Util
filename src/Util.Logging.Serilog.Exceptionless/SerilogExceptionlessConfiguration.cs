@@ -1,7 +1,4 @@
-﻿using System;
-using Exceptionless;
-
-namespace Util.Logging.Serilog; 
+﻿namespace Util.Logging.Serilog; 
 
 /// <summary>
 /// Serilog Exceptionless日志配置

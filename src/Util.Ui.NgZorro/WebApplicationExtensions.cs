@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.SpaServices;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Util.Ui.NgZorro; 
 
@@ -21,12 +18,12 @@ public static class WebApplicationExtensions {
         app.UseStaticFiles();
         app.UseSpaStaticFiles();
         app.UseRouting();
-        if ( app.Environment.IsDevelopment() ) {
-            app.UseEndpoints( endpoints => {
-                endpoints.MapRazorPages();
-                endpoints.MapControllers();
-            } );
-        }
+#pragma warning disable ASP0014
+        app.UseEndpoints( builder => {
+            builder.MapRazorPages();
+            builder.MapControllers();
+        } );
+#pragma warning restore ASP0014
         app.UseSpa( action );
         return app;
     }
@@ -40,8 +37,7 @@ public static class WebApplicationExtensions {
         app.CheckNull( nameof( app ) );
         return app.UseNgZorro( spa => {
             spa.Options.SourcePath = "ClientApp";
-            if ( app.Environment.IsDevelopment() )
-                spa.UseProxyToSpaDevelopmentServer( developmentServerBaseUri );
+            spa.UseProxyToSpaDevelopmentServer( developmentServerBaseUri );
         } );
     }
 }

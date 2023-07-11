@@ -1,6 +1,4 @@
-﻿using EasyCaching.Core;
-
-namespace Util.Caching.EasyCaching; 
+﻿namespace Util.Caching.EasyCaching; 
 
 /// <summary>
 /// EasyCaching内存缓存服务

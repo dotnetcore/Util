@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Logging; 
+﻿namespace Util.Logging; 
 
 /// <summary>
 /// 日志操作扩展

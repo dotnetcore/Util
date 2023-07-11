@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Util.Data.Sql.Builders.Params; 
+﻿namespace Util.Data.Sql.Builders.Params; 
 
 /// <summary>
 /// Sql参数

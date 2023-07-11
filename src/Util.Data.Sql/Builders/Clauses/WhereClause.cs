@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using Util.Data.Queries;
+﻿using Util.Data.Queries;
 using Util.Data.Sql.Builders.Caches;
 using Util.Data.Sql.Builders.Conditions;
 

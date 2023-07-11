@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Util.Helpers;
-
-namespace Util.Ui.NgZorro.Data; 
+﻿namespace Util.Ui.NgZorro.Data; 
 
 /// <summary>
 /// Ng-Zorro树节点
@@ -61,6 +58,6 @@ public class NgZorroTreeNode {
     /// </summary>
     /// <typeparam name="TNode">原始节点类型</typeparam>
     public TNode GetOriginalNode<TNode>() {
-        return Convert.To<TNode>( OriginalNode );
+        return Util.Helpers.Convert.To<TNode>( OriginalNode );
     }
 }

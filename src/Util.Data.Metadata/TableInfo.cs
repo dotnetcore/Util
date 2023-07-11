@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Data.Metadata; 
+﻿namespace Util.Data.Metadata; 
 
 /// <summary>
 /// 表信息

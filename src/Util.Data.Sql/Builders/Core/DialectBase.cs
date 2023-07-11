@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Data.Sql.Builders.Core; 
+﻿namespace Util.Data.Sql.Builders.Core; 
 
 /// <summary>
 /// Sql方言

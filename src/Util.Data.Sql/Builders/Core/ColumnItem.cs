@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Util.Data.Sql.Builders.Core; 
+﻿namespace Util.Data.Sql.Builders.Core; 
 
 /// <summary>
 /// 列项

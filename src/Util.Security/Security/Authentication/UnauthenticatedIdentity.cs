@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace Util.Security.Authentication; 
+﻿namespace Util.Security.Authentication; 
 
 /// <summary>
 /// 未认证的身份标识

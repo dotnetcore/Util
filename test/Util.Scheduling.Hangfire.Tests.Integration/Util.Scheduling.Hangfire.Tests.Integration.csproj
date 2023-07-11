@@ -10,13 +10,13 @@
 	<ItemGroup>
 		<PackageReference Include="Xunit.DependencyInjection" Version="8.7.1" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.1.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
-		<PackageReference Include="xunit" Version="2.4.2" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+		<PackageReference Include="xunit" Version="2.5.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Hangfire.SqlServer" Version="1.8.2" />
+		<PackageReference Include="Hangfire.SqlServer" Version="1.8.1" />
 		<ProjectReference Include="..\..\src\Util.Scheduling.Hangfire\03-Util.Scheduling.Hangfire.csproj" />
 		<ProjectReference Include="..\Util.TestShare.SqlServer\Util.TestShare.SqlServer.csproj" />
 		<ProjectReference Include="..\Util.TestShare\Util.TestShare.csproj" />

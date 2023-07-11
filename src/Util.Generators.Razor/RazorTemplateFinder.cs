@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Util.Generators.Contexts;
+﻿using Util.Generators.Contexts;
 using Util.Generators.Logs;
 using Util.Generators.Templates;
 using Util.Templates;

@@ -1,6 +1,4 @@
-﻿using Dapper;
-using System;
-using Util.Data.Dapper.TypeHandlers;
+﻿using Util.Data.Dapper.TypeHandlers;
 using Util.Infrastructure;
 
 namespace Util.Data.Dapper.Infrastructure;

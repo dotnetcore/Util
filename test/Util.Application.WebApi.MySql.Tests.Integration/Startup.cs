@@ -19,6 +19,7 @@ namespace Util.Applications {
         /// ÅäÖÃÖ÷»ú
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
                 .ConfigureWebHostDefaults( webHostBuilder => {
                     webHostBuilder.UseTestServer()
@@ -29,11 +30,10 @@ namespace Util.Applications {
                         } );
                     } );
                 } )
-                .AddUtil( options => {
-                    Environment.SetDevelopment();
-                    options.UseAop()
-                        .UseMySqlUnitOfWork<ITestUnitOfWork, MySqlUnitOfWork>( Config.GetConnectionString( "connection" ) );
-                } );
+                .AsBuild()
+                .AddAop()
+                .AddMySqlUnitOfWork<ITestUnitOfWork, MySqlUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddUtil();
         }
 
         /// <summary>

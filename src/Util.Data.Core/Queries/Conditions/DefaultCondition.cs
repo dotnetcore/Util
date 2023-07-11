@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-
-namespace Util.Data.Queries.Conditions; 
+﻿namespace Util.Data.Queries.Conditions; 
 
 /// <summary>
 /// 默认查询条件

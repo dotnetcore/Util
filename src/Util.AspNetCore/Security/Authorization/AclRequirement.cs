@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace Util.Security.Authorization; 
+﻿namespace Util.Security.Authorization; 
 
 /// <summary>
 /// 授权要求

@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Util.Data.Sql.Builders; 
+﻿namespace Util.Data.Sql.Builders; 
 
 /// <summary>
 /// Sql内容

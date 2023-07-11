@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-
-namespace Util.Helpers; 
+﻿namespace Util.Helpers; 
 
 /// <summary>
 /// 区域文化

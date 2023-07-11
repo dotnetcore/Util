@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Util.Generators.Configuration;
+﻿using Util.Generators.Configuration;
 using Util.Generators.Properties;
 using Util.Validation;
 

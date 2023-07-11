@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using Util.Dependency;
-
-namespace Util.Helpers; 
+﻿namespace Util.Helpers; 
 
 /// <summary>
 /// 容器操作
@@ -13,7 +7,7 @@ public static class Ioc {
     /// <summary>
     /// 容器
     /// </summary>
-    private static readonly Container _container = Container.Instance;
+    private static readonly Util.Dependency.Container _container = Util.Dependency.Container.Instance;
     /// <summary>
     /// 获取服务提供器操作
     /// </summary>

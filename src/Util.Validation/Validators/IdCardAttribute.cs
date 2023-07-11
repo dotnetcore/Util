@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using Util;
-using Util.Helpers;
+﻿using Util;
 using Util.Properties;
 using Util.Validation.Validators;
 
@@ -26,7 +24,7 @@ public class IdCardAttribute : ValidationAttribute {
     protected override ValidationResult IsValid( object value, ValidationContext validationContext ) {
         if( value.SafeString().IsEmpty() )
             return ValidationResult.Success;
-        if( Regex.IsMatch( value.SafeString(), ValidatePattern.IdCardPattern ) )
+        if( Util.Helpers.Regex.IsMatch( value.SafeString(), ValidatePattern.IdCardPattern ) )
             return ValidationResult.Success;
         return new ValidationResult( FormatErrorMessage( string.Empty ) );
     }

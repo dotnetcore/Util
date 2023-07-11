@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Util.Ui.Razor; 
+﻿namespace Util.Ui.Razor; 
 
 /// <summary>
 /// Razor页面扩展

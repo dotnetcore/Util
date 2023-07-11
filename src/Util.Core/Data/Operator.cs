@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Util.Data; 
+﻿namespace Util.Data; 
 
 /// <summary>
 /// 查询操作符

@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Util.Configs;
+﻿using Util.Configs;
 using Util.Infrastructure;
 
 namespace Util; 
@@ -10,20 +7,6 @@ namespace Util;
 /// 主机生成器服务扩展
 /// </summary>
 public static class HostBuilderExtensions {
-    /// <summary>
-    /// 注册Util前置服务,用于配置具有延迟的服务
-    /// </summary>
-    /// <param name="hostBuilder">主机生成器</param>
-    /// <param name="setupAction">服务配置操作</param>
-    public static IHostBuilder AddUtilBefore( this IHostBuilder hostBuilder, Action<PreOptions> setupAction = null ) {
-        hostBuilder.CheckNull( nameof( hostBuilder ) );
-        hostBuilder.ConfigureServices( ( context, services ) => {
-            Util.Helpers.Config.SetConfiguration( context.Configuration );
-        } );
-        hostBuilder.AddOptions( setupAction );
-        return hostBuilder;
-    }
-
     /// <summary>
     /// 注册Util服务 
     /// </summary>
@@ -55,5 +38,25 @@ public static class HostBuilderExtensions {
             hostBuilder.ConfigureServices( extension.ConfigureServices );
         }
         return hostBuilder;
+    }
+
+    /// <summary>
+    /// 转换为Util应用生成器
+    /// </summary>
+    /// <param name="hostBuilder">主机生成器</param>
+    public static IAppBuilder AsBuild( this IHostBuilder hostBuilder ) {
+        hostBuilder.CheckNull( nameof( hostBuilder ) );
+        return new AppBuilder( hostBuilder );
+    }
+
+    /// <summary>
+    /// 启动Util服务 
+    /// </summary>
+    /// <param name="appBuilder">应用生成器</param>
+    public static IAppBuilder AddUtil( this IAppBuilder appBuilder ) {
+        appBuilder.CheckNull( nameof( appBuilder ) );
+        var bootstrapper = new Bootstrapper( appBuilder.Host );
+        bootstrapper.Start();
+        return appBuilder;
     }
 }

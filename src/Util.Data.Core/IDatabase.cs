@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Util.Aop;
+﻿using Util.Aop;
 
 namespace Util.Data; 
 

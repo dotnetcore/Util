@@ -1,6 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Ui.NgAlain.Tests {
@@ -16,10 +15,10 @@ namespace Util.Ui.NgAlain.Tests {
         }
 
         /// <summary>
-        /// 配置日志提供程序
+        /// 配置服务
         /// </summary>
-        public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-            loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor,(s,logLevel) => logLevel >= LogLevel.Trace ) );
+        public void ConfigureServices( IServiceCollection services ) {
+            services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
         }
     }
 }

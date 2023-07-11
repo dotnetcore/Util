@@ -18,13 +18,13 @@ namespace Util.Applications {
         /// ÅäÖÃÖ÷»ú
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
-                .AddUtil( options => {
-                    Environment.SetDevelopment();
-                    options.UseUtc()
-                        .UseAop()
-                        .UsePgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) );
-                } );
+                .AsBuild()
+                .AddUtc()
+                .AddAop()
+                .AddPgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddUtil();
         }
 
         /// <summary>

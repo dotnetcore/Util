@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using Humanizer;
-
-namespace Util.Generators.Contexts; 
+﻿namespace Util.Generators.Contexts; 
 
 /// <summary>
 /// 属性

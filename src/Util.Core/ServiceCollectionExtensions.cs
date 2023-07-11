@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Util; 
+﻿namespace Util; 
 
 /// <summary>
 /// 服务扩展

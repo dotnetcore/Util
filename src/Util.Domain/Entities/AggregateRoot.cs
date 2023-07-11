@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Domain.Entities; 
+﻿namespace Util.Domain.Entities; 
 
 /// <summary>
 /// 聚合根

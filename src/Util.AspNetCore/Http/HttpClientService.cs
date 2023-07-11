@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace Util.Http; 
+﻿namespace Util.Http; 
 
 /// <summary>
 /// Http客户端服务
@@ -37,8 +35,9 @@ public class HttpClientService : IHttpClient {
     /// 设置Http客户端
     /// </summary>
     /// <param name="client">Http客户端</param>
-    public void SetHttpClient( HttpClient client ) {
+    public HttpClientService SetHttpClient( HttpClient client ) {
         _httpClient = client;
+        return this;
     }
     #endregion
 

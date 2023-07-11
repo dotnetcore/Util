@@ -16,6 +16,10 @@ public static class Environment {
     /// Development
     /// </summary>
     private const string Development = "Development";
+    /// <summary>
+    /// 换行符
+    /// </summary>
+    public static string NewLine => System.Environment.NewLine;
 
     /// <summary>
     /// 设置环境变量

@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using RazorEngineCore;
-using Util.Infrastructure;
+﻿using Util.Infrastructure;
 using Util.Reflections;
 using Util.Templates.Razor;
 using Util.Templates.Razor.Filters;

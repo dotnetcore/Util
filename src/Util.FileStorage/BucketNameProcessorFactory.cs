@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.FileStorage; 
+﻿namespace Util.FileStorage; 
 
 /// <summary>
 /// 存储桶名称处理器工厂

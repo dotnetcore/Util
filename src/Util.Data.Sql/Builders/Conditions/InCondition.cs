@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Util.Data.Sql.Builders.Params;
+﻿using Util.Data.Sql.Builders.Params;
 
 namespace Util.Data.Sql.Builders.Conditions; 
 

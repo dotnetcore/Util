@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Util.Data.Sql.Builders.Core; 
+﻿namespace Util.Data.Sql.Builders.Core; 
 
 /// <summary>
 /// 拆分项

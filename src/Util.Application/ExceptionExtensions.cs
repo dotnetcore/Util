@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Exceptions;
+﻿using Util.Exceptions;
 using Util.Properties;
 
 namespace Util.Applications; 

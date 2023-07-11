@@ -1,6 +1,4 @@
-﻿using SixLabors.ImageSharp;
-
-namespace Util.Images.Commands; 
+﻿namespace Util.Images.Commands; 
 
 /// <summary>
 /// 调用命令

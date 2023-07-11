@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Html;
-using System.IO;
-using System.Text.Encodings.Web;
-using Util.Ui.Angular.Configs;
+﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.Configs;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data;
-using Util.Data.Metadata;
+﻿using Util.Data.Metadata;
 
 namespace Util.Data.Dapper.Metadata; 
 

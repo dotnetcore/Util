@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Util.Generators.Contexts;
+﻿using Util.Generators.Contexts;
 using Util.Generators.Logs;
 using Util.Generators.Resources;
 using Util.Generators.Templates;

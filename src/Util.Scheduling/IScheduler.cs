@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// 后台任务调度器
@@ -9,9 +7,11 @@ public interface IScheduler {
     /// <summary>
     /// 启动
     /// </summary>
-    Task StartAsync();
+    /// <param name="cancellationToken">取消令牌</param>
+    Task StartAsync( CancellationToken cancellationToken = default );
     /// <summary>
     /// 停止
     /// </summary>
-    Task StopAsync();
+    /// <param name="cancellationToken">取消令牌</param>
+    Task StopAsync( CancellationToken cancellationToken = default );
 }

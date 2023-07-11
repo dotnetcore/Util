@@ -1,6 +1,4 @@
-﻿using Quartz;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// Quartz任务扩展

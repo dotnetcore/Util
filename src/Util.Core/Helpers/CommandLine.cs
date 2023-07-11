@@ -1,13 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Text;
-
-namespace Util.Helpers; 
+﻿namespace Util.Helpers;
 
 /// <summary>
 /// 命令行操作
 /// </summary>
 public class CommandLine {
+    /// <summary>
+    /// 日志操作
+    /// </summary>
+    private ILogger _logger;
     /// <summary>
     /// 命令,范例: dotnet
     /// </summary>
@@ -17,9 +17,17 @@ public class CommandLine {
     /// </summary>
     private string _arguments;
     /// <summary>
+    /// 环境变量
+    /// </summary>
+    private readonly IDictionary<string, string> _environmentVariables;
+    /// <summary>
     /// 是否重定向标准输出流
     /// </summary>
     private bool _redirectStandardOutput;
+    /// <summary>
+    /// 是否重定向标准错误流
+    /// </summary>
+    private bool _redirectStandardError;
     /// <summary>
     /// 输出流字符编码,默认值: Encoding.UTF8
     /// </summary>
@@ -32,14 +40,37 @@ public class CommandLine {
     /// 工作目录
     /// </summary>
     private string _workingDirectory;
+    /// <summary>
+    /// 启动进程是否不要创建新窗口
+    /// </summary>
+    private bool _createNoWindow;
+    /// <summary>
+    /// 命令执行超时间隔
+    /// </summary>
+    private TimeSpan _timeout;
+    /// <summary>
+    /// 事件等待句柄
+    /// </summary>
+    private readonly EventWaitHandle _outputReceived;
+    /// <summary>
+    /// 预期完成输出消息
+    /// </summary>
+    private readonly List<string> _outputToMatch;
 
     /// <summary>
     /// 初始化命令行操作
     /// </summary>
     public CommandLine() {
+        _logger = NullLogger.Instance;
         _redirectStandardOutput = true;
+        _redirectStandardError = true;
         _outputEncoding = Encoding.UTF8;
         _useShellExecute = false;
+        _createNoWindow = true;
+        _environmentVariables = new Dictionary<string, string>();
+        _timeout = TimeSpan.FromSeconds( 30 );
+        _outputReceived = new EventWaitHandle( false, EventResetMode.ManualReset );
+        _outputToMatch = new List<string>();
     }
 
     /// <summary>
@@ -52,6 +83,14 @@ public class CommandLine {
     }
 
     /// <summary>
+    /// 设置日志操作
+    /// </summary>
+    public CommandLine Log( ILogger logger ) {
+        _logger = logger ?? NullLogger.Instance;
+        return this;
+    }
+
+    /// <summary>
     /// 设置命令
     /// </summary>
     /// <param name="command">命令,范例: dotnet</param>
@@ -61,11 +100,73 @@ public class CommandLine {
     }
 
     /// <summary>
+    /// 根据条件设置命令参数
+    /// </summary>
+    /// <param name="condition">条件,如果为false则不设置命令参数</param>
+    /// <param name="arguments">命令参数,范例: --info</param>
+    public CommandLine ArgumentsIf( bool condition, params string[] arguments ) {
+        if ( condition == false )
+            return this;
+        return Arguments( arguments );
+    }
+
+    /// <summary>
     /// 设置命令参数
     /// </summary>
     /// <param name="arguments">命令参数,范例: --info</param>
-    public CommandLine Arguments( string arguments  ) {
-        _arguments = arguments;
+    public CommandLine Arguments( params string[] arguments ) {
+        if ( arguments == null )
+            return this;
+        return Arguments( (IEnumerable<string>)arguments );
+    }
+
+    /// <summary>
+    /// 根据条件设置命令参数
+    /// </summary>
+    /// <param name="condition">条件,如果为false则不设置命令参数</param>
+    /// <param name="arguments">命令参数</param>
+    public CommandLine ArgumentsIf( bool condition, IEnumerable<string> arguments ) {
+        if ( condition == false )
+            return this;
+        return Arguments( arguments );
+    }
+
+    /// <summary>
+    /// 设置命令参数
+    /// </summary>
+    /// <param name="arguments">命令参数</param>
+    public CommandLine Arguments( IEnumerable<string> arguments ) {
+        if ( arguments == null )
+            return this;
+        if ( _arguments.IsEmpty() == false )
+            _arguments += " ";
+        _arguments += string.Join( " ", arguments );
+        return this;
+    }
+
+    /// <summary>
+    /// 设置环境变量
+    /// </summary>
+    /// <param name="key">键</param>
+    /// <param name="value">值</param>
+    public CommandLine Env( string key, string value ) {
+        if ( key.IsEmpty() )
+            return this;
+        if ( _environmentVariables.ContainsKey( key ) )
+            _environmentVariables.Remove( key );
+        _environmentVariables.Add( key, value );
+        return this;
+    }
+
+    /// <summary>
+    /// 设置环境变量
+    /// </summary>
+    /// <param name="env">环境变量</param>
+    public CommandLine Env( IDictionary<string, string> env ) {
+        if ( env == null )
+            return this;
+        foreach ( var item in env )
+            Env( item.Key, item.Value );
         return this;
     }
 
@@ -81,6 +182,15 @@ public class CommandLine {
         }
         _useShellExecute = true;
         _outputEncoding = null;
+        return this;
+    }
+
+    /// <summary>
+    /// 设置重定向标准错误流
+    /// </summary>
+    /// <param name="value">是否重定向标准错误流</param>
+    public CommandLine RedirectStandardError( bool value = true ) {
+        _redirectStandardError = value;
         return this;
     }
 
@@ -118,49 +228,90 @@ public class CommandLine {
     }
 
     /// <summary>
+    /// 启动进程是否不要创建新窗口
+    /// </summary>
+    /// <param name="value">启动进程是否不要创建新窗口,默认为true</param>
+    public CommandLine CreateNoWindow( bool value ) {
+        _createNoWindow = value;
+        return this;
+    }
+
+    /// <summary>
+    /// 设置命令执行超时间隔,默认值: 60秒
+    /// </summary>
+    /// <param name="timeout">命令执行超时间隔</param>
+    public CommandLine Timeout( TimeSpan timeout ) {
+        _timeout = timeout;
+        return this;
+    }
+
+    /// <summary>
+    /// 设置命令执行完成的预期输出消息
+    /// </summary>
+    public CommandLine OutputToMatch( params string[] outputs ) {
+        _outputToMatch.AddRange( outputs );
+        return this;
+    }
+
+    /// <summary>
     /// 执行命令行
     /// </summary>
-    public void Execute() {
-        var info = CreateProcessStartInfo();
-        Process.Start( info );
+    public Process Execute() {
+        if ( _command.IsEmpty() )
+            throw new ArgumentException( "命令未设置" );
+        _logger.LogDebug( $"Running command: {GetDebugText()}" );
+        var process = new Process {
+            StartInfo = CreateProcessStartInfo()
+        };
+        process.OutputDataReceived += OnOutput;
+        process.ErrorDataReceived += OnOutput;
+        process.Start();
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+        var done = _outputReceived.WaitOne( _timeout );
+        if ( !done )
+            throw new Exception( $"命令 \"{GetDebugText()}\" 超时" );
+        return process;
     }
 
     /// <summary>
     /// 创建进程启动信息
     /// </summary>
     private ProcessStartInfo CreateProcessStartInfo() {
-        if ( _command.IsEmpty() )
-            throw new ArgumentException( "命令未设置" );
-        return new ProcessStartInfo( _command, _arguments ) {
+        var escapedArgs = _arguments.Replace( "\"", "\\\"" );
+        var result = new ProcessStartInfo( _command, escapedArgs ) {
             RedirectStandardOutput = _redirectStandardOutput,
+            RedirectStandardError = _redirectStandardError,
             StandardOutputEncoding = _outputEncoding,
+            StandardErrorEncoding = _outputEncoding,
             UseShellExecute = _useShellExecute,
-            WorkingDirectory = _workingDirectory
+            WorkingDirectory = _workingDirectory,
+            CreateNoWindow = _createNoWindow,
         };
+        foreach ( var item in _environmentVariables )
+            result.EnvironmentVariables.Add( item.Key, item.Value );
+        return result;
     }
 
     /// <summary>
-    /// 执行命令行,并返回响应结果
+    /// 接收输出消息事件处理
     /// </summary>
-    public string ExecuteResult() {
-        var info = CreateProcessStartInfo();
-        var process = Process.Start( info );
-        return process == null ? null : GetResult( process );
-    }
-
-    /// <summary>
-    /// 获取结果
-    /// </summary>
-    private string GetResult( Process process ) {
-        if ( _redirectStandardOutput == false )
-            return null;
-        var result = new StringBuilder();
-        using var reader = process.StandardOutput;
-        while ( !reader.EndOfStream ) {
-            result.AppendLine( reader.ReadLine() );
+    private void OnOutput( object sendingProcess, DataReceivedEventArgs e ) {
+        if ( e.Data.IsEmpty() )
+            return;
+        try {
+            _logger.LogDebug( e.Data );
         }
-        if ( !process.HasExited )
-            process.Kill();
-        return result.ToString();
+        catch ( InvalidOperationException ) {
+        }
+        if ( _outputToMatch.Any( e.Data.Contains ) )
+            _outputReceived.Set();
+    }
+
+    /// <summary>
+    /// 获取命令调试文本
+    /// </summary>
+    public string GetDebugText() {
+        return $"{_command} {_arguments}";
     }
 }

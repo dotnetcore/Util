@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Util.ObjectMapping; 
+﻿namespace Util.ObjectMapping; 
 
 /// <summary>
 /// AutoMapper配置

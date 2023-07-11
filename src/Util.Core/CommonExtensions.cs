@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util; 
+﻿namespace Util; 
 
 /// <summary>
 /// 公共扩展

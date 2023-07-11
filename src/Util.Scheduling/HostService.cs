@@ -1,10 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// 托管服务
@@ -40,13 +34,13 @@ public class HostService : IHostedService {
     public async Task StartAsync( CancellationToken cancellationToken ) {
         await _manager.ScanJobsAsync( _options.IsScanJobs );
         _scheduler = await _manager.GetSchedulerAsync();
-        await _scheduler.StartAsync();
+        await _scheduler.StartAsync( cancellationToken );
     }
 
     /// <summary>
     /// 停止服务
     /// </summary>
     public async Task StopAsync( CancellationToken cancellationToken ) {
-        await _scheduler.StopAsync();
+        await _scheduler.StopAsync(cancellationToken);
     }
 }

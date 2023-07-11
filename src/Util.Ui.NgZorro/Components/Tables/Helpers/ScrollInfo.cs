@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
+﻿namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
 
 /// <summary>
 /// 滚动信息

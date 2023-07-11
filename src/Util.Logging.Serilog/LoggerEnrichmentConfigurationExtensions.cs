@@ -1,6 +1,4 @@
-﻿using Serilog;
-using Serilog.Configuration;
-using Util.Logging.Serilog.Enrichers;
+﻿using Util.Logging.Serilog.Enrichers;
 
 namespace Util.Logging.Serilog; 
 

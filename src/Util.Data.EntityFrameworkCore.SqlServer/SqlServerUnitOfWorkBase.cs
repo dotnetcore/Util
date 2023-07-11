@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Util.Domain;
+﻿using Util.Domain;
 
 namespace Util.Data.EntityFrameworkCore; 
 

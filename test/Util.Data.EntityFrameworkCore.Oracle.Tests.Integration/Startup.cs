@@ -16,12 +16,12 @@ namespace Util.Data.EntityFrameworkCore {
         /// ÅäÖÃÖ÷»ú
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
-                .AddUtil( options => {
-                    Environment.SetDevelopment();
-                    options.UseAop()
-                        .UseOracleUnitOfWork<ITestUnitOfWork, OracleUnitOfWork>( Config.GetConnectionString( "connection" ) );
-                } );
+                .AsBuild()
+                .AddAop()
+                .AddOracleUnitOfWork<ITestUnitOfWork, OracleUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddUtil();
         }
 
         /// <summary>

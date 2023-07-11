@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace Util.Logging; 
+﻿namespace Util.Logging; 
 
 /// <summary>
 /// 日志上下文

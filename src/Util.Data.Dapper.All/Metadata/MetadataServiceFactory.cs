@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Data.Dapper.Sql;
+﻿using Util.Data.Dapper.Sql;
 using Util.Data.Metadata;
 using Util.Data.Sql;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
-namespace Util; 
+﻿namespace Util; 
 
 /// <summary>
 /// 验证扩展

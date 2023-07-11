@@ -1,7 +1,4 @@
-﻿using AspectCore.DynamicProxy;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Util.Caching; 
+﻿namespace Util.Caching; 
 
 /// <summary>
 /// Redis缓存拦截器

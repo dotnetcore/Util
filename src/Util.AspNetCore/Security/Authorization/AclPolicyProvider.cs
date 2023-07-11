@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
-
-namespace Util.Security.Authorization; 
+﻿namespace Util.Security.Authorization; 
 
 /// <summary>
 /// 授权策略提供器

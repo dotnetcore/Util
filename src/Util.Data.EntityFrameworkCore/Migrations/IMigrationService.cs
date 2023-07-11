@@ -1,35 +1,29 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Util.Dependency;
+﻿using Util.Dependency;
 
-namespace Util.Data.EntityFrameworkCore.Migrations; 
+namespace Util.Data.EntityFrameworkCore.Migrations;
 
 /// <summary>
 /// 迁移服务
 /// </summary>
 public interface IMigrationService : ITransientDependency {
     /// <summary>
-    /// 设置数据上下文项目根目录绝对路径
+    /// 安装 dotnet-ef 全局工具,执行命令: dotnet tool install -g dotnet-ef
     /// </summary>
-    /// <param name="path">数据上下文项目根目录绝对路径,范例: D:\\Test\\src\\Test.Data.SqlServer</param>
-    IMigrationService DbContextRootPath( string path );
+    IMigrationService InstallEfTool();
     /// <summary>
-    /// 设置数据上下文
+    /// 更新 dotnet-ef 全局工具,执行命令: dotnet tool update -g dotnet-ef
     /// </summary>
-    /// <param name="dbcontext">数据上下文实例</param>
-    IMigrationService DbContext( IUnitOfWork dbcontext );
+    IMigrationService UpdateEfTool();
     /// <summary>
-    /// 设置迁移名称
+    /// 添加迁移,执行命令: dotnet ef migrations add migrationName
     /// </summary>
-    /// <param name="name">迁移名称,范例: init</param>
-    IMigrationService MigrationName( string name );
+    /// <param name="migrationName">迁移名称</param>
+    /// <param name="dbContextRootPath">数据上下文项目根目录绝对路径,范例: D:\\Test\\src\\Test.Data.SqlServer</param>
+    /// <param name="isRemoveForeignKeys">是否移除迁移文件中的所有外键</param>
+    IMigrationService AddMigration( string migrationName, string dbContextRootPath, bool isRemoveForeignKeys = false );
     /// <summary>
-    /// 是否移除所有外键,将删除迁移文件中的外键设置
+    /// 执行迁移,执行命令: dotnet ef database update
     /// </summary>
-    IMigrationService RemoveForeignKeys();
-    /// <summary>
-    /// 执行迁移
-    /// </summary>
-    /// <param name="cancellationToken">取消令牌</param>
-    Task MigrateAsync( CancellationToken cancellationToken = default );
+    /// <param name="dbContextRootPath">数据上下文项目根目录绝对路径,范例: D:\\Test\\src\\Test.Data.SqlServer</param>
+    void Migrate( string dbContextRootPath );
 }

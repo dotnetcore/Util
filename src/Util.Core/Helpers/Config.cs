@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Util.Helpers; 
+﻿namespace Util.Helpers; 
 
 /// <summary>
 /// 配置操作
@@ -62,8 +60,9 @@ public static class Config {
     /// <summary>
     /// 创建配置
     /// </summary>
-    /// <param name="basePath">配置基地址</param>
-    public static IConfiguration CreateConfiguration( string basePath = null ) {
+    /// <param name="basePath">配置文件目录绝对路径</param>
+    /// <param name="jsonFiles">配置文件列表,默认已包含appsettings.json</param>
+    public static IConfiguration CreateConfiguration( string basePath = null,params string[] jsonFiles ) {
         basePath ??= Common.ApplicationBaseDirectory;
         var builder = new ConfigurationBuilder()
             .SetBasePath( basePath )
@@ -71,6 +70,10 @@ public static class Config {
         var environment = Environment.GetEnvironmentName();
         if ( environment.IsEmpty() == false )
             builder.AddJsonFile( $"appsettings.{environment}.json", true, true );
+        if ( jsonFiles == null )
+            return builder.Build();
+        foreach ( var file in jsonFiles ) 
+            builder.AddJsonFile( file, true, true );
         return builder.Build();
     }
 

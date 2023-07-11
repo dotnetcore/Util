@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Generators.Contexts;
+﻿using Util.Generators.Contexts;
 using Util.Generators.Templates;
 
 namespace Util.Generators.Razor; 

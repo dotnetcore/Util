@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Util.Events; 
+﻿namespace Util.Events; 
 
 /// <summary>
 /// 空事件总线
@@ -16,7 +14,8 @@ public class NullEventBus : ILocalEventBus {
     /// </summary>
     /// <typeparam name="TEvent">事件类型</typeparam>
     /// <param name="event">事件</param>
-    public Task PublishAsync<TEvent>( TEvent @event ) where TEvent : IEvent {
+    /// <param name="cancellationToken">取消令牌</param>
+    public Task PublishAsync<TEvent>( TEvent @event, CancellationToken cancellationToken = default ) where TEvent : IEvent {
         return Task.CompletedTask;
     }
 }

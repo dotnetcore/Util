@@ -20,6 +20,7 @@ public class Startup {
     /// ÅäÖÃÖ÷»ú
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
+        Environment.SetDevelopment();
         hostBuilder.ConfigureDefaults( null )
             .ConfigureWebHostDefaults( webHostBuilder => {
                 webHostBuilder.UseTestServer()
@@ -30,11 +31,10 @@ public class Startup {
                         } );
                     } );
             } )
-            .AddUtil( options => {
-                Environment.SetDevelopment();
-                options.UseAop()
-                    .UseSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) );
-            } );
+            .AsBuild()
+            .AddAop()
+            .AddSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) )
+            .AddUtil();
     }
 
     /// <summary>

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Util.Data.EntityFrameworkCore.Migrations;
+﻿using Util.Data.EntityFrameworkCore.Migrations;
 using Util.Helpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -29,7 +28,7 @@ public class MigrationFileServiceTest {
     public MigrationFileServiceTest( IMigrationFileService service, ITestOutputHelper testOutputHelper ) {
         _service = service;
         _testOutputHelper = testOutputHelper;
-        _migrationsPath = Common.JoinPath( Common.GetVsProjectDirectory(), "Samples/Migrations" );
+        _migrationsPath = Common.JoinPath( Common.GetCurrentDirectory(), "Samples/Migrations" );
     }
 
     /// <summary>
@@ -38,7 +37,7 @@ public class MigrationFileServiceTest {
     [Fact]
     public void TestGetFilePath() {
         var path = _service.MigrationsPath( _migrationsPath ).MigrationName( "Init" ).GetFilePath();
-        var result = Common.JoinPath( Common.GetVsProjectDirectory(), "Samples/Migrations/20230302102051_Init.cs" );
+        var result = Common.JoinPath( Common.GetCurrentDirectory(), "Samples/Migrations/20230302102051_Init.cs" );
         Assert.Equal( result, path.Replace( "\\","/" ) );
     }
 
@@ -46,22 +45,22 @@ public class MigrationFileServiceTest {
     /// 测试获取迁移文件内容
     /// </summary>
     [Fact]
-    public async Task TestGetContentAsync() {
-        var content = await _service.MigrationsPath( _migrationsPath ).MigrationName( "Init" ).GetContentAsync();
-        Assert.True( content.Contains( "public partial class Init : Migration" ) );
-        Assert.True( content.Contains( "table.ForeignKey" ) );
+    public void TestGetContent() {
+        var content = _service.MigrationsPath( _migrationsPath ).MigrationName( "Init" ).GetContent();
+        Assert.Contains( "public partial class Init : Migration", content );
+        Assert.Contains( "table.ForeignKey", content );
     }
 
     /// <summary>
     /// 测试移除所有外键
     /// </summary>
     [Fact]
-    public async Task TestRemoveForeignKeys() {
-        var filePath = Common.JoinPath( Common.GetVsProjectDirectory(), "Samples/Migrations/Init_Copy.cs" );
-        await _service.MigrationsPath( _migrationsPath ).MigrationName( "Init" ).RemoveForeignKeys().SaveAsync( filePath );
-        var result = await Util.Helpers.File.ReadToStringAsync( filePath );
+    public void TestRemoveForeignKeys() {
+        var filePath = Common.JoinPath( Common.GetCurrentDirectory(), "Samples/Migrations/Init_Copy.cs" );
+        _service.MigrationsPath( _migrationsPath ).MigrationName( "Init" ).RemoveForeignKeys().Save( filePath );
+        var result = Util.Helpers.File.ReadToString( filePath );
         _testOutputHelper.WriteLine(result);
-        Assert.False( result.Contains( "table.ForeignKey" ) );
+        Assert.DoesNotContain( "table.ForeignKey", result );
         Util.Helpers.File.Delete( filePath );
     }
 }

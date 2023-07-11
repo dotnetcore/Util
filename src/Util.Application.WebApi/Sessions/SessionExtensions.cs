@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Helpers;
+﻿using Util.Helpers;
 using Util.Security;
 using Util.Sessions;
 using Convert = Util.Helpers.Convert;

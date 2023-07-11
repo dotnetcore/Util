@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Util.FileStorage; 
+﻿namespace Util.FileStorage; 
 
 /// <summary>
 /// 文件大小单位

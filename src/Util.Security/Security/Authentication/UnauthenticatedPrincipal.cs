@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using System.Security.Principal;
-
-namespace Util.Security.Authentication; 
+﻿namespace Util.Security.Authentication; 
 
 /// <summary>
 /// 未认证安全主体

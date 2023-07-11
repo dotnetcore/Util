@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Data.Filters; 
+﻿namespace Util.Data.Filters; 
 
 /// <summary>
 /// 数据过滤器开关

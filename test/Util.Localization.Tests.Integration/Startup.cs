@@ -26,9 +26,9 @@ public class Startup {
                         } );
                     } );
             } )
-            .AddUtil( options => {
-                options.UseJsonLocalization();
-            } );
+            .AsBuild()
+            .AddJsonLocalization()
+            .AddUtil();
     }
 
     /// <summary>

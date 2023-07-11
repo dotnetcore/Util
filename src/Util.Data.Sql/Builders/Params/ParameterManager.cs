@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-
-namespace Util.Data.Sql.Builders.Params; 
+﻿namespace Util.Data.Sql.Builders.Params; 
 
 /// <summary>
 /// Sql参数管理器

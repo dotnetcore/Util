@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Util.Generators.Configuration;
+﻿using Util.Generators.Configuration;
 using Util.Generators.Contexts;
 using Util.Generators.Resources;
 using Util.Generators.Templates;

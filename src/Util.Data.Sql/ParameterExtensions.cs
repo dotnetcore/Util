@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using Util.Data.Sql.Builders;
+﻿using Util.Data.Sql.Builders;
 using Util.Data.Sql.Builders.Operations;
 using Util.Data.Sql.Builders.Params;
 

@@ -1,10 +1,7 @@
-﻿using System.Text;
-using Util.Ui.Angular.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Grids.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
-using Util.Ui.NgZorro.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders; 
 
@@ -52,8 +49,9 @@ public class TableRowBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置事件
     /// </summary>
-    public TableRowBuilder Events() {
-        ConfigOnClick( GetOnClick() );
+    public virtual TableRowBuilder Events() {
+        var onClick = GetOnClick();
+        ConfigOnClick( onClick );
         return this;
     }
 

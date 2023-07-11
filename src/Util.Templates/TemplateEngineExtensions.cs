@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Util.Templates; 
+﻿namespace Util.Templates; 
 
 /// <summary>
 /// 模板引擎扩展

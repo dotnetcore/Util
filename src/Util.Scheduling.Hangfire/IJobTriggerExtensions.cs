@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// Quartz任务触发器扩展

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Util; 
+﻿namespace Util; 
 
 /// <summary>
 /// 类型转换扩展

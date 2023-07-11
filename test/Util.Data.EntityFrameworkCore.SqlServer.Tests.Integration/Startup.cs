@@ -17,12 +17,12 @@ public class Startup {
     /// ÅäÖÃÖ÷»ú
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
+        Util.Helpers.Environment.SetDevelopment();
         hostBuilder.ConfigureDefaults( null )
-            .AddUtil( options => {
-                Util.Helpers.Environment.SetDevelopment();
-                options.UseAop()
-                    .UseSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) );
-            } );
+            .AsBuild()
+            .AddAop()
+            .AddSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) )
+            .AddUtil();
     }
 
     /// <summary>

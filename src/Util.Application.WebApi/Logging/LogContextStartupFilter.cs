@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-
-namespace Util.Applications.Logging; 
+﻿namespace Util.Applications.Logging; 
 
 /// <summary>
 /// 日志上下文启动过滤器

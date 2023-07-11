@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using Util.Infrastructure;
+﻿using Util.Infrastructure;
 using Util.Templates.HandlebarsDotNet;
 
 namespace Util.Templates.Infrastructure; 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// Quartz调度器
@@ -21,10 +18,10 @@ public class QuartzScheduler : IScheduler {
     }
 
     /// <inheritdoc />
-    public async Task StartAsync() {
+    public async Task StartAsync( CancellationToken cancellationToken = default ) {
         if ( _scheduler.IsStarted )
             return;
-        await _scheduler.Start();
+        await _scheduler.Start( cancellationToken );
     }
 
     /// <summary>
@@ -42,9 +39,9 @@ public class QuartzScheduler : IScheduler {
     }
 
     /// <inheritdoc />
-    public async Task StopAsync() {
+    public async Task StopAsync( CancellationToken cancellationToken = default ) {
         if ( _scheduler.IsShutdown )
             return;
-        await _scheduler.Shutdown( true );
+        await _scheduler.Shutdown( true, cancellationToken );
     }
 }

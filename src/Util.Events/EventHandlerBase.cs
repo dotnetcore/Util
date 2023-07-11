@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace Util.Events; 
+﻿namespace Util.Events; 
 
 /// <summary>
 /// 本地事件处理器基类
 /// </summary>
 /// <typeparam name="TEvent">事件类型</typeparam>
-public abstract class EventHandlerBase<TEvent> : IEventHandler<TEvent> where TEvent : IEvent {
+public abstract class EventHandlerBase<TEvent> : IEventHandler<TEvent>, ILocalEventHandler where TEvent : IEvent {
     /// <summary>
     /// 处理事件
     /// </summary>

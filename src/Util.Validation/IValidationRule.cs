@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Util.Validation; 
+﻿namespace Util.Validation; 
 
 /// <summary>
 /// 验证规则

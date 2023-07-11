@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Util.Data.Sql.Database;
+﻿using Util.Data.Sql.Database;
 
 namespace Util.Data.Sql; 
 

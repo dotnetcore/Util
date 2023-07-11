@@ -1,6 +1,4 @@
-﻿using AspectCore.DynamicProxy;
-
-namespace Util.Aop; 
+﻿namespace Util.Aop; 
 
 /// <summary>
 /// 拦截器基类

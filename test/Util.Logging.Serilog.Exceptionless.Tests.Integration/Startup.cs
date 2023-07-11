@@ -18,7 +18,9 @@ public class Startup {
             .ConfigureHostConfiguration( builder => {
                 Environment.SetDevelopment();
             } )
-            .AddUtil( options => options.UseSerilog( t => t.AddExceptionless() ) );
+            .AsBuild()
+            .AddSerilog( t => t.AddExceptionless() )
+            .AddUtil();
     }
 
     /// <summary>

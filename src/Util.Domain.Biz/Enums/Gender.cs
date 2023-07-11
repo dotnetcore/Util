@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Util.Domain.Biz.Enums; 
+﻿namespace Util.Domain.Biz.Enums; 
 
 /// <summary>
 /// 性别

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Util.Domain.Compare; 
+﻿namespace Util.Domain.Compare; 
 
 /// <summary>
 /// 实体列表比较器

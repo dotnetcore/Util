@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using SixLabors.Fonts;
-
-namespace Util.Images; 
+﻿namespace Util.Images; 
 
 /// <summary>
 /// 头像服务

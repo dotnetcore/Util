@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using Hangfire;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Util.Reflections;
 
 namespace Util.Scheduling; 
@@ -45,10 +42,9 @@ public class HangfireSchedulerManager : SchedulerManagerBase {
         var trigger = job.GetTrigger();
         if ( trigger.GetCron().IsEmpty() == false ) {
             var id = jobInfo.GetId();
-            if( id.IsEmpty() )
-                RecurringJob.AddOrUpdate( () => job.Execute( job.Data ), trigger.GetCron(),queue:jobInfo.GetQueue() );
-            else 
-                RecurringJob.AddOrUpdate( id, () => job.Execute( job.Data ), trigger.GetCron(), queue: jobInfo.GetQueue() );
+            if ( id.IsEmpty() )
+                id = job.GetType().FullName;
+            RecurringJob.AddOrUpdate( id, jobInfo.GetQueue(), () => job.Execute( job.Data ), trigger.GetCron() );
             return id;
         }
         return trigger.GetDelay() == null ? BackgroundJob.Enqueue( () => job.Execute( job.Data ) ) : BackgroundJob.Schedule( () => job.Execute( job.Data ), trigger.GetDelay().SafeValue() );

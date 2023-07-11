@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Util.Generators.Contexts;
+﻿using Util.Generators.Contexts;
 
 namespace Util.Generators.Templates; 
 

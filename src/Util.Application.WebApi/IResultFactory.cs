@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Util.Dependency;
+﻿using Util.Dependency;
 
 namespace Util.Applications; 
 

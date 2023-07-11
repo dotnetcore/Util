@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace Util.Applications.Logging; 
+﻿namespace Util.Applications.Logging; 
 
 /// <summary>
 /// 日志上下文中间件扩展

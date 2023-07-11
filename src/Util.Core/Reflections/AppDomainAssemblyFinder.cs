@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-
-namespace Util.Reflections; 
+﻿namespace Util.Reflections; 
 
 /// <summary>
 /// 应用程序域程序集查找器

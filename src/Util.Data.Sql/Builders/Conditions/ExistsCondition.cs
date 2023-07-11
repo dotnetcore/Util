@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Util.Data.Sql.Builders.Conditions; 
+﻿namespace Util.Data.Sql.Builders.Conditions; 
 
 /// <summary>
 /// Exists查询条件

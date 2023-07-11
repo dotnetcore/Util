@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Util.Caching; 
+﻿namespace Util.Caching; 
 
 /// <summary>
 /// 缓存

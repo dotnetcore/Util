@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace Util.Helpers; 
+﻿namespace Util.Helpers; 
 
 /// <summary>
 /// 标识生成器

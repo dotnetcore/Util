@@ -613,5 +613,58 @@ public partial class TableTagHelperTest {
         Assert.Equal( result.ToString(), GetResult() );
     }
 
+    /// <summary>
+    /// 测试行单击事件 - 设置完整结构
+    /// </summary>
+    [Fact]
+    public void TestOnClickRow_3() {
+        //设置行单击事件
+        _wrapper.SetContextAttribute( UiConst.OnClickRow, "c" );
+
+        //创建表头
+        var head = new TableHeadTagHelper().ToWrapper();
+        _wrapper.AppendContent( head );
+
+        //创建表头行
+        var headRow = new TableRowTagHelper().ToWrapper();
+        head.AppendContent( headRow );
+
+        //创建表头单元格
+        var th = new TableHeadColumnTagHelper().ToWrapper();
+        th.AppendContent( "a" );
+        headRow.AppendContent( th );
+
+        //创建表格主体
+        var body = new TableBodyTagHelper().ToWrapper();
+        _wrapper.AppendContent( body );
+
+        //创建表格主体行
+        var row = new TableRowTagHelper().ToWrapper();
+        body.AppendContent( row );
+
+        //创建列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.AppendContent( "b" );
+        row.AppendContent( column );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table>" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th>a</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr (click)=\"c\">" );
+        result.Append( "<td>b</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+
+        //验证
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
     #endregion
 }

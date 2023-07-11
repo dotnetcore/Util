@@ -1,6 +1,4 @@
-﻿using Npgsql;
-
-namespace Util.Data.Dapper.Sql; 
+﻿namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// PostgreSql数据库工厂

@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-
-namespace Util.Logging; 
+﻿namespace Util.Logging; 
 
 /// <summary>
 /// 日志操作工厂

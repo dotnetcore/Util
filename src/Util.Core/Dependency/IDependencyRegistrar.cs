@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Util.Dependency; 
+﻿namespace Util.Dependency; 
 
 /// <summary>
 /// 依赖注册器

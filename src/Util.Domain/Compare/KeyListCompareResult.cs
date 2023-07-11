@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Domain.Compare; 
+﻿namespace Util.Domain.Compare; 
 
 /// <summary>
 /// 键列表比较结果

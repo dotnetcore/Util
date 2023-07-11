@@ -1,6 +1,4 @@
-﻿using Serilog.Core;
-using Serilog.Events;
-using Util.Helpers;
+﻿using Util.Helpers;
 
 namespace Util.Logging.Serilog.Enrichers; 
 

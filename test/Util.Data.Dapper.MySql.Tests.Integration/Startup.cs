@@ -21,17 +21,17 @@ namespace Util.Data.Dapper.Tests {
         /// ÅäÖÃÖ÷»ú
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
                 .ConfigureServices( ( context, services ) => {
                     services.AddTransient<IMetadataService, MySqlMetadataService>();
                 } )
-                .AddUtil( options => {
-                    Environment.SetDevelopment();
-                    options.UseAop()
-                        .UseMySqlQuery( Config.GetConnectionString( "connection" ) )
-                        .UseMySqlExecutor( Config.GetConnectionString( "connection" ) )
-                        .UseMySqlUnitOfWork<ITestUnitOfWork, MySqlUnitOfWork>( Config.GetConnectionString( "connection" ) );
-                } );
+                .AsBuild()
+                .AddAop()
+                .AddMySqlQuery( Config.GetConnectionString( "connection" ) )
+                .AddMySqlExecutor( Config.GetConnectionString( "connection" ) )
+                .AddMySqlUnitOfWork<ITestUnitOfWork, MySqlUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddUtil();
         }
 
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Util.Ui.NgZorro.Enums; 
+﻿namespace Util.Ui.NgZorro.Enums; 
 
 /// <summary>
 /// 表头单元格对齐方式

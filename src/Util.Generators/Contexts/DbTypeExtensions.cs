@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Util.Generators.Contexts; 
+﻿namespace Util.Generators.Contexts; 
 
 /// <summary>
 /// 数据类型扩展操作

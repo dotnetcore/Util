@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data.Common;
-using Util.Ui.Configs;
+﻿using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 

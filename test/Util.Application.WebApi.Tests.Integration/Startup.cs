@@ -22,41 +22,41 @@ namespace Util.Applications {
         /// 配置主机
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             ServiceRegistrarConfig.Instance.DisableDependencyServiceRegistrar();
             ServiceRegistrarConfig.Instance.DisableLocalEventBusServiceRegistrar();
-            hostBuilder.ConfigureDefaults( null )
+            var builder = hostBuilder.ConfigureDefaults( null )
                 .ConfigureWebHostDefaults( webHostBuilder => {
                     webHostBuilder.UseTestServer()
-                    .Configure( t => {
-                        t.UseMiddleware<TestUserMiddleware>();
-                        t.UseRouting();
-                        t.UseEndpoints( endpoints => {
-                            endpoints.MapControllers();
+                        .Configure( t => {
+                            t.UseMiddleware<TestUserMiddleware>();
+                            t.UseRouting();
+                            t.UseEndpoints( endpoints => {
+                                endpoints.MapControllers();
+                            } );
                         } );
-                    } );
                 } )
-                .AddUtil( options => {
-                    Environment.SetDevelopment();
-                    options = options.UseLock();
-                    if ( !Environment.IsDevelopment() ) {
-	                    options.UseMemoryCache( t => t.MaxRdSecond = 0 );
-                    }
-                    else {
-	                    options.UseRedisCache( t => {
-		                    t.MaxRdSecond = 0;
-							t.DBConfig.AllowAdmin = true;
-		                    t.DBConfig.KeyPrefix = "util.lock.test:";
-		                    t.DBConfig.Endpoints.Add( new ServerEndPoint( "192.168.31.157", 6379 ) );
-	                    } );
-                    }
+                .AsBuild()
+                .AddLock();
+            if ( !Environment.IsDevelopment() ) {
+                builder.AddMemoryCache( t => t.MaxRdSecond = 0 );
+            }
+            else {
+                builder.AddRedisCache( t => {
+                    t.MaxRdSecond = 0;
+                    t.DBConfig.AllowAdmin = true;
+                    t.DBConfig.KeyPrefix = "util.lock.test:";
+                    t.DBConfig.Endpoints.Add( new ServerEndPoint( "127.0.0.1", 6379 ) );
                 } );
+            }
+            builder.AddUtil();
         }
 
         /// <summary>
         /// 配置服务
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+            services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
             services.AddControllers();
             services.AddTransient<LockTestService>();
             services.AddTransient<IHttpClient>( t => {

@@ -22,18 +22,18 @@ namespace Util.Data.Dapper.Tests {
         /// 配置主机
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
                 .ConfigureServices( ( context, services ) => {
                     services.AddTransient<IMetadataService, PostgreSqlMetadataService>();
                 } )
-                .AddUtil( options => {
-                    Environment.SetDevelopment();
-                    options.UseAop()
-                        .UseUtc()
-                        .UsePgSqlQuery( Config.GetConnectionString( "connection" ) )
-                        .UsePgSqlExecutor( Config.GetConnectionString( "connection" ) )
-                        .UsePgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) );
-                } );
+                .AsBuild()
+                .AddAop()
+                .AddUtc()
+                .AddPgSqlQuery( Config.GetConnectionString( "connection" ) )
+                .AddPgSqlExecutor( Config.GetConnectionString( "connection" ) )
+                //.AddPgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddUtil();
         }
 
         /// <summary>
@@ -49,10 +49,11 @@ namespace Util.Data.Dapper.Tests {
         /// 初始化数据库
         /// </summary>
         private void InitDatabase( IServiceCollection services ) {
-            var unitOfWork = (PgSqlUnitOfWork)services.BuildServiceProvider().GetService<ITestUnitOfWork>();
-            unitOfWork.EnsureDeleted();
-            unitOfWork.EnsureCreated();
-            DatabaseScript.InitProcedures( unitOfWork?.Database );
+            //using var scope = services.BuildServiceProvider().CreateScope();
+            //var unitOfWork = (PgSqlUnitOfWork)scope.ServiceProvider.GetService<ITestUnitOfWork>();
+            //unitOfWork.EnsureDeleted();
+            //unitOfWork.EnsureCreated();
+            //DatabaseScript.InitProcedures( unitOfWork?.Database );
         }
     }
 }

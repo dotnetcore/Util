@@ -1,7 +1,4 @@
-﻿using Serilog.Core;
-using Serilog.Events;
-
-namespace Util.Logging.Serilog.Enrichers; 
+﻿namespace Util.Logging.Serilog.Enrichers; 
 
 /// <summary>
 /// 日志级别扩展属性 - 用于显示标准日志级别

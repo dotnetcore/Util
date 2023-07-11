@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection;
-using EasyCaching.Core.Interceptor;
-
-namespace Util.Caching.EasyCaching; 
+﻿namespace Util.Caching.EasyCaching; 
 
 /// <summary>
 /// 缓存键生成器

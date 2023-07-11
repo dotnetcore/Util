@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Configs; 
+﻿namespace Util.Configs; 
 
 /// <summary>
 /// 配置项基类

@@ -17,13 +17,13 @@ namespace Util.Data.EntityFrameworkCore {
         /// ÅäÖÃÖ÷»ú
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
-                .AddUtil( options => {
-                    Environment.SetDevelopment();
-                    options.UseAop()
-                        .UseUtc()
-                        .UsePgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) );
-                } );
+                .AsBuild()
+                .AddAop()
+                .AddUtc()
+                .AddPgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddUtil();
         }
 
         /// <summary>

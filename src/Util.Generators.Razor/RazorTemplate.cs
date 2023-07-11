@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using Util.Generators.Contexts;
+﻿using Util.Generators.Contexts;
 using Util.Generators.Templates;
 using Util.Templates;
 

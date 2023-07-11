@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Util.Caching; 
+﻿namespace Util.Caching; 
 
 /// <summary>
 /// 缓存键生成器

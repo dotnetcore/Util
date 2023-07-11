@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Domain.Auditing;
+﻿namespace Util.Domain.Auditing;
 
 /// <summary>
 /// 修改时间审计

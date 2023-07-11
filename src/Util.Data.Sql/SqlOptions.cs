@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Util.Data.Sql; 
+﻿namespace Util.Data.Sql; 
 
 /// <summary>
 /// Sql配置

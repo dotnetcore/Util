@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Util.Applications.Dtos;
+﻿using Util.Applications.Dtos;
 using Util.Applications.Models;
 using Util.Applications.Properties;
 using Util.Data.Queries;

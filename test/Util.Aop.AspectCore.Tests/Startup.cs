@@ -1,6 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Xunit.DependencyInjection;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Aop.AspectCore.Tests; 
@@ -13,13 +12,15 @@ public class Startup {
     /// 配置主机
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
-        hostBuilder.AddUtil( t => t.UseAop() );
+        hostBuilder.AsBuild()
+            .AddAop()
+            .AddUtil();
     }
 
     /// <summary>
-    /// 配置日志提供程序
+    /// 配置服务
     /// </summary>
-    public void Configure( ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor ) {
-        loggerFactory.AddProvider( new XunitTestOutputLoggerProvider( accessor ) );
+    public void ConfigureServices( IServiceCollection services ) {
+        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
     }
 }

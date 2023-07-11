@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Util.Dependency;
+﻿using Util.Dependency;
 
-namespace Util.Data.EntityFrameworkCore.Migrations; 
+namespace Util.Data.EntityFrameworkCore.Migrations;
 
 /// <summary>
 /// 迁移文件服务
@@ -28,10 +27,10 @@ public interface IMigrationFileService : ITransientDependency {
     /// <summary>
     /// 获取文件内容
     /// </summary>
-    Task<string> GetContentAsync();
+    string GetContent();
     /// <summary>
     /// 保存文件
     /// </summary>
     /// <param name="filePath">文件绝对路径,传入null则覆盖原文件</param>
-    Task SaveAsync( string filePath = null );
+    void Save( string filePath = null );
 }

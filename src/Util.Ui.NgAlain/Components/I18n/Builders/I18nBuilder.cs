@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Util.Ui.Angular.Builders;
+﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgAlain.Components.I18n.Builders; 

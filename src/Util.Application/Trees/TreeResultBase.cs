@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Applications.Trees; 
+﻿namespace Util.Applications.Trees; 
 
 /// <summary>
 /// 树形结果

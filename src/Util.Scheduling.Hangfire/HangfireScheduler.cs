@@ -1,7 +1,4 @@
-﻿using Hangfire;
-using System.Threading.Tasks;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// Hangfire调度器
@@ -25,13 +22,13 @@ public class HangfireScheduler : IScheduler {
     }
 
     /// <inheritdoc />
-    public Task StartAsync() {
+    public Task StartAsync( CancellationToken cancellationToken = default ) {
         _jobServer = new BackgroundJobServer( _options );
         return Task.CompletedTask;
     }
 
     /// <inheritdoc />
-    public Task StopAsync() {
+    public Task StopAsync( CancellationToken cancellationToken = default ) {
         _jobServer.Dispose();
         return Task.CompletedTask;
     }

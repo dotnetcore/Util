@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Domain.Extending; 
+﻿namespace Util.Domain.Extending; 
 
 /// <summary>
 /// 扩展属性字典

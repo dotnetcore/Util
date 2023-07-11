@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Util.Data.Sql.Builders.Caches;
+﻿using Util.Data.Sql.Builders.Caches;
 using Util.Data.Sql.Builders.Conditions;
 
 namespace Util.Data.Sql.Builders.Clauses; 

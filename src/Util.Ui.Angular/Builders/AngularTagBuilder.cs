@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;

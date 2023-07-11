@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Util.Data.Dapper.Metadata;
+﻿using Util.Data.Dapper.Metadata;
 using Util.Data.Metadata;
 using Util.Infrastructure;
 

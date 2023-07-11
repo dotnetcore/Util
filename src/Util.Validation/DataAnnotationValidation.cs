@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace Util.Validation; 
+﻿namespace Util.Validation; 
 
 /// <summary>
 /// 数据注解验证操作

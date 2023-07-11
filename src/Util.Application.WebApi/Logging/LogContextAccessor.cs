@@ -16,7 +16,7 @@ public class LogContextAccessor : ILogContextAccessor {
     /// 日志上下文
     /// </summary>
     public LogContext Context {
-        get => Convert.To<LogContext>( Web.HttpContext.Items[LogContextKey] );
+        get => Util.Helpers.Convert.To<LogContext>( Web.HttpContext.Items[LogContextKey] );
         set => Web.HttpContext.Items[LogContextKey] = value;
     }
 }

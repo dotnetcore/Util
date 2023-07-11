@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
-
-namespace Util.Logging; 
+﻿namespace Util.Logging; 
 
 /// <summary>
 /// 空日志操作

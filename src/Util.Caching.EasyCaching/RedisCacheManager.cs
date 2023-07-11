@@ -1,7 +1,4 @@
-﻿using System;
-using EasyCaching.Core;
-
-namespace Util.Caching.EasyCaching; 
+﻿namespace Util.Caching.EasyCaching; 
 
 /// <summary>
 /// EasyCaching Redis缓存服务

@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Reflection;
-
-namespace Util.Localization.Json; 
+﻿namespace Util.Localization.Json; 
 
 /// <summary>
 /// 路径解析器

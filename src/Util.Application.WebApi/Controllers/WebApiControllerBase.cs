@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using System.IO;
-using Util.Applications.Filters;
+﻿using Util.Applications.Filters;
 using Util.Helpers;
 using Util.Logging;
 using Util.Properties;

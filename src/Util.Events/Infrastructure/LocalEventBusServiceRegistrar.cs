@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Util.Infrastructure;
+﻿using Util.Infrastructure;
 using Util.Reflections;
 
 namespace Util.Events.Infrastructure; 
@@ -42,8 +38,8 @@ public class LocalEventBusServiceRegistrar : IServiceRegistrar {
     /// 注册依赖
     /// </summary>
     private void RegisterDependency( IServiceCollection services ) {
-        services.TryAddTransient<ILocalEventBus, LocalEventBus>();
-        services.TryAddTransient<IEventBus, LocalEventBus>();
+        services.TryAddSingleton<ILocalEventBus, LocalEventBus>();
+        services.TryAddSingleton<IEventBus, LocalEventBus>();
     }
 
     /// <summary>

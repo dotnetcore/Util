@@ -6,7 +6,7 @@ namespace Util.Domain.Events;
 /// 实体删除事件
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
-public class EntityDeletedEvent<TEntity> : IEvent{
+public class EntityDeletedEvent<TEntity> : IEvent {
     /// <summary>
     /// 初始化实体删除事件
     /// </summary>

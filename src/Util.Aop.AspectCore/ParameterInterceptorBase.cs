@@ -1,6 +1,4 @@
-﻿using AspectCore.DynamicProxy.Parameters;
-
-namespace Util.Aop; 
+﻿namespace Util.Aop; 
 
 /// <summary>
 /// 参数拦截器基类

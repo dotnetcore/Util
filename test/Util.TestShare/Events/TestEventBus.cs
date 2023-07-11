@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Util.Data;
 using Util.Dependency;
 using Util.Events;
@@ -21,8 +22,8 @@ public class TestEventBus : ITestEventBus {
         _manager = unitOfWorkActionManager;
         _eventBus = eventBus;
     }
-    public Task PublishAsync<TEvent>( TEvent @event ) where TEvent : IEvent {
-        _manager.Register( async () => await _eventBus.PublishAsync( @event ) );
+    public Task PublishAsync<TEvent>( TEvent @event, CancellationToken cancellationToken = default ) where TEvent : IEvent {
+        _manager.Register( async () => await _eventBus.PublishAsync( @event, cancellationToken ) );
         return Task.CompletedTask;
     }
 }

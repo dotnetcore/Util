@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Util.Data.Sql;
+﻿using Util.Data.Sql;
 using Util.Data.Sql.Builders;
 
 namespace Util.Data.Dapper.Sql.Builders; 

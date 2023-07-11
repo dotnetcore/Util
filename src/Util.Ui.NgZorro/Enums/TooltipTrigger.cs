@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Util.Ui.NgZorro.Enums; 
+﻿namespace Util.Ui.NgZorro.Enums; 
 
 /// <summary>
 /// 文字提示触发行为

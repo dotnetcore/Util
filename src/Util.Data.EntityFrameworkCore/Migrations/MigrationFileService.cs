@@ -1,10 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using Util.Helpers;
+﻿using Util.Helpers;
 
-namespace Util.Data.EntityFrameworkCore.Migrations; 
+namespace Util.Data.EntityFrameworkCore.Migrations;
 
 /// <summary>
 /// 迁移文件服务
@@ -59,7 +55,7 @@ public class MigrationFileService : IMigrationFileService {
             return null;
         if ( _migrationName.IsEmpty() )
             return null;
-        var files = File.GetAllFiles( _migrationsPath, "*.cs" );
+        var files = Util.Helpers.File.GetAllFiles( _migrationsPath, "*.cs" );
         var file = files.FirstOrDefault( t => t.Name.EndsWith( $"{_migrationName}.cs" ) );
         if ( file == null )
             return null;
@@ -67,25 +63,25 @@ public class MigrationFileService : IMigrationFileService {
     }
 
     /// <inheritdoc />
-    public async Task<string> GetContentAsync() {
+    public string GetContent() {
         var filePath = GetFilePath();
         if ( filePath.IsEmpty() )
             return null;
-        return await File.ReadToStringAsync( filePath );
+        return Util.Helpers.File.ReadToString( filePath );
     }
 
     /// <inheritdoc />
-    public async Task SaveAsync( string filePath = null ) {
+    public void Save( string filePath = null ) {
         if ( _isRemoveForeignKeys == false )
             return;
         if ( filePath.IsEmpty() )
             filePath = GetFilePath();
-        var content = await GetContentAsync();
+        var content = GetContent();
         var pattern = @"table.ForeignKey\([\s\S]+?\);";
         var result = Util.Helpers.Regex.Replace( content, pattern, "" );
         pattern = @$"\s+{Common.Line}\s+{Common.Line}";
         result = Util.Helpers.Regex.Replace( result, pattern, Common.Line );
-        await Util.Helpers.File.WriteAsync( filePath, result );
+        Util.Helpers.File.Write( filePath, result );
         _logger.LogTrace( $"修改迁移文件并保存成功,路径:{filePath}" );
     }
 }

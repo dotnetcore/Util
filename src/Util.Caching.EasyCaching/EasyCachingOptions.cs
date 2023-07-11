@@ -1,9 +1,4 @@
-﻿using System;
-using EasyCaching.InMemory;
-using EasyCaching.Redis;
-using Microsoft.Extensions.Configuration;
-
-namespace Util.Caching.EasyCaching; 
+﻿namespace Util.Caching.EasyCaching; 
 
 /// <summary>
 /// EasyCaching配置

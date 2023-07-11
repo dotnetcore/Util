@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Util.Data.Sql.Builders.Conditions; 
+﻿namespace Util.Data.Sql.Builders.Conditions; 
 
 /// <summary>
 /// Is Null查询条件

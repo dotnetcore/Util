@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,70 +10,70 @@ using FlubuCore.Scripting;
 
 namespace Build {
     /// <summary>
-    /// ¹¹½¨½Å±¾
+    /// æ„å»ºè„šæœ¬
     /// </summary>
     public class BuildScript : DefaultBuildScript {
         /// <summary>
-        /// ½â¾ö·½°¸ÎÄ¼şÃû
+        /// è§£å†³æ–¹æ¡ˆæ–‡ä»¶å
         /// </summary>
         [SolutionFileName]
         public string SolutionFileName { get; set; } = "../Util.sln";
         /// <summary>
-        /// ¹¹½¨ÅäÖÃ
+        /// æ„å»ºé…ç½®
         /// </summary>
         [FromArg( "c|configuration" )]
         [BuildConfiguration]
         public string BuildConfiguration { get; set; } = "Release";
         /// <summary>
-        /// NugetÍÆËÍµØÖ·
+        /// Nugetæ¨é€åœ°å€
         /// </summary>
         [FromArg( "nugetUrl" )]
         public string NugetUrl { get; set; } = "https://api.nuget.org/v3/index.json";
         /// <summary>
-        /// NugetÃÜÔ¿
+        /// Nugetå¯†é’¥
         /// </summary>
         [FromArg( "nugetKey", "Nuget api key for publishing nuget packages." )]
         public string NugetApiKey { get; set; }
         /// <summary>
-        /// Ô´´úÂëÄ¿Â¼
+        /// æºä»£ç ç›®å½•
         /// </summary>
         public FullPath SourceDir => RootDirectory.CombineWith( "../src" );
         /// <summary>
-        /// ²âÊÔÄ¿Â¼
+        /// æµ‹è¯•ç›®å½•
         /// </summary>
         public FullPath TestDir => RootDirectory.CombineWith( "../test" );
         /// <summary>
-        /// Êä³öÄ¿Â¼
+        /// è¾“å‡ºç›®å½•
         /// </summary>
         public FullPath OutputDir => RootDirectory.CombineWith( "../output" );
         /// <summary>
-        /// ÏîÄ¿ÎÄ¼şÁĞ±í
+        /// é¡¹ç›®æ–‡ä»¶åˆ—è¡¨
         /// </summary>
         public List<FileFullPath> Projects { get; set; }
         /// <summary>
-        /// µ¥Ôª²âÊÔÏîÄ¿ÎÄ¼şÁĞ±í
+        /// å•å…ƒæµ‹è¯•é¡¹ç›®æ–‡ä»¶åˆ—è¡¨
         /// </summary>
         public List<FileFullPath> UnitTestProjecs { get; set; }
         /// <summary>
-        /// ¼¯³É²âÊÔÏîÄ¿ÎÄ¼şÁĞ±í
+        /// é›†æˆæµ‹è¯•é¡¹ç›®æ–‡ä»¶åˆ—è¡¨
         /// </summary>
         public List<FileFullPath> IntegrationTestProjecs { get; set; }
         /// <summary>
-        /// ºöÂÔ²âÊÔÏîÄ¿ÎÄ¼şÁĞ±í
+        /// å¿½ç•¥æµ‹è¯•é¡¹ç›®æ–‡ä»¶åˆ—è¡¨
         /// </summary>
         public List<FileFullPath> IgnoreTestProjecs { get; set; }
 
         /// <summary>
-        /// »ñÈ¡¼¯³É²âÊÔÏîÄ¿ÎÄ¼şÁĞ±í
+        /// è·å–é›†æˆæµ‹è¯•é¡¹ç›®æ–‡ä»¶åˆ—è¡¨
         /// </summary>
         protected List<FileFullPath> GetIntegrationTestProjecs() {
             return IntegrationTestProjecs.Where( t => IgnoreTestProjecs.Exists( p => p.FileName == t.FileName ) == false ).ToList();
         }
 
         /// <summary>
-        /// ¹¹½¨Ç°²Ù×÷
+        /// æ„å»ºå‰æ“ä½œ
         /// </summary>
-        /// <param name="context">¹¹½¨ÈÎÎñÉÏÏÂÎÄ</param>
+        /// <param name="context">æ„å»ºä»»åŠ¡ä¸Šä¸‹æ–‡</param>
         protected override void BeforeBuildExecution( ITaskContext context ) {
             Projects = context.GetFiles( SourceDir, "*/*.csproj" );
             UnitTestProjecs = context.GetFiles( TestDir, "*/*.Tests.csproj" );
@@ -83,7 +83,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// Ìí¼ÓºöÂÔ²âÊÔÏîÄ¿ÎÄ¼şÁĞ±í
+        /// æ·»åŠ å¿½ç•¥æµ‹è¯•é¡¹ç›®æ–‡ä»¶åˆ—è¡¨
         /// </summary>
         private void AddIgnoreTestProjecs( ITaskContext context ) {
 	        IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/Util.Images.*.Tests.Integration.csproj" ) );
@@ -92,9 +92,9 @@ namespace Build {
 		}
 
         /// <summary>
-        /// ÅäÖÃ¹¹½¨Ä¿±ê
+        /// é…ç½®æ„å»ºç›®æ ‡
         /// </summary>
-        /// <param name="context">¹¹½¨ÈÎÎñÉÏÏÂÎÄ</param>
+        /// <param name="context">æ„å»ºä»»åŠ¡ä¸Šä¸‹æ–‡</param>
         protected override void ConfigureTargets( ITaskContext context ) {
             var clean = Clean( context );
             var restore = Restore( context, clean );
@@ -105,7 +105,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// ÇåÀí½â¾ö·½°¸
+        /// æ¸…ç†è§£å†³æ–¹æ¡ˆ
         /// </summary>
         private ITarget Clean( ITaskContext context ) {
             return context.CreateTarget( "clean" )
@@ -114,7 +114,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// »¹Ô­°ü
+        /// è¿˜åŸåŒ…
         /// </summary>
         private ITarget Restore( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "restore" )
@@ -124,7 +124,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// ±àÒë½â¾ö·½°¸
+        /// ç¼–è¯‘è§£å†³æ–¹æ¡ˆ
         /// </summary>
         private ITarget Build( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "compile" )
@@ -134,7 +134,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// ÔËĞĞ²âÊÔ
+        /// è¿è¡Œæµ‹è¯•
         /// </summary>
         private ITarget Test( ITaskContext context, params ITarget[] dependTargets ) {
             var unitTest = UnitTest( context, dependTargets );
@@ -145,7 +145,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// ÔËĞĞµ¥Ôª²âÊÔ
+        /// è¿è¡Œå•å…ƒæµ‹è¯•
         /// </summary>
         private ITarget UnitTest( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "unit.test" )
@@ -157,7 +157,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// ÔËĞĞ¼¯³É²âÊÔ
+        /// è¿è¡Œé›†æˆæµ‹è¯•
         /// </summary>
         private ITarget IntegrationTest( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "integration.test" )
@@ -169,7 +169,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// ´´½¨nuget°ü
+        /// åˆ›å»ºnugetåŒ…
         /// </summary>
         private ITarget Pack( ITaskContext context, params ITarget[] dependTargets ) {
             return context.CreateTarget( "pack" )
@@ -184,7 +184,7 @@ namespace Build {
         }
 
         /// <summary>
-        /// ·¢²¼nuget°ü
+        /// å‘å¸ƒnugetåŒ…
         /// </summary>
         private void PublishNuGetPackage( ITaskContext context, params ITarget[] dependTargets ) {
             context.CreateTarget( "nuget.publish" )

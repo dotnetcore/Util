@@ -1,8 +1,4 @@
-﻿using System.Globalization;
-using System.IO;
-using System.Reflection;
-using Microsoft.Extensions.Localization;
-using Util.Helpers;
+﻿using Util.Helpers;
 
 namespace Util.Localization.Json; 
 

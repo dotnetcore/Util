@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using Util.Exceptions;
+﻿using Util.Exceptions;
 
 namespace Util.Applications.Filters; 
 

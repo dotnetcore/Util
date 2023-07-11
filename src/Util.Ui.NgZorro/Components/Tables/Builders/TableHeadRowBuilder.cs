@@ -44,6 +44,14 @@ public class TableHeadRowBuilder : TableRowBuilder {
     }
 
     /// <summary>
+    /// 配置事件
+    /// </summary>
+    public override TableRowBuilder Events() {
+        this.OnClick( _config );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {

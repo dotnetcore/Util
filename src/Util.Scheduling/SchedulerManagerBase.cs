@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Util.Helpers;
+﻿using Util.Helpers;
 using Util.Reflections;
 
 namespace Util.Scheduling; 
 
 /// <summary>
-/// Quartz调度管理器
+/// 调度管理器
 /// </summary>
 public abstract class SchedulerManagerBase : ISchedulerManager {
     /// <summary>
@@ -18,7 +13,7 @@ public abstract class SchedulerManagerBase : ISchedulerManager {
     private readonly ITypeFinder _typeFinder;
 
     /// <summary>
-    /// 初始化Quartz调度管理器
+    /// 初始化调度管理器
     /// </summary>
     /// <param name="scopeFactory">服务范围工厂</param>
     /// <param name="typeFinder">类型查找器</param>

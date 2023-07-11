@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Util.Data.Sql.Database; 
+﻿namespace Util.Data.Sql.Database; 
 
 /// <summary>
 /// 数据库连接管理器

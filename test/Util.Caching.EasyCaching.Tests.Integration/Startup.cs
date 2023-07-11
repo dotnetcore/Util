@@ -14,19 +14,19 @@ public class Startup {
     /// ÅäÖÃÖ÷»ú
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
+        Util.Helpers.Environment.SetDevelopment();
+        var redisEndpoint = Util.Helpers.Environment.IsDevelopment() ? "127.0.0.1" : "redis.common";
         hostBuilder.ConfigureDefaults( null )
-            .AddUtil( options => {
-                Util.Helpers.Environment.SetDevelopment();
-                var redisEndpoint = Util.Helpers.Environment.IsDevelopment() ? "192.168.31.157" : "redis.common";
-                options.UseAop()
-                    .UseRedisCache( t => {
-                        t.MaxRdSecond = 0;
-                        t.DBConfig.AllowAdmin = true;
-                        t.DBConfig.KeyPrefix = "test:";
-                        t.DBConfig.Endpoints.Add( new ServerEndPoint( redisEndpoint, 6379 ) );
-                    } )
-                    .UseMemoryCache( t => t.MaxRdSecond = 0 );
-            } );
+            .AsBuild()
+            .AddAop()
+            .AddRedisCache( t => {
+                t.MaxRdSecond = 0;
+                t.DBConfig.AllowAdmin = true;
+                t.DBConfig.KeyPrefix = "test:";
+                t.DBConfig.Endpoints.Add( new ServerEndPoint( redisEndpoint, 6379 ) );
+            } )
+            .AddMemoryCache( t => t.MaxRdSecond = 0 )
+            .AddUtil();
     }
 
     /// <summary>

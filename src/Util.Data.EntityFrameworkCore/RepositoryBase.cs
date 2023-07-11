@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Domain.Entities;
+﻿using Util.Domain.Entities;
 using Util.Domain.Repositories;
 
 namespace Util.Data.EntityFrameworkCore; 

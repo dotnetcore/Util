@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Util.Applications.Dtos;
+﻿using Util.Applications.Dtos;
 using Util.Data;
 using Util.Data.Queries;
 using Util.Domain.Compare;

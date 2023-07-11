@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Ui.NgZorro.Data; 
+﻿namespace Util.Ui.NgZorro.Data; 
 
 /// <summary>
 /// Ng-Zorro树形结果

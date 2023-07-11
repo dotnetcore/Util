@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Util.Domain.Compare;
+﻿using Util.Domain.Compare;
 
 namespace Util.Domain; 
 

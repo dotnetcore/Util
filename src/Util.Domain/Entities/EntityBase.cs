@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Util.Domain.Compare;
+﻿using Util.Domain.Compare;
 using Util.Domain.Extending;
 using Util.Properties;
 using Util.Validation;

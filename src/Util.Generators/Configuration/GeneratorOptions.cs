@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Generators.Configuration; 
+﻿namespace Util.Generators.Configuration; 
 
 /// <summary>
 /// 生成器配置项

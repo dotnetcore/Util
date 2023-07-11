@@ -21,7 +21,7 @@ namespace Util.Tests.EntityTypeConfigurations {
         /// 配置表
         /// </summary>
         private void ConfigTable( EntityTypeBuilder<Post> builder ) {
-            builder.ToTable( "Post" ).HasComment( "贴子" );
+            builder.ToTable( "Post", t => t.HasComment( "贴子" ) );
         }
 
         /// <summary>

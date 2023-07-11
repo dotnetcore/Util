@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
-namespace Util.Configs; 
+﻿namespace Util.Configs; 
 
 /// <summary>
 /// 配置项扩展

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Data.Queries.Conditions.Internal;
+﻿namespace Util.Data.Queries.Conditions.Internal;
 
 /// <summary>
 /// 日期范围查询参数对象 - 使用该对象的目的是构建参数化条件

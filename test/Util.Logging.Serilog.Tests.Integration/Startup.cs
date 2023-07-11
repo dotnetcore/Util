@@ -17,7 +17,9 @@ public class Startup {
     public void ConfigureHost( IHostBuilder hostBuilder ) {
         AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
         hostBuilder.ConfigureDefaults( null )
-            .AddUtil( options => options.UseSerilog() );
+            .AsBuild()
+            .AddSerilog()
+            .AddUtil();
     }
 
     /// <summary>

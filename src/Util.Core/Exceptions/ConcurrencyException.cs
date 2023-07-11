@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Properties;
+﻿using Util.Properties;
 
 namespace Util.Exceptions; 
 

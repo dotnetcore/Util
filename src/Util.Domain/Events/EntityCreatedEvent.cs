@@ -6,7 +6,7 @@ namespace Util.Domain.Events;
 /// 实体创建事件
 /// </summary>
 /// <typeparam name="TEntity">实体类型</typeparam>
-public class EntityCreatedEvent<TEntity> : IEvent{
+public class EntityCreatedEvent<TEntity> : IEvent {
     /// <summary>
     /// 初始化实体创建事件
     /// </summary>

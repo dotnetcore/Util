@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.FileStorage; 
+﻿namespace Util.FileStorage; 
 
 /// <summary>
 /// 文件处理结果

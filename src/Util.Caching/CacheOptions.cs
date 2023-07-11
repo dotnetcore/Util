@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Caching; 
+﻿namespace Util.Caching; 
 
 /// <summary>
 /// 缓存配置

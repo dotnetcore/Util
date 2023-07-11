@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Util.Data.EntityFrameworkCore.ValueComparers;
+﻿using Util.Data.EntityFrameworkCore.ValueComparers;
 using Util.Data.EntityFrameworkCore.ValueConverters;
 using Util.Domain.Extending;
 using Util.Properties;

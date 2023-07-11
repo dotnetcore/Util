@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// 空后台任务调度器
@@ -14,7 +12,7 @@ public class NullScheduler : IScheduler {
     /// <summary>
     /// 启动
     /// </summary>
-    public Task StartAsync() {
+    public Task StartAsync( CancellationToken cancellationToken = default ) {
         return Task.CompletedTask;
     }
 
@@ -35,7 +33,7 @@ public class NullScheduler : IScheduler {
     /// <summary>
     /// 停止
     /// </summary>
-    public Task StopAsync() {
+    public Task StopAsync( CancellationToken cancellationToken = default ) {
         return Task.CompletedTask;
     }
 }

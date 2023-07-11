@@ -1,6 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-
-namespace Util.Data.Dapper.Sql; 
+﻿namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// Sql Server数据库工厂

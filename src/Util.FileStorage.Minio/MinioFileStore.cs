@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Minio;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using Minio.Exceptions;
-using Util.Http;
+﻿using Util.Http;
 
 namespace Util.FileStorage.Minio; 
 
@@ -45,7 +36,7 @@ public class MinioFileStore : IFileStore {
     /// <summary>
     /// Http操作
     /// </summary>
-    private IHttpClient _httpClient;
+    private readonly IHttpClient _httpClient;
 
     #endregion
 
@@ -91,11 +82,12 @@ public class MinioFileStore : IFileStore {
     /// </summary>
     protected virtual async Task<MinioClient> GetClient() {
         await InitConfig();
-        return _client ??= new MinioClient()
+        _client ??= new MinioClient()
             .WithEndpoint( GetEndpoint() )
             .WithCredentials( _config.AccessKey, _config.SecretKey )
-            .WithSSL( _config.UseSSL )
-            .WithHttpClient( GetHttpClient() );
+            .WithSSL( _config.UseSSL );
+        var httpClient = GetHttpClient();
+        return httpClient == null ? _client.Build() : _client.WithHttpClient( httpClient ).Build();
     }
 
     /// <summary>
@@ -113,7 +105,7 @@ public class MinioFileStore : IFileStore {
     /// </summary>
     protected virtual HttpClient GetHttpClient() {
         if ( _config.HttpClientName.IsEmpty() )
-            return _httpClientFactory.CreateClient();
+            return null;
         return _httpClientFactory.CreateClient( _config.HttpClientName );
     }
 

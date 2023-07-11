@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-
-namespace Util.Domain.Compare; 
+﻿namespace Util.Domain.Compare; 
 
 /// <summary>
 /// 变更值集合

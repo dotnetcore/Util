@@ -1,12 +1,4 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Util.Helpers;
-
-namespace Util.Security.Authorization; 
+﻿namespace Util.Security.Authorization; 
 
 /// <summary>
 /// 授权处理器

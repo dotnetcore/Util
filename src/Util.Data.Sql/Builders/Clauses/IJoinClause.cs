@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Data.Sql.Builders.Clauses; 
+﻿namespace Util.Data.Sql.Builders.Clauses; 
 
 /// <summary>
 /// Join子句

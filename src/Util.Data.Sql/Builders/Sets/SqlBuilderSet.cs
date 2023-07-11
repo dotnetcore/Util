@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Util.Data.Sql.Builders.Clauses;
+﻿using Util.Data.Sql.Builders.Clauses;
 using Util.Helpers;
 
 namespace Util.Data.Sql.Builders.Sets; 

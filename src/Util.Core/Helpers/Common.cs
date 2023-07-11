@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-
-namespace Util.Helpers; 
+﻿namespace Util.Helpers; 
 
 /// <summary>
 /// 公共操作
@@ -64,19 +59,6 @@ public static class Common {
     /// <param name="paths">路径列表</param>
     public static string JoinPath( params string[] paths ) {
         return Url.JoinPath( paths );
-    }
-
-    /// <summary>
-    /// 获取VS当前项目目录路径
-    /// </summary>
-    public static string GetVsProjectDirectory() {
-        var path = Directory.GetCurrentDirectory();
-        var directories = path.Replace( "\\", "/" ).Split( '/' );
-        if ( directories.Any( directory => directory == "bin" ) ) {
-            var index = path.LastIndexOf( "bin", StringComparison.InvariantCulture );
-            return path.Substring( 0, index - 1 );
-        }
-        return path;
     }
 
     /// <summary>

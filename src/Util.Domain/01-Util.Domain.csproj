@@ -28,7 +28,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Util.Data.Abstractions\06-Util.Data.Abstractions.csproj" />
-	  <ProjectReference Include="..\Util.Events\01-Util.Events.csproj" />
+	  <ProjectReference Include="..\Util.Events\02-Util.Events.csproj" />
 	</ItemGroup>
 
   <ItemGroup>

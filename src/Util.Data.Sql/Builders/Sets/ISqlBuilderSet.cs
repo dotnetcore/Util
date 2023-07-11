@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Util.Data.Sql.Builders.Sets; 
+﻿namespace Util.Data.Sql.Builders.Sets; 
 
 /// <summary>
 /// Sql生成器集合

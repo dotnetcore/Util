@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EasyCaching.Core;
-
-namespace Util.Caching.EasyCaching; 
+﻿namespace Util.Caching.EasyCaching; 
 
 /// <summary>
 /// EasyCaching缓存服务

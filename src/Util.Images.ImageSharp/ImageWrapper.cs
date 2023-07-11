@@ -1,17 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using SixLabors.Fonts;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp;
-using Util.Images.Commands;
-using System.Numerics;
-using System.Threading;
-using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.Formats.Bmp;
-using SixLabors.ImageSharp.Formats.Gif;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
+﻿using Util.Images.Commands;
 
 namespace Util.Images; 
 

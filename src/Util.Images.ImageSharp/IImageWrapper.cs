@@ -1,8 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using SixLabors.Fonts;
-
-namespace Util.Images; 
+﻿namespace Util.Images; 
 
 /// <summary>
 /// 图片操作包装器

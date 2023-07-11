@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-
-namespace Util.Domain.Entities; 
+﻿namespace Util.Domain.Entities; 
 
 /// <summary>
 /// 值对象

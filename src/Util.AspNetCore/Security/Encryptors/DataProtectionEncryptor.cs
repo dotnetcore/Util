@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.DataProtection;
-
-namespace Util.Security.Encryptors; 
+﻿namespace Util.Security.Encryptors; 
 
 /// <summary>
 /// 基于数据保护提供程序的加密器

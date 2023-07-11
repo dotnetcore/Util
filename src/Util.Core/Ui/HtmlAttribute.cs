@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Ui; 
+﻿namespace Util.Ui; 
 
 /// <summary>
 /// 用于控制Razor Page生成Html的路径

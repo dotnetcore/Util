@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Util.Data.Sql.Builders.Params;
+﻿using Util.Data.Sql.Builders.Params;
 
 namespace Util.Data.Sql.Builders.Conditions; 
 

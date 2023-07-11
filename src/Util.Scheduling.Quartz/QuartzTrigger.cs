@@ -1,7 +1,4 @@
-﻿using Quartz;
-using System;
-
-namespace Util.Scheduling; 
+﻿namespace Util.Scheduling; 
 
 /// <summary>
 /// Quartz触发器

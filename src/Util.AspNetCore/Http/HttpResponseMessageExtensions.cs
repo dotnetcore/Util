@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace Util.Http; 
+﻿namespace Util.Http; 
 
 /// <summary>
 /// Http响应消息扩展

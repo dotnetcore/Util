@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.WebUtilities;
-using Util.Helpers;
+﻿using Util.Helpers;
 using Util.SystemTextJson;
 
 namespace Util.Http; 
@@ -29,6 +19,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// Http客户端
     /// </summary>
     private readonly HttpClient _httpClient;
+    /// <summary>
+    /// Http客户端名称
+    /// </summary>
+    private string _httpClientName;
     /// <summary>
     /// Http方法
     /// </summary>
@@ -129,6 +123,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 执行完成操作
     /// </summary>
     protected Action<HttpResponseMessage, object> CompleteAction { get; private set; }
+
+    #endregion
+
+    #region HttpClientName(Http客户端名称)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> HttpClientName( string name ) {
+        _httpClientName = name;
+        return this;
+    }
 
     #endregion
 
@@ -526,7 +530,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return _httpClient;
         var clientHandler = CreateHttpClientHandler();
         InitHttpClientHandler( clientHandler );
-        return _httpClientFactory.CreateClient();
+        if( _httpClientName.IsEmpty() )
+            return _httpClientFactory.CreateClient();
+        return _httpClientFactory.CreateClient( _httpClientName );
     }
 
     /// <summary>
@@ -534,7 +540,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected HttpClientHandler CreateHttpClientHandler() {
         var handlerFactory = _httpClientFactory as IHttpMessageHandlerFactory;
-        var handler = handlerFactory.CreateHandler();
+        var handler = handlerFactory?.CreateHandler();
         while( handler is DelegatingHandler delegatingHandler ) {
             handler = delegatingHandler.InnerHandler;
         }
@@ -546,6 +552,8 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     /// <param name="handler">Http客户端处理器</param>
     protected virtual void InitHttpClientHandler( HttpClientHandler handler ) {
+        if ( handler == null )
+            return;
         InitCertificate( handler );
     }
 
@@ -686,7 +694,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <inheritdoc />
     public async Task WriteAsync( string filePath ) {
         var bytes = await GetStreamAsync();
-        await File.WriteAsync( filePath, bytes );
+        await Util.Helpers.File.WriteAsync( filePath, bytes );
     }
 
     #endregion

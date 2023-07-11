@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-
-namespace Util.Data.EntityFrameworkCore; 
+﻿namespace Util.Data.EntityFrameworkCore; 
 
 /// <summary>
 /// MySql工作单元基类

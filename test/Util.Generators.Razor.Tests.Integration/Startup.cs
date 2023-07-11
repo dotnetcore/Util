@@ -13,11 +13,11 @@ namespace Util.Generators.Razor.Tests.Integration {
         /// ÅäÖÃÖ÷»ú
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
+            Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
-                .ConfigureHostConfiguration( builder => {
-                    Environment.SetDevelopment();
-                } )
-                .AddUtil( t => t.UseSerilog() );
+                .AsBuild()
+                .AddSerilog()
+                .AddUtil();
         }
 
 		/// <summary>

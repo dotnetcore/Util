@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Domain.Auditing;
+﻿namespace Util.Domain.Auditing;
 
 /// <summary>
 /// 创建时间审计

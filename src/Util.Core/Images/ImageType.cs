@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Util.Images; 
+﻿namespace Util.Images; 
 
 /// <summary>
 /// 图片类型

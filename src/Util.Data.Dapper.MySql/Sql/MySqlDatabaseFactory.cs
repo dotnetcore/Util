@@ -1,6 +1,4 @@
-﻿using MySqlConnector;
-
-namespace Util.Data.Dapper.Sql; 
+﻿namespace Util.Data.Dapper.Sql; 
 
 /// <summary>
 /// MySql数据库工厂

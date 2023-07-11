@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Util.Data.Sql.Builders.Params;
-using Util.Helpers;
+﻿using Util.Data.Sql.Builders.Params;
 
 namespace Util.Data.Sql.Builders; 
 
@@ -23,7 +21,7 @@ public class SqlBuilderResult {
     /// <summary>
     /// Sql参数管理器
     /// </summary>
-    private IParameterManager _parameterManager;
+    private readonly IParameterManager _parameterManager;
 
     /// <summary>
     /// 初始化Sql生成器结果
@@ -63,7 +61,7 @@ public class SqlBuilderResult {
         var result = _sqlParams.Find( t => t.Name?.ToUpperInvariant() == name?.ToUpperInvariant() );
         if ( result == null )
             return default;
-        return Convert.To<T>( result.Value );
+        return Util.Helpers.Convert.To<T>( result.Value );
     }
 
     /// <summary>

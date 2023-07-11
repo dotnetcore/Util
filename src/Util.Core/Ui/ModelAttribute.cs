@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Ui; 
+﻿namespace Util.Ui; 
 
 /// <summary>
 /// 模型绑定
