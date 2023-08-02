@@ -1801,6 +1801,10 @@ public static class UiConst {
     /// </summary>
     public const string OnModelChange = "on-model-change";
     /// <summary>
+    /// 回车事件
+    /// </summary>
+    public const string OnEnter = "on-enter";
+    /// <summary>
     /// 隐藏
     /// </summary>
     public const string Hidden = "hidden";

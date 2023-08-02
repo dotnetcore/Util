@@ -10,7 +10,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static async Task<List<string>> GetAppliedMigrationsAsync( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if ( source is not UnitOfWorkBase unitOfWork )
+        if ( source is not DbContext unitOfWork )
             return new List<string>();
         var result = await unitOfWork.Database.GetAppliedMigrationsAsync();
         return result.ToList();
@@ -23,7 +23,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="cancellationToken">取消令牌</param>
     public static async Task MigrateAsync( this IUnitOfWork source, CancellationToken cancellationToken = default ) {
         source.CheckNull( nameof( source ) );
-        if ( source is not UnitOfWorkBase unitOfWork )
+        if ( source is not DbContext unitOfWork )
             return;
         await unitOfWork.Database.MigrateAsync( cancellationToken );
     }
@@ -34,7 +34,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static bool EnsureCreated( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if( source is not UnitOfWorkBase unitOfWork )
+        if( source is not DbContext unitOfWork )
             return false;
         return unitOfWork.Database.EnsureCreated();
     }
@@ -45,7 +45,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static async Task<bool> EnsureCreatedAsync( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if( source is not UnitOfWorkBase unitOfWork )
+        if( source is not DbContext unitOfWork )
             return false;
         return await unitOfWork.Database.EnsureCreatedAsync();
     }
@@ -56,7 +56,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static bool EnsureDeleted( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if( source is not UnitOfWorkBase unitOfWork )
+        if( source is not DbContext unitOfWork )
             return false;
         return unitOfWork.Database.EnsureDeleted();
     }
@@ -67,7 +67,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static async Task<bool> EnsureDeletedAsync( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if( source is not UnitOfWorkBase unitOfWork )
+        if( source is not DbContext unitOfWork )
             return false;
         return await unitOfWork.Database.EnsureDeletedAsync();
     }
@@ -78,7 +78,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static void ClearCache( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if ( source is not UnitOfWorkBase unitOfWork )
+        if ( source is not DbContext unitOfWork )
             return;
         unitOfWork.ChangeTracker.Clear();
     }
@@ -89,7 +89,7 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static string GetChangeTrackerDebugView( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if( source is not UnitOfWorkBase unitOfWork )
+        if( source is not DbContext unitOfWork )
             return null;
         unitOfWork.ChangeTracker.DetectChanges();
         return unitOfWork.ChangeTracker.DebugView.LongView;
@@ -101,8 +101,20 @@ public static class UnitOfWorkExtensions {
     /// <param name="source">工作单元</param>
     public static bool IsChange( this IUnitOfWork source ) {
         source.CheckNull( nameof( source ) );
-        if ( source is not UnitOfWorkBase unitOfWork )
+        if ( source is not DbContext unitOfWork )
             return false;
         return unitOfWork.ChangeTracker.Entries().Any( t => t.State == EntityState.Modified );
+    }
+
+    /// <summary>
+    /// 是否可连接
+    /// </summary>
+    /// <param name="source">工作单元</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task<bool> CanConnectAsync( this IUnitOfWork source, CancellationToken cancellationToken = default ) {
+        source.CheckNull( nameof( source ) );
+        if ( source is not DbContext unitOfWork )
+            return false;
+        return await unitOfWork.Database.CanConnectAsync( cancellationToken );
     }
 }

@@ -37,7 +37,8 @@ public static class WebApplicationExtensions {
         app.CheckNull( nameof( app ) );
         return app.UseNgZorro( spa => {
             spa.Options.SourcePath = "ClientApp";
-            spa.UseProxyToSpaDevelopmentServer( developmentServerBaseUri );
+            if ( app.Environment.IsDevelopment() )
+                spa.UseProxyToSpaDevelopmentServer( developmentServerBaseUri );
         } );
     }
 }

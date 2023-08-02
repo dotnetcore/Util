@@ -1,4 +1,5 @@
-﻿using Util.Events;
+﻿using System;
+using Util.Events;
 
 namespace Util.Tests.Events; 
 
@@ -6,5 +7,6 @@ namespace Util.Tests.Events;
 /// 测试事件
 /// </summary>
 public class TestEvent : IEvent {
+    public Guid Id { get; set; }
     public string Name { get; set; }
 }

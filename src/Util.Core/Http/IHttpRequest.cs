@@ -17,6 +17,11 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <param name="name">HttpClient名称</param>
     IHttpRequest<TResult> HttpClientName( string name );
     /// <summary>
+    /// 设置基地址
+    /// </summary>
+    /// <param name="baseAddress">基地址</param>
+    IHttpRequest<TResult> BaseAddress( string baseAddress );
+    /// <summary>
     /// 设置字符编码
     /// </summary>
     /// <param name="encoding">字符编码,范例：gb2312</param>
@@ -26,6 +31,11 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// </summary>
     /// <param name="encoding">字符编码</param>
     IHttpRequest<TResult> Encoding( Encoding encoding );
+    /// <summary>
+    /// 设置访问令牌
+    /// </summary>
+    /// <param name="token">访问令牌</param>
+    IHttpRequest<TResult> BearerToken( string token );
     /// <summary>
     /// 设置内容类型
     /// </summary>
@@ -121,6 +131,11 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <param name="action">执行成功操作,参数为响应结果</param>
     IHttpRequest<TResult> OnSuccess( Action<TResult> action );
     /// <summary>
+    /// 请求成功事件
+    /// </summary>
+    /// <param name="action">执行成功操作,参数为响应结果</param>
+    IHttpRequest<TResult> OnSuccess( Func<TResult,Task> action );
+    /// <summary>
     /// 请求失败事件
     /// </summary>
     /// <param name="action">执行失败操作,参数为响应消息和响应内容</param>
@@ -133,14 +148,17 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <summary>
     /// 获取结果
     /// </summary>
-    Task<TResult> GetResultAsync();
+    /// <param name="cancellationToken">取消令牌</param>
+    Task<TResult> GetResultAsync( CancellationToken cancellationToken = default );
     /// <summary>
     /// 获取流
     /// </summary>
-    Task<byte[]> GetStreamAsync();
+    /// <param name="cancellationToken">取消令牌</param>
+    Task<byte[]> GetStreamAsync( CancellationToken cancellationToken = default );
     /// <summary>
     /// 写入文件
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
-    Task WriteAsync( string filePath );
+    /// <param name="cancellationToken">取消令牌</param>
+    Task WriteAsync( string filePath, CancellationToken cancellationToken = default );
 }

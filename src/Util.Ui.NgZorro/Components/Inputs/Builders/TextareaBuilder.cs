@@ -101,7 +101,24 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// 配置事件
     /// </summary>
     public TextareaBuilder Events() {
-        AttributeIfNotEmpty( "(input)", _config.GetValue( UiConst.OnInput ) );
+        OnInput( _config.GetValue( UiConst.OnInput ) );
+        OnEnter( _config.GetValue( UiConst.OnEnter ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 输入事件
+    /// </summary>
+    public TextareaBuilder OnInput( string value ) {
+        AttributeIfNotEmpty( "(input)", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 回车事件
+    /// </summary>
+    public TextareaBuilder OnEnter( string value ) {
+        AttributeIfNotEmpty( "(keyup.enter)", value );
         return this;
     }
 

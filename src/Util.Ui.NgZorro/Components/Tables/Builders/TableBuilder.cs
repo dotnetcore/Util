@@ -49,14 +49,14 @@ public class TableBuilder : AngularTagBuilder {
     /// 创建表头标签生成器
     /// </summary>
     public virtual TableHeadBuilder CreateTableHeadBuilder() {
-        return new TableHeadBuilder( _config.CopyRemoveId() );
+        return new TableHeadBuilder( _config.CopyRemoveAttributes() );
     }
 
     /// <summary>
     /// 创建表格主体标签生成器
     /// </summary>
     public virtual TableBodyBuilder CreateTableBodyBuilder() {
-        return new TableBodyBuilder( _config.CopyRemoveId() );
+        return new TableBodyBuilder( _config.CopyRemoveAttributes() );
     }
 
     /// <summary>

@@ -150,17 +150,6 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<input nz-input=\"\" [formControlName]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
-
-        /// <summary>
-        /// 测试模型变更事件
-        /// </summary>
-        [Fact]
-        public void TestOnModelChange() {
-            _wrapper.SetContextAttribute( UiConst.OnModelChange, "a" );
-            var result = new StringBuilder();
-            result.Append( "<input (ngModelChange)=\"a\" nz-input=\"\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
     }
 }
 

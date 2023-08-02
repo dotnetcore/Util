@@ -11,14 +11,13 @@ public static class ConfigExtensions {
     /// 复制并移除标识和name
     /// </summary>
     /// <param name="config">配置</param>
-    public static Config CopyRemoveId( this Config  config ) {
+    public static Config CopyRemoveAttributes( this Config config ) {
         var result = config.Copy();
         result.RemoveAttribute( UiConst.Id );
         result.RemoveAttribute( AngularConst.RawId );
         result.RemoveAttribute( UiConst.Name );
         result.RemoveAttribute( AngularConst.BindName );
-        result.OutputAttributes.RemoveAll( UiConst.Name );
-        result.OutputAttributes.RemoveAll( AngularConst.BindName );
+        result.OutputAttributes.Clear();
         return result;
     }
 }

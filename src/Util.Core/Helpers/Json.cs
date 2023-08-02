@@ -12,11 +12,22 @@ public static class Json {
     /// <param name="value">目标对象</param>
     /// <param name="options">Json配置</param>
     public static string ToJson<T>( T value, JsonOptions options ) {
-        options ??= new JsonOptions();
+        if ( options == null )
+            return ToJson( value );
+        var jsonSerializerOptions = ToJsonSerializerOptions( options );
+        return ToJson( value, jsonSerializerOptions, options.RemoveQuotationMarks, options.ToSingleQuotes, options.IgnoreInterface );
+    }
+
+    /// <summary>
+    /// 转换序列化配置
+    /// </summary>
+    private static JsonSerializerOptions ToJsonSerializerOptions( JsonOptions options ) {
         var jsonSerializerOptions = new JsonSerializerOptions();
         if ( options.IgnoreNullValues )
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-        return ToJson( value, jsonSerializerOptions, options.RemoveQuotationMarks, options.ToSingleQuotes );
+        if ( options.IgnoreCase )
+            jsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        return jsonSerializerOptions;
     }
 
     /// <summary>
@@ -27,12 +38,19 @@ public static class Json {
     /// <param name="removeQuotationMarks">是否移除双引号</param>
     /// <param name="toSingleQuotes">是否将双引号转成单引号</param>
     public static string ToJson<T>( T value, JsonSerializerOptions options = null,bool removeQuotationMarks = false, bool toSingleQuotes = false ) {
+        return ToJson( value, options, removeQuotationMarks, toSingleQuotes,true );
+    }
+
+    /// <summary>
+    /// 将对象转换为Json字符串
+    /// </summary>
+    private static string ToJson<T>( T value, JsonSerializerOptions options, bool removeQuotationMarks, bool toSingleQuotes,bool ignoreInterface ) {
         if ( value == null )
             return string.Empty;
         options = GetToJsonOptions( options );
-        var result = JsonSerializer.Serialize( value, options );
+        var result = Serialize( value, options, ignoreInterface );
         if ( removeQuotationMarks )
-            result = result.Replace( "\"","" );
+            result = result.Replace( "\"", "" );
         if ( toSingleQuotes )
             result = result.Replace( "\"", "'" );
         return result;
@@ -54,6 +72,18 @@ public static class Json {
     }
 
     /// <summary>
+    /// Json序列化
+    /// </summary>
+    private static string Serialize<T>( T value, JsonSerializerOptions options, bool ignoreInterface ) {
+        if ( ignoreInterface ) {
+            object instance = value;
+            if( instance != null )
+                return JsonSerializer.Serialize( instance, options );
+        }
+        return JsonSerializer.Serialize( value, options );
+    }
+
+    /// <summary>
     /// 将对象转换为Json字符串
     /// </summary>
     /// <param name="value">目标对象</param>
@@ -68,6 +98,19 @@ public static class Json {
         stream.Position = 0;
         using var reader = new StreamReader( stream );
         return await reader.ReadToEndAsync( cancellationToken );
+    }
+
+    /// <summary>
+    /// 将Json字符串转换为对象
+    /// </summary>
+    /// <param name="json">Json字符串</param>
+    /// <param name="options">序列化配置</param>
+    public static T ToObject<T>( string json, JsonOptions options ) {
+        if ( string.IsNullOrWhiteSpace( json ) )
+            return default;
+        if ( options == null )
+            return ToObject<T>( json );
+        return ToObject<T>( json, ToJsonSerializerOptions( options ) );
     }
 
     /// <summary>
@@ -117,9 +160,9 @@ public static class Json {
     /// </summary>
     /// <param name="json">Json字符串</param>
     /// <param name="options">序列化配置</param>
-    /// <param name="cancellationToken">取消令牌</param>
     /// <param name="encoding">Json字符编码,默认UTF8</param>
-    public static async Task<T> ToObjectAsync<T>( string json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default,Encoding encoding = null ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task<T> ToObjectAsync<T>( string json, JsonSerializerOptions options = null, Encoding encoding = null, CancellationToken cancellationToken = default ) {
         if ( string.IsNullOrWhiteSpace( json ) )
             return default;
         encoding ??= Encoding.UTF8;

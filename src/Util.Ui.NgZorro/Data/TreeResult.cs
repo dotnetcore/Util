@@ -25,6 +25,8 @@ public class TreeResult<TNode> : TreeResultBase<TNode, NgZorroTreeNode, NgZorroT
     /// 转换为目标节点
     /// </summary>
     protected override NgZorroTreeNode ToDestinationNode( TNode dto ) {
+        List<TNode> children = dto.Children;
+        dto.Children = null;
         var result = new NgZorroTreeNode {
             Key = dto.Id,
             Title = dto.GetText(),
@@ -37,7 +39,7 @@ public class TreeResult<TNode> : TreeResultBase<TNode, NgZorroTreeNode, NgZorroT
             Selected = dto.Selected.SafeValue(),
             IsLeaf = dto.Leaf.SafeValue(),
             OriginalNode = dto,
-            Children = dto.Children.Select( ToDestinationNode ).ToList()
+            Children = children.Select( ToDestinationNode ).ToList()
         };
         return result;
     }

@@ -71,7 +71,14 @@ public static class Common {
     /// <summary>
     /// 获取当前目录的上级路径
     /// </summary>
-    public static string GetParentDirectory() {
-        return Directory.GetParent( Directory.GetCurrentDirectory() )?.FullName;
+    /// <param name="depth">向上钻取的深度</param>
+    public static string GetParentDirectory( int depth = 1 ) {
+        var path = Directory.GetCurrentDirectory();
+        for ( int i = 0; i < depth; i++ ) {
+            var parent = Directory.GetParent( path );
+            if ( parent is { Exists: true } )
+                path = parent.FullName;
+        }
+        return path;
     }
 }

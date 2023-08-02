@@ -538,8 +538,19 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// 保存后操作
     /// </summary>
     protected virtual async Task SaveChangesAfter() {
-        await PublishEventsAsync();
         await ExecuteActionsAsync();
+        await PublishEventsAsync();
+    }
+
+    #endregion
+
+    #region ExecuteActionsAsync(执行工作单元操作集合)
+
+    /// <summary>
+    /// 执行工作单元操作集合
+    /// </summary>
+    protected virtual async Task ExecuteActionsAsync() {
+        await ActionManager.ExecuteAsync();
     }
 
     #endregion
@@ -553,17 +564,6 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
         var events = new List<IEvent>( Events );
         Events.Clear();
         await EventBus.PublishAsync( events );
-    }
-
-    #endregion
-
-    #region ExecuteActionsAsync(执行工作单元操作集合)
-
-    /// <summary>
-    /// 执行工作单元操作集合
-    /// </summary>
-    protected virtual async Task ExecuteActionsAsync() {
-        await ActionManager.ExecuteAsync();
     }
 
     #endregion

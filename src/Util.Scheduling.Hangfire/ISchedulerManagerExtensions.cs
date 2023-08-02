@@ -208,57 +208,17 @@ public static class ISchedulerManagerExtensions {
     /// 执行重复操作
     /// </summary>
     /// <param name="source">后台任务调度管理器</param>
-    /// <param name="actionExpression">后台操作</param>
-    /// <param name="cron">Cron表达式</param>
-    /// <param name="queue">队列名称</param>
-    public static void Repeat( this ISchedulerManager source, Expression<Action> actionExpression, string cron,string queue = "default" ) {
-        RecurringJob.AddOrUpdate( actionExpression, cron,queue: queue );
-    }
-
-    /// <summary>
-    /// 执行重复操作
-    /// </summary>
-    /// <param name="source">后台任务调度管理器</param>
-    /// <param name="actionExpression">后台操作</param>
-    /// <param name="cron">Cron表达式</param>
-    /// <param name="queue">队列名称</param>
-    public static void Repeat( this ISchedulerManager source, Expression<Func<Task>> actionExpression, string cron, string queue = "default" ) {
-        RecurringJob.AddOrUpdate( actionExpression, cron, queue: queue );
-    }
-
-    /// <summary>
-    /// 执行重复操作
-    /// </summary>
-    /// <param name="source">后台任务调度管理器</param>
-    /// <param name="actionExpression">后台操作</param>
-    /// <param name="cron">Cron表达式</param>
-    /// <param name="queue">队列名称</param>
-    public static void Repeat<T>( this ISchedulerManager source, Expression<Action<T>> actionExpression, string cron, string queue = "default" ) {
-        RecurringJob.AddOrUpdate( actionExpression, cron, queue: queue );
-    }
-
-    /// <summary>
-    /// 执行重复操作
-    /// </summary>
-    /// <param name="source">后台任务调度管理器</param>
-    /// <param name="actionExpression">后台操作</param>
-    /// <param name="cron">Cron表达式</param>
-    /// <param name="queue">队列名称</param>
-    public static void Repeat<T>( this ISchedulerManager source, Expression<Func<T, Task>> actionExpression, string cron, string queue = "default" ) {
-        RecurringJob.AddOrUpdate( actionExpression, cron, queue: queue );
-    }
-
-
-    /// <summary>
-    /// 执行重复操作
-    /// </summary>
-    /// <param name="source">后台任务调度管理器</param>
     /// <param name="id">任务标识</param>
     /// <param name="actionExpression">后台操作</param>
     /// <param name="cron">Cron表达式</param>
     /// <param name="queue">队列名称</param>
-    public static void Repeat( this ISchedulerManager source, string id, Expression<Action> actionExpression, string cron, string queue = "default" ) {
-        RecurringJob.AddOrUpdate( id, actionExpression, cron, queue: queue );
+    /// <param name="options">任务配置</param>
+    public static void Repeat( this ISchedulerManager source, string id, Expression<Action> actionExpression, string cron, string queue = "default", RecurringJobOptions options = null ) {
+        if ( options == null ) {
+            RecurringJob.AddOrUpdate( id, queue, actionExpression, cron );
+            return;
+        }
+        RecurringJob.AddOrUpdate( id, queue, actionExpression, cron, options );
     }
 
     /// <summary>
@@ -269,8 +229,13 @@ public static class ISchedulerManagerExtensions {
     /// <param name="actionExpression">后台操作</param>
     /// <param name="cron">Cron表达式</param>
     /// <param name="queue">队列名称</param>
-    public static void Repeat( this ISchedulerManager source, string id, Expression<Func<Task>> actionExpression, string cron, string queue = "default" ) {
-        RecurringJob.AddOrUpdate( id, actionExpression, cron, queue: queue );
+    /// <param name="options">任务配置</param>
+    public static void Repeat( this ISchedulerManager source, string id, Expression<Func<Task>> actionExpression, string cron, string queue = "default", RecurringJobOptions options = null ) {
+        if ( options == null ) {
+            RecurringJob.AddOrUpdate( id, queue, actionExpression, cron );
+            return;
+        }
+        RecurringJob.AddOrUpdate( id, queue, actionExpression, cron, options );
     }
 
     /// <summary>
@@ -281,8 +246,13 @@ public static class ISchedulerManagerExtensions {
     /// <param name="actionExpression">后台操作</param>
     /// <param name="cron">Cron表达式</param>
     /// <param name="queue">队列名称</param>
-    public static void Repeat<T>( this ISchedulerManager source, string id, Expression<Action<T>> actionExpression, string cron, string queue = "default" ) {
-        RecurringJob.AddOrUpdate( id, actionExpression, cron, queue: queue );
+    /// <param name="options">任务配置</param>
+    public static void Repeat<T>( this ISchedulerManager source, string id, Expression<Action<T>> actionExpression, string cron, string queue = "default", RecurringJobOptions options = null ) {
+        if ( options == null ) {
+            RecurringJob.AddOrUpdate( id, queue, actionExpression, cron );
+            return;
+        }
+        RecurringJob.AddOrUpdate( id, queue, actionExpression, cron, options );
     }
 
     /// <summary>
@@ -293,8 +263,13 @@ public static class ISchedulerManagerExtensions {
     /// <param name="actionExpression">后台操作</param>
     /// <param name="cron">Cron表达式</param>
     /// <param name="queue">队列名称</param>
-    public static void Repeat<T>( this ISchedulerManager source, string id, Expression<Func<T, Task>> actionExpression, string cron, string queue = "default" ) {
-        RecurringJob.AddOrUpdate( id, actionExpression, cron, queue: queue );
+    /// <param name="options">任务配置</param>
+    public static void Repeat<T>( this ISchedulerManager source, string id, Expression<Func<T, Task>> actionExpression, string cron, string queue = "default", RecurringJobOptions options = null ) {
+        if ( options == null ) {
+            RecurringJob.AddOrUpdate( id, queue, actionExpression, cron );
+            return;
+        }
+        RecurringJob.AddOrUpdate( id, queue, actionExpression, cron, options );
     }
 
     /// <summary>

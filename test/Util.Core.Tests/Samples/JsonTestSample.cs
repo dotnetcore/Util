@@ -21,7 +21,7 @@ public class C {
 /// <summary>
 /// Json测试样例
 /// </summary>
-public class JsonTestSample {
+public class JsonTestSample : IJsonTestSample {
     /// <summary>
     /// 名称,测试公共属性，且首字母大写
     /// </summary>
@@ -61,7 +61,7 @@ public class JsonTestSample {
     public bool IsShow { get; set; }
 
     /// <summary>
-    /// 创建客户
+    /// 创建样例
     /// </summary>
     public static JsonTestSample Create() {
         return new JsonTestSample() {
@@ -76,4 +76,21 @@ public class JsonTestSample {
             IsShow = true
         };
     }
+
+    /// <summary>
+    /// 创建样例 - 转成接口
+    /// </summary>
+    public static IJsonTestSample CreateToInterface() {
+        return Create();
+    }
+}
+
+/// <summary>
+/// Json测试样例
+/// </summary>
+public interface IJsonTestSample {
+    /// <summary>
+    /// 名称,测试公共属性，且首字母大写
+    /// </summary>
+    public string Name { get; set; }
 }

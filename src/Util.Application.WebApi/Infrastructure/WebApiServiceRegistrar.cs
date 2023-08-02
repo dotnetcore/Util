@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Util.Applications.Logging;
+using Util.AspNetCore;
 using Util.Infrastructure;
 using Util.Logging;
 
@@ -89,9 +90,19 @@ public class WebApiServiceRegistrar : IServiceRegistrar {
     /// 获取结果
     /// </summary>
     protected virtual IActionResult GetResult( HttpContext context, string code, string message, int? httpStatusCode ) {
+        var options = GetJsonSerializerOptions( context );
         var resultFactory = context.RequestServices.GetService<IResultFactory>();
         if ( resultFactory == null )
-            return new Result( code, message, null, httpStatusCode );
-        return resultFactory.CreateResult( code, message, null, httpStatusCode );
+            return new Result( code, message, null, httpStatusCode, options );
+        return resultFactory.CreateResult( code, message, null, httpStatusCode, options );
+    }
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    private JsonSerializerOptions GetJsonSerializerOptions( HttpContext context ) {
+        var factory = context.RequestServices.GetService<IJsonSerializerOptionsFactory>();
+        factory.CheckNull( nameof( factory ) );
+        return factory.CreateOptions();
     }
 }

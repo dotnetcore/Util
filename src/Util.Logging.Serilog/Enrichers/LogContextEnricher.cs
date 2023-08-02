@@ -7,11 +7,6 @@ namespace Util.Logging.Serilog.Enrichers;
 /// </summary>
 public class LogContextEnricher : ILogEventEnricher {
     /// <summary>
-    /// 日志上下文
-    /// </summary>
-    private LogContext _context;
-
-    /// <summary>
     /// 扩展属性
     /// </summary>
     /// <param name="logEvent">日志事件</param>
@@ -20,16 +15,20 @@ public class LogContextEnricher : ILogEventEnricher {
         var accessor = Ioc.Create<ILogContextAccessor>();
         if ( accessor == null )
             return;
-        _context = accessor.Context;
-        if ( _context == null )
+        var context = accessor.Context;
+        if ( context == null )
+            return;
+        if ( logEvent == null )
+            return;
+        if ( propertyFactory == null )
             return;
         RemoveProperties( logEvent );
-        AddDuration( logEvent, propertyFactory );
-        AddTraceId( logEvent, propertyFactory );
-        AddUserId( logEvent, propertyFactory );
-        AddApplication( logEvent, propertyFactory );
-        AddEnvironment( logEvent, propertyFactory );
-        AddData( logEvent, propertyFactory );
+        AddDuration( context,logEvent, propertyFactory );
+        AddTraceId( context, logEvent, propertyFactory );
+        AddUserId( context, logEvent, propertyFactory );
+        AddApplication( context, logEvent, propertyFactory );
+        AddEnvironment( context, logEvent, propertyFactory );
+        AddData( context, logEvent, propertyFactory );
     }
 
     /// <summary>
@@ -46,60 +45,60 @@ public class LogContextEnricher : ILogEventEnricher {
     /// <summary>
     /// 添加执行持续时间
     /// </summary>
-    private void AddDuration( LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
-        if ( _context.Stopwatch == null )
+    private void AddDuration( LogContext context, LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
+        if ( context?.Stopwatch == null )
             return;
-        var property = propertyFactory.CreateProperty( "Duration", _context.Stopwatch.Elapsed.Description() );
+        var property = propertyFactory.CreateProperty( "Duration", context.Stopwatch.Elapsed.Description() );
         logEvent.AddOrUpdateProperty( property );
     }
 
     /// <summary>
     /// 添加跟踪号
     /// </summary>
-    private void AddTraceId( LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
-        if ( _context.TraceId.IsEmpty() )
+    private void AddTraceId( LogContext context, LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
+        if ( context == null || context.TraceId.IsEmpty() )
             return;
-        var property = propertyFactory.CreateProperty( "TraceId", _context.TraceId );
+        var property = propertyFactory.CreateProperty( "TraceId", context.TraceId );
         logEvent.AddOrUpdateProperty( property );
     }
 
     /// <summary>
     /// 添加用户标识
     /// </summary>
-    private void AddUserId( LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
-        if ( _context.UserId.IsEmpty() )
+    private void AddUserId( LogContext context, LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
+        if ( context == null || context.UserId.IsEmpty() )
             return;
-        var property = propertyFactory.CreateProperty( "UserId", _context.UserId );
+        var property = propertyFactory.CreateProperty( "UserId", context.UserId );
         logEvent.AddOrUpdateProperty( property );
     }
 
     /// <summary>
     /// 添加应用程序
     /// </summary>
-    private void AddApplication( LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
-        if ( _context.Application.IsEmpty() )
+    private void AddApplication( LogContext context, LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
+        if ( context == null || context.Application.IsEmpty() )
             return;
-        var property = propertyFactory.CreateProperty( "Application", _context.Application );
+        var property = propertyFactory.CreateProperty( "Application", context.Application );
         logEvent.AddOrUpdateProperty( property );
     }
 
     /// <summary>
     /// 添加执行环境
     /// </summary>
-    private void AddEnvironment( LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
-        if ( _context.Environment.IsEmpty() )
+    private void AddEnvironment( LogContext context, LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
+        if ( context == null || context.Environment.IsEmpty() )
             return;
-        var property = propertyFactory.CreateProperty( "Environment", _context.Environment );
+        var property = propertyFactory.CreateProperty( "Environment", context.Environment );
         logEvent.AddOrUpdateProperty( property );
     }
 
     /// <summary>
     /// 添加扩展数据
     /// </summary>
-    private void AddData( LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
-        if ( _context.Data.Count == 0 )
+    private void AddData( LogContext context, LogEvent logEvent, ILogEventPropertyFactory propertyFactory ) {
+        if ( context?.Data == null || context.Data.Count == 0 )
             return;
-        foreach ( var item in _context.Data ) {
+        foreach ( var item in context.Data ) {
             var property = propertyFactory.CreateProperty( item.Key, item.Value );
             logEvent.AddOrUpdateProperty( property );
         }

@@ -19,12 +19,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="AspNetCore\**" />
-	  <EmbeddedResource Remove="AspNetCore\**" />
-	  <None Remove="AspNetCore\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="..\..\build\icon.jpg">
 			<Pack>True</Pack>
 			<Visible>False</Visible>

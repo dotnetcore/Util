@@ -47,7 +47,7 @@ public class TableHeadBuilder : AngularTagBuilder {
     /// 创建表头行标签生成器
     /// </summary>
     public virtual TableHeadRowBuilder CreateTableHeadRowBuilder() {
-        return new TableHeadRowBuilder( _config.CopyRemoveId() );
+        return new TableHeadRowBuilder( _config.CopyRemoveAttributes() );
     }
 
     /// <summary>

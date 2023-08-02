@@ -102,7 +102,7 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// 获取输入框组合标签生成器
     /// </summary>
     private TagBuilder GetInputGroupBuilder() {
-        var builder = new InputGroupBuilder( _config.CopyRemoveId() );
+        var builder = new InputGroupBuilder( _config.CopyRemoveAttributes() );
         builder.Config();
         builder.Class( GetInputGroupClass() );
         return builder;

@@ -520,6 +520,22 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试设置输出属性时，仅添加到输入框
+        /// </summary>
+        [Fact]
+        public void TestOutputAttribute() {
+            _wrapper.SetContextAttribute( UiConst.Align, Align.Middle );
+            _wrapper.SetOutputAttribute( "(key)", "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item nzAlign=\"middle\">" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<input (key)=\"a\" nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }
 

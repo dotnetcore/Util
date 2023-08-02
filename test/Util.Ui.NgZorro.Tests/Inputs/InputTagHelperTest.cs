@@ -186,17 +186,6 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<input nz-input=\"\" [type]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
-
-        /// <summary>
-        /// 测试输入事件
-        /// </summary>
-        [Fact]
-        public void TestOnInput() {
-            _wrapper.SetContextAttribute( UiConst.OnInput, "a" );
-            var result = new StringBuilder();
-            result.Append( "<input (input)=\"a\" nz-input=\"\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
     }
 }
 

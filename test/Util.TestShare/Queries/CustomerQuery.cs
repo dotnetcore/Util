@@ -93,6 +93,10 @@ public class CustomerQuery : QueryParameter {
         set => _email = value;
     }
     /// <summary>
+    /// 年龄
+    /// </summary>
+    public int? Age { get; set; }
+    /// <summary>
     /// 起始创建时间
     /// </summary>
     public DateTime? BeginCreationTime { get; set; }

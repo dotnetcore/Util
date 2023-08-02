@@ -241,17 +241,6 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         }
 
         /// <summary>
-        /// 测试输入事件
-        /// </summary>
-        [Fact]
-        public void TestOnInput() {
-            _wrapper.SetContextAttribute( UiConst.OnInput, "a" );
-            var result = new StringBuilder();
-            result.Append( "<textarea (input)=\"a\" nz-input=\"\"></textarea>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试提及触发元素
         /// </summary>
         [Fact]

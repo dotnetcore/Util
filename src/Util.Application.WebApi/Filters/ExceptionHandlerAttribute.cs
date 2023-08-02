@@ -1,5 +1,6 @@
 ﻿using Util.Helpers;
 using Util.Exceptions;
+using Util.AspNetCore;
 
 namespace Util.Applications.Filters; 
 
@@ -39,14 +40,23 @@ public class ExceptionHandlerAttribute : ExceptionFilterAttribute {
         return stringLocalizer[message];
     }
 
-
     /// <summary>
     /// 获取结果
     /// </summary>
     protected virtual IActionResult GetResult( ExceptionContext context, string code, string message, int? httpStatusCode ) {
+        var options = GetJsonSerializerOptions( context );
         var resultFactory = context.HttpContext.RequestServices.GetService<IResultFactory>();
         if ( resultFactory == null )
-            return new Result( code, message, null, httpStatusCode );
-        return resultFactory.CreateResult( code, message, null, httpStatusCode );
+            return new Result( code, message, null, httpStatusCode, options );
+        return resultFactory.CreateResult( code, message, null, httpStatusCode, options );
+    }
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    private JsonSerializerOptions GetJsonSerializerOptions( ExceptionContext context ) {
+        var factory = context.HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
+        factory.CheckNull( nameof( factory ) );
+        return factory.CreateOptions();
     }
 }

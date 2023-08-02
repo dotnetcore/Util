@@ -232,6 +232,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 您没有该操作的权限 的本地化字符串。
+        /// </summary>
+        public static string UnauthorizedMessage {
+            get {
+                return ResourceManager.GetString("UnauthorizedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 上传 的本地化字符串。
         /// </summary>
         public static string Upload {

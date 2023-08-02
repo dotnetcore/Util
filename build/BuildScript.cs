@@ -199,6 +199,7 @@ namespace Build {
                             .DoNotFailOnError( ex => { Console.WriteLine( $"Failed to publish {package}.exception: {ex.Message}" ); } )
                             .ServerUrl( NugetUrl )
                             .ApiKey( NugetApiKey )
+                            .SkipDuplicate()
                             .Execute( context );
                     }
                 } );

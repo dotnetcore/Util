@@ -193,6 +193,10 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// (input),输入事件
     /// </summary>
     public string OnInput { get; set; }
+    /// <summary>
+    /// (keyup.enter),按下回车键事件
+    /// </summary>
+    public string OnEnter { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

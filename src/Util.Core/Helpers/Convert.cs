@@ -313,7 +313,7 @@ public static class Convert {
             return default;
         if( input is string && string.IsNullOrWhiteSpace( input.ToString() ) )
             return default;
-        Type type = Common.GetType<T>();
+        var type = Common.GetType<T>();
         var typeName = type.Name.ToUpperInvariant();
         try {
             if( typeName == "STRING" || typeName == "GUID" )
@@ -342,11 +342,11 @@ public static class Convert {
     /// </summary>
     /// <param name="data">对象</param>
     public static IDictionary<string, object> ToDictionary( object data ) {
-        if( data == null )
-            return null;
+        var result = new Dictionary<string, object>();
+        if ( data == null )
+            return result;
         if ( data is IEnumerable<KeyValuePair<string, object>> dic )
             return new Dictionary<string, object>( dic );
-        var result = new Dictionary<string, object>();
         foreach ( PropertyDescriptor property in TypeDescriptor.GetProperties( data ) ) {
             var value = property.GetValue( data );
             result.Add( property.Name, value );

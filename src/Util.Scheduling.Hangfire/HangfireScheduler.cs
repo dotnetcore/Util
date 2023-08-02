@@ -22,13 +22,13 @@ public class HangfireScheduler : IScheduler {
     }
 
     /// <inheritdoc />
-    public Task StartAsync( CancellationToken cancellationToken = default ) {
+    public virtual Task StartAsync( CancellationToken cancellationToken = default ) {
         _jobServer = new BackgroundJobServer( _options );
         return Task.CompletedTask;
     }
 
     /// <inheritdoc />
-    public Task StopAsync( CancellationToken cancellationToken = default ) {
+    public virtual Task StopAsync( CancellationToken cancellationToken = default ) {
         _jobServer.Dispose();
         return Task.CompletedTask;
     }

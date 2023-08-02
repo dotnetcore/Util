@@ -5,7 +5,7 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Localization</AssemblyName>
 		<RootNamespace>Util.Localization</RootNamespace>
-		<Description>Util.Localization是Util应用框架的本地化封装类库</Description>
+		<Description>Util.Localization是Util应用框架的Json本地化操作类库</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,7 +27,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.8" />
+	  <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<ItemGroup>

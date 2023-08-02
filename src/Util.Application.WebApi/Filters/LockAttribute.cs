@@ -1,4 +1,5 @@
 ﻿using Util.Applications.Locks;
+using Util.AspNetCore;
 using Util.Helpers;
 using Util.Properties;
 using Util.Sessions;
@@ -89,10 +90,20 @@ public class LockAttribute : ActionFilterAttribute {
     /// 获取结果
     /// </summary>
     private IActionResult GetResult( ActionExecutingContext context,string code, string message ) {
+        var options = GetJsonSerializerOptions( context );
         var resultFactory = context.HttpContext.RequestServices.GetService<IResultFactory>();
         if ( resultFactory == null )
-            return new Result( code, message );
-        return resultFactory.CreateResult( code, message, null, null );
+            return new Result( code, message,options: options );
+        return resultFactory.CreateResult( code, message, null, null, options );
+    }
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    private JsonSerializerOptions GetJsonSerializerOptions( ActionExecutingContext context ) {
+        var factory = context.HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
+        factory.CheckNull( nameof( factory ) );
+        return factory.CreateOptions();
     }
 
     /// <summary>

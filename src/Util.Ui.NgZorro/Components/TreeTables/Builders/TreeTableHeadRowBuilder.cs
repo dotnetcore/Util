@@ -24,6 +24,6 @@ public class TreeTableHeadRowBuilder : TableHeadRowBuilder {
     /// 创建表头单元格标签生成器
     /// </summary>
     public override TableHeadColumnBuilder CreateTableHeadColumnBuilder() {
-        return new TreeTableHeadColumnBuilder( _config.CopyRemoveId(), GetTableHeadColumnShareConfig() );
+        return new TreeTableHeadColumnBuilder( _config.CopyRemoveAttributes(), GetTableHeadColumnShareConfig() );
     }
 }

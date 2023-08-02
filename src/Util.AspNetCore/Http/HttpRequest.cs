@@ -1,4 +1,6 @@
-﻿using Util.Helpers;
+﻿using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using Util.Helpers;
 using Util.SystemTextJson;
 
 namespace Util.Http; 
@@ -68,6 +70,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     #region 属性
 
     /// <summary>
+    /// 基地址
+    /// </summary>
+    protected string BaseAddressUri { get; private set; }
+    /// <summary>
     /// 证书路径
     /// </summary>
     protected string CertificatePath { get; private set; }
@@ -116,6 +122,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected Action<TResult> SuccessAction { get; private set; }
     /// <summary>
+    /// 执行成功操作
+    /// </summary>
+    protected Func<TResult, Task> SuccessFunc { get; private set; }
+    /// <summary>
     /// 执行失败操作
     /// </summary>
     protected Action<HttpResponseMessage, object> FailAction { get; private set; }
@@ -126,11 +136,24 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     #endregion
 
-    #region HttpClientName(Http客户端名称)
+    #region HttpClientName(设置Http客户端名称)
 
     /// <inheritdoc />
     public IHttpRequest<TResult> HttpClientName( string name ) {
         _httpClientName = name;
+        return this;
+    }
+
+    #endregion
+
+    #region BaseAddress(设置基地址)
+
+    /// <summary>
+    /// 设置基地址
+    /// </summary>
+    /// <param name="baseAddress">基地址</param>
+    public IHttpRequest<TResult> BaseAddress( string baseAddress ) {
+        BaseAddressUri = baseAddress;
         return this;
     }
 
@@ -166,6 +189,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     #endregion
 
+    #region BearerToken(设置访问令牌)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> BearerToken( string token ) {
+        Header( "Authorization", $"Bearer {token}" );
+        return this;
+    }
+
+    #endregion
+
     #region Certificate(设置证书)
 
     /// <inheritdoc />
@@ -183,6 +216,28 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     public IHttpRequest<TResult> JsonSerializerOptions( JsonSerializerOptions options ) {
         _jsonSerializerOptions = options;
         return this;
+    }
+
+    #endregion
+
+    #region GetJsonSerializerOptions(获取Json序列化配置)
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    protected virtual JsonSerializerOptions GetJsonSerializerOptions() {
+        if ( _jsonSerializerOptions != null )
+            return _jsonSerializerOptions;
+        return new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 
     #endregion
@@ -333,6 +388,15 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         return this;
     }
 
+    /// <summary>
+    /// 请求成功事件
+    /// </summary>
+    /// <param name="action">执行成功操作,参数为响应结果</param>
+    public IHttpRequest<TResult> OnSuccess( Func<TResult, Task> action ) {
+        SuccessFunc = action;
+        return this;
+    }
+
     #endregion
 
     #region OnFail(请求失败事件)
@@ -358,11 +422,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     #region GetResultAsync(获取结果)
 
     /// <inheritdoc />
-    public async Task<TResult> GetResultAsync() {
+    public async Task<TResult> GetResultAsync( CancellationToken cancellationToken = default ) {
         var message = CreateMessage();
         if( SendBefore( message ) == false )
             return default;
-        var response = await SendAsync( message );
+        var response = await SendAsync( message, cancellationToken );
         return await SendAfterAsync( response );
     }
 
@@ -470,21 +534,6 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     }
 
     /// <summary>
-    /// 获取Json序列化配置
-    /// </summary>
-    protected virtual JsonSerializerOptions GetJsonSerializerOptions() {
-        if ( _jsonSerializerOptions != null )
-            return _jsonSerializerOptions;
-        return new JsonSerializerOptions {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Converters = {
-                new DateTimeJsonConverter(),
-                new NullableDateTimeJsonConverter()
-            }
-        };
-    }
-
-    /// <summary>
     /// 创建xml内容
     /// </summary>
     protected virtual HttpContent CreateXmlContent() {
@@ -513,9 +562,12 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 发送请求
     /// </summary>
     /// <param name="message">请求消息</param>
-    protected async Task<HttpResponseMessage> SendAsync( HttpRequestMessage message ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    protected async Task<HttpResponseMessage> SendAsync( HttpRequestMessage message, CancellationToken cancellationToken ) {
         var client = GetClient();
-        return await client.SendAsync( message );
+        client.CheckNull( nameof( client ) );
+        InitHttpClient( client );
+        return await client.SendAsync( message, cancellationToken );
     }
 
     #endregion
@@ -530,9 +582,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return _httpClient;
         var clientHandler = CreateHttpClientHandler();
         InitHttpClientHandler( clientHandler );
-        if( _httpClientName.IsEmpty() )
-            return _httpClientFactory.CreateClient();
-        return _httpClientFactory.CreateClient( _httpClientName );
+        return _httpClientName.IsEmpty() ? _httpClientFactory.CreateClient() : _httpClientFactory.CreateClient( _httpClientName );
     }
 
     /// <summary>
@@ -541,7 +591,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     protected HttpClientHandler CreateHttpClientHandler() {
         var handlerFactory = _httpClientFactory as IHttpMessageHandlerFactory;
         var handler = handlerFactory?.CreateHandler();
-        while( handler is DelegatingHandler delegatingHandler ) {
+        while ( handler is DelegatingHandler delegatingHandler ) {
             handler = delegatingHandler.InnerHandler;
         }
         return handler as HttpClientHandler;
@@ -564,11 +614,36 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <summary>
     /// 初始化证书
     /// </summary>
-    protected void InitCertificate( HttpClientHandler handler ) {
+    protected virtual void InitCertificate( HttpClientHandler handler ) {
         if( CertificatePath.IsEmpty() )
             return;
         var certificate = new X509Certificate2( CertificatePath, CertificatePassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet );
+        handler.ClientCertificates.Clear();
         handler.ClientCertificates.Add( certificate );
+    }
+
+    #endregion
+
+    #region InitHttpClient(初始化Http客户端)
+
+    /// <summary>
+    /// 初始化Http客户端
+    /// </summary>
+    protected virtual void InitHttpClient( HttpClient client ) {
+        InitBaseAddress( client );
+    }
+
+    #endregion
+
+    #region InitBaseAddress(初始化基地址)
+
+    /// <summary>
+    /// 初始化基地址
+    /// </summary>
+    protected virtual void InitBaseAddress( HttpClient client ) {
+        if ( BaseAddressUri.IsEmpty() )
+            return;
+        client.BaseAddress = new Uri( BaseAddressUri );
     }
 
     #endregion
@@ -586,7 +661,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         try {
             content = await response.Content.ReadAsStringAsync();
             if( response.IsSuccessStatusCode )
-                return SuccessHandler( response, content );
+                return await SuccessHandlerAsync( response, content );
             FailHandler( response, content );
             return null;
         }
@@ -602,8 +677,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <summary>
     /// 成功处理操作
     /// </summary>
-    protected virtual TResult SuccessHandler( HttpResponseMessage response, string content ) {
-        TResult result = ConvertTo( content, response.GetContentType() );
+    protected virtual async Task<TResult> SuccessHandlerAsync( HttpResponseMessage response, string content ) {
+        var result = ConvertTo( content, response.GetContentType() );
+        SuccessAction?.Invoke( result );
+        if ( SuccessFunc != null )
+            await SuccessFunc( result );
         return result;
     }
 
@@ -621,17 +699,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return ConvertAction( content );
         if( typeof( TResult ) == typeof( string ) )
             return (TResult)(object)content;
-        if( contentType.SafeString().ToLower() == "application/json" ) {
-            var options = new JsonSerializerOptions {
-                PropertyNameCaseInsensitive = true,
-                Converters = {
-                    new DateTimeJsonConverter(),
-                    new NullableDateTimeJsonConverter()
-                }
-            };
-            return Json.ToObject<TResult>( content, options );
-        }
-        return null;
+        return contentType.SafeString().ToLower() == "application/json" ? Json.ToObject<TResult>( content, GetJsonSerializerOptions() ) : null;
     }
 
     #endregion
@@ -661,11 +729,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     #region GetStreamAsync(获取流)
 
     /// <inheritdoc />
-    public async Task<byte[]> GetStreamAsync() {
+    public async Task<byte[]> GetStreamAsync( CancellationToken cancellationToken = default ) {
         var message = CreateMessage();
         if( SendBefore( message ) == false )
             return default;
-        var response = await SendAsync( message );
+        var response = await SendAsync( message, cancellationToken );
         return await GetStream( response );
     }
 
@@ -692,8 +760,8 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     #region WriteAsync(写入文件)
 
     /// <inheritdoc />
-    public async Task WriteAsync( string filePath ) {
-        var bytes = await GetStreamAsync();
+    public async Task WriteAsync( string filePath, CancellationToken cancellationToken = default ) {
+        var bytes = await GetStreamAsync( cancellationToken );
         await Util.Helpers.File.WriteAsync( filePath, bytes );
     }
 

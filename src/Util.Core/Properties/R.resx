@@ -175,6 +175,9 @@
   <data name="TypeNotEnum" xml:space="preserve">
     <value>类型 {0} 不是枚举</value>
   </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>您没有该操作的权限</value>
+  </data>
   <data name="Upload" xml:space="preserve">
     <value>上传</value>
   </data>

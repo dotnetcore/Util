@@ -26,7 +26,7 @@ public class EditContentLoader : ITableColumnContentLoader {
     /// 创建表格编辑列显示区域标签生成器
     /// </summary>
     private TagBuilder CreateDisplayBuilder( TableColumnBuilder builder ) {
-        var result = new TableColumnDisplayBuilder( builder.GetConfig().CopyRemoveId() );
+        var result = new TableColumnDisplayBuilder( builder.GetConfig().CopyRemoveAttributes() );
         result.Config();
         builder.AppendContent( result );
         return result;
@@ -36,7 +36,7 @@ public class EditContentLoader : ITableColumnContentLoader {
     /// 创建表格编辑列控件区域标签生成器
     /// </summary>
     private TableColumnControlBuilder CreateControlBuilder( TableColumnBuilder builder ) {
-        var result = new TableColumnControlBuilder( builder.GetConfig().CopyRemoveId() );
+        var result = new TableColumnControlBuilder( builder.GetConfig().CopyRemoveAttributes() );
         result.Config();
         builder.AppendContent( result );
         return result;

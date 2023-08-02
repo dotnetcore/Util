@@ -5,6 +5,15 @@
 /// </summary>
 public class JsonOptions {
     /// <summary>
+    /// 初始化Json配置
+    /// </summary>
+    public JsonOptions() {
+        IgnoreNullValues = true;
+        IgnoreCase = true;
+        IgnoreInterface = true;
+    }
+
+    /// <summary>
     /// 是否移除双引号,默认值: false
     /// </summary>
     public bool RemoveQuotationMarks { get; set; }
@@ -13,7 +22,15 @@ public class JsonOptions {
     /// </summary>
     public bool ToSingleQuotes { get; set; }
     /// <summary>
-    /// 是否忽略null值,默认值: false
+    /// 是否忽略null值,默认值: true
     /// </summary>
     public bool IgnoreNullValues { get; set; }
+    /// <summary>
+    /// 反序列化时是否忽略大小写,默认值: true
+    /// </summary>
+    public bool IgnoreCase { get; set; }
+    /// <summary>
+    /// 反序列化接口实例时是否忽略接口,按实现类进行序列化,默认值: true
+    /// </summary>
+    public bool IgnoreInterface { get; set; }
 }

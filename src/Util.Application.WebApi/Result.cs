@@ -26,19 +26,30 @@ public class Result : JsonResult {
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    public Result( string code, string message, dynamic data = null, int? httpStatusCode = null ) : base( null ) {
+    /// <param name="options">Json序列化配置</param>
+    public Result( string code, string message, dynamic data = null, int? httpStatusCode = null, JsonSerializerOptions options = null ) : base( null ) {
         Code = code;
         Message = message;
         Data = data;
-        SerializerSettings = new JsonSerializerOptions {
+        SerializerSettings = GetOptions( options );
+        StatusCode = httpStatusCode;
+    }
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    private JsonSerializerOptions GetOptions( JsonSerializerOptions options ) {
+        if ( options != null )
+            return options;
+        return new JsonSerializerOptions {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
-            Converters = { 
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters = {
                 new DateTimeJsonConverter(),
                 new NullableDateTimeJsonConverter()
             }
         };
-        StatusCode = httpStatusCode;
     }
 
     /// <summary>

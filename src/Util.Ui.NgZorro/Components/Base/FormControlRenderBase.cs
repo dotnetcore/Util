@@ -91,7 +91,7 @@ public abstract class FormControlRenderBase : IRender {
     private TagBuilder GetFormItem() {
         TagBuilder builder = new EmptyContainerTagBuilder();
         if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormItem == true )
-            builder = new FormItemBuilder( _config.CopyRemoveId() );
+            builder = new FormItemBuilder( _config.CopyRemoveAttributes() );
         builder.Config();
         return builder;
     }
@@ -101,7 +101,7 @@ public abstract class FormControlRenderBase : IRender {
     /// </summary>
     private TagBuilder GetFormLabel() {
         if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormLabel == true ) {
-            var builder = new FormLabelBuilder( _config.CopyRemoveId() );
+            var builder = new FormLabelBuilder( _config.CopyRemoveAttributes() );
             builder.Config();
             SetLabelText( builder );
             return builder;
@@ -127,7 +127,7 @@ public abstract class FormControlRenderBase : IRender {
     private TagBuilder GetFormControl() {
         TagBuilder builder = new EmptyContainerTagBuilder();
         if( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormControl == true )
-            builder = new FormControlBuilder( _config.CopyRemoveId() );
+            builder = new FormControlBuilder( _config.CopyRemoveAttributes() );
         builder.Config();
         AppendControl( builder );
         AppendValidationTempalte( builder );
@@ -146,7 +146,7 @@ public abstract class FormControlRenderBase : IRender {
     private void AppendValidationTempalte( TagBuilder formControlBuilder ) {
         if ( _shareConfig.ValidationTempalteId.IsEmpty() )
             return;
-        var templateBuilder = new TemplateBuilder( _config.CopyRemoveId() );
+        var templateBuilder = new TemplateBuilder( _config.CopyRemoveAttributes() );
         templateBuilder.Id( _shareConfig.ValidationTempalteId );
         templateBuilder.SetContent( $"{{{{{_shareConfig.ValidationExtendId}.getErrorMessage()}}}}" );
         formControlBuilder.AppendContent( templateBuilder );

@@ -115,6 +115,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// </summary>
     public InputBuilder Events() {
         OnInput( _config.GetValue( UiConst.OnInput ) );
+        OnEnter( _config.GetValue( UiConst.OnEnter ) );
         return this;
     }
 
@@ -123,6 +124,14 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// </summary>
     public InputBuilder OnInput( string value ) {
         AttributeIfNotEmpty( "(input)", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 回车事件
+    /// </summary>
+    public InputBuilder OnEnter( string value ) {
+        AttributeIfNotEmpty( "(keyup.enter)", value );
         return this;
     }
 

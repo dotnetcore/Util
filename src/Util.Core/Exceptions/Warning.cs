@@ -16,8 +16,8 @@ public class Warning : Exception {
     /// 初始化应用程序异常
     /// </summary>
     /// <param name="message">错误消息</param>
-    /// <param name="code">错误码</param>
     /// <param name="exception">异常</param>
+    /// <param name="code">错误码</param>
     /// <param name="httpStatusCode">Http状态码</param>
     public Warning( string message, Exception exception = null, string code = null, int? httpStatusCode = null )
         : base( message ?? "", exception ) {

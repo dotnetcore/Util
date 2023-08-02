@@ -34,7 +34,7 @@ public class TreeTableBodyBuilder : TableBodyBuilder {
     /// </summary>
     private TreeTableContainerBuilder CreateContainerBuilder() {
         var shareConfig = GetTableShareConfig();
-        var containerBuilder = new TreeTableContainerBuilder( _config.CopyRemoveId(), CreateRowBuilder() );
+        var containerBuilder = new TreeTableContainerBuilder( _config.CopyRemoveAttributes(), CreateRowBuilder() );
         containerBuilder.NgFor( $"let row of {shareConfig.TableExtendId}.dataSource;index as index" );
         return containerBuilder;
     }
@@ -43,6 +43,6 @@ public class TreeTableBodyBuilder : TableBodyBuilder {
     /// 创建行标签生成器
     /// </summary>
     private TreeTableBodyRowBuilder CreateRowBuilder() {
-        return new TreeTableBodyRowBuilder( _config.CopyRemoveId() );
+        return new TreeTableBodyRowBuilder( _config.CopyRemoveAttributes() );
     }
 }

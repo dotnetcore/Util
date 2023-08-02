@@ -1,4 +1,5 @@
-﻿namespace Util; 
+﻿#nullable enable
+namespace Util; 
 
 /// <summary>
 /// 验证扩展
@@ -44,7 +45,7 @@ public static class ValidationExtensions {
     /// 是否为空
     /// </summary>
     /// <param name="value">值</param>
-    public static bool IsEmpty<T>( this IEnumerable<T> value ) {
+    public static bool IsEmpty<T>( this IEnumerable<T>? value ) {
         if( value == null )
             return true;
         return !value.Any();

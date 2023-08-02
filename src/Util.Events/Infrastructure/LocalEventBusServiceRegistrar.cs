@@ -38,8 +38,8 @@ public class LocalEventBusServiceRegistrar : IServiceRegistrar {
     /// 注册依赖
     /// </summary>
     private void RegisterDependency( IServiceCollection services ) {
-        services.TryAddSingleton<ILocalEventBus, LocalEventBus>();
-        services.TryAddSingleton<IEventBus, LocalEventBus>();
+        services.TryAddTransient<ILocalEventBus, LocalEventBus>();
+        services.TryAddTransient<IEventBus, LocalEventBus>();
     }
 
     /// <summary>

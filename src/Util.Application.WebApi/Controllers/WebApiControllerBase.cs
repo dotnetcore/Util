@@ -1,10 +1,11 @@
 ﻿using Util.Applications.Filters;
+using Util.AspNetCore;
 using Util.Helpers;
 using Util.Logging;
 using Util.Properties;
 using Util.Sessions;
 
-namespace Util.Applications.Controllers; 
+namespace Util.Applications.Controllers;
 
 /// <summary>
 /// WebApi控制器基类
@@ -47,10 +48,20 @@ public abstract class WebApiControllerBase : ControllerBase {
     /// 获取结果
     /// </summary>
     private IActionResult GetResult( string code, string message, dynamic data, int? httpStatusCode ) {
+        var options = GetJsonSerializerOptions();
         var resultFactory = HttpContext.RequestServices.GetService<IResultFactory>();
         if ( resultFactory == null )
-            return new Result( code, message, data, httpStatusCode );
-        return resultFactory.CreateResult( code, message, data, httpStatusCode );
+            return new Result( code, message, data, httpStatusCode, options );
+        return resultFactory.CreateResult( code, message, data, httpStatusCode, options );
+    }
+
+    /// <summary>
+    /// 获取Json序列化配置
+    /// </summary>
+    private JsonSerializerOptions GetJsonSerializerOptions() {
+        var factory = HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
+        factory.CheckNull( nameof( factory ) );
+        return factory.CreateOptions();
     }
 
     /// <summary>

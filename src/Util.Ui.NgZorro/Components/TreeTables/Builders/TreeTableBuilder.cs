@@ -25,12 +25,12 @@ public class TreeTableBuilder : TableBuilder {
 
     /// <inheritdoc />
     public override TableHeadBuilder CreateTableHeadBuilder() {
-        return new TreeTableHeadBuilder( _config.CopyRemoveId() );
+        return new TreeTableHeadBuilder( _config.CopyRemoveAttributes() );
     }
 
     /// <inheritdoc />
     public override TableBodyBuilder CreateTableBodyBuilder() {
-        return new TreeTableBodyBuilder( _config.CopyRemoveId() );
+        return new TreeTableBodyBuilder( _config.CopyRemoveAttributes() );
     }
 
     /// <summary>

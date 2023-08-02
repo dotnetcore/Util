@@ -1,0 +1,6 @@
+Write-Host "Stop-Process -Name Util.Microservices.Dapr*"
+Stop-Process -Name "Util.Microservices.Dapr*"
+Write-Host "Stop-Process -Name dapr*"
+Stop-Process -Name "dapr*"
+Write-Host "Stop-Process -Name dotnet*"
+Stop-Process -Name "dotnet*"

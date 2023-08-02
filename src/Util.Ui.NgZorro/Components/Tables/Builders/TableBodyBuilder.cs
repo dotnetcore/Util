@@ -48,7 +48,7 @@ public class TableBodyBuilder : AngularTagBuilder {
     /// 创建表格主体行标签生成器
     /// </summary>
     public virtual TagBuilder CreateTableBodyRowBuilder() {
-        return new TableBodyRowBuilder( _config.CopyRemoveId() );
+        return new TableBodyRowBuilder( _config.CopyRemoveAttributes() );
     }
 
     /// <summary>

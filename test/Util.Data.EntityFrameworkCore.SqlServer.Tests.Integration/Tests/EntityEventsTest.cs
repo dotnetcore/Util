@@ -1,13 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Util.Events;
 using Util.Tests.EventHandlers;
+using Util.Tests.Events;
 using Util.Tests.Fakes;
 using Util.Tests.Infrastructure;
+using Util.Tests.Models;
 using Util.Tests.Repositories;
 using Util.Tests.UnitOfWorks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Util.Data.EntityFrameworkCore.Tests; 
+namespace Util.Data.EntityFrameworkCore.Tests;
 
 /// <summary>
 /// 实体事件测试
@@ -28,15 +32,20 @@ public class EntityEventsTest : TestBase {
     /// 操作日志仓储
     /// </summary>
     private readonly IOperationLogRepository _operationLogRepository;
+    /// <summary>
+    /// 事件总线
+    /// </summary>
+    private readonly IEventBus _eventBus;
 
     /// <summary>
     /// 测试初始化
     /// </summary>
-    public EntityEventsTest( ITestOutputHelper testOutputHelper, IProductRepository productRepository, 
-        IOperationLogRepository operationLogRepository, ITestUnitOfWork unitOfWork ) :base(unitOfWork){
+    public EntityEventsTest( ITestOutputHelper testOutputHelper, IProductRepository productRepository,
+        IOperationLogRepository operationLogRepository, ITestUnitOfWork unitOfWork, IEventBus eventBus ) : base( unitOfWork ) {
         _testOutputHelper = testOutputHelper;
         _productRepository = productRepository;
         _operationLogRepository = operationLogRepository;
+        _eventBus = eventBus;
     }
 
     #endregion
@@ -205,6 +214,38 @@ public class EntityEventsTest : TestBase {
 
         //验证
         Assert.True( await _operationLogRepository.ExistsAsync( t => t.LogName == "Test" && t.Caption == nameof( OperationLogChangedEventHandler ) && t.Content == "EntityChangedEvent_Deleted" ) );
+    }
+
+    #endregion
+
+    #region TestEventBus_ServiceLifetime_Transient
+
+    /// <summary>
+    /// 测试内存事件总线服务生命周期
+    /// </summary>
+    [Fact]
+    public async Task TestEventBus_ServiceLifetime_Transient() {
+        var entity = new Product( Guid.NewGuid() ) {
+            Code = "Code",
+            Name = "Name"
+        };
+        await _productRepository.AddAsync( entity );
+        await _eventBus.PublishAsync( new TestEvent() { Id = entity.Id } );
+    }
+
+    /// <summary>
+    /// 内存事件处理器能,获取实体
+    /// </summary>
+    public class TestEventHandler : EventHandlerBase<TestEvent> {
+        private readonly IProductRepository _repository;
+        public TestEventHandler( IProductRepository applicationRepository ) {
+            _repository = applicationRepository;
+        }
+        public override async Task HandleAsync( TestEvent @event ) {
+            var entity = await _repository.FindByIdAsync( @event.Id );
+            Assert.NotNull( entity );
+            Assert.Equal( "Name",entity.Name );
+        }
     }
 
     #endregion

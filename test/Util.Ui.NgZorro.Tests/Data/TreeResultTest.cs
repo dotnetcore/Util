@@ -305,6 +305,18 @@ namespace Util.Ui.NgZorro.Tests.Data {
         }
 
         /// <summary>
+        /// 测试删除原始节点的子节点列表
+        /// </summary>
+        [Fact]
+        public void TestGetResult_6() {
+            var list = new List<TreeDto> { GetNode1(), GetNode2(), GetNode3(), GetNode4(), GetNode5() };
+            var result = list.ToTreeResult();
+            var root = result.Nodes.First();
+            Assert.Null( root.GetOriginalNode<TreeDto>().Children );
+            Assert.True( root.Children?.Count > 0 );
+        }
+
+        /// <summary>
         /// 测试复选框选中节点的标识列表
         /// </summary>
         [Fact]

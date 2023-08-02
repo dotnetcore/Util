@@ -26,7 +26,7 @@ public class TableHeadRowBuilder : TableRowBuilder {
     /// 创建表头单元格标签生成器
     /// </summary>
     public virtual TableHeadColumnBuilder CreateTableHeadColumnBuilder() {
-        return new TableHeadColumnBuilder( _config.CopyRemoveId(), GetTableHeadColumnShareConfig() );
+        return new TableHeadColumnBuilder( _config.CopyRemoveAttributes(), GetTableHeadColumnShareConfig() );
     }
 
     /// <summary>

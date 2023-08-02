@@ -66,14 +66,14 @@ public static class Config {
         basePath ??= Common.ApplicationBaseDirectory;
         var builder = new ConfigurationBuilder()
             .SetBasePath( basePath )
-            .AddJsonFile( "appsettings.json", true, true );
+            .AddJsonFile( "appsettings.json", true, false );
         var environment = Environment.GetEnvironmentName();
         if ( environment.IsEmpty() == false )
-            builder.AddJsonFile( $"appsettings.{environment}.json", true, true );
+            builder.AddJsonFile( $"appsettings.{environment}.json", true, false );
         if ( jsonFiles == null )
             return builder.Build();
         foreach ( var file in jsonFiles ) 
-            builder.AddJsonFile( file, true, true );
+            builder.AddJsonFile( file, true, false );
         return builder.Build();
     }
 

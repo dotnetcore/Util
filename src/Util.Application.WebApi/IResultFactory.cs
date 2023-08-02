@@ -13,5 +13,6 @@ public interface IResultFactory : ISingletonDependency {
     /// <param name="message">消息</param>
     /// <param name="data">数据</param>
     /// <param name="httpStatusCode">Http状态码</param>
-    IActionResult CreateResult( string code, string message, dynamic data, int? httpStatusCode );
+    /// <param name="options">Json序列化配置</param>
+    IActionResult CreateResult( string code, string message, dynamic data, int? httpStatusCode, JsonSerializerOptions options );
 }
