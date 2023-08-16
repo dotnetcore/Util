@@ -39,7 +39,6 @@ public class LocalEventBusServiceRegistrar : IServiceRegistrar {
     /// </summary>
     private void RegisterDependency( IServiceCollection services ) {
         services.TryAddTransient<ILocalEventBus, LocalEventBus>();
-        services.TryAddTransient<IEventBus, LocalEventBus>();
     }
 
     /// <summary>

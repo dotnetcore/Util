@@ -35,9 +35,13 @@ public abstract class AngularTagHelperBase : TagHelperBase {
     /// </summary>
     public string NgClass { get; set; }
     /// <summary>
-    /// *aclIf,访问控制,设置资源标识
+    /// *aclIf,访问控制,设置资源标识,有权显示,无权隐藏
     /// </summary>
     public string Acl { get; set; }
+    /// <summary>
+    /// 与acl属性配合使用,设置无权显示区域的ng-template组件标识
+    /// </summary>
+    public string AclElseTemplateId { get; set; }
     /// <summary>
     /// [acl],访问控制
     /// </summary>

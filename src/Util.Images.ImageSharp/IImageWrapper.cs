@@ -46,7 +46,7 @@ public interface IImageWrapper {
     /// <param name="text">文本</param>
     /// <param name="color">颜色</param>
     /// <param name="options">文本配置</param>
-    IImageWrapper Text( string text, string color, TextOptions options );
+    IImageWrapper Text( string text, string color, RichTextOptions options );
 
     /// <summary>
     /// 写入文本并居中显示

@@ -25,4 +25,15 @@ public static class IMicroserviceClientFactoryExtensions {
             factory.DaprHttpPort( daprHttpPort );
         return source;
     }
+
+    /// <summary>
+    /// 设置Dapr Grpc端口
+    /// </summary>
+    /// <param name="source">微服务客户端工厂</param>
+    /// <param name="daprGrpcPort">Dapr Grpc端口</param>
+    public static IMicroserviceClientFactory DaprGrpcPort( this IMicroserviceClientFactory source, int daprGrpcPort ) {
+        if ( source is DaprMicroserviceClientFactory factory )
+            factory.DaprGrpcPort( daprGrpcPort );
+        return source;
+    }
 }

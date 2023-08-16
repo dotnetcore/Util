@@ -45,7 +45,7 @@ public class Warning : Exception {
     /// 获取错误消息
     /// </summary>
     /// <param name="isProduction">是否生产环境</param>
-    public virtual string GetMessage( bool isProduction = true ) {
+    public virtual string GetMessage( bool isProduction = false ) {
         return GetMessage( this );
     }
 

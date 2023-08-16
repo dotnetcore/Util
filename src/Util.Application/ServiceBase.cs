@@ -1,4 +1,5 @@
-﻿using Util.Logging;
+﻿using Util.Events;
+using Util.Logging;
 using Util.Sessions;
 
 namespace Util.Applications; 
@@ -14,6 +15,7 @@ public abstract class ServiceBase : IService {
     protected ServiceBase( IServiceProvider serviceProvider ) {
         ServiceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
         Session = serviceProvider.GetService<ISession>() ?? NullSession.Instance;
+        IntegrationEventBus = serviceProvider.GetService<IIntegrationEventBus>() ?? NullIntegrationEventBus.Instance;
         var logFactory = serviceProvider.GetService<ILogFactory>();
         Log = logFactory?.CreateLog( GetType() ) ?? NullLog.Instance;
     }
@@ -27,6 +29,11 @@ public abstract class ServiceBase : IService {
     /// 用户会话
     /// </summary>
     protected ISession Session { get; }
+
+    /// <summary>
+    /// 集成事件总线
+    /// </summary>
+    protected IIntegrationEventBus IntegrationEventBus { get; }
 
     /// <summary>
     /// 日志操作

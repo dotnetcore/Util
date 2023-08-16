@@ -17,6 +17,10 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
     /// </summary>
     private int _daprHttpPort;
     /// <summary>
+    /// Dapr Grpc端口
+    /// </summary>
+    private int _daprGrpcPort;
+    /// <summary>
     /// Dapr配置
     /// </summary>
     private readonly IOptions<DaprOptions> _options;
@@ -24,7 +28,10 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
     /// 日志工厂
     /// </summary>
     private readonly ILoggerFactory _loggerFactory;
-
+    /// <summary>
+    /// 服务提供器
+    /// </summary>
+    private readonly IServiceProvider _serviceProvider;
 
     /// <summary>
     /// 初始化Dapr微服务客户端生成器
@@ -32,10 +39,12 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
     /// <param name="client">Dapr客户端</param>
     /// <param name="options">Dapr配置</param>
     /// <param name="loggerFactory">日志工厂</param>
-    public DaprMicroserviceClientFactory( DaprClient client = null, IOptions<DaprOptions> options = null, ILoggerFactory loggerFactory = null ) {
+    /// <param name="serviceProvider">服务提供器</param>
+    public DaprMicroserviceClientFactory( DaprClient client, IOptions<DaprOptions> options, ILoggerFactory loggerFactory, IServiceProvider serviceProvider ) {
         _client = client;
         _options = options;
         _loggerFactory = loggerFactory;
+        _serviceProvider = serviceProvider;
     }
 
     /// <summary>
@@ -54,11 +63,19 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
         _daprHttpPort = daprHttpPort;
     }
 
+    /// <summary>
+    /// 设置Dapr Grpc端口
+    /// </summary>
+    /// <param name="daprGrpcPort">Dapr Grpc端口</param>
+    public void DaprGrpcPort( int daprGrpcPort ) {
+        _daprGrpcPort = daprGrpcPort;
+    }
+
     /// <inheritdoc />
     public virtual IMicroserviceClient Create() {
         var client = CreateDaprClient();
         var httpClient = CreateHttpClient();
-        return new DaprMicroserviceClient( client, httpClient, _options, _appId, _loggerFactory );
+        return new DaprMicroserviceClient( client, httpClient, _options, _appId, _loggerFactory, _serviceProvider );
     }
 
     /// <summary>
@@ -66,12 +83,15 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
     /// </summary>
     protected virtual DaprClient CreateDaprClient() {
         var httpEndpoint = GetDaprHttpEndpoint();
-        if ( httpEndpoint.IsEmpty() == false ) {
-            return new DaprClientBuilder()
-                .UseHttpEndpoint( httpEndpoint )
-                .Build();
-        }
-        return _client ?? new DaprClientBuilder().Build();
+        var grpcEndpoint = GetDaprGrpcEndpoint();
+        if( httpEndpoint.IsEmpty() && grpcEndpoint.IsEmpty() && _client != null )
+            return _client;
+        var builder = new DaprClientBuilder();
+        if ( httpEndpoint.IsEmpty() == false ) 
+            builder.UseHttpEndpoint( httpEndpoint );
+        if ( grpcEndpoint.IsEmpty() == false ) 
+            builder.UseGrpcEndpoint( grpcEndpoint );
+        return builder.Build();
     }
 
     /// <summary>
@@ -79,6 +99,13 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
     /// </summary>
     protected virtual string GetDaprHttpEndpoint() {
         return _daprHttpPort > 0 ? $"http://localhost:{_daprHttpPort}" : null;
+    }
+
+    /// <summary>
+    /// 获取Dapr Grpc端点
+    /// </summary>
+    protected virtual string GetDaprGrpcEndpoint() {
+        return _daprGrpcPort > 0 ? $"http://localhost:{_daprGrpcPort}" : null;
     }
 
     /// <summary>

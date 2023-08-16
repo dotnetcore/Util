@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Util.Events.Tests.Samples; 
 
@@ -10,7 +11,8 @@ public class EventHandlerSample : EventHandlerBase<EventSample> {
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public override Task HandleAsync( EventSample @event ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public override Task HandleAsync( EventSample @event, CancellationToken cancellationToken = default ) {
         @event.Result = $"1:{@event.Value}";
         return Task.CompletedTask;
     }
@@ -24,7 +26,8 @@ public class EventHandlerSample2 : EventHandlerBase<EventSample2> {
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public override Task HandleAsync( EventSample2 @event ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public override Task HandleAsync( EventSample2 @event, CancellationToken cancellationToken = default ) {
         @event.Result += "2";
         return Task.CompletedTask;
     }
@@ -38,7 +41,8 @@ public class EventHandlerSample3 : EventHandlerBase<EventSample2> {
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public override Task HandleAsync( EventSample2 @event ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public override Task HandleAsync( EventSample2 @event, CancellationToken cancellationToken = default ) {
         @event.Result += "3";
         return Task.CompletedTask;
     }
@@ -52,7 +56,8 @@ public class EventHandlerSample4 : EventHandlerBase<EventSample3> {
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public override Task HandleAsync( EventSample3 @event ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public override Task HandleAsync( EventSample3 @event, CancellationToken cancellationToken = default ) {
         @event.Result += "4";
         return Task.CompletedTask;
     }
@@ -71,7 +76,8 @@ public class EventHandlerSample5: EventHandlerBase<EventSample3> {
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public override Task HandleAsync( EventSample3 @event ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public override Task HandleAsync( EventSample3 @event, CancellationToken cancellationToken = default ) {
         @event.Result += "5";
         return Task.CompletedTask;
     }
@@ -90,7 +96,8 @@ public class EventHandlerSample6 : EventHandlerBase<EventSample3> {
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public override Task HandleAsync( EventSample3 @event ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public override Task HandleAsync( EventSample3 @event, CancellationToken cancellationToken = default ) {
         @event.Result += "6";
         return Task.CompletedTask;
     }

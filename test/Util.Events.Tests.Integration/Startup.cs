@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Util.Aop;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Events.Tests; 
@@ -12,7 +13,10 @@ public class Startup {
     /// ÅäÖÃÖ÷»ú
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
-        hostBuilder.AddUtil();
+        hostBuilder
+            .AsBuild()
+            .AddAop()
+            .AddUtil();
     }
 
     /// <summary>

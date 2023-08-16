@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Util.Applications;
 using Util.Data;
 using Util.Exceptions;
 using Util.Microservices.Dapr.Tests.Samples;
@@ -188,35 +187,6 @@ public partial class ServiceInvocationTest {
 
     #endregion
 
-    #region 身份认证处理
-
-    /// <summary>
-    /// 测试身份认证 - 请求Test3Controller控制器Query_Authorize方法 - 未授权
-    /// </summary>
-    [Fact]
-    public async Task TestInvokeAsync_Unpack_Auth_1() {
-        var query = new CustomerQuery { Name = "ok" };
-        try {
-            await _serviceInvocation.InvokeAsync<CustomerDto>( "test3/query_authorize", query );
-        }
-        catch ( Warning exception ) {
-            Assert.Equal( StateCode.Unauthorized, exception.Code );
-        }
-    }
-
-    /// <summary>
-    /// 测试身份认证 - 请求Test3Controller控制器Query_Authorize方法 - 传递token授权
-    /// </summary>
-    [Fact]
-    public async Task TestInvokeAsync_Unpack_Auth_2() {
-        var token = Config.GetValue( "BearerToken" );
-        var query = new CustomerQuery { Name = "ok" };
-        var result = await _serviceInvocation.BearerToken( token ).InvokeAsync<CustomerDto>( "test3/query_authorize", query );
-        Assert.Equal( "ok", result.Name );
-    }
-
-    #endregion
-
     #region 测试事件处理
 
     /// <summary>
@@ -294,24 +264,6 @@ public partial class ServiceInvocationTest {
             } )
             .InvokeAsync<CustomerDto>( "Test3/fail", query );
         Assert.Equal( "123", query.Phone );
-    }
-
-    /// <summary>
-    /// 测试未授权事件处理
-    /// </summary>
-    [Fact]
-    public async Task TestInvokeAsync_Unpack_OnUnauthorized() {
-        var query = new CustomerQuery { Name = "ok" };
-        try {
-            await _serviceInvocation.OnUnauthorized( async ( request, response ) => {
-                query.Phone = "123";
-                await Task.CompletedTask;
-            } )
-            .InvokeAsync<CustomerDto>( "test3/query_authorize", query );
-        }
-        catch {
-            Assert.Equal( "123", query.Phone );
-        }
     }
 
     /// <summary>

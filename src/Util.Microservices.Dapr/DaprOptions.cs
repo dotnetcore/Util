@@ -9,6 +9,7 @@ public class DaprOptions {
     /// </summary>
     public DaprOptions() {
         ServiceInvocation = new ServiceInvocationOptions();
+        Pubsub = new PubsubOptions();
     }
 
     /// <summary>
@@ -19,4 +20,8 @@ public class DaprOptions {
     /// 服务调用配置
     /// </summary>
     public ServiceInvocationOptions ServiceInvocation { get; set; }
+    /// <summary>
+    /// 发布订阅配置
+    /// </summary>
+    public PubsubOptions Pubsub { get; set; }
 }

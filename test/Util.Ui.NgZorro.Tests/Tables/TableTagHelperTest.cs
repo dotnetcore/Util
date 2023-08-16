@@ -465,7 +465,7 @@ public partial class TableTagHelperTest {
     public void TestPageSizeOptions() {
         _wrapper.SetContextAttribute( UiConst.PageSizeOptions, "a" );
         var result = new StringBuilder();
-        result.Append( "<nz-table [nzPageSizeOptions]=\"a\"></nz-table>" );
+        result.Append( "<nz-table [nzPageSizeOptions]=\"x_id.pageSizeOptions\" [pageSizeOptions]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

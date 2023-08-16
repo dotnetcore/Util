@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Util.Domain.Events;
 using Util.Events;
 using Util.Tests.Models;
@@ -33,23 +34,22 @@ public class ProductChangedEventHandler : EventHandlerBase<EntityChangedEvent<Pr
     /// <summary>
     /// 处理事件
     /// </summary>
-    /// <param name="event">事件</param>
-    public override async Task HandleAsync( EntityChangedEvent<Product> @event ) {
+    public override async Task HandleAsync( EntityChangedEvent<Product> @event, CancellationToken cancellationToken ) {
         if ( @event.ChangeType == EntityChangeType.Created && @event.Entity.Name == "EntityChangedEvent_Created" ) {
             var log = new OperationLog { Caption = @event.Entity.Name, LogName = nameof( ProductChangedEventHandler ) };
-            await _operationLogRepository.AddAsync( log );
+            await _operationLogRepository.AddAsync( log, cancellationToken );
             await _unitOfWork.CommitAsync();
             return;
         }
         if( @event.ChangeType == EntityChangeType.Updated && @event.Entity.Name == "EntityChangedEvent_Updated" ) {
             var log = new OperationLog { Caption = @event.Entity.Name, LogName = nameof( ProductChangedEventHandler ) };
-            await _operationLogRepository.AddAsync( log );
+            await _operationLogRepository.AddAsync( log, cancellationToken );
             await _unitOfWork.CommitAsync();
             return;
         }
         if( @event.ChangeType == EntityChangeType.Deleted && @event.Entity.Name == "EntityChangedEvent_Deleted" ) {
             var log = new OperationLog { Caption = @event.Entity.Name, LogName = nameof( ProductChangedEventHandler ) };
-            await _operationLogRepository.AddAsync( log );
+            await _operationLogRepository.AddAsync( log, cancellationToken );
             await _unitOfWork.CommitAsync();
         }
     }

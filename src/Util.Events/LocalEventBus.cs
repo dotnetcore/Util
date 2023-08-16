@@ -1,4 +1,6 @@
-﻿namespace Util.Events; 
+﻿using Util.Data;
+
+namespace Util.Events; 
 
 /// <summary>
 /// 基于内存的本地事件总线
@@ -8,6 +10,10 @@ public class LocalEventBus : ILocalEventBus {
     /// 服务提供器
     /// </summary>
     private readonly IServiceProvider _serviceProvider;
+    /// <summary>
+    /// 工作单元操作管理器
+    /// </summary>
+    private readonly IUnitOfWorkActionManager _actionManager;
 
     /// <summary>
     /// 初始化本地事件总线
@@ -15,22 +21,45 @@ public class LocalEventBus : ILocalEventBus {
     /// <param name="serviceProvider">服务提供器</param>
     public LocalEventBus( IServiceProvider serviceProvider ) {
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
+        _actionManager = _serviceProvider.GetService<IUnitOfWorkActionManager>();
     }
 
     /// <inheritdoc />
     public async Task PublishAsync<TEvent>( TEvent @event,CancellationToken cancellationToken = default ) where TEvent : IEvent {
-        if( @event == null )
+        cancellationToken.ThrowIfCancellationRequested();
+        if ( @event == null )
             return;
+        if ( @event is not IIntegrationEvent integrationEvent ) {
+            await PublishLocalEventAsync( @event, cancellationToken );
+            return;
+        }
+        if( _actionManager == null ) {
+            await PublishLocalEventAsync( @event, cancellationToken );
+            return;
+        }
+        if ( integrationEvent.SendNow ) {
+            await PublishLocalEventAsync( @event, cancellationToken );
+            return;
+        }
+        _actionManager.Register( async () => {
+            await PublishLocalEventAsync( @event, cancellationToken );
+        } );
+    }
+
+    /// <summary>
+    /// 发布本地事件
+    /// </summary>
+    private async Task PublishLocalEventAsync<TEvent>( TEvent @event, CancellationToken cancellationToken ) where TEvent : IEvent {
         var eventType = @event.GetType();
         var handlers = GetEventHandlers( eventType );
-        if( handlers == null )
+        if ( handlers == null )
             return;
-        foreach( var handler in handlers.Where( t => t is { Enabled: true } ).OrderBy( t => t.Order ) ) {
-            var method = typeof( IEventHandler<> ).MakeGenericType( eventType ).GetMethod( "HandleAsync", new[] { eventType } );
-            if( method == null )
+        foreach ( var handler in handlers.Where( t => t is { Enabled: true } ).OrderBy( t => t.Order ) ) {
+            var method = typeof( IEventHandler<> ).MakeGenericType( eventType ).GetMethod( "HandleAsync", new[] { eventType,typeof( CancellationToken ) } );
+            if ( method == null )
                 return;
-            var result = method.Invoke( handler, new object[] { @event } );
-            if( result == null )
+            var result = method.Invoke( handler, new object[] { @event, cancellationToken } );
+            if ( result == null )
                 return;
             await (Task)result;
         }

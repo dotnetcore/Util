@@ -49,6 +49,14 @@ public static class UiConst {
     /// </summary>
     public const string Acl = "acl";
     /// <summary>
+    /// 访问控制
+    /// </summary>
+    public const string AclElse = "acl-else";
+    /// <summary>
+    /// 访问控制模板标识
+    /// </summary>
+    public const string AclElseTemplateId = "acl-else-template-id";
+    /// <summary>
     /// 类型
     /// </summary>
     public const string Type = "type";

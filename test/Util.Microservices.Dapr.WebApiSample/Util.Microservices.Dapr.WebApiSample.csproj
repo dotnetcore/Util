@@ -6,12 +6,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<ProjectReference Include="..\..\src\Util.Application.WebApi\03-Util.Application.WebApi.csproj" />
 		<ProjectReference Include="..\..\src\Util.Logging.Serilog\02-Util.Logging.Serilog.csproj" />
+		<ProjectReference Include="..\..\src\Util.Microservices.Dapr\03-Util.Microservices.Dapr.csproj" />
 	</ItemGroup>
 
 </Project>

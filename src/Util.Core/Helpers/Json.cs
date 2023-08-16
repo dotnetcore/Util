@@ -27,6 +27,11 @@ public static class Json {
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         if ( options.IgnoreCase )
             jsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        if ( options.ToCamelCase )
+            jsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        jsonSerializerOptions.Encoder = JavaScriptEncoder.Create( UnicodeRanges.All );
+        jsonSerializerOptions.Converters.Add( new DateTimeJsonConverter() );
+        jsonSerializerOptions.Converters.Add( new NullableDateTimeJsonConverter() );
         return jsonSerializerOptions;
     }
 
@@ -182,5 +187,30 @@ public static class Json {
             return default;
         options = GetToObjectOptions( options );
         return await JsonSerializer.DeserializeAsync<T>( json, options, cancellationToken );
+    }
+
+    /// <summary>
+    /// 将对象转换为字节数组
+    /// </summary>
+    /// <param name="value">目标对象</param>
+    /// <param name="options">Json配置</param>
+    public static byte[] ToBytes<T>( T value, JsonSerializerOptions options = null ) {
+        options = GetToBytesOptions( options );
+        return JsonSerializer.SerializeToUtf8Bytes( value, options );
+    }
+
+    /// <summary>
+    /// 获取转换为字节数组的序列化配置
+    /// </summary>
+    private static JsonSerializerOptions GetToBytesOptions( JsonSerializerOptions options ) {
+        if ( options != null )
+            return options;
+        return new JsonSerializerOptions {
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 }

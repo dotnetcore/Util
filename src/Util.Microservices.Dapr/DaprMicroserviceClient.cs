@@ -1,4 +1,6 @@
-﻿using Util.Microservices.Dapr.ServiceInvocations;
+﻿using Util.Microservices.Dapr.Events;
+using Util.Microservices.Dapr.ServiceInvocations;
+using Util.Microservices.Dapr.StateManagements;
 
 namespace Util.Microservices.Dapr; 
 
@@ -14,9 +16,13 @@ public class DaprMicroserviceClient : IMicroserviceClient {
     /// <param name="options">Dapr配置</param>
     /// <param name="appId">应用标识</param>
     /// <param name="loggerFactory">日志工厂</param>
-    public DaprMicroserviceClient( DaprClient client, HttpClient httpClient, IOptions<DaprOptions> options, string appId, ILoggerFactory loggerFactory ) {
+    /// <param name="serviceProvider">服务提供器</param>
+    public DaprMicroserviceClient( DaprClient client, HttpClient httpClient, IOptions<DaprOptions> options, string appId, ILoggerFactory loggerFactory, IServiceProvider serviceProvider ) {
         HttpClient = new HttpClientService().SetHttpClient( httpClient );
         ServiceInvocation = new DaprServiceInvocation( client, options, loggerFactory ).Service( appId );
+        IntegrationEventBus = new DaprIntegrationEventBus( client, options, loggerFactory, serviceProvider );
+        var keyGenerator = serviceProvider.GetService<IKeyGenerator>();
+        StateManage = new DaprStateManage( client, options, loggerFactory, keyGenerator );
     }
 
     /// <summary>
@@ -28,4 +34,14 @@ public class DaprMicroserviceClient : IMicroserviceClient {
     /// WebApi服务调用
     /// </summary>
     public IServiceInvocation ServiceInvocation { get; }
+
+    /// <summary>
+    /// 集成事件总线
+    /// </summary>
+    public IIntegrationEventBus IntegrationEventBus { get; }
+
+    /// <summary>
+    /// 状态管理
+    /// </summary>
+    public IStateManage StateManage { get; }
 }

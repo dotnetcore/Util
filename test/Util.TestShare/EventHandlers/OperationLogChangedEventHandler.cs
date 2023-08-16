@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Util.Domain.Events;
 using Util.Events;
 using Util.Tests.Models;
@@ -34,10 +35,11 @@ public class OperationLogChangedEventHandler : EventHandlerBase<EntityChangedEve
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public override async Task HandleAsync( EntityChangedEvent<OperationLog> @event ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public override async Task HandleAsync( EntityChangedEvent<OperationLog> @event, CancellationToken cancellationToken ) {
         if ( @event.ChangeType == EntityChangeType.Deleted && @event.Entity.LogName == "EntityChangedEvent_Deleted" ) {
             var log = new OperationLog { LogName = "Test", Caption = nameof( OperationLogChangedEventHandler ), Content = @event.Entity.LogName };
-            await _operationLogRepository.AddAsync( log );
+            await _operationLogRepository.AddAsync( log, cancellationToken );
             await _unitOfWork.CommitAsync();
         }
     }

@@ -26,6 +26,10 @@ public class JsonOptions {
     /// </summary>
     public bool IgnoreNullValues { get; set; }
     /// <summary>
+    /// 转换为Json时,属性名是否使用驼峰形式
+    /// </summary>
+    public bool ToCamelCase { get; set; }
+    /// <summary>
     /// 反序列化时是否忽略大小写,默认值: true
     /// </summary>
     public bool IgnoreCase { get; set; }

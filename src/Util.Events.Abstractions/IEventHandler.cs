@@ -19,5 +19,6 @@ public interface IEventHandler<in TEvent> : IEventHandler where TEvent : IEvent 
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    Task HandleAsync( TEvent @event ) ;
+    /// <param name="cancellationToken">取消令牌</param>
+    Task HandleAsync( TEvent @event, CancellationToken cancellationToken ) ;
 }

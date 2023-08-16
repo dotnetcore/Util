@@ -123,7 +123,7 @@ public class ImageWrapper : IImageWrapper {
     }
 
     /// <inheritdoc />
-    public IImageWrapper Text( string text, string color, TextOptions options ) {
+    public IImageWrapper Text( string text, string color, RichTextOptions options ) {
         _commands.Add( new TextCommand( options, text, color ) );
         return this;
     }
@@ -134,7 +134,7 @@ public class ImageWrapper : IImageWrapper {
 
     /// <inheritdoc />
     public IImageWrapper TextCenter( string text, string color ) {
-        var options = new TextOptions( _font ) {
+        var options = new RichTextOptions( _font ) {
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center,
             Origin = new Vector2( _width / 2, _height / 2 )

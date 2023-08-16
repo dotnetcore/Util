@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Util.Events;
 using Util.Tests.EventHandlers;
@@ -241,8 +242,8 @@ public class EntityEventsTest : TestBase {
         public TestEventHandler( IProductRepository applicationRepository ) {
             _repository = applicationRepository;
         }
-        public override async Task HandleAsync( TestEvent @event ) {
-            var entity = await _repository.FindByIdAsync( @event.Id );
+        public override async Task HandleAsync( TestEvent @event, CancellationToken cancellationToken ) {
+            var entity = await _repository.FindByIdAsync( @event.Id, cancellationToken );
             Assert.NotNull( entity );
             Assert.Equal( "Name",entity.Name );
         }

@@ -22,7 +22,7 @@ public class HttpClientTest {
     /// 测试初始化
     /// </summary>
     public HttpClientTest( GlobalFixture fixture, IMicroserviceClientFactory factory, ILogger<HttpClientTest> logger ) {
-        _client = factory.AppId( GlobalFixture.AppId )
+        _client = factory.AppId( GlobalFixture.WebApiAppId )
             .DaprHttpPort( fixture.DaprHttpPort )
             .Create().HttpClient;
         _logger = logger;
@@ -55,18 +55,6 @@ public class HttpClientTest {
     public async Task Test_3() {
         var query = new CustomerQuery { Name = "ok" };
         var result = await _client.Get<ServiceResult<CustomerDto>>( "/api/test3/query", query ).GetResultAsync();
-        Assert.NotNull( result );
-        Assert.Equal( "ok", result.Data.Name );
-    }
-
-    /// <summary>
-    /// 测试调用方法 - 请求Test3Controller控制器Query_Authorize方法 - 手工设置访问令牌
-    /// </summary>
-    [Fact]
-    public async Task Test_4() {
-        var token = Config.GetValue( "BearerToken" );
-        var query = new CustomerQuery { Name = "ok" };
-        var result = await _client.Get<ServiceResult<CustomerDto>>( "/api/test3/query_authorize", query ).BearerToken( token ).GetResultAsync();
         Assert.NotNull( result );
         Assert.Equal( "ok", result.Data.Name );
     }

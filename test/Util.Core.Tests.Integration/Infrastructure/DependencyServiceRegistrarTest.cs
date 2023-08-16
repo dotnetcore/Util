@@ -12,11 +12,6 @@ namespace Util.Tests.Infrastructure;
 public class DependencyServiceRegistrarTest {
     /// <summary>
     /// 测试注册服务
-    /// 说明:
-    /// 1. 测试类TestService4实现了两个接口ITestService2,ITestService5
-    /// 2. ITestService2接口没有继承ISingletonDependency,所以不会把TestService4注册到ITestService2
-    /// 3. ITestService5继承ITestService4,ITestService4继承自ITestService3和ISingletonDependency,只有直接接口ITestService5会注册,其它被忽略
-    /// 4. ITestService6测试泛型接口自动注册
     /// </summary>
     [Fact]
     public void TestRegisterDependency_1() {
@@ -25,9 +20,8 @@ public class DependencyServiceRegistrarTest {
         bootstrapper.Start();
         var host = builder.Build();
         Assert.Equal( typeof( TestService4 ), host.Services.GetService<ITestService5>()?.GetType() );
-        Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService2>()?.GetType() );
         Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService3>()?.GetType() );
-        Assert.NotEqual( typeof( TestService4 ), host.Services.GetService<ITestService4>()?.GetType() );
+        Assert.Equal( typeof( TestService4 ), host.Services.GetService<ITestService4>()?.GetType() );
         Assert.Equal( typeof( TestService5<A> ), host.Services.GetService<ITestService6<A>>()?.GetType() );
     }
 
@@ -54,6 +48,19 @@ public class DependencyServiceRegistrarTest {
         bootstrapper.Start();
         var host = builder.Build();
         Assert.Equal( typeof( TestService10 ), host.Services.GetService<ITestService8>()?.GetType() );
+    }
+
+    /// <summary>
+    /// 测试间接继承ISingletonDependency接口进行依赖配置
+    /// </summary>
+    [Fact]
+    public void TestRegisterDependency_4() {
+        var builder = new HostBuilder();
+        var bootstrapper = new Bootstrapper( builder );
+        bootstrapper.Start();
+        var host = builder.Build();
+        Assert.Equal( typeof( TestService12 ), host.Services.GetService<ITestService12>()?.GetType() );
+        Assert.Equal( typeof( TestService12 ), host.Services.GetService<ITestService10>()?.GetType() );
     }
 
     /// <summary>

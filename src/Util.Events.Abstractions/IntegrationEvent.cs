@@ -4,20 +4,20 @@
 /// 集成事件
 /// </summary>
 public record IntegrationEvent : IIntegrationEvent {
-    /// <summary>
-    /// 事件标识
-    /// </summary>
-    public string EventId { get; }
+    /// <inheritdoc />
+    public string EventId { get; init; }
 
-    /// <summary>
-    /// 事件发生时间
-    /// </summary>
-    public DateTime EventTime { get; }
+    /// <inheritdoc />
+    public DateTime EventTime { get; init; }
 
-    /// <summary>
-    /// 是否立即发送,默认为false,将在提交工作单元后发送
-    /// </summary>
-    public bool SendNow { get; }
+    /// <inheritdoc />
+    public bool SendNow { get; init; }
+
+    /// <inheritdoc />
+    public string PubsubName { get; init; }
+
+    /// <inheritdoc />
+    public string Topic { get; init; }
 
     /// <summary>
     /// 初始化集成事件
@@ -25,6 +25,8 @@ public record IntegrationEvent : IIntegrationEvent {
     public IntegrationEvent() {
         EventId = Guid.NewGuid().ToString();
         EventTime = Util.Helpers.Time.Now;
-        SendNow = false;
+        SendNow = true;
+        PubsubName = "pubsub";
+        Topic = GetType().Name;
     }
 }

@@ -64,6 +64,18 @@ namespace Util.Ui.NgZorro.Tests.Avatars {
         /// 测试访问控制
         /// </summary>
         [Fact]
+        public void TestAclElse() {
+            _wrapper.SetContextAttribute( UiConst.Acl, "a" );
+            _wrapper.SetContextAttribute( UiConst.AclElseTemplateId, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"'a'; else b\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制
+        /// </summary>
+        [Fact]
         public void TestBindAcl() {
             _wrapper.SetContextAttribute( AngularConst.BindAcl, "a" );
             var result = new StringBuilder();

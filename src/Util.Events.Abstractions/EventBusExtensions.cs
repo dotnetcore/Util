@@ -9,12 +9,13 @@ public static class EventBusExtensions {
     /// </summary>
     /// <param name="eventBus">事件总线</param>
     /// <param name="events">事件集合</param>
-    public static async Task PublishAsync( this IEventBus eventBus, IEnumerable<IEvent> events ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task PublishAsync( this IEventBus eventBus, IEnumerable<IEvent> events, CancellationToken cancellationToken = default ) {
         eventBus.CheckNull( nameof( eventBus ) );
         if( events == null )
             return;
         foreach( var @event in events ) {
-            await eventBus.PublishAsync( @event );
+            await eventBus.PublishAsync( @event, cancellationToken );
         }
     }
 }

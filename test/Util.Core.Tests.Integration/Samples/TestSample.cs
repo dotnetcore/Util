@@ -207,3 +207,21 @@ public class TestService10 : ITestService8 {
 [Ioc( 2 )]
 public class TestService11 : ITestService8 {
 }
+
+/// <summary>
+/// 测试服务接口
+/// </summary>
+public interface ITestService10 : ISingletonDependency {
+}
+
+/// <summary>
+/// 测试服务接口
+/// </summary>
+public interface ITestService12 : ITestService10 {
+}
+
+/// <summary>
+/// 测试服务
+/// </summary>
+public class TestService12 : ITestService12 {
+}

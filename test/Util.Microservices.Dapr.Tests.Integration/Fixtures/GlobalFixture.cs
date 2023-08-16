@@ -1,6 +1,5 @@
 ﻿using Serilog;
 using Util.Logging.Serilog;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Util.Microservices.Dapr.Tests.Fixtures;
 
@@ -11,11 +10,15 @@ public class GlobalFixture : IDisposable {
     /// <summary>
     /// app_webapi
     /// </summary>
-    public const string AppId = "app_webapi";
+    public const string WebApiAppId = "app_webapi";
     /// <summary>
     /// Dapr Http端口
     /// </summary>
     public int DaprHttpPort { get; }
+    /// <summary>
+    /// Dapr Grpc端口
+    /// </summary>
+    public int DaprGrpcPort { get; }
 
     /// <summary>
     /// 测试初始化
@@ -24,8 +27,9 @@ public class GlobalFixture : IDisposable {
         ConfigLog();
         var loggerFactory = Ioc.Create<ILoggerFactory>();
         var log = loggerFactory.CreateLogger( "Util.Microservices.Dapr.Tests.Integration" );
-        var command = ExecuteDaprRunCommand( log );
+        var command = ExecuteDaprRunCommand( log, WebApiAppId, "Util.Microservices.Dapr.WebApiSample" );
         DaprHttpPort = command.GetDaprHttpPort();
+        DaprGrpcPort = command.GetDaprGrpcPort();
     }
 
     /// <summary>
@@ -48,10 +52,13 @@ public class GlobalFixture : IDisposable {
     /// <summary>
     /// 通过命令行启动Dapr
     /// </summary>
-    private DaprRunCommand ExecuteDaprRunCommand( ILogger log ) {
-        var command = DaprRunCommand.Create( AppId );
-        command.Project( "../../../../../test/Util.Microservices.Dapr.WebApiSample/Util.Microservices.Dapr.WebApiSample.csproj" )
+    private DaprRunCommand ExecuteDaprRunCommand( Microsoft.Extensions.Logging.ILogger log,string appId,string project ) {
+        var command = DaprRunCommand.Create( appId );
+        command
+            .Project( $"../../../../../test/{project}/{project}.csproj" )
             .UseFreePorts()
+            .ComponentsPath( "Resources/components/" )
+            .ConfigPath( "Resources/configuration/config.yaml" )
             .Log( log )
             .Execute();
         return command;
@@ -61,6 +68,6 @@ public class GlobalFixture : IDisposable {
     /// 测试清理
     /// </summary>
     public void Dispose() {
-        DaprStopCommand.Create( AppId ).Execute();
+        DaprStopCommand.Create( WebApiAppId ).Execute();
     }
 }

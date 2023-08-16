@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Util.Events.Tests.Samples;
 using Xunit;
 
@@ -25,8 +26,9 @@ public class LocalEventBusTest {
     /// </summary>
     [Fact]
     public async Task TestPublishAsync() {
+        var token = new CancellationTokenSource().Token;
         var @event = new EventSample { Value = "a" };
-        await _eventBus.PublishAsync( @event );
+        await _eventBus.PublishAsync( @event, token );
         Assert.Equal( "1:a", @event.Result );
     }
 

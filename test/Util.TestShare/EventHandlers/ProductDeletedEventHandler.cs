@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Util.Domain.Events;
 using Util.Events;
 using Util.Tests.Models;
@@ -33,12 +34,11 @@ public class ProductDeletedEventHandler : EventHandlerBase<EntityDeletedEvent<Pr
     /// <summary>
     /// 处理事件
     /// </summary>
-    /// <param name="event">事件</param>
-    public override async Task HandleAsync( EntityDeletedEvent<Product> @event ) {
+    public override async Task HandleAsync( EntityDeletedEvent<Product> @event, CancellationToken cancellationToken ) {
         if( @event.Entity.Name != "EntityDeletedEvent" )
             return;
         var log = new OperationLog { Caption = @event.Entity.Name,LogName = nameof( ProductDeletedEventHandler ) };
-        await _operationLogRepository.AddAsync( log );
+        await _operationLogRepository.AddAsync( log, cancellationToken );
         await _unitOfWork.CommitAsync();
     }
 }

@@ -1,24 +1,20 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Util.Logging.Serilog;
-using Util.Microservices.Dapr.WebApiSample.Authorization;
+using Util.Microservices.Dapr;
 
 var builder = WebApplication.CreateBuilder( args );
 
 builder.Services.AddControllers();
-builder.Services.AddAuthentication( JwtBearerDefaults.AuthenticationScheme )
-    .AddJwtBearer( options => {
-        options.Authority = builder.Configuration.GetValue<string>( "IdentityUrl" );
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters.ValidateAudience = false;
-        options.TokenValidationParameters.ValidateIssuer = false;
-    } );
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.AsBuild()
-    .AddAcl<PermissionManager>()
     .AddSerilog( "Util.Microservices.Dapr.WebApiSample" )
+    .AddDapr()
     .AddUtil();
 
 var app = builder.Build();
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUI( options => {
+    options.DocumentTitle = "Util.Microservices.Dapr.WebApiSample";
+} );
 app.MapControllers();
 app.Run();

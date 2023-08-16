@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Util.Events;
 using Util.Tests.Events;
@@ -115,7 +116,7 @@ public class UnitOfWorkActionManagerTest : TestBase {
 /// 测试事件处理器
 /// </summary>
 public class TestEventHandler : EventHandlerBase<TestEvent> {
-    public override Task HandleAsync( TestEvent @event ) {
+    public override Task HandleAsync( TestEvent @event, CancellationToken cancellationToken ) {
         @event.Name += "2";
         return Task.CompletedTask;
     }

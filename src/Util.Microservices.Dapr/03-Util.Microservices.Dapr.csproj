@@ -27,13 +27,12 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
-	  <PackageReference Include="Dapr.Client" Version="1.11.0" />
 	  <PackageReference Include="Dapr.Extensions.Configuration" Version="1.11.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Util.Aop.AspectCore\03-Util.Aop.AspectCore.csproj" />
 	  <ProjectReference Include="..\Util.AspNetCore\07-Util.AspNetCore.csproj" />
-	  <ProjectReference Include="..\Util.Data.Abstractions\06-Util.Data.Abstractions.csproj" />
 	  <ProjectReference Include="..\Util.Events\02-Util.Events.csproj" />
 	  <ProjectReference Include="..\Util.Microservices\01-Util.Microservices.csproj" />
 	</ItemGroup>

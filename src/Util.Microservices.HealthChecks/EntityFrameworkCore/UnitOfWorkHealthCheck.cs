@@ -1,28 +1,28 @@
 namespace Util.Microservices.HealthChecks.EntityFrameworkCore;
 
 /// <summary>
-/// ¹¤×÷µ¥Ôª½¡¿µ¼ì²é
+/// å·¥ä½œå•å…ƒå¥åº·æ£€æŸ¥
 /// </summary>
-/// <typeparam name="TUnitOfWork">¹¤×÷µ¥ÔªÀàĞÍ</typeparam>
+/// <typeparam name="TUnitOfWork">å·¥ä½œå•å…ƒç±»å‹</typeparam>
 public class UnitOfWorkHealthCheck<TUnitOfWork> : IHealthCheck where TUnitOfWork : IUnitOfWork {
     /// <summary>
-    /// ¹¤×÷µ¥Ôª
+    /// å·¥ä½œå•å…ƒ
     /// </summary>
     private readonly TUnitOfWork _unitOfWork;
 
     /// <summary>
-    /// ³õÊ¼»¯¹¤×÷µ¥Ôª½¡¿µ¼ì²é
+    /// åˆå§‹åŒ–å·¥ä½œå•å…ƒå¥åº·æ£€æŸ¥
     /// </summary>
-    /// <param name="unitOfWork">¹¤×÷µ¥Ôª</param>
+    /// <param name="unitOfWork">å·¥ä½œå•å…ƒ</param>
     public UnitOfWorkHealthCheck( TUnitOfWork unitOfWork ) {
         _unitOfWork = unitOfWork ?? throw new ArgumentNullException( nameof( unitOfWork ) );
     }
 
     /// <summary>
-    /// ½¡¿µ¼ì²é
+    /// å¥åº·æ£€æŸ¥
     /// </summary>
-    /// <param name="context">½¡¿µ¼ì²éÉÏÏÂÎÄ</param>
-    /// <param name="cancellationToken">È¡ÏûÁîÅÆ</param>
+    /// <param name="context">å¥åº·æ£€æŸ¥ä¸Šä¸‹æ–‡</param>
+    /// <param name="cancellationToken">å–æ¶ˆä»¤ç‰Œ</param>
     public async Task<HealthCheckResult> CheckHealthAsync( HealthCheckContext context, CancellationToken cancellationToken = default ) {
         context.CheckNull( nameof( context ) );
         try {

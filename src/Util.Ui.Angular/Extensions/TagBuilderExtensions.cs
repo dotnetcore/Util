@@ -164,10 +164,15 @@ public static class TagBuilderExtensions {
     /// <param name="builder">生成器实例</param>
     /// <param name="config">配置</param>
     public static TBuilder Acl<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
-        var value = config.GetValue( UiConst.Acl );
-        if ( value.IsEmpty() )
+        var acl = config.GetValue( UiConst.Acl );
+        var templateId = config.GetValue( UiConst.AclElseTemplateId );
+        if ( acl.IsEmpty() )
             return builder;
-        builder.Attribute( "*aclIf", $"'{value}'" );
+        if ( templateId.IsEmpty() ) {
+            builder.Attribute( "*aclIf", $"'{acl}'" );
+            return builder;
+        }
+        builder.Attribute( "*aclIf", $"'{acl}'; else {templateId}" );
         return builder;
     }
 

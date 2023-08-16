@@ -26,7 +26,7 @@ public class TextCommand : ICommand {
     /// <param name="options">文本配置</param>
     /// <param name="text">文本</param>
     /// <param name="color">颜色</param>
-    public TextCommand( TextOptions options, string text, string color ) {
+    public TextCommand( RichTextOptions options, string text, string color ) {
         Options = options;
         Text = text;
         Color = color;
@@ -55,7 +55,7 @@ public class TextCommand : ICommand {
     /// <summary>
     /// 文本配置
     /// </summary>
-    public TextOptions Options { get; }
+    public RichTextOptions Options { get; }
 
     /// <inheritdoc />
     public void Invoke( Image image ) {

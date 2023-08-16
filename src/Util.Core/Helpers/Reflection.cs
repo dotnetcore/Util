@@ -181,7 +181,7 @@ public static class Reflection {
     #region GetDirectInterfaceTypes(获取直接接口类型列表)
 
     /// <summary>
-    /// 获取直接接口类型列表
+    /// 获取直接接口类型列表,排除基接口类型
     /// </summary>
     /// <typeparam name="T">在该类型上查找接口</typeparam>
     /// <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
@@ -190,7 +190,7 @@ public static class Reflection {
     }
 
     /// <summary>
-    /// 获取直接接口类型列表
+    /// 获取直接接口类型列表,排除基接口类型
     /// </summary>
     /// <param name="type">在该类型上查找接口</param>
     /// <param name="baseInterfaceTypes">基接口类型列表,只返回继承了基接口的直接接口</param>
@@ -199,8 +199,15 @@ public static class Reflection {
         var directInterfaceTypes = interfaceTypes.Except( interfaceTypes.SelectMany( t => t.GetInterfaces() ) ).ToList();
         if ( baseInterfaceTypes == null || baseInterfaceTypes.Length == 0 )
             return directInterfaceTypes;
+        return GetInterfaceTypes( directInterfaceTypes, baseInterfaceTypes );
+    }
+
+    /// <summary>
+    /// 获取接口类型
+    /// </summary>
+    private static List<Type> GetInterfaceTypes( IEnumerable<Type> interfaceTypes, Type[] baseInterfaceTypes ) {
         var result = new List<Type>();
-        foreach ( var interfaceType in directInterfaceTypes ) {
+        foreach ( var interfaceType in interfaceTypes ) {
             if ( interfaceType.GetInterfaces().Any( baseInterfaceTypes.Contains ) == false )
                 continue;
             if ( interfaceType.IsGenericType && !interfaceType.IsGenericTypeDefinition && interfaceType.FullName == null ) {
@@ -210,6 +217,31 @@ public static class Reflection {
             result.Add( interfaceType );
         }
         return result;
+    }
+
+    #endregion
+
+    #region GetInterfaceTypes(获取接口类型列表)
+
+    /// <summary>
+    /// 获取接口类型列表,排除基接口类型
+    /// </summary>
+    /// <typeparam name="T">在该类型上查找接口</typeparam>
+    /// <param name="baseInterfaceTypes">基接口类型列表</param>
+    public static List<Type> GetInterfaceTypes<T>( params Type[] baseInterfaceTypes ) {
+        return GetInterfaceTypes( typeof( T ), baseInterfaceTypes );
+    }
+
+    /// <summary>
+    /// 获取接口类型列表,排除基接口类型
+    /// </summary>
+    /// <param name="type">在该类型上查找接口</param>
+    /// <param name="baseInterfaceTypes">基接口类型列表</param>
+    public static List<Type> GetInterfaceTypes( Type type, params Type[] baseInterfaceTypes ) {
+        var interfaceTypes = type.GetInterfaces();
+        if ( baseInterfaceTypes == null || baseInterfaceTypes.Length == 0 )
+            return interfaceTypes.ToList();
+        return GetInterfaceTypes( interfaceTypes, baseInterfaceTypes );
     }
 
     #endregion

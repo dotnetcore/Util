@@ -9,7 +9,8 @@ public abstract class EventHandlerBase<TEvent> : IEventHandler<TEvent>, ILocalEv
     /// 处理事件
     /// </summary>
     /// <param name="event">事件</param>
-    public abstract Task HandleAsync( TEvent @event );
+    /// <param name="cancellationToken">取消令牌</param>
+    public abstract Task HandleAsync( TEvent @event, CancellationToken cancellationToken );
 
     /// <summary>
     /// 序号

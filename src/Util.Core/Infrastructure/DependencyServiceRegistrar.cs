@@ -53,7 +53,7 @@ public class DependencyServiceRegistrar : IServiceRegistrar {
         var result = new List<(Type, Type)>();
         var classTypes = finder.Find<TDependencyInterface>();
         foreach ( var classType in classTypes ) {
-            var interfaceTypes = Util.Helpers.Reflection.GetDirectInterfaceTypes( classType, typeof( TDependencyInterface ) );
+            var interfaceTypes = Util.Helpers.Reflection.GetInterfaceTypes( classType, typeof( TDependencyInterface ) );
             interfaceTypes.ForEach( interfaceType => result.Add( (interfaceType, classType) ) );
         }
         return result;

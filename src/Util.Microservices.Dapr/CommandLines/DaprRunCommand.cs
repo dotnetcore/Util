@@ -175,9 +175,9 @@ public class DaprRunCommand {
     }
 
     /// <summary>
-    /// 设置Dapr配置目录路径
+    /// 设置Dapr配置文件路径
     /// </summary>
-    /// <param name="path">Dapr配置目录路径</param>
+    /// <param name="path">Dapr配置文件路径</param>
     public DaprRunCommand ConfigPath( string path ) {
         _configPath = path;
         return this;
@@ -228,10 +228,10 @@ public class DaprRunCommand {
             .ArgumentsIf( _componentsPath.IsEmpty() == false, "--resources-path", _componentsPath )
             .ArgumentsIf( _configPath.IsEmpty() == false, "--config", _configPath )
             .Arguments( "--log-level", "debug" )
-            .Arguments( "--" )
-            .Arguments( "dotnet", "run" )
+            .ArgumentsIf( _project.IsEmpty() == false, "--" )
+            .ArgumentsIf( _project.IsEmpty() == false, "dotnet", "run" )
             .ArgumentsIf( _project.IsEmpty() == false, "--project", _project )
-            .ArgumentsIf( _appPort != 0, "--urls", $"http://localhost:{_appPort.ToString( CultureInfo.InvariantCulture )}" );
+            .ArgumentsIf( _project.IsEmpty() == false && _appPort != 0, "--urls", $"http://localhost:{_appPort.ToString( CultureInfo.InvariantCulture )}" );
     }
 
     /// <summary>

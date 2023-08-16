@@ -27,25 +27,25 @@ public class ServiceInvocationOptions {
     /// </summary>
     public Func<string, ServiceState> OnState { get; set; }
     /// <summary>
-    /// 调用前事件,返回false取消调用
+    /// 调用前事件
     /// </summary>
-    public Func<HttpRequestMessage, bool> OnBefore { get; set; }
+    public Func<ServiceInvocationArgument, Task> OnBefore { get; set; }
     /// <summary>
     /// 调用成功事件
     /// </summary>
-    public Func<HttpRequestMessage,HttpResponseMessage, object, Task> OnSuccess { get; set; }
+    public Func<ServiceInvocationArgument, Task> OnSuccess { get; set; }
     /// <summary>
     /// 调用失败事件
     /// </summary>
-    public Func<HttpRequestMessage,HttpResponseMessage, Exception, Task> OnFail { get; set; }
+    public Func<ServiceInvocationArgument, Task> OnFail { get; set; }
     /// <summary>
     /// 调用未授权事件
     /// </summary>
-    public Func<HttpRequestMessage, HttpResponseMessage, Task> OnUnauthorized { get; set; }
+    public Func<ServiceInvocationArgument, Task> OnUnauthorized { get; set; }
     /// <summary>
     /// 调用完成事件
     /// </summary>
-    public Func<HttpRequestMessage, HttpResponseMessage, Task> OnComplete { get; set; }
+    public Func<ServiceInvocationArgument, Task> OnComplete { get; set; }
     /// <summary>
     /// 请求过滤器集合
     /// </summary>

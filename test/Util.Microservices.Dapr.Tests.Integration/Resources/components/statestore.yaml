@@ -3,11 +3,7 @@ kind: Component
 metadata:
   name: statestore
 spec:
-  type: state.redis
+  type: state.mongodb
   metadata:
-  - name: redisHost
-    value: localhost:6379
-  - name: redisPassword
-    value: ""
-  - name: actorStateStore
-    value: "true"
+  - name: host
+    value: localhost

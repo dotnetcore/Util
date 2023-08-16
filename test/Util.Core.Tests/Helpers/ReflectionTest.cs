@@ -151,9 +151,9 @@ public class ReflectionTest {
     /// </summary>
     [Fact]
     public void TestGetDirectInterfaces_2() {
-        var interfaceTypes = Util.Helpers.Reflection.GetDirectInterfaceTypes<TestSample>( typeof( ITestSample4 ) );
+        var interfaceTypes = Util.Helpers.Reflection.GetDirectInterfaceTypes<TestSample>( typeof( ITestSample3 ) );
         Assert.Single( interfaceTypes );
-        Assert.True( interfaceTypes.Exists( t => t.Name == "ITestSample5" ) );
+        Assert.True( interfaceTypes.Exists( t => t.Name == "ITestSample" ) );
     }
 
     /// <summary>
@@ -161,10 +161,39 @@ public class ReflectionTest {
     /// </summary>
     [Fact]
     public void TestGetDirectInterfaces_3() {
-        var interfaceTypes = Util.Helpers.Reflection.GetDirectInterfaceTypes<TestSample>( typeof( ITestSample4 ), typeof( ITestSample2 ) );
+        var interfaceTypes = Util.Helpers.Reflection.GetDirectInterfaceTypes<TestSample>( typeof( ITestSample4 ), typeof( ITestSample3 ) );
         Assert.Equal( 2, interfaceTypes.Count );
         Assert.True( interfaceTypes.Exists( t => t.Name == "ITestSample" ) );
         Assert.True( interfaceTypes.Exists( t => t.Name == "ITestSample5" ) );
+    }
+
+    /// <summary>
+    /// 测试获取接口列表
+    /// </summary>
+    [Fact]
+    public void TestGetInterfaces_1() {
+        var interfaceTypes = Util.Helpers.Reflection.GetInterfaceTypes<TestSample>();
+        Assert.Equal( 5, interfaceTypes.Count );
+    }
+
+    /// <summary>
+    /// 测试获取接口列表 - 一个基接口
+    /// </summary>
+    [Fact]
+    public void TestGetInterfaces_2() {
+        var interfaceTypes = Util.Helpers.Reflection.GetInterfaceTypes<TestSample>( typeof( ITestSample3 ) );
+        Assert.Equal( 2,interfaceTypes.Count );
+        Assert.True( interfaceTypes.Exists( t => t.Name == "ITestSample" ) );
+        Assert.True( interfaceTypes.Exists( t => t.Name == "ITestSample2" ) );
+    }
+
+    /// <summary>
+    /// 测试获取接口列表 - 两个基接口
+    /// </summary>
+    [Fact]
+    public void TestGetInterfaces_3() {
+        var interfaceTypes = Util.Helpers.Reflection.GetInterfaceTypes<TestSample>( typeof( ITestSample4 ), typeof( ITestSample3 ) );
+        Assert.Equal( 3, interfaceTypes.Count );
     }
 
     /// <summary>

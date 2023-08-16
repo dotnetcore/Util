@@ -309,7 +309,11 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置每页行数选择列表
     /// </summary>
     public TableBuilder PageSizeOptions() {
-        AttributeIfNotEmpty( "[nzPageSizeOptions]", _config.GetValue( UiConst.PageSizeOptions ) );
+        var options = _config.GetValue( UiConst.PageSizeOptions );
+        if ( options.IsEmpty() )
+            return this;
+        Attribute( "[nzPageSizeOptions]", $"{GetShareConfig().TableExtendId}.pageSizeOptions" );
+        Attribute( "[pageSizeOptions]", options );
         return this;
     }
 
@@ -584,6 +588,7 @@ public class TableBuilder : AngularTagBuilder {
     protected virtual void ConfigExtend() {
         Attribute( "x-table-extend" );
         Attribute( $"#{ExtendId}", "xTableExtend" );
+        Attribute( "[nzPageSizeOptions]", $"{GetShareConfig().TableExtendId}.pageSizeOptions" );
         ConfigDefault();
     }
 

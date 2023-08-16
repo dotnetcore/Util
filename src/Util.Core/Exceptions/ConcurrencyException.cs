@@ -42,7 +42,7 @@ public class ConcurrencyException : Warning {
     public override string Message => $"{R.ConcurrencyExceptionMessage}.{_message}";
 
     /// <inheritdoc />
-    public override string GetMessage( bool isProduction = true ) {
+    public override string GetMessage( bool isProduction = false ) {
         if( isProduction )
             return R.ConcurrencyExceptionMessage;
         return GetMessage(this);

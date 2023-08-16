@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Util.Microservices.Dapr.ServiceInvocations;
+﻿namespace Util.Microservices.Dapr.ServiceInvocations;
 
 /// <summary>
 /// Dapr WebApi服务调用操作
@@ -167,7 +165,7 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
         Log.LogTrace( "准备调用服务方法,AppId:{AppId},MethodName:{MethodName}", AppId, methodName );
         var request = CreateRequest( methodName, data, httpMethod );
         request = FilterRequest( request );
-        if ( InvokeBefore( request ) == false )
+        if ( await InvokeBefore( methodName, data, httpMethod, request ) == false )
             return default;
         HttpResponseMessage response = null;
         try {
@@ -175,17 +173,17 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
             response = FilterResponse( response );
             OnAfterAction?.Invoke( response );
             var result = await ToResult<TResponse>( response, cancellationToken );
-            await InvokeAfter( methodName, request, response, result );
+            await InvokeAfter( methodName, data, httpMethod, request, response, result );
             return result.Data;
         }
         catch ( Warning ) {
             throw;
         }
         catch ( Exception exception ) {
-            await FailHandlerAsync( methodName, request, response, exception, null );
+            await FailHandlerAsync( methodName, data, httpMethod, request, response, exception, null );
         }
         finally {
-            await CompleteHandlerAsync( methodName, request, response );
+            await CompleteHandlerAsync( methodName, data, httpMethod, request, response );
         }
         return default;
     }
@@ -313,13 +311,12 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
     /// <summary>
     /// 调用前操作
     /// </summary>
-    /// <param name="message">请求消息</param>
-    protected bool InvokeBefore( HttpRequestMessage message ) {
-        if ( OnBeforeAction != null )
-            return OnBeforeAction( message );
-        if ( Options?.ServiceInvocation?.OnBefore == null )
+    protected async Task<bool> InvokeBefore( string methodName, object data, HttpMethod httpMethod, HttpRequestMessage message ) {
+        if( Options?.ServiceInvocation?.OnBefore != null )
+            await Options.ServiceInvocation.OnBefore( new ServiceInvocationArgument( AppId, methodName, httpMethod, data, message ) );
+        if ( OnBeforeAction == null )
             return true;
-        return Options.ServiceInvocation.OnBefore( message );
+        return OnBeforeAction( message );
     }
 
     #endregion
@@ -402,10 +399,10 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
             return result;
         }
         if ( OnResultAction == null ) {
-            var json  = await response.Content.ReadAsStringAsync( cancellationToken );
+            var json = await response.Content.ReadAsStringAsync( cancellationToken );
             if ( json.IsEmpty() )
                 return result;
-            result.Data = Util.Helpers.Json.ToObject<TResponse>( json,Client.JsonSerializerOptions );
+            result.Data = Util.Helpers.Json.ToObject<TResponse>( json, Client.JsonSerializerOptions );
             return result;
         }
         var content = await OnResultAction( response, Client.JsonSerializerOptions, cancellationToken );
@@ -431,18 +428,18 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
     /// <summary>
     /// 调用方法后操作
     /// </summary>
-    protected virtual async Task InvokeAfter<TResponse>( string methodName, HttpRequestMessage request, HttpResponseMessage response, ServiceResult<TResponse> result ) {
+    protected virtual async Task InvokeAfter<TResponse>( string methodName, object data, HttpMethod httpMethod, HttpRequestMessage request, HttpResponseMessage response, ServiceResult<TResponse> result ) {
         var state = ToState( result );
         if ( state == ServiceState.Ok ) {
-            await SuccessHandlerAsync( methodName, request, response, result.Data );
+            await SuccessHandlerAsync( methodName, data, httpMethod, request, response, result.Data );
             return;
         }
         if ( state == ServiceState.Fail ) {
-            await FailHandlerAsync( methodName, request, response, null, result?.Message );
+            await FailHandlerAsync( methodName, data, httpMethod, request, response, null, result?.Message );
             return;
         }
         if ( state == ServiceState.Unauthorized ) {
-            await UnauthorizedHandlerAsync( methodName, request, response );
+            await UnauthorizedHandlerAsync( methodName, data, httpMethod, request, response );
             return;
         }
     }
@@ -476,15 +473,13 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
     /// <summary>
     /// 成功处理操作
     /// </summary>
-    protected virtual async Task SuccessHandlerAsync<TResponse>( string methodName, HttpRequestMessage request, HttpResponseMessage response, TResponse result ) {
-        Log.LogDebug( "调用服务成功,AppId:{AppId},MethodName:{MethodName}", AppId, methodName );
-        if ( OnSuccessAction != null ) {
-            await OnSuccessAction( request, response, result );
+    protected virtual async Task SuccessHandlerAsync<TResponse>( string methodName, object data, HttpMethod httpMethod, HttpRequestMessage request, HttpResponseMessage response, TResponse result ) {
+        Log.LogTrace( "调用服务成功,AppId:{AppId},MethodName:{MethodName}", AppId, methodName );
+        if ( Options?.ServiceInvocation?.OnSuccess != null )
+            await Options.ServiceInvocation.OnSuccess( new ServiceInvocationArgument( AppId, methodName, httpMethod, data, request, response, result ) );
+        if ( OnSuccessAction == null )
             return;
-        }
-        if ( Options?.ServiceInvocation?.OnSuccess == null )
-            return;
-        await Options.ServiceInvocation.OnSuccess( request, response, result );
+        await OnSuccessAction( request, response, result );
     }
 
     #endregion
@@ -494,18 +489,16 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
     /// <summary>
     /// 失败处理操作
     /// </summary>
-    protected virtual async Task FailHandlerAsync( string methodName, HttpRequestMessage request, HttpResponseMessage response, Exception exception, string message ) {
+    protected virtual async Task FailHandlerAsync( string methodName, object data, HttpMethod httpMethod, HttpRequestMessage request, HttpResponseMessage response, Exception exception, string message ) {
         if ( exception == null )
             Log.LogWarning( "调用服务失败,AppId:{AppId},MethodName:{MethodName}", AppId, methodName );
         else {
             Log.LogError( exception, "调用服务失败,AppId:{AppId},MethodName:{MethodName}", AppId, methodName );
         }
+        if ( Options?.ServiceInvocation?.OnFail != null )
+            await Options.ServiceInvocation.OnFail( new ServiceInvocationArgument( AppId, methodName, httpMethod, data, request, response, null, exception, message ) );
         if ( OnFailAction != null ) {
             await OnFailAction( request, response, exception );
-            return;
-        }
-        if ( Options?.ServiceInvocation?.OnFail != null ) {
-            await Options.ServiceInvocation.OnFail( request, response, exception );
             return;
         }
         if ( exception != null )
@@ -520,14 +513,12 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
     /// <summary>
     /// 未授权处理操作
     /// </summary>
-    protected virtual async Task UnauthorizedHandlerAsync( string methodName, HttpRequestMessage request, HttpResponseMessage response ) {
+    protected virtual async Task UnauthorizedHandlerAsync( string methodName, object data, HttpMethod httpMethod, HttpRequestMessage request, HttpResponseMessage response ) {
         Log.LogWarning( "调用未授权的服务,AppId:{AppId},MethodName:{MethodName}", AppId, methodName );
+        if ( Options?.ServiceInvocation?.OnUnauthorized != null )
+            await Options.ServiceInvocation.OnUnauthorized( new ServiceInvocationArgument( AppId, methodName, httpMethod, data, request, response ) );
         if ( OnUnauthorizedAction != null ) {
             await OnUnauthorizedAction( request, response );
-            return;
-        }
-        if ( Options?.ServiceInvocation?.OnUnauthorized != null ) {
-            await Options.ServiceInvocation.OnUnauthorized( request, response );
             return;
         }
         throw new Warning( R.UnauthorizedMessage, code: StateCode.Unauthorized );
@@ -540,15 +531,13 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
     /// <summary>
     /// 调用完成操作
     /// </summary>
-    protected virtual async Task CompleteHandlerAsync( string methodName, HttpRequestMessage request, HttpResponseMessage response ) {
+    protected virtual async Task CompleteHandlerAsync( string methodName, object data, HttpMethod httpMethod, HttpRequestMessage request, HttpResponseMessage response ) {
         Log.LogTrace( "调用服务完成,AppId:{AppId},MethodName:{MethodName}", AppId, methodName );
-        if ( OnCompleteAction != null ) {
-            await OnCompleteAction( request, response );
+        if ( Options?.ServiceInvocation?.OnComplete != null )
+            await Options.ServiceInvocation.OnComplete( new ServiceInvocationArgument( AppId, methodName, httpMethod, data, request, response ) );
+        if ( OnCompleteAction == null )
             return;
-        }
-        if ( Options?.ServiceInvocation?.OnComplete == null )
-            return;
-        await Options.ServiceInvocation.OnComplete( request, response );
+        await OnCompleteAction( request, response );
     }
 
     #endregion

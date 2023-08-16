@@ -26,10 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Google.Protobuf" Version="3.23.4" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\Util.AspNetCore\07-Util.AspNetCore.csproj" />
 	  <ProjectReference Include="..\Util.Events.Abstractions\01-Util.Events.Abstractions.csproj" />
 	</ItemGroup>

@@ -1,4 +1,4 @@
-using Util.Applications.Dtos;
+using Util.Data;
 using Util.Domain.Biz.Enums;
 
 namespace Util.Microservices.Dapr.Tests.Samples; 
@@ -6,7 +6,7 @@ namespace Util.Microservices.Dapr.Tests.Samples;
 /// <summary>
 /// 客户参数
 /// </summary>
-public class CustomerDto : DtoBase {
+public class CustomerDto {
     /// <summary>
     /// 编码
     ///</summary>
@@ -82,4 +82,12 @@ public class CustomerDto : DtoBase {
     ///</summary>
     [Description( "版本号" )]
     public byte[] Version { get; set; }
+}
+
+/// <summary>
+/// 客户参数
+/// </summary>
+public class CustomerDto2 : CustomerDto, IDataKey, IETag {
+    public string Id { get; set; }
+    public string ETag { get; set; }
 }
