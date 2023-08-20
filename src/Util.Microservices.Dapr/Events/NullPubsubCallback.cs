@@ -3,7 +3,7 @@
 /// <summary>
 /// 空发布订阅回调操作
 /// </summary>
-[Ioc(-2)]
+[Ioc(-9)]
 public class NullPubsubCallback : IPubsubCallback {
     /// <summary>
     /// 空发布订阅回调操作实例
@@ -11,12 +11,12 @@ public class NullPubsubCallback : IPubsubCallback {
     public static readonly IPubsubCallback Instance = new NullPubsubCallback();
 
     /// <inheritdoc />
-    public Task OnPublishBefore( PubsubArgument argument ) {
+    public Task OnPublishBefore( PubsubArgument argument, CancellationToken cancellationToken = default ) {
         return Task.CompletedTask;
     }
 
     /// <inheritdoc />
-    public Task OnPublishAfter( PubsubArgument argument ) {
+    public Task OnPublishAfter( PubsubArgument argument, CancellationToken cancellationToken = default ) {
         return Task.CompletedTask;
     }
 }

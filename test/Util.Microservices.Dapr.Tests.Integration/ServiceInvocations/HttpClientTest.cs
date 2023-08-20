@@ -22,9 +22,10 @@ public class HttpClientTest {
     /// 测试初始化
     /// </summary>
     public HttpClientTest( GlobalFixture fixture, IMicroserviceClientFactory factory, ILogger<HttpClientTest> logger ) {
-        _client = factory.AppId( GlobalFixture.WebApiAppId )
-            .DaprHttpPort( fixture.DaprHttpPort )
-            .Create().HttpClient;
+        _client = factory.DaprHttpPort( fixture.DaprHttpPort )
+            .AppId( GlobalFixture.WebApiAppId )
+            .Create()
+            .HttpClient;
         _logger = logger;
     }
 

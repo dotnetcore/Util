@@ -1,5 +1,6 @@
 using Util.Data;
 using Util.Domain.Biz.Enums;
+using Util.Events;
 
 namespace Util.Microservices.Dapr.Tests.Samples; 
 
@@ -87,7 +88,9 @@ public class CustomerDto {
 /// <summary>
 /// 客户参数
 /// </summary>
-public class CustomerDto2 : CustomerDto, IDataKey, IETag {
+public class CustomerDto2 : CustomerDto, IDataKey,IDataType, IETag {
     public string Id { get; set; }
     public string ETag { get; set; }
+    public string DataType { get; set; }
+    public ProductDto Product { get; set; }
 }

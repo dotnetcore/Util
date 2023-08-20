@@ -1,6 +1,7 @@
 ﻿using Serilog;
 using Util.Logging.Serilog;
 
+
 namespace Util.Microservices.Dapr.Tests.Fixtures;
 
 /// <summary>
@@ -56,7 +57,9 @@ public class GlobalFixture : IDisposable {
         var command = DaprRunCommand.Create( appId );
         command
             .Project( $"../../../../../test/{project}/{project}.csproj" )
-            .UseFreePorts()
+            .AppPort( Config.GetValue<int>( "DaprPorts:AppPort" ) )
+            .DaprHttpPort( Config.GetValue<int>( "DaprPorts:HttpPort" ) )
+            .DaprGrpcPort( Config.GetValue<int>( "DaprPorts:GrpcPort" ) )
             .ComponentsPath( "Resources/components/" )
             .ConfigPath( "Resources/configuration/config.yaml" )
             .Log( log )

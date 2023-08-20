@@ -68,6 +68,7 @@ public static class Json {
         if ( options != null )
             return options;
         return new JsonSerializerOptions {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
             Converters = {
                 new DateTimeJsonConverter(),

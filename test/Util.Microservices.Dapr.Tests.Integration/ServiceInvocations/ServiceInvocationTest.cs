@@ -20,11 +20,9 @@ public partial class ServiceInvocationTest {
     /// <summary>
     /// 测试初始化
     /// </summary>
-    public ServiceInvocationTest( GlobalFixture fixture, IMicroserviceClientFactory factory, ILogger<ServiceInvocationTest> logger ) {
-        _serviceInvocation = factory.AppId( GlobalFixture.WebApiAppId )
-            .DaprHttpPort( fixture.DaprHttpPort )
-            .Create()
-            .ServiceInvocation;
+    public ServiceInvocationTest( IServiceInvocation serviceInvocation, ILogger<ServiceInvocationTest> logger ) {
+        _serviceInvocation = serviceInvocation;
+        _serviceInvocation.Service( GlobalFixture.WebApiAppId );
         _logger = logger;
     }
 }

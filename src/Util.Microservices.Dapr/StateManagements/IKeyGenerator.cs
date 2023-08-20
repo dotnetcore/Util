@@ -8,6 +8,6 @@ public interface IKeyGenerator : ISingletonDependency {
     /// 创建状态存储键
     /// </summary>
     /// <typeparam name="TValue">值类型</typeparam>
-    /// <param name="value">值</param>
-    string CreateKey<TValue>( TValue value ) where TValue : IDataKey, IETag;
+    /// <param name="id">标识</param>
+    string CreateKey<TValue>( string id ) where TValue : IDataKey;
 }

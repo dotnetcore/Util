@@ -7,3 +7,7 @@ spec:
   metadata:
   - name: host
     value: localhost
+  - name: databaseName
+    value: util_dapr_tests
+  - name: collectionName
+    value: test

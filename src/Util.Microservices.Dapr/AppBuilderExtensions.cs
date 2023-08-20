@@ -54,6 +54,7 @@ public static class AppBuilderExtensions {
     /// </summary>
     private static JsonSerializerOptions GetJsonSerializerOptions() {
         return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             PropertyNameCaseInsensitive = true,
             NumberHandling = JsonNumberHandling.AllowReadingFromString,
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),

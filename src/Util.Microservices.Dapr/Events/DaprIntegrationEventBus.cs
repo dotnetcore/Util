@@ -165,8 +165,7 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
             return this;
         if ( value.IsEmpty() )
             return this;
-        if ( Metadatas.ContainsKey( key ) )
-            Metadatas.Remove( key );
+        RemoveMetadata( key );
         Metadatas.Add( key, value );
         return this;
     }
@@ -177,6 +176,15 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
             return this;
         foreach ( var item in metadata )
             Metadata( item.Key, item.Value );
+        return this;
+    }
+
+    /// <inheritdoc />
+    public IIntegrationEventBus RemoveMetadata( string key ) {
+        if ( key.IsEmpty() )
+            return this;
+        if ( Metadatas.ContainsKey( key ) )
+            Metadatas.Remove( key );
         return this;
     }
 
@@ -310,9 +318,9 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     protected virtual async Task PublishEventAsync( CloudEvent<IIntegrationEvent> cloudEvent, CancellationToken cancellationToken ) {
         Logger.LogTrace( "Publishing event {@Event} to {PubsubName}.{Topic}", cloudEvent.Data, cloudEvent.Data.PubsubName, cloudEvent.Data.Topic );
         var argument = new PubsubArgument( cloudEvent, Metadatas );
-        await PubsubCallback.OnPublishBefore( argument );
+        await PubsubCallback.OnPublishBefore( argument, cancellationToken );
         await Client.PublishEventAsync( cloudEvent.Data.PubsubName, cloudEvent.Data.Topic, cloudEvent, Metadatas, cancellationToken );
-        await PubsubCallback.OnPublishAfter( argument );
+        await PubsubCallback.OnPublishAfter( argument, cancellationToken );
         if ( OnAfterAction != null )
             await OnAfterAction( cloudEvent.Data, Headers, Metadatas );
     }

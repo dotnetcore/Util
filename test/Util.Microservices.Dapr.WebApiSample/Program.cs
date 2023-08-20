@@ -1,3 +1,4 @@
+using Util.Helpers;
 using Util.Logging.Serilog;
 using Util.Microservices.Dapr;
 
@@ -12,6 +13,8 @@ builder.AsBuild()
     .AddUtil();
 
 var app = builder.Build();
+app.UseCloudEventHeaders();
+app.UseCloudEvents();
 app.UseSwagger();
 app.UseSwaggerUI( options => {
     options.DocumentTitle = "Util.Microservices.Dapr.WebApiSample";

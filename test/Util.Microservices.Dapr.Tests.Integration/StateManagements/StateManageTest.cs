@@ -1,5 +1,4 @@
-﻿using Util.Microservices.Dapr.Tests.Fixtures;
-using Util.Microservices.Dapr.Tests.Samples;
+﻿using Util.Microservices.Dapr.Tests.Samples;
 
 namespace Util.Microservices.Dapr.Tests.StateManagements;
 
@@ -7,9 +6,9 @@ namespace Util.Microservices.Dapr.Tests.StateManagements;
 /// 状态管理测试
 /// </summary>
 [Collection( "Global" )]
-public class StateManageTest {
+public partial class StateManageTest {
     /// <summary>
-    /// 服务调用操作
+    /// 状态管理操作
     /// </summary>
     private readonly IStateManage _stateManage;
     /// <summary>
@@ -20,12 +19,8 @@ public class StateManageTest {
     /// <summary>
     /// 测试初始化
     /// </summary>
-    public StateManageTest( GlobalFixture fixture, IMicroserviceClientFactory factory, ILogger<StateManageTest> logger ) {
-        _stateManage = factory.AppId( GlobalFixture.WebApiAppId )
-            .DaprHttpPort( fixture.DaprHttpPort )
-            .DaprGrpcPort( fixture.DaprGrpcPort )
-            .Create()
-            .StateManage;
+    public StateManageTest( IStateManage stateManage, ILogger<StateManageTest> logger ) {
+        _stateManage = stateManage;
         _logger = logger;
     }
 
@@ -42,7 +37,7 @@ public class StateManageTest {
         await _stateManage.AddAsync( key, dto );
 
         //获取数据并验证
-        var result = await _stateManage.GetStateAsync<CustomerDto>( key );
+        var result = await _stateManage.GetAsync<CustomerDto>( key );
         Assert.Equal( "123",result.Code );
     }
 
@@ -67,7 +62,7 @@ public class StateManageTest {
         var isUpdate = await _stateManage.UpdateAsync( key, dto, eTagData.etag );
 
         //获取数据并验证
-        var result = await _stateManage.GetStateAsync<CustomerDto>( key );
+        var result = await _stateManage.GetAsync<CustomerDto>( key );
         Assert.True( isUpdate );
         Assert.Equal( "456", result.Code );
     }
@@ -102,11 +97,11 @@ public class StateManageTest {
         //添加数据
         await _stateManage.AddAsync( key, dto );
 
-        //多次删除
+        //删除
         await _stateManage.RemoveAsync( key );
 
         //获取数据并验证
-        var result = await _stateManage.GetStateAsync<CustomerDto>( key );
+        var result = await _stateManage.GetAsync<CustomerDto>( key );
         Assert.Null( result );
     }
 
@@ -147,7 +142,7 @@ public class StateManageTest {
         var dto = new CustomerDto2 { Code = "123" };
 
         //添加数据
-        await _stateManage.SaveAsync( dto,key );
+        await _stateManage.SaveAsync( dto,key:key );
 
         //获取数据并验证
         var result = await _stateManage.GetAsync<CustomerDto2>( key );
@@ -156,7 +151,7 @@ public class StateManageTest {
 
         //修改数据
         result.Code = "456";
-        await _stateManage.SaveAsync( result, key );
+        await _stateManage.SaveAsync( result, key: key );
 
         //获取数据并验证
         result = await _stateManage.GetAsync<CustomerDto2>( key );
@@ -197,11 +192,11 @@ public class StateManageTest {
         await _stateManage.CommitAsync();
 
         //获取数据并验证
-        var result = await _stateManage.GetStateAsync<CustomerDto>( key_1 );
+        var result = await _stateManage.GetAsync<CustomerDto>( key_1 );
         Assert.Equal( "4", result.Code );
-        result = await _stateManage.GetStateAsync<CustomerDto>( key_2 );
+        result = await _stateManage.GetAsync<CustomerDto>( key_2 );
         Assert.Null( result );
-        result = await _stateManage.GetStateAsync<CustomerDto>( key_3 );
+        result = await _stateManage.GetAsync<CustomerDto>( key_3 );
         Assert.Equal( "3", result.Code );
     }
 
@@ -219,7 +214,7 @@ public class StateManageTest {
         await _stateManage.AddAsync( key_1, dto_1 );
 
         //获取数据并验证
-        var result = await _stateManage.GetStateAsync<CustomerDto>( key_1 );
+        var result = await _stateManage.GetAsync<CustomerDto>( key_1 );
         Assert.Null( result );
     }
 
@@ -242,7 +237,7 @@ public class StateManageTest {
         await _stateManage.UpdateAsync( key_1, result.value,result.etag );
 
         //获取数据并验证
-        dto_1 = await _stateManage.GetStateAsync<CustomerDto>( key_1 );
+        dto_1 = await _stateManage.GetAsync<CustomerDto>( key_1 );
         Assert.Equal( "1", dto_1.Code );
     }
 
@@ -263,7 +258,7 @@ public class StateManageTest {
         await _stateManage.RemoveAsync( key_1 );
 
         //获取数据并验证
-        dto_1 = await _stateManage.GetStateAsync<CustomerDto>( key_1 );
+        dto_1 = await _stateManage.GetAsync<CustomerDto>( key_1 );
         Assert.Equal( "1", dto_1.Code );
     }
 
@@ -285,21 +280,22 @@ public class StateManageTest {
     }
 
     /// <summary>
-    /// 测试根据键批量获取
+    /// 测试通过标识删除数据
     /// </summary>
     [Fact]
     public async Task Test_12() {
-        //添加数据1
-        var dto_1 = new CustomerDto2 { Code = "1" };
-        var key_1 = await _stateManage.SaveAsync( dto_1 );
+        //变量定义
+        var key = $"key_Test_12_{Id.Create()}";
+        var dto = new CustomerDto2 { Code = "123" };
 
-        //添加数据2
-        var dto_2 = new CustomerDto2 { Code = "2" };
-        var key_2 = await _stateManage.SaveAsync( dto_2 );
+        //添加数据
+        await _stateManage.AddAsync( key, dto );
+
+        //删除
+        await _stateManage.RemoveByIdAsync<CustomerDto2>( dto.Id );
 
         //获取数据并验证
-        var result = await _stateManage.GetAsync<CustomerDto2>( new []{ key_1, key_2 } );
-        Assert.Contains( result, t => t.Code == "1" );
-        Assert.Contains( result, t => t.Code == "2" );
+        var result = await _stateManage.GetAsync<CustomerDto2>( key );
+        Assert.Null( result );
     }
 }

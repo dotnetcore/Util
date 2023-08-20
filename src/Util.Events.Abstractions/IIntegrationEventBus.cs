@@ -57,6 +57,11 @@ public interface IIntegrationEventBus : ITransientDependency {
     /// <param name="metadata">元数据键值对集合</param>
     IIntegrationEventBus Metadata( IDictionary<string, string> metadata );
     /// <summary>
+    /// 移除元数据
+    /// </summary>
+    /// <param name="key">键</param>
+    IIntegrationEventBus RemoveMetadata( string key );
+    /// <summary>
     /// 设置云事件属性: type
     /// </summary>
     /// <param name="value">值</param>

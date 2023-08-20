@@ -93,6 +93,11 @@ public class NullIntegrationEventBus : IIntegrationEventBus {
     }
 
     /// <inheritdoc />
+    public IIntegrationEventBus RemoveMetadata( string key ) {
+        return this;
+    }
+
+    /// <inheritdoc />
     public IIntegrationEventBus Type( string value ) {
         return this;
     }

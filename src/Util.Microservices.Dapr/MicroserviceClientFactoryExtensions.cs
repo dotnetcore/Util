@@ -3,7 +3,7 @@
 /// <summary>
 /// 微服务客户端工厂扩展
 /// </summary>
-public static class IMicroserviceClientFactoryExtensions {
+public static class MicroserviceClientFactoryExtensions {
     /// <summary>
     /// 设置应用标识
     /// </summary>

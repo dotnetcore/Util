@@ -98,6 +98,8 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
     /// 获取Dapr Http端点
     /// </summary>
     protected virtual string GetDaprHttpEndpoint() {
+        if ( _daprHttpPort == 0 )
+            _daprHttpPort = Util.Helpers.Environment.GetEnvironmentVariable<int>( "DAPR_HTTP_ENDPOINT" );
         return _daprHttpPort > 0 ? $"http://localhost:{_daprHttpPort}" : null;
     }
 
@@ -105,6 +107,8 @@ public class DaprMicroserviceClientFactory : IMicroserviceClientFactory {
     /// 获取Dapr Grpc端点
     /// </summary>
     protected virtual string GetDaprGrpcEndpoint() {
+        if ( _daprGrpcPort == 0 )
+            _daprGrpcPort = Util.Helpers.Environment.GetEnvironmentVariable<int>( "DAPR_GRPC_ENDPOINT" );
         return _daprGrpcPort > 0 ? $"http://localhost:{_daprGrpcPort}" : null;
     }
 

@@ -5,7 +5,7 @@
 /// </summary>
 public class KeyGenerator : IKeyGenerator {
     /// <inheritdoc />
-    public string CreateKey<TValue>( TValue value ) where TValue : IDataKey, IETag {
-        return value == null ? null : $"{value.GetType().FullName!.Replace( ".", "_" )}_{value.Id}";
+    public string CreateKey<TValue>( string id ) where TValue : IDataKey {
+        return id.IsEmpty() ? null : $"{typeof( TValue ).Name!.Replace( ".", "_" )}_{id}";
     }
 }

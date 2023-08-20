@@ -12,6 +12,7 @@ global using System.Text.Encodings.Web;
 global using System.Text.Json.Serialization;
 global using System.Text.Unicode;
 global using System.Net;
+global using System.Linq.Expressions;
 global using Microsoft.Extensions.Primitives;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
