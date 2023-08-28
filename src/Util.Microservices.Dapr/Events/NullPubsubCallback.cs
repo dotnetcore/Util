@@ -19,4 +19,24 @@ public class NullPubsubCallback : IPubsubCallback {
     public Task OnPublishAfter( PubsubArgument argument, CancellationToken cancellationToken = default ) {
         return Task.CompletedTask;
     }
+
+    /// <inheritdoc />
+    public Task OnSubscriptionBefore( IntegrationEventLog integrationEventLog, string routeUrl, CancellationToken cancellationToken = default ) {
+        return Task.CompletedTask;
+    }
+
+    /// <inheritdoc />
+    public Task OnSubscriptionAfter( string eventId, bool isSuccess,string message, CancellationToken cancellationToken = default ) {
+        return Task.CompletedTask;
+    }
+
+    /// <inheritdoc />
+    public Task OnRepublishBefore( IntegrationEventLog eventLog, CancellationToken cancellationToken = default ) {
+        return Task.CompletedTask;
+    }
+
+    /// <inheritdoc />
+    public Task OnRepublishAfter( IntegrationEventLog eventLog, CancellationToken cancellationToken = default ) {
+        return Task.CompletedTask;
+    }
 }

@@ -305,6 +305,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Microservices.Healt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Microservices.Dapr.WebApiSample", "test\Util.Microservices.Dapr.WebApiSample\Util.Microservices.Dapr.WebApiSample.csproj", "{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Microservices.Dapr.PubsubSample", "test\Util.Microservices.Dapr.PubsubSample\Util.Microservices.Dapr.PubsubSample.csproj", "{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -747,6 +749,10 @@ Global
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -898,6 +904,7 @@ Global
 		{DF1E55A5-7EA8-41B2-BEBA-72544D256069} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
 		{9C58E50F-0589-4A4E-B94D-2EC0BF02F61F} = {1DEC52C8-6692-4DA7-AE34-B76D728F895A}
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
+		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94347832-A36D-4C42-9C4D-B848BD4F5DA9}

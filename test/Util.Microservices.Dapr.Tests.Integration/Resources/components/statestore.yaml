@@ -10,4 +10,4 @@ spec:
   - name: databaseName
     value: util_dapr_tests
   - name: collectionName
-    value: test
+    value: default

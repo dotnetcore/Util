@@ -6,7 +6,9 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Extensions;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 using Config = Util.Ui.Configs.Config;
 
 namespace Util.Ui.NgZorro.Components.Base; 
@@ -204,6 +206,16 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
             Attribute( $"#{FormItemShareConfig.ValidationExtendId}", "xValidationExtend" );
             AttributeIfNotEmpty( "displayName", FormItemShareConfig.LabelText );
         }
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置全局输入框设置 autocomplete="off"
+    /// </summary>
+    protected TBuilder AutocompleteOff() {
+        var options = NgZorroOptionsService.GetOptions();
+        if( options.EnableAutocompleteOff )
+            Attribute( "autocomplete", "off" );
         return (TBuilder)this;
     }
 }

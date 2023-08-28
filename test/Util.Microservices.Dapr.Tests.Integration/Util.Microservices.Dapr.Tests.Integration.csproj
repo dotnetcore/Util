@@ -50,7 +50,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Resources\components\pubsub.yaml">
+		<None Update="Resources\components\resiliency-pubsub.yaml">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\components\pubsub.yaml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\components\event-state-store.yaml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="Resources\components\statestore.yaml">

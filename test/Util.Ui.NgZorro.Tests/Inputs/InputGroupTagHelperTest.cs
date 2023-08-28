@@ -1,7 +1,9 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -27,6 +29,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         public InputGroupTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new InputGroupTagHelper().ToWrapper();
+            Id.SetId( "id" );
         }
 
         /// <summary>
@@ -322,6 +325,81 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试添加带验证模板的输入框
+        /// </summary>
+        [Fact]
+        public void TestInput_Validation() {
+            //创建输入框
+            var input = new InputTagHelper().ToWrapper();
+            input.SetContextAttribute( UiConst.LabelText, "code" );
+            input.SetContextAttribute( UiConst.Required, "true" );
+            input.SetContextAttribute( AngularConst.NgModel, "model.code" );
+            _wrapper.AppendContent( input );
+
+            //结果
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>code</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-input-group>" );
+            result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"code\" " );
+            result.Append( "nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );
+            result.Append( "[x-required-extend]=\"true\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+
+            //执行
+            var html = _wrapper.GetResult();
+            _output.WriteLine( html );
+
+            //验证
+            Assert.Equal( result.ToString(), html );
+        }
+
+        /// <summary>
+        /// 测试添加带验证模板的输入框 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestInput_Validation_I18n() {
+            //开启多语言
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+
+            //创建输入框
+            var input = new InputTagHelper().ToWrapper();
+            input.SetContextAttribute( UiConst.LabelText, "code" );
+            input.SetContextAttribute( UiConst.Required, "true" );
+            input.SetContextAttribute( AngularConst.NgModel, "model.code" );
+            _wrapper.AppendContent( input );
+
+            //结果
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label>{{'code'|i18n}}</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-input-group>" );
+            result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"code\" " );
+            result.Append( "nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );
+            result.Append( "[x-required-extend]=\"true\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+
+            //执行
+            var html = _wrapper.GetResult();
+            _output.WriteLine( html );
+
+            //验证
+            Assert.Equal( result.ToString(), html );
         }
     }
 }

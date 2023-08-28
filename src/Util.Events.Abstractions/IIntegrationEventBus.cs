@@ -83,4 +83,10 @@ public interface IIntegrationEventBus : ITransientDependency {
     /// <param name="event">事件</param>
     /// <param name="cancellationToken">取消令牌</param>
     Task PublishAsync<TEvent>( TEvent @event, CancellationToken cancellationToken = default ) where TEvent : IIntegrationEvent;
+    /// <summary>
+    /// 重新发布集成事件
+    /// </summary>
+    /// <param name="eventId">事件标识</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    Task RepublishAsync( string eventId, CancellationToken cancellationToken = default );
 }

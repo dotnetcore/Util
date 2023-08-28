@@ -1,9 +1,14 @@
-﻿namespace Util.Microservices.Dapr.Events;
+﻿using Util.Helpers;
+
+namespace Util.Microservices.Dapr.Events;
 
 /// <summary>
 /// 基于Dapr的集成事件总线
 /// </summary>
 public class DaprIntegrationEventBus : IIntegrationEventBus {
+
+    #region 字段
+
     /// <summary>
     /// Dapr客户端
     /// </summary>
@@ -24,6 +29,10 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     /// 发布订阅回调操作
     /// </summary>
     protected IPubsubCallback PubsubCallback;
+    /// <summary>
+    /// 集成事件管理器
+    /// </summary>
+    protected IIntegrationEventManager EventManager;
     /// <summary>
     /// 是否立即发送事件
     /// </summary>
@@ -65,6 +74,10 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     /// </summary>
     protected Func<IIntegrationEvent, Dictionary<string, string>, Dictionary<string, string>, Task> OnAfterAction;
 
+    #endregion
+
+    #region 构造方法
+
     /// <summary>
     /// 初始化Dapr集成事件总线
     /// </summary>
@@ -80,11 +93,16 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         ActionManager = serviceProvider.GetService<IUnitOfWorkActionManager>();
         ActionManager.CheckNull( nameof( ActionManager ) );
         PubsubCallback = serviceProvider.GetService<IPubsubCallback>() ?? NullPubsubCallback.Instance;
+        EventManager = serviceProvider.GetRequiredService<IIntegrationEventManager>();
         Headers = new Dictionary<string, string>();
         ImportHeaderKeys = new List<string>();
         RemoveHeaderKeys = new List<string>();
         Metadatas = new Dictionary<string, string>();
     }
+
+    #endregion
+
+    #region SendNow
 
     /// <inheritdoc />
     public IIntegrationEventBus SendNow( bool isSend ) {
@@ -92,17 +110,29 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         return this;
     }
 
+    #endregion
+
+    #region PubsubName
+
     /// <inheritdoc />
     public IIntegrationEventBus PubsubName( string pubsubName ) {
         Pubsub = pubsubName;
         return this;
     }
 
+    #endregion
+
+    #region Topic
+
     /// <inheritdoc />
     public IIntegrationEventBus Topic( string topic ) {
         TopicName = topic;
         return this;
     }
+
+    #endregion
+
+    #region Header
 
     /// <inheritdoc />
     public IIntegrationEventBus Header( string key, string value ) {
@@ -122,6 +152,10 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
             Header( header.Key, header.Value );
         return this;
     }
+
+    #endregion
+
+    #region ImportHeader
 
     /// <summary>
     /// 从当前HttpContext导入请求头
@@ -147,6 +181,10 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         return this;
     }
 
+    #endregion
+
+    #region RemoveHeader
+
     /// <summary>
     /// 移除请求头
     /// </summary>
@@ -158,6 +196,10 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
             RemoveHeaderKeys.Add( key );
         return this;
     }
+
+    #endregion
+
+    #region Metadata
 
     /// <inheritdoc />
     public IIntegrationEventBus Metadata( string key, string value ) {
@@ -179,6 +221,10 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         return this;
     }
 
+    #endregion
+
+    #region RemoveMetadata
+
     /// <inheritdoc />
     public IIntegrationEventBus RemoveMetadata( string key ) {
         if ( key.IsEmpty() )
@@ -188,11 +234,19 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         return this;
     }
 
+    #endregion
+
+    #region Type
+
     /// <inheritdoc />
     public IIntegrationEventBus Type( string value ) {
         CloudEventType = value;
         return this;
     }
+
+    #endregion
+
+    #region OnBefore
 
     /// <inheritdoc />
     public IIntegrationEventBus OnBefore( Func<IIntegrationEvent, Dictionary<string, string>, Dictionary<string, string>, bool> action ) {
@@ -200,26 +254,34 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         return this;
     }
 
+    #endregion
+
+    #region OnAfter
+
     /// <inheritdoc />
     public IIntegrationEventBus OnAfter( Func<IIntegrationEvent, Dictionary<string, string>, Dictionary<string, string>, Task> action ) {
         OnAfterAction = action;
         return this;
     }
 
+    #endregion
+
+    #region PublishAsync
+
     /// <inheritdoc />
     public virtual async Task PublishAsync<TEvent>( TEvent @event, CancellationToken cancellationToken = default ) where TEvent : IIntegrationEvent {
         @event.CheckNull( nameof( @event ) );
         cancellationToken.ThrowIfCancellationRequested();
         ImportHeaders();
-        var cloudEvent = CreateCloudEvent( @event );
-        if ( OnBeforeAction != null && OnBeforeAction( cloudEvent.Data, cloudEvent.Headers, Metadatas ) == false )
+        Init( @event );
+        if ( OnBeforeAction != null && OnBeforeAction( @event, Headers, Metadatas ) == false )
             return;
-        if ( cloudEvent.Data.SendNow ) {
-            await PublishEventAsync( cloudEvent, cancellationToken );
+        if ( IsSend.SafeValue() ) {
+            await PublishEventAsync( @event, cancellationToken );
             return;
         }
         ActionManager.Register( async () => {
-            await PublishEventAsync( cloudEvent, cancellationToken );
+            await PublishEventAsync( @event, cancellationToken );
         } );
     }
 
@@ -247,7 +309,7 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     /// </summary>
     private void SetHeaders() {
         var headers = GetImportHeaders();
-        foreach ( var item in headers ) 
+        foreach ( var item in headers )
             Headers.TryAdd( item.Key, item.Value );
     }
 
@@ -259,7 +321,7 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         ImportHeaderKeys.AddRange( Options.Pubsub.ImportHeaderKeys );
         if ( ImportHeaderKeys.Count == 0 )
             return result;
-        var headers = Util.Helpers.Web.Request?.Headers;
+        var headers = Web.Request?.Headers;
         if ( headers == null )
             return result;
         foreach ( var key in ImportHeaderKeys.Distinct() ) {
@@ -270,58 +332,121 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     }
 
     /// <summary>
-    /// 创建云事件
+    /// 初始化
     /// </summary>
-    protected CloudEvent<IIntegrationEvent> CreateCloudEvent( IIntegrationEvent @event ) {
-        var integrationEvent = GetIntegrationEvent( @event );
-        return new CloudEvent<IIntegrationEvent>( integrationEvent.EventId, integrationEvent ) {
-            Type = CloudEventType,
-            Headers = Headers
-        };
+    protected void Init( IIntegrationEvent integrationEvent ) {
+        InitIsSend( integrationEvent );
+        InitPubsubName( integrationEvent );
+        InitTopic( integrationEvent );
     }
 
     /// <summary>
-    /// 获取事件
+    /// 初始化是否立即发送
     /// </summary>
-    protected virtual IIntegrationEvent GetIntegrationEvent( IIntegrationEvent integrationEvent ) {
-        if ( integrationEvent.SendNow == IsSend && integrationEvent.PubsubName == Pubsub && integrationEvent.Topic == TopicName )
-            return integrationEvent;
-        if ( integrationEvent is not IntegrationEvent @event )
-            return integrationEvent;
-        return @event with { SendNow = GetSendNow( integrationEvent ), PubsubName = GetPubsubName( integrationEvent ),Topic = GetTopic(integrationEvent) };
+    protected void InitIsSend( IIntegrationEvent integrationEvent ) {
+        if ( IsSend != null )
+            return;
+        IsSend = true;
+        if ( integrationEvent is not IIntegrationEventExtend extend )
+            return;
+        if ( extend.SendNow != null )
+            IsSend = extend.SendNow;
     }
 
     /// <summary>
-    /// 获取是否立即发送
+    /// 初始化发布订阅配置名称
     /// </summary>
-    protected bool GetSendNow( IIntegrationEvent integrationEvent ) {
-        return IsSend == null ? integrationEvent.SendNow : IsSend.SafeValue();
+    protected void InitPubsubName( IIntegrationEvent integrationEvent ) {
+        if ( Pubsub.IsEmpty() == false )
+            return;
+        Pubsub = "pubsub";
+        if ( integrationEvent is not IIntegrationEventExtend extend )
+            return;
+        if ( extend.PubsubName.IsEmpty() == false )
+            Pubsub = extend.PubsubName;
     }
 
     /// <summary>
-    /// 获取发布订阅配置名称
+    /// 初始化事件主题
     /// </summary>
-    protected string GetPubsubName( IIntegrationEvent integrationEvent ) {
-        return Pubsub.IsEmpty()? integrationEvent.PubsubName : Pubsub;
-    }
-
-    /// <summary>
-    /// 获取事件主题
-    /// </summary>
-    protected string GetTopic( IIntegrationEvent integrationEvent ) {
-        return TopicName.IsEmpty() ? integrationEvent.Topic : TopicName;
+    protected void InitTopic( IIntegrationEvent integrationEvent ) {
+        if ( TopicName.IsEmpty() == false )
+            return;
+        TopicName = integrationEvent.GetType().Name;
+        if ( integrationEvent is not IIntegrationEventExtend extend )
+            return;
+        if ( extend.Topic.IsEmpty() == false )
+            TopicName = extend.Topic;
     }
 
     /// <summary>
     /// 发布事件
     /// </summary>
-    protected virtual async Task PublishEventAsync( CloudEvent<IIntegrationEvent> cloudEvent, CancellationToken cancellationToken ) {
-        Logger.LogTrace( "Publishing event {@Event} to {PubsubName}.{Topic}", cloudEvent.Data, cloudEvent.Data.PubsubName, cloudEvent.Data.Topic );
-        var argument = new PubsubArgument( cloudEvent, Metadatas );
+    protected virtual async Task PublishEventAsync( IIntegrationEvent @event, CancellationToken cancellationToken ) {
+        Logger.LogTrace( "Publishing event {@Event} to {PubsubName}.{Topic}", @event, Pubsub, TopicName );
+        var cloudEvent = CreateCloudEvent( @event );
+        var argument = CreatePubsubArgument( cloudEvent );
         await PubsubCallback.OnPublishBefore( argument, cancellationToken );
-        await Client.PublishEventAsync( cloudEvent.Data.PubsubName, cloudEvent.Data.Topic, cloudEvent, Metadatas, cancellationToken );
+        await Client.PublishEventAsync( Pubsub, TopicName, cloudEvent, Metadatas, cancellationToken );
         await PubsubCallback.OnPublishAfter( argument, cancellationToken );
         if ( OnAfterAction != null )
-            await OnAfterAction( cloudEvent.Data, Headers, Metadatas );
+            await OnAfterAction( @event, Headers, Metadatas );
     }
+
+    /// <summary>
+    /// 创建云事件
+    /// </summary>
+    protected CloudEvent<object> CreateCloudEvent( IIntegrationEvent @event ) {
+        var result = new CloudEvent<object>( @event.EventId, @event ) {
+            Type = CloudEventType,
+            Headers = Headers.Count > 0 ? Headers : null
+        };
+        return result;
+    }
+
+    /// <summary>
+    /// 创建发布订阅参数
+    /// </summary>
+    protected PubsubArgument CreatePubsubArgument( CloudEvent<object> cloudEvent ) {
+        return Metadatas.Count > 0 ? new PubsubArgument( Pubsub, TopicName, cloudEvent, Metadatas ) : new PubsubArgument( Pubsub, TopicName, cloudEvent );
+    }
+
+    #endregion
+
+    #region RepublishAsync
+
+    /// <inheritdoc />
+    public virtual async Task RepublishAsync( string eventId, CancellationToken cancellationToken = default ) {
+        if ( Options.Pubsub.EnableEventLog == false )
+            return;
+        if ( eventId.IsEmpty() ) {
+            Logger.LogWarning( "重新发布集成事件失败,事件标识不能为空." );
+            return;
+        }
+        var eventLog = await EventManager.GetAsync( eventId, cancellationToken );
+        await RepublishAsync( eventLog, cancellationToken );
+    }
+
+    /// <summary>
+    /// 重新发布集成事件
+    /// </summary>
+    /// <param name="eventLog">集成事件日志记录</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    protected virtual async Task RepublishAsync( IntegrationEventLog eventLog, CancellationToken cancellationToken = default ) {
+        eventLog.CheckNull( nameof( eventLog ) );
+        eventLog.SubscriptionLogs.ForEach( t => {
+            if ( t.State == SubscriptionState.Fail )
+                t.RetryCount = 0;
+        } );
+        await EventManager.SaveAsync( eventLog, cancellationToken );
+        var json = Util.Helpers.Json.ToJson( eventLog.Value );
+        var argument = Util.Helpers.Json.ToObject<PubsubArgument<CloudEvent<object>>>( json );
+        var cloudEvent = argument.GetEventData<CloudEvent<object>>();
+        Logger.LogTrace( "Republishing event {@Event} to {PubsubName}.{Topic}", cloudEvent.Data, eventLog.PubsubName, eventLog.Topic );
+        await PubsubCallback.OnRepublishBefore( eventLog, cancellationToken );
+        await Client.PublishEventAsync( eventLog.PubsubName, eventLog.Topic, cloudEvent, argument.Metadata ?? new Dictionary<string, string>(), cancellationToken );
+        await PubsubCallback.OnRepublishAfter( eventLog, cancellationToken );
+    }
+
+    #endregion
 }

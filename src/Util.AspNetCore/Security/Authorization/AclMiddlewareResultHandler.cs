@@ -1,6 +1,4 @@
-﻿using Util.Applications;
-
-namespace Util.Security.Authorization; 
+﻿namespace Util.Security.Authorization; 
 
 /// <summary>
 /// 授权中间件结果处理器
@@ -16,8 +14,9 @@ public class AclMiddlewareResultHandler : IAuthorizationMiddlewareResultHandler 
     /// </summary>
     public async Task HandleAsync( RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult ) {
         if ( authorizeResult.Succeeded == false ) {
-            context.Response.StatusCode = 200;
-            await context.Response.WriteAsJsonAsync( new { Code = StateCode.Unauthorized } );
+            var factory = context.RequestServices.GetRequiredService<IUnauthorizedResultFactory>();
+            context.Response.StatusCode = factory.HttpStatusCode;
+            await context.Response.WriteAsJsonAsync( factory.CreateResult( context ) );
             return;
         }
         await defaultHandler.HandleAsync( next, context, policy, authorizeResult );

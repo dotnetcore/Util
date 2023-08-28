@@ -132,6 +132,6 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
             .Required().RequiredMessage()
             .MinLength().MinLengthMessage()
             .MaxLength()
-            .ValidationExtend();
+            .ValidationExtend().AutocompleteOff();
     }
 }

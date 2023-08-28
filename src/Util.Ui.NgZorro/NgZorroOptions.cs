@@ -20,4 +20,8 @@ public class NgZorroOptions {
     /// 是否启用多语言
     /// </summary>
     public bool EnableI18n { get; set; }
+    /// <summary>
+    /// 是否启用全局输入框设置 autocomplete="off"
+    /// </summary>
+    public bool EnableAutocompleteOff { get; set; }
 }

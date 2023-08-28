@@ -9,7 +9,7 @@ using Util.SystemTextJson;
 using Util.Tests.Samples;
 using Xunit;
 
-namespace Util.Tests.Helpers; 
+namespace Util.Tests.Helpers;
 
 /// <summary>
 /// Json测试
@@ -26,11 +26,11 @@ public class JsonTest {
         result.Append( "\"Name\":\"a\"," );
         result.Append( "\"nickname\":\"b\"," );
         result.Append( "\"firstName\":\"c\"," );
-        result.Append( "\"Value\":null," );
         result.Append( "\"Date\":\"2012-12-12 20:12:12\"," );
         result.Append( "\"UtcDate\":\"2012-12-12 20:12:12\"," );
         result.Append( "\"Age\":1," );
-        result.Append( "\"IsShow\":true" );
+        result.Append( "\"IsShow\":true," );
+        result.Append( "\"Enum\":0" );
         result.Append( "}" );
         var sample = JsonTestSample.Create();
         Assert.Equal( result.ToString(), Json.ToJson( sample ) );
@@ -46,14 +46,14 @@ public class JsonTest {
         result.Append( "Name:a," );
         result.Append( "nickname:b," );
         result.Append( "firstName:c," );
-        result.Append( "Value:null," );
         result.Append( "Date:2012-12-12 20:12:12," );
         result.Append( "UtcDate:2012-12-12 20:12:12," );
         result.Append( "Age:1," );
-        result.Append( "IsShow:true" );
+        result.Append( "IsShow:true," );
+        result.Append( "Enum:0" );
         result.Append( "}" );
         var sample = JsonTestSample.Create();
-        Assert.Equal( result.ToString(), Json.ToJson( sample,removeQuotationMarks: true ) );
+        Assert.Equal( result.ToString(), Json.ToJson( sample, removeQuotationMarks: true ) );
     }
 
     /// <summary>
@@ -66,14 +66,14 @@ public class JsonTest {
         result.Append( "'Name':'a'," );
         result.Append( "'nickname':'b'," );
         result.Append( "'firstName':'c'," );
-        result.Append( "'Value':null," );
         result.Append( "'Date':'2012-12-12 20:12:12'," );
         result.Append( "'UtcDate':'2012-12-12 20:12:12'," );
         result.Append( "'Age':1," );
-        result.Append( "'IsShow':true" );
+        result.Append( "'IsShow':true," );
+        result.Append( "'Enum':0" );
         result.Append( "}" );
         var sample = JsonTestSample.Create();
-        Assert.Equal( result.ToString(), Json.ToJson( sample,toSingleQuotes: true ) );
+        Assert.Equal( result.ToString(), Json.ToJson( sample, toSingleQuotes: true ) );
     }
 
     /// <summary>
@@ -87,11 +87,11 @@ public class JsonTest {
         result.Append( "\"Name\":\"a\"," );
         result.Append( "\"nickname\":\"b\"," );
         result.Append( "\"firstName\":\"c\"," );
-        result.Append( "\"Value\":null," );
         result.Append( "\"Date\":\"2012-12-12 20:12:12\"," );
         result.Append( "\"UtcDate\":\"2012-12-12 20:12:12\"," );
         result.Append( "\"Age\":1," );
-        result.Append( "\"IsShow\":true" );
+        result.Append( "\"IsShow\":true," );
+        result.Append( "\"Enum\":0" );
         result.Append( "}" );
         var sample = JsonTestSample.CreateToInterface();
         Assert.Equal( result.ToString(), Json.ToJson( sample ) );
@@ -107,11 +107,11 @@ public class JsonTest {
         result.Append( "\"Name\":\"a\"," );
         result.Append( "\"nickname\":\"b\"," );
         result.Append( "\"firstName\":\"c\"," );
-        result.Append( "\"Value\":null," );
         result.Append( "\"Date\":\"2012-12-12 20:12:12\"," );
         result.Append( "\"UtcDate\":\"2012-12-12 20:12:12\"," );
         result.Append( "\"Age\":1," );
-        result.Append( "\"IsShow\":true" );
+        result.Append( "\"IsShow\":true," );
+        result.Append( "\"Enum\":0" );
         result.Append( "}" );
         var sample = JsonTestSample.Create();
         var json = await Json.ToJsonAsync( sample );
@@ -148,7 +148,8 @@ public class JsonTest {
         result.Append( "\"firstName\":\"c\"," );
         result.Append( "\"Date\":\"2012-12-12 12:12:12\"," );
         result.Append( "\"Age\":1," );
-        result.Append( "\"IsShow\":true" );
+        result.Append( "\"IsShow\":true," );
+        result.Append( "\"Enum\":0" );
         result.Append( "}" );
         var sample = new JsonTestSample() {
             Name = "哈哈",
@@ -164,5 +165,27 @@ public class JsonTest {
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
             Converters = { new NullableDateTimeJsonConverter() }
         } ) );
+    }
+
+    /// <summary>
+    /// 测试转成Json - 枚举转换器
+    /// </summary>
+    [Fact]
+    public void Test_Enum() {
+        var sample = new JsonTestSample() {
+            Enum = TestEnum.Test2,
+            NullableEnum = TestEnum.Test2
+        };
+        var json = Json.ToJson( sample,
+            new JsonSerializerOptions {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+                Converters = { new EnumJsonConverterFactory() }
+            } );
+
+        var result = Json.ToObject<JsonTestSample>( json, new JsonSerializerOptions() {
+            Converters = { new EnumJsonConverterFactory() }
+        } );
+        Assert.True( result.Enum == TestEnum.Test2 );
+        Assert.True( result.NullableEnum == TestEnum.Test2 );
     }
 }

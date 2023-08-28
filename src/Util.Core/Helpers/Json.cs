@@ -135,8 +135,8 @@ public static class Json {
     /// 将Json字符串转换为对象
     /// </summary>
     /// <param name="json">Json字符串</param>
+    /// <param name="returnType">返回类型</param>
     /// <param name="options">序列化配置</param>
-    /// <param name="returnType">序列化配置</param>
     public static object ToObject( string json, Type returnType, JsonSerializerOptions options = null ) {
         if ( string.IsNullOrWhiteSpace( json ) )
             return default;
@@ -159,6 +159,30 @@ public static class Json {
                 new NullableDateTimeJsonConverter()
             }
         };
+    }
+
+    /// <summary>
+    /// 将Json字节数组转换为对象
+    /// </summary>
+    /// <param name="json">Json字节数组</param>
+    /// <param name="options">序列化配置</param>
+    public static T ToObject<T>( byte[] json, JsonSerializerOptions options = null ) {
+        if ( json == null )
+            return default;
+        options = GetToObjectOptions( options );
+        return JsonSerializer.Deserialize<T>( json, options );
+    }
+
+    /// <summary>
+    /// 将Json字节流转换为对象
+    /// </summary>
+    /// <param name="json">Json字节流</param>
+    /// <param name="options">序列化配置</param>
+    public static T ToObject<T>( Stream json, JsonSerializerOptions options = null ) {
+        if ( json == null )
+            return default;
+        options = GetToObjectOptions( options );
+        return JsonSerializer.Deserialize<T>( json, options );
     }
 
     /// <summary>
@@ -188,6 +212,19 @@ public static class Json {
             return default;
         options = GetToObjectOptions( options );
         return await JsonSerializer.DeserializeAsync<T>( json, options, cancellationToken );
+    }
+
+    /// <summary>
+    /// 将Json流转换为对象
+    /// </summary>
+    /// <param name="json">Json流</param>
+    /// <param name="options">序列化配置</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task<T> ToObjectAsync<T>( byte[] json, JsonSerializerOptions options = null, CancellationToken cancellationToken = default ) {
+        if ( json == null )
+            return default;
+        await using var stream = new MemoryStream( json );
+        return await ToObjectAsync<T>( stream, options, cancellationToken );
     }
 
     /// <summary>

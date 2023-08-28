@@ -88,7 +88,7 @@ public abstract class FormControlRenderBase : IRender {
     /// <summary>
     /// 获取表单项
     /// </summary>
-    private TagBuilder GetFormItem() {
+    protected virtual TagBuilder GetFormItem() {
         TagBuilder builder = new EmptyContainerTagBuilder();
         if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormItem == true )
             builder = new FormItemBuilder( _config.CopyRemoveAttributes() );
@@ -99,9 +99,9 @@ public abstract class FormControlRenderBase : IRender {
     /// <summary>
     /// 获取表单标签
     /// </summary>
-    private TagBuilder GetFormLabel() {
+    protected virtual TagBuilder GetFormLabel() {
         if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormLabel == true ) {
-            var builder = new FormLabelBuilder( _config.CopyRemoveAttributes() );
+            var builder = new FormLabelBuilder( GetFormLabelConfig() );
             builder.Config();
             SetLabelText( builder );
             return builder;
@@ -110,9 +110,18 @@ public abstract class FormControlRenderBase : IRender {
     }
 
     /// <summary>
+    /// 获取表单标签配置
+    /// </summary>
+    protected Config GetFormLabelConfig() {
+        var result = _config.CopyRemoveAttributes();
+        result.Content = null;
+        return result;
+    }
+
+    /// <summary>
     /// 设置表单标签文本
     /// </summary>
-    private void SetLabelText( FormLabelBuilder builder ) {
+    protected virtual void SetLabelText( FormLabelBuilder builder ) {
         var options = NgZorroOptionsService.GetOptions();
         if ( options.EnableI18n ) {
             builder.AppendContentByI18n( _shareConfig.LabelText );
@@ -124,13 +133,14 @@ public abstract class FormControlRenderBase : IRender {
     /// <summary>
     /// 获取表单控件
     /// </summary>
-    private TagBuilder GetFormControl() {
+    protected virtual TagBuilder GetFormControl() {
         TagBuilder builder = new EmptyContainerTagBuilder();
         if( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormControl == true )
             builder = new FormControlBuilder( _config.CopyRemoveAttributes() );
         builder.Config();
         AppendControl( builder );
-        AppendValidationTempalte( builder );
+        if( IsAppendValidationTempalte() )
+            AppendValidationTempalte( builder );
         return builder;
     }
 
@@ -141,9 +151,16 @@ public abstract class FormControlRenderBase : IRender {
     }
 
     /// <summary>
+    /// 是否添加验证模板
+    /// </summary>
+    protected virtual bool IsAppendValidationTempalte() {
+        return true;
+    }
+
+    /// <summary>
     /// 添加验证模板
     /// </summary>
-    private void AppendValidationTempalte( TagBuilder formControlBuilder ) {
+    protected virtual void AppendValidationTempalte( TagBuilder formControlBuilder ) {
         if ( _shareConfig.ValidationTempalteId.IsEmpty() )
             return;
         var templateBuilder = new TemplateBuilder( _config.CopyRemoveAttributes() );

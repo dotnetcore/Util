@@ -256,7 +256,9 @@ public partial class DaprStateManageBase<TStateManage> : IStateManageBase<TState
 
     #region JsonType
 
-    /// <inheritdoc />
+    /// <summary>
+    /// 设置contentType为application/json
+    /// </summary>
     public TStateManage JsonType() {
         return ContentType( "application/json" );
     }
@@ -285,8 +287,7 @@ public partial class DaprStateManageBase<TStateManage> : IStateManageBase<TState
     protected virtual void InitAdd<TValue>( TValue value ) {
         InitId( value );
         InitDataType( value );
-        if ( IsDataKey<TValue>() || IsDataType<TValue>() )
-            JsonType();
+        InitJsonType<TValue>();
     }
 
     /// <summary>
@@ -305,6 +306,16 @@ public partial class DaprStateManageBase<TStateManage> : IStateManageBase<TState
     protected virtual void InitDataType<TValue>( TValue value ) {
         if ( value is IDataType dataType )
             dataType.DataType = typeof( TValue ).FullName;
+    }
+
+    /// <summary>
+    /// 初始化Json内容类型
+    /// </summary>
+    protected virtual void InitJsonType<TValue>() {
+        var type = typeof( TValue );
+        if ( type == typeof( string ) )
+            return;
+        JsonType();
     }
 
     /// <summary>
@@ -332,6 +343,7 @@ public partial class DaprStateManageBase<TStateManage> : IStateManageBase<TState
     public async Task<bool> UpdateAsync<TValue>( string key, TValue value, string etag, CancellationToken cancellationToken = default ) {
         if ( key.IsEmpty() )
             throw new ArgumentNullException( nameof( key ) );
+        InitJsonType<TValue>();
         if ( IsTransaction == false ) {
             try {
                 var result = await Client.TrySaveStateAsync( GetStoreName(), key, value, etag, CreateStateOptions(), Metadatas, cancellationToken );
@@ -411,12 +423,12 @@ public partial class DaprStateManageBase<TStateManage> : IStateManageBase<TState
     protected virtual void InitSave<TValue>( TValue value ) where TValue : IDataKey, IETag {
         InitId( value );
         InitDataType( value );
-        JsonType();
     }
 
     /// <inheritdoc />
     public async Task SaveAsync<TValue>( IEnumerable<TValue> values, CancellationToken cancellationToken = default ) where TValue : IDataKey, IETag {
         values.CheckNull( nameof( values ) );
+        InitJsonType<TValue>();
         var items = ToSaveStateItems( values );
         if ( IsTransaction == false ) {
             await Client.SaveBulkStateAsync( GetStoreName(), items, cancellationToken );

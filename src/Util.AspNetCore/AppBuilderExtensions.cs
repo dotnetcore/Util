@@ -10,6 +10,14 @@ public static class AppBuilderExtensions {
     /// <summary>
     /// 配置授权访问控制
     /// </summary>
+    /// <param name="builder">应用生成器</param>
+    public static IAppBuilder AddAcl( this IAppBuilder builder ) {
+        return builder.AddAcl<DefaultPermissionManager>();
+    }
+
+    /// <summary>
+    /// 配置授权访问控制
+    /// </summary>
     /// <typeparam name="TPermissionManager">权限管理器类型</typeparam>
     /// <param name="builder">应用生成器</param>
     public static IAppBuilder AddAcl<TPermissionManager>( this IAppBuilder builder ) where TPermissionManager : class, IPermissionManager {

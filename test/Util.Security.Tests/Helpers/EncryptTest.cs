@@ -3,7 +3,7 @@ using Util.Helpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Util.Security.Tests.Helpers; 
+namespace Util.Security.Tests.Helpers;
 
 /// <summary>
 /// 加密测试
@@ -33,7 +33,7 @@ public class EncryptTest {
     /// 测试Md5加密，返回16位结果
     /// </summary>
     [Theory]
-    [InlineData(null,"")]
+    [InlineData( null, "" )]
     [InlineData( "", "" )]
     [InlineData( " ", "" )]
     [InlineData( "a", "C0F1B6A831C399E2" )]
@@ -146,8 +146,8 @@ public class EncryptTest {
         const string result = "bp8XUr2dFUEIo8q9yySRabuFjpSCChRzgL8+dDps16XscyyUtlPyCBRyRJOWrtDuucoC38knwqUK/XKbQvzdf0HAJrdWsP7k6se3ryeEEJm29zIhqDulefGOrDh9WbhBQSOMNC86mo7jMW+jqwPw8Uhc0aGMHJnEw6lETQ50Mmhqj5Jzq+rdQ5aQEd3WKrY3hU6h60yHyESsjObCEYcXFF0sIKHHT7hambbOxeywgeCd8FZDE0a7rMLE2KsJT+/lHiFizuP1fQS5E6LKK0P/hxecQVONgDENAKEMkS/fbCgp2nnsNph/jHKIlBDmbCI7EsAEiVVCe7LCB01ylsfX+A==";
         var sign = Encrypt.RsaSign( value, PrivateKey );
         _output.WriteLine( sign );
-        Assert.Equal( result, sign );
-        Assert.True( Encrypt.RsaVerify( value,PublicKey, sign ) );
+        Assert.Equal(result, sign);
+        Assert.True( Encrypt.RsaVerify( value, PublicKey, sign ) );
     }
 
     /// <summary>
@@ -159,5 +159,30 @@ public class EncryptTest {
         var encryptValue = Util.Helpers.Encrypt.RsaEncrypt( value, PublicKey );
         var result = Util.Helpers.Encrypt.RsaDecrypt( encryptValue, PrivateKey );
         Assert.Equal( value, result );
+    }
+
+    /// <summary>
+    /// 测试生成RSA公钥和私钥对 - 加密解密
+    /// </summary>
+    [Fact]
+    public void TestCreateRsaKey_1() {
+        var keys = Util.Helpers.Encrypt.CreateRsaKey();
+        const string value = "哈楼,World";
+        var encryptValue = Util.Helpers.Encrypt.RsaEncrypt( value, keys.Item1 );
+        var result = Util.Helpers.Encrypt.RsaDecrypt( encryptValue, keys.Item2 );
+        Assert.Equal( value, result );
+    }
+
+
+    /// <summary>
+    /// 测试生成RSA公钥和私钥对 - 签名验签
+    /// </summary>
+    [Fact]
+    public void TestCreateRsaKey_2() {
+        var keys = Util.Helpers.Encrypt.CreateRsaKey();
+        const string value = "哈楼,World";
+        var sign = Util.Helpers.Encrypt.RsaSign( value, keys.Item2 );
+        var result = Util.Helpers.Encrypt.RsaVerify( value, keys.Item1, sign );
+        Assert.True( result );
     }
 }

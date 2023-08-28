@@ -33,6 +33,13 @@ public class InputGroupRender : FormControlRenderBase {
         formControlBuilder.AppendContent( builder );
     }
 
+    /// <summary>
+    /// 是否添加验证模板
+    /// </summary>
+    protected override bool IsAppendValidationTempalte() {
+        return false;
+    }
+
     /// <inheritdoc />
     public override IHtmlContent Clone() {
         return new InputGroupRender( _config.Copy() );

@@ -12,8 +12,8 @@ namespace Util.Applications.Controllers;
 /// </summary>
 [ApiController]
 [Route( "api/[controller]" )]
-[ExceptionHandler]
-[ErroLogFilter]
+[ExceptionHandler( Order = 1 )]
+[ErrorLogFilter( Order = 2 )]
 public abstract class WebApiControllerBase : ControllerBase {
     /// <summary>
     /// 会话

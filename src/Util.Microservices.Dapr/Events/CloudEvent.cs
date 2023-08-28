@@ -13,8 +13,8 @@ public class CloudEvent<TData> : CloudEvent {
     public CloudEvent( string id, TData data ) {
         Id = id.IsEmpty() ? Guid.NewGuid().ToString() : id;
         Data = data;
-        Headers = new Dictionary<string, string>();
         DataContentType = "application/cloudevents+json";
+        Headers = new Dictionary<string, string>();
     }
 
     /// <summary>
@@ -27,17 +27,24 @@ public class CloudEvent<TData> : CloudEvent {
     /// 事件数据
     /// </summary>
     [JsonPropertyName( "data" )]
-    public TData Data { get; }
+    public TData Data { get; set; }
 
     /// <summary>
     /// 事件标头
     /// </summary>
     [JsonPropertyName( "headers" )]
-    public Dictionary<string, string> Headers { get; init; }
+    public Dictionary<string, string> Headers { get; set; }
 
     /// <summary>
     /// 事件数据内容类型
     /// </summary>
     [JsonPropertyName( "datacontenttype" )]
     public string DataContentType { get; init; }
+
+    /// <summary>
+    /// 获取事件数据
+    /// </summary>
+    public T GetData<T>() {
+        return (T)(object)Data;
+    }
 }

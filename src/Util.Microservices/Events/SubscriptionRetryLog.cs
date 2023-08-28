@@ -11,7 +11,7 @@ public class SubscriptionRetryLog {
     /// <summary>
     /// 重试时间
     ///</summary>
-    public DateTime RetryTime { get; set; }
+    public DateTime? RetryTime { get; set; }
     /// <summary>
     /// 失败消息
     ///</summary>

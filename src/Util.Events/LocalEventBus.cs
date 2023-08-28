@@ -37,7 +37,7 @@ public class LocalEventBus : ILocalEventBus {
             await PublishLocalEventAsync( @event, cancellationToken );
             return;
         }
-        if ( integrationEvent.SendNow ) {
+        if ( integrationEvent is IIntegrationEventExtend { SendNow: true } ) {
             await PublishLocalEventAsync( @event, cancellationToken );
             return;
         }

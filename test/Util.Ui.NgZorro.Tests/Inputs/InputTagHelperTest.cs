@@ -4,6 +4,7 @@ using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
@@ -44,7 +45,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// 获取结果
         /// </summary>
         private string GetResult() {
-            return GetResult(_wrapper);
+            return GetResult( _wrapper );
         }
 
         /// <summary>
@@ -131,7 +132,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<input nz-input=\"\" [readOnly]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
-        
+
         /// <summary>
         /// 测试尺寸
         /// </summary>
@@ -184,6 +185,17 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             _wrapper.SetContextAttribute( AngularConst.BindType, "a" );
             var result = new StringBuilder();
             result.Append( "<input nz-input=\"\" [type]=\"a\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试全局框设置 autocomplete="off"
+        /// </summary>
+        [Fact]
+        public void TestAutocompleteOff() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAutocompleteOff = true } );
+            var result = new StringBuilder();
+            result.Append( "<input autocomplete=\"off\" nz-input=\"\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

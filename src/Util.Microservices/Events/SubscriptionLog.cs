@@ -22,7 +22,7 @@ public class SubscriptionLog {
     /// <summary>
     /// 重试次数
     ///</summary>
-    public int RetryCount { get; set; }
+    public int? RetryCount { get; set; }
     /// <summary>
     /// 订阅状态
     ///</summary>

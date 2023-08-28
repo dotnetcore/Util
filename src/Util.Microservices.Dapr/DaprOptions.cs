@@ -13,6 +13,10 @@ public class DaprOptions {
     }
 
     /// <summary>
+    /// 应用标识
+    /// </summary>
+    public string AppId { get; set; }
+    /// <summary>
     /// 机密存储器名称
     /// </summary>
     public string SecretStoreName { get; set; }

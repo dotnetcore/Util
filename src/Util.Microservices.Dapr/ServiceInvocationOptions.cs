@@ -1,4 +1,6 @@
-﻿namespace Util.Microservices.Dapr; 
+﻿using Util.Microservices.Dapr.ServiceInvocations;
+
+namespace Util.Microservices.Dapr;
 
 /// <summary>
 /// 服务调用配置

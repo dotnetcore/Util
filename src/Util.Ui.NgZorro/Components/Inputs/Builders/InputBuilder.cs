@@ -143,6 +143,6 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
         ConfigForm().Name().Placeholder().Disabled().Readonly().Size()
             .Type().Autocomplete()
             .ValidatePhone().ValidateIdCard()
-            .Events();
+            .Events().AutocompleteOff();
     }
 }

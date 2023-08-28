@@ -173,7 +173,8 @@ public class CommandLine {
     /// <summary>
     /// 设置重定向标准输出流
     /// </summary>
-    /// <param name="value">是否重定向标准输出流,默认值: true,注意: 如果要设置UseShellExecute为 false，则必须将RedirectStandardOutput设置为true</param>
+    /// <param name="value">是否重定向标准输出流,默认值: true,注意: 如果要设置UseShellExecute为 false,
+    /// 则必须将RedirectStandardOutput设置为true</param>
     public CommandLine RedirectStandardOutput( bool value = true ) {
         _redirectStandardOutput = value;
         if ( value ) {
@@ -313,5 +314,26 @@ public class CommandLine {
     /// </summary>
     public string GetDebugText() {
         return $"{_command} {_arguments}";
+    }
+
+    /// <summary>
+    /// 执行PowerShell命令
+    /// </summary>
+    /// <param name="command">PowerShell命令,范例: Set-ExecutionPolicy RemoteSigned</param>
+    /// <param name="workingDirectory">工作目录</param>
+    public static void ExecutePowerShell( string command, string workingDirectory = null ) {
+        using Process process = new Process();
+        process.StartInfo.FileName = "cmd.exe";
+        process.StartInfo.CreateNoWindow = false;
+        process.StartInfo.RedirectStandardError = true;
+        process.StartInfo.RedirectStandardInput = true;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.WorkingDirectory = workingDirectory;
+        process.Start();
+        process.StandardInput.WriteLine( $"powershell {command}" );
+        process.StandardInput.WriteLine( "exit" );
+        process.StandardInput.AutoFlush = true;
+        process.WaitForExit();
     }
 }

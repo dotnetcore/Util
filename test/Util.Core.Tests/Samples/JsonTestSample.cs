@@ -59,6 +59,14 @@ public class JsonTestSample : IJsonTestSample {
     /// 测试布尔型
     /// </summary>
     public bool IsShow { get; set; }
+    /// <summary>
+    /// 测试枚举
+    /// </summary>
+    public TestEnum Enum { get; set; }
+    /// <summary>
+    /// 测试可空枚举
+    /// </summary>
+    public TestEnum? NullableEnum { get; set; }
 
     /// <summary>
     /// 创建样例
@@ -93,4 +101,12 @@ public interface IJsonTestSample {
     /// 名称,测试公共属性，且首字母大写
     /// </summary>
     public string Name { get; set; }
+}
+
+/// <summary>
+/// 测试枚举
+/// </summary>
+public enum TestEnum {
+    Test1 = 1,
+    Test2 = 2
 }

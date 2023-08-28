@@ -14,10 +14,9 @@ public class Startup {
         hostBuilder.ConfigureDefaults( null )
             .AsBuild()
             .AddSerilog( "Util.Microservices.Dapr.Tests.Integration" )
-            .AddDapr(null, builder => {
-                builder
-                    .UseHttpEndpoint( $"http://127.0.0.1:{Config.GetValue( "DaprPorts:HttpPort" )}" )
-                    .UseGrpcEndpoint( $"http://127.0.0.1:{Config.GetValue( "DaprPorts:GrpcPort" )}" );
+            .AddDapr( t => t.AppId = "app_webapi", builder => {
+                builder.UseHttpEndpoint( $"http://127.0.0.1:{Config.GetValue( "DaprPorts:WebApi:HttpPort" )}" )
+                    .UseGrpcEndpoint( $"http://127.0.0.1:{Config.GetValue( "DaprPorts:WebApi:GrpcPort" )}" );
             } )
             .AddUtil();
     }

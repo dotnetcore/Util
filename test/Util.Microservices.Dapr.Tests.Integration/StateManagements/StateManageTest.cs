@@ -30,7 +30,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_1() {
         //变量定义
-        var key = $"key_Test_1_{Id.Create()}";
+        var key = $"key_{Id.Create()}";
         var dto = new CustomerDto { Code = "123" };
 
         //添加数据
@@ -38,7 +38,7 @@ public partial class StateManageTest {
 
         //获取数据并验证
         var result = await _stateManage.GetAsync<CustomerDto>( key );
-        Assert.Equal( "123",result.Code );
+        Assert.Equal( "123", result.Code );
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_2() {
         //变量定义
-        var key = $"key_Test_2_{Id.Create()}";
+        var key = $"key_{Id.Create()}";
         var dto = new CustomerDto { Code = "123" };
 
         //添加数据
@@ -73,7 +73,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_3() {
         //变量定义
-        var key = $"key_Test_3_{Id.Create()}";
+        var key = $"key_{Id.Create()}";
         var dto = new CustomerDto { Code = "123" };
 
         //添加数据
@@ -91,7 +91,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_4() {
         //变量定义
-        var key = $"key_Test_4_{Id.Create()}";
+        var key = $"key_{Id.Create()}";
         var dto = new CustomerDto { Code = "123" };
 
         //添加数据
@@ -138,11 +138,11 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_6() {
         //变量定义
-        var key = $"key_Test_6_{Id.Create()}";
+        var key = $"key_{Id.Create()}";
         var dto = new CustomerDto2 { Code = "123" };
 
         //添加数据
-        await _stateManage.SaveAsync( dto,key:key );
+        await _stateManage.SaveAsync( dto, key: key );
 
         //获取数据并验证
         var result = await _stateManage.GetAsync<CustomerDto2>( key );
@@ -164,7 +164,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_7() {
         //添加数据1
-        var key_1 = $"key_Test_7_{Id.Create()}";
+        var key_1 = $"key_{Id.Create()}";
         var dto_1 = new CustomerDto { Code = "1" };
         await _stateManage.AddAsync( key_1, dto_1 );
 
@@ -176,7 +176,7 @@ public partial class StateManageTest {
         _stateManage.BeginTransaction();
 
         //添加数据3
-        var key_3 = $"key_Test_7_{Id.Create()}";
+        var key_3 = $"key_{Id.Create()}";
         var dto_3 = new CustomerDto { Code = "3" };
         await _stateManage.AddAsync( key_3, dto_3 );
 
@@ -209,7 +209,7 @@ public partial class StateManageTest {
         _stateManage.BeginTransaction();
 
         //添加数据1
-        var key_1 = $"key_Test_8_{Id.Create()}";
+        var key_1 = $"key_{Id.Create()}";
         var dto_1 = new CustomerDto { Code = "1" };
         await _stateManage.AddAsync( key_1, dto_1 );
 
@@ -224,7 +224,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_9() {
         //添加数据
-        var key_1 = $"key_Test_9_{Id.Create()}";
+        var key_1 = $"key_{Id.Create()}";
         var dto_1 = new CustomerDto { Code = "1" };
         await _stateManage.AddAsync( key_1, dto_1 );
 
@@ -234,7 +234,7 @@ public partial class StateManageTest {
         //修改数据
         var result = await _stateManage.GetStateAndETagAsync<CustomerDto>( key_1 );
         result.value.Code = "2";
-        await _stateManage.UpdateAsync( key_1, result.value,result.etag );
+        await _stateManage.UpdateAsync( key_1, result.value, result.etag );
 
         //获取数据并验证
         dto_1 = await _stateManage.GetAsync<CustomerDto>( key_1 );
@@ -247,7 +247,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_10() {
         //添加数据
-        var key_1 = $"key_Test_10_{Id.Create()}";
+        var key_1 = $"key_{Id.Create()}";
         var dto_1 = new CustomerDto { Code = "1" };
         await _stateManage.AddAsync( key_1, dto_1 );
 
@@ -285,7 +285,7 @@ public partial class StateManageTest {
     [Fact]
     public async Task Test_12() {
         //变量定义
-        var key = $"key_Test_12_{Id.Create()}";
+        var key = $"key_{Id.Create()}";
         var dto = new CustomerDto2 { Code = "123" };
 
         //添加数据
@@ -297,5 +297,37 @@ public partial class StateManageTest {
         //获取数据并验证
         var result = await _stateManage.GetAsync<CustomerDto2>( key );
         Assert.Null( result );
+    }
+
+    /// <summary>
+    /// 测试添加int类型数据
+    /// </summary>
+    [Fact]
+    public async Task Test_13() {
+        //变量定义
+        var key = $"key_{Id.Create()}";
+
+        //添加数据
+        await _stateManage.AddAsync( key, 1 );
+
+        //获取数据并验证
+        var result = await _stateManage.GetAsync<int>( key );
+        Assert.Equal( 1, result );
+    }
+
+    /// <summary>
+    /// 测试添加string类型数据
+    /// </summary>
+    [Fact]
+    public async Task Test_14() {
+        //变量定义
+        var key = $"key_{Id.Create()}";
+
+        //添加数据
+        await _stateManage.AddAsync( key, "a" );
+
+        //获取数据并验证
+        var result = await _stateManage.GetAsync<string>( key );
+        Assert.Equal( "a", result );
     }
 }

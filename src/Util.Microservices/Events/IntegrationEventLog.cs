@@ -3,7 +3,13 @@
 /// <summary>
 /// 集成事件日志记录
 /// </summary>
-public class IntegrationEventLog : StateBase {
+public class IntegrationEventLog : IntegrationEventLog<object> {
+}
+
+/// <summary>
+/// 集成事件日志记录
+/// </summary>
+public class IntegrationEventLog<TValue> : StateBase {
     /// <summary>
     /// 初始化集成事件日志记录
     /// </summary>
@@ -30,7 +36,7 @@ public class IntegrationEventLog : StateBase {
     /// <summary>
     /// 事件数据
     ///</summary>
-    public object Data { get; set; }
+    public TValue Value { get; set; }
     /// <summary>
     /// 事件状态
     ///</summary>
@@ -47,4 +53,11 @@ public class IntegrationEventLog : StateBase {
     /// 订阅日志记录列表
     /// </summary>
     public List<SubscriptionLog> SubscriptionLogs { get; set; }
+
+    /// <summary>
+    /// 获取事件数据
+    /// </summary>
+    public T GetValue<T>() {
+        return (T)(object)Value;
+    }
 }

@@ -116,4 +116,9 @@ public class NullIntegrationEventBus : IIntegrationEventBus {
     public Task PublishAsync<TEvent>( TEvent @event, CancellationToken cancellationToken = default ) where TEvent : IIntegrationEvent {
         return Task.CompletedTask;
     }
+
+    /// <inheritdoc />
+    public Task RepublishAsync( string eventId, CancellationToken cancellationToken = default ) {
+        return Task.CompletedTask;
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using RSAExtensions;
 
-namespace Util.Helpers; 
+namespace Util.Helpers;
 
 /// <summary>
 /// 加密操作
@@ -260,7 +260,7 @@ public static class Encrypt {
     /// <param name="value">值</param>
     /// <param name="key">密钥</param>
     /// <param name="encoding">字符编码</param>
-    public static string HmacSha256( string value, string key, Encoding encoding = null) {
+    public static string HmacSha256( string value, string key, Encoding encoding = null ) {
         if ( value.IsEmpty() || key.IsEmpty() )
             return string.Empty;
         encoding ??= Encoding.UTF8;
@@ -307,7 +307,7 @@ public static class Encrypt {
     /// <param name="sign">签名</param>
     /// <param name="encoding">编码</param>
     /// <param name="hashAlgorithm">加密算法,默认值: HashAlgorithmName.SHA1</param>
-    public static bool RsaVerify( string value, string publicKey, string sign, Encoding encoding= null, HashAlgorithmName? hashAlgorithm = null ) {
+    public static bool RsaVerify( string value, string publicKey, string sign, Encoding encoding = null, HashAlgorithmName? hashAlgorithm = null ) {
         if ( value.IsEmpty() || publicKey.IsEmpty() || sign.IsEmpty() )
             return false;
         var rsa = RSA.Create();
@@ -323,7 +323,7 @@ public static class Encrypt {
     /// </summary>
     private static void ImportPublicKey( RSA rsa, string publicKey ) {
         var key = System.Convert.FromBase64String( publicKey );
-        rsa.ImportSubjectPublicKeyInfo( key,out _ );
+        rsa.ImportSubjectPublicKeyInfo( key, out _ );
     }
 
     /// <summary>
@@ -350,6 +350,35 @@ public static class Encrypt {
         var rsa = RSA.Create();
         ImportPrivateKey( rsa, privateKey, RSAKeyType.Pkcs1 );
         return rsa.DecryptBigData( value, RSAEncryptionPadding.Pkcs1 );
+    }
+
+    #endregion
+
+    #region 生成RSA公钥和私钥对
+
+    /// <summary>
+    /// 生成RSA公钥和私钥对,返回值Item1为公钥,Item2为私钥
+    /// </summary>
+    public static (string,string) CreateRsaKey() {
+        var rsa = RSA.Create();
+        var publicKey = FormatPublicKey( rsa.ExportSubjectPublicKeyInfoPem());
+        var privateKey = rsa.ExportPrivateKey( RSAKeyType.Pkcs1 );
+        return ( publicKey, privateKey );
+    }
+
+    /// <summary>
+    /// 格式化公钥
+    /// </summary>
+    private static string FormatPublicKey( string key ) {
+        return key.Replace( "-----BEGIN RSA PRIVATE KEY-----", "" )
+            .Replace( "-----END RSA PRIVATE KEY-----", "" )
+            .Replace( "-----BEGIN RSA PUBLIC KEY-----", "" )
+            .Replace( "-----END RSA PUBLIC KEY-----", "" )
+            .Replace( "-----BEGIN PRIVATE KEY-----", "" )
+            .Replace( "-----END PRIVATE KEY-----", "" )
+            .Replace( "-----BEGIN PUBLIC KEY-----", "" )
+            .Replace( "-----END PUBLIC KEY-----", "" )
+            .Replace( Environment.NewLine, "" );
     }
 
     #endregion

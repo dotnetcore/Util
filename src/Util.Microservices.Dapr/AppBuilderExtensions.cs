@@ -56,12 +56,13 @@ public static class AppBuilderExtensions {
         return new JsonSerializerOptions {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             PropertyNameCaseInsensitive = true,
-            NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            NumberHandling = JsonNumberHandling.AllowReadingFromString | JsonNumberHandling.WriteAsString,
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Converters = {
                 new DateTimeJsonConverter(),
-                new NullableDateTimeJsonConverter()
+                new NullableDateTimeJsonConverter(),
+                new EnumJsonConverterFactory()
             }
         };
     }

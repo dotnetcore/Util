@@ -46,10 +46,6 @@ public interface IStateManageBase<out TStateManage> : ITransientDependency where
     /// <param name="type">内容类型</param>
     TStateManage ContentType( string type );
     /// <summary>
-    /// 设置内容类型为application/json
-    /// </summary>
-    TStateManage JsonType();
-    /// <summary>
     /// 添加分页大小
     /// </summary>
     /// <param name="pageSize">分页大小</param>

@@ -54,6 +54,32 @@ public static class Web {
 
     #endregion
 
+    #region Body(请求正文)
+
+    /// <summary>
+    /// 请求正文
+    /// </summary>
+    public static byte[] Body {
+        get {
+            Request.EnableBuffering();
+            return File.ReadToBytes( Request.Body );
+        }
+    }
+
+    #endregion
+
+    #region GetBodyAsync(获取请求正文)
+
+    /// <summary>
+    /// 获取请求正文
+    /// </summary>
+    public static async Task<byte[]> GetBodyAsync() {
+        Request.EnableBuffering();
+        return await File.ReadToBytesAsync( Request.Body );
+    }
+
+    #endregion
+
     #region Environment(主机环境)
 
     /// <summary>
