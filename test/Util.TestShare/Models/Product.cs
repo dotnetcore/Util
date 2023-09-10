@@ -7,14 +7,16 @@ using Util.Domain;
 using Util.Domain.Auditing;
 using Util.Domain.Entities;
 using Util.Domain.Extending;
+using Util.Tenants;
+using Util.Tests.Events;
 
-namespace Util.Tests.Models; 
+namespace Util.Tests.Models;
 
 /// <summary>
 /// 产品
 /// </summary>
 [Description( "产品" )]
-public class Product : AggregateRoot<Product>, IDelete, IAudited, IExtraProperties {
+public class Product : AggregateRoot<Product>, IDelete, ITenant, IAudited, IExtraProperties {
     /// <summary>
     /// 初始化产品
     /// </summary>
@@ -35,7 +37,6 @@ public class Product : AggregateRoot<Product>, IDelete, IAudited, IExtraProperti
     /// 产品编码
     ///</summary>
     [Description( "产品编码" )]
-    [MaxLength( 50 )]
     public string Code { get; set; }
     /// <summary>
     /// 产品名称
@@ -98,6 +99,11 @@ public class Product : AggregateRoot<Product>, IDelete, IAudited, IExtraProperti
     ///</summary>
     [Description( "是否删除" )]
     public bool IsDeleted { get; set; }
+    /// <summary>
+    /// 租户标识
+    ///</summary>
+    [Description( "租户标识" )]
+    public string TenantId { get; set; }
 
     /// <summary>
     /// 简单扩展属性
@@ -105,17 +111,17 @@ public class Product : AggregateRoot<Product>, IDelete, IAudited, IExtraProperti
     [NotMapped]
     public string TestProperty1 {
         get => ExtraProperties.GetProperty<string>( nameof( TestProperty1 ) );
-        set => ExtraProperties.SetProperty( nameof(TestProperty1), value );
+        set => ExtraProperties.SetProperty( nameof( TestProperty1 ), value );
     }
 
-    private readonly ExtraProperty<ProductItem> _property2 = new(nameof( TestProperty2 ) );
+    private readonly ExtraProperty<ProductItem> _property2 = new( nameof( TestProperty2 ) );
     /// <summary>
     /// 对象扩展属性
     /// </summary>
     [NotMapped]
     public ProductItem TestProperty2 {
         get => _property2.GetProperty( ExtraProperties );
-        set => _property2.SetProperty( ExtraProperties,value );
+        set => _property2.SetProperty( ExtraProperties, value );
     }
 
     /// <summary>
@@ -137,14 +143,14 @@ public class Product : AggregateRoot<Product>, IDelete, IAudited, IExtraProperti
         set => _property4.SetProperty( ExtraProperties, value );
     }
 
-    private readonly ExtraProperty<List<ProductItem>>  _properties = new( nameof( TestProperties ) );
+    private readonly ExtraProperty<List<ProductItem>> _properties = new( nameof( TestProperties ) );
     /// <summary>
     /// 对象集合扩展属性
     /// </summary>
     [NotMapped]
     public List<ProductItem> TestProperties {
         get => _properties.GetProperty( ExtraProperties );
-        set => _properties.SetProperty( ExtraProperties,value );
+        set => _properties.SetProperty( ExtraProperties, value );
     }
 
     private readonly ExtraProperty<ApplicationExtend> _property5 = new( nameof( TestProperty5 ) );
@@ -170,5 +176,19 @@ public class Product : AggregateRoot<Product>, IDelete, IAudited, IExtraProperti
         AddChange( t => t.CreatorId, other.CreatorId );
         AddChange( t => t.LastModificationTime, other.LastModificationTime );
         AddChange( t => t.LastModifierId, other.LastModifierId );
+    }
+
+    /// <summary>
+    /// 测试领域事件方法1 - 添加1个本地事件 TestEvent2
+    /// </summary>
+    public void TestDomainEvent1() {
+        AddDomainEvent( new TestEvent2 { Id = Id, Name = "a" } );
+    }
+
+    /// <summary>
+    /// 测试领域事件方法2 - 添加1个集成事件 TestEvent3
+    /// </summary>
+    public void TestDomainEvent2() {
+        AddDomainEvent( new TestEvent3( Id, "a" ) );
     }
 }

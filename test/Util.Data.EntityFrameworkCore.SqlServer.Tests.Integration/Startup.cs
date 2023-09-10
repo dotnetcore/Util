@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Util.Aop;
 using Util.Helpers;
 using Util.Sessions;
+using Util.Tenants;
 using Util.Tests.Infrastructure;
 using Util.Tests.UnitOfWorks;
 using Xunit.DependencyInjection.Logging;
@@ -21,6 +22,7 @@ public class Startup {
         hostBuilder.ConfigureDefaults( null )
             .AsBuild()
             .AddAop()
+            .AddTenant()
             .AddSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) )
             .AddUtil();
     }

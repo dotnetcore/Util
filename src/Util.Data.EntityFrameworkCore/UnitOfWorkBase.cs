@@ -1,8 +1,6 @@
 ﻿using Util.Data.EntityFrameworkCore.ValueComparers;
 using Util.Data.EntityFrameworkCore.ValueConverters;
-using Util.Data.Filters;
 using Util.Dates;
-using Util.Domain;
 using Util.Domain.Auditing;
 using Util.Domain.Events;
 using Util.Domain.Extending;
@@ -12,7 +10,7 @@ using Util.Helpers;
 using Util.Properties;
 using Util.Sessions;
 
-namespace Util.Data.EntityFrameworkCore; 
+namespace Util.Data.EntityFrameworkCore;
 
 /// <summary>
 /// 工作单元基类
@@ -31,10 +29,12 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
         ServiceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
         Environment = serviceProvider.GetService<IHostEnvironment>();
         FilterManager = ServiceProvider.GetService<IFilterManager>();
+        TenantManager = ServiceProvider.GetService<ITenantManager>() ?? NullTenantManager.Instance;
         Session = serviceProvider.GetService<ISession>() ?? NullSession.Instance;
         EventBus = serviceProvider.GetService<ILocalEventBus>() ?? NullEventBus.Instance;
         ActionManager = serviceProvider.GetService<IUnitOfWorkActionManager>() ?? NullUnitOfWorkActionManager.Instance;
-        Events = new List<IEvent>();
+        SaveBeforeEvents = new List<IEvent>();
+        SaveAfterEvents = new List<IEvent>();
     }
 
     #endregion
@@ -58,9 +58,9 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     protected IFilterManager FilterManager { get; }
     /// <summary>
-    /// 逻辑删除过滤器是否启用
+    /// 租户管理器
     /// </summary>
-    protected virtual bool IsDeleteFilterEnabled => FilterManager?.IsEnabled<IDelete>() ?? false;
+    protected ITenantManager TenantManager { get; }
     /// <summary>
     /// 事件总线
     /// </summary>
@@ -70,9 +70,25 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     protected IUnitOfWorkActionManager ActionManager { get; }
     /// <summary>
-    /// 事件集合
+    /// 保存前发送的事件集合
     /// </summary>
-    protected List<IEvent> Events { get; }
+    protected List<IEvent> SaveBeforeEvents { get; }
+    /// <summary>
+    /// 保存后发送的事件集合
+    /// </summary>
+    protected List<IEvent> SaveAfterEvents { get; }
+    /// <summary>
+    /// 逻辑删除过滤器是否启用
+    /// </summary>
+    public virtual bool IsDeleteFilterEnabled => FilterManager?.IsEnabled<IDelete>() ?? false;
+    /// <summary>
+    /// 租户过滤器是否启用
+    /// </summary>
+    public virtual bool IsTenantFilterEnabled => FilterManager?.IsEnabled<ITenant>() ?? false;
+    /// <summary>
+    /// 当前租户标识
+    /// </summary>
+    public virtual string CurrentTenantId => TenantManager.GetTenantId();
     /// <summary>
     /// 是否清除字符串两端的空白,默认为true
     /// </summary>
@@ -125,6 +141,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <param name="optionsBuilder">配置生成器</param>
     protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder ) {
         ConfigLog( optionsBuilder );
+        ConfigTenant( optionsBuilder );
     }
 
     #endregion
@@ -145,6 +162,37 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
 
     #endregion
 
+    #region ConfigTenant(配置租户)
+
+    /// <summary>
+    /// 配置租户
+    /// </summary>
+    /// <param name="optionsBuilder">配置生成器</param>
+    protected virtual void ConfigTenant( DbContextOptionsBuilder optionsBuilder ) {
+        if ( TenantManager.Enabled() == false )
+            return;
+        if ( TenantManager.AllowMultipleDatabase() == false )
+            return;
+        var tenant = TenantManager.GetTenant();
+        if ( tenant == null )
+            return;
+        var name = ConnectionStringNameAttribute.GetName( GetType() );
+        var connectionString = tenant.ConnectionStrings.GetConnectionString( name );
+        if ( connectionString.IsEmpty() )
+            return;
+        ConfigTenantConnectionString( optionsBuilder, connectionString );
+    }
+
+    /// <summary>
+    /// 配置租户连接字符串
+    /// </summary>
+    /// <param name="optionsBuilder">配置生成器</param>
+    /// <param name="connectionString">连接字符串</param>
+    protected virtual void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder,string connectionString ) {
+    }
+
+    #endregion
+
     #region OnModelCreating(配置模型)
 
     /// <summary>
@@ -158,6 +206,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
             ApplyExtraProperties( modelBuilder, entityType );
             ApplyVersion( modelBuilder, entityType );
             ApplyIsDeleted( modelBuilder, entityType );
+            ApplyTenantId( modelBuilder, entityType );
             ApplyUtc( modelBuilder, entityType );
             ApplyTrimString( modelBuilder, entityType );
         }
@@ -198,7 +247,10 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
             return;
         if ( FilterManager.IsEntityEnabled<TEntity>() == false )
             return;
-        modelBuilder.Entity<TEntity>().HasQueryFilter( GetFilterExpression<TEntity>() );
+        var expression = GetFilterExpression<TEntity>();
+        if ( expression == null )
+            return;
+        modelBuilder.Entity<TEntity>().HasQueryFilter( expression );
     }
 
     /// <summary>
@@ -206,20 +258,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     protected virtual Expression<Func<TEntity, bool>> GetFilterExpression<TEntity>() where TEntity : class {
-        return GetDeleteFilterExpression<TEntity>();
-    }
-
-    /// <summary>
-    /// 获取逻辑删除过滤器表达式
-    /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
-    protected virtual Expression<Func<TEntity, bool>> GetDeleteFilterExpression<TEntity>() where TEntity : class {
-        var filter = FilterManager.GetFilter<IDelete>();
-        if ( filter.IsEntityEnabled<TEntity>() == false )
-            return null;
-        var expression = filter.GetExpression<TEntity>();
-        Expression<Func<TEntity, bool>> result = entity => !IsDeleteFilterEnabled;
-        return result.Or( expression );
+        return FilterManager.GetExpression<TEntity>( this );
     }
 
     #endregion
@@ -277,6 +316,24 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
             .Property( "IsDeleted" )
             .HasColumnName( "IsDeleted" )
             .HasComment( R.IsDeleted );
+    }
+
+    #endregion
+
+    #region ApplyTenantId(配置租户标识)
+
+    /// <summary>
+    /// 配置租户标识
+    /// </summary>
+    /// <param name="modelBuilder">模型生成器</param>
+    /// <param name="entityType">实体类型</param>
+    protected virtual void ApplyTenantId( ModelBuilder modelBuilder, IMutableEntityType entityType ) {
+        if ( typeof( ITenant ).IsAssignableFrom( entityType.ClrType ) == false )
+            return;
+        modelBuilder.Entity( entityType.ClrType )
+            .Property( "TenantId" )
+            .HasColumnName( "TenantId" )
+            .HasComment( R.TenantId );
     }
 
     #endregion
@@ -349,7 +406,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// 保存
     /// </summary>
     public override async Task<int> SaveChangesAsync( CancellationToken cancellationToken = default ) {
-        SaveChangesBefore();
+        await SaveChangesBefore();
         var result = await base.SaveChangesAsync( cancellationToken );
         await SaveChangesAfter();
         return result;
@@ -362,8 +419,10 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <summary>
     /// 保存前操作
     /// </summary>
-    protected virtual void SaveChangesBefore() {
+    protected virtual async Task SaveChangesBefore() {
         foreach ( var entry in ChangeTracker.Entries() ) {
+            UpdateTenantId( entry );
+            AddDomainEvents( entry );
             switch ( entry.State ) {
                 case EntityState.Added:
                     AddBefore( entry );
@@ -376,6 +435,47 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
                     break;
             }
         }
+        await PublishSaveBeforeEventsAsync();
+    }
+
+    #endregion
+
+    #region UpdateTenantId(更新租户标识)
+
+    /// <summary>
+    /// 更新租户标识
+    /// </summary>
+    protected virtual void UpdateTenantId( EntityEntry entry ) {
+        if ( TenantManager.Enabled() == false )
+            return;
+        if ( entry.Entity is not ITenant tenant )
+            return;
+        var tenantId = TenantManager.GetTenantId();
+        if ( tenantId.IsEmpty() )
+            return;
+        tenant.TenantId = tenantId;
+    }
+
+    #endregion
+
+    #region AddDomainEvents(添加领域事件)
+
+    /// <summary>
+    /// 添加领域事件
+    /// </summary>
+    protected virtual void AddDomainEvents( EntityEntry entry ) {
+        if ( entry.Entity is not IDomainEventManager eventManager )
+            return;
+        if ( eventManager.DomainEvents == null )
+            return;
+        foreach ( var domainEvent in eventManager.DomainEvents ) {
+            if ( domainEvent is IIntegrationEvent ) {
+                SaveAfterEvents.Add( domainEvent );
+                continue;
+            }
+            SaveBeforeEvents.Add( domainEvent );
+        }
+        eventManager.ClearDomainEvents();
     }
 
     #endregion
@@ -476,7 +576,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     protected virtual void AddEntityChangedEvent( object entity, EntityChangeType changeType ) {
         var eventType = typeof( EntityChangedEvent<> ).MakeGenericType( entity.GetType() );
         var @event = Reflection.CreateInstance<IEvent>( eventType, entity, changeType );
-        Events.Add( @event );
+        SaveAfterEvents.Add( @event );
     }
 
     #endregion
@@ -488,7 +588,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     protected virtual void AddEntityCreatedEvent( object entity ) {
         var @event = CreateEntityEvent( typeof( EntityCreatedEvent<> ), entity );
-        Events.Add( @event );
+        SaveAfterEvents.Add( @event );
         AddEntityChangedEvent( entity, EntityChangeType.Created );
     }
 
@@ -513,7 +613,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
             return;
         }
         var @event = CreateEntityEvent( typeof( EntityUpdatedEvent<> ), entity );
-        Events.Add( @event );
+        SaveAfterEvents.Add( @event );
         AddEntityChangedEvent( entity, EntityChangeType.Updated );
     }
 
@@ -526,8 +626,23 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     protected virtual void AddEntityDeletedEvent( object entity ) {
         var @event = CreateEntityEvent( typeof( EntityDeletedEvent<> ), entity );
-        Events.Add( @event );
+        SaveAfterEvents.Add( @event );
         AddEntityChangedEvent( entity, EntityChangeType.Deleted );
+    }
+
+    #endregion
+
+    #region PublishSaveBeforeEventsAsync(发布保存前事件)
+
+    /// <summary>
+    /// 发布保存前事件
+    /// </summary>
+    protected virtual async Task PublishSaveBeforeEventsAsync() {
+        if ( SaveBeforeEvents.Count == 0 )
+            return;
+        var events = new List<IEvent>( SaveBeforeEvents );
+        SaveBeforeEvents.Clear();
+        await EventBus.PublishAsync( events );
     }
 
     #endregion
@@ -538,8 +653,21 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// 保存后操作
     /// </summary>
     protected virtual async Task SaveChangesAfter() {
+        await PublishSaveAfterEventsAsync();
         await ExecuteActionsAsync();
-        await PublishEventsAsync();
+    }
+
+    #endregion
+
+    #region PublishSaveAfterEventsAsync(发布保存后事件)
+
+    /// <summary>
+    /// 发布保存后事件
+    /// </summary>
+    protected virtual async Task PublishSaveAfterEventsAsync() {
+        var events = new List<IEvent>( SaveAfterEvents );
+        SaveAfterEvents.Clear();
+        await EventBus.PublishAsync( events );
     }
 
     #endregion
@@ -551,19 +679,6 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     protected virtual async Task ExecuteActionsAsync() {
         await ActionManager.ExecuteAsync();
-    }
-
-    #endregion
-
-    #region PublishEventsAsync(发布事件)
-
-    /// <summary>
-    /// 发布事件
-    /// </summary>
-    protected virtual async Task PublishEventsAsync() {
-        var events = new List<IEvent>( Events );
-        Events.Clear();
-        await EventBus.PublishAsync( events );
     }
 
     #endregion

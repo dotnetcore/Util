@@ -86,7 +86,7 @@ public class CustomerDto {
 }
 
 /// <summary>
-/// 客户参数
+/// 客户参数2
 /// </summary>
 public class CustomerDto2 : CustomerDto, IDataKey,IDataType, IETag {
     public string Id { get; set; }

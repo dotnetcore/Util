@@ -111,6 +111,7 @@ public class GeneratorContextBuilder : IGeneratorContextBuilder {
             I18n = projectOptions.I18n,
             ProjectType = projectOptions.ProjectType,
             ApiPort = projectOptions.ApiPort,
+            EnableSchema = projectOptions.EnableSchema,
             Extend = projectOptions.Extend
         };
         if ( projectOptions.Enabled == false )

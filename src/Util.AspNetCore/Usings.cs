@@ -28,3 +28,4 @@ global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.AspNetCore.DataProtection;
 global using Microsoft.AspNetCore.Builder;
 global using Util.Dependency;
+global using Util.Security;

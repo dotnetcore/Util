@@ -35,6 +35,7 @@ namespace Util.Generators.Tests.Mocks {
                         },
                         ProjectType = ProjectType.WebApi,
                         ApiPort = "123",
+                        EnableSchema = true,
                         Extend = "Extend1"
                     }},
                     {"Test2",new ProjectOptions {
@@ -45,6 +46,7 @@ namespace Util.Generators.Tests.Mocks {
                         Enabled = true,
                         Utc = true,
                         I18n = true,
+                        EnableSchema = true,
                         Client = {
                             AppName =  "ClientApp2",
                             Port =  "2"
@@ -62,6 +64,7 @@ namespace Util.Generators.Tests.Mocks {
                         Enabled = false,
                         Utc = false,
                         I18n = false,
+                        EnableSchema = false,
                         Client = {
                             AppName =  "ClientApp3",
                             Port =  "3"

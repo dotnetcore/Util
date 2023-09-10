@@ -18,9 +18,13 @@ public class Bootstrapper {
     /// </summary>
     private readonly Action<Options> _setupAction;
     /// <summary>
+    /// 程序集查找器
+    /// </summary>
+    private readonly IAssemblyFinder _assemblyFinder;
+    /// <summary>
     /// 类型查找器
     /// </summary>
-    private readonly ITypeFinder _finder;
+    private readonly ITypeFinder _typeFinder;
     /// <summary>
     /// 服务配置操作列表
     /// </summary>
@@ -34,8 +38,8 @@ public class Bootstrapper {
     public Bootstrapper( IHostBuilder hostBuilder, Action<Options> setupAction = null ) {
         _hostBuilder = hostBuilder ?? throw new ArgumentNullException( nameof( hostBuilder ) );
         _setupAction = setupAction;
-        var assemblyFinder = new AppDomainAssemblyFinder { AssemblySkipPattern = BootstrapperConfig.AssemblySkipPattern };
-        _finder = new AppDomainTypeFinder( assemblyFinder );
+        _assemblyFinder = new AppDomainAssemblyFinder { AssemblySkipPattern = BootstrapperConfig.AssemblySkipPattern };
+        _typeFinder = new AppDomainTypeFinder( _assemblyFinder );
         _serviceActions = new List<Action>();
     }
 
@@ -56,7 +60,8 @@ public class Bootstrapper {
     protected virtual void SetConfiguration() {
         _hostBuilder.ConfigureServices( ( context, services ) => {
             Util.Helpers.Config.SetConfiguration( context.Configuration );
-            services.TryAddSingleton( _finder );
+            services.TryAddSingleton( _assemblyFinder );
+            services.TryAddSingleton( _typeFinder );
         } );
     }
 
@@ -64,9 +69,9 @@ public class Bootstrapper {
     /// 解析服务注册器
     /// </summary>
     protected virtual void ResolveServiceRegistrar() {
-        var types = _finder.Find<IServiceRegistrar>();
+        var types = _typeFinder.Find<IServiceRegistrar>();
         var instances = types.Select( type => Reflection.CreateInstance<IServiceRegistrar>( type ) ).Where( t => t.Enabled ).OrderBy( t => t.OrderId ).ToList();
-        var context = new ServiceContext( _hostBuilder, _finder );
+        var context = new ServiceContext( _hostBuilder, _assemblyFinder, _typeFinder );
         instances.ForEach( t => _serviceActions.Add( t.Register( context ) ) );
     }
 
@@ -81,7 +86,7 @@ public class Bootstrapper {
     /// 解析依赖注册器
     /// </summary>
     protected virtual void ResolveDependencyRegistrar() {
-        var types = _finder.Find<IDependencyRegistrar>();
+        var types = _typeFinder.Find<IDependencyRegistrar>();
         var instances = types.Select( type => Reflection.CreateInstance<IDependencyRegistrar>( type ) ).OrderBy( t => t.Order ).ToList();
         _hostBuilder.ConfigureServices( ( context, services ) => {
             instances.ForEach( t => t.Register( services ) );

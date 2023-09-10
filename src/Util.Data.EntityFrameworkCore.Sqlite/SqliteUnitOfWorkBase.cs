@@ -12,4 +12,9 @@ public abstract class SqliteUnitOfWorkBase : UnitOfWorkBase {
     protected SqliteUnitOfWorkBase( IServiceProvider serviceProvider, DbContextOptions options )
         : base( serviceProvider, options ) {
     }
+
+    /// <inheritdoc />
+    protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder, string connectionString ) {
+        optionsBuilder.UseSqlite( connectionString );
+    }
 }

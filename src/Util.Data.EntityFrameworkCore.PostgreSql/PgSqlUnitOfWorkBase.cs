@@ -12,4 +12,9 @@ public abstract class PgSqlUnitOfWorkBase : UnitOfWorkBase {
     protected PgSqlUnitOfWorkBase( IServiceProvider serviceProvider, DbContextOptions options )
         : base( serviceProvider, options ) {
     }
+
+    /// <inheritdoc />
+    protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder, string connectionString ) {
+        optionsBuilder.UseNpgsql( connectionString );
+    }
 }

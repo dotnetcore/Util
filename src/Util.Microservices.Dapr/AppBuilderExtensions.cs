@@ -32,9 +32,9 @@ public static class AppBuilderExtensions {
     /// <param name="setupAction">Dapr配置操作</param>
     /// <param name="buildAction">Dapr客户端生成操作</param>
     public static IAppBuilder AddDapr( this IAppBuilder builder, Action<DaprOptions> setupAction, Action<DaprClientBuilder> buildAction ) {
+        builder.CheckNull( nameof( builder ) );
         var options = new DaprOptions();
         setupAction?.Invoke( options );
-        builder.CheckNull( nameof( builder ) );
         builder.Host.ConfigureServices( ( context, services ) => {
             services.AddDaprClient( clientBuilder => {
                 clientBuilder.UseJsonSerializationOptions( GetJsonSerializerOptions() );

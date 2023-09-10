@@ -50,6 +50,10 @@ public class ProjectOptions {
     /// </summary>
     public string ApiPort { get; set; }
     /// <summary>
+    /// 是否启用架构
+    /// </summary>
+    public bool EnableSchema { get; set; }
+    /// <summary>
     /// 项目类型
     /// </summary>
     public ProjectType? ProjectType { get; set; }
@@ -60,5 +64,5 @@ public class ProjectOptions {
     /// <summary>
     /// 扩展
     /// </summary>
-    public object Extend { get; set; }
+    public string Extend { get; set; }
 }

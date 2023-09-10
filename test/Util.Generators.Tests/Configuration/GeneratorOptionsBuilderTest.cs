@@ -47,6 +47,7 @@ namespace Util.Generators.Tests.Configuration {
             Assert.True( project.Enabled );
             Assert.True( project.Utc );
             Assert.True( project.I18n );
+            Assert.True( project.EnableSchema );
             Assert.Equal( "1", project.Extend );
         }
 
@@ -68,6 +69,7 @@ namespace Util.Generators.Tests.Configuration {
             Assert.False( project.Enabled );
             Assert.False( project.Utc );
             Assert.False( project.I18n );
+            Assert.False( project.EnableSchema );
             Assert.Equal( "2", project.Extend );
         }
 

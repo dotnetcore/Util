@@ -10,5 +10,6 @@
 		<ProjectReference Include="..\..\src\Util.Data.Core\01-Util.Data.Core.csproj" />
 		<ProjectReference Include="..\..\src\Util.Domain.Biz\02-Util.Domain.Biz.csproj" />
 		<ProjectReference Include="..\..\src\Util.Application.WebApi\03-Util.Application.WebApi.csproj" />
+		<ProjectReference Include="..\..\src\Util.Tenants\02-Util.Tenants.csproj" />
 	</ItemGroup>
 </Project>

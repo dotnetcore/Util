@@ -7,12 +7,18 @@ namespace Util.Tests.Infrastructure;
 /// 测试用户会话
 /// </summary>
 public class TestSession : ISession {
+    /// <summary>
+    /// 服务提供器
+    /// </summary>
+    public IServiceProvider ServiceProvider => null;
+
     public TestSession() {
         UserId = TestUserId.ToString();
     }
 
     public bool IsAuthenticated => true;
     public string UserId { get; set; }
+    public string TenantId { get; set; }
 
     /// <summary>
     /// 测试用户标识

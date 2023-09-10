@@ -26,4 +26,10 @@ public interface IFilterManager : IFilterSwitch,IScopeDependency {
     /// </summary>
     /// <typeparam name="TFilterType">过滤器类型</typeparam>
     bool IsEnabled<TFilterType>() where TFilterType : class;
+    /// <summary>
+    /// 获取过滤表达式
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <param name="state">参数</param>
+    Expression<Func<TEntity, bool>> GetExpression<TEntity>( object state ) where TEntity : class;
 }

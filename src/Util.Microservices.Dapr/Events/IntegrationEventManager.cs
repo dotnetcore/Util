@@ -53,12 +53,48 @@ public class IntegrationEventManager : IIntegrationEventManager {
 
     #endregion
 
+    #region IncrementAsync
+
+    /// <inheritdoc />
+    public virtual async Task IncrementAsync( CancellationToken cancellationToken = default ) {
+        try {
+            await Store.IncrementAsync( cancellationToken );
+        }
+        catch ( ConcurrencyException ) {
+            Log.LogDebug( "更新集成事件计数出现并发异常,即将重试" );
+            await IncrementAsync( cancellationToken );
+        }
+        catch ( Exception exception ) {
+            Log.LogError( exception, "更新集成事件计数失败" );
+        }
+    }
+
+    #endregion
+
+    #region GetCountAsync
+
+    /// <inheritdoc />
+    public virtual async Task<int> GetCountAsync( CancellationToken cancellationToken = default ) {
+        return await Store.GetCountAsync( cancellationToken );
+    }
+
+    #endregion
+
+    #region ClearCountAsync
+
+    /// <inheritdoc />
+    public virtual async Task ClearCountAsync( CancellationToken cancellationToken = default ) {
+        await Store.ClearCountAsync( cancellationToken );
+    }
+
+    #endregion
+
     #region GetAsync
 
     /// <inheritdoc />
     public virtual async Task<IntegrationEventLog> GetAsync( string eventId, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         return await Store.GetAsync( eventId, cancellationToken );
     }
 
@@ -148,10 +184,10 @@ public class IntegrationEventManager : IIntegrationEventManager {
     /// <inheritdoc />
     public virtual async Task<IntegrationEventLog> CreatePublishLogAsync( PubsubArgument argument, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         var result = CreateEventLog( argument );
         if ( result == null )
-            return null;
+            return NullIntegrationEventLog.Instance;
         await SaveAsync( result, cancellationToken );
         Log.LogDebug( "创建集成事件发布日志记录成功,EventLog={@EventLog}", result );
         return result;
@@ -189,10 +225,10 @@ public class IntegrationEventManager : IIntegrationEventManager {
     /// <inheritdoc />
     public virtual async Task<IntegrationEventLog> CreateSubscriptionLogAsync( string eventId, string routeUrl, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         if ( eventId.IsEmpty() ) {
             Log.LogWarning( "创建集成事件订阅日志记录失败,事件标识不能为空,routeUrl={@routeUrl}", routeUrl );
-            return null;
+            return NullIntegrationEventLog.Instance;
         }
         var eventLog = await GetAsync( eventId, cancellationToken );
         return await CreateSubscriptionLogAsync( eventLog, routeUrl, cancellationToken );
@@ -201,7 +237,7 @@ public class IntegrationEventManager : IIntegrationEventManager {
     /// <inheritdoc />
     public virtual async Task<IntegrationEventLog> CreateSubscriptionLogAsync( IntegrationEventLog eventLog, string routeUrl, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         eventLog.CheckNull( nameof( eventLog ) );
         if ( CanSubscription( eventLog ) == false )
             return eventLog;
@@ -293,10 +329,10 @@ public class IntegrationEventManager : IIntegrationEventManager {
     /// <inheritdoc />
     public virtual async Task<IntegrationEventLog> SubscriptionSuccessAsync( string eventId, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         if ( eventId.IsEmpty() ) {
             Log.LogWarning( "SubscriptionSuccessAsync更新集成事件订阅日志记录失败,事件标识不能为空." );
-            return null;
+            return NullIntegrationEventLog.Instance;
         }
         var eventLog = await GetAsync( eventId, cancellationToken );
         return await SubscriptionSuccessAsync( eventLog, cancellationToken );
@@ -309,13 +345,13 @@ public class IntegrationEventManager : IIntegrationEventManager {
     /// <param name="cancellationToken">取消令牌</param>
     public virtual async Task<IntegrationEventLog> SubscriptionSuccessAsync( IntegrationEventLog eventLog, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         eventLog.CheckNull( nameof( eventLog ) );
         var appId = GetAppId( eventLog.Id );
         var subscriptionLog = GetSubscriptionLog( eventLog, appId );
         if ( subscriptionLog == null ) {
             Log.LogWarning( "更新集成事件订阅日志记录失败,未找到订阅日志记录,appId={appId},EventLog={@EventLog}", appId,ToDebugEventLog( eventLog ) );
-            return null;
+            return NullIntegrationEventLog.Instance;
         }
         subscriptionLog.State = SubscriptionState.Success;
         subscriptionLog.LastModificationTime = Time.Now;
@@ -362,10 +398,10 @@ public class IntegrationEventManager : IIntegrationEventManager {
     /// <param name="cancellationToken">取消令牌</param>
     public virtual async Task<IntegrationEventLog> SubscriptionFailAsync( string eventId, string message, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         if ( eventId.IsEmpty() ) {
             Log.LogWarning( "SubscriptionFailAsync更新集成事件订阅日志记录失败,事件标识不能为空." );
-            return null;
+            return NullIntegrationEventLog.Instance;
         }
         var eventLog = await GetAsync( eventId, cancellationToken );
         return await SubscriptionFailAsync( eventLog, message, cancellationToken );
@@ -379,13 +415,13 @@ public class IntegrationEventManager : IIntegrationEventManager {
     /// <param name="cancellationToken">取消令牌</param>
     public virtual async Task<IntegrationEventLog> SubscriptionFailAsync( IntegrationEventLog eventLog, string message, CancellationToken cancellationToken = default ) {
         if ( Options.Pubsub.EnableEventLog == false )
-            return new IntegrationEventLog();
+            return NullIntegrationEventLog.Instance;
         eventLog.CheckNull( nameof( eventLog ) );
         var appId = GetAppId( eventLog.Id );
         var subscriptionLog = GetSubscriptionLog( eventLog, appId );
         if ( subscriptionLog == null ) {
             Log.LogWarning( "更新集成事件订阅日志记录失败,未找到订阅日志记录,appId={appId},EventLog={@EventLog}", appId, ToDebugEventLog( eventLog ) );
-            return null;
+            return NullIntegrationEventLog.Instance;
         }
         subscriptionLog.State = SubscriptionState.Fail;
         subscriptionLog.LastModificationTime = Time.Now;

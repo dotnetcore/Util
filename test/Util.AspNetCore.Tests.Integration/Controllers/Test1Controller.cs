@@ -55,4 +55,12 @@ public class Test1Controller : ControllerBase {
         };
         return result;
     }
+
+    /// <summary>
+    /// 获取cookie值
+    /// </summary>
+    [HttpGet( "cookie" )]
+    public string GetCookie() {
+        return $"code:{Request.Cookies["code"]},name:{Request.Cookies["name"]}";
+    }
 }

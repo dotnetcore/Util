@@ -12,4 +12,9 @@ public abstract class MySqlUnitOfWorkBase : UnitOfWorkBase {
     protected MySqlUnitOfWorkBase( IServiceProvider serviceProvider, DbContextOptions options )
         : base( serviceProvider, options ) {
     }
+
+    /// <inheritdoc />
+    protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder, string connectionString ) {
+        optionsBuilder.UseMySql( connectionString, ServerVersion.AutoDetect( connectionString ) );
+    }
 }

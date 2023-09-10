@@ -1,6 +1,16 @@
 ﻿namespace Util.Microservices.Events;
 
 /// <summary>
+/// 空集成事件日志记录
+/// </summary>
+public class NullIntegrationEventLog : IntegrationEventLog {
+    /// <summary>
+    /// 空集成事件日志记录实例
+    /// </summary>
+    public static readonly IntegrationEventLog Instance = new NullIntegrationEventLog();
+}
+
+/// <summary>
 /// 集成事件日志记录
 /// </summary>
 public class IntegrationEventLog : IntegrationEventLog<object> {

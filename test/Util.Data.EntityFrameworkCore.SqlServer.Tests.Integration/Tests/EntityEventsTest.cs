@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Util.Events;
+using Util.Exceptions;
 using Util.Tests.EventHandlers;
 using Util.Tests.Events;
 using Util.Tests.Fakes;
@@ -219,6 +220,74 @@ public class EntityEventsTest : TestBase {
 
     #endregion
 
+    #region 领域事件
+
+    /// <summary>
+    /// 测试领域事件 - 添加一个本地事件
+    /// </summary>
+    [Fact]
+    public async Task TestDomainEvent_1() {
+        //添加实体
+        var entity = ProductFakeService.GetProduct();
+        entity.Init();
+        await _productRepository.AddAsync( entity );
+        await UnitOfWork.CommitAsync();
+
+        var code = $"TestDomainEvent_{entity.Id}";
+        try {
+            entity = await _productRepository.FindByIdAsync( entity.Id );
+            entity.Code = code;
+            entity.TestDomainEvent1();
+
+            //保存前触发事件处理器,抛出异常
+            await UnitOfWork.CommitAsync();
+        }
+        catch ( Warning ex ) {
+            //事件处理器抛出异常消息为实体ID
+            Assert.Equal( entity.Id.ToString(), ex.Message );
+
+            //保存前触发事件,所以没有保存成功
+            entity = await _productRepository.SingleAsync( t => t.Code == code );
+            Assert.Null( entity );
+            return;
+        }
+        Assert.Fail();
+    }
+
+    /// <summary>
+    /// 测试领域事件 - 添加一个集成事件
+    /// </summary>
+    [Fact]
+    public async Task TestDomainEvent_2() {
+        //添加实体
+        var entity = ProductFakeService.GetProduct();
+        entity.Init();
+        await _productRepository.AddAsync( entity );
+        await UnitOfWork.CommitAsync();
+
+        var code = $"TestDomainEvent_{entity.Id}";
+        try {
+            entity = await _productRepository.FindByIdAsync( entity.Id );
+            entity.Code = code;
+            entity.TestDomainEvent2();
+
+            //保存后触发事件处理器,抛出异常
+            await UnitOfWork.CommitAsync();
+        }
+        catch ( Warning ex ) {
+            //事件处理器抛出异常消息为实体ID
+            Assert.Equal( entity.Id.ToString(), ex.Message );
+
+            //保存后触发事件,所以保存成功
+            entity = await _productRepository.SingleAsync( t => t.Code == code );
+            Assert.NotNull( entity );
+            return;
+        }
+        Assert.Fail();
+    }
+
+    #endregion
+
     #region TestEventBus_ServiceLifetime_Transient
 
     /// <summary>
@@ -245,7 +314,7 @@ public class EntityEventsTest : TestBase {
         public override async Task HandleAsync( TestEvent @event, CancellationToken cancellationToken ) {
             var entity = await _repository.FindByIdAsync( @event.Id, cancellationToken );
             Assert.NotNull( entity );
-            Assert.Equal( "Name",entity.Name );
+            Assert.Equal( "Name", entity.Name );
         }
     }
 

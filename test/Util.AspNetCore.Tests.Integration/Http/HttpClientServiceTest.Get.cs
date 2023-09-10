@@ -145,4 +145,26 @@ public partial class HttpClientServiceTest {
     }
 
     #endregion
+
+    #region Cookie
+
+    /// <summary>
+    /// 测试调用Get方法 - 设置cookie - 1个参数
+    /// </summary>
+    [Fact]
+    public async Task TestGet_Cookie_1() {
+        var result = await _client.Get( "/api/test1/cookie" ).Cookie( "code", "a" ).GetResultAsync();
+        Assert.Equal( "code:a,name:", result );
+    }
+
+    /// <summary>
+    /// 测试调用Get方法 - 设置cookie - 2个参数
+    /// </summary>
+    [Fact]
+    public async Task TestGet_Cookie_2() {
+        var result = await _client.Get( "/api/test1/cookie" ).Cookie( "code", "a" ).Cookie( "name", "b" ).GetResultAsync();
+        Assert.Equal( "code:a,name:b", result );
+    }
+
+    #endregion
 }

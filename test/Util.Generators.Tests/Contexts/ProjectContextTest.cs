@@ -32,12 +32,10 @@ namespace Util.Generators.Tests.Contexts {
                 Enabled = true,
                 Utc = true,
                 I18n = true,
+                EnableSchema = true,
                 ProjectType = ProjectType.Ui,
                 ApiPort = "80",
-                Extend = new TestExtend {
-                    Id = "1",
-                    Name = "Name"
-                }
+                Extend = "{\"Id\":\"1\",\"Name\":\"Name\"}"
             };
 
             //添加架构列表
@@ -69,6 +67,7 @@ namespace Util.Generators.Tests.Contexts {
             Assert.Equal( projectContext.I18n, clone.I18n );
             Assert.Equal( projectContext.ProjectType, clone.ProjectType );
             Assert.Equal( projectContext.ApiPort, clone.ApiPort );
+            Assert.Equal( projectContext.EnableSchema, clone.EnableSchema );
             Assert.Equal( projectContext.GetExtend<TestExtend>().Id, clone.GetExtend<TestExtend>().Id );
             Assert.Equal( projectContext.GetExtend<TestExtend>().Name, clone.GetExtend<TestExtend>().Name );
 

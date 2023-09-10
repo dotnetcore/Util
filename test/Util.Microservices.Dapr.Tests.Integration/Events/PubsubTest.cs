@@ -16,7 +16,7 @@ public partial class PubsubTest {
     /// <summary>
     /// 状态管理
     /// </summary>
-    private readonly IStateManage _stateManage;
+    private readonly IStateManager _stateManager;
     /// <summary>
     /// 集成事件日志记录存储器
     /// </summary>
@@ -33,11 +33,11 @@ public partial class PubsubTest {
     /// <summary>
     /// 测试初始化
     /// </summary>
-    public PubsubTest( IIntegrationEventBus eventBus, IStateManage stateManage, IIntegrationEventLogStore eventLogStore,
+    public PubsubTest( IIntegrationEventBus eventBus, IStateManager stateManager, IIntegrationEventLogStore eventLogStore,
         IIntegrationEventManager eventManager,ILogger<PubsubTest> logger ) {
         _eventBus = eventBus;
         _eventManager = eventManager;
-        _stateManage = stateManage;
+        _stateManager = stateManager;
         _eventLogStore = eventLogStore;
         _logger = logger;
     }
@@ -66,7 +66,7 @@ public partial class PubsubTest {
     /// </summary>
     private async Task<TestEvent> GetResult( string key ) {
         for ( int i = 0; i < 100; i++ ) {
-            var result = await _stateManage.StoreName( "event-state-store" ).GetAsync<TestEvent>( key );
+            var result = await _stateManager.StoreName( "event-state-store" ).GetAsync<TestEvent>( key );
             if ( result != null ) {
                 _logger.LogInformation( "成功获取事件发布订阅测试数据: i={i},key={key},data={@data}", i, key, result );
                 return result;

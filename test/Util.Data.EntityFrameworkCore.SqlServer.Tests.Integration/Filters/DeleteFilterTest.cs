@@ -2,7 +2,7 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Util.Data.EntityFrameworkCore.Filters; 
+namespace Util.Data.EntityFrameworkCore.Filters;
 
 /// <summary>
 /// 逻辑删除过滤器测试
@@ -32,7 +32,7 @@ public class DeleteFilterTest {
     public void TestIsEnabled() {
         //默认值为启用
         Assert.True( _filter.IsEnabled );
-            
+
         //禁用过滤器
         _filter.Disable();
         Assert.False( _filter.IsEnabled );
@@ -51,7 +51,7 @@ public class DeleteFilterTest {
         Assert.True( _filter.IsEnabled );
 
         //禁用过滤器
-        using( _filter.Disable() ) {
+        using ( _filter.Disable() ) {
             Assert.False( _filter.IsEnabled );
         }
 
@@ -66,16 +66,5 @@ public class DeleteFilterTest {
     public void TestIsEntityEnabled() {
         Assert.False( _filter.IsEntityEnabled<OperationLog>() );
         Assert.True( _filter.IsEntityEnabled<Product>() );
-    }
-
-    /// <summary>
-    /// 测试获取表达式
-    /// </summary>
-    [Fact]
-    public void TestGetExpression() {
-        var expression = _filter.GetExpression<Product>();
-        var result = "entity => Not(Property(entity, \"IsDeleted\"))";
-        _testOutputHelper.WriteLine( expression.ToString() );
-        Assert.Equal( result,expression.ToString() );
     }
 }

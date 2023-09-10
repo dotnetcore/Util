@@ -1,6 +1,4 @@
-﻿using Util.Data.Filters;
-
-namespace Util.Data.EntityFrameworkCore.Filters; 
+﻿namespace Util.Data.EntityFrameworkCore.Filters; 
 
 /// <summary>
 /// 数据过滤器基类
@@ -10,27 +8,27 @@ public abstract class FilterBase<TFilterType> : IFilter<TFilterType> where TFilt
     /// <summary>
     /// 过滤器是否启用
     /// </summary>
-    public bool IsEnabled { get; private set; } = true;
+    public virtual bool IsEnabled { get; private set; } = true;
 
     /// <summary>
     /// 实体是否启用过滤器
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public bool IsEntityEnabled<TEntity>() {
+    public virtual bool IsEntityEnabled<TEntity>() {
         return typeof(TFilterType).IsAssignableFrom( typeof(TEntity) );
     }
 
     /// <summary>
     /// 启用
     /// </summary>
-    public void Enable() {
+    public virtual void Enable() {
         IsEnabled = true;
     }
 
     /// <summary>
     /// 禁用
     /// </summary>
-    public IDisposable Disable() {
+    public virtual IDisposable Disable() {
         if ( IsEnabled == false )
             return DisposeAction.Null;
         IsEnabled = false;
@@ -41,5 +39,6 @@ public abstract class FilterBase<TFilterType> : IFilter<TFilterType> where TFilt
     /// 获取过滤表达式
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public abstract Expression<Func<TEntity, bool>> GetExpression<TEntity>() where TEntity : class;
+    /// <param name="state">参数</param>
+    public abstract Expression<Func<TEntity, bool>> GetExpression<TEntity>( object state ) where TEntity : class;
 }

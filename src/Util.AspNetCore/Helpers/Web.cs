@@ -343,4 +343,60 @@ public static class Web {
     }
 
     #endregion
+
+    #region GetCookie(获取Cookie)
+
+    /// <summary>
+    /// 获取Cookie
+    /// </summary>
+    /// <param name="key">cookie键名</param>
+    public static string GetCookie( string key ) {
+        return Request?.Cookies[key];
+    }
+
+    #endregion
+
+    #region SetCookie(设置Cookie)
+
+    /// <summary>
+    /// 设置Cookie
+    /// </summary>
+    /// <param name="key">cookie键名</param>
+    /// <param name="value">值</param>
+    public static void SetCookie( string key, string value ) {
+        Response?.Cookies.Append( key, value );
+    }
+
+    /// <summary>
+    /// 设置Cookie
+    /// </summary>
+    /// <param name="key">cookie键名</param>
+    /// <param name="value">值</param>
+    /// <param name="options">Cookie配置</param>
+    public static void SetCookie( string key,string value,CookieOptions options ) {
+        Response?.Cookies.Append( key, value, options );
+    }
+
+    #endregion
+
+    #region RemoveCookie(移除Cookie)
+
+    /// <summary>
+    /// 移除Cookie
+    /// </summary>
+    /// <param name="key">cookie键名</param>
+    public static void RemoveCookie( string key ) {
+        Response?.Cookies.Delete( key );
+    }
+
+    /// <summary>
+    /// 移除Cookie
+    /// </summary>
+    /// <param name="key">cookie键名</param>
+    /// <param name="options">Cookie配置</param>
+    public static void RemoveCookie( string key, CookieOptions options ) {
+        Response?.Cookies.Delete( key, options );
+    }
+
+    #endregion
 }

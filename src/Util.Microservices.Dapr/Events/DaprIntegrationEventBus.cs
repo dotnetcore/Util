@@ -22,10 +22,6 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     /// </summary>
     protected readonly ILogger Logger;
     /// <summary>
-    /// 工作单元操作管理器
-    /// </summary>
-    protected readonly IUnitOfWorkActionManager ActionManager;
-    /// <summary>
     /// 发布订阅回调操作
     /// </summary>
     protected IPubsubCallback PubsubCallback;
@@ -33,10 +29,6 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     /// 集成事件管理器
     /// </summary>
     protected IIntegrationEventManager EventManager;
-    /// <summary>
-    /// 是否立即发送事件
-    /// </summary>
-    protected bool? IsSend;
     /// <summary>
     /// 发布订阅配置名称
     /// </summary>
@@ -90,24 +82,12 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         Options = options?.Value ?? new DaprOptions();
         Logger = loggerFactory?.CreateLogger( typeof( DaprEventBus ) ) ?? NullLogger<DaprEventBus>.Instance;
         serviceProvider.CheckNull( nameof( serviceProvider ) );
-        ActionManager = serviceProvider.GetService<IUnitOfWorkActionManager>();
-        ActionManager.CheckNull( nameof( ActionManager ) );
         PubsubCallback = serviceProvider.GetService<IPubsubCallback>() ?? NullPubsubCallback.Instance;
         EventManager = serviceProvider.GetRequiredService<IIntegrationEventManager>();
         Headers = new Dictionary<string, string>();
         ImportHeaderKeys = new List<string>();
         RemoveHeaderKeys = new List<string>();
         Metadatas = new Dictionary<string, string>();
-    }
-
-    #endregion
-
-    #region SendNow
-
-    /// <inheritdoc />
-    public IIntegrationEventBus SendNow( bool isSend ) {
-        IsSend = isSend;
-        return this;
     }
 
     #endregion
@@ -276,13 +256,7 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
         Init( @event );
         if ( OnBeforeAction != null && OnBeforeAction( @event, Headers, Metadatas ) == false )
             return;
-        if ( IsSend.SafeValue() ) {
-            await PublishEventAsync( @event, cancellationToken );
-            return;
-        }
-        ActionManager.Register( async () => {
-            await PublishEventAsync( @event, cancellationToken );
-        } );
+        await PublishEventAsync( @event, cancellationToken );
     }
 
     /// <summary>
@@ -335,35 +309,17 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     /// 初始化
     /// </summary>
     protected void Init( IIntegrationEvent integrationEvent ) {
-        InitIsSend( integrationEvent );
         InitPubsubName( integrationEvent );
         InitTopic( integrationEvent );
     }
 
     /// <summary>
-    /// 初始化是否立即发送
-    /// </summary>
-    protected void InitIsSend( IIntegrationEvent integrationEvent ) {
-        if ( IsSend != null )
-            return;
-        IsSend = true;
-        if ( integrationEvent is not IIntegrationEventExtend extend )
-            return;
-        if ( extend.SendNow != null )
-            IsSend = extend.SendNow;
-    }
-
-    /// <summary>
-    /// 初始化发布订阅配置名称
+    /// 初始化发布订阅名称
     /// </summary>
     protected void InitPubsubName( IIntegrationEvent integrationEvent ) {
         if ( Pubsub.IsEmpty() == false )
             return;
-        Pubsub = "pubsub";
-        if ( integrationEvent is not IIntegrationEventExtend extend )
-            return;
-        if ( extend.PubsubName.IsEmpty() == false )
-            Pubsub = extend.PubsubName;
+        Pubsub = PubsubNameAttribute.GetName( integrationEvent.GetType() );
     }
 
     /// <summary>
@@ -372,11 +328,7 @@ public class DaprIntegrationEventBus : IIntegrationEventBus {
     protected void InitTopic( IIntegrationEvent integrationEvent ) {
         if ( TopicName.IsEmpty() == false )
             return;
-        TopicName = integrationEvent.GetType().Name;
-        if ( integrationEvent is not IIntegrationEventExtend extend )
-            return;
-        if ( extend.Topic.IsEmpty() == false )
-            TopicName = extend.Topic;
+        TopicName = TopicNameAttribute.GetName( integrationEvent.GetType() );
     }
 
     /// <summary>

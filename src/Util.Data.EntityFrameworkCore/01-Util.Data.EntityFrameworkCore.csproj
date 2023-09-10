@@ -34,6 +34,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Util.Data.Core\01-Util.Data.Core.csproj" />
 	  <ProjectReference Include="..\Util.Domain\01-Util.Domain.csproj" />
+	  <ProjectReference Include="..\Util.Tenants.Abstractions\01-Util.Tenants.Abstractions.csproj" />
 	</ItemGroup>
 
 </Project>

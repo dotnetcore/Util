@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Util.Aop;
 using Xunit.DependencyInjection.Logging;
 
 namespace Util.Events.Tests; 
@@ -15,7 +14,6 @@ public class Startup {
     public void ConfigureHost( IHostBuilder hostBuilder ) {
         hostBuilder
             .AsBuild()
-            .AddAop()
             .AddUtil();
     }
 

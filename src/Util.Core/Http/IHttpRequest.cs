@@ -85,6 +85,22 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <param name="queryString">查询字符串对象</param>
     IHttpRequest<TResult> QueryString( object queryString );
     /// <summary>
+    /// 设置是否自动携带cookie
+    /// </summary>
+    /// <param name="isUseCookies">是否自动携带cookie</param>
+    IHttpRequest<TResult> UseCookies( bool isUseCookies = true );
+    /// <summary>
+    /// 设置Cookie
+    /// </summary>
+    /// <param name="key">键</param>
+    /// <param name="value">值</param>
+    IHttpRequest<TResult> Cookie( string key, string value );
+    /// <summary>
+    /// 设置Cookie集合
+    /// </summary>
+    /// <param name="cookies">Cookie集合</param>
+    IHttpRequest<TResult> Cookie( IDictionary<string, string> cookies );
+    /// <summary>
     /// 添加参数,作为请求内容发送
     /// </summary>
     /// <param name="key">键</param>

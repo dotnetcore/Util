@@ -1,0 +1,13 @@
+﻿global using System;
+global using System.Threading.Tasks;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Collections;
+global using System.Threading;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Options;
+global using Microsoft.Extensions.DependencyInjection.Extensions;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Logging.Abstractions;
+global using Microsoft.AspNetCore.Builder;

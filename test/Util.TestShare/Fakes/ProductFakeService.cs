@@ -23,12 +23,13 @@ public static class ProductFakeService {
     /// <param name="count">行数</param>
     public static List<Product> GetProducts( int count ) {
         return new AutoFaker<Product>()
-            .RuleFor( t => t.Code, t => t.Random.String2( 1, 50 ) )
+            .RuleFor( t => t.Code, t => t.Random.String2( 1, 20 ) )
             .RuleFor( t => t.Name, t => t.Random.String2( 1, 500 ) )
             .Ignore( t => t.CreationTime )
             .Ignore( t => t.CreatorId )
             .Ignore( t => t.LastModificationTime )
             .Ignore( t => t.LastModifierId )
+            .Ignore( t => t.TenantId )
             .Ignore( t => t.TestProperty1 )
             .RuleFor( t => t.IsDeleted, false )
             .Generate( count );
@@ -50,7 +51,7 @@ public static class ProductFakeService {
             .Configure( builder => builder
                 .WithSkip<ProductDto>( t => t.Id )
             )
-            .RuleFor( t => t.Code, t => t.Random.String2( 1, 50 ) )
+            .RuleFor( t => t.Code, t => t.Random.String2( 1, 20 ) )
             .RuleFor( t => t.Name, t => t.Random.String2( 1, 500 ) )
             .Ignore( t => t.CreationTime )
             .Ignore( t => t.CreatorId )

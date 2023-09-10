@@ -16,7 +16,7 @@ public class Container {
     /// <summary>
     /// 容器实例
     /// </summary>
-    public static readonly Container Instance = new Container();
+    public static readonly Container Instance = new();
 
     /// <summary>
     /// 初始化容器
@@ -66,5 +66,13 @@ public class Container {
     public object GetService( Type type ) {
         var provider = GetServiceProvider();
         return provider.GetService( type );
+    }
+
+    /// <summary>
+    /// 清理
+    /// </summary>
+    public void Clear() {
+        _services.Clear();
+        _provider = null;
     }
 }

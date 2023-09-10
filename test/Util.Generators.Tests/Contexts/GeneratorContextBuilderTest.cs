@@ -174,6 +174,17 @@ namespace Util.Generators.Tests.Contexts {
         }
 
         /// <summary>
+        /// 测试是否启用架构
+        /// </summary>
+        [Fact]
+        public void TestProjectContext_EnableSchema() {
+            var projectContext = _context.Projects[0];
+            Assert.True( projectContext.EnableSchema );
+            var projectContext2 = _context.Projects[1];
+            Assert.True( projectContext2.EnableSchema );
+        }
+
+        /// <summary>
         /// 测试项目扩展
         /// </summary>
         [Fact]

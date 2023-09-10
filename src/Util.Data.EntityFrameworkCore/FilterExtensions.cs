@@ -1,7 +1,4 @@
-﻿using Util.Data.Filters;
-using Util.Domain;
-
-namespace Util.Data.EntityFrameworkCore; 
+﻿namespace Util.Data.EntityFrameworkCore; 
 
 /// <summary>
 /// 过滤器操作扩展
@@ -21,5 +18,21 @@ public static class FilterExtensions {
     /// <param name="source">源</param>
     public static IDisposable DisableDeleteFilter( this IFilterOperation source ) {
         return source.DisableFilter<IDelete>();
+    }
+
+    /// <summary>
+    /// 启用租户过滤器
+    /// </summary>
+    /// <param name="source">源</param>
+    public static void EnableTenantFilter( this IFilterOperation source ) {
+        source.EnableFilter<ITenant>();
+    }
+
+    /// <summary>
+    /// 禁用租户过滤器
+    /// </summary>
+    /// <param name="source">源</param>
+    public static IDisposable DisableTenantFilter( this IFilterOperation source ) {
+        return source.DisableFilter<ITenant>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Util.Data.Filters;
+﻿using Util.Data.EntityFrameworkCore.Samples;
+using Util.Data.Filters;
 using Util.Domain;
 using Util.Tests.Models;
 using Xunit;
@@ -96,5 +97,49 @@ public class FilterManagerTest {
     public void TestIsEnabled() {
         Assert.True( _filterManager.IsEnabled<IDelete>() );
         Assert.False( _filterManager.IsEnabled<IUnitOfWork>() );
+    }
+
+    /// <summary>
+    /// 测试获取过滤表达式 - 1个过滤器
+    /// </summary>
+    [Fact]
+    public void TestGetExpression_1() {
+        FilterManager.AddFilterType<ITest>();
+        FilterManager.RemoveFilterType<ITest2>();
+        var expression = _filterManager.GetExpression<Test>( null );
+        Assert.Equal( "t => False", expression?.ToString() );
+    }
+
+    /// <summary>
+    /// 测试获取过滤表达式 - 2个过滤器
+    /// </summary>
+    [Fact]
+    public void TestGetExpression_2() {
+        FilterManager.AddFilterType<ITest>();
+        FilterManager.AddFilterType<ITest2>();
+        var expression = _filterManager.GetExpression<Test>( null );
+        Assert.Equal( "t => (False AndAlso True)", expression?.ToString() );
+    }
+
+    /// <summary>
+    /// 测试获取过滤表达式 - 2个过滤器 - 只启用一个过滤器
+    /// </summary>
+    [Fact]
+    public void TestGetExpression_3() {
+        FilterManager.AddFilterType<ITest>();
+        FilterManager.AddFilterType<ITest2>();
+        var expression = _filterManager.GetExpression<Test2>( null );
+        Assert.Equal( "t => True", expression?.ToString() );
+    }
+
+    /// <summary>
+    /// 测试获取过滤表达式 - 未启用过滤器
+    /// </summary>
+    [Fact]
+    public void TestGetExpression_4() {
+        FilterManager.AddFilterType<ITest>();
+        FilterManager.AddFilterType<ITest2>();
+        var expression = _filterManager.GetExpression<OperationLog>( null );
+        Assert.Null( expression );
     }
 }

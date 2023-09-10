@@ -1,0 +1,12 @@
+global using System.Threading.Tasks;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.AspNetCore.TestHost;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Options;
+global using Microsoft.AspNetCore.Mvc;
+global using Xunit;
+global using Xunit.DependencyInjection.Logging;
+global using Util.Http;
+global using Util.Aop;

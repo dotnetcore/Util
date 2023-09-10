@@ -19,3 +19,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.ChangeTracking;
 global using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 global using Microsoft.EntityFrameworkCore.Metadata;
+global using Util.Tenants;
+global using Util.Domain;
+global using Util.Infrastructure;
+global using Util.Data.Filters;

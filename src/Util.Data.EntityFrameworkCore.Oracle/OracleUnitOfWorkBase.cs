@@ -18,6 +18,11 @@ public abstract class OracleUnitOfWorkBase : UnitOfWorkBase {
         : base( serviceProvider, options ) {
     }
 
+    /// <inheritdoc />
+    protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder, string connectionString ) {
+        optionsBuilder.UseOracle( connectionString );
+    }
+
     /// <summary>
     /// 配置扩展属性
     /// </summary>

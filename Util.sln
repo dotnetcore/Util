@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Core.Tests", "test\Uti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E6328DC1-C8F0-4DC6-941F-C6CAFFF783DF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14-Ui", "14-Ui", "{354B3720-D050-487D-A46A-22BCFEE56D43}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15-Ui", "15-Ui", "{354B3720-D050-487D-A46A-22BCFEE56D43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Ui", "src\Util.Ui\01-Util.Ui.csproj", "{5F7ACBE4-A1D8-4680-AA86-B87F8494BAC2}"
 EndProject
@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Ui.NgZorro.Tests", "te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{9BFB5DBE-8F64-45A9-BDB2-BAD91D44A4C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15-Ui", "15-Ui", "{DE39BB20-AE82-47C3-9141-8CFD4C673217}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16-Ui", "16-Ui", "{DE39BB20-AE82-47C3-9141-8CFD4C673217}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Ui.Tests", "test\Util.Ui.Tests\Util.Ui.Tests.csproj", "{766CAB38-F064-419F-837B-D6DA8B61AF66}"
 EndProject
@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Aop.AspectCore", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Aop.AspectCore.Tests", "test\Util.Aop.AspectCore.Tests\Util.Aop.AspectCore.Tests.csproj", "{B8825802-81F7-4671-82E8-3A6E3A21F570}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Domain", "10-Domain", "{7AB71D86-D351-4009-A789-24097897E74A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Domain", "11-Domain", "{7AB71D86-D351-4009-A789-24097897E74A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Validation", "src\Util.Validation\04-Util.Validation.csproj", "{1DE277C2-EE56-4F4D-BB89-71107DE0E4C6}"
 EndProject
@@ -57,15 +57,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Validation.Tests", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Domain", "src\Util.Domain\01-Util.Domain.csproj", "{61982C8D-5376-45EE-BCC3-D4F9E90AF3B0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-Domain", "09-Domain", "{FC5E00D1-ABA5-4168-8B8F-FA2A26D84068}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Domain", "10-Domain", "{FC5E00D1-ABA5-4168-8B8F-FA2A26D84068}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Domain.Tests", "test\Util.Domain.Tests\Util.Domain.Tests.csproj", "{7CA38535-297B-4DA9-AFF5-3199268EEAF6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Events", "src\Util.Events\02-Util.Events.csproj", "{EE426441-DE33-4F3B-B66A-E258AC725B78}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Data", "11-Data", "{66A85767-2877-4B99-84F1-EEABC6DC5247}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Data", "12-Data", "{66A85767-2877-4B99-84F1-EEABC6DC5247}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Data", "12-Data", "{CC492CA2-5D86-4DB8-AB15-B118DF27C344}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Data", "13-Data", "{CC492CA2-5D86-4DB8-AB15-B118DF27C344}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Data.Tests", "test\Util.Data.Tests\Util.Data.Tests.csproj", "{4D40321F-2C3F-4ACB-8AE0-7A228DF0551B}"
 EndProject
@@ -99,11 +99,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Data.Dapper.All", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Domain.Biz", "src\Util.Domain.Biz\02-Util.Domain.Biz.csproj", "{AFB629C5-00C2-492C-8787-C66D810A24DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Application", "12-Application", "{648CE3E3-CEC4-4F91-8696-6A3FB2F91220}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Application", "13-Application", "{648CE3E3-CEC4-4F91-8696-6A3FB2F91220}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Application", "src\Util.Application\01-Util.Application.csproj", "{9404B5FE-3431-4EC0-BCC6-42525FC5D1B8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Application", "13-Application", "{BB24822F-F104-4D8E-9CB5-0A94DEF04BAB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14-Application", "14-Application", "{BB24822F-F104-4D8E-9CB5-0A94DEF04BAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Application.Tests", "test\Util.Application.Tests\Util.Application.Tests.csproj", "{EF7BDA1B-22E7-4F3D-97E0-16C9C10AA1B0}"
 EndProject
@@ -139,7 +139,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Logging.Serilog", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Logging.Serilog.Exceptionless", "src\Util.Logging.Serilog.Exceptionless\03-Util.Logging.Serilog.Exceptionless.csproj", "{9960FA8A-98C1-45FB-8A09-33CA183AA140}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Share", "10-Share", "{E3414144-C19E-40C0-A73A-2FD41AE514D1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Share", "11-Share", "{E3414144-C19E-40C0-A73A-2FD41AE514D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.TestShare", "test\Util.TestShare\Util.TestShare.csproj", "{1855CAB7-6379-47A4-A0A4-F890C6C46403}"
 EndProject
@@ -219,7 +219,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.AspNetCore.Tests.Integ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-Scheduling", "06-Scheduling", "{76AA6040-AA3A-43DD-BD4B-7F931271BFD6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-Scheduling", "11-Scheduling", "{6493D592-7930-4979-A07D-B7CAA751C7BE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12-Scheduling", "12-Scheduling", "{6493D592-7930-4979-A07D-B7CAA751C7BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Scheduling.Quartz", "src\Util.Scheduling.Quartz\02-Util.Scheduling.Quartz.csproj", "{4E12B03E-D607-492E-BB28-96235993A39F}"
 EndProject
@@ -257,13 +257,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Images.Avatar", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Images.Avatar.Tests.Integration", "test\Util.Images.Avatar.Tests.Integration\Util.Images.Avatar.Tests.Integration.csproj", "{75A31AAB-B7E6-4F13-9B7A-B74216B2EDDE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15-Generators", "15-Generators", "{411247A4-4665-4BE6-8E5C-08F6D0BA2213}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16-Generators", "16-Generators", "{411247A4-4665-4BE6-8E5C-08F6D0BA2213}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Generators", "src\Util.Generators\01-Util.Generators.csproj", "{36990D32-6F41-44A6-BB88-A3F15E12C35B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Generators.Razor", "src\Util.Generators.Razor\02-Util.Generators.Razor.csproj", "{21831A4F-B3C9-40E7-855B-75F9D679FF55}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16-Generators", "16-Generators", "{F7D4E7CB-468D-4570-8D82-D065F08BE40D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "17-Generators", "17-Generators", "{F7D4E7CB-468D-4570-8D82-D065F08BE40D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Generators.Tests", "test\Util.Generators.Tests\Util.Generators.Tests.csproj", "{5996F536-14B9-4F95-A18B-716E5F7EE478}"
 EndProject
@@ -285,11 +285,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Generators.Razor.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Events.Tests.Integration", "test\Util.Events.Tests.Integration\Util.Events.Tests.Integration.csproj", "{FB11256C-06C0-4B24-863A-C87D78F8EE2A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14-Microservices", "14-Microservices", "{547FD391-A56B-47A6-B20C-5FC04FA15C56}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15-Microservices", "15-Microservices", "{547FD391-A56B-47A6-B20C-5FC04FA15C56}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Events.Abstractions", "src\Util.Events.Abstractions\01-Util.Events.Abstractions.csproj", "{6233BF36-9636-43BD-9462-2D31A05EE4ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13-Microservices", "13-Microservices", "{1DEC52C8-6692-4DA7-AE34-B76D728F895A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14-Microservices", "14-Microservices", "{1DEC52C8-6692-4DA7-AE34-B76D728F895A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Microservices", "src\Util.Microservices\01-Util.Microservices.csproj", "{F8417623-6936-43C4-A967-9D6BD002AD16}"
 EndProject
@@ -305,7 +305,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.Microservices.Healt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Microservices.Dapr.WebApiSample", "test\Util.Microservices.Dapr.WebApiSample\Util.Microservices.Dapr.WebApiSample.csproj", "{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Microservices.Dapr.PubsubSample", "test\Util.Microservices.Dapr.PubsubSample\Util.Microservices.Dapr.PubsubSample.csproj", "{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Microservices.Dapr.PubsubSample", "test\Util.Microservices.Dapr.PubsubSample\Util.Microservices.Dapr.PubsubSample.csproj", "{5D74BD1D-3142-4478-9062-4543FADA3E91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Microservices.Dapr.Tests", "test\Util.Microservices.Dapr.Tests\Util.Microservices.Dapr.Tests.csproj", "{B737883C-9450-46CB-B81C-1A3405071D04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Tenants", "src\Util.Tenants\02-Util.Tenants.csproj", "{156447ED-8515-4FB0-8B5A-D5A3A1E43AC6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Tenants.Tests", "test\Util.Tenants.Tests\Util.Tenants.Tests.csproj", "{DE51B662-C843-4E99-87F8-F367504D5640}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Tenant", "10-Tenant", "{98F1FEAD-AFD5-4744-8A55-C57920461EB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-Tenant", "09-Tenant", "{835A8155-411B-4DF2-AE58-D3FDEFB61E63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Tenants.Abstractions", "src\Util.Tenants.Abstractions\01-Util.Tenants.Abstractions.csproj", "{0C062400-58D1-4EE3-8EBB-C5B3AAEECF87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.Events.MediatR", "src\Util.Events.MediatR\03-Util.Events.MediatR.csproj", "{FA6AF0F1-B4EE-4E46-B933-9573861A10FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Events.MediatR.Tests.Integration", "test\Util.Events.MediatR.Tests.Integration\Util.Events.MediatR.Tests.Integration.csproj", "{4FECE655-7B06-4DED-BED0-B67731A43E0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Tenants.Tests.Integration", "test\Util.Tenants.Tests.Integration\Util.Tenants.Tests.Integration.csproj", "{6A84E4B0-3A9C-4B40-9B64-AD3A26324DAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -749,10 +767,38 @@ Global
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D74BD1D-3142-4478-9062-4543FADA3E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D74BD1D-3142-4478-9062-4543FADA3E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D74BD1D-3142-4478-9062-4543FADA3E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D74BD1D-3142-4478-9062-4543FADA3E91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B737883C-9450-46CB-B81C-1A3405071D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B737883C-9450-46CB-B81C-1A3405071D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B737883C-9450-46CB-B81C-1A3405071D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B737883C-9450-46CB-B81C-1A3405071D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{156447ED-8515-4FB0-8B5A-D5A3A1E43AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{156447ED-8515-4FB0-8B5A-D5A3A1E43AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{156447ED-8515-4FB0-8B5A-D5A3A1E43AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{156447ED-8515-4FB0-8B5A-D5A3A1E43AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE51B662-C843-4E99-87F8-F367504D5640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE51B662-C843-4E99-87F8-F367504D5640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE51B662-C843-4E99-87F8-F367504D5640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE51B662-C843-4E99-87F8-F367504D5640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C062400-58D1-4EE3-8EBB-C5B3AAEECF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C062400-58D1-4EE3-8EBB-C5B3AAEECF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C062400-58D1-4EE3-8EBB-C5B3AAEECF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C062400-58D1-4EE3-8EBB-C5B3AAEECF87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6AF0F1-B4EE-4E46-B933-9573861A10FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6AF0F1-B4EE-4E46-B933-9573861A10FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6AF0F1-B4EE-4E46-B933-9573861A10FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6AF0F1-B4EE-4E46-B933-9573861A10FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FECE655-7B06-4DED-BED0-B67731A43E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FECE655-7B06-4DED-BED0-B67731A43E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FECE655-7B06-4DED-BED0-B67731A43E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FECE655-7B06-4DED-BED0-B67731A43E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A84E4B0-3A9C-4B40-9B64-AD3A26324DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A84E4B0-3A9C-4B40-9B64-AD3A26324DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A84E4B0-3A9C-4B40-9B64-AD3A26324DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A84E4B0-3A9C-4B40-9B64-AD3A26324DAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -904,7 +950,16 @@ Global
 		{DF1E55A5-7EA8-41B2-BEBA-72544D256069} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
 		{9C58E50F-0589-4A4E-B94D-2EC0BF02F61F} = {1DEC52C8-6692-4DA7-AE34-B76D728F895A}
 		{AE19ED93-AFC4-4F91-93BD-B00D343D3BA0} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
-		{BEEA3FA6-D6B6-48F5-AE6D-9625430B7A86} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
+		{5D74BD1D-3142-4478-9062-4543FADA3E91} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
+		{B737883C-9450-46CB-B81C-1A3405071D04} = {547FD391-A56B-47A6-B20C-5FC04FA15C56}
+		{156447ED-8515-4FB0-8B5A-D5A3A1E43AC6} = {98F1FEAD-AFD5-4744-8A55-C57920461EB9}
+		{DE51B662-C843-4E99-87F8-F367504D5640} = {835A8155-411B-4DF2-AE58-D3FDEFB61E63}
+		{98F1FEAD-AFD5-4744-8A55-C57920461EB9} = {C01B9930-D67F-41C5-90C9-C87DC53F39CB}
+		{835A8155-411B-4DF2-AE58-D3FDEFB61E63} = {E6328DC1-C8F0-4DC6-941F-C6CAFFF783DF}
+		{0C062400-58D1-4EE3-8EBB-C5B3AAEECF87} = {98F1FEAD-AFD5-4744-8A55-C57920461EB9}
+		{FA6AF0F1-B4EE-4E46-B933-9573861A10FC} = {59F82491-51E3-4A12-B427-9815AEA23D10}
+		{4FECE655-7B06-4DED-BED0-B67731A43E0B} = {3ABD7B4B-37F9-4D49-92D9-384190177286}
+		{6A84E4B0-3A9C-4B40-9B64-AD3A26324DAC} = {835A8155-411B-4DF2-AE58-D3FDEFB61E63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94347832-A36D-4C42-9C4D-B848BD4F5DA9}

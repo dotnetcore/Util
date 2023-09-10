@@ -10,7 +10,7 @@ public class IntegrationEventController : IntegrationEventControllerBase {
     /// <summary>
     /// 状态管理操作
     /// </summary>
-    private readonly IStateManage _stateManage;
+    private readonly IStateManager _stateManager;
     /// <summary>
     /// 日志操作
     /// </summary>
@@ -19,8 +19,8 @@ public class IntegrationEventController : IntegrationEventControllerBase {
     /// <summary>
     /// 初始化集成事件控制器
     /// </summary>
-    public IntegrationEventController( IStateManage stateManage, ILogger<IntegrationEventController> log ) {
-        _stateManage = stateManage;
+    public IntegrationEventController( IStateManager stateManager, ILogger<IntegrationEventController> log ) {
+        _stateManager = stateManager;
         _log = log;
     }
 
@@ -31,7 +31,7 @@ public class IntegrationEventController : IntegrationEventControllerBase {
     [Topic( nameof( TestEvent ) )]
     public async Task<IActionResult> Test1Async( TestEvent @event ) {
         _log.LogInformation( "========================================================WebApi_Test1:{@TestEvent}", @event );
-        await _stateManage.StoreName( "event-state-store" ).AddAsync( $"webapi_{@event.Code}", @event );
+        await _stateManager.StoreName( "event-state-store" ).AddAsync( $"webapi_{@event.Code}", @event );
         return Success();
     }
 

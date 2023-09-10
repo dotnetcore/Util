@@ -5,11 +5,6 @@
 /// </summary>
 public interface IIntegrationEventBus : ITransientDependency {
     /// <summary>
-    /// 设置是否立即发送事件
-    /// </summary>
-    /// <param name="isSend">是否立即发送事件,如果希望发送操作延迟到工作单元提交成功后,则设置为false</param>
-    IIntegrationEventBus SendNow( bool isSend );
-    /// <summary>
     /// 设置发布订阅配置名称
     /// </summary>
     /// <param name="pubsubName">发布订阅配置名称</param>

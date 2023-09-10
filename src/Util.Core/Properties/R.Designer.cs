@@ -223,6 +223,15 @@ namespace Util.Properties {
         }
         
         /// <summary>
+        ///   查找类似 租户标识 的本地化字符串。
+        /// </summary>
+        public static string TenantId {
+            get {
+                return ResourceManager.GetString("TenantId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 类型 {0} 不是枚举 的本地化字符串。
         /// </summary>
         public static string TypeNotEnum {

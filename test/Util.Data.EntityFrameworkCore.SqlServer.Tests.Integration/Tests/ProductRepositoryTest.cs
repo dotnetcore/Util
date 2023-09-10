@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Util.Exceptions;
+using Util.Helpers;
+using Util.Tenants.Managements;
 using Util.Tests.Fakes;
 using Util.Tests.Infrastructure;
 using Util.Tests.Models;
@@ -12,7 +14,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.DependencyInjection;
 
-namespace Util.Data.EntityFrameworkCore.Tests; 
+namespace Util.Data.EntityFrameworkCore.Tests;
 
 /// <summary>
 /// 产品仓储测试
@@ -20,6 +22,8 @@ namespace Util.Data.EntityFrameworkCore.Tests;
 /// 1. 测试Guid类型标识
 /// 2. 测试仓储基础方法
 /// 3. 测试扩展属性
+/// 4. 测试逻辑删除过滤器
+/// 5. 测试租户过滤器
 /// </summary>
 public partial class ProductRepositoryTest : TestBase {
 
@@ -203,7 +207,7 @@ public partial class ProductRepositoryTest : TestBase {
         await UnitOfWork.CommitAsync();
 
         //验证
-        var result = (await _repository.FindByIdsAsync( products[0].Id, products[1].Id, products[2].Id )).OrderBy( t => t.Code ).ToList();
+        var result = ( await _repository.FindByIdsAsync( products[0].Id, products[1].Id, products[2].Id ) ).OrderBy( t => t.Code ).ToList();
         Assert.Equal( products[0].Description, result[0].Description );
         Assert.Equal( products[1].Description, result[1].Description );
         Assert.Equal( products[2].Description, result[2].Description );
@@ -226,7 +230,7 @@ public partial class ProductRepositoryTest : TestBase {
         await UnitOfWork.CommitAsync();
 
         //验证
-        var result = (await _repository.FindByIdsAsync( products.Select( t => t.Id ) )).OrderBy( t => t.Code ).ToList();
+        var result = ( await _repository.FindByIdsAsync( products.Select( t => t.Id ) ) ).OrderBy( t => t.Code ).ToList();
         Assert.Equal( products[0].Description, result[0].Description );
         Assert.Equal( products[1].Description, result[1].Description );
         Assert.Equal( products[2].Description, result[2].Description );
@@ -249,7 +253,7 @@ public partial class ProductRepositoryTest : TestBase {
         await UnitOfWork.CommitAsync();
 
         //验证
-        var result = (await _repository.FindByIdsAsync( products.Select( t => t.Id ).Join() )).OrderBy( t => t.Code ).ToList();
+        var result = ( await _repository.FindByIdsAsync( products.Select( t => t.Id ).Join() ) ).OrderBy( t => t.Code ).ToList();
         Assert.Equal( products[0].Description, result[0].Description );
         Assert.Equal( products[1].Description, result[1].Description );
         Assert.Equal( products[2].Description, result[2].Description );
@@ -1492,6 +1496,83 @@ public partial class ProductRepositoryTest : TestBase {
         //验证
         var result = await _repository.FindByIdAsync( entity.Id );
         Assert.Equal( "a", result.TestProperty1 );
+    }
+
+    #endregion
+
+    #region 测试租户过滤器
+
+    /// <summary>
+    /// 测试租户过滤器
+    /// </summary>
+    [Fact]
+    public async Task TestTenantFilter_1() {
+        //变量定义
+        var name = $"TestTenantFilter_{Id.Create()}";
+        var tenantId = "tenant_1";
+        var tenantId2 = "tenant_2";
+
+        //设置当前租户标识
+        TenantManager.CurrentTenantId = tenantId;
+
+        //添加实体1
+        var entity = await AddProductAsync( name );
+        UnitOfWork.ClearCache();
+
+        //验证租户标识已设置
+        Assert.Equal( tenantId, entity.TenantId );
+
+        //设置当前租户标识
+        TenantManager.CurrentTenantId = tenantId2;
+
+        //添加实体2
+        entity = await AddProductAsync( name );
+        UnitOfWork.ClearCache();
+
+        //验证租户标识已设置
+        Assert.Equal( tenantId2, entity.TenantId );
+
+        //查询
+        var result = await _repository.FindAllAsync( t => t.Name == name );
+        Assert.Single( result );
+        Assert.Equal( tenantId2, result[0].TenantId );
+    }
+
+    /// <summary>
+    /// 测试租户过滤器 - 禁用租户过滤器
+    /// </summary>
+    [Fact]
+    public async Task TestTenantFilter_2() {
+        //变量定义
+        var name = $"TestTenantFilter_{Id.Create()}";
+        var tenantId = "tenant_1";
+        var tenantId2 = "tenant_2";
+
+        //设置当前租户标识
+        TenantManager.CurrentTenantId = tenantId;
+
+        //添加实体1
+        var entity = await AddProductAsync( name );
+        UnitOfWork.ClearCache();
+
+        //验证租户标识已设置
+        Assert.Equal( tenantId, entity.TenantId );
+
+        //设置当前租户标识
+        TenantManager.CurrentTenantId = tenantId2;
+
+        //添加实体2
+        entity = await AddProductAsync( name );
+        UnitOfWork.ClearCache();
+
+        //验证租户标识已设置
+        Assert.Equal( tenantId2, entity.TenantId );
+
+        //查询
+        using ( _repository.DisableTenantFilter() ) {
+            var result = await _repository.FindAllAsync( t => t.Name == name );
+            Assert.Equal( 2, result.Count );
+        }
     }
 
     #endregion

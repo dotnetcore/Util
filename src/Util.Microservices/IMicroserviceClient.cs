@@ -22,5 +22,5 @@ public interface IMicroserviceClient {
     /// <summary>
     /// 状态管理
     /// </summary>
-    IStateManage StateManage { get; }
+    IStateManager StateManager { get; }
 }

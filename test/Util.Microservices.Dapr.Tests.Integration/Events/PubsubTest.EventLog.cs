@@ -13,13 +13,28 @@ public partial class PubsubTest {
     /// </summary>
     [Fact]
     public async Task TestIntegrationEventLog_Published() {
+        //清空集成事件计数
+        await _eventManager.ClearCountAsync();
+
         //发布事件,没有订阅者
         var testEvent = new TestEvent( "1", "test" );
         await _eventBus.Topic( "a" ).PublishAsync( testEvent );
 
         //获取日志记录
-        var log = await _eventLogStore.GetAsync( testEvent.EventId );
+        var log = await _eventManager.GetAsync( testEvent.EventId );
         Assert.True( log.State == EventState.Published );
+
+        //获取计数
+        var count = await _eventManager.GetCountAsync();
+        Assert.Equal( 1,count );
+
+        //再次发布事件
+        testEvent = new TestEvent( "1", "test" );
+        await _eventBus.Topic( "a" ).PublishAsync( testEvent );
+
+        //获取计数
+        count = await _eventManager.GetCountAsync();
+        Assert.Equal( 2, count );
     }
 
     /// <summary>

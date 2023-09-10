@@ -77,6 +77,11 @@ public class ProjectContext {
     public ProjectType? ProjectType { get; set; }
 
     /// <summary>
+    /// 是否启用架构
+    /// </summary>
+    public bool EnableSchema { get; set; }
+
+    /// <summary>
     /// 客户端配置
     /// </summary>
     public ClientOptions Client { get; set; }
@@ -84,7 +89,7 @@ public class ProjectContext {
     /// <summary>
     /// 扩展
     /// </summary>
-    public object Extend { get; set; }
+    public string Extend { get; set; }
 
     /// <summary>
     /// 生成器上下文
@@ -105,7 +110,7 @@ public class ProjectContext {
     /// 获取扩展
     /// </summary>
     public T GetExtend<T>() {
-        return Util.Helpers.Convert.To<T>( Extend );
+        return Util.Helpers.Json.ToObject<T>( Extend );
     }
 
     /// <summary>
@@ -136,18 +141,11 @@ public class ProjectContext {
             I18n = I18n,
             ProjectType = ProjectType,
             ApiPort = ApiPort,
-            Extend = CloneExtend()
+            EnableSchema = EnableSchema,
+            Extend = Extend
         };
         result.Schemas.AddRange( Schemas );
         Entities.ForEach( entity => result.Entities.Add( entity.Clone( result ) ) );
         return result;
-    }
-
-    /// <summary>
-    /// 复制扩展
-    /// </summary>
-    private object CloneExtend() {
-        var json = Util.Helpers.Json.ToJson( Extend );
-        return Util.Helpers.Json.ToObject<object>( json );
     }
 }

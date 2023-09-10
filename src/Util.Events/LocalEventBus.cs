@@ -1,6 +1,4 @@
-﻿using Util.Data;
-
-namespace Util.Events; 
+﻿namespace Util.Events; 
 
 /// <summary>
 /// 基于内存的本地事件总线
@@ -10,10 +8,6 @@ public class LocalEventBus : ILocalEventBus {
     /// 服务提供器
     /// </summary>
     private readonly IServiceProvider _serviceProvider;
-    /// <summary>
-    /// 工作单元操作管理器
-    /// </summary>
-    private readonly IUnitOfWorkActionManager _actionManager;
 
     /// <summary>
     /// 初始化本地事件总线
@@ -21,7 +15,6 @@ public class LocalEventBus : ILocalEventBus {
     /// <param name="serviceProvider">服务提供器</param>
     public LocalEventBus( IServiceProvider serviceProvider ) {
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException( nameof( serviceProvider ) );
-        _actionManager = _serviceProvider.GetService<IUnitOfWorkActionManager>();
     }
 
     /// <inheritdoc />
@@ -29,21 +22,7 @@ public class LocalEventBus : ILocalEventBus {
         cancellationToken.ThrowIfCancellationRequested();
         if ( @event == null )
             return;
-        if ( @event is not IIntegrationEvent integrationEvent ) {
-            await PublishLocalEventAsync( @event, cancellationToken );
-            return;
-        }
-        if( _actionManager == null ) {
-            await PublishLocalEventAsync( @event, cancellationToken );
-            return;
-        }
-        if ( integrationEvent is IIntegrationEventExtend { SendNow: true } ) {
-            await PublishLocalEventAsync( @event, cancellationToken );
-            return;
-        }
-        _actionManager.Register( async () => {
-            await PublishLocalEventAsync( @event, cancellationToken );
-        } );
+        await PublishLocalEventAsync( @event, cancellationToken );
     }
 
     /// <summary>

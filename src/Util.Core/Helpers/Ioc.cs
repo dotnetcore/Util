@@ -19,6 +19,13 @@ public static class Ioc {
     public static IServiceScopeFactory ServiceScopeFactory { get; set; }
 
     /// <summary>
+    /// 创建新容器
+    /// </summary>
+    public static Util.Dependency.Container CreateContainer() {
+        return new Util.Dependency.Container();
+    }
+
+    /// <summary>
     /// 获取服务集合
     /// </summary>
     public static IServiceCollection GetServices() {
@@ -36,7 +43,7 @@ public static class Ioc {
     /// <summary>
     /// 获取
     /// </summary>
-    private static IServiceProvider GetServiceProvider() {
+    public static IServiceProvider GetServiceProvider() {
         var provider = _getServiceProviderAction?.Invoke();
         if ( provider != null )
             return provider;
@@ -101,5 +108,12 @@ public static class Ioc {
     public static IServiceScope CreateScope() {
         var provider = GetServiceProvider();
         return provider.CreateScope();
+    }
+
+    /// <summary>
+    /// 清理
+    /// </summary>
+    public static void Clear() {
+        _container.Clear();
     }
 }

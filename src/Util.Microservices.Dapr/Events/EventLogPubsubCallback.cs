@@ -24,7 +24,10 @@ public class EventLogPubsubCallback : IPubsubCallback {
 
     /// <inheritdoc />
     public virtual async Task OnPublishAfter( PubsubArgument argument, CancellationToken cancellationToken = default ) {
-        await Manager.CreatePublishLogAsync( argument, cancellationToken );
+        var result = await Manager.CreatePublishLogAsync( argument, cancellationToken );
+        if ( result == NullIntegrationEventLog.Instance )
+            return;
+        await Manager.IncrementAsync( cancellationToken );
     }
 
     /// <inheritdoc />

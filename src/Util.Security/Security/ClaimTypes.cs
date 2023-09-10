@@ -37,14 +37,6 @@ public static class ClaimTypes {
     /// </summary>
     public static string TenantId { get; set; } = "tenant_id";
     /// <summary>
-    /// tenant_code,租户编码
-    /// </summary>
-    public static string TenantCode { get; set; } = "tenant_code";
-    /// <summary>
-    /// tenant_name,租户名称
-    /// </summary>
-    public static string TenantName { get; set; } = "tenant_name";
-    /// <summary>
     /// role,角色
     /// </summary>
     public static string Role { get; set; } = "role";

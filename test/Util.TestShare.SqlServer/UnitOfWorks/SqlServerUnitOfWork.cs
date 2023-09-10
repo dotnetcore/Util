@@ -7,7 +7,7 @@ namespace Util.Tests.UnitOfWorks {
     /// <summary>
     /// SqlServer工作单元
     /// </summary>
-    public class SqlServerUnitOfWork : SqlServerUnitOfWorkBase, ITestUnitOfWork {
+    public class SqlServerUnitOfWork : SqlServerUnitOfWorkBase, ITestUnitOfWork, ITestUnitOfWork2 {
         /// <summary>
         /// 初始化工作单元
         /// </summary>

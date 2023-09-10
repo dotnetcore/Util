@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Util.Tenants.Tests.Integration": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:39350;http://localhost:39351"
+    }
+  }
+}

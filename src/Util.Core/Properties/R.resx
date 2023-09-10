@@ -172,6 +172,9 @@
     <value>系统忙，请稍后再试</value>
     <comment>抛出系统异常时显示该消息</comment>
   </data>
+  <data name="TenantId" xml:space="preserve">
+    <value>租户标识</value>
+  </data>
   <data name="TypeNotEnum" xml:space="preserve">
     <value>类型 {0} 不是枚举</value>
   </data>

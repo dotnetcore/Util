@@ -1,6 +1,4 @@
 ﻿using Util.Data.EntityFrameworkCore.Filters;
-using Util.Domain;
-using Util.Infrastructure;
 
 namespace Util.Data.EntityFrameworkCore.Infrastructure; 
 
@@ -29,6 +27,7 @@ public class EntityFrameworkServiceRegistrar : IServiceRegistrar {
     /// <param name="serviceContext">服务上下文</param>
     public Action Register( ServiceContext serviceContext ) {
         FilterManager.AddFilterType<IDelete>();
+        FilterManager.AddFilterType<ITenant>();
         return null;
     }
 }

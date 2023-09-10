@@ -1,5 +1,4 @@
 ﻿using Util.Helpers;
-using Util.Security;
 
 namespace Util.Sessions; 
 
@@ -13,22 +12,24 @@ public class UserSession : ISession {
     public static readonly ISession Null = NullSession.Instance;
 
     /// <summary>
-    /// 用户会话
+    /// 用户会话实例
     /// </summary>
     public static readonly ISession Instance = new UserSession();
 
-    /// <summary>
-    /// 是否认证
-    /// </summary>
-    public bool IsAuthenticated => Web.Identity.IsAuthenticated;
+    /// <inheritdoc />
+    public virtual IServiceProvider ServiceProvider => Web.ServiceProvider;
 
-    /// <summary>
-    /// 用户标识
-    /// </summary>
-    public string UserId {
+    /// <inheritdoc />
+    public virtual bool IsAuthenticated => Web.Identity.IsAuthenticated;
+
+    /// <inheritdoc />
+    public virtual string UserId {
         get {
             var result = Web.Identity.GetValue( ClaimTypes.UserId );
             return result.IsEmpty() ? Web.Identity.GetValue( System.Security.Claims.ClaimTypes.NameIdentifier ) : result;
         }
     }
+
+    /// <inheritdoc />
+    public virtual string TenantId => Web.Identity.GetValue( ClaimTypes.TenantId );
 }

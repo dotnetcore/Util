@@ -1,6 +1,5 @@
 ﻿using Util.Helpers;
 using Util.Http;
-using Util.Sessions;
 using Util.SystemTextJson;
 
 namespace Util.Infrastructure; 
@@ -33,7 +32,6 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar {
             RegisterHttpContextAccessor( services );
             services.AddHttpClient();
             RegisterServiceLocator();
-            RegisterSession( services );
             RegisterHttpClient( services );
             ConfigJsonOptions( services );
         } );
@@ -54,13 +52,6 @@ public class AspNetCoreServiceRegistrar : IServiceRegistrar {
     /// </summary>
     private void RegisterServiceLocator() {
         Ioc.SetServiceProviderAction( () => Web.ServiceProvider );
-    }
-
-    /// <summary>
-    /// 注册用户会话
-    /// </summary>
-    private void RegisterSession( IServiceCollection services ) {
-        services.TryAddSingleton<Util.Sessions.ISession, UserSession>();
     }
 
     /// <summary>

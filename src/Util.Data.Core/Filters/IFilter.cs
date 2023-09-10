@@ -27,7 +27,8 @@ public interface IFilter : ITransientDependency {
     /// 获取过滤表达式
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    Expression<Func<TEntity, bool>> GetExpression<TEntity>() where TEntity : class;
+    /// <param name="state">参数</param>
+    Expression<Func<TEntity, bool>> GetExpression<TEntity>( object state ) where TEntity : class;
 }
 
 /// <summary>

@@ -22,7 +22,7 @@ public class DaprMicroserviceClient : IMicroserviceClient {
         ServiceInvocation = new DaprServiceInvocation( client, options, loggerFactory ).Service( appId );
         IntegrationEventBus = new DaprIntegrationEventBus( client, options, loggerFactory, serviceProvider );
         var keyGenerator = serviceProvider.GetService<IKeyGenerator>();
-        StateManage = new DaprStateManage( client, options, loggerFactory, keyGenerator );
+        StateManager = new DaprStateManager( client, options, loggerFactory, keyGenerator );
     }
 
     /// <summary>
@@ -43,5 +43,5 @@ public class DaprMicroserviceClient : IMicroserviceClient {
     /// <summary>
     /// 状态管理
     /// </summary>
-    public IStateManage StateManage { get; }
+    public IStateManager StateManager { get; }
 }

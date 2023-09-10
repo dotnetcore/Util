@@ -1,6 +1,4 @@
-﻿using Util.Data.Filters;
-
-namespace Util.Data.EntityFrameworkCore.Filters; 
+﻿namespace Util.Data.EntityFrameworkCore.Filters; 
 
 /// <summary>
 /// 数据过滤器管理器
@@ -57,35 +55,30 @@ public class FilterManager : IFilterManager {
     }
 
     /// <summary>
-    /// 启用过滤器
+    /// 清空过滤器类型
     /// </summary>
-    /// <typeparam name="TFilterType">过滤器类型</typeparam>
+    public static void ClearFilterTypes() {
+        _filterTypes.Clear();
+    }
+
+    /// <inheritdoc />
     public void EnableFilter<TFilterType>() where TFilterType : class {
         var filter = GetFilter<TFilterType>();
         filter?.Enable();
     }
 
-    /// <summary>
-    /// 禁用过滤器
-    /// </summary>
-    /// <typeparam name="TFilterType">过滤器类型</typeparam>
+    /// <inheritdoc />
     public IDisposable DisableFilter<TFilterType>() where TFilterType : class {
         var filter = GetFilter<TFilterType>();
         return filter?.Disable();
     }
 
-    /// <summary>
-    /// 获取过滤器
-    /// </summary>
-    /// <typeparam name="TFilterType">过滤器类型</typeparam>
+    /// <inheritdoc />
     public IFilter GetFilter<TFilterType>() where TFilterType : class {
         return GetFilter( typeof(TFilterType) );
     }
 
-    /// <summary>
-    /// 获取过滤器
-    /// </summary>
-    /// <param name="filterType">过滤器类型</param>
+    /// <inheritdoc />
     public IFilter GetFilter( Type filterType ) {
         if( _filters.ContainsKey( filterType ) == false ) {
             var serviceType = typeof( IFilter<> ).MakeGenericType( filterType );
@@ -95,9 +88,7 @@ public class FilterManager : IFilterManager {
         return _filters[filterType];
     }
 
-    /// <summary>
-    /// 实体是否启用过滤器
-    /// </summary>
+    /// <inheritdoc />
     public bool IsEntityEnabled<TEntity>() {
         foreach( var type in _filterTypes ) {
             var filter = GetFilter( type );
@@ -107,14 +98,22 @@ public class FilterManager : IFilterManager {
         return false;
     }
 
-    /// <summary>
-    /// 过滤器是否启用
-    /// </summary>
-    /// <typeparam name="TFilterType">过滤器类型</typeparam>
+    /// <inheritdoc />
     public bool IsEnabled<TFilterType>() where TFilterType : class {
         var filter = GetFilter<TFilterType>();
         if ( filter == null )
             return false;
         return filter.IsEnabled;
+    }
+
+    /// <inheritdoc />
+    public Expression<Func<TEntity, bool>> GetExpression<TEntity>( object state ) where TEntity : class {
+        Expression<Func<TEntity, bool>> expression = null;
+        foreach ( var type in _filterTypes ) {
+            var filter = GetFilter( type );
+            if ( filter.IsEntityEnabled<TEntity>() )
+                expression = expression.And( filter.GetExpression<TEntity>( state ) );
+        }
+        return expression;
     }
 }

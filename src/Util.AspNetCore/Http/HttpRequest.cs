@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using Microsoft.Net.Http.Headers;
+using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Util.Helpers;
 using Util.SystemTextJson;
@@ -61,6 +62,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         HeaderParams = new Dictionary<string, string>();
         QueryParams = new Dictionary<string, string>();
         Params = new Dictionary<string, object>();
+        Cookies = new Dictionary<string, string>();
         HttpContentType = Util.Http.HttpContentType.Json.Description();
         CharacterEncoding = System.Text.Encoding.UTF8;
     }
@@ -94,6 +96,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected IDictionary<string, string> HeaderParams { get; }
     /// <summary>
+    /// Cookie参数集合
+    /// </summary>
+    protected IDictionary<string, string> Cookies { get; }
+    /// <summary>
     /// 查询字符串参数集合
     /// </summary>
     protected IDictionary<string, string> QueryParams { get; }
@@ -105,6 +111,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 参数
     /// </summary>
     protected object Param { get; private set; }
+    /// <summary>
+    /// 是否自动携带cookie
+    /// </summary>
+    protected bool? IsUseCookies { get; private set; }
     /// <summary>
     /// 发送前操作
     /// </summary>
@@ -299,6 +309,39 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     #endregion
 
+    #region UseCookies(设置是否自动携带cookie)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> UseCookies( bool isUseCookies = true ) {
+        IsUseCookies = isUseCookies;
+        return this;
+    }
+
+    #endregion
+
+    #region Cookie(设置Cookie)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> Cookie( string key, string value ) {
+        if ( key.IsEmpty() )
+            return this;
+        if ( Cookies.ContainsKey( key ) )
+            Cookies.Remove( key );
+        Cookies.Add( key, value );
+        return this;
+    }
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> Cookie( IDictionary<string, string> cookies ) {
+        if ( Cookies == null )
+            return this;
+        foreach ( var cookie in Cookies )
+            Cookie( cookie.Key, cookie.Value );
+        return this;
+    }
+
+    #endregion
+
     #region Content(添加内容参数)
 
     /// <inheritdoc />
@@ -439,6 +482,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected virtual HttpRequestMessage CreateMessage() {
         var message = new HttpRequestMessage( _httpMethod, GetUrl( _url ) );
+        AddCookies();
         AddHeaders( message );
         message.Content = CreateHttpContent();
         return message;
@@ -450,6 +494,18 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <param name="url">服务地址</param>
     protected virtual string GetUrl( string url ) {
         return QueryHelpers.AddQueryString( url, QueryParams );
+    }
+
+    /// <summary>
+    /// 添加Cookie
+    /// </summary>
+    protected virtual void AddCookies() {
+        if ( Cookies.Count == 0 )
+            return;
+        var cookieValues = new List<CookieHeaderValue>();
+        foreach ( var cookie in Cookies )
+            cookieValues.Add( new CookieHeaderValue( cookie.Key, cookie.Value ) );
+        Header( "Cookie", cookieValues.Select( t => t.ToString() ).Join() );
     }
 
     /// <summary>
@@ -582,6 +638,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return _httpClient;
         var clientHandler = CreateHttpClientHandler();
         InitHttpClientHandler( clientHandler );
+        InitUseCookies( clientHandler );
         return _httpClientName.IsEmpty() ? _httpClientFactory.CreateClient() : _httpClientFactory.CreateClient( _httpClientName );
     }
 
@@ -620,6 +677,18 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         var certificate = new X509Certificate2( CertificatePath, CertificatePassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet );
         handler.ClientCertificates.Clear();
         handler.ClientCertificates.Add( certificate );
+    }
+
+    #endregion
+
+    #region InitUseCookies(初始化是否携带Cookie)
+
+    /// <summary>
+    /// 初始化是否携带Cookie
+    /// </summary>
+    protected virtual void InitUseCookies( HttpClientHandler handler ) {
+        if ( IsUseCookies == null )
+            handler.UseCookies = false;
     }
 
     #endregion

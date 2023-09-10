@@ -1,6 +1,6 @@
 ﻿using Util.Domain;
 
-namespace Util.Data.EntityFrameworkCore; 
+namespace Util.Data.EntityFrameworkCore;
 
 /// <summary>
 /// SqlServer工作单元基类
@@ -15,11 +15,12 @@ public abstract class SqlServerUnitOfWorkBase : UnitOfWorkBase {
         : base( serviceProvider, options ) {
     }
 
-    /// <summary>
-    /// 配置乐观锁
-    /// </summary>
-    /// <param name="modelBuilder">模型生成器</param>
-    /// <param name="entityType">实体类型</param>
+    /// <inheritdoc />
+    protected override void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder, string connectionString ) {
+        optionsBuilder.UseSqlServer( connectionString );
+    }
+
+    /// <inheritdoc />
     protected override void ApplyVersion( ModelBuilder modelBuilder, IMutableEntityType entityType ) {
         if( typeof( IVersion ).IsAssignableFrom( entityType.ClrType ) == false )
             return;
