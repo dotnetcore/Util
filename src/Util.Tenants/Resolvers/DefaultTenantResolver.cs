@@ -21,11 +21,15 @@ public class DefaultTenantResolver : ITenantResolver {
 
     /// <inheritdoc />
     public async Task<string> ResolveAsync( HttpContext context ) {
+        if ( context == null )
+            return null;
         if ( _options.IsEnabled == false )
             return null;
         var session = context.RequestServices.GetService<Util.Sessions.ISession>();
         if ( session is { IsAuthenticated: true } )
             return session.TenantId;
+        if ( _options.Resolvers == null )
+            return null;
         foreach ( var resolver in _options.Resolvers.OrderByDescending( t => t.Priority ) ) {
             var result = await resolver.ResolveAsync( context );
             if ( result.IsEmpty() == false )

@@ -34,7 +34,42 @@ public class TenantResolverCollection : IEnumerable<ITenantResolver> {
     /// 获取租户解析器列表
     /// </summary>
     public List<ITenantResolver> GetResolvers() {
-        return _resolvers.Select( t => t.Value ).ToList();
+        return _resolvers
+            .Select( t => t.Value )
+            .OrderByDescending( t => t.Priority )
+            .ToList();
+    }
+
+    /// <summary>
+    /// 获取租户解析器列表
+    /// </summary>
+    public List<TResolver> GetResolvers<TResolver>() where TResolver : ITenantResolver {
+        return _resolvers
+            .Where( t => t.Value.GetType() == typeof( TResolver ) )
+            .Select( t => (TResolver)t.Value )
+            .OrderByDescending( t => t.Priority )
+            .ToList();
+    }
+
+    /// <summary>
+    /// 获取租户解析器
+    /// </summary>
+    /// <typeparam name="TResolver">租户解析器类型</typeparam>
+    public TResolver GetResolver<TResolver>() where TResolver: ITenantResolver {
+        var key = typeof( TResolver ).FullName;
+        return GetResolver<TResolver>( key );
+    }
+
+    /// <summary>
+    /// 获取租户解析器
+    /// </summary>
+    /// <typeparam name="TResolver">租户解析器类型</typeparam>
+    /// <param name="key">租户解析器键名</param>
+    public TResolver GetResolver<TResolver>( string key ) where TResolver : ITenantResolver {
+        var result = _resolvers.FirstOrDefault( t => t.Key == key );
+        if ( result.Value == null )
+            return default;
+        return (TResolver)result.Value;
     }
 
     /// <summary>
@@ -42,6 +77,8 @@ public class TenantResolverCollection : IEnumerable<ITenantResolver> {
     /// </summary>
     /// <param name="resolver">租户解析器</param>
     public void Add( ITenantResolver resolver ) {
+        if ( resolver == null )
+            return;
         var key = resolver.GetType().FullName;
         Add( key, resolver );
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Threading.Tasks;
 using Util.Data;
 using Util.Data.Dapper.Metadata;
 using Util.Generators.Configuration;
@@ -38,8 +39,8 @@ namespace Util.Generators.Tests.Contexts {
         /// 测试生成器上下文 - 绝对路径
         /// </summary>
         [Fact]
-        public void TestGeneratorContext_Path_2() {
-            _context = new GeneratorContextBuilder( NullGeneratorLogger.Instance, new MockGeneratorOptionsBuilder2(), new MockMetadataServiceFactory(),new TypeConverterFactory() ).BuildAsync().Result;
+        public async Task TestGeneratorContext_Path_2() {
+            _context = await new GeneratorContextBuilder( NullGeneratorLogger.Instance, new MockGeneratorOptionsBuilder2(), new MockMetadataServiceFactory(),new TypeConverterFactory() ).BuildAsync();
             Assert.Equal( @"c:\Templates", _context.TemplateRootPath );
             Assert.Equal( @"d:\Output", _context.OutputRootPath );
         }

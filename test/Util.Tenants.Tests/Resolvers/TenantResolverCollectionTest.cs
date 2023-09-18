@@ -83,4 +83,52 @@ public class TenantResolverCollectionTest {
         Assert.Single( result );
         Assert.Equal( typeof( Test2TenantResolver ), result[0].GetType() );
     }
+
+    /// <summary>
+    /// 测试获取租户解析器 - 按类型获取
+    /// </summary>
+    [Fact]
+    public void TestGetResolver_1() {
+        _resolvers.Add( new TestTenantResolver() );
+        _resolvers.Add( new Test2TenantResolver() );
+        var result = _resolvers.GetResolver<Test2TenantResolver>();
+        Assert.Equal( typeof( Test2TenantResolver ), result.GetType() );
+    }
+
+    /// <summary>
+    /// 测试获取租户解析器 - 按键获取
+    /// </summary>
+    [Fact]
+    public void TestGetResolver_2() {
+        _resolvers.Add( "a", new TestTenantResolver() );
+        _resolvers.Add( "b", new Test2TenantResolver() );
+        var result = _resolvers.GetResolver<Test2TenantResolver>( "b" );
+        Assert.Equal( typeof( Test2TenantResolver ), result.GetType() );
+    }
+
+    /// <summary>
+    /// 测试获取租户解析器列表 - 获取全部
+    /// </summary>
+    [Fact]
+    public void TestGetResolvers_1() {
+        _resolvers.Add( "a", new TestTenantResolver() );
+        _resolvers.Add( new Test2TenantResolver() );
+        _resolvers.Add( "b", new Test2TenantResolver() );
+        var result = _resolvers.GetResolvers();
+        Assert.Equal( 3, result.Count );
+    }
+
+    /// <summary>
+    /// 测试获取租户解析器列表 - 按类型获取
+    /// </summary>
+    [Fact]
+    public void TestGetResolvers_2() {
+        _resolvers.Add( "a", new TestTenantResolver() );
+        _resolvers.Add( new Test2TenantResolver() );
+        _resolvers.Add( "b", new Test2TenantResolver() );
+        var result = _resolvers.GetResolvers<Test2TenantResolver>();
+        Assert.Equal( 2, result.Count );
+        Assert.Equal( typeof( Test2TenantResolver ), result[0].GetType() );
+        Assert.Equal( typeof( Test2TenantResolver ), result[1].GetType() );
+    }
 }

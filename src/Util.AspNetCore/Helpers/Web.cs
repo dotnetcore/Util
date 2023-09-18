@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Specialized;
+using System.Security.Claims;
 using Util.Http;
 using Util.Security.Authentication;
 
@@ -270,6 +271,27 @@ public static class Web {
     /// <param name="encoding">字符编码</param>
     public static string UrlDecode( string url, Encoding encoding ) {
         return HttpUtility.UrlDecode( url, encoding );
+    }
+
+    #endregion
+
+    #region ParseQueryString(将查询字符串转换为名值对集合)
+
+    /// <summary>
+    /// 将查询字符串转换为名值对集合
+    /// </summary>
+    /// <param name="query">查询字符串</param>
+    public static NameValueCollection ParseQueryString( string query ) {
+        return HttpUtility.ParseQueryString( query );
+    }
+
+    /// <summary>
+    /// 将查询字符串转换为名值对集合
+    /// </summary>
+    /// <param name="query">查询字符串</param>
+    /// <param name="encoding">字符编码</param>
+    public static NameValueCollection ParseQueryString( string query, Encoding encoding ) {
+        return HttpUtility.ParseQueryString( query, encoding );
     }
 
     #endregion

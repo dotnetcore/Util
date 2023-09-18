@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Util.Helpers;
+using Util.Tenants.Resolvers;
 
 namespace Util.Tenants.Tests;
 
@@ -24,7 +26,14 @@ public class Startup {
             } )
             .AsBuild()
             .AddAop()
-            .AddTenant()
+            .AddTenant( t => {
+                var map = new Dictionary<string, string> { { "b.test.com", "b1" } };
+                t.Resolvers.Add( new DomainTenantResolver( map ) { Priority = 90 } );
+                t.Resolvers.Add( "a", new DomainTenantResolver( "{0}.a.test.com" ) { Priority = 80 } );
+                map = new Dictionary<string, string> { { "c.test.com", "c1" } };
+                t.Resolvers.Add( "b", new DomainTenantResolver( map ) { Priority = 70 } );
+                t.Resolvers.Add( "c", new DomainTenantResolver( "{0}.b.test.com" ) { Priority = 100 } );
+            } )
             .AddUtil();
     }
 

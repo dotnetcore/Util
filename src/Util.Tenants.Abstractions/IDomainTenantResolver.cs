@@ -1,9 +1,7 @@
-﻿using Util.Dependency;
-
-namespace Util.Tenants.Resolvers;
+﻿namespace Util.Tenants;
 
 /// <summary>
-/// 基于域名的租户解析器
+/// 域名租户解析器
 /// </summary>
 public interface IDomainTenantResolver : ITransientDependency {
     /// <summary>
@@ -11,4 +9,4 @@ public interface IDomainTenantResolver : ITransientDependency {
     /// </summary>
     /// <param name="host">域名,范例: a.test.com</param>
     Task<string> ResolveTenantIdAsync( string host );
-}
+}  

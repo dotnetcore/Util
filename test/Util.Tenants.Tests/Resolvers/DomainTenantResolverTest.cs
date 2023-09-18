@@ -171,16 +171,44 @@ public class DomainTenantResolverTest {
     }
 
     /// <summary>
-    /// 测试解析租户标识 - IDomainTenantResolver 接口解析
+    /// 测试解析租户标识 - 租户域名存储器
     /// </summary>
     [Fact]
     public async Task TestResolveAsync_9() {
         //设置主机名
         _mockHttpContext.Setup( t => t.Request.Host ).Returns( new HostString( "https://a.test.com" ) );
 
-        //设置IDomainTenantResolver
-        var mockResolver = new Mock<IDomainTenantResolver>();
-        mockResolver.Setup( t => t.ResolveTenantIdAsync( "a.test.com" ) ).ReturnsAsync( "b" );
+        //设置租户域名存储器
+        var mockResolver = new Mock<ITenantDomainStore>();
+        mockResolver.Setup( t => t.GetAsync() ).ReturnsAsync( new Dictionary<string, string>{{ "a.test.com", "b" } } );
+        var container = Ioc.CreateContainer();
+        container.GetServices().AddTransient( _ => mockResolver.Object );
+        _mockHttpContext.Setup( t => t.RequestServices ).Returns( container.GetServiceProvider() );
+
+        //执行
+        var result = await _resolver.ResolveAsync( _mockHttpContext.Object );
+
+        //验证
+        Assert.Equal( "b", result );
+    }
+
+    /// <summary>
+    /// 测试解析租户标识 - 租户域名存储器 - 合并设置
+    /// </summary>
+    [Fact]
+    public async Task TestResolveAsync_10() {
+        //传入域名格式
+        var map = new Dictionary<string, string> {
+            {"a.test.com","b"}
+        };
+        _resolver = new DomainTenantResolver( map );
+
+        //设置主机名
+        _mockHttpContext.Setup( t => t.Request.Host ).Returns( new HostString( "https://a.test.com" ) );
+
+        //设置租户域名存储器
+        var mockResolver = new Mock<ITenantDomainStore>();
+        mockResolver.Setup( t => t.GetAsync() ).ReturnsAsync( new Dictionary<string, string> { { "c.test.com", "c" } } );
         var container = Ioc.CreateContainer();
         container.GetServices().AddTransient( _ => mockResolver.Object );
         _mockHttpContext.Setup( t => t.RequestServices ).Returns( container.GetServiceProvider() );

@@ -14,8 +14,7 @@ public class TenantOptions {
         Resolvers = new TenantResolverCollection {
             new HeaderTenantResolver{ Priority = 9 },
             new QueryStringTenantResolver{ Priority = 7 },
-            new CookieTenantResolver{ Priority = 5 },
-            new DomainTenantResolver{ Priority = 3 }
+            new CookieTenantResolver{ Priority = 5 }
         };
     }
 

@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Npgsql" Version="7.0.4" />
+	  <PackageReference Include="Npgsql" Version="7.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -22,14 +22,13 @@ public static class AppBuilderExtensions {
     /// <param name="setupAction">租户配置操作</param>
     public static IAppBuilder AddTenant( this IAppBuilder builder, Action<TenantOptions> setupAction ) {
         builder.CheckNull( nameof( builder ) );
-        setupAction ??= tenantOptions => tenantOptions.IsEnabled = true;
         var options = new TenantOptions {
             IsEnabled = true
         };
-        setupAction.Invoke( options );
+        setupAction?.Invoke( options );
         builder.Host.ConfigureServices( ( context, services ) => {
             services.TryAddSingleton<ITenantResolver, DefaultTenantResolver>();
-            services.Configure( setupAction );
+            services.TryAddSingleton<IOptions<TenantOptions>>( new OptionsWrapper<TenantOptions>( options ) );
         } );
         return builder;
     }
