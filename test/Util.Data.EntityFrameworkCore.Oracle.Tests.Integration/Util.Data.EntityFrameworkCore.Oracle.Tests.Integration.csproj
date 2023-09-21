@@ -19,7 +19,7 @@
 	<ItemGroup>
 		<PackageReference Include="JetBrains.DotMemoryUnit" Version="3.2.20220510" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-		<PackageReference Include="Xunit.DependencyInjection" Version="8.8.2" />
+		<PackageReference Include="Xunit.DependencyInjection" Version="8.9.0" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.1.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
 		<PackageReference Include="xunit" Version="2.5.1" />

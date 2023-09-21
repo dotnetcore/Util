@@ -12,6 +12,11 @@ public interface IHttpRequest {
 /// <typeparam name="TResult">结果类型</typeparam>
 public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <summary>
+    /// 设置超时间隔
+    /// </summary>
+    /// <param name="timeout">超时间隔</param>
+    IHttpRequest<TResult> Timeout( TimeSpan timeout );
+    /// <summary>
     /// 设置外部配置的HttpClient实例名称
     /// </summary>
     /// <param name="name">HttpClient名称</param>

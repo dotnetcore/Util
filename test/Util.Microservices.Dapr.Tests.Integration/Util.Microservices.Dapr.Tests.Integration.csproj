@@ -27,7 +27,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.11" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-		<PackageReference Include="Xunit.DependencyInjection" Version="8.8.2" />
+		<PackageReference Include="Xunit.DependencyInjection" Version="8.9.0" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.1.0" />
 		<PackageReference Include="AutoBogus" Version="2.13.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />

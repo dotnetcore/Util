@@ -43,7 +43,7 @@ public static class Environment {
     /// </summary>
     /// <param name="name">环境变量名</param>
     public static T GetEnvironmentVariable<T>( string name ) {
-        return Convert.To<T>( System.Environment.GetEnvironmentVariable( name ) );
+        return Convert.To<T>( GetEnvironmentVariable( name ) );
     }
 
     /// <summary>

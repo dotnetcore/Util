@@ -153,7 +153,7 @@ public partial class HttpClientServiceTest {
     /// </summary>
     [Fact]
     public async Task TestGet_Cookie_1() {
-        var result = await _client.Get( "/api/test1/cookie" ).Cookie( "code", "a" ).GetResultAsync();
+        var result = await _client.Get( "http://a.com/api/test1/cookie" ).Cookie( "code", "a" ).GetResultAsync();
         Assert.Equal( "code:a,name:", result );
     }
 

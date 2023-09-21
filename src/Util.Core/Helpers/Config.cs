@@ -70,6 +70,7 @@ public static class Config {
         var environment = Environment.GetEnvironmentName();
         if ( environment.IsEmpty() == false )
             builder.AddJsonFile( $"appsettings.{environment}.json", true, false );
+        builder.AddEnvironmentVariables();
         if ( jsonFiles == null )
             return builder.Build();
         foreach ( var file in jsonFiles ) 

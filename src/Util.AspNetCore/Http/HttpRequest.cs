@@ -72,6 +72,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     #region 属性
 
     /// <summary>
+    /// 超时间隔
+    /// </summary>
+    protected TimeSpan? HttpTimeout { get; private set; }
+    /// <summary>
     /// 基地址
     /// </summary>
     protected string BaseAddressUri { get; private set; }
@@ -143,6 +147,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 执行完成操作
     /// </summary>
     protected Action<HttpResponseMessage, object> CompleteAction { get; private set; }
+
+    #endregion
+
+    #region Timeout(设置超时间隔)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> Timeout( TimeSpan timeout ) {
+        HttpTimeout = timeout;
+        return this;
+    }
 
     #endregion
 
@@ -333,9 +347,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Cookie( IDictionary<string, string> cookies ) {
-        if ( Cookies == null )
+        if ( cookies == null )
             return this;
-        foreach ( var cookie in Cookies )
+        foreach ( var cookie in cookies )
             Cookie( cookie.Key, cookie.Value );
         return this;
     }
@@ -638,7 +652,6 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
             return _httpClient;
         var clientHandler = CreateHttpClientHandler();
         InitHttpClientHandler( clientHandler );
-        InitUseCookies( clientHandler );
         return _httpClientName.IsEmpty() ? _httpClientFactory.CreateClient() : _httpClientFactory.CreateClient( _httpClientName );
     }
 
@@ -662,6 +675,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         if ( handler == null )
             return;
         InitCertificate( handler );
+        InitUseCookies( handler );
     }
 
     #endregion
@@ -687,8 +701,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化是否携带Cookie
     /// </summary>
     protected virtual void InitUseCookies( HttpClientHandler handler ) {
-        if ( IsUseCookies == null )
-            handler.UseCookies = false;
+        handler.UseCookies = IsUseCookies.SafeValue();
     }
 
     #endregion
@@ -700,6 +713,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected virtual void InitHttpClient( HttpClient client ) {
         InitBaseAddress( client );
+        InitTimeout( client );
     }
 
     #endregion
@@ -713,6 +727,19 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         if ( BaseAddressUri.IsEmpty() )
             return;
         client.BaseAddress = new Uri( BaseAddressUri );
+    }
+
+    #endregion
+
+    #region InitTimeout(初始化超时间隔)
+
+    /// <summary>
+    /// 初始化超时间隔
+    /// </summary>
+    protected virtual void InitTimeout( HttpClient client ) {
+        if ( HttpTimeout == null )
+            return;
+        client.Timeout = HttpTimeout.SafeValue();
     }
 
     #endregion
