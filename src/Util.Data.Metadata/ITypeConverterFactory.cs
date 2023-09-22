@@ -3,7 +3,7 @@
 /// <summary>
 /// 数据类型转换器工厂
 /// </summary>
-public interface ITypeConverterFactory {
+public interface ITypeConverterFactory : ITransientDependency {
     /// <summary>
     /// 创建数据库元数据服务
     /// </summary>

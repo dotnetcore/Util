@@ -3,7 +3,7 @@
 /// <summary>
 /// 数据库元数据服务工厂
 /// </summary>
-public interface IMetadataServiceFactory {
+public interface IMetadataServiceFactory : ITransientDependency {
     /// <summary>
     /// 创建数据库元数据服务
     /// </summary>
