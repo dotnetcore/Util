@@ -48,8 +48,7 @@ public class MySqlMetadataService : IMetadataService {
         var tables = ( await _sqlQuery.ToListAsync<TableInfo, ColumnInfo, TableInfo>( ( table, column ) => {
             if ( table == null || column == null )
                 return null;
-            if ( dic.ContainsKey( table.Id ) == false )
-                dic.Add( table.Id, table );
+            dic.TryAdd( table.Id, table );
             TableInfo result = dic[table.Id];
             result.Columns.Add( column );
             return result;

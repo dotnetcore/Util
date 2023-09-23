@@ -81,10 +81,6 @@ public class Property {
     /// </summary>
     public bool IsDeleted => Name.ToUpperInvariant() == "IsDeleted".ToUpperInvariant() && SystemType == Generators.SystemType.Bool;
     /// <summary>
-    /// 是否创建时间
-    /// </summary>
-    public bool IsCreationTime => Name.ToUpperInvariant() == "CreationTime".ToUpperInvariant() && SystemType == Generators.SystemType.DateTime;
-    /// <summary>
     /// 是否创建人标识
     /// </summary>
     public bool IsCreatorId => Name.ToUpperInvariant() == "CreatorId".ToUpperInvariant();
@@ -92,6 +88,14 @@ public class Property {
     /// 是否修改人标识
     /// </summary>
     public bool IsLastModifierId => Name.ToUpperInvariant() == "LastModifierId".ToUpperInvariant();
+    /// <summary>
+    /// 是否创建时间
+    /// </summary>
+    public bool IsCreationTime => Name.ToUpperInvariant() == "CreationTime".ToUpperInvariant() && SystemType == Generators.SystemType.DateTime;
+    /// <summary>
+    /// 是否最后修改时间
+    /// </summary>
+    public bool IsLastModificationTime => Name.ToUpperInvariant() == "LastModificationTime".ToUpperInvariant() && SystemType == Generators.SystemType.DateTime;
     /// <summary>
     /// 是否拼音简码
     /// </summary>
