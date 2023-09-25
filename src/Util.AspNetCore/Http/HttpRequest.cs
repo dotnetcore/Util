@@ -65,6 +65,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         Cookies = new Dictionary<string, string>();
         HttpContentType = Util.Http.HttpContentType.Json.Description();
         CharacterEncoding = System.Text.Encoding.UTF8;
+        IsUseCookies = true;
     }
 
     #endregion
@@ -118,7 +119,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <summary>
     /// 是否自动携带cookie
     /// </summary>
-    protected bool? IsUseCookies { get; private set; }
+    protected bool IsUseCookies { get; private set; }
     /// <summary>
     /// 发送前操作
     /// </summary>
@@ -326,7 +327,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     #region UseCookies(设置是否自动携带cookie)
 
     /// <inheritdoc />
-    public IHttpRequest<TResult> UseCookies( bool isUseCookies = true ) {
+    public IHttpRequest<TResult> UseCookies( bool isUseCookies ) {
         IsUseCookies = isUseCookies;
         return this;
     }
@@ -701,7 +702,8 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化是否携带Cookie
     /// </summary>
     protected virtual void InitUseCookies( HttpClientHandler handler ) {
-        handler.UseCookies = IsUseCookies.SafeValue();
+        if ( handler.UseCookies != IsUseCookies )
+            handler.UseCookies = IsUseCookies;
     }
 
     #endregion

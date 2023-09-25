@@ -93,7 +93,7 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// 设置是否自动携带cookie
     /// </summary>
     /// <param name="isUseCookies">是否自动携带cookie</param>
-    IHttpRequest<TResult> UseCookies( bool isUseCookies = true );
+    IHttpRequest<TResult> UseCookies( bool isUseCookies );
     /// <summary>
     /// 设置Cookie
     /// </summary>
