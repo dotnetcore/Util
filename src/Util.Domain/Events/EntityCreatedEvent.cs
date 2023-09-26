@@ -1,6 +1,4 @@
-﻿using Util.Events;
-
-namespace Util.Domain.Events; 
+﻿namespace Util.Domain.Events; 
 
 /// <summary>
 /// 实体创建事件

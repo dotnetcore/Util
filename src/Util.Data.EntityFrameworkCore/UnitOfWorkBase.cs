@@ -2,6 +2,7 @@
 using Util.Data.EntityFrameworkCore.ValueConverters;
 using Util.Dates;
 using Util.Domain.Auditing;
+using Util.Domain.Compare;
 using Util.Domain.Events;
 using Util.Domain.Extending;
 using Util.Events;
@@ -188,7 +189,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// </summary>
     /// <param name="optionsBuilder">配置生成器</param>
     /// <param name="connectionString">连接字符串</param>
-    protected virtual void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder,string connectionString ) {
+    protected virtual void ConfigTenantConnectionString( DbContextOptionsBuilder optionsBuilder, string connectionString ) {
     }
 
     #endregion
@@ -502,7 +503,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     protected virtual void UpdateBefore( EntityEntry entry ) {
         SetModificationAudited( entry.Entity );
         SetVersion( entry.Entity );
-        AddEntityUpdatedEvent( entry.Entity );
+        AddEntityUpdatedEvent( entry );
     }
 
     #endregion
@@ -595,9 +596,11 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <summary>
     /// 创建实体事件
     /// </summary>
-    protected IEvent CreateEntityEvent( Type eventType, object entity ) {
+    protected IEvent CreateEntityEvent( Type eventType, object entity, object parameter = null ) {
         var eventGenericType = eventType.MakeGenericType( entity.GetType() );
-        return Reflection.CreateInstance<IEvent>( eventGenericType, entity );
+        if ( parameter == null )
+            return Reflection.CreateInstance<IEvent>( eventGenericType, entity );
+        return Reflection.CreateInstance<IEvent>( eventGenericType, entity, parameter );
     }
 
     #endregion
@@ -607,14 +610,83 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <summary>
     /// 添加实体修改事件
     /// </summary>
-    protected virtual void AddEntityUpdatedEvent( object entity ) {
+    protected virtual void AddEntityUpdatedEvent( EntityEntry entry ) {
+        var entity = entry.Entity;
         if ( entity is IDelete { IsDeleted: true } ) {
             AddEntityDeletedEvent( entity );
             return;
         }
-        var @event = CreateEntityEvent( typeof( EntityUpdatedEvent<> ), entity );
+        var changeValues = GetChangeValues( entry );
+        var @event = CreateEntityEvent( typeof( EntityUpdatedEvent<> ), entity, changeValues );
         SaveAfterEvents.Add( @event );
         AddEntityChangedEvent( entity, EntityChangeType.Updated );
+    }
+
+    #endregion
+
+    #region GetChangeValues(获取变更值集合)
+
+    /// <summary>
+    /// 获取变更值集合
+    /// </summary>
+    protected virtual ChangeValueCollection GetChangeValues( EntityEntry entry ) {
+        var result = new ChangeValueCollection();
+        var properties = entry.Metadata.GetProperties();
+        foreach ( var property in properties ) {
+            var propertyEntry = entry.Property( property.Name );
+            if ( property.Name == "ExtraProperties" ) {
+                var changeValues = GetExtraPropertiesChangeValues( property, propertyEntry );
+                changeValues.ForEach( value => {
+                    if ( value != null )
+                        result.Add( value );
+                } );
+            }
+            var changeValue = GetPropertyChangeValue( property, propertyEntry );
+            if ( changeValue == null )
+                continue;
+            result.Add( changeValue );
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 获取扩展属性变更值集合
+    /// </summary>
+    protected virtual List<ChangeValue> GetExtraPropertiesChangeValues( IProperty property, PropertyEntry propertyEntry ) {
+        var result = new List<ChangeValue>();
+        if ( propertyEntry.CurrentValue is not ExtraPropertyDictionary currentExtraValue )
+            return result;
+        if ( propertyEntry.OriginalValue is not ExtraPropertyDictionary originalExtraValue )
+            return result;
+        foreach ( var key in currentExtraValue.Keys ) {
+            currentExtraValue.TryGetValue( key, out var current );
+            originalExtraValue.TryGetValue( key, out var original );
+            var currentValue = Util.Helpers.Json.ToJson( current );
+            var originalValue = Util.Helpers.Json.ToJson( original );
+            result.Add( ToChangeValue( key, property.Name, originalValue, currentValue ) );
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 转换为变更值
+    /// </summary>
+    protected virtual ChangeValue ToChangeValue( string name, string description, string originalValue, string currentValue ) {
+        if ( originalValue == "[]" )
+            originalValue = string.Empty;
+        if ( currentValue == "[]" )
+            currentValue = string.Empty;
+        if ( originalValue == currentValue )
+            return null;
+        return new ChangeValue( name, description, originalValue, currentValue );
+    }
+
+    /// <summary>
+    /// 获取属性变更值
+    /// </summary>
+    protected virtual ChangeValue GetPropertyChangeValue( IProperty property, PropertyEntry propertyEntry ) {
+        var description = Reflection.GetDisplayNameOrDescription( property.PropertyInfo );
+        return ToChangeValue( property.Name, description, propertyEntry.OriginalValue.SafeString(), propertyEntry.CurrentValue.SafeString() );
     }
 
     #endregion

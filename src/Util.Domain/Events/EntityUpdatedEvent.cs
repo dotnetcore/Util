@@ -1,4 +1,4 @@
-﻿using Util.Events;
+﻿using Util.Domain.Compare;
 
 namespace Util.Domain.Events; 
 
@@ -11,12 +11,19 @@ public class EntityUpdatedEvent<TEntity> : IEvent {
     /// 初始化实体修改事件
     /// </summary>
     /// <param name="entity">实体</param>
-    public EntityUpdatedEvent( TEntity entity ) {
+    /// <param name="changeValues">变更值集合</param>
+    public EntityUpdatedEvent( TEntity entity, ChangeValueCollection changeValues ) {
         Entity = entity;
+        ChangeValues = changeValues;
     }
 
     /// <summary>
     /// 实体
     /// </summary>
     public TEntity Entity { get; }
+
+    /// <summary>
+    /// 变更值集合
+    /// </summary>
+    public ChangeValueCollection ChangeValues { get; }
 }

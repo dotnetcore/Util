@@ -1,6 +1,4 @@
-﻿using Util.Events;
-
-namespace Util.Domain.Events; 
+﻿namespace Util.Domain.Events; 
 
 /// <summary>
 /// 实体变更事件,当实体新增,修改,删除时均触发

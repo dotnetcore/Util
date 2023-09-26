@@ -125,7 +125,7 @@ public class EntityEventsTest : TestBase {
         UnitOfWork.ClearCache();
 
         //修改实体
-        var product = _productRepository.FindById( entity.Id );
+        var product = await _productRepository.FindByIdAsync( entity.Id );
         product.Name = "EntityChangedEvent_Updated";
         await _productRepository.UpdateAsync( product );
         await UnitOfWork.CommitAsync();
