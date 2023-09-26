@@ -640,6 +640,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
                     if ( value != null )
                         result.Add( value );
                 } );
+                continue;
             }
             var changeValue = GetPropertyChangeValue( property, propertyEntry );
             if ( changeValue == null )

@@ -45,6 +45,10 @@ public static class UiConst {
     /// </summary>
     public const string DropdownRender = "dropdown-render";
     /// <summary>
+    /// 行数
+    /// </summary>
+    public const string Lines = "lines";
+    /// <summary>
     /// 访问控制
     /// </summary>
     public const string Acl = "acl";
@@ -56,6 +60,10 @@ public static class UiConst {
     /// 访问控制模板标识
     /// </summary>
     public const string AclElseTemplateId = "acl-else-template-id";
+    /// <summary>
+    /// 尾巴
+    /// </summary>
+    public const string Tail = "tail";
     /// <summary>
     /// 类型
     /// </summary>
@@ -429,6 +437,10 @@ public static class UiConst {
     /// </summary>
     public const string MinLengthMessage = "min-length-message";
     /// <summary>
+    /// 长度
+    /// </summary>
+    public const string Length = "length";
+    /// <summary>
     /// 最大长度
     /// </summary>
     public const string MaxLength = "max-length";
@@ -460,6 +472,10 @@ public static class UiConst {
     /// 提示
     /// </summary>
     public const string Tooltip = "tooltip";
+    /// <summary>
+    /// 全宽识别
+    /// </summary>
+    public const string FullWidthRecognition = "full-width-recognition";
     /// <summary>
     /// 链接
     /// </summary>

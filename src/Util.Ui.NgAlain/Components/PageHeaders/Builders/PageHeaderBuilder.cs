@@ -213,8 +213,7 @@ public class PageHeaderBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Title()
-            .AutoTitle().SyncTitle()
+        Title().AutoTitle().SyncTitle()
             .Home().HomeLink().HomeI18n()
             .AutoBreadcrumb().RecursiveBreadcrumb()
             .Loading().Wide().Fixed().FixedOffsetTop()

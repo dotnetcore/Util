@@ -77,6 +77,22 @@ public static class AngularConst {
     /// </summary>
     public const string BindFixed = "bind-fixed";
     /// <summary>
+    /// 行数
+    /// </summary>
+    public const string BindLines = "bind-lines";
+    /// <summary>
+    /// 长度
+    /// </summary>
+    public const string BindLength = "bind-length";
+    /// <summary>
+    /// 全宽识别
+    /// </summary>
+    public const string BindFullWidthRecognition = "bind-full-width-recognition";
+    /// <summary>
+    /// 尾巴
+    /// </summary>
+    public const string BindTail = "bind-tail";
+    /// <summary>
     /// 名称
     /// </summary>
     public const string BindName = "bind-name";
@@ -100,6 +116,10 @@ public static class AngularConst {
     /// 值
     /// </summary>
     public const string BindValue = "bind-value";
+    /// <summary>
+    /// 工具提示
+    /// </summary>
+    public const string BindTooltip = "bind-tooltip";
     /// <summary>
     /// 提示
     /// </summary>
