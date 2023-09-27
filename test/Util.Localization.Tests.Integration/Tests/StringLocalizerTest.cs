@@ -203,6 +203,18 @@ public class StringLocalizerTest {
     }
 
     /// <summary>
+    /// 测试获取本地化字符串值 - 性能测试
+    /// </summary>
+    [Fact]
+    public void Test_14() {
+        CultureInfo.CurrentUICulture = new CultureInfo( "zh-CN" );
+        for ( int i = 0; i < 10000; i++ ) {
+            var value = _localizer["Hello"];
+            Assert.Equal( "呜呜", value );
+        }
+    }
+
+    /// <summary>
     /// 测试获取全部本地化字符串 - 不包含父区域
     /// </summary>
     [Fact]

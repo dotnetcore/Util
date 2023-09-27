@@ -1,4 +1,4 @@
-﻿namespace Util.Localization.Json; 
+﻿namespace Util.Localization.Json;
 
 /// <summary>
 /// Json字符串定位器
@@ -28,6 +28,10 @@ public class JsonStringLocalizer : IStringLocalizer {
     /// 搜索位置
     /// </summary>
     private readonly string _searchedLocation;
+    /// <summary>
+    /// 缓存
+    /// </summary>
+    private readonly IMemoryCache _cache;
 
     /// <summary>
     /// 初始化Json字符串定位器
@@ -35,59 +39,89 @@ public class JsonStringLocalizer : IStringLocalizer {
     /// <param name="pathResolver">路径解析器</param>
     /// <param name="resourcesRootPath">资源根目录路径</param>
     /// <param name="resourcesBaseName">资源基名称</param>
-    /// <param name="logger">资源基名称</param>
-    public JsonStringLocalizer( IPathResolver pathResolver, string resourcesRootPath, string resourcesBaseName, ILogger logger ) {
+    /// <param name="logger">日志</param>
+    /// <param name="cache">缓存</param>
+    public JsonStringLocalizer( IPathResolver pathResolver, string resourcesRootPath, string resourcesBaseName, ILogger logger, IMemoryCache cache ) {
         _pathResolver = pathResolver;
         _resourcesRootPath = resourcesRootPath;
         _resourcesBaseName = resourcesBaseName;
         _logger = logger;
         _resourcesCache = new ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>>();
         _searchedLocation = $"{resourcesRootPath}.{resourcesBaseName}";
+        _cache = cache;
     }
 
-    /// <summary>
-    /// 获取本地化字符串
-    /// </summary>
-    /// <param name="name">本地化字符串名称</param>
+    /// <inheritdoc />
     public LocalizedString this[string name] {
         get {
-            name.CheckNull( nameof( name ) );
-            var value = GetValue( name, _resourcesBaseName ) ?? GetValue( name, null );
-            return new LocalizedString( name, value ?? name, value == null, _searchedLocation );
+            if ( name.IsEmpty() )
+                throw new ArgumentNullException( nameof( name ) );
+            return GetResult( name );
+        }
+    }
+
+    /// <inheritdoc />
+    public LocalizedString this[string name, params object[] arguments] {
+        get {
+            if ( name.IsEmpty() )
+                throw new ArgumentNullException( nameof( name ) );
+            return GetResult( name, arguments );
         }
     }
 
     /// <summary>
-    /// 获取本地化字符串
+    /// 获取本地化字符串结果
     /// </summary>
     /// <param name="name">本地化字符串名称</param>
     /// <param name="arguments">参数列表</param>
-    public LocalizedString this[ string name, params object[] arguments ] {
-        get {
-            name.CheckNull( nameof( name ) );
-            var format = GetValue( name, _resourcesBaseName ) ?? GetValue( name, null );
-            var value = string.Format( format ?? name, arguments );
-            return new LocalizedString( name, value, format == null, _searchedLocation );
+    protected virtual LocalizedString GetResult( string name, params object[] arguments ) {
+        LocalizedString result = null;
+        var cultures = Util.Helpers.Culture.GetCurrentUICultures();
+        foreach ( var culture in cultures ) {
+            result = GetLocalizedStringByCache( culture, name, arguments );
+            if ( result.ResourceNotFound == false )
+                return result;
         }
+        return result;
+    }
+
+    /// <summary>
+    /// 从缓存获取本地化字符串
+    /// </summary>
+    /// <param name="culture">区域文化</param>
+    /// <param name="name">本地化字符串名称</param>
+    /// <param name="arguments">参数列表</param>
+    protected LocalizedString GetLocalizedStringByCache( CultureInfo culture, string name, params object[] arguments ) {
+        var key = $"{culture.Name}-{_resourcesBaseName}-{string.Format( name, arguments )}";
+        return _cache == null ? GetLocalizedString( culture, name, arguments ) : _cache.GetOrCreate( key, _ => GetLocalizedString( culture, name, arguments ) );
+    }
+
+    /// <summary>
+    /// 获取本地化字符串
+    /// </summary>
+    /// <param name="culture">区域文化</param>
+    /// <param name="name">本地化字符串名称</param>
+    /// <param name="arguments">参数列表</param>
+    protected LocalizedString GetLocalizedString( CultureInfo culture, string name, params object[] arguments ) {
+        var format = GetValue( culture, name, _resourcesBaseName ) ?? GetValue( culture, name, null );
+        var value = string.Format( format ?? name, arguments );
+        return new LocalizedString( name, value, format == null, _searchedLocation );
     }
 
     /// <summary>
     /// 获取资源值
     /// </summary>
+    /// <param name="culture">区域文化</param>
     /// <param name="name">资源名称</param>
     /// <param name="resourcesBaseName">资源基名称</param>
-    protected virtual string GetValue( string name,string resourcesBaseName ) {
-        var cultures = Util.Helpers.Culture.GetCurrentUICultures();
-        foreach ( var culture in cultures ) {
-            var resources = GetResourcesByCache( culture, resourcesBaseName );
-            if ( resources == null )
-                continue;
-            var resource = resources.SingleOrDefault( t => t.Key == name );
-            var result = resource.Value;
-            _logger.SearchedLocation( name, _searchedLocation, culture );
-            return result;
-        }
-        return null;
+    protected virtual string GetValue( CultureInfo culture, string name, string resourcesBaseName ) {
+        var resources = GetResourcesByCache( culture, resourcesBaseName );
+        if ( resources == null )
+            return null;
+        var resource = resources.SingleOrDefault( t => t.Key == name );
+        var result = resource.Value;
+        _logger.SearchedLocation( name, _searchedLocation, culture );
+        return result;
     }
 
     /// <summary>
@@ -127,7 +161,7 @@ public class JsonStringLocalizer : IStringLocalizer {
         var result = new List<LocalizedString>();
         var cultures = Util.Helpers.Culture.GetCurrentUICultures();
         foreach ( var culture in cultures ) {
-            var resources = ToLocalizedStrings( GetResourcesByCache( culture,_resourcesBaseName ) );
+            var resources = ToLocalizedStrings( GetResourcesByCache( culture, _resourcesBaseName ) );
             result.AddRange( resources );
             if ( includeParentCultures == false )
                 return result;
