@@ -17,8 +17,17 @@ public class AclHandler : AuthorizationHandler<AclRequirement> {
         var httpContext = GetHttpContext( context.Resource );
         if ( httpContext == null )
             return;
+        var options = GetAclOptions( httpContext );
+        if ( options.AllowAnonymous ) {
+            context.Succeed( requirement );
+            return;
+        }
         if ( httpContext.GetIdentity().IsAuthenticated == false )
             return;
+        if ( options.IgnoreAcl ) {
+            context.Succeed( requirement );
+            return;
+        }
         if ( requirement.Ignore ) {
             context.Succeed( requirement );
             return;
@@ -28,7 +37,7 @@ public class AclHandler : AuthorizationHandler<AclRequirement> {
             context.Fail( new AuthorizationFailureReason( this, "未实现IPermissionManager" ) );
             return;
         }
-        var uri = GetResourceUri( requirement, httpContext );
+        var uri = GetResourceUri( requirement, httpContext, options );
         var result = await permissionManager.HasPermissionAsync( uri );
         if ( result ) {
             context.Succeed( requirement );
@@ -41,25 +50,35 @@ public class AclHandler : AuthorizationHandler<AclRequirement> {
     /// 获取Http上下文
     /// </summary>
     /// <param name="resource">资源</param>
-    private HttpContext GetHttpContext( dynamic resource ) {
+    protected virtual HttpContext GetHttpContext( dynamic resource ) {
         if ( resource is DefaultHttpContext httpContext )
             return httpContext;
         return resource.HttpContext;
     }
 
     /// <summary>
+    /// 获取访问控制配置
+    /// </summary>
+    protected virtual AclOptions GetAclOptions( HttpContext httpContext ) {
+        var result = httpContext.RequestServices.GetService<IOptions<AclOptions>>();
+        return result == null ? new AclOptions() : result.Value;
+    }
+
+    /// <summary>
     /// 获取资源标识
     /// </summary>
-    private string GetResourceUri( AclRequirement requirement,HttpContext httpContext ) {
+    protected virtual string GetResourceUri( AclRequirement requirement,HttpContext httpContext, AclOptions options ) {
         if ( requirement.Uri.IsEmpty() == false )
             return requirement.Uri;
+        if ( options.ResourceUri.IsEmpty() == false )
+            return options.ResourceUri;
         return GetResourceUri( httpContext.Request.Path, httpContext.Request.Method );
     }
 
     /// <summary>
     /// 获取资源标识
     /// </summary>
-    private string GetResourceUri( string path, string httpMethod ) {
+    protected virtual string GetResourceUri( string path, string httpMethod ) {
         if ( path.IsEmpty() )
             return null;
         var result = $"{path}#{httpMethod}";

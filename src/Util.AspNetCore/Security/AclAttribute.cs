@@ -1,6 +1,4 @@
-﻿using Util.Security.Authorization;
-
-namespace Util.Security; 
+﻿namespace Util.Security;
 
 /// <summary>
 /// 访问控制

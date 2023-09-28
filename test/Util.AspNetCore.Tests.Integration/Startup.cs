@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Util.Http;
 using Xunit.DependencyInjection.Logging;
 
-namespace Util.AspNetCore.Tests; 
+namespace Util.AspNetCore.Tests;
 
 /// <summary>
 /// ∆Ù∂Ø≈‰÷√
@@ -17,14 +17,18 @@ public class Startup {
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
         hostBuilder.ConfigureWebHostDefaults( webHostBuilder => {
-                webHostBuilder.UseTestServer()
-                    .Configure( t => {
-                        t.UseRouting();
-                        t.UseEndpoints( endpoints => {
-                            endpoints.MapControllers();
-                        } );
+            webHostBuilder.UseTestServer()
+                .Configure( t => {
+                    t.UseRouting();
+                    t.UseAuthentication();
+                    t.UseAuthorization();
+                    t.UseEndpoints( endpoints => {
+                        endpoints.MapControllers();
                     } );
-            } )
+                } );
+        } )
+            .AsBuild()
+            .AddAcl()
             .AddUtil();
     }
 
@@ -32,8 +36,8 @@ public class Startup {
     /// ≈‰÷√∑˛ŒÒ
     /// </summary>
     public void ConfigureServices( IServiceCollection services ) {
-	    services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
-		services.AddControllers();
+        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+        services.AddControllers();
         services.AddTransient<IHttpClient>( t => {
             var client = new HttpClientService();
             client.SetHttpClient( t.GetService<IHost>().GetTestClient() );

@@ -26,6 +26,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Util.AspNetCore\07-Util.AspNetCore.csproj" />
+	  <ProjectReference Include="..\..\src\Util.Microservices\01-Util.Microservices.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
