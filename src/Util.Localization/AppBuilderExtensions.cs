@@ -1,5 +1,5 @@
-﻿using Util.Configs;
-using Util.Localization.Json;
+﻿using Util.Localization.Json;
+using Util.Localization.Store;
 
 namespace Util.Localization;
 
@@ -7,6 +7,9 @@ namespace Util.Localization;
 /// 本地化操作扩展
 /// </summary>
 public static class AppBuilderExtensions {
+
+    #region AddJsonLocalization
+
     /// <summary>
     /// 配置Json本地化
     /// </summary>
@@ -30,7 +33,7 @@ public static class AppBuilderExtensions {
             services.TryAddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
             services.TryAddTransient( typeof( IStringLocalizer<> ), typeof( StringLocalizer<> ) );
             services.TryAddTransient( typeof( IStringLocalizer ), typeof( StringLocalizer ) );
-            services.Configure<LocalizationOptions>( options => options.ResourcesPath = resourcesPath );
+            services.Configure<Microsoft.Extensions.Localization.LocalizationOptions>( options => options.ResourcesPath = resourcesPath );
         } );
         return builder;
     }
@@ -48,19 +51,69 @@ public static class AppBuilderExtensions {
         if( options.Cultures == null || options.Cultures.Count == 0 )
             return builder;
         builder.Host.ConfigureServices( ( _, services ) => {
-            services.Configure<RequestLocalizationOptions>( localizationOptions => {
-                var supportedCultures = options.Cultures.Select( culture => new CultureInfo( culture ) ).ToList();
-                localizationOptions.DefaultRequestCulture = new RequestCulture( culture: supportedCultures[0], uiCulture: supportedCultures[0] );
-                localizationOptions.SupportedCultures = supportedCultures;
-                localizationOptions.SupportedUICultures = supportedCultures;
-                localizationOptions.AddInitialRequestCultureProvider( new CustomRequestCultureProvider( async context => {
-                    var culture = context.Request.Headers.ContentLanguage.FirstOrDefault();
-                    if ( culture.IsEmpty() )
-                        culture = "zh-CN";
-                    return await Task.FromResult( new ProviderCultureResult( culture ) );
-                } ) );
-            } );
+            ConfigRequestLocalization( services, options );
         } );
         return builder;
     }
+
+    /// <summary>
+    /// 配置请求本地化
+    /// </summary>
+    private static void ConfigRequestLocalization( IServiceCollection services, LocalizationOptions options ) {
+        services.Configure<RequestLocalizationOptions>( localizationOptions => {
+            var supportedCultures = options.Cultures.Select( culture => new CultureInfo( culture ) ).ToList();
+            localizationOptions.DefaultRequestCulture = new RequestCulture( culture: supportedCultures[0], uiCulture: supportedCultures[0] );
+            localizationOptions.SupportedCultures = supportedCultures;
+            localizationOptions.SupportedUICultures = supportedCultures;
+            localizationOptions.AddInitialRequestCultureProvider( new CustomRequestCultureProvider( async context => {
+                var culture = context.Request.Headers.ContentLanguage.FirstOrDefault();
+                if ( culture.IsEmpty() )
+                    culture = "zh-CN";
+                return await Task.FromResult( new ProviderCultureResult( culture ) );
+            } ) );
+        } );
+    }
+
+    #endregion
+
+    #region AddStoreLocalization
+
+    /// <summary>
+    /// 配置基于数据存储的本地化
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    public static IAppBuilder AddStoreLocalization<TStore>( this IAppBuilder builder ) where TStore : ILocalizedStore {
+        builder.CheckNull( nameof( builder ) );
+        builder.Host.ConfigureServices( ( context, services ) => {
+            services.RemoveAll( typeof( IStringLocalizerFactory ) );
+            services.RemoveAll( typeof( IStringLocalizer<> ) );
+            services.RemoveAll( typeof( IStringLocalizer ) );
+            services.TryAddSingleton<IStringLocalizerFactory, StoreStringLocalizerFactory>();
+            services.TryAddTransient( typeof( IStringLocalizer<> ), typeof( StringLocalizer<> ) );
+            services.TryAddTransient( typeof( IStringLocalizer ), typeof( StringLocalizer ) );
+            services.TryAddTransient( typeof( ILocalizedStore ), typeof( TStore ) );
+            services.TryAddTransient<ILocalizedManager, LocalizedManager>();
+        } );
+        return builder;
+    }
+
+    /// <summary>
+    /// 配置基于数据存储的本地化
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="setupAction">本地化配置操作</param>
+    public static IAppBuilder AddStoreLocalization<TStore>( this IAppBuilder builder, Action<LocalizationOptions> setupAction ) where TStore : ILocalizedStore {
+        builder.CheckNull( nameof( builder ) );
+        builder.AddStoreLocalization<TStore>();
+        var options = new LocalizationOptions();
+        setupAction?.Invoke( options );
+        builder.Host.ConfigureServices( ( _, services ) => {
+            if ( options.Cultures == null || options.Cultures.Count == 0 )
+                return;
+            ConfigRequestLocalization( services, options );
+        } );
+        return builder;
+    }
+
+    #endregion
 }

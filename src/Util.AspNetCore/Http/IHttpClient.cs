@@ -3,7 +3,7 @@
 /// <summary>
 /// Http客户端
 /// </summary>
-public interface IHttpClient : ISingletonDependency {
+public interface IHttpClient {
     /// <summary>
     /// 发送Get请求
     /// </summary>

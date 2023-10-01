@@ -5,7 +5,7 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<AssemblyName>Util.Localization</AssemblyName>
 		<RootNamespace>Util.Localization</RootNamespace>
-		<Description>Util.Localization是Util应用框架的Json本地化操作类库</Description>
+		<Description>Util.Localization是Util应用框架的本地化操作类库,Json本地化操作代码从 https://github.com/hishamco/My.Extensions.Localization.Json 整理而来,并进行相应修改</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

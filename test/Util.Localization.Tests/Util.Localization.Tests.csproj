@@ -1,18 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<IsPackable>false</IsPackable>
-		<RootNamespace>Util.Localization</RootNamespace>
-		<XunitStartupFullName>Util.Localization.Startup</XunitStartupFullName>
+		<RootNamespace>Util.Localization.Store</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-		<PackageReference Include="Xunit.DependencyInjection" Version="8.9.0" />
-		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="8.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.11" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+		<PackageReference Include="Moq" Version="4.20.69" />
 		<PackageReference Include="xunit" Version="2.5.1" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.1">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,9 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Util.AspNetCore\07-Util.AspNetCore.csproj" />
-		<ProjectReference Include="..\..\src\Util.Localization\08-Util.Localization.csproj" />
-		<ProjectReference Include="..\Util.Localization.Resources\Util.Localization.Resources.csproj" />
+	  <ProjectReference Include="..\..\src\Util.Localization\08-Util.Localization.csproj" />
 	</ItemGroup>
 
 </Project>

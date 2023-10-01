@@ -203,10 +203,20 @@ public class StringLocalizerTest {
     }
 
     /// <summary>
-    /// 测试获取本地化字符串值 - 性能测试
+    /// 测试获取本地化字符串值 - 未找到返回名称
     /// </summary>
     [Fact]
     public void Test_14() {
+        CultureInfo.CurrentUICulture = new CultureInfo( "en-US" );
+        var value = _resource1Localizer["HelloWorld2"];
+        Assert.Equal( "HelloWorld2", value );
+    }
+
+    /// <summary>
+    /// 测试获取本地化字符串值 - 性能测试
+    /// </summary>
+    [Fact]
+    public void Test_15() {
         CultureInfo.CurrentUICulture = new CultureInfo( "zh-CN" );
         for ( int i = 0; i < 10000; i++ ) {
             var value = _localizer["Hello"];

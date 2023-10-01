@@ -5,17 +5,45 @@
 /// </summary>
 public static class Culture {
     /// <summary>
+    /// 获取当前区域文化
+    /// </summary>
+    public static CultureInfo GetCurrentCulture() {
+        return CultureInfo.CurrentCulture;
+    }
+
+    /// <summary>
+    /// 获取当前UI区域文化
+    /// </summary>
+    public static CultureInfo GetCurrentUICulture() {
+        return CultureInfo.CurrentUICulture;
+    }
+
+    /// <summary>
+    /// 获取当前区域文化名称
+    /// </summary>
+    public static string GetCurrentCultureName() {
+        return CultureInfo.CurrentCulture.Name;
+    }
+
+    /// <summary>
+    /// 获取当前UI区域文化名称
+    /// </summary>
+    public static string GetCurrentUICultureName() {
+        return CultureInfo.CurrentUICulture.Name;
+    }
+
+    /// <summary>
     /// 获取当前区域文化信息列表,包含所有父区域文化
     /// </summary>
     public static List<CultureInfo> GetCurrentCultures() {
-        return GetCultures( CultureInfo.CurrentCulture );
+        return GetCultures( GetCurrentCulture() );
     }
 
     /// <summary>
     /// 获取当前UI区域文化信息列表,包含所有父区域文化
     /// </summary>
     public static List<CultureInfo> GetCurrentUICultures() {
-        return GetCultures( CultureInfo.CurrentUICulture );
+        return GetCultures( GetCurrentUICulture() );
     }
 
     /// <summary>

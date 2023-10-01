@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace Util.Localization.Json; 
+﻿namespace Util.Localization.Json;
 
 /// <summary>
-/// Json字符串定位器工厂
+/// Json本地化资源查找器工厂
 /// </summary>
 public class JsonStringLocalizerFactory : IStringLocalizerFactory {
     /// <summary>
@@ -24,13 +22,13 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory {
     private readonly IMemoryCache _cache;
 
     /// <summary>
-    /// 初始化Json字符串定位器工厂
+    /// 初始化Json本地化资源查找器工厂
     /// </summary>
     /// <param name="options">本地化配置</param>
     /// <param name="pathResolver">路径解析器</param>
     /// <param name="loggerFactory">日志工厂</param>
     /// <param name="cache">缓存</param>
-    public JsonStringLocalizerFactory( IOptions<LocalizationOptions> options, IPathResolver pathResolver, ILoggerFactory loggerFactory, IMemoryCache cache = null ) {
+    public JsonStringLocalizerFactory( IOptions<Microsoft.Extensions.Localization.LocalizationOptions> options, IPathResolver pathResolver, ILoggerFactory loggerFactory, IMemoryCache cache = null ) {
         options.CheckNull( nameof( options ) );
         _rootPath = options.Value.ResourcesPath;
         _pathResolver = pathResolver ?? throw new ArgumentNullException( nameof( pathResolver ) );
@@ -38,10 +36,7 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory {
         _cache = cache;
     }
 
-    /// <summary>
-    /// 创建Json字符串定位器
-    /// </summary>
-    /// <param name="resourceSource">资源类型</param>
+    /// <inheritdoc />
     public IStringLocalizer Create( Type resourceSource ) {
         resourceSource.CheckNull( nameof( resourceSource ) );
         var assembly = resourceSource.Assembly;
@@ -50,11 +45,7 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory {
         return new JsonStringLocalizer( _pathResolver, rootPath, baseName, _loggerFactory.CreateLogger<JsonStringLocalizer>(), _cache );
     }
 
-    /// <summary>
-    /// 创建Json字符串定位器
-    /// </summary>
-    /// <param name="baseName">资源名称</param>
-    /// <param name="location">资源位置</param>
+    /// <inheritdoc />
     public IStringLocalizer Create( string baseName, string location ) {
         location ??= new AssemblyName( GetType().Assembly.FullName ).Name;
         var assemblyName = new AssemblyName( location );
