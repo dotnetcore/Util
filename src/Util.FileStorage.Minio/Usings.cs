@@ -9,3 +9,5 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Minio;
 global using Minio.Exceptions;
+global using Minio.DataModel.Args;
+global using Util.Http;

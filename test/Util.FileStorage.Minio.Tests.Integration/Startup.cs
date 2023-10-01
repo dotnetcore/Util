@@ -18,7 +18,6 @@ public class Startup {
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
         Util.Helpers.Environment.SetDevelopment();
-        var minioEndpoint = Util.Helpers.Environment.IsDevelopment() ? "127.0.0.1:9000" : "minio-dev.common:9000";
         hostBuilder.ConfigureDefaults( null )
             .ConfigureWebHostDefaults( webHostBuilder => {
                 webHostBuilder.UseTestServer()
@@ -34,8 +33,9 @@ public class Startup {
                     } );
             } )
             .AsBuild()
-            .AddMinio( options => options.Endpoint( minioEndpoint )
-                .AccessKey( "admin123" ).SecretKey( "admin123" )
+            .AddMinio( options => options.Endpoint( Util.Helpers.Config.GetValue( "Minio:Endpoint" ) )
+                .AccessKey( Util.Helpers.Config.GetValue( "Minio:AccessKey" ) )
+                .SecretKey( Util.Helpers.Config.GetValue( "Minio:SecretKey" ) )
                 .DefaultBucketName( "Util.FileStorage.Minio.Test" )
                 .UseSSL( false )
             )

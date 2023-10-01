@@ -1,6 +1,4 @@
-﻿using Util.Http;
-
-namespace Util.FileStorage.Minio; 
+﻿namespace Util.FileStorage.Minio; 
 
 /// <summary>
 /// Minio文件存储服务
@@ -32,7 +30,7 @@ public class MinioFileStore : IFileStore {
     /// <summary>
     /// Minio客户端
     /// </summary>
-    private MinioClient _client;
+    private IMinioClient _client;
     /// <summary>
     /// Http操作
     /// </summary>
@@ -80,14 +78,17 @@ public class MinioFileStore : IFileStore {
     /// <summary>
     /// 获取Minio客户端
     /// </summary>
-    protected virtual async Task<MinioClient> GetClient() {
+    protected virtual async Task<IMinioClient> GetClient() {
+        if ( _client != null )
+            return _client;
         await InitConfig();
-        _client ??= new MinioClient()
+        var client = new MinioClient()
             .WithEndpoint( GetEndpoint() )
             .WithCredentials( _config.AccessKey, _config.SecretKey )
             .WithSSL( _config.UseSSL );
         var httpClient = GetHttpClient();
-        return httpClient == null ? _client.Build() : _client.WithHttpClient( httpClient ).Build();
+        _client = httpClient == null ? client.Build() : client.WithHttpClient( httpClient ).Build();
+        return _client;
     }
 
     /// <summary>
@@ -357,7 +358,7 @@ public class MinioFileStore : IFileStore {
         args.CheckNull( nameof( args ) );
         var processedFileName = ProcessFileName( args );
         var processedBucketName = await ProcessBucketName( args );
-        var bytes = await _httpClient.Get( args.Url ).GetStreamAsync();
+        var bytes = await _httpClient.Get( args.Url ).GetStreamAsync( cancellationToken );
         await using var stream = new MemoryStream( bytes );
         return await SaveFileAsync( stream, processedFileName, processedBucketName, cancellationToken );
     }
