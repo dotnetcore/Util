@@ -37,6 +37,7 @@ public class Product : AggregateRoot<Product>, IDelete, ITenant, IAudited, IExtr
     /// 产品编码
     ///</summary>
     [Description( "产品编码" )]
+    [MaxLength( 50 )]
     public string Code { get; set; }
     /// <summary>
     /// 产品名称

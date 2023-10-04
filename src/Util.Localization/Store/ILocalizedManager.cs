@@ -1,4 +1,4 @@
-﻿namespace Util.Localization; 
+﻿namespace Util.Localization.Store;
 
 /// <summary>
 /// 本地化资源管理器

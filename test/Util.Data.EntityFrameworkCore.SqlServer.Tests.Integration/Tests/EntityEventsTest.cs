@@ -265,10 +265,10 @@ public class EntityEventsTest : TestBase {
         await _productRepository.AddAsync( entity );
         await UnitOfWork.CommitAsync();
 
-        var code = $"TestDomainEvent_{entity.Id}";
+        var description = $"TestDomainEvent_{entity.Id}";
         try {
             entity = await _productRepository.FindByIdAsync( entity.Id );
-            entity.Code = code;
+            entity.Description = description;
             entity.TestDomainEvent2();
 
             //保存后触发事件处理器,抛出异常
@@ -279,7 +279,7 @@ public class EntityEventsTest : TestBase {
             Assert.Equal( entity.Id.ToString(), ex.Message );
 
             //保存后触发事件,所以保存成功
-            entity = await _productRepository.SingleAsync( t => t.Code == code );
+            entity = await _productRepository.SingleAsync( t => t.Description == description );
             Assert.NotNull( entity );
             return;
         }
