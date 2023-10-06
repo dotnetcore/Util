@@ -450,20 +450,10 @@ public partial class TableColumnTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Bool );
         _wrapper.SetContextAttribute( UiConst.Column, "a" );
         var result = new StringBuilder();
-        result.Append( "<td>{{row.a?'是':'否'}}</td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试布尔类型列 - 支持多语言
-    /// </summary>
-    [Fact]
-    public void TestType_Bool_I18n() {
-        NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
-        _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Bool );
-        _wrapper.SetContextAttribute( UiConst.Column, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td>{{(row.a?'util.yes':'util.no')|i18n}}</td>" );
+        result.Append( "<td>" );
+        result.AppendLine( "<i *ngIf=\"!row.a\" nz-icon nzType=\"close\"></i>" );
+        result.AppendLine( "<i *ngIf=\"row.a\" nz-icon nzType=\"check\"></i>" );
+        result.Append( "</td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -540,6 +530,46 @@ public partial class TableColumnTagHelperTest {
         result.Append( "</tbody>" );
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
+
+        //验证
+        Assert.Equal( result.ToString(), table.GetResult() );
+    }
+
+    #endregion
+
+    #region Acl
+
+    /// <summary>
+    /// 测试访问控制列表
+    /// </summary>
+    [Fact]
+    public void TestAcl() {
+        //创建表格
+        var table = new TableTagHelper().ToWrapper();
+
+        //添加列
+        table.AppendContent( _wrapper );
+
+        //设置标题和内容
+        _wrapper.SetContextAttribute( UiConst.Acl, "a" );
+        _wrapper.SetContextAttribute( UiConst.AclElseTemplateId, "b" );
+        _wrapper.SetContextAttribute( UiConst.Title, "a" );
+        _wrapper.AppendContent( "b" );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table>" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th *aclIf=\"'a'; else b\">a</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr>" );
+        result.Append( "<td *aclIf=\"'a'; else b\">b</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
 
         //验证
         Assert.Equal( result.ToString(), table.GetResult() );

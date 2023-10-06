@@ -1,8 +1,11 @@
-﻿using Util.Ui.Angular.Configs;
+﻿using System.Linq;
+using System.Text;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
+using Util.Ui.Extensions;
 
-namespace Util.Ui.Angular.Extensions; 
+namespace Util.Ui.Angular.Extensions;
 
 /// <summary>
 /// Angular标签生成器扩展
@@ -98,7 +101,7 @@ public static class TagBuilderExtensions {
     /// <param name="builder">生成器实例</param>
     /// <param name="value">值,为true时添加指令</param>
     public static TBuilder NgSwitchDefault<TBuilder>( this TBuilder builder, bool? value ) where TBuilder : TagBuilder {
-        if( value == true )
+        if ( value == true )
             builder.Attribute( "*ngSwitchDefault" );
         return builder;
     }
@@ -169,11 +172,65 @@ public static class TagBuilderExtensions {
         if ( acl.IsEmpty() )
             return builder;
         if ( templateId.IsEmpty() ) {
-            builder.Attribute( "*aclIf", $"'{acl}'" );
+            builder.Attribute( "*aclIf", GetAcl( acl ) );
             return builder;
         }
-        builder.Attribute( "*aclIf", $"'{acl}'; else {templateId}" );
+        builder.Attribute( "*aclIf", $"{GetAcl( acl )}; else {templateId}" );
         return builder;
+    }
+
+    /// <summary>
+    /// 获取访问控制值
+    /// </summary>
+    private static string GetAcl( string acl ) {
+        if ( acl.Contains( "||" ) )
+            return SplitOr( acl );
+        if ( acl.Contains( "&&" ) )
+            return SplitAnd( acl );
+        return GetSafeAcl( acl );
+    }
+
+    /// <summary>
+    /// 使用||拆分资源标识
+    /// </summary>
+    private static string SplitOr( string acl ) {
+        var list = acl.Split( "||" );
+        var result = new StringBuilder();
+        result.Append( "[" );
+        foreach ( var item in list ) {
+            if ( item.IsEmpty() )
+                continue;
+            result.Append( $"{GetSafeAcl( item )}," );
+        }
+        result.RemoveEnd( "," );
+        result.Append( "]" );
+        return result.ToString();
+    }
+
+    /// <summary>
+    /// 使用&amp;&amp;拆分资源标识
+    /// </summary>
+    private static string SplitAnd( string acl ) {
+        var list = acl.Split( "&&" );
+        var result = new StringBuilder();
+        result.Append( "{role:[" );
+        foreach ( var item in list ) {
+            if ( item.IsEmpty() )
+                continue;
+            result.Append( $"{GetSafeAcl( item )}," );
+        }
+        result.RemoveEnd( "," );
+        result.Append( "],mode:'allOf'}" );
+        return result.ToString();
+    }
+
+    /// <summary>
+    /// 安全获取资源标识
+    /// </summary>
+    private static string GetSafeAcl( string acl ) {
+        if ( acl.StartsWith( "[" ) || acl.Contains( "'" ) )
+            return acl.SafeString();
+        return $"'{acl.SafeString()}'";
     }
 
     /// <summary>
@@ -252,7 +309,7 @@ public static class TagBuilderExtensions {
         builder.AttributeIfNotEmpty( "id", config.GetValue( AngularConst.RawId ) );
         return builder;
     }
-        
+
     /// <summary>
     /// 添加引用变量
     /// </summary>
@@ -260,8 +317,8 @@ public static class TagBuilderExtensions {
     /// <param name="builder">生成器实例</param>
     /// <param name="config">配置</param>
     /// <param name="value">引用变量的值</param>
-    public static TBuilder Id<TBuilder>( this TBuilder builder, Config config,string value = null ) where TBuilder : TagBuilder {
-        return builder.Id( config.GetValue( UiConst.Id ),value );
+    public static TBuilder Id<TBuilder>( this TBuilder builder, Config config, string value = null ) where TBuilder : TagBuilder {
+        return builder.Id( config.GetValue( UiConst.Id ), value );
     }
 
     /// <summary>

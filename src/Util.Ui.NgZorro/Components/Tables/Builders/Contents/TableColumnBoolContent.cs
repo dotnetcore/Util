@@ -14,13 +14,19 @@ public class TableColumnBoolContent : ITableColumnContent {
         if ( column.IsEmpty() )
             return null;
         var options = NgZorroOptionsService.GetOptions();
+        var result = GetResult( options, column );
+        return new StringHtmlContent( result );
+    }
+
+    /// <summary>
+    /// 获取结果
+    /// </summary>
+    private string GetResult(NgZorroOptions options,string column) {
+        if ( options.GetTableColumnBoolContentAction != null )
+            return options.GetTableColumnBoolContentAction( column );
         var result = new StringBuilder();
-        result.Append( "{{" );
-        if( options.EnableI18n )
-            result.Append( $"(row.{column}?'{I18nKeys.Yes}':'{I18nKeys.No}')|i18n" );
-        else
-            result.Append( $"row.{column}?'是':'否'" );
-        result.Append( "}}" );
-        return new StringHtmlContent( result.ToString() );
+        result.AppendLine( $"<i *ngIf=\"!row.{column}\" nz-icon nzType=\"close\"></i>" );
+        result.AppendLine( $"<i *ngIf=\"row.{column}\" nz-icon nzType=\"check\"></i>" );
+        return result.ToString();
     }
 }

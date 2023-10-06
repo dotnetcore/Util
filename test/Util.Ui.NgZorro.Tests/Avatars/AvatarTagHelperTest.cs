@@ -53,10 +53,87 @@ namespace Util.Ui.NgZorro.Tests.Avatars {
         /// 测试访问控制
         /// </summary>
         [Fact]
-        public void TestAcl() {
+        public void TestAcl_1() {
             _wrapper.SetContextAttribute( UiConst.Acl, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-avatar *aclIf=\"'a'\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制 - '开头
+        /// </summary>
+        [Fact]
+        public void TestAcl_2() {
+            _wrapper.SetContextAttribute( UiConst.Acl, "'a'" );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"'a'\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制 - [开头
+        /// </summary>
+        [Fact]
+        public void TestAcl_3() {
+            _wrapper.SetContextAttribute( UiConst.Acl, "['a']" );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"['a']\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制 - or条件
+        /// </summary>
+        [Fact]
+        public void TestAcl_4() {
+            _wrapper.SetContextAttribute( UiConst.Acl, " a || b " );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"['a','b']\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制 - or条件 - 带引号
+        /// </summary>
+        [Fact]
+        public void TestAcl_5() {
+            _wrapper.SetContextAttribute( UiConst.Acl, "'a' || 'b'" );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"['a','b']\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制 - or条件 - 带[]
+        /// </summary>
+        [Fact]
+        public void TestAcl_6() {
+            _wrapper.SetContextAttribute( UiConst.Acl, "['a','b']" );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"['a','b']\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制 - and条件
+        /// </summary>
+        [Fact]
+        public void TestAcl_7() {
+            _wrapper.SetContextAttribute( UiConst.Acl, " a && b " );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"{role:['a','b'],mode:'allOf'}\"></nz-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试访问控制 - and条件 - 带引号
+        /// </summary>
+        [Fact]
+        public void TestAcl_8() {
+            _wrapper.SetContextAttribute( UiConst.Acl, " 'a' && 'b' " );
+            var result = new StringBuilder();
+            result.Append( "<nz-avatar *aclIf=\"{role:['a','b'],mode:'allOf'}\"></nz-avatar>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

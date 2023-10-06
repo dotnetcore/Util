@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
@@ -500,5 +501,16 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         this.Width( column.Width );
         Left( column.IsLeft );
         Right( column.IsRight );
+        SetAcl( column.Acl, column.AclElseTemplateId );
+    }
+
+    /// <summary>
+    /// 配置访问控制列表
+    /// </summary>
+    public TableHeadColumnBuilder SetAcl( string acl,string aclElseTemplateId ) {
+        _config.SetAttribute( UiConst.Acl, acl );
+        _config.SetAttribute( UiConst.AclElseTemplateId, aclElseTemplateId );
+        this.Acl( _config );
+        return this;
     }
 }

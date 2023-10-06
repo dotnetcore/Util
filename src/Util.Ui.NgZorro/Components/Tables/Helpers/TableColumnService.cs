@@ -103,7 +103,9 @@ public class TableColumnService {
             IsSort = _config.GetValue<bool>( UiConst.Sort ),
             IsFirst = _shareConfig.IsFirst,
             IsLeft = _config.GetValue<bool>( UiConst.Left ),
-            IsRight = _config.GetValue<bool>( UiConst.Right )
+            IsRight = _config.GetValue<bool>( UiConst.Right ),
+            Acl = _config.GetValue( UiConst.Acl ),
+            AclElseTemplateId = _config.GetValue( UiConst.AclElseTemplateId )
         };
         return result;
     }

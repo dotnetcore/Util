@@ -32,4 +32,12 @@ public class ColumnInfo {
     /// 是否右侧固定
     /// </summary>
     public bool IsRight { get; set; }
+    /// <summary>
+    /// 访问控制列表
+    /// </summary>
+    public string Acl { get; set; }
+    /// <summary>
+    /// 访问控制列表模板标识
+    /// </summary>
+    public string AclElseTemplateId { get; set; }
 }

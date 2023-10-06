@@ -48,6 +48,20 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestFor_2() {
+        //配置获取表格布尔列内容操作
+        var options = new NgZorroOptions();
+        NgZorroOptionsService.SetOptions( options );
+        options.GetTableColumnBoolContentAction = column => {
+            var result = new StringBuilder();
+            result.Append( "{{" );
+            if ( options.EnableI18n )
+                result.Append( $"(row.{column}?'{I18nKeys.Yes}':'{I18nKeys.No}')|i18n" );
+            else
+                result.Append( $"row.{column}?'是':'否'" );
+            result.Append( "}}" );
+            return result.ToString();
+        };
+
         //创建表格
         var table = new TableTagHelper().ToWrapper();
 
@@ -81,8 +95,19 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestFor_3() {
-        //启用多语言
-        NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+        //配置获取表格布尔列内容操作
+        var options = new NgZorroOptions { EnableI18n = true };
+        NgZorroOptionsService.SetOptions( options );
+        options.GetTableColumnBoolContentAction = column => {
+            var result = new StringBuilder();
+            result.Append( "{{" );
+            if ( options.EnableI18n )
+                result.Append( $"(row.{column}?'{I18nKeys.Yes}':'{I18nKeys.No}')|i18n" );
+            else
+                result.Append( $"row.{column}?'是':'否'" );
+            result.Append( "}}" );
+            return result.ToString();
+        };
 
         //创建表格
         var table = new TableTagHelper().ToWrapper();
@@ -113,10 +138,46 @@ public partial class TableColumnTagHelperTest {
     }
 
     /// <summary>
-    /// 测试属性表达式 - 枚举类型
+    /// 测试属性表达式 - 布尔类型
     /// </summary>
     [Fact]
     public void TestFor_4() {
+        //创建表格
+        var table = new TableTagHelper().ToWrapper();
+
+        //添加列
+        table.AppendContent( _wrapper );
+
+        //设置表达式
+        _wrapper.SetExpression( UiConst.For, t => t.Enabled );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table>" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th>启用</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr>" );
+        result.Append( "<td>" );
+        result.AppendLine( "<i *ngIf=\"!row.enabled\" nz-icon nzType=\"close\"></i>" );
+        result.AppendLine( "<i *ngIf=\"row.enabled\" nz-icon nzType=\"check\"></i>" );
+        result.Append( "</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+
+        //验证
+        Assert.Equal( result.ToString(), table.GetResult() );
+    }
+
+    /// <summary>
+    /// 测试属性表达式 - 枚举类型
+    /// </summary>
+    [Fact]
+    public void TestFor_5() {
         //创建表格
         var table = new TableTagHelper().ToWrapper();
 
@@ -152,7 +213,7 @@ public partial class TableColumnTagHelperTest {
     /// 测试属性表达式 - 枚举类型 - 多语言
     /// </summary>
     [Fact]
-    public void TestFor_5() {
+    public void TestFor_6() {
         //启用多语言
         NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
 

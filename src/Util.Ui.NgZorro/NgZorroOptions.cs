@@ -24,4 +24,8 @@ public class NgZorroOptions {
     /// 是否启用全局输入框设置 autocomplete="off"
     /// </summary>
     public bool EnableAutocompleteOff { get; set; }
+    /// <summary>
+    /// 获取表格布尔列内容操作
+    /// </summary>
+    public Func<string, string> GetTableColumnBoolContentAction { get; set; }
 }
