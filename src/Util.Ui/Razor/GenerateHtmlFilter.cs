@@ -17,11 +17,12 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     /// 选择操作
     /// </summary>
     public async Task OnPageHandlerSelectionAsync( PageHandlerSelectedContext context ) {
-        if ( IsGenerateHtml( context ) != true )
+        var options = context.HttpContext.RequestServices.GetService<IOptions<RazorOptions>>()?.Value ?? new RazorOptions();
+        if ( options.IsGenerateHtml == false )
             return;
         if ( context.ActionDescriptor.ViewEnginePath == "/Error" )
             return;
-        var path = CreatePath( context );
+        var path = CreatePath( context, options );
         if( string.IsNullOrWhiteSpace( path ) )
             return;
         var html = await GetHtml( context );
@@ -29,22 +30,12 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     }
 
     /// <summary>
-    /// 是否生成html
-    /// </summary>
-    private bool IsGenerateHtml( PageHandlerSelectedContext context ) {
-        var options = context.HttpContext.RequestServices.GetService<IOptions<RazorOptions>>();
-        if ( options == null )
-            return false;
-        return options.Value.IsGenerateHtml;
-    }
-
-    /// <summary>
     /// 创建Html文件路径
     /// </summary>
-    private string CreatePath( PageHandlerSelectedContext context ) {
+    private string CreatePath( PageHandlerSelectedContext context, RazorOptions options ) {
         var attribute = context.ActionDescriptor.ModelTypeInfo.GetCustomAttribute<HtmlAttribute>();
         if( attribute == null )
-            return GetPath( context.ActionDescriptor.ViewEnginePath );
+            return GetPath( context.ActionDescriptor.ViewEnginePath, options.GenerateHtmlBasePath, options.GenerateHtmlSuffix );
         if( attribute.Ignore )
             return string.Empty;
         if( string.IsNullOrWhiteSpace( attribute.Path ) )

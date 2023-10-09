@@ -46,7 +46,11 @@ public static class AppBuilderExtensions {
     /// 配置Razor
     /// </summary>
     private static void ConfigRazorOptions( IServiceCollection services, NgZorroOptions options ) {
-        void Action( RazorOptions t ) => t.IsGenerateHtml = options.IsGenerateHtml;
+        void Action( RazorOptions t ) {
+            t.IsGenerateHtml = options.IsGenerateHtml;
+            t.GenerateHtmlBasePath = options.GenerateHtmlBasePath;
+            t.GenerateHtmlSuffix = options.GenerateHtmlSuffix;
+        }
         services.Configure( (Action<RazorOptions>)Action );
     }
 
