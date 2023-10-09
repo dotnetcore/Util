@@ -54,9 +54,9 @@ public abstract class StringLocalizerBase : IStringLocalizer {
         foreach ( var culture in cultures ) {
             result = GetLocalizedStringByCache( culture, name );
             if ( result.ResourceNotFound == false )
-                return FormatResult( result, arguments );
+                return FormatResult( result, name, arguments );
         }
-        return FormatResult( result, arguments );
+        return FormatResult( result, name, arguments );
     }
 
     /// <summary>
@@ -93,8 +93,11 @@ public abstract class StringLocalizerBase : IStringLocalizer {
     /// 格式化结果
     /// </summary>
     /// <param name="result">本地化字符串结果</param>
+    /// <param name="name">资源名称</param>
     /// <param name="arguments">参数列表</param>
-    protected virtual LocalizedString FormatResult( LocalizedString result, params object[] arguments ) {
+    protected virtual LocalizedString FormatResult( LocalizedString result, string name, params object[] arguments ) {
+        if( result == null )
+            return new LocalizedString( name, string.Format( name, arguments ), true, null );
         if ( result.ResourceNotFound )
             return new LocalizedString( result.Name, string.Format( result.Name, arguments ), true, null );
         if ( arguments == null || arguments.Length == 0 )

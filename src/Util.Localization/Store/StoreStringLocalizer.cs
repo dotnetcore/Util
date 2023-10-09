@@ -35,7 +35,7 @@ public class StoreStringLocalizer : StringLocalizerBase {
     protected override LocalizedString GetResult( string name, params object[] arguments ) {
         var culture = Util.Helpers.Culture.GetCurrentUICulture();
         var result = GetLocalizedStringByCache( culture, name );
-        return FormatResult( result, arguments );
+        return FormatResult( result, name, arguments );
     }
 
     /// <summary>
