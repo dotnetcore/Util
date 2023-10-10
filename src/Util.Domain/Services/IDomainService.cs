@@ -1,9 +1,10 @@
-﻿using Util.Dependency;
+﻿using Util.Aop;
+using Util.Dependency;
 
 namespace Util.Domain.Services; 
 
 /// <summary>
 /// 领域服务
 /// </summary>
-public interface IDomainService : IScopeDependency {
+public interface IDomainService : IScopeDependency, IAopProxy {
 }

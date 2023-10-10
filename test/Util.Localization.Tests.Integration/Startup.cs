@@ -37,7 +37,6 @@ public class Startup {
     public void ConfigureServices( IServiceCollection services ) {
 	    services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
 		services.AddControllers();
-        services.AddMemoryCache();
         services.AddTransient<IHttpClient>( t => {
             var client = new HttpClientService();
             client.SetHttpClient( t.GetService<IHost>().GetTestClient() );

@@ -1,4 +1,5 @@
-﻿using Util.Domain;
+﻿using Util.Aop;
+using Util.Domain;
 using Util.Validation;
 
 namespace Util.Data.Stores; 
@@ -22,25 +23,25 @@ public interface IStore<TEntity, in TKey> : IQueryStore<TEntity, TKey> where TEn
     /// </summary>
     /// <param name="entity">实体</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task AddAsync( [Valid] TEntity entity, CancellationToken cancellationToken = default );
+    Task AddAsync( TEntity entity, CancellationToken cancellationToken = default );
     /// <summary>
     /// 添加实体集合
     /// </summary>
     /// <param name="entities">实体集合</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task AddAsync( [Valid] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default );
+    Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default );
     /// <summary>
     /// 修改实体
     /// </summary>
     /// <param name="entity">实体</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task UpdateAsync( [Valid] TEntity entity, CancellationToken cancellationToken = default );
+    Task UpdateAsync( TEntity entity, CancellationToken cancellationToken = default );
     /// <summary>
     /// 修改实体集合
     /// </summary>
     /// <param name="entities">实体集合</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task UpdateAsync( [Valid] IEnumerable<TEntity> entities, CancellationToken cancellationToken = default );
+    Task UpdateAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default );
     /// <summary>
     /// 移除实体
     /// </summary>

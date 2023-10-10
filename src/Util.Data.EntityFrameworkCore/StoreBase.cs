@@ -1,6 +1,7 @@
 ﻿using Util.Data.Queries;
 using Util.Data.Stores;
 using Util.Exceptions;
+using Util.Validation;
 
 namespace Util.Data.EntityFrameworkCore; 
 
@@ -318,8 +319,26 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     public virtual async Task AddAsync( TEntity entity, CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         ThrowIfDisposed();
-        entity.CheckNull( nameof( entity ) );
+        Validate( entity );
         await Set.AddAsync( entity, cancellationToken );
+    }
+
+    /// <summary>
+    /// 验证
+    /// </summary>
+    protected virtual void Validate( IEnumerable<TEntity> entities ) {
+        entities.CheckNull( nameof( entities ) );
+        foreach ( var entity in entities ) 
+            Validate( entity );
+    }
+
+    /// <summary>
+    /// 验证
+    /// </summary>
+    protected virtual void Validate( TEntity entity ) {
+        entity.CheckNull( nameof( entity ) );
+        if ( entity is IValidation validation ) 
+            validation.Validate();
     }
 
     /// <summary>
@@ -330,8 +349,9 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     public virtual async Task AddAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
         ThrowIfDisposed();
-        entities.CheckNull( nameof( entities ) );
-        await Set.AddRangeAsync( entities, cancellationToken );
+        var list = entities.ToList();
+        Validate( list );
+        await Set.AddRangeAsync( list, cancellationToken );
     }
 
     #endregion
@@ -350,7 +370,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// </summary>
     protected void Update( TEntity entity ) {
         ThrowIfDisposed();
-        entity.CheckNull( nameof( entity ) );
+        Validate( entity );
         var entry = UnitOfWork.Entry( entity );
         ValidateVersion( entry, entity );
         UpdateEntity( entry, entity );
@@ -396,7 +416,6 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// <inheritdoc />
     public virtual Task UpdateAsync( IEnumerable<TEntity> entities, CancellationToken cancellationToken = default ) {
         cancellationToken.ThrowIfCancellationRequested();
-        entities.CheckNull( nameof( entities ) );
         Update( entities );
         return Task.CompletedTask;
     }

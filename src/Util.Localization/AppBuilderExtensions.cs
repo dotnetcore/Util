@@ -26,6 +26,7 @@ public static class AppBuilderExtensions {
     public static IAppBuilder AddJsonLocalization( this IAppBuilder builder, string resourcesPath ) {
         builder.CheckNull( nameof( builder ) );
         builder.Host.ConfigureServices( ( context, services ) => {
+            services.AddMemoryCache();
             services.RemoveAll( typeof( IStringLocalizerFactory ) );
             services.RemoveAll( typeof( IStringLocalizer<> ) );
             services.RemoveAll( typeof( IStringLocalizer ) );
@@ -85,6 +86,7 @@ public static class AppBuilderExtensions {
     public static IAppBuilder AddStoreLocalization<TStore>( this IAppBuilder builder ) where TStore : ILocalizedStore {
         builder.CheckNull( nameof( builder ) );
         builder.Host.ConfigureServices( ( context, services ) => {
+            services.AddMemoryCache();
             services.RemoveAll( typeof( IStringLocalizerFactory ) );
             services.RemoveAll( typeof( IStringLocalizer<> ) );
             services.RemoveAll( typeof( IStringLocalizer ) );
