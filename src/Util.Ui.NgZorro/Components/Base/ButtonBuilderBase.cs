@@ -713,6 +713,70 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     }
 
     /// <summary>
+    /// 配置Clear文本
+    /// </summary>
+    public TBuilder TextClear() {
+        var value = _config.GetValue<bool?>( UiConst.TextClear );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Clear );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Clear" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Import文本
+    /// </summary>
+    public TBuilder TextImport() {
+        var value = _config.GetValue<bool?>( UiConst.TextImport );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Import );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Import" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Export文本
+    /// </summary>
+    public TBuilder TextExport() {
+        var value = _config.GetValue<bool?>( UiConst.TextExport );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Export );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Export" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 配置Reset文本
+    /// </summary>
+    public TBuilder TextReset() {
+        var value = _config.GetValue<bool?>( UiConst.TextReset );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Reset );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "Reset" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
     /// 配置文本
     /// </summary>
     public TBuilder Text() {
@@ -769,7 +833,8 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
             .TextDisable().TextSelectAll().TextDeselectAll()
             .TextUpload().TextDownload().TextPublish().TextRun()
             .TextStart().TextStop().TextAdd().TextRemove()
-            .TextOpen().TextClose().TextSend()
+            .TextOpen().TextClose().TextSend().TextClear()
+            .TextImport().TextExport().TextReset()
             .Text().OnClick().OnVisibleChange().OnPopoverVisibleChange()
             .ValidateForm();
     }

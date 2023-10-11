@@ -107,6 +107,22 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// </summary>
     public bool TextSend { get; set; }
     /// <summary>
+    /// 扩展属性,是否显示clear文本,默认文本为'Clear',i18n文本为'util.clear'
+    /// </summary>
+    public bool TextClear { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示import文本,默认文本为'Import',i18n文本为'util.import'
+    /// </summary>
+    public bool TextImport { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示export文本,默认文本为'Export',i18n文本为'util.export'
+    /// </summary>
+    public bool TextExport { get; set; }
+    /// <summary>
+    /// 扩展属性,是否显示reset文本,默认文本为'Reset',i18n文本为'util.reset'
+    /// </summary>
+    public bool TextReset { get; set; }
+    /// <summary>
     /// routerLink,路由链接,当按钮类型为链接时可用
     /// </summary>
     public string RouterLink { get; set; }

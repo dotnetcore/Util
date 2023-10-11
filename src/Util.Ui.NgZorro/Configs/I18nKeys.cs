@@ -116,4 +116,20 @@ public class I18nKeys {
     /// util.send
     /// </summary>
     public const string Send = "util.send";
+    /// <summary>
+    /// util.clear
+    /// </summary>
+    public const string Clear = "util.clear";
+    /// <summary>
+    /// util.import
+    /// </summary>
+    public const string Import = "util.import";
+    /// <summary>
+    /// util.export
+    /// </summary>
+    public const string Export = "util.export";
+    /// <summary>
+    /// util.reset
+    /// </summary>
+    public const string Reset = "util.reset";
 }

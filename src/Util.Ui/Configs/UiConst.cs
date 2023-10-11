@@ -201,6 +201,22 @@ public static class UiConst {
     /// </summary>
     public const string TextSend = "text-send";
     /// <summary>
+    /// clear文本
+    /// </summary>
+    public const string TextClear = "text-clear";
+    /// <summary>
+    /// import文本
+    /// </summary>
+    public const string TextImport = "text-import";
+    /// <summary>
+    /// export文本
+    /// </summary>
+    public const string TextExport = "text-export";
+    /// <summary>
+    /// reset文本
+    /// </summary>
+    public const string TextReset = "text-reset";
+    /// <summary>
     /// 加载标识列表
     /// </summary>
     public const string LoadKeys = "load-keys";

@@ -582,5 +582,97 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             result.Append( "<button nz-button=\"\">{{'util.send'|i18n}}</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试Clear文本
+        /// </summary>
+        [Fact]
+        public void TestTextClear() {
+            _wrapper.SetContextAttribute( UiConst.TextClear, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">Clear</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Clear文本 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTextClear_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TextClear, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">{{'util.clear'|i18n}}</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Import文本
+        /// </summary>
+        [Fact]
+        public void TestTextImport() {
+            _wrapper.SetContextAttribute( UiConst.TextImport, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">Import</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Import文本 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTextImport_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TextImport, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">{{'util.import'|i18n}}</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Export文本
+        /// </summary>
+        [Fact]
+        public void TestTextExport() {
+            _wrapper.SetContextAttribute( UiConst.TextExport, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">Export</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Export文本 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTextExport_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TextExport, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">{{'util.export'|i18n}}</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Reset文本
+        /// </summary>
+        [Fact]
+        public void TestTextReset() {
+            _wrapper.SetContextAttribute( UiConst.TextReset, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">Reset</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Reset文本 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTextReset_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TextReset, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">{{'util.reset'|i18n}}</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }
