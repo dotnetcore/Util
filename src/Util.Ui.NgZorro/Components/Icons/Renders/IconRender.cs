@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Icons.Builders;
+using Util.Ui.NgZorro.Components.Popover;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Icons.Renders; 
@@ -28,6 +29,8 @@ public class IconRender : RenderBase {
     protected override TagBuilder GetTagBuilder() {
         var builder = new IconBuilder( _config );
         builder.Config();
+        var popoverRender = new PopoverRender( _config, builder );
+        popoverRender.Config();
         return builder;
     }
 

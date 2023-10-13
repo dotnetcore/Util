@@ -4,6 +4,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Icons.Builders;
+using Util.Ui.NgZorro.Components.Popover;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Directives.Popconfirms;
 using Util.Ui.NgZorro.Directives.Tooltips;
@@ -206,125 +207,6 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     public TBuilder SpaceItem() {
         this.SpaceItem( _config );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片标题
-    /// </summary>
-    public TBuilder PopoverTitle() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverTitle ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverTitle ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverTitle", _config.GetValue( UiConst.PopoverTitle ) );
-        AttributeIfNotEmpty( "[nzPopoverTitle]", _config.GetValue( AngularConst.BindPopoverTitle ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片内容
-    /// </summary>
-    public TBuilder PopoverContent() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverContent ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverContent ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverContent", _config.GetValue( UiConst.PopoverContent ) );
-        AttributeIfNotEmpty( "[nzPopoverContent]", _config.GetValue( AngularConst.BindPopoverContent ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片触发行为
-    /// </summary>
-    public TBuilder PopoverTrigger() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverTrigger ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverTrigger ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverTrigger", _config.GetValue<PopoverTrigger?>( UiConst.PopoverTrigger )?.Description() );
-        AttributeIfNotEmpty( "[nzPopoverTrigger]", _config.GetValue( AngularConst.BindPopoverTrigger ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片位置
-    /// </summary>
-    public TBuilder PopoverPlacement() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverPlacement ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverPlacement ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverPlacement", _config.GetValue<PopoverPlacement?>( UiConst.PopoverPlacement )?.Description() );
-        AttributeIfNotEmpty( "[nzPopoverPlacement]", _config.GetValue( AngularConst.BindPopoverPlacement ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片定位元素
-    /// </summary>
-    public TBuilder PopoverOrigin() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverOrigin ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverOrigin ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverOrigin", _config.GetValue( UiConst.PopoverOrigin ) );
-        AttributeIfNotEmpty( "[nzPopoverOrigin]", _config.GetValue( AngularConst.BindPopoverOrigin ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片是否可见
-    /// </summary>
-    public TBuilder PopoverVisible() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverVisible ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverVisible ) ) == false );
-        AttributeIfNotEmpty( "[nzPopoverVisible]", _config.GetBoolValue( UiConst.PopoverVisible ) );
-        AttributeIfNotEmpty( "[nzPopoverVisible]", _config.GetValue( AngularConst.BindPopoverVisible ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片移入延时
-    /// </summary>
-    public TBuilder PopoverMouseEnterDelay() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverMouseEnterDelay ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverMouseEnterDelay ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverMouseEnterDelay", _config.GetValue( UiConst.PopoverMouseEnterDelay ) );
-        AttributeIfNotEmpty( "[nzPopoverMouseEnterDelay]", _config.GetValue( AngularConst.BindPopoverMouseEnterDelay ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片移出延时
-    /// </summary>
-    public TBuilder PopoverMouseLeaveDelay() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverMouseLeaveDelay ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverMouseLeaveDelay ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverMouseLeaveDelay", _config.GetValue( UiConst.PopoverMouseLeaveDelay ) );
-        AttributeIfNotEmpty( "[nzPopoverMouseLeaveDelay]", _config.GetValue( AngularConst.BindPopoverMouseLeaveDelay ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片样式类名
-    /// </summary>
-    public TBuilder PopoverOverlayClassName() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverOverlayClassName ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverOverlayClassName ) ) == false );
-        AttributeIfNotEmpty( "nzPopoverOverlayClassName", _config.GetValue( UiConst.PopoverOverlayClassName ) );
-        AttributeIfNotEmpty( "[nzPopoverOverlayClassName]", _config.GetValue( AngularConst.BindPopoverOverlayClassName ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片样式
-    /// </summary>
-    public TBuilder PopoverOverlayStyle() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverOverlayStyle ) ) == false );
-        AttributeIfNotEmpty( "[nzPopoverOverlayStyle]", _config.GetValue( UiConst.PopoverOverlayStyle ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
-    /// 配置气泡卡片浮层是否带背景
-    /// </summary>
-    public TBuilder PopoverBackdrop() {
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverBackdrop ) ) == false );
-        AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverBackdrop ) ) == false );
-        AttributeIfNotEmpty( "[nzPopoverBackdrop]", _config.GetBoolValue( UiConst.PopoverBackdrop ) );
-        AttributeIfNotEmpty( "[nzPopoverBackdrop]", _config.GetValue( AngularConst.BindPopoverBackdrop ) );
         return (TBuilder)this;
     }
 
@@ -809,25 +691,15 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     }
 
     /// <summary>
-    /// 配置气泡卡片显示状态变化事件
-    /// </summary>
-    public TBuilder OnPopoverVisibleChange() {
-        AttributeIfNotEmpty( "(nzPopoverVisibleChange)", _config.GetValue( UiConst.OnPopoverVisibleChange ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
     /// 配置按钮
     /// </summary>
     protected TBuilder ConfigButton() {
+        var popoverRender = new PopoverRender( _config, this );
+        popoverRender.Config();
         return Type().Size().Shape().Disabled().Danger().Loading().Ghost().Block().Icon().RouterLink()
             .DropdownMenu().DropdownMenuPlacement().DropdownMenuTrigger().DropdownMenuClickHide()
             .DropdownMenuVisible().DropdownMenuOverlayClassName().DropdownMenuOverlayStyle()
-            .SpaceItem()
-            .PopoverTitle().PopoverContent().PopoverTrigger().PopoverPlacement().PopoverOrigin()
-            .PopoverVisible().PopoverMouseEnterDelay().PopoverMouseLeaveDelay()
-            .PopoverOverlayClassName().PopoverOverlayStyle().PopoverBackdrop()
-            .Tooltip( _config ).Popconfirm( _config )
+            .SpaceItem().Tooltip( _config ).Popconfirm( _config )
             .TextOk().TextCancel().TextCreate().TextUpdate().TextDelete()
             .TextDetail().TextQuery().TextRefresh().TextSave().TextEnable()
             .TextDisable().TextSelectAll().TextDeselectAll()
@@ -835,7 +707,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
             .TextStart().TextStop().TextAdd().TextRemove()
             .TextOpen().TextClose().TextSend().TextClear()
             .TextImport().TextExport().TextReset()
-            .Text().OnClick().OnVisibleChange().OnPopoverVisibleChange()
+            .Text().OnClick().OnVisibleChange()
             .ValidateForm();
     }
 
