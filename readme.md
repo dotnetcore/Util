@@ -123,3 +123,9 @@ Util应用框架的学习成本相对较低,对于有.Net基础的开发人员,�
 | Util.Ui.NgAlain | ![](https://img.shields.io/nuget/v/Util.Ui.NgAlain.svg) | ![](https://img.shields.io/nuget/dt/Util.Ui.NgAlain.svg)
 | Util.Generators | ![](https://img.shields.io/nuget/v/Util.Generators.svg) | ![](https://img.shields.io/nuget/dt/Util.Generators.svg)
 | Util.Generators.Razor | ![](https://img.shields.io/nuget/v/Util.Generators.Razor.svg) | ![](https://img.shields.io/nuget/dt/Util.Generators.Razor.svg)
+
+#### Npm包
+
+**util-angular** 
+[![npm package](https://img.shields.io/npm/v/util-angular.svg?style=flat-square)](https://www.npmjs.org/package/util-angular) 
+[![NPM downloads](http://img.shields.io/npm/dm/util-angular.svg?style=flat-square)](https://npmjs.org/package/util-angular)
