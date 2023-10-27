@@ -10,6 +10,7 @@ using Util.Events.Infrastructure;
 using Util.Helpers;
 using Util.Http;
 using Util.Infrastructure;
+using Util.Sessions;
 using Util.Tests.Middlewares;
 using Xunit.DependencyInjection.Logging;
 
@@ -38,7 +39,7 @@ namespace Util.Applications {
                 } )
                 .AsBuild()
                 .AddLock();
-            if ( !Environment.IsDevelopment() ) {
+            if ( Environment.IsDevelopment() ) {
                 builder.AddMemoryCache( t => t.MaxRdSecond = 0 );
             }
             else {
@@ -59,6 +60,7 @@ namespace Util.Applications {
             services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
             services.AddControllers();
             services.AddTransient<LockTestService>();
+            services.AddSingleton<ISession,UserSession>();
             services.AddTransient<IHttpClient>( t => {
                 var client = new HttpClientService();
                 client.SetHttpClient( t.GetService<IHost>().GetTestClient() );

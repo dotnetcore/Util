@@ -99,8 +99,10 @@ public class PopoverRender {
     public PopoverRender PopoverVisible() {
         _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverVisible ) ) == false );
         _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverVisible ) ) == false );
+        _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindonPopoverVisible ) ) == false );
         _builder.AttributeIfNotEmpty( "[nzPopoverVisible]", _config.GetBoolValue( UiConst.PopoverVisible ) );
         _builder.AttributeIfNotEmpty( "[nzPopoverVisible]", _config.GetValue( AngularConst.BindPopoverVisible ) );
+        _builder.AttributeIfNotEmpty( "[(nzPopoverVisible)]", _config.GetValue( AngularConst.BindonPopoverVisible ) );
         return this;
     }
 

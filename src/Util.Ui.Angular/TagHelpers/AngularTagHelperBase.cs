@@ -35,6 +35,10 @@ public abstract class AngularTagHelperBase : TagHelperBase {
     /// </summary>
     public string NgClass { get; set; }
     /// <summary>
+    /// [ngStyle]
+    /// </summary>
+    public string NgStyle { get; set; }
+    /// <summary>
     /// *aclIf,访问控制,设置资源标识,有权则显示,多个资源or条件控制,使用 || 运算符,范例: a || b, and条件控制使用 &amp;&amp; 运行算符,范例: a &amp;&amp; b
     /// </summary>
     public string Acl { get; set; }

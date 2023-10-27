@@ -1205,6 +1205,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindPopoverVisible = "bind-popover-visible";
     /// <summary>
+    /// 气泡框可见性
+    /// </summary>
+    public const string BindonPopoverVisible = "bindon-popover-visible";
+    /// <summary>
     /// 气泡框移入延时
     /// </summary>
     public const string BindPopoverMouseEnterDelay = "bind-popover-mouse-enter-delay";

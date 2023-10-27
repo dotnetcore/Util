@@ -19,6 +19,10 @@ public class CardGridTagHelper : AngularTagHelperBase {
     /// [nzHoverable],鼠标滑过时是否可浮起,默认值: true
     /// </summary>
     public string BindHoverable { get; set; }
+    /// <summary>
+    /// (click),单击事件
+    /// </summary>
+    public string OnClick { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

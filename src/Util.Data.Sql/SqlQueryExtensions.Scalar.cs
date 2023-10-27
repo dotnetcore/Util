@@ -1,4 +1,5 @@
-﻿using Convert = Util.Helpers.Convert;
+﻿using Util.Helpers;
+using Convert = Util.Helpers.Convert;
 
 namespace Util.Data.Sql; 
 
@@ -407,7 +408,18 @@ public static partial class SqlQueryExtensions {
     /// <param name="source">源</param>
     public static DateTime ToDateTime( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
-        return Convert.ToDateTime( source.ExecuteScalar() );
+        var result = source.ExecuteScalar();
+        return ToLocalTime( result );
+    }
+
+    /// <summary>
+    /// 转换为本地时间
+    /// </summary>
+    private static DateTime ToLocalTime( object date ) {
+        var result = Convert.ToDateTimeOrNull( date );
+        if( result == null )
+            return DateTime.MinValue;
+        return Time.UtcToLocalTime( result.Value );
     }
 
     #endregion
@@ -421,7 +433,7 @@ public static partial class SqlQueryExtensions {
     public static async Task<DateTime> ToDateTimeAsync( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
         var result = await source.ExecuteScalarAsync();
-        return Convert.ToDateTime( result );
+        return ToLocalTime( result );
     }
 
     #endregion
@@ -434,7 +446,17 @@ public static partial class SqlQueryExtensions {
     /// <param name="source">源</param>
     public static DateTime? ToDateTimeOrNull( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
-        return Convert.ToDateTimeOrNull( source.ExecuteScalar() );
+        return ToLocalTimeOrNull( source.ExecuteScalar() );
+    }
+
+    /// <summary>
+    /// 转换为本地时间
+    /// </summary>
+    private static DateTime? ToLocalTimeOrNull( object date ) {
+        var result = Convert.ToDateTimeOrNull( date );
+        if( result == null )
+            return null;
+        return Time.UtcToLocalTime( result.Value );
     }
 
     #endregion
@@ -448,7 +470,7 @@ public static partial class SqlQueryExtensions {
     public static async Task<DateTime?> ToDateTimeOrNullAsync( this ISqlQuery source ) {
         source.CheckNull( nameof( source ) );
         var result = await source.ExecuteScalarAsync();
-        return Convert.ToDateTimeOrNull( result );
+        return ToLocalTimeOrNull( result );
     }
 
     #endregion

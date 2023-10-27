@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Cards.Builders; 
@@ -32,10 +33,18 @@ public class CardGridBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置单击事件
+    /// </summary>
+    public CardGridBuilder OnClick() {
+        this.OnClick( _config );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        Hoverable();
+        Hoverable().OnClick();
     }
 }

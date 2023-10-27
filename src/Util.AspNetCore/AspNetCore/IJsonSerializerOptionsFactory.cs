@@ -1,6 +1,4 @@
-﻿using Util.Dependency;
-
-namespace Util.AspNetCore; 
+﻿namespace Util.AspNetCore; 
 
 /// <summary>
 /// Json序列化配置工厂

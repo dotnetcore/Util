@@ -3,6 +3,7 @@ using Util.AspNetCore;
 using Util.Helpers;
 using Util.Properties;
 using Util.Sessions;
+using Util.SystemTextJson;
 
 namespace Util.Applications.Filters; 
 
@@ -102,8 +103,17 @@ public class LockAttribute : ActionFilterAttribute {
     /// </summary>
     private JsonSerializerOptions GetJsonSerializerOptions( ActionExecutingContext context ) {
         var factory = context.HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
-        factory.CheckNull( nameof( factory ) );
-        return factory.CreateOptions();
+        if( factory != null )
+            return factory.CreateOptions();
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 
     /// <summary>

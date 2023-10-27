@@ -32,7 +32,7 @@ namespace Util.Data.Dapper.Tests {
                 .AddUtc()
                 .AddPgSqlQuery( Config.GetConnectionString( "connection" ) )
                 .AddPgSqlExecutor( Config.GetConnectionString( "connection" ) )
-                //.AddPgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddPgSqlUnitOfWork<ITestUnitOfWork, PgSqlUnitOfWork>( Config.GetConnectionString( "connection" ) )
                 .AddUtil();
         }
 
@@ -49,11 +49,11 @@ namespace Util.Data.Dapper.Tests {
         /// 初始化数据库
         /// </summary>
         private void InitDatabase( IServiceCollection services ) {
-            //using var scope = services.BuildServiceProvider().CreateScope();
-            //var unitOfWork = (PgSqlUnitOfWork)scope.ServiceProvider.GetService<ITestUnitOfWork>();
-            //unitOfWork.EnsureDeleted();
-            //unitOfWork.EnsureCreated();
-            //DatabaseScript.InitProcedures( unitOfWork?.Database );
+            using var scope = services.BuildServiceProvider().CreateScope();
+            var unitOfWork = (PgSqlUnitOfWork)scope.ServiceProvider.GetService<ITestUnitOfWork>();
+            unitOfWork.EnsureDeleted();
+            unitOfWork.EnsureCreated();
+            DatabaseScript.InitProcedures( unitOfWork?.Database );
         }
     }
 }

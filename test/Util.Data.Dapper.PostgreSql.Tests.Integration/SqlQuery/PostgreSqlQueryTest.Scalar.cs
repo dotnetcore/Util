@@ -1,4 +1,3 @@
-using Dapper;
 using System.Threading.Tasks;
 using Util.Data.Sql;
 using Util.Tests.Configs;

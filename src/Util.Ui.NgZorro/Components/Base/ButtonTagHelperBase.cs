@@ -243,6 +243,10 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// </summary>
     public string BindPopoverVisible { get; set; }
     /// <summary>
+    /// [(nzPopoverVisible)],气泡卡片是否可见,默认值: false
+    /// </summary>
+    public string BindonPopoverVisible { get; set; }
+    /// <summary>
     /// nzPopoverMouseEnterDelay,鼠标移入后延时多久才显示气泡卡片，单位：秒,默认值: 0.15
     /// </summary>
     public double PopoverMouseEnterDelay { get; set; }

@@ -142,6 +142,17 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         }
 
         /// <summary>
+        /// 测试是否显示气泡卡片
+        /// </summary>
+        [Fact]
+        public void TestBindonPopoverVisible() {
+            _wrapper.SetContextAttribute( AngularConst.BindonPopoverVisible, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-popover=\"\" [(nzPopoverVisible)]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试气泡卡片移入延时
         /// </summary>
         [Fact]

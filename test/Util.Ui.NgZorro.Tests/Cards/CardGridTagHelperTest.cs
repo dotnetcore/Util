@@ -79,5 +79,16 @@ namespace Util.Ui.NgZorro.Tests.Cards {
             result.Append( "<div nz-card-grid=\"\">a</div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试鼠标滑过时是否可浮起
+        /// </summary>
+        [Fact]
+        public void TestOnClick() {
+            _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
+            var result = new StringBuilder();
+            result.Append( "<div (click)=\"a\" nz-card-grid=\"\"></div>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

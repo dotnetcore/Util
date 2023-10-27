@@ -3,6 +3,7 @@ using Util.Applications.Logging;
 using Util.AspNetCore;
 using Util.Infrastructure;
 using Util.Logging;
+using Util.SystemTextJson;
 
 namespace Util.Applications.Infrastructure; 
 
@@ -102,7 +103,16 @@ public class WebApiServiceRegistrar : IServiceRegistrar {
     /// </summary>
     private JsonSerializerOptions GetJsonSerializerOptions( HttpContext context ) {
         var factory = context.RequestServices.GetService<IJsonSerializerOptionsFactory>();
-        factory.CheckNull( nameof( factory ) );
-        return factory.CreateOptions();
+        if( factory != null )
+            return factory.CreateOptions();
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 }

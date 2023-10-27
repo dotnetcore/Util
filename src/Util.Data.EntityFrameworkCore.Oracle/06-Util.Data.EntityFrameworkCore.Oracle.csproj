@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.11" />
+		<PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.12" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,3 +1,4 @@
+using EasyCaching.Core.Configurations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Util.Aop;
@@ -22,7 +23,7 @@ public class Startup {
                 t.MaxRdSecond = 0;
                 t.DBConfig.AllowAdmin = true;
                 t.DBConfig.KeyPrefix = "test:";
-                t.DBConfig.Configuration = Config.GetConnectionString( "Redis" );
+                t.DBConfig.Endpoints.Add( new ServerEndPoint( Config.GetConnectionString( "Redis" ), 6379 ) );
             } )
             .AddMemoryCache( t => t.MaxRdSecond = 0 )
             .AddUtil();

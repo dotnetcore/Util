@@ -4,6 +4,7 @@ using Util.Helpers;
 using Util.Logging;
 using Util.Properties;
 using Util.Sessions;
+using Util.SystemTextJson;
 
 namespace Util.Applications.Controllers;
 
@@ -60,8 +61,17 @@ public abstract class WebApiControllerBase : ControllerBase {
     /// </summary>
     private JsonSerializerOptions GetJsonSerializerOptions() {
         var factory = HttpContext.RequestServices.GetService<IJsonSerializerOptionsFactory>();
-        factory.CheckNull( nameof( factory ) );
-        return factory.CreateOptions();
+        if( factory != null )
+            return factory.CreateOptions();
+        return new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters = {
+                new DateTimeJsonConverter(),
+                new NullableDateTimeJsonConverter()
+            }
+        };
     }
 
     /// <summary>

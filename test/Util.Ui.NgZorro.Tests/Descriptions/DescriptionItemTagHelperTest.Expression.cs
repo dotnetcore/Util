@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Descriptions {
@@ -15,6 +16,18 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
             result.Append( "<nz-descriptions-item nzTitle=\"code\">{{model.code}}</nz-descriptions-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试属性表达式 - 文本类型 - 多语言支持
+        /// </summary>
+        [Fact]
+        public void TestFor_i18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetExpression( t => t.Code );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions-item [nzTitle]=\"'code'|i18n\">{{model.code|i18n}}</nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

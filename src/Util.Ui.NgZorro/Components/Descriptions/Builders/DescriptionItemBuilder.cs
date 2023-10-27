@@ -91,7 +91,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
             LoadDate( value );
             return;
         }
-        SetContent( "{{" + value + "}}");
+        SetContent( "{{" + GetValue(value) + "}}");
     }
 
     /// <summary>
@@ -110,5 +110,15 @@ public class DescriptionItemBuilder : AngularTagBuilder {
         if ( format.IsEmpty() )
             format = "yyyy-MM-dd HH:mm";
         SetContent( $"{{{{{value}|date:\"{format}\"}}}}" );
+    }
+
+    /// <summary>
+    /// 获取值
+    /// </summary>
+    private string GetValue( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n )
+            return $"{value}|i18n";
+        return value;
     }
 }

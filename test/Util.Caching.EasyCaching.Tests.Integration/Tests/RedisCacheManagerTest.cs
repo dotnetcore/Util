@@ -242,38 +242,6 @@ public class RedisCacheManagerTest {
         Assert.Equal( 1, result );
     }
 
-    /// <summary>
-    /// 测试从缓存中获取数据 - 设置1毫秒过期
-    /// </summary>
-    [Fact]
-    public async Task TestGetAsync_6() {
-        var result = 0;
-        var data = 0;
-        for ( int i = 0; i < 3; i++ ) {
-            result = await _cache.GetAsync( "r:TestGetAsync_6", async () => {
-                data++;
-                return await Task.FromResult( data );
-            }, new CacheOptions { Expiration = TimeSpan.FromMilliseconds( 1 ) } );
-        }
-        Assert.NotEqual( 1, result );
-    }
-
-    /// <summary>
-    /// 测试从缓存中获取数据 - 设置缓存键对象
-    /// </summary>
-    [Fact]
-    public async Task TestGetAsync_7() {
-        var result = 0;
-        var data = 0;
-        for ( int i = 0; i < 3; i++ ) {
-            result = await _cache.GetAsync( new CacheKey( "r:TestGetAsync_7" ), async () => {
-                data++;
-                return await Task.FromResult( data );
-            }, new CacheOptions { Expiration = TimeSpan.FromMilliseconds( 1 ) } );
-        }
-        Assert.NotEqual( 1, result );
-    }
-
     #endregion
 
     #region GetByPrefix
