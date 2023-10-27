@@ -622,9 +622,9 @@ Util应用框架主要参考了以下开源项目,从中吸收架构和代码,�
 
 - [Csla](https://cslanet.com/)
 
-### Util应用框架相关资源
+## Util应用框架相关资源
 
-#### Github项目地址
+### Github项目地址
 
 - **Util** <https://github.com/dotnetcore/Util>
 
@@ -649,7 +649,7 @@ Util应用框架主要参考了以下开源项目,从中吸收架构和代码,�
 
     包含Util.Platform.Single和Util.Platform.Dapr的共享代码,并发布到Nuget,供两个版本使用。
 
-#### Gitee项目地址
+### Gitee项目地址
 
 **由于国内访问Github非常缓慢,现在Util所有项目发布时会在Gitee进行同步更新。**
 
@@ -660,7 +660,7 @@ Util应用框架主要参考了以下开源项目,从中吸收架构和代码,�
 - **Util.Platform.Dapr** <https://gitee.com/util-core/Util.Platform.Dapr>
 - **Util.Platform.Share** <https://gitee.com/util-core/Util.Platform.Share>
 
-#### Nuget包
+### Nuget包
 
 | 包名 |  版本 | 下载量
 |--------------|  ------- | ----
@@ -722,7 +722,7 @@ Util应用框架主要参考了以下开源项目,从中吸收架构和代码,�
 | Util.Generators | ![](https://img.shields.io/nuget/v/Util.Generators.svg) | ![](https://img.shields.io/nuget/dt/Util.Generators.svg)
 | Util.Generators.Razor | ![](https://img.shields.io/nuget/v/Util.Generators.Razor.svg) | ![](https://img.shields.io/nuget/dt/Util.Generators.Razor.svg)
 
-#### Npm包
+### Npm包
 
 **util-angular** 
 [![npm package](https://img.shields.io/npm/v/util-angular.svg?style=flat-square)](https://www.npmjs.org/package/util-angular) 
