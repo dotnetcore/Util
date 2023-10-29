@@ -1,6 +1,4 @@
-﻿using Util.Configs;
-using Util.Dependency;
-using Util.Helpers;
+﻿using Util.Helpers;
 using Util.Reflections;
 
 namespace Util.Infrastructure; 
@@ -13,10 +11,6 @@ public class Bootstrapper {
     /// 主机生成器
     /// </summary>
     private readonly IHostBuilder _hostBuilder;
-    /// <summary>
-    /// 服务配置
-    /// </summary>
-    private readonly Action<Options> _setupAction;
     /// <summary>
     /// 程序集查找器
     /// </summary>
@@ -34,10 +28,8 @@ public class Bootstrapper {
     /// 初始化启动器
     /// </summary>
     /// <param name="hostBuilder">主机生成器</param>
-    /// <param name="setupAction">服务配置操作</param>
-    public Bootstrapper( IHostBuilder hostBuilder, Action<Options> setupAction = null ) {
+    public Bootstrapper( IHostBuilder hostBuilder ) {
         _hostBuilder = hostBuilder ?? throw new ArgumentNullException( nameof( hostBuilder ) );
-        _setupAction = setupAction;
         _assemblyFinder = new AppDomainAssemblyFinder { AssemblySkipPattern = BootstrapperConfig.AssemblySkipPattern };
         _typeFinder = new AppDomainTypeFinder( _assemblyFinder );
         _serviceActions = new List<Action>();
@@ -49,8 +41,6 @@ public class Bootstrapper {
     public virtual void Start() {
         SetConfiguration();
         ResolveServiceRegistrar();
-        ConfigOptions();
-        ResolveDependencyRegistrar();
         ExecuteServiceActions();
     }
 
@@ -73,24 +63,6 @@ public class Bootstrapper {
         var instances = types.Select( type => Reflection.CreateInstance<IServiceRegistrar>( type ) ).Where( t => t.Enabled ).OrderBy( t => t.OrderId ).ToList();
         var context = new ServiceContext( _hostBuilder, _assemblyFinder, _typeFinder );
         instances.ForEach( t => _serviceActions.Add( t.Register( context ) ) );
-    }
-
-    /// <summary>
-    /// 注册配置项
-    /// </summary>
-    protected virtual void ConfigOptions() {
-        _hostBuilder.AddOptions( _setupAction );
-    }
-
-    /// <summary>
-    /// 解析依赖注册器
-    /// </summary>
-    protected virtual void ResolveDependencyRegistrar() {
-        var types = _typeFinder.Find<IDependencyRegistrar>();
-        var instances = types.Select( type => Reflection.CreateInstance<IDependencyRegistrar>( type ) ).OrderBy( t => t.Order ).ToList();
-        _hostBuilder.ConfigureServices( ( context, services ) => {
-            instances.ForEach( t => t.Register( services ) );
-        } );
     }
 
     /// <summary>

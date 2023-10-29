@@ -39,18 +39,6 @@ public class DependencyServiceRegistrarTest {
     }
 
     /// <summary>
-    /// 测试依赖注册器配置比ISingletonDependency自动装配优先级高
-    /// </summary>
-    [Fact]
-    public void TestRegisterDependency_3() {
-        var builder = new HostBuilder();
-        var bootstrapper = new Bootstrapper( builder );
-        bootstrapper.Start();
-        var host = builder.Build();
-        Assert.Equal( typeof( TestService10 ), host.Services.GetService<ITestService8>()?.GetType() );
-    }
-
-    /// <summary>
     /// 测试间接继承ISingletonDependency接口进行依赖配置
     /// </summary>
     [Fact]

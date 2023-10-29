@@ -11,32 +11,10 @@ public static class IHostBuilderExtensions {
     /// 注册Util服务 
     /// </summary>
     /// <param name="hostBuilder">主机生成器</param>
-    /// <param name="setupAction">服务配置操作</param>
-    public static IHostBuilder AddUtil( this IHostBuilder hostBuilder, Action<Options> setupAction = null ) {
+    public static IHostBuilder AddUtil( this IHostBuilder hostBuilder ) {
         hostBuilder.CheckNull( nameof( hostBuilder ) );
-        var bootstrapper = new Bootstrapper( hostBuilder, setupAction );
+        var bootstrapper = new Bootstrapper( hostBuilder );
         bootstrapper.Start();
-        return hostBuilder;
-    }
-
-    /// <summary>
-    /// 注册Util配置操作
-    /// </summary>
-    /// <param name="hostBuilder">主机生成器</param>
-    /// <param name="setupAction">服务配置操作</param>
-    public static IHostBuilder AddOptions<TOptions>( this IHostBuilder hostBuilder, Action<TOptions> setupAction = null ) where TOptions : class, IOptions, new() {
-        hostBuilder.CheckNull( nameof( hostBuilder ) );
-        var options = new TOptions();
-        setupAction?.Invoke( options );
-        hostBuilder.ConfigureServices( ( context, services ) => {
-            if ( setupAction != null )
-                services.Configure( setupAction );
-        } );
-        foreach ( var extension in options.Extensions ) {
-            extension.Config( hostBuilder );
-            hostBuilder.ConfigureAppConfiguration( extension.ConfigureAppConfiguration );
-            hostBuilder.ConfigureServices( extension.ConfigureServices );
-        }
         return hostBuilder;
     }
 
