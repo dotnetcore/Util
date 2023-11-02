@@ -98,8 +98,19 @@ public class FormControlBuilder : ColumnBuilderBase<FormControlBuilder> {
     /// </summary>
     public FormControlBuilder ErrorTip() {
         AttributeIfNotEmpty( "nzErrorTip", _config.GetValue( UiConst.ErrorTip ) );
-        AttributeIfNotEmpty( "[nzErrorTip]", _config.GetValue( AngularConst.BindErrorTip ) );
+        AttributeIfNotEmpty( "[nzErrorTip]", GetBindErrorTip() );
         return this;
+    }
+
+    /// <summary>
+    /// 获取校验错误状态提示
+    /// </summary>
+    protected string GetBindErrorTip() {
+        var result = _config.GetValue( AngularConst.BindErrorTip );
+        if ( result.IsEmpty() == false )
+            return result;
+        var shareConfig = GetFormItemShareConfig();
+        return shareConfig.BindErrorTip;
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Util.Applications;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
@@ -21,6 +22,10 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 标识
+    /// </summary>
+    private string _id;
 
     /// <summary>
     /// 初始化按钮标签生成器基类
@@ -30,6 +35,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// <param name="renderMode">渲染模式</param>
     protected ButtonBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config, tagName, renderMode ) {
         _config = config;
+        _id = Util.Helpers.Id.Create();
     }
 
     /// <summary>
@@ -678,6 +684,11 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置单击事件
     /// </summary>
     public TBuilder OnClick() {
+        if ( IsValidateForm() ) {
+            var value = _config.GetValue( UiConst.OnClick );
+            value = $"{GetButtonExtendId()}.validateForm();{value}";
+            _config.SetAttribute( UiConst.OnClick,value );
+        }
         this.OnClick( _config );
         return (TBuilder)this;
     }
@@ -715,9 +726,30 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 是否验证表单
     /// </summary>
     protected TBuilder ValidateForm() {
+        if ( IsValidateForm() == false )
+            return (TBuilder)this;
+        Attribute( "x-button-extend" );
+        Attribute( $"#{GetButtonExtendId()}", "xButtonExtend" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 是否验证表单
+    /// </summary>
+    private bool IsValidateForm() {
         var result = _config.GetValue<bool?>( UiConst.ValidateForm );
         if ( result == true )
-            Attribute( "x-button-extend" );
-        return (TBuilder)this;
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// 获取按钮扩展指令标识
+    /// </summary>
+    protected string GetButtonExtendId() {
+        var id = _config.GetValue( UiConst.Id );
+        if ( id.IsEmpty() )
+            id = _id;
+        return $"x_{id}";
     }
 }

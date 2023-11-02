@@ -8,7 +8,7 @@ namespace Util;
 /// </summary>
 public static class IHostBuilderExtensions {
     /// <summary>
-    /// 注册Util服务 
+    /// 启动Util服务 
     /// </summary>
     /// <param name="hostBuilder">主机生成器</param>
     public static IHostBuilder AddUtil( this IHostBuilder hostBuilder ) {

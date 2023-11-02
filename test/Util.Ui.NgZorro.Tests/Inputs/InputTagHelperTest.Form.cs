@@ -165,6 +165,22 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试是否显示标签
+        /// </summary>
+        [Fact]
+        public void TestShowLabel() {
+            _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
+            _wrapper.SetContextAttribute( UiConst.ShowLabel, false );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试单独设置标签跨度,不会创建表单结构
         /// </summary>
         [Fact]

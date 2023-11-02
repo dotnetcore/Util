@@ -32,6 +32,7 @@ public class FormShareService {
     /// </summary>
     public void Init() {
         InitFormShareConfig();
+        SetShowLabel();
         SetAlign();
         SetBindAlign();
         SetGutter();
@@ -132,6 +133,15 @@ public class FormShareService {
         if ( shareConfig != null )
             shareConfig.MapTo( _shareConfig );
         _config.SetValueToItems( _shareConfig );
+    }
+
+    /// <summary>
+    /// 设置是否显示标签
+    /// </summary>
+    private void SetShowLabel() {
+        var value = _config.GetValueFromAttributes<bool?>( UiConst.ShowLabel );
+        if( value == false )
+            _shareConfig.ShowLabel = false;
     }
 
     /// <summary>

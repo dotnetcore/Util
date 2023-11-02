@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Forms;
 using Util.Ui.NgZorro.Enums;
 using Xunit;
 
@@ -60,6 +61,55 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试必填项验证 - 设置BindErrorTip - 手工创建 formControl
+        /// </summary>
+        [Fact]
+        public void TestRequired_BindErrorTip_2() {
+            var formItem = new FormItemTagHelper().ToWrapper();
+
+            var formControl = new FormControlTagHelper().ToWrapper();
+            formItem.AppendContent( formControl );
+
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( AngularConst.BindErrorTip, "a" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            formControl.AppendContent( _wrapper );
+
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"a\">" );
+            result.Append( "<input nz-input=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"true\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( formItem ) );
+        }
+
+        /// <summary>
+        /// 测试必填项验证 - 设置BindErrorTip - 手工创建 formControl - formControl设置的 BindErrorTip 优先级更高
+        /// </summary>
+        [Fact]
+        public void TestRequired_BindErrorTip_3() {
+            var formItem = new FormItemTagHelper().ToWrapper();
+
+            var formControl = new FormControlTagHelper().ToWrapper();
+            formControl.SetContextAttribute( AngularConst.BindErrorTip, "b" );
+            formItem.AppendContent( formControl );
+
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( AngularConst.BindErrorTip, "a" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            formControl.AppendContent( _wrapper );
+
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"b\">" );
+            result.Append( "<input nz-input=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"true\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult( formItem ) );
         }
 
         /// <summary>

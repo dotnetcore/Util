@@ -343,7 +343,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label>code</nz-form-label>" );
-            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
             result.Append( "<nz-input-group>" );
             result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"code\" " );
             result.Append( "nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );
@@ -382,7 +382,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label>{{'code'|i18n}}</nz-form-label>" );
-            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
             result.Append( "<nz-input-group>" );
             result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"code\" " );
             result.Append( "nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );

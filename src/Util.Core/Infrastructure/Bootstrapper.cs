@@ -39,15 +39,15 @@ public class Bootstrapper {
     /// 启动
     /// </summary>
     public virtual void Start() {
-        SetConfiguration();
+        ConfigureServices();
         ResolveServiceRegistrar();
         ExecuteServiceActions();
     }
 
     /// <summary>
-    /// 设置配置实例
+    /// 配置服务
     /// </summary>
-    protected virtual void SetConfiguration() {
+    protected virtual void ConfigureServices() {
         _hostBuilder.ConfigureServices( ( context, services ) => {
             Util.Helpers.Config.SetConfiguration( context.Configuration );
             services.TryAddSingleton( _assemblyFinder );

@@ -9,6 +9,10 @@ public abstract class FormControlContainerTagHelperBase : FormContainerTagHelper
     /// </summary>
     public string LabelText { get; set; }
     /// <summary>
+    /// 是否显示标签 nz-form-label
+    /// </summary>
+    public bool ShowLabel { get; set; }
+    /// <summary>
     /// 显示额外提示信息,自动创建nz-form-control,nz-form-item容器标签,并设置nz-form-control的 nzExtra 属性
     /// </summary>
     public string Extra { get; set; }

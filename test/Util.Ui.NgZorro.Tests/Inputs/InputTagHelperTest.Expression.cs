@@ -1,8 +1,6 @@
 ﻿using System.Text;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms;
-using Util.Ui.NgZorro.Components.Inputs;
-using Util.Ui.NgZorro.Configs;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Inputs {
@@ -157,7 +155,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<ng-container>" );
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label>a</nz-form-label>" );
-            result.Append( "<nz-form-control [nzSpan]=\"3\">" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\" [nzSpan]=\"3\">" );
             result.Append( "<input #v_id=\"xValidationExtend\" displayName=\"code\" minLengthMessage=\"编码最小为10位\" " );
             result.Append( "name=\"code\" nz-input=\"\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" [(ngModel)]=\"model.code\" " );
             result.Append( "[maxlength]=\"100\" [minlength]=\"10\" [x-required-extend]=\"true\" />" );
@@ -168,7 +166,9 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "</nz-form-item>" );
             result.Append( "</ng-container>" );
             result.Append( "</form>" );
-            Assert.Equal( result.ToString(), form.GetResult() );
+            var formResult = form.GetResult();
+            _output.WriteLine( formResult );
+            Assert.Equal( result.ToString(), formResult );
         }
     }
 }

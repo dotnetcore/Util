@@ -8,7 +8,6 @@ using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Extensions;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 using Config = Util.Ui.Configs.Config;
 
 namespace Util.Ui.NgZorro.Components.Base; 

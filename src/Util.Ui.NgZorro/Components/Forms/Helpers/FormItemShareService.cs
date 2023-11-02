@@ -72,6 +72,7 @@ public class FormItemShareService {
         InitFormItemShareConfig();
         MapToItemShareConfig();
         InitControlId();
+        SetShowLabel();
         SetLabelText();
         SetExtra();
         SetSuccessTip();
@@ -138,6 +139,19 @@ public class FormItemShareService {
     }
 
     /// <summary>
+    /// 设置是否显示标签
+    /// </summary>
+    private void SetShowLabel() {
+        if( _shareConfig.ShowLabel == false ) {
+            _shareConfig.AutoCreateFormLabel = false;
+            return;
+        }
+        var value = _config.GetValueFromAttributes<bool?>( UiConst.ShowLabel );
+        if( value == false )
+            _shareConfig.AutoCreateFormLabel = false;
+    }
+
+    /// <summary>
     /// 设置表单标签文本
     /// </summary>
     private void SetLabelText() {
@@ -178,6 +192,8 @@ public class FormItemShareService {
     private void SetErrorTip() {
         if ( _config.Contains( UiConst.ErrorTip ) || _config.Contains( AngularConst.BindErrorTip ) )
             _shareConfig.HasErrorTip = true;
+        if ( _config.Contains( AngularConst.BindErrorTip ) )
+            _shareConfig.BindErrorTip = _config.GetValue( AngularConst.BindErrorTip );
     }
 
     /// <summary>

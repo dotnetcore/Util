@@ -58,6 +58,10 @@ public class FormTagHelper : FormContainerTagHelperBase {
     /// </summary>
     public string FormGroup { get; set; }
     /// <summary>
+    /// 扩展属性,是否自动创建标签 nz-form-label
+    /// </summary>
+    public bool ShowLabel { get; set; }
+    /// <summary>
     /// (ngSubmit),表单提交事件
     /// </summary>
     public string OnSubmit { get; set; }

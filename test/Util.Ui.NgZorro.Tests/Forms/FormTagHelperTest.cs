@@ -385,5 +385,27 @@ namespace Util.Ui.NgZorro.Tests.Forms {
             result.Append( "</form>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试设置是否显示标签
+        /// </summary>
+        [Fact]
+        public void TestShowLabel() {
+            _wrapper.SetContextAttribute( UiConst.ShowLabel, false );
+
+            var input = new InputTagHelper().ToWrapper();
+            input.SetContextAttribute( UiConst.LabelText, "a" );
+            _wrapper.AppendContent( input );
+
+            var result = new StringBuilder();
+            result.Append( "<form nz-form=\"\">" );
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

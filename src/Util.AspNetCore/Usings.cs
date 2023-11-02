@@ -32,3 +32,4 @@ global using Microsoft.AspNetCore.Builder;
 global using Util.Dependency;
 global using Util.Security;
 global using Util.Security.Authorization;
+global using Util.Configs;

@@ -1,7 +1,4 @@
-﻿using Util.Configs;
-using Util.Security.Authorization;
-
-namespace Util;
+﻿namespace Util;
 
 /// <summary>
 /// AspNetCore操作扩展

@@ -1,6 +1,4 @@
-﻿using Util.Configs;
-
-namespace Util;
+﻿namespace Util;
 
 /// <summary>
 /// Web应用生成器扩展

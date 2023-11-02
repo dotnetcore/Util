@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Buttons;
@@ -28,6 +29,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public ButtonTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new ButtonTagHelper().ToWrapper();
+            Id.SetId( "id" );
         }
 
         /// <summary>

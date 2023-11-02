@@ -64,4 +64,8 @@ public class FormItemShareConfig : FormShareConfig {
     /// ngIf*
     /// </summary>
     public string NgIf { get; set; }
+    /// <summary>
+    /// [nzErrorTip]
+    /// </summary>
+    public string BindErrorTip { get; set; }
 }

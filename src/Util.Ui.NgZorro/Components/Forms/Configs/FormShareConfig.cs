@@ -7,6 +7,10 @@ namespace Util.Ui.NgZorro.Components.Forms.Configs;
 /// </summary>
 public class FormShareConfig {
     /// <summary>
+    /// 是否显示标签
+    /// </summary>
+    public bool? ShowLabel { get; set; }
+    /// <summary>
     /// 垂直对齐方式
     /// </summary>
     public Align? Align { get; set; }
