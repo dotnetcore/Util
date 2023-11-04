@@ -100,7 +100,9 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        ConfigForm().Name().AutoFocus().Disabled().Value()
+        NgModel().FormControl().SpaceItem().OnModelChange()
+            .TableEdit()
+            .Name().AutoFocus().Disabled().Value()
             .Label().Events();
     }
 

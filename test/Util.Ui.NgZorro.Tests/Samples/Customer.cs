@@ -81,6 +81,12 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         [Description( "启用" )]
         public bool Enabled { get; set; }
         /// <summary>
+        /// 布尔必填项
+        ///</summary>
+        [Description( "必填项" )]
+        [Required(ErrorMessage = "必须填写")]
+        public bool IsRequired { get; set; }
+        /// <summary>
         /// 正则表达式
         ///</summary>
         [Description( "正则表达式" )]

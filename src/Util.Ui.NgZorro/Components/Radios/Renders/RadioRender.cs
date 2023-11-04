@@ -59,13 +59,11 @@ public class RadioRender : FormControlRenderBase {
         if ( _shareConfig.IsAutoCreateRadioGroup != true )
             return new EmptyContainerTagBuilder();
         var groupBuilder = new RadioGroupBuilder( _config );
-        groupBuilder.SelectExtend();
-        groupBuilder.Data();
-        groupBuilder.Url();
-        groupBuilder.NgModel();
-        groupBuilder.Name();
-        groupBuilder.OnModelChange();
-        return groupBuilder;
+        return groupBuilder.SelectExtend()
+            .Data().Url().NgModel()
+            .Name().OnModelChange()
+            .Required().RequiredMessage()
+            .ValidationExtend();
     }
 
     /// <summary>

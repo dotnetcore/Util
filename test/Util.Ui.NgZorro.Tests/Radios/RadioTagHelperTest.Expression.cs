@@ -35,7 +35,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         /// 测试属性表达式 - 布尔值 - 多语言
         /// </summary>
         [Fact]
-        public void TestFor_Bool_I18n() {
+        public void TestFor_Bool_2() {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
@@ -51,6 +51,32 @@ namespace Util.Ui.NgZorro.Tests.Radios {
             result.Append( "{{item.text|i18n}}" );
             result.Append( "</label>" );
             result.Append( "</nz-radio-group>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试属性表达式 - 布尔值 - 必填项
+        /// </summary>
+        [Fact]
+        public void TestFor_Bool_3() {
+            _wrapper.SetExpression( t => t.IsRequired );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label [nzRequired]=\"true\">" );
+            result.Append( "必填项" );
+            result.Append( "</nz-form-label>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<nz-radio-group #v_id=\"xValidationExtend\" #x_id=\"xSelectExtend\" displayName=\"必填项\" name=\"isRequired\" nzName=\"isRequired\" " );
+            result.Append( "requiredMessage=\"必须填写\" x-select-extend=\"\" x-validation-extend=\"\" [(ngModel)]=\"model.isRequired\" " );
+            result.Append( "[data]=\"[{'text':'是','value':true,'sortId':1},{'text':'否','value':false,'sortId':2}]\" [required]=\"true\"" );
+            result.Append( ">" );
+            result.Append( "<label *ngFor=\"let item of x_id.options\" nz-radio=\"\" [nzDisabled]=\"item.disabled\" [nzValue]=\"item.value\">" );
+            result.Append( "{{item.text}}" );
+            result.Append( "</label>" );
+            result.Append( "</nz-radio-group>" );
+            result.Append( "<ng-template #vt_id=\"\">{{v_id.getErrorMessage()}}</ng-template>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
