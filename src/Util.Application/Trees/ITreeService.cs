@@ -1,7 +1,5 @@
-﻿using Util.Aop;
-using Util.Applications.Dtos;
+﻿using Util.Applications.Dtos;
 using Util.Data.Trees;
-using Util.Validation;
 
 namespace Util.Applications.Trees; 
 
@@ -31,12 +29,12 @@ public interface ITreeService<TDto, in TCreateRequest, in TUpdateRequest, in TQu
     /// 创建
     /// </summary>
     /// <param name="request">创建参数</param>
-    Task<string> CreateAsync( [NotNull][Valid] TCreateRequest request );
+    Task<string> CreateAsync( TCreateRequest request );
     /// <summary>
     /// 修改
     /// </summary>
     /// <param name="request">修改参数</param>
-    Task UpdateAsync( [NotNull][Valid] TUpdateRequest request );
+    Task UpdateAsync( TUpdateRequest request );
     /// <summary>
     /// 删除
     /// </summary>
