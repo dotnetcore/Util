@@ -19,7 +19,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [c].[D] As [e] " );
-        result.Append( "From [a].[B] As [c]" );
+        result.Append( "From [a].[B] [c]" );
 
         //执行
         _builder.Select( "c.D as e" )

@@ -23,9 +23,6 @@ namespace Util.Data.Dapper.Tests {
         public void ConfigureHost( IHostBuilder hostBuilder ) {
             Environment.SetDevelopment();
             hostBuilder.ConfigureDefaults( null )
-                .ConfigureServices( ( context, services ) => {
-                    services.AddTransient<IMetadataService, MySqlMetadataService>();
-                } )
                 .AsBuild()
                 .AddAop()
                 .AddMySqlQuery( Config.GetConnectionString( "connection" ) )
@@ -38,7 +35,8 @@ namespace Util.Data.Dapper.Tests {
         /// ≈‰÷√∑˛ŒÒ
         /// </summary>
         public void ConfigureServices( IServiceCollection services ) {
-	        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+            services.AddTransient<IMetadataService, MySqlMetadataService>();
+            services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
 			services.AddSingleton<ISession, TestSession>();
             InitDatabase( services );
         }

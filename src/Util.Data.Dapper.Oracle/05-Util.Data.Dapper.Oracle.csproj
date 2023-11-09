@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<AssemblyName>Util.Data.Dapper.Oracle</AssemblyName>
+		<RootNamespace>Util.Data.Dapper</RootNamespace>
+		<Description>Util.Data.Dapper.Oracle是Util应用框架基于Dapper的数据访问封装类库,用于处理Oracle数据库</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Data.Dapper.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Data.Dapper.Oracle.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.120" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Util.Data.Dapper.Core\01-Util.Data.Dapper.Core.csproj" />
+	</ItemGroup>
+
+</Project> 

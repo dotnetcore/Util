@@ -101,7 +101,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Email] In (@_p_0,@_p_1)" );
 
         //执行
@@ -125,7 +125,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Email] In (@_p_0,@_p_1)" );
 
         //执行
@@ -149,7 +149,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Name]=@_p_1 And " );
         result.Append( "[a].[Email] In (" );
         result.AppendLine( "Select [a] " );
@@ -179,7 +179,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Name]=@_p_0 And " );
         result.Append( "[a].[Email] In (" );
         result.AppendLine( "Select [a] " );
@@ -212,7 +212,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Email] Not In (@_p_0,@_p_1)" );
 
         //执行
@@ -236,7 +236,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Email] Not In (@_p_0,@_p_1)" );
 
         //执行
@@ -260,7 +260,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Name]=@_p_1 And " );
         result.Append( "[a].[Email] Not In (" );
         result.AppendLine( "Select [a] " );
@@ -290,7 +290,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Name]=@_p_0 And " );
         result.Append( "[a].[Email] Not In (" );
         result.AppendLine( "Select [a] " );
@@ -323,7 +323,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Email] Is Null" );
 
         //执行
@@ -347,7 +347,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Email] Is Not Null" );
 
         //执行
@@ -371,7 +371,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where ([a].[Email] Is Null Or [a].[Email]='')" );
 
         //执行
@@ -395,7 +395,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[Email] Is Not Null And [a].[Email]<>''" );
 
         //执行
@@ -419,7 +419,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<@_p_1" );
 
         //执行
@@ -441,7 +441,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<@_p_1" );
 
         //执行
@@ -463,7 +463,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<@_p_1" );
 
         //执行
@@ -485,7 +485,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [a].[Email] " );
-        result.AppendLine( "From [Sample] As [a] " );
+        result.AppendLine( "From [Sample] [a] " );
         result.Append( "Where [a].[B]>=@_p_0 And [a].[B]<@_p_1" );
 
         //日期

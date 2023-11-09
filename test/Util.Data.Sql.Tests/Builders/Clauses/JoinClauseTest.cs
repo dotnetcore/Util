@@ -75,7 +75,7 @@ public class JoinClauseTest {
     [Fact]
     public void TestJoin_1() {
         _clause.Join( "a.b as c" );
-        Assert.Equal( "Join [a].[b] As [c]", GetSql() );
+        Assert.Equal( "Join [a].[b] [c]", GetSql() );
     }
 
     /// <summary>
@@ -173,7 +173,7 @@ public class JoinClauseTest {
     [Fact]
     public void TestLeftJoin_1() {
         _clause.LeftJoin( "a.b as c" );
-        Assert.Equal( "Left Join [a].[b] As [c]", GetSql() );
+        Assert.Equal( "Left Join [a].[b] [c]", GetSql() );
     }
 
     /// <summary>
@@ -221,7 +221,7 @@ public class JoinClauseTest {
     [Fact]
     public void TestRightJoin_1() {
         _clause.RightJoin( "a.b as c" );
-        Assert.Equal( "Right Join [a].[b] As [c]", GetSql() );
+        Assert.Equal( "Right Join [a].[b] [c]", GetSql() );
     }
 
     /// <summary>

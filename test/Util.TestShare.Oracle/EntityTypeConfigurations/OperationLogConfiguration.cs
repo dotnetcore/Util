@@ -21,7 +21,7 @@ namespace Util.Tests.EntityTypeConfigurations {
         /// 配置表
         /// </summary>
         private void ConfigTable( EntityTypeBuilder<OperationLog> builder ) {
-            builder.ToTable( "OperationLog" ).HasComment( "操作日志" );
+            builder.ToTable( "OperationLog",t => t.HasComment( "操作日志" ) );
         }
 
         /// <summary>

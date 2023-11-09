@@ -11,15 +11,15 @@ public class ParameterManager : IParameterManager {
     /// <summary>
     /// 参数集合
     /// </summary>
-    private readonly IDictionary<string, SqlParam> _params;
+    protected readonly IDictionary<string, SqlParam> SqlParams;
     /// <summary>
     /// 动态参数集合
     /// </summary>
-    private readonly List<object> _dynamicParams;
+    protected readonly List<object> DynamicParams;
     /// <summary>
     /// 参数索引
     /// </summary>
-    private int _paramIndex;
+    protected int ParamIndex;
 
     /// <summary>
     /// 初始化Sql参数管理器
@@ -27,28 +27,28 @@ public class ParameterManager : IParameterManager {
     /// <param name="dialect">Sql方言</param>
     public ParameterManager( IDialect dialect ) {
         Dialect = dialect;
-        _paramIndex = 0;
-        _params = new Dictionary<string, SqlParam>();
-        _dynamicParams = new List<object>();
+        ParamIndex = 0;
+        SqlParams = new Dictionary<string, SqlParam>();
+        DynamicParams = new List<object>();
     }
 
     /// <summary>
     /// 初始化Sql参数管理器
     /// </summary>
-    /// <param name="manager">Sql方言</param>
+    /// <param name="manager">Sql参数管理器</param>
     public ParameterManager( ParameterManager manager ) {
         Dialect = manager.Dialect;
-        _paramIndex = manager._paramIndex;
-        _params = new Dictionary<string, SqlParam>( manager._params );
-        _dynamicParams = new List<object>( manager._dynamicParams );
+        ParamIndex = manager.ParamIndex;
+        SqlParams = new Dictionary<string, SqlParam>( manager.SqlParams );
+        DynamicParams = new List<object>( manager.DynamicParams );
     }
 
     /// <summary>
     /// 创建参数名
     /// </summary>
     public virtual string GenerateName() {
-        var result = $"{Dialect.GetPrefix()}_p_{_paramIndex}";
-        _paramIndex++;
+        var result = $"{Dialect.GetPrefix()}_p_{ParamIndex}";
+        ParamIndex++;
         return result;
     }
 
@@ -72,7 +72,7 @@ public class ParameterManager : IParameterManager {
     public virtual void AddDynamicParams( object param ) {
         if ( param == null )
             return;
-        _dynamicParams.Add( param );
+        DynamicParams.Add( param );
     }
 
     /// <summary>
@@ -89,24 +89,33 @@ public class ParameterManager : IParameterManager {
         if ( name.IsEmpty() )
             return;
         name = NormalizeName( name );
-        if ( _params.ContainsKey( name ) )
-            _params.Remove( name );
+        if ( SqlParams.ContainsKey( name ) )
+            SqlParams.Remove( name );
+        value = ConvertValue( value );
         var param = new SqlParam( name, value, dbType, direction, size, precision, scale );
-        _params.Add( name, param );
+        SqlParams.Add( name, param );
+    }
+
+    /// <summary>
+    /// 转换参数值
+    /// </summary>
+    /// <param name="value">参数值</param>
+    protected virtual object ConvertValue( object value ) {
+        return value;
     }
 
     /// <summary>
     /// 获取动态参数列表
     /// </summary>
     public IReadOnlyList<object> GetDynamicParams() {
-        return _dynamicParams;
+        return DynamicParams;
     }
 
     /// <summary>
     /// 获取参数列表
     /// </summary>
     public IReadOnlyList<SqlParam> GetParams() {
-        return _params.Values.ToList();
+        return SqlParams.Values.ToList();
     }
 
     /// <summary>
@@ -115,7 +124,7 @@ public class ParameterManager : IParameterManager {
     /// <param name="name">参数名</param>
     public virtual bool Contains( string name ) {
         name = NormalizeName( name );
-        return _params.ContainsKey( name );
+        return SqlParams.ContainsKey( name );
     }
 
     /// <summary>
@@ -124,7 +133,7 @@ public class ParameterManager : IParameterManager {
     /// <param name="name">参数名</param>
     public virtual SqlParam GetParam( string name ) {
         name = NormalizeName( name );
-        return _params.ContainsKey( name ) ? _params[name] : null;
+        return SqlParams.TryGetValue( name, out var param ) ? param : null;
     }
 
     /// <summary>
@@ -133,15 +142,15 @@ public class ParameterManager : IParameterManager {
     /// <param name="name">参数名</param>
     public virtual object GetValue( string name ) {
         name = NormalizeName( name );
-        return _params.ContainsKey( name ) ? _params[name].Value : null;
+        return SqlParams.TryGetValue( name, out var param ) ? param.Value : null;
     }
 
     /// <summary>
     /// 清空参数
     /// </summary>
     public virtual void Clear() {
-        _paramIndex = 0;
-        _params.Clear();
+        ParamIndex = 0;
+        SqlParams.Clear();
     }
 
     /// <summary>

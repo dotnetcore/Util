@@ -91,7 +91,7 @@ public partial class SqlBuilderTest {
         var result = new StringBuilder();
         result.AppendLine( "with(a) " );
         result.AppendLine( "Select [c].[D] As [e] " );
-        result.Append( "From [a].[B] As [c]" );
+        result.Append( "From [a].[B] [c]" );
 
         //执行
         _builder.AppendStart( "with(a)" )

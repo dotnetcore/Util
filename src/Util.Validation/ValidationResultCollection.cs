@@ -4,7 +4,6 @@
 /// 验证结果集合
 /// </summary>
 public class ValidationResultCollection : List<ValidationResult> {
-
     /// <summary>
     /// 初始化验证结果集合
     /// </summary>
@@ -24,7 +23,7 @@ public class ValidationResultCollection : List<ValidationResult> {
     /// <summary>
     /// 成功验证结果集合
     /// </summary>
-    public static readonly ValidationResultCollection Success = new ValidationResultCollection();
+    public static readonly ValidationResultCollection Success = new();
 
     /// <summary>
     /// 是否有效

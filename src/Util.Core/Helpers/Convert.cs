@@ -1,4 +1,4 @@
-﻿namespace Util.Helpers; 
+﻿namespace Util.Helpers;
 
 /// <summary>
 /// 类型转换
@@ -188,7 +188,7 @@ public static class Convert {
     /// <param name="input">输入值</param>
     public static bool? ToBoolOrNull( object input ) {
         var value = input.SafeString();
-        switch ( value ) {
+        switch( value ) {
             case "1":
                 return true;
             case "0":
@@ -219,7 +219,7 @@ public static class Convert {
     /// <param name="input">输入值</param>
     public static DateTime? ToDateTimeOrNull( object input ) {
         var success = DateTime.TryParse( input.SafeString(), out var result );
-        if ( success == false )
+        if( success == false )
             return null;
         return result;
     }
@@ -245,6 +245,10 @@ public static class Convert {
     /// </summary>
     /// <param name="input">输入值</param>
     public static Guid? ToGuidOrNull( object input ) {
+        if( input == null )
+            return null;
+        if( input.GetType() == typeof( byte[] ) )
+            return new Guid( (byte[])input );
         return Guid.TryParse( input.SafeString(), out var result ) ? result : null;
     }
 
@@ -318,11 +322,11 @@ public static class Convert {
         try {
             if( typeName == "STRING" || typeName == "GUID" )
                 return (T)TypeDescriptor.GetConverter( typeof( T ) ).ConvertFromInvariantString( input.ToString() );
-            if ( type.IsEnum )
+            if( type.IsEnum )
                 return Enum.Parse<T>( input );
-            if ( input is IConvertible )
+            if( input is IConvertible )
                 return (T)System.Convert.ChangeType( input, type, CultureInfo.InvariantCulture );
-            if ( input is JsonElement element ) {
+            if( input is JsonElement element ) {
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 return Json.ToObject<T>( element.GetRawText(), options );
             }
@@ -343,11 +347,11 @@ public static class Convert {
     /// <param name="data">对象</param>
     public static IDictionary<string, object> ToDictionary( object data ) {
         var result = new Dictionary<string, object>();
-        if ( data == null )
+        if( data == null )
             return result;
-        if ( data is IEnumerable<KeyValuePair<string, object>> dic )
+        if( data is IEnumerable<KeyValuePair<string, object>> dic )
             return new Dictionary<string, object>( dic );
-        foreach ( PropertyDescriptor property in TypeDescriptor.GetProperties( data ) ) {
+        foreach( PropertyDescriptor property in TypeDescriptor.GetProperties( data ) ) {
             var value = property.GetValue( data );
             result.Add( property.Name, value );
         }

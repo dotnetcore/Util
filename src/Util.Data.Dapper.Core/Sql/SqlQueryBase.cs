@@ -163,7 +163,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
         get {
             _parameters = new DynamicParameters();
             ParameterManager.GetParams().ToList().ForEach( t => _parameters.Add( t.Name, t.Value, t.DbType, t.Direction, t.Size, t.Precision, t.Scale ) );
-            ParameterManager.GetDynamicParams().ToList().ForEach( p => _parameters.AddDynamicParams( p ) );
+            ParameterManager.GetDynamicParams().ToList().ForEach( _parameters.AddDynamicParams );
             return _parameters;
         }
     }

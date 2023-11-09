@@ -16,14 +16,14 @@ namespace Util.Tests.EntityTypeConfigurations {
             ConfigTable( builder );
             ConfigId( builder );
             ConfigProperties( builder );
-            //InitData( builder );
+            InitData( builder );
         }
 
         /// <summary>
         /// 配置表
         /// </summary>
         private void ConfigTable( EntityTypeBuilder<Customer> builder ) {
-            builder.ToTable( "Customer" ).HasComment( "客户" );
+            builder.ToTable( "Customer",t => t.HasComment( "客户" ) );
         }
 
         /// <summary>

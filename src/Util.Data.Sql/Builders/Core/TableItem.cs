@@ -94,6 +94,6 @@ public class TableItem {
     private void AppendTableAlias( StringBuilder builder ) {
         if( TableAlias.IsEmpty() )
             return;
-        builder.AppendFormat( " As {0}", _dialect.GetSafeName( TableAlias ) );
+        builder.AppendFormat( " {0}", _dialect.GetSafeName( TableAlias ) );
     }
 }

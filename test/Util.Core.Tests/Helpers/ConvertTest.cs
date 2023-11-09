@@ -368,11 +368,31 @@ public class ConvertTest {
     }
 
     /// <summary>
-    /// 转换为可空Guid
+    /// 转换为可空Guid - 转换字符串
     /// </summary>
     [Fact]
-    public void TestToGuidOrNull() {
+    public void TestToGuidOrNull_1() {
         Assert.Equal( new Guid( "B9EB56E9-B720-40B4-9425-00483D311DDC" ), Convert.ToGuidOrNull( "B9EB56E9-B720-40B4-9425-00483D311DDC" ) );
+    }
+
+    /// <summary>
+    /// 转换为可空Guid - 转换字节数组
+    /// </summary>
+    [Fact]
+    public void TestToGuidOrNull_2() {
+        var guid = Guid.NewGuid();
+        var bytes = guid.ToByteArray();
+        Assert.Equal( guid, Convert.ToGuidOrNull( bytes ) );
+    }
+
+    /// <summary>
+    /// 转换为可空Guid - 转换字节数组 - 空guid
+    /// </summary>
+    [Fact]
+    public void TestToGuidOrNull_3() {
+        var guid = Guid.Empty;
+        var bytes = guid.ToByteArray();
+        Assert.Equal( guid, Convert.ToGuidOrNull( bytes ) );
     }
 
     #endregion

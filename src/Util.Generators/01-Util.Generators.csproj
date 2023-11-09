@@ -31,7 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.Data.Dapper.All\05-Util.Data.Dapper.All.csproj" />
+	  <ProjectReference Include="..\Util.Data.Dapper.All\06-Util.Data.Dapper.All.csproj" />
 	  <ProjectReference Include="..\Util.Logging.Serilog\02-Util.Logging.Serilog.csproj" />
 	</ItemGroup>
 

@@ -18,7 +18,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [c].[D] As [e] " );
-        result.AppendLine( "From [a].[B] As [c] " );
+        result.AppendLine( "From [a].[B] [c] " );
         result.Append( "Order By [c].[b] Desc" );
 
         //执行
@@ -42,7 +42,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [c].[D] As [e] " );
-        result.AppendLine( "From [a].[B] As [c] " );
+        result.AppendLine( "From [a].[B] [c] " );
         result.Append( "Order By [c].[b] Desc" );
 
         //执行
@@ -66,7 +66,7 @@ public partial class SqlBuilderTest {
         //结果
         var result = new StringBuilder();
         result.AppendLine( "Select [c].[D] As [e] " );
-        result.Append( "From [a].[B] As [c]" );
+        result.Append( "From [a].[B] [c]" );
 
         //执行
         _builder.Select( "c.D as e" )

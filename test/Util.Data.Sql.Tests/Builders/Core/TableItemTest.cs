@@ -121,7 +121,7 @@ public class TableItemTest {
     [Fact]
     public void TestToResult_3() {
         var item = new TableItem( _dialect, "a.b as c" );
-        Assert.Equal( "[a].[b] As [c]", item.ToResult() );
+        Assert.Equal( "[a].[b] [c]", item.ToResult() );
     }
 
     /// <summary>
@@ -130,6 +130,6 @@ public class TableItemTest {
     [Fact]
     public void TestToResult_4() {
         var item = new TableItem( _dialect, "  [a] . [b]  as  [c] " );
-        Assert.Equal( "[a].[b] As [c]", item.ToResult() );
+        Assert.Equal( "[a].[b] [c]", item.ToResult() );
     }
 }

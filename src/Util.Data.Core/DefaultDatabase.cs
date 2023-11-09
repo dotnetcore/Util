@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Util.Data; 
+﻿namespace Util.Data; 
 
 /// <summary>
 /// 数据库信息

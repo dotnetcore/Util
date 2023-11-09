@@ -74,7 +74,7 @@ public class FromClauseTest {
     [Fact]
     public void TestFrom_3() {
         _clause.From( "a as b" );
-        Assert.Equal( "From [a] As [b]", GetSql() );
+        Assert.Equal( "From [a] [b]", GetSql() );
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class FromClauseTest {
     [Fact]
     public void TestFrom_4() {
         _clause.From( "a.b as c" );
-        Assert.Equal( "From [a].[b] As [c]", GetSql() );
+        Assert.Equal( "From [a].[b] [c]", GetSql() );
     }
 
     /// <summary>

@@ -20,7 +20,7 @@ public partial class SqlBuilderTest {
         var result = new StringBuilder();
         result.AppendLine( "Select [a] " );
         result.AppendLine( "From [b] " );
-        result.Append( "Join [c] As [d]" );
+        result.Append( "Join [c] [d]" );
 
         //执行
         _builder.Select( "a" )
@@ -87,7 +87,7 @@ public partial class SqlBuilderTest {
         var result = new StringBuilder();
         result.AppendLine( "Select [a] " );
         result.AppendLine( "From [b] " );
-        result.Append( "Left Join [c] As [d]" );
+        result.Append( "Left Join [c] [d]" );
 
         //执行
         _builder.Select( "a" )
@@ -154,7 +154,7 @@ public partial class SqlBuilderTest {
         var result = new StringBuilder();
         result.AppendLine( "Select [a] " );
         result.AppendLine( "From [b] " );
-        result.Append( "Right Join [c] As [d]" );
+        result.Append( "Right Join [c] [d]" );
 
         //执行
         _builder.Select( "a" )
@@ -221,7 +221,7 @@ public partial class SqlBuilderTest {
         var result = new StringBuilder();
         result.AppendLine( "Select [a] " );
         result.AppendLine( "From [b] " );
-        result.Append( "Join [c] As [d] On [b].[Id]<>[d].[Id]" );
+        result.Append( "Join [c] [d] On [b].[Id]<>[d].[Id]" );
 
         //执行
         _builder.Select( "a" )
