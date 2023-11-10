@@ -1347,11 +1347,11 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
         if ( Logger.IsEnabled( LogLevel.Trace ) == false )
             return;
         var message = new StringBuilder();
-        message.AppendLine( "标题: {Caption}" );
+        message.AppendLine( "标题: Sql日志" );
         message.AppendLine( "原始Sql:" );
-        message.AppendLine( "{Sql}" );
+        message.AppendLine( PreviousSql.GetSql() );
         message.AppendLine( "调试Sql:" );
-        message.AppendLine( "{DebugSql}" );
+        message.AppendLine( PreviousSql.GetDebugSql() );
         message.AppendLine( "Sql参数:" );
         foreach ( var param in PreviousSql.GetParams() ) {
             message.Append( "参数名: " );
@@ -1382,7 +1382,7 @@ public abstract class SqlQueryBase : ISqlQuery, ISqlPartAccessor, ISqlOptionsAcc
             }
             message.AppendLine();
         }
-        Logger.LogTrace( message.ToString(), "Sql日志", PreviousSql.GetSql(), PreviousSql.GetDebugSql() );
+        Logger.LogTrace( message.ToString() );
     }
 
     #endregion

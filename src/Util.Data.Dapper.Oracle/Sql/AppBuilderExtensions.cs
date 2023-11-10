@@ -1,4 +1,5 @@
 ﻿using Util.Configs;
+using Util.Data.Dapper.TypeHandlers;
 using Util.Data.Sql;
 
 namespace Util.Data.Dapper.Sql;
@@ -61,8 +62,18 @@ public static class AppBuilderExtensions {
         builder.Host.ConfigureServices( ( context, services ) => {
             services.TryAddTransient( typeof( TService ), typeof( TImplementation ) );
             services.TryAddSingleton( typeof( SqlOptions<TImplementation> ), ( sp ) => options );
+            RegisterGuidTypeHandler();
         } );
         return builder;
+    }
+
+    /// <summary>
+    /// 注册Guid类型处理器
+    /// </summary>
+    private static void RegisterGuidTypeHandler() {
+        SqlMapper.RemoveTypeMap( typeof( Guid ) );
+        SqlMapper.RemoveTypeMap( typeof( Guid? ) );
+        SqlMapper.AddTypeHandler( typeof( Guid ), new GuidTypeHandler() );
     }
 
     #endregion
@@ -119,6 +130,7 @@ public static class AppBuilderExtensions {
         builder.Host.ConfigureServices( ( context, services ) => {
             services.TryAddTransient( typeof( TService ), typeof( TImplementation ) );
             services.TryAddSingleton( typeof( SqlOptions<TImplementation> ), ( sp ) => options );
+            RegisterGuidTypeHandler();
         } );
         return builder;
     }

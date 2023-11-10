@@ -8,25 +8,64 @@ namespace Util.Logging.Serilog;
 /// </summary>
 public static class AppBuilderExtensions {
     /// <summary>
-    /// 配置Serilog日志操作
+    /// 配置Exceptionless日志操作
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="isClearProviders">是否清除默认设置的日志提供程序</param>
+    public static IAppBuilder AddExceptionless( this IAppBuilder builder, bool isClearProviders = false ) {
+        return builder.AddExceptionless( null, isClearProviders );
+    }
+
+    /// <summary>
+    /// 配置Exceptionless日志操作
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="appName">应用程序名称</param>
+    public static IAppBuilder AddExceptionless( this IAppBuilder builder, string appName ) {
+        return builder.AddExceptionless( null, appName );
+    }
+
+    /// <summary>
+    /// 配置Exceptionless日志操作
     /// </summary>
     /// <param name="builder">应用生成器</param>
     /// <param name="configAction">Exceptionless日志配置操作</param>
     /// <param name="isClearProviders">是否清除默认设置的日志提供程序</param>
-    public static IAppBuilder AddSerilog( this IAppBuilder builder, Action<SerilogExceptionlessConfiguration> configAction, bool isClearProviders = false ) {
+    public static IAppBuilder AddExceptionless( this IAppBuilder builder, Action<ExceptionlessConfiguration> configAction, bool isClearProviders = false ) {
+        return builder.AddExceptionless( configAction, t => t.IsClearProviders = isClearProviders );
+    }
+
+    /// <summary>
+    /// 配置Exceptionless日志操作
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="configAction">Exceptionless日志配置操作</param>
+    /// <param name="appName">应用程序名称</param>
+    public static IAppBuilder AddExceptionless( this IAppBuilder builder, Action<ExceptionlessConfiguration> configAction, string appName ) {
+        return builder.AddExceptionless( configAction, t => t.Application = appName );
+    }
+
+    /// <summary>
+    /// 配置Exceptionless日志操作
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="configAction">Exceptionless日志配置操作</param>
+    /// <param name="setupAction">日志配置</param>
+    public static IAppBuilder AddExceptionless( this IAppBuilder builder, Action<ExceptionlessConfiguration> configAction, Action<LogOptions> setupAction ) {
         builder.CheckNull( nameof( builder ) );
+        var options = new LogOptions();
+        setupAction?.Invoke( options );
         builder.Host.ConfigureServices( ( context, services ) => {
-            var config = new SerilogExceptionlessConfiguration();
-            configAction( config );
             services.AddSingleton<ILogFactory, LogFactory>();
             services.AddTransient( typeof( ILog<> ), typeof( Log<> ) );
             services.AddTransient( typeof( ILog ), t => t.GetService<ILogFactory>()?.CreateLog( "default" ) ?? NullLog.Instance );
             var configuration = context.Configuration;
             services.AddLogging( loggingBuilder => {
-                if ( isClearProviders )
+                if ( options.IsClearProviders )
                     loggingBuilder.ClearProviders();
-                ConfigExceptionless( config.ConfigAction, configuration );
+                ConfigExceptionless( configAction, configuration );
                 SerilogLog.Logger = new LoggerConfiguration()
+                    .Enrich.WithProperty( "Application", options.Application )
                     .Enrich.FromLogContext()
                     .Enrich.WithLogLevel()
                     .Enrich.WithLogContext()

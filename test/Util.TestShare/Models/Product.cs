@@ -192,4 +192,11 @@ public class Product : AggregateRoot<Product>, IDelete, ITenant, IAudited, IExtr
     public void TestDomainEvent2() {
         AddDomainEvent( new TestEvent3( Id, "a" ) );
     }
+
+    /// <summary>
+    /// 获取扩展属性Json
+    /// </summary>
+    public string GetExtraPropertiesJson() {
+        return Util.Helpers.Json.ToJson( ExtraProperties );
+    }
 }

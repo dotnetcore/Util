@@ -19,7 +19,7 @@ public class Startup {
                 Environment.SetDevelopment();
             } )
             .AsBuild()
-            .AddSerilog( t => t.AddExceptionless() )
+            .AddExceptionless()
             .AddUtil();
     }
 
