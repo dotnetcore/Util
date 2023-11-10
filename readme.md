@@ -624,6 +624,12 @@ Util应用框架主要参考了以下开源项目,从中吸收架构和代码,�
 
 ## Util应用框架相关资源
 
+### Util教程目录
+
+- 知乎: <https://zhuanlan.zhihu.com/p/663947596>
+
+- 掘金: <https://juejin.cn/post/7298765809290477607>
+
 ### Github项目地址
 
 - **Util** <https://github.com/dotnetcore/Util>
