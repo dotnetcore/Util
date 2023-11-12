@@ -33,6 +33,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Util.Data.Metadata\03-Util.Data.Metadata.csproj" />
 	  <ProjectReference Include="..\Util.Data.Sql\02-Util.Data.Sql.csproj" />
+	  <ProjectReference Include="..\Util.IdGenerator\09-Util.IdGenerator.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
