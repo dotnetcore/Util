@@ -259,7 +259,9 @@ public class MinioFileStore : IFileStore {
         var client = await GetClient();
         var args = new StatObjectArgs().WithBucket( bucketName.Name ).WithObject( fileName.Name );
         try {
-            await client.StatObjectAsync( args, cancellationToken );
+            var result = await client.StatObjectAsync( args, cancellationToken );
+            if ( result.Size == 0 )
+                return false;
         }
         catch ( Exception ex ) {
             if ( ex is BucketNotFoundException )
