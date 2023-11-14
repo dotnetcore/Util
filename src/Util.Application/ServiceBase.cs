@@ -1,8 +1,4 @@
-﻿using Util.Events;
-using Util.Logging;
-using Util.Sessions;
-
-namespace Util.Applications; 
+﻿namespace Util.Applications; 
 
 /// <summary>
 /// 应用服务
@@ -18,6 +14,7 @@ public abstract class ServiceBase : IService {
         IntegrationEventBus = serviceProvider.GetService<IIntegrationEventBus>() ?? NullIntegrationEventBus.Instance;
         var logFactory = serviceProvider.GetService<ILogFactory>();
         Log = logFactory?.CreateLog( GetType() ) ?? NullLog.Instance;
+        L = serviceProvider.GetService<IStringLocalizer>() ?? NullStringLocalizer.Instance;
     }
 
     /// <summary>
@@ -39,4 +36,9 @@ public abstract class ServiceBase : IService {
     /// 日志操作
     /// </summary>
     protected ILog Log { get; }
+
+    /// <summary>
+    /// 本地化字符串
+    /// </summary>
+    protected IStringLocalizer L { get; set; }
 }

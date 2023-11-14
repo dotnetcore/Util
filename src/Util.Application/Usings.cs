@@ -7,3 +7,8 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+global using Microsoft.Extensions.Localization;
+global using Util.Events;
+global using Util.Localization;
+global using Util.Logging;
+global using Util.Sessions;
