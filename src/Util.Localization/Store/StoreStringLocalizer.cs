@@ -22,7 +22,8 @@ public class StoreStringLocalizer : StringLocalizerBase {
     /// <param name="cache">缓存</param>
     /// <param name="store">本地化资源存储器</param>
     /// <param name="type">资源类型</param>
-    public StoreStringLocalizer( ILogger logger, IMemoryCache cache, ILocalizedStore store, string type ) : base( cache, type ) {
+    /// <param name="options">本地化配置</param>
+    public StoreStringLocalizer( ILogger logger, IMemoryCache cache, ILocalizedStore store, string type, IOptions<LocalizationOptions> options ) : base( cache, type, options ) {
         _logger = logger ?? NullLogger.Instance;
         _store = store ?? throw new ArgumentNullException( nameof( store ) );
     }

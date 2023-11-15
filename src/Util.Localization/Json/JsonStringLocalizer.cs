@@ -39,8 +39,10 @@ public class JsonStringLocalizer : StringLocalizerBase {
     /// <param name="resourcesBaseName">资源基名称</param>
     /// <param name="logger">日志</param>
     /// <param name="cache">缓存</param>
-    public JsonStringLocalizer( IPathResolver pathResolver, string resourcesRootPath, string resourcesBaseName, ILogger logger, IMemoryCache cache ) 
-        : base( cache, resourcesBaseName ) {
+    /// <param name="options">本地化配置</param>
+    public JsonStringLocalizer( IPathResolver pathResolver, string resourcesRootPath, string resourcesBaseName, ILogger logger, 
+        IMemoryCache cache, IOptions<JsonLocalizationOptions> options ) 
+        : base( cache, resourcesBaseName, options ) {
         _pathResolver = pathResolver;
         _resourcesRootPath = resourcesRootPath;
         _resourcesBaseName = resourcesBaseName;

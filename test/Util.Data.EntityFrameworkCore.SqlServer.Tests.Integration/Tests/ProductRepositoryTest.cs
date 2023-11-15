@@ -1498,6 +1498,27 @@ public partial class ProductRepositoryTest : TestBase {
         Assert.Equal( "a", result.TestProperty1 );
     }
 
+    /// <summary>
+    /// 测试扩展属性 - 添加日期扩展属性
+    /// </summary>
+    [Fact]
+    public async Task TestExtraProperties_16() {
+        //常量
+        var value = DateTime.Now;
+
+        //添加实体
+        var entity = new Product();
+        entity.Init();
+        entity.TestProperty6 = value;
+        await _repository.AddAsync( entity );
+        await UnitOfWork.CommitAsync();
+        UnitOfWork.ClearCache();
+
+        //验证
+        var result = await _repository.FindByIdAsync( entity.Id );
+        Assert.Equal( value.ToDateTimeString(), result.TestProperty6.ToDateTimeString() );
+    }
+
     #endregion
 
     #region 测试租户过滤器

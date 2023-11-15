@@ -165,6 +165,15 @@ public class Product : AggregateRoot<Product>, IDelete, ITenant, IAudited, IExtr
     }
 
     /// <summary>
+    /// 日期扩展属性
+    /// </summary>
+    [NotMapped]
+    public DateTime TestProperty6 {
+        get => ExtraProperties.GetProperty<DateTime>( nameof( TestProperty6 ) );
+        set => ExtraProperties.SetProperty( nameof( TestProperty6 ), value );
+    }
+
+    /// <summary>
     /// 添加变更列表
     /// </summary>
     protected override void AddChanges( Product other ) {

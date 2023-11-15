@@ -327,8 +327,9 @@ public static class Convert {
             if( input is IConvertible )
                 return (T)System.Convert.ChangeType( input, type, CultureInfo.InvariantCulture );
             if( input is JsonElement element ) {
+                var value = element.GetRawText();
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                return Json.ToObject<T>( element.GetRawText(), options );
+                return Json.ToObject<T>( value, options );
             }
             return (T)input;
         }

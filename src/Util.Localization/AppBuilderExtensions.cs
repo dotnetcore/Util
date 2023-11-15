@@ -24,19 +24,7 @@ public static class AppBuilderExtensions {
     /// <param name="builder">应用生成器</param>
     /// <param name="resourcesPath">资源路径,默认值: Resources</param>
     public static IAppBuilder AddJsonLocalization( this IAppBuilder builder, string resourcesPath ) {
-        builder.CheckNull( nameof( builder ) );
-        builder.Host.ConfigureServices( ( context, services ) => {
-            services.AddMemoryCache();
-            services.RemoveAll( typeof( IStringLocalizerFactory ) );
-            services.RemoveAll( typeof( IStringLocalizer<> ) );
-            services.RemoveAll( typeof( IStringLocalizer ) );
-            services.TryAddSingleton<IPathResolver, PathResolver>();
-            services.TryAddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-            services.TryAddTransient( typeof( IStringLocalizer<> ), typeof( StringLocalizer<> ) );
-            services.TryAddTransient( typeof( IStringLocalizer ), typeof( StringLocalizer ) );
-            services.Configure<Microsoft.Extensions.Localization.LocalizationOptions>( options => options.ResourcesPath = resourcesPath );
-        } );
-        return builder;
+        return builder.AddJsonLocalization( t => t.ResourcesPath = resourcesPath );
     }
 
     /// <summary>
@@ -48,7 +36,18 @@ public static class AppBuilderExtensions {
         builder.CheckNull( nameof( builder ) );
         var options = new JsonLocalizationOptions();
         setupAction?.Invoke( options );
-        builder.AddJsonLocalization( options.ResourcesPath );
+        builder.Host.ConfigureServices( ( context, services ) => {
+            if ( setupAction != null )
+                services.Configure( setupAction );
+            services.AddMemoryCache();
+            services.RemoveAll( typeof( IStringLocalizerFactory ) );
+            services.RemoveAll( typeof( IStringLocalizer<> ) );
+            services.RemoveAll( typeof( IStringLocalizer ) );
+            services.TryAddSingleton<IPathResolver, PathResolver>();
+            services.TryAddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+            services.TryAddTransient( typeof( IStringLocalizer<> ), typeof( StringLocalizer<> ) );
+            services.TryAddTransient( typeof( IStringLocalizer ), typeof( StringLocalizer ) );
+        } );
         if( options.Cultures == null || options.Cultures.Count == 0 )
             return builder;
         builder.Host.ConfigureServices( ( _, services ) => {
@@ -84,8 +83,21 @@ public static class AppBuilderExtensions {
     /// </summary>
     /// <param name="builder">应用生成器</param>
     public static IAppBuilder AddStoreLocalization<TStore>( this IAppBuilder builder ) where TStore : ILocalizedStore {
+        return builder.AddStoreLocalization<TStore>( options => options.Expiration = 28800 );
+    }
+
+    /// <summary>
+    /// 配置基于数据存储的本地化
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="setupAction">本地化配置操作</param>
+    public static IAppBuilder AddStoreLocalization<TStore>( this IAppBuilder builder, Action<LocalizationOptions> setupAction ) where TStore : ILocalizedStore {
         builder.CheckNull( nameof( builder ) );
+        var options = new LocalizationOptions();
+        setupAction?.Invoke( options );
         builder.Host.ConfigureServices( ( context, services ) => {
+            if ( setupAction != null )
+                services.Configure( setupAction );
             services.AddMemoryCache();
             services.RemoveAll( typeof( IStringLocalizerFactory ) );
             services.RemoveAll( typeof( IStringLocalizer<> ) );
@@ -96,19 +108,6 @@ public static class AppBuilderExtensions {
             services.TryAddTransient( typeof( ILocalizedStore ), typeof( TStore ) );
             services.TryAddTransient<ILocalizedManager, LocalizedManager>();
         } );
-        return builder;
-    }
-
-    /// <summary>
-    /// 配置基于数据存储的本地化
-    /// </summary>
-    /// <param name="builder">应用生成器</param>
-    /// <param name="setupAction">本地化配置操作</param>
-    public static IAppBuilder AddStoreLocalization<TStore>( this IAppBuilder builder, Action<LocalizationOptions> setupAction ) where TStore : ILocalizedStore {
-        builder.CheckNull( nameof( builder ) );
-        builder.AddStoreLocalization<TStore>();
-        var options = new LocalizationOptions();
-        setupAction?.Invoke( options );
         builder.Host.ConfigureServices( ( _, services ) => {
             if ( options.Cultures == null || options.Cultures.Count == 0 )
                 return;

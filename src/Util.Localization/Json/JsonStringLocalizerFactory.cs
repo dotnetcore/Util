@@ -20,6 +20,10 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory {
     /// 缓存
     /// </summary>
     private readonly IMemoryCache _cache;
+    /// <summary>
+    /// 本地化配置
+    /// </summary>
+    private readonly IOptions<JsonLocalizationOptions> _options;
 
     /// <summary>
     /// 初始化Json本地化资源查找器工厂
@@ -28,8 +32,8 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory {
     /// <param name="pathResolver">路径解析器</param>
     /// <param name="loggerFactory">日志工厂</param>
     /// <param name="cache">缓存</param>
-    public JsonStringLocalizerFactory( IOptions<Microsoft.Extensions.Localization.LocalizationOptions> options, IPathResolver pathResolver, ILoggerFactory loggerFactory, IMemoryCache cache = null ) {
-        options.CheckNull( nameof( options ) );
+    public JsonStringLocalizerFactory( IOptions<JsonLocalizationOptions> options, IPathResolver pathResolver, ILoggerFactory loggerFactory, IMemoryCache cache = null ) {
+        _options = options;
         _rootPath = options.Value.ResourcesPath;
         _pathResolver = pathResolver ?? throw new ArgumentNullException( nameof( pathResolver ) );
         _loggerFactory = loggerFactory ?? throw new ArgumentNullException( nameof(loggerFactory) );
@@ -42,7 +46,7 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory {
         var assembly = resourceSource.Assembly;
         var rootPath = _pathResolver.GetResourcesRootPath( assembly, _rootPath );
         var baseName = _pathResolver.GetResourcesBaseName( assembly, resourceSource.FullName );
-        return new JsonStringLocalizer( _pathResolver, rootPath, baseName, _loggerFactory.CreateLogger<JsonStringLocalizer>(), _cache );
+        return new JsonStringLocalizer( _pathResolver, rootPath, baseName, _loggerFactory.CreateLogger<JsonStringLocalizer>(), _cache, _options );
     }
 
     /// <inheritdoc />
@@ -51,6 +55,6 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory {
         var assemblyName = new AssemblyName( location );
         var assembly = Assembly.Load( assemblyName );
         var rootPath = _pathResolver.GetResourcesRootPath( assembly, _rootPath );
-        return new JsonStringLocalizer( _pathResolver, rootPath, baseName, _loggerFactory.CreateLogger<JsonStringLocalizer>(), _cache );
+        return new JsonStringLocalizer( _pathResolver, rootPath, baseName, _loggerFactory.CreateLogger<JsonStringLocalizer>(), _cache, _options );
     }
 }

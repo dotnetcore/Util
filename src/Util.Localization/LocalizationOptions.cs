@@ -15,4 +15,9 @@ public class LocalizationOptions {
     /// 语言文化
     /// </summary>
     public IList<string> Cultures { get; set; }
+
+    /// <summary>
+    /// 缓存过期时间间隔,单位: 秒 ,默认值: 28800
+    /// </summary>
+    public int Expiration { get; set; } = 28800;
 }

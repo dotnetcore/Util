@@ -1,4 +1,5 @@
-﻿using Util.Dates;
+﻿using System.Text.Json;
+using Util.Dates;
 using Util.Domain.Extending;
 using Util.Helpers;
 
@@ -18,6 +19,11 @@ public static class ExtraPropertyDictionaryExtensions {
         if( source.ContainsKey( name ) == false )
             return default;
         var value = source[name];
+        if( value is JsonElement element ) {
+            var date = Util.Helpers.Convert.ToDateTimeOrNull( element.GetRawText().Trim( '"' ) );
+            if( date != null )
+                value = date;
+        }
         if ( value is DateTime dateValue && TimeOptions.IsUseUtc )
             value = Time.UtcToLocalTime( dateValue );
         return Util.Helpers.Convert.To<TProperty>( value );

@@ -9,26 +9,32 @@ public abstract class StringLocalizerBase : IStringLocalizer {
     /// <summary>
     /// 缓存
     /// </summary>
-    private readonly IMemoryCache _cache;
+    protected readonly IMemoryCache Cache;
     /// <summary>
     /// 资源类型
     /// </summary>
-    private readonly string _type;
+    protected readonly string Type;
+    /// <summary>
+    /// 本地化配置
+    /// </summary>
+    protected LocalizationOptions Options;
 
     /// <summary>
     /// 初始化本地化资源查找器
     /// </summary>
     /// <param name="cache">缓存</param>
     /// <param name="type">资源类型</param>
-    protected StringLocalizerBase( IMemoryCache cache, string type ) {
-        _cache = cache;
-        _type = type;
+    /// <param name="options">本地化配置</param>
+    protected StringLocalizerBase( IMemoryCache cache, string type, IOptions<LocalizationOptions> options ) {
+        Cache = cache;
+        Type = type;
+        Options = options?.Value ?? new LocalizationOptions();
     }
 
     /// <inheritdoc />
     public LocalizedString this[string name] {
         get {
-            if ( name.IsEmpty() )
+            if( name.IsEmpty() )
                 throw new ArgumentNullException( nameof( name ) );
             return GetResult( name );
         }
@@ -37,7 +43,7 @@ public abstract class StringLocalizerBase : IStringLocalizer {
     /// <inheritdoc />
     public LocalizedString this[string name, params object[] arguments] {
         get {
-            if ( name.IsEmpty() )
+            if( name.IsEmpty() )
                 throw new ArgumentNullException( nameof( name ) );
             return GetResult( name, arguments );
         }
@@ -51,9 +57,9 @@ public abstract class StringLocalizerBase : IStringLocalizer {
     protected virtual LocalizedString GetResult( string name, params object[] arguments ) {
         LocalizedString result = null;
         var cultures = Util.Helpers.Culture.GetCurrentUICultures();
-        foreach ( var culture in cultures ) {
+        foreach( var culture in cultures ) {
             result = GetLocalizedStringByCache( culture, name );
-            if ( result.ResourceNotFound == false )
+            if( result.ResourceNotFound == false )
                 return FormatResult( result, name, arguments );
         }
         return FormatResult( result, name, arguments );
@@ -65,8 +71,11 @@ public abstract class StringLocalizerBase : IStringLocalizer {
     /// <param name="culture">区域文化</param>
     /// <param name="name">资源名称</param>
     protected virtual LocalizedString GetLocalizedStringByCache( CultureInfo culture, string name ) {
-        var key = CacheKeyHelper.GetCacheKey( culture.Name, _type, name );
-        return _cache == null ? GetLocalizedString( culture, name ) : _cache.GetOrCreate( key, _ => GetLocalizedString( culture, name ) );
+        var key = CacheHelper.GetCacheKey( culture.Name, Type, name );
+        return Cache == null ? GetLocalizedString( culture, name ) : Cache.GetOrCreate( key, entry => {
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds( CacheHelper.GetExpiration( Options ) );
+            return GetLocalizedString( culture, name );
+        } );
     }
 
     /// <summary>
@@ -75,8 +84,8 @@ public abstract class StringLocalizerBase : IStringLocalizer {
     /// <param name="culture">区域文化</param>
     /// <param name="name">资源名称</param>
     protected virtual LocalizedString GetLocalizedString( CultureInfo culture, string name ) {
-        var value = GetValue( culture, name,_type );
-        if ( value.IsEmpty() )
+        var value = GetValue( culture, name, Type );
+        if( value.IsEmpty() )
             return new LocalizedString( name, string.Empty, true, null );
         return new LocalizedString( name, value, false, null );
     }
@@ -98,9 +107,9 @@ public abstract class StringLocalizerBase : IStringLocalizer {
     protected virtual LocalizedString FormatResult( LocalizedString result, string name, params object[] arguments ) {
         if( result == null )
             return new LocalizedString( name, string.Format( name, arguments ), true, null );
-        if ( result.ResourceNotFound )
+        if( result.ResourceNotFound )
             return new LocalizedString( result.Name, string.Format( result.Name, arguments ), true, null );
-        if ( arguments == null || arguments.Length == 0 )
+        if( arguments == null || arguments.Length == 0 )
             return result;
         return new LocalizedString( result.Name, string.Format( result.Value, arguments ), false, result.SearchedLocation );
     }

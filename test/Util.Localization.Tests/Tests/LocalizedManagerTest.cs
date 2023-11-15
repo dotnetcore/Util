@@ -23,7 +23,8 @@ public class LocalizedManagerTest {
         _mockMemoryCache.Setup( t => t.CreateEntry( It.IsAny<object>() ) ).Returns( mockCacheEntry.Object );
         _mockLocalizedStore = new Mock<ILocalizedStore>();
         _mockLocalizedStore.Setup( t => t.GetTypes() ).Returns( new List<string>() );
-        _manager = new LocalizedManager( _mockLocalizedStore.Object, _mockMemoryCache.Object );
+        var mockOptions = new Mock<IOptions<LocalizationOptions>>();
+        _manager = new LocalizedManager( _mockLocalizedStore.Object, _mockMemoryCache.Object, mockOptions.Object );
         CultureInfo.CurrentUICulture = new CultureInfo( "zh-CN" );
     }
 

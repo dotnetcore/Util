@@ -13,6 +13,10 @@ public class StoreStringLocalizerTest {
     /// </summary>
     private readonly Mock<ILocalizedStore> _mockLocalizedStore;
     /// <summary>
+    /// 模拟本地化配置
+    /// </summary>
+    private Mock<IOptions<LocalizationOptions>> _mockOptions;
+    /// <summary>
     /// 本地化资源查找器
     /// </summary>
     private IStringLocalizer _localizer;
@@ -21,11 +25,12 @@ public class StoreStringLocalizerTest {
     /// 测试初始化
     /// </summary>
     public StoreStringLocalizerTest() {
+        _mockOptions = new Mock<IOptions<LocalizationOptions>>();
         _mockMemoryCache = new Mock<IMemoryCache>();
         var mockCacheEntry = new Mock<ICacheEntry>();
         _mockMemoryCache.Setup( t => t.CreateEntry( It.IsAny<object>() ) ).Returns( mockCacheEntry.Object );
         _mockLocalizedStore = new Mock<ILocalizedStore>();
-        _localizer = new StoreStringLocalizer( NullLogger.Instance, _mockMemoryCache.Object, _mockLocalizedStore.Object, null );
+        _localizer = new StoreStringLocalizer( NullLogger.Instance, _mockMemoryCache.Object, _mockLocalizedStore.Object, null, _mockOptions.Object );
         CultureInfo.CurrentUICulture = new CultureInfo( "zh-CN" );
     }
 
@@ -83,7 +88,7 @@ public class StoreStringLocalizerTest {
     [Fact]
     public void Test_5() {
         //设置资源类型
-        _localizer = new StoreStringLocalizer( NullLogger.Instance, _mockMemoryCache.Object, _mockLocalizedStore.Object, "type1" );
+        _localizer = new StoreStringLocalizer( NullLogger.Instance, _mockMemoryCache.Object, _mockLocalizedStore.Object, "type1", _mockOptions.Object );
 
         //设置存储器获取资源
         _mockLocalizedStore.Setup( t => t.GetValue( "zh-CN", "type1", "name_{0}" ) ).Returns( "value_{0}" );

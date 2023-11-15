@@ -19,13 +19,14 @@ public class StoreStringLocalizerFactoryTest {
     /// 测试初始化
     /// </summary>
     public StoreStringLocalizerFactoryTest() {
+        var mockOptions = new Mock<IOptions<LocalizationOptions>>();
         var mockLoggerFactory = new Mock<ILoggerFactory>();
         mockLoggerFactory.Setup( t => t.CreateLogger( "Util.Localization.Store.StoreStringLocalizer" ) ).Returns( NullLogger<StoreStringLocalizer>.Instance );
         _mockLocalizedStore = new Mock<ILocalizedStore>();
         var mockMemoryCache = new Mock<IMemoryCache>();
         var mockCacheEntry = new Mock<ICacheEntry>();
         mockMemoryCache.Setup( t => t.CreateEntry( It.IsAny<object>() ) ).Returns( mockCacheEntry.Object );
-        _localizerFactory = new StoreStringLocalizerFactory( mockLoggerFactory.Object, _mockLocalizedStore.Object, mockMemoryCache.Object );
+        _localizerFactory = new StoreStringLocalizerFactory( mockOptions.Object,mockLoggerFactory.Object, _mockLocalizedStore.Object, mockMemoryCache.Object );
     }
 
     /// <summary>
