@@ -25,7 +25,10 @@ public class Startup {
                 t.DBConfig.KeyPrefix = "test:";
                 t.DBConfig.Endpoints.Add( new ServerEndPoint( Config.GetConnectionString( "Redis" ), 6379 ) );
             } )
-            .AddMemoryCache( t => t.MaxRdSecond = 0 )
+            .AddMemoryCache( t => {
+                t.MaxRdSecond = 0;
+                t.CacheNulls = true;
+            } )
             .AddUtil();
     }
 

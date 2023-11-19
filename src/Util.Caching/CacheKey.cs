@@ -28,7 +28,7 @@ public class CacheKey {
     /// 缓存键
     /// </summary>
     public string Key {
-        get => $"{Prefix}{_key}";
+        get => ToString();
         set => _key = value;
     }
 
@@ -36,4 +36,11 @@ public class CacheKey {
     /// 缓存键前缀
     /// </summary>
     public string Prefix { get; set; }
+
+    /// <summary>
+    /// 获取缓存键
+    /// </summary>
+    public override string ToString() {
+        return $"{Prefix}{_key}";
+    }
 }

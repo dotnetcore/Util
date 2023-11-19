@@ -18,6 +18,6 @@ internal static class CacheHelper {
     /// 获取缓存过期时间间隔
     /// </summary>
     public static int GetExpiration( LocalizationOptions options ) {
-        return options.Expiration + Random.Shared.Next( 120 );
+        return options.Expiration + Random.Shared.Next( 1200 );
     }
 }

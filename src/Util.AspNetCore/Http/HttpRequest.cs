@@ -4,7 +4,7 @@ using System.Text.Unicode;
 using Util.Helpers;
 using Util.SystemTextJson;
 
-namespace Util.Http; 
+namespace Util.Http;
 
 /// <summary>
 /// Http请求
@@ -38,6 +38,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// Json序列化配置
     /// </summary>
     private JsonSerializerOptions _jsonSerializerOptions;
+    /// <summary>
+    /// 是否忽略SSL证书
+    /// </summary>
+    private bool _ignoreSsl;
 
     #endregion
 
@@ -235,6 +239,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     #endregion
 
+    #region IgnoreSsl(是否忽略SSL证书)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> IgnoreSsl() {
+        _ignoreSsl = true;
+        return this;
+    }
+
+    #endregion
+
     #region JsonSerializerOptions(设置Json序列化配置)
 
     /// <inheritdoc />
@@ -251,7 +265,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 获取Json序列化配置
     /// </summary>
     protected virtual JsonSerializerOptions GetJsonSerializerOptions() {
-        if ( _jsonSerializerOptions != null )
+        if( _jsonSerializerOptions != null )
             return _jsonSerializerOptions;
         return new JsonSerializerOptions {
             PropertyNameCaseInsensitive = true,
@@ -338,9 +352,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Cookie( string key, string value ) {
-        if ( key.IsEmpty() )
+        if( key.IsEmpty() )
             return this;
-        if ( Cookies.ContainsKey( key ) )
+        if( Cookies.ContainsKey( key ) )
             Cookies.Remove( key );
         Cookies.Add( key, value );
         return this;
@@ -348,9 +362,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Cookie( IDictionary<string, string> cookies ) {
-        if ( cookies == null )
+        if( cookies == null )
             return this;
-        foreach ( var cookie in cookies )
+        foreach( var cookie in cookies )
             Cookie( cookie.Key, cookie.Value );
         return this;
     }
@@ -515,10 +529,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 添加Cookie
     /// </summary>
     protected virtual void AddCookies() {
-        if ( Cookies.Count == 0 )
+        if( Cookies.Count == 0 )
             return;
         var cookieValues = new List<CookieHeaderValue>();
-        foreach ( var cookie in Cookies )
+        foreach( var cookie in Cookies )
             cookieValues.Add( new CookieHeaderValue( cookie.Key, cookie.Value ) );
         Header( "Cookie", cookieValues.Select( t => t.ToString() ).Join() );
     }
@@ -662,7 +676,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     protected HttpClientHandler CreateHttpClientHandler() {
         var handlerFactory = _httpClientFactory as IHttpMessageHandlerFactory;
         var handler = handlerFactory?.CreateHandler();
-        while ( handler is DelegatingHandler delegatingHandler ) {
+        while( handler is DelegatingHandler delegatingHandler ) {
             handler = delegatingHandler.InnerHandler;
         }
         return handler as HttpClientHandler;
@@ -673,10 +687,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     /// <param name="handler">Http客户端处理器</param>
     protected virtual void InitHttpClientHandler( HttpClientHandler handler ) {
-        if ( handler == null )
+        if( handler == null )
             return;
         InitCertificate( handler );
         InitUseCookies( handler );
+        IgnoreSsl( handler );
     }
 
     #endregion
@@ -702,8 +717,21 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化是否携带Cookie
     /// </summary>
     protected virtual void InitUseCookies( HttpClientHandler handler ) {
-        if ( handler.UseCookies != IsUseCookies )
+        if( handler.UseCookies != IsUseCookies )
             handler.UseCookies = IsUseCookies;
+    }
+
+    #endregion
+
+    #region IgnoreSsl(忽略SSL证书错误)
+
+    /// <summary>
+    /// 忽略SSL证书错误
+    /// </summary>
+    protected virtual void IgnoreSsl( HttpClientHandler handler ) {
+        if( _ignoreSsl == false )
+            return;
+        handler.ServerCertificateCustomValidationCallback ??= ( _, _, _, _ ) => true;
     }
 
     #endregion
@@ -726,7 +754,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化基地址
     /// </summary>
     protected virtual void InitBaseAddress( HttpClient client ) {
-        if ( BaseAddressUri.IsEmpty() )
+        if( BaseAddressUri.IsEmpty() )
             return;
         client.BaseAddress = new Uri( BaseAddressUri );
     }
@@ -739,7 +767,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化超时间隔
     /// </summary>
     protected virtual void InitTimeout( HttpClient client ) {
-        if ( HttpTimeout == null )
+        if( HttpTimeout == null )
             return;
         client.Timeout = HttpTimeout.SafeValue();
     }
@@ -778,7 +806,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     protected virtual async Task<TResult> SuccessHandlerAsync( HttpResponseMessage response, string content ) {
         var result = ConvertTo( content, response.GetContentType() );
         SuccessAction?.Invoke( result );
-        if ( SuccessFunc != null )
+        if( SuccessFunc != null )
             await SuccessFunc( result );
         return result;
     }

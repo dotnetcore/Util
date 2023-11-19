@@ -58,6 +58,10 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <param name="password">证书密码</param>
     IHttpRequest<TResult> Certificate( string path, string password );
     /// <summary>
+    /// 忽略SSL证书
+    /// </summary>
+    IHttpRequest<TResult> IgnoreSsl();
+    /// <summary>
     /// 设置Json序列化配置
     /// </summary>
     /// <param name="options">Json序列化配置</param>

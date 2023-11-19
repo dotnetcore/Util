@@ -27,6 +27,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="EasyCaching.Bus.Redis" Version="1.9.2" />
+	  <PackageReference Include="EasyCaching.HybridCache" Version="1.9.2" />
 	  <PackageReference Include="EasyCaching.InMemory" Version="1.9.2" />
 	  <PackageReference Include="EasyCaching.Redis" Version="1.9.2" />
 	  <PackageReference Include="EasyCaching.Serialization.SystemTextJson" Version="1.9.2" />

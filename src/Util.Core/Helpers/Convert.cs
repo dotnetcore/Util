@@ -347,6 +347,15 @@ public static class Convert {
     /// </summary>
     /// <param name="data">对象</param>
     public static IDictionary<string, object> ToDictionary( object data ) {
+        return ToDictionary( data, false );
+    }
+
+    /// <summary>
+    /// 对象转换为属性名值对
+    /// </summary>
+    /// <param name="data">对象</param>
+    /// <param name="useDisplayName">是否使用显示名称,可使用[Description] 或 [DisplayName]特性设置</param>
+    public static IDictionary<string, object> ToDictionary( object data,bool useDisplayName ) {
         var result = new Dictionary<string, object>();
         if( data == null )
             return result;
@@ -354,9 +363,22 @@ public static class Convert {
             return new Dictionary<string, object>( dic );
         foreach( PropertyDescriptor property in TypeDescriptor.GetProperties( data ) ) {
             var value = property.GetValue( data );
-            result.Add( property.Name, value );
+            result.Add( GetPropertyDescriptorName( property, useDisplayName ), value );
         }
         return result;
+    }
+
+    /// <summary>
+    /// 获取属性名
+    /// </summary>
+    private static string GetPropertyDescriptorName( PropertyDescriptor property, bool useDisplayName ) {
+        if ( useDisplayName == false )
+            return property.Name;
+        if( string.IsNullOrEmpty( property.Description ) == false )
+            return property.Description;
+        if( string.IsNullOrEmpty( property.DisplayName ) == false )
+            return property.DisplayName;
+        return property.Name;
     }
 
     #endregion

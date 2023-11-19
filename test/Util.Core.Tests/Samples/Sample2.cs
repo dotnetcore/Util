@@ -22,6 +22,11 @@ public class Sample2 {
     /// <summary>
     /// 显示描述
     /// </summary>
+    [Display( Name = "显示名2" )]
+    public string DisplayName2 { get; set; }
+    /// <summary>
+    /// 显示描述
+    /// </summary>
     [Display( Description= "显示描述" )]
     public string Display { get; set; }
     /// <summary>

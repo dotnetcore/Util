@@ -524,12 +524,42 @@ public class ConvertTest {
             Display = "Display",
             NullableBoolValue = true,
             DisplayName = "DisplayName",
+            DisplayName2 = "DisplayName2",
             Test3 = new Sample3 { StringValue = "a" },
             TestList = new List<Sample3> { new() { StringValue = "a" }, new() { StringValue = "b" } }
         };
         var result = Convert.ToDictionary( sample );
-        Assert.Equal( 9, result.Count );
+        Assert.Equal( 10, result.Count );
+        Assert.Equal( "Description", result["Description"] );
         Assert.Equal( "Display", result["Display"] );
+        Assert.Equal( "DisplayName", result["DisplayName"] );
+        Assert.Equal( "DisplayName2", result["DisplayName2"] );
+        Assert.Equal( 2, result["IntValue"] );
+    }
+
+    /// <summary>
+    /// 测试对象转换为属性名值对
+    /// </summary>
+    [Fact]
+    public void TestToDictionary_2() {
+        var sample = new Sample2 {
+            BoolValue = true,
+            Description = "Description",
+            StringValue = "StringValue",
+            IntValue = 2,
+            Display = "Display",
+            NullableBoolValue = true,
+            DisplayName = "DisplayName",
+            DisplayName2 = "DisplayName2",
+            Test3 = new Sample3 { StringValue = "a" },
+            TestList = new List<Sample3> { new() { StringValue = "a" }, new() { StringValue = "b" } }
+        };
+        var result = Convert.ToDictionary( sample,true );
+        Assert.Equal( 10, result.Count );
+        Assert.Equal( "Description", result["描述"] );
+        Assert.Equal( "Display", result["Display"] );
+        Assert.Equal( "DisplayName", result["显示名"] );
+        Assert.Equal( "DisplayName2", result["DisplayName2"] );
         Assert.Equal( 2, result["IntValue"] );
     }
 
@@ -537,10 +567,11 @@ public class ConvertTest {
     /// 测试对象转换为属性名值对 - 传入字典
     /// </summary>
     [Fact]
-    public void TestToDictionary_2() {
-        var content = new Dictionary<string, object>();
-        content.Add( "Code", "a" );
-        content.Add( "Price", 0 );
+    public void TestToDictionary_3() {
+        var content = new Dictionary<string, object> {
+            { "Code", "a" },
+            { "Price", 0 }
+        };
         var result = Convert.ToDictionary( content );
         Assert.Equal( 2, result.Count );
         Assert.Equal( "a", result["Code"] );

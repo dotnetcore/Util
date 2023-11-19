@@ -159,6 +159,21 @@ public class MemoryCacheManagerTest {
         Assert.Equal( 1, result );
     }
 
+    /// <summary>
+    /// 测试从缓存中获取数据 - 返回 null 值 - null应被缓存
+    /// </summary>
+    [Fact]
+    public void TestGet_8() {
+        var index = 0;
+        for( int i = 0; i < 3; i++ ) {
+            _cache.Get<string>( "TestGet_8", () => {
+                index++;
+                return null;
+            } );
+        }
+        Assert.Equal( 1, index );
+    }
+
     #endregion
 
     #region GetAsync
