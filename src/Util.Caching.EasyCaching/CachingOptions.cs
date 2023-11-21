@@ -46,9 +46,6 @@ internal class CachingOptions {
     /// 清理
     /// </summary>
     public static void Clear() {
-        if ( _redisEndPoints == null )
-            return;
-        _redisEndPoints.Clear();
         _redisEndPoints = null;
     }
 }

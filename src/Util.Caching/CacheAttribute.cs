@@ -1,15 +1,15 @@
 ﻿using Util.Aop;
 
-namespace Util.Caching; 
+namespace Util.Caching;
 
 /// <summary>
 /// 缓存拦截器
 /// </summary>
 public class CacheAttribute : InterceptorBase {
     /// <summary>
-    /// 缓存键前缀
+    /// 缓存键前缀,可使用占位符, {0} 表示第一个参数值,范例: User-{0}
     /// </summary>
-    public string CacheKeyPrefix { get; set; }
+    public string Prefix { get; set; }
     /// <summary>
     /// 缓存过期间隔,单位:秒,默认值:36000
     /// </summary>
@@ -23,7 +23,7 @@ public class CacheAttribute : InterceptorBase {
         var returnType = GetReturnType( context );
         var key = CreateCacheKey( context );
         var value = await GetCacheValue( cache, returnType, key );
-        if ( value != null ) {
+        if( value != null ) {
             SetReturnValue( context, returnType, value );
             return;
         }
@@ -50,7 +50,19 @@ public class CacheAttribute : InterceptorBase {
     /// </summary>
     private string CreateCacheKey( AspectContext context ) {
         var keyGenerator = context.ServiceProvider.GetService<ICacheKeyGenerator>();
-        return keyGenerator.CreateCacheKey( context.ServiceMethod, context.Parameters, CacheKeyPrefix );
+        return keyGenerator.CreateCacheKey( context.ServiceMethod, context.Parameters, GetPrefix( context ) );
+    }
+
+    /// <summary>
+    /// 获取缓存键前缀
+    /// </summary>
+    private string GetPrefix( AspectContext context ) {
+        try {
+            return string.Format( Prefix, context.Parameters.ToArray() );
+        }
+        catch {
+            return Prefix;
+        }
     }
 
     /// <summary>
@@ -64,7 +76,7 @@ public class CacheAttribute : InterceptorBase {
     /// 设置返回值
     /// </summary>
     private void SetReturnValue( AspectContext context, Type returnType, object value ) {
-        if ( context.IsAsync() ) {
+        if( context.IsAsync() ) {
             context.ReturnValue = typeof( Task ).GetMethods()
                 .First( p => p.Name == "FromResult" && p.ContainsGenericParameters )
                 .MakeGenericMethod( returnType ).Invoke( null, new[] { value } );
