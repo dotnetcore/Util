@@ -27,10 +27,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.AspNetCore\07-Util.AspNetCore.csproj" />
+	  <ProjectReference Include="..\Util.AspNetCore\08-Util.AspNetCore.csproj" />
 	  <ProjectReference Include="..\Util.Caching\01-Util.Caching.csproj" />
 	  <ProjectReference Include="..\Util.Data.Core\01-Util.Data.Core.csproj" />
-	  <ProjectReference Include="..\Util.Localization\08-Util.Localization.csproj" />
+	  <ProjectReference Include="..\Util.Localization\09-Util.Localization.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

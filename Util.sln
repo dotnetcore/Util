@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.Ui.Angular", "src\U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Core.Tests.Integration", "test\Util.Core.Tests.Integration\Util.Core.Tests.Integration.csproj", "{21064598-1418-422E-BA37-8EC09541DFC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07-Util.AspNetCore", "src\Util.AspNetCore\07-Util.AspNetCore.csproj", "{08EF3E38-E0C3-4E18-984C-3216CB6E8897}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "08-Util.AspNetCore", "src\Util.AspNetCore\08-Util.AspNetCore.csproj", "{08EF3E38-E0C3-4E18-984C-3216CB6E8897}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.ObjectMapping.AutoMapper", "src\Util.ObjectMapping.AutoMapper\02-Util.ObjectMapping.AutoMapper.csproj", "{12C94395-09F1-42E4-8CE1-6E54D3FEBAA6}"
 EndProject
@@ -193,7 +193,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.TestShare.Oracle", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Data.EntityFrameworkCore.Oracle.Tests.Integration", "test\Util.Data.EntityFrameworkCore.Oracle.Tests.Integration\Util.Data.EntityFrameworkCore.Oracle.Tests.Integration.csproj", "{C4A782C1-AA25-476B-B936-90433422D0A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "08-Util.Localization", "src\Util.Localization\08-Util.Localization.csproj", "{D9E411DD-58B1-4160-8025-068D43ADE72C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "09-Util.Localization", "src\Util.Localization\09-Util.Localization.csproj", "{D9E411DD-58B1-4160-8025-068D43ADE72C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Localization.Tests.Integration", "test\Util.Localization.Tests.Integration\Util.Localization.Tests.Integration.csproj", "{B2AADB36-8433-4EDB-B247-49A3EA82FE06}"
 EndProject
@@ -329,9 +329,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Data.Dapper.Oracle.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Data.Dapper.Oracle", "src\Util.Data.Dapper.Oracle\05-Util.Data.Dapper.Oracle.csproj", "{00C518D5-EFAC-43CC-AD1E-9837BDBD93BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "09-Util.IdGenerator", "src\Util.IdGenerator\09-Util.IdGenerator.csproj", "{698AE3A0-65E3-433C-B56C-7D47A7A44263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10-Util.IdGenerator", "src\Util.IdGenerator\10-Util.IdGenerator.csproj", "{698AE3A0-65E3-433C-B56C-7D47A7A44263}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.IdGenerator.Tests", "test\Util.IdGenerator.Tests\Util.IdGenerator.Tests.csproj", "{BA78E270-92A7-46C2-932B-3109E9DC5824}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07-Util.Http", "src\Util.Http\07-Util.Http.csproj", "{EDB3405A-58BD-444C-82FF-05FAB7CE72B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -827,6 +829,10 @@ Global
 		{BA78E270-92A7-46C2-932B-3109E9DC5824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA78E270-92A7-46C2-932B-3109E9DC5824}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA78E270-92A7-46C2-932B-3109E9DC5824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB3405A-58BD-444C-82FF-05FAB7CE72B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB3405A-58BD-444C-82FF-05FAB7CE72B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB3405A-58BD-444C-82FF-05FAB7CE72B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB3405A-58BD-444C-82FF-05FAB7CE72B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -992,6 +998,7 @@ Global
 		{00C518D5-EFAC-43CC-AD1E-9837BDBD93BB} = {4A955BB3-C1AF-45DB-9590-82C00996B608}
 		{698AE3A0-65E3-433C-B56C-7D47A7A44263} = {345739E2-E20C-4B1F-B1B2-725006FC9F72}
 		{BA78E270-92A7-46C2-932B-3109E9DC5824} = {9BFB5DBE-8F64-45A9-BDB2-BAD91D44A4C5}
+		{EDB3405A-58BD-444C-82FF-05FAB7CE72B4} = {345739E2-E20C-4B1F-B1B2-725006FC9F72}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94347832-A36D-4C42-9C4D-B848BD4F5DA9}

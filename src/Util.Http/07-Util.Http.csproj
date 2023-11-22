@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(NetTargetFramework)</TargetFramework>
+    <RootNamespace>Util</RootNamespace>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <Description>Util.Http是Util应用框架的Http操作类库</Description>
+    <AssemblyName>Util.Http</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+    <DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.Http.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath></OutputPath>
+    <DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.Http.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\build\icon.jpg">
+      <Pack>True</Pack>
+      <Visible>False</Visible>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Util.Core\01-Util.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -39,7 +39,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Util.Caching.EasyCaching\02-Util.Caching.EasyCaching.csproj" />
-	  <ProjectReference Include="..\..\src\Util.IdGenerator\09-Util.IdGenerator.csproj" />
+	  <ProjectReference Include="..\..\src\Util.IdGenerator\10-Util.IdGenerator.csproj" />
 	</ItemGroup>
 
 </Project>

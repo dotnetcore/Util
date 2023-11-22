@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.IdGenerator\09-Util.IdGenerator.csproj" />
+	  <ProjectReference Include="..\Util.IdGenerator\10-Util.IdGenerator.csproj" />
 	  <ProjectReference Include="..\Util.Validation\04-Util.Validation.csproj" />
 	</ItemGroup>
 

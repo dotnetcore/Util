@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.IdGenerator\09-Util.IdGenerator.csproj" />
+    <ProjectReference Include="..\..\src\Util.IdGenerator\10-Util.IdGenerator.csproj" />
   </ItemGroup>
 
 </Project>

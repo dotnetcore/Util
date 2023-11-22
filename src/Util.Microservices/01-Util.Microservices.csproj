@@ -26,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.AspNetCore\07-Util.AspNetCore.csproj" />
+	  <ProjectReference Include="..\Util.AspNetCore\08-Util.AspNetCore.csproj" />
 	  <ProjectReference Include="..\Util.Data.Abstractions\06-Util.Data.Abstractions.csproj" />
 	  <ProjectReference Include="..\Util.Events.Abstractions\01-Util.Events.Abstractions.csproj" />
 	</ItemGroup>

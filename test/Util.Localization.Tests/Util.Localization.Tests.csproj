@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Util.Localization\08-Util.Localization.csproj" />
+	  <ProjectReference Include="..\..\src\Util.Localization\09-Util.Localization.csproj" />
 	</ItemGroup>
 
 </Project>

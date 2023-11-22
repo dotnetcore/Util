@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.AspNetCore\07-Util.AspNetCore.csproj" />
+	  <ProjectReference Include="..\Util.AspNetCore\08-Util.AspNetCore.csproj" />
 	  <ProjectReference Include="..\Util.Tenants.Abstractions\01-Util.Tenants.Abstractions.csproj" />
 	</ItemGroup>
 

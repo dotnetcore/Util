@@ -1,4 +1,6 @@
-﻿namespace Util.Configs;
+﻿using Util.Helpers;
+
+namespace Util.Configs;
 
 /// <summary>
 /// 应用生成器
@@ -19,6 +21,8 @@ public class AppBuilder : IAppBuilder {
     /// 构建
     /// </summary>
     public IHost Build() {
-        return Host.Build();
+        var result = Host.Build();
+        Ioc.SetServiceProviderAction( () => result.Services );
+        return result;
     }
 }

@@ -33,7 +33,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Util.Application\01-Util.Application.csproj" />
-	  <ProjectReference Include="..\Util.AspNetCore\07-Util.AspNetCore.csproj" />
+	  <ProjectReference Include="..\Util.AspNetCore\08-Util.AspNetCore.csproj" />
 	  <ProjectReference Include="..\Util.Logging\01-Util.Logging.csproj" />
 	  <ProjectReference Include="..\Util.Validation\04-Util.Validation.csproj" />
 	</ItemGroup>
