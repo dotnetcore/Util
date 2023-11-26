@@ -98,7 +98,7 @@ namespace Util.Ui.NgZorro.Tests.Display {
             _wrapper.SetExpression( t => t.Nickname );
             var result = new StringBuilder();
             result.Append( "<span class=\"mr-sm\">{{'a.nickname'|i18n}}:</span>" );
-            result.Append( "<span>{{model.nickname}}</span>" );
+            result.Append( "<span>{{model.nickname|i18n}}</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -152,7 +152,7 @@ namespace Util.Ui.NgZorro.Tests.Display {
             result.Append( "<nz-form-item [nzGutter]=\"16\">" );
             result.Append( "<nz-form-label [nzSpan]=\"4\">{{'a.nickname'|i18n}}</nz-form-label>" );
             result.Append( "<nz-form-control [nzSpan]=\"20\">" );
-            result.Append( "<span>{{model.nickname}}</span>" );
+            result.Append( "<span>{{model.nickname|i18n}}</span>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -166,6 +166,18 @@ namespace Util.Ui.NgZorro.Tests.Display {
             _wrapper.SetExpression( t => t.Code );
             var result = new StringBuilder();
             result.Append( "<span>{{model.code}}</span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试属性表达式
+        /// </summary>
+        [Fact]
+        public void TestFor_1_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetExpression( t => t.Code );
+            var result = new StringBuilder();
+            result.Append( "<span>{{model.code|i18n}}</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

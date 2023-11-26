@@ -40,7 +40,11 @@ public class DisplayBuilder : FormControlBuilderBase<DisplayBuilder> {
             LoadDate( value );
             return this;
         }
-        SetContent( "{{" + value + "}}" );
+        var options = NgZorroOptionsService.GetOptions();
+        if( options.EnableI18n )
+            SetContent( "{{" + $"{value}|i18n" + "}}" );
+        else
+            SetContent( "{{" + value + "}}" );
         return this;
     }
 
