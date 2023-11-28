@@ -73,6 +73,10 @@ public static class UiConst {
     /// </summary>
     public const string DataType = "data-type";
     /// <summary>
+    /// 排版
+    /// </summary>
+    public const string Typography = "typography";
+    /// <summary>
     /// 参数
     /// </summary>
     public const string Param = "param";

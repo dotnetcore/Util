@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Typographies;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -40,6 +41,17 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestDefault() {
+            var result = new StringBuilder();
+            result.Append( "<div></div>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试排版指令
+        /// </summary>
+        [Fact]
+        public void TestTypography() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             var result = new StringBuilder();
             result.Append( "<div nz-typography=\"\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );

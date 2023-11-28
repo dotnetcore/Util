@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
@@ -51,6 +52,7 @@ public class TypographyRender : RenderBase {
         ConfigEllipsisRows();
         ConfigSuffix();
         ConfigEvents();
+        _builder.Angular( _config );
         _builder.Tooltip( _config );
         _builder.ConfigBase(_config);
         ConfigContent( _builder );
@@ -61,7 +63,9 @@ public class TypographyRender : RenderBase {
     /// 配置默认设置
     /// </summary>
     private void ConfigDefault() {
-        _builder.Attribute( "nz-typography" );
+        var isTypography = _config.GetValue<bool?>( UiConst.Typography );
+        if( isTypography == true )
+            _builder.Attribute( "nz-typography" );
     }
 
     /// <summary>
@@ -184,6 +188,14 @@ public class TypographyRender : RenderBase {
         _builder.AttributeIfNotEmpty( "(nzContentChange)", _config.GetValue( UiConst.OnContentChange ) );
         _builder.AttributeIfNotEmpty( "(nzExpandChange)", _config.GetValue( UiConst.OnExpandChange ) );
         _builder.AttributeIfNotEmpty( "(nzOnEllipsis)", _config.GetValue( UiConst.OnEllipsis ) );
+        ConfigEvents( _builder );
+    }
+
+    /// <summary>
+    /// 配置事件
+    /// </summary>
+    /// <param name="builder">标签生成器</param>
+    protected virtual void ConfigEvents(TagBuilder builder) {
     }
 
     /// <summary>

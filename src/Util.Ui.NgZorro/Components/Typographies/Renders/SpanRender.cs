@@ -24,6 +24,14 @@ public class SpanRender : TypographyRender {
     }
 
     /// <summary>
+    /// 配置事件
+    /// </summary>
+    /// <param name="builder">标签生成器</param>
+    protected override void ConfigEvents( TagBuilder builder ) {
+        builder.AttributeIfNotEmpty( "(contextmenu)", _config.GetValue( UiConst.OnContextmenu ) );
+    }
+
+    /// <summary>
     /// 配置内容
     /// </summary>
     protected override void ConfigContent( TagBuilder builder ) {

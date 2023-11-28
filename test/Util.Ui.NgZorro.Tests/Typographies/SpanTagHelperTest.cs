@@ -44,7 +44,18 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestDefault() {
             var result = new StringBuilder();
-            result.Append( "<span nz-typography=\"\"></span>" );
+            result.Append( "<span></span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试*ngIf
+        /// </summary>
+        [Fact]
+        public void TestNgIf() {
+            _wrapper.SetContextAttribute( AngularConst.NgIf, "a" );
+            var result = new StringBuilder();
+            result.Append( "<span *ngIf=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -53,6 +64,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestChildTag_Code() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.ChildTag, SpanChildTag.Code );
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
@@ -65,6 +77,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestChildTag_Delete() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.ChildTag, SpanChildTag.Delete );
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
@@ -77,6 +90,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestChildTag_Keyboard() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.ChildTag, SpanChildTag.Keyboard );
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
@@ -89,6 +103,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestChildTag_Mark() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.ChildTag, SpanChildTag.Mark );
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
@@ -101,6 +116,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestChildTag_Strong() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.ChildTag, SpanChildTag.Strong );
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
@@ -113,6 +129,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestChildTag_Underline() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.ChildTag, SpanChildTag.Underline );
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
@@ -125,6 +142,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipTitle() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipTitle, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" nzTooltipTitle=\"a\"></span>" );
@@ -136,6 +154,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipTitle() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipTitle, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipTitle]=\"a\"></span>" );
@@ -147,6 +166,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipTrigger() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipTrigger, TooltipTrigger.Click );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" nzTooltipTrigger=\"click\"></span>" );
@@ -158,6 +178,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipTrigger() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipTrigger, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipTrigger]=\"a\"></span>" );
@@ -169,6 +190,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipPlacement() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipPlacement, TooltipPlacement.BottomLeft );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" nzTooltipPlacement=\"bottomLeft\"></span>" );
@@ -180,6 +202,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipPlacement() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipPlacement, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipPlacement]=\"a\"></span>" );
@@ -191,6 +214,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipColor() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipColor, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" nzTooltipColor=\"a\"></span>" );
@@ -202,6 +226,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipColor() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipColor, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipColor]=\"a\"></span>" );
@@ -213,6 +238,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipOrigin() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipOrigin, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipOrigin]=\"a\"></span>" );
@@ -224,6 +250,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipVisible() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipVisible, true );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipVisible]=\"true\"></span>" );
@@ -235,6 +262,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipVisible() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipVisible, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipVisible]=\"a\"></span>" );
@@ -246,6 +274,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipMouseEnterDelay() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipMouseEnterDelay, 1 );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" nzTooltipMouseEnterDelay=\"1\"></span>" );
@@ -257,6 +286,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipMouseEnterDelay() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipMouseEnterDelay, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipMouseEnterDelay]=\"a\"></span>" );
@@ -268,6 +298,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipMouseLeaveDelay() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipMouseLeaveDelay, 1 );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" nzTooltipMouseLeaveDelay=\"1\"></span>" );
@@ -279,6 +310,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipMouseLeaveDelay() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipMouseLeaveDelay, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipMouseLeaveDelay]=\"a\"></span>" );
@@ -290,6 +322,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipOverlayClassName() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipOverlayClassName, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" nzTooltipOverlayClassName=\"a\"></span>" );
@@ -301,6 +334,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestBindTooltipOverlayClassName() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( AngularConst.BindTooltipOverlayClassName, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipOverlayClassName]=\"a\"></span>" );
@@ -312,6 +346,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestTooltipOverlayStyle() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.TooltipOverlayStyle, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipOverlayStyle]=\"a\"></span>" );
@@ -323,9 +358,21 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// </summary>
         [Fact]
         public void TestOnTooltipVisibleChange() {
+            _wrapper.SetContextAttribute( UiConst.Typography, true );
             _wrapper.SetContextAttribute( UiConst.OnTooltipVisibleChange, "a" );
             var result = new StringBuilder();
             result.Append( "<span (nzTooltipVisibleChange)=\"a\" nz-tooltip=\"\" nz-typography=\"\"></span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试上下文菜单事件
+        /// </summary>
+        [Fact]
+        public void TestOnContextmenu() {
+            _wrapper.SetContextAttribute( UiConst.OnContextmenu, "a" );
+            var result = new StringBuilder();
+            result.Append( "<span (contextmenu)=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

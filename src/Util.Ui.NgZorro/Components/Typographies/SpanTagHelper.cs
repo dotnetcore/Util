@@ -8,7 +8,7 @@ using Util.Ui.Renders;
 namespace Util.Ui.NgZorro.Components.Typographies; 
 
 /// <summary>
-/// span，生成的标签为&lt;span nz-typography&gt;&lt;/span&gt;
+/// span，生成的标签为&lt;span&gt;&lt;/span&gt;
 /// </summary>
 [HtmlTargetElement( "util-span" )]
 public class SpanTagHelper : TypographyTagHelper {
@@ -16,6 +16,19 @@ public class SpanTagHelper : TypographyTagHelper {
     /// 子标签
     /// </summary>
     public SpanChildTag ChildTag { get; set; }
+    /// <summary>
+    /// 是否排版组件
+    /// </summary>
+    public bool Typography { get; set; }
+    /// <summary>
+    /// (contextmenu),上下文菜单事件
+    /// </summary>
+    public string OnContextmenu { get; set; }
+
+    /// <inheritdoc />
+    protected override bool IsEnableTypography() {
+        return false;
+    }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

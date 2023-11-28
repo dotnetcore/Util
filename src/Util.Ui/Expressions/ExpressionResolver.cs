@@ -1,6 +1,4 @@
-﻿using Util.Properties;
-
-namespace Util.Ui.Expressions; 
+﻿namespace Util.Ui.Expressions; 
 
 /// <summary>
 /// 模型表达式解析器
@@ -72,9 +70,12 @@ public class ExpressionResolver : IExpressionResolver {
         if ( explorer.Container.ModelType == null )
             return result;
         var modelAttribute = explorer.Container.ModelType.GetCustomAttribute<ModelAttribute>();
-        if ( modelAttribute == null )
+        if ( modelAttribute != null )
+            return modelAttribute.Model;
+        var modelName = ModelName.Get( explorer.Container.ModelType );
+        if( modelName.IsEmpty() )
             return result;
-        return modelAttribute.Model;
+        return modelName;
     }
 
     /// <summary>

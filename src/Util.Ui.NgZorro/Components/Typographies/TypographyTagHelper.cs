@@ -140,7 +140,15 @@ public abstract class TypographyTagHelper : TooltipTagHelperBase {
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
         var config = new Config( context, output, content );
+        config.SetAttribute( UiConst.Typography, IsEnableTypography(),false );
         return new TypographyRender( config, GetTagBuilder() );
+    }
+
+    /// <summary>
+    /// 是否启用排版指令
+    /// </summary>
+    protected virtual bool IsEnableTypography() {
+        return true;
     }
 
     /// <summary>
