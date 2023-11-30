@@ -5,9 +5,9 @@
 /// </summary>
 public class NgZorroOptions {
     /// <summary>
-    /// Spa静态文件根路径,默认值: ClientApp/dist
+    /// Spa静态文件根路径,默认值: ClientApp
     /// </summary>
-    public string RootPath { get; set; } = "ClientApp/dist";
+    public string RootPath { get; set; } = "ClientApp";
     /// <summary>
     /// 是否生成html
     /// </summary>

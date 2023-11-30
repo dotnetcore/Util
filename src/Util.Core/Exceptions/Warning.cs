@@ -23,7 +23,6 @@ public class Warning : Exception {
         : base( message ?? "", exception ) {
         Code = code;
         HttpStatusCode = httpStatusCode;
-        IsLocalization = true;
     }
 
     /// <summary>
@@ -39,7 +38,7 @@ public class Warning : Exception {
     /// <summary>
     /// 是否本地化异常消息
     /// </summary>
-    public bool IsLocalization { get; set; }
+    public bool? IsLocalization { get; set; }
 
     /// <summary>
     /// 获取错误消息

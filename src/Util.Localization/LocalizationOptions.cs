@@ -20,4 +20,9 @@ public class LocalizationOptions {
     /// 缓存过期时间间隔,单位: 秒 ,默认值: 28800
     /// </summary>
     public int Expiration { get; set; } = 28800;
+
+    /// <summary>
+    /// 是否本地化Warning异常消息,默认值: false
+    /// </summary>
+    public bool IsLocalizeWarning { get; set; }
 }

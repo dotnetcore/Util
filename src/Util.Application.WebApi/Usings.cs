@@ -18,3 +18,4 @@ global using Microsoft.Extensions.Localization;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using Microsoft.AspNetCore.Builder;
+global using Microsoft.Extensions.Options;

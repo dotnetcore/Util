@@ -37,8 +37,15 @@ public static class AppBuilderExtensions {
         var options = new JsonLocalizationOptions();
         setupAction?.Invoke( options );
         builder.Host.ConfigureServices( ( context, services ) => {
-            if ( setupAction != null )
+            if ( setupAction != null ) {
                 services.Configure( setupAction );
+                void Action( LocalizationOptions localizationOptions ) {
+                    localizationOptions.Expiration = options.Expiration;
+                    localizationOptions.IsLocalizeWarning = options.IsLocalizeWarning;
+                    localizationOptions.Cultures = options.Cultures;
+                }
+                services.Configure( (Action<LocalizationOptions>)Action );
+            }
             services.AddMemoryCache();
             services.RemoveAll( typeof( IStringLocalizerFactory ) );
             services.RemoveAll( typeof( IStringLocalizer<> ) );

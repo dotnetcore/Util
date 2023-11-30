@@ -27,8 +27,15 @@ public class ExceptionHandlerAttribute : ExceptionFilterAttribute {
     /// </summary>
     protected virtual string GetLocalizedMessages( ExceptionContext context, string message ) {
         var exception = context.Exception.GetRawException();
-        if ( exception is Warning { IsLocalization: false } ) 
+        if ( exception is not Warning warning )
             return message;
+        if( warning.IsLocalization == false )
+            return message;
+        if ( warning.IsLocalization == null ) {
+            var localizationOptions = context.HttpContext.RequestServices.GetService<IOptions<Util.Localization.LocalizationOptions>>();
+            if ( localizationOptions.Value.IsLocalizeWarning == false )
+                return message;
+        }
         var stringLocalizerFactory = context.HttpContext.RequestServices.GetService<IStringLocalizerFactory>();
         if ( stringLocalizerFactory == null )
             return message;
