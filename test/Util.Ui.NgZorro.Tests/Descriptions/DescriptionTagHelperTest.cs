@@ -127,6 +127,84 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         }
 
         /// <summary>
+        /// 测试一行中描述列表项的数量
+        /// </summary>
+        [Fact]
+        public void TestXsColumn() {
+            _wrapper.SetContextAttribute( UiConst.XsColumn, 1 );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1}\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试一行中描述列表项的数量
+        /// </summary>
+        [Fact]
+        public void TestSmColumn() {
+            _wrapper.SetContextAttribute( UiConst.SmColumn, 1 );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzColumn]=\"{sm:1}\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试一行中描述列表项的数量
+        /// </summary>
+        [Fact]
+        public void TestMdColumn() {
+            _wrapper.SetContextAttribute( UiConst.MdColumn, 1 );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzColumn]=\"{md:1}\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试一行中描述列表项的数量
+        /// </summary>
+        [Fact]
+        public void TestLgColumn() {
+            _wrapper.SetContextAttribute( UiConst.LgColumn, 1 );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzColumn]=\"{lg:1}\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试一行中描述列表项的数量
+        /// </summary>
+        [Fact]
+        public void TestXlColumn() {
+            _wrapper.SetContextAttribute( UiConst.XlColumn, 1 );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzColumn]=\"{xl:1}\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试一行中描述列表项的数量
+        /// </summary>
+        [Fact]
+        public void TestXxlColumn() {
+            _wrapper.SetContextAttribute( UiConst.XxlColumn, 1 );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzColumn]=\"{xxl:1}\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试一行中描述列表项的数量
+        /// </summary>
+        [Fact]
+        public void TestXxlColumn_2() {
+            _wrapper.SetContextAttribute( UiConst.LgColumn, 1 );
+            _wrapper.SetContextAttribute( UiConst.XxlColumn, 2 );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzColumn]=\"{lg:1,xxl:2}\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试列表大小
         /// </summary>
         [Fact]

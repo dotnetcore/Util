@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Grids.Helpers;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Descriptions.Builders; 
@@ -53,7 +54,24 @@ public class DescriptionBuilder : AngularTagBuilder {
     /// 配置一行包含的描述列表项数量
     /// </summary>
     public DescriptionBuilder Column() {
-        AttributeIfNotEmpty( "[nzColumn]", _config.GetValue( UiConst.Column ) );
+        Column( _config.GetValue( UiConst.Column ) );
+        var model = new ColumnModel {
+            Xs = _config.GetValue<int?>( UiConst.XsColumn ),
+            Sm = _config.GetValue<int?>( UiConst.SmColumn ),
+            Md = _config.GetValue<int?>( UiConst.MdColumn ),
+            Lg = _config.GetValue<int?>( UiConst.LgColumn ),
+            Xl = _config.GetValue<int?>( UiConst.XlColumn ),
+            Xxl = _config.GetValue<int?>( UiConst.XxlColumn )
+        };
+        Column( model.ToJson() );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置一行包含的描述列表项数量
+    /// </summary>
+    public DescriptionBuilder Column( string column ) {
+        AttributeIfNotEmpty( "[nzColumn]", column );
         return this;
     }
 

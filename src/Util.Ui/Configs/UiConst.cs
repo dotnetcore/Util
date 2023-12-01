@@ -587,6 +587,30 @@ public static class UiConst {
     /// <summary>
     /// 列
     /// </summary>
+    public const string XsColumn = "xs-column";
+    /// <summary>
+    /// 列
+    /// </summary>
+    public const string SmColumn = "sm-column";
+    /// <summary>
+    /// 列
+    /// </summary>
+    public const string MdColumn = "md-column";
+    /// <summary>
+    /// 列
+    /// </summary>
+    public const string LgColumn = "lg-column";
+    /// <summary>
+    /// 列
+    /// </summary>
+    public const string XlColumn = "xl-column";
+    /// <summary>
+    /// 列
+    /// </summary>
+    public const string XxlColumn = "xxl-column";
+    /// <summary>
+    /// 列
+    /// </summary>
     public const string Columns = "columns";
     /// <summary>
     /// 行高

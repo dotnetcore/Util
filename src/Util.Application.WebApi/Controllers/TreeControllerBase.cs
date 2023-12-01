@@ -3,7 +3,7 @@ using Util.Data.Trees;
 using Util.Applications.Properties;
 using Util.Applications.Dtos;
 
-namespace Util.Applications.Controllers; 
+namespace Util.Applications.Controllers;
 
 /// <summary>
 /// 树形控制器
@@ -62,12 +62,12 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
     /// </summary>
     /// <param name="request">创建参数</param>
     protected async Task<IActionResult> CreateAsync( TCreateRequest request ) {
-        if ( request == null )
+        if( request == null )
             return Fail( ApplicationResource.CreateRequestIsEmpty );
         CreateBefore( request );
         var id = await _service.CreateAsync( request );
         var result = await _service.GetByIdAsync( id );
-        return Success( result );
+        return Success( CreateAfter( result ) );
     }
 
     /// <summary>
@@ -75,6 +75,14 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
     /// </summary>
     /// <param name="request">创建参数</param>
     protected virtual void CreateBefore( TCreateRequest request ) {
+    }
+
+    /// <summary>
+    /// 创建后操作
+    /// </summary>
+    /// <param name="result">结果</param>
+    protected virtual object CreateAfter( TDto result ) {
+        return result;
     }
 
     #endregion
@@ -87,16 +95,16 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
     /// <param name="id">标识</param>
     /// <param name="request">修改参数</param>
     protected async Task<IActionResult> UpdateAsync( string id, TUpdateRequest request ) {
-        if ( request == null )
+        if( request == null )
             return Fail( ApplicationResource.UpdateRequestIsEmpty );
-        if ( id.IsEmpty() && request.Id.IsEmpty() )
+        if( id.IsEmpty() && request.Id.IsEmpty() )
             return Fail( ApplicationResource.IdIsEmpty );
-        if ( request.Id.IsEmpty() )
+        if( request.Id.IsEmpty() )
             request.Id = id;
         UpdateBefore( request );
         await _service.UpdateAsync( request );
         var result = await _service.GetByIdAsync( request.Id );
-        return Success( result );
+        return Success( UpdateAfter( result ) );
     }
 
     /// <summary>
@@ -104,6 +112,14 @@ public abstract class TreeControllerBase<TDto, TCreateRequest, TUpdateRequest, T
     /// </summary>
     /// <param name="dto">修改参数</param>
     protected virtual void UpdateBefore( TUpdateRequest dto ) {
+    }
+
+    /// <summary>
+    /// 修改后操作
+    /// </summary>
+    /// <param name="result">结果</param>
+    protected virtual object UpdateAfter( TDto result ) {
+        return result;
     }
 
     #endregion

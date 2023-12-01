@@ -285,7 +285,7 @@ public class TreeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string OnDragEnd { get; set; }
     /// <summary>
-    /// 扩展属性 [onLoadChildrenBefore],子节点加载前事件,返回false停止加载,类型: (node:NzTreeNode) => boolean,参数为父节点
+    /// 扩展属性 [onLoadChildrenBefore],子节点加载前事件,返回false停止加载,类型: (parentNode:NzTreeNode,queryParam) => boolean,参数为父节点和查询参数
     /// </summary>
     public string OnLoadChildrenBefore { get; set; }
     /// <summary>
