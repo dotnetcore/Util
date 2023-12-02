@@ -671,7 +671,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected HttpClientHandler CreateHttpClientHandler() {
         var handlerFactory = _httpClientFactory as IHttpMessageHandlerFactory;
-        var handler = handlerFactory?.CreateHandler();
+        if ( handlerFactory == null )
+            return null;
+        var handler = _httpClientName.IsEmpty() ? handlerFactory.CreateHandler() : handlerFactory.CreateHandler( _httpClientName );
         while( handler is DelegatingHandler delegatingHandler ) {
             handler = delegatingHandler.InnerHandler;
         }
