@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Util.FileStorage.Minio.Tests; 
+﻿namespace Util.FileStorage.Tests; 
 
 /// <summary>
 /// 测试文件大小

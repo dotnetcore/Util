@@ -26,7 +26,7 @@ public class MinioFileStore : IFileStore {
     /// <summary>
     /// Minio配置
     /// </summary>
-    private MinioConfig _config;
+    private MinioOptions _config;
     /// <summary>
     /// Minio客户端
     /// </summary>
@@ -342,7 +342,7 @@ public class MinioFileStore : IFileStore {
             .WithStreamData( stream )
             .WithObjectSize( stream.Length );
         await client.PutObjectAsync( args, cancellationToken );
-        return new FileResult( fileName.Name, stream.Length, bucketName.Name );
+        return new FileResult( fileName.Name, stream.Length, fileName.OriginalName, bucketName.Name );
     }
 
     #endregion

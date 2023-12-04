@@ -33,12 +33,13 @@ public class Startup {
                     } );
             } )
             .AsBuild()
-            .AddMinio( options => options.Endpoint( Util.Helpers.Config.GetValue( "Minio:Endpoint" ) )
-                .AccessKey( Util.Helpers.Config.GetValue( "Minio:AccessKey" ) )
-                .SecretKey( Util.Helpers.Config.GetValue( "Minio:SecretKey" ) )
-                .DefaultBucketName( "Util.FileStorage.Minio.Test" )
-                .UseSSL( false )
-            )
+            .AddMinio( options => {
+                options.Endpoint = Util.Helpers.Config.GetValue( "Minio:Endpoint" );
+                options.AccessKey = Util.Helpers.Config.GetValue( "Minio:AccessKey" );
+                options.SecretKey = Util.Helpers.Config.GetValue( "Minio:SecretKey" );
+                options.DefaultBucketName = "Util.FileStorage.Minio.Test";
+                options.UseSSL = false;
+            } )
             .AddUtil();
     }
 

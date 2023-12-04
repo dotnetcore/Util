@@ -27,7 +27,7 @@ public class UserTimeFileNameProcessor : IFileNameProcessor {
     /// <inheritdoc />
     public ProcessedName Process( string fileName ) {
         var result = $"{GetUserId()}{GetTime()}{fileName}";
-        return new ProcessedName( result );
+        return new ProcessedName( result, fileName );
     }
 
     /// <summary>

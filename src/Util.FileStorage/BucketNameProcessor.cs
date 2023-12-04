@@ -9,6 +9,6 @@ public class BucketNameProcessor : IBucketNameProcessor {
         if ( bucketName.IsEmpty() )
             throw new ArgumentNullException( nameof( bucketName ) );
         var result = bucketName.ToLowerInvariant().Replace( "_","-" );
-        return new ProcessedName( result );
+        return new ProcessedName( result, bucketName );
     }
 }

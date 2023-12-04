@@ -5,93 +5,35 @@
 /// </summary>
 public class MinioOptions {
     /// <summary>
-    /// Minio配置
+    /// Minio存储服务地址
     /// </summary>
-    private readonly MinioConfig _config;
-
+    public string Endpoint { get; set; }
     /// <summary>
-    /// 初始化Minio配置
+    /// 访问密钥,用来标识帐户的Id
     /// </summary>
-    public MinioOptions() {
-        _config = new MinioConfig();
-    }
-
+    public string AccessKey { get; set; }
     /// <summary>
-    /// 设置Minio存储服务地址
+    /// 密钥,即帐户密码
     /// </summary>
-    /// <param name="endpoint">Minio存储服务地址</param>
-    public MinioOptions Endpoint( string endpoint ) {
-        _config.Endpoint = endpoint;
-        return this;
-    }
-
+    public string SecretKey { get; set; }
     /// <summary>
-    /// 设置访问密钥,用来标识帐户的Id
+    /// 是否使用Https,默认值: false
     /// </summary>
-    /// <param name="accessKey">访问密钥</param>
-    public MinioOptions AccessKey( string accessKey ) {
-        _config.AccessKey = accessKey;
-        return this;
-    }
-
+    public bool UseSSL { get; set; }
     /// <summary>
-    /// 设置密钥,即帐户密码
+    /// 默认存储桶名称
     /// </summary>
-    /// <param name="secretKey">密钥</param>
-    public MinioOptions SecretKey( string secretKey ) {
-        _config.SecretKey = secretKey;
-        return this;
-    }
-
+    public string DefaultBucketName { get; set; }
     /// <summary>
-    /// 设置是否使用Https
+    /// HttpClient名称
     /// </summary>
-    /// <param name="useSSL">是否使用Https</param>
-    public MinioOptions UseSSL( bool useSSL = true ) {
-        _config.UseSSL = useSSL;
-        return this;
-    }
-
+    public string HttpClientName { get; set; }
     /// <summary>
-    /// 设置默认存储桶名称
+    /// 上传地址过期时间,单位:秒,默认值: 3600
     /// </summary>
-    /// <param name="bucketName">存储桶名称</param>
-    public MinioOptions DefaultBucketName( string bucketName ) {
-        _config.DefaultBucketName = bucketName;
-        return this;
-    }
-
+    public int UploadUrlExpiration { get; set; } = 3600;
     /// <summary>
-    /// 设置HttpClient名称
+    /// 下载地址过期时间,单位:秒,默认值: 3600
     /// </summary>
-    /// <param name="httpClientName">HttpClient名称</param>
-    public MinioOptions HttpClient( string httpClientName ) {
-        _config.HttpClientName = httpClientName;
-        return this;
-    }
-
-    /// <summary>
-    /// 设置上传地址过期时间,单位:秒
-    /// </summary>
-    /// <param name="expiration">上传地址过期时间,单位:秒</param>
-    public MinioOptions UploadUrlExpiration( int expiration ) {
-        _config.UploadUrlExpiration = expiration;
-        return this;
-    }
-
-    /// <summary>
-    /// 设置下载地址过期时间,单位:秒
-    /// </summary>
-    /// <param name="expiration">下载地址过期时间,单位:秒</param>
-    public MinioOptions DownloadUrlExpiration( int expiration ) {
-        _config.DownloadUrlExpiration = expiration;
-        return this;
-    }
-
-    /// <summary>
-    /// 转换为Minio配置
-    /// </summary>
-    internal MinioConfig ToConfig() {
-        return _config;
-    }
+    public int DownloadUrlExpiration { get; set; } = 3600;
 }

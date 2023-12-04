@@ -1,11 +1,9 @@
-﻿using Util.Dependency;
-
-namespace Util.FileStorage; 
+﻿namespace Util.FileStorage; 
 
 /// <summary>
 /// 文件名处理器
 /// </summary>
-public interface IFileNameProcessor : ITransientDependency {
+public interface IFileNameProcessor {
     /// <summary>
     /// 处理文件名
     /// </summary>

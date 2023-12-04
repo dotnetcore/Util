@@ -1,4 +1,4 @@
-﻿namespace Util.FileStorage; 
+﻿namespace Util.FileStorage;
 
 /// <summary>
 /// 文件处理结果
@@ -7,16 +7,18 @@ public class FileResult {
     /// <summary>
     /// 初始化文件处理结果
     /// </summary>
-    /// <param name="filePath">文件标识</param>
+    /// <param name="filePath">文件路径</param>
     /// <param name="size">文件大小</param>
+    /// <param name="originalFileName">原始文件名</param>
     /// <param name="bucket">存储桶名称</param>
-    public FileResult( string filePath, long? size,string bucket = null ) {
-        if ( filePath.IsEmpty() )
-            throw new ArgumentNullException( nameof(filePath) );
+    public FileResult( string filePath, long? size, string originalFileName = null, string bucket = null ) {
+        if( filePath.IsEmpty() )
+            throw new ArgumentNullException( nameof( filePath ) );
         FilePath = filePath;
+        Size = new FileSize( size.SafeValue() );
         FileName = System.IO.Path.GetFileName( filePath );
         Extension = System.IO.Path.GetExtension( FileName )?.TrimStart( '.' );
-        Size = new FileSize( size.SafeValue() );
+        OriginalFileName = originalFileName;
         Bucket = bucket;
     }
     /// <summary>
@@ -31,6 +33,10 @@ public class FileResult {
     /// 扩展名
     /// </summary>
     public string Extension { get; }
+    /// <summary>
+    /// 原始文件名
+    /// </summary>
+    public string OriginalFileName { get; }
     /// <summary>
     /// 文件大小
     /// </summary>

@@ -185,7 +185,7 @@ public class MinioFileStoreTest : IDisposable {
         Assert.True( exists );
 
         //获取文件
-        var stream = await _fileStore.GetFileStreamAsync( result.FileName );
+        await using var stream = await _fileStore.GetFileStreamAsync( result.FileName );
         var bytes = await File.ToBytesAsync( stream );
         Assert.Equal( result.Size.Size, bytes.Length );
     }

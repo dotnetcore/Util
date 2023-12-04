@@ -1,6 +1,4 @@
-﻿using Util.Dependency;
-
-namespace Util.FileStorage; 
+﻿namespace Util.FileStorage; 
 
 /// <summary>
 /// 文件名处理器工厂

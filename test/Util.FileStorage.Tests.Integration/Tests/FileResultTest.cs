@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Util.FileStorage.Minio.Tests; 
+﻿namespace Util.FileStorage.Tests; 
 
 /// <summary>
 /// 文件处理结果测试
@@ -11,13 +9,12 @@ public class FileResultTest {
     /// </summary>
     [Fact]
     public void Test_1() {
-        var fileInfo = new FileResult( "a.jpg", 1024, "b" );
+        var fileInfo = new FileResult( "a.jpg", 1024 );
         Assert.Equal( "a.jpg", fileInfo.FilePath );
         Assert.Equal( "a.jpg", fileInfo.FileName );
         Assert.Equal( "jpg", fileInfo.Extension );
         Assert.Equal( 1024, fileInfo.Size.GetSize() );
         Assert.Equal( "1 KB", fileInfo.Size.ToString() );
-        Assert.Equal( "b", fileInfo.Bucket );
     }
 
     /// <summary>

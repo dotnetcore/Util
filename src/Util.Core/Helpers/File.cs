@@ -78,25 +78,25 @@ public static class File {
 
     #endregion
 
-    #region ExistsByFile
+    #region FileExists
 
     /// <summary>
     /// 判断文件是否存在
     /// </summary>
     /// <param name="path">文件绝对路径</param>
-    public static bool ExistsByFile( string path ) {
+    public static bool FileExists( string path ) {
         return System.IO.File.Exists( path );
     }
 
     #endregion
 
-    #region ExistsByDirectory
+    #region DirectoryExists
 
     /// <summary>
     /// 判断目录是否存在
     /// </summary>
     /// <param name="path">目录绝对路径</param>
-    public static bool ExistsByDirectory( string path ) {
+    public static bool DirectoryExists( string path ) {
         return Directory.Exists( path );
     }
 
@@ -197,7 +197,12 @@ public static class File {
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
     public static Stream ReadToStream( string filePath ) {
-        return new FileStream( filePath, FileMode.Open );
+        try {
+            return new FileStream( filePath, FileMode.Open );
+        }
+        catch {
+            return null;
+        }
     }
 
     #endregion
@@ -259,6 +264,29 @@ public static class File {
 
     #endregion
 
+    #region ReadToMemoryStreamAsync
+
+    /// <summary>
+    /// 读取文件到内存流
+    /// </summary>
+    /// <param name="filePath">文件绝对路径</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task<MemoryStream> ReadToMemoryStreamAsync( string filePath, CancellationToken cancellationToken = default ) {
+        try {
+            if ( FileExists( filePath ) == false )
+                return null;
+            var memoryStream = new MemoryStream();
+            await using var stream = new FileStream( filePath, FileMode.Open );
+            await stream.CopyToAsync( memoryStream, cancellationToken ).ConfigureAwait( false );
+            return memoryStream;
+        }
+        catch {
+            return null;
+        }
+    }
+
+    #endregion
+
     #region Write
 
     /// <summary>
@@ -293,8 +321,20 @@ public static class File {
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="content">内容</param>
-    public static async Task WriteAsync( string filePath, string content ) {
-        await WriteAsync( filePath, Convert.ToBytes( content ) );
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task WriteAsync( string filePath, string content, CancellationToken cancellationToken = default ) {
+        await WriteAsync( filePath, Convert.ToBytes( content ), cancellationToken );
+    }
+
+    /// <summary>
+    /// 将流写入文件
+    /// </summary>
+    /// <param name="filePath">文件绝对路径</param>
+    /// <param name="content">内容</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task WriteAsync( string filePath, Stream content, CancellationToken cancellationToken = default ) {
+        var bytes = await ToBytesAsync( content, cancellationToken );
+        await WriteAsync( filePath, bytes, cancellationToken );
     }
 
     /// <summary>
@@ -302,13 +342,14 @@ public static class File {
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="content">内容</param>
-    public static async Task WriteAsync( string filePath, byte[] content ) {
+    /// <param name="cancellationToken">取消令牌</param>
+    public static async Task WriteAsync( string filePath, byte[] content, CancellationToken cancellationToken = default ) {
         if( string.IsNullOrWhiteSpace( filePath ) )
             return;
         if( content == null )
             return;
         CreateDirectory( filePath );
-        await System.IO.File.WriteAllBytesAsync( filePath, content );
+        await System.IO.File.WriteAllBytesAsync( filePath, content, cancellationToken );
     }
 
     #endregion
@@ -347,6 +388,44 @@ public static class File {
     public static List<FileInfo> GetAllFiles( string path,string searchPattern ) {
         return Directory.GetFiles( path, searchPattern, SearchOption.AllDirectories )
             .Select( filePath => new FileInfo( filePath ) ).ToList();
+    }
+
+    #endregion
+
+    #region Copy
+
+    /// <summary>
+    /// 复制文件
+    /// </summary>
+    /// <param name="sourceFilePath">源文件绝对路径</param>
+    /// <param name="destinationFilePath">目标文件绝对路径</param>
+    /// <param name="overwrite">目标文件存在时是否覆盖,默认值: false</param>
+    public static void Copy( string sourceFilePath,string destinationFilePath, bool overwrite = false ) {
+        if ( sourceFilePath.IsEmpty() || destinationFilePath.IsEmpty() )
+            return;
+        if( FileExists( sourceFilePath ) == false )
+            return;
+        CreateDirectory( destinationFilePath );
+        System.IO.File.Copy( sourceFilePath, destinationFilePath, overwrite );
+    }
+
+    #endregion
+
+    #region Move
+
+    /// <summary>
+    /// 移动文件
+    /// </summary>
+    /// <param name="sourceFilePath">源文件绝对路径</param>
+    /// <param name="destinationFilePath">目标文件绝对路径</param>
+    /// <param name="overwrite">目标文件存在时是否覆盖,默认值: false</param>
+    public static void Move( string sourceFilePath, string destinationFilePath, bool overwrite = false ) {
+        if( sourceFilePath.IsEmpty() || destinationFilePath.IsEmpty() )
+            return;
+        if( FileExists( sourceFilePath ) == false )
+            return;
+        CreateDirectory( destinationFilePath );
+        System.IO.File.Move( sourceFilePath, destinationFilePath, overwrite );
     }
 
     #endregion

@@ -1,6 +1,4 @@
-﻿using Util.Dependency;
-
-namespace Util.FileStorage.Minio; 
+﻿namespace Util.FileStorage.Minio; 
 
 /// <summary>
 /// Minio配置提供器
@@ -9,5 +7,5 @@ public interface IMinioConfigProvider : ITransientDependency {
     /// <summary>
     /// 获取配置
     /// </summary>
-    Task<MinioConfig> GetConfigAsync();
+    Task<MinioOptions> GetConfigAsync();
 }

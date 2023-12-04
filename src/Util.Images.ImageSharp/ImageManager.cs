@@ -24,7 +24,7 @@ public class ImageManager : IImageManager {
     /// </summary>
     /// <param name="path">字体文件目录的绝对路径</param>
     public static void LoadFonts( string path ) {
-        if ( Util.Helpers.File.ExistsByDirectory( path ) == false )
+        if ( Util.Helpers.File.DirectoryExists( path ) == false )
             return;
         LoadTtfFonts( path );
     }
