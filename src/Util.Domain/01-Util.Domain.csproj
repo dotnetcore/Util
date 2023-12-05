@@ -29,6 +29,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Util.Data.Abstractions\06-Util.Data.Abstractions.csproj" />
 	  <ProjectReference Include="..\Util.Events\02-Util.Events.csproj" />
+	  <ProjectReference Include="..\Util.Localization\09-Util.Localization.csproj" />
+	  <ProjectReference Include="..\Util.Logging\01-Util.Logging.csproj" />
 	</ItemGroup>
 
   <ItemGroup>
