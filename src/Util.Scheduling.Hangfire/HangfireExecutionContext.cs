@@ -37,6 +37,7 @@ public class HangfireExecutionContext {
     /// </summary>
     /// <typeparam name="T">参数类型</typeparam>
     public T GetData<T>() {
-        return Util.Helpers.Convert.To<T>( _data );
+        var result = Util.Helpers.Convert.To<T>( _data );
+        return result ?? Util.Helpers.Json.ToObject<T>( _data.SafeString() );
     }
 }

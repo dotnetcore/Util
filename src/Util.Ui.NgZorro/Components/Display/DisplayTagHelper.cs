@@ -5,6 +5,7 @@ using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Display.Helpers;
 using Util.Ui.NgZorro.Components.Display.Renders;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Display; 
@@ -26,6 +27,10 @@ public class DisplayTagHelper : FormContainerTagHelperBase {
     /// 值,范例: 设置 a,结果为 {{a}}
     /// </summary>
     public string Value { get; set; }
+    /// <summary>
+    /// 数据类型
+    /// </summary>
+    public DataType Type { get; set; }
     /// <summary>
     /// 是否显示左侧的标签,默认不显示,注意:设置For属性时生效
     /// </summary>

@@ -3,6 +3,7 @@ using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Display;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -58,6 +59,35 @@ namespace Util.Ui.NgZorro.Tests.Display {
             var result = new StringBuilder();
             result.Append( "<span>" );
             result.Append( "{{a}}" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试值 - 布尔类型
+        /// </summary>
+        [Fact]
+        public void TestValue_Bool() {
+            _wrapper.SetContextAttribute( UiConst.Value, "a" );
+            _wrapper.SetContextAttribute( UiConst.Type,DataType.Bool );
+            var result = new StringBuilder();
+            result.Append( "<span>" );
+            result.Append( "{{a?'是':'否'}}" );
+            result.Append( "</span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试值 - 布尔类型 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestValue_Bool_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Value, "a" );
+            _wrapper.SetContextAttribute( UiConst.Type, DataType.Bool );
+            var result = new StringBuilder();
+            result.Append( "<span>" );
+            result.Append( "{{(a?'util.yes':'util.no')|i18n}}" );
             result.Append( "</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

@@ -28,7 +28,7 @@ public class DisplayBuilder : FormControlBuilderBase<DisplayBuilder> {
     /// 配置值
     /// </summary>
     public DisplayBuilder Value() {
-        var dataType = _config.GetValue<DataType?>( UiConst.DataType );
+        var dataType = _config.GetValue<DataType?>( UiConst.Type );
         var value = _config.GetValue( UiConst.Value );
         if ( value.IsEmpty() )
             return this;

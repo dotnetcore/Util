@@ -55,7 +55,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
             result.Append( "</nz-option>" );
             result.Append( "</ng-container>" );
             result.Append( "<ng-container *ngIf=\"x_id.isGroup\">" );
-            result.Append( "<nz-option-group *ngFor=\"let group of x_id.optionGroups\" [nzLabel]=\"group.text\">" );
+            result.Append( "<nz-option-group *ngFor=\"let group of x_id.optionGroups\" [nzLabel]=\"group.text|i18n\">" );
             result.Append( "<nz-option *ngFor=\"let item of group.value\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
             result.Append( "</nz-option>" );
             result.Append( "</nz-option-group>" );

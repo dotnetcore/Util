@@ -46,11 +46,11 @@ public class DisplayExpressionLoader : NgZorroExpressionLoaderBase {
     protected virtual void LoadValue( Config config, ModelExpressionInfo info ) {
         config.SetAttribute( UiConst.Value, info.SafePropertyName, false );
         if ( info.IsBool ) {
-            config.SetAttribute( UiConst.DataType, DataType.Bool );
+            config.SetAttribute( UiConst.Type, DataType.Bool );
             return;
         }
         if ( info.IsDate ) {
-            config.SetAttribute( UiConst.DataType, DataType.Date );
+            config.SetAttribute( UiConst.Type, DataType.Date );
             return;
         }
     }

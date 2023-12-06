@@ -79,7 +79,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
     /// 配置值
     /// </summary>
     private void ConfigValue() {
-        var dataType = _config.GetValue<DataType?>( UiConst.DataType );
+        var dataType = _config.GetValue<DataType?>( UiConst.Type );
         var value = _config.GetValue( UiConst.Value );
         if ( value.IsEmpty() )
             return;

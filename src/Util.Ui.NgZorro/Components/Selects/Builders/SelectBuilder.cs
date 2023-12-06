@@ -629,7 +629,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
         var groupBuilder = new OptionGroupBuilder( _config );
         containerBuilder.AppendContent( groupBuilder );
         groupBuilder.NgFor( $"let group of {ExtendId}.optionGroups" );
-        groupBuilder.BindLabel( "group.text" );
+        ConfigGroupBindLabel( groupBuilder );
         var optionBuilder = new OptionBuilder( _config );
         groupBuilder.AppendContent( optionBuilder );
         optionBuilder.NgFor( "let item of group.value" );
@@ -637,5 +637,17 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
         optionBuilder.BindValue( "item.value" );
         optionBuilder.Disabled( "item.disabled" );
         AppendContent( containerBuilder );
+    }
+
+    /// <summary>
+    /// 配置选项组标签文本
+    /// </summary>
+    private void ConfigGroupBindLabel( OptionGroupBuilder groupBuilder ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if( options.EnableI18n ) {
+            groupBuilder.BindLabel( "group.text|i18n" );
+            return;
+        }
+        groupBuilder.BindLabel( "group.text" );
     }
 }
