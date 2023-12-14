@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Xunit;
 
@@ -253,10 +254,60 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         public void TestAllowClear() {
             _wrapper.SetContextAttribute( UiConst.AllowClear, true );
             var result = new StringBuilder();
-            result.Append( "<nz-input-group [nzSuffix]=\"clear_id\">" );
+            result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
             result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" />" );
             result.Append( "</nz-input-group>" );
-            result.Append( "<ng-template #clear_id=\"\">" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "</ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试允许清除 - 全局设置
+        /// </summary>
+        [Fact]
+        public void TestAllowClear_2() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" />" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "</ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试密码类型
+        /// </summary>
+        [Fact]
+        public void TestType_Password() {
+            _wrapper.SetContextAttribute( UiConst.Type, InputType.Password );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<input #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<i (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></i>" );
+            result.Append( "</ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试密码类型允许清除
+        /// </summary>
+        [Fact]
+        public void TestPassword_AllowClear() {
+            _wrapper.SetContextAttribute( UiConst.Type, InputType.Password );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<input #model_id=\"ngModel\" #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<i (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></i>" );
             result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
             result.Append( "</ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );

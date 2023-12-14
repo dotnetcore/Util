@@ -51,4 +51,14 @@ public class FileStoreFactory : IFileStoreFactory {
     public IFileStore Create( MinioOptions options ) {
         return new MinioFileStore( new MinioConfigProvider( options ), _httpClientFactory, _bucketNameProcessorFactory, _fileNameProcessorFactory, _httpClient );
     }
+
+    /// <inheritdoc />
+    public IFileStore Create( AliyunOssOptions options ) {
+        return new AliyunFileStore( new AliyunOssConfigProvider( options ), _bucketNameProcessorFactory, _fileNameProcessorFactory, _httpClient );
+    }
+
+    /// <inheritdoc />
+    public IAliyunOssFileStore CreateAliyunOss( AliyunOssOptions options ) {
+        return new AliyunFileStore( new AliyunOssConfigProvider( options ), _bucketNameProcessorFactory, _fileNameProcessorFactory, _httpClient );
+    }
 }

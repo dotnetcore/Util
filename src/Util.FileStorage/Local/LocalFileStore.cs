@@ -298,12 +298,12 @@ public class LocalFileStore : IFileStore {
     #region GenerateUploadUrlAsync
 
     /// <inheritdoc />
-    public virtual Task<string> GenerateUploadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
+    public virtual Task<DirectUploadParam> GenerateUploadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public virtual Task<string> GenerateUploadUrlAsync( GenerateUploadUrlArgs args, CancellationToken cancellationToken = default ) {
+    public virtual Task<DirectUploadParam> GenerateUploadUrlAsync( GenerateUploadUrlArgs args, CancellationToken cancellationToken = default ) {
         throw new NotImplementedException();
     }
 

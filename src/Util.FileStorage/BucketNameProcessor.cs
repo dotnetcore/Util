@@ -8,7 +8,7 @@ public class BucketNameProcessor : IBucketNameProcessor {
     public ProcessedName Process( string bucketName ) {
         if ( bucketName.IsEmpty() )
             throw new ArgumentNullException( nameof( bucketName ) );
-        var result = bucketName.ToLowerInvariant().Replace( "_","-" );
+        var result = bucketName.ToLowerInvariant().Replace( "_","-" ).Replace( ".", "-" ).Trim( '-' );
         return new ProcessedName( result, bucketName );
     }
 }

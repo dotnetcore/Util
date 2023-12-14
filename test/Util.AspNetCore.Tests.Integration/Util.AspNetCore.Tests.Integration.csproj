@@ -30,6 +30,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="Resources\a.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Samples\Certificate\apiclient_cert.p12">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

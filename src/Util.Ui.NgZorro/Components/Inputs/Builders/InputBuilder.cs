@@ -64,6 +64,8 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// </summary>
     public InputBuilder Type() {
         var type = _config.GetValue<InputType?>( UiConst.Type );
+        if ( type == InputType.Password )
+            return this;
         if ( type == InputType.Email ) {
             Attribute( "[email]", "true" );
         }

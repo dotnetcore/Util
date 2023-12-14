@@ -76,4 +76,13 @@ public class ValidationExtensionsTest {
         list.Add( 1 );
         Assert.False( list.IsEmpty() );
     }
+
+    /// <summary>
+    /// 测试是否默认值
+    /// </summary>
+    [Fact]
+    public void TestIsDefault() {
+        Assert.True( Guid.Empty.IsDefault() );
+        Assert.False( Guid.NewGuid().IsDefault() );
+    }
 }

@@ -11,6 +11,7 @@ global using System.ComponentModel;
 global using System.Security.Cryptography.X509Certificates;
 global using System.Text.Encodings.Web;
 global using System.Text.Unicode;
+global using System.IO;
 global using Microsoft.Net.Http.Headers;
 global using Microsoft.AspNetCore.WebUtilities;
 global using Util.Dependency;

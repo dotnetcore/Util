@@ -5,6 +5,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs;
 using Util.Ui.NgZorro.Components.Mentions;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -231,11 +232,27 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         public void TestAllowClear() {
             _wrapper.SetContextAttribute( UiConst.AllowClear, true );
             var result = new StringBuilder();
-            result.Append( "<nz-input-group class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"clear_id\">" );
+            result.Append( "<nz-input-group class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"tmp_id\">" );
             result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\"></textarea>" );
             result.Append( "</nz-input-group>" );
-            result.Append( "<ng-template #clear_id=\"\">" );
-            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-textarea-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "</ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试允许清除 - 全局设置
+        /// </summary>
+        [Fact]
+        public void TestAllowClear_2() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\"></textarea>" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
             result.Append( "</ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

@@ -136,6 +136,24 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <param name="value">值</param>
     IHttpRequest<TResult> XmlContent( string value );
     /// <summary>
+    /// 添加内容类型为 multipart/form-data 的文件参数
+    /// </summary>
+    /// <param name="file">文件流</param>
+    /// <param name="fileName">文件名</param>
+    /// <param name="name">参数名,默认值: file</param>
+    IHttpRequest<TResult> FileContent( Stream file,string fileName, string name = "file" );
+    /// <summary>
+    /// 添加内容类型为 multipart/form-data 的文件参数
+    /// </summary>
+    /// <param name="filePath">文件绝对路径</param>
+    /// <param name="name">参数名,默认值: file</param>
+    IHttpRequest<TResult> FileContent( string filePath, string name = "file" );
+    /// <summary>
+    /// 文件上传参数是否添加双引号
+    /// </summary>
+    /// <param name="isQuote">是否添加双引号</param>
+    IHttpRequest<TResult> FileParameterQuotes( bool isQuote = true );
+    /// <summary>
     /// 发送前事件
     /// </summary>
     /// <param name="action">发送前操作,返回false取消发送</param>

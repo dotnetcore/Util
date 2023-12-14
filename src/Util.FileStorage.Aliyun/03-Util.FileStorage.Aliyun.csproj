@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(NetTargetFramework)</TargetFramework>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<AssemblyName>Util.FileStorage.Aliyun</AssemblyName>
+		<RootNamespace>Util.FileStorage.Aliyun</RootNamespace>
+		<Description>Util.FileStorage.Aliyun是Util应用框架基于阿里云对象存储OSS操作类库</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.FileStorage.Aliyun.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath></OutputPath>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.FileStorage.Aliyun.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\build\icon.jpg">
+			<Pack>True</Pack>
+			<Visible>False</Visible>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="AlibabaCloud.SDK.Sts20150401" Version="1.1.4" />
+	  <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Util.FileStorage\01-Util.FileStorage.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -156,17 +156,6 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
-        /// 测试类型
-        /// </summary>
-        [Fact]
-        public void TestType() {
-            _wrapper.SetContextAttribute( UiConst.Type, InputType.Password );
-            var result = new StringBuilder();
-            result.Append( "<input nz-input=\"\" type=\"password\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试类型 - 电子邮件
         /// </summary>
         [Fact]

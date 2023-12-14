@@ -75,31 +75,31 @@ public interface IFileStore : ILocalFileStore {
     /// <param name="cancellationToken">取消令牌</param>
     Task DeleteFileAsync( DeleteFileArgs args, CancellationToken cancellationToken = default );
     /// <summary>
-    /// 生成下载Url,供客户端直接下载
+    /// 生成客户端直接下载Url
     /// </summary>
     /// <param name="fileName">文件名</param>
     /// <param name="policy">文件名处理策略</param>
     /// <param name="cancellationToken">取消令牌</param>
     Task<string> GenerateDownloadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default );
     /// <summary>
-    /// 生成下载Url,供客户端直接下载
+    /// 生成客户端直接下载Url
     /// </summary>
     /// <param name="args">参数</param>
     /// <param name="cancellationToken">取消令牌</param>
     Task<string> GenerateDownloadUrlAsync( GenerateDownloadUrlArgs args, CancellationToken cancellationToken = default );
     /// <summary>
-    /// 生成上传Url,供客户端直接上传
+    /// 生成客户端直接上传Url
     /// </summary>
     /// <param name="fileName">文件名</param>
     /// <param name="policy">文件名处理策略</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task<string> GenerateUploadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default );
+    Task<DirectUploadParam> GenerateUploadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default );
     /// <summary>
-    /// 生成上传Url,供客户端直接上传
+    /// 生成客户端直接上传Url
     /// </summary>
     /// <param name="args">参数</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task<string> GenerateUploadUrlAsync( GenerateUploadUrlArgs args, CancellationToken cancellationToken = default );
+    Task<DirectUploadParam> GenerateUploadUrlAsync( GenerateUploadUrlArgs args, CancellationToken cancellationToken = default );
     /// <summary>
     /// 清空存储桶和文件
     /// </summary>

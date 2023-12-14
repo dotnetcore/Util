@@ -33,6 +33,10 @@ public class NgZorroOptions {
     /// </summary>
     public bool EnableAutocompleteOff { get; set; }
     /// <summary>
+    /// 是否启用允许清除输入框
+    /// </summary>
+    public bool EnableAllowClear { get; set; }
+    /// <summary>
     /// 获取表格布尔列内容操作
     /// </summary>
     public Func<string, string> GetTableColumnBoolContentAction { get; set; }

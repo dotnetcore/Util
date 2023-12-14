@@ -8,6 +8,7 @@ using Util.Ui.NgZorro.Components.Inputs.Builders;
 using Util.Ui.NgZorro.Components.Inputs.Configs;
 using Util.Ui.NgZorro.Components.Mentions.Configs;
 using Util.Ui.NgZorro.Components.Templates.Builders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Renders; 
@@ -30,10 +31,10 @@ public abstract class InputRenderBase : FormControlRenderBase {
     }
 
     /// <summary>
-    /// 获取清除图标模板标识
+    /// 获取后置图标模板标识
     /// </summary>
-    protected string GetClearTemplateId() {
-        return $"clear_{GetId()}";
+    protected string GetSuffixTemplateId() {
+        return $"tmp_{GetId()}";
     }
 
     /// <summary>
@@ -50,8 +51,8 @@ public abstract class InputRenderBase : FormControlRenderBase {
         var inputGroup = GetInputGroup();
         var input = GetInput();
         inputGroup.AppendContent( input );
-        var clearTemplate = GetClearTemplate();
-        formControlBuilder.AppendContent( inputGroup ).AppendContent( clearTemplate );
+        var suffixTemplate = GetSuffixTemplate();
+        formControlBuilder.AppendContent( inputGroup ).AppendContent( suffixTemplate );
     }
 
     /// <summary>
@@ -59,15 +60,35 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// </summary>
     protected override void Init() {
         SetControlId();
-        InitAllowClear();
+        SetSuffixAttribute();
     }
 
     /// <summary>
-    /// 初始化清除内容
+    /// 设置后置图标模板属性
     /// </summary>
-    protected void InitAllowClear() {
-        if( _config.GetValue<bool?>( UiConst.AllowClear ) == true )
-            _config.SetAttribute( AngularConst.BindSuffix, GetClearTemplateId() );
+    protected void SetSuffixAttribute() {
+        if( IsAllowClear() || IsPassword() )
+            _config.SetAttribute( AngularConst.BindSuffix, GetSuffixTemplateId() );
+    }
+
+    /// <summary>
+    /// 是否允许清除
+    /// </summary>
+    private bool IsAllowClear() {
+        var isAllowClear = _config.GetValue<bool?>( UiConst.AllowClear );
+        if ( isAllowClear == null ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if( options.EnableAllowClear )
+                return true;
+        }
+        return isAllowClear.SafeValue();
+    }
+
+    /// <summary>
+    /// 是否密码类型
+    /// </summary>
+    private bool IsPassword() {
+        return _config.GetValue<InputType?>( UiConst.Type ) == InputType.Password;
     }
 
     /// <summary>
@@ -86,7 +107,9 @@ public abstract class InputRenderBase : FormControlRenderBase {
         var shareConfig = GetInputGroupShareConfig();
         if ( shareConfig.AutoCreateInputGroup == true )
             return true;
-        if( _config.GetValue<bool?>( UiConst.AllowClear ) == true )
+        if( IsAllowClear() )
+            return true;
+        if( IsPassword() )
             return true;
         return false;
     }
@@ -121,6 +144,8 @@ public abstract class InputRenderBase : FormControlRenderBase {
     private TagBuilder GetInput() {
         var builder = GetInputBuilder();
         ExportNgModel( builder );
+        AddInputExtendDirective( builder );
+        AddPasswordType( builder );
         ConfigMentionTrigger( builder );
         return builder;
     }
@@ -134,17 +159,46 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// 导出ngModel
     /// </summary>
     public void ExportNgModel( TagBuilder builder ) {
-        if( NeedExportNgModel() )
-            builder.Attribute( $"#{GetNgModelId()}", "ngModel" );
+        if ( NeedExportNgModel() == false )
+            return;
+        builder.Attribute( $"#{GetNgModelId()}", "ngModel" );
     }
 
     /// <summary>
     /// 是否需要导出ngModel
     /// </summary>
     private bool NeedExportNgModel() {
-        if( _config.Contains( UiConst.AllowClear ) )
+        if( IsAllowClear() )
             return true;
         return false;
+    }
+
+    /// <summary>
+    /// 添加输入框扩展指令
+    /// </summary>
+    private void AddInputExtendDirective( TagBuilder builder ) {
+        if ( NeedAddInputExtendDirective() == false )
+            return;
+        builder.Attribute( "x-input-extend" );
+        builder.Attribute( $"#xi_{GetId()}", "xInputExtend" );
+    }
+
+    /// <summary>
+    /// 是否需要添加输入框扩展指令
+    /// </summary>
+    private bool NeedAddInputExtendDirective() {
+        if( IsPassword() )
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// 添加密码类型
+    /// </summary>
+    private void AddPasswordType( TagBuilder builder ) {
+        if ( IsPassword() == false )
+            return;
+        builder.Attribute( "[type]", $"xi_{GetId()}.passwordVisible?'text':'password'" );
     }
 
     /// <summary>
@@ -158,22 +212,36 @@ public abstract class InputRenderBase : FormControlRenderBase {
     }
 
     /// <summary>
-    /// 获取清除模板
+    /// 获取后置图标模板
     /// </summary>
-    private TagBuilder GetClearTemplate() {
-        if( _config.Contains( UiConst.AllowClear ) == false )
+    private TagBuilder GetSuffixTemplate() {
+        if( IsAllowClear() == false && IsPassword() == false )
             return new EmptyTagBuilder();
         var templateBuilder = new TemplateBuilder( _config );
-        templateBuilder.Id( GetClearTemplateId() );
-        var iconBuilder = GetClearIconBuilder();
-        templateBuilder.SetContent( iconBuilder );
+        templateBuilder.Id( GetSuffixTemplateId() );
+        templateBuilder.AppendContent( GetPasswordIconBuilder() );
+        templateBuilder.AppendContent( GetClearIconBuilder() );
         return templateBuilder;
+    }
+
+    /// <summary>
+    /// 获取密码图标标签生成器
+    /// </summary>
+    private TagBuilder GetPasswordIconBuilder() {
+        if( IsPassword() == false )
+            return new EmptyTagBuilder();
+        var builder = new IconBuilder( _config );
+        builder.BindType( $"xi_{GetId()}.passwordVisible?'eye-invisible':'eye'" );
+        builder.OnClick( $"xi_{GetId()}.passwordVisible = !xi_{GetId()}.passwordVisible" );
+        return builder;
     }
 
     /// <summary>
     /// 获取清除图标标签生成器
     /// </summary>
     private TagBuilder GetClearIconBuilder() {
+        if ( IsAllowClear() == false )
+            return new EmptyTagBuilder();
         var builder = new IconBuilder( _config );
         builder.Class( GetClearIconClass() );
         builder.Theme( IconTheme.Fill ).Type( AntDesignIcon.CloseCircle );

@@ -1,36 +1,37 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Util.FileStorage.Minio.Samples;
+﻿using Util.FileStorage.Aliyun.Samples;
 using Util.Helpers;
-using Xunit;
-using Xunit.Abstractions;
+using Util.Http;
 using File = Util.Helpers.File;
 
-namespace Util.FileStorage.Minio.Tests; 
+namespace Util.FileStorage.Aliyun.Tests;
 
 /// <summary>
-/// Minio文件存储服务测试
+/// 阿里云对象存储服务测试
 /// </summary>
-public class MinioFileStoreTest : IDisposable {
+public class AliyunFileStoreTest : IDisposable {
 
     #region 测试初始化
 
     /// <summary>
     /// 文件存储服务
     /// </summary>
-    private readonly IFileStore _fileStore;
+    private readonly AliyunFileStore _fileStore;
     /// <summary>
     /// 输出操作
     /// </summary>
     private readonly ITestOutputHelper _testOutputHelper;
+    /// <summary>
+    /// Http客户端
+    /// </summary>
+    private IHttpClient _client;
 
     /// <summary>
     /// 测试初始化
     /// </summary>
-    public MinioFileStoreTest( IFileStore fileStore, ITestOutputHelper testOutputHelper ) {
-        _fileStore = fileStore;
+    public AliyunFileStoreTest( IFileStore fileStore, ITestOutputHelper testOutputHelper, IHttpClient client ) {
+        _fileStore = fileStore as AliyunFileStore;
         _testOutputHelper = testOutputHelper;
+        _client = client;
         Time.SetTime( new DateTime( 2012, 12, 12, 12, 12, 12, 123 ) );
     }
 
@@ -47,61 +48,19 @@ public class MinioFileStoreTest : IDisposable {
 
     #endregion
 
-    #region BucketExistsAsync
-
-    /// <summary>
-    /// 测试存储桶是否存在
-    /// </summary>
-    [Fact]
-    public async Task TestBucketExistsAsync() {
-        var name = Id.Create();
-
-        //未创建的桶不存在
-        var result = await _fileStore.BucketExistsAsync( name );
-        Assert.False( result );
-
-        //创建桶
-        await _fileStore.CreateBucketAsync( name );
-
-        //验证
-        result = await _fileStore.BucketExistsAsync( name );
-        Assert.True( result );
-    }
-
-    #endregion
-
     #region CreateBucketAsync
 
     /// <summary>
-    /// 测试创建存储桶 - 修正名称有大写字母和下划线
+    /// 测试创建存储桶 - 修正名称有大写字母和下划线及两侧横线
     /// </summary>
     [Fact]
     public async Task TestCreateBucketAsync_1() {
-        var name = "TestCreateBucketAsync_1";
+        var name = $"-Test{Id.Create()}_1_";
 
         //创建桶
         await _fileStore.CreateBucketAsync( name );
 
         //验证
-        var result = await _fileStore.BucketExistsAsync( "testcreatebucketasync-1" );
-        Assert.True( result );
-    }
-
-    #endregion
-
-    #region DeleteBucketAsync
-
-    /// <summary>
-    /// 测试删除存储桶
-    /// </summary>
-    [Fact]
-    public async Task TestDeleteBucketAsync_1() {
-        var name = "TestDeleteBucketAsync_1";
-
-        //创建桶
-        await _fileStore.CreateBucketAsync( name );
-
-        //验证桶已存在
         var result = await _fileStore.BucketExistsAsync( name );
         Assert.True( result );
 
@@ -123,14 +82,14 @@ public class MinioFileStoreTest : IDisposable {
     [Fact]
     public async Task TestFileExistsAsync_1() {
         //定义文件名
-        var name = $"{Id.Create()}.jpg";
+        var name = $"{Id.Create()}.png";
 
         //文件未创建不存在
         var result = await _fileStore.FileExistsAsync( name );
         Assert.False( result );
 
         //读取文件
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
 
         //创建文件
@@ -147,7 +106,7 @@ public class MinioFileStoreTest : IDisposable {
     [Fact]
     public async Task TestFileExistsAsync_2() {
         //定义变量
-        var name = $"{Id.Create()}.jpg";
+        var name = $"{Id.Create()}.png";
         var bucketName = "TestFileExistsAsync_2";
 
         //文件未创建不存在
@@ -155,7 +114,7 @@ public class MinioFileStoreTest : IDisposable {
         Assert.False( result );
 
         //读取文件
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
 
         //创建文件
@@ -176,7 +135,7 @@ public class MinioFileStoreTest : IDisposable {
     [Fact]
     public async Task TestGetFileStreamAsync() {
         //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         var fileInfo = new FileInfo( path );
         var result = await _fileStore.SaveFileAsync( fileInfo );
 
@@ -200,7 +159,7 @@ public class MinioFileStoreTest : IDisposable {
     [Fact]
     public async Task TestGetFileBytesAsync() {
         //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         var fileInfo = new FileInfo( path );
         var result = await _fileStore.SaveFileAsync( fileInfo );
 
@@ -218,13 +177,13 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestSaveFileAsync_1() {
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
-        var result = await _fileStore.SaveFileAsync( stream, "b.jpg" );
-        Assert.Equal( "b.jpg", result.FilePath );
-        Assert.Equal( "b.jpg", result.FileName );
-        Assert.Equal( "jpg", result.Extension );
-        Assert.Equal( "1.09 MB", result.Size.ToString() );
+        var result = await _fileStore.SaveFileAsync( stream, "b.png" );
+        Assert.Equal( "b.png", result.FilePath );
+        Assert.Equal( "b.png", result.FileName );
+        Assert.Equal( "png", result.Extension );
+        Assert.Equal( "5.23 KB", result.Size.ToString() );
     }
 
     /// <summary>
@@ -232,9 +191,9 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestSaveFileAsync_2() {
-        var fileName = "b.jpg";
+        var fileName = "a.png";
         var bucketName = "TestSaveFileAsync_2";
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
         await _fileStore.SaveFileAsync( new SaveFileArgs( fileName, stream ) { BucketName = bucketName } );
         var result = await _fileStore.FileExistsAsync( new FileExistsArgs( fileName ) { BucketName = bucketName } );
@@ -246,13 +205,13 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestSaveFileAsync_3() {
-        var fileName = "b.jpg";
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var fileName = "b.png";
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
-        var result =  await _fileStore.SaveFileAsync( stream, fileName,UserTimeFileNameProcessor.Policy );
-        Assert.Equal( $"{TestSession.TestUserId}/2012-12-12-12-12-12-123/b.jpg", result.FilePath );
-        Assert.Equal( "b.jpg", result.FileName );
-        Assert.Equal( "jpg", result.Extension );
+        var result = await _fileStore.SaveFileAsync( stream, fileName, UserTimeFileNameProcessor.Policy );
+        Assert.Equal( $"{TestSession.TestUserId}/2012-12-12-12-12-12-123/b.png", result.FilePath );
+        Assert.Equal( "b.png", result.FileName );
+        Assert.Equal( "png", result.Extension );
     }
 
     /// <summary>
@@ -260,13 +219,12 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestSaveFileAsync_4() {
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         var fileInfo = new FileInfo( path );
         var result = await _fileStore.SaveFileAsync( fileInfo );
-        Assert.Equal( "b.jpg", result.FilePath );
-        Assert.Equal( "b.jpg", result.FileName );
-        Assert.Equal( "jpg", result.Extension );
-        Assert.Equal( "1.09 MB", result.Size.ToString() );
+        Assert.Equal( "a.png", result.FilePath );
+        Assert.Equal( "a.png", result.FileName );
+        Assert.Equal( "png", result.Extension );
     }
 
     /// <summary>
@@ -274,12 +232,11 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestSaveFileAsync_5() {
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         var stream = Util.Helpers.File.ReadToBytes( path );
-        var result = await _fileStore.SaveFileAsync( stream, "b.jpg" );
-        Assert.Equal( "b.jpg", result.FileName );
-        Assert.Equal( "jpg", result.Extension );
-        Assert.Equal( "1.09 MB", result.Size.ToString() );
+        var result = await _fileStore.SaveFileAsync( stream, "b.png" );
+        Assert.Equal( "b.png", result.FileName );
+        Assert.Equal( "png", result.Extension );
     }
 
     #endregion
@@ -305,11 +262,11 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestCopyFileAsync() {
-        var sourceName = "e.jpg";
-        var destinationName = "a/b/c/f.jpg";
+        var sourceName = "e.png";
+        var destinationName = "a/b/c/f.png";
 
         //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/a.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
         await _fileStore.SaveFileAsync( stream, sourceName );
 
@@ -332,11 +289,11 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestMoveFileAsync() {
-        var sourceName = "r.jpg";
-        var destinationName = "t/y/z/g.jpg";
+        var sourceName = "r.png";
+        var destinationName = "t/y/z/g.png";
 
         //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/a.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
         await _fileStore.SaveFileAsync( stream, sourceName );
 
@@ -359,10 +316,10 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestDeleteFileAsync() {
-        var name = "b.jpg";
+        var name = "b.png";
 
         //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         await using var stream = File.ReadToStream( path );
         await _fileStore.SaveFileAsync( stream, name );
 
@@ -388,7 +345,7 @@ public class MinioFileStoreTest : IDisposable {
     [Fact]
     public async Task TestGenerateDownloadUrlAsync() {
         //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
         var fileInfo = new FileInfo( path );
         var result = await _fileStore.SaveFileAsync( fileInfo );
 
@@ -407,9 +364,20 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestGenerateUploadUrlAsync() {
-        var result = await _fileStore.GenerateUploadUrlAsync( "a.jpg" );
-        _testOutputHelper.WriteLine( result.Url );
-        Assert.StartsWith( "http", result.Url );
+        //生成上传Url
+        var fileName = Id.Create();
+        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
+        var upload = await _fileStore.GenerateUploadUrlAsync( new GenerateUploadUrlArgs( fileName ) { BucketName = "util-test" } );
+        _testOutputHelper.WriteLine( Util.Helpers.Json.ToJson( upload ) );
+
+        //发送请求
+        await _client.Post( upload.Url ).FileContent( path ).Content( upload.Data )
+            .OnFail( ( m, o ) => { _testOutputHelper.WriteLine( Util.Helpers.Json.ToJson( o ) ); } )
+            .GetResultAsync();
+
+        //验证
+        var exists = await _fileStore.FileExistsAsync( new FileExistsArgs( fileName ) {BucketName = "util-test" } );
+        Assert.True( exists );
     }
 
     #endregion

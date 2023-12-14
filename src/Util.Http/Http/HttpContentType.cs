@@ -18,5 +18,10 @@ public enum HttpContentType {
     /// text/xml
     /// </summary>
     [Description( "text/xml" )]
-    Xml
+    Xml,
+    /// <summary>
+    /// multipart/form-data
+    /// </summary>
+    [Description( "multipart/form-data" )]
+    FormData
 }

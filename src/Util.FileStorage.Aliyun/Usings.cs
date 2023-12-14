@@ -1,0 +1,17 @@
+﻿global using System;
+global using System.Threading.Tasks;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Threading;
+global using System.IO;
+global using System.Net;
+global using System.Text.Json.Serialization;
+global using System.Security.Cryptography;
+global using System.Text;
+global using Microsoft.Extensions.Options;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.DependencyInjection.Extensions;
+global using Aliyun.OSS;
+global using Util.Dependency;
+global using Util.Http;
+global using Util.Configs;

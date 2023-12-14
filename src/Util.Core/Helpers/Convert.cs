@@ -287,6 +287,18 @@ public static class Convert {
 
     #endregion
 
+    #region ToBase64(转换为base64字符串)
+
+    /// <summary>
+    /// 转换为base64字符串
+    /// </summary>
+    /// <param name="input">输入值</param>        
+    public static string ToBase64( string input ) {
+        return input.IsEmpty() ? null : System.Convert.ToBase64String( Encoding.UTF8.GetBytes( input ) );
+    }
+
+    #endregion
+
     #region ToList(泛型集合转换)
 
     /// <summary>

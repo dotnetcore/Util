@@ -62,10 +62,12 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         HeaderParams = new Dictionary<string, string>();
         QueryParams = new Dictionary<string, string>();
         Params = new Dictionary<string, object>();
+        Files = new List<FileData>();
         Cookies = new Dictionary<string, string>();
         HttpContentType = Util.Http.HttpContentType.Json.Description();
         CharacterEncoding = System.Text.Encoding.UTF8;
         IsUseCookies = true;
+        IsFileParameterQuotes = true;
     }
 
     #endregion
@@ -117,9 +119,17 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected object Param { get; private set; }
     /// <summary>
+    /// 文件数据列表
+    /// </summary>
+    protected List<FileData> Files { get; private set; }
+    /// <summary>
     /// 是否自动携带cookie
     /// </summary>
     protected bool IsUseCookies { get; private set; }
+    /// <summary>
+    /// 文件上传参数是否添加双引号
+    /// </summary>
+    protected bool IsFileParameterQuotes { get; private set; }
     /// <summary>
     /// 发送前操作
     /// </summary>
@@ -418,6 +428,38 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     #endregion
 
+    #region FileContent(添加文件参数)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> FileContent( Stream file, string fileName, string name = "file" ) {
+        ContentType( Http.HttpContentType.FormData );
+        if( Files.Any( t => t.Name == name ) )
+            Files.RemoveAll( t => t.Name == name );
+        Files.Add( new FileData( file, fileName, name ) );
+        return this;
+    }
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> FileContent( string filePath, string name = "file" ) {
+        ContentType( Http.HttpContentType.FormData );
+        if( Files.Any( t => t.Name == name ) )
+            Files.RemoveAll( t => t.Name == name );
+        Files.Add( new FileData( filePath, name ) );
+        return this;
+    }
+
+    #endregion
+
+    #region FileParameterQuotes(文件上传参数是否添加双引号)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> FileParameterQuotes( bool isQuote = true ) {
+        IsFileParameterQuotes = isQuote;
+        return this;
+    }
+
+    #endregion
+
     #region OnSendBefore(发送前事件)
 
     /// <inheritdoc />
@@ -491,7 +533,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public async Task<TResult> GetResultAsync( CancellationToken cancellationToken = default ) {
-        var message = CreateMessage();
+        var message = await CreateMessage();
         if( SendBefore( message ) == false )
             return default;
         var response = await SendAsync( message, cancellationToken );
@@ -505,11 +547,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <summary>
     /// 创建请求消息
     /// </summary>
-    protected virtual HttpRequestMessage CreateMessage() {
+    protected virtual async Task<HttpRequestMessage> CreateMessage() {
         var message = new HttpRequestMessage( _httpMethod, GetUrl( _url ) );
         AddCookies();
         AddHeaders( message );
-        message.Content = CreateHttpContent();
+        message.Content = await CreateHttpContent();
         return message;
     }
 
@@ -545,7 +587,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <summary>
     /// 创建请求内容
     /// </summary>
-    protected virtual HttpContent CreateHttpContent() {
+    protected virtual async Task<HttpContent> CreateHttpContent() {
         var contentType = HttpContentType.SafeString().ToLower();
         switch( contentType ) {
             case "application/x-www-form-urlencoded":
@@ -554,6 +596,8 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
                 return CreateJsonContent();
             case "text/xml":
                 return CreateXmlContent();
+            case "multipart/form-data":
+                return await CreateFileUploadContent();
         }
         return null;
     }
@@ -621,6 +665,85 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         return new StringContent( Param.SafeString(), CharacterEncoding, "text/xml" );
     }
 
+    /// <summary>
+    /// 创建文件上传内容
+    /// </summary>
+    protected virtual async Task<HttpContent> CreateFileUploadContent() {
+        var result = new MultipartFormDataContent( GetBoundary() );
+        AddFileParameters( result );
+        await AddFileData( result );
+        ClearBoundaryQuotes( result );
+        return result;
+    }
+
+    /// <summary>
+    /// 获取 multipart/form-data 分隔符
+    /// </summary>
+    protected virtual string GetBoundary() {
+        return $"-----{Guid.NewGuid()}";
+    }
+
+    /// <summary>
+    /// 添加文件参数
+    /// </summary>
+    protected void AddFileParameters( MultipartFormDataContent content ) {
+        var parameters = GetParameters();
+        foreach( var parameter in parameters ) {
+            var item = new ByteArrayContent( System.Text.Encoding.UTF8.GetBytes( parameter.Value.SafeString() ) );
+            content.Add( item, GetFileParameter( parameter.Key ) );
+        }
+    }
+
+    /// <summary>
+    /// 获取参数
+    /// </summary>
+    protected string GetFileParameter( string param ) {
+        return IsFileParameterQuotes ? "\"" + param + "\"" : param;
+    }
+
+    /// <summary>
+    /// 添加文件数据
+    /// </summary>
+    protected async Task AddFileData( MultipartFormDataContent content ) {
+        foreach( var file in Files ) {
+            if( file.Stream != null ) {
+                await using var fileStream = file.Stream;
+                var bytes = await Util.Helpers.File.ReadToBytesAsync( fileStream );
+                AddFileData( content, bytes, file.Name, file.FileName );
+                continue;
+            }
+            if( file.FilePath.IsEmpty() )
+                continue;
+            if( Util.Helpers.File.FileExists( file.FilePath ) == false )
+                return;
+            var fileName = Path.GetFileName( file.FilePath );
+            var stream = await Util.Helpers.File.ReadToMemoryStreamAsync( file.FilePath );
+            AddFileData( content, stream.ToArray(), file.Name, fileName );
+        }
+    }
+
+    /// <summary>
+    /// 添加文件数据
+    /// </summary>
+    protected void AddFileData( MultipartFormDataContent content,byte[] stream,string name,string fileName ) {
+        if ( stream == null )
+            return;
+        var fileContent = new ByteArrayContent( stream );
+        content.Add( fileContent, GetFileParameter( name ), GetFileParameter( fileName ) );
+        if( fileContent.Headers is { ContentDisposition: not null } )
+            fileContent.Headers.ContentDisposition.FileNameStar = null;
+    }
+
+    /// <summary>
+    /// 清除分隔符双引号
+    /// </summary>
+    protected void ClearBoundaryQuotes( MultipartFormDataContent content) {
+        var boundary = content?.Headers?.ContentType?.Parameters.FirstOrDefault( o => o.Name == "boundary" );
+        if ( boundary == null )
+            return;
+        boundary.Value = boundary.Value?.Replace( "\"", null );
+    }
+
     #endregion
 
     #region SendBefore(发送前操作)
@@ -671,7 +794,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected HttpClientHandler CreateHttpClientHandler() {
         var handlerFactory = _httpClientFactory as IHttpMessageHandlerFactory;
-        if ( handlerFactory == null )
+        if( handlerFactory == null )
             return null;
         var handler = _httpClientName.IsEmpty() ? handlerFactory.CreateHandler() : handlerFactory.CreateHandler( _httpClientName );
         while( handler is DelegatingHandler delegatingHandler ) {
@@ -854,7 +977,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public async Task<byte[]> GetStreamAsync( CancellationToken cancellationToken = default ) {
-        var message = CreateMessage();
+        var message = await CreateMessage();
         if( SendBefore( message ) == false )
             return default;
         var response = await SendAsync( message, cancellationToken );
@@ -886,7 +1009,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <inheritdoc />
     public async Task WriteAsync( string filePath, CancellationToken cancellationToken = default ) {
         var bytes = await GetStreamAsync( cancellationToken );
-        await Util.Helpers.File.WriteAsync( filePath, bytes );
+        await Util.Helpers.File.WriteAsync( filePath, bytes, cancellationToken );
     }
 
     #endregion

@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Util.FileStorage.Aliyun\03-Util.FileStorage.Aliyun.csproj" />
     <ProjectReference Include="..\Util.FileStorage.Minio\02-Util.FileStorage.Minio.csproj" />
   </ItemGroup>
 

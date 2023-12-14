@@ -39,7 +39,12 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
 	        result.Append( "<nz-form-item>" );
 	        result.Append( "<nz-form-label>密码</nz-form-label>" );
 	        result.Append( "<nz-form-control>" );
-	        result.Append( "<input name=\"password\" nz-input=\"\" type=\"password\" [(ngModel)]=\"model.password\" />" );
+            result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<input #xi_id=\"xInputExtend\" name=\"password\" nz-input=\"\" x-input-extend=\"\" [(ngModel)]=\"model.password\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<i (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></i>" );
+            result.Append( "</ng-template>" );
 	        result.Append( "</nz-form-control>" );
 	        result.Append( "</nz-form-item>" );
 	        Assert.Equal( result.ToString(), GetResult() );

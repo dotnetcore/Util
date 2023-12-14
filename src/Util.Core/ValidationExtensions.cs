@@ -50,4 +50,13 @@ public static class ValidationExtensions {
             return true;
         return !value.Any();
     }
+
+    /// <summary>
+    /// 是否默认值
+    /// </summary>
+    /// <typeparam name="T">值类型</typeparam>
+    /// <param name="value">值</param>
+    public static bool IsDefault<T>( this T value ) {
+        return EqualityComparer<T>.Default.Equals( value, default );
+    }
 }

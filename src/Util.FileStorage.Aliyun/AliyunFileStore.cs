@@ -1,20 +1,16 @@
-﻿namespace Util.FileStorage.Minio; 
+﻿namespace Util.FileStorage.Aliyun;
 
 /// <summary>
-/// Minio文件存储服务
+/// 阿里云对象存储服务
 /// </summary>
-public class MinioFileStore : IFileStore {
+public class AliyunFileStore : IAliyunOssFileStore {
 
     #region 字段
 
     /// <summary>
     /// 配置提供器
     /// </summary>
-    private readonly IMinioConfigProvider _configProvider;
-    /// <summary>
-    /// Http客户端工厂
-    /// </summary>
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IAliyunOssConfigProvider _configProvider;
     /// <summary>
     /// 存储桶名称处理器工厂
     /// </summary>
@@ -24,13 +20,13 @@ public class MinioFileStore : IFileStore {
     /// </summary>
     private readonly IFileNameProcessorFactory _fileNameProcessorFactory;
     /// <summary>
-    /// Minio配置
+    /// 阿里云对象存储配置
     /// </summary>
-    private MinioOptions _config;
+    private AliyunOssOptions _config;
     /// <summary>
-    /// Minio客户端
+    /// 阿里云对象存储客户端
     /// </summary>
-    private IMinioClient _client;
+    private IOss _client;
     /// <summary>
     /// Http操作
     /// </summary>
@@ -41,18 +37,16 @@ public class MinioFileStore : IFileStore {
     #region 构造方法
 
     /// <summary>
-    /// 初始化Minio文件存储服务
+    /// 初始化阿里云对象存储服务
     /// </summary>
     /// <param name="configProvider">配置提供器</param>
-    /// <param name="httpClientFactory">Http客户端工厂</param>
     /// <param name="bucketNameProcessorFactory">存储桶名称处理器工厂</param>
     /// <param name="fileNameProcessorFactory">文件名处理器工厂</param>
     ///  <param name="httpClient">Http操作</param>
-    public MinioFileStore( IMinioConfigProvider configProvider, IHttpClientFactory httpClientFactory,
-        IBucketNameProcessorFactory bucketNameProcessorFactory,IFileNameProcessorFactory fileNameProcessorFactory,
+    public AliyunFileStore( IAliyunOssConfigProvider configProvider,
+        IBucketNameProcessorFactory bucketNameProcessorFactory, IFileNameProcessorFactory fileNameProcessorFactory,
         IHttpClient httpClient ) {
         _configProvider = configProvider ?? throw new ArgumentNullException( nameof( configProvider ) );
-        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException( nameof( httpClientFactory ) );
         _bucketNameProcessorFactory = bucketNameProcessorFactory ?? throw new ArgumentNullException( nameof( bucketNameProcessorFactory ) );
         _fileNameProcessorFactory = fileNameProcessorFactory ?? throw new ArgumentNullException( nameof( fileNameProcessorFactory ) );
         _httpClient = httpClient ?? throw new ArgumentNullException( nameof( httpClient ) );
@@ -63,10 +57,10 @@ public class MinioFileStore : IFileStore {
     #region InitConfig
 
     /// <summary>
-    /// 初始化Minio配置
+    /// 初始化配置
     /// </summary>
     protected virtual async Task InitConfig() {
-        if ( _config != null )
+        if( _config != null )
             return;
         _config = await _configProvider.GetConfigAsync();
     }
@@ -76,18 +70,13 @@ public class MinioFileStore : IFileStore {
     #region GetClient
 
     /// <summary>
-    /// 获取Minio客户端
+    /// 获取阿里云对象存储客户端
     /// </summary>
-    protected virtual async Task<IMinioClient> GetClient() {
-        if ( _client != null )
+    protected virtual async Task<IOss> GetClient() {
+        if( _client != null )
             return _client;
         await InitConfig();
-        var client = new MinioClient()
-            .WithEndpoint( GetEndpoint() )
-            .WithCredentials( _config.AccessKey, _config.SecretKey )
-            .WithSSL( _config.UseSSL );
-        var httpClient = GetHttpClient();
-        _client = httpClient == null ? client.Build() : client.WithHttpClient( httpClient ).Build();
+        _client = new OssClient( GetEndpoint(), _config.AccessKeyId, _config.AccessKeySecret );
         return _client;
     }
 
@@ -96,18 +85,9 @@ public class MinioFileStore : IFileStore {
     /// </summary>
     protected virtual string GetEndpoint() {
         var endpoint = _config.Endpoint;
-        if ( endpoint.StartsWith( "http" ) == false )
+        if( endpoint.StartsWith( "http" ) )
             return endpoint;
-        return endpoint.RemoveStart( "https://" ).RemoveStart( "http://" );
-    }
-
-    /// <summary>
-    /// 获取Http客户端
-    /// </summary>
-    protected virtual HttpClient GetHttpClient() {
-        if ( _config.HttpClientName.IsEmpty() )
-            return null;
-        return _httpClientFactory.CreateClient( _config.HttpClientName );
+        return $"https://{endpoint}";
     }
 
     #endregion
@@ -117,8 +97,8 @@ public class MinioFileStore : IFileStore {
     /// <inheritdoc />
     public virtual async Task<List<string>> GetBucketNamesAsync( CancellationToken cancellationToken = default ) {
         var client = await GetClient();
-        var result = await client.ListBucketsAsync( cancellationToken );
-        return result.Buckets.Select( t => t.Name ).ToList();
+        var result = client.ListBuckets();
+        return result.Select( t => t.Name ).ToList();
     }
 
     #endregion
@@ -127,7 +107,7 @@ public class MinioFileStore : IFileStore {
 
     /// <inheritdoc />
     public virtual async Task<bool> BucketExistsAsync( string bucketName, string policy = null, CancellationToken cancellationToken = default ) {
-        if ( bucketName.IsEmpty() )
+        if( bucketName.IsEmpty() )
             return false;
         var processedBucketName = ProcessBucketName( bucketName, policy );
         return await BucketExistsAsync( processedBucketName, cancellationToken );
@@ -146,8 +126,7 @@ public class MinioFileStore : IFileStore {
     /// </summary>
     protected virtual async Task<bool> BucketExistsAsync( ProcessedName bucketName, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
-        var args = new BucketExistsArgs().WithBucket( bucketName.Name );
-        return await client.BucketExistsAsync( args, cancellationToken );
+        return client.DoesBucketExist( bucketName.Name );
     }
 
     #endregion
@@ -156,22 +135,37 @@ public class MinioFileStore : IFileStore {
 
     /// <inheritdoc />
     public virtual async Task CreateBucketAsync( string bucketName, string policy = null, CancellationToken cancellationToken = default ) {
-        if ( bucketName.IsEmpty() )
+        if( bucketName.IsEmpty() )
             return;
-        var processedBucketName = ProcessBucketName( bucketName, policy );
-        await CreateBucketAsync( processedBucketName, cancellationToken );
+        var args = new CreateBucketArgs( bucketName );
+        await CreateBucketAsync( args, cancellationToken );
+    }
+
+    /// <inheritdoc />
+    public async Task CreateBucketAsync( CreateBucketArgs args, CancellationToken cancellationToken = default ) {
+        var bucketName = ProcessBucketName( args.BucketName, args.BucketNamePolicy );
+        var client = await GetClient();
+        var exists = await BucketExistsAsync( bucketName, cancellationToken );
+        if( exists )
+            return;
+        var request = new CreateBucketRequest( bucketName.Name ) {
+            ACL = args.Acl,
+            StorageClass = args.StorageClass,
+            DataRedundancyType = args.DataRedundancyType
+        };
+        client.CreateBucket( request );
     }
 
     /// <summary>
     /// 创建存储桶
     /// </summary>
-    protected virtual async Task CreateBucketAsync( ProcessedName bucketName, CancellationToken cancellationToken ) {
+    protected virtual async Task CreateBucketAsync( ProcessedName bucketName, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
         var exists = await BucketExistsAsync( bucketName, cancellationToken );
-        if ( exists )
+        if( exists )
             return;
-        var args = new MakeBucketArgs().WithBucket( bucketName.Name );
-        await client.MakeBucketAsync( args, cancellationToken );
+        var request = new CreateBucketRequest( bucketName.Name );
+        client.CreateBucket( request );
     }
 
     #endregion
@@ -180,7 +174,7 @@ public class MinioFileStore : IFileStore {
 
     /// <inheritdoc />
     public async Task DeleteBucketAsync( string bucketName, string policy = null, CancellationToken cancellationToken = default ) {
-        if ( bucketName.IsEmpty() )
+        if( bucketName.IsEmpty() )
             return;
         var processedBucketName = ProcessBucketName( bucketName, policy );
         await DeleteBucketAsync( processedBucketName, cancellationToken );
@@ -192,24 +186,9 @@ public class MinioFileStore : IFileStore {
     protected virtual async Task DeleteBucketAsync( ProcessedName bucketName, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
         var exists = await BucketExistsAsync( bucketName, cancellationToken );
-        if ( exists == false )
+        if( exists == false )
             return;
-        var args = new RemoveBucketArgs().WithBucket( bucketName.Name );
-        await client.RemoveBucketAsync( args, cancellationToken );
-    }
-
-    /// <summary>
-    /// 安全删除存储桶,不报异常
-    /// </summary>
-    protected virtual async Task SafeDeleteBucketAsync( ProcessedName bucketName, CancellationToken cancellationToken = default ) {
-        try {
-            var client = await GetClient();
-            var args = new RemoveBucketArgs().WithBucket( bucketName.Name );
-            await client.RemoveBucketAsync( args, cancellationToken );
-        }
-        catch {
-            //ignored
-        }
+        client.DeleteBucket( bucketName.Name );
     }
 
     #endregion
@@ -234,7 +213,7 @@ public class MinioFileStore : IFileStore {
     /// 处理文件名
     /// </summary>
     protected ProcessedName ProcessFileName( FileStorageArgs args ) {
-        if ( args.FileName.IsEmpty() )
+        if( args.FileName.IsEmpty() )
             throw new ArgumentNullException( nameof( args.FileName ) );
         var processor = _fileNameProcessorFactory.CreateProcessor( args.FileNamePolicy );
         return processor.Process( args.FileName );
@@ -246,7 +225,7 @@ public class MinioFileStore : IFileStore {
     protected async Task<ProcessedName> ProcessBucketName( FileStorageArgs args ) {
         await InitConfig();
         args.BucketName ??= _config.DefaultBucketName;
-        if ( args.BucketName.IsEmpty() )
+        if( args.BucketName.IsEmpty() )
             throw new ArgumentNullException( nameof( args.BucketName ) );
         var processor = _bucketNameProcessorFactory.CreateProcessor( args.BucketNamePolicy );
         return processor.Process( args.BucketName );
@@ -257,20 +236,7 @@ public class MinioFileStore : IFileStore {
     /// </summary>
     protected async Task<bool> FileExistsAsync( ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
-        var args = new StatObjectArgs().WithBucket( bucketName.Name ).WithObject( fileName.Name );
-        try {
-            var result = await client.StatObjectAsync( args, cancellationToken );
-            if ( result.Size == 0 )
-                return false;
-        }
-        catch ( Exception ex ) {
-            if ( ex is BucketNotFoundException )
-                return false;
-            if ( ex is ObjectNotFoundException )
-                return false;
-            throw;
-        }
-        return true;
+        return client.DoesObjectExist( bucketName.Name, fileName.Name );
     }
 
     #endregion
@@ -297,17 +263,14 @@ public class MinioFileStore : IFileStore {
     protected async Task<Stream> GetFileStreamAsync( ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
         var exists = await FileExistsAsync( fileName, bucketName, cancellationToken );
-        if ( exists == false )
+        if( exists == false )
             return null;
         var memoryStream = new MemoryStream();
-        var args = new GetObjectArgs().WithBucket( bucketName.Name ).WithObject( fileName.Name ).WithCallbackStream(
-            async (stream,token) => {
-                if ( stream == null ) 
-                    return;
-                await stream.CopyToAsync( memoryStream, token ).ConfigureAwait( false );
-                await stream.DisposeAsync();
-            } );
-        await client.GetObjectAsync( args, cancellationToken );
+        var result = client.GetObject( bucketName.Name, fileName.Name );
+        await using var stream = result.Content;
+        if ( stream == null )
+            return memoryStream;
+        await stream.CopyToAsync( memoryStream, cancellationToken ).ConfigureAwait( false );
         return memoryStream;
     }
 
@@ -336,13 +299,10 @@ public class MinioFileStore : IFileStore {
         stream.CheckNull( nameof( stream ) );
         await CreateBucketAsync( bucketName, cancellationToken );
         var client = await GetClient();
-        var args = new PutObjectArgs()
-            .WithBucket( bucketName.Name )
-            .WithObject( fileName.Name )
-            .WithStreamData( stream )
-            .WithObjectSize( stream.Length );
-        await client.PutObjectAsync( args, cancellationToken );
-        return new FileResult( fileName.Name, stream.Length, fileName.OriginalName, bucketName.Name );
+        var result = client.PutObject( bucketName.Name, fileName.Name, stream );
+        if( result.HttpStatusCode == HttpStatusCode.OK )
+            return new FileResult( fileName.Name, stream.Length, fileName.OriginalName, bucketName.Name );
+        throw new InvalidOperationException( Util.Helpers.File.ReadToString( result.ResponseStream ) );
     }
 
     #endregion
@@ -378,26 +338,13 @@ public class MinioFileStore : IFileStore {
 
     /// <inheritdoc />
     public async Task CopyFileAsync( FileStorageArgs sourceArgs, FileStorageArgs destinationArgs, CancellationToken cancellationToken = default ) {
-        var copySourceObjectArgs = await CreateCopySourceObjectArgs( sourceArgs );
-        var processedDestinationBucketName = await ProcessBucketName( destinationArgs );
-        var processedDestinationFileName = ProcessFileName( destinationArgs );
-        var args = new CopyObjectArgs()
-            .WithBucket( processedDestinationBucketName.Name )
-            .WithObject( processedDestinationFileName.Name )
-            .WithCopyObjectSource( copySourceObjectArgs );
-        var client = await GetClient();
-        await client.CopyObjectAsync( args, cancellationToken );
-    }
-
-    /// <summary>
-    /// 创建复制源文件参数对象
-    /// </summary>
-    private async Task<CopySourceObjectArgs> CreateCopySourceObjectArgs( FileStorageArgs sourceArgs ) {
         var processedSourceBucketName = await ProcessBucketName( sourceArgs );
         var processedSourceFileName = ProcessFileName( sourceArgs );
-        return new CopySourceObjectArgs()
-            .WithBucket( processedSourceBucketName.Name )
-            .WithObject( processedSourceFileName.Name );
+        var processedDestinationBucketName = await ProcessBucketName( destinationArgs );
+        var processedDestinationFileName = ProcessFileName( destinationArgs );
+        var request = new CopyObjectRequest( processedSourceBucketName.Name, processedSourceFileName.Name, processedDestinationBucketName.Name, processedDestinationFileName.Name );
+        var client = await GetClient();
+        client.CopyObject( request );
     }
 
     #endregion
@@ -445,11 +392,10 @@ public class MinioFileStore : IFileStore {
     /// <param name="cancellationToken">取消令牌</param>
     protected async Task DeleteFileAsync( ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
-        var exists = await FileExistsAsync( fileName,bucketName, cancellationToken );
-        if ( exists == false )
+        var exists = await FileExistsAsync( fileName, bucketName, cancellationToken );
+        if( exists == false )
             return;
-        var args = new RemoveObjectArgs().WithBucket( bucketName.Name ).WithObject( fileName.Name );
-        await client.RemoveObjectAsync( args, cancellationToken );
+        client.DeleteObject( bucketName.Name, fileName.Name );
     }
 
     #endregion
@@ -467,7 +413,7 @@ public class MinioFileStore : IFileStore {
         args.CheckNull( nameof( args ) );
         var processedFileName = ProcessFileName( args );
         var processedBucketName = await ProcessBucketName( args );
-        return await GenerateDownloadUrlAsync( processedFileName, processedBucketName, args.ResponseContentType,cancellationToken );
+        return await GenerateDownloadUrlAsync( processedFileName, processedBucketName, args.ResponseContentType, cancellationToken );
     }
 
     /// <summary>
@@ -476,16 +422,13 @@ public class MinioFileStore : IFileStore {
     protected async Task<string> GenerateDownloadUrlAsync( ProcessedName fileName, ProcessedName bucketName, string responseContentType, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
         var exists = await FileExistsAsync( fileName, bucketName, cancellationToken );
-        if ( exists == false )
+        if( exists == false )
             return null;
-        responseContentType ??= "application/octet-stream";
-        var headers = new Dictionary<string, string> { { "response-content-type", responseContentType } };
-        var args = new PresignedGetObjectArgs()
-            .WithBucket( bucketName.Name )
-            .WithObject( fileName.Name )
-            .WithExpiry( _config.DownloadUrlExpiration )
-            .WithHeaders( headers );
-        return await client.PresignedGetObjectAsync( args );
+        var request = new GeneratePresignedUriRequest( bucketName.Name, fileName.Name, SignHttpMethod.Get ) {
+            Expiration = DateTime.Now.AddSeconds( _config.UploadUrlExpiration )
+        };
+        var result = client.GeneratePresignedUri( request );
+        return result.AbsoluteUri;
     }
 
     #endregion
@@ -503,22 +446,61 @@ public class MinioFileStore : IFileStore {
         args.CheckNull( nameof( args ) );
         var processedFileName = ProcessFileName( args );
         var processedBucketName = await ProcessBucketName( args );
-        return await GenerateUploadUrlAsync( processedFileName, processedBucketName, args.GetHeaders(), cancellationToken );
+        return await GenerateUploadUrlAsync( processedFileName, processedBucketName, cancellationToken );
     }
 
     /// <summary>
-    /// 生成上传Url
+    /// 生成直传Url
     /// </summary>
-    protected async Task<DirectUploadParam> GenerateUploadUrlAsync( ProcessedName fileName, ProcessedName bucketName, IDictionary<string, string> headers, CancellationToken cancellationToken = default ) {
+    protected async Task<DirectUploadParam> GenerateUploadUrlAsync( ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken ) {
+        await InitConfig();
+        var url = CreateGenerateUploadHost( bucketName.Name );
+        var data = await CreateGenerateUploadData( fileName, bucketName, cancellationToken );
+        return new DirectUploadParam( url, data );
+    }
+
+    /// <summary>
+    /// 创建直传域名
+    /// </summary>
+    protected string CreateGenerateUploadHost(string bucketName ) {
+        var result = new StringBuilder();
+        var endpoint = _config.Endpoint.RemoveStart( "https://" );
+        endpoint = endpoint.RemoveStart( "http://" );
+        result.Append( "https://" );
+        result.Append( bucketName );
+        result.Append( '.' );
+        result.Append( endpoint );
+        return result.ToString();
+    }
+
+    /// <summary>
+    /// 创建直传数据
+    /// </summary>
+    protected async Task<DirectUploadData> CreateGenerateUploadData( ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken ) {
+        var policy = await GetPostPolicy( bucketName );
+        var signature = ComputeSignature( _config.AccessKeySecret, policy );
+        return new DirectUploadData( fileName.Name, policy, _config.AccessKeyId, signature );
+    }
+
+    /// <summary>
+    /// 获取Post策略
+    /// </summary>
+    protected virtual async Task<string> GetPostPolicy( ProcessedName bucketName ) {
         var client = await GetClient();
-        await CreateBucketAsync( bucketName, cancellationToken );
-        var args = new PresignedPutObjectArgs()
-            .WithBucket( bucketName.Name )
-            .WithObject( fileName.Name )
-            .WithExpiry( _config.UploadUrlExpiration )
-            .WithHeaders( headers );
-        var url = await client.PresignedPutObjectAsync( args );
-        return new DirectUploadParam( url );
+        var expiration = DateTime.Now.AddSeconds( _config.UploadUrlExpiration );
+        var policy = new PolicyConditions();
+        policy.AddConditionItem( "bucket", bucketName.Name );
+        var postPolicy = client.GeneratePostPolicy( expiration, policy );
+        return Util.Helpers.Convert.ToBase64( postPolicy );
+    }
+
+    /// <summary>
+    /// 计算签名
+    /// </summary>
+    protected virtual string ComputeSignature( string key, string data ) {
+        using var algorithm = new HMACSHA1();
+        algorithm.Key = Encoding.UTF8.GetBytes( key.ToCharArray() );
+        return Convert.ToBase64String( algorithm.ComputeHash( Encoding.UTF8.GetBytes( data.ToCharArray() ) ) );
     }
 
     #endregion
@@ -527,22 +509,30 @@ public class MinioFileStore : IFileStore {
 
     /// <inheritdoc />
     public async Task ClearAsync( CancellationToken cancellationToken = default ) {
-        var client = await GetClient();
-        while ( true ) {
-            var buckets = await GetBucketNamesAsync( cancellationToken );
-            if ( buckets.Count == 0 )
-                return;
-            foreach ( var bucket in buckets ) {
-                await SafeDeleteBucketAsync( new ProcessedName( bucket ), cancellationToken );
-                var listObjectsArgs = new ListObjectsArgs().WithBucket( bucket ).WithRecursive( true );
-                client.ListObjectsAsync( listObjectsArgs, cancellationToken ).Subscribe( item => {
-                    var removeObjectArgs = new RemoveObjectArgs().WithBucket( bucket ).WithObject( item.Key );
-                    client.RemoveObjectAsync( removeObjectArgs, cancellationToken ).GetAwaiter();
-                }, () => {
-                    SafeDeleteBucketAsync( new ProcessedName( bucket ), cancellationToken ).GetAwaiter();
-                } );
-            }
+        var buckets = await GetBucketNamesAsync( cancellationToken );
+        if( buckets.Count == 0 )
+            return;
+        foreach( var bucket in buckets ) {
+            await ClearBucket( bucket );
         }
+    }
+
+    /// <summary>
+    /// 清空存储桶
+    /// </summary>
+    private async Task ClearBucket( string bucket ) {
+        var client = await GetClient();
+        var listObjectsRequest = new ListObjectsRequest( bucket ) {
+            MaxKeys = 100,
+        };
+        var objects = client.ListObjects( listObjectsRequest );
+        if( objects.ObjectSummaries.Any() ) {
+            var deleteObjectsRequest = new DeleteObjectsRequest( bucket, objects.ObjectSummaries.Select( t => t.Key ).ToList(), true );
+            client.DeleteObjects( deleteObjectsRequest );
+            await ClearBucket( bucket );
+            return;
+        }
+        client.DeleteBucket( bucket );
     }
 
     #endregion
