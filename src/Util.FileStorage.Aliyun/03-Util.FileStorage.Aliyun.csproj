@@ -27,7 +27,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AlibabaCloud.SDK.Sts20150401" Version="1.1.4" />
 	  <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
 	</ItemGroup>
 

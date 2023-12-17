@@ -35,10 +35,6 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// </summary>
     public bool TitleOperation { get; set; }
     /// <summary>
-    /// 表格列类型,扩展属性
-    /// </summary>
-    public TableColumnType Type { get; set; }
-    /// <summary>
     /// [nzShowCheckbox],是否显示复选框
     /// </summary>
     public bool ShowCheckbox { get; set; }

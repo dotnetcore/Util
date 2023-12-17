@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders.Contents; 

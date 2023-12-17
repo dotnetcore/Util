@@ -1,5 +1,4 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.Expressions;
+﻿using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -40,6 +39,10 @@ public class TableColumnExpressionLoader : ExpressionLoaderBase {
     protected virtual void LoadType( Config config, ModelExpressionInfo info ) {
         if ( info.IsBool ) {
             config.SetAttribute( UiConst.Type, TableColumnType.Bool );
+            return;
+        }
+        if( info.IsDate ) {
+            config.SetAttribute( UiConst.Type, TableColumnType.Date );
             return;
         }
         if ( info.IsEnum ) {

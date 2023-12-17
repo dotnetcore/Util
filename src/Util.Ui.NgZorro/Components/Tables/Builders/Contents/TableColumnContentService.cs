@@ -64,6 +64,8 @@ public class TableColumnContentService {
         switch ( type ) {
             case TableColumnType.Bool:
                 return new TableColumnBoolContent();
+            case TableColumnType.Date:
+                return new TableColumnDateContent();
             case TableColumnType.Enum:
                 return new TableColumnEnumContent();
             default:

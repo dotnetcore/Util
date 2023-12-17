@@ -39,6 +39,25 @@ public class TableColumnTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Column { get; set; }
     /// <summary>
+    /// 表格列类型,扩展属性
+    /// </summary>
+    public TableColumnType Type { get; set; }
+    /// <summary>
+    /// 扩展属性,日期格式化字符串，默认值: yyyy-MM-dd HH:mm,当类型为日期时有效,格式说明：
+    /// 1. 年 - yyyy
+    /// 2. 月 - MM
+    /// 3. 日 - dd
+    /// 4. 时 - HH
+    /// 5. 分 - mm
+    /// 6. 秒 - ss
+    /// 7. 毫秒 - SSS
+    /// </summary>
+    public string DateFormat { get; set; }
+    /// <summary>
+    /// 扩展属性,是否仅显示日期,当类型为日期时有效
+    /// </summary>
+    public bool ShowDateOnly { get; set; }
+    /// <summary>
     /// 是否编辑列,扩展属性,默认值：false
     /// </summary>
     public bool IsEdit { get; set; }

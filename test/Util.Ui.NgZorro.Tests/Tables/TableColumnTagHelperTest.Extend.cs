@@ -459,6 +459,54 @@ public partial class TableColumnTagHelperTest {
 
     #endregion
 
+    #region Date
+
+    /// <summary>
+    /// 测试日期类型列
+    /// </summary>
+    [Fact]
+    public void TestType_Date() {
+        _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Date );
+        _wrapper.SetContextAttribute( UiConst.Column, "a" );
+        var result = new StringBuilder();
+        result.Append( "<td>" );
+        result.Append( "{{row.a|date:'yyyy-MM-dd HH:mm'}}" );
+        result.Append( "</td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试日期类型列 - 自定义日期格式
+    /// </summary>
+    [Fact]
+    public void TestType_Date_2() {
+        _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Date );
+        _wrapper.SetContextAttribute( UiConst.DateFormat, "yyyy" );
+        _wrapper.SetContextAttribute( UiConst.Column, "a" );
+        var result = new StringBuilder();
+        result.Append( "<td>" );
+        result.Append( "{{row.a|date:'yyyy'}}" );
+        result.Append( "</td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试日期类型列 - 仅显示日期
+    /// </summary>
+    [Fact]
+    public void TestType_Date_3() {
+        _wrapper.SetContextAttribute( UiConst.Type, TableColumnType.Date );
+        _wrapper.SetContextAttribute( UiConst.ShowDateOnly, true );
+        _wrapper.SetContextAttribute( UiConst.Column, "a" );
+        var result = new StringBuilder();
+        result.Append( "<td>" );
+        result.Append( "{{row.a|date:'yyyy-MM-dd'}}" );
+        result.Append( "</td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    #endregion
+
     #region Width
 
     /// <summary>

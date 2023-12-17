@@ -45,6 +45,10 @@ public static class UiConst {
     /// </summary>
     public const string DropdownRender = "dropdown-render";
     /// <summary>
+    /// 仅显示日期
+    /// </summary>
+    public const string ShowDateOnly = "show-date-only";
+    /// <summary>
     /// 行数
     /// </summary>
     public const string Lines = "lines";
