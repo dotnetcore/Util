@@ -69,7 +69,9 @@ public abstract class WebApiControllerBase : ControllerBase {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Converters = {
                 new DateTimeJsonConverter(),
-                new NullableDateTimeJsonConverter()
+                new NullableDateTimeJsonConverter(),
+                new LongJsonConverter(),
+                new NullableLongJsonConverter()
             }
         };
     }

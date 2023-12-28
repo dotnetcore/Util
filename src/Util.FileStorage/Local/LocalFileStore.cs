@@ -134,8 +134,7 @@ public class LocalFileStore : IFileStore {
     /// </summary>
     protected virtual async Task<string> GetPhysicalPath( ProcessedName fileName ) {
         var config = await GetConfig();
-        var filePath = Path.Combine( config.RootPath, fileName.Name );
-        return config.IsAbsolutePath ? filePath : Util.Helpers.Common.GetPhysicalPath( filePath );
+        return Path.Combine( Util.Helpers.Web.Environment.WebRootPath, config.RootPath, fileName.Name );
     }
 
     #endregion
@@ -143,8 +142,8 @@ public class LocalFileStore : IFileStore {
     #region GetFileStreamAsync
 
     /// <inheritdoc />
-    public async Task<Stream> GetFileStreamAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new GetFileStreamArgs( fileName ) { FileNamePolicy = policy };
+    public async Task<Stream> GetFileStreamAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GetFileStreamArgs( fileName );
         return await GetFileStreamAsync( args, cancellationToken );
     }
 
@@ -181,7 +180,7 @@ public class LocalFileStore : IFileStore {
         ValidateExtension( stream, fileName.OriginalName );
         var config = await GetConfig();
         var filePath = Path.Combine( config.RootPath, fileName.Name );
-        var physicalPath = config.IsAbsolutePath ? filePath : Util.Helpers.Common.GetPhysicalPath( filePath );
+        var physicalPath = Path.Combine( Util.Helpers.Web.Environment.WebRootPath, filePath );
         await Util.Helpers.File.WriteAsync( physicalPath, stream, cancellationToken );
         return new FileResult( filePath, stream.Length, fileName.OriginalName );
     }
@@ -265,8 +264,8 @@ public class LocalFileStore : IFileStore {
     #region DeleteFileAsync
 
     /// <inheritdoc />
-    public async Task DeleteFileAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new DeleteFileArgs( fileName ) { FileNamePolicy = policy };
+    public async Task DeleteFileAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new DeleteFileArgs( fileName );
         await DeleteFileAsync( args, cancellationToken );
     }
 
@@ -283,14 +282,17 @@ public class LocalFileStore : IFileStore {
     #region GenerateDownloadUrlAsync
 
     /// <inheritdoc />
-    public async Task<string> GenerateDownloadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new GenerateDownloadUrlArgs( fileName ) { FileNamePolicy = policy };
+    public async Task<string> GenerateDownloadUrlAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GenerateDownloadUrlArgs( fileName );
         return await GenerateDownloadUrlAsync( args, cancellationToken );
     }
 
     /// <inheritdoc />
     public virtual Task<string> GenerateDownloadUrlAsync( GenerateDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
-        throw new NotImplementedException();
+        args.CheckNull( nameof( args ) );
+        var processedFileName = ProcessFileName( args );
+        var url = Util.Helpers.Common.JoinPath( Util.Helpers.Web.Host, processedFileName.Name );
+        return Task.FromResult( url );
     }
 
     #endregion

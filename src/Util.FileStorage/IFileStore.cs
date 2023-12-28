@@ -78,9 +78,8 @@ public interface IFileStore : ILocalFileStore {
     /// 生成客户端直接下载Url
     /// </summary>
     /// <param name="fileName">文件名</param>
-    /// <param name="policy">文件名处理策略</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task<string> GenerateDownloadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default );
+    Task<string> GenerateDownloadUrlAsync( string fileName, CancellationToken cancellationToken = default );
     /// <summary>
     /// 生成客户端直接下载Url
     /// </summary>

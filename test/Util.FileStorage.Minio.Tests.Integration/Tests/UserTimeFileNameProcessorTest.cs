@@ -28,7 +28,7 @@ public class UserTimeFileNameProcessorTest : IDisposable {
     /// </summary>
     [Fact]
     public void TestProcess_1() {
-        var processor = new UserTimeFileNameProcessor( new TestSession() );
+        var processor = new UserTimeFileNameProcessor( new TestSession(),new FileNameFilter() );
         var result = processor.Process( "a.jpg" );
         Assert.Equal( $"{TestSession.TestUserId}/2012-12-12-12-12-12-123/a.jpg", result.Name );
     }

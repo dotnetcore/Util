@@ -278,8 +278,8 @@ public class MinioFileStore : IFileStore {
     #region GetFileStreamAsync
 
     /// <inheritdoc />
-    public async Task<Stream> GetFileStreamAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new GetFileStreamArgs( fileName ) { FileNamePolicy = policy };
+    public async Task<Stream> GetFileStreamAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GetFileStreamArgs( fileName );
         return await GetFileStreamAsync( args, cancellationToken );
     }
 
@@ -424,8 +424,8 @@ public class MinioFileStore : IFileStore {
     #region DeleteFileAsync
 
     /// <inheritdoc />
-    public async Task DeleteFileAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new DeleteFileArgs( fileName ) { FileNamePolicy = policy };
+    public async Task DeleteFileAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new DeleteFileArgs( fileName );
         await DeleteFileAsync( args, cancellationToken );
     }
 
@@ -457,8 +457,8 @@ public class MinioFileStore : IFileStore {
     #region GenerateDownloadUrlAsync
 
     /// <inheritdoc />
-    public async Task<string> GenerateDownloadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new GenerateDownloadUrlArgs( fileName ) { FileNamePolicy = policy };
+    public async Task<string> GenerateDownloadUrlAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GenerateDownloadUrlArgs( fileName );
         return await GenerateDownloadUrlAsync( args, cancellationToken );
     }
 
@@ -518,7 +518,7 @@ public class MinioFileStore : IFileStore {
             .WithExpiry( _config.UploadUrlExpiration )
             .WithHeaders( headers );
         var url = await client.PresignedPutObjectAsync( args );
-        return new DirectUploadParam( url );
+        return new DirectUploadParam( fileName.Name, url, null, fileName.OriginalName, bucketName.Name );
     }
 
     #endregion

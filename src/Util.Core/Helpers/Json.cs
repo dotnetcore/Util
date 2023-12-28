@@ -32,6 +32,8 @@ public static class Json {
         jsonSerializerOptions.Encoder = JavaScriptEncoder.Create( UnicodeRanges.All );
         jsonSerializerOptions.Converters.Add( new DateTimeJsonConverter() );
         jsonSerializerOptions.Converters.Add( new NullableDateTimeJsonConverter() );
+        jsonSerializerOptions.Converters.Add( new LongJsonConverter() );
+        jsonSerializerOptions.Converters.Add( new NullableLongJsonConverter() );
         return jsonSerializerOptions;
     }
 
@@ -72,7 +74,9 @@ public static class Json {
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
             Converters = {
                 new DateTimeJsonConverter(),
-                new NullableDateTimeJsonConverter()
+                new NullableDateTimeJsonConverter(),
+                new LongJsonConverter(),
+                new NullableLongJsonConverter()
             }
         };
     }
@@ -156,7 +160,9 @@ public static class Json {
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
             Converters = {
                 new DateTimeJsonConverter(),
-                new NullableDateTimeJsonConverter()
+                new NullableDateTimeJsonConverter(),
+                new LongJsonConverter(),
+                new NullableLongJsonConverter()
             }
         };
     }
@@ -247,7 +253,9 @@ public static class Json {
             Encoder = JavaScriptEncoder.Create( UnicodeRanges.All ),
             Converters = {
                 new DateTimeJsonConverter(),
-                new NullableDateTimeJsonConverter()
+                new NullableDateTimeJsonConverter(),
+                new LongJsonConverter(),
+                new NullableLongJsonConverter()
             }
         };
     }

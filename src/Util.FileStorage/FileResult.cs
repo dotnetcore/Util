@@ -21,6 +21,7 @@ public class FileResult {
         OriginalFileName = originalFileName;
         Bucket = bucket;
     }
+
     /// <summary>
     /// 文件路径
     /// </summary>

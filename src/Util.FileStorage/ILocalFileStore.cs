@@ -15,9 +15,8 @@ public interface ILocalFileStore {
     /// 获取文件流
     /// </summary>
     /// <param name="fileName">文件名</param>
-    /// <param name="policy">文件名处理策略</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task<Stream> GetFileStreamAsync( string fileName, string policy = null, CancellationToken cancellationToken = default );
+    Task<Stream> GetFileStreamAsync( string fileName, CancellationToken cancellationToken = default );
     /// <summary>
     /// 保存文件
     /// </summary>
@@ -52,7 +51,6 @@ public interface ILocalFileStore {
     /// 删除文件
     /// </summary>
     /// <param name="fileName">文件名</param>
-    /// <param name="policy">文件名处理策略</param>
     /// <param name="cancellationToken">取消令牌</param>
-    Task DeleteFileAsync( string fileName, string policy = null, CancellationToken cancellationToken = default );
+    Task DeleteFileAsync( string fileName, CancellationToken cancellationToken = default );
 }

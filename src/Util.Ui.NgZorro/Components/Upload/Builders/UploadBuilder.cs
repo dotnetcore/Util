@@ -39,7 +39,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// <summary>
     /// 获取标识
     /// </summary>
-    private string GetId() {
+    protected string GetId() {
         if ( _id.IsEmpty() == false )
             return _id;
         _id = _config.GetValue( UiConst.Id );
@@ -367,21 +367,21 @@ public class UploadBuilder : AngularTagBuilder {
     /// <summary>
     /// 获取启用扩展属性
     /// </summary>
-    private bool? GetEnableExtend() {
+    protected bool? GetEnableExtend() {
         return _config.GetValue<bool?>( UiConst.EnableExtend );
     }
 
     /// <summary>
     /// 获取是否必填项
     /// </summary>
-    private bool? GetRequired() {
+    protected bool? GetRequired() {
         return _config.GetValue<bool?>( UiConst.Required );
     }
 
     /// <summary>
     /// 添加输入框,用于支持验证
     /// </summary>
-    private void AddInput() {
+    protected void AddInput() {
         if ( GetRequired() != true )
             return;
         var inputBuilder = new InputBuilder( _config );

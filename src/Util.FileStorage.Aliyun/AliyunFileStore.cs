@@ -244,8 +244,8 @@ public class AliyunFileStore : IAliyunOssFileStore {
     #region GetFileStreamAsync
 
     /// <inheritdoc />
-    public async Task<Stream> GetFileStreamAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new GetFileStreamArgs( fileName ) { FileNamePolicy = policy };
+    public async Task<Stream> GetFileStreamAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GetFileStreamArgs( fileName );
         return await GetFileStreamAsync( args, cancellationToken );
     }
 
@@ -268,7 +268,7 @@ public class AliyunFileStore : IAliyunOssFileStore {
         var memoryStream = new MemoryStream();
         var result = client.GetObject( bucketName.Name, fileName.Name );
         await using var stream = result.Content;
-        if ( stream == null )
+        if( stream == null )
             return memoryStream;
         await stream.CopyToAsync( memoryStream, cancellationToken ).ConfigureAwait( false );
         return memoryStream;
@@ -371,8 +371,8 @@ public class AliyunFileStore : IAliyunOssFileStore {
     #region DeleteFileAsync
 
     /// <inheritdoc />
-    public async Task DeleteFileAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new DeleteFileArgs( fileName ) { FileNamePolicy = policy };
+    public async Task DeleteFileAsync( string fileName,CancellationToken cancellationToken = default ) {
+        var args = new DeleteFileArgs( fileName );
         await DeleteFileAsync( args, cancellationToken );
     }
 
@@ -403,8 +403,8 @@ public class AliyunFileStore : IAliyunOssFileStore {
     #region GenerateDownloadUrlAsync
 
     /// <inheritdoc />
-    public async Task<string> GenerateDownloadUrlAsync( string fileName, string policy = null, CancellationToken cancellationToken = default ) {
-        var args = new GenerateDownloadUrlArgs( fileName ) { FileNamePolicy = policy };
+    public async Task<string> GenerateDownloadUrlAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GenerateDownloadUrlArgs( fileName );
         return await GenerateDownloadUrlAsync( args, cancellationToken );
     }
 
@@ -456,13 +456,13 @@ public class AliyunFileStore : IAliyunOssFileStore {
         await InitConfig();
         var url = CreateGenerateUploadHost( bucketName.Name );
         var data = await CreateGenerateUploadData( fileName, bucketName, cancellationToken );
-        return new DirectUploadParam( url, data );
+        return new DirectUploadParam( fileName.Name, url, data, fileName.OriginalName, bucketName.Name );
     }
 
     /// <summary>
     /// 创建直传域名
     /// </summary>
-    protected string CreateGenerateUploadHost(string bucketName ) {
+    protected string CreateGenerateUploadHost( string bucketName ) {
         var result = new StringBuilder();
         var endpoint = _config.Endpoint.RemoveStart( "https://" );
         endpoint = endpoint.RemoveStart( "http://" );

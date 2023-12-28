@@ -191,6 +191,15 @@ public static class Web {
 
     #endregion
 
+    #region Host(获取主机)
+
+    /// <summary>
+    /// 获取主机,范例: https://test.com:666
+    /// </summary>
+    public static string Host => $"{Request?.Scheme}://{Request?.Host.Value}";
+
+    #endregion
+
     #region Url(请求地址)
 
     /// <summary>

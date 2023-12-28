@@ -15,17 +15,24 @@ public class UserTimeFileNameProcessor : IFileNameProcessor {
     /// 用户会话
     /// </summary>
     private readonly ISession _session;
+    /// <summary>
+    /// 文件名过滤器
+    /// </summary>
+    private readonly IFileNameFilter _filter;
 
     /// <summary>
     /// 初始化基于用户标识和时间的文件名处理器
     /// </summary>
     /// <param name="session">用户会话</param>
-    public UserTimeFileNameProcessor( ISession session ) {
+    /// <param name="filter">文件名过滤器</param>
+    public UserTimeFileNameProcessor( ISession session, IFileNameFilter filter ) {
         _session = session ?? NullSession.Instance;
+        _filter = filter;
     }
 
     /// <inheritdoc />
     public ProcessedName Process( string fileName ) {
+        fileName = _filter?.Filter( fileName );
         var result = $"{GetUserId()}{GetTime()}{fileName}";
         return new ProcessedName( result, fileName );
     }
