@@ -297,7 +297,6 @@ public class AliyunFileStore : IAliyunOssFileStore {
     /// </summary>
     public virtual async Task<FileResult> SaveFileAsync( Stream stream, ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken = default ) {
         stream.CheckNull( nameof( stream ) );
-        await CreateBucketAsync( bucketName, cancellationToken );
         var client = await GetClient();
         var result = client.PutObject( bucketName.Name, fileName.Name, stream );
         if( result.HttpStatusCode == HttpStatusCode.OK )
@@ -421,9 +420,6 @@ public class AliyunFileStore : IAliyunOssFileStore {
     /// </summary>
     protected async Task<string> GenerateDownloadUrlAsync( ProcessedName fileName, ProcessedName bucketName, string responseContentType, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
-        var exists = await FileExistsAsync( fileName, bucketName, cancellationToken );
-        if( exists == false )
-            return null;
         var request = new GeneratePresignedUriRequest( bucketName.Name, fileName.Name, SignHttpMethod.Get ) {
             Expiration = DateTime.Now.AddSeconds( _config.UploadUrlExpiration )
         };

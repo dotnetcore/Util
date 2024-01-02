@@ -1688,4 +1688,8 @@ public static class AngularConst {
     /// 模式错误消息
     /// </summary>
     public const string BindPatternMessage = "bind-pattern-message";
+    /// <summary>
+    /// 不绑定文件列表
+    /// </summary>
+    public const string NotBindFileList = "not-bind-file-list";
 }

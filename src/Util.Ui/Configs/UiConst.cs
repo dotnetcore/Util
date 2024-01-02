@@ -2457,6 +2457,10 @@ public static class UiConst {
     /// </summary>
     public const string ClearIcon = "clear-icon";
     /// <summary>
+    /// 清空文件
+    /// </summary>
+    public const string ClearFiles = "clear-files";
+    /// <summary>
     /// 选中项图标
     /// </summary>
     public const string MenuItemSelectedIcon = "menu-item-selected-icon";
@@ -2464,6 +2468,10 @@ public static class UiConst {
     /// 分隔符
     /// </summary>
     public const string TokenSeparators = "token-separators";
+    /// <summary>
+    /// 模型数据转换为上传文件列表的延迟时间
+    /// </summary>
+    public const string ModelToFilesDebounceTime = "model-to-files-debounce-time";
     /// <summary>
     /// 最大标签数量
     /// </summary>
@@ -2480,6 +2488,10 @@ public static class UiConst {
     /// 选项溢出数量
     /// </summary>
     public const string OptionOverflowSize = "option-overflow-size";
+    /// <summary>
+    /// 上传完成事件
+    /// </summary>
+    public const string OnUploadComplete = "on-upload-complete";
     /// <summary>
     /// 隐藏
     /// </summary>

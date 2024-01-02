@@ -195,8 +195,8 @@ public class LocalFileStore : IFileStore {
         var result = _inspector.GetExtension( stream );
         if( result.IsEmpty() )
             return;
-        extension = extension.TrimStart( '.' );
-        if( extension.TrimStart( '.' ) != result )
+        extension = extension.TrimStart( '.' ).ToUpperInvariant();
+        if( extension != result.ToUpperInvariant() )
             throw new InvalidOperationException( $"上传文件扩展名检查失败,文件名:{fileName},扩展名: {extension} != {result}" );
     }
 

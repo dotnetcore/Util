@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Upload.Helpers;
 using Util.Ui.NgZorro.Components.Upload.Renders;
@@ -19,13 +18,25 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// 属性表达式
+    /// 扩展属性,属性表达式
     /// </summary>
     public ModelExpression For { get; set; }
+    /// <summary>
+    /// 扩展属性,[(model)],模型双向绑定
+    /// </summary>
+    public string NgModel { get; set; }
     /// <summary>
     /// 扩展属性,是否启用扩展指令
     /// </summary>
     public bool EnableExtend { get; set; }
+    /// <summary>
+    /// 扩展属性 [isClearFiles],是否清除文件列表
+    /// </summary>
+    public bool ClearFiles { get; set; }
+    /// <summary>
+    /// 扩展属性 [modelToFilesDebounceTime],模型数据转换为上传文件列表的延迟时间,单位:毫秒,默认值: 100
+    /// </summary>
+    public double ModelToFilesDebounceTime { get; set; }
     /// <summary>
     /// 扩展属性 [required],是否必填项
     /// </summary>
@@ -90,6 +101,10 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// [(nzFileList)],文件列表,类型: NzUploadFile[]
     /// </summary>
     public string BindonFileList { get; set; }
+    /// <summary>
+    /// 扩展属性,不自动设置 nzFileList 文件列表
+    /// </summary>
+    public bool NotBindFileList { get; set; }
     /// <summary>
     /// [nzLimit],限制单次最多上传数量,nzMultiple 打开时有效,0 表示不限,默认值: 0
     /// </summary>
@@ -218,6 +233,14 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// (nzChange),上传文件改变事件,类型: EventEmitter&lt;NzUploadChangeParam>
     /// </summary>
     public string OnChange { get; set; }
+    /// <summary>
+    /// 扩展事件 (modelChange),模型变更事件
+    /// </summary>
+    public string OnModelChange { get; set; }
+    /// <summary>
+    /// 扩展事件 (onUploadComplete),上传完成事件,全部文件上传完成时触发,类型: EventEmitter&lt;any>,参数为模型数据model
+    /// </summary>
+    public string OnUploadComplete { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

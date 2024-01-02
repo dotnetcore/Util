@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Buttons.Builders;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
 using Util.Ui.NgZorro.Configs;
@@ -300,6 +299,8 @@ public class UploadBuilder : AngularTagBuilder {
     /// </summary>
     public UploadBuilder Events() {
         AttributeIfNotEmpty( "(nzChange)", _config.GetValue( UiConst.OnChange ) );
+        AttributeIfNotEmpty( "(modelChange)", _config.GetValue( UiConst.OnModelChange ) );
+        AttributeIfNotEmpty( "(onUploadComplete)", _config.GetValue( UiConst.OnUploadComplete ) );
         return this;
     }
 
@@ -350,6 +351,9 @@ public class UploadBuilder : AngularTagBuilder {
         Attribute( "x-upload-extend" );
         AddInput();
         SetFileList();
+        HandleChange();
+        ClearFiles();
+        ModelToFilesDebounceTime();
         return this;
     }
 
@@ -361,6 +365,7 @@ public class UploadBuilder : AngularTagBuilder {
             return false;
         }
         return GetEnableExtend() == true ||
+               IsContainsModel() ||
                GetRequired() == true;
     }
 
@@ -369,6 +374,13 @@ public class UploadBuilder : AngularTagBuilder {
     /// </summary>
     protected bool? GetEnableExtend() {
         return _config.GetValue<bool?>( UiConst.EnableExtend );
+    }
+
+    /// <summary>
+    /// 是否包含模型绑定
+    /// </summary>
+    protected bool IsContainsModel() {
+        return _config.GetValue( AngularConst.NgModel ).IsEmpty() == false;
     }
 
     /// <summary>
@@ -397,10 +409,35 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置文件列表
     /// </summary>
     public void SetFileList() {
+        if( _config.GetValue<bool>( AngularConst.NotBindFileList ) )
+            return;
         if ( _config.Contains( UiConst.FileList ) )
             return;
         if ( _config.Contains( AngularConst.BindonFileList ) )
             return;
         Attribute( "[(nzFileList)]", $"{ExtendId}.files" );
+    }
+
+    /// <summary>
+    /// 配置文件状态变更处理函数
+    /// </summary>
+    public void HandleChange() {
+        if( _config.Contains( UiConst.OnChange ) )
+            return;
+        Attribute( "(nzChange)", $"{ExtendId}.handleChange($event)" );
+    }
+
+    /// <summary>
+    /// 配置是否清除文件列表
+    /// </summary>
+    public void ClearFiles() {
+        AttributeIfNotEmpty( "[isClearFiles]", _config.GetBoolValue( UiConst.ClearFiles ) );
+    }
+
+    /// <summary>
+    /// 配置模型数据转换为上传文件列表的延迟时间
+    /// </summary>
+    public void ModelToFilesDebounceTime() {
+        AttributeIfNotEmpty( "[modelToFilesDebounceTime]", _config.GetValue( UiConst.ModelToFilesDebounceTime ) );
     }
 }

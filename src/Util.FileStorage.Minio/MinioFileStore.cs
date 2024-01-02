@@ -475,9 +475,6 @@ public class MinioFileStore : IFileStore {
     /// </summary>
     protected async Task<string> GenerateDownloadUrlAsync( ProcessedName fileName, ProcessedName bucketName, string responseContentType, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
-        var exists = await FileExistsAsync( fileName, bucketName, cancellationToken );
-        if ( exists == false )
-            return null;
         responseContentType ??= "application/octet-stream";
         var headers = new Dictionary<string, string> { { "response-content-type", responseContentType } };
         var args = new PresignedGetObjectArgs()

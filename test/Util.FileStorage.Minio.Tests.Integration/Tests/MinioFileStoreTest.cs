@@ -393,7 +393,7 @@ public class MinioFileStoreTest : IDisposable {
         var result = await _fileStore.SaveFileAsync( fileInfo );
 
         //生成url
-        var url = await _fileStore.GenerateDownloadUrlAsync( result.FileName );
+        var url = await _fileStore.GenerateDownloadUrlAsync( "a" );
         _testOutputHelper.WriteLine( url );
         Assert.StartsWith( "http", url );
     }
