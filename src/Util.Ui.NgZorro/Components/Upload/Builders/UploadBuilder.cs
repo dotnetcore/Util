@@ -147,7 +147,14 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置过滤器
     /// </summary>
     public UploadBuilder Filter() {
-        AttributeIfNotEmpty( "[nzFilter]", _config.GetValue( UiConst.Filter ) );
+        return Filter( _config.GetValue( UiConst.Filter ) );
+    }
+
+    /// <summary>
+    /// 配置过滤器
+    /// </summary>
+    public UploadBuilder Filter( string filter ) {
+        AttributeIfNotEmpty( "[nzFilter]", filter );
         return this;
     }
 
@@ -354,6 +361,7 @@ public class UploadBuilder : AngularTagBuilder {
         HandleChange();
         ClearFiles();
         ModelToFilesDebounceTime();
+        SetFilter();
         return this;
     }
 
@@ -439,5 +447,14 @@ public class UploadBuilder : AngularTagBuilder {
     /// </summary>
     public void ModelToFilesDebounceTime() {
         AttributeIfNotEmpty( "[modelToFilesDebounceTime]", _config.GetValue( UiConst.ModelToFilesDebounceTime ) );
+    }
+
+    /// <summary>
+    /// 配置过滤器
+    /// </summary>
+    public void SetFilter() {
+        if( _config.Contains( UiConst.Filter ) )
+            return;
+        Filter( $"{ExtendId}.filters" );
     }
 }

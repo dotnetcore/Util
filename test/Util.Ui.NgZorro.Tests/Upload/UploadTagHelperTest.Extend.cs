@@ -29,7 +29,8 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         public void TestNgModel() {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"code\" [(nzFileList)]=\"u_id.files\">" );
+            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" " );
+            result.Append( "[(model)]=\"code\" [(nzFileList)]=\"u_id.files\" [nzFilter]=\"u_id.filters\">" );
             result.Append( GetButton() );
             result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -43,7 +44,8 @@ namespace Util.Ui.NgZorro.Tests.Upload {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "a" );
             _wrapper.SetContextAttribute( UiConst.OnModelChange, "b" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (modelChange)=\"b\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"a\" [(nzFileList)]=\"u_id.files\">" );
+            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (modelChange)=\"b\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" " );
+            result.Append( "[(model)]=\"a\" [(nzFileList)]=\"u_id.files\" [nzFilter]=\"u_id.filters\">" );
             result.Append( GetButton() );
             result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -57,7 +59,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             _wrapper.SetContextAttribute( AngularConst.NotBindFileList, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"code\">" );
+            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"code\" [nzFilter]=\"u_id.filters\">" );
             result.Append( GetButton() );
             result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -71,7 +73,8 @@ namespace Util.Ui.NgZorro.Tests.Upload {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             _wrapper.SetContextAttribute( UiConst.ClearFiles, true );
             var result = new StringBuilder();
-            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"code\" [(nzFileList)]=\"u_id.files\" [isClearFiles]=\"true\">" );
+            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" " );
+            result.Append( "[(model)]=\"code\" [(nzFileList)]=\"u_id.files\" [isClearFiles]=\"true\" [nzFilter]=\"u_id.filters\">" );
             result.Append( GetButton() );
             result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -85,7 +88,8 @@ namespace Util.Ui.NgZorro.Tests.Upload {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             _wrapper.SetContextAttribute( UiConst.ModelToFilesDebounceTime, 10 );
             var result = new StringBuilder();
-            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"code\" [(nzFileList)]=\"u_id.files\" [modelToFilesDebounceTime]=\"10\">" );
+            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" " );
+            result.Append( "[(model)]=\"code\" [(nzFileList)]=\"u_id.files\" [modelToFilesDebounceTime]=\"10\" [nzFilter]=\"u_id.filters\">" );
             result.Append( GetButton() );
             result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -99,7 +103,8 @@ namespace Util.Ui.NgZorro.Tests.Upload {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             _wrapper.SetContextAttribute( UiConst.OnUploadComplete, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" (onUploadComplete)=\"a\" x-upload-extend=\"\" [(model)]=\"code\" [(nzFileList)]=\"u_id.files\">" );
+            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" (onUploadComplete)=\"a\" x-upload-extend=\"\" " );
+            result.Append( "[(model)]=\"code\" [(nzFileList)]=\"u_id.files\" [nzFilter]=\"u_id.filters\">" );
             result.Append( GetButton() );
             result.Append( "</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );

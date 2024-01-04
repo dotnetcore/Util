@@ -18,7 +18,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"a\" [(nzFileList)]=\"u_id.files\">" );
+            result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" [(model)]=\"a\" [(nzFileList)]=\"u_id.files\" [nzFilter]=\"u_id.filters\">" );
             result.Append( GetButton() );
             result.Append( "</nz-upload>" );
             result.Append( "<input #v_id=\"xValidationExtend\" name=\"input_id\" nz-input=\"\" style=\"display: none\" x-validation-extend=\"\" [ngModel]=\"u_id.inputValue\" [required]=\"true\" />" );

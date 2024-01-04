@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
+using Util.Ui.NgZorro.Components.InputNumbers.Renders;
 using Util.Ui.NgZorro.Components.Inputs.Helpers;
-using Util.Ui.NgZorro.Components.Inputs.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Inputs; 
+namespace Util.Ui.NgZorro.Components.InputNumbers;
 
 /// <summary>
-/// 输入框组合,生成的标签为&lt;nz-input-group&gt;&lt;/nz-input-group&gt;
+/// 数字输入框组合,生成的标签为&lt;nz-input-number-group&gt;&lt;/nz-input-number-group&gt;
 /// </summary>
-[HtmlTargetElement( "util-input-group" )]
-public class InputGroupTagHelper : AngularTagHelperBase {
+[HtmlTargetElement( "util-input-number-group" )]
+public class InputNumberGroupTagHelper : AngularTagHelperBase {
     /// <summary>
     /// 配置
     /// </summary>
@@ -82,14 +82,6 @@ public class InputGroupTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSuffixIcon { get; set; }
     /// <summary>
-    /// [nzSearch],是否用于搜索
-    /// </summary>
-    public bool Search { get; set; }
-    /// <summary>
-    /// [nzSearch],是否用于搜索
-    /// </summary>
-    public string BindSearch { get; set; }
-    /// <summary>
     /// nzSize,设置输入框大小, 可选值: 'default' | 'small' |  'large'
     /// </summary>
     public InputSize Size { get; set; }
@@ -120,6 +112,6 @@ public class InputGroupTagHelper : AngularTagHelperBase {
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
         _config.Content = content;
-        return new InputGroupRender( _config );
+        return new InputNumberGroupRender( _config );
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.InputNumbers.Renders;
 using Util.Ui.NgZorro.Components.Inputs.Helpers;
