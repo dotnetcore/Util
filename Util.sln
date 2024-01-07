@@ -267,11 +267,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Generators.Tests", "te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08-FileStorage", "08-FileStorage", "{E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.FileStorage", "src\Util.FileStorage\01-Util.FileStorage.csproj", "{6FC29D15-7581-4E29-9897-76DC5AEF2042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.FileStorage", "src\Util.FileStorage\02-Util.FileStorage.csproj", "{6FC29D15-7581-4E29-9897-76DC5AEF2042}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Util.FileStorage.Minio", "src\Util.FileStorage.Minio\02-Util.FileStorage.Minio.csproj", "{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.FileStorage.Minio", "src\Util.FileStorage.Minio\03-Util.FileStorage.Minio.csproj", "{3E81F8D0-06C7-4FD4-A5B0-E3D96E909646}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.FileStorage.Aliyun", "src\Util.FileStorage.Aliyun\03-Util.FileStorage.Aliyun.csproj", "{C233FF83-E15D-4A17-8FF1-BBFF9E9DE210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.FileStorage.Aliyun", "src\Util.FileStorage.Aliyun\04-Util.FileStorage.Aliyun.csproj", "{C233FF83-E15D-4A17-8FF1-BBFF9E9DE210}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08-FileStorage", "08-FileStorage", "{16175228-03CA-414A-8786-E5BA844110C4}"
 EndProject
@@ -339,9 +339,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07-Util.Http", "src\Util.Ht
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.FileStorage.Tests.Integration", "test\Util.FileStorage.Tests.Integration\Util.FileStorage.Tests.Integration.csproj", "{A23BA1A3-8EC7-4937-B0AA-69CCEE40453C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Util.FileStorage.All", "src\Util.FileStorage.All\04-Util.FileStorage.All.csproj", "{4938D59D-CF50-4090-B936-36DB29EBE344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.FileStorage.All", "src\Util.FileStorage.All\05-Util.FileStorage.All.csproj", "{4938D59D-CF50-4090-B936-36DB29EBE344}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.FileStorage.Aliyun.Tests.Integration", "test\Util.FileStorage.Aliyun.Tests.Integration\Util.FileStorage.Aliyun.Tests.Integration.csproj", "{58C01936-5D8F-4077-8663-EE0E35776D65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.FileStorage.Abstractions", "src\Util.FileStorage.Abstractions\01-Util.FileStorage.Abstractions.csproj", "{814E42E9-508E-487F-BCD3-0F07AE7D1492}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -857,6 +859,10 @@ Global
 		{58C01936-5D8F-4077-8663-EE0E35776D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C01936-5D8F-4077-8663-EE0E35776D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58C01936-5D8F-4077-8663-EE0E35776D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814E42E9-508E-487F-BCD3-0F07AE7D1492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814E42E9-508E-487F-BCD3-0F07AE7D1492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814E42E9-508E-487F-BCD3-0F07AE7D1492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814E42E9-508E-487F-BCD3-0F07AE7D1492}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1027,6 +1033,7 @@ Global
 		{A23BA1A3-8EC7-4937-B0AA-69CCEE40453C} = {16175228-03CA-414A-8786-E5BA844110C4}
 		{4938D59D-CF50-4090-B936-36DB29EBE344} = {E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}
 		{58C01936-5D8F-4077-8663-EE0E35776D65} = {16175228-03CA-414A-8786-E5BA844110C4}
+		{814E42E9-508E-487F-BCD3-0F07AE7D1492} = {E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94347832-A36D-4C42-9C4D-B848BD4F5DA9}

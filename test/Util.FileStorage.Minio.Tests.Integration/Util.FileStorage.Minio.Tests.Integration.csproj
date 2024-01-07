@@ -39,7 +39,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Util.FileStorage.Minio\02-Util.FileStorage.Minio.csproj" />
+	  <ProjectReference Include="..\..\src\Util.FileStorage.Minio\03-Util.FileStorage.Minio.csproj" />
 	  <ProjectReference Include="..\..\src\Util.IdGenerator\10-Util.IdGenerator.csproj" />
 	</ItemGroup>
 

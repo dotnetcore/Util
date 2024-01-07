@@ -1,21 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFramework>$(NetTargetFramework)</TargetFramework>
 		<PackageIcon>icon.jpg</PackageIcon>
-		<AssemblyName>Util.FileStorage.Minio</AssemblyName>
-		<RootNamespace>Util.FileStorage.Minio</RootNamespace>
-		<Description>Util.FileStorage.Minio是Util应用框架基于Minio文件存储操作类库</Description>
+		<AssemblyName>Util.FileStorage</AssemblyName>
+		<RootNamespace>Util.FileStorage</RootNamespace>
+		<Description>Util.FileStorage是Util应用框架文件存储操作基础类库</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.FileStorage.Minio.xml</DocumentationFile>
+		<DocumentationFile>.\obj\Debug\$(NetTargetFramework)\Util.FileStorage.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath></OutputPath>
-		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.FileStorage.Minio.xml</DocumentationFile>
+		<DocumentationFile>.\obj\Release\$(NetTargetFramework)\Util.FileStorage.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -27,15 +26,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Minio" Version="6.0.1" />
+	  <ProjectReference Include="..\Util.AspNetCore\08-Util.AspNetCore.csproj" />
+	  <ProjectReference Include="..\Util.FileStorage.Abstractions\01-Util.FileStorage.Abstractions.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Util.FileStorage\01-Util.FileStorage.csproj" />
+	  <PackageReference Include="FileSignatures" Version="4.4.1" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-
 </Project>

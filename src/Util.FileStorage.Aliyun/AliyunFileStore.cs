@@ -442,16 +442,16 @@ public class AliyunFileStore : IAliyunOssFileStore {
         args.CheckNull( nameof( args ) );
         var processedFileName = ProcessFileName( args );
         var processedBucketName = await ProcessBucketName( args );
-        return await GenerateUploadUrlAsync( processedFileName, processedBucketName, cancellationToken );
+        return await GenerateUploadUrlAsync( processedFileName, processedBucketName, args.SizeLimit );
     }
 
     /// <summary>
     /// 生成直传Url
     /// </summary>
-    protected async Task<DirectUploadParam> GenerateUploadUrlAsync( ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken ) {
+    protected async Task<DirectUploadParam> GenerateUploadUrlAsync( ProcessedName fileName, ProcessedName bucketName, long sizeLimit ) {
         await InitConfig();
         var url = CreateGenerateUploadHost( bucketName.Name );
-        var data = await CreateGenerateUploadData( fileName, bucketName, cancellationToken );
+        var data = await CreateGenerateUploadData( fileName, bucketName, sizeLimit );
         return new DirectUploadParam( fileName.Name, url, data, fileName.OriginalName, bucketName.Name );
     }
 
@@ -472,8 +472,8 @@ public class AliyunFileStore : IAliyunOssFileStore {
     /// <summary>
     /// 创建直传数据
     /// </summary>
-    protected async Task<DirectUploadData> CreateGenerateUploadData( ProcessedName fileName, ProcessedName bucketName, CancellationToken cancellationToken ) {
-        var policy = await GetPostPolicy( bucketName );
+    protected async Task<DirectUploadData> CreateGenerateUploadData( ProcessedName fileName, ProcessedName bucketName, long sizeLimit ) {
+        var policy = await GetPostPolicy( bucketName, sizeLimit );
         var signature = ComputeSignature( _config.AccessKeySecret, policy );
         return new DirectUploadData( fileName.Name, policy, _config.AccessKeyId, signature );
     }
@@ -481,11 +481,12 @@ public class AliyunFileStore : IAliyunOssFileStore {
     /// <summary>
     /// 获取Post策略
     /// </summary>
-    protected virtual async Task<string> GetPostPolicy( ProcessedName bucketName ) {
+    protected virtual async Task<string> GetPostPolicy( ProcessedName bucketName,long sizeLimit ) {
         var client = await GetClient();
         var expiration = DateTime.Now.AddSeconds( _config.UploadUrlExpiration );
         var policy = new PolicyConditions();
         policy.AddConditionItem( "bucket", bucketName.Name );
+        policy.AddConditionItem( "content-length-range", 1,sizeLimit );
         var postPolicy = client.GeneratePostPolicy( expiration, policy );
         return Util.Helpers.Convert.ToBase64( postPolicy );
     }

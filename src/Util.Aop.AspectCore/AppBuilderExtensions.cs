@@ -39,10 +39,22 @@ public static class AppBuilderExtensions {
     /// <param name="setupAction">AspectCore拦截器配置操作</param>
     /// <param name="isEnableIAopProxy">是否启用IAopProxy接口标记</param>
     private static IAppBuilder AddAop( this IAppBuilder builder, Action<IAspectConfiguration> setupAction, bool isEnableIAopProxy ) {
+        return builder.AddAop( setupAction, t => t.IsEnableIAopProxy = isEnableIAopProxy );
+    }
+
+    /// <summary>
+    /// 启用AspectCore拦截器
+    /// </summary>
+    /// <param name="builder">应用生成器</param>
+    /// <param name="setupAction">AspectCore拦截器配置操作</param>
+    /// <param name="action">配置操作</param>
+    private static IAppBuilder AddAop( this IAppBuilder builder, Action<IAspectConfiguration> setupAction, Action<AopOptions> action ) {
         builder.CheckNull( nameof( builder ) );
         builder.Host.UseServiceProviderFactory( new DynamicProxyServiceProviderFactory() );
         builder.Host.ConfigureServices( ( context, services ) => {
-            ConfigureDynamicProxy( services, setupAction, isEnableIAopProxy );
+            var options = new AopOptions();
+            action?.Invoke( options );
+            ConfigureDynamicProxy( services, setupAction, options.IsEnableParameterAspect,options.IsEnableIAopProxy );
             RegisterAspectScoped( services );
         } );
         return builder;
@@ -51,11 +63,12 @@ public static class AppBuilderExtensions {
     /// <summary>
     /// 配置拦截器
     /// </summary>
-    private static void ConfigureDynamicProxy( IServiceCollection services, Action<IAspectConfiguration> setupAction, bool isEnableIAopProxy ) {
+    private static void ConfigureDynamicProxy( IServiceCollection services, Action<IAspectConfiguration> setupAction,bool isEnableParameterAspect, bool isEnableIAopProxy ) {
         services.ConfigureDynamicProxy( config => {
             if ( setupAction == null ) {
                 config.NonAspectPredicates.Add( t => !IsProxy( t.DeclaringType, isEnableIAopProxy ) );
-                config.EnableParameterAspect();
+                if( isEnableParameterAspect )
+                    config.EnableParameterAspect();
                 return;
             }
             setupAction.Invoke( config );
@@ -69,9 +82,7 @@ public static class AppBuilderExtensions {
         if ( type == null )
             return false;
         if ( isEnableIAopProxy == false ) {
-            if ( type.SafeString().Contains( "Xunit.DependencyInjection.ITestOutputHelperAccessor" ) )
-                return false;
-            return true;
+            return type.SafeString().Contains( "Xunit.DependencyInjection.ITestOutputHelperAccessor" ) == false;
         }
         var interfaces = type.GetInterfaces();
         if ( interfaces == null || interfaces.Length == 0 )

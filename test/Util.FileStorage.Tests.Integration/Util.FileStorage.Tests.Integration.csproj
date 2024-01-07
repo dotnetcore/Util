@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Util.FileStorage\01-Util.FileStorage.csproj" />
+    <ProjectReference Include="..\..\src\Util.FileStorage\02-Util.FileStorage.csproj" />
     <ProjectReference Include="..\..\src\Util.IdGenerator\10-Util.IdGenerator.csproj" />
   </ItemGroup>
 

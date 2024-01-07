@@ -3,7 +3,7 @@
 /// <summary>
 /// 文件存储服务操作扩展
 /// </summary>
-public static class IFileStoreExtensions {
+public static class FileStoreExtensions {
     /// <summary>
     /// 保存文件
     /// </summary>

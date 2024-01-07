@@ -16,10 +16,6 @@ public class LocalFileStore : IFileStore {
     /// </summary>
     private readonly IFileNameProcessorFactory _fileNameProcessorFactory;
     /// <summary>
-    /// 文件扩展名检查器
-    /// </summary>
-    private readonly IFileExtensionInspector _inspector;
-    /// <summary>
     /// 本地文件存储配置
     /// </summary>
     private LocalStoreOptions _config;
@@ -37,13 +33,10 @@ public class LocalFileStore : IFileStore {
     /// </summary>
     /// <param name="configProvider">配置提供器</param>
     /// <param name="fileNameProcessorFactory">文件名处理器工厂</param>
-    /// <param name="inspector">文件扩展名检查器</param>
     /// <param name="httpClient">Http操作</param>
-    public LocalFileStore( ILocalStoreConfigProvider configProvider, IFileNameProcessorFactory fileNameProcessorFactory,
-        IFileExtensionInspector inspector, IHttpClient httpClient ) {
+    public LocalFileStore( ILocalStoreConfigProvider configProvider, IFileNameProcessorFactory fileNameProcessorFactory, IHttpClient httpClient ) {
         _configProvider = configProvider ?? throw new ArgumentNullException( nameof( configProvider ) );
         _fileNameProcessorFactory = fileNameProcessorFactory ?? throw new ArgumentNullException( nameof( fileNameProcessorFactory ) );
-        _inspector = inspector ?? throw new ArgumentNullException( nameof( inspector ) );
         _httpClient = httpClient ?? throw new ArgumentNullException( nameof( httpClient ) );
     }
 
@@ -177,27 +170,11 @@ public class LocalFileStore : IFileStore {
     /// </summary>
     public virtual async Task<FileResult> SaveFileAsync( Stream stream, ProcessedName fileName, CancellationToken cancellationToken = default ) {
         stream.CheckNull( nameof( stream ) );
-        ValidateExtension( stream, fileName.OriginalName );
         var config = await GetConfig();
         var filePath = Path.Combine( config.RootPath, fileName.Name );
         var physicalPath = Path.Combine( Util.Helpers.Web.Environment.WebRootPath, filePath );
         await Util.Helpers.File.WriteAsync( physicalPath, stream, cancellationToken );
         return new FileResult( filePath, stream.Length, fileName.OriginalName );
-    }
-
-    /// <summary>
-    /// 验证扩展名
-    /// </summary>
-    protected virtual void ValidateExtension( Stream stream, string fileName ) {
-        var extension = Path.GetExtension( fileName );
-        if( extension.IsEmpty() )
-            return;
-        var result = _inspector.GetExtension( stream );
-        if( result.IsEmpty() )
-            return;
-        extension = extension.TrimStart( '.' ).ToUpperInvariant();
-        if( extension != result.ToUpperInvariant() )
-            throw new InvalidOperationException( $"上传文件扩展名检查失败,文件名:{fileName},扩展名: {extension} != {result}" );
     }
 
     #endregion

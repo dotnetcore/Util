@@ -40,7 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Util.AspNetCore\08-Util.AspNetCore.csproj" />
-    <ProjectReference Include="..\..\src\Util.FileStorage.Aliyun\03-Util.FileStorage.Aliyun.csproj" />
+    <ProjectReference Include="..\..\src\Util.FileStorage.Aliyun\04-Util.FileStorage.Aliyun.csproj" />
   </ItemGroup>
 
   <ItemGroup>

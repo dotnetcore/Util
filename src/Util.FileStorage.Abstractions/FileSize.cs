@@ -19,10 +19,35 @@ public readonly struct FileSize {
     }
 
     /// <summary>
+    /// 初始化文件大小
+    /// </summary>
+    /// <param name="size">文件大小</param>
+    /// <param name="unit">文件大小单位</param>
+    public FileSize( double size, FileSizeUnit unit = FileSizeUnit.Byte ) {
+        _size = Util.Helpers.Convert.ToLong( GetSize( size, unit ) );
+    }
+
+    /// <summary>
     /// 获取文件大小
     /// </summary>
     private static long GetSize( long size, FileSizeUnit unit ) {
         switch ( unit ) {
+            case FileSizeUnit.K:
+                return size * 1024;
+            case FileSizeUnit.M:
+                return size * 1024 * 1024;
+            case FileSizeUnit.G:
+                return size * 1024 * 1024 * 1024;
+            default:
+                return size;
+        }
+    }
+
+    /// <summary>
+    /// 获取文件大小
+    /// </summary>
+    private static double GetSize( double size, FileSizeUnit unit ) {
+        switch( unit ) {
             case FileSizeUnit.K:
                 return size * 1024;
             case FileSizeUnit.M:

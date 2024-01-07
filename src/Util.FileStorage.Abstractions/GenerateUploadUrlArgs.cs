@@ -48,4 +48,9 @@ public class GenerateUploadUrlArgs : FileStorageArgs {
     public IDictionary<string, string> GetHeaders() {
         return _headers;
     }
+
+    /// <summary>
+    /// 文件大小限制,单位:字节
+    /// </summary>
+    public long SizeLimit { get; set; }
 }
