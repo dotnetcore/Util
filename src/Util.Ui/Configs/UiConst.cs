@@ -33,6 +33,14 @@ public static class UiConst {
     /// </summary>
     public const string PasteDataImages = "paste-data-images";
     /// <summary>
+    /// 选中文本变更
+    /// </summary>
+    public const string OnSelectedTextChange = "on-selected-text-change";
+    /// <summary>
+    /// 选中值变更
+    /// </summary>
+    public const string OnSelectedValueChange = "on-selected-value-change";
+    /// <summary>
     /// 属性名
     /// </summary>
     public const string PropertyName = "property-name";
@@ -40,6 +48,18 @@ public static class UiConst {
     /// 工具栏模式
     /// </summary>
     public const string ToolbarMode = "toolbar-mode";
+    /// <summary>
+    /// 全部选中
+    /// </summary>
+    public const string AllSelected = "all-selected";
+    /// <summary>
+    /// 选中文本
+    /// </summary>
+    public const string SelectedText = "selected-text";
+    /// <summary>
+    /// 选中值
+    /// </summary>
+    public const string SelectedValue = "selected-value";
     /// <summary>
     /// 下拉渲染
     /// </summary>

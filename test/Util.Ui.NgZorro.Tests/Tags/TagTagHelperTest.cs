@@ -1,8 +1,10 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tags;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,7 +13,7 @@ namespace Util.Ui.NgZorro.Tests.Tags {
     /// <summary>
     /// 标签测试
     /// </summary>
-    public partial class TagTagHelperTest {
+    public partial class TagTagHelperTest : IDisposable{
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -19,14 +21,22 @@ namespace Util.Ui.NgZorro.Tests.Tags {
         /// <summary>
         /// TagHelper包装器
         /// </summary>
-        private readonly TagHelperWrapper _wrapper;
+        private readonly TagHelperWrapper<Customer> _wrapper;
 
         /// <summary>
         /// 测试初始化
         /// </summary>
         public TagTagHelperTest( ITestOutputHelper output ) {
             _output = output;
-            _wrapper = new TagTagHelper().ToWrapper();
+            _wrapper = new TagTagHelper().ToWrapper<Customer>();
+            Util.Helpers.Id.SetId( "id" );
+        }
+
+        /// <summary>
+        /// 测试清理
+        /// </summary>
+        public void Dispose() {
+            Util.Helpers.Id.Reset();
         }
 
         /// <summary>

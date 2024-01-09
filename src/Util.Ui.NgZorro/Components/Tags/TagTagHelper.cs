@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Tags.Helpers;
 using Util.Ui.NgZorro.Components.Tags.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -13,6 +14,50 @@ namespace Util.Ui.NgZorro.Components.Tags;
 /// </summary>
 [HtmlTargetElement( "util-tag" )]
 public class TagTagHelper : AngularTagHelperBase {
+    /// <summary>
+    /// 配置
+    /// </summary>
+    private Config _config;
+    /// <summary>
+    /// 属性表达式
+    /// </summary>
+    public ModelExpression For { get; set; }
+    /// <summary>
+    /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用,默认为 false
+    /// </summary>
+    public bool EnableExtend { get; set; }
+    /// <summary>
+    /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
+    /// </summary>
+    public bool AutoLoad { get; set; }
+    /// <summary>
+    /// 扩展属性 [(allSelected)],是否选中全部标签
+    /// </summary>
+    public string AllSelected { get; set; }
+    /// <summary>
+    /// 扩展属性 [(selectedText)],选中标签文本,多个标签文本使用逗号分隔
+    /// </summary>
+    public string SelectedText { get; set; }
+    /// <summary>
+    /// 扩展属性 [(selectedValue)],选中标签值,多个标签值使用逗号分隔
+    /// </summary>
+    public string SelectedValue { get; set; }
+    /// <summary>
+    /// 扩展属性 [(queryParam)],查询参数
+    /// </summary>
+    public string QueryParam { get; set; }
+    /// <summary>
+    /// 扩展属性 url,Api地址
+    /// </summary>
+    public string Url { get; set; }
+    /// <summary>
+    /// 扩展属性 [url],Api地址
+    /// </summary>
+    public string BindUrl { get; set; }
+    /// <summary>
+    /// 扩展属性 [data],数据源
+    /// </summary>
+    public string Data { get; set; }
     /// <summary>
     /// 扩展属性,内容文本,支持i18n
     /// </summary>
@@ -65,10 +110,29 @@ public class TagTagHelper : AngularTagHelperBase {
     /// (nzCheckedChange),选中状态变化事件,在 nzMode="checkable" 时可用,类型: EventEmitter&lt;void>
     /// </summary>
     public string OnCheckedChange { get; set; }
+    /// <summary>
+    /// 扩展事件 (onLoad),数据加载完成事件,类型: EventEmitter&lt;any>,参数为服务端返回结果
+    /// </summary>
+    public string OnLoad { get; set; }
+    /// <summary>
+    /// 扩展事件 (selectedTextChange),选中文本变更事件,类型: EventEmitter&lt;string>,参数为选中标签的文本,以逗号分隔
+    /// </summary>
+    public string OnSelectedTextChange { get; set; }
+    /// <summary>
+    /// 扩展事件 (selectedValueChange),选中值变更事件,类型: EventEmitter&lt;string>,参数为选中标签的值,以逗号分隔
+    /// </summary>
+    public string OnSelectedValueChange { get; set; }
+
+    /// <inheritdoc />
+    protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+        _config = new Config( context, output );
+        var loader = new TagExpressionLoader();
+        loader.Load( _config );
+    }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
-        var config = new Config( context, output, content );
-        return new TagRender( config );
+        _config.Content = content;
+        return new TagRender( _config );
     }
 }

@@ -1,5 +1,5 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Configs;
+using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tags.Builders;
 using Util.Ui.Renders;
 
@@ -26,9 +26,53 @@ public class TagRender : RenderBase {
     /// 获取标签生成器
     /// </summary>
     protected override TagBuilder GetTagBuilder() {
-        var builder = new TagTagBuilder( _config );
+        var containerTagBuilder = new TagContainerTagBuilder( _config );
+        containerTagBuilder.Config();
+        TagBuilder container = IsEnableExtend() ? containerTagBuilder : new EmptyContainerTagBuilder();
+        var builder = new TagTagBuilder( _config, IsEnableExtend(), containerTagBuilder.ExtendId );
+        container.AppendContent( builder );
         builder.Config();
-        return builder;
+        return container;
+    }
+
+    /// <summary>
+    /// 是否启用基础扩展
+    /// </summary>
+    public bool IsEnableExtend() {
+        if( GetEnableExtend() == false )
+            return false;
+        return GetEnableExtend() == true ||
+               GetUrl().IsEmpty() == false ||
+               GetBindUrl().IsEmpty() == false ||
+               GetData().IsEmpty() == false;
+    }
+
+    /// <summary>
+    /// 获取启用扩展属性
+    /// </summary>
+    private bool? GetEnableExtend() {
+        return _config.GetValue<bool?>( UiConst.EnableExtend );
+    }
+
+    /// <summary>
+    /// 获取地址
+    /// </summary>
+    private string GetUrl() {
+        return _config.GetValue( UiConst.Url );
+    }
+
+    /// <summary>
+    /// 获取地址
+    /// </summary>
+    private string GetBindUrl() {
+        return _config.GetValue( AngularConst.BindUrl );
+    }
+
+    /// <summary>
+    /// 获取数据源
+    /// </summary>
+    private string GetData() {
+        return _config.GetValue( UiConst.Data );
     }
 
     /// <inheritdoc />

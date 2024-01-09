@@ -486,7 +486,8 @@ public class AliyunFileStore : IAliyunOssFileStore {
         var expiration = DateTime.Now.AddSeconds( _config.UploadUrlExpiration );
         var policy = new PolicyConditions();
         policy.AddConditionItem( "bucket", bucketName.Name );
-        policy.AddConditionItem( "content-length-range", 1,sizeLimit );
+        if( sizeLimit > 0)
+            policy.AddConditionItem( "content-length-range", 1,sizeLimit );
         var postPolicy = client.GeneratePostPolicy( expiration, policy );
         return Util.Helpers.Convert.ToBase64( postPolicy );
     }

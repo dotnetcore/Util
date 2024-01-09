@@ -12,12 +12,14 @@ public class Item : IComparable<Item> {
     /// <param name="sortId">排序号</param>
     /// <param name="group">组</param>
     /// <param name="disabled">禁用</param>
-    public Item( string text, object value, int? sortId = null, string group = null, bool? disabled = null ) {
+    /// <param name="selected">选中</param>
+    public Item( string text, object value, int? sortId = null, string group = null, bool? disabled = null, bool? selected = null ) {
         Text = text;
         Value = value;
         SortId = sortId;
         Group = group;
         Disabled = disabled;
+        Selected = selected;
     }
 
     /// <summary>
@@ -49,6 +51,12 @@ public class Item : IComparable<Item> {
     /// </summary>
     [JsonPropertyName("disabled")]
     public bool? Disabled { get; }
+
+    /// <summary>
+    /// 选中
+    /// </summary>
+    [JsonPropertyName( "selected" )]
+    public bool? Selected { get; }
 
     /// <summary>
     /// 比较

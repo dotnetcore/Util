@@ -5,23 +5,38 @@
 /// </summary>
 public enum ImageType {
     /// <summary>
-    /// jpg,jpeg
+    /// .jpg
     /// </summary>
-    [Description( ".jpg,.jpeg" )]
+    [Description( ".jpg" )]
     Jpg,
     /// <summary>
-    /// png
+    /// .jpeg
+    /// </summary>
+    [Description( ".jpeg" )]
+    Jpeg,
+    /// <summary>
+    /// .png
     /// </summary>
     [Description( ".png" )]
     Png,
     /// <summary>
-    /// gif
+    /// .gif
     /// </summary>
     [Description( ".gif" )]
     Gif,
     /// <summary>
-    /// bmp
+    /// .svg
+    /// </summary>
+    [Description( ".svg" )]
+    Svg,
+    /// <summary>
+    /// .bmp
     /// </summary>
     [Description( ".bmp" )]
-    Bmp
+    Bmp,
+    /// <summary>
+    /// .webp
+    /// </summary>
+    [Description( ".webp" )]
+    Webp
 }

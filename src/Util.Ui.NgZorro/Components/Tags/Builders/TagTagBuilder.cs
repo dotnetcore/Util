@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
+using Util.Ui.Angular.Extensions;
+using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
@@ -20,9 +21,22 @@ public class TagTagBuilder : AngularTagBuilder {
     /// 初始化标签标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public TagTagBuilder( Config config ) : base( config,"nz-tag" ) {
+    /// <param name="isEnableExtend">是否启用扩展</param>
+    /// <param name="extendId">扩展标识</param>
+    public TagTagBuilder( Config config,bool isEnableExtend,string extendId ) : base( config,"nz-tag" ) {
         _config = config;
+        IsEnableExtend = isEnableExtend;
+        ExtendId = extendId;
     }
+
+    /// <summary>
+    /// 是否启用扩展
+    /// </summary>
+    protected bool IsEnableExtend { get; }
+    /// <summary>
+    /// 扩展标识
+    /// </summary>
+    protected string ExtendId { get; }
 
     /// <summary>
     /// 配置模式
@@ -117,5 +131,52 @@ public class TagTagBuilder : AngularTagBuilder {
         base.Config();
         Mode().Checked().Color().Events();
         TextEnabled().TextNotEnabled().Text();
+        SetForeach();
+        SetChecked();
+    }
+
+    /// <summary>
+    /// 设置循环
+    /// </summary>
+    private void SetForeach() {
+        if(IsEnableExtend)
+            this.NgFor( $"let item of {ExtendId}.data" );
+    }
+
+    /// <summary>
+    /// 设置选中状态
+    /// </summary>
+    private void SetChecked() {
+        if ( IsEnableExtend == false )
+            return;
+        var mode = _config.GetValue<TagMode?>( UiConst.Mode );
+        if ( mode != TagMode.Checkable )
+            return;
+        if ( _config.GetValue( UiConst.Checked ).IsEmpty() == false )
+            return;
+        if( _config.GetValue( AngularConst.BindChecked ).IsEmpty() == false )
+            return;
+        if( _config.GetValue( AngularConst.BindonChecked ).IsEmpty() == false )
+            return;
+        Attribute( "[nzChecked]", "item.selected" );
+        if ( _config.GetValue( UiConst.OnCheckedChange ).IsEmpty() == false )
+            return;
+        Attribute( "(nzCheckedChange)", $"{ExtendId}.selectItem($event,item.text)" );
+    }
+
+    /// <summary>
+    /// 配置内容
+    /// </summary>
+    protected override void ConfigContent( Config config ) {
+        if ( config.Content.IsEmpty() && IsEnableExtend ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if( options.EnableI18n ) {
+                AppendContent( "{{item.text|i18n}}" );
+                return;
+            }
+            AppendContent( "{{item.text}}" );
+            return;
+        }
+        base.ConfigContent( config );
     }
 }
