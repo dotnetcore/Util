@@ -12,3 +12,4 @@ global using FileSignatures;
 global using FileSignatures.Formats;
 global using Util.Dependency;
 global using Util.Http;
+global using Util.Sessions;

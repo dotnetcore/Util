@@ -72,7 +72,7 @@ public class AliyunFileStore : IAliyunOssFileStore {
     /// <summary>
     /// 获取阿里云对象存储客户端
     /// </summary>
-    protected virtual async Task<IOss> GetClient() {
+    public virtual async Task<IOss> GetClient() {
         if( _client != null )
             return _client;
         await InitConfig();
@@ -408,20 +408,49 @@ public class AliyunFileStore : IAliyunOssFileStore {
     }
 
     /// <inheritdoc />
-    public async Task<string> GenerateDownloadUrlAsync( GenerateDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
+    public virtual async Task<string> GenerateDownloadUrlAsync( GenerateDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
         args.CheckNull( nameof( args ) );
         var processedFileName = ProcessFileName( args );
         var processedBucketName = await ProcessBucketName( args );
-        return await GenerateDownloadUrlAsync( processedFileName, processedBucketName, args.ResponseContentType, cancellationToken );
+        var endpoint = await GetEndPoint( processedBucketName.Name );
+        return Util.Helpers.Common.JoinPath( endpoint, processedFileName.Name );
     }
 
     /// <summary>
-    /// 生成下载Url
+    /// 获取端点
     /// </summary>
-    protected async Task<string> GenerateDownloadUrlAsync( ProcessedName fileName, ProcessedName bucketName, string responseContentType, CancellationToken cancellationToken = default ) {
+    protected virtual async Task<string> GetEndPoint(string bucketName ) {
+        await InitConfig();
+        var endpoint = _config.Endpoint.RemoveStart( "http://" ).RemoveStart( "https://" );
+        return $"https://{bucketName}.{endpoint}";
+    }
+
+    #endregion
+
+    #region GenerateTempDownloadUrlAsync
+
+    /// <inheritdoc />
+    public async Task<string> GenerateTempDownloadUrlAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GenerateTempDownloadUrlArgs( fileName );
+        return await GenerateTempDownloadUrlAsync( args, cancellationToken );
+    }
+
+    /// <inheritdoc />
+    public virtual async Task<string> GenerateTempDownloadUrlAsync( GenerateTempDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
+        args.CheckNull( nameof( args ) );
+        var processedFileName = ProcessFileName( args );
+        var processedBucketName = await ProcessBucketName( args );
+        var expiration = args.Expiration ?? _config.DownloadUrlExpiration;
+        return await GenerateTempDownloadUrlAsync( processedFileName, processedBucketName, expiration, cancellationToken );
+    }
+
+    /// <summary>
+    /// 生成临时下载Url
+    /// </summary>
+    protected virtual async Task<string> GenerateTempDownloadUrlAsync( ProcessedName fileName, ProcessedName bucketName,int expiration, CancellationToken cancellationToken = default ) {
         var client = await GetClient();
         var request = new GeneratePresignedUriRequest( bucketName.Name, fileName.Name, SignHttpMethod.Get ) {
-            Expiration = DateTime.Now.AddSeconds( _config.UploadUrlExpiration )
+            Expiration = DateTime.Now.AddSeconds( expiration )
         };
         var result = client.GeneratePresignedUri( request );
         return result.AbsoluteUri;

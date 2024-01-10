@@ -387,15 +387,9 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestGenerateDownloadUrlAsync() {
-        //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
-        var fileInfo = new FileInfo( path );
-        var result = await _fileStore.SaveFileAsync( fileInfo );
-
-        //生成url
-        var url = await _fileStore.GenerateDownloadUrlAsync( "a" );
+        var url = await _fileStore.GenerateDownloadUrlAsync( "a.jpg" );
         _testOutputHelper.WriteLine( url );
-        Assert.StartsWith( "http", url );
+        Assert.Equal( "http://127.0.0.1:9000/util-filestorage-minio-test/a.jpg", url );
     }
 
     #endregion

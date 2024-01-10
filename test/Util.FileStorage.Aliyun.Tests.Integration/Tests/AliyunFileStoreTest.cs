@@ -344,15 +344,12 @@ public class AliyunFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestGenerateDownloadUrlAsync() {
-        //保存文件
-        var path = Common.GetPhysicalPath( "~/Resources/a.png" );
-        var fileInfo = new FileInfo( path );
-        var result = await _fileStore.SaveFileAsync( fileInfo );
-
-        //生成url
-        var url = await _fileStore.GenerateDownloadUrlAsync( result.FileName );
+        var args = new GenerateDownloadUrlArgs("a.jpg") {
+            BucketName = "test"
+        };
+        var url = await _fileStore.GenerateDownloadUrlAsync( args );
         _testOutputHelper.WriteLine( url );
-        Assert.StartsWith( "http", url );
+        Assert.StartsWith( "https://test.oss-cn-beijing.aliyuncs.com/a.jpg", url );
     }
 
     #endregion

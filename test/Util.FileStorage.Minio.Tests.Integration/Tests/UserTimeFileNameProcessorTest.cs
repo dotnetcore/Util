@@ -13,7 +13,8 @@ public class UserTimeFileNameProcessorTest : IDisposable {
     /// 测试初始化
     /// </summary>
     public UserTimeFileNameProcessorTest() {
-        Time.SetTime( new DateTime( 2012, 12, 12, 12, 12, 12, 123 ) );
+        Time.SetTime( new DateTime( 2012, 12, 12 ) );
+        Id.SetId( "id" );
     }
 
     /// <summary>
@@ -21,6 +22,7 @@ public class UserTimeFileNameProcessorTest : IDisposable {
     /// </summary>
     public void Dispose() {
         Time.Reset();
+        Id.Reset();
     }
 
     /// <summary>
@@ -28,8 +30,8 @@ public class UserTimeFileNameProcessorTest : IDisposable {
     /// </summary>
     [Fact]
     public void TestProcess_1() {
-        var processor = new UserTimeFileNameProcessor( new TestSession(),new FileNameFilter() );
+        var processor = new UserTimeFileNameProcessor( new TestSession() );
         var result = processor.Process( "a.jpg" );
-        Assert.Equal( $"{TestSession.TestUserId}/2012-12-12-12-12-12-123/a.jpg", result.Name );
+        Assert.Equal( $"{TestSession.TestUserId}/2012-12-12/id.jpg", result.Name );
     }
 }

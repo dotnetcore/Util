@@ -463,24 +463,45 @@ public class MinioFileStore : IFileStore {
     }
 
     /// <inheritdoc />
-    public async Task<string> GenerateDownloadUrlAsync( GenerateDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
+    public virtual async Task<string> GenerateDownloadUrlAsync( GenerateDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
         args.CheckNull( nameof( args ) );
         var processedFileName = ProcessFileName( args );
         var processedBucketName = await ProcessBucketName( args );
-        return await GenerateDownloadUrlAsync( processedFileName, processedBucketName, args.ResponseContentType,cancellationToken );
+        await InitConfig();
+        var schema = _config.UseSSL ? "https" : "http";
+        return Util.Helpers.Common.JoinPath( $"{schema}://{GetEndpoint()}", processedBucketName.Name, processedFileName.Name );
+    }
+
+    #endregion
+
+    #region GenerateTempDownloadUrlAsync
+
+    /// <inheritdoc />
+    public async Task<string> GenerateTempDownloadUrlAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GenerateTempDownloadUrlArgs( fileName );
+        return await GenerateTempDownloadUrlAsync( args, cancellationToken );
+    }
+
+    /// <inheritdoc />
+    public async Task<string> GenerateTempDownloadUrlAsync( GenerateTempDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
+        args.CheckNull( nameof( args ) );
+        var processedFileName = ProcessFileName( args );
+        var processedBucketName = await ProcessBucketName( args );
+        var expiration = args.Expiration ?? _config.DownloadUrlExpiration;
+        return await GenerateTempDownloadUrlAsync( processedFileName, processedBucketName, args.ResponseContentType, expiration );
     }
 
     /// <summary>
-    /// 生成下载Url
+    /// 生成临时下载Url
     /// </summary>
-    protected async Task<string> GenerateDownloadUrlAsync( ProcessedName fileName, ProcessedName bucketName, string responseContentType, CancellationToken cancellationToken = default ) {
+    protected async Task<string> GenerateTempDownloadUrlAsync( ProcessedName fileName, ProcessedName bucketName, string responseContentType, int expiration ) {
         var client = await GetClient();
         responseContentType ??= "application/octet-stream";
         var headers = new Dictionary<string, string> { { "response-content-type", responseContentType } };
         var args = new PresignedGetObjectArgs()
             .WithBucket( bucketName.Name )
             .WithObject( fileName.Name )
-            .WithExpiry( _config.DownloadUrlExpiration )
+            .WithExpiry( expiration )
             .WithHeaders( headers );
         return await client.PresignedGetObjectAsync( args );
     }

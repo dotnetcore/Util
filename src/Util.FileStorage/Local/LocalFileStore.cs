@@ -274,6 +274,24 @@ public class LocalFileStore : IFileStore {
 
     #endregion
 
+    #region GenerateTempDownloadUrlAsync
+
+    /// <inheritdoc />
+    public async Task<string> GenerateTempDownloadUrlAsync( string fileName, CancellationToken cancellationToken = default ) {
+        var args = new GenerateTempDownloadUrlArgs( fileName );
+        return await GenerateTempDownloadUrlAsync( args, cancellationToken );
+    }
+
+    /// <inheritdoc />
+    public virtual Task<string> GenerateTempDownloadUrlAsync( GenerateTempDownloadUrlArgs args, CancellationToken cancellationToken = default ) {
+        args.CheckNull( nameof( args ) );
+        var processedFileName = ProcessFileName( args );
+        var url = Util.Helpers.Common.JoinPath( Util.Helpers.Web.Host, processedFileName.Name );
+        return Task.FromResult( url );
+    }
+
+    #endregion
+
     #region GenerateUploadUrlAsync
 
     /// <inheritdoc />
