@@ -8,12 +8,18 @@ namespace Util.Data.EntityFrameworkCore.Migrations;
 public interface IMigrationService : ITransientDependency {
     /// <summary>
     /// 安装 dotnet-ef 全局工具,执行命令: dotnet tool install -g dotnet-ef
+    /// <param name="version">安装特定版本,执行命令: dotnet tool install -g dotnet-ef --version 版本号</param>
     /// </summary>
-    IMigrationService InstallEfTool();
+    IMigrationService InstallEfTool( string version = null );
+    /// <summary>
+    /// 卸载 dotnet-ef 全局工具,执行命令: dotnet tool uninstall -g dotnet-ef
+    /// </summary>
+    IMigrationService UninstallEfTool();
     /// <summary>
     /// 更新 dotnet-ef 全局工具,执行命令: dotnet tool update -g dotnet-ef
     /// </summary>
-    IMigrationService UpdateEfTool();
+    /// <param name="version">更新为特定版本,执行命令: dotnet tool update -g dotnet-ef --version 版本号</param>
+    IMigrationService UpdateEfTool( string version = null );
     /// <summary>
     /// 添加迁移,执行命令: dotnet ef migrations add migrationName
     /// </summary>

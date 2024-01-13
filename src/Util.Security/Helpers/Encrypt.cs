@@ -30,7 +30,7 @@ public static class Encrypt {
     /// Md5加密
     /// </summary>
     private static string Md5( string value, Encoding encoding, int? startIndex, int? length ) {
-        if ( string.IsNullOrWhiteSpace( value ) )
+        if( string.IsNullOrWhiteSpace( value ) )
             return string.Empty;
         var md5 = MD5.Create();
         string result;
@@ -88,7 +88,7 @@ public static class Encrypt {
     /// <param name="paddingMode">填充模式</param>
     public static string DesEncrypt( object value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7 ) {
         string text = value.SafeString();
-        if ( ValidateDes( text, key ) == false )
+        if( ValidateDes( text, key ) == false )
             return string.Empty;
         using var transform = CreateDesProvider( key, cipherMode, paddingMode ).CreateEncryptor();
         return GetEncryptResult( text, encoding, transform );
@@ -98,7 +98,7 @@ public static class Encrypt {
     /// 验证Des加密参数
     /// </summary>
     private static bool ValidateDes( string text, string key ) {
-        if ( text.IsEmpty() || key.IsEmpty() )
+        if( text.IsEmpty() || key.IsEmpty() )
             return false;
         return key.Length == 24;
     }
@@ -142,7 +142,7 @@ public static class Encrypt {
     /// <param name="paddingMode">填充模式</param>
     public static string DesDecrypt( object value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.ECB, PaddingMode paddingMode = PaddingMode.PKCS7 ) {
         string text = value.SafeString();
-        if ( !ValidateDes( text, key ) )
+        if( !ValidateDes( text, key ) )
             return string.Empty;
         using var transform = CreateDesProvider( key, cipherMode, paddingMode ).CreateDecryptor();
         return GetDecryptResult( text, encoding, transform );
@@ -171,10 +171,10 @@ public static class Encrypt {
     /// </summary>
     private static byte[] Iv {
         get {
-            if ( _iv == null ) {
+            if( _iv == null ) {
                 var size = 16;
                 _iv = new byte[size];
-                for ( int i = 0; i < size; i++ )
+                for( int i = 0; i < size; i++ )
                     _iv[i] = 0;
             }
             return _iv;
@@ -204,7 +204,7 @@ public static class Encrypt {
     /// <param name="paddingMode">填充模式</param>
     /// <param name="iv">初始化向量</param>
     public static string AesEncrypt( string value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.CBC, PaddingMode paddingMode = PaddingMode.PKCS7, byte[] iv = null ) {
-        if ( value.IsEmpty() || key.IsEmpty() )
+        if( value.IsEmpty() || key.IsEmpty() )
             return string.Empty;
         iv ??= Iv;
         var aes = CreateAes( key, cipherMode, paddingMode, iv );
@@ -242,7 +242,7 @@ public static class Encrypt {
     /// <param name="paddingMode">填充模式</param>
     /// <param name="iv">初始化向量</param>
     public static string AesDecrypt( string value, string key, Encoding encoding = null, CipherMode cipherMode = CipherMode.CBC, PaddingMode paddingMode = PaddingMode.PKCS7, byte[] iv = null ) {
-        if ( value.IsEmpty() || key.IsEmpty() )
+        if( value.IsEmpty() || key.IsEmpty() )
             return string.Empty;
         iv ??= Iv;
         var aes = CreateAes( key, cipherMode, paddingMode, iv );
@@ -260,14 +260,12 @@ public static class Encrypt {
     /// <param name="value">值</param>
     /// <param name="key">密钥</param>
     /// <param name="encoding">字符编码</param>
-    /// <param name="allowEmptyValue">允许空value值</param>
+    /// <param name="allowEmptyValue">是否允许空值</param>
     public static string HmacSha256( string value, string key, Encoding encoding = null, bool allowEmptyValue = false ) {
-        if ( value.IsEmpty() || key.IsEmpty() )
-        {
-            if ( !allowEmptyValue )
+        if( value.IsEmpty() || key.IsEmpty() ) {
+            if( allowEmptyValue == false )
                 return string.Empty;
-            value ??= "";
-            value = value.Replace( " ", "" );
+            value = string.Empty;
         }
         encoding ??= Encoding.UTF8;
         var sha256 = new HMACSHA256( Encoding.ASCII.GetBytes( key ) );
@@ -288,7 +286,7 @@ public static class Encrypt {
     /// <param name="hashAlgorithm">加密算法,默认值: HashAlgorithmName.SHA1</param>
     /// <param name="rsaKeyType">Rsa密钥类型,默认值: Pkcs1</param>
     public static string RsaSign( string value, string privateKey, Encoding encoding = null, HashAlgorithmName? hashAlgorithm = null, RSAKeyType rsaKeyType = RSAKeyType.Pkcs1 ) {
-        if ( value.IsEmpty() || privateKey.IsEmpty() )
+        if( value.IsEmpty() || privateKey.IsEmpty() )
             return string.Empty;
         var rsa = RSA.Create();
         ImportPrivateKey( rsa, privateKey, rsaKeyType );
@@ -314,7 +312,7 @@ public static class Encrypt {
     /// <param name="encoding">编码</param>
     /// <param name="hashAlgorithm">加密算法,默认值: HashAlgorithmName.SHA1</param>
     public static bool RsaVerify( string value, string publicKey, string sign, Encoding encoding = null, HashAlgorithmName? hashAlgorithm = null ) {
-        if ( value.IsEmpty() || publicKey.IsEmpty() || sign.IsEmpty() )
+        if( value.IsEmpty() || publicKey.IsEmpty() || sign.IsEmpty() )
             return false;
         var rsa = RSA.Create();
         ImportPublicKey( rsa, publicKey );
@@ -338,7 +336,7 @@ public static class Encrypt {
     /// <param name="value">待加密的值</param>
     /// <param name="publicKey">公钥</param>
     public static string RsaEncrypt( string value, string publicKey ) {
-        if ( value.IsEmpty() || publicKey.IsEmpty() )
+        if( value.IsEmpty() || publicKey.IsEmpty() )
             return string.Empty;
         var rsa = RSA.Create();
         ImportPublicKey( rsa, publicKey );
@@ -351,7 +349,7 @@ public static class Encrypt {
     /// <param name="value">加密后的值</param>
     /// <param name="privateKey">私钥</param>
     public static string RsaDecrypt( string value, string privateKey ) {
-        if ( value.IsEmpty() || privateKey.IsEmpty() )
+        if( value.IsEmpty() || privateKey.IsEmpty() )
             return string.Empty;
         var rsa = RSA.Create();
         ImportPrivateKey( rsa, privateKey, RSAKeyType.Pkcs1 );
@@ -365,11 +363,11 @@ public static class Encrypt {
     /// <summary>
     /// 生成RSA公钥和私钥对,返回值Item1为公钥,Item2为私钥
     /// </summary>
-    public static (string,string) CreateRsaKey() {
+    public static (string, string) CreateRsaKey() {
         var rsa = RSA.Create();
-        var publicKey = FormatPublicKey( rsa.ExportSubjectPublicKeyInfoPem());
+        var publicKey = FormatPublicKey( rsa.ExportSubjectPublicKeyInfoPem() );
         var privateKey = rsa.ExportPrivateKey( RSAKeyType.Pkcs1 );
-        return ( publicKey, privateKey );
+        return (publicKey, privateKey);
     }
 
     /// <summary>

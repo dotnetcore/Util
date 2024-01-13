@@ -26,9 +26,10 @@ public class MigrationService : IMigrationService {
     }
 
     /// <inheritdoc />
-    public IMigrationService InstallEfTool() {
+    public IMigrationService InstallEfTool( string version = null ) {
         _logger.LogTrace( "准备安装 dotnet-ef 全局工具." );
-        CommandLine.Create( "dotnet", "tool install -g dotnet-ef" )
+        var versionArgs = version.IsEmpty() ? null : $" --version {version}";
+        CommandLine.Create( "dotnet", $"tool install -g dotnet-ef{versionArgs}" )
             .OutputToMatch( "dotnet-ef" )
             .Log( _logger )
             .Execute();
@@ -36,9 +37,20 @@ public class MigrationService : IMigrationService {
     }
 
     /// <inheritdoc />
-    public IMigrationService UpdateEfTool() {
+    public IMigrationService UninstallEfTool() {
+        _logger.LogTrace( "准备卸载 dotnet-ef 全局工具." );
+        CommandLine.Create( "dotnet", "tool uninstall -g dotnet-ef" )
+            .OutputToMatch( "dotnet-ef" )
+            .Log( _logger )
+            .Execute();
+        return this;
+    }
+
+    /// <inheritdoc />
+    public IMigrationService UpdateEfTool( string version = null ) {
         _logger.LogTrace( "准备更新 dotnet-ef 全局工具." );
-        CommandLine.Create( "dotnet", "tool update -g dotnet-ef" )
+        var versionArgs = version.IsEmpty() ? null : $" --version {version}";
+        CommandLine.Create( "dotnet", $"tool update -g dotnet-ef{versionArgs}" )
             .OutputToMatch( "dotnet-ef" )
             .Log( _logger )
             .Execute();

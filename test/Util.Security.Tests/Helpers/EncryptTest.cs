@@ -137,6 +137,9 @@ public class EncryptTest {
         Assert.Equal( result, Encrypt.HmacSha256( input, key ) );
     }
 
+    /// <summary>
+    /// 测试HmacSha256加密 - 允许空值
+    /// </summary>
     [Theory]
     [InlineData(null, "5d5d139563c95b5967b9bd9a8c9b233a9dedb45072794cd232dc1b74832607d0")]
     [InlineData("", "5d5d139563c95b5967b9bd9a8c9b233a9dedb45072794cd232dc1b74832607d0")]
@@ -144,7 +147,7 @@ public class EncryptTest {
     [InlineData("        ", "5d5d139563c95b5967b9bd9a8c9b233a9dedb45072794cd232dc1b74832607d0")]
     [InlineData("a", "780c3db4ce3de5b9e55816fba98f590631d96c075271b26976238d5f4444219b")]
     [InlineData("中国", "dde7619d5465b73d94c18e6d979ab3dd9e478cb91b00d312ece776b282b7e0a9")]
-    public void TestHmacSha256AllowEmptyValue( string input, string result ) {
+    public void TestHmacSha256_AllowEmptyValue( string input, string result ) {
         var key = "key";
         _output.WriteLine( $"input:{input},result:{Encrypt.HmacSha256( input, key, allowEmptyValue: true )}" );
         Assert.Equal( result, Encrypt.HmacSha256( input, key, allowEmptyValue: true ) );
