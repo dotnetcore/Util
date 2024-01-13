@@ -260,9 +260,15 @@ public static class Encrypt {
     /// <param name="value">值</param>
     /// <param name="key">密钥</param>
     /// <param name="encoding">字符编码</param>
-    public static string HmacSha256( string value, string key, Encoding encoding = null ) {
+    /// <param name="allowEmptyValue">允许空value值</param>
+    public static string HmacSha256( string value, string key, Encoding encoding = null, bool allowEmptyValue = false ) {
         if ( value.IsEmpty() || key.IsEmpty() )
-            return string.Empty;
+        {
+            if ( !allowEmptyValue )
+                return string.Empty;
+            value ??= "";
+            value = value.Replace( " ", "" );
+        }
         encoding ??= Encoding.UTF8;
         var sha256 = new HMACSHA256( Encoding.ASCII.GetBytes( key ) );
         var hash = sha256.ComputeHash( encoding.GetBytes( value ) );
