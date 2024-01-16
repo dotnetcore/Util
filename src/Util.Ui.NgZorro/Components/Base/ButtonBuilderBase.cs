@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Util.Applications;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Components.Popover;
 using Util.Ui.NgZorro.Configs;
@@ -25,7 +23,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// <summary>
     /// 标识
     /// </summary>
-    private string _id;
+    private readonly string _id;
 
     /// <summary>
     /// 初始化按钮标签生成器基类

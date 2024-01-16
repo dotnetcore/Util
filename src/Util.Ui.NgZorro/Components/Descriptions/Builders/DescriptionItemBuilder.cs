@@ -1,7 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Components.Buttons.Builders;
 using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -73,6 +74,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
             return;
         }
         ConfigValue();
+        CopyToClipboard();
     }
 
     /// <summary>
@@ -120,5 +122,20 @@ public class DescriptionItemBuilder : AngularTagBuilder {
         if ( options.EnableI18n )
             return $"{value}|i18n";
         return value;
+    }
+
+    /// <summary>
+    /// 配置复制到剪贴板
+    /// </summary>
+    private void CopyToClipboard() {
+        if ( _config.GetValue<bool?>( UiConst.Clipboard ) != true )
+            return;
+        var value = _config.GetValue( UiConst.Value );
+        _config.SetAttribute( UiConst.CopyToClipboard, value );
+        var buttonBuilder = new ButtonBuilder( _config );
+        buttonBuilder.Attribute( "nz-button" );
+        buttonBuilder.NgIf( value );
+        buttonBuilder.CopyToClipboard().Type().Icon();
+        AppendContent( buttonBuilder );
     }
 }

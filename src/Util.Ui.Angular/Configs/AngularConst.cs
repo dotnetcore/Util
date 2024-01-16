@@ -45,6 +45,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindLink = "bind-link";
     /// <summary>
+    /// Html
+    /// </summary>
+    public const string BindHtml = "bind-html";
+    /// <summary>
     /// 访问控制
     /// </summary>
     public const string BindAcl = "bind-acl";

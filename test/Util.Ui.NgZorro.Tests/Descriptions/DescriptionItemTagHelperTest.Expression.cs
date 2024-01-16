@@ -32,6 +32,41 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         }
 
         /// <summary>
+        /// 测试测试属性表达式 - 复制到剪贴板
+        /// </summary>
+        [Fact]
+        public void TestFor_Clipboard() {
+            _wrapper.SetExpression( t => t.Code );
+            _wrapper.SetContextAttribute( UiConst.Clipboard, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions-item nzTitle=\"code\">" );
+            result.Append( "{{model.code}}" );
+            result.Append( "<button *ngIf=\"model.code\" nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" [cdkCopyToClipboard]=\"model.code\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "</button>" );
+            result.Append( "</nz-descriptions-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试测试属性表达式 - 复制到剪贴板 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestFor_Clipboard_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetExpression( t => t.Code );
+            _wrapper.SetContextAttribute( UiConst.Clipboard, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions-item [nzTitle]=\"'code'|i18n\">" );
+            result.Append( "{{model.code|i18n}}" );
+            result.Append( "<button *ngIf=\"model.code\" nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" [cdkCopyToClipboard]=\"model.code\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "</button>" );
+            result.Append( "</nz-descriptions-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试属性表达式 - 布尔类型
         /// </summary>
         [Fact]

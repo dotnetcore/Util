@@ -132,4 +132,8 @@ public class I18nKeys {
     /// util.reset
     /// </summary>
     public const string Reset = "util.reset";
+    /// <summary>
+    /// util.copyToClipboard
+    /// </summary>
+    public const string CopyToClipboard = "util.copyToClipboard";
 }

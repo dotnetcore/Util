@@ -109,7 +109,7 @@ public static class TagBuilderExtensions {
     /// <summary>
     /// 设置标题
     /// </summary>
-    private static void SetTooltipTitle( TagBuilder builder,string value ) {
+    public static void SetTooltipTitle( TagBuilder builder,string value ) {
         var options = NgZorroOptionsService.GetOptions();
         if ( options.EnableI18n ) {
             builder.AttributeByI18n( "[nzTooltipTitle]", value );

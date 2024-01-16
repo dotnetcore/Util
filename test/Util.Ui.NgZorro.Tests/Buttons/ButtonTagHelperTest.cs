@@ -4,6 +4,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Buttons;
 using Util.Ui.NgZorro.Components.Icons;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -318,6 +319,33 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>" );
+            result.Append( "</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试复制到剪贴板
+        /// </summary>
+        [Fact]
+        public void TestCopyToClipboard() {
+            _wrapper.SetContextAttribute( UiConst.CopyToClipboard, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" [cdkCopyToClipboard]=\"a\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试复制到剪贴板 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestCopyToClipboard_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.CopyToClipboard, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" [cdkCopyToClipboard]=\"a\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
             result.Append( "</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

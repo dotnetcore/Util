@@ -93,6 +93,41 @@ namespace Util.Ui.NgZorro.Tests.Display {
         }
 
         /// <summary>
+        /// 测试复制到剪贴板
+        /// </summary>
+        [Fact]
+        public void TestClipboard() {
+            _wrapper.SetContextAttribute( UiConst.Value, "a" );
+            _wrapper.SetContextAttribute( UiConst.Clipboard, true );
+            var result = new StringBuilder();
+            result.Append( "<span>" );
+            result.Append( "{{a}}" );
+            result.Append( "</span>" );
+            result.Append( "<button *ngIf=\"a\" nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" [cdkCopyToClipboard]=\"a\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试复制到剪贴板 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestClipboard_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Value, "a" );
+            _wrapper.SetContextAttribute( UiConst.Clipboard, true );
+            var result = new StringBuilder();
+            result.Append( "<span>" );
+            result.Append( "{{a|i18n}}" );
+            result.Append( "</span>" );
+            result.Append( "<button *ngIf=\"a\" nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" [cdkCopyToClipboard]=\"a\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试设置内容
         /// </summary>
         [Fact]

@@ -354,6 +354,28 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         }
 
         /// <summary>
+        /// 测试设置html
+        /// </summary>
+        [Fact]
+        public void TestHtml() {
+            _wrapper.SetContextAttribute( UiConst.Html, "a" );
+            var result = new StringBuilder();
+            result.Append( "<span [innerHTML]=\"'a'\"></span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试设置html
+        /// </summary>
+        [Fact]
+        public void TestBindHtml() {
+            _wrapper.SetContextAttribute( AngularConst.BindHtml, "a" );
+            var result = new StringBuilder();
+            result.Append( "<span [innerHTML]=\"a\"></span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试提示框显示状态变化事件
         /// </summary>
         [Fact]

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Buttons.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -88,6 +87,10 @@ public class ButtonTagHelper : ButtonTagHelperBase {
     /// 是否提交表单,true设置为type='submit'
     /// </summary>
     public bool IsSubmit { get; set; }
+    /// <summary>
+    /// [cdkCopyToClipboard],复制到剪贴板
+    /// </summary>
+    public string CopyToClipboard { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

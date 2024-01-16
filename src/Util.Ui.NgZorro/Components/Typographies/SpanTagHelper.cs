@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Typographies.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -20,6 +19,14 @@ public class SpanTagHelper : TypographyTagHelper {
     /// 是否排版组件
     /// </summary>
     public bool Typography { get; set; }
+    /// <summary>
+    /// [innerHTML], 设置Html,值添加单引号
+    /// </summary>
+    public string Html { get; set; }
+    /// <summary>
+    /// [innerHTML], 设置Html
+    /// </summary>
+    public string BindHtml { get; set; }
     /// <summary>
     /// (contextmenu),上下文菜单事件
     /// </summary>

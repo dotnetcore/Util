@@ -1,13 +1,12 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Typographies.Renders; 
+namespace Util.Ui.NgZorro.Components.Typographies.Renders;
 
 /// <summary>
 /// 排版组件渲染器
@@ -52,9 +51,10 @@ public class TypographyRender : RenderBase {
         ConfigEllipsisRows();
         ConfigSuffix();
         ConfigEvents();
+        Config( _builder );
         _builder.Angular( _config );
         _builder.Tooltip( _config );
-        _builder.ConfigBase(_config);
+        _builder.ConfigBase( _config );
         ConfigContent( _builder );
         return _builder;
     }
@@ -192,10 +192,17 @@ public class TypographyRender : RenderBase {
     }
 
     /// <summary>
+    /// 配置
+    /// </summary>
+    /// <param name="builder">标签生成器</param>
+    protected virtual void Config( TagBuilder builder ) {
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     /// <param name="builder">标签生成器</param>
-    protected virtual void ConfigEvents(TagBuilder builder) {
+    protected virtual void ConfigEvents( TagBuilder builder ) {
     }
 
     /// <summary>

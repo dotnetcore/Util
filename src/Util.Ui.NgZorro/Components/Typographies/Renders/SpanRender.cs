@@ -1,5 +1,5 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Configs;
+using Util.Ui.Builders;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Enums;
 
@@ -21,6 +21,21 @@ public class SpanRender : TypographyRender {
     /// <param name="builder">标签生成器</param>
     public SpanRender( Config config, TagBuilder builder ) : base( config, builder ) {
         _config = config;
+    }
+
+    /// <inheritdoc />
+    protected override void Config( TagBuilder builder ) {
+        ConfigHtml( builder );
+    }
+
+    /// <summary>
+    /// 配置事件
+    /// </summary>
+    /// <param name="builder">标签生成器</param>
+    protected void ConfigHtml( TagBuilder builder ) {
+        var result = _config.GetValue( UiConst.Html );
+        result = result.IsEmpty() ? _config.GetValue( AngularConst.BindHtml ) : $"'{result}'";
+        builder.AttributeIfNotEmpty( "[innerHTML]", result );
     }
 
     /// <summary>

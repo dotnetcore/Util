@@ -1,6 +1,7 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Buttons.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
@@ -108,5 +109,21 @@ public class DisplayBuilder : FormControlBuilderBase<DisplayBuilder> {
     public override void Config() {
         base.Config();
         Value().ShowLabel();
+        CopyToClipboard();
+    }
+
+    /// <summary>
+    /// 配置复制到剪贴板
+    /// </summary>
+    public void CopyToClipboard() {
+        if( _config.GetValue<bool?>( UiConst.Clipboard ) != true )
+            return;
+        var value = _config.GetValue( UiConst.Value );
+        _config.SetAttribute( UiConst.CopyToClipboard, value );
+        var buttonBuilder = new ButtonBuilder( _config );
+        buttonBuilder.Attribute( "nz-button" );
+        buttonBuilder.NgIf( value );
+        buttonBuilder.CopyToClipboard().Type().Icon();
+        PostBuilder = buttonBuilder;
     }
 }

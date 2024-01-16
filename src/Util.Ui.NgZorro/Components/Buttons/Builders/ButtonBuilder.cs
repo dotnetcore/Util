@@ -1,6 +1,8 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Base;
+﻿using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Directives.Tooltips;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Buttons.Builders; 
 
@@ -39,9 +41,29 @@ public class ButtonBuilder : ButtonBuilderBase<ButtonBuilder> {
     }
 
     /// <summary>
+    /// 配置复制到剪贴板
+    /// </summary>
+    public ButtonBuilder CopyToClipboard() {
+        var value = _config.GetValue( UiConst.CopyToClipboard );
+        if( value.IsEmpty() )
+            return this;
+        Attribute( "[cdkCopyToClipboard]", value );
+        _config.SetAttribute( UiConst.Type, Util.Ui.NgZorro.Enums.ButtonType.Text );
+        _config.SetAttribute( UiConst.Icon,AntDesignIcon.Copy );
+        var options = NgZorroOptionsService.GetOptions();
+        if( options.EnableI18n ) {
+            this.BindTooltipTitle( $"'{I18nKeys.CopyToClipboard}'|i18n" );
+            return this;
+        }
+        this.TooltipTitle( "复制到剪贴板" );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
+        CopyToClipboard();
         ConfigButton();
         base.Config();
         IsSubmit().ButtonType();

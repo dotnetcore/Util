@@ -41,9 +41,17 @@ public static class UiConst {
     /// </summary>
     public const string OnSelectedValueChange = "on-selected-value-change";
     /// <summary>
+    /// 剪贴板
+    /// </summary>
+    public const string Clipboard = "clipboard";
+    /// <summary>
     /// 属性名
     /// </summary>
     public const string PropertyName = "property-name";
+    /// <summary>
+    /// Html
+    /// </summary>
+    public const string Html = "html";
     /// <summary>
     /// 工具栏模式
     /// </summary>
@@ -400,6 +408,10 @@ public static class UiConst {
     /// 图标
     /// </summary>
     public const string Icon = "icon";
+    /// <summary>
+    /// 复制到剪贴板
+    /// </summary>
+    public const string CopyToClipboard = "copy-to-clipboard";
     /// <summary>
     /// Font Awesome图标
     /// </summary>

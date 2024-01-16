@@ -46,6 +46,10 @@ public class DisplayTagHelper : FormContainerTagHelperBase {
     /// 7. 毫秒 - SSS
     /// </summary>
     public string DateFormat { get; set; }
+    /// <summary>
+    /// [cdkCopyToClipboard],是否允许复制到剪贴板
+    /// </summary>
+    public bool Clipboard { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
