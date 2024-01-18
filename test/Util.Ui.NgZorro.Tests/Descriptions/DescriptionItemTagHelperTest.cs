@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Descriptions;
@@ -28,6 +29,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public DescriptionItemTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new DescriptionItemTagHelper().ToWrapper<Customer>();
+            Id.SetId( "id" );
         }
 
         /// <summary>

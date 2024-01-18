@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Trees.Helpers;
 using Util.Ui.NgZorro.Enums;
@@ -313,14 +312,6 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     }
 
     /// <summary>
-    /// 配置加载标识列表
-    /// </summary>
-    public TreeSelectBuilder LoadKeys() {
-        AttributeIfNotEmpty( "[loadKeys]", _config.GetValue( UiConst.LoadKeys ) );
-        return this;
-    }
-
-    /// <summary>
     /// 配置事件
     /// </summary>
     public TreeSelectBuilder Events() {
@@ -348,7 +339,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
             .DefaultExpandAll().ExpandedKeys().DisplayWith()
             .MaxTagCount().MaxTagPlaceholder().TreeTemplate()
             .VirtualHeight().VirtualItemSize().VirtualMaxBufferPx().VirtualMinBufferPx()
-            .Width().LoadKeys()
+            .Width()
             .Events();
         base.ConfigBase( _config );
         _service.ConfigBuilder( this );
@@ -362,6 +353,15 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
         if ( _service.IsEnableExtend() == false )
             return;
         Nodes( $"{ExtendId}.dataSource" )
+            .LoadKeys()
             .OnExpandChange( $"{ExtendId}.expandChange($event)" );
+    }
+
+    /// <summary>
+    /// 配置加载标识列表
+    /// </summary>
+    public TreeSelectBuilder LoadKeys() {
+        AttributeIfNotEmpty( "[loadKeys]", _config.GetValue( UiConst.LoadKeys ) );
+        return this;
     }
 }

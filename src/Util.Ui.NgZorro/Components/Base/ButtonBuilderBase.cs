@@ -10,7 +10,7 @@ using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Base; 
+namespace Util.Ui.NgZorro.Components.Base;
 
 /// <summary>
 /// 按钮标签生成器基类
@@ -685,7 +685,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
         if ( IsValidateForm() ) {
             var value = _config.GetValue( UiConst.OnClick );
             value = $"{GetButtonExtendId()}.validateForm();{value}";
-            _config.SetAttribute( UiConst.OnClick,value );
+            _config.SetAttribute( UiConst.OnClick, value );
         }
         this.OnClick( _config );
         return (TBuilder)this;
@@ -705,6 +705,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     protected TBuilder ConfigButton() {
         var popoverRender = new PopoverRender( _config, this );
         popoverRender.Config();
+        EnableExtend();
         return Type().Size().Shape().Disabled().Danger().Loading().Ghost().Block().Icon().RouterLink()
             .DropdownMenu().DropdownMenuPlacement().DropdownMenuTrigger().DropdownMenuClickHide()
             .DropdownMenuVisible().DropdownMenuOverlayClassName().DropdownMenuOverlayStyle()
@@ -716,29 +717,34 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
             .TextStart().TextStop().TextAdd().TextRemove()
             .TextOpen().TextClose().TextSend().TextClear()
             .TextImport().TextExport().TextReset()
-            .Text().OnClick().OnVisibleChange()
-            .ValidateForm();
+            .Text().OnClick().OnVisibleChange();
     }
 
     /// <summary>
-    /// 是否验证表单
+    /// 启用扩展
     /// </summary>
-    protected TBuilder ValidateForm() {
-        if ( IsValidateForm() == false )
-            return (TBuilder)this;
+    protected void EnableExtend() {
+        if ( IsEnableExtend() == false )
+            return;
         Attribute( "x-button-extend" );
         Attribute( $"#{GetButtonExtendId()}", "xButtonExtend" );
-        return (TBuilder)this;
+    }
+
+    /// <summary>
+    /// 是否启用扩展
+    /// </summary>
+    protected virtual bool IsEnableExtend() {
+        if ( IsValidateForm() )
+            return true;
+        return false;
     }
 
     /// <summary>
     /// 是否验证表单
     /// </summary>
-    private bool IsValidateForm() {
+    protected bool IsValidateForm() {
         var result = _config.GetValue<bool?>( UiConst.ValidateForm );
-        if ( result == true )
-            return true;
-        return false;
+        return result == true;
     }
 
     /// <summary>

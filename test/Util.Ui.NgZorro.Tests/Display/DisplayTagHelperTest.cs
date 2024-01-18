@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Display;
 using Util.Ui.NgZorro.Components.Forms.Configs;
@@ -29,6 +30,7 @@ namespace Util.Ui.NgZorro.Tests.Display {
         public DisplayTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new DisplayTagHelper().ToWrapper<Customer>();
+            Id.SetId( "id" );
         }
 
         /// <summary>
@@ -103,7 +105,8 @@ namespace Util.Ui.NgZorro.Tests.Display {
             result.Append( "<span>" );
             result.Append( "{{a}}" );
             result.Append( "</span>" );
-            result.Append( "<button *ngIf=\"a\" nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" [cdkCopyToClipboard]=\"a\">" );
+            result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(a)\" *ngIf=\"a\" " );
+            result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
             result.Append( "</button>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -121,7 +124,8 @@ namespace Util.Ui.NgZorro.Tests.Display {
             result.Append( "<span>" );
             result.Append( "{{a|i18n}}" );
             result.Append( "</span>" );
-            result.Append( "<button *ngIf=\"a\" nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" [cdkCopyToClipboard]=\"a\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
+            result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(a)\" *ngIf=\"a\" " );
+            result.Append( "nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" x-button-extend=\"\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
             result.Append( "</button>" );
             Assert.Equal( result.ToString(), GetResult() );

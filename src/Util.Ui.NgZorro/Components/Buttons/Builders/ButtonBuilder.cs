@@ -1,4 +1,5 @@
-﻿using Util.Ui.NgZorro.Components.Base;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Directives.Tooltips;
@@ -47,9 +48,10 @@ public class ButtonBuilder : ButtonBuilderBase<ButtonBuilder> {
         var value = _config.GetValue( UiConst.CopyToClipboard );
         if( value.IsEmpty() )
             return this;
-        Attribute( "[cdkCopyToClipboard]", value );
+        EnableExtend();
         _config.SetAttribute( UiConst.Type, Util.Ui.NgZorro.Enums.ButtonType.Text );
         _config.SetAttribute( UiConst.Icon,AntDesignIcon.Copy );
+        this.OnClick($"{GetButtonExtendId()}.copyToClipboard({value})");
         var options = NgZorroOptionsService.GetOptions();
         if( options.EnableI18n ) {
             this.BindTooltipTitle( $"'{I18nKeys.CopyToClipboard}'|i18n" );
@@ -67,5 +69,23 @@ public class ButtonBuilder : ButtonBuilderBase<ButtonBuilder> {
         ConfigButton();
         base.Config();
         IsSubmit().ButtonType();
+    }
+
+    /// <summary>
+    /// 是否启用扩展
+    /// </summary>
+    protected override bool IsEnableExtend() {
+        if ( IsValidateForm() )
+            return true;
+        if ( IsCopyToClipboard() )
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// 是否复制到剪贴板
+    /// </summary>
+    protected bool IsCopyToClipboard() {
+        return _config.Contains( UiConst.CopyToClipboard );
     }
 }

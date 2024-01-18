@@ -41,7 +41,8 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
             var result = new StringBuilder();
             result.Append( "<nz-descriptions-item nzTitle=\"code\">" );
             result.Append( "{{model.code}}" );
-            result.Append( "<button *ngIf=\"model.code\" nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" [cdkCopyToClipboard]=\"model.code\">" );
+            result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(model.code)\" *ngIf=\"model.code\" " );
+            result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
             result.Append( "</button>" );
             result.Append( "</nz-descriptions-item>" );
@@ -59,7 +60,8 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
             var result = new StringBuilder();
             result.Append( "<nz-descriptions-item [nzTitle]=\"'code'|i18n\">" );
             result.Append( "{{model.code|i18n}}" );
-            result.Append( "<button *ngIf=\"model.code\" nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" [cdkCopyToClipboard]=\"model.code\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
+            result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(model.code)\" *ngIf=\"model.code\" " );
+            result.Append( "nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" x-button-extend=\"\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
             result.Append( "</button>" );
             result.Append( "</nz-descriptions-item>" );
