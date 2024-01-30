@@ -1,7 +1,7 @@
 <Project>
 	<Import Project="version.props" />
 	<PropertyGroup>
-		<NetTargetFramework>net7.0</NetTargetFramework>
+		<NetTargetFramework>net8.0</NetTargetFramework>
 	</PropertyGroup>
 	<PropertyGroup>
 		<Product>Util Application Framework</Product>

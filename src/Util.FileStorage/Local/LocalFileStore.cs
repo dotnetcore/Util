@@ -108,7 +108,7 @@ public class LocalFileStore : IFileStore {
     /// 处理文件名
     /// </summary>
     protected virtual ProcessedName ProcessFileName( FileStorageArgs args ) {
-        if( args.FileName.IsEmpty() )
+        if ( args.FileName.IsEmpty() )
             throw new ArgumentNullException( nameof( args.FileName ) );
         var processor = _fileNameProcessorFactory.CreateProcessor( args.FileNamePolicy );
         return processor.Process( args.FileName );
@@ -127,7 +127,14 @@ public class LocalFileStore : IFileStore {
     /// </summary>
     protected virtual async Task<string> GetPhysicalPath( ProcessedName fileName ) {
         var config = await GetConfig();
-        return Path.Combine( Util.Helpers.Web.Environment.WebRootPath, config.RootPath, fileName.Name );
+        return Path.Combine( GetRootPath(), config.RootPath, fileName.Name );
+    }
+
+    /// <summary>
+    /// 获取根路径
+    /// </summary>
+    protected virtual string GetRootPath() {
+        return Util.Helpers.Web.Environment == null ? string.Empty : Util.Helpers.Web.Environment.WebRootPath;
     }
 
     #endregion
@@ -172,7 +179,7 @@ public class LocalFileStore : IFileStore {
         stream.CheckNull( nameof( stream ) );
         var config = await GetConfig();
         var filePath = Path.Combine( config.RootPath, fileName.Name );
-        var physicalPath = Path.Combine( Util.Helpers.Web.Environment.WebRootPath, filePath );
+        var physicalPath = Path.Combine( GetRootPath(), filePath );
         await Util.Helpers.File.WriteAsync( physicalPath, stream, cancellationToken );
         return new FileResult( filePath, stream.Length, fileName.OriginalName );
     }

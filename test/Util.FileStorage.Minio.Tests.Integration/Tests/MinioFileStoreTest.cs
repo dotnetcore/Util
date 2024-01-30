@@ -32,6 +32,7 @@ public class MinioFileStoreTest : IDisposable {
         _fileStore = fileStore;
         _testOutputHelper = testOutputHelper;
         Time.SetTime( new DateTime( 2012, 12, 12, 12, 12, 12, 123 ) );
+        Id.SetId("id");
     }
 
     #endregion
@@ -54,7 +55,7 @@ public class MinioFileStoreTest : IDisposable {
     /// </summary>
     [Fact]
     public async Task TestBucketExistsAsync() {
-        var name = Id.Create();
+        var name = $"{Guid.NewGuid()}";
 
         //未创建的桶不存在
         var result = await _fileStore.BucketExistsAsync( name );
@@ -123,7 +124,7 @@ public class MinioFileStoreTest : IDisposable {
     [Fact]
     public async Task TestFileExistsAsync_1() {
         //定义文件名
-        var name = $"{Id.Create()}.jpg";
+        var name = $"{Guid.NewGuid()}.jpg";
 
         //文件未创建不存在
         var result = await _fileStore.FileExistsAsync( name );
@@ -147,7 +148,7 @@ public class MinioFileStoreTest : IDisposable {
     [Fact]
     public async Task TestFileExistsAsync_2() {
         //定义变量
-        var name = $"{Id.Create()}.jpg";
+        var name = $"{Guid.NewGuid()}.jpg";
         var bucketName = "TestFileExistsAsync_2";
 
         //文件未创建不存在
@@ -250,8 +251,8 @@ public class MinioFileStoreTest : IDisposable {
         var path = Common.GetPhysicalPath( "~/Resources/b.jpg" );
         await using var stream = File.ReadToStream( path );
         var result =  await _fileStore.SaveFileAsync( stream, fileName,UserTimeFileNameProcessor.Policy );
-        Assert.Equal( $"{TestSession.TestUserId}/2012-12-12-12-12-12-123/b.jpg", result.FilePath );
-        Assert.Equal( "b.jpg", result.FileName );
+        Assert.Equal( $"{TestSession.TestUserId}/2012-12-12/id.jpg", result.FilePath );
+        Assert.Equal( "id.jpg", result.FileName );
         Assert.Equal( "jpg", result.Extension );
     }
 

@@ -48,11 +48,18 @@ public static class AppBuilderExtensions {
             void Action( DbContextOptionsBuilder options ) {
                 setupAction?.Invoke( options );
                 if ( connectionString.IsEmpty() == false ) {
-                    options.UseMySql( connectionString, ServerVersion.AutoDetect( connectionString ), mySqlSetupAction );
+                    options.UseMySql( connectionString, ServerVersion.AutoDetect( connectionString ),
+                        optionsBuilder => {
+                            optionsBuilder.EnableRetryOnFailure();
+                            mySqlSetupAction?.Invoke( optionsBuilder );
+                        } );
                     return;
                 }
                 if ( connection != null ) {
-                    options.UseMySql( connection, ServerVersion.AutoDetect( (MySqlConnection)connection ), mySqlSetupAction );
+                    options.UseMySql( connection, ServerVersion.AutoDetect( (MySqlConnection)connection ), optionsBuilder => {
+                        optionsBuilder.EnableRetryOnFailure();
+                        mySqlSetupAction?.Invoke( optionsBuilder );
+                    } );
                 }
             }
             services.AddDbContext<TImplementation>( Action );

@@ -27,9 +27,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
-		<PackageReference Include="AspNetCore.HealthChecks.Uris" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="7.0.13" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.0" />
+		<PackageReference Include="AspNetCore.HealthChecks.Uris" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

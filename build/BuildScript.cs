@@ -62,12 +62,23 @@ namespace Build {
         /// 忽略测试项目文件列表
         /// </summary>
         public List<FileFullPath> IgnoreTestProjecs { get; set; }
+        /// <summary>
+        /// 忽略打包项目文件列表
+        /// </summary>
+        public List<FileFullPath> IgnorePackProjecs { get; set; }
 
         /// <summary>
         /// 获取集成测试项目文件列表
         /// </summary>
         protected List<FileFullPath> GetIntegrationTestProjecs() {
             return IntegrationTestProjecs.Where( t => IgnoreTestProjecs.Exists( p => p.FileName == t.FileName ) == false ).ToList();
+        }
+
+        /// <summary>
+        /// 获取打包项目文件列表
+        /// </summary>
+        protected List<FileFullPath> GetPackProjecs() {
+            return Projects.Where( t => IgnorePackProjecs.Exists( p => p.FileName == t.FileName ) == false ).ToList();
         }
 
         /// <summary>
@@ -79,7 +90,9 @@ namespace Build {
             UnitTestProjecs = context.GetFiles( TestDir, "*/*.Tests.csproj" );
             IntegrationTestProjecs = context.GetFiles( TestDir, "*/*.Tests.Integration.csproj" );
             IgnoreTestProjecs = new List<FileFullPath>();
+            IgnorePackProjecs = new List<FileFullPath>();
             AddIgnoreTestProjecs( context );
+            AddIgnorePackProjecs( context );
         }
 
         /// <summary>
@@ -88,8 +101,16 @@ namespace Build {
         private void AddIgnoreTestProjecs( ITaskContext context ) {
 	        IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/Util.Images.*.Tests.Integration.csproj" ) );
 			IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/*.Oracle.Tests.Integration.csproj" ) );
-            IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/*.Dapper.*.Tests.Integration.csproj" ) );
-		}
+            IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/Util.Data.Dapper.PostgreSql.Tests.Integration.csproj" ) );
+            IgnoreTestProjecs.AddRange( context.GetFiles( TestDir, "*/*.Dapr.Tests.Integration.csproj" ) );
+        }
+
+        /// <summary>
+        /// 添加忽略打包项目文件列表
+        /// </summary>
+        private void AddIgnorePackProjecs( ITaskContext context ) {
+            IgnorePackProjecs.AddRange( context.GetFiles( SourceDir, "*/*.WebApiClient.csproj" ) );
+        }
 
         /// <summary>
         /// 配置构建目标
@@ -175,7 +196,7 @@ namespace Build {
             return context.CreateTarget( "pack" )
                 .SetDescription( "Create nuget packages." )
                 .DependsOn( dependTargets )
-                .ForEach( Projects, ( project, target ) => {
+                .ForEach( GetPackProjecs(), ( project, target ) => {
                     target.AddCoreTask( t => t.Pack()
                         .Project( project )
                         .IncludeSymbols()

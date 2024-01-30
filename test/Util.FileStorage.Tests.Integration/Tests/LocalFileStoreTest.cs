@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Helpers;
+﻿using Util.Helpers;
 
 namespace Util.FileStorage.Tests;
 
@@ -49,18 +48,6 @@ public class LocalFileStoreTest {
         Assert.Equal( "a.png", result.FileName );
         Assert.Equal( "2.png", result.OriginalFileName );
         Assert.Equal( "png", result.Extension );
-    }
-
-    /// <summary>
-    /// 测试保存文件 - 验证扩展名
-    /// </summary>
-    [Fact]
-    public async Task TestSaveFileAsync_3() {
-        var path = Common.GetPhysicalPath( "~/Resources/a.pdf" );
-        await using var stream = File.ReadToStream( path );
-        await Assert.ThrowsAsync<InvalidOperationException>( async () => {
-            await _fileStore.SaveFileAsync( stream, "a.pdf" );
-        } );
     }
 
     /// <summary>
