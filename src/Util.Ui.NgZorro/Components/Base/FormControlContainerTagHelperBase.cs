@@ -9,6 +9,10 @@ public abstract class FormControlContainerTagHelperBase : FormContainerTagHelper
     /// </summary>
     public string LabelText { get; set; }
     /// <summary>
+    /// 标签宽度
+    /// </summary>
+    public string LabelWidth { get; set; }
+    /// <summary>
     /// 是否显示标签 nz-form-label
     /// </summary>
     public bool ShowLabel { get; set; }

@@ -2,8 +2,8 @@
 	<PropertyGroup>
 		<VersionMajor>8</VersionMajor>
 		<VersionMinor>0</VersionMinor>
-		<VersionPatch>0</VersionPatch>
+		<VersionPatch>1</VersionPatch>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
-		<VersionSuffix></VersionSuffix>
+		<VersionSuffix>pre-3</VersionSuffix>
 	</PropertyGroup>
 </Project>

@@ -74,6 +74,7 @@ public class FormItemShareService {
         InitControlId();
         SetShowLabel();
         SetLabelText();
+        SetLabelWidth();
         SetExtra();
         SetSuccessTip();
         SetWarningTip();
@@ -160,6 +161,16 @@ public class FormItemShareService {
             return;
         _shareConfig.LabelText = value;
         AutoCreateFormLabel( true );
+    }
+
+    /// <summary>
+    /// 设置表单标签宽度
+    /// </summary>
+    private void SetLabelWidth() {
+        var value = _config.GetValueFromAttributes( UiConst.LabelWidth );
+        if ( string.IsNullOrWhiteSpace( value ) )
+            return;
+        _shareConfig.LabelWidth = value;
     }
 
     /// <summary>

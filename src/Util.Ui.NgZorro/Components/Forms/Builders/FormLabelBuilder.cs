@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
@@ -533,9 +532,19 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     }
 
     /// <summary>
+    /// 配置宽度
+    /// </summary>
+    public FormLabelBuilder Width() {
+        var shareConfig = GetFormItemShareConfig();
+        Style( _config, "width", shareConfig.LabelWidth );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
+        Width();
         base.Config();
         ConfigColumn().Required().NoColon().For().TooltipTitle().TooltipIcon();
         Text();

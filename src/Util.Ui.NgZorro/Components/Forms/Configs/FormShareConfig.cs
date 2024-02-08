@@ -11,6 +11,10 @@ public class FormShareConfig {
     /// </summary>
     public bool? ShowLabel { get; set; }
     /// <summary>
+    /// 标签宽度
+    /// </summary>
+    public string LabelWidth { get; set; }
+    /// <summary>
     /// 垂直对齐方式
     /// </summary>
     public Align? Align { get; set; }

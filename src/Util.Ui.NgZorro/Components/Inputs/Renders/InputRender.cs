@@ -1,5 +1,5 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Renders; 
@@ -32,6 +32,6 @@ public class InputRender : InputRenderBase {
 
     /// <inheritdoc />
     public override IHtmlContent Clone() {
-        return new InputRender( _config.Copy() );
+        return new InputRender( _config.CopyRemoveAttributes() );
     }
 }

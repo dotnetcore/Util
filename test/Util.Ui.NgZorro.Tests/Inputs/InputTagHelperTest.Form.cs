@@ -552,6 +552,23 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试设置标签宽度
+        /// </summary>
+        [Fact]
+        public void TestLabelWidth() {
+            _wrapper.SetContextAttribute( UiConst.LabelWidth, "100" );
+            _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label style=\"width:100px\">a</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }
 

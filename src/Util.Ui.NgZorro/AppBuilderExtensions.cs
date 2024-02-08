@@ -49,6 +49,7 @@ public static class AppBuilderExtensions {
         void Action( RazorOptions t ) {
             t.IsGenerateHtml = options.IsGenerateHtml;
             t.GenerateHtmlBasePath = options.GenerateHtmlBasePath;
+            t.GenerateHtmlFolder = options.GenerateHtmlFolder;
             t.GenerateHtmlSuffix = options.GenerateHtmlSuffix;
         }
         services.Configure( (Action<RazorOptions>)Action );

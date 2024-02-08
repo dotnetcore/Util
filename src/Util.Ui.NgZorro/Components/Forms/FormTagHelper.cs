@@ -62,6 +62,10 @@ public class FormTagHelper : FormContainerTagHelperBase {
     /// </summary>
     public bool ShowLabel { get; set; }
     /// <summary>
+    /// 标签宽度
+    /// </summary>
+    public string LabelWidth { get; set; }
+    /// <summary>
     /// (ngSubmit),表单提交事件
     /// </summary>
     public string OnSubmit { get; set; }

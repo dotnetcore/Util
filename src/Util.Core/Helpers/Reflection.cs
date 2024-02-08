@@ -1,4 +1,4 @@
-﻿namespace Util.Helpers; 
+﻿namespace Util.Helpers;
 
 /// <summary>
 /// 反射操作
@@ -30,9 +30,9 @@ public static class Reflection {
     /// <param name="type">类型</param>
     /// <param name="memberName">成员名称</param>
     public static string GetDescription( Type type, string memberName ) {
-        if( type == null )
+        if ( type == null )
             return string.Empty;
-        if( string.IsNullOrWhiteSpace( memberName ) )
+        if ( string.IsNullOrWhiteSpace( memberName ) )
             return string.Empty;
         return GetDescription( type.GetTypeInfo().GetMember( memberName ).FirstOrDefault() );
     }
@@ -42,7 +42,7 @@ public static class Reflection {
     /// </summary>
     /// <param name="member">成员</param>
     public static string GetDescription( MemberInfo member ) {
-        if( member == null )
+        if ( member == null )
             return string.Empty;
         return member.GetCustomAttribute<DescriptionAttribute>() is { } attribute ? attribute.Description : member.Name;
     }
@@ -63,11 +63,11 @@ public static class Reflection {
     /// 获取显示名称，使用DisplayAttribute或DisplayNameAttribute设置显示名称
     /// </summary>
     public static string GetDisplayName( MemberInfo member ) {
-        if( member == null )
+        if ( member == null )
             return string.Empty;
-        if( member.GetCustomAttribute<DisplayAttribute>() is { } displayAttribute )
+        if ( member.GetCustomAttribute<DisplayAttribute>() is { } displayAttribute )
             return displayAttribute.Name;
-        if( member.GetCustomAttribute<DisplayNameAttribute>() is { } displayNameAttribute )
+        if ( member.GetCustomAttribute<DisplayNameAttribute>() is { } displayNameAttribute )
             return displayNameAttribute.DisplayName;
         return string.Empty;
     }
@@ -126,7 +126,7 @@ public static class Reflection {
     /// <param name="assemblies">待查找的程序集列表</param>
     public static List<Type> FindImplementTypes( Type findType, params Assembly[] assemblies ) {
         var result = new List<Type>();
-        foreach( var assembly in assemblies )
+        foreach ( var assembly in assemblies )
             result.AddRange( GetTypes( findType, assembly ) );
         return result.Distinct().ToList();
     }
@@ -136,16 +136,16 @@ public static class Reflection {
     /// </summary>
     private static List<Type> GetTypes( Type findType, Assembly assembly ) {
         var result = new List<Type>();
-        if( assembly == null )
+        if ( assembly == null )
             return result;
         Type[] types;
         try {
             types = assembly.GetTypes();
         }
-        catch( ReflectionTypeLoadException ) {
+        catch ( ReflectionTypeLoadException ) {
             return result;
         }
-        foreach( var type in types )
+        foreach ( var type in types )
             AddType( result, findType, type );
         return result;
     }
@@ -154,9 +154,9 @@ public static class Reflection {
     /// 添加类型
     /// </summary>
     private static void AddType( List<Type> result, Type findType, Type type ) {
-        if( type.IsInterface || type.IsAbstract )
+        if ( type.IsInterface || type.IsAbstract )
             return;
-        if( findType.IsAssignableFrom( type ) == false && MatchGeneric( findType, type ) == false )
+        if ( findType.IsAssignableFrom( type ) == false && MatchGeneric( findType, type ) == false )
             return;
         result.Add( type );
     }
@@ -165,11 +165,11 @@ public static class Reflection {
     /// 泛型匹配
     /// </summary>
     private static bool MatchGeneric( Type findType, Type type ) {
-        if( findType.IsGenericTypeDefinition == false )
+        if ( findType.IsGenericTypeDefinition == false )
             return false;
         var definition = findType.GetGenericTypeDefinition();
-        foreach( var implementedInterface in type.FindInterfaces( ( filter, criteria ) => true, null ) ) {
-            if( implementedInterface.IsGenericType == false )
+        foreach ( var implementedInterface in type.FindInterfaces( ( filter, criteria ) => true, null ) ) {
+            if ( implementedInterface.IsGenericType == false )
                 continue;
             return definition.IsAssignableFrom( implementedInterface.GetGenericTypeDefinition() );
         }
@@ -253,7 +253,7 @@ public static class Reflection {
     /// </summary>
     /// <param name="type">类型</param>
     public static bool IsCollection( Type type ) {
-        if( type.IsArray )
+        if ( type.IsArray )
             return true;
         return IsGenericCollection( type );
     }
@@ -267,7 +267,7 @@ public static class Reflection {
     /// </summary>
     /// <param name="type">类型</param>
     public static bool IsGenericCollection( Type type ) {
-        if( !type.IsGenericType )
+        if ( !type.IsGenericType )
             return false;
         var typeDefinition = type.GetGenericTypeDefinition();
         return typeDefinition == typeof( IEnumerable<> )
@@ -287,9 +287,9 @@ public static class Reflection {
     /// </summary>
     /// <param name="member">成员</param>
     public static bool IsBool( MemberInfo member ) {
-        if( member == null )
+        if ( member == null )
             return false;
-        switch( member.MemberType ) {
+        switch ( member.MemberType ) {
             case MemberTypes.TypeInfo:
                 return member.ToString() == "System.Boolean";
             case MemberTypes.Property:
@@ -457,12 +457,12 @@ public static class Reflection {
     /// </summary>
     /// <param name="type">类型</param>
     public static Type GetElementType( Type type ) {
-        if( IsCollection( type ) == false )
+        if ( IsCollection( type ) == false )
             return type;
-        if( type.IsArray )
+        if ( type.IsArray )
             return type.GetElementType();
         var genericArgumentsTypes = type.GetTypeInfo().GetGenericArguments();
-        if( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
+        if ( genericArgumentsTypes == null || genericArgumentsTypes.Length == 0 )
             throw new ArgumentException( nameof( genericArgumentsTypes ) );
         return genericArgumentsTypes[0];
     }
@@ -491,6 +491,22 @@ public static class Reflection {
         if ( type.BaseType == typeof( object ) )
             return type;
         return GetTopBaseType( type.BaseType );
+    }
+
+    #endregion
+
+    #region GetPropertyValue(获取属性值)
+
+    /// <summary>
+    /// 获取属性值
+    /// </summary>
+    /// <param name="instance">实例</param>
+    /// <param name="propertyName">属性名</param>
+    public static object GetPropertyValue( object instance, string propertyName ) {
+        if ( instance == null )
+            return null;
+        var property = instance.GetType().GetProperty( propertyName );
+        return property == null ? null : property.GetValue( instance );
     }
 
     #endregion

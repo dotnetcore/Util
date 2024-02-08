@@ -541,6 +541,10 @@ public static class UiConst {
     /// </summary>
     public const string Label = "label";
     /// <summary>
+    /// 标签宽度
+    /// </summary>
+    public const string LabelWidth = "label-width";
+    /// <summary>
     /// 标签文本
     /// </summary>
     public const string LabelText = "label-text";

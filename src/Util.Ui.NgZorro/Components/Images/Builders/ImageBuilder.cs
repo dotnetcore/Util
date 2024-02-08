@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
+using Util.Ui.Helpers;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Images.Builders; 
+namespace Util.Ui.NgZorro.Components.Images.Builders;
 
 /// <summary>
 /// 图片标签生成器
@@ -81,28 +81,17 @@ public class ImageBuilder : AngularTagBuilder {
     /// 配置宽度
     /// </summary>
     public ImageBuilder Width() {
-        var width = GetValue( _config.GetValue( UiConst.Width ) );
+        var width = SizeHelper.GetValue( _config.GetValue( UiConst.Width ) );
         AttributeIfNotEmpty( "width", width );
         AttributeIfNotEmpty( "[width]", _config.GetValue( AngularConst.BindWidth ) );
         return this;
     }
 
     /// <summary>
-    /// 获取值
-    /// </summary>
-    private string GetValue( string value ) {
-        if ( string.IsNullOrWhiteSpace( value ) )
-            return null;
-        if( Util.Helpers.Validation.IsNumber( value ) )
-            return $"{value}px";
-        return value;
-    }
-
-    /// <summary>
     /// 配置高度
     /// </summary>
     public ImageBuilder Height() {
-        var height = GetValue( _config.GetValue( UiConst.Height ));
+        var height = SizeHelper.GetValue( _config.GetValue( UiConst.Height ));
         AttributeIfNotEmpty( "height", height );
         AttributeIfNotEmpty( "[height]", _config.GetValue( AngularConst.BindHeight ) );
         return this;

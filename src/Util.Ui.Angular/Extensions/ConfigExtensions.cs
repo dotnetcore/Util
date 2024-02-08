@@ -17,6 +17,7 @@ public static class ConfigExtensions {
         result.RemoveAttribute( AngularConst.RawId );
         result.RemoveAttribute( UiConst.Name );
         result.RemoveAttribute( AngularConst.BindName );
+        result.RemoveAttribute( UiConst.Style );
         result.OutputAttributes.Clear();
         return result;
     }

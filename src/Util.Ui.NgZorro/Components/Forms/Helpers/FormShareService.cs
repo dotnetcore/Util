@@ -33,6 +33,7 @@ public class FormShareService {
     public void Init() {
         InitFormShareConfig();
         SetShowLabel();
+        SetLabelWidth();
         SetAlign();
         SetBindAlign();
         SetGutter();
@@ -142,6 +143,16 @@ public class FormShareService {
         var value = _config.GetValueFromAttributes<bool?>( UiConst.ShowLabel );
         if( value == false )
             _shareConfig.ShowLabel = false;
+    }
+
+    /// <summary>
+    /// 设置表单标签宽度
+    /// </summary>
+    private void SetLabelWidth() {
+        var value = _config.GetValueFromAttributes( UiConst.LabelWidth );
+        if ( string.IsNullOrWhiteSpace( value ) )
+            return;
+        _shareConfig.LabelWidth = value;
     }
 
     /// <summary>

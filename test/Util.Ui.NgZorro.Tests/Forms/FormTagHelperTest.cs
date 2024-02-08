@@ -407,5 +407,52 @@ namespace Util.Ui.NgZorro.Tests.Forms {
             result.Append( "</form>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试设置标签宽度
+        /// </summary>
+        [Fact]
+        public void TestLabelWidth() {
+            _wrapper.SetContextAttribute( UiConst.LabelWidth, "100" );
+
+            var input = new InputTagHelper().ToWrapper();
+            input.SetContextAttribute(UiConst.LabelText, "a");
+            _wrapper.AppendContent( input );
+
+            var result = new StringBuilder();
+            result.Append( "<form nz-form=\"\">" );
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label style=\"width:100px\">a</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试设置标签宽度 - 控件覆盖表单设置
+        /// </summary>
+        [Fact]
+        public void TestLabelWidth_2() {
+            _wrapper.SetContextAttribute( UiConst.LabelWidth, "100" );
+
+            var input = new InputTagHelper().ToWrapper();
+            input.SetContextAttribute( UiConst.LabelText, "a" );
+            input.SetContextAttribute( UiConst.LabelWidth, "120" );
+            _wrapper.AppendContent( input );
+
+            var result = new StringBuilder();
+            result.Append( "<form nz-form=\"\">" );
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label style=\"width:120px\">a</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

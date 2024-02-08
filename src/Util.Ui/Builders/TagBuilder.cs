@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
+using Util.Ui.Helpers;
 
-namespace Util.Ui.Builders; 
+namespace Util.Ui.Builders;
 
 /// <summary>
 /// 标签生成器
@@ -65,15 +66,15 @@ public class TagBuilder : IHtmlContent {
     /// <param name="replaceExisting">是否替换已存在的属性</param>
     /// <param name="append">相同名称的属性值是否累加</param>
     public virtual TagBuilder Attribute( string name, string value = "", bool replaceExisting = false, bool append = false ) {
-        if( _tagBuilder.Attributes.ContainsKey( name ) == false ) {
+        if ( _tagBuilder.Attributes.ContainsKey( name ) == false ) {
             _tagBuilder.MergeAttribute( name, value );
             return this;
         }
-        if( replaceExisting ) {
+        if ( replaceExisting ) {
             _tagBuilder.MergeAttribute( name, value, true );
             return this;
         }
-        if( append == false )
+        if ( append == false )
             return this;
         var newValue = $"{_tagBuilder.Attributes[name]};{value}";
         _tagBuilder.MergeAttribute( name, newValue, true );
@@ -86,7 +87,7 @@ public class TagBuilder : IHtmlContent {
     /// <param name="name">属性名</param>
     /// <param name="condition">该值为true时添加，否则忽略</param>
     public virtual TagBuilder AttributeIf( string name, bool condition ) {
-        if( condition == false )
+        if ( condition == false )
             return this;
         Attribute( name );
         return this;
@@ -179,7 +180,7 @@ public class TagBuilder : IHtmlContent {
     /// <param name="writer">流写入器</param>
     /// <param name="encoder">编码</param>
     public virtual void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
-        if( PreBuilder != null )
+        if ( PreBuilder != null )
             PreBuilder.WriteTo( writer, NullHtmlEncoder.Default );
         _tagBuilder.WriteTo( writer, NullHtmlEncoder.Default );
         if ( PostBuilder != null )
@@ -242,5 +243,15 @@ public class TagBuilder : IHtmlContent {
     /// <param name="config">配置</param>
     protected virtual void ConfigOutputAttributes( Config config ) {
         this.Attributes( config.OutputAttributes );
+    }
+
+    /// <summary>
+    /// 添加style样式
+    /// </summary>
+    /// <param name="config">配置</param>
+    /// <param name="name">样式名称</param>
+    /// <param name="value">样式值</param>
+    protected virtual void Style( Config config, string name, string value ) {
+        config.SetAttribute( UiConst.Style, $"{name}:{SizeHelper.GetValue( value )}" );
     }
 }
