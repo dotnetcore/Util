@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -25,6 +24,15 @@ public class FormShareService {
     public FormShareService( Config config ) {
         _config = config;
         _shareConfig = new FormShareConfig();
+    }
+
+    /// <summary>
+    /// 设置查询表单
+    /// </summary>
+    public void SetSearchForm() {
+        _shareConfig.IsSearch = true;
+        _shareConfig.SearchFormShowNumber = _config.GetValueFromAttributes<int?>( UiConst.ShowNumber );
+        _shareConfig.SearchFormColumnsNumber = _config.GetValueFromAttributes<int?>( UiConst.ColumnsNumber );
     }
 
     /// <summary>

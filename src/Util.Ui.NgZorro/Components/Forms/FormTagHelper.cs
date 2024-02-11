@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
 using Util.Ui.NgZorro.Components.Forms.Renders;
@@ -62,7 +61,7 @@ public class FormTagHelper : FormContainerTagHelperBase {
     /// </summary>
     public bool ShowLabel { get; set; }
     /// <summary>
-    /// 标签宽度
+    /// 扩展属性,标签宽度
     /// </summary>
     public string LabelWidth { get; set; }
     /// <summary>

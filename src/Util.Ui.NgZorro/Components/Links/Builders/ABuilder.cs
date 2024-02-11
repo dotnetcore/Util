@@ -1,9 +1,11 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Enums;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Icons.Builders;
+using Util.Ui.NgZorro.Configs;
 
-namespace Util.Ui.NgZorro.Components.Links.Builders; 
+namespace Util.Ui.NgZorro.Components.Links.Builders;
 
 /// <summary>
 /// a标签生成器
@@ -13,11 +15,11 @@ public class ABuilder : ButtonBuilderBase<ABuilder> {
     /// 配置
     /// </summary>
     private readonly Config _config;
-        
+
     /// <summary>
     /// 初始化a标签生成器
     /// </summary>
-    public ABuilder( Config config ) : base( config,"a" ) {
+    public ABuilder( Config config ) : base( config, "a" ) {
         _config = config;
     }
 
@@ -60,10 +62,29 @@ public class ABuilder : ButtonBuilderBase<ABuilder> {
     }
 
     /// <summary>
+    /// 配置查询表单链接
+    /// </summary>
+    public ABuilder IsSearch() {
+        var isSearch = _config.GetValue<bool?>( UiConst.IsSearch );
+        if ( isSearch != true )
+            return this;
+        this.OnClick( "expand=!expand" );
+        var options = NgZorroOptionsService.GetOptions();
+        if (options.EnableI18n)
+            AppendContent("{{" + $"expand?('{I18nKeys.Collapse}'|i18n):('{I18nKeys.Expand}'|i18n)" + "}}");
+        else
+            AppendContent( "{{expand?'收起':'展开'}}" );
+        var icon = new IconBuilder( _config );
+        icon.BindType( "expand?'up':'down'" );
+        AppendContent( icon );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        ConfigButton().Href().Target().Rel().RouterLink().DropdownMenu().DropdownMenuPlacement();
+        ConfigButton().Href().Target().Rel().RouterLink().DropdownMenu().DropdownMenuPlacement().IsSearch();
     }
 }

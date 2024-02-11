@@ -136,4 +136,12 @@ public class I18nKeys {
     /// util.copyToClipboard
     /// </summary>
     public const string CopyToClipboard = "util.copyToClipboard";
+    /// <summary>
+    /// util.expand
+    /// </summary>
+    public const string Expand = "util.expand";
+    /// <summary>
+    /// util.collapse
+    /// </summary>
+    public const string Collapse = "util.collapse";
 }

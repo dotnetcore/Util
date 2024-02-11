@@ -536,7 +536,8 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// </summary>
     public FormLabelBuilder Width() {
         var shareConfig = GetFormItemShareConfig();
-        Style( _config, "width", shareConfig.LabelWidth );
+        if( shareConfig.LabelWidth.IsEmpty() == false )
+            Style( _config, "width", shareConfig.LabelWidth );
         return this;
     }
 

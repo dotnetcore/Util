@@ -1,11 +1,71 @@
 ﻿using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Forms.Configs; 
+namespace Util.Ui.NgZorro.Components.Forms.Configs;
 
 /// <summary>
 /// 表单共享配置
 /// </summary>
 public class FormShareConfig {
+    /// <summary>
+    /// 查询表单栅格列标识
+    /// </summary>
+    private readonly List<string> _columnIds;
+
+    /// <summary>
+    /// 初始化表单共享配置
+    /// </summary>
+    public FormShareConfig() {
+        _columnIds = new List<string>();
+    }
+
+    /// <summary>
+    /// 获取查询条件数量
+    /// </summary>
+    public int GetConditionCount() {
+        return _columnIds.Count - 1;
+    }
+
+    /// <summary>
+    /// 添加查询表单栅格列标识
+    /// </summary>
+    /// <param name="columnId">栅格列标识</param>
+    public void AddColumnId( string columnId ) {
+        _columnIds.Add( columnId );
+    }
+
+    /// <summary>
+    /// 是否查询表单最后一个操作栅格
+    /// </summary>
+    /// <param name="columnId">栅格列标识</param>
+    public bool IsActionColumn( string columnId ) {
+        if ( GetConditionCount() == 0 )
+            return false;
+        return _columnIds.LastOrDefault() == columnId;
+    }
+
+    /// <summary>
+    /// 是否隐藏查询条件
+    /// </summary>
+    /// <param name="columnId">栅格列标识</param>
+    public bool IsHide( string columnId ) {
+        var index = _columnIds.FindIndex( id => id == columnId );
+        if ( SearchFormShowNumber.SafeValue() == 0 )
+            SearchFormShowNumber = 3;
+        return index >= SearchFormShowNumber;
+    }
+
+    /// <summary>
+    /// 是否查询表单
+    /// </summary>
+    public bool? IsSearch { get; set; }
+    /// <summary>
+    /// 查询表单初始显示的查询条件数量
+    /// </summary>
+    public int? SearchFormShowNumber { get; set; }
+    /// <summary>
+    /// 查询表单每行显示几列
+    /// </summary>
+    public int? SearchFormColumnsNumber { get; set; }
     /// <summary>
     /// 是否显示标签
     /// </summary>

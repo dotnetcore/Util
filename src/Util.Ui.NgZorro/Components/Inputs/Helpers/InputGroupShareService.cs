@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -37,7 +36,7 @@ public class InputGroupShareService {
     }
 
     /// <summary>
-    /// 初始化表单共享配置
+    /// 初始化输入框组合共享配置
     /// </summary>
     public void Init() {
         InitShareConfig();

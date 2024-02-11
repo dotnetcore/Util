@@ -13,7 +13,7 @@ namespace Util.Ui.NgZorro.Tests.Forms {
     /// <summary>
     /// 表单测试
     /// </summary>
-    public class FormTagHelperTest {
+    public partial class FormTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>

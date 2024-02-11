@@ -3,6 +3,7 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.NgZorro.Components.Links;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -321,6 +322,35 @@ namespace Util.Ui.NgZorro.Tests.Links {
             _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
             var result = new StringBuilder();
             result.Append( "<a *nzSpaceItem=\"\"></a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试查询表单链接
+        /// </summary>
+        [Fact]
+        public void TestIsSearch() {
+            _wrapper.SetContextAttribute( UiConst.IsSearch, true );
+            var result = new StringBuilder();
+            result.Append( "<a (click)=\"expand=!expand\">" );
+            result.Append( "{{expand?'收起':'展开'}}" );
+            result.Append( "<i nz-icon=\"\" [nzType]=\"expand?'up':'down'\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试查询表单链接 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestIsSearch_i18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.IsSearch, true );
+            var result = new StringBuilder();
+            result.Append( "<a (click)=\"expand=!expand\">" );
+            result.Append( "{{expand?('util.collapse'|i18n):('util.expand'|i18n)}}" );
+            result.Append( "<i nz-icon=\"\" [nzType]=\"expand?'up':'down'\"></i>" );
+            result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

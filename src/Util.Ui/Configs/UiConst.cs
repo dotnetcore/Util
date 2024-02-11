@@ -269,6 +269,18 @@ public static class UiConst {
     /// </summary>
     public const string IsSubmit = "is-submit";
     /// <summary>
+    /// 是否搜索
+    /// </summary>
+    public const string IsSearch = "is-search";
+    /// <summary>
+    /// 显示数量
+    /// </summary>
+    public const string ShowNumber = "show-number";
+    /// <summary>
+    /// 列数
+    /// </summary>
+    public const string ColumnsNumber = "columns-number";
+    /// <summary>
     /// ok
     /// </summary>
     public const string Ok = "ok";

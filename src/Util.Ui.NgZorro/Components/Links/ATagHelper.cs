@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.Enums;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Links.Renders;
@@ -40,6 +39,10 @@ public class ATagHelper : ButtonTagHelperBase {
     /// 扩展属性,是否危险状态
     /// </summary>
     public bool Danger { get; set; }
+    /// <summary>
+    /// 扩展属性,是否查询表单链接,折叠时显示展开文本,展开时显示收起文本
+    /// </summary>
+    public bool IsSearch { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

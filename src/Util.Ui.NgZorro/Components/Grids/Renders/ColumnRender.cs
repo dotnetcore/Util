@@ -1,5 +1,5 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Grids.Builders;
 using Util.Ui.Renders;
 
@@ -13,26 +13,30 @@ public class ColumnRender : RenderBase {
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 标识
+    /// </summary>
+    private string _id;
 
     /// <summary>
     /// 初始化栅格列渲染器
     /// </summary>
-    /// <param name="config">配置</param>
-    public ColumnRender( Config config ) {
+    public ColumnRender( Config config, string id ) {
         _config = config;
+        _id = id;
     }
 
     /// <summary>
     /// 获取标签生成器
     /// </summary>
     protected override TagBuilder GetTagBuilder() {
-        var builder = new ColumnBuilder( _config );
+        var builder = new ColumnBuilder( _config, _id );
         builder.Config();
         return builder;
     }
 
     /// <inheritdoc />
     public override IHtmlContent Clone() {
-        return new ColumnRender( _config.Copy() );
+        return new ColumnRender( _config.CopyRemoveAttributes(), _id );
     }
 }

@@ -1696,4 +1696,8 @@ public static class AngularConst {
     /// 不绑定文件列表
     /// </summary>
     public const string NotBindFileList = "not-bind-file-list";
+    /// <summary>
+    /// 自动换行
+    /// </summary>
+    public const string BindWrap = "bind-wrap";
 }
