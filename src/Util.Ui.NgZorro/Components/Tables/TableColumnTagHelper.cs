@@ -166,6 +166,14 @@ public class TableColumnTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindIndentSize { get; set; }
     /// <summary>
+    /// nzCellControl,设置列的位置，该值为 NzCustomColumn 类型中 value 字段的值
+    /// </summary>
+    public string CellControl { get; set; }
+    /// <summary>
+    /// [nzCellControl],设置列的位置，该值为 NzCustomColumn 类型中 value 字段的值
+    /// </summary>
+    public string BindCellControl { get; set; }
+    /// <summary>
     /// (nzCheckedChange),复选框选中状态变化事件,类型: EventEmitter&lt;boolean>
     /// </summary>
     public string OnCheckedChange { get; set; }

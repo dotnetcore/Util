@@ -1,5 +1,5 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.Renders;
@@ -40,6 +40,7 @@ public class TableRender : RenderBase {
     public override void WriteTo( TextWriter writer, HtmlEncoder encoder ) {
         base.WriteTo( writer, encoder );
         RenderTotalTemplate( writer, encoder );
+        RenderTableSettings( writer, encoder );
     }
 
     /// <summary>
@@ -62,8 +63,21 @@ public class TableRender : RenderBase {
         builder.WriteTo( writer, encoder );
     }
 
+    /// <summary>
+    /// 渲染表格设置组件
+    /// </summary>
+    protected void RenderTableSettings( TextWriter writer, HtmlEncoder encoder ) {
+        if ( _shareConfig.IsEnableCustomColumn == false )
+            return;
+        if ( _shareConfig.ColumnNumber == 0 )
+            return;
+        var builder = new TableSettingsBuilder( _config );
+        builder.Config();
+        builder.WriteTo( writer, encoder );
+    }
+
     /// <inheritdoc />
     public override IHtmlContent Clone() {
-        return new TableRender( _config.Copy(), _shareConfig.MapTo<TableShareConfig>() );
+        return new TableRender( _config.CopyRemoveAttributes(), _shareConfig.MapTo<TableShareConfig>() );
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -161,6 +160,34 @@ public class TableColumnBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置单元格控件
+    /// </summary>
+    public virtual TableColumnBuilder CellControl() {
+        CellControl( _config.GetValue( UiConst.CellControl ) );
+        AttributeIfNotEmpty( "[nzCellControl]", _config.GetValue( AngularConst.BindCellControl ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置单元格控件
+    /// </summary>
+    /// <param name="value">值</param>
+    public virtual TableColumnBuilder CellControl( string value ) {
+        AttributeIfNotEmpty( "nzCellControl", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置启用自定义列
+    /// </summary>
+    public TableColumnBuilder EnableCustomColumn() {
+        if ( _shareConfig.IsEnableCustomColumn == false )
+            return this;
+        CellControl( _shareConfig.CellControl );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public TableColumnBuilder Events() {
@@ -177,7 +204,7 @@ public class TableColumnBuilder : AngularTagBuilder {
         ShowCheckbox().Disabled().Indeterminate().Checked()
             .ShowExpand().Expand()
             .Left().Right().Align().BreakWord().Ellipsis()
-            .IndentSize()
+            .IndentSize().CellControl().EnableCustomColumn()
             .Events();
         ConfigContent();
     }

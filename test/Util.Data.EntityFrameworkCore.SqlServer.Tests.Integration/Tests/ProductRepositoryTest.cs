@@ -811,6 +811,32 @@ public partial class ProductRepositoryTest : TestBase {
         Assert.Equal( code, result[2].Code );
     }
 
+    /// <summary>
+    /// 测试更新实体 - 先添加,不提交,查找修改, 跳过并发检测
+    /// </summary>
+    [Fact]
+    public async Task TestUpdate_5() {
+        //常量
+        var code = "TestUpdate_5_Code";
+
+        //添加实体
+        var entity = ProductFakeService.GetProduct();
+        entity.Init();
+        await _repository.AddAsync( entity );
+
+        //查找实体,赋值,调用Update方法
+        var product = await _repository.FindByIdAsync( entity.Id );
+        product.Code = code;
+        await _repository.UpdateAsync( product );
+
+        //提交工作单元
+        await UnitOfWork.CommitAsync();
+
+        //验证
+        var result = await _repository.FindByIdAsync( entity.Id );
+        Assert.Equal( code, result.Code );
+    }
+
     #endregion
 
     #region Remove

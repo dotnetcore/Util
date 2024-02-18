@@ -2,7 +2,7 @@
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
-namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
+namespace Util.Ui.NgZorro.Components.Tables.Helpers;
 
 /// <summary>
 /// 表格服务
@@ -44,6 +44,7 @@ public class TableService {
     /// </summary>
     public void Init() {
         CreateShareConfig();
+        SetEnableCustomColumn();
         SetIsShowCheckbox();
         SetIsShowRadio();
         SetIsCheckLeafOnly();
@@ -65,6 +66,17 @@ public class TableService {
     /// </summary>
     private string GetTableId() {
         return _config.GetValue( UiConst.Id );
+    }
+
+    /// <summary>
+    /// 设置启用自定义列
+    /// </summary>
+    private void SetEnableCustomColumn() {
+        var key = _config.GetValue( UiConst.EnableCustomColumn );
+        if ( key.IsEmpty() || key.ToLower() == "true" )
+            return;
+        _shareConfig.IsEnableCustomColumn = true;
+        _shareConfig.CustomColumnKey = key;
     }
 
     /// <summary>
@@ -115,7 +127,7 @@ public class TableService {
             _shareConfig.IsEnableExtend = false;
             return;
         }
-        if ( GetEnableExtend() == true || 
+        if ( GetEnableExtend() == true ||
              GetUrl().IsEmpty() == false ||
              GetBindUrl().IsEmpty() == false ||
              GetLoadUrl().IsEmpty() == false ||
@@ -125,7 +137,7 @@ public class TableService {
              GetLoadChildrenUrl().IsEmpty() == false ||
              GetBindLoadChildrenUrl().IsEmpty() == false ||
              _shareConfig.IsShowCheckbox ||
-             _shareConfig.IsShowRadio || 
+             _shareConfig.IsShowRadio ||
              _shareConfig.IsShowLineNumber ) {
             _shareConfig.IsEnableExtend = true;
         }

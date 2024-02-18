@@ -1,7 +1,7 @@
 ﻿using Util.Helpers;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 
-namespace Util.Ui.NgZorro.Components.Tables.Configs; 
+namespace Util.Ui.NgZorro.Components.Tables.Configs;
 
 /// <summary>
 /// 表格列共享配置
@@ -23,6 +23,8 @@ public class TableColumnShareConfig {
     public TableColumnShareConfig( TableShareConfig tableShareConfig ) {
         _tableShareConfig = tableShareConfig;
         IsAutoCreateControl = true;
+        Index = _tableShareConfig.ColumnNumber;
+        _tableShareConfig.ColumnNumber++;
         Column = Id.Create();
     }
 
@@ -40,6 +42,11 @@ public class TableColumnShareConfig {
     /// 是否启用编辑模式
     /// </summary>
     public bool IsEnableEdit => _tableShareConfig.IsEnableEdit;
+
+    /// <summary>
+    /// 是否启用自定义列
+    /// </summary>
+    public bool IsEnableCustomColumn => _tableShareConfig.IsEnableCustomColumn;
 
     /// <summary>
     /// 表格扩展标识
@@ -60,6 +67,21 @@ public class TableColumnShareConfig {
     /// 列名
     /// </summary>
     public string Column { get; set; }
+
+    /// <summary>
+    /// 索引
+    /// </summary>
+    public int Index { get; set; }
+
+    /// <summary>
+    /// 自定义列标识
+    /// </summary>
+    public string CellControl {
+        get {
+            var column = _tableShareConfig.GetColumn( Index );
+            return column.GetCellControl();
+        }
+    }
 
     /// <summary>
     /// 编辑控件模板标识
@@ -134,7 +156,17 @@ public class TableColumnShareConfig {
     public void AddColumn( ColumnInfo column ) {
         if ( column == null )
             return;
+        column.Index = Index;
         Column = column.Column;
+        var headColumn = _tableShareConfig.GetHeadColumn( Index );
+        if ( headColumn != null ) {
+            if ( headColumn.Title.IsEmpty() == false )
+                column.Title = headColumn.Title;
+            if ( headColumn.CellControl.IsEmpty() == false )
+                column.CellControl = headColumn.CellControl;
+            if ( headColumn.Width.IsEmpty() == false )
+                column.Width = headColumn.Width;
+        }
         _tableShareConfig.Columns.Add( column );
     }
 

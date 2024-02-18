@@ -3,7 +3,7 @@ using Util.Data.Stores;
 using Util.Exceptions;
 using Util.Validation;
 
-namespace Util.Data.EntityFrameworkCore; 
+namespace Util.Data.EntityFrameworkCore;
 
 /// <summary>
 /// 存储器
@@ -133,7 +133,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
         if ( id.SafeString().IsEmpty() )
             return null;
         var key = GetKey( id );
-        if( IsTracking )
+        if ( IsTracking )
             return Set.Find( key );
         return Single( t => t.Id.Equals( key ) );
     }
@@ -142,7 +142,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// 获取标识
     /// </summary>
     protected object GetKey( object id ) {
-        if( id is TKey )
+        if ( id is TKey )
             return id;
         return Util.Helpers.Convert.To<TKey>( id );
     }
@@ -158,7 +158,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
         if ( id.SafeString().IsEmpty() )
             return null;
         var key = GetKey( id );
-        if( IsTracking )
+        if ( IsTracking )
             return await Set.FindAsync( new[] { key }, cancellationToken );
         return await SingleAsync( t => t.Id.Equals( key ), cancellationToken );
     }
@@ -212,7 +212,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     }
 
     /// <inheritdoc />
-    public virtual TEntity Single( Expression<Func<TEntity, bool>> condition,Func<IQueryable<TEntity>, IQueryable<TEntity>> action ) {
+    public virtual TEntity Single( Expression<Func<TEntity, bool>> condition, Func<IQueryable<TEntity>, IQueryable<TEntity>> action ) {
         if ( action == null )
             return Single( condition );
         return action( Find() ).FirstOrDefault( condition );
@@ -328,7 +328,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// </summary>
     protected virtual void Validate( IEnumerable<TEntity> entities ) {
         entities.CheckNull( nameof( entities ) );
-        foreach ( var entity in entities ) 
+        foreach ( var entity in entities )
             Validate( entity );
     }
 
@@ -337,7 +337,7 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// </summary>
     protected virtual void Validate( TEntity entity ) {
         entity.CheckNull( nameof( entity ) );
-        if ( entity is IValidation validation ) 
+        if ( entity is IValidation validation )
             validation.Validate();
     }
 
@@ -381,6 +381,8 @@ public abstract class StoreBase<TEntity, TKey> : IStore<TEntity, TKey>, IFilterS
     /// </summary>
     protected virtual void ValidateVersion( EntityEntry<TEntity> entry, TEntity entity ) {
         if ( entity is not IVersion current )
+            return;
+        if ( entry.State == EntityState.Added )
             return;
         if ( current.Version == null || current.Version.Length == 0 ) {
             ThrowConcurrencyException( entity );

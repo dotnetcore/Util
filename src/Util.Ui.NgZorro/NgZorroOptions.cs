@@ -44,4 +44,8 @@ public class NgZorroOptions {
     /// 获取表格布尔列内容操作
     /// </summary>
     public Func<string, string> GetTableColumnBoolContentAction { get; set; }
+    /// <summary>
+    /// 表格列默认宽度,单位: px, 默认值:180, 自定义列使用
+    /// </summary>
+    public double TableColumnDefaultWidth { get; set; } = 180;
 }

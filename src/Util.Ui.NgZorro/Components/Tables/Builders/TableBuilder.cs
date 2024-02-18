@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
@@ -500,6 +499,32 @@ public class TableBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置自定义列
+    /// </summary>
+    public TableBuilder CustomColumn() {
+        CustomColumn( _config.GetValue( UiConst.CustomColumn ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置自定义列
+    /// </summary>
+    public TableBuilder CustomColumn( string value ) {
+        AttributeIfNotEmpty( "[nzCustomColumn]", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置启用自定义列
+    /// </summary>
+    public TableBuilder EnableCustomColumn() {
+        if (_shareConfig.IsEnableCustomColumn == false)
+            return this;
+        CustomColumn( $"{_shareConfig.TableSettingsId}.columns" );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public TableBuilder Events() {
@@ -566,6 +591,7 @@ public class TableBuilder : AngularTagBuilder {
             .Layout()
             .QueryParam().Url().DeleteUrl()
             .Sort().AutoLoad().ConfigKeys()
+            .CustomColumn().EnableCustomColumn()
             .Events();
         ConfigAutoCreate();
         if ( _shareConfig.IsEnableExtend )

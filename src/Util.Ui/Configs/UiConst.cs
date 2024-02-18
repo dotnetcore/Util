@@ -25,6 +25,14 @@ public static class UiConst {
     /// </summary>
     public const string Color = "color";
     /// <summary>
+    /// 单元格控件
+    /// </summary>
+    public const string CellControl = "cell-control";
+    /// <summary>
+    /// 是否启用自定义列
+    /// </summary>
+    public const string EnableCustomColumn = "enable-custom-column";
+    /// <summary>
     /// 背景色
     /// </summary>
     public const string BackgroundColor = "background-color";
@@ -272,6 +280,10 @@ public static class UiConst {
     /// 是否搜索
     /// </summary>
     public const string IsSearch = "is-search";
+    /// <summary>
+    /// 显示表格设置
+    /// </summary>
+    public const string ShowTableSettings = "show-table-settings";
     /// <summary>
     /// 显示数量
     /// </summary>
@@ -704,6 +716,10 @@ public static class UiConst {
     /// 标题
     /// </summary>
     public const string Title = "title";
+    /// <summary>
+    /// 错误收集
+    /// </summary>
+    public const string ErrorCollect = "error-collect";
     /// <summary>
     /// operation标题
     /// </summary>
@@ -1280,6 +1296,10 @@ public static class UiConst {
     /// 布局
     /// </summary>
     public const string Layout = "layout";
+    /// <summary>
+    /// 自定义列
+    /// </summary>
+    public const string CustomColumn = "custom-column";
     /// <summary>
     /// 显示冒号
     /// </summary>

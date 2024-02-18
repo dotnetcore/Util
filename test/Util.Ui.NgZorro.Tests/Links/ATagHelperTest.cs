@@ -355,6 +355,33 @@ namespace Util.Ui.NgZorro.Tests.Links {
         }
 
         /// <summary>
+        /// 测试显示表格设置
+        /// </summary>
+        [Fact]
+        public void TestShowTableSettings() {
+            _wrapper.SetContextAttribute( UiConst.ShowTableSettings, "a" );
+            var result = new StringBuilder();
+            result.Append( "<a (click)=\"ts_a.show()\" class=\"btn-table-settings\" nz-tooltip=\"\" nzTooltipTitle=\"表格设置\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"setting\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试显示表格设置 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestShowTableSettings_i18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.ShowTableSettings, "a" );
+            var result = new StringBuilder();
+            result.Append( "<a (click)=\"ts_a.show()\" class=\"btn-table-settings\" nz-tooltip=\"\" [nzTooltipTitle]=\"'util.tableSettings'|i18n\">" );
+            result.Append( "<i nz-icon=\"\" nzType=\"setting\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]

@@ -4,6 +4,8 @@ using Util.Ui.Enums;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Directives.Tooltips;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Links.Builders;
 
@@ -70,8 +72,8 @@ public class ABuilder : ButtonBuilderBase<ABuilder> {
             return this;
         this.OnClick( "expand=!expand" );
         var options = NgZorroOptionsService.GetOptions();
-        if (options.EnableI18n)
-            AppendContent("{{" + $"expand?('{I18nKeys.Collapse}'|i18n):('{I18nKeys.Expand}'|i18n)" + "}}");
+        if ( options.EnableI18n )
+            AppendContent( "{{" + $"expand?('{I18nKeys.Collapse}'|i18n):('{I18nKeys.Expand}'|i18n)" + "}}" );
         else
             AppendContent( "{{expand?'收起':'展开'}}" );
         var icon = new IconBuilder( _config );
@@ -81,10 +83,28 @@ public class ABuilder : ButtonBuilderBase<ABuilder> {
     }
 
     /// <summary>
+    /// 配置显示表格设置
+    /// </summary>
+    public ABuilder ShowTableSettings() {
+        var tableId = _config.GetValue( UiConst.ShowTableSettings );
+        if ( tableId.IsEmpty() )
+            return this;
+        this.OnClick( $"ts_{tableId}.show()" );
+        Class( "btn-table-settings" );
+        var options = NgZorroOptionsService.GetOptions();
+        this.TooltipTitle( options.EnableI18n ? "util.tableSettings" : "表格设置" );
+        var icon = new IconBuilder( _config );
+        icon.Type( AntDesignIcon.Setting );
+        AppendContent( icon );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        ConfigButton().Href().Target().Rel().RouterLink().DropdownMenu().DropdownMenuPlacement().IsSearch();
+        ConfigButton().Href().Target().Rel().RouterLink().DropdownMenu()
+            .DropdownMenuPlacement().IsSearch().ShowTableSettings();
     }
 }

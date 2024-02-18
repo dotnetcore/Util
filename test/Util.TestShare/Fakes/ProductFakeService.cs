@@ -31,6 +31,7 @@ public static class ProductFakeService {
             .Ignore( t => t.LastModifierId )
             .Ignore( t => t.TenantId )
             .Ignore( t => t.TestProperty1 )
+            .Ignore( t => t.Version )
             .RuleFor( t => t.IsDeleted, false )
             .Generate( count );
     }

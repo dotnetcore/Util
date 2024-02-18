@@ -1700,4 +1700,8 @@ public static class AngularConst {
     /// 自动换行
     /// </summary>
     public const string BindWrap = "bind-wrap";
+    /// <summary>
+    /// 单元格控件
+    /// </summary>
+    public const string BindCellControl = "bind-cell-control";
 }

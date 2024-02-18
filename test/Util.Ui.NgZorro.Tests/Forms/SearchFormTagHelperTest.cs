@@ -167,7 +167,7 @@ public class SearchFormTagHelperTest {
     }
 
     /// <summary>
-    /// 测试查询表单 - 8个栅格列 - 初始显示2个条件,每行显示6个条件
+    /// 测试查询表单 - 初始显示2个条件,每行显示6个条件
     /// </summary>
     [Fact]
     public void Test_5() {

@@ -1,8 +1,7 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Tables.Configs;
+﻿using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
 
-namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
+namespace Util.Ui.NgZorro.Components.Tables.Helpers;
 
 /// <summary>
 /// 表格列服务
@@ -64,7 +63,7 @@ public class TableColumnService {
     /// </summary>
     private void EnableEdit() {
         var result = _config.GetValue<bool>( UiConst.IsEdit );
-        if( result )
+        if ( result )
             _shareConfig.EnableEdit();
     }
 
@@ -99,6 +98,7 @@ public class TableColumnService {
         var result = new ColumnInfo {
             Title = GetTitle(),
             Column = _config.GetValue( UiConst.Column ),
+            CellControl = _config.GetValue( UiConst.CellControl ),
             Width = _config.GetValue( UiConst.Width ),
             IsSort = _config.GetValue<bool>( UiConst.Sort ),
             IsFirst = _shareConfig.IsFirst,

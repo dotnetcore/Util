@@ -1,6 +1,6 @@
 ﻿using Util.Ui.NgZorro.Components.Tables.Helpers;
 
-namespace Util.Ui.NgZorro.Components.Tables.Configs; 
+namespace Util.Ui.NgZorro.Components.Tables.Configs;
 
 /// <summary>
 /// 表格共享配置
@@ -17,6 +17,7 @@ public class TableShareConfig {
     /// <param name="id">表格标识</param>
     public TableShareConfig( string id = null ) {
         Id = id.IsEmpty() ? Util.Helpers.Id.Create() : id;
+        HeadColumns = new List<HeadColumnInfo>();
         Columns = new List<ColumnInfo>();
         IsAutoCreateHead = true;
         IsAutoCreateHeadRow = true;
@@ -46,6 +47,11 @@ public class TableShareConfig {
     public string RowId => _rowId.IsEmpty() ? $"{Id}_row" : _rowId;
 
     /// <summary>
+    /// 表格设置组件标识
+    /// </summary>
+    public string TableSettingsId => $"ts_{Id}";
+
+    /// <summary>
     /// 设置表格主体行标识
     /// </summary>
     /// <param name="rowId">行标识</param>
@@ -59,6 +65,11 @@ public class TableShareConfig {
     public string TotalTemplateId => $"total_{Id}";
 
     /// <summary>
+    /// 表头列信息集合
+    /// </summary>
+    public List<HeadColumnInfo> HeadColumns { get; }
+
+    /// <summary>
     /// 列信息集合
     /// </summary>
     public List<ColumnInfo> Columns { get; }
@@ -67,6 +78,11 @@ public class TableShareConfig {
     /// 表头列数
     /// </summary>
     public int HeadColumnNumber { get; set; }
+
+    /// <summary>
+    /// 列数
+    /// </summary>
+    public int ColumnNumber { get; set; }
 
     /// <summary>
     /// 是否自动创建表头thead
@@ -134,6 +150,11 @@ public class TableShareConfig {
     public bool IsEnableEdit { get; set; }
 
     /// <summary>
+    /// 是否启用自定义列
+    /// </summary>
+    public bool IsEnableCustomColumn { get; set; }
+
+    /// <summary>
     /// 是否显示复选框
     /// </summary>
     public bool IsShowCheckbox { get; set; }
@@ -187,4 +208,25 @@ public class TableShareConfig {
     /// 点击是否仅选中该行
     /// </summary>
     public bool SelectOnlyOnClickRow { get; set; }
+
+    /// <summary>
+    /// 自定义列标识
+    /// </summary>
+    public string CustomColumnKey { get; set; }
+
+    /// <summary>
+    /// 获取列信息
+    /// </summary>
+    /// <param name="index">列索引</param>
+    public ColumnInfo GetColumn( int index ) {
+        return Columns.Find( t => t.Index == index );
+    }
+
+    /// <summary>
+    /// 获取表头列信息
+    /// </summary>
+    /// <param name="index">列索引</param>
+    public HeadColumnInfo GetHeadColumn( int index ) {
+        return HeadColumns.Find( t => t.Index == index );
+    }
 }

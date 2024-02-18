@@ -1,8 +1,7 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.Expressions;
+﻿using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
-namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
+namespace Util.Ui.NgZorro.Components.Tables.Helpers;
 
 /// <summary>
 /// 表头单元格服务
@@ -32,6 +31,7 @@ public class TableHeadColumnService {
         CreateTableHeadColumnShareConfig();
         CancelAutoCreateHeadColumn();
         SetIsFirst();
+        SetColumn();
         LoadExpression();
     }
 
@@ -39,7 +39,7 @@ public class TableHeadColumnService {
     /// 创建表头列共享配置
     /// </summary>
     private void CreateTableHeadColumnShareConfig() {
-        _shareConfig = new TableHeadColumnShareConfig( GetTableShareConfig());
+        _shareConfig = new TableHeadColumnShareConfig( GetTableShareConfig() );
         _config.SetValueToItems( _shareConfig );
     }
 
@@ -62,6 +62,16 @@ public class TableHeadColumnService {
     /// </summary>
     public void SetIsFirst() {
         _shareConfig.SetIsFirst();
+    }
+
+    /// <summary>
+    /// 设置表头列
+    /// </summary>
+    public void SetColumn() {
+        var title = _config.GetValue( UiConst.Title );
+        var width = _config.GetValue( UiConst.Width );
+        var cellControl = _config.GetValue( UiConst.CellControl );
+        _shareConfig.AddColumn( new HeadColumnInfo { Title = title, Width = width, CellControl = cellControl } );
     }
 
     /// <summary>

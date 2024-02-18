@@ -43,6 +43,10 @@ public class ATagHelper : ButtonTagHelperBase {
     /// 扩展属性,是否查询表单链接,折叠时显示展开文本,展开时显示收起文本
     /// </summary>
     public bool IsSearch { get; set; }
+    /// <summary>
+    /// 扩展属性,显示表格设置,参数值为表格标识
+    /// </summary>
+    public string ShowTableSettings { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

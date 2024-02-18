@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Components.Tables.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -202,6 +201,14 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// [nzColumnKey],当前列标识，用于服务端筛选和排序使用
     /// </summary>
     public string BindColumnKey { get; set; }
+    /// <summary>
+    /// nzCellControl,设置列的位置，该值为 NzCustomColumn 类型中 value 字段的值
+    /// </summary>
+    public string CellControl { get; set; }
+    /// <summary>
+    /// [nzCellControl],设置列的位置，该值为 NzCustomColumn 类型中 value 字段的值
+    /// </summary>
+    public string BindCellControl { get; set; }
     /// <summary>
     /// (nzCheckedChange),复选框选中状态变化事件,类型: EventEmitter&lt;boolean>
     /// </summary>

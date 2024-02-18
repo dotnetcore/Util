@@ -701,6 +701,17 @@ public partial class TableTagHelperTest {
     }
 
     /// <summary>
+    /// 测试自定义列
+    /// </summary>
+    [Fact]
+    public void TestCustomColumn() {
+        _wrapper.SetContextAttribute( UiConst.CustomColumn, "a" );
+        var result = new StringBuilder();
+        result.Append( "<nz-table [nzCustomColumn]=\"a\"></nz-table>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
     /// 测试内容
     /// </summary>
     [Fact]

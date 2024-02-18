@@ -363,6 +363,28 @@ public partial class TableColumnTagHelperTest {
     }
 
     /// <summary>
+    /// 测试单元格控件
+    /// </summary>
+    [Fact]
+    public void TestCellControl() {
+        _wrapper.SetContextAttribute( UiConst.CellControl, "a" );
+        var result = new StringBuilder();
+        result.Append( "<td nzCellControl=\"a\"></td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试单元格控件
+    /// </summary>
+    [Fact]
+    public void TestBindCellControl() {
+        _wrapper.SetContextAttribute( AngularConst.BindCellControl, "a" );
+        var result = new StringBuilder();
+        result.Append( "<td [nzCellControl]=\"a\"></td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
     /// 测试内容
     /// </summary>
     [Fact]

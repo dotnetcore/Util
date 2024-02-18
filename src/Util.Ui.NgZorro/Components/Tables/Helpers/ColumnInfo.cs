@@ -1,9 +1,13 @@
-﻿namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
+﻿namespace Util.Ui.NgZorro.Components.Tables.Helpers;
 
 /// <summary>
 /// 列配置信息
 /// </summary>
 public class ColumnInfo {
+    /// <summary>
+    /// 索引
+    /// </summary>
+    public int Index { get; set; }
     /// <summary>
     /// 标题
     /// </summary>
@@ -12,6 +16,10 @@ public class ColumnInfo {
     /// 列名
     /// </summary>
     public string Column { get; set; }
+    /// <summary>
+    /// 自定义列标识
+    /// </summary>
+    public string CellControl { get; set; }
     /// <summary>
     /// 是否排序
     /// </summary>
@@ -40,4 +48,18 @@ public class ColumnInfo {
     /// 访问控制列表模板标识
     /// </summary>
     public string AclElseTemplateId { get; set; }
+
+    /// <summary>
+    /// 转换为自定义列
+    /// </summary>
+    public CustomColumn ToCustomColumn() {
+        return new CustomColumn( GetCellControl(), Width, Acl );
+    }
+
+    /// <summary>
+    /// 获取自定义列标识
+    /// </summary>
+    public string GetCellControl() {
+        return CellControl.IsEmpty() ? Title : CellControl;
+    }
 }

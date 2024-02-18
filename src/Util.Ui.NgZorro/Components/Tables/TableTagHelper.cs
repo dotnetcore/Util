@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Components.Tables.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -325,6 +324,14 @@ public class TableTagHelper : AngularTagHelperBase {
     /// [nzTableLayout],表格布局,可选值: 'fixed' | 'auto'
     /// </summary>
     public string BindLayout { get; set; }
+    /// <summary>
+    /// [nzCustomColumn],自定义列, 控制表格列的展示与排序, 类型: NzCustomColumn[], 注意: 开启后 nzWidthConfig 和 th 的 nzWidth 将不生效
+    /// </summary>
+    public string CustomColumn { get; set; }
+    /// <summary>
+    /// 扩展属性,启用自定义列, 参数值为自定义列标识 Key,用于将自定义列数据存储到浏览器本地, 必须全局唯一
+    /// </summary>
+    public string EnableCustomColumn { get; set; }
     /// <summary>
     /// (nzPageIndexChange),页码变化事件,类型: EventEmitter&lt;number>
     /// </summary>

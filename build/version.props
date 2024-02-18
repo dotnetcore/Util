@@ -4,6 +4,6 @@
 		<VersionMinor>0</VersionMinor>
 		<VersionPatch>1</VersionPatch>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch)</VersionPrefix>
-		<VersionSuffix>pre-6</VersionSuffix>
+		<VersionSuffix></VersionSuffix>
 	</PropertyGroup>
 </Project>

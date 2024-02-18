@@ -1,14 +1,13 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Tables.Builders; 
+namespace Util.Ui.NgZorro.Components.Tables.Builders;
 
 /// <summary>
 /// 表头单元格标签生成器
@@ -28,7 +27,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// </summary>
     /// <param name="config">配置</param>
     /// <param name="shareConfig">表头列共享配置</param>
-    public TableHeadColumnBuilder( Config config, TableHeadColumnShareConfig shareConfig ) : base( config,"th" ) {
+    public TableHeadColumnBuilder( Config config, TableHeadColumnShareConfig shareConfig ) : base( config, "th" ) {
         _config = config;
         _shareConfig = shareConfig;
     }
@@ -194,6 +193,8 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置列宽
     /// </summary>
     public TableHeadColumnBuilder Width() {
+        if ( _shareConfig.IsEnableCustomColumn )
+            return this;
         this.Width( _config.GetValue( UiConst.Width ) );
         BindWidth( _config.GetValue( AngularConst.BindWidth ) );
         return this;
@@ -353,6 +354,41 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置单元格控件
+    /// </summary>
+    public virtual TableHeadColumnBuilder CellControl() {
+        CellControl( _config.GetValue( UiConst.CellControl ) );
+        AttributeIfNotEmpty( "[nzCellControl]", _config.GetValue( AngularConst.BindCellControl ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置单元格控件
+    /// </summary>
+    /// <param name="value">值</param>
+    public virtual TableHeadColumnBuilder CellControl( string value ) {
+        AttributeIfNotEmpty( "nzCellControl", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置启用自定义列
+    /// </summary>
+    public TableHeadColumnBuilder EnableCustomColumn() {
+        return EnableCustomColumn( _shareConfig.CellControl );
+    }
+
+    /// <summary>
+    /// 配置启用自定义列
+    /// </summary>
+    public TableHeadColumnBuilder EnableCustomColumn( string cellControl ) {
+        if ( _shareConfig.IsEnableCustomColumn == false )
+            return this;
+        CellControl( cellControl );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public TableHeadColumnBuilder Events() {
@@ -382,6 +418,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
             .Width().Left().Right().Align().BreakWord().Ellipsis()
             .Colspan().Rowspan().ColumnKey()
             .TitleOperation().Title()
+            .CellControl().EnableCustomColumn()
             .Events()
             .CheckBox().Radio().LineNumber();
     }
@@ -498,16 +535,18 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         if ( column.IsSort )
             Sort( column.Column );
         Title( column.Title );
-        this.Width( column.Width );
+        if ( _shareConfig.IsEnableCustomColumn == false )
+            this.Width( column.Width );
         Left( column.IsLeft );
         Right( column.IsRight );
         SetAcl( column.Acl, column.AclElseTemplateId );
+        EnableCustomColumn( column.GetCellControl() );
     }
 
     /// <summary>
     /// 配置访问控制列表
     /// </summary>
-    public TableHeadColumnBuilder SetAcl( string acl,string aclElseTemplateId ) {
+    public TableHeadColumnBuilder SetAcl( string acl, string aclElseTemplateId ) {
         _config.SetAttribute( UiConst.Acl, acl );
         _config.SetAttribute( UiConst.AclElseTemplateId, aclElseTemplateId );
         this.Acl( _config );
