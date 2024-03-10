@@ -1,9 +1,11 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
+﻿using System;
+using Util.Helpers;
+using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
+using Config = Util.Ui.Configs.Config;
 
-namespace Util.Ui.NgZorro.Components.DatePickers.Builders; 
+namespace Util.Ui.NgZorro.Components.DatePickers.Builders;
 
 /// <summary>
 /// 日期范围选择标签生成器
@@ -13,6 +15,10 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 标识
+    /// </summary>
+    private string _id;
 
     /// <summary>
     /// 初始化日期范围选择标签生成器
@@ -21,7 +27,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     public RangePickerBuilder( Config config ) : base( config, "nz-range-picker" ) {
         _config = config;
     }
-        
+
     /// <summary>
     /// 配置允许清除
     /// </summary>
@@ -219,5 +225,60 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
             .Format().InputReadonly().Locale().Mode()
             .Placeholder().RenderExtraFooter().Size().SuffixIcon().Borderless()
             .Ranges().Separator().ShowTime().Events();
+        EnableExtend();
+    }
+
+    /// <summary>
+    /// 启用扩展
+    /// </summary>
+    private void EnableExtend() {
+        if ( IsEnableExtend() == false )
+            return;
+        Attribute( "x-range-picker-extend" );
+        Attribute( $"#{ExtendId}", "xRangePickerExtend" );
+        Attribute( "[(ngModel)]", $"{ExtendId}.rangeDates", true );
+        var onCalendarChange = _config.GetValue( UiConst.OnCalendarChange );
+        onCalendarChange = onCalendarChange.IsEmpty() ? "" : ";" + onCalendarChange;
+        Attribute( "(nzOnCalendarChange)", $"{ExtendId}.handleRangeDateChange($event){onCalendarChange}", true );
+        BeginDate();
+        EndDate();
+    }
+
+    /// <summary>
+    /// 扩展标识
+    /// </summary>
+    private string ExtendId {
+        get {
+            if ( _id.IsEmpty() )
+                _id = _config.GetValue( UiConst.Id );
+            if ( _id.IsEmpty() )
+                _id = Id.Create();
+            return $"x_{_id}";
+        }
+    }
+
+    /// <summary>
+    /// 是否启用扩展
+    /// </summary>
+    private bool IsEnableExtend() {
+        if ( _config.Contains( UiConst.BeginDate ) )
+            return true;
+        if ( _config.Contains( UiConst.EndDate ) )
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// 配置起始日期
+    /// </summary>
+    private void BeginDate() {
+        AttributeIfNotEmpty( "[(beginDate)]", _config.GetValue( UiConst.BeginDate ) );
+    }
+
+    /// <summary>
+    /// 配置结束日期
+    /// </summary>
+    private void EndDate() {
+        AttributeIfNotEmpty( "[(endDate)]", _config.GetValue( UiConst.EndDate ) );
     }
 }

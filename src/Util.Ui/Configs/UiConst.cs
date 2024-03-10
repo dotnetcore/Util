@@ -29,6 +29,46 @@ public static class UiConst {
     /// </summary>
     public const string CellControl = "cell-control";
     /// <summary>
+    /// 启用拖动调整尺寸
+    /// </summary>
+    public const string EnableResizable = "enable-resizable";
+    /// <summary>
+    /// 启用表格设置
+    /// </summary>
+    public const string EnableTableSettings = "enable-table-settings";
+    /// <summary>
+    /// 启用固定列
+    /// </summary>
+    public const string EnableFixedColumn = "enable-fixed-column";
+    /// <summary>
+    /// 起始日期
+    /// </summary>
+    public const string BeginDate = "begin-date";
+    /// <summary>
+    /// 结束日期
+    /// </summary>
+    public const string EndDate = "end-date";
+    /// <summary>
+    /// 值变更事件
+    /// </summary>
+    public const string OnValueChange = "on-value-change";
+    /// <summary>
+    /// 起始
+    /// </summary>
+    public const string ForBegin = "for-begin";
+    /// <summary>
+    /// 结束
+    /// </summary>
+    public const string ForEnd = "for-end";
+    /// <summary>
+    /// 最小宽度
+    /// </summary>
+    public const string MinWidth = "min-width";
+    /// <summary>
+    /// 最大宽度
+    /// </summary>
+    public const string MaxWidth = "max-width";
+    /// <summary>
     /// 是否启用自定义列
     /// </summary>
     public const string EnableCustomColumn = "enable-custom-column";
@@ -716,6 +756,10 @@ public static class UiConst {
     /// 标题
     /// </summary>
     public const string Title = "title";
+    /// <summary>
+    /// 标题对齐
+    /// </summary>
+    public const string TitleAlign = "title-align";
     /// <summary>
     /// 错误收集
     /// </summary>

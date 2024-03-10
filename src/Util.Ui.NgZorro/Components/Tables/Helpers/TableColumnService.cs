@@ -1,5 +1,6 @@
 ﻿using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers;
 
@@ -29,7 +30,6 @@ public class TableColumnService {
     /// </summary>
     public void Init() {
         CreateTableColumnShareConfig();
-        SetIsFirst();
         EnableEdit();
         EnableEllipsis();
         LoadExpression();
@@ -49,13 +49,6 @@ public class TableColumnService {
     /// </summary>
     private TableShareConfig GetTableShareConfig() {
         return _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
-    }
-
-    /// <summary>
-    /// 设置第一列标识
-    /// </summary>
-    public void SetIsFirst() {
-        _shareConfig.SetIsFirst();
     }
 
     /// <summary>
@@ -99,13 +92,16 @@ public class TableColumnService {
             Title = GetTitle(),
             Column = _config.GetValue( UiConst.Column ),
             CellControl = _config.GetValue( UiConst.CellControl ),
+            Align = _config.GetValue<TableHeadColumnAlign?>( UiConst.Align )?.Description(),
             Width = _config.GetValue( UiConst.Width ),
+            Ellipsis = _config.GetValue<bool?>( UiConst.Ellipsis ),
             IsSort = _config.GetValue<bool>( UiConst.Sort ),
             IsFirst = _shareConfig.IsFirst,
-            IsLeft = _config.GetValue<bool>( UiConst.Left ),
-            IsRight = _config.GetValue<bool>( UiConst.Right ),
+            IsLeft = _config.GetValue( UiConst.Left ),
+            IsRight = _config.GetValue( UiConst.Right ),
             Acl = _config.GetValue( UiConst.Acl ),
-            AclElseTemplateId = _config.GetValue( UiConst.AclElseTemplateId )
+            AclElseTemplateId = _config.GetValue( UiConst.AclElseTemplateId ),
+            IsEnableResizable = _config.GetValue<bool>( UiConst.EnableResizable )
         };
         return result;
     }

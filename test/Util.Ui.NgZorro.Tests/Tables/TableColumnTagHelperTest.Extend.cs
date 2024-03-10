@@ -157,19 +157,19 @@ public partial class TableColumnTagHelperTest {
         _wrapper.AppendContent( "b" );
 
         //固定到左侧
-        _wrapper.SetContextAttribute( UiConst.Left, true );
+        _wrapper.SetContextAttribute( UiConst.Left, "10px" );
 
         //结果
         var result = new StringBuilder();
         result.Append( "<nz-table>" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th [nzLeft]=\"true\">a</th>" );
+        result.Append( "<th nzLeft=\"10px\">a</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
-        result.Append( "<td [nzLeft]=\"true\">b</td>" );
+        result.Append( "<td nzLeft=\"10px\">b</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
         result.Append( "</nz-table>" );
@@ -269,19 +269,19 @@ public partial class TableColumnTagHelperTest {
         _wrapper.AppendContent( "b" );
 
         //固定到右侧
-        _wrapper.SetContextAttribute( UiConst.Right, true );
+        _wrapper.SetContextAttribute( UiConst.Right, "10px" );
 
         //结果
         var result = new StringBuilder();
         result.Append( "<nz-table>" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th [nzRight]=\"true\">Operation</th>" );
+        result.Append( "<th nzRight=\"10px\">Operation</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
-        result.Append( "<td [nzRight]=\"true\">b</td>" );
+        result.Append( "<td nzRight=\"10px\">b</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
         result.Append( "</nz-table>" );

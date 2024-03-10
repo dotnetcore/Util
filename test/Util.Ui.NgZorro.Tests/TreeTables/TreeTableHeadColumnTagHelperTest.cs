@@ -146,10 +146,10 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// </summary>
         [Fact]
         public void TestCheckboxLeft() {
-            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowCheckbox = true, IsCheckboxLeft = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowCheckbox = true, IsCheckboxLeft = "a" } );
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
-            result.Append( "<th [nzLeft]=\"true\">" );
+            result.Append( "<th nzLeft=\"a\">" );
             result.Append( "<label " );
             result.Append( "(nzCheckedChange)=\"x_id.masterToggle()\" " );
             result.Append( "nz-checkbox=\"\" " );
@@ -170,10 +170,10 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// </summary>
         [Fact]
         public void TestRadioLeft() {
-            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowRadio = true, IsRadioLeft = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsTreeTable = true, IsShowRadio = true, IsRadioLeft = "a" } );
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
-            result.Append( "<th [nzLeft]=\"true\">a</th>" );
+            result.Append( "<th nzLeft=\"a\">a</th>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

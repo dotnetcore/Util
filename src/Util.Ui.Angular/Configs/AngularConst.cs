@@ -313,6 +313,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindAlign = "bind-align";
     /// <summary>
+    /// 标题对齐
+    /// </summary>
+    public const string BindTitleAlign = "bind-title-align";
+    /// <summary>
     /// 序号
     /// </summary>
     public const string BindOrder = "bind-order";
@@ -324,6 +328,14 @@ public static class AngularConst {
     /// 宽度
     /// </summary>
     public const string BindWidth = "bind-width";
+    /// <summary>
+    /// 最小宽度
+    /// </summary>
+    public const string BindMinWidth = "bind-min-width";
+    /// <summary>
+    /// 最大宽度
+    /// </summary>
+    public const string BindMaxWidth = "bind-max-width";
     /// <summary>
     /// 高度
     /// </summary>

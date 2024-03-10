@@ -92,5 +92,16 @@ namespace Util.Ui.NgZorro.Tests.Samples {
         [Description( "正则表达式" )]
         [RegularExpression( "a", ErrorMessage = "正则表达式错误" )]
         public string Regex { get; set; }
+        /// <summary>
+        /// 起始出生日期
+        ///</summary>
+        [Description( "出生日期" )]
+        [Required]
+        public DateTime? BeginBirthday { get; set; }
+        /// <summary>
+        /// 结束出生日期
+        ///</summary>
+        [Description( "结束出生日期" )]
+        public DateTime? EndBirthday { get; set; }
     }
 }

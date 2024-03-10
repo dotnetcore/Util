@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Expressions;

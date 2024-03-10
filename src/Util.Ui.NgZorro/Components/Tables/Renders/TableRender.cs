@@ -4,7 +4,7 @@ using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Tables.Renders; 
+namespace Util.Ui.NgZorro.Components.Tables.Renders;
 
 /// <summary>
 /// 表格渲染器
@@ -67,9 +67,7 @@ public class TableRender : RenderBase {
     /// 渲染表格设置组件
     /// </summary>
     protected void RenderTableSettings( TextWriter writer, HtmlEncoder encoder ) {
-        if ( _shareConfig.IsEnableCustomColumn == false )
-            return;
-        if ( _shareConfig.ColumnNumber == 0 )
+        if ( _shareConfig.IsEnableTableSettings == false )
             return;
         var builder = new TableSettingsBuilder( _config );
         builder.Config();

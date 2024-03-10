@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers;
 
@@ -30,7 +31,6 @@ public class TableHeadColumnService {
     public void Init() {
         CreateTableHeadColumnShareConfig();
         CancelAutoCreateHeadColumn();
-        SetIsFirst();
         SetColumn();
         LoadExpression();
     }
@@ -58,20 +58,20 @@ public class TableHeadColumnService {
     }
 
     /// <summary>
-    /// 设置第一列标识
-    /// </summary>
-    public void SetIsFirst() {
-        _shareConfig.SetIsFirst();
-    }
-
-    /// <summary>
     /// 设置表头列
     /// </summary>
     public void SetColumn() {
-        var title = _config.GetValue( UiConst.Title );
-        var width = _config.GetValue( UiConst.Width );
-        var cellControl = _config.GetValue( UiConst.CellControl );
-        _shareConfig.AddColumn( new HeadColumnInfo { Title = title, Width = width, CellControl = cellControl } );
+        _shareConfig.AddColumn( new HeadColumnInfo {
+            Title = _config.GetValue( UiConst.Title ), 
+            Width = _config.GetValue( UiConst.Width ),
+            Align = _config.GetValue<TableHeadColumnAlign?>( UiConst.Align )?.Description(),
+            TitleAlign = _config.GetValue<TableHeadColumnAlign?>( UiConst.TitleAlign )?.Description(),
+            Ellipsis = _config.GetValue<bool?>( UiConst.Ellipsis ),
+            IsLeft = _config.GetValue( UiConst.Left ),
+            IsRight = _config.GetValue( UiConst.Right ),
+            CellControl = _config.GetValue( UiConst.CellControl ),
+            IsEnableResizable = _config.GetValue<bool?>( UiConst.EnableResizable )
+        } );
     }
 
     /// <summary>

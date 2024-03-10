@@ -6,7 +6,7 @@ using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Tables.Builders; 
+namespace Util.Ui.NgZorro.Components.Tables.Builders;
 
 /// <summary>
 /// 表格标签生成器
@@ -195,6 +195,8 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否显示边框
     /// </summary>
     public TableBuilder Bordered() {
+        if ( _shareConfig.IsEnableTableSettings )
+            return this;
         AttributeIfNotEmpty( "[nzBordered]", _config.GetBoolValue( UiConst.Bordered ) );
         AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( AngularConst.BindBordered ) );
         return this;
@@ -218,9 +220,11 @@ public class TableBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置表格大小
+    /// 配置表格尺寸
     /// </summary>
     public TableBuilder Size() {
+        if ( _shareConfig.IsEnableTableSettings )
+            return this;
         AttributeIfNotEmpty( "nzSize", _config.GetValue<TableSize?>( UiConst.Size )?.Description() );
         AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
         return this;
@@ -262,6 +266,10 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置滚动
     /// </summary>
     public TableBuilder Scroll() {
+        if ( _shareConfig.IsEnableTableSettings ) {
+            Scroll( $"{_shareConfig.TableSettingsId}.scroll" );
+            return this;
+        }
         Scroll( _config.GetValue( UiConst.Scroll ) );
         var scroll = new ScrollInfo( _config.GetValue( UiConst.ScrollWidth ), _config.GetValue( UiConst.ScrollHeight ) );
         if ( scroll.IsNull == false )
@@ -518,7 +526,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置启用自定义列
     /// </summary>
     public TableBuilder EnableCustomColumn() {
-        if (_shareConfig.IsEnableCustomColumn == false)
+        if ( _shareConfig.IsEnableCustomColumn == false )
             return this;
         CustomColumn( $"{_shareConfig.TableSettingsId}.columns" );
         return this;
@@ -597,6 +605,7 @@ public class TableBuilder : AngularTagBuilder {
         if ( _shareConfig.IsEnableExtend )
             ConfigExtend();
         ConfigEdit();
+        ConfigTableSettingsExtend();
         ConfigContent();
     }
 
@@ -642,6 +651,16 @@ public class TableBuilder : AngularTagBuilder {
             return;
         Attribute( "x-edit-table" );
         Attribute( $"#{EditId}", "xEditTable" );
+    }
+
+    /// <summary>
+    /// 配置表格设置扩展
+    /// </summary>
+    private void ConfigTableSettingsExtend() {
+        if ( _shareConfig.IsEnableTableSettings == false )
+            return;
+        Attribute( "[nzSize]", $"{_shareConfig.TableSettingsId}.size" );
+        Attribute( "[nzBordered]", $"{_shareConfig.TableSettingsId}.bordered" );
     }
 
     /// <summary>

@@ -12,7 +12,7 @@ namespace Util.Ui.Tests.Razor {
         [Fact]
         public void TestGetPath_1() {
             var result = GenerateHtmlFilter.GetPath( "a" );
-            Assert.Equal( "/ClientApp/src/app/a.component.html",result );
+            Assert.Equal( "/ClientApp/src/app/a.component.html", result );
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Util.Ui.Tests.Razor {
         /// </summary>
         [Fact]
         public void TestGetPath_5() {
-            var result = GenerateHtmlFilter.GetPath( "b","a" );
+            var result = GenerateHtmlFilter.GetPath( "b", "a" );
             Assert.Equal( "a/b.component.html", result );
         }
 
@@ -101,7 +101,7 @@ namespace Util.Ui.Tests.Razor {
         /// </summary>
         [Fact]
         public void TestGetPath_11() {
-            var result = GenerateHtmlFilter.GetPath( "FetchData/Test/NavMenu","/a","html" );
+            var result = GenerateHtmlFilter.GetPath( "FetchData/Test/NavMenu", "/a", htmlSuffix: "html" );
             Assert.Equal( "/a/fetch-data/test/html/nav-menu.html", result );
         }
     }

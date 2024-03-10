@@ -159,13 +159,13 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// </summary>
         [Fact]
         public void TestCheckboxLeft() {
-            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowCheckbox = true, IsCheckboxLeft = true, IsTreeTable = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowCheckbox = true, IsCheckboxLeft = "a", IsTreeTable = true } );
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
             result.Append( "<td " );
-            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
+            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzLeft=\"a\" " );
             result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
-            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"true\" " );
+            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
             result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
             result.Append( ">" );
             result.Append( "<label " );
@@ -188,13 +188,13 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
         /// </summary>
         [Fact]
         public void TestRadioLeft() {
-            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowRadio = true,IsRadioLeft = true,IsTreeTable = true } );
+            _wrapper.SetItem( new TableShareConfig( "id" ) { IsEnableExtend = true, IsShowRadio = true,IsRadioLeft = "a",IsTreeTable = true } );
             _wrapper.SetContextAttribute( UiConst.Column, "a" );
             var result = new StringBuilder();
             result.Append( "<td " );
-            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
+            result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzLeft=\"a\" " );
             result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
-            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"true\" " );
+            result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
             result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
             result.Append( ">" );
             result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );

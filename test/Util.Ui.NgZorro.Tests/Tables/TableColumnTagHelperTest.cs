@@ -200,9 +200,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestLeft() {
-        _wrapper.SetContextAttribute( UiConst.Left, true );
+        _wrapper.SetContextAttribute( UiConst.Left, "a" );
         var result = new StringBuilder();
-        result.Append( "<td [nzLeft]=\"true\"></td>" );
+        result.Append( "<td nzLeft=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -222,9 +222,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestRight() {
-        _wrapper.SetContextAttribute( UiConst.Right, true );
+        _wrapper.SetContextAttribute( UiConst.Right, "10px" );
         var result = new StringBuilder();
-        result.Append( "<td [nzRight]=\"true\"></td>" );
+        result.Append( "<td nzRight=\"10px\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

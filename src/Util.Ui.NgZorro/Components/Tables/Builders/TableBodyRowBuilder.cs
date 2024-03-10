@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
@@ -62,8 +61,6 @@ public class TableBodyRowBuilder : TableRowBuilder {
     /// 配置表格主体行基础扩展属性
     /// </summary>
     protected void ConfigTableExtend() {
-        if ( TableShareConfig.IsAutoCreateBodyRow == false )
-            return;
         if ( TableShareConfig.IsEnableExtend == false )
             return;
         ConfigDefault();

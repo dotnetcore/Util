@@ -1,5 +1,4 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Tables.Builders;
+﻿using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.TreeTables.Builders.Contents;

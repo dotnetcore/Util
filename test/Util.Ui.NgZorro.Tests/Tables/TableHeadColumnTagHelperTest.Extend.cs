@@ -1,7 +1,9 @@
 ﻿using System.Text;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Tables; 
@@ -60,6 +62,32 @@ public partial class TableHeadColumnTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.TitleOperation, true );
         var result = new StringBuilder();
         result.Append( "<th>{{'util.operation'|i18n}}</th>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    #endregion
+
+    #region TitleAlign
+
+    /// <summary>
+    /// 测试标题对齐方式
+    /// </summary>
+    [Fact]
+    public void TestTitleAlign() {
+        _wrapper.SetContextAttribute( UiConst.TitleAlign, TableHeadColumnAlign.Center );
+        var result = new StringBuilder();
+        result.Append( "<th titleAlign=\"center\"></th>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试标题对齐方式
+    /// </summary>
+    [Fact]
+    public void TestBindTitleAlign() {
+        _wrapper.SetContextAttribute( AngularConst.BindTitleAlign, "a" );
+        var result = new StringBuilder();
+        result.Append( "<th [titleAlign]=\"a\"></th>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

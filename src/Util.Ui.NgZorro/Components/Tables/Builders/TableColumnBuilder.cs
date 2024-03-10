@@ -3,9 +3,8 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
-using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Tables.Builders; 
+namespace Util.Ui.NgZorro.Components.Tables.Builders;
 
 /// <summary>
 /// 表格单元格标签生成器
@@ -101,8 +100,24 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置左侧距离
     /// </summary>
     public TableColumnBuilder Left() {
-        Left( _config.GetBoolValue( UiConst.Left ) );
-        Left( _config.GetValue( AngularConst.BindLeft ) );
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            BindLeft( $"{_shareConfig.TableSettingsId}.isLeft('{_shareConfig.Title}')" );
+            return this;
+        }
+        Left( _shareConfig.IsLeft );
+        BindLeft( _config.GetValue( AngularConst.BindLeft ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置左侧距离
+    /// </summary>
+    public TableColumnBuilder Left( string value, string title ) {
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            BindLeft( $"{_shareConfig.TableSettingsId}.isLeft('{title}')" );
+            return this;
+        }
+        Left( value );
         return this;
     }
 
@@ -110,6 +125,14 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置左侧距离
     /// </summary>
     public TableColumnBuilder Left( string value ) {
+        AttributeIfNotEmpty( "nzLeft", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置左侧距离
+    /// </summary>
+    public TableColumnBuilder BindLeft( string value ) {
         AttributeIfNotEmpty( "[nzLeft]", value );
         return this;
     }
@@ -118,8 +141,40 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置右侧距离
     /// </summary>
     public TableColumnBuilder Right() {
-        AttributeIfNotEmpty( "[nzRight]", _config.GetBoolValue( UiConst.Right ) );
-        AttributeIfNotEmpty( "[nzRight]", _config.GetValue( AngularConst.BindRight ) );
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            BindRight( $"{_shareConfig.TableSettingsId}.isRight('{_shareConfig.Title}')" );
+            return this;
+        }
+        Right( _shareConfig.IsRight );
+        BindRight( _config.GetValue( AngularConst.BindRight ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置右侧距离
+    /// </summary>
+    public TableColumnBuilder Right( string value, string title ) {
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            BindRight( $"{_shareConfig.TableSettingsId}.isRight('{title}')" );
+            return this;
+        }
+        Right( value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置右侧距离
+    /// </summary>
+    public TableColumnBuilder Right( string value ) {
+        AttributeIfNotEmpty( "nzRight", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置右侧距离
+    /// </summary>
+    public TableColumnBuilder BindRight( string value ) {
+        AttributeIfNotEmpty( "[nzRight]", value );
         return this;
     }
 
@@ -127,8 +182,29 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置对齐方式
     /// </summary>
     public TableColumnBuilder Align() {
-        AttributeIfNotEmpty( "nzAlign", _config.GetValue<TableHeadColumnAlign?>( UiConst.Align )?.Description() );
-        AttributeIfNotEmpty( "[nzAlign]", _config.GetValue( AngularConst.BindAlign ) );
+        if ( _shareConfig.IsEnableTableSettings ) {
+            BindAlign( $"{_shareConfig.TableSettingsId}.getAlign('{_shareConfig.Title}')" );
+            return this;
+        }
+        AttributeIfNotEmpty( "nzAlign", _shareConfig.Align );
+        BindAlign( _config.GetValue( AngularConst.BindAlign ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置对齐方式
+    /// </summary>
+    public TableColumnBuilder Align( string title ) {
+        if ( _shareConfig.IsEnableTableSettings )
+            BindAlign( $"{_shareConfig.TableSettingsId}.getAlign('{title}')" );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置对齐方式
+    /// </summary>
+    public TableColumnBuilder BindAlign( string value ) {
+        AttributeIfNotEmpty( "[nzAlign]", value );
         return this;
     }
 
@@ -145,8 +221,20 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置自动省略
     /// </summary>
     public TableColumnBuilder Ellipsis() {
-        AttributeIfNotEmpty( "[nzEllipsis]", _config.GetBoolValue( UiConst.Ellipsis ) );
-        AttributeIfNotEmpty( "[nzEllipsis]", _config.GetValue( AngularConst.BindEllipsis ) );
+        if ( _shareConfig.IsEnableTableSettings ) {
+            BindEllipsis( $"{_shareConfig.TableSettingsId}.getEllipsis('{_shareConfig.Title}')" );
+            return this;
+        }
+        BindEllipsis( _config.GetBoolValue( UiConst.Ellipsis ) );
+        BindEllipsis( _config.GetValue( AngularConst.BindEllipsis ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置自动省略
+    /// </summary>
+    public TableColumnBuilder BindEllipsis( string value ) {
+        AttributeIfNotEmpty( "[nzEllipsis]", value );
         return this;
     }
 
@@ -213,7 +301,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置内容
     /// </summary>
     protected virtual void ConfigContent() {
-        var service = new TableColumnContentService( this,new TableSelectCreateService() );
+        var service = new TableColumnContentService( this, new TableSelectCreateService() );
         service.Config();
     }
 
@@ -221,12 +309,17 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 添加复选框
     /// </summary>
     public virtual void AddCheckbox() {
+        var title = "util.checkbox";
         Attribute( "[nzShowCheckbox]", "true" );
         Attribute( "(click)", "$event.stopPropagation()" );
         Attribute( "(nzCheckedChange)", $"{_shareConfig.TableExtendId}.toggle(row)" );
         Attribute( "[nzChecked]", $"{_shareConfig.TableExtendId}.isChecked(row)" );
-        if ( _shareConfig.IsCheckboxLeft )
-            Left( "true" );
+        if ( _shareConfig.IsEnableCustomColumn )
+            Attribute( "nzCellControl", title );
+        Left( _shareConfig.IsCheckboxLeft, title );
+        if ( _shareConfig.IsEnableFixedColumn )
+            Right( _shareConfig.IsCheckboxLeft, title );
+        Align( title );
     }
 
     /// <summary>
@@ -235,8 +328,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// <param name="checkBoxBuilder">复选框生成器</param>
     public virtual void AddCheckbox( TagBuilder checkBoxBuilder ) {
         AppendContent( checkBoxBuilder );
-        if ( _shareConfig.IsCheckboxLeft )
-            Left( "true" );
+        Left( _shareConfig.IsCheckboxLeft );
     }
 
     /// <summary>
@@ -251,17 +343,27 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 添加单选框
     /// </summary>
     public virtual void AddRadio( TagBuilder radioBuilder ) {
+        var title = "util.radio";
         AppendContent( radioBuilder );
-        if ( _shareConfig.IsRadioLeft )
-            Left( "true" );
+        if ( _shareConfig.IsEnableCustomColumn )
+            Attribute( "nzCellControl", title );
+        Left( _shareConfig.IsRadioLeft, title );
+        if ( _shareConfig.IsEnableFixedColumn )
+            Right( _shareConfig.IsRadioLeft, title );
+        Align( title );
     }
 
     /// <summary>
     /// 添加序号
     /// </summary>
     public void AddLineNumber() {
+        var title = "util.lineNumber";
         AppendContent( "{{row.lineNumber}}" );
-        if ( _shareConfig.IsLineNumberLeft )
-            Left( "true" );
+        if ( _shareConfig.IsEnableCustomColumn )
+            Attribute( "nzCellControl", title );
+        Left( _shareConfig.IsLineNumberLeft, title );
+        if ( _shareConfig.IsEnableFixedColumn )
+            Right( _shareConfig.IsLineNumberLeft, title );
+        Align( title );
     }
 }

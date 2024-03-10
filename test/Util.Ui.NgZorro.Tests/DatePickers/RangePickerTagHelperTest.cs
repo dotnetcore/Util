@@ -490,5 +490,45 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
             result.Append( "<nz-range-picker *nzSpaceItem=\"\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试起始日期
+        /// </summary>
+        [Fact]
+        public void TestBeginDate_1() {
+            _wrapper.SetContextAttribute( UiConst.BeginDate, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker #x_id=\"xRangePickerExtend\" (nzOnCalendarChange)=\"x_id.handleRangeDateChange($event)\" " );
+            result.Append( "x-range-picker-extend=\"\" [(beginDate)]=\"a\" [(ngModel)]=\"x_id.rangeDates\">" );
+            result.Append( "</nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试起始日期 - 设置日期变更事件
+        /// </summary>
+        [Fact]
+        public void TestBeginDate_2() {
+            _wrapper.SetContextAttribute( UiConst.BeginDate, "a" );
+            _wrapper.SetContextAttribute( UiConst.OnCalendarChange, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker #x_id=\"xRangePickerExtend\" (nzOnCalendarChange)=\"x_id.handleRangeDateChange($event);b\" " );
+            result.Append( "x-range-picker-extend=\"\" [(beginDate)]=\"a\" [(ngModel)]=\"x_id.rangeDates\">" );
+            result.Append( "</nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试结束日期
+        /// </summary>
+        [Fact]
+        public void TestEndDate() {
+            _wrapper.SetContextAttribute( UiConst.EndDate, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker #x_id=\"xRangePickerExtend\" (nzOnCalendarChange)=\"x_id.handleRangeDateChange($event)\" " );
+            result.Append( "x-range-picker-extend=\"\" [(endDate)]=\"a\" [(ngModel)]=\"x_id.rangeDates\">" );
+            result.Append( "</nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

@@ -1,11 +1,8 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Tables.Builders;
+﻿using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Configs;
-using Util.Ui.NgZorro.Extensions;
-
-namespace Util.Ui.NgZorro.Components.TreeTables.Builders; 
+namespace Util.Ui.NgZorro.Components.TreeTables.Builders;
 
 /// <summary>
 /// 树形表头单元格标签生成器
@@ -42,13 +39,16 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
     /// </summary>
     /// <param name="column">列</param>
     public override void AddColumn( ColumnInfo column ) {
-        if ( column.IsFirst ) {
+        if ( column.IsFirst )
             AddFirstColumn( column );
-        }
-        else {
+        else
             Title( column.Title );
-        }
-        this.Width( column.Width );
+        SetColumnWidth( column );
+        Left( column.IsLeft, column.Title );
+        Right( column.IsRight, column.Title );
+        SetAcl( column.Acl, column.AclElseTemplateId );
+        EnableCustomColumn( column.GetCellControl() );
+        EnableResizable( column );
     }
 
     /// <summary>
@@ -70,6 +70,24 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
         Title( column.Title );
     }
 
+    /// <summary>
+    /// 配置拖动调整列宽
+    /// </summary>
+    public override TableHeadColumnBuilder Resizable( string title ) {
+        Attribute( "nz-resizable" );
+        Attribute( "nzPreview" );
+        Attribute( "nzBounds", "window" );
+        Attribute( "(nzResizeEnd)", $"{_shareConfig.TableSettingsId}.handleResize($event,'{title}')" );
+        if (_shareConfig.IsFirst) {
+            if( _shareConfig.IsShowCheckbox )
+                return this;
+            if ( _shareConfig.IsShowRadio )
+                return this;
+        }
+        AppendHandleBuilder();
+        return this;
+    }
+
     /// <inheritdoc />
     protected override void AddCheckBox( string title = null ) {
         title = GetTitle( title );
@@ -77,8 +95,9 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
             title = _config.Content?.GetContent();
         var checkboxBuilder = new TreeTableMasterCheckBoxBuilder( _shareConfig.TableExtendId, title );
         SetContent( checkboxBuilder );
-        if ( _shareConfig.IsCheckboxLeft )
-            Left( "true" );
+        if ( _shareConfig.IsEnableResizable )
+            AppendHandleBuilder();
+        Left( _shareConfig.IsCheckboxLeft );
     }
 
     /// <summary>
@@ -99,7 +118,8 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
         if ( title.IsEmpty() )
             title = _config.Content?.GetContent();
         SetContent( title );
-        if ( _shareConfig.IsRadioLeft )
-            Left( "true" );
+        if ( _shareConfig.IsEnableResizable )
+            AppendHandleBuilder();
+        Left( _shareConfig.IsRadioLeft );
     }
 }

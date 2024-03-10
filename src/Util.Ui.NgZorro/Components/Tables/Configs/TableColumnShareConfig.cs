@@ -29,6 +29,11 @@ public class TableColumnShareConfig {
     }
 
     /// <summary>
+    /// 表格设置组件标识
+    /// </summary>
+    public string TableSettingsId => _tableShareConfig.TableSettingsId;
+
+    /// <summary>
     /// 是否树形表格
     /// </summary>
     public bool IsTreeTable => _tableShareConfig.IsTreeTable;
@@ -44,9 +49,19 @@ public class TableColumnShareConfig {
     public bool IsEnableEdit => _tableShareConfig.IsEnableEdit;
 
     /// <summary>
+    /// 是否启用表格设置
+    /// </summary>
+    public bool IsEnableTableSettings => _tableShareConfig.IsEnableTableSettings;
+
+    /// <summary>
     /// 是否启用自定义列
     /// </summary>
     public bool IsEnableCustomColumn => _tableShareConfig.IsEnableCustomColumn;
+
+    /// <summary>
+    /// 表格设置是否启用固定列
+    /// </summary>
+    public bool IsEnableFixedColumn => _tableShareConfig.IsEnableFixedColumn;
 
     /// <summary>
     /// 表格扩展标识
@@ -62,6 +77,16 @@ public class TableColumnShareConfig {
     /// 表格主体行标识
     /// </summary>
     public string RowId => _tableShareConfig.RowId;
+
+    /// <summary>
+    /// 标题
+    /// </summary>
+    public string Title {
+        get {
+            var column = _tableShareConfig.GetColumn( Index );
+            return column.Title;
+        }
+    }
 
     /// <summary>
     /// 列名
@@ -80,6 +105,36 @@ public class TableColumnShareConfig {
         get {
             var column = _tableShareConfig.GetColumn( Index );
             return column.GetCellControl();
+        }
+    }
+
+    /// <summary>
+    /// 对齐方式
+    /// </summary>
+    public string Align {
+        get {
+            var column = _tableShareConfig.GetColumn( Index );
+            return column.Align;
+        }
+    }
+
+    /// <summary>
+    /// 固定左侧
+    /// </summary>
+    public string IsLeft {
+        get {
+            var column = _tableShareConfig.GetColumn( Index );
+            return column.IsLeft;
+        }
+    }
+
+    /// <summary>
+    /// 固定右侧
+    /// </summary>
+    public string IsRight {
+        get {
+            var column = _tableShareConfig.GetColumn( Index );
+            return column.IsRight;
         }
     }
 
@@ -114,32 +169,24 @@ public class TableColumnShareConfig {
     public bool IsShowLineNumber => _tableShareConfig.IsShowLineNumber;
 
     /// <summary>
-    /// 是否固定复选框到左侧
+    /// 固定复选框到左侧
     /// </summary>
-    public bool IsCheckboxLeft => _tableShareConfig.IsCheckboxLeft;
+    public string IsCheckboxLeft => _tableShareConfig.IsCheckboxLeft;
 
     /// <summary>
-    /// 是否固定单选框到左侧
+    /// 固定单选框到左侧
     /// </summary>
-    public bool IsRadioLeft => _tableShareConfig.IsRadioLeft;
+    public string IsRadioLeft => _tableShareConfig.IsRadioLeft;
 
     /// <summary>
-    /// 是否固定序号到左侧
+    /// 固定序号到左侧
     /// </summary>
-    public bool IsLineNumberLeft => _tableShareConfig.IsLineNumberLeft;
+    public string IsLineNumberLeft => _tableShareConfig.IsLineNumberLeft;
 
     /// <summary>
     /// 是否第一列
     /// </summary>
-    public bool IsFirst { get; set; }
-
-    /// <summary>
-    /// 设置第一列
-    /// </summary>
-    public void SetIsFirst() {
-        if ( _tableShareConfig.Columns.Count == 0 )
-            IsFirst = true;
-    }
+    public bool IsFirst => Index == 0;
 
     /// <summary>
     /// 设置编辑控件模板标识
@@ -164,10 +211,22 @@ public class TableColumnShareConfig {
                 column.Title = headColumn.Title;
             if ( headColumn.CellControl.IsEmpty() == false )
                 column.CellControl = headColumn.CellControl;
+            if ( headColumn.Align.IsEmpty() == false )
+                column.Align = headColumn.Align;
+            if ( headColumn.TitleAlign.IsEmpty() == false )
+                column.TitleAlign = headColumn.TitleAlign;
             if ( headColumn.Width.IsEmpty() == false )
                 column.Width = headColumn.Width;
+            if ( headColumn.Ellipsis != null )
+                column.Ellipsis = headColumn.Ellipsis;
+            if ( headColumn.IsLeft != null )
+                column.IsLeft = headColumn.IsLeft;
+            if ( headColumn.IsRight != null )
+                column.IsRight = headColumn.IsRight;
         }
         _tableShareConfig.Columns.Add( column );
+        if ( column.IsEnableResizable )
+            _tableShareConfig.IsEnableResizable = true;
     }
 
     /// <summary>

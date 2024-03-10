@@ -73,7 +73,7 @@ namespace Util.Data.Dapper.Metadata {
                 .LeftJoin( "sys.Schemas s" ).On( "o.schema_id", "s.schema_id" )
                 .LeftJoin( "sys.Extended_Properties ep" ).On( "o.object_id", "ep.major_id" ).On( "ep.minor_id", 0 )
                 .Join( GetColumnsSql(), "c" ).On( "c.object_id", "o.object_id" )
-                .In( "o.type", new[] { 'U', 'V' } );
+                .In( "o.type", new[] { 'U' } );
         }
 
         /// <summary>

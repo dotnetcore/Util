@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
+using Util.Ui.NgZorro.Components.Resizable.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Configs;
@@ -195,7 +196,13 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     public TableHeadColumnBuilder Width() {
         if ( _shareConfig.IsEnableCustomColumn )
             return this;
-        this.Width( _config.GetValue( UiConst.Width ) );
+        var width = _config.GetValue( UiConst.Width );
+        if ( _shareConfig.IsEnableResizable ) {
+            var title = _config.GetValue( UiConst.Title );
+            Attribute( "[nzWidth]", GetWidthByTableSettings( title, width ) );
+            return this;
+        }
+        this.Width( width );
         BindWidth( _config.GetValue( AngularConst.BindWidth ) );
         return this;
     }
@@ -212,8 +219,13 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置左侧距离
     /// </summary>
     public TableHeadColumnBuilder Left() {
-        Left( _config.GetBoolValue( UiConst.Left ) );
-        Left( _config.GetValue( AngularConst.BindLeft ) );
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            var title = _config.GetValue( UiConst.Title );
+            BindLeft( $"{_shareConfig.TableSettingsId}.isLeft('{title}')" );
+            return this;
+        }
+        Left( _config.GetValue( UiConst.Left ) );
+        BindLeft( _config.GetValue( AngularConst.BindLeft ) );
         return this;
     }
 
@@ -221,6 +233,14 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置左侧距离
     /// </summary>
     public TableHeadColumnBuilder Left( string value ) {
+        AttributeIfNotEmpty( "nzLeft", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置左侧距离
+    /// </summary>
+    public TableHeadColumnBuilder BindLeft( string value ) {
         AttributeIfNotEmpty( "[nzLeft]", value );
         return this;
     }
@@ -228,9 +248,12 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置左侧距离
     /// </summary>
-    public TableHeadColumnBuilder Left( bool value ) {
-        if ( value )
-            Left( "true" );
+    public TableHeadColumnBuilder Left( string value, string title ) {
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            BindLeft( $"{_shareConfig.TableSettingsId}.isLeft('{title}')" );
+            return this;
+        }
+        Left( value );
         return this;
     }
 
@@ -238,8 +261,13 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置右侧距离
     /// </summary>
     public TableHeadColumnBuilder Right() {
-        Right( _config.GetBoolValue( UiConst.Right ) );
-        Right( _config.GetValue( AngularConst.BindRight ) );
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            var title = _config.GetValue( UiConst.Title );
+            BindRight( $"{_shareConfig.TableSettingsId}.isRight('{title}')" );
+            return this;
+        }
+        Right( _config.GetValue( UiConst.Right ) );
+        BindRight( _config.GetValue( AngularConst.BindRight ) );
         return this;
     }
 
@@ -247,6 +275,14 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置右侧距离
     /// </summary>
     public TableHeadColumnBuilder Right( string value ) {
+        AttributeIfNotEmpty( "nzRight", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置右侧距离
+    /// </summary>
+    public TableHeadColumnBuilder BindRight( string value ) {
         AttributeIfNotEmpty( "[nzRight]", value );
         return this;
     }
@@ -254,9 +290,12 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置右侧距离
     /// </summary>
-    public TableHeadColumnBuilder Right( bool value ) {
-        if ( value )
-            Right( "true" );
+    public TableHeadColumnBuilder Right( string value, string title ) {
+        if ( _shareConfig.IsEnableFixedColumn ) {
+            BindRight( $"{_shareConfig.TableSettingsId}.isRight('{title}')" );
+            return this;
+        }
+        Right( value );
         return this;
     }
 
@@ -264,8 +303,49 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置对齐方式
     /// </summary>
     public TableHeadColumnBuilder Align() {
+        if ( _shareConfig.IsEnableTableSettings )
+            return this;
         AttributeIfNotEmpty( "nzAlign", _config.GetValue<TableHeadColumnAlign?>( UiConst.Align )?.Description() );
-        AttributeIfNotEmpty( "[nzAlign]", _config.GetValue( AngularConst.BindAlign ) );
+        BindAlign( _config.GetValue( AngularConst.BindAlign ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置对齐方式
+    /// </summary>
+    public TableHeadColumnBuilder BindAlign( string value ) {
+        AttributeIfNotEmpty( "[nzAlign]", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置标题对齐方式
+    /// </summary>
+    public TableHeadColumnBuilder TitleAlign() {
+        if ( _shareConfig.IsEnableTableSettings ) {
+            var title = _config.GetValue( UiConst.Title );
+            BindTitleAlign( $"{_shareConfig.TableSettingsId}.getTitleAlign('{title}')" );
+            return this;
+        }
+        AttributeIfNotEmpty( "titleAlign", _shareConfig.TitleAlign );
+        BindTitleAlign( _config.GetValue( AngularConst.BindTitleAlign ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置标题对齐方式
+    /// </summary>
+    public TableHeadColumnBuilder TitleAlign( string title ) {
+        if ( _shareConfig.IsEnableTableSettings )
+            BindTitleAlign( $"{_shareConfig.TableSettingsId}.getTitleAlign('{title}')" );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置标题对齐方式
+    /// </summary>
+    public TableHeadColumnBuilder BindTitleAlign( string value ) {
+        AttributeIfNotEmpty( "[titleAlign]", value );
         return this;
     }
 
@@ -282,6 +362,8 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置自动省略
     /// </summary>
     public TableHeadColumnBuilder Ellipsis() {
+        if ( _shareConfig.IsEnableTableSettings )
+            return this;
         AttributeIfNotEmpty( "[nzEllipsis]", _config.GetBoolValue( UiConst.Ellipsis ) );
         AttributeIfNotEmpty( "[nzEllipsis]", _config.GetValue( AngularConst.BindEllipsis ) );
         return this;
@@ -389,6 +471,36 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置启用拖动调整列宽
+    /// </summary>
+    public TableHeadColumnBuilder EnableResizable() {
+        if ( _shareConfig.IsEnableResizable == false )
+            return this;
+        return Resizable( _config.GetValue( UiConst.Title ) );
+    }
+
+    /// <summary>
+    /// 配置拖动调整列宽
+    /// </summary>
+    public virtual TableHeadColumnBuilder Resizable( string title ) {
+        Attribute( "nz-resizable" );
+        Attribute( "nzPreview" );
+        Attribute( "nzBounds", "window" );
+        Attribute( "(nzResizeEnd)", $"{_shareConfig.TableSettingsId}.handleResize($event,'{title}')" );
+        AppendHandleBuilder();
+        return this;
+    }
+
+    /// <summary>
+    /// 添加拖动手柄生成器
+    /// </summary>
+    protected void AppendHandleBuilder() {
+        var handleBuilder = new ResizeHandleBuilder( _config );
+        handleBuilder.Direction( ResizeDirection.Right );
+        AppendContent( handleBuilder );
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public TableHeadColumnBuilder Events() {
@@ -417,8 +529,8 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
             .ShowFilter().FilterFn().Filters().FilterMultiple()
             .Width().Left().Right().Align().BreakWord().Ellipsis()
             .Colspan().Rowspan().ColumnKey()
-            .TitleOperation().Title()
-            .CellControl().EnableCustomColumn()
+            .TitleOperation().Title().TitleAlign()
+            .CellControl().EnableCustomColumn().EnableResizable()
             .Events()
             .CheckBox().Radio().LineNumber();
     }
@@ -448,14 +560,19 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置复选框
     /// </summary>
     public void ConfigCheckBox() {
+        var title = "util.checkbox";
         Attribute( "[nzShowCheckbox]", "true" );
         Attribute( "(nzCheckedChange)", $"{_shareConfig.TableExtendId}.masterToggle()" );
         Attribute( "[nzChecked]", $"{_shareConfig.TableExtendId}.isMasterChecked()" );
         Attribute( "[nzDisabled]", $"!{_shareConfig.TableExtendId}.dataSource.length" );
         Attribute( "[nzIndeterminate]", $"{_shareConfig.TableExtendId}.isMasterIndeterminate()" );
-        BindWidth( $"{_shareConfig.TableExtendId}.config.table.checkboxWidth" );
-        if ( _shareConfig.IsCheckboxLeft )
-            Left( true );
+        EnableCustomColumn( title );
+        if ( _shareConfig.IsEnableCustomColumn == false )
+            BindWidth( $"{_shareConfig.TableExtendId}.config.table.checkboxWidth" );
+        Left( _shareConfig.IsCheckboxLeft, title );
+        if ( _shareConfig.IsEnableFixedColumn )
+            Right( _shareConfig.IsCheckboxLeft, title );
+        TitleAlign( title );
     }
 
     /// <summary>
@@ -476,10 +593,15 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 添加单选框列头
     /// </summary>
     protected virtual void AddRadio( string title = null ) {
+        var radioTitle = "util.radio";
         var radioBuilder = new TableHeadColumnBuilder( _config, _shareConfig );
-        if ( _shareConfig.IsRadioLeft )
-            radioBuilder.Left( true );
-        radioBuilder.BindWidth( $"{_shareConfig.TableExtendId}.config.table.radioWidth" );
+        radioBuilder.EnableCustomColumn( radioTitle );
+        radioBuilder.TitleAlign( radioTitle );
+        radioBuilder.Left( _shareConfig.IsRadioLeft, radioTitle );
+        if ( _shareConfig.IsEnableFixedColumn )
+            radioBuilder.Right( _shareConfig.IsRadioLeft, radioTitle );
+        if ( _shareConfig.IsEnableCustomColumn == false )
+            radioBuilder.BindWidth( $"{_shareConfig.TableExtendId}.config.table.radioWidth" );
         PreBuilder = radioBuilder;
     }
 
@@ -499,8 +621,11 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 添加序号
     /// </summary>
     protected virtual void AddLineNumber() {
+        var title = "util.lineNumber";
         var lineNumberBuilder = new TableHeadColumnBuilder( _config, _shareConfig );
         lineNumberBuilder.ConfigLineNumber();
+        lineNumberBuilder.EnableCustomColumn( title );
+        lineNumberBuilder.TitleAlign( title );
         if ( PreBuilder == null ) {
             PreBuilder = lineNumberBuilder;
             return;
@@ -514,9 +639,11 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     public void ConfigLineNumber() {
         var options = NgZorroOptionsService.GetOptions();
         Title( options.EnableI18n ? "util.lineNumber" : "序号" );
-        BindWidth( $"{_shareConfig.TableExtendId}.config.table.lineNumberWidth" );
-        if ( _shareConfig.IsLineNumberLeft )
-            Left( true );
+        if ( _shareConfig.IsEnableCustomColumn == false )
+            BindWidth( $"{_shareConfig.TableExtendId}.config.table.lineNumberWidth" );
+        Left( _shareConfig.IsLineNumberLeft, "util.lineNumber" );
+        if ( _shareConfig.IsEnableFixedColumn )
+            Right( _shareConfig.IsLineNumberLeft, "util.lineNumber" );
     }
 
     /// <summary>
@@ -535,12 +662,35 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         if ( column.IsSort )
             Sort( column.Column );
         Title( column.Title );
-        if ( _shareConfig.IsEnableCustomColumn == false )
-            this.Width( column.Width );
-        Left( column.IsLeft );
-        Right( column.IsRight );
+        SetColumnWidth( column );
+        Left( column.IsLeft, column.Title );
+        Right( column.IsRight, column.Title );
         SetAcl( column.Acl, column.AclElseTemplateId );
         EnableCustomColumn( column.GetCellControl() );
+        EnableResizable( column );
+        TitleAlign( column.Title );
+    }
+
+    /// <summary>
+    /// 设置列宽
+    /// </summary>
+    protected void SetColumnWidth( ColumnInfo column ) {
+        if ( _shareConfig.IsEnableCustomColumn )
+            return;
+        if ( IsEnableResizable( column ) ) {
+            Attribute( "[nzWidth]", GetWidthByTableSettings( column.Title, column.Width ) );
+            return;
+        }
+        this.Width( column.Width );
+    }
+
+    /// <summary>
+    /// 从表格设置获取宽度
+    /// </summary>
+    protected string GetWidthByTableSettings( string title, string width ) {
+        if ( width.IsEmpty() )
+            return $"{_shareConfig.TableSettingsId}.getWidth('{title}')";
+        return $"{_shareConfig.TableSettingsId}.getWidth('{title}','{width}')";
     }
 
     /// <summary>
@@ -551,5 +701,23 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         _config.SetAttribute( UiConst.AclElseTemplateId, aclElseTemplateId );
         this.Acl( _config );
         return this;
+    }
+
+    /// <summary>
+    /// 配置启用拖动调整列宽
+    /// </summary>
+    protected void EnableResizable( ColumnInfo column ) {
+        if ( IsEnableResizable( column ) == false )
+            return;
+        Resizable( column.Title );
+    }
+
+    /// <summary>
+    /// 是否启用拖动调整列宽
+    /// </summary>
+    protected bool IsEnableResizable( ColumnInfo column ) {
+        if ( column.IsEnableResizable )
+            return true;
+        return _shareConfig.IsEnableResizable;
     }
 }

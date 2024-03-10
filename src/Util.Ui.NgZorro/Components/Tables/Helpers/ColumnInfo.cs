@@ -21,6 +21,18 @@ public class ColumnInfo {
     /// </summary>
     public string CellControl { get; set; }
     /// <summary>
+    /// 对齐方式
+    /// </summary>
+    public string Align { get; set; }
+    /// <summary>
+    /// 标题对齐方式
+    /// </summary>
+    public string TitleAlign { get; set; }
+    /// <summary>
+    /// 是否自动省略
+    /// </summary>
+    public bool? Ellipsis { get; set; }
+    /// <summary>
     /// 是否排序
     /// </summary>
     public bool IsSort { get; set; }
@@ -33,13 +45,13 @@ public class ColumnInfo {
     /// </summary>
     public bool IsFirst { get; set; }
     /// <summary>
-    /// 是否左侧固定
+    /// 左侧固定
     /// </summary>
-    public bool IsLeft { get; set; }
+    public string IsLeft { get; set; }
     /// <summary>
-    /// 是否右侧固定
+    /// 右侧固定
     /// </summary>
-    public bool IsRight { get; set; }
+    public string IsRight { get; set; }
     /// <summary>
     /// 访问控制列表
     /// </summary>
@@ -48,12 +60,18 @@ public class ColumnInfo {
     /// 访问控制列表模板标识
     /// </summary>
     public string AclElseTemplateId { get; set; }
+    /// <summary>
+    /// 是否启用拖动调整列宽
+    /// </summary>
+    public bool IsEnableResizable { get; set; }
 
     /// <summary>
     /// 转换为自定义列
     /// </summary>
     public CustomColumn ToCustomColumn() {
-        return new CustomColumn( GetCellControl(), Width, Acl );
+        bool? isLeft = IsLeft.IsEmpty() ? null : true;
+        bool? isRight = IsRight.IsEmpty() ? null : true;
+        return new CustomColumn( GetCellControl(), Width, isLeft, isRight, TitleAlign, Align, Ellipsis, Acl );
     }
 
     /// <summary>

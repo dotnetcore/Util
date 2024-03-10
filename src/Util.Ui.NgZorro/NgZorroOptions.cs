@@ -1,4 +1,6 @@
-﻿namespace Util.Ui.NgZorro; 
+﻿using Util.Ui.NgZorro.Enums;
+
+namespace Util.Ui.NgZorro; 
 
 /// <summary>
 /// NgZorro配置
@@ -45,7 +47,19 @@ public class NgZorroOptions {
     /// </summary>
     public Func<string, string> GetTableColumnBoolContentAction { get; set; }
     /// <summary>
-    /// 表格列默认宽度,单位: px, 默认值:180, 自定义列使用
+    /// 表格设置组件标签名，默认值：x-table-settings
     /// </summary>
-    public double TableColumnDefaultWidth { get; set; } = 180;
+    public string TableSettingsTag { get; set; } = "x-table-settings";
+    /// <summary>
+    /// 表格复选框对齐方式，默认值：居中对齐
+    /// </summary>
+    public TableHeadColumnAlign TableCheckboxAlign { get; set; } = TableHeadColumnAlign.Center;
+    /// <summary>
+    /// 表格单选按钮对齐方式，默认值：居中对齐
+    /// </summary>
+    public TableHeadColumnAlign TableRadioAlign { get; set; } = TableHeadColumnAlign.Center;
+    /// <summary>
+    /// 表格序号对齐方式，默认值：居中对齐
+    /// </summary>
+    public TableHeadColumnAlign TableLineNumberAlign { get; set; } = TableHeadColumnAlign.Center;
 }

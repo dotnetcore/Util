@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.DatePickers.Helpers;
 using Util.Ui.NgZorro.Components.DatePickers.Renders;
 using Util.Ui.NgZorro.Components.Inputs.Helpers;
 using Util.Ui.NgZorro.Enums;
@@ -180,6 +181,22 @@ public class RangePickerTagHelper : FormControlTagHelperBase {
     /// </summary>
     public bool SpaceItem { get; set; }
     /// <summary>
+    /// [(beginDate)],扩展属性, 双向绑定起始日期
+    /// </summary>
+    public string BeginDate { get; set; }
+    /// <summary>
+    /// [(endDate)],扩展属性, 双向绑定结束日期
+    /// </summary>
+    public string EndDate { get; set; }
+    /// <summary>
+    /// 起始日期属性表达式
+    /// </summary>
+    public ModelExpression ForBegin { get; set; }
+    /// <summary>
+    /// 结束日期属性表达式
+    /// </summary>
+    public ModelExpression ForEnd { get; set; }
+    /// <summary>
     /// (nzOnOpenChange),弹出关闭日历事件
     /// </summary>
     public string OnOpenChange { get; set; }
@@ -195,6 +212,8 @@ public class RangePickerTagHelper : FormControlTagHelperBase {
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
         _config = new Config( context, output );
+        var rangePickerService = new RangePickerService( _config );
+        rangePickerService.Init();
         var service = new InputService( _config );
         service.Init();
     }

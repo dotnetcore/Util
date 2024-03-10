@@ -35,7 +35,7 @@
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.1" />
+	  <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>

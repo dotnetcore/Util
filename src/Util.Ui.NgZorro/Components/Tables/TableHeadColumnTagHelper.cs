@@ -138,19 +138,19 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindWidth { get; set; }
     /// <summary>
-    /// [nzLeft],左侧距离，用于固定左侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean,默认值: false
+    /// nzLeft,左侧距离，用于固定左侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean
     /// </summary>
-    public bool Left { get; set; }
+    public string Left { get; set; }
     /// <summary>
-    /// [nzLeft],左侧距离，用于固定左侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean,默认值: false
+    /// [nzLeft],左侧距离，用于固定左侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean
     /// </summary>
     public string BindLeft { get; set; }
     /// <summary>
-    /// [nzRight],右侧距离，用于固定右侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean,默认值: false
+    /// nzRight,右侧距离，用于固定右侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean
     /// </summary>
-    public bool Right { get; set; }
+    public string Right { get; set; }
     /// <summary>
-    /// [nzRight],右侧距离，用于固定右侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean,默认值: false
+    /// [nzRight],右侧距离，用于固定右侧列，当为 true 时自动计算，为 false 时停止固定,类型: string | boolean
     /// </summary>
     public string BindRight { get; set; }
     /// <summary>
@@ -161,6 +161,14 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// [nzAlign],设置列内容的对齐方式,可选值: 'left' | 'right' | 'center'
     /// </summary>
     public string BindAlign { get; set; }
+    /// <summary>
+    /// titleAlign,扩展属性,设置列标题的对齐方式,可选值: 'left' | 'right' | 'center'
+    /// </summary>
+    public TableHeadColumnAlign TitleAlign { get; set; }
+    /// <summary>
+    /// [titleAlign],扩展属性,设置列标题的对齐方式,可选值: 'left' | 'right' | 'center'
+    /// </summary>
+    public string BindTitleAlign { get; set; }
     /// <summary>
     /// [nzBreakWord],是否折行显示,默认值: false
     /// </summary>
@@ -209,6 +217,10 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// [nzCellControl],设置列的位置，该值为 NzCustomColumn 类型中 value 字段的值
     /// </summary>
     public string BindCellControl { get; set; }
+    /// <summary>
+    /// 扩展属性,是否启用拖动调整列宽
+    /// </summary>
+    public bool EnableResizable { get; set; }
     /// <summary>
     /// (nzCheckedChange),复选框选中状态变化事件,类型: EventEmitter&lt;boolean>
     /// </summary>

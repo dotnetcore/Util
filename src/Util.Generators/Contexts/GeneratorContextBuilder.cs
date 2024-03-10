@@ -1,8 +1,9 @@
 ﻿using Util.Data.Metadata;
 using Util.Generators.Configuration;
 using Util.Generators.Logs;
+using Util.Helpers;
 
-namespace Util.Generators.Contexts; 
+namespace Util.Generators.Contexts;
 
 /// <summary>
 /// 生成器上下文构建器
@@ -76,7 +77,9 @@ public class GeneratorContextBuilder : IGeneratorContextBuilder {
     /// <summary>
     /// 是否绝对路径
     /// </summary>
-    protected virtual  bool IsAbsolutePath( string path ) {
+    protected virtual bool IsAbsolutePath( string path ) {
+        if ( Common.IsWindows == false && path.StartsWith( "/" ) )
+            return true;
         if ( path.Contains( @":\" ) )
             return true;
         if ( path.Contains( ":/" ) )

@@ -17,6 +17,10 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
+    /// 扩展属性,表格标识,保存表格设置参数时作为存储键, 必须全局唯一
+    /// </summary>
+    public string Key { get; set; }
+    /// <summary>
     /// 扩展属性,是否启用自动创建嵌套结构,默认为 true
     /// </summary>
     public bool EnableAutoCreate { get; set; }
@@ -61,17 +65,17 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     public bool ShowLineNumber { get; set; }
     /// <summary>
-    /// 扩展属性,是否固定左侧复选框列,当设置ShowCheckbox为true有效
+    /// 扩展属性,固定左侧复选框列,当设置ShowCheckbox为true有效
     /// </summary>
-    public bool CheckboxLeft { get; set; }
+    public string CheckboxLeft { get; set; }
     /// <summary>
-    /// 扩展属性,是否固定左侧单选框列,当设置ShowRadio为true有效
+    /// 扩展属性,固定左侧单选框列,当设置ShowRadio为true有效
     /// </summary>
-    public bool RadioLeft { get; set; }
+    public string RadioLeft { get; set; }
     /// <summary>
-    /// 扩展属性,是否固定左侧序号列,当设置ShowLineNumber为true有效
+    /// 扩展属性,固定左侧序号列,当设置ShowLineNumber为true有效
     /// </summary>
-    public bool LineNumberLeft { get; set; }
+    public string LineNumberLeft { get; set; }
     /// <summary>
     /// 扩展属性 [checkedKeys],选中的标识列表，用于还原选中的复选框或单选框，可以是单个Id或Id数组，范例：'1' 或 ['1','2']
     /// </summary>
@@ -329,9 +333,21 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     public string CustomColumn { get; set; }
     /// <summary>
-    /// 扩展属性,启用自定义列, 参数值为自定义列标识 Key,用于将自定义列数据存储到浏览器本地, 必须全局唯一
+    /// 扩展属性,是否启用表格设置,将启用表格设置的全部功能, 默认值: false
     /// </summary>
-    public string EnableCustomColumn { get; set; }
+    public bool EnableTableSettings { get; set; }
+    /// <summary>
+    /// 扩展属性,是否启用自定义列,默认值: false
+    /// </summary>
+    public bool EnableCustomColumn { get; set; }
+    /// <summary>
+    /// 扩展属性,是否启用拖动调整列宽,默认值: false
+    /// </summary>
+    public bool EnableResizable { get; set; }
+    /// <summary>
+    /// 扩展属性,是否启用固定列,默认值: false
+    /// </summary>
+    public bool EnableFixedColumn { get; set; }
     /// <summary>
     /// (nzPageIndexChange),页码变化事件,类型: EventEmitter&lt;number>
     /// </summary>

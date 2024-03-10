@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers;
@@ -44,7 +43,8 @@ public class TableService {
     /// </summary>
     public void Init() {
         CreateShareConfig();
-        SetEnableCustomColumn();
+        SetTableSettings();
+        SetScroll();
         SetIsShowCheckbox();
         SetIsShowRadio();
         SetIsCheckLeafOnly();
@@ -69,14 +69,35 @@ public class TableService {
     }
 
     /// <summary>
-    /// 设置启用自定义列
+    /// 设置表格设置参数
     /// </summary>
-    private void SetEnableCustomColumn() {
-        var key = _config.GetValue( UiConst.EnableCustomColumn );
-        if ( key.IsEmpty() || key.ToLower() == "true" )
+    private void SetTableSettings() {
+        _shareConfig.Key = GetKey();
+        if ( _config.GetValue<bool>( UiConst.EnableTableSettings ) ) {
+            _shareConfig.IsEnableCustomColumn = true;
+            _shareConfig.IsEnableResizable = true;
+            _shareConfig.IsEnableFixedColumn = true;
             return;
-        _shareConfig.IsEnableCustomColumn = true;
-        _shareConfig.CustomColumnKey = key;
+        }
+        _shareConfig.IsEnableCustomColumn = _config.GetValue<bool>( UiConst.EnableCustomColumn );
+        _shareConfig.IsEnableResizable = _config.GetValue<bool>( UiConst.EnableResizable );
+        _shareConfig.IsEnableFixedColumn = _config.GetValue<bool>( UiConst.EnableFixedColumn );
+    }
+
+    /// <summary>
+    /// 获取表格参数存储标识
+    /// </summary>
+    private string GetKey() {
+        var result = _config.GetValue( UiConst.Key );
+        return result.IsEmpty() ? _config.GetValue( UiConst.Id ) : result;
+    }
+
+    /// <summary>
+    /// 设置表格滚动参数
+    /// </summary>
+    private void SetScroll() {
+        _shareConfig.ScrollWidth = _config.GetValue( UiConst.ScrollWidth );
+        _shareConfig.ScrollHeight = _config.GetValue( UiConst.ScrollHeight );
     }
 
     /// <summary>
@@ -84,7 +105,7 @@ public class TableService {
     /// </summary>
     private void SetIsShowCheckbox() {
         _shareConfig.IsShowCheckbox = _config.GetValue<bool>( UiConst.ShowCheckbox );
-        _shareConfig.IsCheckboxLeft = _config.GetValue<bool>( UiConst.CheckboxLeft );
+        _shareConfig.IsCheckboxLeft = _config.GetValue( UiConst.CheckboxLeft );
     }
 
     /// <summary>
@@ -92,7 +113,7 @@ public class TableService {
     /// </summary>
     private void SetIsShowRadio() {
         _shareConfig.IsShowRadio = _config.GetValue<bool>( UiConst.ShowRadio );
-        _shareConfig.IsRadioLeft = _config.GetValue<bool>( UiConst.RadioLeft );
+        _shareConfig.IsRadioLeft = _config.GetValue( UiConst.RadioLeft );
     }
 
     /// <summary>
@@ -107,7 +128,7 @@ public class TableService {
     /// </summary>
     private void SetIsShowLineNumber() {
         _shareConfig.IsShowLineNumber = _config.GetValue<bool>( UiConst.ShowLineNumber );
-        _shareConfig.IsLineNumberLeft = _config.GetValue<bool>( UiConst.LineNumberLeft );
+        _shareConfig.IsLineNumberLeft = _config.GetValue( UiConst.LineNumberLeft );
     }
 
     /// <summary>

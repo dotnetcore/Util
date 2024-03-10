@@ -5,6 +5,10 @@
 /// </summary>
 public class ModelExpressionInfo {
     /// <summary>
+    /// 表达式属性名
+    /// </summary>
+    public string ExpressionPropertyName { get; set; }
+    /// <summary>
     /// 模型类型
     /// </summary>
     public Type ModelType { get; set; }

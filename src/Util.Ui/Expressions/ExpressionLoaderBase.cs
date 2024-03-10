@@ -13,6 +13,7 @@ public abstract class ExpressionLoaderBase : IExpressionLoader {
         if ( config.Contains( expressionPropertyName ) == false )
             return;
         var info = ResolveModelExpression( config, expressionPropertyName );
+        info.ExpressionPropertyName = expressionPropertyName;
         Load( config, info );
     }
 

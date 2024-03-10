@@ -32,6 +32,11 @@ public class TableShareConfig {
     public string Id { get; }
 
     /// <summary>
+    /// 表格存储标识 - 保存表格设置参数时作为存储键
+    /// </summary>
+    public string Key { get; set; }
+
+    /// <summary>
     /// 表格扩展标识
     /// </summary>
     public string TableExtendId => $"x_{Id}";
@@ -150,9 +155,36 @@ public class TableShareConfig {
     public bool IsEnableEdit { get; set; }
 
     /// <summary>
+    /// 是否启用表格设置
+    /// </summary>
+    public bool IsEnableTableSettings {
+        get {
+            if ( ColumnNumber == 0 )
+                return false;
+            if ( IsEnableCustomColumn )
+                return true;
+            if ( IsEnableResizable )
+                return true;
+            if ( IsEnableFixedColumn )
+                return true;
+            return false;
+        }
+    }
+
+    /// <summary>
     /// 是否启用自定义列
     /// </summary>
     public bool IsEnableCustomColumn { get; set; }
+
+    /// <summary>
+    /// 是否启用拖动调整列宽
+    /// </summary>
+    public bool IsEnableResizable { get; set; }
+
+    /// <summary>
+    /// 表格设置是否启用固定列
+    /// </summary>
+    public bool IsEnableFixedColumn { get; set; }
 
     /// <summary>
     /// 是否显示复选框
@@ -170,19 +202,19 @@ public class TableShareConfig {
     public bool IsShowLineNumber { get; set; }
 
     /// <summary>
-    /// 是否固定复选框到左侧
+    /// 固定复选框到左侧
     /// </summary>
-    public bool IsCheckboxLeft { get; set; }
+    public string IsCheckboxLeft { get; set; }
 
     /// <summary>
-    /// 是否固定单选框到左侧
+    /// 固定单选框到左侧
     /// </summary>
-    public bool IsRadioLeft { get; set; }
+    public string IsRadioLeft { get; set; }
 
     /// <summary>
-    /// 是否固定序号到左侧
+    /// 固定序号到左侧
     /// </summary>
-    public bool IsLineNumberLeft { get; set; }
+    public string IsLineNumberLeft { get; set; }
 
     /// <summary>
     /// 是否树形表格
@@ -210,9 +242,14 @@ public class TableShareConfig {
     public bool SelectOnlyOnClickRow { get; set; }
 
     /// <summary>
-    /// 自定义列标识
+    /// 滚动宽度
     /// </summary>
-    public string CustomColumnKey { get; set; }
+    public string ScrollWidth { get; set; }
+
+    /// <summary>
+    /// 滚动高度
+    /// </summary>
+    public string ScrollHeight { get; set; }
 
     /// <summary>
     /// 获取列信息
@@ -228,5 +265,26 @@ public class TableShareConfig {
     /// <param name="index">列索引</param>
     public HeadColumnInfo GetHeadColumn( int index ) {
         return HeadColumns.Find( t => t.Index == index );
+    }
+
+    /// <summary>
+    /// 固定复选框到左侧
+    /// </summary>
+    public bool? GetCheckboxLeft() {
+        return IsCheckboxLeft.IsEmpty() ? null : true;
+    }
+
+    /// <summary>
+    /// 固定单选框到左侧
+    /// </summary>
+    public bool? GetRadioLeft() {
+        return IsRadioLeft.IsEmpty() ? null : true;
+    }
+
+    /// <summary>
+    /// 固定序号到左侧
+    /// </summary>
+    public bool? GetLineNumberLeft() {
+        return IsLineNumberLeft.IsEmpty() ? null : true;
     }
 }

@@ -37,11 +37,6 @@ public class TableHeadColumnShareConfig {
     public string TableEditId => _tableShareConfig.TableEditId;
 
     /// <summary>
-    /// 是否启用自定义列
-    /// </summary>
-    public bool IsEnableCustomColumn => _tableShareConfig.IsEnableCustomColumn;
-
-    /// <summary>
     /// 是否显示复选框
     /// </summary>
     public bool IsShowCheckbox => _tableShareConfig.IsShowCheckbox;
@@ -57,19 +52,19 @@ public class TableHeadColumnShareConfig {
     public bool IsShowLineNumber => _tableShareConfig.IsShowLineNumber;
 
     /// <summary>
-    /// 是否固定复选框到左侧
+    /// 固定复选框到左侧
     /// </summary>
-    public bool IsCheckboxLeft => _tableShareConfig.IsCheckboxLeft;
+    public string IsCheckboxLeft => _tableShareConfig.IsCheckboxLeft;
 
     /// <summary>
-    /// 是否固定单选框到左侧
+    /// 固定单选框到左侧
     /// </summary>
-    public bool IsRadioLeft => _tableShareConfig.IsRadioLeft;
+    public string IsRadioLeft => _tableShareConfig.IsRadioLeft;
 
     /// <summary>
-    /// 是否固定序号到左侧
+    /// 固定序号到左侧
     /// </summary>
-    public bool IsLineNumberLeft => _tableShareConfig.IsLineNumberLeft;
+    public string IsLineNumberLeft => _tableShareConfig.IsLineNumberLeft;
 
     /// <summary>
     /// 是否自动创建表头单元格th
@@ -80,14 +75,63 @@ public class TableHeadColumnShareConfig {
     }
 
     /// <summary>
-    /// 是否第一列
-    /// </summary>
-    public bool IsFirst { get; set; }
-
-    /// <summary>
     /// 索引
     /// </summary>
     public int Index { get; set; }
+
+    /// <summary>
+    /// 是否第一列
+    /// </summary>
+    public bool IsFirst => Index == 0;
+
+    /// <summary>
+    /// 是否最后一列
+    /// </summary>
+    public bool IsLast => _tableShareConfig.Columns.Count == Index + 1;
+
+    /// <summary>
+    /// 是否启用自定义列
+    /// </summary>
+    public bool IsEnableCustomColumn => _tableShareConfig.IsEnableCustomColumn;
+
+    /// <summary>
+    /// 表格设置是否启用固定列
+    /// </summary>
+    public bool IsEnableFixedColumn => _tableShareConfig.IsEnableFixedColumn;
+
+    /// <summary>
+    /// 是否启用拖动调整列宽
+    /// </summary>
+    public bool IsEnableResizable {
+        get {
+            var headColumn = _tableShareConfig.GetHeadColumn( Index );
+            if ( headColumn is { IsEnableResizable: true } )
+                return true;
+            if ( _tableShareConfig.IsEnableResizable == false )
+                return false;
+            if ( _tableShareConfig.IsEnableCustomColumn )
+                return true;
+            return _tableShareConfig.Columns.Count <= 1 || IsLast == false;
+        }
+    }
+
+    /// <summary>
+    /// 是否启用表格设置
+    /// </summary>
+    public bool IsEnableTableSettings {
+        get {
+            if ( _tableShareConfig.ColumnNumber == 0 )
+                return false;
+            if ( IsEnableCustomColumn )
+                return true;
+            if ( IsEnableFixedColumn )
+                return true;
+            var headColumn = _tableShareConfig.GetHeadColumn( Index );
+            if ( headColumn is { IsEnableResizable: true } )
+                return true;
+            return _tableShareConfig.IsEnableResizable;
+        }
+    }
 
     /// <summary>
     /// 自定义列标识
@@ -95,19 +139,44 @@ public class TableHeadColumnShareConfig {
     public string CellControl {
         get {
             var column = _tableShareConfig.GetColumn( Index );
-            if (column == null)
-                return null;
-            return column.GetCellControl();
+            return column?.GetCellControl();
         }
     }
 
     /// <summary>
-    /// 设置第一列
+    /// 标题
     /// </summary>
-    public void SetIsFirst() {
-        if ( Index == 0 )
-            IsFirst = true;
+    public string Title {
+        get {
+            var column = _tableShareConfig.GetColumn( Index );
+            return column?.Title;
+        }
     }
+
+    /// <summary>
+    /// 对齐方式
+    /// </summary>
+    public string Align {
+        get {
+            var column = _tableShareConfig.GetColumn( Index );
+            return column?.Align;
+        }
+    }
+
+    /// <summary>
+    /// 标题对齐方式
+    /// </summary>
+    public string TitleAlign {
+        get {
+            var column = _tableShareConfig.GetHeadColumn( Index );
+            return column?.TitleAlign;
+        }
+    }
+
+    /// <summary>
+    /// 表格设置组件标识
+    /// </summary>
+    public string TableSettingsId => _tableShareConfig.TableSettingsId;
 
     /// <summary>
     /// 添加列
@@ -118,5 +187,7 @@ public class TableHeadColumnShareConfig {
             return;
         column.Index = Index;
         _tableShareConfig.HeadColumns.Add( column );
+        if ( column.IsEnableResizable == true )
+            _tableShareConfig.IsEnableResizable = true;
     }
 }
