@@ -20,9 +20,13 @@ public class TreeTableBodyRowBuilder : TableBodyRowBuilder {
     }
 
     /// <summary>
-    /// 配置行默认属性
+    /// 配置表格主体行基础扩展属性
     /// </summary>
-    protected override void ConfigDefault() {
+    protected override void ConfigTableExtend() {
+        if ( TableShareConfig.IsEnableExtend == false )
+            return;
+        if ( TableShareConfig.IsAutoCreateBodyRow == false )
+            return;
         this.NgIf( $"{TableExtendId}.isShow(row)" );
     }
 }

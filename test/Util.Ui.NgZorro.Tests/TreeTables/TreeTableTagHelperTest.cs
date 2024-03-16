@@ -761,7 +761,7 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+            result.Append( "<tr>" );
             result.Append( "<td " );
             result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
             result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
@@ -927,7 +927,7 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+            result.Append( "<tr>" );
             result.Append( "<td " );
             result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
             result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
@@ -1054,7 +1054,7 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+            result.Append( "<tr>" );
             result.Append( "<td " );
             result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
             result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );
@@ -1189,7 +1189,7 @@ namespace Util.Ui.NgZorro.Tests.TreeTables {
             result.Append( "</tr>" );
             result.Append( "</thead>" );
             result.Append( "<tbody>" );
-            result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+            result.Append( "<tr>" );
             result.Append( "<td " );
             result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
             result.Append( "[nzExpand]=\"x_id.isExpand(row)\" " );

@@ -152,7 +152,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td>{{row.lineNumber}}</td>" );
         result.Append( "<td>b</td>" );
         result.Append( "</tr>" );
@@ -219,7 +219,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -336,7 +336,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.lineNumber\" [nzAlign]=\"ts_id.getAlign('util.lineNumber')\">{{row.lineNumber}}</td>" );
         result.Append( "<td nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\">b</td>" );
         result.Append( "</tr>" );
@@ -457,7 +457,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.lineNumber\" [nzAlign]=\"ts_id.getAlign('util.lineNumber')\" " );
         result.Append( "[nzLeft]=\"ts_id.isLeft('util.lineNumber')\" [nzRight]=\"ts_id.isRight('util.lineNumber')\">{{row.lineNumber}}</td>" );
         result.Append( "<td nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\">b</td>" );
@@ -480,7 +480,7 @@ public partial class TableTagHelperTest {
     public void TestLineNumberLeft_1() {
         NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
         _wrapper.SetContextAttribute( UiConst.ShowLineNumber, true );
-        _wrapper.SetContextAttribute( UiConst.LineNumberLeft, "10px" );
+        _wrapper.SetContextAttribute( UiConst.LineNumberLeft, "true" );
 
         //创建列
         var column = new TableColumnTagHelper().ToWrapper();
@@ -498,13 +498,13 @@ public partial class TableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzLeft=\"10px\" [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
+        result.Append( "<th [nzLeft]=\"true\" [nzWidth]=\"x_id.config.table.lineNumberWidth\">{{'util.lineNumber'|i18n}}</th>" );
         result.Append( "<th>{{'a'|i18n}}</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
-        result.Append( "<td nzLeft=\"10px\">{{row.lineNumber}}</td>" );
+        result.Append( "<td [nzLeft]=\"true\">{{row.lineNumber}}</td>" );
         result.Append( "<td>b</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
@@ -744,7 +744,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.lineNumber\" nzLeft=\"10px\" [nzAlign]=\"ts_id.getAlign('util.lineNumber')\">{{row.lineNumber}}</td>" );
         result.Append( "<td nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\">b</td>" );
         result.Append( "</tr>" );
@@ -815,7 +815,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.lineNumber\" [nzAlign]=\"ts_id.getAlign('util.lineNumber')\" " );
         result.Append( "[nzLeft]=\"ts_id.isLeft('util.lineNumber')\" [nzRight]=\"ts_id.isRight('util.lineNumber')\">{{row.lineNumber}}</td>" );
         result.Append( "<td nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\">b</td>" );

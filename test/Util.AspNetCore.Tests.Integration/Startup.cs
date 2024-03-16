@@ -18,18 +18,18 @@ public class Startup {
     public void ConfigureHost( IHostBuilder hostBuilder ) {
         hostBuilder.ConfigureWebHostDefaults( webHostBuilder => {
             webHostBuilder.UseTestServer()
-                .Configure( t => {
-                    t.UseRouting();
-                    t.UseAuthentication();
-                    t.UseAuthorization();
-                    t.UseEndpoints( endpoints => {
-                        endpoints.MapControllers();
-                    } );
+            .Configure( t => {
+                t.UseRouting();
+                t.UseAuthentication();
+                t.UseAuthorization();
+                t.UseEndpoints( endpoints => {
+                    endpoints.MapControllers();
                 } );
+            } );
         } )
-            .AsBuild()
-            .AddAcl()
-            .AddUtil();
+        .AsBuild()
+        .AddAcl()
+        .AddUtil();
     }
 
     /// <summary>

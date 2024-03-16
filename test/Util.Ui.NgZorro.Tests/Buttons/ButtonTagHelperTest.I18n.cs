@@ -674,5 +674,28 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             result.Append( "<button nz-button=\"\">{{'util.reset'|i18n}}</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试Unedit文本
+        /// </summary>
+        [Fact]
+        public void TestTextUnedit() {
+            _wrapper.SetContextAttribute( UiConst.TextUnedit, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">UnEdit</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试Unedit文本 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTextUnedit_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.TextUnedit, true );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\">{{'util.unedit'|i18n}}</button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

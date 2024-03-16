@@ -125,7 +125,11 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置左侧距离
     /// </summary>
     public TableColumnBuilder Left( string value ) {
-        AttributeIfNotEmpty( "nzLeft", value );
+        if ( value.IsEmpty() )
+            return this;
+        if ( value.SafeString().ToLower() == "true" )
+            return BindLeft( "true" );
+        Attribute( "nzLeft", value );
         return this;
     }
 
@@ -166,7 +170,11 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置右侧距离
     /// </summary>
     public TableColumnBuilder Right( string value ) {
-        AttributeIfNotEmpty( "nzRight", value );
+        if ( value.IsEmpty() )
+            return this;
+        if ( value.SafeString().ToLower() == "true" )
+            return BindRight( "true" );
+        Attribute( "nzRight", value );
         return this;
     }
 

@@ -663,6 +663,22 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     }
 
     /// <summary>
+    /// 配置Unedit文本
+    /// </summary>
+    public TBuilder TextUnedit() {
+        var value = _config.GetValue<bool?>( UiConst.TextUnedit );
+        if ( value != true )
+            return (TBuilder)this;
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            _config.SetAttribute( UiConst.Text, I18nKeys.Unedit );
+            return (TBuilder)this;
+        }
+        _config.SetAttribute( UiConst.Text, "UnEdit" );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
     /// 配置文本
     /// </summary>
     public TBuilder Text() {
@@ -716,7 +732,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
             .TextUpload().TextDownload().TextPublish().TextRun()
             .TextStart().TextStop().TextAdd().TextRemove()
             .TextOpen().TextClose().TextSend().TextClear()
-            .TextImport().TextExport().TextReset()
+            .TextImport().TextExport().TextReset().TextUnedit()
             .Text().OnClick().OnVisibleChange();
     }
 

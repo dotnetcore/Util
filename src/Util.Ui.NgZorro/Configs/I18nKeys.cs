@@ -144,4 +144,8 @@ public class I18nKeys {
     /// util.collapse
     /// </summary>
     public const string Collapse = "util.collapse";
+    /// <summary>
+    /// util.unedit
+    /// </summary>
+    public const string Unedit = "util.unedit";
 }

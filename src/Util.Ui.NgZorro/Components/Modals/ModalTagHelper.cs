@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Drawers.Helpers;
+using Util.Ui.NgZorro.Components.Modals.Helpers;
 using Util.Ui.NgZorro.Components.Modals.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -12,6 +13,10 @@ namespace Util.Ui.NgZorro.Components.Modals;
 /// </summary>
 [HtmlTargetElement( "util-modal" )]
 public class ModalTagHelper : AngularTagHelperBase {
+    /// <summary>
+    /// 配置
+    /// </summary>
+    private Config _config;
     /// <summary>
     /// [nzMask],是否显示遮罩,默认值: true
     /// </summary>
@@ -226,8 +231,15 @@ public class ModalTagHelper : AngularTagHelperBase {
     public string OnAfterClose { get; set; }
 
     /// <inheritdoc />
+    protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+        _config = new Config( context, output );
+        var service = new ModalService( _config );
+        service.Init();
+    }
+
+    /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
-        var config = new Config( context, output, content );
-        return new ModalRender( config );
+        _config.Content = content;
+        return new ModalRender( _config );
     }
 }

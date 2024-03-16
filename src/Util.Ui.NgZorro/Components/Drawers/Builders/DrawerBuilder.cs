@@ -1,9 +1,10 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Drawers.Configs;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Drawers.Builders; 
+namespace Util.Ui.NgZorro.Components.Drawers.Builders;
 
 /// <summary>
 /// 抽屉标签生成器
@@ -18,7 +19,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 初始化抽屉标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public DrawerBuilder( Config config ) : base( config,"nz-drawer" ) {
+    public DrawerBuilder( Config config ) : base( config, "nz-drawer" ) {
         _config = config;
     }
 

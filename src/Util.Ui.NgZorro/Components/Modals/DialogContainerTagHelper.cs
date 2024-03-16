@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
+using Util.Ui.NgZorro.Components.Modals.Helpers;
 using Util.Ui.NgZorro.Components.Modals.Renders;
 using Util.Ui.Renders;
 
@@ -10,6 +11,10 @@ namespace Util.Ui.NgZorro.Components.Modals;
 /// </summary>
 [HtmlTargetElement( "util-dialog-container" )]
 public class DialogContainerTagHelper : AngularTagHelperBase {
+    /// <summary>
+    /// 配置
+    /// </summary>
+    private Config _config;
     /// <summary>
     /// minWidth,抽屉的最小宽度, 默认值: 600
     /// </summary>
@@ -28,8 +33,15 @@ public class DialogContainerTagHelper : AngularTagHelperBase {
     public string BindMaxWidth { get; set; }
 
     /// <inheritdoc />
+    protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+        _config = new Config( context, output );
+        var service = new DialogContainerService( _config );
+        service.Init();
+    }
+
+    /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
-        var config = new Config( context, output, content );
-        return new DialogContainerRender( config );
+        _config.Content = content;
+        return new DialogContainerRender( _config );
     }
 }

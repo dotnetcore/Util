@@ -301,6 +301,10 @@ public static class UiConst {
     /// </summary>
     public const string TextReset = "text-reset";
     /// <summary>
+    /// unedit文本
+    /// </summary>
+    public const string TextUnedit = "text-unedit";
+    /// <summary>
     /// 加载标识列表
     /// </summary>
     public const string LoadKeys = "load-keys";

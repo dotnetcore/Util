@@ -38,6 +38,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 是否忽略SSL证书
     /// </summary>
     private bool _ignoreSsl;
+    /// <summary>
+    /// 响应完成模式
+    /// </summary>
+    private HttpCompletionOption _completionOption;
 
     #endregion
 
@@ -51,9 +55,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <param name="httpMethod">Http方法</param>
     /// <param name="url">服务地址</param>
     public HttpRequest( IHttpClientFactory httpClientFactory, HttpClient httpClient, HttpMethod httpMethod, string url ) {
-        if( httpClientFactory == null && httpClient == null )
+        if ( httpClientFactory == null && httpClient == null )
             throw new ArgumentNullException( nameof( httpClientFactory ) );
-        if( url.IsEmpty() )
+        if ( url.IsEmpty() )
             throw new ArgumentNullException( nameof( url ) );
         _httpClientFactory = httpClientFactory;
         _httpClient = httpClient;
@@ -68,6 +72,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         CharacterEncoding = System.Text.Encoding.UTF8;
         IsUseCookies = true;
         IsFileParameterQuotes = true;
+        _completionOption = HttpCompletionOption.ResponseContentRead;
     }
 
     #endregion
@@ -209,6 +214,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     #endregion
 
+    #region HttpCompletion(设置响应完成模式)
+
+    /// <inheritdoc />
+    public IHttpRequest<TResult> HttpCompletion( HttpCompletionOption option ) {
+        _completionOption = option;
+        return this;
+    }
+
+    #endregion
+
     #region Encoding(设置字符编码)
 
     /// <inheritdoc />
@@ -271,7 +286,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 获取Json序列化配置
     /// </summary>
     protected virtual JsonSerializerOptions GetJsonSerializerOptions() {
-        if( _jsonSerializerOptions != null )
+        if ( _jsonSerializerOptions != null )
             return _jsonSerializerOptions;
         return new JsonSerializerOptions {
             PropertyNameCaseInsensitive = true,
@@ -291,9 +306,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Header( string key, string value ) {
-        if( key.IsEmpty() )
+        if ( key.IsEmpty() )
             return this;
-        if( HeaderParams.ContainsKey( key ) )
+        if ( HeaderParams.ContainsKey( key ) )
             HeaderParams.Remove( key );
         HeaderParams.Add( key, value );
         return this;
@@ -301,9 +316,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Header( IDictionary<string, string> headers ) {
-        if( headers == null )
+        if ( headers == null )
             return this;
-        foreach( var header in headers )
+        foreach ( var header in headers )
             Header( header.Key, header.Value );
         return this;
     }
@@ -314,9 +329,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> QueryString( string key, string value ) {
-        if( key.IsEmpty() )
+        if ( key.IsEmpty() )
             return this;
-        if( QueryParams.ContainsKey( key ) )
+        if ( QueryParams.ContainsKey( key ) )
             QueryParams.Remove( key );
         QueryParams.Add( key, value );
         return this;
@@ -324,9 +339,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> QueryString( IDictionary<string, string> queryString ) {
-        if( queryString == null )
+        if ( queryString == null )
             return this;
-        foreach( var param in queryString )
+        foreach ( var param in queryString )
             QueryString( param.Key, param.Value );
         return this;
     }
@@ -337,7 +352,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <param name="queryString">查询字符串对象</param>
     public IHttpRequest<TResult> QueryString( object queryString ) {
         var dic = ToDictionary( queryString );
-        foreach( var param in dic )
+        foreach ( var param in dic )
             QueryString( param.Key, param.Value.ToString() );
         return this;
     }
@@ -358,9 +373,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Cookie( string key, string value ) {
-        if( key.IsEmpty() )
+        if ( key.IsEmpty() )
             return this;
-        if( Cookies.ContainsKey( key ) )
+        if ( Cookies.ContainsKey( key ) )
             Cookies.Remove( key );
         Cookies.Add( key, value );
         return this;
@@ -368,9 +383,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Cookie( IDictionary<string, string> cookies ) {
-        if( cookies == null )
+        if ( cookies == null )
             return this;
-        foreach( var cookie in cookies )
+        foreach ( var cookie in cookies )
             Cookie( cookie.Key, cookie.Value );
         return this;
     }
@@ -381,11 +396,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Content( string key, object value ) {
-        if( key.IsEmpty() )
+        if ( key.IsEmpty() )
             return this;
-        if( value == null )
+        if ( value == null )
             return this;
-        if( Params.ContainsKey( key ) )
+        if ( Params.ContainsKey( key ) )
             Params.Remove( key );
         Params.Add( key, value );
         return this;
@@ -393,9 +408,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
 
     /// <inheritdoc />
     public IHttpRequest<TResult> Content( IDictionary<string, object> parameters ) {
-        if( parameters == null )
+        if ( parameters == null )
             return this;
-        foreach( var param in parameters )
+        foreach ( var param in parameters )
             Content( param.Key, param.Value );
         return this;
     }
@@ -433,7 +448,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <inheritdoc />
     public IHttpRequest<TResult> FileContent( Stream file, string fileName, string name = "file" ) {
         ContentType( Http.HttpContentType.FormData );
-        if( Files.Any( t => t.Name == name ) )
+        if ( Files.Any( t => t.Name == name ) )
             Files.RemoveAll( t => t.Name == name );
         Files.Add( new FileData( file, fileName, name ) );
         return this;
@@ -442,7 +457,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <inheritdoc />
     public IHttpRequest<TResult> FileContent( string filePath, string name = "file" ) {
         ContentType( Http.HttpContentType.FormData );
-        if( Files.Any( t => t.Name == name ) )
+        if ( Files.Any( t => t.Name == name ) )
             Files.RemoveAll( t => t.Name == name );
         Files.Add( new FileData( filePath, name ) );
         return this;
@@ -534,7 +549,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <inheritdoc />
     public async Task<TResult> GetResultAsync( CancellationToken cancellationToken = default ) {
         var message = await CreateMessage();
-        if( SendBefore( message ) == false )
+        if ( SendBefore( message ) == false )
             return default;
         var response = await SendAsync( message, cancellationToken );
         return await SendAfterAsync( response );
@@ -567,10 +582,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 添加Cookie
     /// </summary>
     protected virtual void AddCookies() {
-        if( Cookies.Count == 0 )
+        if ( Cookies.Count == 0 )
             return;
         var cookieValues = new List<CookieHeaderValue>();
-        foreach( var cookie in Cookies )
+        foreach ( var cookie in Cookies )
             cookieValues.Add( new CookieHeaderValue( cookie.Key, cookie.Value ) );
         Header( "Cookie", cookieValues.Select( t => t.ToString() ).Join() );
     }
@@ -580,7 +595,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     /// <param name="message">请求消息</param>
     protected virtual void AddHeaders( HttpRequestMessage message ) {
-        foreach( var header in HeaderParams )
+        foreach ( var header in HeaderParams )
             message.Headers.Add( header.Key, header.Value );
     }
 
@@ -589,7 +604,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected virtual async Task<HttpContent> CreateHttpContent() {
         var contentType = HttpContentType.SafeString().ToLower();
-        switch( contentType ) {
+        switch ( contentType ) {
             case "application/x-www-form-urlencoded":
                 return CreateFormContent();
             case "application/json":
@@ -615,10 +630,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     protected IDictionary<string, object> GetParameters() {
         var result = new Dictionary<string, object>( Params );
         var dictionary = ToDictionary( Param );
-        if( dictionary == null )
+        if ( dictionary == null )
             return result;
-        foreach( var parameter in dictionary ) {
-            if( result.ContainsKey( parameter.Key ) )
+        foreach ( var parameter in dictionary ) {
+            if ( result.ContainsKey( parameter.Key ) )
                 continue;
             result.Add( parameter.Key, parameter.Value );
         }
@@ -639,7 +654,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected virtual HttpContent CreateJsonContent() {
         var content = GetJsonContentValue();
-        if( content.IsEmpty() )
+        if ( content.IsEmpty() )
             return null;
         return new StringContent( content, CharacterEncoding, "application/json" );
     }
@@ -649,11 +664,11 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     private string GetJsonContentValue() {
         var options = GetJsonSerializerOptions();
-        if( Param != null && Params.Count > 0 )
+        if ( Param != null && Params.Count > 0 )
             return Json.ToJson( GetParameters(), options );
-        if( Param != null )
+        if ( Param != null )
             return Json.ToJson( Param, options );
-        if( Params.Count > 0 )
+        if ( Params.Count > 0 )
             return Json.ToJson( Params, options );
         return null;
     }
@@ -688,7 +703,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected void AddFileParameters( MultipartFormDataContent content ) {
         var parameters = GetParameters();
-        foreach( var parameter in parameters ) {
+        foreach ( var parameter in parameters ) {
             var item = new ByteArrayContent( System.Text.Encoding.UTF8.GetBytes( parameter.Value.SafeString() ) );
             content.Add( item, GetFileParameter( parameter.Key ) );
         }
@@ -705,16 +720,16 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 添加文件数据
     /// </summary>
     protected async Task AddFileData( MultipartFormDataContent content ) {
-        foreach( var file in Files ) {
-            if( file.Stream != null ) {
+        foreach ( var file in Files ) {
+            if ( file.Stream != null ) {
                 await using var fileStream = file.Stream;
                 var bytes = await Util.Helpers.File.ReadToBytesAsync( fileStream );
                 AddFileData( content, bytes, file.Name, file.FileName );
                 continue;
             }
-            if( file.FilePath.IsEmpty() )
+            if ( file.FilePath.IsEmpty() )
                 continue;
-            if( Util.Helpers.File.FileExists( file.FilePath ) == false )
+            if ( Util.Helpers.File.FileExists( file.FilePath ) == false )
                 return;
             var fileName = Path.GetFileName( file.FilePath );
             var stream = await Util.Helpers.File.ReadToMemoryStreamAsync( file.FilePath );
@@ -725,19 +740,19 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <summary>
     /// 添加文件数据
     /// </summary>
-    protected void AddFileData( MultipartFormDataContent content,byte[] stream,string name,string fileName ) {
+    protected void AddFileData( MultipartFormDataContent content, byte[] stream, string name, string fileName ) {
         if ( stream == null )
             return;
         var fileContent = new ByteArrayContent( stream );
         content.Add( fileContent, GetFileParameter( name ), GetFileParameter( fileName ) );
-        if( fileContent.Headers is { ContentDisposition: not null } )
+        if ( fileContent.Headers is { ContentDisposition: not null } )
             fileContent.Headers.ContentDisposition.FileNameStar = null;
     }
 
     /// <summary>
     /// 清除分隔符双引号
     /// </summary>
-    protected void ClearBoundaryQuotes( MultipartFormDataContent content) {
+    protected void ClearBoundaryQuotes( MultipartFormDataContent content ) {
         var boundary = content?.Headers?.ContentType?.Parameters.FirstOrDefault( o => o.Name == "boundary" );
         if ( boundary == null )
             return;
@@ -753,7 +768,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     /// <param name="message">请求消息</param>
     protected virtual bool SendBefore( HttpRequestMessage message ) {
-        if( SendBeforeAction == null )
+        if ( SendBeforeAction == null )
             return true;
         return SendBeforeAction( message );
     }
@@ -771,7 +786,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         var client = GetClient();
         client.CheckNull( nameof( client ) );
         InitHttpClient( client );
-        return await client.SendAsync( message, cancellationToken );
+        return await client.SendAsync( message, _completionOption, cancellationToken );
     }
 
     #endregion
@@ -782,7 +797,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 获取Http客户端
     /// </summary>
     protected HttpClient GetClient() {
-        if( _httpClient != null )
+        if ( _httpClient != null )
             return _httpClient;
         var clientHandler = CreateHttpClientHandler();
         InitHttpClientHandler( clientHandler );
@@ -794,10 +809,10 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     protected HttpClientHandler CreateHttpClientHandler() {
         var handlerFactory = _httpClientFactory as IHttpMessageHandlerFactory;
-        if( handlerFactory == null )
+        if ( handlerFactory == null )
             return null;
         var handler = _httpClientName.IsEmpty() ? handlerFactory.CreateHandler() : handlerFactory.CreateHandler( _httpClientName );
-        while( handler is DelegatingHandler delegatingHandler ) {
+        while ( handler is DelegatingHandler delegatingHandler ) {
             handler = delegatingHandler.InnerHandler;
         }
         return handler as HttpClientHandler;
@@ -808,7 +823,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     /// <param name="handler">Http客户端处理器</param>
     protected virtual void InitHttpClientHandler( HttpClientHandler handler ) {
-        if( handler == null )
+        if ( handler == null )
             return;
         InitCertificate( handler );
         InitUseCookies( handler );
@@ -823,7 +838,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化证书
     /// </summary>
     protected virtual void InitCertificate( HttpClientHandler handler ) {
-        if( CertificatePath.IsEmpty() )
+        if ( CertificatePath.IsEmpty() )
             return;
         var certificate = new X509Certificate2( CertificatePath, CertificatePassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet );
         handler.ClientCertificates.Clear();
@@ -838,7 +853,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化是否携带Cookie
     /// </summary>
     protected virtual void InitUseCookies( HttpClientHandler handler ) {
-        if( handler.UseCookies != IsUseCookies )
+        if ( handler.UseCookies != IsUseCookies )
             handler.UseCookies = IsUseCookies;
     }
 
@@ -850,7 +865,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 忽略SSL证书错误
     /// </summary>
     protected virtual void IgnoreSsl( HttpClientHandler handler ) {
-        if( _ignoreSsl == false )
+        if ( _ignoreSsl == false )
             return;
         handler.ServerCertificateCustomValidationCallback ??= ( _, _, _, _ ) => true;
     }
@@ -875,7 +890,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化基地址
     /// </summary>
     protected virtual void InitBaseAddress( HttpClient client ) {
-        if( BaseAddressUri.IsEmpty() )
+        if ( BaseAddressUri.IsEmpty() )
             return;
         client.BaseAddress = new Uri( BaseAddressUri );
     }
@@ -888,7 +903,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// 初始化超时间隔
     /// </summary>
     protected virtual void InitTimeout( HttpClient client ) {
-        if( HttpTimeout == null )
+        if ( HttpTimeout == null )
             return;
         client.Timeout = HttpTimeout.SafeValue();
     }
@@ -902,12 +917,12 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// </summary>
     /// <param name="response">响应消息</param>
     protected virtual async Task<TResult> SendAfterAsync( HttpResponseMessage response ) {
-        if( SendAfterAction != null )
+        if ( SendAfterAction != null )
             return await SendAfterAction( response );
         string content = null;
         try {
             content = await response.Content.ReadAsStringAsync();
-            if( response.IsSuccessStatusCode )
+            if ( response.IsSuccessStatusCode )
                 return await SuccessHandlerAsync( response, content );
             FailHandler( response, content );
             return null;
@@ -927,7 +942,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     protected virtual async Task<TResult> SuccessHandlerAsync( HttpResponseMessage response, string content ) {
         var result = ConvertTo( content, response.GetContentType() );
         SuccessAction?.Invoke( result );
-        if( SuccessFunc != null )
+        if ( SuccessFunc != null )
             await SuccessFunc( result );
         return result;
     }
@@ -942,9 +957,9 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <param name="content">内容</param>
     /// <param name="contentType">内容类型</param>
     protected virtual TResult ConvertTo( string content, string contentType ) {
-        if( ConvertAction != null )
+        if ( ConvertAction != null )
             return ConvertAction( content );
-        if( typeof( TResult ) == typeof( string ) )
+        if ( typeof( TResult ) == typeof( string ) )
             return (TResult)(object)content;
         return contentType.SafeString().ToLower() == "application/json" ? Json.ToObject<TResult>( content, GetJsonSerializerOptions() ) : null;
     }
@@ -978,7 +993,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
     /// <inheritdoc />
     public async Task<byte[]> GetStreamAsync( CancellationToken cancellationToken = default ) {
         var message = await CreateMessage();
-        if( SendBefore( message ) == false )
+        if ( SendBefore( message ) == false )
             return default;
         var response = await SendAsync( message, cancellationToken );
         return await GetStream( response );
@@ -992,7 +1007,7 @@ public class HttpRequest<TResult> : IHttpRequest<TResult> where TResult : class 
         byte[] content = null;
         try {
             content = await response.Content.ReadAsByteArrayAsync();
-            if( response.IsSuccessStatusCode )
+            if ( response.IsSuccessStatusCode )
                 return content;
             FailHandler( response, content );
             return null;

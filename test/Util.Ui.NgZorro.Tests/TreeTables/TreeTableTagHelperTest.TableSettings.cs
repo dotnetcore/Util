@@ -114,7 +114,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -258,7 +258,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -390,7 +390,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -518,7 +518,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -664,7 +664,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -798,7 +798,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -934,7 +934,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -1082,7 +1082,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -1222,7 +1222,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -1356,7 +1356,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -1504,7 +1504,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
@@ -1640,7 +1640,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );

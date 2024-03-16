@@ -123,6 +123,10 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// </summary>
     public bool TextReset { get; set; }
     /// <summary>
+    /// 扩展属性,是否显示unedit文本,默认文本为'UnEdit',i18n文本为'util.unedit'
+    /// </summary>
+    public bool TextUnedit { get; set; }
+    /// <summary>
     /// routerLink,路由链接,当按钮类型为链接时可用
     /// </summary>
     public string RouterLink { get; set; }

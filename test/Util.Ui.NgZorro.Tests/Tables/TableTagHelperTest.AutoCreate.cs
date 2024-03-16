@@ -3,7 +3,7 @@ using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
 using Xunit;
 
-namespace Util.Ui.NgZorro.Tests.Tables; 
+namespace Util.Ui.NgZorro.Tests.Tables;
 
 /// <summary>
 /// 表格测试 - 自动创建嵌套结构
@@ -14,6 +14,8 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestAutoCreate_1() {
+        _wrapper.SetContextAttribute( UiConst.Class, "a" );
+
         //创建列
         var column = new TableColumnTagHelper().ToWrapper();
         column.SetContextAttribute( UiConst.Title, "a" );
@@ -22,7 +24,7 @@ public partial class TableTagHelperTest {
 
         //结果
         var result = new StringBuilder();
-        result.Append( "<nz-table>" );
+        result.Append( "<nz-table class=\"a\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
         result.Append( "<th>a</th>" );

@@ -108,7 +108,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -171,7 +171,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -230,7 +230,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -458,7 +458,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -583,7 +583,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "nzCellControl=\"util.checkbox\" [nzAlign]=\"ts_id.getAlign('util.checkbox')\" [nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -718,7 +718,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "nzCellControl=\"util.checkbox\" [nzAlign]=\"ts_id.getAlign('util.checkbox')\" [nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzLeft]=\"ts_id.isLeft('util.checkbox')\" [nzRight]=\"ts_id.isRight('util.checkbox')\" [nzShowCheckbox]=\"true\">" );
@@ -838,7 +838,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "nzLeft=\"10px\" [nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -1023,7 +1023,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "nzCellControl=\"util.checkbox\" nzLeft=\"10px\" [nzAlign]=\"ts_id.getAlign('util.checkbox')\" [nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzShowCheckbox]=\"true\">" );
@@ -1100,7 +1100,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
         result.Append( "nzCellControl=\"util.checkbox\" [nzAlign]=\"ts_id.getAlign('util.checkbox')\" [nzChecked]=\"x_id.isChecked(row)\" " );
         result.Append( "[nzLeft]=\"ts_id.isLeft('util.checkbox')\" [nzRight]=\"ts_id.isRight('util.checkbox')\" [nzShowCheckbox]=\"true\">" );

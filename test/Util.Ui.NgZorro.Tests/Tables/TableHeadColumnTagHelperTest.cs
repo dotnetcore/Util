@@ -378,7 +378,7 @@ public partial class TableHeadColumnTagHelperTest {
     public void TestRight() {
         _wrapper.SetContextAttribute( UiConst.Right, "true" );
         var result = new StringBuilder();
-        result.Append( "<th nzRight=\"true\"></th>" );
+        result.Append( "<th [nzRight]=\"true\"></th>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

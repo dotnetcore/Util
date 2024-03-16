@@ -52,6 +52,11 @@ public interface IHttpRequest<TResult> : IHttpRequest where TResult : class {
     /// <param name="contentType">内容类型</param>
     IHttpRequest<TResult> ContentType( string contentType );
     /// <summary>
+    /// 设置响应完成模式
+    /// </summary>
+    /// <param name="option">响应完成配置</param>
+    IHttpRequest<TResult> HttpCompletion( HttpCompletionOption option );
+    /// <summary>
     /// 设置证书
     /// </summary>
     /// <param name="path">证书路径</param>

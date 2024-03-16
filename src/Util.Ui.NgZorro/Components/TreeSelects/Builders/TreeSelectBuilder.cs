@@ -3,7 +3,7 @@ using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Trees.Helpers;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.TreeSelects.Builders; 
+namespace Util.Ui.NgZorro.Components.TreeSelects.Builders;
 
 /// <summary>
 /// 树选择标签生成器
@@ -299,6 +299,8 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// </summary>
     public TreeSelectBuilder Width() {
         var style = _config.GetValue( UiConst.Style );
+        if ( style.Contains( "width" ) )
+            return this;
         var width = _config.GetValue( UiConst.Width );
         if ( width.IsEmpty() )
             return this;

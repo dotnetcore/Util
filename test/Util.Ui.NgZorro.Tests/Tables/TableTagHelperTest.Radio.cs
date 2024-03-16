@@ -148,7 +148,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td>" );
         result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
         result.Append( "</label>" );
@@ -265,7 +265,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.radio\" [nzAlign]=\"ts_id.getAlign('util.radio')\">" );
         result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
         result.Append( "</label>" );
@@ -387,7 +387,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.radio\" [nzAlign]=\"ts_id.getAlign('util.radio')\" [nzLeft]=\"ts_id.isLeft('util.radio')\" [nzRight]=\"ts_id.isRight('util.radio')\">" );
         result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
         result.Append( "</label>" );
@@ -498,7 +498,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzLeft=\"10px\">" );
         result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
         result.Append( "</label>" );
@@ -669,7 +669,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.radio\" nzLeft=\"10px\" [nzAlign]=\"ts_id.getAlign('util.radio')\">" );
         result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
         result.Append( "</label>" );
@@ -741,7 +741,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr>" );
         result.Append( "<td nzCellControl=\"util.radio\" [nzAlign]=\"ts_id.getAlign('util.radio')\" [nzLeft]=\"ts_id.isLeft('util.radio')\" [nzRight]=\"ts_id.isRight('util.radio')\">" );
         result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
         result.Append( "</label>" );

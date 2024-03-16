@@ -1,8 +1,9 @@
 ﻿using Util.Ui.Angular.Extensions;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Configs;
 
-namespace Util.Ui.NgZorro.Components.Tables.Builders; 
+namespace Util.Ui.NgZorro.Components.Tables.Builders;
 
 /// <summary>
 /// 表格主体行标签生成器
@@ -60,16 +61,18 @@ public class TableBodyRowBuilder : TableRowBuilder {
     /// <summary>
     /// 配置表格主体行基础扩展属性
     /// </summary>
-    protected void ConfigTableExtend() {
+    protected virtual void ConfigTableExtend() {
         if ( TableShareConfig.IsEnableExtend == false )
             return;
-        ConfigDefault();
+        if ( TableShareConfig.IsAutoCreateBodyRow == false )
+            return;
+        ConfigFor();
     }
 
     /// <summary>
-    /// 配置行默认属性
+    /// 配置行默认ngFor属性
     /// </summary>
-    protected virtual void ConfigDefault() {
+    private void ConfigFor() {
         this.NgFor( $"let row of {TableExtendId}.dataSource;index as index" );
     }
 
@@ -80,7 +83,7 @@ public class TableBodyRowBuilder : TableRowBuilder {
         if ( TableShareConfig.IsEnableEdit == false )
             return;
         Attribute( "[x-edit-row]", "row" );
-        Attribute( $"#{RowId}", "xEditRow",true );
+        Attribute( $"#{RowId}", "xEditRow", true );
         Attribute( "(click)", $"{EditId}.clickEdit(row.id)", append: true );
         Attribute( "(dblclick)", $"{EditId}.dblClickEdit(row.id)", append: true );
     }

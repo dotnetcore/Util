@@ -1,5 +1,5 @@
-﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
+﻿using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.Renders;
 
@@ -33,6 +33,6 @@ public class TableBodyRender : RenderBase {
 
     /// <inheritdoc />
     public override IHtmlContent Clone() {
-        return new TableBodyRender( _config.Copy() );
+        return new TableBodyRender( _config.CopyRemoveAttributes() );
     }
 }
