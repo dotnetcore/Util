@@ -1,7 +1,9 @@
-﻿using Util.Ui.NgZorro.Components.Tables.Builders;
+﻿using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 namespace Util.Ui.NgZorro.Components.TreeTables.Builders;
 
 /// <summary>
@@ -27,6 +29,46 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
         _shareConfig = shareConfig;
     }
 
+    /// <summary>
+    /// 配置标题对齐方式
+    /// </summary>
+    public override TableHeadColumnBuilder TitleAlign() {
+        if ( _shareConfig.IsFirst )
+            return this;
+        if ( _shareConfig.IsEnableTableSettings ) {
+            var title = _config.GetValue( UiConst.Title );
+            BindTitleAlign( $"{_shareConfig.TableSettingsId}.getTitleAlign('{title}')" );
+            return this;
+        }
+        AttributeIfNotEmpty( "titleAlign", _shareConfig.TitleAlign );
+        BindTitleAlign( _config.GetValue( AngularConst.BindTitleAlign ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置标题对齐方式
+    /// </summary>
+    public override TableHeadColumnBuilder TitleAlign( string title ) {
+        if ( _shareConfig.IsFirst )
+            return this;
+        if ( _shareConfig.IsEnableTableSettings )
+            BindTitleAlign( $"{_shareConfig.TableSettingsId}.getTitleAlign('{title}')" );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置对齐方式
+    /// </summary>
+    public override TableHeadColumnBuilder Align() {
+        if ( _shareConfig.IsFirst )
+            return this;
+        if ( _shareConfig.IsEnableTableSettings )
+            return this;
+        AttributeIfNotEmpty( "nzAlign", _config.GetValue<TableHeadColumnAlign?>( UiConst.Align )?.Description() );
+        BindAlign( _config.GetValue( AngularConst.BindAlign ) );
+        return this;
+    }
+
     /// <inheritdoc />
     protected override void ConfigContent( Config config ) {
         if ( _shareConfig.IsFirst && _shareConfig.IsShowCheckbox )
@@ -43,12 +85,15 @@ public class TreeTableHeadColumnBuilder : TableHeadColumnBuilder {
             AddFirstColumn( column );
         else
             Title( column.Title );
+        if ( column.IsSort )
+            Sort( column.Column );
         SetColumnWidth( column );
         Left( column.IsLeft, column.Title );
         Right( column.IsRight, column.Title );
         SetAcl( column.Acl, column.AclElseTemplateId );
         EnableCustomColumn( column.GetCellControl() );
         EnableResizable( column );
+        TitleAlign( column.Title );
     }
 
     /// <summary>

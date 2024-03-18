@@ -276,7 +276,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -344,7 +344,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -395,7 +395,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -466,7 +466,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -631,7 +631,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -683,7 +683,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -752,7 +752,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -824,7 +824,7 @@ public partial class TableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'center'},{'title':'a'}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.lineNumber','width':x_id.config.table.lineNumberWidth,'left':true,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
 
         //验证

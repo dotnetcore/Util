@@ -148,7 +148,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 排序
     /// </summary>
-    private void Sort( string order ) {
+    protected void Sort( string order ) {
         if ( order.IsEmpty() )
             return;
         ShowSort( "true" );
@@ -310,7 +310,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置对齐方式
     /// </summary>
-    public TableHeadColumnBuilder Align() {
+    public virtual TableHeadColumnBuilder Align() {
         if ( _shareConfig.IsEnableTableSettings )
             return this;
         AttributeIfNotEmpty( "nzAlign", _config.GetValue<TableHeadColumnAlign?>( UiConst.Align )?.Description() );
@@ -329,7 +329,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置标题对齐方式
     /// </summary>
-    public TableHeadColumnBuilder TitleAlign() {
+    public virtual TableHeadColumnBuilder TitleAlign() {
         if ( _shareConfig.IsEnableTableSettings ) {
             var title = _config.GetValue( UiConst.Title );
             BindTitleAlign( $"{_shareConfig.TableSettingsId}.getTitleAlign('{title}')" );
@@ -343,7 +343,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置标题对齐方式
     /// </summary>
-    public TableHeadColumnBuilder TitleAlign( string title ) {
+    public virtual TableHeadColumnBuilder TitleAlign( string title ) {
         if ( _shareConfig.IsEnableTableSettings )
             BindTitleAlign( $"{_shareConfig.TableSettingsId}.getTitleAlign('{title}')" );
         return this;

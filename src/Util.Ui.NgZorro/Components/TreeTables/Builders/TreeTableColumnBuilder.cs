@@ -1,4 +1,5 @@
-﻿using Util.Ui.NgZorro.Components.Tables.Builders;
+﻿using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Components.Tables.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.TreeTables.Builders.Contents;
@@ -55,5 +56,31 @@ public class TreeTableColumnBuilder : TableColumnBuilder {
         Attribute( "[nzShowExpand]", $"!{tableExtendId}.isLeaf(row)" );
         Attribute( "[nzExpand]", $"{tableExtendId}.isExpand(row)" );
         Attribute( "(nzExpandChange)", $"{tableExtendId}.collapse(row,$event)" );
+    }
+
+    /// <summary>
+    /// 配置对齐方式
+    /// </summary>
+    public override TableColumnBuilder Align() {
+        if (_shareConfig.IsFirst)
+            return this;
+        if ( _shareConfig.IsEnableTableSettings ) {
+            BindAlign( $"{_shareConfig.TableSettingsId}.getAlign('{_shareConfig.Title}')" );
+            return this;
+        }
+        AttributeIfNotEmpty( "nzAlign", _shareConfig.Align );
+        BindAlign( _config.GetValue( AngularConst.BindAlign ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置对齐方式
+    /// </summary>
+    public override TableColumnBuilder Align( string title ) {
+        if ( _shareConfig.IsFirst )
+            return this;
+        if ( _shareConfig.IsEnableTableSettings )
+            BindAlign( $"{_shareConfig.TableSettingsId}.getAlign('{title}')" );
+        return this;
     }
 }

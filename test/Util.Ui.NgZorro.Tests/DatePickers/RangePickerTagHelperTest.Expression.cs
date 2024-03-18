@@ -39,7 +39,7 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label [nzRequired]=\"true\">出生日期</nz-form-label>" );
             result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<nz-range-picker #v_id=\"xValidationExtend\" #x_id=\"xRangePickerExtend\" (nzOnCalendarChange)=\"x_id.handleRangeDateChange($event)\" " );
+            result.Append( "<nz-range-picker #v_id=\"xValidationExtend\" #x_id=\"xRangePickerExtend\" " );
             result.Append( "displayName=\"出生日期\" name=\"beginBirthday\" x-range-picker-extend=\"\" x-validation-extend=\"\" " );
             result.Append( "[(beginDate)]=\"model.beginBirthday\" [(endDate)]=\"model.endBirthday\" [(ngModel)]=\"x_id.rangeDates\" [required]=\"true\">" );
             result.Append( "</nz-range-picker>" );

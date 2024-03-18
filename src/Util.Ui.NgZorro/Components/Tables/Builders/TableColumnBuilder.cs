@@ -189,7 +189,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置对齐方式
     /// </summary>
-    public TableColumnBuilder Align() {
+    public virtual TableColumnBuilder Align() {
         if ( _shareConfig.IsEnableTableSettings ) {
             BindAlign( $"{_shareConfig.TableSettingsId}.getAlign('{_shareConfig.Title}')" );
             return this;
@@ -202,7 +202,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// <summary>
     /// 配置对齐方式
     /// </summary>
-    public TableColumnBuilder Align( string title ) {
+    public virtual TableColumnBuilder Align( string title ) {
         if ( _shareConfig.IsEnableTableSettings )
             BindAlign( $"{_shareConfig.TableSettingsId}.getAlign('{title}')" );
         return this;

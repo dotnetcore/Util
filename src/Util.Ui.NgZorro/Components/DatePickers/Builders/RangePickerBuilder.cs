@@ -237,9 +237,6 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
         Attribute( "x-range-picker-extend" );
         Attribute( $"#{ExtendId}", "xRangePickerExtend" );
         Attribute( "[(ngModel)]", $"{ExtendId}.rangeDates", true );
-        var onCalendarChange = _config.GetValue( UiConst.OnCalendarChange );
-        onCalendarChange = onCalendarChange.IsEmpty() ? "" : ";" + onCalendarChange;
-        Attribute( "(nzOnCalendarChange)", $"{ExtendId}.handleRangeDateChange($event){onCalendarChange}", true );
         BeginDate();
         EndDate();
     }

@@ -134,19 +134,19 @@ public class Property {
     /// <summary>
     /// 是否整数
     /// </summary>
-    public bool IsInteger => SystemType == Generators.SystemType.Short ||
-                             SystemType == Generators.SystemType.Int ||
-                             SystemType == Generators.SystemType.Long;
+    public bool IsInteger => SystemType is Generators.SystemType.Short or Generators.SystemType.Int or Generators.SystemType.Long;
     /// <summary>
     /// 是否浮点数
     /// </summary>
-    public bool IsFloat => SystemType == Generators.SystemType.Single ||
-                           SystemType == Generators.SystemType.Double ||
-                           SystemType == Generators.SystemType.Decimal;
+    public bool IsFloat => SystemType is Generators.SystemType.Single or Generators.SystemType.Double or Generators.SystemType.Decimal;
     /// <summary>
     /// 是否数值类型,包含整数和浮点数
     /// </summary>
     public bool IsNumber => IsInteger || IsFloat;
+    /// <summary>
+    /// 是否Guid类型
+    /// </summary>
+    public bool IsGuid => SystemType == Generators.SystemType.Guid;
 
     /// <summary>
     /// 是否树形属性

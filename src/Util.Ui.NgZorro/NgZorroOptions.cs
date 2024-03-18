@@ -51,15 +51,15 @@ public class NgZorroOptions {
     /// </summary>
     public string TableSettingsTag { get; set; } = "x-table-settings";
     /// <summary>
-    /// 表格复选框对齐方式，默认值：居中对齐
+    /// 表格复选框对齐方式，默认值：左对齐
     /// </summary>
-    public TableHeadColumnAlign TableCheckboxAlign { get; set; } = TableHeadColumnAlign.Center;
+    public TableHeadColumnAlign TableCheckboxAlign { get; set; } = TableHeadColumnAlign.Left;
     /// <summary>
-    /// 表格单选按钮对齐方式，默认值：居中对齐
+    /// 表格单选按钮对齐方式，默认值：左对齐
     /// </summary>
-    public TableHeadColumnAlign TableRadioAlign { get; set; } = TableHeadColumnAlign.Center;
+    public TableHeadColumnAlign TableRadioAlign { get; set; } = TableHeadColumnAlign.Left;
     /// <summary>
-    /// 表格序号对齐方式，默认值：居中对齐
+    /// 表格序号对齐方式，默认值：左对齐
     /// </summary>
-    public TableHeadColumnAlign TableLineNumberAlign { get; set; } = TableHeadColumnAlign.Center;
+    public TableHeadColumnAlign TableLineNumberAlign { get; set; } = TableHeadColumnAlign.Left;
 }

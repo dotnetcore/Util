@@ -12,7 +12,7 @@ public partial class TreeTableTagHelperTest {
     #region EnableCustomColumn
 
     /// <summary>
-    /// 测试启用自定义列
+    /// 测试启用自定义列 - 1列
     /// </summary>
     [Fact]
     public void TestEnableCustomColumn_1() {
@@ -45,7 +45,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<ng-container *ngFor=\"let row of x_id.dataSource;index as index\">" );
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
-        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
@@ -56,7 +56,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -64,10 +64,73 @@ public partial class TreeTableTagHelperTest {
     }
 
     /// <summary>
-    /// 测试启用自定义列 - 创建完整结构
+    /// 测试启用自定义列 - 2列
     /// </summary>
     [Fact]
     public void TestEnableCustomColumn_2() {
+        //设置url属性
+        _wrapper.SetContextAttribute( UiConst.Url, "a" );
+        _wrapper.SetContextAttribute( UiConst.Key, "a" );
+        _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
+
+        //创建列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.SetContextAttribute( UiConst.Title, "a" );
+        column.AppendContent( "b" );
+        _wrapper.AppendContent( column );
+
+        //创建列2
+        var column2 = new TableColumnTagHelper().ToWrapper();
+        column2.SetContextAttribute( UiConst.Title, "c" );
+        column2.AppendContent( "d" );
+        _wrapper.AppendContent( column2 );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table #x_id=\"xTreeTableExtend\" " );
+        result.Append( "(nzPageIndexChange)=\"x_id.pageIndexChange($event)\" (nzPageSizeChange)=\"x_id.pageSizeChange($event)\" " );
+        result.Append( "url=\"a\" x-tree-table-extend=\"\" " );
+        result.Append( "[(nzPageIndex)]=\"x_id.queryParam.page\" [(nzPageSize)]=\"x_id.queryParam.pageSize\" " );
+        result.Append( "[nzBordered]=\"ts_id.bordered\" [nzCustomColumn]=\"ts_id.columns\" [nzData]=\"x_id.dataSource\" " );
+        result.Append( "[nzFrontPagination]=\"false\" [nzLoading]=\"x_id.loading\" [nzScroll]=\"ts_id.scroll\" [nzShowQuickJumper]=\"true\" " );
+        result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th nzCellControl=\"a\">a</th>" );
+        result.Append( "<th nzCellControl=\"c\" [titleAlign]=\"ts_id.getTitleAlign('c')\">c</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<ng-container *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
+        result.Append( "<td " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
+        result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
+        result.Append( ">b</td>" );
+        result.Append( "<td " );
+        result.Append( "nzCellControl=\"c\" [nzAlign]=\"ts_id.getAlign('c')\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('c')\">" );
+        result.Append( "d</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</ng-container>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+        AppendTotalTemplate( result );
+        result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
+        result.Append( "[initColumns]=\"[{'title':'a'},{'title':'c'}]\" [isTreeTable]=\"true\">" );
+        result.Append( "</x-table-settings>" );
+
+        //验证
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试启用自定义列 - 1列  - 创建完整结构
+    /// </summary>
+    [Fact]
+    public void TestEnableCustomColumn_3() {
         //设置url属性
         _wrapper.SetContextAttribute( UiConst.Url, "a" );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
@@ -110,13 +173,13 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" [titleAlign]=\"ts_id.getTitleAlign('a')\">a</th>" );
+        result.Append( "<th nzCellControl=\"a\">a</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
         result.Append( "<td " );
-        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
@@ -126,7 +189,92 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
+        result.Append( "</x-table-settings>" );
+
+        //验证
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试启用自定义列 - 2列  - 创建完整结构
+    /// </summary>
+    [Fact]
+    public void TestEnableCustomColumn_4() {
+        //设置url属性
+        _wrapper.SetContextAttribute( UiConst.Url, "a" );
+        _wrapper.SetContextAttribute( UiConst.Key, "a" );
+        _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
+
+        //创建表头
+        var head = new TableHeadTagHelper().ToWrapper();
+        _wrapper.AppendContent( head );
+
+        //创建表头行
+        var headRow = new TableRowTagHelper().ToWrapper();
+        head.AppendContent( headRow );
+
+        //创建表头单元格
+        var th = new TableHeadColumnTagHelper().ToWrapper();
+        th.SetContextAttribute( UiConst.Title, "a" );
+        headRow.AppendContent( th );
+
+        //创建表头单元格2
+        var th2 = new TableHeadColumnTagHelper().ToWrapper();
+        th2.SetContextAttribute( UiConst.Title, "c" );
+        headRow.AppendContent( th2 );
+
+        //创建表格主体
+        var body = new TableBodyTagHelper().ToWrapper();
+        _wrapper.AppendContent( body );
+
+        //创建表格主体行
+        var row = new TableRowTagHelper().ToWrapper();
+        body.AppendContent( row );
+
+        //创建列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.AppendContent( "b" );
+        row.AppendContent( column );
+
+        //创建列2
+        var column2 = new TableColumnTagHelper().ToWrapper();
+        column2.AppendContent( "d" );
+        row.AppendContent( column2 );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table #x_id=\"xTreeTableExtend\" " );
+        result.Append( "(nzPageIndexChange)=\"x_id.pageIndexChange($event)\" (nzPageSizeChange)=\"x_id.pageSizeChange($event)\" " );
+        result.Append( "url=\"a\" x-tree-table-extend=\"\" " );
+        result.Append( "[(nzPageIndex)]=\"x_id.queryParam.page\" [(nzPageSize)]=\"x_id.queryParam.pageSize\" " );
+        result.Append( "[nzBordered]=\"ts_id.bordered\" [nzCustomColumn]=\"ts_id.columns\" [nzData]=\"x_id.dataSource\" " );
+        result.Append( "[nzFrontPagination]=\"false\" [nzLoading]=\"x_id.loading\" [nzScroll]=\"ts_id.scroll\" [nzShowQuickJumper]=\"true\" " );
+        result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th nzCellControl=\"a\">a</th>" );
+        result.Append( "<th nzCellControl=\"c\" [titleAlign]=\"ts_id.getTitleAlign('c')\">c</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr>" );
+        result.Append( "<td " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
+        result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
+        result.Append( ">b</td>" );
+        result.Append( "<td " );
+        result.Append( "nzCellControl=\"c\" [nzAlign]=\"ts_id.getAlign('c')\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('c')\">" );
+        result.Append( "d</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+        AppendTotalTemplate( result );
+        result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
+        result.Append( "[initColumns]=\"[{'title':'a'},{'title':'c'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -137,7 +285,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置复选框
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_3() {
+    public void TestEnableCustomColumn_5() {
         _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -174,7 +322,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<ng-container *ngFor=\"let row of x_id.dataSource;index as index\">" );
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
-        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
@@ -193,7 +341,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -204,7 +352,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置复选框 - 创建完整结构
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_4() {
+    public void TestEnableCustomColumn_6() {
         _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -246,7 +394,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" [titleAlign]=\"ts_id.getTitleAlign('a')\">" );
+        result.Append( "<th nzCellControl=\"a\">" );
         result.Append( "<label " );
         result.Append( "(nzCheckedChange)=\"x_id.masterToggle()\" " );
         result.Append( "nz-checkbox=\"\" " );
@@ -260,7 +408,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
         result.Append( "<td " );
-        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
@@ -278,7 +426,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -289,7 +437,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置单选框
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_5() {
+    public void TestEnableCustomColumn_7() {
         _wrapper.SetContextAttribute( UiConst.ShowRadio, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -318,7 +466,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<ng-container *ngFor=\"let row of x_id.dataSource;index as index\">" );
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
-        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
@@ -333,7 +481,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -344,7 +492,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置单选框 - 创建完整结构
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_6() {
+    public void TestEnableCustomColumn_8() {
         _wrapper.SetContextAttribute( UiConst.ShowRadio, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -386,13 +534,13 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" [titleAlign]=\"ts_id.getTitleAlign('a')\">a</th>" );
+        result.Append( "<th nzCellControl=\"a\">a</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
         result.Append( "<td " );
-        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" " );
+        result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
         result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
@@ -406,7 +554,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -417,7 +565,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 固定列
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_7() {
+    public void TestEnableCustomColumn_9() {
         //设置url属性
         _wrapper.SetContextAttribute( UiConst.Url, "a" );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
@@ -449,7 +597,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">b</td>" );
@@ -459,7 +607,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -470,7 +618,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 固定列 - 创建完整结构
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_8() {
+    public void TestEnableCustomColumn_10() {
         //设置url属性
         _wrapper.SetContextAttribute( UiConst.Url, "a" );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
@@ -514,14 +662,14 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" nzLeft=\"10px\" [titleAlign]=\"ts_id.getTitleAlign('a')\">a</th>" );
+        result.Append( "<th nzCellControl=\"a\" nzLeft=\"10px\">a</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">b</td>" );
@@ -530,7 +678,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -541,7 +689,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置复选框 - 固定列
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_9() {
+    public void TestEnableCustomColumn_11() {
         _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -580,7 +728,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -598,7 +746,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -609,7 +757,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置复选框 - 固定列 - 创建完整结构
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_10() {
+    public void TestEnableCustomColumn_12() {
         _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -652,7 +800,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" nzLeft=\"10px\" [titleAlign]=\"ts_id.getTitleAlign('a')\">" );
+        result.Append( "<th nzCellControl=\"a\" nzLeft=\"10px\">" );
         result.Append( "<label " );
         result.Append( "(nzCheckedChange)=\"x_id.masterToggle()\" " );
         result.Append( "nz-checkbox=\"\" " );
@@ -667,7 +815,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -684,7 +832,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -695,7 +843,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置单选框 - 固定列
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_11() {
+    public void TestEnableCustomColumn_13() {
         _wrapper.SetContextAttribute( UiConst.ShowRadio, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -726,7 +874,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -740,7 +888,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -751,7 +899,7 @@ public partial class TreeTableTagHelperTest {
     /// 测试启用自定义列 - 设置单选框 - 固定列 - 创建完整结构
     /// </summary>
     [Fact]
-    public void TestEnableCustomColumn_12() {
+    public void TestEnableCustomColumn_14() {
         _wrapper.SetContextAttribute( UiConst.ShowRadio, true );
         _wrapper.SetContextAttribute( UiConst.Key, "a" );
         _wrapper.SetContextAttribute( UiConst.EnableCustomColumn, true );
@@ -794,14 +942,14 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" nzLeft=\"10px\" [titleAlign]=\"ts_id.getTitleAlign('a')\">a</th>" );
+        result.Append( "<th nzCellControl=\"a\" nzLeft=\"10px\">a</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" nzLeft=\"10px\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -814,7 +962,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -863,7 +1011,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">b</td>" );
@@ -873,7 +1021,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -927,7 +1075,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<thead>" );
         result.Append( "<tr>" );
         result.Append( "<th (nzResizeEnd)=\"ts_id.handleResize($event,'a')\" " );
-        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzPreview=\"\" [nzWidth]=\"ts_id.getWidth('a')\" [titleAlign]=\"ts_id.getTitleAlign('a')\">" );
+        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzPreview=\"\" [nzWidth]=\"ts_id.getWidth('a')\">" );
         result.Append( "a" );
         result.Append( "<nz-resize-handle nzDirection=\"right\"></nz-resize-handle>" );
         result.Append( "</th>" );
@@ -937,7 +1085,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">b</td>" );
@@ -946,7 +1094,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -997,7 +1145,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1015,7 +1163,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1069,7 +1217,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<thead>" );
         result.Append( "<tr>" );
         result.Append( "<th (nzResizeEnd)=\"ts_id.handleResize($event,'a')\" " );
-        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzPreview=\"\" [nzWidth]=\"ts_id.getWidth('a')\" [titleAlign]=\"ts_id.getTitleAlign('a')\">" );
+        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzPreview=\"\" [nzWidth]=\"ts_id.getWidth('a')\">" );
         result.Append( "<label " );
         result.Append( "(nzCheckedChange)=\"x_id.masterToggle()\" " );
         result.Append( "nz-checkbox=\"\" " );
@@ -1085,7 +1233,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1102,7 +1250,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1147,7 +1295,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1161,7 +1309,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1215,7 +1363,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<thead>" );
         result.Append( "<tr>" );
         result.Append( "<th (nzResizeEnd)=\"ts_id.handleResize($event,'a')\" " );
-        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzPreview=\"\" [nzWidth]=\"ts_id.getWidth('a')\" [titleAlign]=\"ts_id.getTitleAlign('a')\">" );
+        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzPreview=\"\" [nzWidth]=\"ts_id.getWidth('a')\">" );
         result.Append( "a" );
         result.Append( "<nz-resize-handle nzDirection=\"right\"></nz-resize-handle>" );
         result.Append( "</th>" );
@@ -1225,7 +1373,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1238,7 +1386,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "[initColumns]=\"[{'title':'a'}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1286,7 +1434,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">b</td>" );
@@ -1296,7 +1444,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1352,14 +1500,14 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" [titleAlign]=\"ts_id.getTitleAlign('a')\">a</th>" );
+        result.Append( "<th nzCellControl=\"a\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\">a</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">b</td>" );
@@ -1368,7 +1516,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1419,7 +1567,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1437,7 +1585,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1492,7 +1640,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" [titleAlign]=\"ts_id.getTitleAlign('a')\">" );
+        result.Append( "<th nzCellControl=\"a\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\">" );
         result.Append( "<label " );
         result.Append( "(nzCheckedChange)=\"x_id.masterToggle()\" " );
         result.Append( "nz-checkbox=\"\" " );
@@ -1507,7 +1655,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1524,7 +1672,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1567,7 +1715,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "<tr *ngIf=\"x_id.isShow(row)\">" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1581,7 +1729,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证
@@ -1636,14 +1784,14 @@ public partial class TreeTableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzSize]=\"ts_id.size\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th nzCellControl=\"a\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" [titleAlign]=\"ts_id.getTitleAlign('a')\">a</th>" );
+        result.Append( "<th nzCellControl=\"a\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\">a</th>" );
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
         result.Append( "<tr>" );
         result.Append( "<td " );
         result.Append( "(nzExpandChange)=\"x_id.collapse(row,$event)\" nzCellControl=\"a\" " );
-        result.Append( "[nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
+        result.Append( "[nzEllipsis]=\"ts_id.getEllipsis('a')\" [nzExpand]=\"x_id.isExpand(row)\" " );
         result.Append( "[nzIndentSize]=\"row.level*x_id.config.table.indentUnitWidth\" [nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" " );
         result.Append( "[nzShowExpand]=\"!x_id.isLeaf(row)\"" );
         result.Append( ">" );
@@ -1656,7 +1804,7 @@ public partial class TreeTableTagHelperTest {
         result.Append( "</nz-table>" );
         AppendTotalTemplate( result );
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
-        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\">" );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','left':true}]\" [isTreeTable]=\"true\">" );
         result.Append( "</x-table-settings>" );
 
         //验证

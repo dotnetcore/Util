@@ -38,6 +38,16 @@ public class TableSettingsBuilder : AngularTagBuilder {
     /// <summary>
     /// 设置表格尺寸
     /// </summary>
+    public TableSettingsBuilder IsTreeTable() {
+        if (_tableShareConfig.IsTreeTable == false)
+            return this;
+        Attribute( "[isTreeTable]","true" );
+        return this;
+    }
+
+    /// <summary>
+    /// 设置表格尺寸
+    /// </summary>
     public TableSettingsBuilder Size() {
         AttributeIfNotEmpty( "initSize", _config.GetValue<TableSize?>( UiConst.Size )?.Description() );
         return this;
@@ -160,7 +170,7 @@ public class TableSettingsBuilder : AngularTagBuilder {
             throw new ArgumentNullException( "表格存储标识属性 Key 必须设置!" );
         Attribute( $"#{_tableShareConfig.TableSettingsId}" );
         Attribute( "key", _tableShareConfig.Key );
-        Size().Bordered().Scroll().EnableFixedColumn();
+        IsTreeTable().Size().Bordered().Scroll().EnableFixedColumn();
         InitColumns();
     }
 }
