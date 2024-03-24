@@ -70,9 +70,7 @@ public static class AppBuilderExtensions {
     /// 配置Oracle EF配置项
     /// </summary>
     private static void ConfigOptions( IServiceCollection services, bool isGuidToString ) {
-        var options = new OracleEntityFrameworkCoreOptions {
-            IsGuidToString = isGuidToString
-        };
-        services.ConfigureOptions( options );
+        void Action( OracleEntityFrameworkCoreOptions t ) => t.IsGuidToString = isGuidToString;
+        services.Configure<OracleEntityFrameworkCoreOptions>( Action );
     }
 }

@@ -4,7 +4,7 @@ using Util.Helpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Util.Tests.Helpers; 
+namespace Util.Tests.Helpers;
 
 /// <summary>
 /// 随机数操作测试
@@ -38,6 +38,32 @@ public class RandomTest {
                 return;
         }
         Assert.Fail( "fail" );
+    }
+
+    /// <summary>
+    /// 测试从集合中随机获取值列表
+    /// </summary>
+    [Fact]
+    public void TestGetValues_1() {
+        var list = Enumerable.Range( 0, 10 );
+        var result = Random.GetValues( list, 3 );
+        Assert.Equal( 3, result.Count );
+        Assert.True( result[0] >= 0 && result[0] < 10 );
+        Assert.True( result[1] >= 0 && result[1] < 10 );
+        Assert.True( result[2] >= 0 && result[2] < 10 );
+    }
+
+    /// <summary>
+    /// 测试从集合中随机获取值列表 - 获取数量大于集合数量
+    /// </summary>
+    [Fact]
+    public void TestGetValues_2() {
+        var list = Enumerable.Range( 0, 3 );
+        var result = Random.GetValues( list, 10 );
+        Assert.Equal( 3, result.Count );
+        Assert.True( result[0] >= 0 && result[0] < 3 );
+        Assert.True( result[1] >= 0 && result[1] < 3 );
+        Assert.True( result[2] >= 0 && result[2] < 3 );
     }
 
     /// <summary>

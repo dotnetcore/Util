@@ -107,11 +107,19 @@ public class ImageBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置事件
+    /// </summary>
+    public ImageBuilder Events() {
+        AttributeIfNotEmpty( "(load)", _config.GetValue( UiConst.OnLoad ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
         Src().Fallback().Placeholder().DisablePreview().CloseOnNavigation().Direction()
-            .Width().Height().Alt();
+            .Width().Height().Alt().Events();
     }
 }

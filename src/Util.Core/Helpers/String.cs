@@ -66,12 +66,14 @@ public static class String {
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="start">要移除的值</param>
-    public static string RemoveStart( string value, string start ) {
+    /// <param name="ignoreCase">是否忽略大小写,默认值: true</param>
+    public static string RemoveStart( string value, string start, bool ignoreCase = true ) {
         if ( string.IsNullOrWhiteSpace( value ) )
             return string.Empty;
         if ( string.IsNullOrEmpty( start ) )
             return value;
-        if ( value.StartsWith( start, StringComparison.Ordinal ) == false )
+        var options = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        if ( value.StartsWith( start, options ) == false )
             return value;
         return value.Substring( start.Length, value.Length - start.Length );
     }
@@ -105,14 +107,16 @@ public static class String {
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="end">要移除的值</param>
-    public static string RemoveEnd( string value, string end ) {
+    /// <param name="ignoreCase">是否忽略大小写,默认值: true</param>
+    public static string RemoveEnd( string value, string end,bool ignoreCase = true ) {
         if ( string.IsNullOrWhiteSpace( value ) )
             return string.Empty;
         if ( string.IsNullOrEmpty( end ) )
             return value;
-        if ( value.EndsWith( end, StringComparison.Ordinal ) == false )
+        var options = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        if ( value.EndsWith( end, options ) == false )
             return value;
-        return value.Substring( 0, value.LastIndexOf( end, StringComparison.Ordinal ) );
+        return value.Substring( 0, value.LastIndexOf( end, options ) );
     }
 
     /// <summary>

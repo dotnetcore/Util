@@ -1,6 +1,6 @@
 ﻿using String = Util.Helpers.String;
 
-namespace Util; 
+namespace Util;
 
 /// <summary>
 /// 字符串扩展
@@ -11,8 +11,9 @@ public static class StringExtensions {
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="start">要移除的值</param>
-    public static string RemoveStart( this string value, string start ) {
-        return String.RemoveStart( value, start );
+    /// <param name="ignoreCase">是否忽略大小写,默认值: true</param>
+    public static string RemoveStart( this string value, string start, bool ignoreCase = true ) {
+        return String.RemoveStart( value, start, ignoreCase );
     }
 
     /// <summary>
@@ -20,8 +21,9 @@ public static class StringExtensions {
     /// </summary>
     /// <param name="value">值</param>
     /// <param name="end">要移除的值</param>
-    public static string RemoveEnd( this string value, string end ) {
-        return String.RemoveEnd( value, end );
+    /// <param name="ignoreCase">是否忽略大小写,默认值: true</param>
+    public static string RemoveEnd( this string value, string end, bool ignoreCase = true ) {
+        return String.RemoveEnd( value, end, ignoreCase );
     }
 
     /// <summary>
@@ -61,7 +63,7 @@ public static class StringExtensions {
     /// <param name="writer">字符串写入器</param>
     /// <param name="end">要移除的值</param>
     public static StringWriter RemoveEnd( this StringWriter writer, string end ) {
-        if( writer == null )
+        if ( writer == null )
             return null;
         var builder = writer.GetStringBuilder();
         builder.RemoveEnd( end );

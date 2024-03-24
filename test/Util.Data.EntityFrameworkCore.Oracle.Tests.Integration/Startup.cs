@@ -20,7 +20,7 @@ namespace Util.Data.EntityFrameworkCore {
             hostBuilder.ConfigureDefaults( null )
                 .AsBuild()
                 .AddAop()
-                .AddOracleUnitOfWork<ITestUnitOfWork, OracleUnitOfWork>( Config.GetConnectionString( "connection" ) )
+                .AddOracleUnitOfWork<ITestUnitOfWork, OracleUnitOfWork>( Config.GetConnectionString( "connection" ),isGuidToString:false )
                 .AddUtil();
         }
 

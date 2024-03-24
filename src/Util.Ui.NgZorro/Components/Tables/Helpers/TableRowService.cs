@@ -1,5 +1,4 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Tables.Configs;
+﻿using Util.Ui.NgZorro.Components.Tables.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
 
@@ -58,6 +57,7 @@ public class TableRowService {
         ConfigRowId();
         CancelAutoCreateHeadRow();
         CancelAutoCreateBodyRow();
+        ConfigHeadRowNumber();
     }
 
     /// <summary>
@@ -84,5 +84,14 @@ public class TableRowService {
         if ( IsHeadRow )
             return;
         _shareConfig.IsAutoCreateBodyRow = false;
+    }
+
+    /// <summary>
+    /// 配置表头行数
+    /// </summary>
+    private void ConfigHeadRowNumber() {
+        if ( IsHeadRow == false )
+            return;
+        _shareConfig.HeadRowNumber++;
     }
 }

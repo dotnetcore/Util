@@ -20,4 +20,8 @@ public class RazorOptions {
     /// Razor生成Html页面的文件后缀，默认值：component.html
     /// </summary>
     public string GenerateHtmlSuffix { get; set; } = "component.html";
+    /// <summary>
+    /// 修改Razor页面生成Html文件的延迟时间，单位: 毫秒, 默认值：100 ,注意: 延迟太短可能导致生成异常
+    /// </summary>
+    public int HtmlRenderDelayOnRazorChange { get; set; } = 100;
 }

@@ -198,7 +198,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
             return this;
         var width = _config.GetValue( UiConst.Width );
         if ( _shareConfig.IsEnableResizable ) {
-            var title = _config.GetValue( UiConst.Title );
+            var title = _shareConfig.Title;
             Attribute( "[nzWidth]", GetWidthByTableSettings( title, width ) );
             return this;
         }
@@ -220,7 +220,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// </summary>
     public TableHeadColumnBuilder Left() {
         if ( _shareConfig.IsEnableFixedColumn ) {
-            var title = _config.GetValue( UiConst.Title );
+            var title = _shareConfig.Title;
             BindLeft( $"{_shareConfig.TableSettingsId}.isLeft('{title}')" );
             return this;
         }
@@ -266,7 +266,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// </summary>
     public TableHeadColumnBuilder Right() {
         if ( _shareConfig.IsEnableFixedColumn ) {
-            var title = _config.GetValue( UiConst.Title );
+            var title = _shareConfig.Title;
             BindRight( $"{_shareConfig.TableSettingsId}.isRight('{title}')" );
             return this;
         }
@@ -331,7 +331,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// </summary>
     public virtual TableHeadColumnBuilder TitleAlign() {
         if ( _shareConfig.IsEnableTableSettings ) {
-            var title = _config.GetValue( UiConst.Title );
+            var title = _shareConfig.Title;
             BindTitleAlign( $"{_shareConfig.TableSettingsId}.getTitleAlign('{title}')" );
             return this;
         }
@@ -390,8 +390,16 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置行跨度
     /// </summary>
     public TableHeadColumnBuilder Rowspan() {
-        AttributeIfNotEmpty( "rowSpan", _config.GetValue( UiConst.Rowspan ) );
+        Rowspan( _config.GetValue( UiConst.Rowspan ) );
         AttributeIfNotEmpty( "[rowSpan]", _config.GetValue( AngularConst.BindRowspan ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置行跨度
+    /// </summary>
+    public TableHeadColumnBuilder Rowspan( string value ) {
+        AttributeIfNotEmpty( "rowSpan", value );
         return this;
     }
 
@@ -484,7 +492,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     public TableHeadColumnBuilder EnableResizable() {
         if ( _shareConfig.IsEnableResizable == false )
             return this;
-        return Resizable( _config.GetValue( UiConst.Title ) );
+        return Resizable( _shareConfig.Title );
     }
 
     /// <summary>
@@ -581,6 +589,16 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         if ( _shareConfig.IsEnableFixedColumn )
             Right( _shareConfig.IsCheckboxLeft, title );
         TitleAlign( title );
+        ConfigRowSpan();
+    }
+
+    /// <summary>
+    /// 配置行跨度
+    /// </summary>
+    protected void ConfigRowSpan() {
+        if (_shareConfig.HeadRowNumber < 2)
+            return;
+        Rowspan(_shareConfig.HeadRowNumber.ToString());
     }
 
     /// <summary>
@@ -610,6 +628,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
             radioBuilder.Right( _shareConfig.IsRadioLeft, radioTitle );
         if ( _shareConfig.IsEnableCustomColumn == false )
             radioBuilder.BindWidth( $"{_shareConfig.TableExtendId}.config.table.radioWidth" );
+        radioBuilder.ConfigRowSpan();
         PreBuilder = radioBuilder;
     }
 
@@ -634,6 +653,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
         lineNumberBuilder.ConfigLineNumber();
         lineNumberBuilder.EnableCustomColumn( title );
         lineNumberBuilder.TitleAlign( title );
+        lineNumberBuilder.ConfigRowSpan();
         if ( PreBuilder == null ) {
             PreBuilder = lineNumberBuilder;
             return;

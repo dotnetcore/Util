@@ -29,10 +29,6 @@ public class FormItemShareConfig : FormShareConfig {
     /// </summary>
     public string LabelText { get; set; }
     /// <summary>
-    /// 标签宽度
-    /// </summary>
-    public string LabelWidth { get; set; }
-    /// <summary>
     /// 是否存在额外提示
     /// </summary>
     public bool HasExtra { get; set; }

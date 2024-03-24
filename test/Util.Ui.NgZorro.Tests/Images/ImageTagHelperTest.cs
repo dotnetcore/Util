@@ -267,5 +267,16 @@ namespace Util.Ui.NgZorro.Tests.Images {
             result.Append( "<img nz-image=\"\" [alt]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试图片加载完成事件
+        /// </summary>
+        [Fact]
+        public void TestOnLoad() {
+            _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
+            var result = new StringBuilder();
+            result.Append( "<img (load)=\"a\" nz-image=\"\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

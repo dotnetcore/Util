@@ -52,6 +52,11 @@ public class TableHeadColumnShareConfig {
     public bool IsShowLineNumber => _tableShareConfig.IsShowLineNumber;
 
     /// <summary>
+    /// 表头行数
+    /// </summary>
+    public int HeadRowNumber => _tableShareConfig.HeadRowNumber;
+
+    /// <summary>
     /// 固定复选框到左侧
     /// </summary>
     public string IsCheckboxLeft => _tableShareConfig.IsCheckboxLeft;

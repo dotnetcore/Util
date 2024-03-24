@@ -84,6 +84,10 @@ public class ImageTagHelper : AngularTagHelperBase {
     /// [alt],文本描述
     /// </summary>
     public string BindAlt { get; set; }
+    /// <summary>
+    /// (load),图片加载完成事件
+    /// </summary>
+    public string OnLoad { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

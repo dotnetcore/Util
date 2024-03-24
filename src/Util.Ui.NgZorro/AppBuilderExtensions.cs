@@ -1,5 +1,7 @@
-﻿using Util.Configs;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Util.Configs;
 using Util.Ui.Razor;
+using Util.Ui.Razor.Internal;
 
 namespace Util.Ui.NgZorro;
 
@@ -26,6 +28,9 @@ public static class AppBuilderExtensions {
             var options = new NgZorroOptions();
             setupAction?.Invoke( options );
             services.AddRazorPages().AddRazorRuntimeCompilation().AddConventions();
+            services.TryAddSingleton<IRazorWatchService, RazorWatchService>();
+            services.TryAddSingleton<IPartViewPathResolver, PartViewPathResolver>();
+            services.TryAddSingleton<IPartViewPathFinder, PartViewPathFinder>();
             ConfigSpaStaticFiles( services, options );
             ConfigRazorOptions( services, options );
             ConfigNgZorroOptions( services, setupAction );
@@ -51,6 +56,7 @@ public static class AppBuilderExtensions {
             t.GenerateHtmlBasePath = options.GenerateHtmlBasePath;
             t.GenerateHtmlFolder = options.GenerateHtmlFolder;
             t.GenerateHtmlSuffix = options.GenerateHtmlSuffix;
+            t.HtmlRenderDelayOnRazorChange = options.HtmlRenderDelayOnRazorChange;
         }
         services.Configure( (Action<RazorOptions>)Action );
     }

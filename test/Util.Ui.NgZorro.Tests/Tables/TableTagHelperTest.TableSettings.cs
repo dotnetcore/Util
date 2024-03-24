@@ -323,4 +323,85 @@ public partial class TableTagHelperTest {
         result.Append( "</x-table-settings>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
+
+    /// <summary>
+    /// 测试启用表格设置 - 设置完整结构 - 2列
+    /// </summary>
+    [Fact]
+    public void TestEnableTableSettings_8() {
+        _wrapper.SetContextAttribute( UiConst.Key, "k" );
+        _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
+
+        //创建表头
+        var head = new TableHeadTagHelper().ToWrapper();
+        _wrapper.AppendContent( head );
+
+        //创建表头行
+        var headRow = new TableRowTagHelper().ToWrapper();
+        head.AppendContent( headRow );
+
+        //创建表头单元格
+        var th = new TableHeadColumnTagHelper().ToWrapper();
+        th.SetContextAttribute( UiConst.Title, "a" );
+        th.SetContextAttribute( UiConst.TitleAlign, TableHeadColumnAlign.Center );
+        headRow.AppendContent( th );
+
+        //创建表头单元格2
+        var th2 = new TableHeadColumnTagHelper().ToWrapper();
+        th2.SetContextAttribute( UiConst.TitleOperation, true );
+        th2.SetContextAttribute( UiConst.Right, "true" );
+        headRow.AppendContent( th2 );
+
+        //创建表格主体
+        var body = new TableBodyTagHelper().ToWrapper();
+        _wrapper.AppendContent( body );
+
+        //创建表格主体行
+        var row = new TableRowTagHelper().ToWrapper();
+        body.AppendContent( row );
+
+        //创建列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.SetContextAttribute( UiConst.Column, "b" );
+        column.SetContextAttribute( UiConst.Ellipsis, true );
+        row.AppendContent( column );
+
+        //创建列2
+        var column2 = new TableColumnTagHelper().ToWrapper();
+        column2.SetContextAttribute( UiConst.Column, "d" );
+        row.AppendContent( column2 );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table nzTableLayout=\"fixed\" [nzBordered]=\"ts_id.bordered\" [nzCustomColumn]=\"ts_id.columns\" [nzScroll]=\"ts_id.scroll\" [nzSize]=\"ts_id.size\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th (nzResizeEnd)=\"ts_id.handleResize($event,'a')\" " );
+        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzCellControl=\"a\" nzPreview=\"\" " );
+        result.Append( "[nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\" [titleAlign]=\"ts_id.getTitleAlign('a')\">" );
+        result.Append( "a" );
+        result.Append( "<nz-resize-handle nzDirection=\"right\"></nz-resize-handle>" );
+        result.Append( "</th>" );
+        result.Append( "<th (nzResizeEnd)=\"ts_id.handleResize($event,'Operation')\" " );
+        result.Append( "nz-resizable=\"\" nzBounds=\"window\" nzCellControl=\"Operation\" nzPreview=\"\" " );
+        result.Append( "[nzLeft]=\"ts_id.isLeft('Operation')\" [nzRight]=\"ts_id.isRight('Operation')\" [titleAlign]=\"ts_id.getTitleAlign('Operation')\">" );
+        result.Append( "Operation" );
+        result.Append( "<nz-resize-handle nzDirection=\"right\"></nz-resize-handle>" );
+        result.Append( "</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr>" );
+        result.Append( "<td nzCellControl=\"a\" [nzAlign]=\"ts_id.getAlign('a')\" [nzEllipsis]=\"ts_id.getEllipsis('a')\" " );
+        result.Append( "[nzLeft]=\"ts_id.isLeft('a')\" [nzRight]=\"ts_id.isRight('a')\">{{row.b}}</td>" );
+        result.Append( "<td nzCellControl=\"Operation\" [nzAlign]=\"ts_id.getAlign('Operation')\" [nzEllipsis]=\"ts_id.getEllipsis('Operation')\" " );
+        result.Append( "[nzLeft]=\"ts_id.isLeft('Operation')\" [nzRight]=\"ts_id.isRight('Operation')\">{{row.d}}</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+        result.Append( "<x-table-settings #ts_id=\"\" key=\"k\" " );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','titleAlign':'center','ellipsis':true},{'title':'Operation','right':true}]\">" );
+        result.Append( "</x-table-settings>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace Util.Helpers; 
+﻿namespace Util.Helpers;
 
 /// <summary>
 /// Url操作
@@ -18,6 +18,10 @@ public static class Url {
         var lastPath = paths.Last();
         paths = paths.Select( t => t.Trim( '/' ) ).ToArray();
         var result = Path.Combine( paths ).Replace( @"\", "/" );
+        if ( paths.Any( path => path.StartsWith( "." ) ) ) {
+            result = Path.GetFullPath( Path.Combine( paths ) );
+            result = result.RemoveStart( AppContext.BaseDirectory ).Replace( @"\", "/" );
+        }
         if ( firstPath.StartsWith( '/' ) )
             result = $"/{result}";
         if ( lastPath.EndsWith( '/' ) )

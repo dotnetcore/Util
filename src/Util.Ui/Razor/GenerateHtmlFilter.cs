@@ -34,7 +34,7 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
         try {
             var html = await GetHtml( context );
             await WriteFile( path, html );
-            log.LogDebug( $"Razor页面生成 html成功: razor path: {context.ActionDescriptor.ViewEnginePath}, html path: {path}" );
+            log.LogDebug( $"Razor生成Html成功: Razor Path: {context.ActionDescriptor.ViewEnginePath}, Html Path: {path}" );
         }
         catch ( Exception exception ) {
             log.LogError(exception, $"Razor页面生成 html 失败: razor path: {context.ActionDescriptor.ViewEnginePath}" );
@@ -53,9 +53,9 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     /// 创建Html文件路径
     /// </summary>
     private string CreatePath( PageHandlerSelectedContext context, RazorOptions options ) {
-        var attribute = context.ActionDescriptor.ModelTypeInfo.GetCustomAttribute<HtmlAttribute>();
+        var attribute = context?.ActionDescriptor?.ModelTypeInfo?.GetCustomAttribute<HtmlAttribute>();
         if ( attribute == null )
-            return GetPath( context.ActionDescriptor.ViewEnginePath, options.GenerateHtmlBasePath, options.GenerateHtmlFolder, options.GenerateHtmlSuffix );
+            return GetPath( context?.ActionDescriptor.ViewEnginePath, options.GenerateHtmlBasePath, options.GenerateHtmlFolder, options.GenerateHtmlSuffix );
         if ( attribute.Ignore )
             return string.Empty;
         if ( string.IsNullOrWhiteSpace( attribute.Path ) )
@@ -107,7 +107,7 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     /// 查找Razor页面
     /// </summary>
     private IRazorPage FindPage( IRazorViewEngine razorViewEngine, string pageName ) {
-        var result = razorViewEngine.GetPage( null, pageName );
+        var result = razorViewEngine.GetPage( null!, pageName );
         return result.Page;
     }
 

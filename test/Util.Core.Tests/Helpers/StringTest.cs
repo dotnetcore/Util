@@ -90,13 +90,21 @@ public class StringTest {
     [InlineData( "ab", "b", "ab" )]
     [InlineData( "ab", "a", "b" )]
     [InlineData( "abc", "ab", "c" )]
-    [InlineData( "abc", "Ab", "abc" )]
     [InlineData( "abc", "abc", "" )]
     [InlineData( "ab", "abc", "ab" )]
     [InlineData( "a.cs.cshtml", "a.cs", ".cshtml" )]
     [InlineData( "\r\na", "\r\n", "a" )]
     public void TestRemoveStart( string value, string removeValue, string result ) {
         Assert.Equal( result, String.RemoveStart( value, removeValue ) );
+    }
+
+    /// <summary>
+    /// 测试移除起始字符串 - 大小写
+    /// </summary>
+    [Fact]
+    public void TestRemoveStart_2() {
+        Assert.Equal( ".cs", String.RemoveStart( "ab.cs", "Ab" ) );
+        Assert.Equal( "ab.cs", String.RemoveStart( "ab.cs", "Ab", false ) );
     }
 
     /// <summary>
@@ -150,7 +158,16 @@ public class StringTest {
     [InlineData( "a.cs.cshtml", ".cshtml", "a.cs" )]
     [InlineData( "a\r\n", "\r\n", "a" )]
     public void TestRemoveEnd( string value, string removeValue, string result ) {
-        Assert.Equal( result, String.RemoveEnd( value, removeValue ) );
+        Assert.Equal( result, String.RemoveEnd( value, removeValue, false ) );
+    }
+
+    /// <summary>
+    /// 测试移除末尾字符串 - 大小写
+    /// </summary>
+    [Fact]
+    public void TestRemoveEnd_2() {
+        Assert.Equal( "ab", String.RemoveEnd( "ab.cs", ".Cs" ) );
+        Assert.Equal( "ab.cs", String.RemoveEnd( "ab.cs", ".Cs", false ) );
     }
 
     /// <summary>

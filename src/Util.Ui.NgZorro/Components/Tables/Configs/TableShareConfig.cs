@@ -24,6 +24,7 @@ public class TableShareConfig {
         IsAutoCreateHeadColumn = true;
         IsAutoCreateBody = true;
         IsAutoCreateBodyRow = true;
+        HeadRowNumber = 0;
     }
 
     /// <summary>
@@ -88,6 +89,11 @@ public class TableShareConfig {
     /// 列数
     /// </summary>
     public int ColumnNumber { get; set; }
+
+    /// <summary>
+    /// 表头行数
+    /// </summary>
+    public int HeadRowNumber { get; set; }
 
     /// <summary>
     /// 是否自动创建表头thead
