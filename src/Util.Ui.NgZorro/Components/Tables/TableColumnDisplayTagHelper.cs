@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Components.Tables.Renders;
 using Util.Ui.Renders;
 
@@ -19,6 +19,8 @@ public class TableColumnDisplayTagHelper : AngularTagHelperBase {
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
         _config = new Config( context, output );
+        var service = new TableColumnDisplayService( _config );
+        service.Init();
     }
 
     /// <inheritdoc />

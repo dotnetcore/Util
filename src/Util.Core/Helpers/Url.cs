@@ -16,6 +16,11 @@ public static class Url {
             return string.Empty;
         var firstPath = paths.First();
         var lastPath = paths.Last();
+        string schema = string.Empty;
+        if ( firstPath.StartsWith( "http:", StringComparison.OrdinalIgnoreCase ) )
+            schema = "http://";
+        if ( firstPath.StartsWith( "https:", StringComparison.OrdinalIgnoreCase ) )
+            schema = "https://";
         paths = paths.Select( t => t.Trim( '/' ) ).ToArray();
         var result = Path.Combine( paths ).Replace( @"\", "/" );
         if ( paths.Any( path => path.StartsWith( "." ) ) ) {
@@ -26,6 +31,9 @@ public static class Url {
             result = $"/{result}";
         if ( lastPath.EndsWith( '/' ) )
             result = $"{result}/";
-        return result;
+        result = result.RemoveStart( "http:/" ).RemoveStart( "https:/" );
+        if (schema.IsEmpty())
+            return result;
+        return schema + result.RemoveStart( "/" );
     }
 }

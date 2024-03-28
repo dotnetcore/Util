@@ -64,6 +64,10 @@ public class ColumnInfo {
     /// 是否启用拖动调整列宽
     /// </summary>
     public bool IsEnableResizable { get; set; }
+    /// <summary>
+    /// 是否内部列
+    /// </summary>
+    public bool IsInner { get; set; }
 
     /// <summary>
     /// 转换为自定义列

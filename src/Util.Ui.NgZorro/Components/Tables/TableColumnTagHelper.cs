@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
 using Util.Ui.NgZorro.Components.Tables.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Tables;
 /// 表格单元格,生成的标签为&lt;td>&lt;/td>
 /// </summary>
 [HtmlTargetElement( "util-td" )]
-public class TableColumnTagHelper : AngularTagHelperBase {
+public class TableColumnTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// 配置
     /// </summary>
@@ -184,6 +184,10 @@ public class TableColumnTagHelper : AngularTagHelperBase {
     /// (nzExpandChange),展开状态变化事件,类型: EventEmitter&lt;boolean>
     /// </summary>
     public string OnExpandChange { get; set; }
+    /// <summary>
+    /// (click),单击事件
+    /// </summary>
+    public string OnClick { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

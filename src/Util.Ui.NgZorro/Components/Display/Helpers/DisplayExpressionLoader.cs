@@ -1,5 +1,4 @@
-﻿using Util.Ui.Configs;
-using Util.Ui.Expressions;
+﻿using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Expressions;
@@ -51,6 +50,10 @@ public class DisplayExpressionLoader : NgZorroExpressionLoaderBase {
         }
         if ( info.IsDate ) {
             config.SetAttribute( UiConst.Type, DataType.Date );
+            return;
+        }
+        if ( info.IsNumber ) {
+            config.SetAttribute( UiConst.Type, DataType.Number );
             return;
         }
     }

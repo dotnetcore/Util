@@ -14,7 +14,7 @@ public static class HtmlGenerator {
     /// <param name="cancellationToken">取消令牌</param>
     public static async Task<string> GenerateAsync( string path, bool isGenerateHtml = true, CancellationToken cancellationToken = default ) {
         EnableGenerateHtml( isGenerateHtml );
-        var requestPath = $"{GetHost()}/view/{path.TrimStart( "/Pages".ToCharArray() ).TrimEnd( ".cshtml".ToCharArray() )}";
+        var requestPath = Url.JoinPath( GetHost(), "view", path.RemoveStart( "/Pages" ).RemoveEnd( ".cshtml" ) );
         return await Web.Client.Get( requestPath ).GetResultAsync( cancellationToken );
     }
 

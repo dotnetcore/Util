@@ -416,4 +416,15 @@ public partial class TableColumnTagHelperTest {
         result.Append( "<td (nzExpandChange)=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
+
+    /// <summary>
+    /// 测试单击事件
+    /// </summary>
+    [Fact]
+    public void TestOnClick() {
+        _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
+        var result = new StringBuilder();
+        result.Append( "<td (click)=\"a\"></td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
 }

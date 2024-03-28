@@ -39,9 +39,9 @@ public class TableSettingsBuilder : AngularTagBuilder {
     /// 设置表格尺寸
     /// </summary>
     public TableSettingsBuilder IsTreeTable() {
-        if (_tableShareConfig.IsTreeTable == false)
+        if ( _tableShareConfig.IsTreeTable == false )
             return this;
-        Attribute( "[isTreeTable]","true" );
+        Attribute( "[isTreeTable]", "true" );
         return this;
     }
 
@@ -75,8 +75,8 @@ public class TableSettingsBuilder : AngularTagBuilder {
     /// 配置是否启用固定列
     /// </summary>
     public TableSettingsBuilder EnableFixedColumn() {
-        if( _tableShareConfig.IsEnableFixedColumn )
-            Attribute( "[enableFixedColumn]","true" );
+        if ( _tableShareConfig.IsEnableFixedColumn )
+            Attribute( "[enableFixedColumn]", "true" );
         return this;
     }
 
@@ -98,9 +98,9 @@ public class TableSettingsBuilder : AngularTagBuilder {
         AddRadioColumn( result );
         AddCheckboxColumn( result );
         AddLineNumberColumn( result );
-        result.AddRange( _tableShareConfig.Columns.Select( column => column.ToCustomColumn() ) );
+        result.AddRange( _tableShareConfig.Columns.Where( column => column.IsInner == false ).Select( column => column.ToCustomColumn() ) );
         var json = Util.Helpers.Json.ToJson( result, new JsonOptions { ToSingleQuotes = true, IgnoreNullValues = true } );
-        return json.Replace($"'{GetCheckboxWidth()}'", GetCheckboxWidth() )
+        return json.Replace( $"'{GetCheckboxWidth()}'", GetCheckboxWidth() )
             .Replace( $"'{GetRadioWidth()}'", GetRadioWidth() )
             .Replace( $"'{GetLineNumberWidth()}'", GetLineNumberWidth() );
     }

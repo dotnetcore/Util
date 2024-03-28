@@ -1,8 +1,10 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Directives.Tooltips;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders;
 
@@ -289,6 +291,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     public TableColumnBuilder Events() {
         AttributeIfNotEmpty( "(nzCheckedChange)", _config.GetValue( UiConst.OnCheckedChange ) );
         AttributeIfNotEmpty( "(nzExpandChange)", _config.GetValue( UiConst.OnExpandChange ) );
+        this.OnClick( _config );
         return this;
     }
 
@@ -301,7 +304,7 @@ public class TableColumnBuilder : AngularTagBuilder {
             .ShowExpand().Expand()
             .Left().Right().Align().BreakWord().Ellipsis()
             .IndentSize().CellControl().EnableCustomColumn()
-            .Events();
+            .Tooltip( _config ).Events();
         ConfigContent();
     }
 

@@ -15,7 +15,6 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestEnableTableSettings_1() {
-        //启用自定义列
         _wrapper.SetContextAttribute( UiConst.Key, "k" );
         _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
 
@@ -56,7 +55,6 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestEnableTableSettings_2() {
-        //启用自定义列
         _wrapper.SetContextAttribute( UiConst.Key, "k" );
         _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
         _wrapper.SetContextAttribute( UiConst.Size, TableSize.Small );
@@ -98,7 +96,6 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestEnableTableSettings_3() {
-        //启用自定义列
         _wrapper.SetContextAttribute( UiConst.Key, "k" );
         _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
         _wrapper.SetContextAttribute( UiConst.ScrollHeight, "1" );
@@ -140,7 +137,6 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestEnableTableSettings_4() {
-        //启用自定义列
         _wrapper.SetContextAttribute( UiConst.Key, "k" );
         _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
         _wrapper.SetContextAttribute( UiConst.ScrollWidth, "1" );
@@ -182,7 +178,6 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestEnableTableSettings_5() {
-        //启用自定义列
         _wrapper.SetContextAttribute( UiConst.Key, "k" );
         _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
         _wrapper.SetContextAttribute( UiConst.Scroll, "{x:'1px',y:'1px'}" );
@@ -224,7 +219,6 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestEnableTableSettings_6() {
-        //启用自定义列
         _wrapper.SetContextAttribute( UiConst.Key, "k" );
         _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
         _wrapper.SetContextAttribute( UiConst.Bordered, true );
@@ -403,5 +397,42 @@ public partial class TableTagHelperTest {
         result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a','titleAlign':'center','ellipsis':true},{'title':'Operation','right':true}]\">" );
         result.Append( "</x-table-settings>" );
         Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试启用表格设置 - 编辑列显示区域嵌套列
+    /// </summary>
+    [Fact]
+    public void TestEnableTableSettings_9() {
+        _wrapper.SetContextAttribute( UiConst.Id, "tb" );
+        _wrapper.SetContextAttribute( UiConst.Key, "k" );
+        _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
+
+        //添加列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.SetContextAttribute( UiConst.IsEdit, true );
+        column.SetContextAttribute( UiConst.Title, "a" );
+        column.SetContextAttribute( UiConst.Column, "name" );
+        _wrapper.AppendContent( column );
+
+        //添加显示区域
+        var display = new TableColumnDisplayTagHelper().ToWrapper();
+        var subColumn = new TableColumnTagHelper().ToWrapper();
+        subColumn.SetContextAttribute( UiConst.Title, "b" );
+        subColumn.SetContextAttribute( UiConst.Column, "c" );
+        display.AppendContent( subColumn );
+        column.AppendContent( display );
+
+        //添加控件区域
+        var control = new TableColumnControlTagHelper().ToWrapper();
+        control.AppendContent( "b" );
+        column.AppendContent( control );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<x-table-settings #ts_tb=\"\" key=\"k\" " );
+        result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'a'}]\">" );
+        result.Append( "</x-table-settings>" );
+        Assert.EndsWith( result.ToString(), GetResult() );
     }
 }

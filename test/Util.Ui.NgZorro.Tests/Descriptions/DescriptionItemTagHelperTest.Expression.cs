@@ -104,5 +104,19 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
             result.Append( "<nz-descriptions-item nzTitle=\"出生日期\">{{model.birthday|date:\"yyyy-MM\"}}</nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试属性表达式 - 数值类型
+        /// </summary>
+        [Fact]
+        public void TestFor_5() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetExpression( t => t.IdCard );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions-item [nzTitle]=\"'身份证'|i18n\">" );
+            result.Append( "{{model.idCard}}" );
+            result.Append( "</nz-descriptions-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

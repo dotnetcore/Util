@@ -422,10 +422,6 @@ Util 配套代码生成器, 简单易用, 可解决大部分机械工作.
 
 ## Util Angular UI 特点
 
-- ### 使用 Visual Studio 开发工具
-
-  前端开发一般使用 Visual Studio Code , 不过 Util Angular UI主要使用 Razor 页面,使用 Visual Studio 更方便.
-
 - ### 组件扩展支持
 
   除了支持 Ng Zorro 原生功能外,Util UI还对常用组件进行了扩展.
@@ -580,31 +576,11 @@ Util Angular UI 主要由 util-angular 和 Util.Ui.NgZorro 两个库提供支持
 
 ## Util Angular UI 已知缺陷
 
-Util Angular UI 在提供大量支持的同时,也存在一些缺陷.
-
-  - ### 开发阶段运行比较缓慢
-
-    与 Visual Studio Code 相比,使用 Visual Studio 开发 Angular 项目要慢一些,如果使用了 Resharper 插件,则会更慢.
-
-    除开发工具影响外, Util Angular UI 在开发阶段需要启用 Angular JIT( 即时编译 ), 运行会变慢.
-
-    另外, Util Angular UI 在开发阶段需要访问 Razor 页面,每当项目启动,Angular 主模块加载的所有组件都会发出 Razor 页面请求.
-
-    不过运行缓慢仅存在于开发阶段,一旦发布,则与纯前端开发方式的运行速度相同.
-
-  - ### 无法使用 Angular 常规延迟加载方式
-
-    你不能使用 loadChildren 延迟加载模块,这是因为开发阶段组件的 templateUrl 指向 Razor 页面地址, 必须使用 Angular JIT 模式,等待运行时再获取组件模板.
-
-    这个问题从 Angular 13 开始出现, Angular 13弃用了传统的视图引擎, 使用 loadChildren 加载指向 Razor 页面地址的组件会报异常.
-
-    解决它的方法是使用微前端方案延迟加载模块, 当然你也可以回退到 Angular 13之前的版本.
-
-    在同一个 Util Angular UI 项目中,你必须把所有的子模块加载到主模块中,并配置微前端将子模块发布为可独立加载包.
+Util Angular UI 所有已知缺陷均已解决.
 
 ## Util Angular UI 适合你吗?
 
-Util Angular UI 是为 .Net 全栈工程师准备的,如果你更喜欢使用 Visual Studio 开发,喜欢代码提示,喜欢更简洁的语法,希望开发的成本更低,它就适合你.
+Util Angular UI 是为 .Net 全栈工程师准备的,如果你喜欢更简洁的语法,希望开发的成本更低,它就适合你.
 
 ## 参考应用框架
 

@@ -93,6 +93,10 @@ public class DescriptionItemBuilder : AngularTagBuilder {
             LoadDate( value );
             return;
         }
+        if ( dataType == DataType.Number ) {
+            LoadNumber( value );
+            return;
+        }
         SetContent( "{{" + GetValue(value) + "}}");
     }
 
@@ -112,6 +116,13 @@ public class DescriptionItemBuilder : AngularTagBuilder {
         if ( format.IsEmpty() )
             format = "yyyy-MM-dd HH:mm";
         SetContent( $"{{{{{value}|date:\"{format}\"}}}}" );
+    }
+
+    /// <summary>
+    /// 加载数值
+    /// </summary>
+    protected void LoadNumber( string value ) {
+        SetContent( "{{" + value + "}}" );
     }
 
     /// <summary>

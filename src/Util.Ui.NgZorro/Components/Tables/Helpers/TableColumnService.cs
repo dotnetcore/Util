@@ -103,6 +103,8 @@ public class TableColumnService {
             AclElseTemplateId = _config.GetValue( UiConst.AclElseTemplateId ),
             IsEnableResizable = _config.GetValue<bool>( UiConst.EnableResizable )
         };
+        if ( IsInColumnDisplay() )
+            result.IsInner = true;
         return result;
     }
 
@@ -127,5 +129,13 @@ public class TableColumnService {
         if ( options.EnableI18n )
             return "util.operation";
         return "Operation";
+    }
+
+    /// <summary>
+    /// 是否包含在显示列中
+    /// </summary>
+    private bool IsInColumnDisplay() {
+        var displayShareConfig = _config.GetValueFromItems<TableColumnDisplayShareConfig>();
+        return displayShareConfig != null;
     }
 }

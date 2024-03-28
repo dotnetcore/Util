@@ -13,6 +13,10 @@ public enum DataType {
     /// </summary>
     Date,
     /// <summary>
+    /// 数值
+    /// </summary>
+    Number,
+    /// <summary>
     /// 枚举
     /// </summary>
     Enum

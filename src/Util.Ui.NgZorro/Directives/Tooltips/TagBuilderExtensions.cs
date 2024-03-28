@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;

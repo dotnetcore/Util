@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Util.Helpers;
 using Util.Ui.Razor.Internal;
 
@@ -9,6 +8,10 @@ namespace Util.Ui.Razor;
 /// Razor页面监听服务
 /// </summary>
 public class RazorWatchService : IRazorWatchService {
+    /// <summary>
+    /// 是否启动完成
+    /// </summary>
+    public static bool IsStartComplete { get; set; }
     /// <summary>
     /// 文件监视器
     /// </summary>
@@ -33,12 +36,17 @@ public class RazorWatchService : IRazorWatchService {
     /// Razor配置
     /// </summary>
     private readonly RazorOptions _options;
+    /// <summary>
+    /// 是否生成缺失的html
+    /// </summary>
+    private bool _isGenerateMissingHtml;
 
     /// <summary>
     /// 初始化Razor页面监听服务
     /// </summary>
-    public RazorWatchService( IPartViewPathResolver resolver, HttpClient client,
+    public RazorWatchService( IServiceProvider serviceProvider, IPartViewPathResolver resolver, HttpClient client,
         IActionDescriptorCollectionProvider provider, IOptions<RazorOptions> options ) {
+        Ioc.SetServiceProviderAction( () => serviceProvider );
         _watcher = new FileWatcher();
         _resolver = resolver;
         _client = client;
@@ -51,15 +59,22 @@ public class RazorWatchService : IRazorWatchService {
         WriteLog( "启动中..." );
         WriteLog( "准备初始化..." );
         InitRazorViewContainer();
-        await Preheat( cancellationToken );
-        WriteLog( "初始化完成." );
-        await StartWatch( cancellationToken );
+        await Task.Factory.StartNew( async () => {
+            await Task.Delay( _options.StartInitDelay, cancellationToken );
+            await GenerateMissingHtml( cancellationToken );
+            await Preheat( cancellationToken );
+            IsStartComplete = true;
+            WriteLog( "初始化完成." );
+            await StartWatch( cancellationToken );
+        }, cancellationToken );
     }
 
     /// <summary>
     /// 写入控制台日志
     /// </summary>
-    private void WriteLog( string content ) {
+    private void WriteLog( string content, bool isWrite = true ) {
+        if ( isWrite == false )
+            return;
         Console.WriteLine( $"dbug: Util应用框架 - Razor监听服务 - {content}" );
     }
 
@@ -95,22 +110,58 @@ public class RazorWatchService : IRazorWatchService {
     /// 获取Razor文件内容
     /// </summary>
     protected string GetContent( string relativePath ) {
-        var path = Url.JoinPath( Common.GetCurrentDirectory(), relativePath );
+        var path = GetProjectPath( relativePath );
         return Util.Helpers.File.ReadToString( path );
     }
 
     /// <summary>
-    /// Razor页面预热
+    /// 获取项目路径
     /// </summary>
-    protected async Task Preheat( CancellationToken cancellationToken ) {
-        await Task.Factory.StartNew( async () => {
-            await Task.Delay( 1000, cancellationToken );
-            WriteLog( "Razor页面准备预热..." );
-            var paths = _container.GetRandomPaths();
-            foreach ( var path in paths )
-                await Request( path, cancellationToken );
-            WriteLog( "Razor页面预热完成..." );
-        }, cancellationToken );
+    protected string GetProjectPath( string relativePath ) {
+        return Url.JoinPath( Common.GetCurrentDirectory(), relativePath );
+    }
+
+    /// <summary>
+    /// 生成缺失的html
+    /// </summary>
+    protected async Task GenerateMissingHtml( CancellationToken cancellationToken ) {
+        WriteLog( "准备生成缺失的html..." );
+        EnableGenerateHtml();
+        EnableOverrideHtml( false );
+        var fileBasePath = GetProjectPath( _options.GenerateHtmlBasePath );
+        var files = Util.Helpers.File.GetAllFiles( fileBasePath, "*.html" );
+        foreach ( var path in _container.GetMainViewPaths() ) {
+            if ( Exists( files.Select( t => t.FullName ).ToList(), path ) )
+                continue;
+            _isGenerateMissingHtml = true;
+            await Request( path, cancellationToken );
+        }
+        EnableOverrideHtml();
+        WriteLog( "生成缺失的html完成..." );
+    }
+
+    /// <summary>
+    /// 启用Html生成
+    /// </summary>
+    protected void EnableGenerateHtml( bool isGenerateHtml = true ) {
+        _options.IsGenerateHtml = isGenerateHtml;
+    }
+
+    /// <summary>
+    /// 启用Html覆盖
+    /// </summary>
+    protected void EnableOverrideHtml( bool isOverrideHtml = true ) {
+        _options.EnableOverrideHtml = isOverrideHtml;
+    }
+
+    /// <summary>
+    /// html是否存在
+    /// </summary>
+    protected bool Exists( List<string> htmlPaths, string razorPath ) {
+        if ( string.Equals( razorPath, "/Pages/Error.cshtml", StringComparison.OrdinalIgnoreCase ) )
+            return true;
+        var path = GenerateHtmlFilter.GetPath( razorPath.RemoveStart( "/Pages" ).RemoveEnd( ".cshtml" ) );
+        return htmlPaths.Any( t => t.Replace( "\\", "/" ).EndsWith( path, StringComparison.OrdinalIgnoreCase ) );
     }
 
     /// <summary>
@@ -118,17 +169,21 @@ public class RazorWatchService : IRazorWatchService {
     /// </summary>
     /// <param name="path">视图路径</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public async Task Request( string path, CancellationToken cancellationToken = default ) {
+    /// <param name="isWrite">是否写入日志</param>
+    public async Task Request( string path, CancellationToken cancellationToken = default, bool isWrite = true ) {
         await Task.Delay( _options.HtmlRenderDelayOnRazorChange, cancellationToken );
-        var requestPath = $"{GetApplicationUrl()}/view/{path.TrimStart( "/Pages".ToCharArray() ).TrimEnd( ".cshtml".ToCharArray() )}";
-        await _client.GetAsync( requestPath, cancellationToken );
+        var requestPath = Url.JoinPath( GetApplicationUrl(), "view", path.RemoveStart( "/Pages" ).RemoveEnd( ".cshtml" ) );
+        WriteLog( $"发送请求: {requestPath}", isWrite );
+        var response = await _client.GetAsync( requestPath, cancellationToken );
+        if ( response.IsSuccessStatusCode )
+            WriteLog( $"请求成功: {requestPath}", isWrite );
     }
 
     /// <summary>
     /// 获取应用地址
     /// </summary>
     protected string GetApplicationUrl() {
-        var path = Url.JoinPath( Common.GetCurrentDirectory(), "Properties" );
+        var path = GetProjectPath( "Properties" );
         var builder = new ConfigurationBuilder()
             .SetBasePath( path )
             .AddJsonFile( "launchSettings.json", true, false );
@@ -141,11 +196,27 @@ public class RazorWatchService : IRazorWatchService {
     }
 
     /// <summary>
+    /// Razor页面预热
+    /// </summary>
+    protected async Task Preheat( CancellationToken cancellationToken ) {
+        if ( _isGenerateMissingHtml )
+            return;
+        if ( _options.EnablePreheat == false )
+            return;
+        WriteLog( "Razor页面准备预热..." );
+        EnableGenerateHtml( false );
+        var paths = _container.GetRandomPaths();
+        foreach ( var path in paths )
+            await Request( path, cancellationToken, false );
+        WriteLog( "Razor页面预热完成..." );
+    }
+
+    /// <summary>
     /// 启动监听器
     /// </summary>
     protected virtual Task StartWatch( CancellationToken cancellationToken ) {
         WriteLog( "开始监听..." );
-        var path = Common.JoinPath( Common.GetCurrentDirectory(), "Pages" );
+        var path = GetProjectPath( "Pages" );
         _watcher.Path( path )
             .Filter( "*.cshtml" )
             .OnChangedAsync( async ( _, e ) => await GenerateAsync( e.FullPath, cancellationToken ) )
@@ -169,10 +240,8 @@ public class RazorWatchService : IRazorWatchService {
             WriteLog( $"未找到可更新的视图路径: {path}" );
             return;
         }
-        foreach ( var viewPath in viewPaths ) {
-            WriteLog( $"请求生成: {path}" );
+        foreach ( var viewPath in viewPaths )
             await Request( viewPath, cancellationToken );
-        }
     }
 
     /// <summary>
@@ -180,13 +249,6 @@ public class RazorWatchService : IRazorWatchService {
     /// </summary>
     protected bool IsCshtml( string path ) {
         return path.EndsWith( ".cshtml", StringComparison.OrdinalIgnoreCase );
-    }
-
-    /// <summary>
-    /// 启用Html生成
-    /// </summary>
-    protected void EnableGenerateHtml() {
-        _options.IsGenerateHtml = true;
     }
 
     /// <inheritdoc />

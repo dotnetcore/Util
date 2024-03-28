@@ -624,4 +624,21 @@ public partial class TableColumnTagHelperTest {
     }
 
     #endregion
+
+    #region Tooltip
+
+    /// <summary>
+    /// 测试提示文字
+    /// </summary>
+    [Fact]
+    public void TestTooltipTitle() {
+        _wrapper.SetContextAttribute( UiConst.Column, "a" );
+        _wrapper.AppendContent( "b" );
+        _wrapper.SetContextAttribute( UiConst.TooltipTitle, "a" );
+        var result = new StringBuilder();
+        result.Append( "<td nz-tooltip=\"\" nzTooltipTitle=\"a\">b</td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    #endregion
 }

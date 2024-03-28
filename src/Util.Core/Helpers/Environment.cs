@@ -20,6 +20,10 @@ public static class Environment {
     /// 换行符
     /// </summary>
     public static string NewLine => System.Environment.NewLine;
+    /// <summary>
+    /// 是否测试环境
+    /// </summary>
+    public static bool IsTest { get; set; }
 
     /// <summary>
     /// 设置环境变量

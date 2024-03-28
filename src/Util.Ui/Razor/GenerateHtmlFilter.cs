@@ -30,6 +30,11 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
         var path = CreatePath( context, options );
         if ( string.IsNullOrWhiteSpace( path ) )
             return;
+        if ( options.EnableOverrideHtml == false ) {
+            var filePath = Util.Helpers.Web.GetPhysicalPath( path );
+            if ( File.Exists( filePath ) )
+                return;
+        }
         var log = GetLogger( context );
         try {
             var html = await GetHtml( context );
@@ -37,7 +42,7 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
             log.LogDebug( $"Razor生成Html成功: Razor Path: {context.ActionDescriptor.ViewEnginePath}, Html Path: {path}" );
         }
         catch ( Exception exception ) {
-            log.LogError(exception, $"Razor页面生成 html 失败: razor path: {context.ActionDescriptor.ViewEnginePath}" );
+            log.LogError( exception, $"Razor页面生成 html 失败: razor path: {context.ActionDescriptor.ViewEnginePath}" );
             throw;
         }
     }
@@ -58,9 +63,7 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
             return GetPath( context?.ActionDescriptor.ViewEnginePath, options.GenerateHtmlBasePath, options.GenerateHtmlFolder, options.GenerateHtmlSuffix );
         if ( attribute.Ignore )
             return string.Empty;
-        if ( string.IsNullOrWhiteSpace( attribute.Path ) )
-            return string.Empty;
-        return attribute.Path;
+        return string.IsNullOrWhiteSpace( attribute.Path ) ? string.Empty : attribute.Path;
     }
 
     /// <summary>
@@ -70,7 +73,7 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     /// <param name="basePath">基路径，默认值：/ClientApp/src/app</param>
     /// <param name="folder">html文件目录名称，默认值：html</param>
     /// <param name="htmlSuffix">html文件后缀，默认值：component.html</param>
-    public static string GetPath( string path, string basePath = "/ClientApp/src/app",string folder = "html", string htmlSuffix = "component.html" ) {
+    public static string GetPath( string path, string basePath = "/ClientApp/src/app", string folder = "html", string htmlSuffix = "component.html" ) {
         if ( string.IsNullOrWhiteSpace( path ) )
             return string.Empty;
         path = path.Kebaberize().ToLower().Trim( '\\' ).Trim( '/' );
@@ -115,8 +118,6 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     /// 写入文件
     /// </summary>
     private async Task WriteFile( string path, string html ) {
-        if ( string.IsNullOrWhiteSpace( html ) )
-            return;
         path = Util.Helpers.Web.GetPhysicalPath( path );
         var directory = Path.GetDirectoryName( path );
         if ( string.IsNullOrWhiteSpace( directory ) )

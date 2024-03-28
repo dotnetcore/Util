@@ -31,6 +31,8 @@ public static class AppBuilderExtensions {
             services.TryAddSingleton<IRazorWatchService, RazorWatchService>();
             services.TryAddSingleton<IPartViewPathResolver, PartViewPathResolver>();
             services.TryAddSingleton<IPartViewPathFinder, PartViewPathFinder>();
+            if ( options.EnableWatchRazor )
+                services.AddHostedService<WatchHostedService>();
             ConfigSpaStaticFiles( services, options );
             ConfigRazorOptions( services, options );
             ConfigNgZorroOptions( services, setupAction );
@@ -56,7 +58,11 @@ public static class AppBuilderExtensions {
             t.GenerateHtmlBasePath = options.GenerateHtmlBasePath;
             t.GenerateHtmlFolder = options.GenerateHtmlFolder;
             t.GenerateHtmlSuffix = options.GenerateHtmlSuffix;
+            t.EnableWatchRazor = options.EnableWatchRazor;
+            t.StartInitDelay = options.StartInitDelay;
             t.HtmlRenderDelayOnRazorChange = options.HtmlRenderDelayOnRazorChange;
+            t.EnablePreheat = options.EnablePreheat;
+            t.EnableOverrideHtml = options.EnableOverrideHtml;
         }
         services.Configure( (Action<RazorOptions>)Action );
     }

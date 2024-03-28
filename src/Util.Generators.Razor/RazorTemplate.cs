@@ -2,7 +2,7 @@
 using Util.Generators.Templates;
 using Util.Templates;
 
-namespace Util.Generators.Razor; 
+namespace Util.Generators.Razor;
 
 /// <summary>
 /// Razor模板
@@ -82,8 +82,10 @@ public class RazorTemplate : ITemplate {
     /// </summary>
     /// <param name="context">实体上下文</param>
     /// <param name="result">渲染结果</param>
-    protected virtual async Task WriteFile( EntityContext context,string result ) {
-        if( context.Output.Path.IsEmpty() )
+    protected virtual async Task WriteFile( EntityContext context, string result ) {
+        if ( context.Output.Path.IsEmpty() )
+            return;
+        if ( result.IsEmpty() )
             return;
         await Util.Helpers.File.WriteAsync( context.Output.Path, result );
     }

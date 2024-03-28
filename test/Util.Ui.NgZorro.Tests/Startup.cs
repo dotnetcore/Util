@@ -12,13 +12,14 @@ namespace Util.Ui.NgZorro.Tests {
         /// </summary>
         public void ConfigureHost( IHostBuilder hostBuilder ) {
             hostBuilder.ConfigureDefaults( null ).AddUtil();
+            Util.Helpers.Environment.IsTest = true;
         }
 
-		/// <summary>
-		/// 配置服务
-		/// </summary>
-		public void ConfigureServices( IServiceCollection services ) {
-			services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
-		}
-	}
+        /// <summary>
+        /// 配置服务
+        /// </summary>
+        public void ConfigureServices( IServiceCollection services ) {
+            services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+        }
+    }
 }

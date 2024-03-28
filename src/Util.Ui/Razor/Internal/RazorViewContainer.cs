@@ -31,8 +31,22 @@ public class RazorViewContainer {
     /// <summary>
     /// 获取全部视图
     /// </summary>
-    public List<RazorView> GetAll() {
+    public List<RazorView> GetAllViews() {
         return _views.Values.ToList();
+    }
+
+    /// <summary>
+    /// 获取全部主视图
+    /// </summary>
+    public List<RazorView> GetMainViews() {
+        return _views.Values.Where( view => view is MainView ).ToList();
+    }
+
+    /// <summary>
+    /// 获取全部主视图路径
+    /// </summary>
+    public List<string> GetMainViewPaths() {
+        return GetMainViews().Select( t => t.Path ).ToList();
     }
 
     /// <summary>
@@ -69,7 +83,7 @@ public class RazorViewContainer {
     public void Init( IDictionary<string, string> viewContents ) {
         if ( viewContents == null )
             return;
-        foreach ( var viewContent in viewContents ) 
+        foreach ( var viewContent in viewContents )
             CreateView( viewContent.Key, viewContent.Value );
     }
 
