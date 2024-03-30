@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Descriptions.Renders;
 using Util.Ui.NgZorro.Components.Display.Helpers;
 using Util.Ui.Renders;

@@ -104,5 +104,27 @@ namespace Util.Ui.Tests.Razor {
             var result = GenerateHtmlFilter.GetPath( "FetchData/Test/NavMenu", "/a", htmlSuffix: "html" );
             Assert.Equal( "/a/fetch-data/test/html/nav-menu.html", result );
         }
+
+        /// <summary>
+        /// Razor生成版本为 v1 ,使用传统生成路径逻辑
+        /// </summary>
+        [Fact]
+        public void TestGetPath_12() {
+            var options = new RazorOptions {
+                GenerateHtmlVersion = "v1"
+            };
+            var result = GenerateHtmlFilter.GetPath( "FetchData/Test/NavMenu", options );
+            Assert.Equal( "/ClientApp/src/app/fetch-data/test/html/nav-menu.component.html", result );
+        }
+
+        /// <summary>
+        /// Razor生成版本不为 v1 ,使用新的生成路径逻辑
+        /// </summary>
+        [Fact]
+        public void TestGetPath_13() {
+            var options = new RazorOptions();
+            var result = GenerateHtmlFilter.GetPath( "src/app/fetch-data/test/nav-menu.component", options );
+            Assert.Equal( "/ClientApp/src/app/fetch-data/test/html/nav-menu.component.html", result );
+        }
     }
 }

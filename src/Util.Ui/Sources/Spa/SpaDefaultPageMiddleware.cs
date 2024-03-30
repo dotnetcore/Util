@@ -1,7 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using Microsoft.Extensions.Hosting;
 using Util.Ui.Sources.Spa.StaticFiles;
 
 namespace Util.Ui.Sources.Spa;
@@ -34,18 +33,5 @@ internal sealed class SpaDefaultPageMiddleware
         app.UseSpaStaticFilesInternal(
             options.DefaultPageStaticFileOptions ?? new StaticFileOptions(),
             allowFallbackOnServingWebRootFiles: true);
-
-        // If the default file didn't get served as a static file (usually because it was not
-        // present on disk), the SPA is definitely not going to work.
-        //app.Use( async (context, next) =>
-        //{
-        //    // If we have an Endpoint, then this is a deferred match - just noop.
-        //    if (context.GetEndpoint() != null)
-        //    {
-        //        await next(context);
-        //    }
-        //    await Task.Delay(100);
-        //    await next( context );
-        //} );
     }
 }

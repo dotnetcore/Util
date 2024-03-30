@@ -55,6 +55,7 @@ public class TableBodyRowBuilder : TableRowBuilder {
         base.Config();
         ConfigTableExtend();
         ConfigEdit();
+        ConfigTableRowCheckedClass();
         ConfigContent();
     }
 
@@ -86,6 +87,16 @@ public class TableBodyRowBuilder : TableRowBuilder {
         Attribute( $"#{RowId}", "xEditRow", true );
         Attribute( "(click)", $"{EditId}.clickEdit(row.id)", append: true );
         Attribute( "(dblclick)", $"{EditId}.dblClickEdit(row.id)", append: true );
+    }
+
+    /// <summary>
+    /// 配置勾选样式
+    /// </summary>
+    protected void ConfigTableRowCheckedClass() {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableTableRowCheckedClass == false )
+            return;
+        Attribute( "[class.table-row-checked]", $"{TableShareConfig.TableExtendId}.isChecked(row)" );
     }
 
     /// <summary>

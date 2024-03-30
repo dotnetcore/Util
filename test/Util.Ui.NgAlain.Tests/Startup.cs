@@ -12,13 +12,14 @@ public class Startup {
     /// 配置主机
     /// </summary>
     public void ConfigureHost( IHostBuilder hostBuilder ) {
-            hostBuilder.ConfigureDefaults( null ).AddUtil();
-        }
+        hostBuilder.ConfigureDefaults( null ).AddUtil();
+        Util.Helpers.Environment.IsTest = true;
+    }
 
     /// <summary>
     /// 配置服务
     /// </summary>
     public void ConfigureServices( IServiceCollection services ) {
-            services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
-        }
+        services.AddLogging( logBuilder => logBuilder.AddXunitOutput() );
+    }
 }

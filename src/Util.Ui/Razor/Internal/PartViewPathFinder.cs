@@ -12,13 +12,19 @@ public class PartViewPathFinder : IPartViewPathFinder {
     /// 视图引擎
     /// </summary>
     private readonly ICompositeViewEngine _viewEngine;
+    /// <summary>
+    /// Razor配置
+    /// </summary>
+    private readonly RazorOptions _options;
 
     /// <summary>
     /// 初始化分部视图路径查找器
     /// </summary>
     /// <param name="viewEngine">视图引擎</param>
-    public PartViewPathFinder( ICompositeViewEngine viewEngine ) {
+    /// <param name="options">Razor配置</param>
+    public PartViewPathFinder( ICompositeViewEngine viewEngine, IOptions<RazorOptions> options ) {
         _viewEngine = viewEngine ?? throw new ArgumentNullException( nameof( viewEngine ) );
+        _options = options.Value;
     }
 
     /// <inheritdoc />
@@ -38,7 +44,7 @@ public class PartViewPathFinder : IPartViewPathFinder {
     /// 获取路由值
     /// </summary>
     private string GetRouteValue( string viewPath ) {
-        return viewPath.RemoveStart( "/Pages" ).RemoveEnd( ".cshtml" );
+        return viewPath.RemoveStart( _options.RazorRootDirectory ).RemoveEnd( ".cshtml" );
     }
 
     /// <summary>

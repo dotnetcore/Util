@@ -69,6 +69,10 @@ public static class SpaProxyingExtensions {
                 await next();
                 return;
             }
+            if ( context.Request.Path.Value != null && context.Request.Path.Value.StartsWith( "/api/" ) ) {
+                await next();
+                return;
+            }
             await SpaProxy.PerformProxyRequest(
                 context, neverTimeOutHttpClient, baseUriTaskFactory(), applicationStoppingToken,
                 proxy404s: true );

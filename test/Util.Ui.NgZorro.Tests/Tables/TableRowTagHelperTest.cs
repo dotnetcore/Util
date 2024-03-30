@@ -2,11 +2,12 @@
 using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Util.Ui.NgZorro.Tests.Tables; 
+namespace Util.Ui.NgZorro.Tests.Tables;
 
 /// <summary>
 /// 表格行测试
@@ -103,6 +104,17 @@ public class TableRowTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
         var result = new StringBuilder();
         result.Append( "<tr (click)=\"x_id.selectRowOnly(row);a\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试勾选样式
+    /// </summary>
+    [Fact]
+    public void TestEnableTableRowCheckedClass() {
+        NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableTableRowCheckedClass = true } );
+        var result = new StringBuilder();
+        result.Append( "<tr [class.table-row-checked]=\"x_id.isChecked(row)\"></tr>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

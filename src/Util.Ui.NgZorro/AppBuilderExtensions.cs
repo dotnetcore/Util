@@ -27,7 +27,9 @@ public static class AppBuilderExtensions {
         builder.Host.ConfigureServices( ( context, services ) => {
             var options = new NgZorroOptions();
             setupAction?.Invoke( options );
-            services.AddRazorPages().AddRazorRuntimeCompilation().AddConventions();
+            services.AddRazorPages( razorPageOptions => {
+                razorPageOptions.RootDirectory = options.RazorRootDirectory;
+            } ).AddRazorRuntimeCompilation().AddConventions();
             services.TryAddSingleton<IRazorWatchService, RazorWatchService>();
             services.TryAddSingleton<IPartViewPathResolver, PartViewPathResolver>();
             services.TryAddSingleton<IPartViewPathFinder, PartViewPathFinder>();
@@ -53,16 +55,8 @@ public static class AppBuilderExtensions {
     /// 配置Razor
     /// </summary>
     private static void ConfigRazorOptions( IServiceCollection services, NgZorroOptions options ) {
-        void Action( RazorOptions t ) {
-            t.IsGenerateHtml = options.IsGenerateHtml;
-            t.GenerateHtmlBasePath = options.GenerateHtmlBasePath;
-            t.GenerateHtmlFolder = options.GenerateHtmlFolder;
-            t.GenerateHtmlSuffix = options.GenerateHtmlSuffix;
-            t.EnableWatchRazor = options.EnableWatchRazor;
-            t.StartInitDelay = options.StartInitDelay;
-            t.HtmlRenderDelayOnRazorChange = options.HtmlRenderDelayOnRazorChange;
-            t.EnablePreheat = options.EnablePreheat;
-            t.EnableOverrideHtml = options.EnableOverrideHtml;
+        void Action( RazorOptions razorOptions ) {
+            options.MapTo( razorOptions );
         }
         services.Configure( (Action<RazorOptions>)Action );
     }

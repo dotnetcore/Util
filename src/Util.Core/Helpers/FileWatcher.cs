@@ -8,13 +8,34 @@ public class FileWatcher : IDisposable {
     /// 文件系统监视器
     /// </summary>
     private readonly FileSystemWatcher _watcher;
+    /// <summary>
+    /// 防抖间隔
+    /// </summary>
+    private int _debounceInterval;
+    /// <summary>
+    /// 文件监视事件过滤器
+    /// </summary>
+    private readonly FileWatcherEventFilter _fileWatcherEventFilter;
 
     /// <summary>
     /// 初始化文件监视器
     /// </summary>
     public FileWatcher() {
         _watcher = new FileSystemWatcher();
-        _watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+        _watcher.NotifyFilter = NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastWrite
+                                | NotifyFilters.CreationTime | NotifyFilters.LastAccess
+                                | NotifyFilters.Attributes | NotifyFilters.Size | NotifyFilters.Security;
+        _debounceInterval = 200;
+        _fileWatcherEventFilter = new FileWatcherEventFilter();
+    }
+
+    /// <summary>
+    /// 设置防抖间隔,默认值: 200 毫秒
+    /// </summary>
+    /// <param name="interval">防抖间隔, 单位: 毫秒</param>
+    public FileWatcher Debounce( int interval ) {
+        _debounceInterval = interval;
+        return this;
     }
 
     /// <summary>
@@ -52,7 +73,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件创建监听事件处理器</param>
     public FileWatcher OnCreated( Action<object, FileSystemEventArgs> action ) {
         _watcher.Created += ( source, e ) => {
-            action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                action( source, e );
         };
         return this;
     }
@@ -63,7 +85,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件创建监听事件处理器</param>
     public FileWatcher OnCreatedAsync( Func<object, FileSystemEventArgs, Task> action ) {
         _watcher.Created += async ( source, e ) => {
-            await action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                await action( source, e );
         };
         return this;
     }
@@ -74,7 +97,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件变更监听事件处理器</param>
     public FileWatcher OnChanged( Action<object, FileSystemEventArgs> action ) {
         _watcher.Changed += ( source, e ) => {
-            action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                action( source, e );
         };
         return this;
     }
@@ -85,7 +109,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件变更监听事件处理器</param>
     public FileWatcher OnChangedAsync( Func<object, FileSystemEventArgs, Task> action ) {
         _watcher.Changed += async ( source, e ) => {
-            await action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                await action( source, e );
         };
         return this;
     }
@@ -96,7 +121,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件删除监听事件处理器</param>
     public FileWatcher OnDeleted( Action<object, FileSystemEventArgs> action ) {
         _watcher.Deleted += ( source, e ) => {
-            action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                action( source, e );
         };
         return this;
     }
@@ -107,7 +133,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件删除监听事件处理器</param>
     public FileWatcher OnDeletedAsync( Func<object, FileSystemEventArgs, Task> action ) {
         _watcher.Deleted += async ( source, e ) => {
-            await action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                await action( source, e );
         };
         return this;
     }
@@ -118,7 +145,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件重命名监听事件处理器</param>
     public FileWatcher OnRenamed( Action<object, RenamedEventArgs> action ) {
         _watcher.Renamed += ( source, e ) => {
-            action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                action( source, e );
         };
         return this;
     }
@@ -129,7 +157,8 @@ public class FileWatcher : IDisposable {
     /// <param name="action">文件重命名监听事件处理器</param>
     public FileWatcher OnRenamedAsync( Func<object, RenamedEventArgs, Task> action ) {
         _watcher.Renamed += async ( source, e ) => {
-            await action( source, e );
+            if ( _fileWatcherEventFilter.IsValid( e.FullPath, _debounceInterval ) )
+                await action( source, e );
         };
         return this;
     }
@@ -200,4 +229,52 @@ public class FileWatcher : IDisposable {
     public void Dispose() {
         _watcher?.Dispose();
     }
+}
+
+/// <summary>
+/// 文件监视事件过滤器
+/// </summary>
+internal class FileWatcherEventFilter {
+    /// <summary>
+    /// 最后一个文件
+    /// </summary>
+    private WatchFile _file;
+
+    /// <summary>
+    /// 监视事件是否有效
+    /// </summary>
+    /// <param name="path">文件路径</param>
+    /// <param name="debounceInterval">防抖间隔</param>
+    internal bool IsValid( string path, int debounceInterval ) {
+        if ( _file != null && path == _file.Path && DateTime.Now - _file.Time < TimeSpan.FromMilliseconds( debounceInterval ) ) {
+            _file = new WatchFile( path );
+            return false;
+        }
+        _file = new WatchFile( path );
+        return true;
+    }
+}
+
+/// <summary>
+/// 监视文件
+/// </summary>
+internal class WatchFile {
+    /// <summary>
+    /// 初始化监视文件
+    /// </summary>
+    /// <param name="path">文件路径</param>
+    public WatchFile( string path ) {
+        Path = path;
+        Time = DateTime.Now;
+    }
+
+    /// <summary>
+    /// 文件路径
+    /// </summary>
+    public string Path { get; }
+
+    /// <summary>
+    /// 处理时间
+    /// </summary>
+    public DateTime Time { get; }
 }

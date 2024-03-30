@@ -5,6 +5,18 @@
 /// </summary>
 public class RazorOptions {
     /// <summary>
+    /// Razor文件根路径,默认值: /ClientApp
+    /// </summary>
+    public string RazorRootDirectory { get; set; } = "/ClientApp";
+    /// <summary>
+    /// Spa静态文件根路径,默认值: ClientApp
+    /// </summary>
+    public string RootPath { get; set; } = "ClientApp";
+    /// <summary>
+    /// Razor页面生成html文件路径的版本,用于兼容传统使用方式,可选值: v1,v2, 如果需要退回到传统生成路径,传入 v1
+    /// </summary>
+    public string GenerateHtmlVersion { get; set; }
+    /// <summary>
     /// 是否在Razor页面运行时自动生成html文件
     /// </summary>
     public bool IsGenerateHtml { get; set; }

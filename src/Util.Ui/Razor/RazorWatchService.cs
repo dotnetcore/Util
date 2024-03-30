@@ -158,9 +158,9 @@ public class RazorWatchService : IRazorWatchService {
     /// html是否存在
     /// </summary>
     protected bool Exists( List<string> htmlPaths, string razorPath ) {
-        if ( string.Equals( razorPath, "/Pages/Error.cshtml", StringComparison.OrdinalIgnoreCase ) )
+        if ( string.Equals( razorPath, $"{_options.RazorRootDirectory}/Error.cshtml", StringComparison.OrdinalIgnoreCase ) )
             return true;
-        var path = GenerateHtmlFilter.GetPath( razorPath.RemoveStart( "/Pages" ).RemoveEnd( ".cshtml" ) );
+        var path = GenerateHtmlFilter.GetPath( razorPath.RemoveStart( _options.RazorRootDirectory ).RemoveEnd( ".cshtml" ), _options );
         return htmlPaths.Any( t => t.Replace( "\\", "/" ).EndsWith( path, StringComparison.OrdinalIgnoreCase ) );
     }
 
@@ -172,7 +172,7 @@ public class RazorWatchService : IRazorWatchService {
     /// <param name="isWrite">是否写入日志</param>
     public async Task Request( string path, CancellationToken cancellationToken = default, bool isWrite = true ) {
         await Task.Delay( _options.HtmlRenderDelayOnRazorChange, cancellationToken );
-        var requestPath = Url.JoinPath( GetApplicationUrl(), "view", path.RemoveStart( "/Pages" ).RemoveEnd( ".cshtml" ) );
+        var requestPath = Url.JoinPath( GetApplicationUrl(), "view", path.RemoveStart( _options.RazorRootDirectory ).RemoveEnd( ".cshtml" ) );
         WriteLog( $"发送请求: {requestPath}", isWrite );
         var response = await _client.GetAsync( requestPath, cancellationToken );
         if ( response.IsSuccessStatusCode )
@@ -216,7 +216,7 @@ public class RazorWatchService : IRazorWatchService {
     /// </summary>
     protected virtual Task StartWatch( CancellationToken cancellationToken ) {
         WriteLog( "开始监听..." );
-        var path = GetProjectPath( "Pages" );
+        var path = GetProjectPath( _options.RazorRootDirectory.RemoveStart( "/" ) );
         _watcher.Path( path )
             .Filter( "*.cshtml" )
             .OnChangedAsync( async ( _, e ) => await GenerateAsync( e.FullPath, cancellationToken ) )

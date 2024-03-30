@@ -20,11 +20,10 @@ public static class WebApplicationExtensions {
     public static WebApplication UseNgZorro( this WebApplication app ) {
         app.CheckNull( nameof( app ) );
         AddEndpoints( app );
-        if ( app.Environment.IsDevelopment() == false )
-            return app;
         app.UseAngular( spa => {
             spa.Options.SourcePath = SourcePath;
-            spa.UseAngularCliServer( "start" );
+            if ( app.Environment.IsDevelopment() )
+                spa.UseAngularCliServer( "start" );
         } );
         return app;
     }
@@ -55,8 +54,12 @@ public static class WebApplicationExtensions {
         AddEndpoints( app );
         if ( app.Environment.IsDevelopment() == false )
             return app;
-        if ( action != null )
-            app.UseSpa( action );
+        if ( action == null )
+            return app;
+        app.UseSpa( spa => {
+            if ( app.Environment.IsDevelopment() )
+                action( spa );
+        });
         return app;
     }
 
@@ -89,11 +92,10 @@ public static class WebApplicationExtensions {
     private static WebApplication UseSpa( WebApplication app, string developmentServerBaseUri ) {
         app.CheckNull( nameof( app ) );
         AddEndpoints( app );
-        if ( app.Environment.IsDevelopment() == false )
-            return app;
         app.UseSpa( spa => {
             spa.Options.SourcePath = SourcePath;
-            spa.UseProxyToSpaDevelopmentServer( developmentServerBaseUri );
+            if ( app.Environment.IsDevelopment() )
+                spa.UseProxyToSpaDevelopmentServer( developmentServerBaseUri );
         } );
         return app;
     }
@@ -104,12 +106,11 @@ public static class WebApplicationExtensions {
     private static WebApplication UseCustomSpa( WebApplication app, int port ) {
         app.CheckNull( nameof( app ) );
         AddEndpoints( app );
-        if ( app.Environment.IsDevelopment() == false )
-            return app;
         app.UseAngular( spa => {
             spa.Options.SourcePath = SourcePath;
             spa.Options.DevServerPort = port;
-            spa.UseAngularCliServer( "start" );
+            if ( app.Environment.IsDevelopment() )
+                spa.UseAngularCliServer( "start" );
         } );
         return app;
     }

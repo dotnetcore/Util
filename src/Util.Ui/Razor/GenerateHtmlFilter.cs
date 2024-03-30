@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System.Globalization;
 using Util.Helpers;
 using File = System.IO.File;
 
@@ -60,10 +59,26 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     private string CreatePath( PageHandlerSelectedContext context, RazorOptions options ) {
         var attribute = context?.ActionDescriptor?.ModelTypeInfo?.GetCustomAttribute<HtmlAttribute>();
         if ( attribute == null )
-            return GetPath( context?.ActionDescriptor.ViewEnginePath, options.GenerateHtmlBasePath, options.GenerateHtmlFolder, options.GenerateHtmlSuffix );
+            return GetPath( context?.ActionDescriptor.ViewEnginePath, options );
         if ( attribute.Ignore )
             return string.Empty;
         return string.IsNullOrWhiteSpace( attribute.Path ) ? string.Empty : attribute.Path;
+    }
+
+    /// <summary>
+    /// 获取Html文件路径
+    /// </summary>
+    /// <param name="path">路径</param>
+    /// <param name="options">配置</param>
+    public static string GetPath( string path, RazorOptions options ) {
+        if ( string.IsNullOrWhiteSpace( path ) )
+            return string.Empty;
+        if ( options.GenerateHtmlVersion == "v1" )
+            return GetPath( path, options.GenerateHtmlBasePath, options.GenerateHtmlFolder, options.GenerateHtmlSuffix );
+        if ( path.Contains( "/" ) == false )
+            return Util.Helpers.Url.JoinPath( options.RazorRootDirectory, options.GenerateHtmlFolder, $"{path}.html" );
+        var lastIndex = path.LastIndexOf( "/", StringComparison.Ordinal );
+        return Util.Helpers.Url.JoinPath( options.RazorRootDirectory, path.Substring( 0, lastIndex ), options.GenerateHtmlFolder, $"{path.Substring( lastIndex + 1 )}.html" );
     }
 
     /// <summary>

@@ -63,7 +63,7 @@ public class RazorViewContainer {
     public RazorView FindView( string path ) {
         if ( path.IsEmpty() )
             return null;
-        return _views.TryGetValue( path, out var view ) ? view : null;
+        return _views.TryGetValue( path.SafeString().ToLower(), out var view ) ? view : null;
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class RazorViewContainer {
     public void AddView( RazorView view ) {
         if ( view == null )
             return;
-        _views.TryAdd( view.Path, view );
+        _views.TryAdd( view.Path.SafeString().ToLower(), view );
     }
 
     /// <summary>

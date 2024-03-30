@@ -27,8 +27,8 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Exceptionless.Extensions.Hosting" Version="6.0.3" />
-    <PackageReference Include="Exceptionless.Extensions.Logging" Version="6.0.3" />
+    <PackageReference Include="Exceptionless.Extensions.Hosting" Version="6.0.4" />
+    <PackageReference Include="Exceptionless.Extensions.Logging" Version="6.0.4" />
     <PackageReference Include="Serilog.Sinks.Exceptionless" Version="4.0.0" />
   </ItemGroup>
 

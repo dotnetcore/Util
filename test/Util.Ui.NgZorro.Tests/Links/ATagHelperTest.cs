@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Links;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -326,11 +327,17 @@ namespace Util.Ui.NgZorro.Tests.Links {
         }
 
         /// <summary>
-        /// 测试查询表单链接
+        /// 测试查询表单链接 - 查询条件数量超过初始显示数量则显示
         /// </summary>
         [Fact]
-        public void TestIsSearch() {
+        public void TestIsSearch_1() {
             _wrapper.SetContextAttribute( UiConst.IsSearch, true );
+            var formShareConfig = new FormShareConfig { SearchFormShowNumber = 1 };
+            formShareConfig.AddColumnId( "a" );
+            formShareConfig.AddColumnId( "b" );
+            formShareConfig.AddColumnId( "action" );
+            _wrapper.SetItem( formShareConfig );
+
             var result = new StringBuilder();
             result.Append( "<a (click)=\"expand=!expand\">" );
             result.Append( "{{expand?'收起':'展开'}}" );
@@ -340,18 +347,38 @@ namespace Util.Ui.NgZorro.Tests.Links {
         }
 
         /// <summary>
-        /// 测试查询表单链接 - 多语言
+        /// 测试查询表单链接 - 查询条件数量超过初始显示数量则显示 - 多语言
         /// </summary>
         [Fact]
-        public void TestIsSearch_i18n() {
+        public void TestIsSearch_2() {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.IsSearch, true );
+            var formShareConfig = new FormShareConfig { SearchFormShowNumber = 1 };
+            formShareConfig.AddColumnId( "a" );
+            formShareConfig.AddColumnId( "b" );
+            formShareConfig.AddColumnId( "action" );
+            _wrapper.SetItem( formShareConfig );
+
             var result = new StringBuilder();
             result.Append( "<a (click)=\"expand=!expand\">" );
             result.Append( "{{expand?('util.collapse'|i18n):('util.expand'|i18n)}}" );
             result.Append( "<i nz-icon=\"\" [nzType]=\"expand?'up':'down'\"></i>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试查询表单链接 - 查询条件数量少于等于初始显示数量则不显示
+        /// </summary>
+        [Fact]
+        public void TestIsSearch_3() {
+            _wrapper.SetContextAttribute( UiConst.IsSearch, true );
+            var formShareConfig = new FormShareConfig { SearchFormShowNumber = 2 };
+            formShareConfig.AddColumnId( "a" );
+            formShareConfig.AddColumnId( "b" );
+            formShareConfig.AddColumnId( "action" );
+            _wrapper.SetItem( formShareConfig );
+            Assert.Empty( GetResult() );
         }
 
         /// <summary>
