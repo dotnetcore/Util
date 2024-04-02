@@ -32,29 +32,30 @@ public class RazorViewContainerTest {
     }
 
     /// <summary>
-    /// 测试创建视图 - 不包含分部视图
+    /// 测试添加视图 - 不包含分部视图
     /// </summary>
     [Fact]
-    public void TestCreateView_1() {
+    public void TestAddView_1() {
         //变量定义
         var path = "/path1";
         var content = "@page a";
 
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
 
         //执行
-        var result = _container.CreateView( path, content );
+        var result = _container.AddView( path );
         Assert.True( result is MainView );
         Assert.Equal( path, result.Path );
         Assert.Empty( result.PartViews );
     }
 
     /// <summary>
-    /// 测试创建视图 - 1个分部视图
+    /// 测试添加视图 - 1个分部视图
     /// </summary>
     [Fact]
-    public void TestCreateView_2() {
+    public void TestAddView_2() {
         //变量定义
         var path = "/path1";
         var content = "@page a";
@@ -62,10 +63,11 @@ public class RazorViewContainerTest {
 
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [partPath] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
         _mockContentResolver.Setup( t => t.Resolve( partPath ) ).Returns( "a" );
 
         //执行
-        var result = _container.CreateView( path, content );
+        var result = _container.AddView( path );
         Assert.True( result is MainView );
         Assert.Equal( path, result.Path );
         Assert.Single( result.PartViews );
@@ -74,7 +76,7 @@ public class RazorViewContainerTest {
     }
 
     /// <summary>
-    /// 测试创建视图 - 2个分部视图
+    /// 测试添加视图 - 2个分部视图
     /// </summary>
     [Fact]
     public void TestCreateView_3() {
@@ -86,11 +88,12 @@ public class RazorViewContainerTest {
 
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [path2, path3] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
         _mockContentResolver.Setup( t => t.Resolve( path2 ) ).Returns( "a" );
         _mockContentResolver.Setup( t => t.Resolve( path3 ) ).Returns( "a" );
 
         //执行
-        var result = _container.CreateView( path, content );
+        var result = _container.AddView( path );
         Assert.Equal( 2, result.PartViews.Count );
         Assert.Equal( path2, result.PartViews[0].Path );
         Assert.Single( result.PartViews[0].MainViews );
@@ -99,7 +102,7 @@ public class RazorViewContainerTest {
     }
 
     /// <summary>
-    /// 测试创建视图 - 2个分部视图 - 分部视图嵌套
+    /// 测试添加视图 - 2个分部视图 - 分部视图嵌套
     /// </summary>
     [Fact]
     public void TestCreateView_4() {
@@ -114,12 +117,13 @@ public class RazorViewContainerTest {
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [path2, path3] );
         _mockPartViewPathResolver.Setup( t => t.Resolve( path3, content2 ) ).Returns( [path4] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
         _mockContentResolver.Setup( t => t.Resolve( path2 ) ).Returns( "a" );
         _mockContentResolver.Setup( t => t.Resolve( path3 ) ).Returns( content2 );
         _mockContentResolver.Setup( t => t.Resolve( path4 ) ).Returns( "a" );
 
         //执行
-        var result = _container.CreateView( path, content );
+        var result = _container.AddView( path );
         Assert.Equal( 2, result.PartViews.Count );
         Assert.Equal( path2, result.PartViews[0].Path );
         Assert.Single( result.PartViews[0].MainViews );
@@ -138,13 +142,14 @@ public class RazorViewContainerTest {
         //变量定义
         var path = "/path1";
         var content = "@page a";
-        var dic = new Dictionary<string, string> { { path, content } };
+        var list = new List<string> { path };
 
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
 
         //初始化容器
-        _container.Init( dic );
+        _container.Init( list );
 
         //执行
         var result = _container.GetViewPaths( path );
@@ -161,14 +166,15 @@ public class RazorViewContainerTest {
         var path = "/path1";
         var content = "@page a";
         var partPath = "/path2";
-        var dic = new Dictionary<string, string> { { path, content } };
+        var list = new List<string> { path };
 
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [partPath] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
         _mockContentResolver.Setup( t => t.Resolve( partPath ) ).Returns( "a" );
 
         //初始化容器
-        _container.Init( dic );
+        _container.Init( list );
 
         //执行
         var result = _container.GetViewPaths( partPath );
@@ -186,15 +192,17 @@ public class RazorViewContainerTest {
         var path2 = "/path2";
         var content = "@page a";
         var partPath = "/partPath";
-        var dic = new Dictionary<string, string> { { path, content }, { path2, content } };
+        var list = new List<string> { path, path2 };
 
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [partPath] );
         _mockPartViewPathResolver.Setup( t => t.Resolve( path2, content ) ).Returns( [partPath] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
+        _mockContentResolver.Setup( t => t.Resolve( path2 ) ).Returns( content );
         _mockContentResolver.Setup( t => t.Resolve( partPath ) ).Returns( "a" );
 
         //初始化容器
-        _container.Init( dic );
+        _container.Init( list );
 
         //执行
         var result = _container.GetViewPaths( partPath );
@@ -215,17 +223,19 @@ public class RazorViewContainerTest {
         var content2 = "a";
         var partPath = "/partPath";
         var partPath2 = "/partPath2";
-        var dic = new Dictionary<string, string> { { path, content }, { path2, content } };
+        var list = new List<string> { path, path2 };
 
         //方法设置
         _mockPartViewPathResolver.Setup( t => t.Resolve( path, content ) ).Returns( [partPath] );
         _mockPartViewPathResolver.Setup( t => t.Resolve( path2, content ) ).Returns( [partPath2] );
         _mockPartViewPathResolver.Setup( t => t.Resolve( partPath2, content2 ) ).Returns( [partPath] );
+        _mockContentResolver.Setup( t => t.Resolve( path ) ).Returns( content );
+        _mockContentResolver.Setup( t => t.Resolve( path2 ) ).Returns( content );
         _mockContentResolver.Setup( t => t.Resolve( partPath ) ).Returns( "a" );
         _mockContentResolver.Setup( t => t.Resolve( partPath2 ) ).Returns( content2 );
 
         //初始化容器
-        _container.Init( dic );
+        _container.Init( list );
 
         //执行
         var result = _container.GetViewPaths( partPath );

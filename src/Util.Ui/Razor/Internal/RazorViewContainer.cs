@@ -79,34 +79,40 @@ public class RazorViewContainer {
     /// <summary>
     /// 初始化视图容器
     /// </summary>
-    /// <param name="viewContents">视图内容集合</param>
-    public void Init( IDictionary<string, string> viewContents ) {
-        if ( viewContents == null )
+    /// <param name="paths">视图路径列表</param>
+    public void Init( List<string> paths ) {
+        if ( paths == null )
             return;
-        foreach ( var viewContent in viewContents )
-            CreateView( viewContent.Key, viewContent.Value );
+        foreach ( var path in paths )
+            AddView( path );
     }
 
     /// <summary>
-    /// 创建视图
+    /// 添加视图
     /// </summary>
     /// <param name="path">视图路径</param>
-    /// <param name="content">视图文件内容</param>
-    public RazorView CreateView( string path, string content ) {
+    public RazorView AddView( string path ) {
         if ( path.IsEmpty() )
             return null;
+        var content = GetContent( path );
         if ( content.IsEmpty() )
             return null;
-        RazorView result = FindOrCreateView( path, content );
+        RazorView view = FindOrCreateView( path, content );
         var partViewPaths = _partViewPathResolver.Resolve( path, content ) ?? [];
         foreach ( var partViewPath in partViewPaths ) {
-            var partViewContent = GetContent( partViewPath );
-            var partView = CreateView( partViewPath, partViewContent );
+            var partView = AddView( partViewPath );
             if ( partView != null )
-                result.AddPartView( (PartView)partView );
+                view.AddPartView( (PartView)partView );
         }
-        AddView( result );
-        return result;
+        AddView( view );
+        return view;
+    }
+
+    /// <summary>
+    /// 获取Razor文件内容
+    /// </summary>
+    protected string GetContent( string relativePath ) {
+        return _contentResolver.Resolve( relativePath );
     }
 
     /// <summary>
@@ -125,13 +131,6 @@ public class RazorViewContainer {
     /// <param name="content">视图内容</param>
     protected bool IsPartView( string content ) {
         return content.SafeString().StartsWith( "@page" ) == false;
-    }
-
-    /// <summary>
-    /// 获取Razor文件内容
-    /// </summary>
-    protected string GetContent( string relativePath ) {
-        return _contentResolver.Resolve( relativePath );
     }
 
     /// <summary>

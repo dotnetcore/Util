@@ -41,6 +41,18 @@ public static class UiConst {
     /// </summary>
     public const string EnableFixedColumn = "enable-fixed-column";
     /// <summary>
+    /// 格式变化事件
+    /// </summary>
+    public const string OnFormatChange = "on-format-change";
+    /// <summary>
+    /// 显示文本
+    /// </summary>
+    public const string ShowText = "show-text";
+    /// <summary>
+    /// 默认值
+    /// </summary>
+    public const string DefaultValue = "default-value";
+    /// <summary>
     /// 起始日期
     /// </summary>
     public const string BeginDate = "begin-date";
@@ -400,6 +412,10 @@ public static class UiConst {
     /// 禁用
     /// </summary>
     public const string Disabled = "disabled";
+    /// <summary>
+    /// 禁用透明度
+    /// </summary>
+    public const string DisabledAlpha = "disabled-alpha";
     /// <summary>
     /// 禁用日期
     /// </summary>

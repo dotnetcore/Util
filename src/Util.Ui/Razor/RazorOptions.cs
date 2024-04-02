@@ -41,9 +41,9 @@ public class RazorOptions {
     /// </summary>
     public int StartInitDelay { get; set; } = 1000;
     /// <summary>
-    /// 修改Razor页面生成Html文件的延迟时间，单位: 毫秒, 默认值：100 ,注意: 延迟太短可能导致生成异常
+    /// 修改Razor页面生成Html文件的延迟时间，单位: 毫秒, 默认值：300 ,注意: 延迟太短可能导致生成异常
     /// </summary>
-    public int HtmlRenderDelayOnRazorChange { get; set; } = 100;    
+    public int HtmlRenderDelayOnRazorChange { get; set; } = 300;    
     /// <summary>
     /// 启动Razor监视服务时是否预热,默认值: true
     /// </summary>

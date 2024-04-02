@@ -53,6 +53,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindAcl = "bind-acl";
     /// <summary>
+    /// 触发器
+    /// </summary>
+    public const string BindTrigger = "bind-trigger";
+    /// <summary>
     /// 首页
     /// </summary>
     public const string BindHome = "bind-home";
@@ -73,6 +77,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindRecursiveBreadcrumb = "bind-recursive-breadcrumb";
     /// <summary>
+    /// 禁用透明度
+    /// </summary>
+    public const string BindDisabledAlpha = "bind-disabled-alpha";
+    /// <summary>
     /// 定宽
     /// </summary>
     public const string BindWide = "bind-wide";
@@ -80,6 +88,10 @@ public static class AngularConst {
     /// 固定
     /// </summary>
     public const string BindFixed = "bind-fixed";
+    /// <summary>
+    /// 显示文本
+    /// </summary>
+    public const string BindShowText = "bind-show-text";
     /// <summary>
     /// 行数
     /// </summary>
@@ -116,6 +128,10 @@ public static class AngularConst {
     /// 文本
     /// </summary>
     public const string BindText = "bind-text";
+    /// <summary>
+    /// 默认值
+    /// </summary>
+    public const string BindDefaultValue = "bind-default-value";
     /// <summary>
     /// 值
     /// </summary>
