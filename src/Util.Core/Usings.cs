@@ -22,6 +22,7 @@ global using System.Diagnostics.CodeAnalysis;
 global using System.Net.Http;
 global using System.Xml;
 global using System.Xml.Linq;
+global using System.Text.Json.Serialization.Metadata;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;

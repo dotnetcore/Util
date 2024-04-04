@@ -1,4 +1,4 @@
-﻿namespace Util.Helpers; 
+﻿namespace Util.Helpers;
 
 /// <summary>
 /// 文件流操作
@@ -33,7 +33,7 @@ public static class File {
     /// <param name="encoding">字符编码</param>
     public static byte[] ToBytes( string data, Encoding encoding ) {
         if ( string.IsNullOrWhiteSpace( data ) )
-            return new byte[] { };
+            return Array.Empty<byte>();
         return encoding.GetBytes( data );
     }
 
@@ -136,7 +136,7 @@ public static class File {
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="encoding">字符编码</param>
     public static string ReadToString( string filePath, Encoding encoding ) {
-        if( System.IO.File.Exists( filePath ) == false )
+        if ( System.IO.File.Exists( filePath ) == false )
             return string.Empty;
         using var reader = new StreamReader( filePath, encoding );
         return reader.ReadToEnd();
@@ -182,7 +182,7 @@ public static class File {
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="encoding">字符编码</param>
     public static async Task<string> ReadToStringAsync( string filePath, Encoding encoding ) {
-        if( System.IO.File.Exists( filePath ) == false )
+        if ( System.IO.File.Exists( filePath ) == false )
             return string.Empty;
         using var reader = new StreamReader( filePath, encoding );
         return await reader.ReadToEndAsync();
@@ -295,7 +295,23 @@ public static class File {
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="content">内容</param>
     public static void Write( string filePath, string content ) {
+        if ( content.IsEmpty() )
+            return;
         Write( filePath, Convert.ToBytes( content ) );
+    }
+
+    /// <summary>
+    /// 将流写入文件
+    /// </summary>
+    /// <param name="filePath">文件绝对路径</param>
+    /// <param name="content">内容</param>
+    public static void Write( string filePath, Stream content ) {
+        if ( content == null )
+            return;
+        using ( content ) {
+            var bytes = ToBytes( content );
+            Write( filePath, bytes );
+        }
     }
 
     /// <summary>
@@ -304,9 +320,9 @@ public static class File {
     /// <param name="filePath">文件绝对路径</param>
     /// <param name="content">内容</param>
     public static void Write( string filePath, byte[] content ) {
-        if( string.IsNullOrWhiteSpace( filePath ) )
+        if ( string.IsNullOrWhiteSpace( filePath ) )
             return;
-        if( content == null )
+        if ( content == null )
             return;
         CreateDirectory( filePath );
         System.IO.File.WriteAllBytes( filePath, content );
@@ -323,6 +339,8 @@ public static class File {
     /// <param name="content">内容</param>
     /// <param name="cancellationToken">取消令牌</param>
     public static async Task WriteAsync( string filePath, string content, CancellationToken cancellationToken = default ) {
+        if ( content.IsEmpty() )
+            return;
         await WriteAsync( filePath, Convert.ToBytes( content ), cancellationToken );
     }
 
@@ -333,8 +351,12 @@ public static class File {
     /// <param name="content">内容</param>
     /// <param name="cancellationToken">取消令牌</param>
     public static async Task WriteAsync( string filePath, Stream content, CancellationToken cancellationToken = default ) {
-        var bytes = await ToBytesAsync( content, cancellationToken );
-        await WriteAsync( filePath, bytes, cancellationToken );
+        if ( content == null )
+            return;
+        await using ( content ) {
+            var bytes = await ToBytesAsync( content, cancellationToken );
+            await WriteAsync( filePath, bytes, cancellationToken );
+        }
     }
 
     /// <summary>
@@ -344,9 +366,9 @@ public static class File {
     /// <param name="content">内容</param>
     /// <param name="cancellationToken">取消令牌</param>
     public static async Task WriteAsync( string filePath, byte[] content, CancellationToken cancellationToken = default ) {
-        if( string.IsNullOrWhiteSpace( filePath ) )
+        if ( string.IsNullOrWhiteSpace( filePath ) )
             return;
-        if( content == null )
+        if ( content == null )
             return;
         CreateDirectory( filePath );
         await System.IO.File.WriteAllBytesAsync( filePath, content, cancellationToken );
@@ -361,7 +383,7 @@ public static class File {
     /// </summary>
     /// <param name="filePaths">文件绝对路径集合</param>
     public static void Delete( IEnumerable<string> filePaths ) {
-        foreach( var filePath in filePaths )
+        foreach ( var filePath in filePaths )
             Delete( filePath );
     }
 
@@ -370,9 +392,9 @@ public static class File {
     /// </summary>
     /// <param name="filePath">文件绝对路径</param>
     public static void Delete( string filePath ) {
-        if( string.IsNullOrWhiteSpace( filePath ) )
+        if ( string.IsNullOrWhiteSpace( filePath ) )
             return;
-        if( System.IO.File.Exists( filePath ) )
+        if ( System.IO.File.Exists( filePath ) )
             System.IO.File.Delete( filePath );
     }
 
@@ -385,7 +407,7 @@ public static class File {
     /// </summary>
     /// <param name="path">目录路径</param>
     /// <param name="searchPattern">搜索模式</param>
-    public static List<FileInfo> GetAllFiles( string path,string searchPattern ) {
+    public static List<FileInfo> GetAllFiles( string path, string searchPattern ) {
         return Directory.GetFiles( path, searchPattern, SearchOption.AllDirectories )
             .Select( filePath => new FileInfo( filePath ) ).ToList();
     }
@@ -400,10 +422,10 @@ public static class File {
     /// <param name="sourceFilePath">源文件绝对路径</param>
     /// <param name="destinationFilePath">目标文件绝对路径</param>
     /// <param name="overwrite">目标文件存在时是否覆盖,默认值: false</param>
-    public static void Copy( string sourceFilePath,string destinationFilePath, bool overwrite = false ) {
+    public static void Copy( string sourceFilePath, string destinationFilePath, bool overwrite = false ) {
         if ( sourceFilePath.IsEmpty() || destinationFilePath.IsEmpty() )
             return;
-        if( FileExists( sourceFilePath ) == false )
+        if ( FileExists( sourceFilePath ) == false )
             return;
         CreateDirectory( destinationFilePath );
         System.IO.File.Copy( sourceFilePath, destinationFilePath, overwrite );
@@ -420,9 +442,9 @@ public static class File {
     /// <param name="destinationFilePath">目标文件绝对路径</param>
     /// <param name="overwrite">目标文件存在时是否覆盖,默认值: false</param>
     public static void Move( string sourceFilePath, string destinationFilePath, bool overwrite = false ) {
-        if( sourceFilePath.IsEmpty() || destinationFilePath.IsEmpty() )
+        if ( sourceFilePath.IsEmpty() || destinationFilePath.IsEmpty() )
             return;
-        if( FileExists( sourceFilePath ) == false )
+        if ( FileExists( sourceFilePath ) == false )
             return;
         CreateDirectory( destinationFilePath );
         System.IO.File.Move( sourceFilePath, destinationFilePath, overwrite );

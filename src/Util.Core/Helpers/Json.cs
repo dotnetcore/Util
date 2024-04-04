@@ -1,6 +1,6 @@
 ﻿using Util.SystemTextJson;
 
-namespace Util.Helpers; 
+namespace Util.Helpers;
 
 /// <summary>
 /// Json操作
@@ -23,6 +23,11 @@ public static class Json {
     /// </summary>
     private static JsonSerializerOptions ToJsonSerializerOptions( JsonOptions options ) {
         var jsonSerializerOptions = new JsonSerializerOptions();
+        if ( options.IgnoreEmptyString ) {
+            jsonSerializerOptions.TypeInfoResolver = new DefaultJsonTypeInfoResolver {
+                Modifiers = { IgnoreEmptyString }
+            };
+        }
         if ( options.IgnoreNullValues )
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         if ( options.IgnoreCase )
@@ -38,20 +43,33 @@ public static class Json {
     }
 
     /// <summary>
+    /// 忽略空字符串
+    /// </summary>
+    private static void IgnoreEmptyString( JsonTypeInfo jsonTypeInfo ) {
+        if ( jsonTypeInfo.Kind != JsonTypeInfoKind.Object )
+            return;
+        foreach ( JsonPropertyInfo jsonPropertyInfo in jsonTypeInfo.Properties ) {
+            if ( jsonPropertyInfo.PropertyType == typeof( string ) ) {
+                jsonPropertyInfo.ShouldSerialize = static ( _, value ) => value.SafeString().IsEmpty() == false;
+            }
+        }
+    }
+
+    /// <summary>
     /// 将对象转换为Json字符串
     /// </summary>
     /// <param name="value">目标对象</param>
     /// <param name="options">序列化配置</param>
     /// <param name="removeQuotationMarks">是否移除双引号</param>
     /// <param name="toSingleQuotes">是否将双引号转成单引号</param>
-    public static string ToJson<T>( T value, JsonSerializerOptions options = null,bool removeQuotationMarks = false, bool toSingleQuotes = false ) {
-        return ToJson( value, options, removeQuotationMarks, toSingleQuotes,true );
+    public static string ToJson<T>( T value, JsonSerializerOptions options = null, bool removeQuotationMarks = false, bool toSingleQuotes = false ) {
+        return ToJson( value, options, removeQuotationMarks, toSingleQuotes, true );
     }
 
     /// <summary>
     /// 将对象转换为Json字符串
     /// </summary>
-    private static string ToJson<T>( T value, JsonSerializerOptions options, bool removeQuotationMarks, bool toSingleQuotes,bool ignoreInterface ) {
+    private static string ToJson<T>( T value, JsonSerializerOptions options, bool removeQuotationMarks, bool toSingleQuotes, bool ignoreInterface ) {
         if ( value == null )
             return string.Empty;
         options = GetToJsonOptions( options );
@@ -87,7 +105,7 @@ public static class Json {
     private static string Serialize<T>( T value, JsonSerializerOptions options, bool ignoreInterface ) {
         if ( ignoreInterface ) {
             object instance = value;
-            if( instance != null )
+            if ( instance != null )
                 return JsonSerializer.Serialize( instance, options );
         }
         return JsonSerializer.Serialize( value, options );

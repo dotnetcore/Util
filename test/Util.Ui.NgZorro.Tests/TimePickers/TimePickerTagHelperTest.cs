@@ -474,9 +474,16 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
             _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+
             var result = new StringBuilder();
-            result.Append( "<nz-time-picker *nzSpaceItem=\"\"></nz-time-picker>" );
+            result.Append( "<nz-form-item *nzSpaceItem=\"\">" );
+            result.Append( "<nz-form-label>a</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-time-picker></nz-time-picker>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

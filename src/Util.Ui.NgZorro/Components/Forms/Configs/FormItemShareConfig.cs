@@ -29,6 +29,14 @@ public class FormItemShareConfig : FormShareConfig {
     /// </summary>
     public string LabelText { get; set; }
     /// <summary>
+    /// 标签文本
+    /// </summary>
+    public string BindLabelText { get; set; }
+    /// <summary>
+    /// 是否间距项
+    /// </summary>
+    public bool SpaceItem { get; set; }
+    /// <summary>
     /// 是否存在额外提示
     /// </summary>
     public bool HasExtra { get; set; }

@@ -185,10 +185,6 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     public bool AutocompleteSearchKeyword { get; set; }
     /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
-    /// </summary>
-    public bool SpaceItem { get; set; }
-    /// <summary>
     /// (input),输入事件
     /// </summary>
     public string OnInput { get; set; }

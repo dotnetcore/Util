@@ -124,3 +124,10 @@ public enum TestEnum {
     Test1 = 1,
     Test2 = 2
 }
+
+/// <summary>
+/// Json测试样例
+/// </summary>
+public class JsonTestSample3 {
+    public string Name { get; set; }
+}

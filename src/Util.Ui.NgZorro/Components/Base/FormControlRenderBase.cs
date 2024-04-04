@@ -8,7 +8,7 @@ using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Extensions;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Base; 
+namespace Util.Ui.NgZorro.Components.Base;
 
 /// <summary>
 /// 表单控件渲染器基类
@@ -66,7 +66,7 @@ public abstract class FormControlRenderBase : IRender {
         var formLabel = GetFormLabel();
         var formControl = GetFormControl();
         formItem.AppendContent( formLabel ).AppendContent( formControl );
-        formItem.WriteTo( writer,encoder );
+        formItem.WriteTo( writer, encoder );
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public abstract class FormControlRenderBase : IRender {
     /// 设置控件Id
     /// </summary>
     protected void SetControlId() {
-        if( _shareConfig.AutoLabelFor != true )
+        if ( _shareConfig.AutoLabelFor != true )
             return;
         _config.SetAttribute( AngularConst.RawId, _shareConfig.ControlId );
     }
@@ -103,6 +103,7 @@ public abstract class FormControlRenderBase : IRender {
             var builder = new FormLabelBuilder( GetFormLabelConfig() );
             builder.Config();
             SetLabelText( builder );
+            SetBindLabelText( builder );
             return builder;
         }
         return new EmptyContainerTagBuilder();
@@ -121,6 +122,8 @@ public abstract class FormControlRenderBase : IRender {
     /// 设置表单标签文本
     /// </summary>
     protected virtual void SetLabelText( FormLabelBuilder builder ) {
+        if ( _shareConfig.LabelText.IsEmpty() )
+            return;
         var options = NgZorroOptionsService.GetOptions();
         if ( options.EnableI18n ) {
             builder.AppendContentByI18n( _shareConfig.LabelText );
@@ -130,15 +133,24 @@ public abstract class FormControlRenderBase : IRender {
     }
 
     /// <summary>
+    /// 设置表单标签文本
+    /// </summary>
+    protected virtual void SetBindLabelText( FormLabelBuilder builder ) {
+        if ( _shareConfig.BindLabelText.IsEmpty() )
+            return;
+        builder.SetContent( "{{" + _shareConfig.BindLabelText + "}}" );
+    }
+
+    /// <summary>
     /// 获取表单控件
     /// </summary>
     protected virtual TagBuilder GetFormControl() {
         TagBuilder builder = new EmptyContainerTagBuilder();
-        if( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormControl == true )
+        if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormControl == true )
             builder = new FormControlBuilder( _config.CopyRemoveAttributes() );
         builder.Config();
         AppendControl( builder );
-        if( IsAppendValidationTempalte() )
+        if ( IsAppendValidationTempalte() )
             AppendValidationTempalte( builder );
         return builder;
     }

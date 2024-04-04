@@ -177,10 +177,6 @@ public class RangePickerTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindShowTime { get; set; }
     /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
-    /// </summary>
-    public bool SpaceItem { get; set; }
-    /// <summary>
     /// [(beginDate)],扩展属性, 双向绑定起始日期
     /// </summary>
     public string BeginDate { get; set; }

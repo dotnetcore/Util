@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Cascaders;
@@ -27,6 +28,7 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         public CascaderTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new CascaderTagHelper().ToWrapper();
+            Id.SetId( "id" );
         }
 
         /// <summary>
@@ -559,9 +561,19 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
             _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+
             var result = new StringBuilder();
-            result.Append( "<nz-cascader *nzSpaceItem=\"\"></nz-cascader>" );
+            result.Append( "<nz-form-item *nzSpaceItem=\"\">" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<nz-cascader #v_id=\"xValidationExtend\" x-validation-extend=\"\" [(ngModel)]=\"model\" [required]=\"true\"></nz-cascader>" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

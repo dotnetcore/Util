@@ -25,9 +25,29 @@ public static class UiConst {
     /// </summary>
     public const string Color = "color";
     /// <summary>
+    /// 填充
+    /// </summary>
+    public const string Padding = "padding";
+    /// <summary>
+    /// 等级
+    /// </summary>
+    public const string Level = "level";
+    /// <summary>
+    /// 图片
+    /// </summary>
+    public const string Image = "image";
+    /// <summary>
+    /// 持续时间
+    /// </summary>
+    public const string Duration = "duration";
+    /// <summary>
     /// 单元格控件
     /// </summary>
     public const string CellControl = "cell-control";
+    /// <summary>
+    /// 可见高度
+    /// </summary>
+    public const string VisibilityHeight = "visibility-height";
     /// <summary>
     /// 启用拖动调整尺寸
     /// </summary>
@@ -88,6 +108,10 @@ public static class UiConst {
     /// 背景色
     /// </summary>
     public const string BackgroundColor = "background-color";
+    /// <summary>
+    /// 背景色
+    /// </summary>
+    public const string BgColor = "bg-color";
     /// <summary>
     /// 粘贴图片
     /// </summary>
@@ -437,6 +461,10 @@ public static class UiConst {
     /// </summary>
     public const string OnChange = "on-change";
     /// <summary>
+    /// 刷新事件
+    /// </summary>
+    public const string OnRefresh = "on-refresh";
+    /// <summary>
     /// 获得焦点事件
     /// </summary>
     public const string OnFocus = "on-focus";
@@ -444,6 +472,10 @@ public static class UiConst {
     /// 失去焦点事件
     /// </summary>
     public const string OnBlur = "on-blur";
+    /// <summary>
+    /// 复制事件
+    /// </summary>
+    public const string OnCopy = "on-copy";
     /// <summary>
     /// 键盘按键事件
     /// </summary>
@@ -493,9 +525,37 @@ public static class UiConst {
     /// </summary>
     public const string Icon = "icon";
     /// <summary>
+    /// 图标尺寸
+    /// </summary>
+    public const string IconSize = "icon-size";
+    /// <summary>
     /// 复制到剪贴板
     /// </summary>
     public const string CopyToClipboard = "copy-to-clipboard";
+    /// <summary>
+    /// 字体
+    /// </summary>
+    public const string Font = "font";
+    /// <summary>
+    /// 字体颜色
+    /// </summary>
+    public const string FontColor = "font-color";
+    /// <summary>
+    /// 字体大小
+    /// </summary>
+    public const string FontSize = "font-size";
+    /// <summary>
+    /// 字体粗细
+    /// </summary>
+    public const string FontWeight = "font-weight";
+    /// <summary>
+    /// 字体类型
+    /// </summary>
+    public const string FontFamily = "font-family";
+    /// <summary>
+    /// 字体样式
+    /// </summary>
+    public const string FontStyle = "font-style";
     /// <summary>
     /// Font Awesome图标
     /// </summary>

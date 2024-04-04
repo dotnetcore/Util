@@ -294,14 +294,6 @@ public class UploadBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置间距项
-    /// </summary>
-    public UploadBuilder SpaceItem() {
-        this.SpaceItem( _config );
-        return this;
-    }
-
-    /// <summary>
     /// 配置事件
     /// </summary>
     public UploadBuilder Events() {
@@ -330,7 +322,7 @@ public class UploadBuilder : AngularTagBuilder {
             .ShowUploadList().ShowButton().WithCredentials().OpenFileDialogOnClick()
             .Preview().PreviewFile().PreviewIsImage()
             .Remove().Download().TransformFile()
-            .IconRender().FileListRender().SpaceItem()
+            .IconRender().FileListRender()
             .Events();
         Model();
         AddButton();

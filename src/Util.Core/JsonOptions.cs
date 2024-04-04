@@ -9,6 +9,7 @@ public class JsonOptions {
     /// </summary>
     public JsonOptions() {
         IgnoreNullValues = true;
+        IgnoreEmptyString = true;
         IgnoreCase = true;
         IgnoreInterface = true;
     }
@@ -25,6 +26,10 @@ public class JsonOptions {
     /// 是否忽略null值,默认值: true
     /// </summary>
     public bool IgnoreNullValues { get; set; }
+    /// <summary>
+    /// 是否忽略空字符串,默认值: true
+    /// </summary>
+    public bool IgnoreEmptyString { get; set; }
     /// <summary>
     /// 转换为Json时,属性名是否使用驼峰形式
     /// </summary>

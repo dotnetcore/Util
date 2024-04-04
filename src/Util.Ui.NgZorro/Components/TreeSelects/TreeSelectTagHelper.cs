@@ -274,10 +274,6 @@ public class TreeSelectTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindVirtualMinBufferPx { get; set; }
     /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
-    /// </summary>
-    public bool SpaceItem { get; set; }
-    /// <summary>
     /// (nzExpandChange),展开收缩节点事件,类型: EventEmitter&lt;NzFormatEmitEvent>
     /// </summary>
     public string OnExpandChange { get; set; }

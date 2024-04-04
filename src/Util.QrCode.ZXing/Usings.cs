@@ -1,0 +1,12 @@
+﻿global using System;
+global using System.Threading.Tasks;
+global using System.Threading;
+global using System.Drawing;
+global using System.IO;
+global using SixLabors.ImageSharp.Formats;
+global using SixLabors.ImageSharp.Processing;
+global using ZXing;
+global using ZXing.QrCode;
+global using ZXing.ImageSharp.Rendering;
+global using SixLabors.ImageSharp.PixelFormats;
+global using Util.Dependency;

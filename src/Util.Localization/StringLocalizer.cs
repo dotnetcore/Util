@@ -14,8 +14,8 @@ internal class StringLocalizer : IStringLocalizer {
     /// </summary>
     /// <param name="factory">本地化资源查找器工厂</param>
     public StringLocalizer( IStringLocalizerFactory factory ) {
-        var assemblyName = new AssemblyName( GetType().Assembly.FullName );
-        _localizer = factory.Create( null, assemblyName.FullName );
+        var assemblyName = new AssemblyName( GetType().Assembly.FullName! );
+        _localizer = factory.Create( string.Empty, assemblyName.FullName );
     }
 
     /// <inheritdoc />

@@ -235,7 +235,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Util.Security", "src\Uti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Security.Tests", "test\Util.Security.Tests\Util.Security.Tests.csproj", "{B25D3B7A-AEAA-4EFB-9839-7C6E3F7C24BB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07-Images", "07-Images", "{1F5EE147-BD88-4B6D-BA84-35B4F3BE4A4E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07-Tools", "07-Tools", "{1F5EE147-BD88-4B6D-BA84-35B4F3BE4A4E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.Images.ImageSharp", "src\Util.Images.ImageSharp\01-Util.Images.ImageSharp.csproj", "{22305349-51C7-4D80-A538-C7C0F4495895}"
 EndProject
@@ -247,7 +247,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-EntityFrameworkCore", "0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Core", "01-Core", "{2864196E-3044-4FEC-B92A-D1D3C521C567}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07-Images", "07-Images", "{96DFADC5-FAE8-4860-A57A-93F0534B1B7A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07-Tools", "07-Tools", "{96DFADC5-FAE8-4860-A57A-93F0534B1B7A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.Images.ImageSharp.Tests.Integration", "test\Util.Images.ImageSharp.Tests.Integration\Util.Images.ImageSharp.Tests.Integration.csproj", "{5921A7FA-8C70-49A9-82E1-BE3FA5B50C33}"
 EndProject
@@ -344,6 +344,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.FileStorage.Aliyun.Tests.Integration", "test\Util.FileStorage.Aliyun.Tests.Integration\Util.FileStorage.Aliyun.Tests.Integration.csproj", "{58C01936-5D8F-4077-8663-EE0E35776D65}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Util.FileStorage.Abstractions", "src\Util.FileStorage.Abstractions\01-Util.FileStorage.Abstractions.csproj", "{814E42E9-508E-487F-BCD3-0F07AE7D1492}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Util.QrCode.ZXing", "src\Util.QrCode.ZXing\03-Util.QrCode.ZXing.csproj", "{3F5120A6-9CA4-4B25-9507-86E9E5571DB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util.QrCode.ZXing.Tests.Integration", "test\Util.QrCode.ZXing.Tests.Integration\Util.QrCode.ZXing.Tests.Integration.csproj", "{79A40AC0-A182-49D0-AED9-DF8B6835432A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -863,6 +867,14 @@ Global
 		{814E42E9-508E-487F-BCD3-0F07AE7D1492}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{814E42E9-508E-487F-BCD3-0F07AE7D1492}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{814E42E9-508E-487F-BCD3-0F07AE7D1492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5120A6-9CA4-4B25-9507-86E9E5571DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5120A6-9CA4-4B25-9507-86E9E5571DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5120A6-9CA4-4B25-9507-86E9E5571DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5120A6-9CA4-4B25-9507-86E9E5571DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79A40AC0-A182-49D0-AED9-DF8B6835432A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79A40AC0-A182-49D0-AED9-DF8B6835432A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79A40AC0-A182-49D0-AED9-DF8B6835432A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79A40AC0-A182-49D0-AED9-DF8B6835432A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1034,6 +1046,8 @@ Global
 		{4938D59D-CF50-4090-B936-36DB29EBE344} = {E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}
 		{58C01936-5D8F-4077-8663-EE0E35776D65} = {16175228-03CA-414A-8786-E5BA844110C4}
 		{814E42E9-508E-487F-BCD3-0F07AE7D1492} = {E069CEB0-8092-4907-BC9D-C6B8BDE20AD2}
+		{3F5120A6-9CA4-4B25-9507-86E9E5571DB6} = {1F5EE147-BD88-4B6D-BA84-35B4F3BE4A4E}
+		{79A40AC0-A182-49D0-AED9-DF8B6835432A} = {96DFADC5-FAE8-4860-A57A-93F0534B1B7A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94347832-A36D-4C42-9C4D-B848BD4F5DA9}

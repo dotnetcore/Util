@@ -571,9 +571,16 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
             _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+
             var result = new StringBuilder();
-            result.Append( $"<nz-upload *nzSpaceItem=\"\">{GetButton()}</nz-upload>" );
+            result.Append( "<nz-form-item *nzSpaceItem=\"\">" );
+            result.Append( "<nz-form-label>a</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( $"<nz-upload>{GetButton()}</nz-upload>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

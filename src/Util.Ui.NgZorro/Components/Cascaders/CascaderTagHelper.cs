@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Cascaders.Renders;
+using Util.Ui.NgZorro.Components.Selects.Helpers;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
@@ -12,6 +12,10 @@ namespace Util.Ui.NgZorro.Components.Cascaders;
 /// </summary>
 [HtmlTargetElement( "util-cascader" )]
 public class CascaderTagHelper : FormControlTagHelperBase {
+    /// <summary>
+    /// 配置
+    /// </summary>
+    private Config _config;
     /// <summary>
     /// [nzAllowClear],是否允许清除,默认值: true
     /// </summary>
@@ -177,10 +181,6 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindValueProperty { get; set; }
     /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
-    /// </summary>
-    public bool SpaceItem { get; set; }
-    /// <summary>
     /// (nzClear),清除事件,清除值时触发
     /// </summary>
     public string OnClear { get; set; }
@@ -194,8 +194,15 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     public string OnSelectionChange { get; set; }
 
     /// <inheritdoc />
+    protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
+        _config = new Config( context, output );
+        var service = new SelectService( _config );
+        service.Init();
+    }
+
+    /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
-        var config = new Config( context, output, content );
-        return new CascaderRender( config );
+        _config.Content = content;
+        return new CascaderRender( _config );
     }
 }

@@ -133,7 +133,7 @@ public class TinymceBuilder : FormControlBuilderBase<TinymceBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        NgModel().FormControl().SpaceItem().OnModelChange()
+        NgModel().FormControl().OnModelChange()
             .Required().RequiredMessage()
             .TableEdit().ValidationExtend()
             .Name().Branding().PasteDataImages()

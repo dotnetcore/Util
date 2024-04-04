@@ -4,7 +4,7 @@ using Util.Ui.NgZorro.Components.Forms.Builders;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Forms.Renders; 
+namespace Util.Ui.NgZorro.Components.Forms.Renders;
 
 /// <summary>
 /// 表单项渲染器
@@ -56,7 +56,10 @@ public class FormItemRender : RenderBase {
             _shareConfig.AutoCreateFormLabel = false;
             var builder = new FormLabelBuilder( _config );
             builder.Config();
-            builder.SetContent( _shareConfig.LabelText );
+            if ( _shareConfig.LabelText.IsEmpty() == false )
+                builder.SetContent( _shareConfig.LabelText );
+            if ( _shareConfig.BindLabelText.IsEmpty() == false )
+                builder.SetContent( "{{" + _shareConfig.LabelText + "}}" );
             return builder;
         }
         return new EmptyContainerTagBuilder();

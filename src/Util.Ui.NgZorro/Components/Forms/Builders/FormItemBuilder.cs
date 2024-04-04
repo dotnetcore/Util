@@ -1,10 +1,10 @@
 ﻿using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Forms.Builders; 
+namespace Util.Ui.NgZorro.Components.Forms.Builders;
 
 /// <summary>
 /// 表单项标签生成器
@@ -62,6 +62,14 @@ public class FormItemBuilder : RowBuilderBase<FormItemBuilder> {
     }
 
     /// <summary>
+    /// 配置间距项
+    /// </summary>
+    public FormItemBuilder SpaceItem() {
+        this.SpaceItem( _shareConfig.SpaceItem );
+        return this;
+    }
+
+    /// <summary>
     /// ngIf
     /// </summary>
     public FormItemBuilder AngularIf() {
@@ -75,8 +83,7 @@ public class FormItemBuilder : RowBuilderBase<FormItemBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        AngularIf()
-            .ConfigRow().TableEdit();
+        SpaceItem().AngularIf().ConfigRow().TableEdit();
     }
 
     /// <summary>

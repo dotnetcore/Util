@@ -252,9 +252,16 @@ namespace Util.Ui.NgZorro.Tests.Switches {
         /// </summary>
         [Fact]
         public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
             _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+
             var result = new StringBuilder();
-            result.Append( "<nz-switch *nzSpaceItem=\"\"></nz-switch>" );
+            result.Append( "<nz-form-item *nzSpaceItem=\"\">" );
+            result.Append( "<nz-form-label>a</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-switch></nz-switch>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

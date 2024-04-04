@@ -15,7 +15,7 @@ public class AvatarManagerTest {
     /// <summary>
     /// 输出路径
     /// </summary>
-    private const string Path = @"D:\Util.Images.Avatar.Tests\{0}.gif";
+    private const string Path = "./test/{0}.gif";
 
     /// <summary>
     /// 测试初始化

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Checkboxes.Helpers;
 using Util.Ui.NgZorro.Components.Switches.Renders;
@@ -61,10 +60,6 @@ public class SwitchTagHelper : FormControlTagHelperBase {
     /// [nzControl],是否完全由用户控制状态,默认值: false
     /// </summary>
     public string BindControl { get; set; }
-    /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
-    /// </summary>
-    public bool SpaceItem { get; set; }
     /// <summary>
     /// (click),单击事件
     /// </summary>

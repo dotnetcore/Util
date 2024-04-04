@@ -20,7 +20,7 @@ public class DrawTextTest {
     /// <summary>
     /// 输出路径
     /// </summary>
-    private const string Path = @"D:\Util.Images.ImageSharp.Tests\{0}.gif";
+    private const string Path = "./test/{0}.gif";
 
     /// <summary>
     /// 测试初始化

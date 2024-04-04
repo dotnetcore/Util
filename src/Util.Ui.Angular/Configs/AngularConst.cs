@@ -45,13 +45,45 @@ public static class AngularConst {
     /// </summary>
     public const string BindLink = "bind-link";
     /// <summary>
+    /// 可见高度
+    /// </summary>
+    public const string BindVisibilityHeight = "bind-visibility-height";
+    /// <summary>
+    /// 持续时间
+    /// </summary>
+    public const string BindDuration = "bind-duration";
+    /// <summary>
+    /// Logo
+    /// </summary>
+    public const string BindLogo = "bind-logo";
+    /// <summary>
+    /// 等级
+    /// </summary>
+    public const string BindLevel = "bind-level";
+    /// <summary>
+    /// 图片
+    /// </summary>
+    public const string BindImage = "bind-image";
+    /// <summary>
+    /// 填充
+    /// </summary>
+    public const string BindPadding = "bind-padding";
+    /// <summary>
     /// Html
     /// </summary>
     public const string BindHtml = "bind-html";
     /// <summary>
+    /// 背景色
+    /// </summary>
+    public const string BindBgColor = "bind-bg-color";
+    /// <summary>
     /// 访问控制
     /// </summary>
     public const string BindAcl = "bind-acl";
+    /// <summary>
+    /// 标签文本
+    /// </summary>
+    public const string BindLabelText = "bind-label-text";
     /// <summary>
     /// 触发器
     /// </summary>
@@ -460,6 +492,10 @@ public static class AngularConst {
     /// 图标
     /// </summary>
     public const string BindIcon = "bind-icon";
+    /// <summary>
+    /// 图标尺寸
+    /// </summary>
+    public const string BindIconSize = "bind-icon-size";
     /// <summary>
     /// href
     /// </summary>

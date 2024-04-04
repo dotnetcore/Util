@@ -82,14 +82,6 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
     }
 
     /// <summary>
-    /// 配置间距项
-    /// </summary>
-    public TBuilder SpaceItem() {
-        this.SpaceItem( _config );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
     /// 配置模型变更事件
     /// </summary>
     public virtual TBuilder OnModelChange() {
@@ -163,7 +155,7 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
     /// 配置表单属性
     /// </summary>
     protected TBuilder ConfigForm() {
-        return NgModel().FormControl().SpaceItem().OnModelChange()
+        return NgModel().FormControl().OnModelChange()
             .Required().RequiredMessage()
             .MinLength().MinLengthMessage()
             .MaxLength().EmailMessage()

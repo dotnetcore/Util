@@ -1,9 +1,8 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
-namespace Util.Ui.NgZorro.Components.Forms.Helpers; 
+namespace Util.Ui.NgZorro.Components.Forms.Helpers;
 
 /// <summary>
 /// 表单项共享服务
@@ -72,8 +71,10 @@ public class FormItemShareService {
         InitFormItemShareConfig();
         MapToItemShareConfig();
         InitControlId();
+        SetSpaceItem();
         SetShowLabel();
         SetLabelText();
+        SetBindLabelText();
         SetLabelWidth();
         SetExtra();
         SetSuccessTip();
@@ -140,15 +141,22 @@ public class FormItemShareService {
     }
 
     /// <summary>
+    /// 设置间距项
+    /// </summary>
+    private void SetSpaceItem() {
+        _shareConfig.SpaceItem = _config.GetValue<bool>( UiConst.SpaceItem );
+    }
+
+    /// <summary>
     /// 设置是否显示标签
     /// </summary>
     private void SetShowLabel() {
-        if( _shareConfig.ShowLabel == false ) {
+        if ( _shareConfig.ShowLabel == false ) {
             _shareConfig.AutoCreateFormLabel = false;
             return;
         }
         var value = _config.GetValueFromAttributes<bool?>( UiConst.ShowLabel );
-        if( value == false )
+        if ( value == false )
             _shareConfig.AutoCreateFormLabel = false;
     }
 
@@ -160,6 +168,17 @@ public class FormItemShareService {
         if ( string.IsNullOrWhiteSpace( value ) )
             return;
         _shareConfig.LabelText = value;
+        AutoCreateFormLabel( true );
+    }
+
+    /// <summary>
+    /// 设置表单标签文本
+    /// </summary>
+    private void SetBindLabelText() {
+        var value = _config.GetValueFromAttributes( AngularConst.BindLabelText );
+        if ( string.IsNullOrWhiteSpace( value ) )
+            return;
+        _shareConfig.BindLabelText = value;
         AutoCreateFormLabel( true );
     }
 
@@ -229,7 +248,9 @@ public class FormItemShareService {
     /// 是否自动创建表单控件容器
     /// </summary>
     private bool IsAutoCreateFormContainer() {
-        if ( string.IsNullOrWhiteSpace( _shareConfig.LabelText ) == false )
+        if ( _shareConfig.LabelText.IsEmpty() == false )
+            return true;
+        if ( _shareConfig.BindLabelText.IsEmpty() == false )
             return true;
         if ( _shareConfig.Align != null )
             return true;

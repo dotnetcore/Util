@@ -1,6 +1,6 @@
 ﻿using Util.Images.Commands;
 
-namespace Util.Images; 
+namespace Util.Images;
 
 /// <summary>
 /// 图片操作包装器
@@ -175,18 +175,7 @@ public class ImageWrapper : IImageWrapper {
     /// 获取图片编码器
     /// </summary>
     private IImageEncoder GetImageEncoder() {
-        switch ( _imageType ) {
-            case Images.ImageType.Png:
-                return new PngEncoder();
-            case Images.ImageType.Gif:
-                return new GifEncoder();
-            case Images.ImageType.Bmp:
-                return new BmpEncoder();
-            case Images.ImageType.Jpg:
-                return new JpegEncoder();
-            default:
-                return new PngEncoder();
-        }
+        return GetImageEncoder( _imageType );
     }
 
     #endregion
@@ -199,7 +188,7 @@ public class ImageWrapper : IImageWrapper {
         using var stream = new MemoryStream();
         _commands.ForEach( command => command.Invoke( image ) );
         await image.SaveAsync( stream, GetImageEncoder(), cancellationToken );
-        return await Util.Helpers.File.ToBytesAsync( stream ) ;
+        return await Util.Helpers.File.ToBytesAsync( stream, cancellationToken );
     }
 
     #endregion
@@ -217,7 +206,40 @@ public class ImageWrapper : IImageWrapper {
     /// 获取图片格式
     /// </summary>
     private IImageFormat GetImageFormat() {
-        switch ( _imageType ) {
+        return GetImageFormat( _imageType );
+    }
+
+    #endregion
+
+    #region GetImageEncoder
+
+    /// <summary>
+    /// 获取图片编码器
+    /// </summary>
+    public static IImageEncoder GetImageEncoder( ImageType type ) {
+        switch ( type ) {
+            case Images.ImageType.Png:
+                return new PngEncoder();
+            case Images.ImageType.Gif:
+                return new GifEncoder();
+            case Images.ImageType.Bmp:
+                return new BmpEncoder();
+            case Images.ImageType.Jpg:
+                return new JpegEncoder();
+            default:
+                return new PngEncoder();
+        }
+    }
+
+    #endregion
+
+    #region GetImageFormat
+
+    /// <summary>
+    /// 获取图片格式
+    /// </summary>
+    public static IImageFormat GetImageFormat( ImageType type ) {
+        switch ( type ) {
             case Images.ImageType.Png:
                 return PngFormat.Instance;
             case Images.ImageType.Gif:

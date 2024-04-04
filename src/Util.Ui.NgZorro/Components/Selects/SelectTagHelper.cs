@@ -289,10 +289,6 @@ public class SelectTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindOptionOverflowSize { get; set; }
     /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
-    /// </summary>
-    public bool SpaceItem { get; set; }
-    /// <summary>
     /// [nzDropdownRender],设置下拉扩展模板,类型: TemplateRef
     /// </summary>
     public string DropdownRender { get; set; }

@@ -223,4 +223,14 @@ public class JsonTest {
         var obj = Json.ToObject<JsonTestSample2>( json );
         Assert.Equal( 123456789123456789, obj.NullableLong );
     }
+
+    /// <summary>
+    /// 测试转成Json - 忽略空字符串
+    /// </summary>
+    [Fact]
+    public void TestToJson_IgnoreEmpty() {
+        var sample = new JsonTestSample3 { Name = "" };
+        var json = Json.ToJson( sample, new JsonOptions { IgnoreEmptyString = true } );
+        Assert.Equal( "{}", json );
+    }
 }
